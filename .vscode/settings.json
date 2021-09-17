@@ -1,0 +1,7 @@
+{
+  "jasmineExplorer.config": "jasmine.json",
+  "jasmineExplorer.env": {
+    "TESTING": "1"
+  },
+  "editor.formatOnSave": false
+}
