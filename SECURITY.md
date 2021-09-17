@@ -1,5 +1,5 @@
-# Security Policy
-Use this security policy to be informed about the most prominent vulnerabilities.
+# Security Advisory
+Use this security advisory to be informed about the most prominent vulnerabilities.
 
 ## Vulnerability Categories Based on OWASP Top 10 (2021)
 
