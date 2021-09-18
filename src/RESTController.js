@@ -44,9 +44,6 @@ if (typeof XMLHttpRequest !== 'undefined') {
 if (process.env.PARSE_BUILD === 'node') {
   XHR = require('xmlhttprequest').XMLHttpRequest;
 }
-if (process.env.PARSE_BUILD === 'weapp') {
-  XHR = require('./Xhr.weapp');
-}
 
 let useXDomainRequest = false;
 if (typeof XDomainRequest !== 'undefined' && !('withCredentials' in new XMLHttpRequest())) {

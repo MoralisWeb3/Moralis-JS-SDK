@@ -491,8 +491,7 @@ if (process.env.PARSE_BUILD === 'node') {
   CoreManager.setWebSocketController(
     typeof WebSocket === 'function' || typeof WebSocket === 'object' ? WebSocket : null
   );
-} else if (process.env.PARSE_BUILD === 'weapp') {
-  CoreManager.setWebSocketController(require('./Socket.weapp'));
+}
 } else if (process.env.PARSE_BUILD === 'react-native') {
   CoreManager.setWebSocketController(WebSocket);
 }

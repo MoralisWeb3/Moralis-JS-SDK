@@ -46,14 +46,6 @@ const Moralis = require('moralis/react-native.js');
 const AsyncStorage = require('react-native').AsyncStorage;
 Moralis.setAsyncStorage(AsyncStorage);
 ```
-
-For WeChat miniprogram, include `'moralis/weapp'`:
-```js
-// In a WeChat miniprogram
-const Moralis = require('moralis/weapp');
-```
-If you want to use a pre-compiled file, you can fetch it from [unpkg](https://unpkg.com). The development version is available at [https://unpkg.com/moralis/dist/moralis.weapp.js](https://unpkg.com/moralis/dist/moralis.weapp.js), and the minified production version is at [https://unpkg.com/moralis/dist/moralis.weapp.min.js](https://unpkg.com/moralis/dist/moralis.weapp.min.js).
-
 For TypeScript applications, install `'@types/moralis'`:
 ```
 $ npm install @types/moralis

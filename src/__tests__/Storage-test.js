@@ -220,34 +220,6 @@ describe('Default StorageController', () => {
   });
 });
 
-const WeappStorageController = require('../StorageController.weapp');
-
-describe('WeChat StorageController', () => {
-  beforeEach(() => {
-    WeappStorageController.clear();
-  });
-
-  it('is synchronous', () => {
-    expect(WeappStorageController.async).toBe(0);
-    expect(typeof WeappStorageController.getItem).toBe('function');
-    expect(typeof WeappStorageController.setItem).toBe('function');
-    expect(typeof WeappStorageController.removeItem).toBe('function');
-  });
-
-  it('can store and retrieve values', () => {
-    expect(WeappStorageController.getItem('myKey')).toBe(undefined);
-    WeappStorageController.setItem('myKey', 'myValue');
-    expect(WeappStorageController.getItem('myKey')).toBe('myValue');
-    expect(WeappStorageController.getAllKeys()).toEqual(['myKey']);
-  });
-
-  it('can remove values', () => {
-    WeappStorageController.setItem('myKey', 'myValue');
-    expect(WeappStorageController.getItem('myKey')).toBe('myValue');
-    WeappStorageController.removeItem('myKey');
-    expect(WeappStorageController.getItem('myKey')).toBe(undefined);
-  });
-});
 
 const Storage = require('../Storage');
 

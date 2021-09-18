@@ -5,9 +5,6 @@ let XHR = null;
 if (typeof XMLHttpRequest !== 'undefined') {
   XHR = XMLHttpRequest;
 }
-if (process.env.PARSE_BUILD === 'weapp') {
-  XHR = require('./Xhr.weapp');
-}
 
 const DefaultController = {
   saveFile: async function (name: string, source: FileSource, options?: FullOptions) {

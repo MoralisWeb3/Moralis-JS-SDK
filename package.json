@@ -19,7 +19,6 @@
     "index.js",
     "node.js",
     "react-native.js",
-    "weapp.js",
     "dist/",
     "types/",
     "lib/",

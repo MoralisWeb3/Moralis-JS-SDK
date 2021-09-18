@@ -44,20 +44,16 @@ const gulp = 'npm run gulp';
 
 (async function () {
   console.log('Browser Release:');
-  console.log('Weapp Release:');
   console.log('Node.js Release:');
   console.log('React Native Release:');
   await Promise.all([
     execCommand(`${crossEnv} PARSE_BUILD=browser ${gulp} compile`),
-    execCommand(`${crossEnv} PARSE_BUILD=weapp ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=node ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=react-native ${gulp} compile`),
   ]);
 
   console.log('Bundling and minifying for CDN distribution:');
-  await Promise.all([execCommand(`${gulp} browserify`), execCommand(`${gulp} browserify-weapp`)]);
   // await Promise.all([
   //   execCommand(`${gulp} minify`),
-  //   execCommand(`${gulp} minify-weapp`),
   // ]);
 })();

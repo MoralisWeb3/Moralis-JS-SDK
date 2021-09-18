@@ -32,15 +32,6 @@ const PRESETS = {
     ],
     '@babel/preset-react',
   ],
-  weapp: [
-    [
-      '@babel/preset-env',
-      {
-        targets: '> 0.25%, not dead',
-      },
-    ],
-    '@babel/preset-react',
-  ],
   node: [
     [
       '@babel/preset-env',
@@ -53,13 +44,6 @@ const PRESETS = {
 };
 const PLUGINS = {
   browser: [
-    transformRuntime,
-    '@babel/plugin-transform-flow-comments',
-    '@babel/plugin-proposal-class-properties',
-    'inline-package-json',
-    ['transform-inline-environment-variables', { exclude: ['SERVER_RENDERING'] }],
-  ],
-  weapp: [
     transformRuntime,
     '@babel/plugin-transform-flow-comments',
     '@babel/plugin-proposal-class-properties',
@@ -145,26 +129,6 @@ gulp.task('browserify', function (cb) {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('browserify-weapp', function (cb) {
-  const stream = browserify({
-    builtins: ['_process', 'events'],
-    entries: 'lib/weapp/Parse.js',
-    standalone: 'Moralis',
-  })
-    .exclude('xmlhttprequest')
-    .ignore('_process')
-    .ignore('web3')
-    .ignore('@walletconnect/web3-provider')
-    .bundle();
-  stream.on('end', () => {
-    cb();
-  });
-  return stream
-    .pipe(source('moralis.weapp.js'))
-    .pipe(derequire())
-    .pipe(insert.prepend(DEV_HEADER))
-    .pipe(gulp.dest('./dist'));
-});
 
 gulp.task('minify', function () {
   return gulp
@@ -175,14 +139,6 @@ gulp.task('minify', function () {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('minify-weapp', function () {
-  return gulp
-    .src('dist/moralis.weapp.js')
-    .pipe(uglify())
-    .pipe(insert.prepend(FULL_HEADER))
-    .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest('./dist'));
-});
 
 gulp.task('watch', function () {
   return (
