@@ -133,6 +133,12 @@ const endpoints_v2 = [
     url: '/:address/events',
   },
   {
+    method: 'POST',
+    group: 'native',
+    name: 'runContractFunction',
+    url: '/:address/function',
+  },
+  {
     method: 'GET',
     group: 'account',
     name: 'getNFTs',
