@@ -1,7 +1,7 @@
 deploy:
   stage: deploy
   only:
-    - master
+    - main
   tags:
     - moralis-runner
   script:
