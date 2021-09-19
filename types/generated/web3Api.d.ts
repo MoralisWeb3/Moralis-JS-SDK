@@ -8,6 +8,10 @@ export interface paths {
     /** Gets the contents of a block by block hash */
     get: operations["getBlock"];
   };
+  "/block/{block_number_or_hash}/nft/transfers": {
+    /** Gets NFT transfers by block number or block hash */
+    get: operations["getNFTTransfersByBlock"];
+  };
   "/transaction/{transaction_hash}": {
     /** Gets the contents of a block transaction by hash */
     get: operations["getTransaction"];
@@ -15,6 +19,10 @@ export interface paths {
   "/{address}/events": {
     /** Gets events in descending order based on block number */
     post: operations["getContractEvents"];
+  };
+  "/{address}/function": {
+    /** Runs a given function of a contract abi and returns readonly data */
+    post: operations["runContractFunction"];
   };
   "/{address}": {
     /** Gets native transactions in descending order based on block number */
@@ -102,10 +110,6 @@ export interface paths {
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getNFTMetadata"];
-  };
-  "/erc721/{address}/metadata": {
-    /** Returns metadata (name, symbol) for a given token contract address. */
-    get: operations["getERC721Metadata"];
   };
   "/nft/{address}/{token_id}": {
     /**
@@ -566,6 +570,29 @@ export interface operations {
       };
     };
   };
+  /** Gets NFT transfers by block number or block hash */
+  getNFTTransfersByBlock: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
+        subdomain?: string;
+      };
+      path: {
+        /** The block hash or block number */
+        block_number_or_hash: string;
+      };
+    };
+    responses: {
+      /** Returns the contents of a block */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftTransferCollection"];
+        };
+      };
+    };
+  };
   /** Gets the contents of a block transaction by hash */
   getTransaction: {
     parameters: {
@@ -623,7 +650,40 @@ export interface operations {
         };
       };
     };
-    /** Optional description in *Markdown* */
+    /** ABI of the specific event */
+    requestBody: {
+      content: {
+        "application/json": { [key: string]: unknown };
+      };
+    };
+  };
+  /** Runs a given function of a contract abi and returns readonly data */
+  runContractFunction: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
+        subdomain?: string;
+        /** web3 provider url to user when using local dev chain */
+        providerUrl?: string;
+        /** function_name */
+        function_name: string;
+      };
+      path: {
+        /** address */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns response of the function executed */
+      200: {
+        content: {
+          "application/json": string;
+        };
+      };
+    };
+    /** The contract abi */
     requestBody: {
       content: {
         "application/json": { [key: string]: unknown };
@@ -1093,29 +1153,6 @@ export interface operations {
       };
     };
   };
-  /** Returns metadata (name, symbol) for a given token contract address. */
-  getERC721Metadata: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** web3 provider url to user when using local dev chain */
-        providerUrl?: string;
-      };
-      path: {
-        /** The address of the token contract */
-        address: string;
-      };
-    };
-    responses: {
-      /** Returns metadata (name, symbol) for a given token contract address. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["erc721Metadata"][];
-        };
-      };
-    };
-  };
   /**
    * Gets data, including metadata (where available), for the given token id of the given contract address.
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
@@ -1239,8 +1276,10 @@ export interface external {}
 export class GeneratedWeb3API {
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getNFTTransfersByBlock: (options: operations["getNFTTransfersByBlock"]["parameters"]["query"] & operations["getNFTTransfersByBlock"]["parameters"]["path"]) => Promise<operations["getNFTTransfersByBlock"]["responses"]["200"]["content"]["application/json"]>;
     getTransaction: (options: operations["getTransaction"]["parameters"]["query"] & operations["getTransaction"]["parameters"]["path"]) => Promise<operations["getTransaction"]["responses"]["200"]["content"]["application/json"]>;
     getContractEvents: (options: operations["getContractEvents"]["parameters"]["query"] & operations["getContractEvents"]["parameters"]["path"]) => Promise<operations["getContractEvents"]["responses"]["200"]["content"]["application/json"]>;
+    runContractFunction: (options: operations["runContractFunction"]["parameters"]["query"] & operations["runContractFunction"]["parameters"]["path"]) => Promise<operations["runContractFunction"]["responses"]["200"]["content"]["application/json"]>;
   }
 
   static account: {
@@ -1263,7 +1302,6 @@ export class GeneratedWeb3API {
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
-    getERC721Metadata: (options: operations["getERC721Metadata"]["parameters"]["query"] & operations["getERC721Metadata"]["parameters"]["path"]) => Promise<operations["getERC721Metadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdOwners: (options: operations["getTokenIdOwners"]["parameters"]["query"] & operations["getTokenIdOwners"]["parameters"]["path"]) => Promise<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"]>;
     getWalletTokenIdTransfers: (options: operations["getWalletTokenIdTransfers"]["parameters"]["query"] & operations["getWalletTokenIdTransfers"]["parameters"]["path"]) => Promise<operations["getWalletTokenIdTransfers"]["responses"]["200"]["content"]["application/json"]>;

@@ -323,6 +323,56 @@ class MoralisWeb3 {
   static async isMetaMaskInstalled() {
     return (await detectEthereumProvider()) ? true : false;
   }
+
+  static async switchNetwork(chainId) {
+    chainId = verifyChainId(chainId);
+    // Check if the user wallet is already on `chainId`
+    const currentNetwork = fromDecimalToHex(await this.getChainId());
+    if (currentNetwork === chainId) return;
+    // Trigger network switch
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: chainId }],
+    });
+  }
+
+  static async addNetwork(
+    chainId,
+    chainName,
+    currencyName,
+    currencySymbol,
+    rpcUrl,
+    blockExplorerUrl
+  ) {
+    chainId = verifyChainId(chainId);
+    await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: chainId,
+          chainName: chainName,
+          nativeCurrency: {
+            name: currencyName,
+            symbol: currencySymbol,
+            decimals: 18,
+          },
+          rpcUrls: [rpcUrl],
+          blockExplorerUrls: [blockExplorerUrl],
+        },
+      ],
+    });
+  }
+}
+
+function fromDecimalToHex(number) {
+  if (typeof number !== 'number') throw 'The input provided should be a number';
+  return `0x${number.toString(16)}`;
+}
+
+function verifyChainId(chainId) {
+  // Check if chainId is a number, in that case convert to hex
+  if (typeof chainId === 'number') chainId = fromDecimalToHex(chainId);
+  return chainId;
 }
 
 MoralisWeb3.onConnect = MoralisWeb3.on.bind(MoralisWeb3, EthereumEvents.CONNECT);
