@@ -1,0 +1,14 @@
+deploy:
+  stage: deploy
+  only:
+    - main
+  tags:
+    - moralis-runner
+  script:
+    - cd /home/gitlab-runner && rm -rf Moralis-JS-SDK
+    - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
+    - npm version patch -m "Bump Version to %s [ci skip]"
+    - npm install
+    - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
+    - npm run release
+    - git push --tags
