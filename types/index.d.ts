@@ -4,7 +4,7 @@
 
 import { EventEmitter } from 'events';
 import NativeWeb3 from 'web3';
-import { GeneratedWeb3API } from './generated/web3api';
+import { GeneratedWeb3API } from './generated/web3Api';
 
 declare enum ErrorCode {
   OTHER_CAUSE = -1,
