@@ -1,5 +1,3 @@
-'use strict';
-
 const clear = require('./clear');
 const Parse = require('../../node');
 
@@ -10,7 +8,7 @@ const XHR = RESTController._getXHR();
 function DuplicateXHR(requestId) {
   function XHRWrapper() {
     const xhr = new XHR();
-    const send = xhr.send;
+    const { send } = xhr;
     xhr.send = function () {
       this.setRequestHeader('X-Parse-Request-Id', requestId);
       send.apply(this, arguments);

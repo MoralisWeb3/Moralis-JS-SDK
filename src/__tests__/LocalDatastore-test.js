@@ -219,7 +219,7 @@ describe('LocalDatastore', () => {
     mockLocalStorageController.getAllContents.mockImplementationOnce(() => LDS);
     await LocalDatastore._handleUnPinAllWithName('test_pin', [item1]);
     expect(mockLocalStorageController.pinWithName).toHaveBeenCalledTimes(1);
-    expect(mockLocalStorageController.pinWithName).toHaveBeenCalledWith(PIN_PREFIX + 'test_pin', [
+    expect(mockLocalStorageController.pinWithName).toHaveBeenCalledWith(`${PIN_PREFIX}test_pin`, [
       KEY2,
     ]);
   });
@@ -238,19 +238,19 @@ describe('LocalDatastore', () => {
   it('_handleUnPinAllWithName specific pin remove pinName', async () => {
     const object = new ParseObject('Item');
     const LDS = {
-      [PIN_PREFIX + 'test_pin']: [],
+      [`${PIN_PREFIX}test_pin`]: [],
     };
     mockLocalStorageController.getAllContents.mockImplementationOnce(() => LDS);
     await LocalDatastore._handleUnPinAllWithName('test_pin', [object]);
     expect(mockLocalStorageController.unPinWithName).toHaveBeenCalledTimes(2);
-    expect(mockLocalStorageController.unPinWithName).toHaveBeenCalledWith(PIN_PREFIX + 'test_pin');
+    expect(mockLocalStorageController.unPinWithName).toHaveBeenCalledWith(`${PIN_PREFIX}test_pin`);
   });
 
   it('_handleUnPinAllWithName remove if exist', async () => {
     const objects = [KEY1, KEY2, KEY3];
     const LDS = {
-      [PIN_PREFIX + 'test_pin']: objects,
-      [PIN_PREFIX + 'test_pin_2']: objects,
+      [`${PIN_PREFIX}test_pin`]: objects,
+      [`${PIN_PREFIX}test_pin_2`]: objects,
       [KEY1]: [item1._toFullJSON()],
       [KEY2]: [item2._toFullJSON()],
     };
@@ -259,7 +259,7 @@ describe('LocalDatastore', () => {
     await LocalDatastore._handleUnPinAllWithName('test_pin', [item1]);
 
     expect(mockLocalStorageController.pinWithName).toHaveBeenCalledTimes(1);
-    expect(mockLocalStorageController.pinWithName).toHaveBeenCalledWith(PIN_PREFIX + 'test_pin', [
+    expect(mockLocalStorageController.pinWithName).toHaveBeenCalledWith(`${PIN_PREFIX}test_pin`, [
       KEY2,
       KEY3,
     ]);
@@ -295,7 +295,7 @@ describe('LocalDatastore', () => {
   it('_updateLocalIdForObject if pinned', async () => {
     const object = new ParseObject('Item');
     const json = object._toFullJSON();
-    const localId = 'local' + object.id;
+    const localId = `local${object.id}`;
     const localKey = `${OBJECT_PREFIX}Item_${localId}`;
     const LDS = {
       [DEFAULT_PIN]: [localKey],
@@ -312,10 +312,10 @@ describe('LocalDatastore', () => {
   it('_updateLocalIdForObject if pinned with name', async () => {
     const object = new ParseObject('Item');
     const json = object._toFullJSON();
-    const localId = 'local' + object.id;
+    const localId = `local${object.id}`;
     const localKey = `${OBJECT_PREFIX}Item_${localId}`;
     const LDS = {
-      [PIN_PREFIX + 'test_pin']: [localKey],
+      [`${PIN_PREFIX}test_pin`]: [localKey],
       [localKey]: [json],
     };
     mockLocalStorageController.fromPinWithName.mockImplementationOnce(() => json);
@@ -329,7 +329,7 @@ describe('LocalDatastore', () => {
   it('_updateLocalIdForObject if pinned with new name', async () => {
     const object = new ParseObject('Item');
     const json = object._toFullJSON();
-    const localId = 'local' + object.id;
+    const localId = `local${object.id}`;
     const LDS = {
       [DEFAULT_PIN]: [object.id],
       [object.id]: [json],
@@ -398,7 +398,7 @@ describe('LocalDatastore', () => {
       [obj1.id]: [obj1._toFullJSON()],
       [obj2.id]: [obj2._toFullJSON()],
       [obj3.id]: [obj3._toFullJSON()],
-      [PIN_PREFIX + 'testPin']: [obj1.id, obj2.id, obj3.id],
+      [`${PIN_PREFIX}testPin`]: [obj1.id, obj2.id, obj3.id],
     };
 
     mockLocalStorageController.fromPinWithName
@@ -515,7 +515,7 @@ describe('LocalDatastore', () => {
     const LDS = {
       [KEY1]: [item1._toFullJSON()],
       [KEY2]: [item2._toFullJSON()],
-      [PIN_PREFIX + 'Custom_Pin']: [KEY2],
+      [`${PIN_PREFIX}Custom_Pin`]: [KEY2],
       [DEFAULT_PIN]: [KEY2],
     };
 
@@ -906,7 +906,7 @@ describe('LocalDatastore (RNDatastoreController)', () => {
     await RNDatastoreController.pinWithName('DO_NOT_FETCH', undefined);
     const contents = await RNDatastoreController.getAllContents();
     expect(contents[KEY1]).toEqual(item1._toFullJSON());
-    expect(contents['DO_NOT_FETCH']).toBeUndefined();
+    expect(contents.DO_NOT_FETCH).toBeUndefined();
   });
 
   it('can handle clear error', async () => {

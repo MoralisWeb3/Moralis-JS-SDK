@@ -1,15 +1,15 @@
 {
   "env": {
-      "jest": true
+    "jest": true
   },
-  "globals": {
-
-  },
+  "globals": {},
   "rules": {
+    "camelcase": 0,
     "no-console": [0],
-    "no-undef-init":0,
+    "no-undef-init": 0,
     "no-var": 2,
     "one-var": 0,
-    "yoda":0
+    "yoda": 0,
+    "consistent-return": 0
   }
 }

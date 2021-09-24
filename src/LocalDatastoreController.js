@@ -39,6 +39,7 @@ const LocalDatastoreController = {
         try {
           LDS[key] = JSON.parse(value);
         } catch (error) {
+          // eslint-disable-next-line no-console
           console.error('Error getAllContents: ', error);
         }
       }

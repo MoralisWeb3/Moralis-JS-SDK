@@ -25,7 +25,7 @@ module.exports = class XhrWeapp {
   getAllResponseHeaders() {
     let header = '';
     for (const key in this.responseHeader) {
-      header += key + ':' + this.getResponseHeader(key) + '\r\n';
+      header += `${key}:${this.getResponseHeader(key)}\r\n`;
     }
     return header;
   }

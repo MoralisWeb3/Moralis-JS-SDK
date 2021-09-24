@@ -57,8 +57,9 @@ export function opFromJSON(json: { [key: string]: any }): ?Op {
       }
       return new RelationOp(toAdd, toRemove);
     }
+    default:
+      return null;
   }
-  return null;
 }
 
 export class Op {
@@ -333,11 +334,7 @@ export class RelationOp extends Op {
     }
     if (this._targetClassName !== obj.className) {
       throw new Error(
-        'Tried to create a Relation with 2 different object types: ' +
-          this._targetClassName +
-          ' and ' +
-          obj.className +
-          '.'
+        `Tried to create a Relation with 2 different object types: ${this._targetClassName} and ${obj.className}.`
       );
     }
     return obj.id;
@@ -365,11 +362,7 @@ export class RelationOp extends Op {
         if (value.targetClassName) {
           if (this._targetClassName !== value.targetClassName) {
             throw new Error(
-              'Related object must be a ' +
-                value.targetClassName +
-                ', but a ' +
-                this._targetClassName +
-                ' was passed in.'
+              `Related object must be a ${value.targetClassName}, but a ${this._targetClassName} was passed in.`
             );
           }
         } else {
@@ -377,26 +370,27 @@ export class RelationOp extends Op {
         }
       }
       return value;
-    } else {
-      throw new Error('Relation cannot be applied to a non-relation field');
     }
+
+    throw new Error('Relation cannot be applied to a non-relation field');
   }
 
   mergeWith(previous: Op): Op {
     if (!previous) {
       return this;
-    } else if (previous instanceof UnsetOp) {
+    }
+    if (previous instanceof UnsetOp) {
       throw new Error('You cannot modify a relation after deleting it.');
-    } else if (previous instanceof SetOp && previous._value instanceof ParseRelation) {
+    }
+    if (previous instanceof SetOp && previous._value instanceof ParseRelation) {
       return this;
-    } else if (previous instanceof RelationOp) {
+    }
+    if (previous instanceof RelationOp) {
       if (previous._targetClassName && previous._targetClassName !== this._targetClassName) {
         throw new Error(
-          'Related object must be of class ' +
-            previous._targetClassName +
-            ', but ' +
-            (this._targetClassName || 'null') +
-            ' was passed in.'
+          `Related object must be of class ${previous._targetClassName}, but ${
+            this._targetClassName || 'null'
+          } was passed in.`
         );
       }
       const newAdd = previous.relationsToAdd.concat([]);

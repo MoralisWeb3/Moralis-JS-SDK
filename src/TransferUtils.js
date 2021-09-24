@@ -164,7 +164,7 @@ const validateInput = (type, payload) => {
 };
 
 const isSupportedType = type => {
-  if (supportedTypes.indexOf(type) == -1) throw 'Unsupported type';
+  if (supportedTypes.indexOf(type) === -1) throw 'Unsupported type';
   return true;
 };
 

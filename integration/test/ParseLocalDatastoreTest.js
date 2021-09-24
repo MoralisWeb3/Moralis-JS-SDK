@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const clear = require('./clear');
 const Parse = require('../../node');
@@ -10,8 +8,8 @@ global.localStorage = require('./mockLocalStorage');
 const mockRNStorage = require('./mockRNStorage');
 const LocalDatastoreUtils = require('../../lib/node/LocalDatastoreUtils');
 
-const DEFAULT_PIN = LocalDatastoreUtils.DEFAULT_PIN;
-const PIN_PREFIX = LocalDatastoreUtils.PIN_PREFIX;
+const { DEFAULT_PIN } = LocalDatastoreUtils;
+const { PIN_PREFIX } = LocalDatastoreUtils;
 
 function LDS_KEY(object) {
   return Parse.LocalDatastore.getKeyForObject(object);
@@ -51,7 +49,7 @@ function runTest(controller) {
 
       storage = await Parse.LocalDatastore._getRawStorage();
       assert.equal(Object.keys(storage).length, 1);
-      assert.equal(storage['DO_NOT_CLEAR'], '{}');
+      assert.equal(storage.DO_NOT_CLEAR, '{}');
       await Parse.LocalDatastore.unPinWithName('DO_NOT_CLEAR');
     });
 
@@ -71,7 +69,7 @@ function runTest(controller) {
 
       const LDS = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(LDS).length, 5);
-      assert.equal(LDS['DO_NOT_FETCH'], null);
+      assert.equal(LDS.DO_NOT_FETCH, null);
     });
 
     it(`${controller.name} can pin (unsaved)`, async () => {
@@ -331,7 +329,7 @@ function runTest(controller) {
 
       let localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_pin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_pin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -344,7 +342,7 @@ function runTest(controller) {
 
       localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_pin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_pin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -364,7 +362,7 @@ function runTest(controller) {
       await Parse.Object.pinAllWithName('test_pin', objects);
       const localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_pin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_pin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -388,8 +386,8 @@ function runTest(controller) {
       assert(Object.keys(localDatastore).length === 4);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj1)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj2)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj1)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj2)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj1)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj2)), true);
       assert(localDatastore[LDS_KEY(obj1)]);
       assert(localDatastore[LDS_KEY(obj2)]);
 
@@ -398,7 +396,7 @@ function runTest(controller) {
       localDatastore = await Parse.LocalDatastore._getAllContents();
       assert(Object.keys(localDatastore).length === 3);
       assert.deepEqual(localDatastore[DEFAULT_PIN], [LDS_KEY(obj2)]);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_pin'], [LDS_KEY(obj2)]);
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_pin`], [LDS_KEY(obj2)]);
       assert(localDatastore[LDS_KEY(obj2)]);
     });
 
@@ -416,9 +414,9 @@ function runTest(controller) {
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj1)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj2)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj3)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj1)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj2)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj3)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj1)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj2)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj3)), true);
       assert(localDatastore[LDS_KEY(obj1)]);
       assert(localDatastore[LDS_KEY(obj2)]);
       assert(localDatastore[LDS_KEY(obj3)]);
@@ -428,7 +426,7 @@ function runTest(controller) {
       localDatastore = await Parse.LocalDatastore._getAllContents();
       assert(Object.keys(localDatastore).length === 3);
       assert.deepEqual(localDatastore[DEFAULT_PIN], [LDS_KEY(obj2)]);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_pin'], [LDS_KEY(obj2)]);
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_pin`], [LDS_KEY(obj2)]);
       assert(localDatastore[LDS_KEY(obj2)]);
     });
 
@@ -645,7 +643,7 @@ function runTest(controller) {
 
       let localDatastore = await Parse.LocalDatastore._getAllContents();
       assert(Object.keys(localDatastore).length === 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -658,14 +656,14 @@ function runTest(controller) {
 
       localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 2);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [LDS_KEY(obj3)]);
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [LDS_KEY(obj3)]);
       assert.deepEqual(localDatastore[LDS_KEY(obj3)], [LDS_FULL_JSON(obj3)]);
 
       await Parse.Object.saveAll(objects);
 
       localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 2);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [LDS_KEY(obj3)]);
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [LDS_KEY(obj3)]);
       assert.deepEqual(localDatastore[LDS_KEY(obj3)], [obj3._toFullJSON()]);
     });
 
@@ -679,7 +677,7 @@ function runTest(controller) {
 
       let localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -693,7 +691,7 @@ function runTest(controller) {
       await Parse.Object.unPinAllWithName('test_unpin', [obj1, obj2]);
       localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 2);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [LDS_KEY(obj3)]);
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [LDS_KEY(obj3)]);
       assert.deepEqual(localDatastore[LDS_KEY(obj3)], [obj3._toFullJSON()]);
     });
 
@@ -707,7 +705,7 @@ function runTest(controller) {
 
       let localDatastore = await Parse.LocalDatastore._getAllContents();
       assert(Object.keys(localDatastore).length === 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -743,7 +741,7 @@ function runTest(controller) {
 
       let localDatastore = await Parse.LocalDatastore._getAllContents();
       assert.equal(Object.keys(localDatastore).length, 4);
-      assert.deepEqual(localDatastore[PIN_PREFIX + 'test_unpin'], [
+      assert.deepEqual(localDatastore[`${PIN_PREFIX}test_unpin`], [
         LDS_KEY(obj1),
         LDS_KEY(obj2),
         LDS_KEY(obj3),
@@ -776,9 +774,9 @@ function runTest(controller) {
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj1)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj2)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj3)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj1)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj2)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj3)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj1)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj2)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj3)), true);
       assert(localDatastore[LDS_KEY(obj1)]);
       assert(localDatastore[LDS_KEY(obj2)]);
       assert(localDatastore[LDS_KEY(obj3)]);
@@ -806,10 +804,10 @@ function runTest(controller) {
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj2)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(obj3)), true);
       assert.equal(localDatastore[DEFAULT_PIN].includes(LDS_KEY(child)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj1)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj2)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(obj3)), true);
-      assert.equal(localDatastore[PIN_PREFIX + 'test_pin'].includes(LDS_KEY(child)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj1)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj2)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(obj3)), true);
+      assert.equal(localDatastore[`${PIN_PREFIX}test_pin`].includes(LDS_KEY(child)), true);
       assert(localDatastore[LDS_KEY(obj1)]);
       assert(localDatastore[LDS_KEY(obj2)]);
       assert(localDatastore[LDS_KEY(obj3)]);
@@ -1327,7 +1325,7 @@ function runTest(controller) {
 
     it(`${controller.name} can test objectId in equalTo queries`, async () => {
       const numbers = await new Parse.Query('BoxedNumber').ascending('number').find();
-      const id = numbers[5].id;
+      const { id } = numbers[5];
       const query = new Parse.Query('BoxedNumber');
       query.equalTo('objectId', id);
       query.ascending('number');
@@ -1945,9 +1943,9 @@ function runTest(controller) {
         "\\E' !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU" +
         "VWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'";
       const objects = [
-        new TestObject({ contains: true, myString: 'zax' + someAscii + 'qub' }),
-        new TestObject({ contains: true, myString: 'start' + someAscii }),
-        new TestObject({ contains: true, myString: someAscii + 'end' }),
+        new TestObject({ contains: true, myString: `zax${someAscii}qub` }),
+        new TestObject({ contains: true, myString: `start${someAscii}` }),
+        new TestObject({ contains: true, myString: `${someAscii}end` }),
         new TestObject({ contains: true, myString: someAscii }),
       ];
       await Parse.Object.saveAll(objects);

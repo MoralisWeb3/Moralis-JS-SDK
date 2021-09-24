@@ -35,7 +35,7 @@ export type FileSource =
       type: string,
     };
 
-const dataUriRegexp = /^data:([a-zA-Z]+\/[-a-zA-Z0-9+.]+)(;charset=[a-zA-Z0-9\-\/]*)?;base64,/;
+const dataUriRegexp = /^data:([a-zA-Z]+\/[-a-zA-Z0-9+.]+)(;charset=[a-zA-Z0-9\-/]*)?;base64,/;
 
 /**
  * A Parse.File is a local representation of a file that is saved to the Parse
@@ -113,7 +113,7 @@ class ParseFile {
           type: specifiedType,
         };
       } else if (data && typeof data.base64 === 'string') {
-        const base64 = data.base64;
+        const { base64 } = data;
         const commaIndex = base64.indexOf(',');
 
         if (commaIndex !== -1) {
@@ -187,9 +187,8 @@ class ParseFile {
     }
     if (options.forceSecure) {
       return this._url.replace(/^http:\/\//i, 'https://');
-    } else {
-      return this._url;
     }
+    return this._url;
   }
 
   ipfs() {

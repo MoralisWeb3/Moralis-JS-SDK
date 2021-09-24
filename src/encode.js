@@ -28,7 +28,7 @@ function encode(
     if (disallowObjects) {
       throw new Error('Parse Objects not allowed here');
     }
-    const seenEntry = value.id ? value.className + ':' + value.id : value;
+    const seenEntry = value.id ? `${value.className}:${value.id}` : value;
     if (
       forcePointers ||
       !seen ||

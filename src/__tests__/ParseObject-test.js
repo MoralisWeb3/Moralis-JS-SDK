@@ -305,7 +305,7 @@ describe('ParseObject', () => {
   it('has a read-only attributes property', () => {
     const o = new ParseObject('Item');
     o.set('size', 'small');
-    expect(function () {
+    expect(() => {
       o.attributes.size = 'large';
     }).toThrow();
   });
@@ -385,7 +385,7 @@ describe('ParseObject', () => {
 
   it('can convert to a pointer', () => {
     const o = new ParseObject('Item');
-    expect(function () {
+    expect(() => {
       o.toPointer();
     }).toThrow('Cannot create a pointer to an unsaved ParseObject');
     o.id = 'anObjectId';
@@ -399,7 +399,7 @@ describe('ParseObject', () => {
   it('can convert to a offline pointer', () => {
     const o = new ParseObject('Item');
     o.id = 'AnObjectId';
-    expect(function () {
+    expect(() => {
       o.toOfflinePointer();
     }).toThrow('Cannot create a offline pointer to a saved ParseObject');
     o._localId = 'local1234';
@@ -1294,15 +1294,15 @@ describe('ParseObject', () => {
 
     const err = 'Parse.Object#revert expects either no, or a list of string, arguments.';
 
-    expect(function () {
+    expect(() => {
       o.revert(['age']);
     }).toThrow(err);
 
-    expect(function () {
+    expect(() => {
       o.revert([]);
     }).toThrow(err);
 
-    expect(function () {
+    expect(() => {
       o.revert('gender', ['age']);
     }).toThrow(err);
   });
@@ -1623,7 +1623,7 @@ describe('ParseObject', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const p = new ParseObject('Person');
@@ -1648,7 +1648,7 @@ describe('ParseObject', () => {
 
   it('will queue save operations', async () => {
     const xhrs = [];
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       const xhr = {
         setRequestHeader: jest.fn(),
         open: jest.fn(),
@@ -1692,7 +1692,7 @@ describe('ParseObject', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const p = new ParseObject('Per$on');
@@ -1720,7 +1720,7 @@ describe('ParseObject', () => {
 
   it('will merge pending Ops when a save fails and others are pending', async () => {
     const xhrs = [];
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       const xhr = {
         setRequestHeader: jest.fn(),
         open: jest.fn(),
@@ -1760,7 +1760,7 @@ describe('ParseObject', () => {
 
   it('will deep-save the children of an object', async () => {
     const xhrs = [];
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       const xhr = {
         setRequestHeader: jest.fn(),
         open: jest.fn(),
@@ -1891,7 +1891,7 @@ describe('ParseObject', () => {
 
   it('can save a ring of objects, given one exists', async () => {
     const xhrs = [];
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       const xhr = {
         setRequestHeader: jest.fn(),
         open: jest.fn(),
@@ -2085,7 +2085,7 @@ describe('ParseObject', () => {
 
   it('can save a chain of unsaved objects', async () => {
     const xhrs = [];
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       const xhr = {
         setRequestHeader: jest.fn(),
         open: jest.fn(),
@@ -2233,7 +2233,7 @@ describe('ParseObject', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const p = new ParseObject('Person');
@@ -2296,7 +2296,7 @@ describe('ParseObject', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const objects = [];
@@ -2339,7 +2339,7 @@ describe('ParseObject', () => {
       };
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     const objects = [];
@@ -2400,7 +2400,7 @@ describe('ParseObject', () => {
       };
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     const objects = [];
@@ -2461,7 +2461,7 @@ describe('ParseObject', () => {
       };
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     const objects = [];
@@ -2518,7 +2518,7 @@ describe('ObjectController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const o = new ParseObject('Person');
@@ -2570,7 +2570,7 @@ describe('ObjectController', () => {
     const objects = [];
     for (let i = 0; i < 5; i++) {
       objects[i] = new ParseObject('Person');
-      objects[i].id = 'pid' + i;
+      objects[i].id = `pid${i}`;
     }
     objectController.fetch(objects).then(results => {
       expect(results.length).toBe(5);
@@ -2588,7 +2588,7 @@ describe('ObjectController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const o = new ParseObject('Person');
@@ -2617,7 +2617,7 @@ describe('ObjectController', () => {
     const objects = [];
     for (let i = 0; i < 5; i++) {
       objects[i] = new ParseObject('Person');
-      objects[i].id = 'pid' + i;
+      objects[i].id = `pid${i}`;
     }
     const results = await objectController.fetch(objects, false, {
       include: ['child'],
@@ -2635,7 +2635,7 @@ describe('ObjectController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const p = new ParseObject('Person');
@@ -2694,13 +2694,13 @@ describe('ObjectController', () => {
       xhrs[i].readyState = 4;
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     let objects = [];
     for (let i = 0; i < 5; i++) {
       objects[i] = new ParseObject('Person');
-      objects[i].id = 'pid' + i;
+      objects[i].id = `pid${i}`;
     }
     const result = objectController
       .destroy(objects, { batchSize: 20 })
@@ -2737,7 +2737,7 @@ describe('ObjectController', () => {
         objects = [];
         for (let i = 0; i < 22; i++) {
           objects[i] = new ParseObject('Person');
-          objects[i].id = 'pid' + i;
+          objects[i].id = `pid${i}`;
         }
         const destroy = objectController.destroy(objects, { batchSize: 20 });
         jest.runAllTicks();
@@ -2776,13 +2776,13 @@ describe('ObjectController', () => {
       xhrs[i].readyState = 4;
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     let objects = [];
     for (let i = 0; i < 5; i++) {
       objects[i] = new ParseObject('Person');
-      objects[i].id = 'pid' + i;
+      objects[i].id = `pid${i}`;
     }
     const result = objectController
       .destroy(objects, {})
@@ -2819,7 +2819,7 @@ describe('ObjectController', () => {
         objects = [];
         for (let i = 0; i < 22; i++) {
           objects[i] = new ParseObject('Person');
-          objects[i].id = 'pid' + i;
+          objects[i].id = `pid${i}`;
         }
         const destroy = objectController.destroy(objects, {});
         jest.runAllTicks();
@@ -2851,7 +2851,7 @@ describe('ObjectController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const p = new ParseObject('Person');
@@ -2897,7 +2897,7 @@ describe('ObjectController', () => {
       };
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     const files = [
@@ -2916,7 +2916,7 @@ describe('ObjectController', () => {
     for (let i = 0; i < 3; i++) {
       xhrs[i].responseText = JSON.stringify({
         name: 'parse.txt',
-        url: 'http://files.parsetfss.com/a/' + names[i],
+        url: `http://files.parsetfss.com/a/${names[i]}`,
       });
       await flushPromises();
       xhrs[i].onreadystatechange();
@@ -2938,7 +2938,7 @@ describe('ObjectController', () => {
       };
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     const objects = [];
@@ -2958,7 +2958,7 @@ describe('ObjectController', () => {
           objects[i] = new ParseObject('Person');
           objects[i].set('index', i);
           response.push({
-            success: { objectId: 'pid' + i },
+            success: { objectId: `pid${i}` },
           });
         }
         const save = objectController.save(objects, {});
@@ -3023,7 +3023,7 @@ describe('ObjectController', () => {
       };
     }
     let current = 0;
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhrs[current++];
     });
     xhrs[0].responseText = JSON.stringify([{ success: { objectId: 'i333' } }]);
@@ -3037,7 +3037,7 @@ describe('ObjectController', () => {
     const items = brand.get('items');
     items.push(new ParseObject('Item'));
     brand.set('items', items);
-    expect(function () {
+    expect(() => {
       brand.save();
     }).not.toThrow();
     jest.runAllTicks();
@@ -3188,7 +3188,7 @@ describe('ParseObject (unique instance mode)', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const objects = [];
@@ -3592,7 +3592,7 @@ describe('ParseObject pin', () => {
   it('can unPinAllObjectsWithName', async () => {
     await ParseObject.unPinAllObjectsWithName('123');
     expect(mockLocalDatastore.unPinWithName).toHaveBeenCalledTimes(1);
-    expect(mockLocalDatastore.unPinWithName.mock.calls[0]).toEqual([PIN_PREFIX + '123']);
+    expect(mockLocalDatastore.unPinWithName.mock.calls[0]).toEqual([`${PIN_PREFIX}123`]);
   });
 
   it('cannot pin when localDatastore disabled', async () => {

@@ -196,9 +196,9 @@ class LiveQueryClient extends EventEmitter {
     if (!query) {
       return;
     }
-    const className = query.className;
+    const { className } = query;
     const queryJSON = query.toJSON();
-    const where = queryJSON.where;
+    const { where } = queryJSON;
     const fields = queryJSON.keys ? queryJSON.keys.split(',') : undefined;
     const subscribeRequest = {
       op: OP_TYPES.SUBSCRIBE,
@@ -282,12 +282,12 @@ class LiveQueryClient extends EventEmitter {
 
   resubscribe() {
     this.subscriptions.forEach((subscription, requestId) => {
-      const query = subscription.query;
+      const { query } = subscription;
       const queryJSON = query.toJSON();
-      const where = queryJSON.where;
+      const { where } = queryJSON;
       const fields = queryJSON.keys ? queryJSON.keys.split(',') : undefined;
-      const className = query.className;
-      const sessionToken = subscription.sessionToken;
+      const { className } = query;
+      const { sessionToken } = subscription;
       const subscribeRequest = {
         op: OP_TYPES.SUBSCRIBE,
         requestId,
@@ -353,7 +353,7 @@ class LiveQueryClient extends EventEmitter {
   }
 
   _handleWebSocketMessage(event: any) {
-    let data = event.data;
+    let { data } = event;
     if (typeof data === 'string') {
       data = JSON.parse(data);
     }

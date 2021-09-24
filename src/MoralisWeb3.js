@@ -196,6 +196,8 @@ class MoralisWeb3 {
             response = this.web3.eth.sendTransaction(_triggersArray[i]?.data);
           if (_triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
+        default:
+          throw new Error(`Unknown trigger: "${_triggersArray[i]?.name}"`);
       }
     }
   }
@@ -231,8 +233,10 @@ class MoralisWeb3 {
   static async transfer({
     type = 'native',
     receiver = '',
+    // eslint-disable-next-line camelcase
     contract_address = '',
     amount = '',
+    // eslint-disable-next-line camelcase
     token_id = '',
     system = 'evm',
   } = {}) {
@@ -256,7 +260,7 @@ class MoralisWeb3 {
     let transferOperation;
     let customToken;
 
-    if (type != 'native')
+    if (type !== 'native')
       customToken = new web3.eth.Contract(TransferUtils.abi[type], contract_address);
 
     switch (type) {
@@ -284,6 +288,8 @@ class MoralisWeb3 {
             from: sender,
           });
         break;
+      default:
+        throw new Error(`Unknown transfer type: "${type}"`);
     }
 
     return transferOperation;
@@ -296,10 +302,12 @@ class MoralisWeb3 {
   }
 
   static on(eventName, cb) {
-    const ethereum = window.ethereum;
+    const { ethereum } = window;
     if (!ethereum || !ethereum.on) {
+      // eslint-disable-next-line no-console
       console.warn(WARNING);
       return () => {
+        // eslint-disable-next-line no-console
         console.warn(WARNING);
       };
     }
@@ -307,6 +315,7 @@ class MoralisWeb3 {
     ethereum.on(eventName, cb);
 
     return () => {
+      // eslint-disable-next-line no-console
       console.warn('UNSUB NOT SUPPORTED');
     };
   }

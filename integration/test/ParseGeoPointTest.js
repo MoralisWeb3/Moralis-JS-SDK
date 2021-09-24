@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const clear = require('./clear');
 const Parse = require('../../node');
@@ -499,7 +497,7 @@ describe('Geo Point', () => {
 
   xit(
     'minimum 3 points withinPolygon',
-    function (done) {
+    done => {
       const query = new Parse.Query(TestPoint);
       query.withinPolygon('location', []);
       query

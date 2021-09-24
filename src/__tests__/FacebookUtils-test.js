@@ -31,7 +31,8 @@ describe('FacebookUtils', () => {
     const authResponse = {
       userID: 'test',
       accessToken: 'test',
-      expiresIn: 'test', // Should be unix timestamp
+      // Should be unix timestamp
+      expiresIn: 'test',
     };
     global.FB = {
       init: () => {},

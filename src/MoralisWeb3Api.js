@@ -13,7 +13,7 @@ function addChainAndUserAddress(options = {}) {
 }
 
 // v2
-const endpoints_v2 = [
+const endpointsV2 = [
   {
     method: 'GET',
     group: 'native',
@@ -166,7 +166,7 @@ const endpoints_v2 = [
   },
 ];
 
-const ENDPOINTS = endpoints_v2;
+const ENDPOINTS = endpointsV2;
 
 function endpointFactory() {
   const wrappers = {};

@@ -82,8 +82,8 @@ class ParsePolygon {
 
     for (let i = 1; i < this._coordinates.length; i += 1) {
       if (
-        this._coordinates[i][0] != other.coordinates[i][0] ||
-        this._coordinates[i][1] != other.coordinates[i][1]
+        this._coordinates[i][0] !== other.coordinates[i][0] ||
+        this._coordinates[i][1] !== other.coordinates[i][1]
       ) {
         isEqual = false;
         break;
@@ -128,7 +128,7 @@ class ParsePolygon {
       const endY = this._coordinates[j][1];
 
       const intersect =
-        startY > point.longitude != endY > point.longitude &&
+        startY > point.longitude !== endY > point.longitude &&
         point.latitude < ((endX - startX) * (point.longitude - startY)) / (endY - startY) + startX;
 
       if (intersect) {

@@ -56,14 +56,15 @@ const DefaultController = {
     if (source.type) {
       data._ContentType = source.type;
     }
-    const path = 'files/' + name;
+    const path = `files/${name}`;
     return CoreManager.getRESTController().request('POST', path, data, options);
   },
 
   download: function (uri, options) {
     if (XHR) {
       return this.downloadAjax(uri, options);
-    } else if (process.env.PARSE_BUILD === 'node') {
+    }
+    if (process.env.PARSE_BUILD === 'node') {
       return new Promise((resolve, reject) => {
         const client = uri.indexOf('https') === 0 ? require('https') : require('http');
         const req = client.get(uri, resp => {
@@ -83,9 +84,9 @@ const DefaultController = {
         req.on('error', reject);
         options.requestTask(req);
       });
-    } else {
-      return Promise.reject('Cannot make a request: No definition of XMLHttpRequest was found.');
     }
+
+    return Promise.reject('Cannot make a request: No definition of XMLHttpRequest was found.');
   },
 
   downloadAjax: function (uri, options) {
@@ -125,16 +126,15 @@ const DefaultController = {
     if (url[url.length - 1] !== '/') {
       url += '/';
     }
-    url += 'files/' + name;
+    url += `files/${name}`;
     return CoreManager.getRESTController()
       .ajax('DELETE', url, '', headers)
       .catch(response => {
         // TODO: return JSON object in server
         if (!response || response === 'SyntaxError: Unexpected end of JSON input') {
           return Promise.resolve();
-        } else {
-          return CoreManager.getRESTController().handleError(response);
         }
+        return CoreManager.getRESTController().handleError(response);
       });
   },
 

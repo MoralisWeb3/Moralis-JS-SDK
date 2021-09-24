@@ -13,7 +13,7 @@ import ParseGeoPoint from './ParseGeoPoint';
 import ParseObject from './ParseObject';
 
 export default function equals(a, b) {
-  const toString = Object.prototype.toString;
+  const { toString } = Object.prototype;
   if (toString.call(a) === '[object Date]' || toString.call(b) === '[object Date]') {
     const dateA = new Date(a);
     const dateB = new Date(b);

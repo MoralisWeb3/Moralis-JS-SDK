@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 const equalObjects = require('./equals').default;
 const decode = require('./decode').default;
 const ParseError = require('./ParseError').default;
@@ -150,7 +151,7 @@ function matchesKeyConstraints(className, object, objects, key, constraints) {
   let compareTo;
   if (constraints.__type) {
     if (constraints.__type === 'Pointer') {
-      return equalObjectsGeneric(object[key], constraints, function (obj, ptr) {
+      return equalObjectsGeneric(object[key], constraints, (obj, ptr) => {
         return (
           typeof obj !== 'undefined' &&
           ptr.className === obj.className &&
@@ -220,8 +221,8 @@ function matchesKeyConstraints(className, object, objects, key, constraints) {
         break;
       case '$exists': {
         const propertyExists = typeof object[key] !== 'undefined';
-        const existenceIsRequired = constraints['$exists'];
-        if (typeof constraints['$exists'] !== 'boolean') {
+        const existenceIsRequired = constraints.$exists;
+        if (typeof constraints.$exists !== 'boolean') {
           // The SDK will never submit a non-boolean for $exists, but if someone
           // tries to submit a non-boolean for $exits outside the SDKs, just ignore it.
           break;
@@ -402,7 +403,7 @@ function validateQuery(query: any) {
         }
       }
     }
-    if (specialQuerykeys.indexOf(key) < 0 && !key.match(/^[a-zA-Z][a-zA-Z0-9_\.]*$/)) {
+    if (specialQuerykeys.indexOf(key) < 0 && !key.match(/^[a-zA-Z][a-zA-Z0-9_.]*$/)) {
       throw new ParseError(ParseError.INVALID_KEY_NAME, `Invalid key name: ${key}`);
     }
   });

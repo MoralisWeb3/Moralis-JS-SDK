@@ -77,7 +77,7 @@ class ParseRelation {
     }
 
     const change = new RelationOp(objects, []);
-    const parent = this.parent;
+    const { parent } = this;
     if (!parent) {
       throw new Error('Cannot add to a Relation without a parent');
     }
@@ -130,7 +130,7 @@ class ParseRelation {
    */
   query(): ParseQuery {
     let query;
-    const parent = this.parent;
+    const { parent } = this;
     if (!parent) {
       throw new Error('Cannot construct a query for a Relation without a parent');
     }

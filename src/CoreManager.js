@@ -191,7 +191,7 @@ const config: Config & { [key: string]: mixed } = {
   SERVER_AUTH_TOKEN: null,
   LIVEQUERY_SERVER_URL: null,
   ENCRYPTED_KEY: null,
-  VERSION: 'js' + require('../package.json').version,
+  VERSION: `js${require('../package.json').version}`,
   APPLICATION_ID: null,
   JAVASCRIPT_KEY: null,
   MASTER_KEY: null,
@@ -215,7 +215,7 @@ module.exports = {
     if (config.hasOwnProperty(key)) {
       return config[key];
     }
-    throw new Error('Configuration key not found: ' + key);
+    throw new Error(`Configuration key not found: ${key}`);
   },
 
   set: function (key: string, value: any): void {
@@ -226,65 +226,65 @@ module.exports = {
 
   setAnalyticsController(controller: AnalyticsController) {
     requireMethods('AnalyticsController', ['track'], controller);
-    config['AnalyticsController'] = controller;
+    config.AnalyticsController = controller;
   },
 
   getAnalyticsController(): AnalyticsController {
-    return config['AnalyticsController'];
+    return config.AnalyticsController;
   },
 
   setCloudController(controller: CloudController) {
     requireMethods('CloudController', ['run', 'getJobsData', 'startJob'], controller);
-    config['CloudController'] = controller;
+    config.CloudController = controller;
   },
 
   getCloudController(): CloudController {
-    return config['CloudController'];
+    return config.CloudController;
   },
 
   setConfigController(controller: ConfigController) {
     requireMethods('ConfigController', ['current', 'get', 'save'], controller);
-    config['ConfigController'] = controller;
+    config.ConfigController = controller;
   },
 
   getConfigController(): ConfigController {
-    return config['ConfigController'];
+    return config.ConfigController;
   },
 
   setCryptoController(controller: CryptoController) {
     requireMethods('CryptoController', ['encrypt', 'decrypt'], controller);
-    config['CryptoController'] = controller;
+    config.CryptoController = controller;
   },
 
   getCryptoController(): CryptoController {
-    return config['CryptoController'];
+    return config.CryptoController;
   },
 
   setFileController(controller: FileController) {
     requireMethods('FileController', ['saveFile', 'saveBase64'], controller);
-    config['FileController'] = controller;
+    config.FileController = controller;
   },
 
   getFileController(): FileController {
-    return config['FileController'];
+    return config.FileController;
   },
 
   setInstallationController(controller: InstallationController) {
     requireMethods('InstallationController', ['currentInstallationId'], controller);
-    config['InstallationController'] = controller;
+    config.InstallationController = controller;
   },
 
   getInstallationController(): InstallationController {
-    return config['InstallationController'];
+    return config.InstallationController;
   },
 
   setObjectController(controller: ObjectController) {
     requireMethods('ObjectController', ['save', 'fetch', 'destroy'], controller);
-    config['ObjectController'] = controller;
+    config.ObjectController = controller;
   },
 
   getObjectController(): ObjectController {
-    return config['ObjectController'];
+    return config.ObjectController;
   },
 
   setObjectStateController(controller: ObjectStateController) {
@@ -311,38 +311,38 @@ module.exports = {
       controller
     );
 
-    config['ObjectStateController'] = controller;
+    config.ObjectStateController = controller;
   },
 
   getObjectStateController(): ObjectStateController {
-    return config['ObjectStateController'];
+    return config.ObjectStateController;
   },
 
   setPushController(controller: PushController) {
     requireMethods('PushController', ['send'], controller);
-    config['PushController'] = controller;
+    config.PushController = controller;
   },
 
   getPushController(): PushController {
-    return config['PushController'];
+    return config.PushController;
   },
 
   setQueryController(controller: QueryController) {
     requireMethods('QueryController', ['find', 'aggregate'], controller);
-    config['QueryController'] = controller;
+    config.QueryController = controller;
   },
 
   getQueryController(): QueryController {
-    return config['QueryController'];
+    return config.QueryController;
   },
 
   setRESTController(controller: RESTController) {
     requireMethods('RESTController', ['request', 'ajax'], controller);
-    config['RESTController'] = controller;
+    config.RESTController = controller;
   },
 
   getRESTController(): RESTController {
-    return config['RESTController'];
+    return config.RESTController;
   },
 
   setSchemaController(controller: SchemaController) {
@@ -351,20 +351,20 @@ module.exports = {
       ['get', 'create', 'update', 'delete', 'send', 'purge'],
       controller
     );
-    config['SchemaController'] = controller;
+    config.SchemaController = controller;
   },
 
   getSchemaController(): SchemaController {
-    return config['SchemaController'];
+    return config.SchemaController;
   },
 
   setSessionController(controller: SessionController) {
     requireMethods('SessionController', ['getSession'], controller);
-    config['SessionController'] = controller;
+    config.SessionController = controller;
   },
 
   getSessionController(): SessionController {
-    return config['SessionController'];
+    return config.SessionController;
   },
 
   setStorageController(controller: StorageController) {
@@ -381,7 +381,7 @@ module.exports = {
         controller
       );
     }
-    config['StorageController'] = controller;
+    config.StorageController = controller;
   },
 
   setLocalDatastoreController(controller: LocalDatastoreController) {
@@ -390,39 +390,39 @@ module.exports = {
       ['pinWithName', 'fromPinWithName', 'unPinWithName', 'getAllContents', 'clear'],
       controller
     );
-    config['LocalDatastoreController'] = controller;
+    config.LocalDatastoreController = controller;
   },
 
   getLocalDatastoreController(): LocalDatastoreController {
-    return config['LocalDatastoreController'];
+    return config.LocalDatastoreController;
   },
 
   setLocalDatastore(store: any) {
-    config['LocalDatastore'] = store;
+    config.LocalDatastore = store;
   },
 
   getLocalDatastore() {
-    return config['LocalDatastore'];
+    return config.LocalDatastore;
   },
 
   getStorageController(): StorageController {
-    return config['StorageController'];
+    return config.StorageController;
   },
 
   setAsyncStorage(storage: any) {
-    config['AsyncStorage'] = storage;
+    config.AsyncStorage = storage;
   },
 
   getAsyncStorage() {
-    return config['AsyncStorage'];
+    return config.AsyncStorage;
   },
 
   setWebSocketController(controller: WebSocketController) {
-    config['WebSocketController'] = controller;
+    config.WebSocketController = controller;
   },
 
   getWebSocketController(): WebSocketController {
-    return config['WebSocketController'];
+    return config.WebSocketController;
   },
 
   setUserController(controller: UserController) {
@@ -445,11 +445,11 @@ module.exports = {
       ],
       controller
     );
-    config['UserController'] = controller;
+    config.UserController = controller;
   },
 
   getUserController(): UserController {
-    return config['UserController'];
+    return config.UserController;
   },
 
   setLiveQueryController(controller: any) {
@@ -458,19 +458,19 @@ module.exports = {
       ['setDefaultLiveQueryClient', 'getDefaultLiveQueryClient', '_clearCachedDefaultClient'],
       controller
     );
-    config['LiveQueryController'] = controller;
+    config.LiveQueryController = controller;
   },
 
   getLiveQueryController(): any {
-    return config['LiveQueryController'];
+    return config.LiveQueryController;
   },
 
   setHooksController(controller: HooksController) {
     requireMethods('HooksController', ['create', 'get', 'update', 'remove'], controller);
-    config['HooksController'] = controller;
+    config.HooksController = controller;
   },
 
   getHooksController(): HooksController {
-    return config['HooksController'];
+    return config.HooksController;
   },
 };

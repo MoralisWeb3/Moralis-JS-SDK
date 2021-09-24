@@ -59,7 +59,6 @@ class MoralisErd {
     const data = MoralisErd.getSigningData();
     const signature = await MoralisErd.sign(data);
     const authData = { id: erdAddress, signature, data };
-    console.log(authData);
     const user = await ParseUser.logInWith('moralisErd', { authData });
     await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');

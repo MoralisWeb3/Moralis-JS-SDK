@@ -70,7 +70,7 @@ export function track(name: string, dimensions: { [key: string]: string }): Prom
 
 const DefaultController = {
   track(name, dimensions) {
-    const path = 'events/' + name;
+    const path = `events/${name}`;
     const RESTController = CoreManager.getRESTController();
     return RESTController.request('POST', path, { dimensions: dimensions });
   },

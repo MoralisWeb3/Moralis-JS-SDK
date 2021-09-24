@@ -154,7 +154,7 @@ class ParseObject {
   _objCount: number;
   className: string;
 
-  /** Prototype getters / setters **/
+  /** Prototype getters / setters * */
 
   get attributes(): AttributeMap {
     const stateController = CoreManager.getObjectStateController();
@@ -181,7 +181,7 @@ class ParseObject {
     return this._getServerData().updatedAt;
   }
 
-  /** Private methods **/
+  /** Private methods * */
 
   /**
    * Returns a local or server Id used uniquely identify this object
@@ -195,7 +195,7 @@ class ParseObject {
     if (typeof this._localId === 'string') {
       return this._localId;
     }
-    const localId = 'local' + uuidv4();
+    const localId = `local${uuidv4()}`;
     this._localId = localId;
     return localId;
   }
@@ -207,7 +207,7 @@ class ParseObject {
    */
   _getStateIdentifier(): ParseObject | { id: string, className: string } {
     if (singleInstance) {
-      let id = this.id;
+      let { id } = this;
       if (!id) {
         id = this._getId();
       }
@@ -215,9 +215,8 @@ class ParseObject {
         id: id,
         className: this.className,
       };
-    } else {
-      return this;
     }
+    return this;
   }
 
   _getServerData(): AttributeMap {
@@ -254,7 +253,7 @@ class ParseObject {
   }
 
   _getDirtyObjectAttributes(): AttributeMap {
-    const attributes = this.attributes;
+    const { attributes } = this;
     const stateController = CoreManager.getObjectStateController();
     const objectCache = stateController.getObjectCache(this._getStateIdentifier());
     const dirty = {};
@@ -325,9 +324,9 @@ class ParseObject {
   _getSaveParams(): SaveParams {
     const method = this.id ? 'PUT' : 'POST';
     const body = this._getSaveJSON();
-    let path = 'classes/' + this.className;
+    let path = `classes/${this.className}`;
     if (this.id) {
-      path += '/' + this.id;
+      path += `/${this.id}`;
     } else if (this.className === '_User') {
       path = 'users';
     }
@@ -440,7 +439,7 @@ class ParseObject {
     stateController.mergeFirstPendingState(this._getStateIdentifier());
   }
 
-  /** Public methods **/
+  /** Public methods * */
 
   initialize() {
     // NOOP
@@ -454,7 +453,7 @@ class ParseObject {
    * @returns {object}
    */
   toJSON(seen: Array<any> | void, offline?: boolean): AttributeMap {
-    const seenEntry = this.id ? this.className + ':' + this.id : this;
+    const seenEntry = this.id ? `${this.className}:${this.id}` : this;
     seen = seen || [seenEntry];
     const json = {};
     const attrs = this.attributes;
@@ -610,7 +609,7 @@ class ParseObject {
     const value = this.get(attr);
     if (value) {
       if (!(value instanceof ParseRelation)) {
-        throw new Error('Called relation() on non-relation field ' + attr);
+        throw new Error(`Called relation() on non-relation field ${attr}`);
       }
       value._ensureParentAndKey(this, attr);
       return value;
@@ -646,7 +645,7 @@ class ParseObject {
    * @returns {boolean}
    */
   has(attr: string): boolean {
-    const attributes = this.attributes;
+    const { attributes } = this;
     if (attributes.hasOwnProperty(attr)) {
       return attributes[attr] != null;
     }
@@ -707,7 +706,7 @@ class ParseObject {
         continue;
       }
       if (readonly.indexOf(k) > -1) {
-        throw new Error('Cannot modify readonly attribute: ' + k);
+        throw new Error(`Cannot modify readonly attribute: ${k}`);
       }
       if (options.unset) {
         newOps[k] = new UnsetOp();
@@ -934,7 +933,7 @@ class ParseObject {
     if (!clone.className) {
       clone.className = this.className;
     }
-    let attributes = this.attributes;
+    let { attributes } = this;
     if (typeof this.constructor.readOnlyAttributes === 'function') {
       const readonly = this.constructor.readOnlyAttributes() || [];
       // Attributes are frozen, so we have to rebuild an object,
@@ -1115,7 +1114,7 @@ class ParseObject {
    * @returns {(ParseObject | boolean)}
    */
   clear(): ParseObject | boolean {
-    const attributes = this.attributes;
+    const { attributes } = this;
     const erasable = {};
     let readonly = ['createdAt', 'updatedAt'];
     if (typeof this.constructor.readOnlyAttributes === 'function') {
@@ -1452,7 +1451,7 @@ class ParseObject {
     return this;
   }
 
-  /** Static methods **/
+  /** Static methods * */
 
   static _clearAllState() {
     const stateController = CoreManager.getObjectStateController();
@@ -1857,9 +1856,9 @@ class ParseObject {
     if (typeof className !== 'string') {
       if (className && typeof className.className === 'string') {
         return ParseObject.extend(className.className, className, protoProps);
-      } else {
-        throw new Error("Parse.Object.extend's first argument should be the className.");
       }
+
+      throw new Error("Parse.Object.extend's first argument should be the className.");
     }
     let adjustedClassName = className;
 
@@ -2115,6 +2114,7 @@ const DefaultController = {
           return;
         }
         if (!className) {
+          // eslint-disable-next-line prefer-destructuring
           className = el.className;
         }
         if (className !== el.className) {
@@ -2161,7 +2161,7 @@ const DefaultController = {
           for (let i = 0; i < results.length; i++) {
             const obj = results[i];
             if (obj && obj.id && idMap[obj.id]) {
-              const id = obj.id;
+              const { id } = obj;
               obj._finishFetch(idMap[id].toJSON());
               results[i] = idMap[id];
             }
@@ -2172,7 +2172,8 @@ const DefaultController = {
         }
         return Promise.resolve(results);
       });
-    } else if (target instanceof ParseObject) {
+    }
+    if (target instanceof ParseObject) {
       if (!target.id) {
         return Promise.reject(
           new ParseError(ParseError.MISSING_OBJECT_ID, 'Object does not have an ID')
@@ -2185,7 +2186,7 @@ const DefaultController = {
       }
       return RESTController.request(
         'GET',
-        'classes/' + target.className + '/' + target._getId(),
+        `classes/${target.className}/${target._getId()}`,
         params,
         options
       ).then(async response => {
@@ -2237,7 +2238,7 @@ const DefaultController = {
               requests: batch.map(obj => {
                 return {
                   method: 'DELETE',
-                  path: getServerUrlPath() + 'classes/' + obj.className + '/' + obj._getId(),
+                  path: `${getServerUrlPath()}classes/${obj.className}/${obj._getId()}`,
                   body: {},
                 };
               }),
@@ -2265,10 +2266,11 @@ const DefaultController = {
         }
         return Promise.resolve(target);
       });
-    } else if (target instanceof ParseObject) {
+    }
+    if (target instanceof ParseObject) {
       return RESTController.request(
         'DELETE',
-        'classes/' + target.className + '/' + target._getId(),
+        `classes/${target.className}/${target._getId()}`,
         {},
         options
       ).then(async () => {
@@ -2348,7 +2350,7 @@ const DefaultController = {
                 ready.resolve();
                 return batchReturned.then(responses => {
                   if (responses[index].hasOwnProperty('success')) {
-                    const objectId = responses[index].success.objectId;
+                    const { objectId } = responses[index].success;
                     const status = responses[index]._status;
                     delete responses[index]._status;
                     mapIdForPin[objectId] = obj._localId;
@@ -2401,7 +2403,8 @@ const DefaultController = {
           return Promise.resolve(target);
         });
       });
-    } else if (target instanceof ParseObject) {
+    }
+    if (target instanceof ParseObject) {
       // generate _localId in case if cascadeSave=false
       target._getId();
       const localId = target._localId;

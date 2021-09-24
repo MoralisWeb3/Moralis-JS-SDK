@@ -122,28 +122,27 @@ class ParseUser extends ParseObject {
 
       const controller = CoreManager.getUserController();
       return controller.linkWith(this, authData, saveOpts);
-    } else {
-      return new Promise((resolve, reject) => {
-        provider.authenticate({
-          success: (provider, result) => {
-            const opts = {};
-            opts.authData = result;
-            console.log('Provider', provider);
-            this.linkWith(provider, opts, saveOpts).then(
-              () => {
-                resolve(this);
-              },
-              error => {
-                reject(error);
-              }
-            );
-          },
-          error: (provider, error) => {
-            reject(error);
-          },
-        });
-      });
     }
+
+    return new Promise((resolve, reject) => {
+      provider.authenticate({
+        success: (provider, result) => {
+          const opts = {};
+          opts.authData = result;
+          this.linkWith(provider, opts, saveOpts).then(
+            () => {
+              resolve(this);
+            },
+            error => {
+              reject(error);
+            }
+          );
+        },
+        error: (provider, error) => {
+          reject(error);
+        },
+      });
+    });
   }
 
   /**
@@ -640,7 +639,8 @@ class ParseUser extends ParseObject {
   static logIn(username: string, password: string, options?: FullOptions) {
     if (typeof username !== 'string') {
       return Promise.reject(new ParseError(ParseError.OTHER_CAUSE, 'Username must be a string.'));
-    } else if (typeof password !== 'string') {
+    }
+    if (typeof password !== 'string') {
       return Promise.reject(new ParseError(ParseError.OTHER_CAUSE, 'Password must be a string.'));
     }
     const user = new this();
@@ -1125,9 +1125,8 @@ const DefaultController = {
     user._setExisted(true);
     if (userJSON.sessionToken && canUseCurrentUser) {
       return DefaultController.setCurrentUser(user);
-    } else {
-      return Promise.resolve(user);
     }
+    return Promise.resolve(user);
   },
 
   me(user: ParseUser, options: RequestOptions): Promise<ParseUser> {

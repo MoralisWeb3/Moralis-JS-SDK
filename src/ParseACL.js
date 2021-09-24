@@ -114,7 +114,7 @@ class ParseACL {
       if (!name) {
         throw new TypeError('Role must have a name');
       }
-      userId = 'role:' + name;
+      userId = `role:${name}`;
     }
     if (typeof userId !== 'string') {
       throw new TypeError('userId must be a string.');
@@ -127,10 +127,9 @@ class ParseACL {
       if (!allowed) {
         // The user already doesn't have this permission, so no action is needed
         return;
-      } else {
-        permissions = {};
-        this.permissionsById[userId] = permissions;
       }
+      permissions = {};
+      this.permissionsById[userId] = permissions;
     }
 
     if (allowed) {
@@ -154,7 +153,7 @@ class ParseACL {
       if (!name) {
         throw new TypeError('Role must have a name');
       }
-      userId = 'role:' + name;
+      userId = `role:${name}`;
     }
     const permissions = this.permissionsById[userId];
     if (!permissions) {
@@ -262,7 +261,7 @@ class ParseACL {
     if (typeof role !== 'string') {
       throw new TypeError('role must be a ParseRole or a String');
     }
-    return this.getReadAccess('role:' + role);
+    return this.getReadAccess(`role:${role}`);
   }
 
   /**
@@ -282,7 +281,7 @@ class ParseACL {
     if (typeof role !== 'string') {
       throw new TypeError('role must be a ParseRole or a String');
     }
-    return this.getWriteAccess('role:' + role);
+    return this.getWriteAccess(`role:${role}`);
   }
 
   /**
@@ -301,7 +300,7 @@ class ParseACL {
     if (typeof role !== 'string') {
       throw new TypeError('role must be a ParseRole or a String');
     }
-    this.setReadAccess('role:' + role, allowed);
+    this.setReadAccess(`role:${role}`, allowed);
   }
 
   /**
@@ -320,7 +319,7 @@ class ParseACL {
     if (typeof role !== 'string') {
       throw new TypeError('role must be a ParseRole or a String');
     }
-    this.setWriteAccess('role:' + role, allowed);
+    this.setWriteAccess(`role:${role}`, allowed);
   }
 }
 
