@@ -1,3 +1,3 @@
 ## Integration tests
 
-These tests run against a local instance of `parse-server`
+These tests run against a local instance of `moralis-server`

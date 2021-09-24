@@ -107,7 +107,6 @@
     "integration": "cross-env TESTING=1 jasmine --config=jasmine.json",
     "docs": "jsdoc -c ./jsdoc-conf.json ./src",
     "prepare": "npm run build",
-    "release_docs": "./scripts/release_docs.sh",
     "gulp": "gulp",
     "prettier": "prettier --write '{src,integration}/{**/*,*}.js' && npm run lint:fix",
     "cross-env": "cross-env",
