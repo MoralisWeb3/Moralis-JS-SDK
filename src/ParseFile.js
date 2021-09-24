@@ -8,7 +8,7 @@
  *
  * @flow
  */
-/* global XMLHttpRequest, Blob */
+/* global Blob */
 import CoreManager from './CoreManager';
 import { encodeBase64, b64Digit } from './ParseFileEncode';
 import type { FullOptions } from './RESTController';
@@ -300,7 +300,7 @@ class ParseFile {
   }
 
   saveIPFS(options?: FullOptions) {
-    return this.save({ ...options, ipfs: true })
+    return this.save({ ...options, ipfs: true });
   }
 
   /**
@@ -425,7 +425,7 @@ class ParseFile {
   }
 
   static encodeBase64(bytes: Array<number>): string {
-    return encodeBase64(bytes)
+    return encodeBase64(bytes);
   }
 }
 

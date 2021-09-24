@@ -1,3 +1,5 @@
+/* global window */
+
 import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
@@ -28,7 +30,7 @@ class MoralisDot {
     const address = account?.address;
     if (!address) throw new Error('Address not found');
     // const account = await proxy.getAccount(address);
-    const dotAddress = address //.toLowerCase();
+    const dotAddress = address; //.toLowerCase();
     const accounts = [dotAddress];
     const data = MoralisDot.getSigningData();
     const signature = await MoralisDot.sign(address, data);
@@ -45,7 +47,7 @@ class MoralisDot {
 
   static async link(account) {
     const user = await ParseUser.current();
-    const dotAddress = account //.toLowerCase();
+    const dotAddress = account; //.toLowerCase();
     const DotAddress = ParseObject.extend('_DotAddress');
     const query = new ParseQuery(DotAddress);
     const dotAddressRecord = await query.get(dotAddress).catch(() => null);
@@ -62,7 +64,7 @@ class MoralisDot {
   }
 
   static async unlink(account) {
-    const accountsLower = account //.toLowerCase();
+    const accountsLower = account; //.toLowerCase();
     const DotAddress = ParseObject.extend('_DotAddress');
     const query = new ParseQuery(DotAddress);
     const dotAddressRecord = await query.get(accountsLower);
@@ -100,12 +102,10 @@ function uniq(arr) {
 export default MoralisDot;
 
 function stringToHex(value) {
-  return toHexString(
-    stringToU8a(value)
-  );
+  return toHexString(stringToU8a(value));
 }
 
-function stringToU8a (value) {
+function stringToU8a(value) {
   const u8a = new Uint8Array(value.length);
 
   for (let i = 0; i < value.length; i++) {
@@ -116,7 +116,10 @@ function stringToU8a (value) {
 }
 
 function toHexString(byteArray) {
-  return '0x' + Array.from(byteArray, function(byte) {
-    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-  }).join('')
+  return (
+    '0x' +
+    Array.from(byteArray, function (byte) {
+      return ('0' + (byte & 0xff).toString(16)).slice(-2);
+    }).join('')
+  );
 }

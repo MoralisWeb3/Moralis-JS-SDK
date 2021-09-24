@@ -1,5 +1,9 @@
+/* global XMLHttpRequest */
+
 import CoreManager from './CoreManager';
 import { encodeBase64 } from './ParseFileEncode';
+import type { FileSource } from './ParseFile';
+import type { FullOptions } from './RESTController';
 
 let XHR = null;
 if (typeof XMLHttpRequest !== 'undefined') {

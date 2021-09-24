@@ -1938,7 +1938,7 @@ class ParseQuery {
   }
 
   onChange(onUpdate: any, onError?: any, sessionToken?: string): Promise<LiveQuerySubscription> {
-    var sub = null;
+    let sub = null;
     this.subscribe()
       .then(subscription => {
         sub = subscription;
@@ -1952,7 +1952,7 @@ class ParseQuery {
 
         subscription.on('error', err => {
           if (onError) {
-            onError(error);
+            onError(err);
           } else {
             console.warn('Subscription error', err);
           }
