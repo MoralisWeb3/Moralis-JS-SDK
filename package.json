@@ -110,7 +110,7 @@
     "docs": "jsdoc -c ./jsdoc-conf.json ./src",
     "prepare": "npm run build",
     "gulp": "gulp",
-    "prettier": "prettier --write '{src,integration}/{**/*,*}.js' && npm run lint:fix",
+    "format": "prettier --write '{src,integration}/{**/*,*}.js'",
     "cross-env": "cross-env",
     "generate-types": "node scripts/generateWeb3ApiTypes"
   },
