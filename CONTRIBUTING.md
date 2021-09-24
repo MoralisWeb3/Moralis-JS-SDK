@@ -12,6 +12,8 @@ cd Moralis-JS-SDK # go into the clone directory
 npm install # install all the node dependencies
 ```
 
+Make sure to have a ESlint and Prettier plugin installed to check for code-smells and auto-formatting.
+
 ### Building the SDK
 
 The Moralis JS SDK is built for three platforms:
