@@ -36,7 +36,7 @@ export default function equals(a, b) {
     if (a.length !== b.length) {
       return false;
     }
-    for (let i = a.length; i--;) {
+    for (let i = a.length; i--; ) {
       if (!equals(a[i], b[i])) {
         return false;
       }

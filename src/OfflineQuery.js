@@ -176,197 +176,197 @@ function matchesKeyConstraints(className, object, objects, key, constraints) {
       object[key] = new Date(object[key].iso ? object[key].iso : object[key]);
     }
     switch (condition) {
-    case '$lt':
-      if (object[key] >= compareTo) {
-        return false;
-      }
-      break;
-    case '$lte':
-      if (object[key] > compareTo) {
-        return false;
-      }
-      break;
-    case '$gt':
-      if (object[key] <= compareTo) {
-        return false;
-      }
-      break;
-    case '$gte':
-      if (object[key] < compareTo) {
-        return false;
-      }
-      break;
-    case '$ne':
-      if (equalObjects(object[key], compareTo)) {
-        return false;
-      }
-      break;
-    case '$in':
-      if (!contains(compareTo, object[key])) {
-        return false;
-      }
-      break;
-    case '$nin':
-      if (contains(compareTo, object[key])) {
-        return false;
-      }
-      break;
-    case '$all':
-      for (i = 0; i < compareTo.length; i++) {
-        if (object[key].indexOf(compareTo[i]) < 0) {
+      case '$lt':
+        if (object[key] >= compareTo) {
           return false;
         }
-      }
-      break;
-    case '$exists': {
-      const propertyExists = typeof object[key] !== 'undefined';
-      const existenceIsRequired = constraints['$exists'];
-      if (typeof constraints['$exists'] !== 'boolean') {
-        // The SDK will never submit a non-boolean for $exists, but if someone
-        // tries to submit a non-boolean for $exits outside the SDKs, just ignore it.
+        break;
+      case '$lte':
+        if (object[key] > compareTo) {
+          return false;
+        }
+        break;
+      case '$gt':
+        if (object[key] <= compareTo) {
+          return false;
+        }
+        break;
+      case '$gte':
+        if (object[key] < compareTo) {
+          return false;
+        }
+        break;
+      case '$ne':
+        if (equalObjects(object[key], compareTo)) {
+          return false;
+        }
+        break;
+      case '$in':
+        if (!contains(compareTo, object[key])) {
+          return false;
+        }
+        break;
+      case '$nin':
+        if (contains(compareTo, object[key])) {
+          return false;
+        }
+        break;
+      case '$all':
+        for (i = 0; i < compareTo.length; i++) {
+          if (object[key].indexOf(compareTo[i]) < 0) {
+            return false;
+          }
+        }
+        break;
+      case '$exists': {
+        const propertyExists = typeof object[key] !== 'undefined';
+        const existenceIsRequired = constraints['$exists'];
+        if (typeof constraints['$exists'] !== 'boolean') {
+          // The SDK will never submit a non-boolean for $exists, but if someone
+          // tries to submit a non-boolean for $exits outside the SDKs, just ignore it.
+          break;
+        }
+        if ((!propertyExists && existenceIsRequired) || (propertyExists && !existenceIsRequired)) {
+          return false;
+        }
         break;
       }
-      if ((!propertyExists && existenceIsRequired) || (propertyExists && !existenceIsRequired)) {
-        return false;
-      }
-      break;
-    }
-    case '$regex': {
-      if (typeof compareTo === 'object') {
-        return compareTo.test(object[key]);
-      }
-      // JS doesn't support perl-style escaping
-      let expString = '';
-      let escapeEnd = -2;
-      let escapeStart = compareTo.indexOf('\\Q');
-      while (escapeStart > -1) {
-        // Add the unescaped portion
-        expString += compareTo.substring(escapeEnd + 2, escapeStart);
-        escapeEnd = compareTo.indexOf('\\E', escapeStart);
-        if (escapeEnd > -1) {
-          expString += compareTo
-            .substring(escapeStart + 2, escapeEnd)
-            .replace(/\\\\\\\\E/g, '\\E')
-            .replace(/\W/g, '\\$&');
+      case '$regex': {
+        if (typeof compareTo === 'object') {
+          return compareTo.test(object[key]);
         }
+        // JS doesn't support perl-style escaping
+        let expString = '';
+        let escapeEnd = -2;
+        let escapeStart = compareTo.indexOf('\\Q');
+        while (escapeStart > -1) {
+          // Add the unescaped portion
+          expString += compareTo.substring(escapeEnd + 2, escapeStart);
+          escapeEnd = compareTo.indexOf('\\E', escapeStart);
+          if (escapeEnd > -1) {
+            expString += compareTo
+              .substring(escapeStart + 2, escapeEnd)
+              .replace(/\\\\\\\\E/g, '\\E')
+              .replace(/\W/g, '\\$&');
+          }
 
-        escapeStart = compareTo.indexOf('\\Q', escapeEnd);
+          escapeStart = compareTo.indexOf('\\Q', escapeEnd);
+        }
+        expString += compareTo.substring(Math.max(escapeStart, escapeEnd + 2));
+        let modifiers = constraints.$options || '';
+        modifiers = modifiers.replace('x', '').replace('s', '');
+        // Parse Server / Mongo support x and s modifiers but JS RegExp doesn't
+        const exp = new RegExp(expString, modifiers);
+        if (!exp.test(object[key])) {
+          return false;
+        }
+        break;
       }
-      expString += compareTo.substring(Math.max(escapeStart, escapeEnd + 2));
-      let modifiers = constraints.$options || '';
-      modifiers = modifiers.replace('x', '').replace('s', '');
-      // Parse Server / Mongo support x and s modifiers but JS RegExp doesn't
-      const exp = new RegExp(expString, modifiers);
-      if (!exp.test(object[key])) {
-        return false;
+      case '$nearSphere': {
+        if (!compareTo || !object[key]) {
+          return false;
+        }
+        const distance = compareTo.radiansTo(object[key]);
+        const max = constraints.$maxDistance || Infinity;
+        return distance <= max;
       }
-      break;
-    }
-    case '$nearSphere': {
-      if (!compareTo || !object[key]) {
-        return false;
-      }
-      const distance = compareTo.radiansTo(object[key]);
-      const max = constraints.$maxDistance || Infinity;
-      return distance <= max;
-    }
-    case '$within': {
-      if (!compareTo || !object[key]) {
-        return false;
-      }
-      const southWest = compareTo.$box[0];
-      const northEast = compareTo.$box[1];
-      if (southWest.latitude > northEast.latitude || southWest.longitude > northEast.longitude) {
-        // Invalid box, crosses the date line
-        return false;
-      }
-      return (
-        object[key].latitude > southWest.latitude &&
+      case '$within': {
+        if (!compareTo || !object[key]) {
+          return false;
+        }
+        const southWest = compareTo.$box[0];
+        const northEast = compareTo.$box[1];
+        if (southWest.latitude > northEast.latitude || southWest.longitude > northEast.longitude) {
+          // Invalid box, crosses the date line
+          return false;
+        }
+        return (
+          object[key].latitude > southWest.latitude &&
           object[key].latitude < northEast.latitude &&
           object[key].longitude > southWest.longitude &&
           object[key].longitude < northEast.longitude
-      );
-    }
-    case '$options':
-      // Not a query type, but a way to add options to $regex. Ignore and
-      // avoid the default
-      break;
-    case '$maxDistance':
-      // Not a query type, but a way to add a cap to $nearSphere. Ignore and
-      // avoid the default
-      break;
-    case '$select': {
-      const subQueryObjects = objects.filter((obj, index, arr) => {
-        return matchesQuery(compareTo.query.className, obj, arr, compareTo.query.where);
-      });
-      for (let i = 0; i < subQueryObjects.length; i += 1) {
-        const subObject = transformObject(subQueryObjects[i]);
-        return equalObjects(object[key], subObject[compareTo.key]);
+        );
       }
-      return false;
-    }
-    case '$dontSelect': {
-      const subQueryObjects = objects.filter((obj, index, arr) => {
-        return matchesQuery(compareTo.query.className, obj, arr, compareTo.query.where);
-      });
-      for (let i = 0; i < subQueryObjects.length; i += 1) {
-        const subObject = transformObject(subQueryObjects[i]);
-        return !equalObjects(object[key], subObject[compareTo.key]);
+      case '$options':
+        // Not a query type, but a way to add options to $regex. Ignore and
+        // avoid the default
+        break;
+      case '$maxDistance':
+        // Not a query type, but a way to add a cap to $nearSphere. Ignore and
+        // avoid the default
+        break;
+      case '$select': {
+        const subQueryObjects = objects.filter((obj, index, arr) => {
+          return matchesQuery(compareTo.query.className, obj, arr, compareTo.query.where);
+        });
+        for (let i = 0; i < subQueryObjects.length; i += 1) {
+          const subObject = transformObject(subQueryObjects[i]);
+          return equalObjects(object[key], subObject[compareTo.key]);
+        }
+        return false;
       }
-      return false;
-    }
-    case '$inQuery': {
-      const subQueryObjects = objects.filter((obj, index, arr) => {
-        return matchesQuery(compareTo.className, obj, arr, compareTo.where);
-      });
+      case '$dontSelect': {
+        const subQueryObjects = objects.filter((obj, index, arr) => {
+          return matchesQuery(compareTo.query.className, obj, arr, compareTo.query.where);
+        });
+        for (let i = 0; i < subQueryObjects.length; i += 1) {
+          const subObject = transformObject(subQueryObjects[i]);
+          return !equalObjects(object[key], subObject[compareTo.key]);
+        }
+        return false;
+      }
+      case '$inQuery': {
+        const subQueryObjects = objects.filter((obj, index, arr) => {
+          return matchesQuery(compareTo.className, obj, arr, compareTo.where);
+        });
 
-      for (let i = 0; i < subQueryObjects.length; i += 1) {
-        const subObject = transformObject(subQueryObjects[i]);
-        if (
-          object[key].className === subObject.className &&
+        for (let i = 0; i < subQueryObjects.length; i += 1) {
+          const subObject = transformObject(subQueryObjects[i]);
+          if (
+            object[key].className === subObject.className &&
             object[key].objectId === subObject.objectId
-        ) {
-          return true;
+          ) {
+            return true;
+          }
         }
+        return false;
       }
-      return false;
-    }
-    case '$notInQuery': {
-      const subQueryObjects = objects.filter((obj, index, arr) => {
-        return matchesQuery(compareTo.className, obj, arr, compareTo.where);
-      });
+      case '$notInQuery': {
+        const subQueryObjects = objects.filter((obj, index, arr) => {
+          return matchesQuery(compareTo.className, obj, arr, compareTo.where);
+        });
 
-      for (let i = 0; i < subQueryObjects.length; i += 1) {
-        const subObject = transformObject(subQueryObjects[i]);
-        if (
-          object[key].className === subObject.className &&
+        for (let i = 0; i < subQueryObjects.length; i += 1) {
+          const subObject = transformObject(subQueryObjects[i]);
+          if (
+            object[key].className === subObject.className &&
             object[key].objectId === subObject.objectId
-        ) {
-          return false;
+          ) {
+            return false;
+          }
         }
+        return true;
       }
-      return true;
-    }
-    case '$containedBy': {
-      for (const value of object[key]) {
-        if (!contains(compareTo, value)) {
-          return false;
+      case '$containedBy': {
+        for (const value of object[key]) {
+          if (!contains(compareTo, value)) {
+            return false;
+          }
         }
+        return true;
       }
-      return true;
-    }
-    case '$geoWithin': {
-      const points = compareTo.$polygon.map(geoPoint => [geoPoint.latitude, geoPoint.longitude]);
-      const polygon = new ParsePolygon(points);
-      return polygon.containsPoint(object[key]);
-    }
-    case '$geoIntersects': {
-      const polygon = new ParsePolygon(object[key].coordinates);
-      const point = new ParseGeoPoint(compareTo.$point);
-      return polygon.containsPoint(point);
-    }
-    default:
-      return false;
+      case '$geoWithin': {
+        const points = compareTo.$polygon.map(geoPoint => [geoPoint.latitude, geoPoint.longitude]);
+        const polygon = new ParsePolygon(points);
+        return polygon.containsPoint(object[key]);
+      }
+      case '$geoIntersects': {
+        const polygon = new ParsePolygon(object[key].coordinates);
+        const point = new ParseGeoPoint(compareTo.$point);
+        return polygon.containsPoint(point);
+      }
+      default:
+        return false;
     }
   }
   return true;
