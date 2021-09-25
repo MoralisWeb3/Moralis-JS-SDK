@@ -59,6 +59,12 @@ const endpoints_v2 = [
   {
     method: 'GET',
     group: 'token',
+    name: 'searchNFTs',
+    url: '/nft/search',
+  },
+  {
+    method: 'GET',
+    group: 'token',
     name: 'getNFTMetadata',
     url: '/nft/:address/metadata',
   },
