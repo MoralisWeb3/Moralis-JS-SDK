@@ -47,9 +47,7 @@ const AsyncStorage = require('react-native').AsyncStorage;
 Moralis.setAsyncStorage(AsyncStorage);
 ```
 
-For TypeScript applications, install `'@types/moralis'`:
-```
-$ npm install @types/moralis
-```
+## Typescript support
 
-Types are updated manually after every release. If a definition doesn't exist, please submit a pull request to [@types/moralis][types-moralis]
+Typescript types are supported out-of-the box.
+The types are defined in `/types`. These are updated with every release.
