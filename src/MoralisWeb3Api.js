@@ -22,6 +22,12 @@ const endpoints_v2 = [
   },
   {
     method: 'GET',
+    group: 'native',
+    name: 'getNFTTransfersByBlock',
+    url: '/block/:block_number_or_hash/nft/transfers',
+  },
+  {
+    method: 'GET',
     group: 'token',
     name: 'getTokenMetadata',
     url: '/erc20/metadata',
