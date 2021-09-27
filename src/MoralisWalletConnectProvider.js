@@ -32,11 +32,13 @@ class MoralisWalletConnectProvider {
         this.provider = new WalletConnectProvider.default({
           rpc: MORALIS_RPCS,
           chainId: options.chainId,
+          mobileLinks: options.mobileLinks,
         });
       } else {
         this.provider = new window.WalletConnectProvider.default({
           rpc: MORALIS_RPCS,
           chainId: options.chainId,
+          mobileLinks: options.mobileLinks,
         });
       }
     }

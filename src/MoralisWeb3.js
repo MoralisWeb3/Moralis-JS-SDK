@@ -295,6 +295,57 @@ class MoralisWeb3 {
     return transferOperation;
   }
 
+  // eslint-disable-next-line camelcase
+  static async executeFunction({ contract_address, abi, function_name, params = {} } = {}) {
+    const web3 = await MoralisWeb3.enable();
+
+    const contractOptions = {};
+
+    // eslint-disable-next-line camelcase
+    const Function = abi.find(x => x.name === function_name);
+
+    if (!Function) throw new Error('Function does not exist in abi');
+
+    const stateMutability = Function?.stateMutability;
+
+    const isReadFunction = stateMutability === 'view' || stateMutability === 'pure';
+
+    if (!isReadFunction) {
+      if (!params.from) {
+        const currentAddress = await (await web3.eth.getAccounts())[0];
+        if (!currentAddress) throw new Error('From address is required');
+        contractOptions.from = currentAddress;
+      }
+    }
+
+    const errors = [];
+
+    for (const input of Function.inputs) {
+      const value = params[input.name];
+      if (!(typeof value !== 'undefined' && value)) {
+        errors.push(`${input.name} is required`);
+      }
+    }
+
+    if (errors.length > 0) {
+      throw errors;
+    }
+
+    const parsedInputs = Function.inputs.map(x => {
+      return params[x.name];
+    });
+
+    const contract = new web3.eth.Contract(abi, contract_address, contractOptions);
+
+    const customFunction = contract.methods[function_name];
+
+    const response = isReadFunction
+      ? await customFunction(...Object.values(parsedInputs)).call()
+      : await customFunction(...Object.values(parsedInputs)).send();
+
+    return response;
+  }
+
   static getSigningData() {
     return `Moralis Authentication`;
     // const data = `Moralis Authentication`;

@@ -22,6 +22,12 @@ const endpointsV2 = [
   },
   {
     method: 'GET',
+    group: 'native',
+    name: 'getNFTTransfersByBlock',
+    url: '/block/:block_number_or_hash/nft/transfers',
+  },
+  {
+    method: 'GET',
     group: 'token',
     name: 'getTokenMetadata',
     url: '/erc20/metadata',
@@ -55,6 +61,12 @@ const endpointsV2 = [
     group: 'token',
     name: 'getAllTokenIds',
     url: '/nft/:address',
+  },
+  {
+    method: 'GET',
+    group: 'token',
+    name: 'searchNFTs',
+    url: '/nft/search',
   },
   {
     method: 'GET',

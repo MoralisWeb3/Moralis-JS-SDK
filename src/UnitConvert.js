@@ -11,6 +11,10 @@ class UnitConverter {
   static Token(value, decimals) {
     return MWeb3.utils.toBN(`0x${(value * 10 ** decimals).toString(16)}`);
   }
+
+  static FromWei(value, decimals) {
+    return value / Math.pow(10, decimals ?? 18);
+  }
 }
 
 module.exports = UnitConverter;
