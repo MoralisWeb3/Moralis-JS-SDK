@@ -112,7 +112,7 @@ class MoralisWeb3 {
   }
   static async link(account, options) {
     const web3 = await MoralisWeb3.enable(options);
-    const data = MoralisWeb3.getSigningData();
+    const data = options?.signingMessage || MoralisWeb3.getSigningData();
     const user = await ParseUser.current();
     const ethAddress = account.toLowerCase();
     const EthAddress = ParseObject.extend('_EthAddress');
