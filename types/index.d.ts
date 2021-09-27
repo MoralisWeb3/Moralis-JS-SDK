@@ -1881,5 +1881,5 @@ export namespace Moralis {
   function isEncryptedUserEnabled(): boolean;
 }
 
-export default Moralis
-export type Moralis = typeof Moralis
+export default Moralis;
+export type Moralis = typeof Moralis;

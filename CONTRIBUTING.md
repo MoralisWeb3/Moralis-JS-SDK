@@ -33,9 +33,9 @@ By default, the watch command will rebuild the SDK for the browser platform. The
 ### Pull Requests
 
 1. Fork the repo and create your branch from `main`.
-3. If you've changed APIs, update the documentation.
-4. Make sure your code lints and is correctly formatted.
-5. Make sure Typescript definitions are updated
+2. If you've changed APIs, update the documentation.
+3. Make sure your code lints and is correctly formatted.
+4. Make sure Typescript definitions are updated
 
 ### Known Issues
 

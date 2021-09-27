@@ -38,6 +38,7 @@ const Moralis = require('moralis/node');
 ```
 
 For React Native applications, include `'moralis/react-native.js'`:
+
 ```js
 // In a React Native application
 const Moralis = require('moralis/react-native.js');
@@ -48,6 +49,7 @@ Moralis.setAsyncStorage(AsyncStorage);
 ```
 
 For TypeScript applications, install `'@types/moralis'`:
+
 ```
 $ npm install @types/moralis
 ```
