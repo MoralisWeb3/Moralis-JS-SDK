@@ -324,7 +324,9 @@ export interface components {
       | "bsc"
       | "0x38"
       | "bsc testnet"
-      | "0x61";
+      | "0x61"
+      | "avalanche"
+      | "0xa86a";
     nft: {
       /** The address of the contract of the NFT */
       token_address: string;
@@ -400,6 +402,8 @@ export interface components {
       from_address?: string;
       /** The address that recieved the NFT */
       to_address: string;
+      /** The value that was sent in the transaction (ETH/BNB/etc..) */
+      value?: string;
       /** The number of tokens transferred */
       amount?: string;
       /** The type of NFT contract standard */
