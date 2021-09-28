@@ -380,6 +380,15 @@ export namespace Moralis {
   class Web3API extends GeneratedWeb3API {}
 
   /**
+   * The Moralis Web3API.
+   */
+  class Units {
+    static ETH: (value: number) => string
+    static Token: (value: number, decimals: number) => string
+    static FromWei: (value: number, decimals: number) => number
+  }
+
+  /**
    * Creates a new ACL.
    * If no argument is given, the ACL has no permissions for anyone.
    * If the argument is a Moralis.User, the ACL will have read and write
