@@ -28,6 +28,12 @@ const endpointsV2 = [
   },
   {
     method: 'GET',
+    group: 'native',
+    name: 'getDateToBlock',
+    url: '/dateToBlock',
+  },
+  {
+    method: 'GET',
     group: 'token',
     name: 'getTokenMetadata',
     url: '/erc20/metadata',

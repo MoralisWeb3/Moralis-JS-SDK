@@ -112,7 +112,7 @@ class MoralisWeb3 {
   }
   static async link(account, options) {
     const web3 = await MoralisWeb3.enable(options);
-    const data = MoralisWeb3.getSigningData();
+    const data = options?.signingMessage || MoralisWeb3.getSigningData();
     const user = await ParseUser.current();
     const ethAddress = account.toLowerCase();
     const EthAddress = ParseObject.extend('_EthAddress');
@@ -158,7 +158,8 @@ class MoralisWeb3 {
           if (!options) options = {};
           const response = await run(`${plugin.name}_${f}`, params);
           if (!response.data.success) {
-            throw new Error('Something went wrong', response.data);
+            const error = JSON.stringify(JSON.parse(response.data.data), null, 2);
+            throw new Error(`Something went wrong\n${error}`);
           }
           if (options.disableTriggers !== true) {
             const triggerReturn = await this.handleTriggers(response.data.result.triggers);
@@ -233,25 +234,33 @@ class MoralisWeb3 {
   static async transfer({
     type = 'native',
     receiver = '',
+    contractAddress = '',
     // eslint-disable-next-line camelcase
-    contract_address = '',
+    contract_address,
     amount = '',
+    tokenId = '',
     // eslint-disable-next-line camelcase
-    token_id = '',
+    token_id,
     system = 'evm',
   } = {}) {
+    // Allow snake-case for backwards compatibility
+    // eslint-disable-next-line camelcase
+    contractAddress = contractAddress || contract_address;
+    // eslint-disable-next-line camelcase
+    tokenId = tokenId || token_id;
+
     const options = {
       receiver,
-      contract_address,
+      contractAddress,
       amount,
-      token_id,
+      tokenId,
       system,
     };
 
     TransferUtils.isSupportedType(type);
     TransferUtils.validateInput(type, options);
 
-    const web3 = await MoralisWeb3.enable(options);
+    const web3 = await MoralisWeb3.enable();
 
     const sender = await (await web3.eth.getAccounts())[0];
 
@@ -261,7 +270,7 @@ class MoralisWeb3 {
     let customToken;
 
     if (type !== 'native')
-      customToken = new web3.eth.Contract(TransferUtils.abi[type], contract_address);
+      customToken = new web3.eth.Contract(TransferUtils.abi[type], contractAddress);
 
     switch (type) {
       case 'native':
@@ -277,13 +286,13 @@ class MoralisWeb3 {
         });
         break;
       case 'erc721':
-        transferOperation = customToken.methods.safeTransferFrom(sender, receiver, token_id).send({
+        transferOperation = customToken.methods.safeTransferFrom(sender, receiver, tokenId).send({
           from: sender,
         });
         break;
       case 'erc1155':
         transferOperation = customToken.methods
-          .safeTransferFrom(sender, receiver, token_id, amount, '0x')
+          .safeTransferFrom(sender, receiver, tokenId, amount, '0x')
           .send({
             from: sender,
           });
@@ -295,18 +304,16 @@ class MoralisWeb3 {
     return transferOperation;
   }
 
-  // eslint-disable-next-line camelcase
-  static async executeFunction({ contract_address, abi, function_name, params = {} } = {}) {
+  static async executeFunction({ contractAddress, abi, functionName, params = {} } = {}) {
     const web3 = await MoralisWeb3.enable();
 
     const contractOptions = {};
 
-    // eslint-disable-next-line camelcase
-    const Function = abi.find(x => x.name === function_name);
+    const functionData = abi.find(x => x.name === functionName);
 
-    if (!Function) throw new Error('Function does not exist in abi');
+    if (!functionData) throw new Error('Function does not exist in abi');
 
-    const stateMutability = Function?.stateMutability;
+    const stateMutability = functionData?.stateMutability;
 
     const isReadFunction = stateMutability === 'view' || stateMutability === 'pure';
 
@@ -320,7 +327,7 @@ class MoralisWeb3 {
 
     const errors = [];
 
-    for (const input of Function.inputs) {
+    for (const input of functionData.inputs) {
       const value = params[input.name];
       if (!(typeof value !== 'undefined' && value)) {
         errors.push(`${input.name} is required`);
@@ -331,13 +338,13 @@ class MoralisWeb3 {
       throw errors;
     }
 
-    const parsedInputs = Function.inputs.map(x => {
+    const parsedInputs = functionData.inputs.map(x => {
       return params[x.name];
     });
 
-    const contract = new web3.eth.Contract(abi, contract_address, contractOptions);
+    const contract = new web3.eth.Contract(abi, contractAddress, contractOptions);
 
-    const customFunction = contract.methods[function_name];
+    const customFunction = contract.methods[functionName];
 
     const response = isReadFunction
       ? await customFunction(...Object.values(parsedInputs)).call()
