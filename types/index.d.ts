@@ -4,6 +4,9 @@
 
 import { EventEmitter } from 'events';
 import NativeWeb3 from 'web3';
+import { PromiEvent } from 'web3-core';
+import { Contract } from 'web3-eth-contract';
+
 import { GeneratedWeb3API } from './generated/web3api';
 
 declare enum ErrorCode {
@@ -287,6 +290,33 @@ export namespace Moralis {
     result: number;
   }
 
+  type TransferType = 'native' | 'erc20' | 'erc721' | 'erc1155';
+  type TransferSystem = 'evm';
+  interface TransferOptions {
+    type?: TransferType;
+    receiver?: string;
+    contractAddress?: string;
+    /** @deprecated use contractAddress field instead */
+    contract_address?: string;
+    amount?: string;
+    tokenId?: string;
+    /** @deprecated use tokenId field instead */
+    token_id?: string;
+    system?: TransferSystem;
+  }
+  type TransferResult = unknown;
+
+  type ExecuteFunctionParams = Record<string, any>;
+  interface ExecuteFunctionOptions {
+    contractAddress: string;
+    abi: object;
+    functionName: string;
+    params?: ExecuteFunctionParams;
+  }
+  type ExecuteFunctionCallResult = any;
+  type ExecuteFunctionSendResult = PromiEvent<Contract>;
+  type ExecuteFunctionResult = ExecuteFunctionCallResult | ExecuteFunctionSendResult;
+
   // ETH listeners
   interface ConnectInfo {
     chainId: string;
@@ -339,6 +369,9 @@ export namespace Moralis {
     static link: (account: string, options?: LinkOptions) => Promise<User>;
     static unlink: (account: string) => Promise<User>;
 
+    static transfer: (options: TransferOptions) => Promise<TransferResult>;
+    static executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
+
     // Helper functions
     static getWeb3Provider: (options: Pick<EnableOptions, 'provider'>) => Web3Provider;
     static isDotAuth: (options: Pick<EnableOptions, 'provider'>) => boolean;
@@ -378,6 +411,15 @@ export namespace Moralis {
    * The Moralis Web3API.
    */
   class Web3API extends GeneratedWeb3API {}
+
+  /**
+   * The Moralis Web3API.
+   */
+  class Units {
+    static ETH: (value: number) => string;
+    static Token: (value: number, decimals: number) => string;
+    static FromWei: (value: number, decimals: number) => number;
+  }
 
   /**
    * Creates a new ACL.
@@ -1881,5 +1923,5 @@ export namespace Moralis {
   function isEncryptedUserEnabled(): boolean;
 }
 
-export default Moralis
-export type Moralis = typeof Moralis
+export default Moralis;
+export type Moralis = typeof Moralis;

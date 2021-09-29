@@ -128,19 +128,19 @@ const tokenParams = {
     amount: '',
   },
   erc20: {
-    contract_address: '',
+    contractAddress: '',
     receiver: '',
     amount: '',
   },
   erc721: {
-    contract_address: '',
+    contractAddress: '',
     receiver: '',
-    token_id: '',
+    tokenId: '',
   },
   erc1155: {
-    contract_address: '',
+    contractAddress: '',
     receiver: '',
-    token_id: '',
+    tokenId: '',
     amount: '',
   },
 };
