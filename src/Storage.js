@@ -91,7 +91,7 @@ const Storage = {
     if (path[0] === '/') {
       path = path.substr(1);
     }
-    return 'Parse/' + CoreManager.get('APPLICATION_ID') + '/' + path;
+    return `Parse/${CoreManager.get('APPLICATION_ID')}/${path}`;
   },
 
   _clear() {

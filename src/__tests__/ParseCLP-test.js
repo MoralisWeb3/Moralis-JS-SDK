@@ -116,8 +116,8 @@ describe('ParseCLP', () => {
   });
 
   it('throws a helpful error when constructed with a function', () => {
-    expect(function () {
-      new ParseCLP(function () {});
+    expect(() => {
+      new ParseCLP(() => {});
     }).toThrow('ParseCLP constructed with a function. Did you forget ()?');
   });
 
@@ -178,7 +178,7 @@ describe('ParseCLP', () => {
       readUserFields: [1234],
       writeUserFields: ['owner'],
     };
-    expect(function () {
+    expect(() => {
       new ParseCLP(clp);
     }).toThrow('Tried to create an CLP with an invalid permission value.');
   });

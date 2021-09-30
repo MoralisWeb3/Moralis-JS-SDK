@@ -111,7 +111,7 @@ const LocalDatastore = {
 
     let pinned = localDatastore[pinName] || [];
     pinned = pinned.filter(item => !objectKeys.includes(item));
-    if (pinned.length == 0) {
+    if (pinned.length === 0) {
       promises.push(this.unPinWithName(pinName));
       delete localDatastore[pinName];
     } else {
@@ -151,13 +151,12 @@ const LocalDatastore = {
   _traverse(object: any, encountered: any) {
     if (!object.objectId) {
       return;
-    } else {
-      const objectKey = this.getKeyForObject(object);
-      if (encountered[objectKey]) {
-        return;
-      }
-      encountered[objectKey] = object;
     }
+    const objectKey = this.getKeyForObject(object);
+    if (encountered[objectKey]) {
+      return;
+    }
+    encountered[objectKey] = object;
     for (const key in object) {
       let json = object[key];
       if (!object[key]) {
@@ -266,7 +265,7 @@ const LocalDatastore = {
         let pinned = localDatastore[key] || [];
         if (pinned.includes(objectKey)) {
           pinned = pinned.filter(item => item !== objectKey);
-          if (pinned.length == 0) {
+          if (pinned.length === 0) {
             promises.push(this.unPinWithName(key));
             delete localDatastore[key];
           } else {
@@ -373,6 +372,7 @@ const LocalDatastore = {
       await Promise.all(pinPromises);
       this.isSyncing = false;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error syncing LocalDatastore: ', error);
       this.isSyncing = false;
     }
@@ -392,6 +392,7 @@ const LocalDatastore = {
 
   checkIfEnabled() {
     if (!this.isEnabled) {
+      // eslint-disable-next-line no-console
       console.error('Parse.enableLocalDatastore() must be called first');
     }
     return this.isEnabled;

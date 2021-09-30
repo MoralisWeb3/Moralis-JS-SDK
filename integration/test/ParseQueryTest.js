@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const clear = require('./clear');
 const Parse = require('../../node');
@@ -272,7 +270,7 @@ describe('Parse Query', () => {
 
     function makeDates(stringArray) {
       return stringArray.map(date => {
-        return parseDate(date + 'T00:00:00Z');
+        return parseDate(`${date}T00:00:00Z`);
       });
     }
 
@@ -529,7 +527,7 @@ describe('Parse Query', () => {
       .ascending('number')
       .find()
       .then(numbers => {
-        const id = numbers[5].id;
+        const { id } = numbers[5];
         const query = new Parse.Query('BoxedNumber');
         query.equalTo('objectId', id);
         query.ascending('number');
@@ -1223,9 +1221,9 @@ describe('Parse Query', () => {
       "\\E' !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU" +
       "VWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'";
     Parse.Object.saveAll([
-      new TestObject({ contains: true, myString: 'zax' + someAscii + 'qub' }),
-      new TestObject({ contains: true, myString: 'start' + someAscii }),
-      new TestObject({ contains: true, myString: someAscii + 'end' }),
+      new TestObject({ contains: true, myString: `zax${someAscii}qub` }),
+      new TestObject({ contains: true, myString: `start${someAscii}` }),
+      new TestObject({ contains: true, myString: `${someAscii}end` }),
       new TestObject({ contains: true, myString: someAscii }),
     ])
       .then(() => {

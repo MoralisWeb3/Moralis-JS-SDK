@@ -25,10 +25,6 @@ import MoralisWeb3 from './MoralisWeb3';
  * @hideconstructor
  */
 class Moralis extends MoralisWeb3 {
-  constructor(...args) {
-    super(...args);
-  }
-
   /**
    * Call this method first to set up your authentication tokens for Moralis.
    *
@@ -290,9 +286,8 @@ Moralis.dumpLocalDatastore = function () {
   if (!Moralis.LocalDatastore.isEnabled) {
     console.log('Moralis.enableLocalDatastore() must be called first'); // eslint-disable-line no-console
     return Promise.resolve({});
-  } else {
-    return Moralis.LocalDatastore._getAllContents();
   }
+  return Moralis.LocalDatastore._getAllContents();
 };
 
 /**

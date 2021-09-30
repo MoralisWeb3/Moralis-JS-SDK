@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 function b64Digit(number: number): string {
   if (number < 26) {
     return String.fromCharCode(65 + number);
@@ -14,7 +15,7 @@ function b64Digit(number: number): string {
   if (number === 63) {
     return '/';
   }
-  throw new TypeError('Tried to encode large digit ' + number + ' in base64.');
+  throw new TypeError(`Tried to encode large digit ${number} in base64.`);
 }
 
 function encodeBase64(bytes: Array<number>): string {

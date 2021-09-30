@@ -1,0 +1,8 @@
+2.0.0.md
+CHANGELOG.md
+
+# Output folders
+/out
+/coverage
+/dist
+/types/generated

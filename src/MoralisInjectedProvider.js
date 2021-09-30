@@ -7,7 +7,7 @@ async function getWeb3FromBrowser() {
   const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
 
   const provider = window.web3?.currentProvider;
-  const ethereum = window.ethereum;
+  const { ethereum } = window;
 
   if (provider?.isTrust) {
     return new MWeb3(provider);

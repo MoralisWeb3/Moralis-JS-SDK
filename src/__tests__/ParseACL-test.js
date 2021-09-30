@@ -56,8 +56,8 @@ describe('ParseACL', () => {
   });
 
   it('throws a helpful error when constructed with a function', () => {
-    expect(function () {
-      new ParseACL(function () {});
+    expect(() => {
+      new ParseACL(() => {});
     }).toThrow('ParseACL constructed with a function. Did you forget ()?');
   });
 

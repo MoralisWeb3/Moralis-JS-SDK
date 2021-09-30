@@ -1,5 +1,5 @@
 const express = require('express');
-const ParseServer = require('parse-server').ParseServer;
+const { ParseServer } = require('parse-server');
 const app = express();
 const CustomAuth = require('./test/CustomAuth');
 
@@ -40,7 +40,7 @@ const api = new ParseServer({
 
 app.use('/parse', api);
 
-const TestUtils = require('parse-server').TestUtils;
+const { TestUtils } = require('parse-server');
 
 app.get('/clear/:fast', (req, res) => {
   const { fast } = req.params;

@@ -56,11 +56,11 @@ export function remove(hook) {
 
 const DefaultController = {
   get(type, functionName, triggerName) {
-    let url = '/hooks/' + type;
+    let url = `/hooks/${type}`;
     if (functionName) {
-      url += '/' + functionName;
+      url += `/${functionName}`;
       if (triggerName) {
-        url += '/' + triggerName;
+        url += `/${triggerName}`;
       }
     }
     return this.sendRequest('GET', url);
@@ -81,10 +81,10 @@ const DefaultController = {
   remove(hook) {
     let url;
     if (hook.functionName) {
-      url = '/hooks/functions/' + hook.functionName;
+      url = `/hooks/functions/${hook.functionName}`;
       delete hook.functionName;
     } else if (hook.className && hook.triggerName) {
-      url = '/hooks/triggers/' + hook.className + '/' + hook.triggerName;
+      url = `/hooks/triggers/${hook.className}/${hook.triggerName}`;
       delete hook.className;
       delete hook.triggerName;
     } else {
@@ -96,10 +96,10 @@ const DefaultController = {
   update(hook) {
     let url;
     if (hook.functionName && hook.url) {
-      url = '/hooks/functions/' + hook.functionName;
+      url = `/hooks/functions/${hook.functionName}`;
       delete hook.functionName;
     } else if (hook.className && hook.triggerName && hook.url) {
-      url = '/hooks/triggers/' + hook.className + '/' + hook.triggerName;
+      url = `/hooks/triggers/${hook.className}/${hook.triggerName}`;
       delete hook.className;
       delete hook.triggerName;
     } else {

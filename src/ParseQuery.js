@@ -54,7 +54,7 @@ export type QueryJSON = {
  * @returns {string}
  */
 function quote(s: string): string {
-  return '\\Q' + s.replace('\\E', '\\E\\\\E\\Q') + '\\E';
+  return `\\Q${s.replace('\\E', '\\E\\\\E\\Q')}\\E`;
 }
 
 /**
@@ -69,6 +69,7 @@ function _getClassNameFromQueries(queries: Array<ParseQuery>): ?string {
   let className = null;
   queries.forEach(q => {
     if (!className) {
+      // eslint-disable-next-line prefer-destructuring
       className = q.className;
     }
 
@@ -108,7 +109,7 @@ function handleSelectResult(data: any, select: Array<string>) {
           obj = obj[component];
         }
 
-        //add this path component to the server mask so we can fill it in later if needed
+        // add this path component to the server mask so we can fill it in later if needed
         if (index < arr.length - 1) {
           if (!serverMask[component]) {
             serverMask[component] = {};
@@ -135,7 +136,7 @@ function handleSelectResult(data: any, select: Array<string>) {
 }
 
 function copyMissingDataWithMask(src, dest, mask, copyThisLevel) {
-  //copy missing elements at this level
+  // copy missing elements at this level
   if (copyThisLevel) {
     for (const key in src) {
       if (src.hasOwnProperty(key) && !dest.hasOwnProperty(key)) {
@@ -145,7 +146,7 @@ function copyMissingDataWithMask(src, dest, mask, copyThisLevel) {
   }
   for (const key in mask) {
     if (dest[key] !== undefined && dest[key] !== null && src !== undefined && src !== null) {
-      //traverse into objects as needed
+      // traverse into objects as needed
       copyMissingDataWithMask(src[key], dest[key], mask[key], true);
     }
   }
@@ -275,7 +276,8 @@ class ParseQuery {
     this._include = [];
     this._exclude = [];
     this._count = false;
-    this._limit = -1; // negative limit is not sent in the server request
+    // negative limit is not sent in the server request
+    this._limit = -1;
     this._skip = 0;
     this._readPreference = null;
     this._includeReadPreference = null;
@@ -357,7 +359,7 @@ class ParseQuery {
    * @returns {string}
    */
   _regexStartWith(string: string): string {
-    return '^' + quote(string);
+    return `^${quote(string)}`;
   }
 
   async _handleOfflineQuery(params: any) {
@@ -397,9 +399,11 @@ class ParseQuery {
       });
     }
 
-    let count; // count total before applying limit/skip
+    // count total before applying limit/skip
+    let count;
     if (params.count) {
-      count = results.length; // total count from response
+      // total count from response
+      count = results.length;
     }
 
     if (params.skip) {
@@ -411,6 +415,7 @@ class ParseQuery {
     }
     let limit = results.length;
     if (params.limit !== 0 && params.limit < results.length) {
+      // eslint-disable-next-line prefer-destructuring
       limit = params.limit;
     }
 
@@ -690,13 +695,12 @@ class ParseQuery {
         return ParseObject.fromJSON(data, !select);
       });
 
-      const count = response.count;
+      const { count } = response;
 
       if (typeof count === 'number') {
         return { results, count };
-      } else {
-        return results;
       }
+      return results;
     });
   }
 
@@ -1191,7 +1195,7 @@ class ParseQuery {
     return array;
   }
 
-  /** Query Conditions **/
+  /** Query Conditions * */
 
   /**
    * Adds a constraint to the query that requires a particular key's value to
@@ -1582,7 +1586,7 @@ class ParseQuery {
     if (typeof suffix !== 'string') {
       throw new Error('The value being searched for must be a string.');
     }
-    return this._addCondition(key, '$regex', quote(suffix) + '$');
+    return this._addCondition(key, '$regex', `${quote(suffix)}$`);
   }
 
   /**
@@ -1622,11 +1626,10 @@ class ParseQuery {
     if (sorted || sorted === undefined) {
       this.near(key, point);
       return this._addCondition(key, '$maxDistance', maxDistance);
-    } else {
-      return this._addCondition(key, '$geoWithin', {
-        $centerSphere: [[point.longitude, point.latitude], maxDistance],
-      });
     }
+    return this._addCondition(key, '$geoWithin', {
+      $centerSphere: [[point.longitude, point.latitude], maxDistance],
+    });
   }
 
   /**
@@ -1718,7 +1721,7 @@ class ParseQuery {
     return this._addCondition(key, '$geoIntersects', { $point: point });
   }
 
-  /** Query Orderings **/
+  /** Query Orderings * */
 
   /**
    * Sorts the results in ascending order by the given key.
@@ -1787,7 +1790,7 @@ class ParseQuery {
           .replace(/\s/g, '')
           .split(',')
           .map(k => {
-            return '-' + k;
+            return `-${k}`;
           })
       );
     });
@@ -1795,7 +1798,7 @@ class ParseQuery {
     return this;
   }
 
-  /** Query Options **/
+  /** Query Options * */
 
   /**
    * Sets the number of results to skip before returning any results.
@@ -1938,7 +1941,7 @@ class ParseQuery {
   }
 
   onChange(onUpdate: any, onError?: any, sessionToken?: string): Promise<LiveQuerySubscription> {
-    var sub = null;
+    let sub = null;
     this.subscribe()
       .then(subscription => {
         sub = subscription;
@@ -1952,8 +1955,9 @@ class ParseQuery {
 
         subscription.on('error', err => {
           if (onError) {
-            onError(error);
+            onError(err);
           } else {
+            // eslint-disable-next-line no-console
             console.warn('Subscription error', err);
           }
         });
@@ -1962,6 +1966,7 @@ class ParseQuery {
         if (onError) {
           onError(err);
         } else {
+          // eslint-disable-next-line no-console
           console.warn('Subscription connection error', err);
         }
       });
@@ -2123,13 +2128,13 @@ class ParseQuery {
 const DefaultController = {
   find(className: string, params: QueryJSON, options: RequestOptions): Promise<Array<ParseObject>> {
     const RESTController = CoreManager.getRESTController();
-    return RESTController.request('GET', 'classes/' + className, params, options);
+    return RESTController.request('GET', `classes/${className}`, params, options);
   },
 
   aggregate(className: string, params: any, options: RequestOptions): Promise<Array<mixed>> {
     const RESTController = CoreManager.getRESTController();
 
-    return RESTController.request('GET', 'aggregate/' + className, params, options);
+    return RESTController.request('GET', `aggregate/${className}`, params, options);
   },
 };
 

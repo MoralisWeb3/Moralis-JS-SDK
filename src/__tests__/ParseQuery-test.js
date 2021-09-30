@@ -109,7 +109,7 @@ describe('ParseQuery', () => {
   });
 
   it('throws when created with invalid data', () => {
-    expect(function () {
+    expect(() => {
       new ParseQuery();
     }).toThrow('A ParseQuery must be constructed with a ParseObject or class name.');
   });
@@ -718,7 +718,8 @@ describe('ParseQuery', () => {
         shippedTo: {
           $geoWithin: {
             $centerSphere: [
-              [40, 20], // This takes [lng, lat] vs. ParseGeoPoint [lat, lng].
+              // This takes [lng, lat] vs. ParseGeoPoint [lat, lng].
+              [40, 20],
               2,
             ],
           },
@@ -732,7 +733,8 @@ describe('ParseQuery', () => {
         shippedTo: {
           $geoWithin: {
             $centerSphere: [
-              [30, 20], // This takes [lng, lat] vs. ParseGeoPoint [lat, lng].
+              // This takes [lng, lat] vs. ParseGeoPoint [lat, lng].
+              [30, 20],
               1,
             ],
           },
@@ -746,7 +748,8 @@ describe('ParseQuery', () => {
         shippedTo: {
           $geoWithin: {
             $centerSphere: [
-              [30, 30], // This takes [lng, lat] vs. ParseGeoPoint [lat, lng].
+              // This takes [lng, lat] vs. ParseGeoPoint [lat, lng].
+              [30, 30],
               1,
             ],
           },
@@ -2095,7 +2098,8 @@ describe('ParseQuery', () => {
       const result = await q.reduce(callback);
       expect(result.id).toBe('I55');
       expect(result.attributes.number).toBe(6);
-      expect(callCount).toBe(2); // Not called for the first object when used as initial value
+      // Not called for the first object when used as initial value
+      expect(callCount).toBe(2);
     });
 
     it('rejects with a TypeError when there are no results and no initial value was provided', async () => {
@@ -2319,10 +2323,13 @@ describe('ParseQuery', () => {
         return q2.find();
       })
       .then(results => {
-        expect(results[0].get('name')).toBe('Name'); //query didn't select this
-        expect(results[0].get('other')).toBe('other2'); //query selected and updated this
-        expect(results[0].has('tbd')).toBe(false); //query selected this and it wasn't returned
-        //sub-objects should work similarly
+        // query didn't select this
+        expect(results[0].get('name')).toBe('Name');
+        // query selected and updated this
+        expect(results[0].get('other')).toBe('other2');
+        // query selected this and it wasn't returned
+        expect(results[0].has('tbd')).toBe(false);
+        // sub-objects should work similarly
         expect(results[0].get('subObject').key1).toBe('updatedValue');
         expect(results[0].get('subObject').key2).toBe('value2');
         expect(results[0].get('subObject').key3).toBeUndefined();
@@ -2442,10 +2449,13 @@ describe('ParseQuery', () => {
         return q2.first();
       })
       .then(result => {
-        expect(result.get('name')).toBe('Name'); //query didn't select this
-        expect(result.get('other')).toBe('other2'); //query selected and updated this
-        expect(result.has('tbd')).toBe(false); //query selected this and it wasn't returned
-        //sub-objects should work similarly
+        // query didn't select this
+        expect(result.get('name')).toBe('Name');
+        // query selected and updated this
+        expect(result.get('other')).toBe('other2');
+        // query selected this and it wasn't returned
+        expect(result.has('tbd')).toBe(false);
+        // sub-objects should work similarly
         expect(result.get('subObject').key1).toBe('updatedValue');
         expect(result.get('subObject').key2).toBe('value2');
         expect(result.get('subObject').key3).toBeUndefined();
@@ -2916,13 +2926,18 @@ describe('ParseQuery', () => {
         return q2.find();
       })
       .then(() => {
-        expect(testObject.has('subObject1')).toBe(false); //selected and not returned
-        expect(testObject.has('subObject2')).toBe(false); //selected and not returned
-        expect(testObject.has('subObject3')).toBe(true); //not selected, so should still be there
-        expect(testObject.has('subObject4')).toBe(true); //selected and just added
+        // selected and not returned
+        expect(testObject.has('subObject1')).toBe(false);
+        // selected and not returned
+        expect(testObject.has('subObject2')).toBe(false);
+        // not selected, so should still be there
+        expect(testObject.has('subObject3')).toBe(true);
+        // selected and just added
+        expect(testObject.has('subObject4')).toBe(true);
         expect(testObject.has('subObject5')).toBe(true);
         expect(testObject.get('subObject5').subSubObject).toBeDefined();
-        expect(testObject.get('subObject5').subSubObject.bar).toBeDefined(); //not selected but a sibiling was, so should still be there
+        // not selected but a sibiling was, so should still be there
+        expect(testObject.get('subObject5').subSubObject.bar).toBeDefined();
       })
       .then(
         () => {

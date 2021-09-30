@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const clear = require('./clear');
 const Parse = require('../../node');
@@ -78,7 +76,8 @@ describe('Parse Aggregate Query', () => {
       {
         // Transform className$objectId to objectId and store in new field tempPointer
         project: {
-          tempPointer: { $substr: ['$_p_pointer', 11, -1] }, // Remove TestObject$
+          // Remove TestObject$
+          tempPointer: { $substr: ['$_p_pointer', 11, -1] },
         },
       },
       {
