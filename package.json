@@ -1,6 +1,6 @@
 {
   "name": "moralis",
-  "version": "0.0.63",
+  "version": "0.0.64",
   "description": "The Moralis JavaScript SDK",
   "homepage": "https://docs.moralis.io",
   "keywords": [
@@ -37,7 +37,7 @@
     "lint-staged": "^11.1.2",
     "react-native-crypto-js": "1.0.0",
     "uuid": "3.4.0",
-    "web3": "^1.3.3",
+    "web3": "^1.3.6",
     "ws": "7.4.2",
     "xmlhttprequest": "1.8.0"
   },
