@@ -10,7 +10,7 @@ about: A new pull request
 <!--
     Check every following box [x] before submitting your PR.
     Click the "Preview" tab for better readability.
-    Thanks for contributing to Parse Platform!
+    Thanks for contributing to Moralis!
 -->
 
 - [ ] I am not disclosing a [vulnerability](https://github.com/MoralisWeb3/Moralis-JS-SDK/blob/main/SECURITY.md).
