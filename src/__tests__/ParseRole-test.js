@@ -74,7 +74,7 @@ describe('ParseRole', () => {
     ).toEqual(
       new ParseError(
         ParseError.OTHER_CAUSE,
-        "A role's name can be only contain alphanumeric characters, _, " + '-, and spaces.'
+        `A role's name can be only contain alphanumeric characters, _, -, and spaces.`
       )
     );
 

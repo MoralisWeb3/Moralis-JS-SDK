@@ -34,7 +34,7 @@ class MoralisWalletConnectProvider {
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
-          }
+          },
         });
       } else {
         this.provider = new window.WalletConnectProvider.default({
@@ -42,7 +42,7 @@ class MoralisWalletConnectProvider {
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
-          }
+          },
         });
       }
     }

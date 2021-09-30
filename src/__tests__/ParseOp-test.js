@@ -18,7 +18,7 @@ const mockObject = function (className, id) {
   this.className = className;
   this.id = id;
   if (!id) {
-    this._localId = 'local' + localCount++;
+    this._localId = `local${localCount++}`;
   }
 };
 mockObject.prototype._getId = function () {
@@ -114,10 +114,10 @@ describe('ParseOp', () => {
   });
 
   it('can create and apply Increment Ops', () => {
-    expect(function () {
+    expect(() => {
       new IncrementOp();
     }).toThrow('Increment Op must be initialized with a numeric amount.');
-    expect(function () {
+    expect(() => {
       new IncrementOp('abc');
     }).toThrow('Increment Op must be initialized with a numeric amount.');
     const inc = new IncrementOp(1);
@@ -166,7 +166,7 @@ describe('ParseOp', () => {
 
     expect(add.applyTo(null)).toEqual(['element']);
     expect(add.applyTo(undefined)).toEqual(['element']);
-    expect(function () {
+    expect(() => {
       add.applyTo('abc');
     }).toThrow('Cannot add elements to a non-array value');
     expect(add.applyTo([12])).toEqual([12, 'element']);
@@ -215,7 +215,7 @@ describe('ParseOp', () => {
 
     expect(add.applyTo(null)).toEqual(['element']);
     expect(add.applyTo(undefined)).toEqual(['element']);
-    expect(function () {
+    expect(() => {
       add.applyTo('abc');
     }).toThrow('Cannot add elements to a non-array value');
     expect(add.applyTo([12])).toEqual([12, 'element']);
@@ -289,7 +289,7 @@ describe('ParseOp', () => {
 
     expect(rem.applyTo(null)).toEqual([]);
     expect(rem.applyTo(undefined)).toEqual([]);
-    expect(function () {
+    expect(() => {
       rem.applyTo('abc');
     }).toThrow('Cannot remove elements from a non-array value');
     expect(rem.applyTo([12])).toEqual([12]);
@@ -360,11 +360,11 @@ describe('ParseOp', () => {
     expect(r.relationsToAdd).toEqual([]);
     expect(r.relationsToRemove).toEqual([]);
 
-    expect(function () {
+    expect(() => {
       new RelationOp([new ParseObject('Item')], []);
     }).toThrow('You cannot add or remove an unsaved Parse Object from a relation');
 
-    expect(function () {
+    expect(() => {
       const a = new ParseObject('Item');
       a.id = 'I1';
       const b = new ParseObject('Delivery');

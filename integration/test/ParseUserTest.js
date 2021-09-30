@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const clear = require('./clear');
 const Parse = require('../../node');
@@ -7,10 +5,6 @@ const Parse = require('../../node');
 const TestObject = Parse.Object.extend('TestObject');
 
 class CustomUser extends Parse.User {
-  constructor(attributes) {
-    super(attributes);
-  }
-
   doSomething() {
     return 5;
   }
@@ -34,7 +28,8 @@ Parse.User._registerAuthenticationProvider(provider);
 const authResponse = {
   userID: 'test',
   accessToken: 'test',
-  expiresIn: 'test', // Should be unix timestamp
+  // Should be unix timestamp
+  expiresIn: 'test',
 };
 global.FB = {
   init: () => {},

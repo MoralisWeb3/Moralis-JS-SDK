@@ -174,16 +174,16 @@ class ParseGeoPoint {
       throw new TypeError('GeoPoint latitude and longitude must be valid numbers');
     }
     if (latitude < -90.0) {
-      throw new TypeError('GeoPoint latitude out of bounds: ' + latitude + ' < -90.0.');
+      throw new TypeError(`GeoPoint latitude out of bounds: ${latitude} < -90.0.`);
     }
     if (latitude > 90.0) {
-      throw new TypeError('GeoPoint latitude out of bounds: ' + latitude + ' > 90.0.');
+      throw new TypeError(`GeoPoint latitude out of bounds: ${latitude} > 90.0.`);
     }
     if (longitude < -180.0) {
-      throw new TypeError('GeoPoint longitude out of bounds: ' + longitude + ' < -180.0.');
+      throw new TypeError(`GeoPoint longitude out of bounds: ${longitude} < -180.0.`);
     }
     if (longitude > 180.0) {
-      throw new TypeError('GeoPoint longitude out of bounds: ' + longitude + ' > 180.0.');
+      throw new TypeError(`GeoPoint longitude out of bounds: ${longitude} > 180.0.`);
     }
   }
 

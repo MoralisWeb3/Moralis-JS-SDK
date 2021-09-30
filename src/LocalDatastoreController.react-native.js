@@ -29,6 +29,7 @@ const LocalDatastoreController = {
       await RNStorage.setItemAsync(name, values);
     } catch (e) {
       // Quota exceeded, possibly due to Safari Private Browsing mode
+      // eslint-disable-next-line no-console
       console.error(e.message);
     }
   },
@@ -51,6 +52,7 @@ const LocalDatastoreController = {
     try {
       results = await RNStorage.multiGet(batch);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error getAllContents: ', error);
       return {};
     }
@@ -70,7 +72,7 @@ const LocalDatastoreController = {
     const keys = await RNStorage.getAllKeysAsync();
     const storage = {};
     const results = await RNStorage.multiGet(keys);
-    results.map(pair => {
+    results.forEach(pair => {
       const [key, value] = pair;
       storage[key] = value;
     });
@@ -87,6 +89,7 @@ const LocalDatastoreController = {
       }
     }
     return RNStorage.multiRemove(batch).catch(error =>
+      // eslint-disable-next-line no-console
       console.error('Error clearing local datastore: ', error)
     );
   },

@@ -19,7 +19,7 @@ const encoded = {
 };
 
 export default function escape(str: string): string {
-  return str.replace(/[&<>\/'"]/g, function (char) {
+  return str.replace(/[&<>/'"]/g, char => {
     return encoded[char];
   });
 }

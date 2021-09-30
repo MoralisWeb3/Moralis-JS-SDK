@@ -205,28 +205,28 @@ describe('ParseLiveQuery', () => {
           expect(actualSubscription).toBeDefined();
 
           actualSubscription.emit('open');
-          expect(isCalled['open']).toBe(true);
+          expect(isCalled.open).toBe(true);
 
           actualSubscription.emit('close');
-          expect(isCalled['close']).toBe(true);
+          expect(isCalled.close).toBe(true);
 
           actualSubscription.emit('error');
-          expect(isCalled['error']).toBe(true);
+          expect(isCalled.error).toBe(true);
 
           actualSubscription.emit('create');
-          expect(isCalled['create']).toBe(true);
+          expect(isCalled.create).toBe(true);
 
           actualSubscription.emit('update');
-          expect(isCalled['update']).toBe(true);
+          expect(isCalled.update).toBe(true);
 
           actualSubscription.emit('enter');
-          expect(isCalled['enter']).toBe(true);
+          expect(isCalled.enter).toBe(true);
 
           actualSubscription.emit('leave');
-          expect(isCalled['leave']).toBe(true);
+          expect(isCalled.leave).toBe(true);
 
           actualSubscription.emit('delete');
-          expect(isCalled['delete']).toBe(true);
+          expect(isCalled.delete).toBe(true);
 
           done();
         } catch (e) {

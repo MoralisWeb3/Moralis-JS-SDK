@@ -15,11 +15,11 @@ module.exports = function asyncHelper(fn) {
   };
 
   return function () {
-    runs(function () {
+    runs(() => {
       fn(done);
     });
 
-    waitsFor(function () {
+    waitsFor(() => {
       return finished;
     });
   };

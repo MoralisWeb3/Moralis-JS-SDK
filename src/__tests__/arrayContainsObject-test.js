@@ -14,7 +14,7 @@ const mockObject = function (className, id) {
   this.className = className;
   this.id = id;
   if (!id) {
-    this._localId = 'local' + localCount++;
+    this._localId = `local${localCount++}`;
   }
 };
 mockObject.prototype._getId = function () {

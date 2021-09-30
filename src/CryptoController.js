@@ -3,6 +3,7 @@ let ENC;
 
 if (process.env.PARSE_BUILD === 'react-native') {
   const CryptoJS = require('react-native-crypto-js');
+  // eslint-disable-next-line prefer-destructuring
   AES = CryptoJS.AES;
   ENC = CryptoJS.enc.Utf8;
 } else {

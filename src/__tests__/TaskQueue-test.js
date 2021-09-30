@@ -104,7 +104,9 @@ describe('TaskQueue', () => {
     q.enqueue(() => {
       called[0] = true;
       return promises[0];
-    }).catch(() => {}); // need to catch here as we're using async/await and it fails the test
+    }).catch(() => {
+      // need to catch here as we're using async/await and it fails the test
+    });
     q.enqueue(() => {
       called[1] = true;
       return promises[1];

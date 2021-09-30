@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('assert');
 const clear = require('./clear');
 const Parse = require('../../node');
@@ -142,7 +140,7 @@ describe('Parse Object', () => {
   it('adds no fields on save (beyond createdAt and updatedAt)', done => {
     const object = new TestObject();
     object.save().then(() => {
-      const attributes = object.attributes;
+      const { attributes } = object;
       assert(attributes.createdAt);
       assert(attributes.updatedAt);
       const keys = Object.keys(attributes);
@@ -1714,7 +1712,8 @@ describe('Parse Object', () => {
     );
     assert.equal(fetchedItems.length, items.length);
     assert.equal(fetchedItems[0].get('x'), 1);
-    assert.equal(fetchedItems[1].get('x'), 2); // item2Again should update
+    // item2Again should update
+    assert.equal(fetchedItems[1].get('x'), 2);
     assert.equal(fetchedItems[1].get('pointer').id, pointer.id);
     assert.equal(fetchedItems[1].get('pointer').get('foo'), 'bar');
   });

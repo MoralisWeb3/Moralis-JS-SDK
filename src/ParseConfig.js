@@ -109,7 +109,7 @@ class ParseConfig {
    */
   static save(attrs: { [key: string]: any }, masterKeyOnlyFlags: { [key: string]: any }) {
     const controller = CoreManager.getConfigController();
-    //To avoid a mismatch with the local and the cloud config we get a new version
+    // To avoid a mismatch with the local and the cloud config we get a new version
     return controller.save(attrs, masterKeyOnlyFlags).then(
       () => {
         return controller.get({ useMasterKey: true });
@@ -216,13 +216,12 @@ const DefaultController = {
     ).then(response => {
       if (response && response.result) {
         return Promise.resolve();
-      } else {
-        const error = new ParseError(
-          ParseError.INTERNAL_SERVER_ERROR,
-          'Error occured updating Config.'
-        );
-        return Promise.reject(error);
       }
+      const error = new ParseError(
+        ParseError.INTERNAL_SERVER_ERROR,
+        'Error occured updating Config.'
+      );
+      return Promise.reject(error);
     });
   },
 };

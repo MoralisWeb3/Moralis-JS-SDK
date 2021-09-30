@@ -49,7 +49,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.ajax('GET', 'users/me', {}, { 'X-Parse-Session-Token': '123' });
@@ -140,7 +140,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('GET', 'classes/MyObject', {}, { sessionToken: '1234' });
@@ -273,7 +273,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('POST', 'classes/MyObject', {}, {});
@@ -318,7 +318,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.ajax('GET', 'users/me', {}, {});
@@ -372,7 +372,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('GET', 'classes/MyObject', {}, {});
@@ -385,7 +385,8 @@ describe('RESTController', () => {
       _InstallationId: 'iid',
       _SessionToken: '5678',
     });
-    CoreManager.set('UserController', undefined); // Clean up
+    // Clean up
+    CoreManager.set('UserController', undefined);
   });
 
   it('attaches no session token when there is no current user', async () => {
@@ -412,7 +413,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('GET', 'classes/MyObject', {}, {});
@@ -424,7 +425,8 @@ describe('RESTController', () => {
       _ClientVersion: 'V',
       _InstallationId: 'iid',
     });
-    CoreManager.set('UserController', undefined); // Clean up
+    // Clean up
+    CoreManager.set('UserController', undefined);
   });
 
   it('sends the revocable session upgrade header when the config flag is set', async () => {
@@ -434,7 +436,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('GET', 'classes/MyObject', {}, {});
@@ -448,7 +450,8 @@ describe('RESTController', () => {
       _InstallationId: 'iid',
       _RevocableSession: '1',
     });
-    CoreManager.set('FORCE_REVOCABLE_SESSION', false); // Clean up
+    // Clean up
+    CoreManager.set('FORCE_REVOCABLE_SESSION', false);
   });
 
   it('sends the master key when requested', async () => {
@@ -458,7 +461,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('GET', 'classes/MyObject', {}, { useMasterKey: true });
@@ -488,10 +491,10 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
-    expect(function () {
+    expect(() => {
       RESTController.request('GET', 'classes/MyObject', {}, { useMasterKey: true });
     }).toThrow('Cannot use the Master Key, it has not been provided.');
   });
@@ -505,7 +508,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request('GET', 'classes/MyObject', {}, {});
@@ -581,7 +584,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.ajax('GET', 'users/me', {}, { 'X-Parse-Session-Token': '123' });
@@ -597,7 +600,7 @@ describe('RESTController', () => {
       open: jest.fn(),
       send: jest.fn(),
     };
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request(
@@ -627,7 +630,7 @@ describe('RESTController', () => {
     const xhr = new XHR();
     jest.spyOn(xhr, 'open');
     jest.spyOn(xhr, 'send');
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     RESTController.request(
@@ -658,7 +661,7 @@ describe('RESTController', () => {
     jest.spyOn(xhr, 'open');
     jest.spyOn(xhr, 'send');
     jest.spyOn(xhr, 'setRequestHeader');
-    RESTController._setXHR(function () {
+    RESTController._setXHR(() => {
       return xhr;
     });
     const headers = { 'X-Parse-Session-Token': '123' };

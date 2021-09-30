@@ -149,7 +149,7 @@ describe('ParseConfig', () => {
   });
 
   it('can save a config object with masterkey', done => {
-    //Load a request that match the get() & save() request
+    // Load a request that match the get() & save() request
     CoreManager.setRESTController({
       request() {
         return Promise.resolve({
@@ -192,7 +192,9 @@ describe('ParseConfig', () => {
             },
             result: true,
           });
-        } else if (method === 'GET') {
+        }
+
+        if (method === 'GET') {
           expect(method).toBe('GET');
           expect(path).toBe('config');
           expect(body).toEqual({});
