@@ -416,9 +416,9 @@ export namespace Moralis {
    * The Moralis Web3API.
    */
   class Units {
-    static ETH: (value: number) => string;
-    static Token: (value: number, decimals: number) => string;
-    static FromWei: (value: number, decimals: number) => number;
+    static ETH: (value: number | string) => string;
+    static Token: (value: number | string, decimals: number) => string;
+    static FromWei: (value: number | string, decimals: number) => number;
   }
 
   /**
