@@ -20,7 +20,8 @@ export const EthereumEvents = {
 };
 
 const WARNING = 'Non ethereum enabled browser';
-const ERROR_WEB3_MISSING = 'Missing web3 instance, make sure to call Moralis.enable()';
+const ERROR_WEB3_MISSING =
+  'Missing web3 instance, make sure to call Moralis.enable() or Moralis.authenticate()';
 
 function uniq(arr) {
   return arr.filter((v, i) => arr.indexOf(v) === i);
