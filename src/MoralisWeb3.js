@@ -261,7 +261,7 @@ class MoralisWeb3 {
     TransferUtils.validateInput(type, options);
 
     if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-    const web3 = this.web3;
+    const { web3 } = this;
 
     const sender = await (await web3.eth.getAccounts())[0];
 
@@ -307,7 +307,7 @@ class MoralisWeb3 {
 
   static async executeFunction({ contractAddress, abi, functionName, params = {} } = {}) {
     if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-    const web3 = this.web3;
+    const { web3 } = this;
 
     const contractOptions = {};
 
