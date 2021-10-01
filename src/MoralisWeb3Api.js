@@ -1,7 +1,7 @@
 import ParseUser from './ParseUser';
 import { run } from './Cloud';
 
-import web3ApiUtils from './web3ApiUtils';
+import utils from './utils';
 
 function addChainAndUserAddress(options = {}) {
   if (!options.chain) options.chain = 'eth';
@@ -16,8 +16,11 @@ function addChainAndUserAddress(options = {}) {
 
 async function endpointFactory() {
   const wrappers = {};
-  const ENDPOINTS = await web3ApiUtils.fetchEndpoints();
-  ENDPOINTS.forEach(({ group, name, preprocess }) => {
+  const ENDPOINTS = await utils.fetchEndpoints();
+
+  for (const endpoint of ENDPOINTS) {
+    const { group, name } = endpoint;
+    let { preprocess } = endpoint;
     preprocess = addChainAndUserAddress;
     if (!wrappers[group]) wrappers[group] = {};
     wrappers[group][name] = options => {
@@ -25,7 +28,7 @@ async function endpointFactory() {
       if (typeof preprocess === 'function') o = preprocess(options);
       return run(name, o);
     };
-  });
+  }
   return wrappers;
 }
 

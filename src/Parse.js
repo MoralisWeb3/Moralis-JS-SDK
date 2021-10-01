@@ -193,6 +193,17 @@ class Moralis extends MoralisWeb3 {
   static get idempotency() {
     return CoreManager.get('IDEMPOTENCY');
   }
+
+  static async enable(options) {
+    const response = await Promise.all([
+      super.enable(options),
+      require('./MoralisWeb3Api').default,
+    ]);
+
+    if (!Moralis.Plugins) Moralis.Plugins = {};
+    Moralis.Plugins.web3api = response[1];
+    Moralis.Web3API = Moralis.Plugins.web3api;
+  }
 }
 
 Moralis.ACL = require('./ParseACL').default;
@@ -219,11 +230,12 @@ Moralis.Op = {
   AddUnique: ParseOp.AddUniqueOp,
   Relation: ParseOp.RelationOp,
 };
+Moralis.initWeb3API = async () => {
+  if (!Moralis.Plugins) Moralis.Plugins = {};
+  Moralis.Plugins.web3api = await require('./MoralisWeb3Api').default;
 
-if (!Moralis.Plugins) Moralis.Plugins = {};
-Moralis.Plugins.web3api = require('./MoralisWeb3Api').default;
-
-Moralis.Web3API = Moralis.Plugins.web3api;
+  Moralis.Web3API = Moralis.Plugins.web3api;
+};
 Moralis.Push = require('./Push');
 Moralis.Query = require('./ParseQuery').default;
 Moralis.Relation = require('./ParseRelation').default;

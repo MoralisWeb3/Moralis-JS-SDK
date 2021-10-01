@@ -1,44 +1,13 @@
-import https from 'https';
+import axios from 'axios';
 
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
 
-const fetchSwaggerJson = () => {
-  return new Promise((resolve, reject) => {
-    const req = https.request(
-      {
-        hostname: DEEP_INDEX_API_HOST,
-        path: DEEP_INDEX_SWAGGER_PATH,
-        method: 'GET',
-      },
-      res => {
-        if (res.statusCode < 200 || res.statusCode >= 300) {
-          return reject(new Error('statusCode=' + res.statusCode));
-        }
-
-        let body = '';
-
-        res.on('data', chunk => {
-          body += chunk;
-        });
-
-        res.on('end', function () {
-          try {
-            const result = JSON.parse(body);
-            resolve(result);
-          } catch (e) {
-            reject(e);
-          }
-        });
-      }
-    );
-
-    req.on('error', function (err) {
-      reject(err);
-    });
-
-    req.end();
-  });
+const fetchSwaggerJson = async () => {
+  const http = await axios.create({ baseURL: `https://${DEEP_INDEX_API_HOST}` });
+  const response = await http.get(DEEP_INDEX_SWAGGER_PATH);
+  const result = response.data;
+  return result;
 };
 
 const getPathByTag = swaggerJSON => {
@@ -70,20 +39,23 @@ const fetchEndpoints = async () => {
   const data = [];
 
   Object.keys(pathDetails).forEach(x => {
-    // console.log(x);
     const item = pathDetails[x];
-    console.log(item);
-    data.push({
+
+    const endpoint = {
       method: item.method.toUpperCase(),
       group: item.data.tags[0],
       name: x,
       url: item.pathName.split('{').join(':').split('}').join(''),
-    });
+    };
+
+    data.push(endpoint);
   });
 
   return data;
 };
 
 module.exports = {
+  fetchSwaggerJson,
+  getPathByTag,
   fetchEndpoints,
 };
