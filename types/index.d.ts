@@ -312,6 +312,7 @@ export namespace Moralis {
     contractAddress: string;
     abi: object;
     functionName: string;
+    msgValue?: string;
     params?: ExecuteFunctionParams;
   }
   type ExecuteFunctionCallResult = any;
