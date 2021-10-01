@@ -304,7 +304,7 @@ class MoralisWeb3 {
     return transferOperation;
   }
 
-  static async executeFunction({ contractAddress, abi, functionName, params = {} } = {}) {
+  static async executeFunction({ contractAddress, abi, functionName, msgValue, params = {} } = {}) {
     const web3 = await MoralisWeb3.enable();
 
     const contractOptions = {};
@@ -348,7 +348,9 @@ class MoralisWeb3 {
 
     const response = isReadFunction
       ? await customFunction(...Object.values(parsedInputs)).call()
-      : await customFunction(...Object.values(parsedInputs)).send();
+      : await customFunction(...Object.values(parsedInputs)).send(
+          msgValue ? { value: msgValue } : null
+        );
 
     return response;
   }
