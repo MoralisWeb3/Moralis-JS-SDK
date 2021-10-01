@@ -8,6 +8,14 @@ export interface paths {
     /** Gets the contents of a block by block hash */
     get: operations["getBlock"];
   };
+  "/dateToBlock": {
+    /** Gets the closest block of the provided date */
+    get: operations["getDateToBlock"];
+  };
+  "/{address}/logs": {
+    /** Gets the logs from an address */
+    get: operations["getLogsByAddress"];
+  };
   "/block/{block_number_or_hash}/nft/transfers": {
     /** Gets NFT transfers by block number or block hash */
     get: operations["getNFTTransfersByBlock"];
@@ -79,9 +87,17 @@ export interface paths {
     /** Returns the price nominated in the native token and usd for a given token contract address. */
     get: operations["getTokenPrice"];
   };
+  "/erc20/{address}/transfers": {
+    /** Gets ERC20 token contract transactions in descending order based on block number */
+    get: operations["getTokenAdressTransfers"];
+  };
   "/erc20/{address}/allowance": {
     /** Gets the amount which the spender is allowed to withdraw from the spender */
     get: operations["getTokenAllowance"];
+  };
+  "/nft/search": {
+    /** Gets NFTs that match a given metadata search. */
+    get: operations["searchNFTs"];
   };
   "/nft/{address}": {
     /**
@@ -135,10 +151,39 @@ export interface paths {
     /** Resolves an Unstoppable domain and returns the address */
     get: operations["resolveDomain"];
   };
+  "/{pair_address}/reserves": {
+    /** Get the liquidity reserves for a given pair address */
+    get: operations["getPairReserves"];
+  };
+  "/{token0_address}/{token1_address}/pairAddress": {
+    /**
+     * Fetches and returns pair data of the provided token0+token1 combination.
+     * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
+     */
+    get: operations["getPairAddress"];
+  };
 }
 
 export interface components {
   schemas: {
+    logEventByAddress: {
+      /** The transaction hash */
+      transaction_hash: string;
+      /** The address of the contract */
+      address: string;
+      /** The block timestamp */
+      block_timestamp: string;
+      /** The block number */
+      block_number: string;
+      /** The block hash */
+      block_hash: string;
+      /** The data of the log */
+      data: string;
+      topic0: string;
+      topic1: string;
+      topic2: string;
+      topic3: string;
+    };
     logEvent: {
       /** The transaction hash */
       transaction_hash: string;
@@ -236,6 +281,14 @@ export interface components {
       transaction_count: string;
       /** The transactions in the block */
       transactions: components["schemas"]["blockTransaction"][];
+    };
+    blockDate: {
+      /** The date of the block */
+      date: number;
+      /** The blocknumber */
+      block: number;
+      /** The timestamp of the block */
+      timestamp: number;
     };
     transactionCollection: {
       /** The total number of matches for this query */
@@ -347,6 +400,22 @@ export interface components {
       /** The symbol of the NFT contract */
       symbol: string;
     };
+    nftMetadata: {
+      /** The address of the contract of the NFT */
+      token_address: string;
+      /** The token id of the NFT */
+      token_id: string;
+      /** The type of NFT contract standard */
+      contract_type: string;
+      /** The uri to the metadata of the token */
+      token_uri: string;
+      /** The metadata of the token */
+      metadata: string;
+      /** when the metadata was last updated */
+      synced_at: string;
+    } & {
+      token_hash: unknown;
+    };
     nftCollection: {
       /** The total number of matches for this query */
       total?: number;
@@ -355,6 +424,15 @@ export interface components {
       /** The number of results per page */
       page_size?: number;
       result?: components["schemas"]["nft"][];
+    };
+    nftMetadataCollection: {
+      /** The total number of matches for this query */
+      total?: number;
+      /** The page of the current result */
+      page?: number;
+      /** The number of results per page */
+      page_size?: number;
+      result?: components["schemas"]["nftMetadata"][];
     };
     nftOwner: {
       /** The address of the contract of the NFT */
@@ -547,6 +625,12 @@ export interface components {
       /** Resolved domain address */
       address: string;
     };
+    reservesCollection: {
+      /** reserve0 */
+      reserve0: string;
+      /** reserve1 */
+      reserve1: string;
+    };
   };
 }
 
@@ -570,6 +654,64 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["block"];
+        };
+      };
+    };
+  };
+  /** Gets the closest block of the provided date */
+  getDateToBlock: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** web3 provider url to user when using local dev chain */
+        providerUrl?: string;
+        /** Unix date in miliseconds or a datestring (any format that is accepted by momentjs) */
+        date: string;
+      };
+    };
+    responses: {
+      /** Returns the blocknumber and corresponding date and timestamp */
+      200: {
+        content: {
+          "application/json": components["schemas"]["blockDate"];
+        };
+      };
+    };
+  };
+  /** Gets the logs from an address */
+  getLogsByAddress: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
+        subdomain?: string;
+        /** The block number */
+        block_number?: string;
+        /** The minimum block number from where to get the logs */
+        from_block?: string;
+        /** The maximum block number to where to get the logs */
+        to_block?: string;
+        /** topic0 */
+        topic0?: string;
+        /** topic1 */
+        topic1?: string;
+        /** topic2 */
+        topic2?: string;
+        /** topic3 */
+        topic3?: string;
+      };
+      path: {
+        /** address */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns the logs of an address */
+      200: {
+        content: {
+          "application/json": components["schemas"]["logEventByAddress"];
         };
       };
     };
@@ -995,6 +1137,8 @@ export interface operations {
         providerUrl?: string;
         /** The factory name or address of the token exchange */
         exchange?: string;
+        /** to_block */
+        to_block?: number;
       };
       path: {
         /** The address of the token contract */
@@ -1006,6 +1150,37 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["erc20Price"];
+        };
+      };
+    };
+  };
+  /** Gets ERC20 token contract transactions in descending order based on block number */
+  getTokenAdressTransfers: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
+        subdomain?: string;
+        /** from_block */
+        from_block?: number;
+        /** to_block */
+        to_block?: number;
+        /** offset */
+        offset?: number;
+        /** limit */
+        limit?: number;
+      };
+      path: {
+        /** The address of the token contract */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns a collection of token contract transactions. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20Transaction"][];
         };
       };
     };
@@ -1033,6 +1208,41 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["erc20Allowance"];
+        };
+      };
+    };
+  };
+  /** Gets NFTs that match a given metadata search. */
+  searchNFTs: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The format of the token id */
+        format?: "decimal" | "hex";
+        /** The search string */
+        q: string;
+        /** What fields the search should match on. To look into the entire metadata set the value to 'global'. To have a better response time you can look into a specific field like name */
+        filter?:
+          | "name"
+          | "description"
+          | "attributes"
+          | "global"
+          | "name,description"
+          | "name,attributes"
+          | "description,attributes"
+          | "name,description,attributes";
+        /** offset */
+        offset?: number;
+        /** limit */
+        limit?: number;
+      };
+    };
+    responses: {
+      /** Returns the matching NFTs */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftMetadataCollection"];
         };
       };
     };
@@ -1273,6 +1483,67 @@ export interface operations {
       };
     };
   };
+  /** Get the liquidity reserves for a given pair address */
+  getPairReserves: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** To get the reserves at this block number */
+        to_block?: string;
+        /** web3 provider url to user when using local dev chain */
+        provider_url?: string;
+      };
+      path: {
+        /** Liquidity pair address */
+        pair_address: string;
+      };
+    };
+    responses: {
+      /** Returns the pair reserves */
+      200: {
+        content: {
+          "application/json": components["schemas"]["reservesCollection"];
+        };
+      };
+    };
+  };
+  /**
+   * Fetches and returns pair data of the provided token0+token1 combination.
+   * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
+   */
+  getPairAddress: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** To get the reserves at this block number */
+        to_block?: string;
+        /** The factory name or address of the token exchange */
+        exchange:
+          | "uniswapv2"
+          | "uniswapv3"
+          | "sushiswapv2"
+          | "pancakeswapv2"
+          | "pancakeswapv1"
+          | "quickswap";
+      };
+      path: {
+        /** Token0 address */
+        token0_address: string;
+        /** Token1 address */
+        token1_address: string;
+      };
+    };
+    responses: {
+      /** Returns the pair address of the two tokens */
+      200: {
+        content: {
+          "application/json": components["schemas"]["reservesCollection"];
+        };
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -1280,6 +1551,8 @@ export interface external {}
 export class GeneratedWeb3API {
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"] ) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getLogsByAddress: (options: operations["getLogsByAddress"]["parameters"]["query"] & operations["getLogsByAddress"]["parameters"]["path"]) => Promise<operations["getLogsByAddress"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTransfersByBlock: (options: operations["getNFTTransfersByBlock"]["parameters"]["query"] & operations["getNFTTransfersByBlock"]["parameters"]["path"]) => Promise<operations["getNFTTransfersByBlock"]["responses"]["200"]["content"]["application/json"]>;
     getTransaction: (options: operations["getTransaction"]["parameters"]["query"] & operations["getTransaction"]["parameters"]["path"]) => Promise<operations["getTransaction"]["responses"]["200"]["content"]["application/json"]>;
     getContractEvents: (options: operations["getContractEvents"]["parameters"]["query"] & operations["getContractEvents"]["parameters"]["path"]) => Promise<operations["getContractEvents"]["responses"]["200"]["content"]["application/json"]>;
@@ -1301,7 +1574,9 @@ export class GeneratedWeb3API {
     getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"] ) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"] ) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
     getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["query"] & operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenAdressTransfers: (options: operations["getTokenAdressTransfers"]["parameters"]["query"] & operations["getTokenAdressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAdressTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAllowance: (options: operations["getTokenAllowance"]["parameters"]["query"] & operations["getTokenAllowance"]["parameters"]["path"]) => Promise<operations["getTokenAllowance"]["responses"]["200"]["content"]["application/json"]>;
+    searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"] ) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getAllTokenIds: (options: operations["getAllTokenIds"]["parameters"]["query"] & operations["getAllTokenIds"]["parameters"]["path"]) => Promise<operations["getAllTokenIds"]["responses"]["200"]["content"]["application/json"]>;
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
@@ -1313,6 +1588,11 @@ export class GeneratedWeb3API {
 
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
+  static eth-defi: {
+    getPairReserves: (options: operations["getPairReserves"]["parameters"]["query"] & operations["getPairReserves"]["parameters"]["path"]) => Promise<operations["getPairReserves"]["responses"]["200"]["content"]["application/json"]>;
+    getPairAddress: (options: operations["getPairAddress"]["parameters"]["query"] & operations["getPairAddress"]["parameters"]["path"]) => Promise<operations["getPairAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }
