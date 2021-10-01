@@ -302,6 +302,7 @@ export namespace Moralis {
     tokenId?: string;
     /** @deprecated use tokenId field instead */
     token_id?: string;
+    awaitReceipt?: boolean;
     system?: TransferSystem;
   }
   type TransferResult = unknown;

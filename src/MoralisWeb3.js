@@ -11,6 +11,8 @@ import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
+const EventEmitter = require('events');
+const transferEvents = new EventEmitter();
 
 export const EthereumEvents = {
   CONNECT: 'connect',
@@ -242,6 +244,7 @@ class MoralisWeb3 {
     // eslint-disable-next-line camelcase
     token_id,
     system = 'evm',
+    awaitReceipt = true,
   } = {}) {
     // Allow snake-case for backwards compatibility
     // eslint-disable-next-line camelcase
@@ -255,6 +258,7 @@ class MoralisWeb3 {
       amount,
       tokenId,
       system,
+      awaitReceipt,
     };
 
     TransferUtils.isSupportedType(type);
@@ -302,7 +306,24 @@ class MoralisWeb3 {
         throw new Error(`Unknown transfer type: "${type}"`);
     }
 
-    return transferOperation;
+    if (awaitReceipt) return transferOperation;
+
+    transferOperation
+      .on('transactionHash', hash => {
+        transferEvents.emit('transactionHash', hash);
+      })
+      .on('receipt', receipt => {
+        transferEvents.emit('receipt', receipt);
+      })
+      .on('confirmation', (confirmationNumber, receipt) => {
+        transferEvents.emit('confirmation', (confirmationNumber, receipt));
+      })
+      .on('error', error => {
+        transferEvents.emit('error', error);
+        throw error;
+      });
+
+    return transferEvents;
   }
 
   static async executeFunction({ contractAddress, abi, functionName, msgValue, params = {} } = {}) {
