@@ -158,7 +158,7 @@ class MoralisWeb3 {
           if (!options) options = {};
           const response = await run(`${plugin.name}_${f}`, params);
           if (!response.data.success) {
-            const error = JSON.stringify(JSON.parse(response.data.data), null, 2);
+            const error = JSON.stringify(response.data.data, null, 2);
             throw new Error(`Something went wrong\n${error}`);
           }
           if (options.disableTriggers !== true) {
