@@ -15,7 +15,7 @@ const getPathByTag = swaggerJSON => {
   const pathDetails = {};
 
   Object.entries(swaggerJSON.paths).map(([pathName, requestData]) => {
-    return Object.entries(requestData).map(([method, data]) => {
+    return Object.entries(requestData).forEach(([method, data]) => {
       const { tags } = data;
 
       if (tags.length > 0) {
