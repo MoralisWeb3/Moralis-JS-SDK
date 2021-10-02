@@ -66,7 +66,7 @@ export function getServerData(obj: ObjectIdentifier): AttributeMap {
 }
 
 export function setServerData(obj: ObjectIdentifier, attributes: AttributeMap) {
-  const serverData = initializeState(obj).serverData;
+  const { serverData } = initializeState(obj);
   ObjectStateMutations.setServerData(serverData, attributes);
 }
 
@@ -79,17 +79,17 @@ export function getPendingOps(obj: ObjectIdentifier): Array<OpsMap> {
 }
 
 export function setPendingOp(obj: ObjectIdentifier, attr: string, op: ?Op) {
-  const pendingOps = initializeState(obj).pendingOps;
+  const { pendingOps } = initializeState(obj);
   ObjectStateMutations.setPendingOp(pendingOps, attr, op);
 }
 
 export function pushPendingState(obj: ObjectIdentifier) {
-  const pendingOps = initializeState(obj).pendingOps;
+  const { pendingOps } = initializeState(obj);
   ObjectStateMutations.pushPendingState(pendingOps);
 }
 
 export function popPendingState(obj: ObjectIdentifier): OpsMap {
-  const pendingOps = initializeState(obj).pendingOps;
+  const { pendingOps } = initializeState(obj);
   return ObjectStateMutations.popPendingState(pendingOps);
 }
 

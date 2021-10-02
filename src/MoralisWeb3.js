@@ -11,6 +11,8 @@ import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
+const EventEmitter = require('events');
+const transferEvents = new EventEmitter();
 
 export const EthereumEvents = {
   CONNECT: 'connect',
@@ -20,7 +22,8 @@ export const EthereumEvents = {
 };
 
 const WARNING = 'Non ethereum enabled browser';
-const ERROR_WEB3_MISSING = 'Missing web3 instance, make sure to call Moralis.enable()';
+const ERROR_WEB3_MISSING =
+  'Missing web3 instance, make sure to call Moralis.enable() or Moralis.authenticate()';
 
 function uniq(arr) {
   return arr.filter((v, i) => arr.indexOf(v) === i);
@@ -158,7 +161,7 @@ class MoralisWeb3 {
           if (!options) options = {};
           const response = await run(`${plugin.name}_${f}`, params);
           if (!response.data.success) {
-            const error = JSON.stringify(JSON.parse(response.data.data), null, 2);
+            const error = JSON.stringify(response.data.data, null, 2);
             throw new Error(`Something went wrong\n${error}`);
           }
           if (options.disableTriggers !== true) {
@@ -197,6 +200,8 @@ class MoralisWeb3 {
             response = this.web3.eth.sendTransaction(_triggersArray[i]?.data);
           if (_triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
+        default:
+          throw new Error(`Unknown trigger: "${_triggersArray[i]?.name}"`);
       }
     }
   }
@@ -233,14 +238,19 @@ class MoralisWeb3 {
     type = 'native',
     receiver = '',
     contractAddress = '',
+    // eslint-disable-next-line camelcase
     contract_address,
     amount = '',
     tokenId = '',
+    // eslint-disable-next-line camelcase
     token_id,
     system = 'evm',
+    awaitReceipt = true,
   } = {}) {
     // Allow snake-case for backwards compatibility
+    // eslint-disable-next-line camelcase
     contractAddress = contractAddress || contract_address;
+    // eslint-disable-next-line camelcase
     tokenId = tokenId || token_id;
 
     const options = {
@@ -249,12 +259,14 @@ class MoralisWeb3 {
       amount,
       tokenId,
       system,
+      awaitReceipt,
     };
 
     TransferUtils.isSupportedType(type);
     TransferUtils.validateInput(type, options);
 
-    const web3 = await MoralisWeb3.enable();
+    if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+    const { web3 } = this;
 
     const sender = await (await web3.eth.getAccounts())[0];
 
@@ -263,7 +275,7 @@ class MoralisWeb3 {
     let transferOperation;
     let customToken;
 
-    if (type != 'native')
+    if (type !== 'native')
       customToken = new web3.eth.Contract(TransferUtils.abi[type], contractAddress);
 
     switch (type) {
@@ -291,23 +303,43 @@ class MoralisWeb3 {
             from: sender,
           });
         break;
+      default:
+        throw new Error(`Unknown transfer type: "${type}"`);
     }
 
-    return transferOperation;
+    if (awaitReceipt) return transferOperation;
+
+    transferOperation
+      .on('transactionHash', hash => {
+        transferEvents.emit('transactionHash', hash);
+      })
+      .on('receipt', receipt => {
+        transferEvents.emit('receipt', receipt);
+      })
+      .on('confirmation', (confirmationNumber, receipt) => {
+        transferEvents.emit('confirmation', (confirmationNumber, receipt));
+      })
+      .on('error', error => {
+        transferEvents.emit('error', error);
+        throw error;
+      });
+
+    return transferEvents;
   }
 
-  static async executeFunction({ contractAddress, abi, functionName, params = {} } = {}) {
-    const web3 = await MoralisWeb3.enable();
+  static async executeFunction({ contractAddress, abi, functionName, msgValue, params = {} } = {}) {
+    if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+    const { web3 } = this;
 
     const contractOptions = {};
 
-    const functionData = abi.find(x => x.name == functionName);
+    const functionData = abi.find(x => x.name === functionName);
 
     if (!functionData) throw new Error('Function does not exist in abi');
 
     const stateMutability = functionData?.stateMutability;
 
-    const isReadFunction = stateMutability == 'view' || stateMutability == 'pure';
+    const isReadFunction = stateMutability === 'view' || stateMutability === 'pure';
 
     if (!isReadFunction) {
       if (!params.from) {
@@ -340,7 +372,9 @@ class MoralisWeb3 {
 
     const response = isReadFunction
       ? await customFunction(...Object.values(parsedInputs)).call()
-      : await customFunction(...Object.values(parsedInputs)).send();
+      : await customFunction(...Object.values(parsedInputs)).send(
+          msgValue ? { value: msgValue } : null
+        );
 
     return response;
   }
@@ -352,10 +386,12 @@ class MoralisWeb3 {
   }
 
   static on(eventName, cb) {
-    const ethereum = window.ethereum;
+    const { ethereum } = window;
     if (!ethereum || !ethereum.on) {
+      // eslint-disable-next-line no-console
       console.warn(WARNING);
       return () => {
+        // eslint-disable-next-line no-console
         console.warn(WARNING);
       };
     }
@@ -363,6 +399,7 @@ class MoralisWeb3 {
     ethereum.on(eventName, cb);
 
     return () => {
+      // eslint-disable-next-line no-console
       console.warn('UNSUB NOT SUPPORTED');
     };
   }

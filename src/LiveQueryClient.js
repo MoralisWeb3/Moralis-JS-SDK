@@ -196,9 +196,9 @@ class LiveQueryClient extends EventEmitter {
     if (!query) {
       return;
     }
-    const className = query.className;
+    const { className } = query;
     const queryJSON = query.toJSON();
-    const where = queryJSON.where;
+    const { where } = queryJSON;
     const fields = queryJSON.keys ? queryJSON.keys.split(',') : undefined;
     const subscribeRequest = {
       op: OP_TYPES.SUBSCRIBE,
@@ -282,12 +282,12 @@ class LiveQueryClient extends EventEmitter {
 
   resubscribe() {
     this.subscriptions.forEach((subscription, requestId) => {
-      const query = subscription.query;
+      const { query } = subscription;
       const queryJSON = query.toJSON();
-      const where = queryJSON.where;
+      const { where } = queryJSON;
       const fields = queryJSON.keys ? queryJSON.keys.split(',') : undefined;
-      const className = query.className;
-      const sessionToken = subscription.sessionToken;
+      const { className } = query;
+      const { sessionToken } = subscription;
       const subscribeRequest = {
         op: OP_TYPES.SUBSCRIBE,
         requestId,
@@ -353,7 +353,7 @@ class LiveQueryClient extends EventEmitter {
   }
 
   _handleWebSocketMessage(event: any) {
-    let data = event.data;
+    let { data } = event;
     if (typeof data === 'string') {
       data = JSON.parse(data);
     }
@@ -366,72 +366,72 @@ class LiveQueryClient extends EventEmitter {
       installationId: data.installationId,
     };
     switch (data.op) {
-    case OP_EVENTS.CONNECTED:
-      if (this.state === CLIENT_STATE.RECONNECTING) {
-        this.resubscribe();
-      }
-      this.emit(CLIENT_EMMITER_TYPES.OPEN);
-      this.id = data.clientId;
-      this.connectPromise.resolve();
-      this.state = CLIENT_STATE.CONNECTED;
-      break;
-    case OP_EVENTS.SUBSCRIBED:
-      if (subscription) {
-        subscription.subscribed = true;
-        subscription.subscribePromise.resolve();
-        setTimeout(() => subscription.emit(SUBSCRIPTION_EMMITER_TYPES.OPEN, response), 200);
-      }
-      break;
-    case OP_EVENTS.ERROR:
-      if (data.requestId) {
-        if (subscription) {
-          subscription.subscribePromise.resolve();
-          setTimeout(() => subscription.emit(SUBSCRIPTION_EMMITER_TYPES.ERROR, data.error), 200);
+      case OP_EVENTS.CONNECTED:
+        if (this.state === CLIENT_STATE.RECONNECTING) {
+          this.resubscribe();
         }
-      } else {
-        this.emit(CLIENT_EMMITER_TYPES.ERROR, data.error);
-      }
-      if (data.error === 'Additional properties not allowed') {
-        this.additionalProperties = false;
-      }
-      if (data.reconnect) {
-        this._handleReconnect();
-      }
-      break;
-    case OP_EVENTS.UNSUBSCRIBED:
-      // We have already deleted subscription in unsubscribe(), do nothing here
-      break;
-    default: {
-      // create, update, enter, leave, delete cases
-      if (!subscription) {
+        this.emit(CLIENT_EMMITER_TYPES.OPEN);
+        this.id = data.clientId;
+        this.connectPromise.resolve();
+        this.state = CLIENT_STATE.CONNECTED;
         break;
-      }
-      let override = false;
-      if (data.original) {
-        override = true;
-        delete data.original.__type;
-        // Check for removed fields
-        for (const field in data.original) {
-          if (!(field in data.object)) {
-            data.object[field] = undefined;
-          }
+      case OP_EVENTS.SUBSCRIBED:
+        if (subscription) {
+          subscription.subscribed = true;
+          subscription.subscribePromise.resolve();
+          setTimeout(() => subscription.emit(SUBSCRIPTION_EMMITER_TYPES.OPEN, response), 200);
         }
-        data.original = ParseObject.fromJSON(data.original, false);
-      }
-      delete data.object.__type;
-      const parseObject = ParseObject.fromJSON(data.object, override);
+        break;
+      case OP_EVENTS.ERROR:
+        if (data.requestId) {
+          if (subscription) {
+            subscription.subscribePromise.resolve();
+            setTimeout(() => subscription.emit(SUBSCRIPTION_EMMITER_TYPES.ERROR, data.error), 200);
+          }
+        } else {
+          this.emit(CLIENT_EMMITER_TYPES.ERROR, data.error);
+        }
+        if (data.error === 'Additional properties not allowed') {
+          this.additionalProperties = false;
+        }
+        if (data.reconnect) {
+          this._handleReconnect();
+        }
+        break;
+      case OP_EVENTS.UNSUBSCRIBED:
+        // We have already deleted subscription in unsubscribe(), do nothing here
+        break;
+      default: {
+        // create, update, enter, leave, delete cases
+        if (!subscription) {
+          break;
+        }
+        let override = false;
+        if (data.original) {
+          override = true;
+          delete data.original.__type;
+          // Check for removed fields
+          for (const field in data.original) {
+            if (!(field in data.object)) {
+              data.object[field] = undefined;
+            }
+          }
+          data.original = ParseObject.fromJSON(data.original, false);
+        }
+        delete data.object.__type;
+        const parseObject = ParseObject.fromJSON(data.object, override);
 
-      if (data.original) {
-        subscription.emit(data.op, parseObject, data.original, response);
-      } else {
-        subscription.emit(data.op, parseObject, response);
-      }
+        if (data.original) {
+          subscription.emit(data.op, parseObject, data.original, response);
+        } else {
+          subscription.emit(data.op, parseObject, response);
+        }
 
-      const localDatastore = CoreManager.getLocalDatastore();
-      if (override && localDatastore.isEnabled) {
-        localDatastore._updateObjectIfPinned(parseObject).then(() => {});
+        const localDatastore = CoreManager.getLocalDatastore();
+        if (override && localDatastore.isEnabled) {
+          localDatastore._updateObjectIfPinned(parseObject).then(() => {});
+        }
       }
-    }
     }
   }
 

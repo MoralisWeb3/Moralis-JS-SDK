@@ -34,9 +34,9 @@ export default function unsavedChildren(
     objects: {},
     files: [],
   };
-  const identifier = obj.className + ':' + obj._getId();
+  const identifier = `${obj.className}:${obj._getId()}`;
   encountered.objects[identifier] = obj.dirty() ? obj : true;
-  const attributes = obj.attributes;
+  const { attributes } = obj;
   for (const attr in attributes) {
     if (typeof attributes[attr] === 'object') {
       traverse(attributes[attr], encountered, false, !!allowDeepUnsaved);
@@ -61,10 +61,10 @@ function traverse(
     if (!obj.id && shouldThrow) {
       throw new Error('Cannot create a pointer to an unsaved Object.');
     }
-    const identifier = obj.className + ':' + obj._getId();
+    const identifier = `${obj.className}:${obj._getId()}`;
     if (!encountered.objects[identifier]) {
       encountered.objects[identifier] = obj.dirty() ? obj : true;
-      const attributes = obj.attributes;
+      const { attributes } = obj;
       for (const attr in attributes) {
         if (typeof attributes[attr] === 'object') {
           traverse(attributes[attr], encountered, !allowDeepUnsaved, allowDeepUnsaved);

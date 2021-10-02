@@ -132,7 +132,7 @@ class ParseCLP {
     this.permissionsMap = {};
     // Initialize permissions Map with default permissions
     for (const [operation, group] of VALID_PERMISSIONS.entries()) {
-      this.permissionsMap[operation] = Object.assign({}, group);
+      this.permissionsMap[operation] = { ...group };
       const action = operation.charAt(0).toUpperCase() + operation.slice(1);
 
       this[`get${action}RequiresAuthentication`] = function () {
@@ -172,7 +172,7 @@ class ParseCLP {
     }
     // Initialize permissions Map with default extended permissions
     for (const [operation, group] of VALID_PERMISSIONS_EXTENDED.entries()) {
-      this.permissionsMap[operation] = Object.assign({}, group);
+      this.permissionsMap[operation] = { ...group };
     }
     if (userId && typeof userId === 'object') {
       if (userId instanceof ParseUser) {
@@ -305,9 +305,8 @@ class ParseCLP {
       if (!allowed) {
         // The user already doesn't have this permission, so no action is needed
         return;
-      } else {
-        this.permissionsMap[permission][userId] = {};
       }
+      this.permissionsMap[permission][userId] = {};
     }
 
     if (allowed) {

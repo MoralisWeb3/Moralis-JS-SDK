@@ -148,18 +148,21 @@ const RESTController = {
 
       headers = headers || {};
       if (typeof headers['Content-Type'] !== 'string') {
-        headers['Content-Type'] = 'text/plain'; // Avoid pre-flight
+        // Avoid pre-flight
+        headers['Content-Type'] = 'text/plain';
       }
       if (CoreManager.get('IS_NODE')) {
-        headers['User-Agent'] =
-          'Parse/' + CoreManager.get('VERSION') + ' (NodeJS ' + process.versions.node + ')';
+        headers['User-Agent'] = `Parse/${CoreManager.get('VERSION')} (NodeJS ${
+          process.versions.node
+        })`;
       }
       if (isIdempotent) {
         headers['X-Parse-Request-Id'] = requestId;
       }
       if (CoreManager.get('SERVER_AUTH_TYPE') && CoreManager.get('SERVER_AUTH_TOKEN')) {
-        headers['Authorization'] =
-          CoreManager.get('SERVER_AUTH_TYPE') + ' ' + CoreManager.get('SERVER_AUTH_TOKEN');
+        headers.Authorization = `${CoreManager.get('SERVER_AUTH_TYPE')} ${CoreManager.get(
+          'SERVER_AUTH_TOKEN'
+        )}`;
       }
       const customHeaders = CoreManager.get('REQUEST_HEADERS');
       for (const key in customHeaders) {
@@ -225,7 +228,7 @@ const RESTController = {
     }
 
     // Add context
-    const context = options.context;
+    const { context } = options;
     if (context !== undefined) {
       payload._context = context;
     }
@@ -242,7 +245,7 @@ const RESTController = {
     }
     payload._ClientVersion = CoreManager.get('VERSION');
 
-    let useMasterKey = options.useMasterKey;
+    let { useMasterKey } = options;
     if (typeof useMasterKey === 'undefined') {
       useMasterKey = CoreManager.get('USE_MASTER_KEY');
     }
@@ -251,8 +254,8 @@ const RESTController = {
         delete payload._JavaScriptKey;
         payload._MasterKey = CoreManager.get('MASTER_KEY');
       } else {
-        //Don't throw to allow plugin requests to be sent without Master Key
-        //throw new Error('Cannot use the Master Key, it has not been provided.');
+        // Don't throw to allow plugin requests to be sent without Master Key
+        // throw new Error('Cannot use the Master Key, it has not been provided.');
       }
     }
 
@@ -260,7 +263,7 @@ const RESTController = {
       payload._RevocableSession = '1';
     }
 
-    const installationId = options.installationId;
+    const { installationId } = options;
     let installationIdPromise;
     if (installationId && typeof installationId === 'string') {
       installationIdPromise = Promise.resolve(installationId);
@@ -275,7 +278,9 @@ const RESTController = {
         const userController = CoreManager.getUserController();
         if (options && typeof options.sessionToken === 'string') {
           return Promise.resolve(options.sessionToken);
-        } else if (userController) {
+        }
+
+        if (userController) {
           return userController.currentUserAsync().then(user => {
             if (user) {
               return Promise.resolve(user.getSessionToken());
@@ -295,9 +300,9 @@ const RESTController = {
           ({ response, status }) => {
             if (options.returnStatus) {
               return { ...response, _status: status };
-            } else {
-              return response;
             }
+
+            return response;
           }
         );
       })
@@ -316,14 +321,14 @@ const RESTController = {
         // If we fail to parse the error text, that's okay.
         error = new ParseError(
           ParseError.INVALID_JSON,
-          'Received an error with invalid JSON from Parse: ' + response.responseText
+          `Received an error with invalid JSON from Parse: ${response.responseText}`
         );
       }
     } else {
       const message = response.message ? response.message : response;
       error = new ParseError(
         ParseError.CONNECTION_FAILED,
-        'XMLHttpRequest failed: ' + JSON.stringify(message)
+        `XMLHttpRequest failed: ${JSON.stringify(message)}`
       );
     }
     return Promise.reject(error);

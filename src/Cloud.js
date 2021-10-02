@@ -115,7 +115,7 @@ const DefaultController = {
 
     const payload = encode(data, true);
 
-    const request = RESTController.request('POST', 'functions/' + name, payload, options);
+    const request = RESTController.request('POST', `functions/${name}`, payload, options);
 
     return request.then(res => {
       if (typeof res === 'object' && Object.keys(res).length > 0 && !res.hasOwnProperty('result')) {
@@ -140,7 +140,7 @@ const DefaultController = {
 
     const payload = encode(data, true);
 
-    return RESTController.request('POST', 'jobs/' + name, payload, options);
+    return RESTController.request('POST', `jobs/${name}`, payload, options);
   },
 };
 

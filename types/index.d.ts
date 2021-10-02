@@ -302,6 +302,7 @@ export namespace Moralis {
     tokenId?: string;
     /** @deprecated use tokenId field instead */
     token_id?: string;
+    awaitReceipt?: boolean;
     system?: TransferSystem;
   }
   type TransferResult = unknown;
@@ -311,6 +312,7 @@ export namespace Moralis {
     contractAddress: string;
     abi: object;
     functionName: string;
+    msgValue?: string;
     params?: ExecuteFunctionParams;
   }
   type ExecuteFunctionCallResult = any;
@@ -416,9 +418,9 @@ export namespace Moralis {
    * The Moralis Web3API.
    */
   class Units {
-    static ETH: (value: number) => string;
-    static Token: (value: number, decimals: number) => string;
-    static FromWei: (value: number, decimals: number) => number;
+    static ETH: (value: number | string) => string;
+    static Token: (value: number | string, decimals: number) => string;
+    static FromWei: (value: number | string, decimals: number) => number;
   }
 
   /**

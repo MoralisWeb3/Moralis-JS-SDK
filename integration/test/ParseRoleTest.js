@@ -1,5 +1,3 @@
-'use strict';
-
 /* eslint-disable no-unused-vars */
 const assert = require('assert');
 const clear = require('./clear');
@@ -29,7 +27,7 @@ function createUser(username) {
 }
 
 describe('Parse Role', () => {
-  /** TODO: Implement these. There was some bugginess related to parse-server. **/
+  /** TODO: Implement these. There was some bugginess related to parse-server. * */
 });
 
 /* eslint-enable no-unused-vars */

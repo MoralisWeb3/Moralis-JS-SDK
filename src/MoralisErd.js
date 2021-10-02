@@ -1,3 +1,5 @@
+/* global window */
+
 import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
@@ -6,13 +8,13 @@ import ParseACL from './ParseACL';
 const INIT_ERROR = 'Could not initialise ledger app, make sure Elrond app is open';
 
 function getErdJs() {
-  return MoralisErd.getErdJs()
+  return MoralisErd.getErdJs();
 }
 
 class MoralisErd {
-  static getErdJs () {
+  static getErdJs() {
     if (typeof window !== 'undefined' && window.erdjs) return window.erdjs;
-    throw new Error('Please add erdjs scripts')
+    throw new Error('Please add erdjs scripts');
   }
   static gatewayAddress() {
     return 'https://gateway.elrond.com';
@@ -57,7 +59,6 @@ class MoralisErd {
     const data = MoralisErd.getSigningData();
     const signature = await MoralisErd.sign(data);
     const authData = { id: erdAddress, signature, data };
-    console.log(authData)
     const user = await ParseUser.logInWith('moralisErd', { authData });
     await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
@@ -70,11 +71,11 @@ class MoralisErd {
   static async link(account) {
     const user = await ParseUser.current();
     const erdAddress = account.toLowerCase();
-    const ErdAddress = ParseObject.extend('_ErdAddress')
+    const ErdAddress = ParseObject.extend('_ErdAddress');
     const query = new ParseQuery(ErdAddress);
     const erdAddressRecord = await query.get(erdAddress).catch(() => null);
     if (!erdAddressRecord) {
-      const data = MoralisErd.getSigningData()
+      const data = MoralisErd.getSigningData();
       const signature = await MoralisErd.sign(data);
       const authData = { id: erdAddress, signature, data };
       await user.linkWith('moralisErd', { authData });
@@ -85,9 +86,9 @@ class MoralisErd {
     return user;
   }
 
-  static async unlink (account) {
-    const accountsLower = account.toLowerCase()
-    const ErdAddress = ParseObject.extend('_EthAddress')
+  static async unlink(account) {
+    const accountsLower = account.toLowerCase();
+    const ErdAddress = ParseObject.extend('_EthAddress');
     const query = new ParseQuery(ErdAddress);
     const erdAddressRecord = await query.get(accountsLower);
     await erdAddressRecord.destroy();
@@ -101,12 +102,12 @@ class MoralisErd {
     return user;
   }
 
-  static async sign (data) {
-    return data
+  static async sign(data) {
+    return data;
   }
 
-  static getSigningData () {
-    return 'Moralis Authentication'
+  static getSigningData() {
+    return 'Moralis Authentication';
   }
 }
 

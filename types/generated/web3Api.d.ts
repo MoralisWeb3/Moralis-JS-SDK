@@ -83,6 +83,10 @@ export interface paths {
     /** Returns the price nominated in the native token and usd for a given token contract address. */
     get: operations["getTokenPrice"];
   };
+  "/erc20/{address}/transfers": {
+    /** Gets ERC20 token contract transactions in descending order based on block number */
+    get: operations["getTokenAdressTransfers"];
+  };
   "/erc20/{address}/allowance": {
     /** Gets the amount which the spender is allowed to withdraw from the spender */
     get: operations["getTokenAllowance"];
@@ -142,6 +146,17 @@ export interface paths {
   "/resolve/{domain}": {
     /** Resolves an Unstoppable domain and returns the address */
     get: operations["resolveDomain"];
+  };
+  "/{pair_address}/reserves": {
+    /** Get the liquidity reserves for a given pair address */
+    get: operations["getPairReserves"];
+  };
+  "/{token0_address}/{token1_address}/pairAddress": {
+    /**
+     * Fetches and returns pair data of the provided token0+token1 combination.
+     * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
+     */
+    get: operations["getPairAddress"];
   };
 }
 
@@ -262,6 +277,14 @@ export interface components {
       transaction_count: string;
       /** The transactions in the block */
       transactions: components["schemas"]["blockTransaction"][];
+    };
+    blockDate: {
+      /** The date of the block */
+      date: number;
+      /** The blocknumber */
+      block: number;
+      /** The timestamp of the block */
+      timestamp: number;
     };
     transactionCollection: {
       /** The total number of matches for this query */
@@ -597,6 +620,12 @@ export interface components {
     resolve: {
       /** Resolved domain address */
       address: string;
+    };
+    reservesCollection: {
+      /** reserve0 */
+      reserve0: string;
+      /** reserve1 */
+      reserve1: string;
     };
   };
 }
@@ -1100,6 +1129,37 @@ export interface operations {
       };
     };
   };
+  /** Gets ERC20 token contract transactions in descending order based on block number */
+  getTokenAdressTransfers: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
+        subdomain?: string;
+        /** from_block */
+        from_block?: number;
+        /** to_block */
+        to_block?: number;
+        /** offset */
+        offset?: number;
+        /** limit */
+        limit?: number;
+      };
+      path: {
+        /** The address of the token contract */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns a collection of token contract transactions. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20Transaction"][];
+        };
+      };
+    };
+  };
   /** Gets the amount which the spender is allowed to withdraw from the spender */
   getTokenAllowance: {
     parameters: {
@@ -1398,6 +1458,67 @@ export interface operations {
       };
     };
   };
+  /** Get the liquidity reserves for a given pair address */
+  getPairReserves: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** To get the reserves at this block number */
+        to_block?: string;
+        /** web3 provider url to user when using local dev chain */
+        provider_url?: string;
+      };
+      path: {
+        /** Liquidity pair address */
+        pair_address: string;
+      };
+    };
+    responses: {
+      /** Returns the pair reserves */
+      200: {
+        content: {
+          "application/json": components["schemas"]["reservesCollection"];
+        };
+      };
+    };
+  };
+  /**
+   * Fetches and returns pair data of the provided token0+token1 combination.
+   * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
+   */
+  getPairAddress: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** To get the reserves at this block number */
+        to_block?: string;
+        /** The factory name or address of the token exchange */
+        exchange:
+          | "uniswapv2"
+          | "uniswapv3"
+          | "sushiswapv2"
+          | "pancakeswapv2"
+          | "pancakeswapv1"
+          | "quickswap";
+      };
+      path: {
+        /** Token0 address */
+        token0_address: string;
+        /** Token1 address */
+        token1_address: string;
+      };
+    };
+    responses: {
+      /** Returns the pair address of the two tokens */
+      200: {
+        content: {
+          "application/json": components["schemas"]["reservesCollection"];
+        };
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -1427,6 +1548,7 @@ export class GeneratedWeb3API {
     getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"] ) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"] ) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
     getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["query"] & operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenAdressTransfers: (options: operations["getTokenAdressTransfers"]["parameters"]["query"] & operations["getTokenAdressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAdressTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAllowance: (options: operations["getTokenAllowance"]["parameters"]["query"] & operations["getTokenAllowance"]["parameters"]["path"]) => Promise<operations["getTokenAllowance"]["responses"]["200"]["content"]["application/json"]>;
     searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"] ) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getAllTokenIds: (options: operations["getAllTokenIds"]["parameters"]["query"] & operations["getAllTokenIds"]["parameters"]["path"]) => Promise<operations["getAllTokenIds"]["responses"]["200"]["content"]["application/json"]>;
@@ -1441,5 +1563,4 @@ export class GeneratedWeb3API {
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
   }
-
 }

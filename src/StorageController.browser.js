@@ -23,6 +23,7 @@ const StorageController = {
       localStorage.setItem(path, value);
     } catch (e) {
       // Quota exceeded, possibly due to Safari Private Browsing mode
+      // eslint-disable-next-line no-console
       console.log(e.message);
     }
   },

@@ -1,4 +1,4 @@
-const ParseServer = require('parse-server').ParseServer;
+const { ParseServer } = require('parse-server');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 beforeAll(done => {

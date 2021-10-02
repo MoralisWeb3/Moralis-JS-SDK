@@ -75,7 +75,7 @@ describe('ParseUser', () => {
     expect(u.get('username')).toBe('andrew');
     expect(u.get('password')).toBe('secret');
 
-    expect(function () {
+    expect(() => {
       new ParseUser({
         $$$: 'invalid',
       });

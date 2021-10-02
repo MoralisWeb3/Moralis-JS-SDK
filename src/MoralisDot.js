@@ -1,13 +1,9 @@
+/* global window */
+
 import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
 import ParseACL from './ParseACL';
-// import {
-//   web3Accounts,
-//   web3Enable,
-//   web3FromAddress,
-// } from '@polkadot/extension-dapp';
-// import { stringToU8a } from '@polkadot/util/string/toU8a'
 
 let web3EnablePromise = null;
 class MoralisDot {
@@ -20,20 +16,16 @@ class MoralisDot {
     return web3EnablePromise;
   }
   static async authenticate(opts) {
-    // const proxy = new ProxyProvider();
-    // const { Transaction } = getErdJs();
     MoralisDot.web3 = await MoralisDot.enable(opts?.name ?? 'Moralis');
     const allAccounts = await MoralisDot.web3.accounts.get();
     const account = allAccounts[0];
     const address = account?.address;
     if (!address) throw new Error('Address not found');
-    // const account = await proxy.getAccount(address);
-    const dotAddress = address //.toLowerCase();
+    const dotAddress = address;
     const accounts = [dotAddress];
     const data = MoralisDot.getSigningData();
     const signature = await MoralisDot.sign(address, data);
     const authData = { id: dotAddress, signature, data };
-    console.log(authData);
     const user = await ParseUser.logInWith('moralisDot', { authData });
     await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
@@ -45,7 +37,7 @@ class MoralisDot {
 
   static async link(account) {
     const user = await ParseUser.current();
-    const dotAddress = account //.toLowerCase();
+    const dotAddress = account;
     const DotAddress = ParseObject.extend('_DotAddress');
     const query = new ParseQuery(DotAddress);
     const dotAddressRecord = await query.get(dotAddress).catch(() => null);
@@ -62,7 +54,7 @@ class MoralisDot {
   }
 
   static async unlink(account) {
-    const accountsLower = account //.toLowerCase();
+    const accountsLower = account;
     const DotAddress = ParseObject.extend('_DotAddress');
     const query = new ParseQuery(DotAddress);
     const dotAddressRecord = await query.get(accountsLower);
@@ -100,12 +92,10 @@ function uniq(arr) {
 export default MoralisDot;
 
 function stringToHex(value) {
-  return toHexString(
-    stringToU8a(value)
-  );
+  return toHexString(stringToU8a(value));
 }
 
-function stringToU8a (value) {
+function stringToU8a(value) {
   const u8a = new Uint8Array(value.length);
 
   for (let i = 0; i < value.length; i++) {
@@ -116,7 +106,8 @@ function stringToU8a (value) {
 }
 
 function toHexString(byteArray) {
-  return '0x' + Array.from(byteArray, function(byte) {
-    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-  }).join('')
+  return `0x${Array.from(byteArray, byte => {
+    // eslint-disable-next-line no-bitwise
+    return `0${(byte & 0xff).toString(16)}`.slice(-2);
+  }).join('')}`;
 }

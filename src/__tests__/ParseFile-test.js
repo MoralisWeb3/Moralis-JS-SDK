@@ -14,7 +14,7 @@ jest.mock('../ParseACL');
 
 const ParseError = require('../ParseError').default;
 const ParseFile = require('../ParseFile').default;
-const b64Digit = require('../ParseFile').b64Digit;
+const { b64Digit } = require('../ParseFile');
 
 const ParseObject = require('../ParseObject').default;
 const CoreManager = require('../CoreManager');
@@ -125,28 +125,28 @@ describe('ParseFile', () => {
   });
 
   it('throws when creating a file with invalid data', () => {
-    expect(function () {
+    expect(() => {
       new ParseFile('parse.txt', 12);
     }).toThrow('Cannot create a Parse.File with that data.');
 
-    expect(function () {
+    expect(() => {
       new ParseFile('parse.txt', null);
     }).toThrow('Cannot create a Parse.File with that data.');
 
-    expect(function () {
+    expect(() => {
       new ParseFile('parse.txt', 'string');
     }).toThrow('Cannot create a Parse.File with that data.');
   });
 
   it('throws with invalid base64', () => {
-    expect(function () {
+    expect(() => {
       b64Digit(65);
     }).toThrow('Tried to encode large digit 65 in base64.');
   });
 
   it('returns secure url when specified', () => {
     const file = new ParseFile('parse.txt', { base64: 'ParseA==' });
-    return file.save().then(function (result) {
+    return file.save().then(result => {
       expect(result).toBe(file);
       expect(result.url({ forceSecure: true })).toBe('https://files.parsetfss.com/a/parse.txt');
     });
@@ -161,7 +161,7 @@ describe('ParseFile', () => {
     const file = new ParseFile('parse.txt', { base64: 'ParseA==' });
     expect(file.name()).toBe('parse.txt');
     expect(file.url()).toBe(undefined);
-    return file.save().then(function (result) {
+    return file.save().then(result => {
       expect(result).toBe(file);
       expect(result.name()).toBe('parse.txt');
       expect(result.url()).toBe('http://files.parsetfss.com/a/parse.txt');
@@ -174,7 +174,7 @@ describe('ParseFile', () => {
     });
     expect(file.name()).toBe('parse.png');
     expect(file.url()).toBe(undefined);
-    return file.save().then(function (result) {
+    return file.save().then(result => {
       expect(result).toBe(file);
       expect(result.name()).toBe('parse.png');
       expect(result.url()).toBe('http://files.parsetfss.com/a/parse.png');
@@ -183,7 +183,7 @@ describe('ParseFile', () => {
 
   it('generates a JSON representation', () => {
     const file = new ParseFile('parse.txt', { base64: 'ParseA==' });
-    return file.save().then(function (result) {
+    return file.save().then(result => {
       expect(result.toJSON()).toEqual({
         __type: 'File',
         name: 'parse.txt',
@@ -246,7 +246,7 @@ describe('ParseFile', () => {
     };
     jest.spyOn(options, 'progress');
 
-    return file.save(options).then(function (f) {
+    return file.save(options).then(f => {
       expect(options.progress).toHaveBeenCalledWith(0.5, 5, 10, {
         type: 'upload',
       });
@@ -361,7 +361,7 @@ describe('FileController', () => {
       const name = path.substr(path.indexOf('/') + 1);
       return Promise.resolve({
         name: name,
-        url: 'https://files.parsetfss.com/a/' + name,
+        url: `https://files.parsetfss.com/a/${name}`,
       });
     };
     const ajax = function (method, path) {
@@ -369,7 +369,7 @@ describe('FileController', () => {
       return Promise.resolve({
         response: {
           name: name,
-          url: 'https://files.parsetfss.com/a/' + name,
+          url: `https://files.parsetfss.com/a/${name}`,
         },
       });
     };
@@ -378,7 +378,7 @@ describe('FileController', () => {
 
   it('saves files created with bytes', () => {
     const file = new ParseFile('parse.txt', [61, 170, 236, 120]);
-    return file.save().then(function (f) {
+    return file.save().then(f => {
       expect(f).toBe(file);
       expect(f.name()).toBe('parse.txt');
       expect(f.url()).toBe('https://files.parsetfss.com/a/parse.txt');
@@ -391,7 +391,7 @@ describe('FileController', () => {
     const file = new ParseFile('parse.txt', blob);
     file._source.format = 'file';
 
-    return file.save().then(function (f) {
+    return file.save().then(f => {
       expect(f).toBe(file);
       expect(f.name()).toBe('parse.txt');
       expect(f.url()).toBe('https://files.parsetfss.com/a/parse.txt');
@@ -664,7 +664,7 @@ describe('FileController', () => {
       const name = path.substr(path.indexOf('/') + 1);
       return Promise.resolve({
         name: name,
-        url: 'https://files.parsetfss.com/a/' + name,
+        url: `https://files.parsetfss.com/a/${name}`,
       });
     };
     const ajax = function (method, path, data, headers) {
@@ -673,7 +673,7 @@ describe('FileController', () => {
       return Promise.resolve({
         response: {
           name: name,
-          url: 'https://files.parsetfss.com/a/' + name,
+          url: `https://files.parsetfss.com/a/${name}`,
         },
       });
     };
@@ -683,7 +683,7 @@ describe('FileController', () => {
     const file = new ParseFile('parse.txt', blob);
     file._source.format = 'file';
 
-    return file.save({ sessionToken: 'testing_sessionToken' }).then(function (f) {
+    return file.save({ sessionToken: 'testing_sessionToken' }).then(f => {
       expect(f).toBe(file);
       expect(f.name()).toBe('parse.txt');
       expect(f.url()).toBe('https://files.parsetfss.com/a/parse.txt');
@@ -704,7 +704,7 @@ describe('FileController', () => {
       const name = path.substr(path.indexOf('/') + 1);
       return Promise.resolve({
         name: name,
-        url: 'https://files.parsetfss.com/a/' + name,
+        url: `https://files.parsetfss.com/a/${name}`,
       });
     };
     const ajax = function (method, path, data, headers) {
@@ -713,7 +713,7 @@ describe('FileController', () => {
       return Promise.resolve({
         response: {
           name: name,
-          url: 'https://files.parsetfss.com/a/' + name,
+          url: `https://files.parsetfss.com/a/${name}`,
         },
       });
     };
@@ -723,7 +723,7 @@ describe('FileController', () => {
     const file = new ParseFile('parse.txt', blob);
     file._source.format = 'file';
 
-    return file.save().then(function (f) {
+    return file.save().then(f => {
       expect(f).toBe(file);
       expect(f.name()).toBe('parse.txt');
       expect(f.url()).toBe('https://files.parsetfss.com/a/parse.txt');
@@ -744,7 +744,7 @@ describe('FileController', () => {
       const name = path.substr(path.indexOf('/') + 1);
       return Promise.resolve({
         name: name,
-        url: 'https://files.parsetfss.com/a/' + name,
+        url: `https://files.parsetfss.com/a/${name}`,
       });
     });
     const ajax = function (method, path, data, headers, options) {
@@ -753,7 +753,7 @@ describe('FileController', () => {
       return Promise.resolve({
         response: {
           name: name,
-          url: 'https://files.parsetfss.com/a/' + name,
+          url: `https://files.parsetfss.com/a/${name}`,
         },
       });
     };

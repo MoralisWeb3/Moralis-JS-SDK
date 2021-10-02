@@ -208,7 +208,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    liveQueryClient.on('open', function () {
+    liveQueryClient.on('open', () => {
       isChecked = true;
     });
 
@@ -237,7 +237,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    liveQueryClient.on('open', function () {
+    liveQueryClient.on('open', () => {
       isChecked = true;
     });
     jest.spyOn(liveQueryClient, 'resubscribe');
@@ -274,7 +274,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    subscription.on('open', function () {
+    subscription.on('open', () => {
       isChecked = true;
     });
 
@@ -325,7 +325,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    liveQueryClient.on('error', function (error) {
+    liveQueryClient.on('error', error => {
       isChecked = true;
       expect(error).toEqual('error');
     });
@@ -358,7 +358,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    subscription.on('error', function (error) {
+    subscription.on('error', error => {
       isChecked = true;
       expect(error).toEqual('error thrown');
     });
@@ -393,7 +393,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    subscription.on('create', function (parseObject) {
+    subscription.on('create', parseObject => {
       isChecked = true;
       expect(parseObject.get('key')).toEqual('value');
       expect(parseObject.get('className')).toBeUndefined();
@@ -574,11 +574,11 @@ describe('LiveQueryClient', () => {
     liveQueryClient.subscriptions.set(1, subscription);
     // Register checked in advance
     let isChecked = false;
-    subscription.on('close', function () {
+    subscription.on('close', () => {
       isChecked = true;
     });
     let isCheckedAgain = false;
-    liveQueryClient.on('close', function () {
+    liveQueryClient.on('close', () => {
       isCheckedAgain = true;
     });
 
@@ -601,11 +601,11 @@ describe('LiveQueryClient', () => {
     liveQueryClient.subscriptions.set(1, subscription);
     // Register checked in advance
     let isChecked = false;
-    subscription.on('close', function () {
+    subscription.on('close', () => {
       isChecked = true;
     });
     let isCheckedAgain = false;
-    liveQueryClient.on('close', function () {
+    liveQueryClient.on('close', () => {
       isCheckedAgain = true;
     });
     liveQueryClient.open();
@@ -627,7 +627,7 @@ describe('LiveQueryClient', () => {
 
     liveQueryClient.open = jest.fn();
 
-    const attempts = liveQueryClient.attempts;
+    const { attempts } = liveQueryClient;
     liveQueryClient._handleReconnect();
     expect(liveQueryClient.state).toEqual('reconnecting');
 
@@ -648,7 +648,7 @@ describe('LiveQueryClient', () => {
 
     liveQueryClient.open = jest.fn();
 
-    const attempts = liveQueryClient.attempts;
+    const { attempts } = liveQueryClient;
     liveQueryClient.state = 'disconnected';
     liveQueryClient._handleReconnect();
     expect(liveQueryClient.state).toEqual('disconnected');
@@ -674,7 +674,7 @@ describe('LiveQueryClient', () => {
     });
     const error = {};
     let isChecked = false;
-    liveQueryClient.on('error', function (errorAgain) {
+    liveQueryClient.on('error', errorAgain => {
       isChecked = true;
       expect(errorAgain).toEqual(error);
     });
@@ -722,7 +722,7 @@ describe('LiveQueryClient', () => {
       data: JSON.stringify(data),
     };
     let isChecked = false;
-    liveQueryClient.on('error', function (error) {
+    liveQueryClient.on('error', error => {
       isChecked = true;
       expect(error).toEqual(data.error);
     });
@@ -941,11 +941,11 @@ describe('LiveQueryClient', () => {
     liveQueryClient.subscriptions.set(1, subscription);
     // Register checked in advance
     let isChecked = false;
-    subscription.on('close', function () {
+    subscription.on('close', () => {
       isChecked = true;
     });
     let isCheckedAgain = false;
-    liveQueryClient.on('close', function () {
+    liveQueryClient.on('close', () => {
       isCheckedAgain = true;
     });
 
@@ -985,7 +985,7 @@ describe('LiveQueryClient', () => {
     };
     // Register checked in advance
     let isChecked = false;
-    subscription.on('create', function (parseObject) {
+    subscription.on('create', parseObject => {
       isChecked = true;
       expect(parseObject instanceof MyExtendedClass).toBe(true);
       expect(parseObject.get('key')).toEqual('value');

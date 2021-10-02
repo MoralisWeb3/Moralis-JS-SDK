@@ -50,7 +50,7 @@ describe('GeoPoint', () => {
       [['29', '10']],
       [{ latitude: '29', longitude: '10' }],
     ].forEach(case_test => {
-      expect(function () {
+      expect(() => {
         new ParseGeoPoint(...case_test);
       }).toThrow('GeoPoint latitude and longitude must be valid numbers');
     });

@@ -1,3 +1,3 @@
-import * as Moralis from "./index";
+import * as Moralis from './index';
 
 export = Moralis;

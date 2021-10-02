@@ -17,7 +17,7 @@ export default function canBeSerialized(obj: ParseObject): boolean {
   if (!(obj instanceof ParseObject)) {
     return true;
   }
-  const attributes = obj.attributes;
+  const { attributes } = obj;
   for (const attr in attributes) {
     const val = attributes[attr];
     if (!canBeSerializedHelper(val)) {

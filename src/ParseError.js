@@ -27,7 +27,7 @@ class ParseError extends Error {
   }
 
   toString() {
-    return 'ParseError: ' + this.code + ' ' + this.message;
+    return `ParseError: ${this.code} ${this.message}`;
   }
 }
 
