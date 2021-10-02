@@ -8,6 +8,10 @@ export interface paths {
     /** Gets the contents of a block by block hash */
     get: operations["getBlock"];
   };
+  "/dateToBlock": {
+    /** Gets the closest block of the provided date */
+    get: operations["getDateToBlock"];
+  };
   "/{address}/logs": {
     /** Gets the logs from an address */
     get: operations["getLogsByAddress"];
@@ -650,6 +654,27 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["block"];
+        };
+      };
+    };
+  };
+  /** Gets the closest block of the provided date */
+  getDateToBlock: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** web3 provider url to user when using local dev chain */
+        providerUrl?: string;
+        /** Unix date in miliseconds or a datestring (any format that is accepted by momentjs) */
+        date: string;
+      };
+    };
+    responses: {
+      /** Returns the blocknumber and corresponding date and timestamp */
+      200: {
+        content: {
+          "application/json": components["schemas"]["blockDate"];
         };
       };
     };
@@ -1526,6 +1551,7 @@ export interface external {}
 export class GeneratedWeb3API {
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"] ) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getLogsByAddress: (options: operations["getLogsByAddress"]["parameters"]["query"] & operations["getLogsByAddress"]["parameters"]["path"]) => Promise<operations["getLogsByAddress"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTransfersByBlock: (options: operations["getNFTTransfersByBlock"]["parameters"]["query"] & operations["getNFTTransfersByBlock"]["parameters"]["path"]) => Promise<operations["getNFTTransfersByBlock"]["responses"]["200"]["content"]["application/json"]>;
     getTransaction: (options: operations["getTransaction"]["parameters"]["query"] & operations["getTransaction"]["parameters"]["path"]) => Promise<operations["getTransaction"]["responses"]["200"]["content"]["application/json"]>;
@@ -1563,4 +1589,10 @@ export class GeneratedWeb3API {
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
   }
+
+  static eth-defi: {
+    getPairReserves: (options: operations["getPairReserves"]["parameters"]["query"] & operations["getPairReserves"]["parameters"]["path"]) => Promise<operations["getPairReserves"]["responses"]["200"]["content"]["application/json"]>;
+    getPairAddress: (options: operations["getPairAddress"]["parameters"]["query"] & operations["getPairAddress"]["parameters"]["path"]) => Promise<operations["getPairAddress"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
 }
