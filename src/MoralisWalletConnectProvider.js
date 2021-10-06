@@ -58,7 +58,11 @@ class MoralisWalletConnectProvider {
 
   static cleanupStaleData() {
     if (window) {
-      window.localStorage.removeItem('walletconnect');
+      try {
+        window.localStorage.removeItem('walletconnect');
+      } catch (error) {
+        // Do nothing, might happen in react-native environment
+      }
     }
   }
 
