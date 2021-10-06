@@ -81,7 +81,7 @@ class MoralisWeb3 {
     MoralisWalletConnectProvider.cleanupStaleData();
   }
   static async authenticate(options) {
-    const isLoggedIn = await ParseUser.current();
+    const isLoggedIn = await ParseUser.currentAsync();
     if (isLoggedIn) {
       await ParseUser.logOut();
     }
@@ -116,7 +116,7 @@ class MoralisWeb3 {
   static async link(account, options) {
     const web3 = await MoralisWeb3.enable(options);
     const data = options?.signingMessage || MoralisWeb3.getSigningData();
-    const user = await ParseUser.current();
+    const user = await ParseUser.currentAsync();
     const ethAddress = account.toLowerCase();
     const EthAddress = ParseObject.extend('_EthAddress');
     const query = new ParseQuery(EthAddress);
@@ -137,7 +137,7 @@ class MoralisWeb3 {
     const query = new ParseQuery(EthAddress);
     const ethAddressRecord = await query.get(accountsLower);
     await ethAddressRecord.destroy();
-    const user = await ParseUser.current();
+    const user = await ParseUser.currentAsync();
     const accounts = user.get('accounts') ?? [];
     const nextAccounts = accounts.filter(v => v !== accountsLower);
     user.set('accounts', nextAccounts);
