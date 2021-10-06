@@ -1590,7 +1590,7 @@ export class GeneratedWeb3API {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
   }
 
-  static ethDefi: {
+  static defi: {
     getPairReserves: (options: operations["getPairReserves"]["parameters"]["query"] & operations["getPairReserves"]["parameters"]["path"]) => Promise<operations["getPairReserves"]["responses"]["200"]["content"]["application/json"]>;
     getPairAddress: (options: operations["getPairAddress"]["parameters"]["query"] & operations["getPairAddress"]["parameters"]["path"]) => Promise<operations["getPairAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
