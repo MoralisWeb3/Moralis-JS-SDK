@@ -86,7 +86,7 @@
     "jest": "24.9.0",
     "jsdoc": "3.6.3",
     "jsdoc-babel": "0.5.0",
-    "metro-react-native-babel-preset": "0.59.0",
+    "metro-react-native-babel-preset": "0.66.2",
     "openapi-typescript": "^4.0.2",
     "parse-server": "git+https://git@github.com/parse-community/parse-server.git#08b2ea45b0b499e83018bcaed498f7b043b2b027",
     "prettier": "2.2.1",
