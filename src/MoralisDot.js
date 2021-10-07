@@ -4,6 +4,7 @@ import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
 import ParseACL from './ParseACL';
+import createSigningData from './createSigningData';
 
 let web3EnablePromise = null;
 class MoralisDot {
@@ -23,7 +24,8 @@ class MoralisDot {
     if (!address) throw new Error('Address not found');
     const dotAddress = address;
     const accounts = [dotAddress];
-    const data = MoralisDot.getSigningData();
+    const message = MoralisDot.getSigningData();
+    const data = createSigningData(message);
     const signature = await MoralisDot.sign(address, data);
     const authData = { id: dotAddress, signature, data };
     const user = await ParseUser.logInWith('moralisDot', { authData });

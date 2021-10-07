@@ -11,6 +11,7 @@ import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
+import createSigningData from './createSigningData';
 const EventEmitter = require('events');
 const transferEvents = new EventEmitter();
 
@@ -97,7 +98,8 @@ class MoralisWeb3 {
     }
 
     const web3 = await MoralisWeb3.enable(options);
-    const data = options?.signingMessage || MoralisWeb3.getSigningData();
+    const message = options?.signingMessage || MoralisWeb3.getSigningData();
+    const data = createSigningData(message);
     const accounts = await web3.eth.getAccounts();
     const accountsLower = accounts.map(v => v.toLowerCase());
     const [ethAddress] = accountsLower;

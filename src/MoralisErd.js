@@ -4,6 +4,7 @@ import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
 import ParseACL from './ParseACL';
+import createSigningData from './createSigningData';
 
 const INIT_ERROR = 'Could not initialise ledger app, make sure Elrond app is open';
 
@@ -56,7 +57,8 @@ class MoralisErd {
     // const account = await proxy.getAccount(address);
     const erdAddress = address.toLowerCase();
     const accounts = [erdAddress];
-    const data = MoralisErd.getSigningData();
+    const message = MoralisErd.getSigningData();
+    const data = createSigningData(message);
     const signature = await MoralisErd.sign(data);
     const authData = { id: erdAddress, signature, data };
     const user = await ParseUser.logInWith('moralisErd', { authData });
