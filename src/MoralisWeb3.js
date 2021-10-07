@@ -99,7 +99,7 @@ class MoralisWeb3 {
 
     const web3 = await MoralisWeb3.enable(options);
     const message = options?.signingMessage || MoralisWeb3.getSigningData();
-    const data = createSigningData(message);
+    const data = await createSigningData(message);
     const accounts = await web3.eth.getAccounts();
     const accountsLower = accounts.map(v => v.toLowerCase());
     const [ethAddress] = accountsLower;

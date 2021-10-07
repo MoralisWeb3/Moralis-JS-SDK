@@ -25,7 +25,7 @@ class MoralisDot {
     const dotAddress = address;
     const accounts = [dotAddress];
     const message = MoralisDot.getSigningData();
-    const data = createSigningData(message);
+    const data = await createSigningData(message);
     const signature = await MoralisDot.sign(address, data);
     const authData = { id: dotAddress, signature, data };
     const user = await ParseUser.logInWith('moralisDot', { authData });

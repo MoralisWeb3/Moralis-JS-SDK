@@ -58,7 +58,7 @@ class MoralisErd {
     const erdAddress = address.toLowerCase();
     const accounts = [erdAddress];
     const message = MoralisErd.getSigningData();
-    const data = createSigningData(message);
+    const data = await createSigningData(message);
     const signature = await MoralisErd.sign(data);
     const authData = { id: erdAddress, signature, data };
     const user = await ParseUser.logInWith('moralisErd', { authData });
