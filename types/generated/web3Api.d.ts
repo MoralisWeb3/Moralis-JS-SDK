@@ -62,10 +62,6 @@ export interface paths {
     /** Gets the transfers of the tokens matching the given parameters */
     get: operations["getNFTTransfers"];
   };
-  "/{address}/nft/transfers/verbose": {
-    /** Gets NFT token transactions in descending order based on block number */
-    get: operations["getHistoricalNFTTransfers"];
-  };
   "/{address}/nft/{token_address}": {
     /**
      * Gets NFTs owned by the given address
@@ -500,6 +496,8 @@ export interface components {
       transaction_index?: string;
       /** The log index */
       log_index: number;
+      /** The operator present only for ERC1155 Transfers */
+      operator?: string;
     };
     nftTransferCollection: {
       /** The total number of matches for this query */
@@ -1010,39 +1008,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["nftTransferCollection"];
-        };
-      };
-    };
-  };
-  /** Gets NFT token transactions in descending order based on block number */
-  getHistoricalNFTTransfers: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
-        subdomain?: string;
-        /** web3 provider url to user when using local dev chain */
-        providerUrl?: string;
-        /** from_block */
-        from_block?: number;
-        /** to_block */
-        to_block?: number;
-        /** offset */
-        offset?: number;
-        /** limit */
-        limit?: number;
-      };
-      path: {
-        /** address */
-        address: string;
-      };
-    };
-    responses: {
-      /** Returns a collection of token NFT transfers. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["historicalNftTransfer"][];
         };
       };
     };
@@ -1566,7 +1531,6 @@ export class GeneratedWeb3API {
     getTokenTransfers: (options: operations["getTokenTransfers"]["parameters"]["query"] & operations["getTokenTransfers"]["parameters"]["path"]) => Promise<operations["getTokenTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTs: (options: operations["getNFTs"]["parameters"]["query"] & operations["getNFTs"]["parameters"]["path"]) => Promise<operations["getNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTransfers: (options: operations["getNFTTransfers"]["parameters"]["query"] & operations["getNFTTransfers"]["parameters"]["path"]) => Promise<operations["getNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
-    getHistoricalNFTTransfers: (options: operations["getHistoricalNFTTransfers"]["parameters"]["query"] & operations["getHistoricalNFTTransfers"]["parameters"]["path"]) => Promise<operations["getHistoricalNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTsForContract: (options: operations["getNFTsForContract"]["parameters"]["query"] & operations["getNFTsForContract"]["parameters"]["path"]) => Promise<operations["getNFTsForContract"]["responses"]["200"]["content"]["application/json"]>;
   }
 
@@ -1590,7 +1554,7 @@ export class GeneratedWeb3API {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
   }
 
-  static eth-defi: {
+  static defi: {
     getPairReserves: (options: operations["getPairReserves"]["parameters"]["query"] & operations["getPairReserves"]["parameters"]["path"]) => Promise<operations["getPairReserves"]["responses"]["200"]["content"]["application/json"]>;
     getPairAddress: (options: operations["getPairAddress"]["parameters"]["query"] & operations["getPairAddress"]["parameters"]["path"]) => Promise<operations["getPairAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
