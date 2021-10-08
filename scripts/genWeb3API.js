@@ -36,7 +36,7 @@ content += "if (!options.chain) options.chain = 'eth';";
 // eslint-disable-next-line no-template-curly-in-string
 content +=
   // eslint-disable-next-line no-template-curly-in-string
-  'return http.post(`functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
+  'return http.post(`/functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
 
 content += '}';
 
