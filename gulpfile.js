@@ -50,7 +50,6 @@ const PRESETS = {
     ],
   ],
   'react-native': ['module:metro-react-native-babel-preset'],
-  web3api: ['@babel/preset-env'],
 };
 const PLUGINS = {
   browser: [
@@ -73,11 +72,6 @@ const PLUGINS = {
     'transform-inline-environment-variables',
   ],
   'react-native': [
-    '@babel/plugin-transform-flow-comments',
-    'inline-package-json',
-    'transform-inline-environment-variables',
-  ],
-  web3api: [
     '@babel/plugin-transform-flow-comments',
     'inline-package-json',
     'transform-inline-environment-variables',
