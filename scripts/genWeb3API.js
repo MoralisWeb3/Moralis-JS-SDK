@@ -24,20 +24,25 @@ content += '}';
 
 content += '\n\n\n';
 
-content += 'static apiCall(name, options) {';
+content += 'static async apiCall(name, options) {';
 content += 'if(!this.serverUrl){';
 content += `throw new Error("Web3Api not initialized, run Web3Api.initialize first")`;
 content += '}';
 
 content += '\n\n';
 
+content += 'try {';
+
 content += 'const http = axios.create({ baseURL: this.serverUrl });';
 content += "if (!options.chain) options.chain = 'eth';";
 // eslint-disable-next-line no-template-curly-in-string
 content +=
   // eslint-disable-next-line no-template-curly-in-string
-  'return http.post(`/functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
+  'return await http.post(`/functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
 
+content += '}catch(error) {';
+content += ' if (error.response) { throw error.response.data; } throw error;';
+content += '}';
 content += '}';
 
 content += '\n\n\n';
