@@ -38,8 +38,8 @@ content += "if (!options.chain) options.chain = 'eth';";
 // eslint-disable-next-line no-template-curly-in-string
 content +=
   // eslint-disable-next-line no-template-curly-in-string
-  'return await http.post(`/functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
-
+  'const response = await http.post(`/functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
+content += 'return response.data;';
 content += '}catch(error) {';
 content += ' if (error.response) { throw error.response.data; } throw error;';
 content += '}';
