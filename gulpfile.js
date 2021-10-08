@@ -50,6 +50,7 @@ const PRESETS = {
     ],
   ],
   'react-native': ['module:metro-react-native-babel-preset'],
+  web3api: ['@babel/preset-env'],
 };
 const PLUGINS = {
   browser: [
@@ -72,6 +73,11 @@ const PLUGINS = {
     'transform-inline-environment-variables',
   ],
   'react-native': [
+    '@babel/plugin-transform-flow-comments',
+    'inline-package-json',
+    'transform-inline-environment-variables',
+  ],
+  web3api: [
     '@babel/plugin-transform-flow-comments',
     'inline-package-json',
     'transform-inline-environment-variables',
@@ -166,6 +172,25 @@ gulp.task('browserify-weapp', function (cb) {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('browserify-web3api', function (cb) {
+  const stream = browserify({
+    builtins: ['_process', 'events'],
+    entries: 'lib/web3Api/index.js',
+    standalone: 'Web3Api',
+  })
+    .exclude('xmlhttprequest')
+    .ignore('_process')
+    .bundle();
+  stream.on('end', () => {
+    cb();
+  });
+  return stream
+    .pipe(source('moralis.web3api.js'))
+    .pipe(derequire())
+    .pipe(insert.prepend(DEV_HEADER))
+    .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('minify', function () {
   return gulp
     .src('dist/moralis.js')
@@ -176,6 +201,15 @@ gulp.task('minify', function () {
 });
 
 gulp.task('minify-weapp', function () {
+  return gulp
+    .src('dist/moralis.weapp.js')
+    .pipe(uglify())
+    .pipe(insert.prepend(FULL_HEADER))
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('minify-web3api', function () {
   return gulp
     .src('dist/moralis.weapp.js')
     .pipe(uglify())

@@ -97,7 +97,7 @@
     "crypto-js": "4.0.0"
   },
   "scripts": {
-    "build": "npm run generate-types && npm run generate-web3Api && node scripts/build_releases.js",
+    "build": "npm run generate-types && node scripts/build_releases.js",
     "release": "node scripts/build_releases.js && npm publish",
     "test": "cross-env PARSE_BUILD=node jest",
     "lint": "eslint --cache src/ integration/",

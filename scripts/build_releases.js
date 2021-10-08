@@ -47,17 +47,24 @@ const gulp = 'npm run gulp';
   console.log('Weapp Release:');
   console.log('Node.js Release:');
   console.log('React Native Release:');
+  console.log('Web3Api Release:');
   await Promise.all([
     execCommand(`${crossEnv} PARSE_BUILD=browser ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=weapp ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=node ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=react-native ${gulp} compile`),
+    execCommand(`npm run generate-web3Api`),
   ]);
 
   console.log('Bundling and minifying for CDN distribution:');
-  await Promise.all([execCommand(`${gulp} browserify`), execCommand(`${gulp} browserify-weapp`)]);
+  await Promise.all([
+    execCommand(`${gulp} browserify`),
+    execCommand(`${gulp} browserify-weapp`),
+    execCommand(`${gulp} browserify-web3api`),
+  ]);
   // await Promise.all([
   //   execCommand(`${gulp} minify`),
   //   execCommand(`${gulp} minify-weapp`),
+  //   execCommand(`${gulp} minify-web3api`),
   // ]);
 })();
