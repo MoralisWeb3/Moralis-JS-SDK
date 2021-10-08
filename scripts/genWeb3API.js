@@ -31,10 +31,12 @@ content += '}';
 
 content += '\n\n';
 
-content += 'const http = axios({ baseURL: this.serverUrl });';
+content += 'const http = axios.create({ baseURL: this.serverUrl });';
 content += "if (!options.chain) options.chain = 'eth';";
 // eslint-disable-next-line no-template-curly-in-string
-content += 'return axios.post(`function/${name}`, options);';
+content +=
+  // eslint-disable-next-line no-template-curly-in-string
+  'return http.post(`functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
 
 content += '}';
 
