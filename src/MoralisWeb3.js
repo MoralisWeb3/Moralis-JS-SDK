@@ -202,6 +202,24 @@ class MoralisWeb3 {
             response = this.web3.eth.sendTransaction(_triggersArray[i]?.data);
           if (_triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
+        // Handles `web3Sign` trigger
+        case 'web3Sign':
+          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+          if (!_triggersArray[i].message)
+            throw new Error('web3Sign trigger does not have a message to sign');
+          if (!_triggersArray[i].signer || !this.web3.utils.isAddress(_triggersArray[i].signer))
+            throw new Error('web3Sign trigger signer address missing or invalid');
+          if (_triggersArray[i]?.shouldAwait === true)
+            response = await this.web3.eth.personal.sign(
+              _triggersArray[i].message,
+              _triggersArray[i].signer
+            );
+          if (_triggersArray[i]?.shouldAwait === false)
+            response = this.web3.eth.personal.sign(
+              _triggersArray[i].message,
+              _triggersArray[i].signer
+            );
+          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
         default:
           throw new Error(`Unknown trigger: "${_triggersArray[i]?.name}"`);
       }
