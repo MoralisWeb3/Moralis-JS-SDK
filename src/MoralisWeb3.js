@@ -220,6 +220,7 @@ class MoralisWeb3 {
               _triggersArray[i].signer
             );
           if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+          break;
         default:
           throw new Error(`Unknown trigger: "${_triggersArray[i]?.name}"`);
       }
