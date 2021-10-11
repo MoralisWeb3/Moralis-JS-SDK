@@ -206,7 +206,7 @@ gulp.task('browserify-weapp', function (cb) {
 gulp.task('browserify-web3api', function (cb) {
   const stream = browserify({
     builtins: ['_process', 'events'],
-    entries: 'lib/web3api/index.js',
+    entries: 'lib/web3api/MoralisWeb3Api.js',
     standalone: 'Web3Api',
   })
     .exclude('xmlhttprequest')
@@ -242,7 +242,7 @@ gulp.task('minify-weapp', function () {
 
 gulp.task('minify-web3api', function () {
   return gulp
-    .src('dist/moralis.weapp.js')
+    .src('dist/moralis.web3api.js')
     .pipe(uglify())
     .pipe(insert.prepend(FULL_HEADER))
     .pipe(rename({ extname: '.min.js' }))
