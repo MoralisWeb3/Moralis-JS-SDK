@@ -1,37 +1,82 @@
-import ParseUser from './ParseUser';
-import { run } from './Cloud';
+/**
+ * Automatically generated code, via genWeb3API.js
+ * Do not modify manually
+ */
+const axios = require('axios');
 
-import utils from './utils';
-
-function addChainAndUserAddress(options = {}) {
-  if (!options.chain) options.chain = 'eth';
-  if (options.address) return options;
-  const user = ParseUser.current();
-  if (user) {
-    options.address = user.get('ethAddress');
-    return options;
+class Web3Api {
+  static initialize(serverUrl) {
+    this.serverUrl = serverUrl;
   }
-  throw new Error('address or logged in user required');
+
+  static async apiCall(name, options) {
+    if (!this.serverUrl) {
+      throw new Error('Web3Api not initialized, run Web3Api.initialize first');
+    }
+
+    try {
+      const http = axios.create({ baseURL: this.serverUrl });
+      if (!options.chain) options.chain = 'eth';
+      return await http.post(`/functions/${name}`, options, {
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      });
+    } catch (error) {
+      if (error.response) {
+        throw error.response.data;
+      }
+      throw error;
+    }
+  }
+
+  static native = {
+    getBlock: async (options = {}) => Web3Api.apiCall('getBlock', options),
+    getDateToBlock: async (options = {}) => Web3Api.apiCall('getDateToBlock', options),
+    getLogsByAddress: async (options = {}) => Web3Api.apiCall('getLogsByAddress', options),
+    getNFTTransfersByBlock: async (options = {}) =>
+      Web3Api.apiCall('getNFTTransfersByBlock', options),
+    getTransaction: async (options = {}) => Web3Api.apiCall('getTransaction', options),
+    getContractEvents: async (options = {}) => Web3Api.apiCall('getContractEvents', options),
+    runContractFunction: async (options = {}) => Web3Api.apiCall('runContractFunction', options),
+  };
+
+  static account = {
+    getTransactions: async (options = {}) => Web3Api.apiCall('getTransactions', options),
+    getNativeBalance: async (options = {}) => Web3Api.apiCall('getNativeBalance', options),
+    getTokenBalances: async (options = {}) => Web3Api.apiCall('getTokenBalances', options),
+    getTokenTransfers: async (options = {}) => Web3Api.apiCall('getTokenTransfers', options),
+    getNFTs: async (options = {}) => Web3Api.apiCall('getNFTs', options),
+    getNFTTransfers: async (options = {}) => Web3Api.apiCall('getNFTTransfers', options),
+    getNFTsForContract: async (options = {}) => Web3Api.apiCall('getNFTsForContract', options),
+  };
+
+  static token = {
+    getTokenMetadata: async (options = {}) => Web3Api.apiCall('getTokenMetadata', options),
+    getTokenMetadataBySymbol: async (options = {}) =>
+      Web3Api.apiCall('getTokenMetadataBySymbol', options),
+    getTokenPrice: async (options = {}) => Web3Api.apiCall('getTokenPrice', options),
+    getTokenAdressTransfers: async (options = {}) =>
+      Web3Api.apiCall('getTokenAdressTransfers', options),
+    getTokenAllowance: async (options = {}) => Web3Api.apiCall('getTokenAllowance', options),
+    searchNFTs: async (options = {}) => Web3Api.apiCall('searchNFTs', options),
+    getAllTokenIds: async (options = {}) => Web3Api.apiCall('getAllTokenIds', options),
+    getContractNFTTransfers: async (options = {}) =>
+      Web3Api.apiCall('getContractNFTTransfers', options),
+    getNFTOwners: async (options = {}) => Web3Api.apiCall('getNFTOwners', options),
+    getNFTMetadata: async (options = {}) => Web3Api.apiCall('getNFTMetadata', options),
+    getTokenIdMetadata: async (options = {}) => Web3Api.apiCall('getTokenIdMetadata', options),
+    getTokenIdOwners: async (options = {}) => Web3Api.apiCall('getTokenIdOwners', options),
+    getWalletTokenIdTransfers: async (options = {}) =>
+      Web3Api.apiCall('getWalletTokenIdTransfers', options),
+  };
+
+  static resolve = {
+    resolveDomain: async (options = {}) => Web3Api.apiCall('resolveDomain', options),
+  };
+
+  static defi = {
+    getPairReserves: async (options = {}) => Web3Api.apiCall('getPairReserves', options),
+    getPairAddress: async (options = {}) => Web3Api.apiCall('getPairAddress', options),
+  };
 }
 
-async function endpointFactory() {
-  const wrappers = {};
-  const ENDPOINTS = await utils.fetchEndpoints();
-
-  for (const endpoint of ENDPOINTS) {
-    const { group, name } = endpoint;
-    let { preprocess } = endpoint;
-    preprocess = addChainAndUserAddress;
-    if (!wrappers[group]) wrappers[group] = {};
-    wrappers[group][name] = options => {
-      let o = options;
-      if (typeof preprocess === 'function') o = preprocess(options);
-      return run(name, o);
-    };
-  }
-  return wrappers;
-}
-
-const deepIndexApi = endpointFactory();
-
-export default deepIndexApi;
+export default Web3Api;

@@ -215,6 +215,8 @@ Moralis.Op = {
   AddUnique: ParseOp.AddUniqueOp,
   Relation: ParseOp.RelationOp,
 };
+
+Moralis.Web3API = require('./MoralisWeb3Api').default;
 Moralis.Push = require('./Push');
 Moralis.Query = require('./ParseQuery').default;
 Moralis.Relation = require('./ParseRelation').default;

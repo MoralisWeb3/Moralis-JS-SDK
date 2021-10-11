@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -5,47 +6,44 @@ const axios = require('axios');
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
 
-const OUTPUT_DIRECTORY = '../src/web3Api/';
-const OUTPUT_FILENAME = 'index.js';
+const OUTPUT_DIRECTORY = '../src';
+const OUTPUT_FILENAME = 'MoralisWeb3Api.js';
 
 let content = '';
 
-content += "const axios = require('axios');";
+content += `/**
+ * Automatically generated code, via genWeb3API.js
+ * Do not modify manually
+ */
+`;
 
-content += '\n\n\n';
+content += `const axios = require('axios');\n`;
 
-content += 'class Web3Api {';
+content += `
+class Web3Api {
+  static initialize(serverUrl) {
+    this.serverUrl = serverUrl;
+  }
 
-content += '\n\n\n';
+  static async apiCall(name, options) {
+    if (!this.serverUrl) {
+      throw new Error('Web3Api not initialized, run Web3Api.initialize first');
+    }
 
-content += 'static initialise(serverUrl) {';
-content += 'this.serverUrl = serverUrl;';
-content += '}';
-
-content += '\n\n\n';
-
-content += 'static async apiCall(name, options) {';
-content += 'if(!this.serverUrl){';
-content += `throw new Error("Web3Api not initialized, run Web3Api.initialize first")`;
-content += '}';
-
-content += '\n\n';
-
-content += 'try {';
-
-content += 'const http = axios.create({ baseURL: this.serverUrl });';
-content += "if (!options.chain) options.chain = 'eth';";
-// eslint-disable-next-line no-template-curly-in-string
-content +=
-  // eslint-disable-next-line no-template-curly-in-string
-  'return await http.post(`/functions/${name}`, options, { headers: { Accept: "application/json", "Content-Type": "application/json", }, });';
-
-content += '}catch(error) {';
-content += ' if (error.response) { throw error.response.data; } throw error;';
-content += '}';
-content += '}';
-
-content += '\n\n\n';
+    try {
+      const http = axios.create({ baseURL: this.serverUrl });
+      if (!options.chain) options.chain = 'eth';
+      return await http.post(\`/functions/\${name}\`, options, {
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      });
+    } catch (error) {
+      if (error.response) { 
+        throw error.response.data;
+      }
+      throw error;
+    }
+  }
+`;
 
 const fetchSwaggerJson = async () => {
   const http = await axios.create({ baseURL: `https://${DEEP_INDEX_API_HOST}` });
@@ -99,6 +97,7 @@ const fetchEndpoints = async () => {
 };
 
 const genWebApi = async () => {
+  console.log('Start generating automatic Web3API code...');
   let wrappers = {};
   const ENDPOINTS = await fetchEndpoints();
 
@@ -113,23 +112,25 @@ const genWebApi = async () => {
   }
 
   Object.keys(wrappers).forEach(group => {
-    content += `static ${group} = {`;
+    content += '\n';
+    content += `  static ${group} = {\n`;
     Object.values(wrappers[group]).forEach(func => {
-      content += `${func.name}: async (options = {}) => Web3Api.apiCall('${func.name}', options),`;
+      content += `    ${func.name}: async (options = {}) => Web3Api.apiCall('${func.name}', options),\n`;
     });
-    content += '}';
-    content += '\n\n\n';
+    content += '  }\n';
   });
 
-  content += '}';
+  content += '}\n';
+  content += '\n';
 
-  content += 'module.exports = Web3Api';
+  content += 'export default Web3Api;\n';
 
   const outputDirectory = path.join(__dirname, OUTPUT_DIRECTORY);
   const outputFile = path.join(outputDirectory, OUTPUT_FILENAME);
 
   await fs.promises.mkdir(outputDirectory, { recursive: true });
   await fs.promises.writeFile(outputFile, content, { encoding: 'utf8' });
+  console.log('Done generating automatic Web3API code!');
 };
 
 genWebApi();
