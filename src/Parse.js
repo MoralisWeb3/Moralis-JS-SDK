@@ -26,6 +26,20 @@ import MoralisWeb3 from './MoralisWeb3';
  */
 class Moralis extends MoralisWeb3 {
   /**
+   * Call this method to initialize all moralis instances (Moralis, Web3Api, plugins).
+   *
+   * @param {object} options Your Moralis Application ID and Server URL. Moralis.start({serverUrl,appId})
+   * @static
+   */
+  static async start(options: { serverUrl: string, appId: string }) {
+    const { appId, serverUrl } = options;
+    this.initialize(appId);
+    this.serverURL = serverUrl;
+    this.Web3API.initialize(serverUrl);
+    await this.initPlugins();
+  }
+
+  /**
    * Call this method first to set up your authentication tokens for Moralis.
    *
    * @param {string} applicationId Your Moralis Application ID.
