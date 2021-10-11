@@ -157,6 +157,7 @@ gulp.task('compile-web3api', function () {
           plugins: ['minify-dead-code-elimination'],
         })
       )
+      .pipe(rename('index.js'))
       .pipe(gulp.dest(path.join('lib', BUILD)))
   );
 });
@@ -206,7 +207,7 @@ gulp.task('browserify-weapp', function (cb) {
 gulp.task('browserify-web3api', function (cb) {
   const stream = browserify({
     builtins: ['_process', 'events'],
-    entries: 'lib/web3api/MoralisWeb3Api.js',
+    entries: 'lib/web3api/index.js',
     standalone: 'Web3Api',
   })
     .exclude('xmlhttprequest')
