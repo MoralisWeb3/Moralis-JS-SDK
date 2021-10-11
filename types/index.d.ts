@@ -77,6 +77,20 @@ export namespace Moralis {
   let serverURL: string;
   let secret: string;
   let encryptedUser: boolean;
+  let isInitialized: boolean;
+
+  interface PluginSpecs {
+    name: string;
+    functions: string[];
+  }
+
+  interface StartOptions {
+    serverUrl: string;
+    appId: string;
+    plugins?: PluginSpecs[];
+  }
+
+  let start: (options: StartOptions) => Promise<void>;
 
   interface BatchSizeOption {
     batchSize?: number;
@@ -373,6 +387,9 @@ export namespace Moralis {
 
     static transfer: (options: TransferOptions) => Promise<TransferResult>;
     static executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
+
+    // Plugins
+    static initPlugins: (installedPlugins?: PluginSpecs[]) => Promise<void>;
 
     // Helper functions
     static getWeb3Provider: (options: Pick<EnableOptions, 'provider'>) => Web3Provider;
