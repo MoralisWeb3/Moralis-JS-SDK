@@ -1631,7 +1631,9 @@ export interface operations {
 
 export interface external {}
 
-export class GeneratedWeb3API {
+export default class Web3Api {
+  static initialize: (serverUrl: string) => void;
+
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
     getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"] ) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
