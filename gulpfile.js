@@ -1,3 +1,5 @@
+/* eslint-disable prefer-template */
+/* eslint-disable prefer-arrow-callback */
 const babel = require('gulp-babel');
 const browserify = require('browserify');
 const derequire = require('gulp-derequire');
@@ -142,7 +144,7 @@ gulp.task('compile', function () {
 gulp.task('compile-web3api', function () {
   return (
     gulp
-      .src('src/web3Api/index.js')
+      .src('src/MoralisWeb3Api.js')
       .pipe(
         babel({
           presets: PRESETS[BUILD],
