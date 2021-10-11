@@ -33,9 +33,10 @@ class Web3Api {
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
-      return await http.post(\`/functions/\${name}\`, options, {
+      const response =  await http.post(\`/functions/\${name}\`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
+      return response.data.result
     } catch (error) {
       if (error.response) { 
         throw error.response.data;
