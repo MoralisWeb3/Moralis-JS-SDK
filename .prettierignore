@@ -5,6 +5,7 @@ CHANGELOG.md
 /out
 /coverage
 /dist
+/lib
 /types/generated
-/src/MoralisWeb3Api
 web3api.d.ts
+src/MoralisWeb3Api.js
