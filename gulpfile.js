@@ -50,6 +50,14 @@ const PRESETS = {
     ],
   ],
   'react-native': ['module:metro-react-native-babel-preset'],
+  web3api: [
+    [
+      '@babel/preset-env',
+      {
+        targets: { browsers: '> 0.25%, not dead', node: '8' },
+      },
+    ],
+  ],
 };
 const PLUGINS = {
   browser: [
@@ -73,6 +81,13 @@ const PLUGINS = {
   ],
   'react-native': [
     '@babel/plugin-transform-flow-comments',
+    'inline-package-json',
+    'transform-inline-environment-variables',
+  ],
+  web3api: [
+    transformRuntime,
+    '@babel/plugin-transform-flow-comments',
+    '@babel/plugin-proposal-class-properties',
     'inline-package-json',
     'transform-inline-environment-variables',
   ],
@@ -108,6 +123,26 @@ gulp.task('compile', function () {
   return (
     gulp
       .src('src/*.js')
+      .pipe(
+        babel({
+          presets: PRESETS[BUILD],
+          plugins: PLUGINS[BUILD],
+        })
+      )
+      // Second pass to kill BUILD-switched code
+      .pipe(
+        babel({
+          plugins: ['minify-dead-code-elimination'],
+        })
+      )
+      .pipe(gulp.dest(path.join('lib', BUILD)))
+  );
+});
+
+gulp.task('compile-web3api', function () {
+  return (
+    gulp
+      .src('src/web3Api/index.js')
       .pipe(
         babel({
           presets: PRESETS[BUILD],
@@ -169,7 +204,7 @@ gulp.task('browserify-weapp', function (cb) {
 gulp.task('browserify-web3api', function (cb) {
   const stream = browserify({
     builtins: ['_process', 'events'],
-    entries: 'lib/web3Api/index.js',
+    entries: 'lib/web3api/index.js',
     standalone: 'Web3Api',
   })
     .exclude('xmlhttprequest')

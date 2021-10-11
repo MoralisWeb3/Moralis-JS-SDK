@@ -53,9 +53,10 @@ const gulp = 'npm run gulp';
     execCommand(`${crossEnv} PARSE_BUILD=weapp ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=node ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=react-native ${gulp} compile`),
-    execCommand(`npm run generate-web3Api`),
+    execCommand(
+      `npm run generate-web3Api && ${crossEnv} PARSE_BUILD=web3api ${gulp} compile-web3api`
+    ),
   ]);
-
   console.log('Bundling and minifying for CDN distribution:');
   await Promise.all([
     execCommand(`${gulp} browserify`),

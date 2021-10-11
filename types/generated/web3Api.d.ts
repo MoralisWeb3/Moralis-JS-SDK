@@ -685,12 +685,38 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** The block number */
+        /**
+         * The block number
+         * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
+         * * If 'block_numer' is provided in conbinaison with 'from_block' and / or 'to_block', 'block_number' will will be used
+         */
         block_number?: string;
-        /** The minimum block number from where to get the logs */
+        /**
+         * The minimum block number from where to get the logs
+         * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
+         * * If 'block_numer' is provided in conbinaison with 'from_block' and / or 'to_block', 'block_number' will will be used
+         */
         from_block?: string;
-        /** The maximum block number to where to get the logs */
+        /**
+         * The maximum block number from where to get the logs
+         * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
+         * * If 'block_numer' is provided in conbinaison with 'from_block' and / or 'to_block', 'block_number' will will be used
+         */
         to_block?: string;
+        /**
+         * The date from where to get the logs (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         * * If 'from_date' and the block params are provided, the block params will be used. Please refer to the blocks params sections (block_number,from_block and to_block) on how to use them
+         */
+        from_date?: string;
+        /**
+         * Get the logs to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         * * If 'to_date' and the block params are provided, the block params will be used. Please refer to the blocks params sections (block_number,from_block and to_block) on how to use them
+         */
+        to_date?: string;
         /** topic0 */
         topic0?: string;
         /** topic1 */
@@ -770,10 +796,30 @@ export interface operations {
         subdomain?: string;
         /** web3 provider url to user when using local dev chain */
         providerUrl?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the logs
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the logs.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the logs (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the logs to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** The topic of the event */
         topic: string;
         /** offset */
@@ -842,10 +888,30 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the transactions
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the transactions.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the transactions (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transactions to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** offset */
         offset?: number;
         /** limit */
@@ -923,10 +989,30 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the transactions
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the transactions.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the transactions (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transactions to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** offset */
         offset?: number;
         /** limit */
@@ -1127,10 +1213,30 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the transfers.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the transfers (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transfers to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** offset */
         offset?: number;
         /** limit */
@@ -1456,6 +1562,12 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** To get the reserves at this block number */
         to_block?: string;
+        /**
+         * Get the reserves to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** web3 provider url to user when using local dev chain */
         provider_url?: string;
       };
@@ -1484,6 +1596,12 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** To get the reserves at this block number */
         to_block?: string;
+        /**
+         * Get the reserves to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** The factory name or address of the token exchange */
         exchange:
           | "uniswapv2"
