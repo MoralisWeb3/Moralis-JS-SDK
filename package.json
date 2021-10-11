@@ -98,7 +98,7 @@
   },
   "scripts": {
     "build": "npm run generate-types && node scripts/build_releases.js",
-    "release": "node scripts/build_releases.js && npm publish",
+    "release": "npm run build && npm publish",
     "test": "cross-env PARSE_BUILD=node jest",
     "lint": "eslint --cache src/ integration/",
     "lint:fix": "eslint --fix --cache src/ integration/",
