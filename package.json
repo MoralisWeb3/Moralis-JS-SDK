@@ -97,7 +97,7 @@
     "crypto-js": "4.0.0"
   },
   "scripts": {
-    "build": "npm run generate-types && node scripts/build_releases.js",
+    "build": "node scripts/build_releases.js",
     "release": "node scripts/build_releases.js && npm publish",
     "test": "cross-env PARSE_BUILD=node jest",
     "lint": "eslint --cache src/ integration/",
@@ -112,7 +112,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "cross-env": "cross-env",
-    "generate-types": "node scripts/generateWeb3ApiTypes",
+    "generate-web3Api": "node scripts/genWeb3API && node scripts/generateWeb3ApiTypes",
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
