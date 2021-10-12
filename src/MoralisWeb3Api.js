@@ -17,6 +17,9 @@ class Web3Api {
 
     if(this.Moralis) {
       const { web3 } = this.Moralis;
+      
+      if(!web3) throw new Error("Web3 not initialized, run await Moralis.enable");
+
       if (!options.address) {
         options.address = await (await web3.eth.getAccounts())[0];
       }
