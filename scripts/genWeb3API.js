@@ -27,7 +27,7 @@ class Web3Api {
 
   static async apiCall(name, options) {
     if (!this.serverUrl) {
-      throw new Error('Web3Api not initialized, run Web3Api.initialize first');
+      throw new Error('Web3Api not initialized, run Moralis.start() first');
     }
 
     try {
