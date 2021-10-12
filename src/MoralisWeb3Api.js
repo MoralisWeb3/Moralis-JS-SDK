@@ -5,8 +5,9 @@
 const axios = require('axios');
 
 class Web3Api {
-  static initialize(serverUrl) {
+  static initialize(serverUrl, Moralis = null) {
     this.serverUrl = serverUrl;
+    this.Moralis = Moralis;
   }
 
   static async apiCall(name, options) {
@@ -14,9 +15,20 @@ class Web3Api {
       throw new Error('Web3Api not initialized, run Moralis.start() first');
     }
 
+    if(this.Moralis) {
+      const { web3 } = this.Moralis;
+      
+      if(!web3) throw new Error("Web3 not initialized, run await Moralis.enable");
+
+      if (!options.address) {
+        options.address = await (await web3.eth.getAccounts())[0];
+      }
+    }
+
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
+      
       const response =  await http.post(`/functions/${name}`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
@@ -80,3 +92,4 @@ class Web3Api {
 }
 
 export default Web3Api;
+module.exports = Web3Api;
