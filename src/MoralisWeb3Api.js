@@ -11,7 +11,7 @@ class Web3Api {
 
   static async apiCall(name, options) {
     if (!this.serverUrl) {
-      throw new Error('Web3Api not initialized, run Web3Api.initialize first');
+      throw new Error('Web3Api not initialized, run Moralis.start() first');
     }
 
     try {
@@ -72,6 +72,10 @@ class Web3Api {
   static defi = {
     getPairReserves: async (options = {}) => Web3Api.apiCall('getPairReserves', options),
     getPairAddress: async (options = {}) => Web3Api.apiCall('getPairAddress', options),
+  }
+
+  static storage = {
+    uploadFolder: async (options = {}) => Web3Api.apiCall('uploadFolder', options),
   }
 }
 

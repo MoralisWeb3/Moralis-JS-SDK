@@ -158,6 +158,10 @@ export interface paths {
      */
     get: operations["getPairAddress"];
   };
+  "/ipfs/uploadFolder": {
+    /** Uploads multiple files and place them in a folder directory */
+    post: operations["uploadFolder"];
+  };
 }
 
 export interface components {
@@ -628,6 +632,16 @@ export interface components {
       reserve0: string;
       /** reserve1 */
       reserve1: string;
+    };
+    ipfsFileRequest: {
+      /** Path to file */
+      path: string;
+      /** base64 or JSON */
+      content: string;
+    };
+    ipfsFile: {
+      /** Path to file */
+      path: string;
     };
   };
 }
@@ -1627,6 +1641,23 @@ export interface operations {
       };
     };
   };
+  /** Uploads multiple files and place them in a folder directory */
+  uploadFolder: {
+    responses: {
+      /** Returns the path to the uploaded files */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ipfsFile"][];
+        };
+      };
+    };
+    /** Array of JSON and Base64 Supported */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ipfsFileRequest"][];
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -1677,6 +1708,10 @@ export default class Web3Api {
   static defi: {
     getPairReserves: (options: operations["getPairReserves"]["parameters"]["query"] & operations["getPairReserves"]["parameters"]["path"]) => Promise<operations["getPairReserves"]["responses"]["200"]["content"]["application/json"]>;
     getPairAddress: (options: operations["getPairAddress"]["parameters"]["query"] & operations["getPairAddress"]["parameters"]["path"]) => Promise<operations["getPairAddress"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
+  static storage: {
+    uploadFolder: (options: operations["uploadFolder"]["parameters"]["query"] ) => Promise<operations["uploadFolder"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }

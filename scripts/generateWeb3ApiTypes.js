@@ -75,8 +75,10 @@ const getPathByTag = swaggerJSON => {
 const filterUnique = (value, index, self) => self.indexOf(value) === index;
 
 const makeMethod = (pathDetails, path) => {
-  const optionKeys = pathDetails[path].data.parameters.map(param => param.in).filter(filterUnique);
-  const hasPath = optionKeys.includes('path');
+  const optionKeys = pathDetails[path].data?.parameters
+    ? pathDetails[path].data.parameters.map(param => param.in).filter(filterUnique)
+    : null;
+  const hasPath = optionKeys ? optionKeys.includes('path') : false;
 
   const operations = `operations["${path}"]`;
 
