@@ -5,9 +5,9 @@
 const axios = require('axios');
 
 class Web3Api {
-  static initialize(serverUrl, web3 = {}) {
+  static initialize(serverUrl, Moralis = null) {
     this.serverUrl = serverUrl;
-    this.web3 = web3;
+    this.Moralis = Moralis;
   }
 
   static async apiCall(name, options) {
@@ -15,9 +15,10 @@ class Web3Api {
       throw new Error('Web3Api not initialized, run Web3Api.initialize first');
     }
 
-    if(this.web3.eth) {
+    if(this.Moralis) {
+      const { web3 } = this.Moralis;
       if (!options.address) {
-        options.address = await (await this.web3.eth.getAccounts())[0];
+        options.address = await (await web3.eth.getAccounts())[0];
       }
     }
 

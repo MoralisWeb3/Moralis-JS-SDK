@@ -41,7 +41,7 @@ class Moralis extends MoralisWeb3 {
     }
     this.initialize(appId);
     this.serverURL = serverUrl;
-    this.Web3API.initialize(serverUrl, this.web3);
+    this.Web3API.initialize(serverUrl, Moralis);
     await this.initPlugins(plugins);
   }
 
