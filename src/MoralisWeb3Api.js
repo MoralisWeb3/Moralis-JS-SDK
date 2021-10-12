@@ -5,8 +5,9 @@
 const axios = require('axios');
 
 class Web3Api {
-  static initialize(serverUrl) {
+  static initialize(serverUrl, web3 = {}) {
     this.serverUrl = serverUrl;
+    this.web3 = web3;
   }
 
   static async apiCall(name, options) {
@@ -14,9 +15,16 @@ class Web3Api {
       throw new Error('Web3Api not initialized, run Web3Api.initialize first');
     }
 
+    if(this.web3.eth) {
+      if (!options.address) {
+        options.address = await (await this.web3.eth.getAccounts())[0];
+      }
+    }
+
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
+      
       const response =  await http.post(`/functions/${name}`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
@@ -73,6 +81,10 @@ class Web3Api {
     getPairReserves: async (options = {}) => Web3Api.apiCall('getPairReserves', options),
     getPairAddress: async (options = {}) => Web3Api.apiCall('getPairAddress', options),
   }
+
+  static storage = {
+    uploadFolder: async (options = {}) => Web3Api.apiCall('uploadFolder', options),
+  }
 }
 
-export default Web3Api;
+module.exports = Web3Api;

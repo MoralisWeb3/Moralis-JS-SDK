@@ -19,10 +19,14 @@ content += `/**
 
 content += `const axios = require('axios');\n`;
 
+// content += `const Web3 = require('web3');\n`;
+// content += `const MoralisWeb3 = require('./MoralisWeb3').default;\n`;
+
 content += `
 class Web3Api {
-  static initialize(serverUrl) {
+  static initialize(serverUrl, web3 = {}) {
     this.serverUrl = serverUrl;
+    this.web3 = web3;
   }
 
   static async apiCall(name, options) {
@@ -30,9 +34,16 @@ class Web3Api {
       throw new Error('Web3Api not initialized, run Web3Api.initialize first');
     }
 
+    if(this.web3.eth) {
+      if (!options.address) {
+        options.address = await (await this.web3.eth.getAccounts())[0];
+      }
+    }
+
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
+      
       const response =  await http.post(\`/functions/\${name}\`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
@@ -124,7 +135,8 @@ const genWebApi = async () => {
   content += '}\n';
   content += '\n';
 
-  content += 'export default Web3Api;\n';
+  // content += 'export default Web3Api;\n';
+  content += 'module.exports = Web3Api;\n';
 
   const outputDirectory = path.join(__dirname, OUTPUT_DIRECTORY);
   const outputFile = path.join(outputDirectory, OUTPUT_FILENAME);
