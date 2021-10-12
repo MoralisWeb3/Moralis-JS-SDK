@@ -87,4 +87,5 @@ class Web3Api {
   }
 }
 
+export default Web3Api;
 module.exports = Web3Api;

@@ -135,7 +135,7 @@ const genWebApi = async () => {
   content += '}\n';
   content += '\n';
 
-  // content += 'export default Web3Api;\n';
+  content += 'export default Web3Api;\n';
   content += 'module.exports = Web3Api;\n';
 
   const outputDirectory = path.join(__dirname, OUTPUT_DIRECTORY);
