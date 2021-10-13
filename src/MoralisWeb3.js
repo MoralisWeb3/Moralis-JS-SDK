@@ -176,7 +176,10 @@ class MoralisWeb3 {
             throw new Error(`Something went wrong\n${error}`);
           }
           if (options.disableTriggers !== true) {
-            const triggerReturn = await this.handleTriggers(response.data.result.triggers, response.data.result.data);
+            const triggerReturn = await this.handleTriggers(
+              response.data.result.triggers,
+              response.data.result.data
+            );
             if (triggerReturn) return triggerReturn;
           }
           return response.data.result;
@@ -200,7 +203,8 @@ class MoralisWeb3 {
             response = window.open(triggersArray[i]?.data);
           if (triggersArray[i]?.options?.newTab === false)
             response = window.open(triggersArray[i]?.data, '_self');
-          if (triggersArray[i]?.shouldReturnPayload === true) return { payload: payload, response: response };
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
           if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         // Handles `web3Transaction` trigger
@@ -210,7 +214,8 @@ class MoralisWeb3 {
             response = await this.web3.eth.sendTransaction(triggersArray[i]?.data);
           if (triggersArray[i]?.shouldAwait === false)
             response = this.web3.eth.sendTransaction(triggersArray[i]?.data);
-          if (triggersArray[i]?.shouldReturnPayload === true) return { payload: payload, response: response };
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
           if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         // Handles `web3Sign` trigger
@@ -230,7 +235,8 @@ class MoralisWeb3 {
               triggersArray[i].message,
               triggersArray[i].signer
             );
-          if (triggersArray[i]?.shouldReturnPayload === true) return { payload: payload, response: response };
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
           if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         default:
