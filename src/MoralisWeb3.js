@@ -11,6 +11,7 @@ import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
+import createSigningData from './createSigningData';
 const EventEmitter = require('events');
 const transferEvents = new EventEmitter();
 
@@ -34,6 +35,15 @@ class MoralisWeb3 {
     const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
     return new MWeb3(...args);
   }
+
+  static enableWeb3(options) {
+    return this.enable(options);
+  }
+
+  static isWeb3Enabled() {
+    return this.ensureWeb3IsInstalled();
+  }
+
   static async enable(options) {
     const Web3Provider = MoralisWeb3.getWeb3Provider(options);
     const web3Provider = new Web3Provider();
@@ -97,7 +107,8 @@ class MoralisWeb3 {
     }
 
     const web3 = await MoralisWeb3.enable(options);
-    const data = options?.signingMessage || MoralisWeb3.getSigningData();
+    const message = options?.signingMessage || MoralisWeb3.getSigningData();
+    const data = await createSigningData(message);
     const accounts = await web3.eth.getAccounts();
     const accountsLower = accounts.map(v => v.toLowerCase());
     const [ethAddress] = accountsLower;
@@ -198,6 +209,25 @@ class MoralisWeb3 {
             response = await this.web3.eth.sendTransaction(_triggersArray[i]?.data);
           if (_triggersArray[i]?.shouldAwait === false)
             response = this.web3.eth.sendTransaction(_triggersArray[i]?.data);
+          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+          break;
+        // Handles `web3Sign` trigger
+        case 'web3Sign':
+          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+          if (!_triggersArray[i].message)
+            throw new Error('web3Sign trigger does not have a message to sign');
+          if (!_triggersArray[i].signer || !this.web3.utils.isAddress(_triggersArray[i].signer))
+            throw new Error('web3Sign trigger signer address missing or invalid');
+          if (_triggersArray[i]?.shouldAwait === true)
+            response = await this.web3.eth.personal.sign(
+              _triggersArray[i].message,
+              _triggersArray[i].signer
+            );
+          if (_triggersArray[i]?.shouldAwait === false)
+            response = this.web3.eth.personal.sign(
+              _triggersArray[i].message,
+              _triggersArray[i].signer
+            );
           if (_triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         default:

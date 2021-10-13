@@ -1,1 +1,3 @@
 /types/**/*.d.ts
+/src/MoralisWeb3Api
+web3api.d.ts
