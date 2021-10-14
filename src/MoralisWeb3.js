@@ -35,6 +35,15 @@ class MoralisWeb3 {
     const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
     return new MWeb3(...args);
   }
+
+  static enableWeb3(options) {
+    return this.enable(options);
+  }
+
+  static isWeb3Enabled() {
+    return this.ensureWeb3IsInstalled();
+  }
+
   static async enable(options) {
     const Web3Provider = MoralisWeb3.getWeb3Provider(options);
     const web3Provider = new Web3Provider();
