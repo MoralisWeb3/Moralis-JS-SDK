@@ -88,6 +88,8 @@ export namespace Moralis {
     serverUrl: string;
     appId: string;
     plugins?: PluginSpecs[];
+    javascriptKey?: string;
+    masterKey?: string;
   }
 
   let start: (options: StartOptions) => Promise<void>;
