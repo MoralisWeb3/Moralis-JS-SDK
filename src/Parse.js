@@ -32,14 +32,14 @@ class Moralis extends MoralisWeb3 {
    * @static
    */
   static async start(options) {
-    const { appId, serverUrl, plugins } = options;
+    const { appId, serverUrl, plugins, javascriptKey, masterKey } = options;
     if (!serverUrl) {
       throw new Error(`Moralis.start failed: serverUrl is required`);
     }
     if (!appId) {
       throw new Error(`Moralis.start failed: appId is required`);
     }
-    this.initialize(appId);
+    this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;
     this.Web3API.initialize(serverUrl, Moralis);
     await this.initPlugins(plugins);
