@@ -1711,7 +1711,7 @@ export default class Web3Api {
   }
 
   static storage: {
-    uploadFolder: (options: operations["uploadFolder"]["parameters"]["query"] ) => Promise<operations["uploadFolder"]["responses"]["200"]["content"]["application/json"]>;
+    uploadFolder: () => Promise<operations["uploadFolder"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }

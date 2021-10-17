@@ -78,16 +78,20 @@ const makeMethod = (pathDetails, path) => {
   const optionKeys = pathDetails[path].data?.parameters
     ? pathDetails[path].data.parameters.map(param => param.in).filter(filterUnique)
     : null;
+  const hasQuery = optionKeys ? optionKeys.includes('query') : false;
   const hasPath = optionKeys ? optionKeys.includes('path') : false;
 
   const operations = `operations["${path}"]`;
 
-  const options = `${operations}["parameters"]["query"] ${
-    hasPath ? `& ${operations}["parameters"]["path"]` : ''
-  }`;
+  const options = hasQuery
+    ? `${operations}["parameters"]["query"] ${
+        hasPath ? `& ${operations}["parameters"]["path"]` : ''
+      }`
+    : undefined;
   const result = `${operations}["responses"]["200"]["content"]["application/json"]`;
+  const optionParam = options ? `options: ${options}` : '';
 
-  return `    ${path}: (options: ${options}) => Promise<${result}>;
+  return `    ${path}: (${optionParam}) => Promise<${result}>;
 `;
 };
 
