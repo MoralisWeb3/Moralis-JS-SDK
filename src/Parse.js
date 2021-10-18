@@ -32,7 +32,7 @@ class Moralis extends MoralisWeb3 {
    * @static
    */
   static async start(options) {
-    const { appId, serverUrl, plugins } = options;
+    const { appId, serverUrl, apiKey, plugins } = options;
     if (!serverUrl) {
       throw new Error(`Moralis.start failed: serverUrl is required`);
     }
@@ -41,7 +41,11 @@ class Moralis extends MoralisWeb3 {
     }
     this.initialize(appId);
     this.serverURL = serverUrl;
-    this.Web3API.initialize(serverUrl, Moralis);
+    if (process.env.PARSE_BUILD === 'browser' && apiKey) {
+      // eslint-disable-next-line no-console
+      console.warn('Web3Api.initialize warning: You are using apiKey in browser enviroment');
+    }
+    this.Web3API.initialize({ serverUrl, apiKey, Moralis });
     await this.initPlugins(plugins);
   }
 
