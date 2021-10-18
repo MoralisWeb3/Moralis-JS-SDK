@@ -31,8 +31,12 @@ class Web3Api {
     setBody: 'set body',
     property: 'property',
   };
-  static initialize(apiKey, Moralis = null) {
-    this.apiKey = apiKey;
+  static initialize({apiKey, serverUrl, Moralis = null}) {
+    if (!serverUrl && !apiKey) {
+      throw new Error('Web3Api.initialize failed: initialize with apiKey or serverUrl');
+    }
+    if(apiKey) this.apiKey = apiKey;
+    if(serverUrl) this.serverUrl = serverUrl;
     this.Moralis = Moralis;
   }
 
@@ -92,6 +96,13 @@ static getErrorMessage(error, url) {
 
 static async fetch({ endpoint, params }) {
   const { method = 'GET', url, bodyParams } = endpoint;
+  if(this.Moralis) {
+      const { web3 } = this.Moralis;
+      
+      if (!params.address && web3) {
+        params.address = await (await web3.eth.getAccounts())[0];
+      }
+    }
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
@@ -103,15 +114,44 @@ static async fetch({ endpoint, params }) {
         'x-api-key': this.apiKey,
       },
     });
-    const response = http[method.toLowerCase()](parameterizedUrl, body, {
+    const response = await http[method.toLowerCase()](parameterizedUrl, body, {
       params,
     });
-    return response.data;
+    return response;
   } catch (error) {
     const msg = this.getErrorMessage(error, url);
     throw new Error(msg);
   }
 }
+
+static async apiCall(name, options) {
+    if (!this.serverUrl) {
+      throw new Error('Web3Api not initialized, run Moralis.start() first');
+    }
+
+    if(this.Moralis) {
+      const { web3 } = this.Moralis;
+      
+      if (!options.address && web3) {
+        options.address = await (await web3.eth.getAccounts())[0];
+      }
+    }
+
+    try {
+      const http = axios.create({ baseURL: this.serverUrl });
+      if (!options.chain) options.chain = 'eth';
+      
+      const response =  await http.post(\`/functions/\${name}\`, options, {
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      });
+      return response.data.result
+    } catch (error) {
+      if (error.response) { 
+        throw error.response.data;
+      }
+      throw error;
+    }
+  }
 
 `;
 
@@ -191,11 +231,11 @@ const genWebApi = async () => {
     content += '\n';
     content += `  static ${group} = {\n`;
     Object.values(wrappers[group]).forEach(func => {
-      content += `    ${
+      content += `${
         func.name
-      }: async (options = {}) => Web3Api.fetch({ endpoint: ${JSON.stringify(
+      }: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: ${JSON.stringify(
         ENDPOINTS.find(e => e.name === func.name)
-      )}, params: options }),\n`;
+      )}, params: options }) : Web3Api.apiCall('${func.name}', options),\n`;
     });
     content += '  }\n';
   });
