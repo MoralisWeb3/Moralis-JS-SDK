@@ -96,7 +96,7 @@ static async fetch({ endpoint, params }) {
     const response = await http[method.toLowerCase()](parameterizedUrl, body, {
       params,
     });
-    return response;
+    return response.data;
   } catch (error) {
     const msg = this.getErrorMessage(error, url);
     throw new Error(msg);
