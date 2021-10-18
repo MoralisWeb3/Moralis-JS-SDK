@@ -176,7 +176,10 @@ class MoralisWeb3 {
             throw new Error(`Something went wrong\n${error}`);
           }
           if (options.disableTriggers !== true) {
-            const triggerReturn = await this.handleTriggers(response.data.result.triggers);
+            const triggerReturn = await this.handleTriggers(
+              response.data.result.triggers,
+              response.data.result.data
+            );
             if (triggerReturn) return triggerReturn;
           }
           return response.data.result;
@@ -186,52 +189,58 @@ class MoralisWeb3 {
     this.Plugins = allPlugins;
   }
 
-  static async handleTriggers(_triggersArray) {
-    if (!_triggersArray) return;
-    for (let i = 0; i < _triggersArray.length; i++) {
+  static async handleTriggers(triggersArray, payload) {
+    if (!triggersArray) return;
+    for (let i = 0; i < triggersArray.length; i++) {
       let response;
-      switch (_triggersArray[i]?.name) {
+      switch (triggersArray[i]?.name) {
         // Handles `openUrl` trigger
         case 'openUrl':
           if (
-            _triggersArray[i]?.options?.newTab === true ||
-            !_triggersArray[i]?.options?.hasOwnProperty('newTab')
+            triggersArray[i]?.options?.newTab === true ||
+            !triggersArray[i]?.options?.hasOwnProperty('newTab')
           )
-            response = window.open(_triggersArray[i]?.data);
-          if (_triggersArray[i]?.options?.newTab === false)
-            response = window.open(_triggersArray[i]?.data, '_self');
-          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+            response = window.open(triggersArray[i]?.data);
+          if (triggersArray[i]?.options?.newTab === false)
+            response = window.open(triggersArray[i]?.data, '_self');
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         // Handles `web3Transaction` trigger
         case 'web3Transaction':
           if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-          if (_triggersArray[i]?.shouldAwait === true)
-            response = await this.web3.eth.sendTransaction(_triggersArray[i]?.data);
-          if (_triggersArray[i]?.shouldAwait === false)
-            response = this.web3.eth.sendTransaction(_triggersArray[i]?.data);
-          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+          if (triggersArray[i]?.shouldAwait === true)
+            response = await this.web3.eth.sendTransaction(triggersArray[i]?.data);
+          if (triggersArray[i]?.shouldAwait === false)
+            response = this.web3.eth.sendTransaction(triggersArray[i]?.data);
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         // Handles `web3Sign` trigger
         case 'web3Sign':
           if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-          if (!_triggersArray[i].message)
+          if (!triggersArray[i].message)
             throw new Error('web3Sign trigger does not have a message to sign');
-          if (!_triggersArray[i].signer || !this.web3.utils.isAddress(_triggersArray[i].signer))
+          if (!triggersArray[i].signer || !this.web3.utils.isAddress(triggersArray[i].signer))
             throw new Error('web3Sign trigger signer address missing or invalid');
-          if (_triggersArray[i]?.shouldAwait === true)
+          if (triggersArray[i]?.shouldAwait === true)
             response = await this.web3.eth.personal.sign(
-              _triggersArray[i].message,
-              _triggersArray[i].signer
+              triggersArray[i].message,
+              triggersArray[i].signer
             );
-          if (_triggersArray[i]?.shouldAwait === false)
+          if (triggersArray[i]?.shouldAwait === false)
             response = this.web3.eth.personal.sign(
-              _triggersArray[i].message,
-              _triggersArray[i].signer
+              triggersArray[i].message,
+              triggersArray[i].signer
             );
-          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         default:
-          throw new Error(`Unknown trigger: "${_triggersArray[i]?.name}"`);
+          throw new Error(`Unknown trigger: "${triggersArray[i]?.name}"`);
       }
     }
   }
