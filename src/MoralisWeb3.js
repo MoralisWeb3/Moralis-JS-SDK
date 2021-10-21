@@ -37,7 +37,7 @@ class MoralisWeb3 {
   }
 
   static enableWeb3(options) {
-    return this.enable(options);
+    return this._enable(options);
   }
 
   static isWeb3Enabled() {
@@ -50,6 +50,10 @@ class MoralisWeb3 {
 
     const web3 = await web3Provider.activate(options);
     this.activeWeb3Provider = web3Provider;
+    return web3;
+  }
+  static async _enable(options) {
+    const web3 = await this.enable(options);
     this.web3 = web3;
     return web3;
   }
@@ -91,7 +95,7 @@ class MoralisWeb3 {
     MoralisWalletConnectProvider.cleanupStaleData();
   }
   static async authenticate(options) {
-    const isLoggedIn = await ParseUser.current();
+    const isLoggedIn = await ParseUser.currentAsync();
     if (isLoggedIn) {
       await ParseUser.logOut();
     }
@@ -106,7 +110,7 @@ class MoralisWeb3 {
       return MoralisErd.authenticate(options);
     }
 
-    const web3 = await MoralisWeb3.enable(options);
+    const web3 = await this._enable(options);
     const message = options?.signingMessage || MoralisWeb3.getSigningData();
     const data = await createSigningData(message);
     const accounts = await web3.eth.getAccounts();
@@ -125,9 +129,9 @@ class MoralisWeb3 {
     return user;
   }
   static async link(account, options) {
-    const web3 = await MoralisWeb3.enable(options);
+    const web3 = await MoralisWeb3._enable(options);
     const data = options?.signingMessage || MoralisWeb3.getSigningData();
-    const user = await ParseUser.current();
+    const user = await ParseUser.currentAsync();
     const ethAddress = account.toLowerCase();
     const EthAddress = ParseObject.extend('_EthAddress');
     const query = new ParseQuery(EthAddress);
@@ -148,7 +152,7 @@ class MoralisWeb3 {
     const query = new ParseQuery(EthAddress);
     const ethAddressRecord = await query.get(accountsLower);
     await ethAddressRecord.destroy();
-    const user = await ParseUser.current();
+    const user = await ParseUser.currentAsync();
     const accounts = user.get('accounts') ?? [];
     const nextAccounts = accounts.filter(v => v !== accountsLower);
     user.set('accounts', nextAccounts);
