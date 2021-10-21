@@ -14,6 +14,9 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import createSigningData from './createSigningData';
 const EventEmitter = require('events');
 const transferEvents = new EventEmitter();
+import { MemoryCard } from './MoralisWeb3MemoryCard';
+
+const memoryCard = new MemoryCard();
 
 export const EthereumEvents = {
   CONNECT: 'connect',
@@ -191,33 +194,48 @@ class MoralisWeb3 {
 
   static async handleTriggers(triggersArray, payload) {
     if (!triggersArray) return;
+
     for (let i = 0; i < triggersArray.length; i++) {
       let response;
       switch (triggersArray[i]?.name) {
         // Handles `openUrl` trigger
         case 'openUrl':
+          // Open url in a new tab
           if (
             triggersArray[i]?.options?.newTab === true ||
             !triggersArray[i]?.options?.hasOwnProperty('newTab')
           )
-            response = window.open(triggersArray[i]?.data);
+            window.open(triggersArray[i]?.data);
+
+          // Open url in the same tab
           if (triggersArray[i]?.options?.newTab === false)
-            response = window.open(triggersArray[i]?.data, '_self');
-          if (triggersArray[i]?.shouldReturnPayload === true)
-            return { payload: payload, response: response };
-          if (triggersArray[i]?.shouldReturnResponse === true) return response;
+            window.open(triggersArray[i]?.data, '_self');
+
           break;
+
         // Handles `web3Transaction` trigger
         case 'web3Transaction':
           if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+
+          // Trigger a web3 transaction (await)
           if (triggersArray[i]?.shouldAwait === true)
             response = await this.web3.eth.sendTransaction(triggersArray[i]?.data);
+
+          // Trigger a web3 transaction (does NOT await)
           if (triggersArray[i]?.shouldAwait === false)
             response = this.web3.eth.sendTransaction(triggersArray[i]?.data);
+
+          // Save the response returned by the web3 trasanction
+          if (triggersArray[i]?.saveResponse === true) memoryCard.save(response);
+
+          // Return payload and response
           if (triggersArray[i]?.shouldReturnPayload === true)
             return { payload: payload, response: response };
+
+          // Only return response
           if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
+
         // Handles `web3Sign` trigger
         case 'web3Sign':
           if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
@@ -225,24 +243,99 @@ class MoralisWeb3 {
             throw new Error('web3Sign trigger does not have a message to sign');
           if (!triggersArray[i].signer || !this.web3.utils.isAddress(triggersArray[i].signer))
             throw new Error('web3Sign trigger signer address missing or invalid');
+
+          // Sign a message using web3 (await)
           if (triggersArray[i]?.shouldAwait === true)
             response = await this.web3.eth.personal.sign(
               triggersArray[i].message,
               triggersArray[i].signer
             );
+
+          // Sign a message using web3 (does NOT await)
           if (triggersArray[i]?.shouldAwait === false)
             response = this.web3.eth.personal.sign(
               triggersArray[i].message,
               triggersArray[i].signer
             );
+
+          // Save response
+          if (triggersArray[i]?.saveResponse === true) memoryCard.save(response);
+
+          // Return payload and response
           if (triggersArray[i]?.shouldReturnPayload === true)
             return { payload: payload, response: response };
+
+          // Only return response
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
+          break;
+
+        // Calls a given plugin endpoint
+        case 'callPluginEndpoint':
+          if (!triggersArray[i].pluginName)
+            throw new Error('callPluginEndpoint trigger does not have an plugin name to call');
+          if (!triggersArray[i].endpoint)
+            throw new Error('callPluginEndpoint trigger does not have an endpoint to call');
+
+          // Call a plugin endpoint (await)
+          if (triggersArray[i]?.shouldAwait === true) {
+            // Check if a saved response has to be used to fill a parameter needed by the plugin
+            if (triggersArray[i].useSavedResponse === true) {
+              triggersArray[i].params[triggersArray[i].savedResponseAs] = memoryCard.get(
+                triggersArray[i].savedResponseAt
+              );
+            }
+
+            // Call the endpoint
+            response = await run(
+              `${triggersArray[i].pluginName}_${triggersArray[i].endpoint}`,
+              triggersArray[i].params
+            );
+          }
+
+          // Call a plugin endpoint (does NOT await)
+          if (triggersArray[i]?.shouldAwait === false) {
+            // Check if a saved response has to be used to fill a parameter needed by the plugin
+            if (triggersArray[i].useSavedResponse === true) {
+              triggersArray[i].params[triggersArray[i].savedResponseAs] = memoryCard.get(
+                triggersArray[i].savedResponseAt
+              );
+            }
+
+            // Call the endpoint
+            response = run(
+              `${triggersArray[i].pluginName}_${triggersArray[i].endpoint}`,
+              triggersArray[i].params
+            );
+          }
+
+          // If the response contains a trigger, run it
+          if (triggersArray[i].runResponseTrigger === true) {
+            response = await this.handleTriggers(
+              response.data.result.triggers,
+              response.data.result.data
+            );
+          }
+
+          // Save response
+          if (triggersArray[i]?.saveResponse === true) memoryCard.save(response);
+
+          // If should not run the response trigger, continues the loop and does not return (to avoid breaking the loop execution and run other pending triggers)
+          if (triggersArray[i]?.runResponseTrigger === false) continue;
+
+          // Return payload and response
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: 'payload', response: response };
+
+          // Only return response
           if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         default:
           throw new Error(`Unknown trigger: "${triggersArray[i]?.name}"`);
       }
     }
+
+    // Delete all saved data
+    memoryCard.deleteSaved();
   }
 
   static async getAllERC20({ chain, address } = {}) {
