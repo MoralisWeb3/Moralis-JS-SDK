@@ -318,7 +318,8 @@ class MoralisWeb3 {
     let transferOperation;
     let customToken;
 
-    if (Math.sign(tokenId) !== 0 && Math.sign(tokenId) !== 1 ) {
+    // Check if `tokenId` is uint256 (non-negative number)
+    if (!Number.isInteger(tokenId) && tokenId < 0) {
       throw new Error('Invalid token Id');
     }
 
@@ -339,7 +340,7 @@ class MoralisWeb3 {
         });
         break;
       case 'erc721':
-        transferOperation = customToken.methods.safeTransferFrom(sender, receiver, tokenId).send({
+        transferOperation = customToken.methods.safeTransferFrom(sender, receiver, `${tokenId}`).send({
           from: sender,
         });
         break;
