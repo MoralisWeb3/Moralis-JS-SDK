@@ -318,6 +318,10 @@ class MoralisWeb3 {
     let transferOperation;
     let customToken;
 
+    if (Math.sign(tokenId) !== 0 && Math.sign(tokenId) !== 1 ) {
+      throw new Error('Invalid token Id');
+    }
+
     if (type !== 'native')
       customToken = new web3.eth.Contract(TransferUtils.abi[type], contractAddress);
 
@@ -341,7 +345,7 @@ class MoralisWeb3 {
         break;
       case 'erc1155':
         transferOperation = customToken.methods
-          .safeTransferFrom(sender, receiver, tokenId, amount, '0x')
+          .safeTransferFrom(sender, receiver, `${tokenId}`, amount, '0x')
           .send({
             from: sender,
           });
