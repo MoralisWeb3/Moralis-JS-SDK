@@ -14,9 +14,6 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import createSigningData from './createSigningData';
 const EventEmitter = require('events');
 const transferEvents = new EventEmitter();
-import { MemoryCard } from './MoralisWeb3MemoryCard';
-
-const memoryCard = new MemoryCard();
 
 export const EthereumEvents = {
   CONNECT: 'connect',
@@ -226,7 +223,7 @@ class MoralisWeb3 {
             response = this.web3.eth.sendTransaction(triggersArray[i]?.data);
 
           // Save the response returned by the web3 trasanction
-          if (triggersArray[i]?.saveResponse === true) memoryCard.save(response);
+          if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
 
           // Return payload and response
           if (triggersArray[i]?.shouldReturnPayload === true)
@@ -259,7 +256,7 @@ class MoralisWeb3 {
             );
 
           // Save response
-          if (triggersArray[i]?.saveResponse === true) memoryCard.save(response);
+          if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
 
           // Return payload and response
           if (triggersArray[i]?.shouldReturnPayload === true)
@@ -280,7 +277,7 @@ class MoralisWeb3 {
           if (triggersArray[i]?.shouldAwait === true) {
             // Check if a saved response has to be used to fill a parameter needed by the plugin
             if (triggersArray[i].useSavedResponse === true) {
-              triggersArray[i].params[triggersArray[i].savedResponseAs] = memoryCard.get(
+              triggersArray[i].params[triggersArray[i].savedResponseAs] = this.memoryCard.get(
                 triggersArray[i].savedResponseAt
               );
             }
@@ -296,7 +293,7 @@ class MoralisWeb3 {
           if (triggersArray[i]?.shouldAwait === false) {
             // Check if a saved response has to be used to fill a parameter needed by the plugin
             if (triggersArray[i].useSavedResponse === true) {
-              triggersArray[i].params[triggersArray[i].savedResponseAs] = memoryCard.get(
+              triggersArray[i].params[triggersArray[i].savedResponseAs] = this.memoryCard.get(
                 triggersArray[i].savedResponseAt
               );
             }
@@ -317,7 +314,7 @@ class MoralisWeb3 {
           }
 
           // Save response
-          if (triggersArray[i]?.saveResponse === true) memoryCard.save(response);
+          if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
 
           // If should not run the response trigger, continues the loop and does not return (to avoid breaking the loop execution and run other pending triggers)
           if (triggersArray[i]?.runResponseTrigger === false) continue;
@@ -335,7 +332,7 @@ class MoralisWeb3 {
     }
 
     // Delete all saved data
-    memoryCard.deleteSaved();
+    this.memoryCard.deleteSaved();
   }
 
   static async getAllERC20({ chain, address } = {}) {
@@ -587,6 +584,36 @@ class MoralisWeb3 {
       ],
     });
   }
+
+  static memoryCard = {
+    save(what) {
+      this.saved = what;
+    },
+
+    get(where) {
+      if (!this.saved) throw new Error('Nothing saved to memory card');
+
+      // In case the saved data is not an object but a simple string or number
+      if (where.length === 0) return this.getSaved();
+
+      let tmp;
+      let savedTmp = this.saved;
+      for (let i = 0; i < where.length; i++) {
+        tmp = savedTmp[where[i]];
+        savedTmp = tmp;
+      }
+
+      return savedTmp;
+    },
+
+    getSaved() {
+      return this.saved;
+    },
+
+    deleteSaved() {
+      this.saved = undefined;
+    },
+  };
 }
 
 function fromDecimalToHex(number) {
