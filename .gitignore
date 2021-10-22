@@ -14,3 +14,5 @@ out/
 docs/
 .eslintcache
 .env
+yarn.lock
+yarn-error.log
