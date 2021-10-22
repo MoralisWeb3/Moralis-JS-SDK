@@ -24,7 +24,7 @@ export const EthereumEvents = {
 
 const WARNING = 'Non ethereum enabled browser';
 const ERROR_WEB3_MISSING =
-  'Missing web3 instance, make sure to call Moralis.enable() or Moralis.authenticate()';
+  'Missing web3 instance, make sure to call Moralis.enableWeb3() or Moralis.authenticate()';
 
 function uniq(arr) {
   return arr.filter((v, i) => arr.indexOf(v) === i);
@@ -36,27 +36,39 @@ class MoralisWeb3 {
     return new MWeb3(...args);
   }
 
-  static enableWeb3(options) {
-    return this._enable(options);
-  }
-
   static isWeb3Enabled() {
     return this.ensureWeb3IsInstalled();
   }
 
-  static async enable(options) {
-    const Web3Provider = MoralisWeb3.getWeb3Provider(options);
-    const web3Provider = new Web3Provider();
-
-    const web3 = await web3Provider.activate(options);
-    this.activeWeb3Provider = web3Provider;
-    return web3;
+  static setEnableWeb3(fn) {
+    this.customEnableWeb3 = fn;
   }
-  static async _enable(options) {
-    const web3 = await this.enable(options);
+
+  static async enableWeb3(options) {
+    let web3;
+
+    if (this.customEnableWeb3) {
+      web3 = await this.customEnableWeb3(options);
+    } else {
+      const Web3Provider = MoralisWeb3.getWeb3Provider(options);
+      const web3Provider = new Web3Provider();
+      this.activeWeb3Provider = web3Provider;
+
+      web3 = await web3Provider.activate(options);
+    }
+
     this.web3 = web3;
     return web3;
   }
+
+  static async enable(options) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Moralis.enable() is deprecated and will be removed, use Moralis.enableWeb3() instead.'
+    );
+    return this.enableWeb3(options);
+  }
+
   static isDotAuth(options) {
     switch (options?.type) {
       case 'dot':
@@ -110,7 +122,7 @@ class MoralisWeb3 {
       return MoralisErd.authenticate(options);
     }
 
-    const web3 = await this._enable(options);
+    const web3 = await this.enableWeb3(options);
     const message = options?.signingMessage || MoralisWeb3.getSigningData();
     const data = await createSigningData(message);
     const accounts = await web3.eth.getAccounts();
@@ -129,7 +141,7 @@ class MoralisWeb3 {
     return user;
   }
   static async link(account, options) {
-    const web3 = await MoralisWeb3._enable(options);
+    const web3 = await MoralisWeb3.enableWeb3(options);
     const data = options?.signingMessage || MoralisWeb3.getSigningData();
     const user = await ParseUser.currentAsync();
     const ethAddress = account.toLowerCase();
