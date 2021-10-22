@@ -340,9 +340,11 @@ class MoralisWeb3 {
         });
         break;
       case 'erc721':
-        transferOperation = customToken.methods.safeTransferFrom(sender, receiver, `${tokenId}`).send({
-          from: sender,
-        });
+        transferOperation = customToken.methods
+          .safeTransferFrom(sender, receiver, `${tokenId}`)
+          .send({
+            from: sender,
+          });
         break;
       case 'erc1155':
         transferOperation = customToken.methods
