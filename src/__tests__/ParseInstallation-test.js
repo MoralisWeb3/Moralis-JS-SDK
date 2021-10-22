@@ -7,6 +7,7 @@ jest.dontMock('../ParseOp');
 jest.dontMock('../ParseInstallation');
 jest.dontMock('../SingleInstanceStateController');
 jest.dontMock('../UniqueInstanceStateController');
+jest.setMock('web3', () => {});
 
 const ParseInstallation = require('../ParseInstallation').default;
 
