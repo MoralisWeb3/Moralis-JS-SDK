@@ -18,8 +18,11 @@
   "files": [
     "index.js",
     "node.js",
+    "node.d.ts",
     "react-native.js",
+    "react-native.d.ts",
     "weapp.js",
+    "weapp.d.ts",
     "dist/",
     "types/",
     "lib/",
