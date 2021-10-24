@@ -232,7 +232,8 @@ export namespace Moralis {
   interface AuthenticationOptions {
     provider?: Web3ProviderType;
     type?: AuthenticationType;
-    chainId?: number;
+    
+    Id?: number;
   }
   type EnableOptions = Pick<AuthenticationOptions, 'provider' | 'chainId'>;
   type LinkOptions = Object.SaveOptions;
@@ -247,7 +248,7 @@ export namespace Moralis {
   type PolygonChain = 'matic' | 'polygon' | '0x89';
   type MumbaiChain = 'mumbai' | 'matic testnet' | 'polygon testnet' | '0x13881';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
-  type CustomChain = string
+  type CustomChain = string;
   type Chain =
     | EthChain
     | RopstenChain
@@ -259,7 +260,7 @@ export namespace Moralis {
     | PolygonChain
     | MumbaiChain
     | LocalDevChain
-    | CustomChain
+    | CustomChain;
 
   interface CommonConvenienceOptions {
     chain?: Chain;
