@@ -360,6 +360,7 @@ export interface components {
       balance: string;
     };
     chainList:
+      | string
       | "eth"
       | "0x1"
       | "ropsten"
