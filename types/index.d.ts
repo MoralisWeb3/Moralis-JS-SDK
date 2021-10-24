@@ -247,6 +247,7 @@ export namespace Moralis {
   type PolygonChain = 'matic' | 'polygon' | '0x89';
   type MumbaiChain = 'mumbai' | 'matic testnet' | 'polygon testnet' | '0x13881';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
+  type CustomChain = string
   type Chain =
     | EthChain
     | RopstenChain
@@ -257,7 +258,8 @@ export namespace Moralis {
     | BscTestChain
     | PolygonChain
     | MumbaiChain
-    | LocalDevChain;
+    | LocalDevChain
+    | CustomChain
 
   interface CommonConvenienceOptions {
     chain?: Chain;
