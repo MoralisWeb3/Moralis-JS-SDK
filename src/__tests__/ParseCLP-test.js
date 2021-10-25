@@ -8,7 +8,7 @@
  */
 
 jest.dontMock('../ParseCLP');
-
+jest.setMock('web3', () => {});
 const mockRole = function (name) {
   this.name = name;
 };

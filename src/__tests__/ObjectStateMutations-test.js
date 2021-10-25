@@ -15,6 +15,7 @@ jest.dontMock('../ParseGeoPoint');
 jest.dontMock('../ParseOp');
 jest.dontMock('../ParseRelation');
 jest.dontMock('../TaskQueue');
+jest.setMock('web3', () => {});
 
 const mockObject = function (className) {
   this.className = className;
