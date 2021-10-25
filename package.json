@@ -101,10 +101,13 @@
     "crypto-js": "4.0.0"
   },
   "scripts": {
+    "install:clean": "npm ci",
     "build": "node scripts/build_releases.js",
     "release": "node scripts/build_releases.js && npm publish",
     "test": "cross-env PARSE_BUILD=node jest",
+    "test:ci": "cross-env PARSE_BUILD=node jest",
     "lint": "eslint --cache src/ integration/",
+    "lint:ci": "eslint --output-file eslint_report.json --format json src/ integration/",
     "lint:fix": "eslint --fix --cache src/ integration/",
     "watch": "cross-env PARSE_BUILD=${PARSE_BUILD} gulp watch",
     "watch:browser": "cross-env PARSE_BUILD=browser npm run watch",
