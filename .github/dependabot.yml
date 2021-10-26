@@ -6,6 +6,6 @@ updates:
     directory: '/'
     # Check the npm registry for updates every day (weekdays)
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     reviewers:
-      - 'js-sdk-tean'
+      - 'MoralisWeb3/js-sdk-tean'

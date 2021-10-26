@@ -14,3 +14,4 @@ out/
 docs/
 .eslintcache
 .env
+eslint_report.json

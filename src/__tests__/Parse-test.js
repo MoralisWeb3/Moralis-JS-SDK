@@ -14,6 +14,8 @@ jest.dontMock('../encode');
 jest.dontMock('../Parse');
 jest.dontMock('../LocalDatastore');
 jest.dontMock('crypto-js/aes');
+jest.setMock('web3', () => {});
+jest.setMock('axios', () => {});
 
 const CoreManager = require('../CoreManager');
 const Parse = require('../Parse');
