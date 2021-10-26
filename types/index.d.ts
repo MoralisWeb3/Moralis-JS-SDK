@@ -315,9 +315,9 @@ export namespace Moralis {
     /** @deprecated use contractAddress field instead */
     contract_address?: string;
     amount?: string;
-    tokenId?: string;
+    tokenId?: number | string;
     /** @deprecated use tokenId field instead */
-    token_id?: string;
+    token_id?: number | string;
     awaitReceipt?: boolean;
     system?: TransferSystem;
   }
