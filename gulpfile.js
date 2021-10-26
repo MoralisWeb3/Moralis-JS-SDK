@@ -8,7 +8,7 @@ const insert = require('gulp-insert');
 const path = require('path');
 const rename = require('gulp-rename');
 const source = require('vinyl-source-stream');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const watch = require('gulp-watch');
 
 const BUILD = process.env.PARSE_BUILD || 'browser';
@@ -97,25 +97,25 @@ const PLUGINS = {
 
 const DEV_HEADER =
   '/**\n' +
-  ' * Parse JavaScript SDK v' +
+  ' * Moralis JavaScript SDK v' +
   VERSION +
   '\n' +
   ' *\n' +
   ' * The source tree of this library can be found at\n' +
-  ' *   https://github.com/ParsePlatform/Parse-SDK-JS\n' +
+  ' *   https://github.com/MoralisWeb3/Moralis-JS-SDK\n' +
   ' */\n';
 
 const FULL_HEADER =
   '/**\n' +
-  ' * Parse JavaScript SDK v' +
+  ' * Moralis JavaScript SDK v' +
   VERSION +
   '\n' +
   ' *\n' +
-  ' * Copyright (c) 2015-present, Parse, LLC.\n' +
+  ' * Copyright (c) 2015-present, Moralis.\n' +
   ' * All rights reserved.\n' +
   ' *\n' +
   ' * The source tree of this library can be found at\n' +
-  ' *   https://github.com/ParsePlatform/Parse-SDK-JS\n' +
+  ' *   https://github.com/MoralisWeb3/Moralis-JS-SDK\n' +
   ' * This source code is licensed under the BSD-style license found in the\n' +
   ' * LICENSE file in the root directory of this source tree. An additional grant\n' +
   ' * of patent rights can be found in the PATENTS file in the same directory.\n' +
@@ -226,7 +226,7 @@ gulp.task('browserify-web3api', function (cb) {
 gulp.task('minify', function () {
   return gulp
     .src('dist/moralis.js')
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(insert.prepend(FULL_HEADER))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
@@ -235,7 +235,7 @@ gulp.task('minify', function () {
 gulp.task('minify-weapp', function () {
   return gulp
     .src('dist/moralis.weapp.js')
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(insert.prepend(FULL_HEADER))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
@@ -244,7 +244,7 @@ gulp.task('minify-weapp', function () {
 gulp.task('minify-web3api', function () {
   return gulp
     .src('dist/moralis.web3api.js')
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(insert.prepend(FULL_HEADER))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
