@@ -63,9 +63,9 @@ const gulp = 'npm run gulp';
     execCommand(`${gulp} browserify-weapp`),
     execCommand(`${gulp} browserify-web3api`),
   ]);
-  // await Promise.all([
-  //   execCommand(`${gulp} minify`),
-  //   execCommand(`${gulp} minify-weapp`),
-  //   execCommand(`${gulp} minify-web3api`),
-  // ]);
+  await Promise.all([
+    execCommand(`${gulp} minify`),
+    execCommand(`${gulp} minify-weapp`),
+    execCommand(`${gulp} minify-web3api`),
+  ]);
 })();
