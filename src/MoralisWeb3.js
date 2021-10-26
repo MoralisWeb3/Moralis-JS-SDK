@@ -11,6 +11,7 @@ import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
+import createSigningData from './createSigningData';
 const EventEmitter = require('events');
 const transferEvents = new EventEmitter();
 
@@ -23,7 +24,7 @@ export const EthereumEvents = {
 
 const WARNING = 'Non ethereum enabled browser';
 const ERROR_WEB3_MISSING =
-  'Missing web3 instance, make sure to call Moralis.enable() or Moralis.authenticate()';
+  'Missing web3 instance, make sure to call Moralis.enableWeb3() or Moralis.authenticate()';
 
 function uniq(arr) {
   return arr.filter((v, i) => arr.indexOf(v) === i);
@@ -34,15 +35,40 @@ class MoralisWeb3 {
     const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
     return new MWeb3(...args);
   }
-  static async enable(options) {
-    const Web3Provider = MoralisWeb3.getWeb3Provider(options);
-    const web3Provider = new Web3Provider();
 
-    const web3 = await web3Provider.activate(options);
-    this.activeWeb3Provider = web3Provider;
+  static isWeb3Enabled() {
+    return this.ensureWeb3IsInstalled();
+  }
+
+  static setEnableWeb3(fn) {
+    this.customEnableWeb3 = fn;
+  }
+
+  static async enableWeb3(options) {
+    let web3;
+
+    if (this.customEnableWeb3) {
+      web3 = await this.customEnableWeb3(options);
+    } else {
+      const Web3Provider = MoralisWeb3.getWeb3Provider(options);
+      const web3Provider = new Web3Provider();
+      this.activeWeb3Provider = web3Provider;
+
+      web3 = await web3Provider.activate(options);
+    }
+
     this.web3 = web3;
     return web3;
   }
+
+  static async enable(options) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Moralis.enable() is deprecated and will be removed, use Moralis.enableWeb3() instead.'
+    );
+    return this.enableWeb3(options);
+  }
+
   static isDotAuth(options) {
     switch (options?.type) {
       case 'dot':
@@ -81,7 +107,7 @@ class MoralisWeb3 {
     MoralisWalletConnectProvider.cleanupStaleData();
   }
   static async authenticate(options) {
-    const isLoggedIn = await ParseUser.current();
+    const isLoggedIn = await ParseUser.currentAsync();
     if (isLoggedIn) {
       await ParseUser.logOut();
     }
@@ -96,8 +122,9 @@ class MoralisWeb3 {
       return MoralisErd.authenticate(options);
     }
 
-    const web3 = await MoralisWeb3.enable(options);
-    const data = options?.signingMessage || MoralisWeb3.getSigningData();
+    const web3 = await this.enableWeb3(options);
+    const message = options?.signingMessage || MoralisWeb3.getSigningData();
+    const data = await createSigningData(message);
     const accounts = await web3.eth.getAccounts();
     const accountsLower = accounts.map(v => v.toLowerCase());
     const [ethAddress] = accountsLower;
@@ -114,9 +141,9 @@ class MoralisWeb3 {
     return user;
   }
   static async link(account, options) {
-    const web3 = await MoralisWeb3.enable(options);
+    const web3 = await MoralisWeb3.enableWeb3(options);
     const data = options?.signingMessage || MoralisWeb3.getSigningData();
-    const user = await ParseUser.current();
+    const user = await ParseUser.currentAsync();
     const ethAddress = account.toLowerCase();
     const EthAddress = ParseObject.extend('_EthAddress');
     const query = new ParseQuery(EthAddress);
@@ -137,7 +164,7 @@ class MoralisWeb3 {
     const query = new ParseQuery(EthAddress);
     const ethAddressRecord = await query.get(accountsLower);
     await ethAddressRecord.destroy();
-    const user = await ParseUser.current();
+    const user = await ParseUser.currentAsync();
     const accounts = user.get('accounts') ?? [];
     const nextAccounts = accounts.filter(v => v !== accountsLower);
     user.set('accounts', nextAccounts);
@@ -165,7 +192,10 @@ class MoralisWeb3 {
             throw new Error(`Something went wrong\n${error}`);
           }
           if (options.disableTriggers !== true) {
-            const triggerReturn = await this.handleTriggers(response.data.result.triggers);
+            const triggerReturn = await this.handleTriggers(
+              response.data.result.triggers,
+              response.data.result.data
+            );
             if (triggerReturn) return triggerReturn;
           }
           return response.data.result;
@@ -175,35 +205,150 @@ class MoralisWeb3 {
     this.Plugins = allPlugins;
   }
 
-  static async handleTriggers(_triggersArray) {
-    if (!_triggersArray) return;
-    for (let i = 0; i < _triggersArray.length; i++) {
+  static async handleTriggers(triggersArray, payload) {
+    if (!triggersArray) return;
+
+    for (let i = 0; i < triggersArray.length; i++) {
       let response;
-      switch (_triggersArray[i]?.name) {
+      switch (triggersArray[i]?.name) {
         // Handles `openUrl` trigger
         case 'openUrl':
+          // Open url in a new tab
           if (
-            _triggersArray[i]?.options?.newTab === true ||
-            !_triggersArray[i]?.options?.hasOwnProperty('newTab')
+            triggersArray[i]?.options?.newTab === true ||
+            !triggersArray[i]?.options?.hasOwnProperty('newTab')
           )
-            response = window.open(_triggersArray[i]?.data);
-          if (_triggersArray[i]?.options?.newTab === false)
-            response = window.open(_triggersArray[i]?.data, '_self');
-          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+            window.open(triggersArray[i]?.data);
+
+          // Open url in the same tab
+          if (triggersArray[i]?.options?.newTab === false)
+            window.open(triggersArray[i]?.data, '_self');
+
           break;
+
         // Handles `web3Transaction` trigger
         case 'web3Transaction':
           if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-          if (_triggersArray[i]?.shouldAwait === true)
-            response = await this.web3.eth.sendTransaction(_triggersArray[i]?.data);
-          if (_triggersArray[i]?.shouldAwait === false)
-            response = this.web3.eth.sendTransaction(_triggersArray[i]?.data);
-          if (_triggersArray[i]?.shouldReturnResponse === true) return response;
+
+          // Trigger a web3 transaction (await)
+          if (triggersArray[i]?.shouldAwait === true)
+            response = await this.web3.eth.sendTransaction(triggersArray[i]?.data);
+
+          // Trigger a web3 transaction (does NOT await)
+          if (triggersArray[i]?.shouldAwait === false)
+            response = this.web3.eth.sendTransaction(triggersArray[i]?.data);
+
+          // Save the response returned by the web3 trasanction
+          if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
+
+          // Return payload and response
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
+
+          // Only return response
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
+          break;
+
+        // Handles `web3Sign` trigger
+        case 'web3Sign':
+          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+          if (!triggersArray[i].message)
+            throw new Error('web3Sign trigger does not have a message to sign');
+          if (!triggersArray[i].signer || !this.web3.utils.isAddress(triggersArray[i].signer))
+            throw new Error('web3Sign trigger signer address missing or invalid');
+
+          // Sign a message using web3 (await)
+          if (triggersArray[i]?.shouldAwait === true)
+            response = await this.web3.eth.personal.sign(
+              triggersArray[i].message,
+              triggersArray[i].signer
+            );
+
+          // Sign a message using web3 (does NOT await)
+          if (triggersArray[i]?.shouldAwait === false)
+            response = this.web3.eth.personal.sign(
+              triggersArray[i].message,
+              triggersArray[i].signer
+            );
+
+          // Save response
+          if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
+
+          // Return payload and response
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
+
+          // Only return response
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
+          break;
+
+        // Calls a given plugin endpoint
+        case 'callPluginEndpoint':
+          if (!triggersArray[i].pluginName)
+            throw new Error('callPluginEndpoint trigger does not have an plugin name to call');
+          if (!triggersArray[i].endpoint)
+            throw new Error('callPluginEndpoint trigger does not have an endpoint to call');
+
+          // Call a plugin endpoint (await)
+          if (triggersArray[i]?.shouldAwait === true) {
+            // Check if a saved response has to be used to fill a parameter needed by the plugin
+            if (triggersArray[i].useSavedResponse === true) {
+              triggersArray[i].params[triggersArray[i].savedResponseAs] = this.memoryCard.get(
+                triggersArray[i].savedResponseAt
+              );
+            }
+
+            // Call the endpoint
+            response = await run(
+              `${triggersArray[i].pluginName}_${triggersArray[i].endpoint}`,
+              triggersArray[i].params
+            );
+          }
+
+          // Call a plugin endpoint (does NOT await)
+          if (triggersArray[i]?.shouldAwait === false) {
+            // Check if a saved response has to be used to fill a parameter needed by the plugin
+            if (triggersArray[i].useSavedResponse === true) {
+              triggersArray[i].params[triggersArray[i].savedResponseAs] = this.memoryCard.get(
+                triggersArray[i].savedResponseAt
+              );
+            }
+
+            // Call the endpoint
+            response = run(
+              `${triggersArray[i].pluginName}_${triggersArray[i].endpoint}`,
+              triggersArray[i].params
+            );
+          }
+
+          // If the response contains a trigger, run it
+          if (triggersArray[i].runResponseTrigger === true) {
+            response = await this.handleTriggers(
+              response.data.result.triggers,
+              response.data.result.data
+            );
+          }
+
+          // Save response
+          if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
+
+          // If should not run the response trigger, continues the loop and does not return (to avoid breaking the loop execution and run other pending triggers)
+          if (triggersArray[i]?.runResponseTrigger === false) continue;
+
+          // Return payload and response
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: 'payload', response: response };
+
+          // Only return response
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
           break;
         default:
-          throw new Error(`Unknown trigger: "${_triggersArray[i]?.name}"`);
+          throw new Error(`Unknown trigger: "${triggersArray[i]?.name}"`);
       }
     }
+
+    // Delete all saved data
+    this.memoryCard.deleteSaved();
   }
 
   static async getAllERC20({ chain, address } = {}) {
@@ -275,6 +420,11 @@ class MoralisWeb3 {
     let transferOperation;
     let customToken;
 
+    // Check if `tokenId` is uint256 (non-negative number)
+    if (!Number.isInteger(+tokenId) || +tokenId < 0) {
+      throw new Error('Invalid token Id');
+    }
+
     if (type !== 'native')
       customToken = new web3.eth.Contract(TransferUtils.abi[type], contractAddress);
 
@@ -292,13 +442,15 @@ class MoralisWeb3 {
         });
         break;
       case 'erc721':
-        transferOperation = customToken.methods.safeTransferFrom(sender, receiver, tokenId).send({
-          from: sender,
-        });
+        transferOperation = customToken.methods
+          .safeTransferFrom(sender, receiver, `${tokenId}`)
+          .send({
+            from: sender,
+          });
         break;
       case 'erc1155':
         transferOperation = customToken.methods
-          .safeTransferFrom(sender, receiver, tokenId, amount, '0x')
+          .safeTransferFrom(sender, receiver, `${tokenId}`, amount, '0x')
           .send({
             from: sender,
           });
@@ -455,6 +607,36 @@ class MoralisWeb3 {
       ],
     });
   }
+
+  static memoryCard = {
+    save(what) {
+      this.saved = what;
+    },
+
+    get(where) {
+      if (!this.saved) throw new Error('Nothing saved to memory card');
+
+      // In case the saved data is not an object but a simple string or number
+      if (where.length === 0) return this.getSaved();
+
+      let tmp;
+      let savedTmp = this.saved;
+      for (let i = 0; i < where.length; i++) {
+        tmp = savedTmp[where[i]];
+        savedTmp = tmp;
+      }
+
+      return savedTmp;
+    },
+
+    getSaved() {
+      return this.saved;
+    },
+
+    deleteSaved() {
+      this.saved = undefined;
+    },
+  };
 }
 
 function fromDecimalToHex(number) {

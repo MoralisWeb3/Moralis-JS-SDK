@@ -1,6 +1,6 @@
 {
   "name": "moralis",
-  "version": "0.0.68",
+  "version": "0.0.105",
   "description": "The Moralis JavaScript SDK",
   "homepage": "https://docs.moralis.io",
   "keywords": [
@@ -18,8 +18,11 @@
   "files": [
     "index.js",
     "node.js",
+    "node.d.ts",
     "react-native.js",
+    "react-native.d.ts",
     "weapp.js",
+    "weapp.d.ts",
     "dist/",
     "types/",
     "lib/",
@@ -34,11 +37,12 @@
     "@babel/runtime": "7.12.5",
     "@babel/runtime-corejs3": "7.12.5",
     "@metamask/detect-provider": "^1.2.0",
+    "axios": "^0.23.0",
     "lint-staged": "^11.1.2",
     "react-native-crypto-js": "1.0.0",
     "uuid": "3.4.0",
     "web3": "^1.3.6",
-    "ws": "7.4.2",
+    "ws": "^7.4.6",
     "xmlhttprequest": "1.8.0"
   },
   "peerDependencies": {
@@ -52,10 +56,10 @@
   "devDependencies": {
     "@babel/core": "7.10.2",
     "@babel/plugin-proposal-class-properties": "7.10.1",
-    "@babel/plugin-transform-flow-comments": "7.10.1",
+    "@babel/plugin-transform-flow-comments": "7.14.5",
     "@babel/plugin-transform-flow-strip-types": "7.10.1",
     "@babel/plugin-transform-runtime": "7.10.1",
-    "@babel/preset-env": "7.10.2",
+    "@babel/preset-env": "7.15.8",
     "@babel/preset-react": "7.10.1",
     "@parse/minami": "1.0.0",
     "babel-eslint": "10.1.0",
@@ -86,7 +90,7 @@
     "jest": "24.9.0",
     "jsdoc": "3.6.3",
     "jsdoc-babel": "0.5.0",
-    "metro-react-native-babel-preset": "0.59.0",
+    "metro-react-native-babel-preset": "0.66.2",
     "openapi-typescript": "^4.0.2",
     "parse-server": "git+https://git@github.com/parse-community/parse-server.git#08b2ea45b0b499e83018bcaed498f7b043b2b027",
     "prettier": "2.2.1",
@@ -97,10 +101,13 @@
     "crypto-js": "4.0.0"
   },
   "scripts": {
-    "build": "npm run generate-types && node scripts/build_releases.js",
+    "install:clean": "npm ci",
+    "build": "node scripts/build_releases.js",
     "release": "node scripts/build_releases.js && npm publish",
     "test": "cross-env PARSE_BUILD=node jest",
+    "test:ci": "cross-env PARSE_BUILD=node jest",
     "lint": "eslint --cache src/ integration/",
+    "lint:ci": "eslint --output-file eslint_report.json --format json src/ integration/",
     "lint:fix": "eslint --fix --cache src/ integration/",
     "watch": "cross-env PARSE_BUILD=${PARSE_BUILD} gulp watch",
     "watch:browser": "cross-env PARSE_BUILD=browser npm run watch",
@@ -112,7 +119,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "cross-env": "cross-env",
-    "generate-types": "node scripts/generateWeb3ApiTypes",
+    "generate-web3Api": "node scripts/genWeb3API && node scripts/generateWeb3ApiTypes",
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },

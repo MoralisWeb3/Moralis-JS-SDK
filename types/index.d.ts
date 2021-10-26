@@ -7,7 +7,7 @@ import NativeWeb3 from 'web3';
 import { PromiEvent } from 'web3-core';
 import { Contract } from 'web3-eth-contract';
 
-import { GeneratedWeb3API } from './generated/web3api';
+import Web3Api from './generated/web3Api';
 
 declare enum ErrorCode {
   OTHER_CAUSE = -1,
@@ -77,6 +77,22 @@ export namespace Moralis {
   let serverURL: string;
   let secret: string;
   let encryptedUser: boolean;
+  let isInitialized: boolean;
+
+  interface PluginSpecs {
+    name: string;
+    functions: string[];
+  }
+
+  interface StartOptions {
+    serverUrl: string;
+    appId: string;
+    plugins?: PluginSpecs[];
+    javascriptKey?: string;
+    masterKey?: string;
+  }
+
+  let start: (options: StartOptions) => Promise<void>;
 
   interface BatchSizeOption {
     batchSize?: number;
@@ -299,9 +315,9 @@ export namespace Moralis {
     /** @deprecated use contractAddress field instead */
     contract_address?: string;
     amount?: string;
-    tokenId?: string;
+    tokenId?: number | string;
     /** @deprecated use tokenId field instead */
-    token_id?: string;
+    token_id?: number | string;
     awaitReceipt?: boolean;
     system?: TransferSystem;
   }
@@ -365,7 +381,10 @@ export namespace Moralis {
     static activeWeb3Provider?: Web3Provider;
 
     // Core functions
+    static enableWeb3: (options?: EnableOptions) => Promise<NativeWeb3>;
+    /** @deprecated use enableWeb3 instead */
     static enable: (options?: EnableOptions) => Promise<NativeWeb3>;
+    static setEnableWeb3: (enable: (options?: any) => Promise<NativeWeb3>) => Promise<NativeWeb3>;
     static cleanup: () => Promise<void>;
     static authenticate: (options?: AuthenticationOptions) => Promise<User>;
     static link: (account: string, options?: LinkOptions) => Promise<User>;
@@ -373,6 +392,9 @@ export namespace Moralis {
 
     static transfer: (options: TransferOptions) => Promise<TransferResult>;
     static executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
+
+    // Plugins
+    static initPlugins: (installedPlugins?: PluginSpecs[]) => Promise<void>;
 
     // Helper functions
     static getWeb3Provider: (options: Pick<EnableOptions, 'provider'>) => Web3Provider;
@@ -412,7 +434,7 @@ export namespace Moralis {
   /**
    * The Moralis Web3API.
    */
-  class Web3API extends GeneratedWeb3API {}
+  class Web3API extends Web3Api {}
 
   /**
    * The Moralis Web3API.

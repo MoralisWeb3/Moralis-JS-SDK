@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // npx openapi-typescript https://deep-index.moralis.io/api-docs/v2/swagger.json --output types/generated/web3Api2.d.ts
 
 // const swaggerJsdoc = require('swagger-jsdoc');
@@ -22,7 +23,7 @@ const fetchSwaggerJson = () => {
       },
       res => {
         if (res.statusCode < 200 || res.statusCode >= 300) {
-          return reject(new Error('statusCode=' + res.statusCode));
+          return reject(new Error(`statusCode=${res.statusCode}`));
         }
 
         let body = '';
@@ -31,7 +32,7 @@ const fetchSwaggerJson = () => {
           body += chunk;
         });
 
-        res.on('end', function () {
+        res.on('end', () => {
           try {
             const result = JSON.parse(body);
             resolve(result);
@@ -42,7 +43,7 @@ const fetchSwaggerJson = () => {
       }
     );
 
-    req.on('error', function (err) {
+    req.on('error', err => {
       reject(err);
     });
 
@@ -55,7 +56,7 @@ const getPathByTag = swaggerJSON => {
   const pathDetails = {};
 
   Object.entries(swaggerJSON.paths).map(([pathName, requestData]) => {
-    return Object.entries(requestData).map(([method, data]) => {
+    return Object.entries(requestData).forEach(([method, data]) => {
       const { tags } = data;
 
       if (tags.length > 0) {
@@ -74,17 +75,23 @@ const getPathByTag = swaggerJSON => {
 const filterUnique = (value, index, self) => self.indexOf(value) === index;
 
 const makeMethod = (pathDetails, path) => {
-  const optionKeys = pathDetails[path].data.parameters.map(param => param.in).filter(filterUnique);
-  const hasPath = optionKeys.includes('path');
+  const optionKeys = pathDetails[path].data?.parameters
+    ? pathDetails[path].data.parameters.map(param => param.in).filter(filterUnique)
+    : null;
+  const hasQuery = optionKeys ? optionKeys.includes('query') : false;
+  const hasPath = optionKeys ? optionKeys.includes('path') : false;
 
   const operations = `operations["${path}"]`;
 
-  const options = `${operations}["parameters"]["query"] ${
-    hasPath ? `& ${operations}["parameters"]["path"]` : ''
-  }`;
+  const options = hasQuery
+    ? `${operations}["parameters"]["query"] ${
+        hasPath ? `& ${operations}["parameters"]["path"]` : ''
+      }`
+    : undefined;
   const result = `${operations}["responses"]["200"]["content"]["application/json"]`;
+  const optionParam = options ? `options: ${options}` : '';
 
-  return `    ${path}: (options: ${options}) => Promise<${result}>;
+  return `    ${path}: (${optionParam}) => Promise<${result}>;
 `;
 };
 
@@ -96,10 +103,18 @@ ${pathByTag[tag].map(path => makeMethod(pathDetails, path)).join('')}  }
 };
 
 const makeGeneratedWeb3ApiType = (tags, pathByTag, pathDetails) => {
-  return `
-export class GeneratedWeb3API {
-${tags.map(tag => makeTagObject(tag, pathByTag, pathDetails)).join('')}}
-`;
+  let content = `export default class Web3Api {\n`;
+
+  content += `  static initialize: (serverUrl: string) => void;\n`;
+  content += `\n`;
+
+  tags.forEach(tag => {
+    content += `${makeTagObject(tag, pathByTag, pathDetails)}`;
+  });
+
+  content += `}\n`;
+
+  return content;
 };
 
 const generateWeb3ApiTypes = async () => {
@@ -111,8 +126,11 @@ const generateWeb3ApiTypes = async () => {
   const { pathByTag, pathDetails } = await getPathByTag(swaggerJSON);
   const tags = Object.keys(pathByTag);
 
+  let content = '';
+
   // Generate automatic types from swagger via openapi-typescript
-  let content = await openapiTS(swaggerJSON);
+  content += await openapiTS(swaggerJSON);
+  content += '\n';
 
   // Add our custom types
   content += makeGeneratedWeb3ApiType(tags, pathByTag, pathDetails);

@@ -11,6 +11,7 @@ jest.dontMock('../encode');
 jest.dontMock('../ParseACL');
 jest.dontMock('../ParseFile');
 jest.dontMock('../ParseGeoPoint');
+jest.setMock('web3', () => {});
 
 const mockObject = function (className) {
   this.className = className;

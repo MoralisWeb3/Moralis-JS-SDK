@@ -26,6 +26,26 @@ import MoralisWeb3 from './MoralisWeb3';
  */
 class Moralis extends MoralisWeb3 {
   /**
+   * Call this method to initialize all moralis instances (Moralis, Web3Api, plugins).
+   *
+   * @param {object} options Your Moralis Application ID and Server URL. Moralis.start({serverUrl,appId})
+   * @static
+   */
+  static async start(options) {
+    const { appId, serverUrl, plugins, javascriptKey, masterKey } = options;
+    if (!serverUrl) {
+      throw new Error(`Moralis.start failed: serverUrl is required`);
+    }
+    if (!appId) {
+      throw new Error(`Moralis.start failed: appId is required`);
+    }
+    this.initialize(appId, javascriptKey, masterKey);
+    this.serverURL = serverUrl;
+    this.Web3API.initialize(serverUrl, this);
+    await this.initPlugins(plugins);
+  }
+
+  /**
    * Call this method first to set up your authentication tokens for Moralis.
    *
    * @param {string} applicationId Your Moralis Application ID.
@@ -216,10 +236,7 @@ Moralis.Op = {
   Relation: ParseOp.RelationOp,
 };
 
-if (!Moralis.Plugins) Moralis.Plugins = {};
-Moralis.Plugins.web3api = require('./MoralisWeb3Api').default;
-
-Moralis.Web3API = Moralis.Plugins.web3api;
+Moralis.Web3API = require('./MoralisWeb3Api').default;
 Moralis.Push = require('./Push');
 Moralis.Query = require('./ParseQuery').default;
 Moralis.Relation = require('./ParseRelation').default;

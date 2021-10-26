@@ -62,10 +62,6 @@ export interface paths {
     /** Gets the transfers of the tokens matching the given parameters */
     get: operations["getNFTTransfers"];
   };
-  "/{address}/nft/transfers/verbose": {
-    /** Gets NFT token transactions in descending order based on block number */
-    get: operations["getHistoricalNFTTransfers"];
-  };
   "/{address}/nft/{token_address}": {
     /**
      * Gets NFTs owned by the given address
@@ -161,6 +157,10 @@ export interface paths {
      * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
      */
     get: operations["getPairAddress"];
+  };
+  "/ipfs/uploadFolder": {
+    /** Uploads multiple files and place them in a folder directory */
+    post: operations["uploadFolder"];
   };
 }
 
@@ -500,6 +500,8 @@ export interface components {
       transaction_index?: string;
       /** The log index */
       log_index: number;
+      /** The operator present only for ERC1155 Transfers */
+      operator?: string;
     };
     nftTransferCollection: {
       /** The total number of matches for this query */
@@ -631,6 +633,16 @@ export interface components {
       /** reserve1 */
       reserve1: string;
     };
+    ipfsFileRequest: {
+      /** Path to file */
+      path: string;
+      /** base64 or JSON */
+      content: string;
+    };
+    ipfsFile: {
+      /** Path to file */
+      path: string;
+    };
   };
 }
 
@@ -687,12 +699,38 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** The block number */
+        /**
+         * The block number
+         * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
+         * * If 'block_numer' is provided in conbinaison with 'from_block' and / or 'to_block', 'block_number' will will be used
+         */
         block_number?: string;
-        /** The minimum block number from where to get the logs */
+        /**
+         * The minimum block number from where to get the logs
+         * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
+         * * If 'block_numer' is provided in conbinaison with 'from_block' and / or 'to_block', 'block_number' will will be used
+         */
         from_block?: string;
-        /** The maximum block number to where to get the logs */
+        /**
+         * The maximum block number from where to get the logs
+         * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
+         * * If 'block_numer' is provided in conbinaison with 'from_block' and / or 'to_block', 'block_number' will will be used
+         */
         to_block?: string;
+        /**
+         * The date from where to get the logs (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         * * If 'from_date' and the block params are provided, the block params will be used. Please refer to the blocks params sections (block_number,from_block and to_block) on how to use them
+         */
+        from_date?: string;
+        /**
+         * Get the logs to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         * * If 'to_date' and the block params are provided, the block params will be used. Please refer to the blocks params sections (block_number,from_block and to_block) on how to use them
+         */
+        to_date?: string;
         /** topic0 */
         topic0?: string;
         /** topic1 */
@@ -772,10 +810,30 @@ export interface operations {
         subdomain?: string;
         /** web3 provider url to user when using local dev chain */
         providerUrl?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the logs
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the logs.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the logs (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the logs to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** The topic of the event */
         topic: string;
         /** offset */
@@ -844,10 +902,30 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the transactions
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the transactions.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the transactions (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transactions to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** offset */
         offset?: number;
         /** limit */
@@ -925,10 +1003,30 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the transactions
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the transactions.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the transactions (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transactions to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** offset */
         offset?: number;
         /** limit */
@@ -1010,39 +1108,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["nftTransferCollection"];
-        };
-      };
-    };
-  };
-  /** Gets NFT token transactions in descending order based on block number */
-  getHistoricalNFTTransfers: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
-        subdomain?: string;
-        /** web3 provider url to user when using local dev chain */
-        providerUrl?: string;
-        /** from_block */
-        from_block?: number;
-        /** to_block */
-        to_block?: number;
-        /** offset */
-        offset?: number;
-        /** limit */
-        limit?: number;
-      };
-      path: {
-        /** address */
-        address: string;
-      };
-    };
-    responses: {
-      /** Returns a collection of token NFT transfers. */
-      200: {
-        content: {
-          "application/json": components["schemas"]["historicalNftTransfer"][];
         };
       };
     };
@@ -1162,10 +1227,30 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** from_block */
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
         from_block?: number;
-        /** to_block */
+        /**
+         * The maximum block number from where to get the transfers.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
         to_block?: number;
+        /**
+         * The date from where to get the transfers (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transfers to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** offset */
         offset?: number;
         /** limit */
@@ -1491,6 +1576,12 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** To get the reserves at this block number */
         to_block?: string;
+        /**
+         * Get the reserves to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** web3 provider url to user when using local dev chain */
         provider_url?: string;
       };
@@ -1519,6 +1610,12 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** To get the reserves at this block number */
         to_block?: string;
+        /**
+         * Get the reserves to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: unknown;
         /** The factory name or address of the token exchange */
         exchange:
           | "uniswapv2"
@@ -1544,11 +1641,30 @@ export interface operations {
       };
     };
   };
+  /** Uploads multiple files and place them in a folder directory */
+  uploadFolder: {
+    responses: {
+      /** Returns the path to the uploaded files */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ipfsFile"][];
+        };
+      };
+    };
+    /** Array of JSON and Base64 Supported */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ipfsFileRequest"][];
+      };
+    };
+  };
 }
 
 export interface external {}
 
-export class GeneratedWeb3API {
+export default class Web3Api {
+  static initialize: (serverUrl: string) => void;
+
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
     getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"] ) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
@@ -1566,7 +1682,6 @@ export class GeneratedWeb3API {
     getTokenTransfers: (options: operations["getTokenTransfers"]["parameters"]["query"] & operations["getTokenTransfers"]["parameters"]["path"]) => Promise<operations["getTokenTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTs: (options: operations["getNFTs"]["parameters"]["query"] & operations["getNFTs"]["parameters"]["path"]) => Promise<operations["getNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTransfers: (options: operations["getNFTTransfers"]["parameters"]["query"] & operations["getNFTTransfers"]["parameters"]["path"]) => Promise<operations["getNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
-    getHistoricalNFTTransfers: (options: operations["getHistoricalNFTTransfers"]["parameters"]["query"] & operations["getHistoricalNFTTransfers"]["parameters"]["path"]) => Promise<operations["getHistoricalNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTsForContract: (options: operations["getNFTsForContract"]["parameters"]["query"] & operations["getNFTsForContract"]["parameters"]["path"]) => Promise<operations["getNFTsForContract"]["responses"]["200"]["content"]["application/json"]>;
   }
 
@@ -1590,9 +1705,13 @@ export class GeneratedWeb3API {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
   }
 
-  static eth-defi: {
+  static defi: {
     getPairReserves: (options: operations["getPairReserves"]["parameters"]["query"] & operations["getPairReserves"]["parameters"]["path"]) => Promise<operations["getPairReserves"]["responses"]["200"]["content"]["application/json"]>;
     getPairAddress: (options: operations["getPairAddress"]["parameters"]["query"] & operations["getPairAddress"]["parameters"]["path"]) => Promise<operations["getPairAddress"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
+  static storage: {
+    uploadFolder: () => Promise<operations["uploadFolder"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }

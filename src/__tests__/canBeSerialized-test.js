@@ -8,6 +8,7 @@
  */
 
 jest.dontMock('../canBeSerialized');
+jest.setMock('web3', () => {});
 
 function mockObject(id, attributes) {
   this.id = id;
