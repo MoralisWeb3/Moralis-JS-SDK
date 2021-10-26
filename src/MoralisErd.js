@@ -90,7 +90,7 @@ class MoralisErd {
 
   static async unlink(account) {
     const accountsLower = account.toLowerCase();
-    const ErdAddress = ParseObject.extend('_EthAddress');
+    const ErdAddress = ParseObject.extend('_ErdAddress');
     const query = new ParseQuery(ErdAddress);
     const erdAddressRecord = await query.get(accountsLower);
     await erdAddressRecord.destroy();
