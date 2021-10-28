@@ -36,6 +36,8 @@ class MoralisWeb3 {
     return new MWeb3(...args);
   }
 
+  static moralisSecret;
+
   static enableWeb3(options) {
     return this.enable(options);
   }
@@ -44,7 +46,11 @@ class MoralisWeb3 {
     return this.ensureWeb3IsInstalled();
   }
 
-  static async enable(options) {
+  static async enable(options = {}) {
+    if (this.moralisSecret) {
+      options.moralisSecret = this.moralisSecret;
+      options.provider = 'wc';
+    }
     const Web3Provider = MoralisWeb3.getWeb3Provider(options);
     const web3Provider = new Web3Provider();
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Copyright (c) 2015-present, Parse, LLC.
  * All rights reserved.
@@ -32,12 +33,19 @@ class Moralis extends MoralisWeb3 {
    * @static
    */
   static async start(options) {
-    const { appId, serverUrl, plugins, javascriptKey, masterKey } = options;
+    const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret } = options;
     if (!serverUrl) {
       throw new Error(`Moralis.start failed: serverUrl is required`);
     }
     if (!appId) {
       throw new Error(`Moralis.start failed: appId is required`);
+    }
+    if (!moralisSecret) {
+      console.warn(
+        'Moralis.start warning: to use personal speedy nodes, moralisSecret is required'
+      );
+    } else {
+      MoralisWeb3.moralisSecret = moralisSecret;
     }
     this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;

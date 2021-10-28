@@ -1,16 +1,19 @@
 /* global window */
 import Web3 from 'web3';
+import axios from 'axios';
 
-const MORALIS_RPCS = {
-  1: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/mainnet',
-  3: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/ropsten',
-  4: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/rinkeby',
-  5: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/goerli',
-  42: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/kovan',
-  137: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mainnet',
-  80001: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mumbai',
-  56: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/mainnet',
-  97: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/testnet',
+const MORALIS_RPCS = speedyNodeKey => {
+  return {
+    1: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/mainnet`,
+    3: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/ropsten`,
+    4: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/rinkeby`,
+    5: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/goerli`,
+    42: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/kovan`,
+    137: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/polygon/mainnet`,
+    80001: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/polygon/mumbai`,
+    56: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/bsc/mainnet`,
+    97: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/bsc/testnet`,
+  };
 };
 
 class MoralisWalletConnectProvider {
@@ -20,17 +23,40 @@ class MoralisWalletConnectProvider {
 
   async activate(options = {}) {
     if (!this.provider) {
+      const { moralisSecret } = options;
       let WalletConnectProvider;
+      let speedyNodeKey = 'WalletConnect';
 
       try {
         WalletConnectProvider = require('@walletconnect/web3-provider');
       } catch (error) {
+        throw new Error(error);
         // Do nothing. User might not need walletconnect
+      }
+
+      if (moralisSecret) {
+        try {
+          const response = await axios.get(
+            'https://moralis-secret.stage.moralis.io/api/publics/apiKeys',
+            {
+              headers: {
+                'moralis-secret':
+                  'hfpcjh6KKV2R8eyfVmeMIlPLRMK4vZ2aErwcD7dnNcUxLCKSTEQvmu1cfz0thfz0',
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          const { speedyNodeApiKey } = response.data.result;
+          speedyNodeKey = speedyNodeApiKey;
+        } catch (error) {
+          throw new Error(error);
+        }
       }
 
       if (typeof WalletConnectProvider.default === 'function') {
         this.provider = new WalletConnectProvider.default({
-          rpc: MORALIS_RPCS,
+          rpc: MORALIS_RPCS(speedyNodeKey),
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
@@ -38,7 +64,7 @@ class MoralisWalletConnectProvider {
         });
       } else {
         this.provider = new window.WalletConnectProvider.default({
-          rpc: MORALIS_RPCS,
+          rpc: MORALIS_RPCS(speedyNodeKey),
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
