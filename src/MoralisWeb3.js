@@ -14,6 +14,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import createSigningData from './createSigningData';
 const EventEmitter = require('events');
 const transferEvents = new EventEmitter();
+const contractExecuteEvents = new EventEmitter();
 
 export const EthereumEvents = {
   CONNECT: 'connect',
@@ -479,7 +480,14 @@ class MoralisWeb3 {
     return transferEvents;
   }
 
-  static async executeFunction({ contractAddress, abi, functionName, msgValue, params = {} } = {}) {
+  static async executeFunction({
+    contractAddress,
+    abi,
+    functionName,
+    msgValue,
+    awaitReceipt = true,
+    params = {},
+  } = {}) {
     if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
     const { web3 } = this;
 
@@ -523,12 +531,27 @@ class MoralisWeb3 {
     const customFunction = contract.methods[functionName];
 
     const response = isReadFunction
-      ? await customFunction(...Object.values(parsedInputs)).call()
-      : await customFunction(...Object.values(parsedInputs)).send(
-          msgValue ? { value: msgValue } : null
-        );
+      ? customFunction(...Object.values(parsedInputs)).call()
+      : customFunction(...Object.values(parsedInputs)).send(msgValue ? { value: msgValue } : null);
 
-    return response;
+    if (awaitReceipt) return response;
+
+    response
+      .on('transactionHash', hash => {
+        contractExecuteEvents.emit('transactionHash', hash);
+      })
+      .on('receipt', receipt => {
+        contractExecuteEvents.emit('receipt', receipt);
+      })
+      .on('confirmation', (confirmationNumber, receipt) => {
+        contractExecuteEvents.emit('confirmation', (confirmationNumber, receipt));
+      })
+      .on('error', error => {
+        contractExecuteEvents.emit('error', error);
+        throw error;
+      });
+
+    return contractExecuteEvents;
   }
 
   static getSigningData() {
