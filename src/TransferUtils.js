@@ -168,6 +168,11 @@ const isSupportedType = type => {
   return true;
 };
 
+const isUint256 = tokenId => {
+  if (!Number.isInteger(+tokenId) || +tokenId < 0) throw new Error('Invalid token Id');
+  return true;
+};
+
 module.exports = {
   abi: {
     erc1155: ERC1155TransferABI,
@@ -177,4 +182,5 @@ module.exports = {
   validateInput,
   isSupportedType,
   isNotEmpty,
+  isUint256,
 };

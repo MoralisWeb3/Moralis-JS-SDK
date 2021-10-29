@@ -420,10 +420,7 @@ class MoralisWeb3 {
     let transferOperation;
     let customToken;
 
-    // Check if `tokenId` is uint256 (non-negative number)
-    if (!Number.isInteger(+tokenId) || +tokenId < 0) {
-      throw new Error('Invalid token Id');
-    }
+    if (tokenId) TransferUtils.isUint256(tokenId);
 
     if (type !== 'native')
       customToken = new web3.eth.Contract(TransferUtils.abi[type], contractAddress);
