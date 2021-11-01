@@ -34,6 +34,7 @@ class Moralis extends MoralisWeb3 {
    */
   static async start(options) {
     const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret } = options;
+    let apiKey;
     if (!serverUrl) {
       throw new Error(`Moralis.start failed: serverUrl is required`);
     }
@@ -42,9 +43,9 @@ class Moralis extends MoralisWeb3 {
     }
     this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;
-    if (moralisSecret && process.env.PARSE_BUILD === 'node') {
+    if (moralisSecret && process.env.PARSE_BUILD === 'browser') {
       console.warn(
-        'Moralis.start warning: Using moralisSecret on the browser version reveals critical information.'
+        'Moralis.start warning: Using moralisSecret on the browser enviroment reveals critical information.'
       );
     }
     if (!moralisSecret && process.env.PARSE_BUILD === 'node') {
@@ -56,9 +57,11 @@ class Moralis extends MoralisWeb3 {
       const { cliApiKey, cliApiSecret, web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(
         moralisSecret
       );
+      apiKey = web3ApiKey;
       this.speedyNodeApiKey = speedyNodeApiKey;
     }
-    this.Web3API.initialize(serverUrl, Moralis);
+    // this.Web3API.initialize(serverUrl, Moralis);
+    this.Web3API.initialize({ serverUrl, apiKey, Moralis });
     await this.initPlugins(plugins);
   }
 
