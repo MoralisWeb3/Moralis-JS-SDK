@@ -40,17 +40,51 @@ class Moralis extends MoralisWeb3 {
     if (!appId) {
       throw new Error(`Moralis.start failed: appId is required`);
     }
-    if (!moralisSecret) {
+    this.initialize(appId, javascriptKey, masterKey);
+    this.serverURL = serverUrl;
+    if (moralisSecret && process.env.PARSE_BUILD === 'node') {
+      console.warn(
+        'Moralis.start warning: Using moralisSecret on the browser version reveals critical information.'
+      );
+    }
+    if (!moralisSecret && process.env.PARSE_BUILD === 'node') {
       console.warn(
         'Moralis.start warning: to use personal speedy nodes, moralisSecret is required'
       );
     } else {
-      MoralisWeb3.moralisSecret = moralisSecret;
+      this.moralisSecret = moralisSecret;
+      const { cliApiKey, cliApiSecret, web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(
+        moralisSecret
+      );
+      this.speedyNodeApiKey = speedyNodeApiKey;
     }
-    this.initialize(appId, javascriptKey, masterKey);
-    this.serverURL = serverUrl;
     this.Web3API.initialize(serverUrl, Moralis);
     await this.initPlugins(plugins);
+  }
+
+  /**
+   * Call this method to get apiKeys using moralis secret.
+   *
+   * @param {string} moralisSecret Your Moralis Application ID and Server URL. Moralis.start({serverUrl,appId})
+   * @static
+   */
+  static async getApiKeys(moralisSecret) {
+    try {
+      const RESTController = CoreManager.getRESTController();
+      const response = await RESTController.ajax(
+        'GET',
+        'https://admin.moralis.io/api/publics/apiKeys',
+        null,
+        {
+          'moralis-secret': moralisSecret,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      );
+      return response.response.result;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**
