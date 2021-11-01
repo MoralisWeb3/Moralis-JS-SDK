@@ -82,6 +82,9 @@ static async fetch({ endpoint, params }) {
         params.address = await (await web3.eth.getAccounts())[0];
       }
     }
+    if(!this.apiKey) {
+      return this.apiCall(endpoint.name, params);
+    }
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
@@ -134,54 +137,54 @@ static async apiCall(name, options) {
 
 
   static native = {
-getBlock: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getBlock","url":"/block/:block_number_or_hash"}, params: options }) : Web3Api.apiCall('getBlock', options),
-getDateToBlock: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getDateToBlock","url":"/dateToBlock"}, params: options }) : Web3Api.apiCall('getDateToBlock', options),
-getLogsByAddress: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getLogsByAddress","url":"/:address/logs"}, params: options }) : Web3Api.apiCall('getLogsByAddress', options),
-getNFTTransfersByBlock: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getNFTTransfersByBlock","url":"/block/:block_number_or_hash/nft/transfers"}, params: options }) : Web3Api.apiCall('getNFTTransfersByBlock', options),
-getTransaction: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getTransaction","url":"/transaction/:transaction_hash"}, params: options }) : Web3Api.apiCall('getTransaction', options),
-getContractEvents: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }) : Web3Api.apiCall('getContractEvents', options),
-runContractFunction: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"data","type":"set body","required":true}]}, params: options }) : Web3Api.apiCall('runContractFunction', options),
+getBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getBlock","url":"/block/:block_number_or_hash"}, params: options }),
+getDateToBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getDateToBlock","url":"/dateToBlock"}, params: options }),
+getLogsByAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getLogsByAddress","url":"/:address/logs"}, params: options }),
+getNFTTransfersByBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getNFTTransfersByBlock","url":"/block/:block_number_or_hash/nft/transfers"}, params: options }),
+getTransaction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getTransaction","url":"/transaction/:transaction_hash"}, params: options }),
+getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
+runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"set body","required":true}]}, params: options }),
   }
 
   static account = {
-getTransactions: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getTransactions","url":"/:address"}, params: options }) : Web3Api.apiCall('getTransactions', options),
-getNativeBalance: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNativeBalance","url":"/:address/balance"}, params: options }) : Web3Api.apiCall('getNativeBalance', options),
-getTokenBalances: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getTokenBalances","url":"/:address/erc20"}, params: options }) : Web3Api.apiCall('getTokenBalances', options),
-getTokenTransfers: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getTokenTransfers","url":"/:address/erc20/transfers"}, params: options }) : Web3Api.apiCall('getTokenTransfers', options),
-getNFTs: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTs","url":"/:address/nft"}, params: options }) : Web3Api.apiCall('getNFTs', options),
-getNFTTransfers: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTTransfers","url":"/:address/nft/transfers"}, params: options }) : Web3Api.apiCall('getNFTTransfers', options),
-getNFTsForContract: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTsForContract","url":"/:address/nft/:token_address"}, params: options }) : Web3Api.apiCall('getNFTsForContract', options),
+getTransactions: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getTransactions","url":"/:address"}, params: options }),
+getNativeBalance: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNativeBalance","url":"/:address/balance"}, params: options }),
+getTokenBalances: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getTokenBalances","url":"/:address/erc20"}, params: options }),
+getTokenTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getTokenTransfers","url":"/:address/erc20/transfers"}, params: options }),
+getNFTs: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTs","url":"/:address/nft"}, params: options }),
+getNFTTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTTransfers","url":"/:address/nft/transfers"}, params: options }),
+getNFTsForContract: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTsForContract","url":"/:address/nft/:token_address"}, params: options }),
   }
 
   static token = {
-    getTokenMetadata: async (options = {}) => Web3Api.apiCall('getTokenMetadata', options),
-    getNFTTrades: async (options = {}) => Web3Api.apiCall('getNFTTrades', options),
-    getTokenMetadataBySymbol: async (options = {}) => Web3Api.apiCall('getTokenMetadataBySymbol', options),
-    getTokenPrice: async (options = {}) => Web3Api.apiCall('getTokenPrice', options),
-    getTokenAdressTransfers: async (options = {}) => Web3Api.apiCall('getTokenAdressTransfers', options),
-    getTokenAllowance: async (options = {}) => Web3Api.apiCall('getTokenAllowance', options),
-    searchNFTs: async (options = {}) => Web3Api.apiCall('searchNFTs', options),
-    getAllTokenIds: async (options = {}) => Web3Api.apiCall('getAllTokenIds', options),
-    getContractNFTTransfers: async (options = {}) => Web3Api.apiCall('getContractNFTTransfers', options),
-    getNftTransfersFromToBlock: async (options = {}) => Web3Api.apiCall('getNftTransfersFromToBlock', options),
-    getNFTOwners: async (options = {}) => Web3Api.apiCall('getNFTOwners', options),
-    getNFTMetadata: async (options = {}) => Web3Api.apiCall('getNFTMetadata', options),
-    getTokenIdMetadata: async (options = {}) => Web3Api.apiCall('getTokenIdMetadata', options),
-    getTokenIdOwners: async (options = {}) => Web3Api.apiCall('getTokenIdOwners', options),
-    getWalletTokenIdTransfers: async (options = {}) => Web3Api.apiCall('getWalletTokenIdTransfers', options),
+getTokenMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenMetadata","url":"/erc20/metadata"}, params: options }),
+getNFTTrades: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTTrades","url":"/nft/:address/trades"}, params: options }),
+getTokenMetadataBySymbol: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenMetadataBySymbol","url":"/erc20/metadata/symbols"}, params: options }),
+getTokenPrice: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenPrice","url":"/erc20/:address/price"}, params: options }),
+getTokenAdressTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenAdressTransfers","url":"/erc20/:address/transfers"}, params: options }),
+getTokenAllowance: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenAllowance","url":"/erc20/:address/allowance"}, params: options }),
+searchNFTs: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"searchNFTs","url":"/nft/search"}, params: options }),
+getAllTokenIds: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getAllTokenIds","url":"/nft/:address"}, params: options }),
+getContractNFTTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getContractNFTTransfers","url":"/nft/:address/transfers"}, params: options }),
+getNftTransfersFromToBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNftTransfersFromToBlock","url":"/nft/transfers"}, params: options }),
+getNFTOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTOwners","url":"/nft/:address/owners"}, params: options }),
+getNFTMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTMetadata","url":"/nft/:address/metadata"}, params: options }),
+getTokenIdMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdMetadata","url":"/nft/:address/:token_id"}, params: options }),
+getTokenIdOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdOwners","url":"/nft/:address/:token_id/owners"}, params: options }),
+getWalletTokenIdTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getWalletTokenIdTransfers","url":"/nft/:address/:token_id/transfers"}, params: options }),
   }
 
   static resolve = {
-resolveDomain: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"resolve","name":"resolveDomain","url":"/resolve/:domain"}, params: options }) : Web3Api.apiCall('resolveDomain', options),
+resolveDomain: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"resolve","name":"resolveDomain","url":"/resolve/:domain"}, params: options }),
   }
 
   static defi = {
-getPairReserves: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"defi","name":"getPairReserves","url":"/:pair_address/reserves"}, params: options }) : Web3Api.apiCall('getPairReserves', options),
-getPairAddress: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"GET","group":"defi","name":"getPairAddress","url":"/:token0_address/:token1_address/pairAddress"}, params: options }) : Web3Api.apiCall('getPairAddress', options),
+getPairReserves: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"defi","name":"getPairReserves","url":"/:pair_address/reserves"}, params: options }),
+getPairAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"defi","name":"getPairAddress","url":"/:token0_address/:token1_address/pairAddress"}, params: options }),
   }
 
   static storage = {
-uploadFolder: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }) : Web3Api.apiCall('uploadFolder', options),
+uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
   }
 }
 
