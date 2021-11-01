@@ -61,6 +61,7 @@ class Web3Api {
 
   static token = {
     getTokenMetadata: async (options = {}) => Web3Api.apiCall('getTokenMetadata', options),
+    getNFTTrades: async (options = {}) => Web3Api.apiCall('getNFTTrades', options),
     getTokenMetadataBySymbol: async (options = {}) => Web3Api.apiCall('getTokenMetadataBySymbol', options),
     getTokenPrice: async (options = {}) => Web3Api.apiCall('getTokenPrice', options),
     getTokenAdressTransfers: async (options = {}) => Web3Api.apiCall('getTokenAdressTransfers', options),
@@ -68,6 +69,7 @@ class Web3Api {
     searchNFTs: async (options = {}) => Web3Api.apiCall('searchNFTs', options),
     getAllTokenIds: async (options = {}) => Web3Api.apiCall('getAllTokenIds', options),
     getContractNFTTransfers: async (options = {}) => Web3Api.apiCall('getContractNFTTransfers', options),
+    getNftTransfersFromToBlock: async (options = {}) => Web3Api.apiCall('getNftTransfersFromToBlock', options),
     getNFTOwners: async (options = {}) => Web3Api.apiCall('getNFTOwners', options),
     getNFTMetadata: async (options = {}) => Web3Api.apiCall('getNFTMetadata', options),
     getTokenIdMetadata: async (options = {}) => Web3Api.apiCall('getTokenIdMetadata', options),
