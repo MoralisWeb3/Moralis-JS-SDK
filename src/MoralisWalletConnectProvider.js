@@ -1,6 +1,5 @@
 /* global window */
 import Web3 from 'web3';
-import axios from 'axios';
 
 const MORALIS_RPCS = speedyNodeKey => {
   return {
@@ -23,9 +22,8 @@ class MoralisWalletConnectProvider {
 
   async activate(options = {}) {
     if (!this.provider) {
-      const { moralisSecret } = options;
+      const { speedyNodeApiKey } = options;
       let WalletConnectProvider;
-      let speedyNodeKey = 'WalletConnect';
 
       try {
         WalletConnectProvider = require('@walletconnect/web3-provider');
@@ -34,29 +32,9 @@ class MoralisWalletConnectProvider {
         // Do nothing. User might not need walletconnect
       }
 
-      if (moralisSecret) {
-        try {
-          const response = await axios.get(
-            'https://moralis-secret.stage.moralis.io/api/publics/apiKeys',
-            {
-              headers: {
-                'moralis-secret':
-                  'hfpcjh6KKV2R8eyfVmeMIlPLRMK4vZ2aErwcD7dnNcUxLCKSTEQvmu1cfz0thfz0',
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-          const { speedyNodeApiKey } = response.data.result;
-          speedyNodeKey = speedyNodeApiKey;
-        } catch (error) {
-          throw new Error(error);
-        }
-      }
-
       if (typeof WalletConnectProvider.default === 'function') {
         this.provider = new WalletConnectProvider.default({
-          rpc: MORALIS_RPCS(speedyNodeKey),
+          rpc: MORALIS_RPCS(speedyNodeApiKey),
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
@@ -64,7 +42,7 @@ class MoralisWalletConnectProvider {
         });
       } else {
         this.provider = new window.WalletConnectProvider.default({
-          rpc: MORALIS_RPCS(speedyNodeKey),
+          rpc: MORALIS_RPCS(speedyNodeApiKey),
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
