@@ -52,11 +52,10 @@ class Moralis extends MoralisWeb3 {
       console.warn(
         'Moralis.start warning: to use personal speedy nodes, moralisSecret is required'
       );
-    } else {
+    }
+    if (moralisSecret) {
       this.moralisSecret = moralisSecret;
-      const { cliApiKey, cliApiSecret, web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(
-        moralisSecret
-      );
+      const { web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(moralisSecret);
       apiKey = web3ApiKey;
       this.speedyNodeApiKey = speedyNodeApiKey;
     }
