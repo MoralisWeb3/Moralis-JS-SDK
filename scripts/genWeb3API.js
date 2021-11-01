@@ -103,6 +103,9 @@ static async fetch({ endpoint, params }) {
         params.address = await (await web3.eth.getAccounts())[0];
       }
     }
+    if(!this.apiKey) {
+      return this.apiCall(endpoint.name, params);
+    }
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
@@ -199,7 +202,7 @@ const fetchEndpoints = async () => {
       name: x,
       url: item.pathName.split('{').join(':').split('}').join(''),
       bodyParams: item.data.requestBody
-        ? [{ key: 'data', type: BodyParamTypes.setBody, required: item.data.requestBody.required }]
+        ? [{ key: 'abi', type: BodyParamTypes.setBody, required: item.data.requestBody.required }]
         : undefined,
     };
 
@@ -231,11 +234,9 @@ const genWebApi = async () => {
     content += '\n';
     content += `  static ${group} = {\n`;
     Object.values(wrappers[group]).forEach(func => {
-      content += `${
-        func.name
-      }: async (options = {}) => this.apiKey ? Web3Api.fetch({ endpoint: ${JSON.stringify(
+      content += `${func.name}: async (options = {}) => Web3Api.fetch({ endpoint: ${JSON.stringify(
         ENDPOINTS.find(e => e.name === func.name)
-      )}, params: options }) : Web3Api.apiCall('${func.name}', options),\n`;
+      )}, params: options }),\n`;
     });
     content += '  }\n';
   });
