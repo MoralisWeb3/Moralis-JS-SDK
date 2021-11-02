@@ -208,9 +208,8 @@ class MoralisWeb3 {
 
   static async handleTriggers(triggersArray, payload) {
     if (!triggersArray) return;
-
+    let response;
     for (let i = 0; i < triggersArray.length; i++) {
-      let response;
       switch (triggersArray[i]?.name) {
         // Handles `openUrl` trigger
         case 'openUrl':
@@ -339,6 +338,59 @@ class MoralisWeb3 {
           // Return payload and response
           if (triggersArray[i]?.shouldReturnPayload === true)
             return { payload: 'payload', response: response };
+
+          // Only return response
+          if (triggersArray[i]?.shouldReturnResponse === true) return response;
+          break;
+
+        case 'web3SignV4':
+          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+          if (!triggersArray[i].parameters)
+            throw new Error('web3SignV4 trigger does not have `parameters` to sign');
+          if (!triggersArray[i].from)
+            throw new Error('web3SignV4 trigger does not have a `from` address');
+
+          if (triggersArray[i]?.shouldAwait === true) {
+            await this.web3.currentProvider.send(
+              {
+                method: 'eth_signTypedData_v4',
+                params: triggersArray[i].parameters,
+                from: triggersArray[i].from,
+              },
+              // eslint-disable-next-line no-loop-func
+              async (error, result) => {
+                if (error) throw new Error(error.message || error);
+
+                // Save response
+                if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(result);
+
+                response = result;
+              }
+            );
+          }
+
+          if (triggersArray[i]?.shouldAwait === false) {
+            this.web3.currentProvider.send(
+              {
+                method: 'eth_signTypedData_v4',
+                params: triggersArray[i].parameters,
+                from: triggersArray[i].from,
+              },
+              // eslint-disable-next-line no-loop-func
+              async (error, result) => {
+                if (error) throw new Error(error.message || error);
+
+                // Save response
+                if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(result);
+
+                response = result;
+              }
+            );
+          }
+
+          // Return payload and response
+          if (triggersArray[i]?.shouldReturnPayload === true)
+            return { payload: payload, response: response };
 
           // Only return response
           if (triggersArray[i]?.shouldReturnResponse === true) return response;
