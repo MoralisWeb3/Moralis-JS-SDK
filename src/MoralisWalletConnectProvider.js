@@ -28,7 +28,6 @@ class MoralisWalletConnectProvider {
       try {
         WalletConnectProvider = require('@walletconnect/web3-provider');
       } catch (error) {
-        throw new Error(error);
         // Do nothing. User might not need walletconnect
       }
 
