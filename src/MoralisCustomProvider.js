@@ -1,8 +1,7 @@
 /* global window */
 import Web3 from 'web3';
 
-const ERROR_CHAINID_MISSING =
-  'Missing chainId. Check available chain and corresponding IDs: https://chainlist.org/';
+const ERROR_CHAINID_MISSING = 'Invalid chainId: Chain not currently supported by moralis';
 
 const MORALIS_RPCS = speedyNodeKey => {
   return {
@@ -25,8 +24,10 @@ class MoralisCustomProvider {
   }
 
   async activate(options) {
+    if (!options.chainId) {
+      options.chainId = 1;
+    }
     const { speedyNodeApiKey, chainId } = options;
-    if (!chainId) throw new Error(ERROR_CHAINID_MISSING);
 
     const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
 
@@ -47,7 +48,11 @@ class MoralisCustomProvider {
   }
 
   getUrl(chainId, speedyNodeKey) {
-    return MORALIS_RPCS(speedyNodeKey)[chainId];
+    const url = MORALIS_RPCS(speedyNodeKey)[chainId];
+    if (!url) {
+      throw new Error(ERROR_CHAINID_MISSING);
+    }
+    return url;
   }
 }
 
