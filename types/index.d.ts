@@ -315,9 +315,9 @@ export namespace Moralis {
     /** @deprecated use contractAddress field instead */
     contract_address?: string;
     amount?: string;
-    tokenId?: string;
+    tokenId?: number | string;
     /** @deprecated use tokenId field instead */
-    token_id?: string;
+    token_id?: number | string;
     awaitReceipt?: boolean;
     system?: TransferSystem;
   }
@@ -381,7 +381,10 @@ export namespace Moralis {
     static activeWeb3Provider?: Web3Provider;
 
     // Core functions
+    static enableWeb3: (options?: EnableOptions) => Promise<NativeWeb3>;
+    /** @deprecated use enableWeb3 instead */
     static enable: (options?: EnableOptions) => Promise<NativeWeb3>;
+    static setEnableWeb3: (enable: (options?: any) => Promise<NativeWeb3>) => Promise<NativeWeb3>;
     static cleanup: () => Promise<void>;
     static authenticate: (options?: AuthenticationOptions) => Promise<User>;
     static link: (account: string, options?: LinkOptions) => Promise<User>;

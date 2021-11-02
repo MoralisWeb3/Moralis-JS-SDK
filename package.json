@@ -1,6 +1,6 @@
 {
   "name": "moralis",
-  "version": "0.0.97",
+  "version": "0.0.117",
   "description": "The Moralis JavaScript SDK",
   "homepage": "https://docs.moralis.io",
   "keywords": [
@@ -18,8 +18,11 @@
   "files": [
     "index.js",
     "node.js",
+    "node.d.ts",
     "react-native.js",
+    "react-native.d.ts",
     "weapp.js",
+    "weapp.d.ts",
     "dist/",
     "types/",
     "lib/",
@@ -79,7 +82,7 @@
     "gulp-derequire": "3.0.0",
     "gulp-insert": "0.5.0",
     "gulp-rename": "2.0.0",
-    "gulp-uglify": "3.0.2",
+    "gulp-terser": "^2.1.0",
     "gulp-watch": "5.0.1",
     "husky": "^7.0.0",
     "jasmine": "3.5.0",
@@ -98,10 +101,13 @@
     "crypto-js": "4.0.0"
   },
   "scripts": {
+    "install:clean": "npm ci",
     "build": "node scripts/build_releases.js",
     "release": "node scripts/build_releases.js && npm publish",
     "test": "cross-env PARSE_BUILD=node jest",
+    "test:ci": "cross-env PARSE_BUILD=node jest",
     "lint": "eslint --cache src/ integration/",
+    "lint:ci": "eslint --output-file eslint_report.json --format json src/ integration/",
     "lint:fix": "eslint --fix --cache src/ integration/",
     "watch": "cross-env PARSE_BUILD=${PARSE_BUILD} gulp watch",
     "watch:browser": "cross-env PARSE_BUILD=browser npm run watch",
@@ -118,10 +124,10 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
+    "{src,integration}/**/*.js": [
       "eslint"
     ],
-    "*.{js,ts,html,css,md,json}": [
+    "src/**/*.{js,ts,html,css,md,json}": [
       "prettier --write"
     ]
   },

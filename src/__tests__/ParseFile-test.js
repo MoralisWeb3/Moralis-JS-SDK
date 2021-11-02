@@ -11,6 +11,7 @@ jest.autoMockOff();
 jest.mock('http');
 jest.mock('https');
 jest.mock('../ParseACL');
+jest.dontMock('../ParseFileEncode');
 
 const ParseError = require('../ParseError').default;
 const ParseFile = require('../ParseFile').default;

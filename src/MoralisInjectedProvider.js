@@ -16,7 +16,9 @@ async function getWeb3FromBrowser() {
 
   if (ethereum) {
     const web3 = new MWeb3(ethereum);
-    await ethereum.enable();
+    await ethereum.request({
+      method: 'eth_requestAccounts',
+    });
     return web3;
   }
   if (provider) {
