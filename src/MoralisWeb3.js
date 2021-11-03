@@ -38,7 +38,6 @@ class MoralisWeb3 {
     return new MWeb3(...args);
   }
 
-  static moralisSecret;
   static speedyNodeApiKey;
 
   static isWeb3Enabled() {

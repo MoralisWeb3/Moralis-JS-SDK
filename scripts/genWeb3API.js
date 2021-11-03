@@ -86,9 +86,8 @@ static getParameterizedUrl(url, params) {
 
 static getErrorMessage(error, url) {
   return (
-    error?.data?.error ||
-    error?.data ||
-    error?.mesage ||
+    error?.response?.data?.message ||
+    error?.message ||
     error?.toString() ||
    \`Web3 API error while calling \${url}\`
   );
