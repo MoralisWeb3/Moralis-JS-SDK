@@ -2,15 +2,15 @@
 import Web3 from 'web3';
 
 const MORALIS_RPCS = {
-  1: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/mainnet',
-  3: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/ropsten',
-  4: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/rinkeby',
-  5: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/goerli',
-  42: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/kovan',
-  137: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mainnet',
-  80001: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mumbai',
-  56: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/mainnet',
-  97: 'https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/testnet',
+  1: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/mainnet`,
+  3: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/ropsten`,
+  4: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/rinkeby`,
+  5: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/goerli`,
+  42: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/kovan`,
+  137: `https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mainnet`,
+  80001: `https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mumbai`,
+  56: `https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/mainnet`,
+  97: `https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/testnet`,
 };
 
 class MoralisWalletConnectProvider {

@@ -7,6 +7,7 @@ import ParseACL from './ParseACL';
 import MoralisErd from './MoralisErd';
 import MoralisDot from './MoralisDot';
 import MoralisWalletConnectProvider from './MoralisWalletConnectProvider';
+import MoralisCustomProvider from './MoralisCustomProvider';
 import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
@@ -35,6 +36,8 @@ class MoralisWeb3 {
     return new MWeb3(...args);
   }
 
+  static speedyNodeApiKey;
+
   static isWeb3Enabled() {
     return this.ensureWeb3IsInstalled();
   }
@@ -49,6 +52,10 @@ class MoralisWeb3 {
     if (this.customEnableWeb3) {
       web3 = await this.customEnableWeb3(options);
     } else {
+      if (this.speedyNodeApiKey) {
+        options.speedyNodeApiKey = this.speedyNodeApiKey;
+        options.provider = 'custom';
+      }
       const Web3Provider = MoralisWeb3.getWeb3Provider(options);
       const web3Provider = new Web3Provider();
       this.activeWeb3Provider = web3Provider;
@@ -93,6 +100,8 @@ class MoralisWeb3 {
       case 'walletConnect':
       case 'wc':
         return MoralisWalletConnectProvider;
+      case 'custom':
+        return MoralisCustomProvider;
       default:
         return MoralisInjectedProvider;
     }

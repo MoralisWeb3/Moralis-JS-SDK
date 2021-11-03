@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Copyright (c) 2015-present, Parse, LLC.
  * All rights reserved.
@@ -32,17 +33,66 @@ class Moralis extends MoralisWeb3 {
    * @static
    */
   static async start(options) {
-    const { appId, serverUrl, plugins, javascriptKey, masterKey } = options;
-    if (!serverUrl) {
-      throw new Error(`Moralis.start failed: serverUrl is required`);
+    const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret } = options;
+    let apiKey;
+
+    if (process.env.PARSE_BUILD !== 'node') {
+      // Non-node environments (browser, react-native)
+      if (!serverUrl) {
+        throw new Error(`Moralis.start failed: serverUrl is required`);
+      }
+      if (!appId) {
+        throw new Error(`Moralis.start failed: appId is required`);
+      }
+      if (moralisSecret) {
+        console.warn(
+          'Moralis.start warning: Using moralisSecret on the browser enviroment reveals critical information.'
+        );
+      }
+    } else {
+      // Node environment
+      if (!moralisSecret) {
+        console.warn('Moralis.start warning: to use web3 access, moralisSecret is required');
+      } else {
+        this.moralisSecret = moralisSecret;
+        const { web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(moralisSecret);
+        apiKey = web3ApiKey;
+        this.speedyNodeApiKey = speedyNodeApiKey;
+      }
     }
-    if (!appId) {
-      throw new Error(`Moralis.start failed: appId is required`);
-    }
+
     this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;
-    this.Web3API.initialize(serverUrl, this);
-    await this.initPlugins(plugins);
+
+    this.Web3API.initialize({ serverUrl, apiKey, Moralis });
+    if (appId && serverUrl) {
+      await this.initPlugins(plugins);
+    }
+  }
+
+  /**
+   * Call this method to get apiKeys using moralis secret.
+   *
+   * @param {string} moralisSecret Your MoralisSecret
+   * @static
+   */
+  static async getApiKeys(moralisSecret) {
+    try {
+      const RESTController = CoreManager.getRESTController();
+      const response = await RESTController.ajax(
+        'GET',
+        'https://admin.moralis.io/api/publics/apiKeys',
+        null,
+        {
+          'moralis-secret': moralisSecret,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      );
+      return response.response.result;
+    } catch (error) {
+      throw new Error(`Could not fetch keys with moralisSecret`);
+    }
   }
 
   /**

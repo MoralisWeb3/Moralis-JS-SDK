@@ -85,8 +85,9 @@ export namespace Moralis {
   }
 
   interface StartOptions {
-    serverUrl: string;
-    appId: string;
+    serverUrl?: string;
+    appId?: string;
+    moralisSecret?: string;
     plugins?: PluginSpecs[];
     javascriptKey?: string;
     masterKey?: string;
