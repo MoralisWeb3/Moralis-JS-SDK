@@ -391,6 +391,16 @@ export namespace Moralis {
     static link: (account: string, options?: LinkOptions) => Promise<User>;
     static unlink: (account: string) => Promise<User>;
 
+    static switchNetwork: (chainId: string | number) => Promise<void>;
+    static addNetwork: (
+      chainId: string | number,
+      chainName: string,
+      currencyName: string,
+      currencySymbol: string,
+      rpcUrl: string,
+      blockExplorerUrl: string
+    ) => Promise<void>;
+
     static transfer: (options: TransferOptions) => Promise<TransferResult>;
     static executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
 
