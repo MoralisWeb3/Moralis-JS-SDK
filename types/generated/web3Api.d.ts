@@ -372,8 +372,8 @@ export interface components {
       balance: string;
     };
     tradesCollection: {
-      /** The token id of the NFT */
-      token_id: string;
+      /** The token id(s) traded */
+      token_ids?: any[];
       /** The address that sent the NFT */
       from_address: string;
       /** The address that recieved the NFT */
@@ -397,6 +397,7 @@ export interface components {
       /** The transaction index */
       transaction_index: string;
     } & {
+      token_id: unknown;
       nonce: unknown;
     };
     chainList:
