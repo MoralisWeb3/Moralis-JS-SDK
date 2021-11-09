@@ -142,7 +142,7 @@ getLogsByAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"G
 getNFTTransfersByBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getNFTTransfersByBlock","url":"/block/:block_number_or_hash/nft/transfers"}, params: options }),
 getTransaction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getTransaction","url":"/transaction/:transaction_hash"}, params: options }),
 getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
-runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"set body","required":true}]}, params: options }),
+runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"property","required":true},{"key":"params","type":"property","required":false}]}, params: options }),
   }
 
   static account = {
