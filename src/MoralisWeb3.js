@@ -14,8 +14,6 @@ import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
 import createSigningData from './createSigningData';
 const EventEmitter = require('events');
-const transferEvents = new EventEmitter();
-const contractExecuteEvents = new EventEmitter();
 
 export const EthereumEvents = {
   CONNECT: 'connect',
@@ -38,7 +36,6 @@ class MoralisWeb3 {
     return new MWeb3(...args);
   }
 
-  static moralisSecret;
   static speedyNodeApiKey;
 
   static isWeb3Enabled() {
@@ -521,6 +518,8 @@ class MoralisWeb3 {
 
     if (awaitReceipt) return transferOperation;
 
+    const transferEvents = new EventEmitter();
+
     transferOperation
       .on('transactionHash', hash => {
         transferEvents.emit('transactionHash', hash);
@@ -594,6 +593,8 @@ class MoralisWeb3 {
       : customFunction(...Object.values(parsedInputs)).send(msgValue ? { value: msgValue } : null);
 
     if (awaitReceipt) return response;
+
+    const contractExecuteEvents = new EventEmitter();
 
     response
       .on('transactionHash', hash => {

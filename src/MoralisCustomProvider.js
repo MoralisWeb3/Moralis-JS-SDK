@@ -1,7 +1,7 @@
 /* global window */
 import Web3 from 'web3';
 
-const ERROR_CHAINID_MISSING = 'Invalid chainId: Chain not currently supported by moralis';
+const ERROR_CHAINID_MISSING = 'Invalid chainId: Chain not currently supported by Moralis';
 
 const MORALIS_RPCS = speedyNodeKey => {
   return {

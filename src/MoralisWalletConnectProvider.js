@@ -1,18 +1,16 @@
 /* global window */
 import Web3 from 'web3';
 
-const MORALIS_RPCS = speedyNodeKey => {
-  return {
-    1: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/mainnet`,
-    3: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/ropsten`,
-    4: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/rinkeby`,
-    5: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/goerli`,
-    42: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/eth/kovan`,
-    137: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/polygon/mainnet`,
-    80001: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/polygon/mumbai`,
-    56: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/bsc/mainnet`,
-    97: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/bsc/testnet`,
-  };
+const MORALIS_RPCS = {
+  1: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/mainnet`,
+  3: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/ropsten`,
+  4: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/rinkeby`,
+  5: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/goerli`,
+  42: `https://speedy-nodes-nyc.moralis.io/WalletConnect/eth/kovan`,
+  137: `https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mainnet`,
+  80001: `https://speedy-nodes-nyc.moralis.io/WalletConnect/polygon/mumbai`,
+  56: `https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/mainnet`,
+  97: `https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/testnet`,
 };
 
 class MoralisWalletConnectProvider {
@@ -22,7 +20,6 @@ class MoralisWalletConnectProvider {
 
   async activate(options = {}) {
     if (!this.provider) {
-      const { speedyNodeApiKey } = options;
       let WalletConnectProvider;
 
       try {
@@ -33,7 +30,7 @@ class MoralisWalletConnectProvider {
 
       if (typeof WalletConnectProvider.default === 'function') {
         this.provider = new WalletConnectProvider.default({
-          rpc: MORALIS_RPCS(speedyNodeApiKey),
+          rpc: MORALIS_RPCS,
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
@@ -41,7 +38,7 @@ class MoralisWalletConnectProvider {
         });
       } else {
         this.provider = new window.WalletConnectProvider.default({
-          rpc: MORALIS_RPCS(speedyNodeApiKey),
+          rpc: MORALIS_RPCS,
           chainId: options.chainId,
           qrcodeModalOptions: {
             mobileLinks: options.mobileLinks,
