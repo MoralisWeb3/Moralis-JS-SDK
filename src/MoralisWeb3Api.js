@@ -143,7 +143,7 @@ getLogsByAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"G
 getNFTTransfersByBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getNFTTransfersByBlock","url":"/block/:block_number_or_hash/nft/transfers"}, params: options }),
 getTransaction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getTransaction","url":"/transaction/:transaction_hash"}, params: options }),
 getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
-runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"set body","required":true}]}, params: options }),
+runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"property","required":true},{"key":"params","type":"property","required":false}]}, params: options }),
   }
 
   static account = {
@@ -159,6 +159,7 @@ getNFTsForContract: async (options = {}) => Web3Api.fetch({ endpoint: {"method":
   static token = {
 getTokenMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenMetadata","url":"/erc20/metadata"}, params: options }),
 getNFTTrades: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTTrades","url":"/nft/:address/trades"}, params: options }),
+getNFTLowestPrice: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTLowestPrice","url":"/nft/:address/lowestprice"}, params: options }),
 getTokenMetadataBySymbol: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenMetadataBySymbol","url":"/erc20/metadata/symbols"}, params: options }),
 getTokenPrice: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenPrice","url":"/erc20/:address/price"}, params: options }),
 getTokenAdressTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenAdressTransfers","url":"/erc20/:address/transfers"}, params: options }),

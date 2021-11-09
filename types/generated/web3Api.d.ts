@@ -79,6 +79,10 @@ export interface paths {
     /** Get the nft trades for a given contracts and marketplace */
     get: operations["getNFTTrades"];
   };
+  "/nft/{address}/lowestprice": {
+    /** Get the lowest price found for a nft token contract for the last x days (only trades paid in ETH) */
+    get: operations["getNFTLowestPrice"];
+  };
   "/erc20/metadata/symbols": {
     /** Returns metadata (name, symbol, decimals, logo) for a given token contract address. */
     get: operations["getTokenMetadataBySymbol"];
@@ -298,6 +302,12 @@ export interface components {
       /** The timestamp of the block */
       timestamp: number;
     };
+    RunContractDto: {
+      /** The contract abi */
+      abi: { [key: string]: unknown };
+      /** The params for the given function */
+      params?: { [key: string]: unknown };
+    };
     transactionCollection: {
       /** The total number of matches for this query */
       total?: number;
@@ -368,8 +378,8 @@ export interface components {
       balance: string;
     };
     tradesCollection: {
-      /** The token id of the NFT */
-      token_id: string;
+      /** The token id(s) traded */
+      token_ids?: unknown[];
       /** The address that sent the NFT */
       from_address: string;
       /** The address that recieved the NFT */
@@ -393,6 +403,7 @@ export interface components {
       /** The transaction index */
       transaction_index: string;
     } & {
+      token_id: unknown;
       nonce: unknown;
     };
     chainList:
@@ -547,6 +558,8 @@ export interface components {
       /** The number of results per page */
       page_size: number;
       result: components["schemas"]["nftTransfer"][];
+      /** Indicator if the block exists */
+      block_exists?: boolean;
     };
     nftContractMetadata: {
       /** The address of the token contract */
@@ -923,10 +936,10 @@ export interface operations {
         };
       };
     };
-    /** The contract abi */
+    /** Body */
     requestBody: {
       content: {
-        "application/json": { [key: string]: unknown };
+        "application/json": components["schemas"]["RunContractDto"];
       };
     };
   };
@@ -1244,11 +1257,41 @@ export interface operations {
       };
       path: {
         /** Address of the contract */
-        token_address: string;
+        address: string;
       };
     };
     responses: {
       /** Returns the trades */
+      200: {
+        content: {
+          "application/json": components["schemas"]["tradesCollection"];
+        };
+      };
+    };
+  };
+  /** Get the lowest price found for a nft token contract for the last x days (only trades paid in ETH) */
+  getNFTLowestPrice: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /**
+         * The number of days to look back to find the lowest price
+         * If not provided 7 days will be the default
+         */
+        days?: number;
+        /** web3 provider url to user when using local dev chain */
+        provider_url?: string;
+        /** marketplace from where to get the trades (only opensea is supported at the moment) */
+        marketplace?: string;
+      };
+      path: {
+        /** Address of the contract */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns the trade with the lowest price */
       200: {
         content: {
           "application/json": components["schemas"]["tradesCollection"];
@@ -1846,6 +1889,7 @@ export default class Web3Api {
   static token: {
     getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"] ) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTrades: (options: operations["getNFTTrades"]["parameters"]["query"] & operations["getNFTTrades"]["parameters"]["path"]) => Promise<operations["getNFTTrades"]["responses"]["200"]["content"]["application/json"]>;
+    getNFTLowestPrice: (options: operations["getNFTLowestPrice"]["parameters"]["query"] & operations["getNFTLowestPrice"]["parameters"]["path"]) => Promise<operations["getNFTLowestPrice"]["responses"]["200"]["content"]["application/json"]>;
     getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"] ) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
     getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["query"] & operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAdressTransfers: (options: operations["getTokenAdressTransfers"]["parameters"]["query"] & operations["getTokenAdressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAdressTransfers"]["responses"]["200"]["content"]["application/json"]>;
