@@ -247,7 +247,7 @@ export namespace Moralis {
   type BscTestChain = 'bsc testnet' | 'binance testnet' | 'binance smart chain testnet' | ' 0x61';
   type PolygonChain = 'matic' | 'polygon' | '0x89';
   type MumbaiChain = 'mumbai' | 'matic testnet' | 'polygon testnet' | '0x13881';
-  type FantomChain = 'fantom' | '0xfa';
+  type FantomChain = 'fantom' | 'ftm' | '0xfa';
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
 
