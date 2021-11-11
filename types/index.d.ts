@@ -134,7 +134,7 @@ export namespace Moralis {
     progress?: Function;
   }
 
-  interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
+  interface SuccessFailureOptions extends SuccessOption, ErrorOption { }
 
   interface SignUpOptions {
     useMasterKey?: boolean;
@@ -160,7 +160,7 @@ export namespace Moralis {
     useMasterKey?: boolean;
   }
 
-  interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
+  interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption { }
 
   interface SilentOption {
     /**
@@ -247,7 +247,10 @@ export namespace Moralis {
   type BscTestChain = 'bsc testnet' | 'binance testnet' | 'binance smart chain testnet' | ' 0x61';
   type PolygonChain = 'matic' | 'polygon' | '0x89';
   type MumbaiChain = 'mumbai' | 'matic testnet' | 'polygon testnet' | '0x13881';
+  type FantomChain = 'fantom' | '0xfa';
+  type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
+
   type Chain =
     | EthChain
     | RopstenChain
@@ -258,6 +261,8 @@ export namespace Moralis {
     | BscTestChain
     | PolygonChain
     | MumbaiChain
+    | FantomChain
+    | AvalancheChain
     | LocalDevChain;
 
   interface CommonConvenienceOptions {
@@ -445,7 +450,7 @@ export namespace Moralis {
   /**
    * The Moralis Web3API.
    */
-  class Web3API extends Web3Api {}
+  class Web3API extends Web3Api { }
 
   /**
    * The Moralis Web3API.
@@ -696,10 +701,10 @@ export namespace Moralis {
     save<K extends Extract<keyof T, string>>(
       attrs?:
         | (((x: T) => void) extends (x: Attributes) => void
-            ? Partial<T>
-            : {
-                [key in K]: T[key];
-              })
+          ? Partial<T>
+          : {
+            [key in K]: T[key];
+          })
         | null,
       options?: Object.SaveOptions
     ): Promise<this>;
@@ -712,8 +717,8 @@ export namespace Moralis {
       attrs: ((x: T) => void) extends (x: Attributes) => void
         ? Partial<T>
         : {
-            [key in K]: T[key];
-          },
+          [key in K]: T[key];
+        },
       options?: Object.SetOptions
     ): this | false;
     set<K extends Extract<keyof T, string>>(
@@ -757,27 +762,27 @@ export namespace Moralis {
   }
   interface ObjectConstructor extends ObjectStatic {
     new <T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
-    new (className?: string, attributes?: Attributes, options?: any): Object;
+    new(className?: string, attributes?: Attributes, options?: any): Object;
   }
   const Object: ObjectConstructor;
 
   namespace Object {
-    interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions {}
+    interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-    interface DestroyAllOptions extends BatchSizeOption, ScopeOptions {}
+    interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
 
-    interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions {}
+    interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
-    interface FetchOptions extends SuccessFailureOptions, ScopeOptions {}
+    interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
     interface SaveOptions
       extends CascadeSaveOption,
-        SuccessFailureOptions,
-        SilentOption,
-        ScopeOptions,
-        WaitOption {}
+      SuccessFailureOptions,
+      SilentOption,
+      ScopeOptions,
+      WaitOption { }
 
-    interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
+    interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
 
     interface SetOptions extends ErrorOption, SilentOption {
       promise?: any;
@@ -830,7 +835,7 @@ export namespace Moralis {
   }
   interface InstallationConstructor extends ObjectStatic<Installation> {
     new <T extends Attributes>(attributes: T): Installation<T>;
-    new (): Installation;
+    new(): Installation;
   }
   const Installation: InstallationConstructor;
 
@@ -971,10 +976,10 @@ export namespace Moralis {
       value:
         | T['attributes'][K]
         | (T['attributes'][K] extends Object
-            ? Pointer
-            : T['attributes'][K] extends Array<infer E>
-            ? E
-            : never)
+          ? Pointer
+          : T['attributes'][K] extends Array<infer E>
+          ? E
+          : never)
     ): this;
     exclude<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
     exists<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K): this;
@@ -1032,10 +1037,10 @@ export namespace Moralis {
       value:
         | T['attributes'][K]
         | (T['attributes'][K] extends Object
-            ? Pointer
-            : T['attributes'][K] extends Array<infer E>
-            ? E
-            : never)
+          ? Pointer
+          : T['attributes'][K] extends Array<infer E>
+          ? E
+          : never)
     ): this;
     polygonContains<K extends keyof T['attributes'] | keyof BaseAttributes>(
       key: K,
@@ -1082,15 +1087,15 @@ export namespace Moralis {
   }
 
   namespace Query {
-    interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
-    interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
-    interface FindOptions extends SuccessFailureOptions, ScopeOptions {}
-    interface FirstOptions extends SuccessFailureOptions, ScopeOptions {}
-    interface GetOptions extends SuccessFailureOptions, ScopeOptions {}
+    interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
+    interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
+    interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
+    interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
+    interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
 
     // According to http://docs.moralis.io/rest/guide/#aggregate-queries
     interface AggregationOptions {
-      group?: { objectId?: string; [key: string]: any };
+      group?: { objectId?: string;[key: string]: any };
       match?: { [key: string]: any };
       project?: { [key: string]: any };
       limit?: number;
@@ -1220,7 +1225,7 @@ export namespace Moralis {
   }
   interface RoleConstructor extends ObjectStatic<Role> {
     new <T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
-    new (name: string, acl: ACL): Role;
+    new(name: string, acl: ACL): Role;
   }
   const Role: RoleConstructor;
 
@@ -1239,7 +1244,7 @@ export namespace Moralis {
   }
   interface SessionConstructor extends ObjectStatic<Session> {
     new <T extends Attributes>(attributes: T): Session<T>;
-    new (): Session;
+    new(): Session;
 
     current(): Promise<Session>;
   }
@@ -1283,7 +1288,7 @@ export namespace Moralis {
   }
   interface UserConstructor extends ObjectStatic<User> {
     new <T extends Attributes>(attributes: T): User<T>;
-    new (attributes?: Attributes): User;
+    new(attributes?: Attributes): User;
 
     allowCustomUserClass(isAllowed: boolean): void;
     become<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
@@ -1602,8 +1607,8 @@ export namespace Moralis {
     interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
       context: object;
     }
-    interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
-    interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
+    interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> { } // tslint:disable-line no-empty-interface
+    interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> { } // tslint:disable-line no-empty-interface
     interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
       context: object;
     }
@@ -1635,27 +1640,27 @@ export namespace Moralis {
     }
 
     function afterDelete<T extends Object = Object>(
-      arg1: { new (): T } | string,
+      arg1: { new(): T } | string,
       func?: (request: AfterDeleteRequest<T>) => Promise<void> | void
     ): void;
     function afterSave<T extends Object = Object>(
-      arg1: { new (): T } | string,
+      arg1: { new(): T } | string,
       func?: (request: AfterSaveRequest<T>) => Promise<void> | void
     ): void;
     function beforeDelete<T extends Object = Object>(
-      arg1: { new (): T } | string,
+      arg1: { new(): T } | string,
       func?: (request: BeforeDeleteRequest<T>) => Promise<void> | void
     ): void;
     function beforeSave<T extends Object = Object>(
-      arg1: { new (): T } | string,
+      arg1: { new(): T } | string,
       func?: (request: BeforeSaveRequest<T>) => Promise<void> | void
     ): void;
     function beforeFind<T extends Object = Object>(
-      arg1: { new (): T } | string,
+      arg1: { new(): T } | string,
       func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void
     ): void;
     function afterFind<T extends Object = Object>(
-      arg1: { new (): T } | string,
+      arg1: { new(): T } | string,
       func?: (request: AfterFindRequest<T>) => any
     ): void;
 
@@ -1718,7 +1723,7 @@ export namespace Moralis {
     function startJob(jobName: string, data: any): Promise<string>;
     function useMasterKey(): void;
 
-    interface RunOptions extends SuccessFailureOptions, ScopeOptions {}
+    interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
     /**
      * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.

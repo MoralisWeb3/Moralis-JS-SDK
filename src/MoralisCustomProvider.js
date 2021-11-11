@@ -15,6 +15,7 @@ const MORALIS_RPCS = speedyNodeKey => {
     56: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/bsc/mainnet`,
     97: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/bsc/testnet`,
     43114: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/avalanche/mainnet`,
+    250: `https://speedy-nodes-nyc.moralis.io/${speedyNodeKey}/fantom/mainnet`,
   };
 };
 
