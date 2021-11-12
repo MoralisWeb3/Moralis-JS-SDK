@@ -1866,7 +1866,7 @@ export interface operations {
 export interface external {}
 
 export default class Web3Api {
-  static initialize: (serverUrl: string) => void;
+  static initialize: (options: {apiKey?: string, serverUrl?: string, Moralis?: any}) => void;
 
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;

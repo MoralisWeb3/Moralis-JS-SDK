@@ -87,16 +87,15 @@ static async fetch({ endpoint, params }) {
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
-    const http = axios.create({
-      baseURL: this.baseURL,
+    const response = await axios(this.baseURL + parameterizedUrl, {
+      params,
+      method,
+      body,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-api-key': this.apiKey,
       },
-    });
-    const response = await http[method.toLowerCase()](parameterizedUrl, body, {
-      params,
     });
     return response.data;
   } catch (error) {

@@ -105,7 +105,7 @@ ${pathByTag[tag].map(path => makeMethod(pathDetails, path)).join('')}  }
 const makeGeneratedWeb3ApiType = (tags, pathByTag, pathDetails) => {
   let content = `export default class Web3Api {\n`;
 
-  content += `  static initialize: (serverUrl: string) => void;\n`;
+  content += `  static initialize: (options: {apiKey?: string, serverUrl?: string, Moralis?: any}) => void;\n`;
   content += `\n`;
 
   tags.forEach(tag => {
