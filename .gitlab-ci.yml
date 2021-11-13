@@ -11,7 +11,5 @@ deploy:
     - npm install
     - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
     - npm run release
-    - git add .
-    - git commit -m "new deployment"
     - git push
     - git push --tags
