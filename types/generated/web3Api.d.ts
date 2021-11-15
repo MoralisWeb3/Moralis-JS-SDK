@@ -302,6 +302,12 @@ export interface components {
       /** The timestamp of the block */
       timestamp: number;
     };
+    RunContractDto: {
+      /** The contract abi */
+      abi: { [key: string]: unknown };
+      /** The params for the given function */
+      params?: { [key: string]: unknown };
+    };
     transactionCollection: {
       /** The total number of matches for this query */
       total?: number;
@@ -373,7 +379,7 @@ export interface components {
     };
     tradesCollection: {
       /** The token id(s) traded */
-      token_ids?: any[];
+      token_ids?: unknown[];
       /** The address that sent the NFT */
       from_address: string;
       /** The address that recieved the NFT */
@@ -420,7 +426,9 @@ export interface components {
       | "bsc testnet"
       | "0x61"
       | "avalanche"
-      | "0xa86a";
+      | "0xa86a"
+      | "fantom"
+      | "0xfa";
     nft: {
       /** The address of the contract of the NFT */
       token_address: string;
@@ -552,6 +560,8 @@ export interface components {
       /** The number of results per page */
       page_size: number;
       result: components["schemas"]["nftTransfer"][];
+      /** Indicator if the block exists */
+      block_exists?: boolean;
     };
     nftContractMetadata: {
       /** The address of the token contract */
@@ -928,10 +938,10 @@ export interface operations {
         };
       };
     };
-    /** The contract abi */
+    /** Body */
     requestBody: {
       content: {
-        "application/json": { [key: string]: unknown };
+        "application/json": components["schemas"]["RunContractDto"];
       };
     };
   };
@@ -1856,7 +1866,7 @@ export interface operations {
 export interface external {}
 
 export default class Web3Api {
-  static initialize: (serverUrl: string) => void;
+  static initialize: (options: {apiKey?: string, serverUrl?: string, Moralis?: any}) => void;
 
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;

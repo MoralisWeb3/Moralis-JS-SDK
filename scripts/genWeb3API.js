@@ -108,16 +108,15 @@ static async fetch({ endpoint, params }) {
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
-    const http = axios.create({
-      baseURL: this.baseURL,
+    const response = await axios(this.baseURL + parameterizedUrl, {
+      params,
+      method,
+      body,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-api-key': this.apiKey,
       },
-    });
-    const response = await http[method.toLowerCase()](parameterizedUrl, body, {
-      params,
     });
     return response.data;
   } catch (error) {
@@ -185,6 +184,31 @@ const getPathByTag = swaggerJSON => {
   return { pathByTag, pathDetails };
 };
 
+const fetchBodyParams = (schema, swaggerJSON, required) => {
+  const body = [];
+  if (schema.$ref) {
+    const splitSchema = schema.$ref.split('/');
+    const schemaKey = splitSchema[splitSchema.length - 1];
+    const component = swaggerJSON.components.schemas[schemaKey];
+    if (component) {
+      Object.entries(component.properties).map(([key, value]) => {
+        return body.push({
+          key,
+          type: component.type === 'array' ? BodyParamTypes.setBody : BodyParamTypes.property,
+          required: component.required.includes(key) ? true : false,
+        });
+      });
+    }
+  } else {
+    body.push({
+      key: 'abi',
+      type: BodyParamTypes.setBody,
+      required,
+    });
+  }
+  return body;
+};
+
 const fetchEndpoints = async () => {
   const swaggerJSON = await fetchSwaggerJson();
 
@@ -201,7 +225,11 @@ const fetchEndpoints = async () => {
       name: x,
       url: item.pathName.split('{').join(':').split('}').join(''),
       bodyParams: item.data.requestBody
-        ? [{ key: 'abi', type: BodyParamTypes.setBody, required: item.data.requestBody.required }]
+        ? fetchBodyParams(
+            item.data.requestBody.content['application/json'].schema,
+            swaggerJSON,
+            item.data.requestBody.required
+          )
         : undefined,
     };
 
