@@ -78,6 +78,7 @@ export namespace Moralis {
   let secret: string;
   let encryptedUser: boolean;
   let isInitialized: boolean;
+  let Plugins: Record<string, any>;
 
   interface PluginSpecs {
     name: string;
