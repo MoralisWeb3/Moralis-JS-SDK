@@ -5,6 +5,7 @@ import ParseQuery from './ParseQuery';
 import ParseUser from './ParseUser';
 import ParseACL from './ParseACL';
 import MoralisErd from './MoralisErd';
+import CoreManager from './CoreManager';
 import MoralisDot from './MoralisDot';
 import MoralisWalletConnectProvider from './MoralisWalletConnectProvider';
 import MoralisCustomProvider from './MoralisCustomProvider';
@@ -44,6 +45,38 @@ class MoralisWeb3 {
 
   static setEnableWeb3(fn) {
     this.customEnableWeb3 = fn;
+  }
+
+  static async walletLoginToken() {
+    try {
+      const RESTController = CoreManager.getRESTController();
+      const response = await RESTController.request('POST', 'requestLoginToken', null, {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      });
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  static async validateToken(options) {
+    try {
+      const { token } = options;
+      const RESTController = CoreManager.getRESTController();
+      const response = await RESTController.request(
+        'POST',
+        'validateToken',
+        { token },
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   static async enableWeb3(options) {
