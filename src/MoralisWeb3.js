@@ -79,6 +79,25 @@ class MoralisWeb3 {
     }
   }
 
+  static async saveSessionToken(options) {
+    try {
+      const { loginToken, sessionToken } = options;
+      const RESTController = CoreManager.getRESTController();
+      const response = await RESTController.request(
+        'POST',
+        'saveRemoteSession',
+        { loginToken, sessionToken },
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async enableWeb3(options) {
     let web3;
 
