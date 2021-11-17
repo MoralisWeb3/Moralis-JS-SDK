@@ -12,7 +12,7 @@ deploy:
     - npm run build
     - git add .
     - 'git commit -m "build: new deployment"'
-    - git push
+    - git push --no-verify
     - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
     - npm run release
-    - git push --tags
+    - git push --no-verify --tags
