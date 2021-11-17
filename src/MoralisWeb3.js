@@ -81,31 +81,12 @@ class MoralisWeb3 {
 
   static async saveSessionToken(options) {
     try {
-      const { loginToken, sessionToken } = options;
+      const { loginToken, sessionToken, username } = options;
       const RESTController = CoreManager.getRESTController();
       const response = await RESTController.request(
         'POST',
         'saveRemoteSession',
-        { loginToken, sessionToken },
-        {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }
-      );
-      return response;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  static async updateSession(options) {
-    try {
-      const { loginToken, username } = options;
-      const RESTController = CoreManager.getRESTController();
-      const response = await RESTController.request(
-        'POST',
-        'updateRemoteSession',
-        { loginToken, username },
+        { loginToken, sessionToken, username },
         {
           Accept: 'application/json',
           'Content-Type': 'application/json',
