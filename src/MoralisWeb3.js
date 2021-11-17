@@ -50,7 +50,7 @@ class MoralisWeb3 {
   static async walletLoginToken() {
     try {
       const RESTController = CoreManager.getRESTController();
-      const response = await RESTController.request('POST', 'requestLoginToken', null, {
+      const response = await RESTController.request('GET', 'requestLoginToken', null, {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       });
