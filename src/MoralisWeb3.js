@@ -67,7 +67,7 @@ class MoralisWeb3 {
       const response = await RESTController.request(
         'POST',
         'validateToken',
-        { token },
+        { loginToken: token },
         {
           Accept: 'application/json',
           'Content-Type': 'application/json',
