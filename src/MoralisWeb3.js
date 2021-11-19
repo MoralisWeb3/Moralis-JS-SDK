@@ -143,7 +143,7 @@ class MoralisWeb3 {
     const user = await ParseUser.logInWith('moralisEth', { authData });
     if (!user) throw new Error('Could not get user');
     await user.setACL(new ParseACL(user));
-    user.set('accounts', uniq([].concat(accountsLower, user.get('accounts') ?? [])));
+    user.addAllUnique('accounts', accountsLower);
     user.set('ethAddress', ethAddress);
     await user.save(null, options);
     return user;
