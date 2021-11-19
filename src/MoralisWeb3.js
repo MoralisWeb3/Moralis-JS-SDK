@@ -141,8 +141,8 @@ class MoralisWeb3 {
     if (!signature) throw new Error('Data not signed');
     const authData = { id: ethAddress, signature, data };
     const user = await ParseUser.logInWith('moralisEth', { authData });
-    await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
+    await user.setACL(new ParseACL(user));
     user.set('accounts', uniq([].concat(accountsLower, user.get('accounts') ?? [])));
     user.set('ethAddress', ethAddress);
     await user.save(null, options);
