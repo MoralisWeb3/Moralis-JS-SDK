@@ -54,8 +54,24 @@ const fetchEndpoints = async () => {
   return data;
 };
 
+const checkForSdkUpdates = async () => {
+  try {
+    const { data } = await axios.get('https://registry.npmjs.org/-/v1/search?text=moralis&size=1');
+    const latestVersion = data.objects[0].package.version;
+    const installedVersion = process.env.npm_package_version;
+    if (installedVersion < latestVersion)
+      // eslint-disable-next-line no-console
+      console.warn(
+        'You are not using the latest version of the SDK. Please update it as soon as possible to enjoy the newest features.'
+      );
+  } catch (error) {
+    throw new Error('Could not verify SDK version');
+  }
+};
+
 module.exports = {
   fetchSwaggerJson,
   getPathByTag,
   fetchEndpoints,
+  checkForSdkUpdates,
 };
