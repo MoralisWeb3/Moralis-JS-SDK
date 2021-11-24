@@ -9,7 +9,7 @@ class UnitConverter {
   }
 
   static Token(value, decimals) {
-    return MWeb3.utils.toBN(`0x${(+value * 10 ** decimals).toString(16)}`);
+    return `${+value * 10 ** +decimals}`;
   }
 
   static FromWei(value, decimals) {
