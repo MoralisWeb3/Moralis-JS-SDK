@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
