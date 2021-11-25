@@ -1,4 +1,5 @@
-const axios = require('axios');
+import axios from 'axios';
+import RESTController from './RESTController';
 
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
@@ -56,8 +57,11 @@ const fetchEndpoints = async () => {
 
 const checkForSdkUpdates = async () => {
   try {
-    const { data } = await axios.get('https://registry.npmjs.org/-/v1/search?text=moralis&size=1');
-    const latestVersion = data.objects[0].package.version;
+    const { response } = await RESTController.ajax(
+      'GET',
+      'https://registry.npmjs.org/-/v1/search?text=moralis&size=1'
+    );
+    const latestVersion = response.objects[0].package.version;
     const installedVersion = process.env.npm_package_version;
     if (installedVersion < latestVersion)
       // eslint-disable-next-line no-console
