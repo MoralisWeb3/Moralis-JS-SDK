@@ -14,10 +14,6 @@ import { run } from './Cloud';
 import detectEthereumProvider from '@metamask/detect-provider';
 import createSigningData from './createSigningData';
 const EventEmitter = require('events');
-const { checkForSdkUpdates } = require('./utils');
-
-// Check if the SDK is updated
-checkForSdkUpdates();
 
 export const EthereumEvents = {
   CONNECT: 'connect',

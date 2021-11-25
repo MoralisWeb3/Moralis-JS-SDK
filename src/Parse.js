@@ -16,7 +16,7 @@ import InstallationController from './InstallationController';
 import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
-
+const { checkForSdkUpdates } = require('./utils');
 /**
  * Contains all Moralis API classes and functions.
  *
@@ -68,6 +68,9 @@ class Moralis extends MoralisWeb3 {
     if (appId && serverUrl) {
       await this.initPlugins(plugins);
     }
+
+    // Check if SDK is updated
+    await checkForSdkUpdates();
   }
 
   /**
