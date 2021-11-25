@@ -1,14 +1,14 @@
-import axios from 'axios';
 import RESTController from './RESTController';
 
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
 
 const fetchSwaggerJson = async () => {
-  const http = await axios.create({ baseURL: `https://${DEEP_INDEX_API_HOST}` });
-  const response = await http.get(DEEP_INDEX_SWAGGER_PATH);
-  const result = response.data;
-  return result;
+  const { response } = await RESTController.ajax(
+    'GET',
+    `https://${DEEP_INDEX_API_HOST}${DEEP_INDEX_SWAGGER_PATH}`
+  );
+  return response;
 };
 
 const getPathByTag = swaggerJSON => {
