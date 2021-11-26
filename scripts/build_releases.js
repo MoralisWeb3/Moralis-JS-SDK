@@ -48,6 +48,7 @@ const gulp = 'npm run gulp';
   console.log('Node.js Release:');
   console.log('React Native Release:');
   console.log('Web3Api Release:');
+  console.log('SolanaApi Release:');
   await Promise.all([
     execCommand(`${crossEnv} PARSE_BUILD=browser ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=weapp ${gulp} compile`),
@@ -56,16 +57,21 @@ const gulp = 'npm run gulp';
     execCommand(
       `npm run generate-web3Api && ${crossEnv} PARSE_BUILD=web3api ${gulp} compile-web3api`
     ),
+    execCommand(
+      `npm run generate-solanaApi && ${crossEnv} PARSE_BUILD=solanaapi ${gulp} compile-solanaapi`
+    ),
   ]);
   console.log('Bundling and minifying for CDN distribution:');
   await Promise.all([
     execCommand(`${gulp} browserify`),
     execCommand(`${gulp} browserify-weapp`),
     execCommand(`${gulp} browserify-web3api`),
+    execCommand(`${gulp} browserify-solanaapi`),
   ]);
   await Promise.all([
     execCommand(`${gulp} minify`),
     execCommand(`${gulp} minify-weapp`),
     execCommand(`${gulp} minify-web3api`),
+    execCommand(`${gulp} minify-solanaapi`),
   ]);
 })();

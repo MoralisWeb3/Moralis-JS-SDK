@@ -60,6 +60,14 @@ const PRESETS = {
       },
     ],
   ],
+  solanaapi: [
+    [
+      '@babel/preset-env',
+      {
+        targets: { browsers: '> 0.25%, not dead', node: '8' },
+      },
+    ],
+  ],
 };
 const PLUGINS = {
   browser: [
@@ -87,6 +95,13 @@ const PLUGINS = {
     'transform-inline-environment-variables',
   ],
   web3api: [
+    transformRuntime,
+    '@babel/plugin-transform-flow-comments',
+    '@babel/plugin-proposal-class-properties',
+    'inline-package-json',
+    'transform-inline-environment-variables',
+  ],
+  solanaapi: [
     transformRuntime,
     '@babel/plugin-transform-flow-comments',
     '@babel/plugin-proposal-class-properties',
@@ -145,6 +160,27 @@ gulp.task('compile-web3api', function () {
   return (
     gulp
       .src('src/MoralisWeb3Api.js')
+      .pipe(
+        babel({
+          presets: PRESETS[BUILD],
+          plugins: PLUGINS[BUILD],
+        })
+      )
+      // Second pass to kill BUILD-switched code
+      .pipe(
+        babel({
+          plugins: ['minify-dead-code-elimination'],
+        })
+      )
+      .pipe(rename('index.js'))
+      .pipe(gulp.dest(path.join('lib', BUILD)))
+  );
+});
+
+gulp.task('compile-solanaapi', function () {
+  return (
+    gulp
+      .src('src/MoralisSolanaApi.js')
       .pipe(
         babel({
           presets: PRESETS[BUILD],
@@ -223,6 +259,25 @@ gulp.task('browserify-web3api', function (cb) {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('browserify-solanaapi', function (cb) {
+  const stream = browserify({
+    builtins: ['_process', 'events'],
+    entries: 'lib/solanaapi/index.js',
+    standalone: 'SolanaApi',
+  })
+    .exclude('xmlhttprequest')
+    .ignore('_process')
+    .bundle();
+  stream.on('end', () => {
+    cb();
+  });
+  return stream
+    .pipe(source('moralis.solanaapi.js'))
+    .pipe(derequire())
+    .pipe(insert.prepend(DEV_HEADER))
+    .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('minify', function () {
   return gulp
     .src('dist/moralis.js')
@@ -244,6 +299,15 @@ gulp.task('minify-weapp', function () {
 gulp.task('minify-web3api', function () {
   return gulp
     .src('dist/moralis.web3api.js')
+    .pipe(terser())
+    .pipe(insert.prepend(FULL_HEADER))
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('minify-solanaapi', function () {
+  return gulp
+    .src('dist/moralis.solanaapi.js')
     .pipe(terser())
     .pipe(insert.prepend(FULL_HEADER))
     .pipe(rename({ extname: '.min.js' }))
