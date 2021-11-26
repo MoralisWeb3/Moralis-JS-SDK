@@ -65,6 +65,7 @@ class Moralis extends MoralisWeb3 {
     this.serverURL = serverUrl;
 
     this.Web3API.initialize({ serverUrl, apiKey, Moralis });
+    this.SolanaApi.initialize({ serverUrl, apiKey, Moralis });
     if (appId && serverUrl) {
       await this.initPlugins(plugins);
     }
@@ -287,6 +288,7 @@ Moralis.Op = {
 };
 
 Moralis.Web3API = require('./MoralisWeb3Api').default;
+Moralis.SolanaApi = require('./MoralisSolanaApi').default;
 Moralis.Push = require('./Push');
 Moralis.Query = require('./ParseQuery').default;
 Moralis.Relation = require('./ParseRelation').default;

@@ -159,6 +159,10 @@ export interface paths {
     /** Resolves an Unstoppable domain and returns the address */
     get: operations["resolveDomain"];
   };
+  "/resolve/{address}/reverse": {
+    /** Resolves an ETH address and find the ENS name */
+    get: operations["resolveAddress"];
+  };
   "/{pair_address}/reserves": {
     /** Get the liquidity reserves for a given pair address */
     get: operations["getPairReserves"];
@@ -674,6 +678,10 @@ export interface components {
       /** The Symbol of the token */
       symbol: string;
     };
+    ens: {
+      /** Resolved ENS address */
+      name: string;
+    };
     resolve: {
       /** Resolved domain address */
       address: string;
@@ -813,6 +821,10 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
+        /** offset */
+        offset?: number;
+        /** limit */
+        limit?: number;
       };
       path: {
         /** The block hash or block number */
@@ -1115,8 +1127,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** The owner of a given token */
@@ -1146,8 +1156,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "token_address", "token_address.ASC", "token_address.DESC", Example 2: "token_address and token_id", "token_address.ASC,token_id.DESC" */
-        order?: string;
       };
       path: {
         /** The sender or recepient of the transfer */
@@ -1180,8 +1188,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** The owner of a given token */
@@ -1251,7 +1257,7 @@ export interface operations {
         /** web3 provider url to user when using local dev chain */
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
-        marketplace?: string;
+        marketplace?: "opensea";
         /** offset */
         offset?: number;
         /** limit */
@@ -1285,7 +1291,7 @@ export interface operations {
         /** web3 provider url to user when using local dev chain */
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
-        marketplace?: string;
+        marketplace?: "opensea";
       };
       path: {
         /** Address of the contract */
@@ -1502,8 +1508,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** If the order should be Ascending or Descending based on the blocknumber on which the NFT was minted. Allowed values: "ASC", "DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1531,8 +1535,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1584,8 +1586,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
-        order?: string;
       };
     };
     responses: {
@@ -1614,8 +1614,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1700,8 +1698,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1767,6 +1763,23 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["resolve"];
+        };
+      };
+    };
+  };
+  /** Resolves an ETH address and find the ENS name */
+  resolveAddress: {
+    parameters: {
+      path: {
+        /** The address to be resolved */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns an ENS */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ens"];
         };
       };
     };
@@ -1909,6 +1922,7 @@ export default class Web3Api {
 
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
+    resolveAddress: () => Promise<operations["resolveAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
 
   static defi: {

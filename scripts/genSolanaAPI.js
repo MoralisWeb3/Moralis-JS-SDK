@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
-const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
+const API_HOST = '7f59-41-184-184-103.ngrok.io';
+const SWAGGER_PATH = '/api-json';
 
 const OUTPUT_DIRECTORY = '../src';
-const OUTPUT_FILENAME = 'MoralisWeb3Api.js';
+const OUTPUT_FILENAME = 'MoralisSolanaApi.js';
 
 const BodyParamTypes = {
   setBody: 'set body',
@@ -17,7 +17,7 @@ const BodyParamTypes = {
 let content = '';
 
 content += `/**
- * Automatically generated code, via genWeb3API.js
+ * Automatically generated code, via genSolanaAPI.js
  * Do not modify manually
  */
 `;
@@ -25,15 +25,15 @@ content += `/**
 content += `const axios = require('axios');\n`;
 
 content += `
-class Web3Api {
-  static baseURL = 'https://deep-index.moralis.io/api/v2';
+class SolanaApi {
+  static baseURL = 'https://7f59-41-184-184-103.ngrok.io';
   static BodyParamTypes = {
     setBody: 'set body',
     property: 'property',
   };
   static initialize({apiKey, serverUrl, Moralis = null}) {
     if (!serverUrl && !apiKey) {
-      throw new Error('Web3Api.initialize failed: initialize with apiKey or serverUrl');
+      throw new Error('SolanaApi.initialize failed: initialize with apiKey or serverUrl');
     }
     if(apiKey) this.apiKey = apiKey;
     if(serverUrl) this.serverUrl = serverUrl;
@@ -89,7 +89,7 @@ static getErrorMessage(error, url) {
     error?.response?.data?.message ||
     error?.message ||
     error?.toString() ||
-   \`Web3 API error while calling \${url}\`
+   \`Solana API error while calling \${url}\`
   );
 }
 
@@ -102,6 +102,7 @@ static async fetch({ endpoint, params }) {
         params.address = await (await web3.eth.getAccounts())[0];
       }
     }
+    if (!params.network) params.network = 'mainnet';
     if(!this.apiKey) {
       return this.apiCall(endpoint.name, params);
     }
@@ -127,14 +128,13 @@ static async fetch({ endpoint, params }) {
 
 static async apiCall(name, options) {
     if (!this.serverUrl) {
-      throw new Error('Web3Api not initialized, run Moralis.start() first');
+      throw new Error('SolanaAPI not initialized, run Moralis.start() first');
     }
 
     try {
       const http = axios.create({ baseURL: this.serverUrl });
-      if (!options.chain) options.chain = 'eth';
       
-      const response =  await http.post(\`/functions/\${name}\`, options, {
+      const response =  await http.post(\`/functions/sol-\${name}\`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
       return response.data.result
@@ -149,8 +149,8 @@ static async apiCall(name, options) {
 `;
 
 const fetchSwaggerJson = async () => {
-  const http = await axios.create({ baseURL: `https://${DEEP_INDEX_API_HOST}` });
-  const response = await http.get(DEEP_INDEX_SWAGGER_PATH);
+  const http = await axios.create({ baseURL: `https://${API_HOST}` });
+  const response = await http.get(SWAGGER_PATH);
   const result = response.data;
   return result;
 };
@@ -193,7 +193,7 @@ const fetchBodyParams = (schema, swaggerJSON, required) => {
     }
   } else {
     body.push({
-      key: 'abi',
+      key: 'data',
       type: BodyParamTypes.setBody,
       required,
     });
@@ -231,8 +231,8 @@ const fetchEndpoints = async () => {
   return data;
 };
 
-const genWebApi = async () => {
-  console.log('Start generating automatic Web3API code...');
+const genSolanaApi = async () => {
+  console.log('Start generating automatic SolanaApi code...');
   const wrappers = {};
   const ENDPOINTS = await fetchEndpoints();
 
@@ -242,18 +242,13 @@ const genWebApi = async () => {
     wrappers[group][name] = { name, url, method };
   }
 
-  //   console.log(ENDPOINTS);
-  //   console.log(wrappers);
-
-  // ENDPOINTS.forEach(x => {
-  //   wrappers = {};
-  // });
-
   Object.keys(wrappers).forEach(group => {
     content += '\n';
     content += `  static ${group} = {\n`;
     Object.values(wrappers[group]).forEach(func => {
-      content += `${func.name}: async (options = {}) => Web3Api.fetch({ endpoint: ${JSON.stringify(
+      content += `${
+        func.name
+      }: async (options = {}) => SolanaApi.fetch({ endpoint: ${JSON.stringify(
         ENDPOINTS.find(e => e.name === func.name)
       )}, params: options }),\n`;
     });
@@ -263,14 +258,14 @@ const genWebApi = async () => {
   content += '}\n';
   content += '\n';
 
-  content += 'export default Web3Api;\n';
+  content += 'export default SolanaApi;\n';
 
   const outputDirectory = path.join(__dirname, OUTPUT_DIRECTORY);
   const outputFile = path.join(outputDirectory, OUTPUT_FILENAME);
 
   await fs.promises.mkdir(outputDirectory, { recursive: true });
   await fs.promises.writeFile(outputFile, content, { encoding: 'utf8' });
-  console.log('Done generating automatic Web3API code!');
+  console.log('Done generating automatic SolanaAPI code!');
 };
 
-genWebApi();
+genSolanaApi();

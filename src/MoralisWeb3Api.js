@@ -109,14 +109,6 @@ static async apiCall(name, options) {
       throw new Error('Web3Api not initialized, run Moralis.start() first');
     }
 
-    if(this.Moralis) {
-      const { web3 } = this.Moralis;
-      
-      if (!options.address && web3) {
-        options.address = await (await web3.eth.getAccounts())[0];
-      }
-    }
-
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
@@ -175,6 +167,7 @@ getWalletTokenIdTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"m
 
   static resolve = {
 resolveDomain: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"resolve","name":"resolveDomain","url":"/resolve/:domain"}, params: options }),
+resolveAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"resolve","name":"resolveAddress","url":"/resolve/:address/reverse"}, params: options }),
   }
 
   static defi = {
