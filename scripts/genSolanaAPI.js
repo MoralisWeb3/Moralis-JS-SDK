@@ -103,6 +103,7 @@ static async fetch({ endpoint, params }) {
       }
     }
     if (!params.network) params.network = 'mainnet';
+    if (!params.responseType) params.responseType = 'native';
     if(!this.apiKey) {
       return this.apiCall(endpoint.name, params);
     }
@@ -119,6 +120,7 @@ static async fetch({ endpoint, params }) {
         'x-api-key': this.apiKey,
       },
     });
+    // Perform type regularization before return depending on response type option
     return response.data;
   } catch (error) {
     const msg = this.getErrorMessage(error, url);
