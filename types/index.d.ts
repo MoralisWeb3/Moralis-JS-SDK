@@ -250,6 +250,7 @@ export namespace Moralis {
   type MumbaiChain = 'mumbai' | 'matic testnet' | 'polygon testnet' | '0x13881';
   type FantomChain = 'fantom' | 'ftm' | '0xfa';
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
+  type AvalancheTestChain = 'avalanche testnet' | 'avax testnet' | '0xa869' | 'fuji';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
 
   type Chain =
@@ -264,6 +265,7 @@ export namespace Moralis {
     | MumbaiChain
     | FantomChain
     | AvalancheChain
+    | AvalancheTestChain
     | LocalDevChain;
 
   interface CommonConvenienceOptions {
