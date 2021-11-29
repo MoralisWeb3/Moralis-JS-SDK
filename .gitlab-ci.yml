@@ -9,10 +9,7 @@ deploy:
     - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
     - npm version patch -m "Bump Version to %s [ci skip]"
     - npm install
-    - npm run build
-    # Commit any new build files (ex. Web3Api)
-    - git add .
-    - 'git commit -m "build: new deployment" --no-verify || echo "no build src changes, ignore commit failure"'
     - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
     - npm run release
+    - git push
     - git push --tags
