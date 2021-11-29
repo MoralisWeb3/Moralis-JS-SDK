@@ -69,7 +69,8 @@ const checkForSdkUpdates = async () => {
         'You are not using the latest version of the SDK. Please update it as soon as possible to enjoy the newest features.'
       );
   } catch (error) {
-    throw new Error('Could not verify SDK version');
+    // eslint-disable-next-line no-console
+    console.warn('Could not verify SDK version');
   }
 };
 
