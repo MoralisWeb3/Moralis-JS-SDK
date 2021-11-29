@@ -159,6 +159,10 @@ export interface paths {
     /** Resolves an Unstoppable domain and returns the address */
     get: operations["resolveDomain"];
   };
+  "/resolve/{address}/reverse": {
+    /** Resolves an ETH address and find the ENS name */
+    get: operations["resolveAddress"];
+  };
   "/{pair_address}/reserves": {
     /** Get the liquidity reserves for a given pair address */
     get: operations["getPairReserves"];
@@ -407,30 +411,30 @@ export interface components {
       nonce: unknown;
     };
     chainList:
-    | "eth"
-    | "0x1"
-    | "ropsten"
-    | "0x3"
-    | "rinkeby"
-    | "0x4"
-    | "goerli"
-    | "0x5"
-    | "kovan"
-    | "0x2a"
-    | "polygon"
-    | "0x89"
-    | "mumbai"
-    | "0x13881"
-    | "bsc"
-    | "0x38"
-    | "bsc testnet"
-    | "0x61"
-    | "avalanche"
-    | "0xa86a"
-    | "avalanche testnet"
-    | "0xa869"
-    | "fantom"
-    | "0xfa";
+      | "eth"
+      | "0x1"
+      | "ropsten"
+      | "0x3"
+      | "rinkeby"
+      | "0x4"
+      | "goerli"
+      | "0x5"
+      | "kovan"
+      | "0x2a"
+      | "polygon"
+      | "0x89"
+      | "mumbai"
+      | "0x13881"
+      | "bsc"
+      | "0x38"
+      | "bsc testnet"
+      | "0x61"
+      | "avalanche"
+      | "0xa86a"
+      | "avalanche testnet"
+      | "0xa869"
+      | "fantom"
+      | "0xfa";
     nft: {
       /** The address of the contract of the NFT */
       token_address: string;
@@ -676,6 +680,10 @@ export interface components {
       /** The Symbol of the token */
       symbol: string;
     };
+    ens: {
+      /** Resolved ENS address */
+      name: string;
+    };
     resolve: {
       /** Resolved domain address */
       address: string;
@@ -815,6 +823,10 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
+        /** offset */
+        offset?: number;
+        /** limit */
+        limit?: number;
       };
       path: {
         /** The block hash or block number */
@@ -1117,8 +1129,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** The owner of a given token */
@@ -1148,8 +1158,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "token_address", "token_address.ASC", "token_address.DESC", Example 2: "token_address and token_id", "token_address.ASC,token_id.DESC" */
-        order?: string;
       };
       path: {
         /** The sender or recepient of the transfer */
@@ -1182,8 +1190,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** The owner of a given token */
@@ -1253,7 +1259,7 @@ export interface operations {
         /** web3 provider url to user when using local dev chain */
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
-        marketplace?: string;
+        marketplace?: "opensea";
         /** offset */
         offset?: number;
         /** limit */
@@ -1287,7 +1293,7 @@ export interface operations {
         /** web3 provider url to user when using local dev chain */
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
-        marketplace?: string;
+        marketplace?: "opensea";
       };
       path: {
         /** Address of the contract */
@@ -1441,14 +1447,14 @@ export interface operations {
         q: string;
         /** What fields the search should match on. To look into the entire metadata set the value to 'global'. To have a better response time you can look into a specific field like name */
         filter?:
-        | "name"
-        | "description"
-        | "attributes"
-        | "global"
-        | "name,description"
-        | "name,attributes"
-        | "description,attributes"
-        | "name,description,attributes";
+          | "name"
+          | "description"
+          | "attributes"
+          | "global"
+          | "name,description"
+          | "name,attributes"
+          | "description,attributes"
+          | "name,description,attributes";
         /**
          * The minimum block number from where to start the search
          * * Provide the param 'from_block' or 'from_date'
@@ -1504,8 +1510,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** If the order should be Ascending or Descending based on the blocknumber on which the NFT was minted. Allowed values: "ASC", "DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1533,8 +1537,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1586,8 +1588,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
-        order?: string;
       };
     };
     responses: {
@@ -1616,8 +1616,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1702,8 +1700,6 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-        /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "name", "name.ASC", "name.DESC", Example 2: "Name and Symbol", "name.ASC,symbol.DESC" */
-        order?: string;
       };
       path: {
         /** Address of the contract */
@@ -1773,6 +1769,23 @@ export interface operations {
       };
     };
   };
+  /** Resolves an ETH address and find the ENS name */
+  resolveAddress: {
+    parameters: {
+      path: {
+        /** The address to be resolved */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns an ENS */
+      200: {
+        content: {
+          "application/json": components["schemas"]["ens"];
+        };
+      };
+    };
+  };
   /** Get the liquidity reserves for a given pair address */
   getPairReserves: {
     parameters: {
@@ -1823,12 +1836,12 @@ export interface operations {
         to_date?: string;
         /** The factory name or address of the token exchange */
         exchange:
-        | "uniswapv2"
-        | "uniswapv3"
-        | "sushiswapv2"
-        | "pancakeswapv2"
-        | "pancakeswapv1"
-        | "quickswap";
+          | "uniswapv2"
+          | "uniswapv3"
+          | "sushiswapv2"
+          | "pancakeswapv2"
+          | "pancakeswapv1"
+          | "quickswap";
       };
       path: {
         /** Token0 address */
@@ -1865,14 +1878,14 @@ export interface operations {
   };
 }
 
-export interface external { }
+export interface external {}
 
 export default class Web3Api {
-  static initialize: (options: { apiKey?: string, serverUrl?: string, Moralis?: any }) => void;
+  static initialize: (options: {apiKey?: string, serverUrl?: string, Moralis?: any}) => void;
 
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
-    getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"]) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"] ) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getLogsByAddress: (options: operations["getLogsByAddress"]["parameters"]["query"] & operations["getLogsByAddress"]["parameters"]["path"]) => Promise<operations["getLogsByAddress"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTransfersByBlock: (options: operations["getNFTTransfersByBlock"]["parameters"]["query"] & operations["getNFTTransfersByBlock"]["parameters"]["path"]) => Promise<operations["getNFTTransfersByBlock"]["responses"]["200"]["content"]["application/json"]>;
     getTransaction: (options: operations["getTransaction"]["parameters"]["query"] & operations["getTransaction"]["parameters"]["path"]) => Promise<operations["getTransaction"]["responses"]["200"]["content"]["application/json"]>;
@@ -1891,17 +1904,17 @@ export default class Web3Api {
   }
 
   static token: {
-    getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"]) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"] ) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTrades: (options: operations["getNFTTrades"]["parameters"]["query"] & operations["getNFTTrades"]["parameters"]["path"]) => Promise<operations["getNFTTrades"]["responses"]["200"]["content"]["application/json"]>;
     getNFTLowestPrice: (options: operations["getNFTLowestPrice"]["parameters"]["query"] & operations["getNFTLowestPrice"]["parameters"]["path"]) => Promise<operations["getNFTLowestPrice"]["responses"]["200"]["content"]["application/json"]>;
-    getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"]) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"] ) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
     getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["query"] & operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAdressTransfers: (options: operations["getTokenAdressTransfers"]["parameters"]["query"] & operations["getTokenAdressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAdressTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAllowance: (options: operations["getTokenAllowance"]["parameters"]["query"] & operations["getTokenAllowance"]["parameters"]["path"]) => Promise<operations["getTokenAllowance"]["responses"]["200"]["content"]["application/json"]>;
-    searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"]) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
+    searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"] ) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getAllTokenIds: (options: operations["getAllTokenIds"]["parameters"]["query"] & operations["getAllTokenIds"]["parameters"]["path"]) => Promise<operations["getAllTokenIds"]["responses"]["200"]["content"]["application/json"]>;
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
-    getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"]) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"] ) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
@@ -1911,6 +1924,7 @@ export default class Web3Api {
 
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
+    resolveAddress: () => Promise<operations["resolveAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
 
   static defi: {

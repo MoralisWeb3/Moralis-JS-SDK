@@ -175,6 +175,7 @@ getWalletTokenIdTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"m
 
   static resolve = {
 resolveDomain: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"resolve","name":"resolveDomain","url":"/resolve/:domain"}, params: options }),
+resolveAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"resolve","name":"resolveAddress","url":"/resolve/:address/reverse"}, params: options }),
   }
 
   static defi = {
