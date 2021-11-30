@@ -7,7 +7,8 @@ const fs = require('fs');
 const https = require('https');
 const openapiTS = require('openapi-typescript').default;
 
-const API_HOST = '7f59-41-184-184-103.ngrok.io';
+// URL will be changed when api is deployed
+const API_HOST = '';
 const SWAGGER_PATH = '/api-json';
 
 const OUTPUT_DIRECTORY = '../types/generated/';

@@ -431,6 +431,8 @@ export interface components {
       | "0x61"
       | "avalanche"
       | "0xa86a"
+      | "avalanche testnet"
+      | "0xa869"
       | "fantom"
       | "0xfa";
     nft: {

@@ -5,7 +5,7 @@
 const axios = require('axios');
 
 class SolanaApi {
-  static baseURL = 'https://7f59-41-184-184-103.ngrok.io';
+  static baseURL = 'https://8097-197-210-8-133.ngrok.io';
   static BodyParamTypes = {
     setBody: 'set body',
     property: 'property',
@@ -82,6 +82,7 @@ class SolanaApi {
       }
     }
     if (!params.network) params.network = 'mainnet';
+    if (!params.responseType) params.responseType = 'native';
     if (!this.apiKey) {
       return this.apiCall(endpoint.name, params);
     }
@@ -98,6 +99,7 @@ class SolanaApi {
           'x-api-key': this.apiKey,
         },
       });
+      // Perform type regularization before return depending on response type option
       return response.data;
     } catch (error) {
       const msg = this.getErrorMessage(error, url);

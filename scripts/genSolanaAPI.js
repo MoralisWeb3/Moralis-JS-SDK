@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-const API_HOST = '7f59-41-184-184-103.ngrok.io';
+// URL will be changed when api is deployed
+const API_HOST = '';
 const SWAGGER_PATH = '/api-json';
 
 const OUTPUT_DIRECTORY = '../src';
@@ -26,7 +27,8 @@ content += `const axios = require('axios');\n`;
 
 content += `
 class SolanaApi {
-  static baseURL = 'https://7f59-41-184-184-103.ngrok.io';
+  // URL will be changed when api is deployed
+  static baseURL = '';
   static BodyParamTypes = {
     setBody: 'set body',
     property: 'property',
