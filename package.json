@@ -1,6 +1,6 @@
 {
   "name": "moralis",
-  "version": "0.0.138",
+  "version": "0.0.139",
   "description": "The Moralis JavaScript SDK",
   "homepage": "https://docs.moralis.io",
   "keywords": [
@@ -87,7 +87,7 @@
     "husky": "^7.0.0",
     "jasmine": "3.5.0",
     "jasmine-reporters": "2.3.2",
-    "jest": "24.9.0",
+    "jest": "27.4.1",
     "jsdoc": "3.6.3",
     "jsdoc-babel": "0.5.0",
     "metro-react-native-babel-preset": "0.66.2",
