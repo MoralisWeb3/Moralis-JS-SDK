@@ -235,6 +235,7 @@ export namespace Moralis {
     provider?: Web3ProviderType;
     type?: AuthenticationType;
     chainId?: number;
+    signingMessage?: string;
   }
   type EnableOptions = Pick<AuthenticationOptions, 'provider' | 'chainId'>;
   type LinkOptions = Object.SaveOptions;
