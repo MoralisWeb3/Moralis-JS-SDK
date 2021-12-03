@@ -1767,6 +1767,12 @@ export interface operations {
           "application/json": components["schemas"]["resolve"];
         };
       };
+      /** Returns an address */
+      404: {
+        content: {
+          "application/json": { [key: string]: unknown };
+        };
+      };
     };
   };
   /** Resolves an ETH address and find the ENS name */
