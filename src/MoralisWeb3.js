@@ -6,6 +6,7 @@ import ParseUser from './ParseUser';
 import ParseACL from './ParseACL';
 import MoralisErd from './MoralisErd';
 import MoralisDot from './MoralisDot';
+import MoralisPhantom from './MoralisPhantom';
 import MoralisWalletConnectProvider from './MoralisWalletConnectProvider';
 import MoralisCustomProvider from './MoralisCustomProvider';
 import MoralisInjectedProvider from './MoralisInjectedProvider';
@@ -94,6 +95,14 @@ class MoralisWeb3 {
         return false;
     }
   }
+  static isPhantomAuth(options) {
+    switch (options?.type) {
+      case 'phantom':
+        return true;
+      default:
+        return false;
+    }
+  }
   static getWeb3Provider(options) {
     switch (options?.provider) {
       case 'walletconnect':
@@ -128,6 +137,10 @@ class MoralisWeb3 {
 
     if (MoralisWeb3.isElrondAuth(options)) {
       return MoralisErd.authenticate(options);
+    }
+
+    if (MoralisWeb3.isPhantomAuth(options)) {
+      return MoralisPhantom.authenticate(options);
     }
 
     const web3 = await this.enableWeb3(options);
