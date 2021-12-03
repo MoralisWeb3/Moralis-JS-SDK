@@ -230,22 +230,12 @@ class MoralisWeb3 {
     if (!triggersArray) return;
     let response;
     for (let i = 0; i < triggersArray.length; i++) {
-      switch (triggersArray[i]?.name) {
+      switch (triggersArray[i].name) {
         // Handles `openUrl` trigger
         case 'openUrl':
-          // Open url in a new tab
-          if (
-            triggersArray[i]?.options?.newTab === true ||
-            !triggersArray[i]?.options?.hasOwnProperty('newTab')
-          )
-            window.open(triggersArray[i]?.data);
-
-          // Open url in the same tab
-          if (triggersArray[i]?.options?.newTab === false)
-            window.open(triggersArray[i]?.data, '_self');
-
+          if (triggersArray[i].newTab) window.open(triggersArray[i].url);
+          else window.open(triggersArray[i].url, '_self');
           break;
-
         // Handles `web3Transaction` trigger
         case 'web3Transaction':
           if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);

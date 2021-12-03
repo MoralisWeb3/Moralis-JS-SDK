@@ -12,6 +12,7 @@ const MORALIS_RPCS = {
   56: `https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/mainnet`,
   97: `https://speedy-nodes-nyc.moralis.io/WalletConnect/bsc/testnet`,
   43114: `https://speedy-nodes-nyc.moralis.io/WalletConnect/avalanche/mainnet`,
+  43113: `https://speedy-nodes-nyc.moralis.io/WalletConnect/avalanche/testnet`,
   250: `https://speedy-nodes-nyc.moralis.io/WalletConnect/fantom/mainnet`,
 };
 

@@ -12,7 +12,8 @@ deploy:
     - npm run build
     # Commit any new build files (ex. Web3Api)
     - git add .
-    - 'git commit -m "build: new deployment" --no-verify || echo "no build src changes, ignore commit failure"'
+    - 'git commit -m "build: new deployment [ci skip]" --no-verify || echo "no build src changes, ignore commit failure"'
     - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
     - npm run release
+    - git push
     - git push --tags
