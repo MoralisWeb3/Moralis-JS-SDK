@@ -381,34 +381,38 @@ export interface components {
       /** The balance */
       balance: string;
     };
-    tradesCollection: {
-      /** The token id(s) traded */
-      token_ids?: unknown[];
-      /** The address that sent the NFT */
-      from_address: string;
-      /** The address that recieved the NFT */
-      to_address: string;
-      /** The value that was sent in the transaction (ETH/BNB/etc..) */
-      value: string;
-      /** The gas of the transaction */
-      gas: string;
-      /** The gas price */
-      gas_price: string;
-      /** The receipt cumulative gas used */
-      receipt_cumulative_gas_used: string;
-      /** The receipt gas used */
-      receipt_gas_used: string;
-      /** The blocknumber of the transaction */
-      block_number: string;
-      /** The block timestamp */
-      block_timestamp: string;
+    trade: {
       /** The transaction hash */
       transaction_hash: string;
       /** The transaction index */
       transaction_index: string;
+      /** The token id(s) traded */
+      token_ids: unknown[];
+      /** The address that sold the NFT */
+      seller_address: string;
+      /** The address that bought the NFT */
+      buyer_address: string;
+      /** The address of the contract that traded the NFT */
+      marketplace_address: string;
+      /** The value that was sent in the transaction (ETH/BNB/etc..) */
+      price: string;
+      /** The block timestamp */
+      block_timestamp: string;
+      /** The blocknumber of the transaction */
+      block_number: string;
+      /** The block hash */
+      block_hash: string;
     } & {
-      token_id: unknown;
-      nonce: unknown;
+      token_address: unknown;
+    };
+    tradeCollection: {
+      /** The total number of matches for this query */
+      total?: number;
+      /** The page of the current result */
+      page?: number;
+      /** The number of results per page */
+      page_size?: number;
+      result?: components["schemas"]["trade"][];
     };
     chainList:
       | "eth"
@@ -1274,7 +1278,7 @@ export interface operations {
       /** Returns the trades */
       200: {
         content: {
-          "application/json": components["schemas"]["tradesCollection"];
+          "application/json": components["schemas"]["tradeCollection"];
         };
       };
     };
@@ -1304,7 +1308,7 @@ export interface operations {
       /** Returns the trade with the lowest price */
       200: {
         content: {
-          "application/json": components["schemas"]["tradesCollection"];
+          "application/json": components["schemas"]["trade"];
         };
       };
     };
