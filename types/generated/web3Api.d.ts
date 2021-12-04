@@ -103,6 +103,10 @@ export interface paths {
     /** Gets NFTs that match a given metadata search. */
     get: operations["searchNFTs"];
   };
+  "/nft/transfers": {
+    /** Gets the transfers of the tokens from a block number to a block number */
+    get: operations["getNftTransfersFromToBlock"];
+  };
   "/nft/{address}": {
     /**
      * Gets data, including metadata (where available), for all token ids for the given contract address.
@@ -114,10 +118,6 @@ export interface paths {
   "/nft/{address}/transfers": {
     /** Gets the transfers of the tokens matching the given parameters */
     get: operations["getContractNFTTransfers"];
-  };
-  "/nft/transfers": {
-    /** Gets the transfers of the tokens from a block number to a block number */
-    get: operations["getNftTransfersFromToBlock"];
   };
   "/nft/{address}/owners": {
     /**
@@ -300,7 +300,7 @@ export interface components {
     };
     blockDate: {
       /** The date of the block */
-      date: number;
+      date: string;
       /** The blocknumber */
       block: number;
       /** The timestamp of the block */
@@ -1498,6 +1498,53 @@ export interface operations {
       };
     };
   };
+  /** Gets the transfers of the tokens from a block number to a block number */
+  getNftTransfersFromToBlock: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_block?: number;
+        /**
+         * The maximum block number from where to get the transfers.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_block?: number;
+        /**
+         * The date from where to get the transfers (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get transfers up until this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: string;
+        /** The format of the token id */
+        format?: "decimal" | "hex";
+        /** offset */
+        offset?: number;
+        /** limit */
+        limit?: number;
+      };
+    };
+    responses: {
+      /** Returns a collection of NFT transfers */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftTransferCollection"];
+        };
+      };
+    };
+  };
   /**
    * Gets data, including metadata (where available), for all token ids for the given contract address.
    * * Results are sorted by the block the token id was minted (descending) and limited to 100 per page by default
@@ -1545,53 +1592,6 @@ export interface operations {
       path: {
         /** Address of the contract */
         address: string;
-      };
-    };
-    responses: {
-      /** Returns a collection of NFT transfers */
-      200: {
-        content: {
-          "application/json": components["schemas"]["nftTransferCollection"];
-        };
-      };
-    };
-  };
-  /** Gets the transfers of the tokens from a block number to a block number */
-  getNftTransfersFromToBlock: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /**
-         * The minimum block number from where to get the transfers
-         * * Provide the param 'from_block' or 'from_date'
-         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
-         */
-        from_block?: number;
-        /**
-         * The maximum block number from where to get the transfers.
-         * * Provide the param 'to_block' or 'to_date'
-         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
-         */
-        to_block?: number;
-        /**
-         * The date from where to get the transfers (any format that is accepted by momentjs)
-         * * Provide the param 'from_block' or 'from_date'
-         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
-         */
-        from_date?: string;
-        /**
-         * Get transfers up until this date (any format that is accepted by momentjs)
-         * * Provide the param 'to_block' or 'to_date'
-         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
-         */
-        to_date?: string;
-        /** The format of the token id */
-        format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
-        /** limit */
-        limit?: number;
       };
     };
     responses: {
@@ -1922,9 +1922,9 @@ export default class Web3Api {
     getTokenAdressTransfers: (options: operations["getTokenAdressTransfers"]["parameters"]["query"] & operations["getTokenAdressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAdressTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAllowance: (options: operations["getTokenAllowance"]["parameters"]["query"] & operations["getTokenAllowance"]["parameters"]["path"]) => Promise<operations["getTokenAllowance"]["responses"]["200"]["content"]["application/json"]>;
     searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"] ) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
+    getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"] ) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getAllTokenIds: (options: operations["getAllTokenIds"]["parameters"]["query"] & operations["getAllTokenIds"]["parameters"]["path"]) => Promise<operations["getAllTokenIds"]["responses"]["200"]["content"]["application/json"]>;
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
-    getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"] ) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
