@@ -93,7 +93,7 @@ export interface paths {
   };
   "/erc20/{address}/transfers": {
     /** Gets ERC20 token contract transactions in descending order based on block number */
-    get: operations["getTokenAdressTransfers"];
+    get: operations["getTokenAddressTransfers"];
   };
   "/erc20/{address}/allowance": {
     /** Gets the amount which the spender is allowed to withdraw from the spender */
@@ -683,6 +683,15 @@ export interface components {
       name: string;
       /** The Symbol of the token */
       symbol: string;
+    };
+    erc20TransactionCollection: {
+      /** The total number of matches for this query */
+      total?: number;
+      /** The page of the current result */
+      page?: number;
+      /** The number of results per page */
+      page_size?: number;
+      result?: components["schemas"]["erc20Transaction"][];
     };
     ens: {
       /** Resolved ENS address */
@@ -1362,7 +1371,7 @@ export interface operations {
     };
   };
   /** Gets ERC20 token contract transactions in descending order based on block number */
-  getTokenAdressTransfers: {
+  getTokenAddressTransfers: {
     parameters: {
       query: {
         /** The chain to query */
@@ -1407,7 +1416,7 @@ export interface operations {
       /** Returns a collection of token contract transactions. */
       200: {
         content: {
-          "application/json": components["schemas"]["erc20Transaction"][];
+          "application/json": components["schemas"]["erc20TransactionCollection"][];
         };
       };
     };
@@ -1919,7 +1928,7 @@ export default class Web3Api {
     getNFTLowestPrice: (options: operations["getNFTLowestPrice"]["parameters"]["query"] & operations["getNFTLowestPrice"]["parameters"]["path"]) => Promise<operations["getNFTLowestPrice"]["responses"]["200"]["content"]["application/json"]>;
     getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"] ) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
     getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["query"] & operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
-    getTokenAdressTransfers: (options: operations["getTokenAdressTransfers"]["parameters"]["query"] & operations["getTokenAdressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAdressTransfers"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenAddressTransfers: (options: operations["getTokenAddressTransfers"]["parameters"]["query"] & operations["getTokenAddressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAddressTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAllowance: (options: operations["getTokenAllowance"]["parameters"]["query"] & operations["getTokenAllowance"]["parameters"]["path"]) => Promise<operations["getTokenAllowance"]["responses"]["200"]["content"]["application/json"]>;
     searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"] ) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"] ) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
