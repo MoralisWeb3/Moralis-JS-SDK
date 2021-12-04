@@ -1416,7 +1416,7 @@ export interface operations {
       /** Returns a collection of token contract transactions. */
       200: {
         content: {
-          "application/json": components["schemas"]["erc20TransactionCollection"][];
+          "application/json": components["schemas"]["erc20TransactionCollection"];
         };
       };
     };
