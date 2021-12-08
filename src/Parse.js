@@ -52,8 +52,6 @@ class Moralis extends MoralisWeb3 {
     } else {
       // Node environment
       if (!moralisSecret) {
-        // console.warn('Moralis.start warning: to have web3 access, moralisSecret is required');
-      } else {
         this.moralisSecret = moralisSecret;
         const { web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(moralisSecret);
         apiKey = web3ApiKey;
