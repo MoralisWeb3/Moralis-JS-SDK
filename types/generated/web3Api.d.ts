@@ -1119,7 +1119,7 @@ export interface operations {
       /** Returns a collection of token transactions. */
       200: {
         content: {
-          "application/json": components["schemas"]["erc20Transaction"][];
+          "application/json": components["schemas"]["erc20TransactionCollection"];
         };
       };
     };
