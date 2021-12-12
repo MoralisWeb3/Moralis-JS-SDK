@@ -1,10 +1,19 @@
 /* global window */
+/* global solanaWeb3 */
 // const { clusterApiUrl, Connection } = require('@solana/web3.js');
 import createSigningData from './createSigningData';
 import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
 import ParseACL from './ParseACL';
+import nacl from 'tweetnacl';
+
+const base64 = {
+  // eslint-disable-next-line no-undef
+  decode: s => Uint8Array.from(atob(s), c => c.charCodeAt(0)),
+  // eslint-disable-next-line no-undef
+  encode: b => btoa(String.fromCharCode(...new Uint8Array(b))),
+};
 
 class MoralisPhantom {
   static getProvider = () => {
@@ -31,8 +40,10 @@ class MoralisPhantom {
     const message = options?.signingMessage || MoralisPhantom.getSigningData();
 
     const data = await createSigningData(message);
-    const signature = await MoralisPhantom.sign(message);
-    const authData = { id: solAddress, signature, data };
+    const { signature, publicKey } = await MoralisPhantom.sign(message);
+
+    const authData = { id: solAddress, signature, data, publicKey };
+
     const user = await ParseUser.logInWith('moralisSol', { authData });
     await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
@@ -80,12 +91,24 @@ class MoralisPhantom {
     const phantom = MoralisPhantom.getProvider();
     const encodedMessage = new TextEncoder().encode(message);
     const signedMessage = await phantom.signMessage(encodedMessage, 'utf8');
-    return signedMessage.signature.toString();
+
+    const { publicKey, secretKey } = nacl.sign.keyPair();
+
+    const signature = base64.encode(nacl.sign(signedMessage.signature, secretKey));
+
+    return {
+      signature,
+      publicKey: base64.encode(publicKey),
+    };
   }
 
   static getSigningData() {
     return 'Moralis Authentication';
   }
+}
+
+function toHexString(buffer: Buffer) {
+  return buffer.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
 }
 
 function uniq(arr) {
