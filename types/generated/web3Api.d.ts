@@ -135,6 +135,10 @@ export interface paths {
      */
     get: operations["getNFTMetadata"];
   };
+  "/nft/{address}/sync": {
+    /** Sync a Contract for NFT Index */
+    put: operations["syncNFTContract"];
+  };
   "/nft/{address}/{token_id}": {
     /**
      * Gets data, including metadata (where available), for the given token id of the given contract address.
@@ -1668,6 +1672,23 @@ export interface operations {
       };
     };
   };
+  /** Sync a Contract for NFT Index */
+  syncNFTContract: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** Address of the contract */
+        address: string;
+      };
+    };
+    responses: {
+      /** Contract Address was triggered for index. */
+      201: unknown;
+    };
+  };
   /**
    * Gets data, including metadata (where available), for the given token id of the given contract address.
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
@@ -1936,6 +1957,7 @@ export default class Web3Api {
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
+    syncNFTContract: (options: operations["syncNFTContract"]["parameters"]["query"] & operations["syncNFTContract"]["parameters"]["path"]) => Promise<operations["syncNFTContract"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdOwners: (options: operations["getTokenIdOwners"]["parameters"]["query"] & operations["getTokenIdOwners"]["parameters"]["path"]) => Promise<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"]>;
     getWalletTokenIdTransfers: (options: operations["getWalletTokenIdTransfers"]["parameters"]["query"] & operations["getWalletTokenIdTransfers"]["parameters"]["path"]) => Promise<operations["getWalletTokenIdTransfers"]["responses"]["200"]["content"]["application/json"]>;
