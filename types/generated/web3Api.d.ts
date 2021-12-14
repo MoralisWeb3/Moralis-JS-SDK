@@ -844,6 +844,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The block hash or block number */
@@ -1175,6 +1177,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The sender or recepient of the transfer */
@@ -1540,13 +1544,15 @@ export interface operations {
          * * Provide the param 'to_block' or 'to_date'
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
-        to_date?: string;
+        to_date?: unknown;
         /** The format of the token id */
         format?: "decimal" | "hex";
         /** offset */
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
     };
     responses: {
@@ -1601,6 +1607,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
@@ -1765,6 +1773,8 @@ export interface operations {
         limit?: number;
         /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
         order?: string;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
