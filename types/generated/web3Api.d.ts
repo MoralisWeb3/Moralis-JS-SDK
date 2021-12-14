@@ -876,7 +876,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the contents of a block transaction */
+      /** Transaction details by transaction hash */
       200: {
         content: {
           "application/json": components["schemas"]["blockTransaction"];
