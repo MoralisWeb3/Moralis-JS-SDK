@@ -110,10 +110,16 @@ static async apiCall(name, options) {
     }
 
     if(this.Moralis) {
-      const { web3 } = this.Moralis;
+      const { User, web3 } = this.Moralis;
       
-      if (!options.address && web3) {
-        options.address = await (await web3.eth.getAccounts())[0];
+      const user = User.current();
+
+      if (!options.address) {
+        if (user) {
+          options.address = user.get('ethAddress');
+        } else if (web3) {
+          options.address = await (await web3.eth.getAccounts())[0];
+        }
       }
     }
 
