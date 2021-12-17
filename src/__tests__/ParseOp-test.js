@@ -40,17 +40,8 @@ jest.setMock('../ParseRelation', mockRelation);
 const ParseRelation = require('../ParseRelation');
 const ParseObject = require('../ParseObject');
 const ParseOp = require('../ParseOp');
-const {
-  Op,
-  SetOp,
-  UnsetOp,
-  IncrementOp,
-  AddOp,
-  AddUniqueOp,
-  RemoveOp,
-  RelationOp,
-  opFromJSON,
-} = ParseOp;
+const { Op, SetOp, UnsetOp, IncrementOp, AddOp, AddUniqueOp, RemoveOp, RelationOp, opFromJSON } =
+  ParseOp;
 
 describe('ParseOp', () => {
   it('base class', () => {

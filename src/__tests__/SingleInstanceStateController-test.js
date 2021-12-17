@@ -21,7 +21,10 @@ jest.setMock('web3', () => {});
 const mockObject = function () {};
 mockObject.registerSubclass = function () {};
 jest.setMock('../ParseObject', mockObject);
-jest.useFakeTimers();
+
+function flushPromises() {
+  return new Promise(resolve => setTimeout(resolve, 2));
+}
 
 const ParseFile = require('../ParseFile').default;
 const ParseGeoPoint = require('../ParseGeoPoint').default;
@@ -547,7 +550,7 @@ describe('SingleInstanceStateController', () => {
     expect(called).toEqual([true, false, false]);
     p2Resolve();
     await p2;
-    await new Promise(resolve => setImmediate(resolve));
+    await flushPromises();
     expect(called).toEqual([true, true, true]);
   });
 

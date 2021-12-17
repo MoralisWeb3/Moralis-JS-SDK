@@ -12,6 +12,10 @@ jest.autoMockOff();
 const TaskQueue = require('../TaskQueue');
 const { resolvingPromise } = require('../promiseUtils');
 
+function flushPromises() {
+  return new Promise(resolve => setTimeout(resolve, 2));
+}
+
 describe('TaskQueue', () => {
   it('is initialized with an empty queue', () => {
     const q = new TaskQueue();
@@ -33,7 +37,7 @@ describe('TaskQueue', () => {
     expect(called).toBe(true);
     expect(completed).toBe(false);
     resolve();
-    await new Promise(resolve => setImmediate(resolve));
+    await flushPromises();
     expect(completed).toBe(true);
   });
 
@@ -82,17 +86,17 @@ describe('TaskQueue', () => {
     expect(called).toEqual([true, false, false]);
     expect(completed).toEqual([false, false, false]);
     promises[0].resolve();
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(called).toEqual([true, true, false]);
     expect(completed).toEqual([true, false, false]);
     expect(q.queue.length).toBe(2);
     promises[1].resolve();
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(called).toEqual([true, true, true]);
     expect(completed).toEqual([true, true, false]);
     expect(q.queue.length).toBe(1);
     promises[2].resolve();
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(completed).toEqual([true, true, true]);
     expect(q.queue.length).toBe(0);
   });
@@ -118,15 +122,15 @@ describe('TaskQueue', () => {
     expect(called).toEqual([true, false, false]);
     promises[0].catch(() => {});
     promises[0].reject('oops');
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(called).toEqual([true, true, false]);
     expect(q.queue.length).toBe(2);
     promises[1].resolve();
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(called).toEqual([true, true, true]);
     expect(q.queue.length).toBe(1);
     promises[2].resolve();
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(q.queue.length).toBe(0);
   });
 
@@ -153,19 +157,19 @@ describe('TaskQueue', () => {
 
     promises[0].catch(() => {});
     promises[0].reject('1 oops');
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(called).toEqual([true, true, false]);
     expect(q.queue.length).toBe(2);
 
     promises[1].catch(() => {});
     promises[1].reject('2 oops');
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(called).toEqual([true, true, true]);
     expect(q.queue.length).toBe(1);
 
     promises[2].catch(() => {});
     promises[2].reject('3 oops');
-    await new Promise(r => setImmediate(r));
+    await flushPromises();
     expect(q.queue.length).toBe(0);
   });
 });
