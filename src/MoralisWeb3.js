@@ -6,6 +6,7 @@ import ParseUser from './ParseUser';
 import ParseACL from './ParseACL';
 import MoralisErd from './MoralisErd';
 import MoralisDot from './MoralisDot';
+import MoralisSol from './MoralisSol';
 import MoralisWalletConnectProvider from './MoralisWalletConnectProvider';
 import MoralisCustomProvider from './MoralisCustomProvider';
 import MoralisInjectedProvider from './MoralisInjectedProvider';
@@ -25,10 +26,6 @@ export const EthereumEvents = {
 const WARNING = 'Non ethereum enabled browser';
 const ERROR_WEB3_MISSING =
   'Missing web3 instance, make sure to call Moralis.enableWeb3() or Moralis.authenticate()';
-
-function uniq(arr) {
-  return arr.filter((v, i) => arr.indexOf(v) === i);
-}
 
 class MoralisWeb3 {
   constructor(...args) {
@@ -94,6 +91,14 @@ class MoralisWeb3 {
         return false;
     }
   }
+  static isSolAuth(options) {
+    switch (options?.type) {
+      case 'sol':
+        return true;
+      default:
+        return false;
+    }
+  }
   static getWeb3Provider(options) {
     switch (options?.provider) {
       case 'walletconnect':
@@ -130,6 +135,10 @@ class MoralisWeb3 {
       return MoralisErd.authenticate(options);
     }
 
+    if (MoralisWeb3.isSolAuth(options)) {
+      return MoralisSol.authenticate(options);
+    }
+
     const web3 = await this.enableWeb3(options);
     const message = options?.signingMessage || MoralisWeb3.getSigningData();
     const data = await createSigningData(message);
@@ -141,9 +150,9 @@ class MoralisWeb3 {
     if (!signature) throw new Error('Data not signed');
     const authData = { id: ethAddress, signature, data };
     const user = await ParseUser.logInWith('moralisEth', { authData });
-    await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
-    user.set('accounts', uniq([].concat(accountsLower, user.get('accounts') ?? [])));
+    await user.setACL(new ParseACL(user));
+    user.addAllUnique('accounts', accountsLower);
     user.set('ethAddress', ethAddress);
     await user.save(null, options);
     return user;
@@ -161,7 +170,7 @@ class MoralisWeb3 {
       const authData = { id: ethAddress, signature, data };
       await user.linkWith('moralisEth', { authData });
     }
-    user.set('accounts', uniq([ethAddress].concat(user.get('accounts') ?? [])));
+    user.addAllUnique('accounts', [ethAddress]);
     user.set('ethAddress', ethAddress);
     await user.save(null, options);
     return user;
@@ -630,7 +639,7 @@ class MoralisWeb3 {
   }
 
   static async getChainId() {
-    if (this.ensureWeb3IsInstalled()) return await this.web3.eth.net.getId();
+    if (this.ensureWeb3IsInstalled()) return await this.web3.eth.getChainId();
     throw new Error(ERROR_WEB3_MISSING);
   }
 
