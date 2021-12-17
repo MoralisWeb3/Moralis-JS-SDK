@@ -40,7 +40,7 @@
     "axios": "^0.23.0",
     "lint-staged": "^11.1.2",
     "react-native-crypto-js": "1.0.0",
-    "uuid": "3.4.0",
+    "uuid": "8.3.2",
     "web3": "^1.6.0",
     "ws": "^7.5.1",
     "xmlhttprequest": "1.8.0"
