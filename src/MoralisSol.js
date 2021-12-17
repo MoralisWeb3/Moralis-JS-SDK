@@ -7,9 +7,7 @@ import ParseObject from './ParseObject';
 import ParseACL from './ParseACL';
 
 const base64 = {
-  // eslint-disable-next-line no-undef
   decode: s => Uint8Array.from(atob(s), c => c.charCodeAt(0)),
-  // eslint-disable-next-line no-undef
   encode: b => btoa(String.fromCharCode(...new Uint8Array(b))),
 };
 
