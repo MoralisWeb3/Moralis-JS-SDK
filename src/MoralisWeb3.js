@@ -26,10 +26,6 @@ const WARNING = 'Non ethereum enabled browser';
 const ERROR_WEB3_MISSING =
   'Missing web3 instance, make sure to call Moralis.enableWeb3() or Moralis.authenticate()';
 
-function uniq(arr) {
-  return arr.filter((v, i) => arr.indexOf(v) === i);
-}
-
 class MoralisWeb3 {
   constructor(...args) {
     const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
@@ -161,7 +157,7 @@ class MoralisWeb3 {
       const authData = { id: ethAddress, signature, data };
       await user.linkWith('moralisEth', { authData });
     }
-    user.set('accounts', uniq([ethAddress].concat(user.get('accounts') ?? [])));
+    user.addAllUnique('accounts', [ethAddress]);
     user.set('ethAddress', ethAddress);
     await user.save(null, options);
     return user;
