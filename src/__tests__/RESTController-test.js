@@ -1,8 +1,8 @@
 jest.autoMockOff();
 jest.useFakeTimers();
-jest.mock('uuid/v4', () => {
+jest.mock('uuid', () => {
   let value = 1000;
-  return () => (value++).toString();
+  return { v4: () => (value++).toString() };
 });
 
 const CoreManager = require('../CoreManager');
