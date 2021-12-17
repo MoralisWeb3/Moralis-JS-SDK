@@ -34,15 +34,15 @@
     "react-native": false
   },
   "dependencies": {
-    "@babel/runtime": "7.12.5",
-    "@babel/runtime-corejs3": "7.12.5",
+    "@babel/runtime": "^7.15.4",
+    "@babel/runtime-corejs3": "^7.14.7",
     "@metamask/detect-provider": "^1.2.0",
     "axios": "^0.23.0",
     "lint-staged": "^11.1.2",
     "react-native-crypto-js": "1.0.0",
     "uuid": "3.4.0",
     "web3": "^1.6.0",
-    "ws": "^7.4.6",
+    "ws": "^7.5.1",
     "xmlhttprequest": "1.8.0"
   },
   "peerDependencies": {
