@@ -42,8 +42,6 @@ jest.mock('uuid', () => {
 
 jest.dontMock('./test_helpers/mockXHR');
 
-jest.useFakeTimers();
-
 const mockRelation = function (parent, key) {
   // The parent and key fields will be populated by the parent
   if (parent) {
@@ -171,7 +169,7 @@ CoreManager.set('VERSION', 'V');
 const { SetOp, UnsetOp, IncrementOp } = require('../ParseOp');
 
 function flushPromises() {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise(resolve => setTimeout(resolve, 0));
 }
 
 describe('ParseObject', () => {
