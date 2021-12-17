@@ -1,6 +1,5 @@
 /* global window */
 /* global solanaWeb3 */
-// const { clusterApiUrl, Connection } = require('@solana/web3.js');
 import createSigningData from './createSigningData';
 import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
@@ -15,21 +14,21 @@ const base64 = {
   encode: b => btoa(String.fromCharCode(...new Uint8Array(b))),
 };
 
-class MoralisPhantom {
-  static getProvider = () => {
-    if ('solana' in window) {
+class MoralisSol {
+  static enable = async () => {
+    if (window && 'solana' in window) {
       const provider = window.solana;
       if (provider.isPhantom) {
-        return provider;
+        return provider.connect({ onlyIfTrusted: true });
       }
     }
-    window.open('https://phantom.app/', '_blank');
+
+    throw new Error('Phantom wallet not available');
   };
 
   static async authenticate(options) {
-    const phantom = MoralisPhantom.getProvider();
+    const phantom = await MoralisSol.enable();
     if (!phantom) throw new Error('Phantom wallet not available');
-    await phantom.connect();
 
     const solAddress = phantom.publicKey.toString();
 
@@ -37,10 +36,10 @@ class MoralisPhantom {
 
     const accounts = [solAddress];
 
-    const message = options?.signingMessage || MoralisPhantom.getSigningData();
+    const message = options?.signingMessage || MoralisSol.getSigningData();
 
     const data = await createSigningData(message);
-    const { signature, publicKey } = await MoralisPhantom.sign(message);
+    const { signature, publicKey } = await MoralisSol.sign(message);
 
     const authData = { id: solAddress, signature, data, publicKey };
 
@@ -60,8 +59,8 @@ class MoralisPhantom {
     const query = new ParseQuery(SolAddress);
     const solAddressRecord = await query.get(solAddress).catch(() => null);
     if (!solAddressRecord) {
-      const data = MoralisPhantom.getSigningData();
-      const signature = await MoralisPhantom.sign(solAddress, data);
+      const data = MoralisSol.getSigningData();
+      const signature = await MoralisSol.sign(solAddress, data);
       const authData = { id: solAddress, signature, data };
       await user.linkWith('moralisSol', { authData });
     }
@@ -88,7 +87,7 @@ class MoralisPhantom {
   }
 
   static async sign(message) {
-    const phantom = MoralisPhantom.getProvider();
+    const phantom = await MoralisSol.enable();
     const encodedMessage = new TextEncoder().encode(message);
     const signedMessage = await phantom.signMessage(encodedMessage, 'utf8');
 
@@ -115,4 +114,4 @@ function uniq(arr) {
   return arr.filter((v, i) => arr.indexOf(v) === i);
 }
 
-export default MoralisPhantom;
+export default MoralisSol;

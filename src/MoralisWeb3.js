@@ -6,7 +6,7 @@ import ParseUser from './ParseUser';
 import ParseACL from './ParseACL';
 import MoralisErd from './MoralisErd';
 import MoralisDot from './MoralisDot';
-import MoralisPhantom from './MoralisPhantom';
+import MoralisSol from './MoralisSol';
 import MoralisWalletConnectProvider from './MoralisWalletConnectProvider';
 import MoralisCustomProvider from './MoralisCustomProvider';
 import MoralisInjectedProvider from './MoralisInjectedProvider';
@@ -95,9 +95,9 @@ class MoralisWeb3 {
         return false;
     }
   }
-  static isPhantomAuth(options) {
+  static isSolAuth(options) {
     switch (options?.type) {
-      case 'phantom':
+      case 'sol':
         return true;
       default:
         return false;
@@ -139,8 +139,8 @@ class MoralisWeb3 {
       return MoralisErd.authenticate(options);
     }
 
-    if (MoralisWeb3.isPhantomAuth(options)) {
-      return MoralisPhantom.authenticate(options);
+    if (MoralisWeb3.isSolAuth(options)) {
+      return MoralisSol.authenticate(options);
     }
 
     const web3 = await this.enableWeb3(options);
