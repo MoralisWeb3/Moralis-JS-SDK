@@ -5,14 +5,26 @@
     "node": true,
     "es6": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "globals": {
     "wx": true
   },
   "plugins": ["flowtype"],
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module"
+    "sourceType": "module",
+    "requireConfigFile": false,
+    "babelOptions": {
+      "plugins": [
+        "@babel/plugin-transform-flow-comments",
+        "@babel/plugin-transform-flow-strip-types"
+      ]
+    }
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
   },
   "rules": {
     "arrow-body-style": 0,
@@ -31,6 +43,7 @@
     "import/no-unresolved": 0,
     "import/order": 0,
     "import/prefer-default-export": 0,
+    "import/no-import-module-exports": 0,
     "lines-between-class-members": 0,
     "max-classes-per-file": 0,
     "new-cap": 0,
@@ -67,6 +80,11 @@
     "prefer-rest-params": 0,
     "prefer-spread": 0,
     "radix": 0,
-    "no-inline-comments": 2
+    "no-inline-comments": 2,
+    "no-promise-executor-return": 0,
+    "no-unreachable-loop": 0,
+    "no-constructor-return": 0,
+    "prefer-exponentiation-operator": 0,
+    "prefer-regex-literals": 0
   }
 }

@@ -74,7 +74,11 @@ class MoralisDot {
   static async sign(address, data) {
     if (!web3EnablePromise) throw new Error('Must enable MoralisDot');
     const web3 = await web3EnablePromise;
-    const { signature } = await web3.signer?.signRaw({
+    if (!web3.signer) {
+      throw new Error('No signer found');
+    }
+
+    const { signature } = await web3.signer.signRaw({
       address,
       data: stringToHex(data),
       type: 'bytes',
