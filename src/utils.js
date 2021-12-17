@@ -55,22 +55,41 @@ const fetchEndpoints = async () => {
   return data;
 };
 
+/**
+ * Compares if the semantic version of version1 is larget than version2
+ */
+const isSemanticVersionLarger = (version1, version2) => {
+  const version1Arr = version1.split('.').map(s => Number(s));
+  const version2Arr = version2.split('.').map(s => Number(s));
+
+  for (let index = 0; index < 3; index++) {
+    const compare1 = version1Arr[index];
+    const compare2 = version2Arr[index];
+    if (compare1 > compare2) return true;
+    if (compare1 < compare2) return false;
+    if (!Number.isNaN(compare1) && Number.isNaN(compare2)) return true;
+    if (Number.isNaN(compare1) && !Number.isNaN(compare2)) return false;
+  }
+
+  return false;
+};
+
 const checkForSdkUpdates = async () => {
   try {
     const { response } = await RESTController.ajax(
       'GET',
-      'https://registry.npmjs.org/-/v1/search?text=moralis&size=1'
+      'https://www.unpkg.com/moralis/package.json'
     );
-    const latestVersion = response.objects[0].package.version;
+    const latestVersion = response.version;
     const installedVersion = process.env.npm_package_version;
-    if (installedVersion < latestVersion)
+
+    if (isSemanticVersionLarger(latestVersion, installedVersion))
       // eslint-disable-next-line no-console
       console.warn(
-        'You are not using the latest version of the SDK. Please update it as soon as possible to enjoy the newest features.'
+        `You are not using the latest version of the SDK. Please update it as soon as possible to enjoy the newest features. Most recent version: ${latestVersion}`
       );
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn('Could not verify SDK version');
+    // Cannot verify version, might be network error etc. We don't bother showing anything in that case
   }
 };
 

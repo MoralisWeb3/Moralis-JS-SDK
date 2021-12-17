@@ -561,7 +561,7 @@ class MoralisWeb3 {
 
     for (const input of functionData.inputs) {
       const value = params[input.name];
-      if (!(typeof value !== 'undefined' && value)) {
+      if (!value && typeof value !== 'number' && typeof value !== 'boolean') {
         errors.push(`${input.name} is required`);
       }
     }

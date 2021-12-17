@@ -135,6 +135,10 @@ export interface paths {
      */
     get: operations["getNFTMetadata"];
   };
+  "/nft/{address}/sync": {
+    /** Sync a Contract for NFT Index */
+    put: operations["syncNFTContract"];
+  };
   "/nft/{address}/{token_id}": {
     /**
      * Gets data, including metadata (where available), for the given token id of the given contract address.
@@ -840,6 +844,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The block hash or block number */
@@ -870,7 +876,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the contents of a block transaction */
+      /** Transaction details by transaction hash */
       200: {
         content: {
           "application/json": components["schemas"]["blockTransaction"];
@@ -1119,7 +1125,7 @@ export interface operations {
       /** Returns a collection of token transactions. */
       200: {
         content: {
-          "application/json": components["schemas"]["erc20Transaction"][];
+          "application/json": components["schemas"]["erc20TransactionCollection"];
         };
       };
     };
@@ -1171,6 +1177,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The sender or recepient of the transfer */
@@ -1536,13 +1544,15 @@ export interface operations {
          * * Provide the param 'to_block' or 'to_date'
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
-        to_date?: string;
+        to_date?: unknown;
         /** The format of the token id */
         format?: "decimal" | "hex";
         /** offset */
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
     };
     responses: {
@@ -1597,6 +1607,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
@@ -1666,6 +1678,23 @@ export interface operations {
           "application/json": components["schemas"]["nftContractMetadata"];
         };
       };
+    };
+  };
+  /** Sync a Contract for NFT Index */
+  syncNFTContract: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** Address of the contract */
+        address: string;
+      };
+    };
+    responses: {
+      /** Contract Address was triggered for index. */
+      201: unknown;
     };
   };
   /**
@@ -1744,6 +1773,8 @@ export interface operations {
         limit?: number;
         /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
         order?: string;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
@@ -1936,6 +1967,7 @@ export default class Web3Api {
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
+    syncNFTContract: (options: operations["syncNFTContract"]["parameters"]["query"] & operations["syncNFTContract"]["parameters"]["path"]) => Promise<operations["syncNFTContract"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdOwners: (options: operations["getTokenIdOwners"]["parameters"]["query"] & operations["getTokenIdOwners"]["parameters"]["path"]) => Promise<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"]>;
     getWalletTokenIdTransfers: (options: operations["getWalletTokenIdTransfers"]["parameters"]["query"] & operations["getWalletTokenIdTransfers"]["parameters"]["path"]) => Promise<operations["getWalletTokenIdTransfers"]["responses"]["200"]["content"]["application/json"]>;
