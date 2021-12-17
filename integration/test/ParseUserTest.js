@@ -128,7 +128,8 @@ describe('Parse User', () => {
 
   it('can login users with installationId', async () => {
     Parse.User.enableUnsafeCurrentUser();
-    const currentInstallation = await Parse.CoreManager.getInstallationController().currentInstallationId();
+    const currentInstallation =
+      await Parse.CoreManager.getInstallationController().currentInstallationId();
     const installationId = '12345678';
     const user = new Parse.User();
     user.set('username', 'parse');
