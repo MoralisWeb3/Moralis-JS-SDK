@@ -639,7 +639,7 @@ class MoralisWeb3 {
   }
 
   static async getChainId() {
-    if (this.ensureWeb3IsInstalled()) return await this.web3.eth.net.getId();
+    if (this.ensureWeb3IsInstalled()) return await this.web3.eth.getChainId();
     throw new Error(ERROR_WEB3_MISSING);
   }
 
