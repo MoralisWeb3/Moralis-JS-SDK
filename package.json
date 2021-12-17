@@ -94,7 +94,7 @@
     "openapi-typescript": "^4.4.0",
     "parse-server": "git+https://git@github.com/parse-community/parse-server.git#alpha",
     "prettier": "^2.5.1",
-    "regenerator-runtime": "0.13.5",
+    "regenerator-runtime": "^0.13.9",
     "vinyl-source-stream": "2.0.0"
   },
   "optionalDependencies": {
