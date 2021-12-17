@@ -5,7 +5,6 @@ import ParseUser from './ParseUser';
 import ParseQuery from './ParseQuery';
 import ParseObject from './ParseObject';
 import ParseACL from './ParseACL';
-import nacl from 'tweetnacl';
 
 const base64 = {
   // eslint-disable-next-line no-undef
@@ -19,7 +18,14 @@ class MoralisSol {
     if (window && 'solana' in window) {
       const provider = window.solana;
       if (provider.isPhantom) {
-        return provider.connect({ onlyIfTrusted: true });
+        try {
+          await provider.connect({ onlyIfTrusted: true });
+        } catch (error) {
+          if (error.message === 'User rejected the request.') await provider.connect();
+          else throw error;
+        }
+
+        return provider;
       }
     }
 
@@ -39,9 +45,9 @@ class MoralisSol {
     const message = options?.signingMessage || MoralisSol.getSigningData();
 
     const data = await createSigningData(message);
-    const { signature, publicKey } = await MoralisSol.sign(message);
+    const signature = await MoralisSol.sign(data);
 
-    const authData = { id: solAddress, signature, data, publicKey };
+    const authData = { id: solAddress, signature, data };
 
     const user = await ParseUser.logInWith('moralisSol', { authData });
     await user.setACL(new ParseACL(user));
@@ -91,14 +97,7 @@ class MoralisSol {
     const encodedMessage = new TextEncoder().encode(message);
     const signedMessage = await phantom.signMessage(encodedMessage, 'utf8');
 
-    const { publicKey, secretKey } = nacl.sign.keyPair();
-
-    const signature = base64.encode(nacl.sign(signedMessage.signature, secretKey));
-
-    return {
-      signature,
-      publicKey: base64.encode(publicKey),
-    };
+    return base64.encode(signedMessage.signature);
   }
 
   static getSigningData() {
