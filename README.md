@@ -41,12 +41,6 @@ module.exports = {
 };
 ```
 
-### create-react-app
-
-To be able to work with Moralis JS SDK on the create-react-app project you need to use the `< 5` version of `react-scripts`:
-
-`npx create-react-app --scripts-version 4.0.3`
-
 ### Using Moralis on Different Platforms
 
 The JavaScript ecosystem is wide and incorporates a large number of platforms and execution environments. To handle this, the Moralis npm module contains special versions of the SDK tailored to use in Node.js and [React Native](https://reactnative.dev/) environments. Not all features make sense in all environments, so using the appropriate package will ensure that items like local storage, user sessions, and HTTP requests use appropriate dependencies. For server side rendered applications, you may set the `SERVER_RENDERING` variable to prevent warnings at runtime.
