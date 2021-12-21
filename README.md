@@ -48,6 +48,35 @@ const AsyncStorage = require('react-native').AsyncStorage;
 Moralis.setAsyncStorage(AsyncStorage);
 ```
 
+## Using Moralis with Webpack v5
+
+There are a lot of breaking changes in Webpack v5. Set up your project to work with Moralis JS SDK:
+
+### configuring Webpack v5
+
+We highly recommend you to use the stable `4.0.3` version of Webpack. If you want to use Moralis on your project with Webpack v5 you need to add the fallback to your `webpack.config.js` file:
+
+```
+module.exports = {
+    resolve: {
+        fallback: {
+            assert: require.resolve('assert'),
+            crypto: require.resolve('crypto-browserify'),
+            http: require.resolve('stream-http'),
+            https: require.resolve('https-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            stream: require.resolve('stream-browserify'),
+        },
+    },
+};
+```
+
+### create-react-app
+
+To be able to work with Moralis JS SDK on the create-react-app project you need to use the `< 5` version of `react-scripts`:
+
+`npx create-react-app --scripts-version 4.0.3`
+
 ## Typescript support
 
 Typescript types are supported out-of-the box.
