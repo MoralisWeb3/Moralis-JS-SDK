@@ -18,6 +18,35 @@ For more information on Moralis and its features, see [the website](https://mora
 The easiest way to integrate the Moralis SDK into your JavaScript project is through the [npm module](https://npmjs.org/moralis).
 However, if you want to use a pre-compiled file, you can fetch it from [unpkg](https://unpkg.com). The development version is available at [https://unpkg.com/moralis/dist/moralis.js](https://unpkg.com/moralis/dist/moralis.js), and the minified production version is at [https://unpkg.com/moralis/dist/moralis.min.js](https://unpkg.com/moralis/dist/moralis.min.js).
 
+## Webpack v5 support
+
+There are a lot of breaking changes in Webpack v5. Set up your project to work with Moralis JS SDK:
+
+### configuring Webpack v5
+
+We highly recommend you to use the stable `4.0.3` version of Webpack. If you want to use Moralis on your project with Webpack v5 you need to add the fallback to your `webpack.config.js` file:
+
+```
+module.exports = {
+    resolve: {
+        fallback: {
+            assert: require.resolve('assert'),
+            crypto: require.resolve('crypto-browserify'),
+            http: require.resolve('stream-http'),
+            https: require.resolve('https-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            stream: require.resolve('stream-browserify'),
+        },
+    },
+};
+```
+
+### create-react-app
+
+To be able to work with Moralis JS SDK on the create-react-app project you need to use the `< 5` version of `react-scripts`:
+
+`npx create-react-app --scripts-version 4.0.3`
+
 ### Using Moralis on Different Platforms
 
 The JavaScript ecosystem is wide and incorporates a large number of platforms and execution environments. To handle this, the Moralis npm module contains special versions of the SDK tailored to use in Node.js and [React Native](https://reactnative.dev/) environments. Not all features make sense in all environments, so using the appropriate package will ensure that items like local storage, user sessions, and HTTP requests use appropriate dependencies. For server side rendered applications, you may set the `SERVER_RENDERING` variable to prevent warnings at runtime.
@@ -47,35 +76,6 @@ const Moralis = require('moralis/react-native.js');
 const AsyncStorage = require('react-native').AsyncStorage;
 Moralis.setAsyncStorage(AsyncStorage);
 ```
-
-## Webpack v5 support
-
-There are a lot of breaking changes in Webpack v5. Set up your project to work with Moralis JS SDK:
-
-### configuring Webpack v5
-
-We highly recommend you to use the stable `4.0.3` version of Webpack. If you want to use Moralis on your project with Webpack v5 you need to add the fallback to your `webpack.config.js` file:
-
-```
-module.exports = {
-    resolve: {
-        fallback: {
-            assert: require.resolve('assert'),
-            crypto: require.resolve('crypto-browserify'),
-            http: require.resolve('stream-http'),
-            https: require.resolve('https-browserify'),
-            os: require.resolve('os-browserify/browser'),
-            stream: require.resolve('stream-browserify'),
-        },
-    },
-};
-```
-
-### create-react-app
-
-To be able to work with Moralis JS SDK on the create-react-app project you need to use the `< 5` version of `react-scripts`:
-
-`npx create-react-app --scripts-version 4.0.3`
 
 ## Typescript support
 
