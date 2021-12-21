@@ -48,7 +48,7 @@ const AsyncStorage = require('react-native').AsyncStorage;
 Moralis.setAsyncStorage(AsyncStorage);
 ```
 
-## Using Moralis with Webpack v5
+## Webpack v5 support
 
 There are a lot of breaking changes in Webpack v5. Set up your project to work with Moralis JS SDK:
 
