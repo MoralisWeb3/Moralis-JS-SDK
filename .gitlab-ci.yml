@@ -20,7 +20,9 @@ deploy:
     refs:
       - feature/bump-if-changes
     changes:
-      - src/*
+      paths:
+        - '^src/'
+        - '^types/'
   tags:
     - moralis-runner
   script:
