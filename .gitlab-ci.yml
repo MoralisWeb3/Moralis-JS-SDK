@@ -20,7 +20,7 @@ deploy:
     refs:
       - feature/bump-if-changes
     changes:
-      paths:
+      - paths:
         - '^src/'
         - '^types/'
   tags:
