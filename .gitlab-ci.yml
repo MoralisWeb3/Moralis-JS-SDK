@@ -1,11 +1,11 @@
 stages:
-  - run
+  - build
   - deploy
 
-run:
-  stage: run
+build:
+  stage: build
   only:
-    - feature/bump-if-changes
+    - main
   tags:
     - moralis-runner
   script:
@@ -18,7 +18,7 @@ deploy:
   stage: deploy
   only:
     refs:
-      - feature/bump-if-changes
+      - main
     changes:
       - src/*
       - types/*
