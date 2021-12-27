@@ -1,7 +1,10 @@
 deploy:
   stage: deploy
   only:
-    - main
+    refs:
+      - main
+    changes:
+      - src/*
   tags:
     - moralis-runner
   script:
@@ -14,6 +17,6 @@ deploy:
     - git add .
     - 'git commit -m "build: new deployment [ci skip]" --no-verify || echo "no build src changes, ignore commit failure"'
     - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
-    - npm run release
-    - git push
-    - git push --tags
+    # - npm run release
+    # - git push
+    # - git push --tags
