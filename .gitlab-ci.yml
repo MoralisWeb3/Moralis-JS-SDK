@@ -1,7 +1,6 @@
 # Publish on new commits on main branch
 deploy:
   stage: deploy
-  image: node:14.17.0
   only:
     - main
   tags:
@@ -18,9 +17,10 @@ deploy:
 # Publish on new commits on beta branch
 beta-deploy:
   stage: deploy
-  image: node:14.17.0
   only:
     - beta
+  tags:
+    - moralis-runner
   script:
     - cd /home/gitlab-runner && rm -rf Moralis-JS-SDK
     - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
