@@ -1,3 +1,10 @@
+## [0.0.177](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.176...v0.0.177) (2021-12-30)
+
+
+### Bug Fixes
+
+* prevent floating error on Moralis.Units.Token ([2704e5b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2704e5bd7470b38344f8cfd4e1f3020a606e66ab))
+
 ## [0.0.176](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.175...v0.0.176) (2021-12-30)
 
 
