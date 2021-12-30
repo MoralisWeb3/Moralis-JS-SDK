@@ -1,3 +1,10 @@
+## [0.0.178](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.177...v0.0.178) (2021-12-30)
+
+
+### Bug Fixes
+
+* add sol to AuthenticationType ([#166](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/166)) ([46be333](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/46be3333b398b7cf8c8c75eb4529f0be373d13dd))
+
 ## [0.0.177](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.176...v0.0.177) (2021-12-30)
 
 
