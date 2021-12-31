@@ -10,11 +10,13 @@ class UnitConverter {
   }
 
   static Token(value, decimals) {
-    return BigNumber(value).times(`1e+${decimals}`);
+    return BigNumber(+value).times(`1e+${decimals}`);
   }
 
   static FromWei(value, decimals) {
-    return MWeb3.utils.fromWei(value, decimals);
+    return BigNumber(+value)
+      .div(`1e+${decimals}`)
+      .toNumber();
   }
 }
 
