@@ -14,7 +14,7 @@ class UnitConverter {
   }
 
   static FromWei(value, decimals) {
-    return +value / Math.pow(10, decimals ?? 18);
+    return MWeb3.utils.fromWei(value, decimals);
   }
 }
 
