@@ -576,6 +576,8 @@ export interface components {
       result: components["schemas"]["nftTransfer"][];
       /** Indicator if the block exists */
       block_exists?: boolean;
+      /** Indicator if the block is fully indexed */
+      index_complete?: boolean;
     };
     nftContractMetadata: {
       /** The address of the token contract */
@@ -1064,6 +1066,8 @@ export interface operations {
         subdomain?: string;
         /** The block number on which the balances should be checked */
         to_block?: number;
+        /** The addresses to get balances for (Optional) */
+        token_addresses?: string[];
       };
       path: {
         /** The address for which token balances will be checked */
@@ -1148,6 +1152,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The addresses to get balances for (Optional) */
+        token_addresses?: string[];
       };
       path: {
         /** The owner of a given token */
@@ -1544,7 +1550,7 @@ export interface operations {
          * * Provide the param 'to_block' or 'to_date'
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
-        to_date?: unknown;
+        to_date?: string;
         /** The format of the token id */
         format?: "decimal" | "hex";
         /** offset */

@@ -229,7 +229,7 @@ export namespace Moralis {
   }
 
   type Web3ProviderType = 'metamask' | 'walletconnect' | 'walletConnect' | 'wc';
-  type AuthenticationType = 'evm' | 'dot' | 'polkadot' | 'kusama' | 'erd' | 'elrond';
+  type AuthenticationType = 'evm' | 'dot' | 'polkadot' | 'kusama' | 'erd' | 'elrond' | 'sol';
   type Web3Provider = MoralisWalletConnectProvider | MoralisInjectedProvider;
   interface AuthenticationOptions {
     provider?: Web3ProviderType;

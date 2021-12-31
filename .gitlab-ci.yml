@@ -1,9 +1,9 @@
-# Publish on new commits on main branch
+# Publish on new commits on main and beta branch
 deploy:
   stage: deploy
-  image: node:14.17.0
   only:
     - main
+    - beta
   tags:
     - moralis-runner
   script:
@@ -13,19 +13,5 @@ deploy:
     - npm run build
     - git add .
     - 'git commit -m "build: new deployment [ci skip]" --no-verify || echo "no build src changes, ignore commit failure"'
-    - npx semantic-release
-
-# Publish on new commits on beta branch
-beta-deploy:
-  stage: deploy
-  image: node:14.17.0
-  only:
-    - beta
-  script:
-    - cd /home/gitlab-runner && rm -rf Moralis-JS-SDK
-    - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
-    - npm install
-    - npm run build
-    - git add .
-    - 'git commit -m "build: new deployment [ci skip]" --no-verify || echo "no build src changes, ignore commit failure"'
+    - git push
     - npx semantic-release
