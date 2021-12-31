@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
 
 /* global window */
 const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
@@ -9,11 +10,13 @@ class UnitConverter {
   }
 
   static Token(value, decimals) {
-    return MWeb3.utils.toBN(`0x${Math.round(+value * 10 ** decimals).toString(16)}`);
+    return BigNumber(+value).times(`1e+${decimals}`);
   }
 
   static FromWei(value, decimals) {
-    return +value / Math.pow(10, decimals ?? 18);
+    return BigNumber(+value)
+      .div(`1e+${decimals}`)
+      .toNumber();
   }
 }
 
