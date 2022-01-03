@@ -16,6 +16,12 @@ module.exports = {
         changelogFile: 'CHANGELOG.md',
       },
     ],
+    [
+      '@semantic-release/exec',
+      {
+        prepareCmd: 'node ./scripts/updateBuildVersions.js ${nextRelease.version}',
+      },
+    ],
     '@semantic-release/npm',
     '@semantic-release/github',
     [
