@@ -21,7 +21,21 @@ distFiles.forEach(distFile => {
   const filePath = path.join(distPath, distFile);
   let fileData = fs.readFileSync(filePath, 'utf8');
 
-  fileData = fileData.replace(VERSION_PLACEHOLDER, nextVersion);
+  // Update the config in CDN builds to account for the next version
+  fileData = fileData.replace(
+    /Moralis JavaScript SDK v.+/,
+    `Moralis JavaScript SDK v${nextVersion}`
+  );
+
+  // Update the config in CDN builds to account for the next version
+  fileData = fileData.replace(
+    /VERSION: "js".concat\(".+?"\)/,
+    `VERSION: "js".concat("${nextVersion}")`
+  );
+  fileData = fileData.replace(
+    /VERSION:"js".concat\(".+?"\)/,
+    `VERSION:"js".concat("${nextVersion}")`
+  );
 
   fs.writeFileSync(filePath, fileData);
 });
