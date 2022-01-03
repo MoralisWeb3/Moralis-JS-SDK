@@ -1,3 +1,10 @@
+## [0.0.180](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.179...v0.0.180) (2022-01-03)
+
+
+### Bug Fixes
+
+* update build version correctly ([3ba6a19](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3ba6a19575f8acd291d73a93f7acc290e7695bce))
+
 ## [0.0.179](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.178...v0.0.179) (2022-01-03)
 
 
