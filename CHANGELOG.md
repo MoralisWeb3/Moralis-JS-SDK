@@ -1,3 +1,10 @@
+## [0.0.181](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.180...v0.0.181) (2022-01-03)
+
+
+### Bug Fixes
+
+* update CDN build version correctly ([c3e3044](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c3e3044a364099fbc3fd8e63b7c4b8e610acbc08))
+
 ## [0.0.180](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.179...v0.0.180) (2022-01-03)
 
 
