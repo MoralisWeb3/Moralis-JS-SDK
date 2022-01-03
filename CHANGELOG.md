@@ -1,3 +1,10 @@
+## [0.0.179](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.178...v0.0.179) (2022-01-03)
+
+
+### Bug Fixes
+
+* avoid floating decimals in utils ([0a1de0a](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0a1de0a05fc2b112a8769ef6a9c4f4f80d10ed58))
+
 ## [0.0.178](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.177...v0.0.178) (2021-12-30)
 
 
