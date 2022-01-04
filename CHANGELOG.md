@@ -1,3 +1,10 @@
+## [0.0.182](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.181...v0.0.182) (2022-01-04)
+
+
+### Bug Fixes
+
+* re-add default decimals value of 18 for fromWei ([f127ab2](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f127ab25cadcfeac3b97ee2357c3f39982423d19))
+
 ## [0.0.181](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.180...v0.0.181) (2022-01-03)
 
 
