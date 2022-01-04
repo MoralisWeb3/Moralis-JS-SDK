@@ -17,6 +17,8 @@ import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
 const { checkForSdkUpdates } = require('./utils');
+import { ethers } from 'ethers';
+
 /**
  * Contains all Moralis API classes and functions.
  *
@@ -33,8 +35,11 @@ class Moralis extends MoralisWeb3 {
    * @static
    */
   static async start(options) {
-    const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret } = options;
+    const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret, web3Library } =
+      options;
     let apiKey;
+
+    this.web3Library = web3Library ?? ethers.providers.Web3Provider;
 
     if (process.env.PARSE_BUILD !== 'node') {
       // Non-node environments (browser, react-native)

@@ -16,7 +16,8 @@ jest.dontMock('../ParseOp');
 jest.dontMock('../UniqueInstanceStateController');
 jest.dontMock('../TaskQueue');
 jest.dontMock('../promiseUtils');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
+
 jest.useFakeTimers();
 
 const mockObject = function (className) {

@@ -11,7 +11,7 @@ jest.dontMock('../encode');
 jest.dontMock('../ParseRelation');
 jest.dontMock('../ParseOp');
 jest.dontMock('../unique');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
 const mockStore = {};
 const mockObject = function (className) {

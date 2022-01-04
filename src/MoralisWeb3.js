@@ -1,5 +1,6 @@
 /* global window */
-import Web3 from 'web3';
+import { ethers } from 'ethers';
+import EventEmitter from 'events';
 import ParseObject from './ParseObject';
 import ParseQuery from './ParseQuery';
 import ParseUser from './ParseUser';
@@ -7,60 +8,136 @@ import ParseACL from './ParseACL';
 import MoralisErd from './MoralisErd';
 import MoralisDot from './MoralisDot';
 import MoralisSol from './MoralisSol';
-import MoralisWalletConnectProvider from './MoralisWalletConnectProvider';
-import MoralisCustomProvider from './MoralisCustomProvider';
-import MoralisInjectedProvider from './MoralisInjectedProvider';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
-import detectEthereumProvider from '@metamask/detect-provider';
 import createSigningData from './createSigningData';
-const EventEmitter = require('events');
+import WalletConnectWeb3Connector from './Web3Connector/WalletConnectWeb3Connector';
+import InjectedWeb3Connector from './Web3Connector/InjectedWeb3Connector';
+import NetworkWeb3Connector from './Web3Connector/NetworkWeb3Connector';
+import ParseError from './ParseError';
+import InternalWeb3Provider, { InternalWeb3Events } from './InternalWeb3Provider';
 
-export const EthereumEvents = {
-  CONNECT: 'connect',
-  DISCONNECT: 'disconnect',
-  ACCOUNTS_CHANGED: 'accountsChanged',
-  CHAIN_CHANGED: 'chainChanged',
-};
+const MoralisEmitter = new EventEmitter();
 
 const WARNING = 'Non ethereum enabled browser';
 const ERROR_WEB3_MISSING =
   'Missing web3 instance, make sure to call Moralis.enableWeb3() or Moralis.authenticate()';
 
 class MoralisWeb3 {
-  constructor(...args) {
-    const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
-    return new MWeb3(...args);
-  }
-
   static speedyNodeApiKey;
+  // Web3 instance for the user, created via the provided "web3Library" during Moralis.start
+  static web3 = null;
+  // Internal web3 provider, containing the Ethers.js Web3 library for internal usage for handling transactions, contracts etc.
+  static internalWeb3Provider = null;
+  static Plugins = {};
+
+  static addListener(eventName, listener) {
+    MoralisEmitter.on(eventName, listener);
+    return () => MoralisEmitter.removeListener(eventName, listener);
+  }
+  static on(eventName, listener) {
+    MoralisEmitter.on(eventName, listener);
+    return () => MoralisEmitter.removeListener(eventName, listener);
+  }
+  static once(eventName, listener) {
+    MoralisEmitter.once(eventName, listener);
+    return () => MoralisEmitter.removeListener(eventName, listener);
+  }
+  static removeListener(eventName, listener) {
+    return MoralisEmitter.removeListener(eventName, listener);
+  }
+  static off(eventName, listener) {
+    return MoralisEmitter.off(eventName, listener);
+  }
+  static removeAllListeners(eventName, listener) {
+    return MoralisEmitter.removeAllListeners(eventName, listener);
+  }
 
   static isWeb3Enabled() {
     return this.ensureWeb3IsInstalled();
   }
 
-  static setEnableWeb3(fn) {
-    this.customEnableWeb3 = fn;
+  static handleWeb3AccountChanged(account) {
+    MoralisEmitter.emit(InternalWeb3Events.ACCOUNT_CHANGED, account);
+  }
+
+  static handleWeb3ChainChanged(chainId) {
+    MoralisEmitter.emit(InternalWeb3Events.CHAIN_CHANGED, chainId);
+  }
+
+  static handleWeb3Connect(connectInfo) {
+    MoralisEmitter.emit(InternalWeb3Events.PROVIDER_CONNECT, connectInfo);
+  }
+
+  static handleWeb3Disconnect(error) {
+    this.cleanup();
+    MoralisEmitter.emit(InternalWeb3Events.PROVIDER_DISCONNECT, error);
   }
 
   static async enableWeb3(options) {
-    let web3;
+    if (this.speedyNodeApiKey) {
+      options.speedyNodeApiKey = this.speedyNodeApiKey;
+      options.provider = 'network';
+    }
 
-    if (this.customEnableWeb3) {
-      web3 = await this.customEnableWeb3(options);
-    } else {
-      if (this.speedyNodeApiKey) {
-        options.speedyNodeApiKey = this.speedyNodeApiKey;
-        options.provider = 'custom';
+    if (this.internalWeb3Provider) {
+      await this.cleanup();
+    }
+
+    const Connector = options?.connector ?? MoralisWeb3.getWeb3Connector(options?.provider);
+    const connector = new Connector(options);
+
+    this.internalWeb3Provider = new InternalWeb3Provider(connector);
+
+    this.internalWeb3Provider.on(InternalWeb3Events.ACCOUNT_CHANGED, args =>
+      this.handleWeb3AccountChanged(args)
+    );
+    this.internalWeb3Provider.on(InternalWeb3Events.CHAIN_CHANGED, args =>
+      this.handleWeb3ChainChanged(args)
+    );
+    this.internalWeb3Provider.on(InternalWeb3Events.PROVIDER_CONNECT, args =>
+      this.handleWeb3Connect(args)
+    );
+    this.internalWeb3Provider.on(InternalWeb3Events.PROVIDER_DISCONNECT, args =>
+      this.handleWeb3Disconnect(args)
+    );
+
+    let provider;
+    let chainId;
+    let account;
+    let internalWeb3;
+
+    try {
+      ({
+        provider,
+        chainId,
+        account,
+        web3: internalWeb3,
+      } = await this.internalWeb3Provider.activate(options));
+
+      if (!provider) {
+        throw new Error('Failed to activate, no provider returned');
       }
-      const Web3Provider = MoralisWeb3.getWeb3Provider(options);
-      const web3Provider = new Web3Provider();
-      this.activeWeb3Provider = web3Provider;
+    } catch (error) {
+      await this.cleanup();
+      throw error;
+    }
 
-      web3 = await web3Provider.activate(options);
+    let web3 = null;
+
+    if (this.web3Library) {
+      web3 = new this.web3Library(provider);
     }
 
     this.web3 = web3;
+    MoralisEmitter.emit(InternalWeb3Events.WEB3_ENABLED, {
+      chainId,
+      account,
+      connector,
+      provider,
+      web3,
+    });
+
     return web3;
   }
 
@@ -99,33 +176,64 @@ class MoralisWeb3 {
         return false;
     }
   }
-  static getWeb3Provider(options) {
-    switch (options?.provider) {
+
+  static getWeb3Connector(provider) {
+    switch (provider) {
       case 'walletconnect':
       case 'walletConnect':
       case 'wc':
-        return MoralisWalletConnectProvider;
-      case 'custom':
-        return MoralisCustomProvider;
+        return WalletConnectWeb3Connector;
+      case 'network':
+        return NetworkWeb3Connector;
       default:
-        return MoralisInjectedProvider;
+        return InjectedWeb3Connector;
     }
   }
+
+  static async deactivateWeb3() {
+    return this.cleanup();
+  }
+
   static async cleanup() {
-    if (this.activeWeb3Provider) {
-      await this.activeWeb3Provider.deactivate();
+    if (this.internalWeb3Provider) {
+      this.internalWeb3Provider.removeListener(
+        InternalWeb3Events.ACCOUNT_CHANGED,
+        this.handleWeb3AccountChanged
+      );
+      this.internalWeb3Provider.removeListener(
+        InternalWeb3Events.CHAIN_CHANGED,
+        this.handleWeb3ChainChanged
+      );
+      this.internalWeb3Provider.removeListener(
+        InternalWeb3Events.PROVIDER_CONNECT,
+        this.handleWeb3Connect
+      );
+      this.internalWeb3Provider.removeListener(
+        InternalWeb3Events.PROVIDER_DISCONNECT,
+        this.handleWeb3Disconnect
+      );
+
+      await this.internalWeb3Provider.deactivate();
     }
 
-    // Prevent a bug when there is stale data active
-    MoralisWalletConnectProvider.cleanupStaleData();
+    if (this.web3) {
+      MoralisEmitter.emit(InternalWeb3Events.WEB3_DEACTIVATED, {
+        connector: this.internalWeb3Provider.connector,
+        provider: this.internalWeb3Provider.provider,
+      });
+    }
+
+    this.internalWeb3Provider = null;
+    this.web3 = null;
   }
+
   static async authenticate(options) {
     const isLoggedIn = await ParseUser.currentAsync();
     if (isLoggedIn) {
       await ParseUser.logOut();
     }
 
-    await MoralisWeb3.cleanup();
+    await this.cleanup();
 
     if (MoralisWeb3.isDotAuth(options)) {
       return MoralisDot.authenticate(options);
@@ -139,34 +247,43 @@ class MoralisWeb3 {
       return MoralisSol.authenticate(options);
     }
 
-    const web3 = await this.enableWeb3(options);
+    await this.enableWeb3(options);
+    const { account, web3: internalWeb3, signer } = this.getInternalWeb3Provider();
+
+    if (!account) {
+      throw new Error('Cannot authenticate, no account returned from provider');
+    }
+
     const message = options?.signingMessage || MoralisWeb3.getSigningData();
     const data = await createSigningData(message);
-    const accounts = await web3.eth.getAccounts();
-    const accountsLower = accounts.map(v => v.toLowerCase());
-    const [ethAddress] = accountsLower;
+    const ethAddress = account.toLowerCase();
     if (!ethAddress) throw new Error('Address not found');
-    const signature = await web3.eth.personal.sign(data, ethAddress, '');
+
+    const signature = await signer.signMessage(data);
     if (!signature) throw new Error('Data not signed');
     const authData = { id: ethAddress, signature, data };
     const user = await ParseUser.logInWith('moralisEth', { authData });
     if (!user) throw new Error('Could not get user');
     await user.setACL(new ParseACL(user));
-    user.addAllUnique('accounts', accountsLower);
+    user.addAllUnique('accounts', [ethAddress]);
     user.set('ethAddress', ethAddress);
     await user.save(null, options);
     return user;
   }
+
   static async link(account, options) {
-    const web3 = await MoralisWeb3.enableWeb3(options);
+    const { signer } = this.getInternalWeb3Provider();
     const data = options?.signingMessage || MoralisWeb3.getSigningData();
     const user = await ParseUser.currentAsync();
     const ethAddress = account.toLowerCase();
+
     const EthAddress = ParseObject.extend('_EthAddress');
     const query = new ParseQuery(EthAddress);
     const ethAddressRecord = await query.get(ethAddress).catch(() => null);
     if (!ethAddressRecord) {
-      const signature = await web3.eth.personal.sign(data, account, '');
+      const signature = await signer.signMessage(data);
+
+      if (!signature) throw new Error('Data not signed');
       const authData = { id: ethAddress, signature, data };
       await user.linkWith('moralisEth', { authData });
     }
@@ -224,6 +341,7 @@ class MoralisWeb3 {
 
   static async handleTriggers(triggersArray, payload) {
     if (!triggersArray) return;
+
     let response;
     for (let i = 0; i < triggersArray.length; i++) {
       switch (triggersArray[i].name) {
@@ -234,15 +352,17 @@ class MoralisWeb3 {
           break;
         // Handles `web3Transaction` trigger
         case 'web3Transaction':
-          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-
           // Trigger a web3 transaction (await)
-          if (triggersArray[i]?.shouldAwait === true)
-            response = await this.web3.eth.sendTransaction(triggersArray[i]?.data);
+          response = await this.getInternalWeb3Provider().signer.sendTransaction({
+            from: triggersArray[i]?.data?.from,
+            to: triggersArray[i]?.data?.to,
+            value: ethers.BigNumber.from(triggersArray[i]?.data?.value ?? 0),
+            data: triggersArray[i]?.data?.data,
+          });
 
-          // Trigger a web3 transaction (does NOT await)
-          if (triggersArray[i]?.shouldAwait === false)
-            response = this.web3.eth.sendTransaction(triggersArray[i]?.data);
+          if (triggersArray[i]?.shouldAwait === true) {
+            response = await response.wait();
+          }
 
           // Save the response returned by the web3 trasanction
           if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
@@ -257,25 +377,19 @@ class MoralisWeb3 {
 
         // Handles `web3Sign` trigger
         case 'web3Sign':
-          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
           if (!triggersArray[i].message)
             throw new Error('web3Sign trigger does not have a message to sign');
-          if (!triggersArray[i].signer || !this.web3.utils.isAddress(triggersArray[i].signer))
+          if (!triggersArray[i].signer || triggersArray[i].signer)
             throw new Error('web3Sign trigger signer address missing or invalid');
 
-          // Sign a message using web3 (await)
-          if (triggersArray[i]?.shouldAwait === true)
-            response = await this.web3.eth.personal.sign(
-              triggersArray[i].message,
-              triggersArray[i].signer
-            );
+          // eslint-disable-next-line no-case-declarations
+          let response = await this.getInternalWeb3Provider().signer.signMessage(
+            triggersArray[i].message
+          );
 
-          // Sign a message using web3 (does NOT await)
-          if (triggersArray[i]?.shouldAwait === false)
-            response = this.web3.eth.personal.sign(
-              triggersArray[i].message,
-              triggersArray[i].signer
-            );
+          if (triggersArray[i]?.shouldAwait) {
+            response = await response.wait();
+          }
 
           // Save response
           if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
@@ -350,48 +464,57 @@ class MoralisWeb3 {
           break;
 
         case 'web3SignV4':
-          if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
           if (!triggersArray[i].parameters)
             throw new Error('web3SignV4 trigger does not have `parameters` to sign');
           if (!triggersArray[i].from)
             throw new Error('web3SignV4 trigger does not have a `from` address');
 
           if (triggersArray[i]?.shouldAwait === true) {
-            await this.web3.currentProvider.send(
-              {
-                method: 'eth_signTypedData_v4',
-                params: triggersArray[i].parameters,
-                from: triggersArray[i].from,
-              },
-              // eslint-disable-next-line no-loop-func
-              async (error, result) => {
-                if (error) throw new Error(error.message || error);
-
-                // Save response
-                if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(result);
-
-                response = result;
+            try {
+              const { domain, types, message } = JSON.parse(triggersArray[i].parameters[1]);
+              if (types.EIP712Domain) {
+                // Ethers.js will compute this automatically
+                delete types.EIP712Domain;
               }
-            );
+
+              const signature = await this.getInternalWeb3Provider().signer._signTypedData(
+                domain,
+                types,
+                message
+              );
+
+              const result = {
+                result: signature,
+              };
+
+              if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(result);
+              response = result;
+            } catch (error) {
+              throw new Error(error.message || error);
+            }
           }
 
           if (triggersArray[i]?.shouldAwait === false) {
-            this.web3.currentProvider.send(
-              {
-                method: 'eth_signTypedData_v4',
-                params: triggersArray[i].parameters,
-                from: triggersArray[i].from,
-              },
+            const { domain, types, message } = JSON.parse(triggersArray[i].parameters[1]);
+
+            if (types.EIP712Domain) {
+              // Ethers.js will compute this automatically
+              delete types.EIP712Domain;
+            }
+
+            this.getInternalWeb3Provider()
+              .signer._signTypedData(domain, types, message)
               // eslint-disable-next-line no-loop-func
-              async (error, result) => {
-                if (error) throw new Error(error.message || error);
-
-                // Save response
+              .then(signature => {
+                const result = {
+                  result: signature,
+                };
                 if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(result);
-
                 response = result;
-              }
-            );
+              })
+              .catch(error => {
+                throw new Error(error.message || error);
+              });
           }
 
           // Return payload and response
@@ -469,10 +592,7 @@ class MoralisWeb3 {
     TransferUtils.isSupportedType(type);
     TransferUtils.validateInput(type, options);
 
-    if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-    const { web3 } = this;
-
-    const sender = await (await web3.eth.getAccounts())[0];
+    const { web3: internalWeb3, account: sender, signer } = this.getInternalWeb3Provider();
 
     if (!sender) throw new Error('Sender address not found');
 
@@ -481,60 +601,49 @@ class MoralisWeb3 {
 
     if (tokenId) TransferUtils.isUint256(tokenId);
 
-    if (type !== 'native')
-      customToken = new web3.eth.Contract(TransferUtils.abi[type], contractAddress);
-
+    if (type !== 'native') {
+      customToken = new ethers.Contract(contractAddress, TransferUtils.abi[type], signer);
+    }
     switch (type) {
       case 'native':
-        transferOperation = web3.eth.sendTransaction({
-          from: sender,
+        transferOperation = signer.sendTransaction({
           to: receiver,
-          value: amount,
+          value: ethers.BigNumber.from(amount),
         });
         break;
       case 'erc20':
-        transferOperation = customToken.methods.transfer(receiver, amount).send({
+        transferOperation = customToken.transfer(receiver, amount, {
           from: sender,
         });
         break;
       case 'erc721':
-        transferOperation = customToken.methods
-          .safeTransferFrom(sender, receiver, `${tokenId}`)
-          .send({
-            from: sender,
-          });
+        transferOperation = customToken.safeTransferFrom(sender, receiver, `${tokenId}`, {
+          from: sender,
+        });
         break;
       case 'erc1155':
-        transferOperation = customToken.methods
-          .safeTransferFrom(sender, receiver, `${tokenId}`, amount, '0x')
-          .send({
+        transferOperation = customToken.safeTransferFrom(
+          sender,
+          receiver,
+          `${tokenId}`,
+          amount,
+          '0x',
+          {
             from: sender,
-          });
+          }
+        );
         break;
       default:
         throw new Error(`Unknown transfer type: "${type}"`);
     }
 
+    const result = await transferOperation;
+
     if (awaitReceipt) return transferOperation;
 
-    const transferEvents = new EventEmitter();
+    const confirmed = await result.wait();
 
-    transferOperation
-      .on('transactionHash', hash => {
-        transferEvents.emit('transactionHash', hash);
-      })
-      .on('receipt', receipt => {
-        transferEvents.emit('receipt', receipt);
-      })
-      .on('confirmation', (confirmationNumber, receipt) => {
-        transferEvents.emit('confirmation', (confirmationNumber, receipt));
-      })
-      .on('error', error => {
-        transferEvents.emit('error', error);
-        throw error;
-      });
-
-    return transferEvents;
+    return confirmed;
   }
 
   static async executeFunction({
@@ -544,11 +653,16 @@ class MoralisWeb3 {
     msgValue,
     awaitReceipt = true,
     params = {},
+    overrides = {},
   } = {}) {
-    if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
-    const { web3 } = this;
-
     const contractOptions = {};
+
+    const {
+      account,
+      web3: internalWeb3,
+      provider,
+      signerOrProvider,
+    } = this.getInternalWeb3Provider();
 
     const functionData = abi.find(x => x.name === functionName);
 
@@ -560,7 +674,7 @@ class MoralisWeb3 {
 
     if (!isReadFunction) {
       if (!params.from) {
-        const currentAddress = await (await web3.eth.getAccounts())[0];
+        const currentAddress = account;
         if (!currentAddress) throw new Error('From address is required');
         contractOptions.from = currentAddress;
       }
@@ -583,111 +697,92 @@ class MoralisWeb3 {
       return params[x.name];
     });
 
-    const contract = new web3.eth.Contract(abi, contractAddress, contractOptions);
+    const contract = new ethers.Contract(contractAddress, abi, signerOrProvider);
 
-    const customFunction = contract.methods[functionName];
+    const response = await contract[functionName](
+      ...Object.values(parsedInputs),
+      msgValue ? { value: ethers.BigNumber.from(`${msgValue}`) } : {}
+    );
 
-    const response = isReadFunction
-      ? customFunction(...Object.values(parsedInputs)).call()
-      : customFunction(...Object.values(parsedInputs)).send(msgValue ? { value: msgValue } : null);
+    if (awaitReceipt || isReadFunction) return response;
 
-    if (awaitReceipt) return response;
+    const confirmed = await response.wait();
 
-    const contractExecuteEvents = new EventEmitter();
-
-    response
-      .on('transactionHash', hash => {
-        contractExecuteEvents.emit('transactionHash', hash);
-      })
-      .on('receipt', receipt => {
-        contractExecuteEvents.emit('receipt', receipt);
-      })
-      .on('confirmation', (confirmationNumber, receipt) => {
-        contractExecuteEvents.emit('confirmation', (confirmationNumber, receipt));
-      })
-      .on('error', error => {
-        contractExecuteEvents.emit('error', error);
-        throw error;
-      });
-
-    return contractExecuteEvents;
+    return confirmed;
   }
 
   static getSigningData() {
     return `Moralis Authentication`;
-    // const data = `Moralis Authentication`;
-    // return data;
-  }
-
-  static on(eventName, cb) {
-    const { ethereum } = window;
-    if (!ethereum || !ethereum.on) {
-      // eslint-disable-next-line no-console
-      console.warn(WARNING);
-      return () => {
-        // eslint-disable-next-line no-console
-        console.warn(WARNING);
-      };
-    }
-
-    ethereum.on(eventName, cb);
-
-    return () => {
-      // eslint-disable-next-line no-console
-      console.warn('UNSUB NOT SUPPORTED');
-    };
-  }
-
-  static async getChainId() {
-    if (this.ensureWeb3IsInstalled()) return await this.web3.eth.getChainId();
-    throw new Error(ERROR_WEB3_MISSING);
   }
 
   static ensureWeb3IsInstalled() {
-    return this.web3 ? true : false;
+    return this.internalWeb3Provider && this.internalWeb3Provider.web3 ? true : false;
   }
 
-  static async isMetaMaskInstalled() {
-    return (await detectEthereumProvider()) ? true : false;
+  /**
+   * Gets the internalWeb3Provider with validation to make sure it has been instansiated with 'enableWeb3()'
+   */
+  static getInternalWeb3Provider() {
+    if (!this.ensureWeb3IsInstalled()) throw new Error(ERROR_WEB3_MISSING);
+
+    return this.internalWeb3Provider;
   }
 
-  static async switchNetwork(chainId) {
-    chainId = verifyChainId(chainId);
-    // Check if the user wallet is already on `chainId`
-    const currentNetwork = fromDecimalToHex(await this.getChainId());
-    if (currentNetwork === chainId) return;
-    // Trigger network switch
-    await window.ethereum.request({
-      method: 'wallet_switchEthereumChain',
-      params: [{ chainId: chainId }],
-    });
+  /**
+   * Gets web3 from the internalWeb3Provider with validation to make sure it has been instansiated with 'enableWeb3()'
+   */
+  static getInternalWeb3() {
+    return this.getInternalWeb3Provider().web3;
   }
 
-  static async addNetwork(
-    chainId,
-    chainName,
-    currencyName,
-    currencySymbol,
-    rpcUrl,
-    blockExplorerUrl
-  ) {
-    chainId = verifyChainId(chainId);
-    await window.ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [
-        {
-          chainId: chainId,
-          chainName: chainName,
-          nativeCurrency: {
-            name: currencyName,
-            symbol: currencySymbol,
-            decimals: 18,
-          },
-          rpcUrls: [rpcUrl],
-          blockExplorerUrls: [blockExplorerUrl],
-        },
-      ],
-    });
+  static get provider() {
+    return this.internalWeb3Provider?.provider ?? null;
+  }
+
+  static get connector() {
+    return this.internalWeb3Provider?.connector ?? null;
+  }
+
+  static get connectorType() {
+    return this.connector?.type ?? null;
+  }
+
+  static get network() {
+    return this.connector?.network ?? null;
+  }
+
+  static get account() {
+    return this.internalWeb3Provider?.account ?? null;
+  }
+
+  static get chainId() {
+    return this.internalWeb3Provider?.chainId ?? null;
+  }
+
+  static getChainId() {
+    return this.chainId;
+  }
+
+  static _forwardToConnector(methodName, args) {
+    const { connector } = this.getInternalWeb3Provider();
+
+    const hasMethod = Boolean(connector[methodName]);
+
+    if (!hasMethod) {
+      throw new Error(
+        `Cannot call ${methodName}, as it does not exist on connector type "${connector.type}"`
+      );
+    }
+
+    return connector[methodName](...args);
+  }
+
+  static switchNetwork(...args) {
+    return this._forwardToConnector('switchNetwork', args);
+  }
+
+  static addNetwork(...args) {
+    return this._forwardToConnector('addNetwork', args);
   }
 
   static memoryCard = {
@@ -721,20 +816,14 @@ class MoralisWeb3 {
   };
 }
 
-function fromDecimalToHex(number) {
-  if (typeof number !== 'number') throw 'The input provided should be a number';
-  return `0x${number.toString(16)}`;
-}
-
-function verifyChainId(chainId) {
-  // Check if chainId is a number, in that case convert to hex
-  if (typeof chainId === 'number') chainId = fromDecimalToHex(chainId);
-  return chainId;
-}
-
-MoralisWeb3.onConnect = MoralisWeb3.on.bind(MoralisWeb3, EthereumEvents.CONNECT);
-MoralisWeb3.onDisconnect = MoralisWeb3.on.bind(MoralisWeb3, EthereumEvents.DISCONNECT);
-MoralisWeb3.onChainChanged = MoralisWeb3.on.bind(MoralisWeb3, EthereumEvents.CHAIN_CHANGED);
-MoralisWeb3.onAccountsChanged = MoralisWeb3.on.bind(MoralisWeb3, EthereumEvents.ACCOUNTS_CHANGED);
+MoralisWeb3.onConnect = MoralisWeb3.on.bind(MoralisWeb3, InternalWeb3Events.PROVIDER_CONNECT);
+MoralisWeb3.onDisconnect = MoralisWeb3.on.bind(MoralisWeb3, InternalWeb3Events.PROVIDER_DISCONNECT);
+MoralisWeb3.onWeb3Enabled = MoralisWeb3.on.bind(MoralisWeb3, InternalWeb3Events.WEB3_ENABLED);
+MoralisWeb3.onWeb3Deactivated = MoralisWeb3.on.bind(
+  MoralisWeb3,
+  InternalWeb3Events.WEB3_DEACTIVATED
+);
+MoralisWeb3.onChainChanged = MoralisWeb3.on.bind(MoralisWeb3, InternalWeb3Events.CHAIN_CHANGED);
+MoralisWeb3.onAccountChanged = MoralisWeb3.on.bind(MoralisWeb3, InternalWeb3Events.ACCOUNT_CHANGED);
 
 export default MoralisWeb3;

@@ -11,7 +11,7 @@ jest.dontMock('../decode');
 jest.dontMock('../ParseFile');
 jest.dontMock('../ParseGeoPoint');
 jest.dontMock('../ParsePolygon');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
 const decode = require('../decode').default;
 

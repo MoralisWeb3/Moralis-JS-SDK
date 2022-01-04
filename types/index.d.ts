@@ -3,9 +3,6 @@
 /// <reference path="react-native.d.ts" />
 
 import { EventEmitter } from 'events';
-import NativeWeb3 from 'web3';
-import { PromiEvent } from 'web3-core';
-import { Contract } from 'web3-eth-contract';
 
 import Web3Api from './generated/web3Api';
 
@@ -92,6 +89,7 @@ export namespace Moralis {
     plugins?: PluginSpecs[];
     javascriptKey?: string;
     masterKey?: string;
+    web3Library?: unknown;
   }
 
   let start: (options: StartOptions) => Promise<void>;
@@ -217,7 +215,7 @@ export namespace Moralis {
   }
 
   class CommonWeb3Provider {
-    activate: () => Promise<NativeWeb3>;
+    activate: () => Promise<unknown>;
     deactivate: () => Promise<void>;
   }
   class MoralisInjectedProvider extends CommonWeb3Provider {
@@ -225,7 +223,6 @@ export namespace Moralis {
   }
   class MoralisWalletConnectProvider extends CommonWeb3Provider {
     type: 'WalletConnect';
-    static cleanupStaleData: () => void;
   }
 
   type Web3ProviderType = 'metamask' | 'walletconnect' | 'walletConnect' | 'wc';
@@ -341,13 +338,28 @@ export namespace Moralis {
     msgValue?: string;
     params?: ExecuteFunctionParams;
   }
-  type ExecuteFunctionCallResult = any;
-  type ExecuteFunctionSendResult = PromiEvent<Contract>;
+  type ExecuteFunctionCallResult = unknown;
+  type ExecuteFunctionSendResult = unknown;
   type ExecuteFunctionResult = ExecuteFunctionCallResult | ExecuteFunctionSendResult;
 
   // ETH listeners
   interface ConnectInfo {
     chainId: string;
+  }
+
+  type Connector = unknown;
+  type Provider = unknown;
+  interface EnableInfo {
+    chainId: null | string;
+    account: null | string;
+    connector: Connector;
+    provider: Provider;
+    web3: unknown;
+  }
+
+  interface DeactivateInfo {
+    connector: Connector;
+    provider: Provider;
   }
 
   interface ProviderRpcError extends Error {
@@ -361,7 +373,7 @@ export namespace Moralis {
     data: unknown;
   }
 
-  enum EthereumEvents {
+  enum Web3Events {
     CONNECT = 'connect',
     DISCONNECT = 'disconnect',
     ACCOUNTS_CHANGED = 'accountsChanged',
@@ -369,36 +381,59 @@ export namespace Moralis {
     MESSAGE = 'message',
   }
 
-  // From: https://github.com/MetaMask/metamask-docs/blob/3aedd8083ccf45711acc6e947ab23fe45512ce81/docs/guide/ethereum-provider.md
-  // See: https://docs.metamask.io/guide/ethereum-provider.html#events
-  type EthOnConnect = (connectInfo: ConnectInfo) => void;
-  type EthOnDisconnect = (error: ProviderRpcError) => void;
-  type EthOnAccountsChanged = (accounts: Array<string>) => void;
-  type EthOnChainChanged = (chainId: string) => void;
-  type EthOnMessage = (message: ProviderMessage) => void;
+  enum EthereumEvents {
+    CONNECT = 'connect',
+    DISCONNECT = 'disconnect',
+    CHAIN_CHANGED = 'chainChanged',
+    ACCOUNTS_CHANGED = 'accountsChanged',
+    MESSAGE = 'message',
+  }
 
-  type EthOn =
-    | ((name: EthereumEvents.CONNECT, handler: EthOnConnect) => void)
-    | ((name: EthereumEvents.DISCONNECT, handler: EthOnDisconnect) => void)
-    | ((name: EthereumEvents.ACCOUNTS_CHANGED, handler: EthOnAccountsChanged) => void)
-    | ((name: EthereumEvents.CHAIN_CHANGED, handler: EthOnChainChanged) => void)
-    | ((name: EthereumEvents.MESSAGE, handler: EthOnMessage) => void);
+  enum ConnectorEvents {
+    CONNECT = 'connect',
+    DISCONNECT = 'disconnect',
+    CHAIN_CHANGED = 'chainChanged',
+    ACCOUNT_CHANGED = 'accountChanged',
+  }
+
+  type Web3AccountChangedEventCallback = (account: string | null) => void;
+  type Web3ChainChangedEventCallback = (chainId: string | null) => void;
+  type Web3ConnectEventCallback = (connectInfo: ConnectInfo) => void;
+  type Web3DisconnectEventCallback = (error: ProviderRpcError) => void;
+  type Web3EnabledEventCallback = (enableInfo: EnableInfo) => void;
+  type Web3DeactivatedEventCallback = (chainId: DeactivateInfo) => void;
 
   /**
    * The Moralis Web3 Provider.
    */
-  class Web3 extends NativeWeb3 {
+  class Web3 {
     static activeWeb3Provider?: Web3Provider;
+    static web3: unknown;
+
+    static on: (eventName: string, listener: (args?: any) => void) => () => EventEmitter;
+    static off: EventEmitter['off'];
+    static once: EventEmitter['once'];
+    static removeListener: EventEmitter['removeListener'];
+    static addListener: EventEmitter['addListener'];
+    static removeAllListeners: EventEmitter['removeAllListeners'];
+
+    static chainId: string | null;
+    static account: string | null;
+    static network: string | null;
+    static provider: unknown | null;
+    static connectorType: string | null;
+    static connector: any | null;
 
     // Core functions
-    static enableWeb3: (options?: EnableOptions) => Promise<NativeWeb3>;
+    static enableWeb3: (options?: EnableOptions) => Promise<unknown>;
     /** @deprecated use enableWeb3 instead */
-    static enable: (options?: EnableOptions) => Promise<NativeWeb3>;
-    static setEnableWeb3: (enable: (options?: any) => Promise<NativeWeb3>) => Promise<NativeWeb3>;
+    static enable: (options?: EnableOptions) => Promise<unknown>;
+    static setEnableWeb3: (enable: (options?: any) => Promise<unknown>) => Promise<unknown>;
     static cleanup: () => Promise<void>;
     static authenticate: (options?: AuthenticationOptions) => Promise<User>;
     static link: (account: string, options?: LinkOptions) => Promise<User>;
     static unlink: (account: string) => Promise<User>;
+    static deactivateWeb3: () => Promise<void>;
 
     static switchNetwork: (chainId: string | number) => Promise<void>;
     static addNetwork: (
@@ -407,7 +442,7 @@ export namespace Moralis {
       currencyName: string,
       currencySymbol: string,
       rpcUrl: string,
-      blockExplorerUrl: string
+      blockExplorerUrl: string | null
     ) => Promise<void>;
 
     static transfer: (options: TransferOptions) => Promise<TransferResult>;
@@ -443,12 +478,14 @@ export namespace Moralis {
     static getTransactionsCount: (options: CommonConvenienceOptions) => Promise<CountResult>;
 
     // Eth listeners
-    static on: EthOn;
     static getSigningData: () => string;
-    static onConnect: (callback: EthOnConnect) => void;
-    static onDisconnect: (callback: EthOnDisconnect) => void;
-    static onChainChanged: (callback: EthOnChainChanged) => void;
-    static onAccountsChanged: (callback: EthOnAccountsChanged) => void;
+
+    static onAccountChanged: (callback: Web3AccountChangedEventCallback) => () => EventEmitter;
+    static onChainChanged: (callback: Web3ChainChangedEventCallback) => () => EventEmitter;
+    static onConnect: (callback: Web3ConnectEventCallback) => () => EventEmitter;
+    static onDisconnect: (callback: Web3DisconnectEventCallback) => () => EventEmitter;
+    static onWeb3Enabled: (callback: Web3EnabledEventCallback) => () => EventEmitter;
+    static onWeb3Deactivated: (callback: Web3DeactivatedEventCallback) => () => EventEmitter;
   }
 
   /**
@@ -461,8 +498,8 @@ export namespace Moralis {
    */
   class Units {
     static ETH: (value: number | string) => string;
-    static Token: (value: number | string, decimals: number) => string;
-    static FromWei: (value: number | string, decimals: number) => number;
+    static Token: (value: number | string, decimals?: number) => string;
+    static FromWei: (value: number | string, decimals?: number) => number;
   }
 
   /**
