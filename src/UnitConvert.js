@@ -15,7 +15,7 @@ class UnitConverter {
 
   static FromWei(value, decimals) {
     return BigNumber(+value)
-      .div(`1e+${decimals}`)
+      .div(`1e+${decimals ?? 18}`)
       .toNumber();
   }
 }

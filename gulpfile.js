@@ -12,7 +12,6 @@ const terser = require('gulp-terser');
 const watch = require('gulp-watch');
 
 const BUILD = process.env.PARSE_BUILD || 'browser';
-const VERSION = require('./package.json').version;
 
 const transformRuntime = [
   '@babel/plugin-transform-runtime',
@@ -97,8 +96,7 @@ const PLUGINS = {
 
 const DEV_HEADER =
   '/**\n' +
-  ' * Moralis JavaScript SDK v' +
-  VERSION +
+  ' * Moralis JavaScript SDK v<MORALIS_VERSION>' +
   '\n' +
   ' *\n' +
   ' * The source tree of this library can be found at\n' +
@@ -107,8 +105,7 @@ const DEV_HEADER =
 
 const FULL_HEADER =
   '/**\n' +
-  ' * Moralis JavaScript SDK v' +
-  VERSION +
+  ' * Moralis JavaScript SDK v<MORALIS_VERSION>' +
   '\n' +
   ' *\n' +
   ' * Copyright (c) 2015-present, Moralis.\n' +
