@@ -75,10 +75,8 @@ static getErrorMessage(error, url) {
 static async fetch({ endpoint, params }) {
   const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
-      const { web3 } = this.Moralis;
-      
-      if (!params.address && web3) {
-        params.address = await (await web3.eth.getAccounts())[0];
+      if (!params.address) {
+        params.address = this.Moralis.account;
       }
     }
     if(!this.apiKey) {
@@ -116,7 +114,7 @@ static async apiCall(name, options) {
 
       if (!options.address) {
         if (user) {
-          options.address = user.get('ethAddress');
+          options.address = this.Moralis.account
         } else if (web3) {
           options.address = await (await web3.eth.getAccounts())[0];
         }

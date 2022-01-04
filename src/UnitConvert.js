@@ -1,19 +1,16 @@
-import Web3 from 'web3';
-
-/* global window */
-const MWeb3 = typeof Web3 === 'function' ? Web3 : window.Web3;
+import { ethers } from 'ethers';
 
 class UnitConverter {
   static ETH(value) {
-    return MWeb3.utils.toWei(`${value}`, 'ether');
+    return ethers.utils.parseEther(`${value}`).toString();
   }
 
-  static Token(value, decimals) {
-    return MWeb3.utils.toBN(`0x${Math.round(+value * 10 ** decimals).toString(16)}`);
+  static Token(value, decimals = 18) {
+    return ethers.utils.parseUnits(`${value}`, +decimals).toString();
   }
 
-  static FromWei(value, decimals) {
-    return +value / Math.pow(10, decimals ?? 18);
+  static FromWei(value, decimals = 18) {
+    return ethers.utils.formatUnits(value, decimals);
   }
 }
 
