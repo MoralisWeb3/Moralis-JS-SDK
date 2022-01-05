@@ -1,3 +1,13 @@
+# [1.0.0-beta.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.182...v1.0.0-beta.1) (2022-01-05)
+
+
+* feat!: replace web3 for ethers ([7874c77](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7874c7770c9600038e876f7cceca059006813cb9))
+
+
+### BREAKING CHANGES
+
+* Moralis.web3 will use internally Ethers, response types might differ, and Moralis.web3 will no longer return a web3 instance, but an Ethers instance. This can be overwritten via the `web3Library` option when calling `Moralis.start`.
+
 ## [0.0.182](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.181...v0.0.182) (2022-01-04)
 
 
