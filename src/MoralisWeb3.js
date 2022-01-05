@@ -39,15 +39,11 @@ class MoralisWeb3 {
     return this.ensureWeb3IsInstalled();
   }
 
-  static setEnableWeb3(fn) {
-    this.customEnableWeb3 = fn;
-  }
-
   static async enableWeb3(options) {
     let web3;
 
-    if (this.customEnableWeb3) {
-      web3 = await this.customEnableWeb3(options);
+    if (options?.provider === 'customWallet' && options?.customEnableWeb3) {
+      web3 = await options.customEnableWeb3();
     } else {
       if (this.speedyNodeApiKey) {
         options.speedyNodeApiKey = this.speedyNodeApiKey;
