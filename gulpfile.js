@@ -94,29 +94,51 @@ const PLUGINS = {
   ],
 };
 
-const DEV_HEADER =
-  '/**\n' +
-  ' * Moralis JavaScript SDK v<MORALIS_VERSION>' +
-  '\n' +
-  ' *\n' +
-  ' * The source tree of this library can be found at\n' +
-  ' *   https://github.com/MoralisWeb3/Moralis-JS-SDK\n' +
-  ' */\n';
+const getDevHeader = () => {
+  const nextVersion = process.env.NEXT_VERSION;
 
-const FULL_HEADER =
-  '/**\n' +
-  ' * Moralis JavaScript SDK v<MORALIS_VERSION>' +
-  '\n' +
-  ' *\n' +
-  ' * Copyright (c) 2015-present, Moralis.\n' +
-  ' * All rights reserved.\n' +
-  ' *\n' +
-  ' * The source tree of this library can be found at\n' +
-  ' *   https://github.com/MoralisWeb3/Moralis-JS-SDK\n' +
-  ' * This source code is licensed under the BSD-style license found in the\n' +
-  ' * LICENSE file in the root directory of this source tree. An additional grant\n' +
-  ' * of patent rights can be found in the PATENTS file in the same directory.\n' +
-  ' */\n';
+  if (!nextVersion) {
+    throw new Error('NEXT_VERSION not set');
+  }
+
+  return (
+    '/**\n' +
+    ' * Moralis JavaScript SDK v' +
+    nextVersion +
+    '' +
+    '\n' +
+    ' *\n' +
+    ' * The source tree of this library can be found at\n' +
+    ' *   https://github.com/MoralisWeb3/Moralis-JS-SDK\n' +
+    ' */\n'
+  );
+};
+
+const getFullHeader = () => {
+  const nextVersion = process.env.NEXT_VERSION;
+
+  if (!nextVersion) {
+    throw new Error('NEXT_VERSION not set');
+  }
+
+  return (
+    '/**\n' +
+    ' * Moralis JavaScript SDK v' +
+    nextVersion +
+    '' +
+    '\n' +
+    ' *\n' +
+    ' * Copyright (c) 2015-present, Moralis.\n' +
+    ' * All rights reserved.\n' +
+    ' *\n' +
+    ' * The source tree of this library can be found at\n' +
+    ' *   https://github.com/MoralisWeb3/Moralis-JS-SDK\n' +
+    ' * This source code is licensed under the BSD-style license found in the\n' +
+    ' * LICENSE file in the root directory of this source tree. An additional grant\n' +
+    ' * of patent rights can be found in the PATENTS file in the same directory.\n' +
+    ' */\n'
+  );
+};
 
 gulp.task('compile', function () {
   return (
@@ -176,7 +198,7 @@ gulp.task('browserify', function (cb) {
   return stream
     .pipe(source('moralis.js'))
     .pipe(derequire())
-    .pipe(insert.prepend(DEV_HEADER))
+    .pipe(insert.prepend(getDevHeader()))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -197,7 +219,7 @@ gulp.task('browserify-weapp', function (cb) {
   return stream
     .pipe(source('moralis.weapp.js'))
     .pipe(derequire())
-    .pipe(insert.prepend(DEV_HEADER))
+    .pipe(insert.prepend(getDevHeader()))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -216,7 +238,7 @@ gulp.task('browserify-web3api', function (cb) {
   return stream
     .pipe(source('moralis.web3api.js'))
     .pipe(derequire())
-    .pipe(insert.prepend(DEV_HEADER))
+    .pipe(insert.prepend(getDevHeader()))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -224,7 +246,7 @@ gulp.task('minify', function () {
   return gulp
     .src('dist/moralis.js')
     .pipe(terser())
-    .pipe(insert.prepend(FULL_HEADER))
+    .pipe(insert.prepend(getFullHeader()))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
 });
@@ -233,7 +255,7 @@ gulp.task('minify-weapp', function () {
   return gulp
     .src('dist/moralis.weapp.js')
     .pipe(terser())
-    .pipe(insert.prepend(FULL_HEADER))
+    .pipe(insert.prepend(getFullHeader()))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
 });
@@ -242,7 +264,7 @@ gulp.task('minify-web3api', function () {
   return gulp
     .src('dist/moralis.web3api.js')
     .pipe(terser())
-    .pipe(insert.prepend(FULL_HEADER))
+    .pipe(insert.prepend(getFullHeader()))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
 });
