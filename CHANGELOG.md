@@ -1,3 +1,31 @@
+## [0.0.182](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.181...v0.0.182) (2022-01-04)
+
+
+### Bug Fixes
+
+* re-add default decimals value of 18 for fromWei ([f127ab2](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f127ab25cadcfeac3b97ee2357c3f39982423d19))
+
+## [0.0.181](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.180...v0.0.181) (2022-01-03)
+
+
+### Bug Fixes
+
+* update CDN build version correctly ([c3e3044](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c3e3044a364099fbc3fd8e63b7c4b8e610acbc08))
+
+## [0.0.180](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.179...v0.0.180) (2022-01-03)
+
+
+### Bug Fixes
+
+* update build version correctly ([3ba6a19](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3ba6a19575f8acd291d73a93f7acc290e7695bce))
+
+## [0.0.179](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.178...v0.0.179) (2022-01-03)
+
+
+### Bug Fixes
+
+* avoid floating decimals in utils ([0a1de0a](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0a1de0a05fc2b112a8769ef6a9c4f4f80d10ed58))
+
 ## [0.0.178](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.177...v0.0.178) (2021-12-30)
 
 

@@ -9,6 +9,7 @@ deploy:
   script:
     - cd /home/gitlab-runner && rm -rf Moralis-JS-SDK
     - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
+    - git checkout $CI_COMMIT_REF_NAME
     - npm install
     - npm run build
     - git add .

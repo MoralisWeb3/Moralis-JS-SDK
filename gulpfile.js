@@ -98,8 +98,7 @@ const PLUGINS = {
 
 const DEV_HEADER =
   '/**\n' +
-  ' * Moralis JavaScript SDK v' +
-  VERSION +
+  ' * Moralis JavaScript SDK v<MORALIS_VERSION>' +
   '\n' +
   ' *\n' +
   ' * The source tree of this library can be found at\n' +
@@ -108,8 +107,7 @@ const DEV_HEADER =
 
 const FULL_HEADER =
   '/**\n' +
-  ' * Moralis JavaScript SDK v' +
-  VERSION +
+  ' * Moralis JavaScript SDK v<MORALIS_VERSION>' +
   '\n' +
   ' *\n' +
   ' * Copyright (c) 2015-present, Moralis.\n' +
