@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 module.exports = {
   branches: [
+    'fix-versioning-during-deployment',
     'main',
     {
       name: 'beta',
@@ -14,12 +15,6 @@ module.exports = {
       '@semantic-release/changelog',
       {
         changelogFile: 'CHANGELOG.md',
-      },
-    ],
-    [
-      '@semantic-release/exec',
-      {
-        prepareCmd: 'node ./scripts/updateBuildVersions.js ${nextRelease.version}',
       },
     ],
     '@semantic-release/npm',

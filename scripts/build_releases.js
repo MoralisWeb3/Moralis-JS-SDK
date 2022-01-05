@@ -3,6 +3,7 @@ const pkg = require('../package.json');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
+const { getNextReleaseVersion } = require('./getNextReleaseVersion');
 
 const rmDir = function (dirPath) {
   if (fs.existsSync(dirPath)) {
@@ -33,40 +34,43 @@ const execCommand = function (cmd) {
   });
 };
 
-console.log(`Building JavaScript SDK v${pkg.version}...\n`);
-
-console.log('Cleaning up old builds...\n');
-
-rmDir(path.join(__dirname, 'dist'));
-rmDir(path.join(__dirname, 'lib'));
-
-const crossEnv = 'npm run cross-env';
-const gulp = 'npm run gulp';
-
 (async function () {
+  console.log(`Calculating next semantic version`);
+
+  const nextVersion = await getNextReleaseVersion();
+
+  console.log(`Building JavaScript SDK v${nextVersion}...\n`);
+
+  console.log('Cleaning up old builds...\n');
+
+  rmDir(path.join(__dirname, 'dist'));
+  rmDir(path.join(__dirname, 'lib'));
+
+  const crossEnv = 'npm run cross-env';
+  const gulp = 'npm run gulp';
   console.log('Browser Release:');
   console.log('Weapp Release:');
   console.log('Node.js Release:');
   console.log('React Native Release:');
   console.log('Web3Api Release:');
   await Promise.all([
-    execCommand(`${crossEnv} PARSE_BUILD=browser ${gulp} compile`),
-    execCommand(`${crossEnv} PARSE_BUILD=weapp ${gulp} compile`),
-    execCommand(`${crossEnv} PARSE_BUILD=node ${gulp} compile`),
-    execCommand(`${crossEnv} PARSE_BUILD=react-native ${gulp} compile`),
+    execCommand(`${crossEnv} PARSE_BUILD=browser NEXT_VERSION=${nextVersion} ${gulp} compile`),
+    execCommand(`${crossEnv} PARSE_BUILD=weapp NEXT_VERSION=${nextVersion} ${gulp} compile`),
+    execCommand(`${crossEnv} PARSE_BUILD=node NEXT_VERSION=${nextVersion} ${gulp} compile`),
+    execCommand(`${crossEnv} PARSE_BUILD=react-native NEXT_VERSION=${nextVersion} ${gulp} compile`),
     execCommand(
       `npm run generate-web3Api && ${crossEnv} PARSE_BUILD=web3api ${gulp} compile-web3api`
     ),
   ]);
   console.log('Bundling and minifying for CDN distribution:');
   await Promise.all([
-    execCommand(`${gulp} browserify`),
-    execCommand(`${gulp} browserify-weapp`),
-    execCommand(`${gulp} browserify-web3api`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-weapp`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-web3api`),
   ]);
   await Promise.all([
-    execCommand(`${gulp} minify`),
-    execCommand(`${gulp} minify-weapp`),
-    execCommand(`${gulp} minify-web3api`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-weapp`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-web3api`),
   ]);
 })();
