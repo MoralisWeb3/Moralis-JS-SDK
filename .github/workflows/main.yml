@@ -3,9 +3,11 @@ on:
   pull_request:
     branches:
       - main
+      - beta
   push:
     branches:
       - main
+      - beta
 jobs:
   setup:
     name: Build dependencies
