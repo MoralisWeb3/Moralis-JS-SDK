@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 
+// DEBUG
+
 const rmDir = function (dirPath) {
   if (fs.existsSync(dirPath)) {
     const files = fs.readdirSync(dirPath);
