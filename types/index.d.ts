@@ -228,7 +228,7 @@ export namespace Moralis {
     static cleanupStaleData: () => void;
   }
 
-  type Web3ProviderType = 'metamask' | 'walletconnect' | 'walletConnect' | 'wc';
+  type Web3ProviderType = 'metamask' | 'walletconnect' | 'walletConnect' | 'wc' | 'customWallet';
   type AuthenticationType = 'evm' | 'dot' | 'polkadot' | 'kusama' | 'erd' | 'elrond' | 'sol';
   type Web3Provider = MoralisWalletConnectProvider | MoralisInjectedProvider;
   interface AuthenticationOptions {
@@ -236,6 +236,7 @@ export namespace Moralis {
     type?: AuthenticationType;
     chainId?: number;
     signingMessage?: string;
+    customEnableWeb3?: () => Promise<NativeWeb3>;
   }
   type EnableOptions = Pick<AuthenticationOptions, 'provider' | 'chainId'>;
   type LinkOptions = Object.SaveOptions;
@@ -394,7 +395,6 @@ export namespace Moralis {
     static enableWeb3: (options?: EnableOptions) => Promise<NativeWeb3>;
     /** @deprecated use enableWeb3 instead */
     static enable: (options?: EnableOptions) => Promise<NativeWeb3>;
-    static setEnableWeb3: (enable: (options?: any) => Promise<NativeWeb3>) => Promise<NativeWeb3>;
     static cleanup: () => Promise<void>;
     static authenticate: (options?: AuthenticationOptions) => Promise<User>;
     static link: (account: string, options?: LinkOptions) => Promise<User>;
