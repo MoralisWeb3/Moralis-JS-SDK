@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.16.5",
-    "@babel/runtime-corejs3": "7.16.5",
+    "@babel/runtime-corejs3": "7.16.7",
     "axios": "0.24.0",
     "ethers": "5.5.1",
     "react-native-crypto-js": "1.0.0",
