@@ -56,11 +56,13 @@ const fetchEndpoints = async () => {
 };
 
 /**
- * Compares if the semantic version of version1 is larget than version2
+ * Compares if the semantic version of version1 is larger than version2
  */
 const isSemanticVersionLarger = (version1, version2) => {
-  const version1Arr = version1.split('.').map(s => Number(s));
-  const version2Arr = version2.split('.').map(s => Number(s));
+  const [version1Main, version1Pre] = version1.split('-');
+  const version1Arr = version1Main.split('.').map(s => Number(s));
+  const [version2Main, version2Pre] = version2.split('-');
+  const version2Arr = version2Main.split('.').map(s => Number(s));
 
   for (let index = 0; index < 3; index++) {
     const compare1 = version1Arr[index];
@@ -69,6 +71,19 @@ const isSemanticVersionLarger = (version1, version2) => {
     if (compare1 < compare2) return false;
     if (!Number.isNaN(compare1) && Number.isNaN(compare2)) return true;
     if (Number.isNaN(compare1) && !Number.isNaN(compare2)) return false;
+  }
+
+  // Compare pre-releasees if main versions are the same
+  if (version1Pre && version2Pre) {
+    const version1PreNumber = version1Pre.split('.')[1] ?? 0;
+    const version2PreNumber = version2Pre.split('.')[1] ?? 0;
+
+    return version1PreNumber > version2PreNumber;
+  }
+
+  // If version2 is a pre-release and version1 is not, then version 1 is newer
+  if (version2Pre) {
+    return true;
   }
 
   return false;
@@ -81,7 +96,7 @@ const checkForSdkUpdates = async () => {
       'https://www.unpkg.com/moralis/package.json'
     );
     const latestVersion = response.version;
-    const installedVersion = process.env.npm_package_version;
+    const installedVersion = process.env.NEXT_VERSION;
 
     if (isSemanticVersionLarger(latestVersion, installedVersion))
       // eslint-disable-next-line no-console
