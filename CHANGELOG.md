@@ -1,3 +1,12 @@
+# [1.0.0-beta.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-01-05)
+
+
+### Bug Fixes
+
+* debug ([c426bd7](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c426bd7b105ec8c63af2d6ec288f8a5e7695a9eb))
+* set correct version during compiling ([5723a14](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5723a14d29e72f221008cb59fc503b1ff9930d76))
+* update sdk-check to account for beta branches ([077c3f9](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/077c3f923c00e734b121397aad32438a28d6de84))
+
 # [1.0.0-beta.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.182...v1.0.0-beta.1) (2022-01-05)
 
 
