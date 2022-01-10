@@ -13,3 +13,5 @@ class UnitConverter {
     return ethers.utils.formatUnits(value, decimals);
   }
 }
+
+module.exports = UnitConverter;
