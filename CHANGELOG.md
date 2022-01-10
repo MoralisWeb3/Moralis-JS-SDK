@@ -1,3 +1,10 @@
+# [1.0.0-beta.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-01-10)
+
+
+### Bug Fixes
+
+* export for Moralis.Units ([106dbc1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/106dbc1f11c8ff720507a9f93ddb5c2fb9ebaaa0))
+
 # [1.0.0-beta.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-01-05)
 
 
