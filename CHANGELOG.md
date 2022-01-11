@@ -1,3 +1,10 @@
+# [1.0.0-beta.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-01-11)
+
+
+### Bug Fixes
+
+* prevent walletconnect disconnect error ([bc8a63b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc8a63be3dd271d925ad540d1c333e8cbb19d8c9))
+
 # [1.0.0-beta.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-01-10)
 
 
