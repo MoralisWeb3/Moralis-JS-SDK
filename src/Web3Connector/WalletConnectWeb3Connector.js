@@ -86,7 +86,13 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
     this.account = null;
     this.chainId = null;
 
-    await this.provider.disconnect();
+    if (this.provider) {
+      try {
+        await this.provider.disconnect();
+      } catch {
+        // Do nothing
+      }
+    }
   }
 }
 
