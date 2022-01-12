@@ -106,7 +106,6 @@ export namespace Moralis {
     plugins?: PluginSpecs[];
     javascriptKey?: string;
     masterKey?: string;
-    web3Library?: unknown;
   }
 
   let start: (options: StartOptions) => Promise<void>;

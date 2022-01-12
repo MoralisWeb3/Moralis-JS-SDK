@@ -25,7 +25,7 @@ const ERROR_WEB3_MISSING =
 
 class MoralisWeb3 {
   static speedyNodeApiKey;
-  // Web3 instance for the user, created via the provided "web3Library" during Moralis.start
+  // Ethers.js instance that will be set after calling enableWeb3
   static web3 = null;
   // Internal web3 provider, containing the Ethers.js Web3 library for internal usage for handling transactions, contracts etc.
   static internalWeb3Provider = null;
@@ -125,9 +125,7 @@ class MoralisWeb3 {
 
     let web3 = null;
 
-    if (this.web3Library) {
-      web3 = new this.web3Library(provider);
-    }
+    web3 = new ethers.providers.Web3Provider(provider);
 
     this.web3 = web3;
     MoralisEmitter.emit(InternalWeb3Events.WEB3_ENABLED, {
@@ -139,14 +137,6 @@ class MoralisWeb3 {
     });
 
     return web3;
-  }
-
-  static async enable(options) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'Moralis.enable() is deprecated and will be removed, use Moralis.enableWeb3() instead.'
-    );
-    return this.enableWeb3(options);
   }
 
   static isDotAuth(options) {
@@ -572,7 +562,6 @@ class MoralisWeb3 {
     // eslint-disable-next-line camelcase
     token_id,
     system = 'evm',
-    awaitReceipt = true,
   } = {}) {
     // Allow snake-case for backwards compatibility
     // eslint-disable-next-line camelcase
@@ -586,7 +575,6 @@ class MoralisWeb3 {
       amount,
       tokenId,
       system,
-      awaitReceipt,
     };
 
     TransferUtils.isSupportedType(type);
@@ -639,11 +627,7 @@ class MoralisWeb3 {
 
     const result = await transferOperation;
 
-    if (awaitReceipt) return transferOperation;
-
-    const confirmed = await result.wait();
-
-    return confirmed;
+    return result;
   }
 
   static async executeFunction({
@@ -651,7 +635,6 @@ class MoralisWeb3 {
     abi,
     functionName,
     msgValue,
-    awaitReceipt = true,
     params = {},
     overrides = {},
   } = {}) {
@@ -704,11 +687,7 @@ class MoralisWeb3 {
       msgValue ? { value: ethers.BigNumber.from(`${msgValue}`) } : {}
     );
 
-    if (awaitReceipt || isReadFunction) return response;
-
-    const confirmed = await response.wait();
-
-    return confirmed;
+    return response;
   }
 
   static getSigningData() {
