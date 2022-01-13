@@ -1,3 +1,10 @@
+## [0.0.184](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.183...v0.0.184) (2022-01-13)
+
+
+### Bug Fixes
+
+* prevent loading issue when unpkg is down ([#192](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/192)) ([4d0f787](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4d0f78743b9695f8a432a75d96a4c204283f5f04))
+
 ## [0.0.183](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.182...v0.0.183) (2022-01-05)
 
 
