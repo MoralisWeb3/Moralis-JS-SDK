@@ -92,6 +92,7 @@ export namespace Moralis {
   let encryptedUser: boolean;
   let isInitialized: boolean;
   let Plugins: Record<string, any>;
+  let Chains: IChains;
 
   interface PluginSpecs {
     name: string;
@@ -266,7 +267,6 @@ export namespace Moralis {
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type AvalancheTestChain = 'avalanche testnet' | 'avax testnet' | '0xa869' | 'fuji';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
-  type Chains = IChains;
   type Chain =
     | EthChain
     | RopstenChain
