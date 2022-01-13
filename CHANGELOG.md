@@ -1,3 +1,10 @@
+# [1.0.0-beta.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-01-13)
+
+
+### Features
+
+* add Moralis.Chains ([faa8aca](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/faa8aca6eb63937721c9090d27610a2eddef8c06))
+
 # [1.0.0-beta.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-01-11)
 
 
