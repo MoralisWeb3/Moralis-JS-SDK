@@ -64,6 +64,22 @@ declare enum ErrorCode {
   X_DOMAIN_REQUEST = 602,
 }
 
+declare enum EChains {
+  ETH_MAINENT = '0x1',
+  ETH_ROPSTEN = '0x3',
+  ETH_GOERLI = '0x5',
+  ETH_KOVAN = '0x2a',
+  ETH_RINKBEY = '0x4',
+  ETH_LOCALDEVCHAIN = '0x539',
+  POLYGON_MAINNET = '0x89',
+  POLYGON_MUMBAI = '0x13881',
+  BSC_MAINNET = '0x38',
+  BSC_TESTNET = '0x61',
+  AVAX_MAINNET = '0xa86a',
+  AVAX_TESTNET = '0xa869',
+  FANTOM_MAINNET = '0xfa',
+}
+
 export namespace Moralis {
   let applicationId: string;
   let javaScriptKey: string | undefined;
@@ -76,6 +92,7 @@ export namespace Moralis {
   let encryptedUser: boolean;
   let isInitialized: boolean;
   let Plugins: Record<string, any>;
+  let Chains: IChains;
 
   interface PluginSpecs {
     name: string;
@@ -250,7 +267,6 @@ export namespace Moralis {
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type AvalancheTestChain = 'avalanche testnet' | 'avax testnet' | '0xa869' | 'fuji';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
-
   type Chain =
     | EthChain
     | RopstenChain
@@ -1806,6 +1822,22 @@ export namespace Moralis {
       success?: (response: any) => void;
       error?: (response: any) => void;
     }
+  }
+
+  interface IChains {
+    ETH_MAINET: EChains.ETH_MAINENT;
+    ETH_ROPSTEN: EChains.ETH_ROPSTEN;
+    ETH_GOERLI: EChains.ETH_GOERLI;
+    ETH_KOVAN: EChains.ETH_KOVAN;
+    ETH_RINKBEY: EChains.ETH_RINKBEY;
+    ETH_LOCALDEVCHAIN: EChains.ETH_LOCALDEVCHAIN;
+    POLYGON_MAINNET: EChains.POLYGON_MAINNET;
+    POLYGON_MUMBAI: EChains.POLYGON_MUMBAI;
+    BSC_MAINNET: EChains.BSC_MAINNET;
+    BSC_TESTNET: EChains.BSC_TESTNET;
+    AVAX_MAINNET: EChains.AVAX_MAINNET;
+    AVAX_TESTNET: EChains.AVAX_TESTNET;
+    FANTOM_MAINNET: EChains.FANTOM_MAINNET;
   }
 
   class Error {
