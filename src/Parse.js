@@ -68,7 +68,7 @@ class Moralis extends MoralisWeb3 {
     }
 
     // Check if SDK is updated
-    await checkForSdkUpdates();
+    checkForSdkUpdates();
   }
 
   /**
