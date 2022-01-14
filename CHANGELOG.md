@@ -1,3 +1,10 @@
+# [1.0.0-beta.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2022-01-14)
+
+
+### Features
+
+* remove web3Library ([96f2f83](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/96f2f834e912927bd89a45937556c1e5d6d3d443))
+
 # [1.0.0-beta.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-01-13)
 
 
