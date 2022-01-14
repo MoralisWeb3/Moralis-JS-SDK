@@ -13,6 +13,7 @@
 * add Moralis.Chains ([faa8aca](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/faa8aca6eb63937721c9090d27610a2eddef8c06))
 
 # [1.0.0-beta.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-01-11)
+## [0.0.184](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.183...v0.0.184) (2022-01-13)
 
 
 ### Bug Fixes
@@ -27,6 +28,9 @@
 * export for Moralis.Units ([106dbc1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/106dbc1f11c8ff720507a9f93ddb5c2fb9ebaaa0))
 
 # [1.0.0-beta.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-01-05)
+* prevent loading issue when unpkg is down ([#192](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/192)) ([4d0f787](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4d0f78743b9695f8a432a75d96a4c204283f5f04))
+
+## [0.0.183](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.182...v0.0.183) (2022-01-05)
 
 
 ### Bug Fixes
