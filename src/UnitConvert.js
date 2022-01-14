@@ -10,7 +10,13 @@ class UnitConverter {
   }
 
   static FromWei(value, decimals = 18) {
-    return ethers.utils.formatUnits(value, decimals);
+    const result = ethers.utils.formatUnits(value, decimals);
+    // formatUnits will always add a trailing 0, remove this as we want to return "1" instead of "1.0"
+    const splitResult = result.split('.');
+    if (splitResult[1] === '0') {
+      return splitResult[0];
+    }
+    return result;
   }
 }
 
