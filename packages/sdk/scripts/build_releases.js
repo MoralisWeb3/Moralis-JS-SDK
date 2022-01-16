@@ -65,7 +65,7 @@ const execCommand = function (cmd) {
   console.log('Bundling and minifying for CDN distribution:');
   await Promise.all([
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify`),
-    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-weapp`),
+    // execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-weapp`),
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-web3api`),
   ]);
   await Promise.all([

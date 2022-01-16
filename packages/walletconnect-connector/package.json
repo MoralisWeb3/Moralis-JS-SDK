@@ -1,0 +1,73 @@
+{
+  "name": "@moralis/walletconnect-connector",
+  "version": "1.0.0",
+  "description": "walletconnect web3 connector",
+  "keywords": [
+    "moralis",
+    "web3",
+    "walletconnect"
+  ],
+  "author": "Shalom Ogunshola <shalomogunshola@gmail.com>",
+  "homepage": "https://github.com/MoralisWeb3/Moralis-JS-SDK#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "dist": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib/",
+    "dist/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoralisWeb3/Moralis-JS-SDK.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "gulp compile && gulp browserify"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.16.5",
+    "@babel/runtime-corejs3": "7.16.5",
+    "@walletconnect/web3-provider": "^1.7.1"
+  },
+  "bugs": {
+    "url": "https://github.com/MoralisWeb3/Moralis-JS-SDK/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.5",
+    "@babel/plugin-transform-flow-comments": "^7.16.5",
+    "@babel/plugin-transform-flow-strip-types": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.5",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-inline-package-json": "2.0.0",
+    "babel-plugin-minify-dead-code-elimination": "0.5.1",
+    "babel-plugin-transform-inline-environment-variables": "0.4.3",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-react": "^7.28.0",
+    "events": "^3.3.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-derequire": "3.0.0",
+    "gulp-eslint": "^6.0.0",
+    "vinyl-source-stream": "2.0.0"
+  }
+}

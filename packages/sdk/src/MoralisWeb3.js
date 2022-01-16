@@ -11,7 +11,7 @@ import MoralisSol from './MoralisSol';
 import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import createSigningData from './createSigningData';
-import WalletConnectWeb3Connector from './Web3Connector/WalletConnectWeb3Connector';
+import WalletConnectWeb3Connector from '@moralis/walletconnect-connector';
 import InjectedWeb3Connector from './Web3Connector/InjectedWeb3Connector';
 import NetworkWeb3Connector from './Web3Connector/NetworkWeb3Connector';
 import ParseError from './ParseError';
