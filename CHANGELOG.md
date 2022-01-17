@@ -1,62 +1,70 @@
 # [1.0.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.184...v1.0.0) (2022-01-17)
 
-
-### Bug Fixes
-
-* export for Moralis.Units ([106dbc1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/106dbc1f11c8ff720507a9f93ddb5c2fb9ebaaa0))
-* prevent walletconnect disconnect error ([bc8a63b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc8a63be3dd271d925ad540d1c333e8cbb19d8c9))
-
-
-* feat!: replace web3 for ethers ([7874c77](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7874c7770c9600038e876f7cceca059006813cb9))
-
-
-### Features
-
-* add Moralis.Chains ([faa8aca](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/faa8aca6eb63937721c9090d27610a2eddef8c06))
-* remove web3Library ([96f2f83](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/96f2f834e912927bd89a45937556c1e5d6d3d443))
-
-
+- Removed dependency of web3.js in favour of ethers.js
+- Introducing custom connectors
+  
 ### BREAKING CHANGES
+#### Moralis.web3 and Moralis.enableWeb3
+Moralis.web3 and Moralis.enableWeb3 will now return an instance of Ethers.js instead of an instance of Web3.js.
+To account for these changes you should
 
-* Moralis.web3 will use internally Ethers, response types might differ, and Moralis.web3 will no longer return a web3 instance, but an Ethers instance. This can be overwritten via the `web3Library` option when calling `Moralis.start`.
+1) Adjust your code to use the Ethers.js library
 
-# [1.0.0-beta.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2022-01-14)
+Or
+
+2) Initialize your own Web3 library by using `Moralis.provider`
+```js
+import Web3 from 'web3'
+import Moralis from 'moralis'
+
+await Moralis.enableWeb3()
+const web3 = new Web3(Moralis.provider)
+```
+
+#### Return values of Moralis.executeFunction and Moralis.transfer
+Return values are changed for Moralis.executeFunction and Moralis.transfer. They are now a [transaction response](https://docs.ethers.io/v5/api/providers/types/#providers-TransactionResponse) from Ethers.js:
+This object contains all data about the transaction. If you need data about the **result** of the transation, then you need to wait for the transaction to be **confirmed**.
+
+You can do this via `transaction.wait()` to wait for 1 confirmation (or `transaction.wait(5)` to wait for 5 confirmations for example):
+
+```js
+const transaction = await Moralis.transfer(options)
+const result = await transaction.wait()
+```
+
+#### Moralis.onXXX events have changed
+Instead of returning the results from the provider directly, moralis generalizes these events so that they can be used for anny connector: metamask, walletconnect, network etc.
+A notable change is the renamning of `Moralis.onAccountsChanged` to `Moralis.onAccountChanged`
+
+#### Customize enableWeb3 / custom connectors
+Previously, it was possible to overwrite the `enableWeb3()` function. This allowed for custom implementation to connect wallets that are not supported by Moralis out-of-the-box.
+This approach is not possible anymore, to allow for better scaling and more consistent behavior.
+
+Instead, now you can implement your own `connector`, which extends the [AbstractConnector](https://github.com/MoralisWeb3/Moralis-JS-SDK/blob/beta/src/Web3Connector/AbstractWeb3Connector.js) class.
+
+This class should implement
+
+- An `activate()` function that resolves to an object with:
+  - provider: A valid [EIP-1193 provider](https://eips.ethereum.org/EIPS/eip-1193)
+  - chainId (optional): the chain that is being connected to (in hex)
+  - account (optional): the account of the user that is being connected
+- Subscribes to the EIP-1193 events. This should be mostly done automatically by calling `this.subscribeToEvents(provider)` in the `activate` function.
+- the `type` field to indicate a name for the connector
+- (optionally) a `deactivate` function that extends the default deactivate function. Implement this when you need to clean up data/subscriptions upon ending/switching the connection.
+
+Then you can include this `CustomConnector` in the authenticate/enableWeb3 call as an option:
+```
+Moralis.authenticate({ connector: CustomConnector })
+```
+
+See for example implementations:
+- The [WalletConnectConnector](https://github.com/MoralisWeb3/Moralis-JS-SDK/blob/beta/src/Web3Connector/WalletConnectWeb3Connector.js), that is used when you specify `provider: "walletconnect"`.
+- The [InjectedWeb3Connector](https://github.com/MoralisWeb3/Moralis-JS-SDK/blob/beta/src/Web3Connector/InjectedWeb3Connector.js) (metamask), that is used when you don't specify any connector.
 
 
-### Bug Fixes
 
-* prevent loading issue when unpkg is down ([#192](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/192)) ([4d0f787](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4d0f78743b9695f8a432a75d96a4c204283f5f04))
-
-# [1.0.0-beta.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2022-01-14)
-
-
-### Features
-
-* remove web3Library ([96f2f83](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/96f2f834e912927bd89a45937556c1e5d6d3d443))
-
-# [1.0.0-beta.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2022-01-13)
-
-
-### Features
-
-* add Moralis.Chains ([faa8aca](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/faa8aca6eb63937721c9090d27610a2eddef8c06))
-
-# [1.0.0-beta.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2022-01-11)
 ## [0.0.184](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.183...v0.0.184) (2022-01-13)
 
-
-### Bug Fixes
-
-* prevent walletconnect disconnect error ([bc8a63b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc8a63be3dd271d925ad540d1c333e8cbb19d8c9))
-
-# [1.0.0-beta.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-01-10)
-
-
-### Bug Fixes
-
-* export for Moralis.Units ([106dbc1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/106dbc1f11c8ff720507a9f93ddb5c2fb9ebaaa0))
-
-# [1.0.0-beta.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-01-05)
 * prevent loading issue when unpkg is down ([#192](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/192)) ([4d0f787](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4d0f78743b9695f8a432a75d96a4c204283f5f04))
 
 ## [0.0.183](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.182...v0.0.183) (2022-01-05)
@@ -68,15 +76,6 @@
 * set correct version during compiling ([5723a14](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5723a14d29e72f221008cb59fc503b1ff9930d76))
 * update sdk-check to account for beta branches ([077c3f9](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/077c3f923c00e734b121397aad32438a28d6de84))
 
-# [1.0.0-beta.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.182...v1.0.0-beta.1) (2022-01-05)
-
-
-* feat!: replace web3 for ethers ([7874c77](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7874c7770c9600038e876f7cceca059006813cb9))
-
-
-### BREAKING CHANGES
-
-* Moralis.web3 will use internally Ethers, response types might differ, and Moralis.web3 will no longer return a web3 instance, but an Ethers instance. This can be overwritten via the `web3Library` option when calling `Moralis.start`.
 
 ## [0.0.182](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.181...v0.0.182) (2022-01-04)
 
