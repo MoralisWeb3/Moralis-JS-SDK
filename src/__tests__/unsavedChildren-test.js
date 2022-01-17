@@ -9,7 +9,7 @@
 
 jest.dontMock('../ParseFile');
 jest.dontMock('../unsavedChildren');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
 function mockObject({ className, localId, id, attributes, dirty }) {
   this.className = className;

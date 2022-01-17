@@ -1,6 +1,6 @@
 {
   "name": "moralis",
-  "version": "0.0.184",
+  "version": "1.0.0-beta.7",
   "description": "The Moralis JavaScript SDK",
   "homepage": "https://docs.moralis.io",
   "keywords": [
@@ -34,25 +34,14 @@
     "react-native": false
   },
   "dependencies": {
-    "@babel/runtime": "^7.16.5",
-    "@babel/runtime-corejs3": "^7.16.5",
-    "@metamask/detect-provider": "^1.2.0",
-    "axios": "^0.24.0",
-    "bignumber.js": "^9.0.2",
-    "lint-staged": "^12.1.2",
+    "@babel/runtime": "7.16.5",
+    "@babel/runtime-corejs3": "7.16.5",
+    "axios": "0.24.0",
+    "ethers": "5.5.1",
     "react-native-crypto-js": "1.0.0",
     "uuid": "^8.3.2",
-    "web3": "^1.6.1",
     "ws": "^8.3.0",
     "xmlhttprequest": "1.8.0"
-  },
-  "peerDependencies": {
-    "@walletconnect/web3-provider": "^1.6.1"
-  },
-  "peerDependenciesMeta": {
-    "@walletconnect/web3-provider": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -84,6 +73,7 @@
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.25.3",
     "express": "^4.17.2",
+    "glob": "^7.2.0",
     "gulp": "^4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-derequire": "3.0.0",
@@ -98,6 +88,8 @@
     "jest-environment-jsdom": "^27.4.4",
     "jsdoc": "^3.6.7",
     "jsdoc-babel": "0.5.0",
+    "lint-staged": "^12.1.2",
+    "merge-stream": "^2.0.0",
     "metro-react-native-babel-preset": "0.66.2",
     "openapi-typescript": "^4.4.0",
     "parse-server": "git+https://git@github.com/parse-community/parse-server.git#alpha",

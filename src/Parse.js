@@ -17,6 +17,8 @@ import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
 const { checkForSdkUpdates } = require('./utils');
+import { ethers } from 'ethers';
+
 /**
  * Contains all Moralis API classes and functions.
  *
@@ -305,7 +307,7 @@ Moralis.Elrond = require('./MoralisErd').default;
 Moralis.Erd = Moralis.Elrond;
 Moralis.Dot = require('./MoralisDot').default;
 Moralis.UI = require('./MoralisUI').default;
-
+Moralis.Chains = require('./Chians').default;
 Moralis._request = function (...args) {
   return CoreManager.getRESTController().request.apply(null, args);
 };
