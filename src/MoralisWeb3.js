@@ -16,6 +16,7 @@ import InjectedWeb3Connector from './Web3Connector/InjectedWeb3Connector';
 import NetworkWeb3Connector from './Web3Connector/NetworkWeb3Connector';
 import ParseError from './ParseError';
 import InternalWeb3Provider, { InternalWeb3Events } from './InternalWeb3Provider';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 const MoralisEmitter = new EventEmitter();
 
@@ -762,6 +763,10 @@ class MoralisWeb3 {
 
   static addNetwork(...args) {
     return this._forwardToConnector('addNetwork', args);
+  }
+
+  static async isMetaMaskInstalled() {
+    return (await detectEthereumProvider()) ? true : false;
   }
 
   static memoryCard = {
