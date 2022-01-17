@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0...v1.0.1) (2022-01-17)
+
+
+### Bug Fixes
+
+* re-add isMetaMaskInstalled ([4673e18](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4673e18125d92dc65815f70eba176df445dfe523))
+
 # [1.0.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.184...v1.0.0) (2022-01-17)
 
 - Removed dependency of web3.js in favour of ethers.js
