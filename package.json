@@ -6,6 +6,7 @@
   },
   "scripts": {
     "build": "npx lerna run build",
-    "release": "npm publish"
+    "release": "npm publish",
+    "bootstrap": "npx lerna bootstrap"
   }
 }
