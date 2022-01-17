@@ -1,3 +1,25 @@
+# [1.0.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v0.0.184...v1.0.0) (2022-01-17)
+
+
+### Bug Fixes
+
+* export for Moralis.Units ([106dbc1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/106dbc1f11c8ff720507a9f93ddb5c2fb9ebaaa0))
+* prevent walletconnect disconnect error ([bc8a63b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc8a63be3dd271d925ad540d1c333e8cbb19d8c9))
+
+
+* feat!: replace web3 for ethers ([7874c77](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7874c7770c9600038e876f7cceca059006813cb9))
+
+
+### Features
+
+* add Moralis.Chains ([faa8aca](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/faa8aca6eb63937721c9090d27610a2eddef8c06))
+* remove web3Library ([96f2f83](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/96f2f834e912927bd89a45937556c1e5d6d3d443))
+
+
+### BREAKING CHANGES
+
+* Moralis.web3 will use internally Ethers, response types might differ, and Moralis.web3 will no longer return a web3 instance, but an Ethers instance. This can be overwritten via the `web3Library` option when calling `Moralis.start`.
+
 # [1.0.0-beta.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2022-01-14)
 
 
