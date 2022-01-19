@@ -88,7 +88,14 @@ const makeMethod = (pathDetails, path) => {
         hasPath ? `& ${operations}["parameters"]["path"]` : ''
       }`
     : undefined;
-  const result = `${operations}["responses"]["200"]["content"]["application/json"]`;
+
+  const responseCodes = Object.keys(pathDetails[path].data?.responses);
+  const responseCode = responseCodes.length > 0 ? responseCodes[0] : '200';
+
+  const result =
+    responseCode === '200'
+      ? `${operations}["responses"]["${responseCode}"]["content"]["application/json"]`
+      : 'unknown';
   const optionParam = options ? `options: ${options}` : '';
 
   return `    ${path}: (${optionParam}) => Promise<${result}>;

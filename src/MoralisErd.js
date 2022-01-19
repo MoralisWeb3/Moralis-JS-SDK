@@ -62,9 +62,9 @@ class MoralisErd {
     const signature = await MoralisErd.sign(data);
     const authData = { id: erdAddress, signature, data };
     const user = await ParseUser.logInWith('moralisErd', { authData });
-    await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
-    user.set('erdAccounts', uniq([].concat(accounts, user.get('erdAccounts') ?? [])));
+    await user.setACL(new ParseACL(user));
+    user.addAllUnique('erdAccounts', accounts);
     user.set('erdAddress', erdAddress);
     await user.save();
     return user;
@@ -82,7 +82,7 @@ class MoralisErd {
       const authData = { id: erdAddress, signature, data };
       await user.linkWith('moralisErd', { authData });
     }
-    user.set('erdAccounts', uniq([erdAddress].concat(user.get('erdAccounts') ?? [])));
+    user.addAllUnique('erdAccounts', [erdAddress]);
     user.set('erdAddress', erdAddress);
     await user.save();
     return user;
@@ -111,10 +111,6 @@ class MoralisErd {
   static getSigningData() {
     return 'Moralis Authentication';
   }
-}
-
-function uniq(arr) {
-  return arr.filter((v, i) => arr.indexOf(v) === i);
 }
 
 export default MoralisErd;

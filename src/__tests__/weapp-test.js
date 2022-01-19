@@ -12,7 +12,7 @@ jest.dontMock('../Socket.weapp');
 jest.dontMock('../Storage');
 jest.dontMock('crypto-js/aes');
 jest.dontMock('./test_helpers/mockWeChat');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
 const CoreManager = require('../CoreManager');
 const mockWeChat = require('./test_helpers/mockWeChat');

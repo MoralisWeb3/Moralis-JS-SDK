@@ -75,10 +75,8 @@ static getErrorMessage(error, url) {
 static async fetch({ endpoint, params }) {
   const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
-      const { web3 } = this.Moralis;
-      
-      if (!params.address && web3) {
-        params.address = await (await web3.eth.getAccounts())[0];
+      if (!params.address) {
+        params.address = this.Moralis.account;
       }
     }
     if(!this.apiKey) {
@@ -152,14 +150,15 @@ getNFTTrades: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET",
 getNFTLowestPrice: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTLowestPrice","url":"/nft/:address/lowestprice"}, params: options }),
 getTokenMetadataBySymbol: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenMetadataBySymbol","url":"/erc20/metadata/symbols"}, params: options }),
 getTokenPrice: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenPrice","url":"/erc20/:address/price"}, params: options }),
-getTokenAdressTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenAdressTransfers","url":"/erc20/:address/transfers"}, params: options }),
+getTokenAddressTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenAddressTransfers","url":"/erc20/:address/transfers"}, params: options }),
 getTokenAllowance: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenAllowance","url":"/erc20/:address/allowance"}, params: options }),
 searchNFTs: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"searchNFTs","url":"/nft/search"}, params: options }),
+getNftTransfersFromToBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNftTransfersFromToBlock","url":"/nft/transfers"}, params: options }),
 getAllTokenIds: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getAllTokenIds","url":"/nft/:address"}, params: options }),
 getContractNFTTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getContractNFTTransfers","url":"/nft/:address/transfers"}, params: options }),
-getNftTransfersFromToBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNftTransfersFromToBlock","url":"/nft/transfers"}, params: options }),
 getNFTOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTOwners","url":"/nft/:address/owners"}, params: options }),
 getNFTMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTMetadata","url":"/nft/:address/metadata"}, params: options }),
+syncNFTContract: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"PUT","group":"token","name":"syncNFTContract","url":"/nft/:address/sync"}, params: options }),
 getTokenIdMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdMetadata","url":"/nft/:address/:token_id"}, params: options }),
 getTokenIdOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdOwners","url":"/nft/:address/:token_id/owners"}, params: options }),
 getWalletTokenIdTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getWalletTokenIdTransfers","url":"/nft/:address/:token_id/transfers"}, params: options }),

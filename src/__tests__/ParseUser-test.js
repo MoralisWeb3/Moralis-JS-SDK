@@ -30,11 +30,11 @@ jest.dontMock('../unique');
 jest.dontMock('../UniqueInstanceStateController');
 jest.dontMock('crypto-js/aes');
 jest.dontMock('crypto-js/enc-utf8');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
-jest.mock('uuid/v4', () => {
+jest.mock('uuid', () => {
   let value = 0;
-  return () => value++;
+  return { v4: () => value++ };
 });
 jest.dontMock('./test_helpers/mockXHR');
 jest.dontMock('./test_helpers/mockAsyncStorage');
@@ -54,7 +54,7 @@ CoreManager.set('JAVASCRIPT_KEY', 'B');
 CoreManager.setCryptoController(CryptoController);
 
 function flushPromises() {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise(resolve => setTimeout(resolve, 0));
 }
 
 describe('ParseUser', () => {

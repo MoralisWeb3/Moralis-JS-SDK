@@ -33,15 +33,14 @@ jest.dontMock('../UniqueInstanceStateController');
 jest.dontMock('../unsavedChildren');
 jest.dontMock('../ParseACL');
 jest.dontMock('../LocalDatastore');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
-jest.mock('uuid/v4', () => {
+jest.mock('uuid', () => {
   let value = 0;
-  return () => value++;
+  return { v4: () => value++ };
 });
-jest.dontMock('./test_helpers/mockXHR');
 
-jest.useFakeTimers();
+jest.dontMock('./test_helpers/mockXHR');
 
 const mockRelation = function (parent, key) {
   // The parent and key fields will be populated by the parent
@@ -170,7 +169,7 @@ CoreManager.set('VERSION', 'V');
 const { SetOp, UnsetOp, IncrementOp } = require('../ParseOp');
 
 function flushPromises() {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise(resolve => setTimeout(resolve, 0));
 }
 
 describe('ParseObject', () => {

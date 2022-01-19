@@ -8,7 +8,7 @@ jest.dontMock('../LiveQueryClient');
 jest.dontMock('../LocalDatastore');
 jest.dontMock('../ParseObject');
 jest.dontMock('../Storage');
-jest.setMock('web3', () => {});
+jest.setMock('ethers', () => {});
 
 jest.mock(
   '../../../../react-native/Libraries/vendor/emitter/EventEmitter',

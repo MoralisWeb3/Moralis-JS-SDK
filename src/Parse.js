@@ -16,6 +16,8 @@ import InstallationController from './InstallationController';
 import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
+const { checkForSdkUpdates } = require('./utils');
+import { ethers } from 'ethers';
 
 /**
  * Contains all Moralis API classes and functions.
@@ -51,9 +53,7 @@ class Moralis extends MoralisWeb3 {
       }
     } else {
       // Node environment
-      if (!moralisSecret) {
-        console.warn('Moralis.start warning: to use web3 access, moralisSecret is required');
-      } else {
+      if (moralisSecret) {
         this.moralisSecret = moralisSecret;
         const { web3ApiKey, speedyNodeApiKey } = await this.getApiKeys(moralisSecret);
         apiKey = web3ApiKey;
@@ -69,6 +69,9 @@ class Moralis extends MoralisWeb3 {
     if (appId && serverUrl) {
       await this.initPlugins(plugins);
     }
+
+    // Check if SDK is updated
+    checkForSdkUpdates();
   }
 
   /**
@@ -306,7 +309,7 @@ Moralis.Elrond = require('./MoralisErd').default;
 Moralis.Erd = Moralis.Elrond;
 Moralis.Dot = require('./MoralisDot').default;
 Moralis.UI = require('./MoralisUI').default;
-
+Moralis.Chains = require('./Chians').default;
 Moralis._request = function (...args) {
   return CoreManager.getRESTController().request.apply(null, args);
 };

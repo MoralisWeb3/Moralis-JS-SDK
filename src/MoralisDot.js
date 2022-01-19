@@ -29,9 +29,9 @@ class MoralisDot {
     const signature = await MoralisDot.sign(address, data);
     const authData = { id: dotAddress, signature, data };
     const user = await ParseUser.logInWith('moralisDot', { authData });
-    await user.setACL(new ParseACL(user));
     if (!user) throw new Error('Could not get user');
-    user.set('dotAccounts', uniq([].concat(accounts, user.get('dotAccounts') ?? [])));
+    await user.setACL(new ParseACL(user));
+    user.addAllUnique('dotAccounts', accounts);
     user.set('dotAddress', dotAddress);
     await user.save();
     return user;
@@ -49,7 +49,7 @@ class MoralisDot {
       const authData = { id: dotAddress, signature, data };
       await user.linkWith('moralisDot', { authData });
     }
-    user.set('dotAccounts', uniq([dotAddress].concat(user.get('dotAccounts') ?? [])));
+    user.addAllUnique('dotAccounts', [dotAddress]);
     user.set('dotAddress', dotAddress);
     await user.save();
     return user;
@@ -74,7 +74,11 @@ class MoralisDot {
   static async sign(address, data) {
     if (!web3EnablePromise) throw new Error('Must enable MoralisDot');
     const web3 = await web3EnablePromise;
-    const { signature } = await web3.signer?.signRaw({
+    if (!web3.signer) {
+      throw new Error('No signer found');
+    }
+
+    const { signature } = await web3.signer.signRaw({
       address,
       data: stringToHex(data),
       type: 'bytes',
@@ -85,10 +89,6 @@ class MoralisDot {
   static getSigningData() {
     return 'Moralis Authentication';
   }
-}
-
-function uniq(arr) {
-  return arr.filter((v, i) => arr.indexOf(v) === i);
 }
 
 export default MoralisDot;

@@ -1,18 +1,18 @@
+# Publish on new commits on main and beta branch
 deploy:
   stage: deploy
   only:
     - main
+    - beta
   tags:
     - moralis-runner
   script:
     - cd /home/gitlab-runner && rm -rf Moralis-JS-SDK
     - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
-    - npm version patch -m "Bump Version to %s [ci skip]"
+    - git checkout $CI_COMMIT_REF_NAME
     - npm install
     - npm run build
-    # Commit any new build files (ex. Web3Api)
     - git add .
-    - 'git commit -m "build: new deployment" --no-verify || echo "no build src changes, ignore commit failure"'
-    - echo //registry.npmjs.org/:_authToken="$NPM_TOKEN" > .npmrc
-    - npm run release
-    - git push --tags
+    - 'git commit -m "build: new deployment [ci skip]" --no-verify || echo "no build src changes, ignore commit failure"'
+    - git push
+    - npx semantic-release
