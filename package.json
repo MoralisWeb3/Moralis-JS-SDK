@@ -83,7 +83,7 @@
     "gulp-terser": "^2.1.0",
     "gulp-watch": "^5.0.1",
     "husky": "^7.0.4",
-    "jasmine": "^3.10.0",
+    "jasmine": "^4.0.2",
     "jasmine-reporters": "^2.5.0",
     "jest": "^27.4.5",
     "jest-environment-jsdom": "^27.4.4",
