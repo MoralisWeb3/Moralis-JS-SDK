@@ -293,7 +293,7 @@ gulp.task('browserify-solanaapi', function (cb) {
   return stream
     .pipe(source('moralis.solanaapi.js'))
     .pipe(derequire())
-    .pipe(insert.prepend(DEV_HEADER))
+    .pipe(insert.prepend(getDevHeader()))
     .pipe(gulp.dest('./dist'));
 });
 
@@ -328,7 +328,7 @@ gulp.task('minify-solanaapi', function () {
   return gulp
     .src('dist/moralis.solanaapi.js')
     .pipe(terser())
-    .pipe(insert.prepend(FULL_HEADER))
+    .pipe(insert.prepend(getFullHeader()))
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist'));
 });

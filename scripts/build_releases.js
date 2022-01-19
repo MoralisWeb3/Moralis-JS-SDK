@@ -68,15 +68,15 @@ const execCommand = function (cmd) {
   ]);
   console.log('Bundling and minifying for CDN distribution:');
   await Promise.all([
-    execCommand(`${gulp} browserify`),
-    execCommand(`${gulp} browserify-weapp`),
-    execCommand(`${gulp} browserify-web3api`),
-    execCommand(`${gulp} browserify-solanaapi`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-weapp`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-web3api`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-solanaapi`),
   ]);
   await Promise.all([
-    execCommand(`${gulp} minify`),
-    execCommand(`${gulp} minify-weapp`),
-    execCommand(`${gulp} minify-web3api`),
-    execCommand(`${gulp} minify-solanaapi`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-weapp`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-web3api`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-solanaapi`),
   ]);
 })();
