@@ -307,7 +307,7 @@ Moralis.Elrond = require('./MoralisErd').default;
 Moralis.Erd = Moralis.Elrond;
 Moralis.Dot = require('./MoralisDot').default;
 Moralis.UI = require('./MoralisUI').default;
-Moralis.Chains = require('./Chians').default;
+Moralis.Chains = require('./Chains').default;
 Moralis._request = function (...args) {
   return CoreManager.getRESTController().request.apply(null, args);
 };
