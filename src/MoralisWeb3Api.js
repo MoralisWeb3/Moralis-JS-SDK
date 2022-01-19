@@ -130,7 +130,7 @@ getDateToBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET
 getLogsByAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getLogsByAddress","url":"/:address/logs"}, params: options }),
 getNFTTransfersByBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getNFTTransfersByBlock","url":"/block/:block_number_or_hash/nft/transfers"}, params: options }),
 getTransaction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getTransaction","url":"/transaction/:transaction_hash"}, params: options }),
-getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
+getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }),
 runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"property","required":true},{"key":"params","type":"property","required":false}]}, params: options }),
   }
 
@@ -158,6 +158,7 @@ getAllTokenIds: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET
 getContractNFTTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getContractNFTTransfers","url":"/nft/:address/transfers"}, params: options }),
 getNFTOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTOwners","url":"/nft/:address/owners"}, params: options }),
 getNFTMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTMetadata","url":"/nft/:address/metadata"}, params: options }),
+reSyncMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"reSyncMetadata","url":"/nft/:address/:token_id/metadata/resync"}, params: options }),
 syncNFTContract: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"PUT","group":"token","name":"syncNFTContract","url":"/nft/:address/sync"}, params: options }),
 getTokenIdMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdMetadata","url":"/nft/:address/:token_id"}, params: options }),
 getTokenIdOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdOwners","url":"/nft/:address/:token_id/owners"}, params: options }),
@@ -175,7 +176,7 @@ getPairAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET
   }
 
   static storage = {
-uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
+uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }),
   }
 }
 

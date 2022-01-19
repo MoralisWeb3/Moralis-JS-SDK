@@ -135,6 +135,14 @@ export interface paths {
      */
     get: operations["getNFTMetadata"];
   };
+  "/nft/{address}/{token_id}/metadata/resync": {
+    /**
+     * ReSync the metadata for an NFT
+     * * The metadata flag will request a resync of the metadata for an nft
+     * * The uri flag will request fetch the token_uri for an NFT and then fetch it's metadata. To be used when the token uri get updated
+     */
+    get: operations["reSyncMetadata"];
+  };
   "/nft/{address}/sync": {
     /** Sync a Contract for NFT Index */
     put: operations["syncNFTContract"];
@@ -1207,8 +1215,29 @@ export interface components {
        */
       symbol: string;
     };
+    erc20TransactionCollection: {
+      /**
+       * @description The total number of matches for this query
+       * @example 2000
+       */
+      total?: number;
+      /**
+       * @description The page of the current result
+       * @example 2
+       */
+      page?: number;
+      /**
+       * @description The number of results per page
+       * @example 100
+       */
+      page_size?: number;
+      result?: components["schemas"]["erc20Transaction"][];
+    };
     ens: {
-      /** Resolved ENS address */
+      /**
+       * @description Resolved ENS address
+       * @example Vitalik.eth
+       */
       name: string;
     };
     resolve: {
@@ -1372,6 +1401,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The block hash or block number */
@@ -1676,6 +1707,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The addresses to get balances for (Optional) */
+        token_addresses?: string[];
       };
       path: {
         /** The owner of a given token */
@@ -1705,6 +1738,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The sender or recepient of the transfer */
@@ -2077,10 +2112,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
-      };
-      path: {
-        /** Address of the contract */
-        address: string;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
     };
     responses: {
@@ -2135,6 +2168,12 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
+      };
+      path: {
+        /** Address of the contract */
+        address: string;
       };
     };
     responses: {
@@ -2200,6 +2239,31 @@ export interface operations {
           "application/json": components["schemas"]["nftContractMetadata"];
         };
       };
+    };
+  };
+  /**
+   * ReSync the metadata for an NFT
+   * * The metadata flag will request a resync of the metadata for an nft
+   * * The uri flag will request fetch the token_uri for an NFT and then fetch it's metadata. To be used when the token uri get updated
+   */
+  reSyncMetadata: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** the type of resync to operate */
+        flag?: "uri" | "metadata";
+      };
+      path: {
+        /** Address of the contract */
+        address: string;
+        /** The id of the token */
+        token_id: string;
+      };
+    };
+    responses: {
+      /** The resync request was received and will be executed. */
+      202: unknown;
     };
   };
   /** Sync a Contract for NFT Index */
@@ -2358,23 +2422,6 @@ export interface operations {
       };
     };
   };
-  /** Resolves an ETH address and find the ENS name */
-  resolveAddress: {
-    parameters: {
-      path: {
-        /** The address to be resolved */
-        address: string;
-      };
-    };
-    responses: {
-      /** Returns an ENS */
-      200: {
-        content: {
-          "application/json": components["schemas"]["ens"];
-        };
-      };
-    };
-  };
   /** Get the liquidity reserves for a given pair address */
   getPairReserves: {
     parameters: {
@@ -2506,6 +2553,7 @@ export default class Web3Api {
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
+    reSyncMetadata: (options: operations["reSyncMetadata"]["parameters"]["query"] & operations["reSyncMetadata"]["parameters"]["path"]) => Promise<unknown>;
     syncNFTContract: (options: operations["syncNFTContract"]["parameters"]["query"] & operations["syncNFTContract"]["parameters"]["path"]) => Promise<unknown>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdOwners: (options: operations["getTokenIdOwners"]["parameters"]["query"] & operations["getTokenIdOwners"]["parameters"]["path"]) => Promise<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"]>;

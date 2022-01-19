@@ -5,7 +5,8 @@
 const axios = require('axios');
 
 class SolanaApi {
-  static baseURL = 'https://8097-197-210-8-133.ngrok.io';
+  // URL will be changed when api is deployed
+  static baseURL = 'https://solana-gateway.moralis.io';
   static BodyParamTypes = {
     setBody: 'set body',
     property: 'property',
@@ -144,7 +145,7 @@ class SolanaApi {
           method: 'GET',
           group: 'account',
           name: 'getSPL',
-          url: '/account/:network/:address/fungible-tokens',
+          url: '/account/:network/:address/tokens',
         },
         params: options,
       }),
@@ -154,17 +155,7 @@ class SolanaApi {
           method: 'GET',
           group: 'account',
           name: 'getNFTs',
-          url: '/account/:network/:address/non-fungible-tokens',
-        },
-        params: options,
-      }),
-    getAssets: async (options = {}) =>
-      SolanaApi.fetch({
-        endpoint: {
-          method: 'GET',
-          group: 'account',
-          name: 'getAssets',
-          url: '/account/:address/assets',
+          url: '/account/:network/:address/nft',
         },
         params: options,
       }),
