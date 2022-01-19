@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.1...v1.0.2) (2022-01-19)
+
+
+### Bug Fixes
+
+* typings for ethers ([855b41d](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/855b41d0e0906d40cb73f5be95d1dace4cb1c287))
+
 ## [1.0.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0...v1.0.1) (2022-01-17)
 
 
