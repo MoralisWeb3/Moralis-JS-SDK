@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="@ethersproject/providers" />
 /// <reference path="node.d.ts" />
 /// <reference path="react-native.d.ts" />
 
@@ -81,6 +82,13 @@ declare enum EChains {
 }
 
 export namespace Moralis {
+  // TODO: fix types, import('ethers').providers gives errros when used in for example react-moralis
+  type EthersWeb3Provider = unknown;
+  // TODO: fix types, import('ethers').providers gives errros when used in for example react-moralis
+  type EthersExternalProvider = unknown;
+  type EthersTransaction = import('ethers').Transaction;
+  type EthersResult = import('ethers/lib/utils').Result;
+
   let applicationId: string;
   let javaScriptKey: string | undefined;
   let liveQueryServerURL: string;
@@ -342,7 +350,8 @@ export namespace Moralis {
     token_id?: number | string;
     system?: TransferSystem;
   }
-  type TransferResult = unknown;
+
+  type TransferResult = EthersTransaction;
 
   type ExecuteFunctionParams = Record<string, any>;
   interface ExecuteFunctionOptions {
@@ -352,8 +361,8 @@ export namespace Moralis {
     msgValue?: string;
     params?: ExecuteFunctionParams;
   }
-  type ExecuteFunctionCallResult = unknown;
-  type ExecuteFunctionSendResult = unknown;
+  type ExecuteFunctionCallResult = EthersResult;
+  type ExecuteFunctionSendResult = EthersTransaction;
   type ExecuteFunctionResult = ExecuteFunctionCallResult | ExecuteFunctionSendResult;
 
   // ETH listeners
@@ -361,14 +370,27 @@ export namespace Moralis {
     chainId: string;
   }
 
-  type Connector = unknown;
-  type Provider = unknown;
+  interface Connector {
+    type: string;
+    network: string;
+    account: null | string;
+    chainId: null | string;
+    activate: () => Promise<{
+      provider: Provider;
+      account?: string | null;
+      chainId?: string | null;
+    }>;
+    deactivate: () => Promise<void>;
+    [key: string]: any;
+  }
+
+  type Provider = EthersExternalProvider;
   interface EnableInfo {
     chainId: null | string;
     account: null | string;
     connector: Connector;
     provider: Provider;
-    web3: unknown;
+    web3: MoralisWeb3Provider;
   }
 
   interface DeactivateInfo {
@@ -417,12 +439,13 @@ export namespace Moralis {
   type Web3EnabledEventCallback = (enableInfo: EnableInfo) => void;
   type Web3DeactivatedEventCallback = (chainId: DeactivateInfo) => void;
 
+  type MoralisWeb3Provider = EthersWeb3Provider;
+
   /**
    * The Moralis Web3 Provider.
    */
   class Web3 {
-    static activeWeb3Provider?: Web3Provider;
-    static web3: unknown;
+    static web3: MoralisWeb3Provider;
 
     static on: (eventName: string, listener: (args?: any) => void) => () => EventEmitter;
     static off: EventEmitter['off'];
@@ -437,17 +460,16 @@ export namespace Moralis {
     static provider: unknown | null;
     static connectorType: string | null;
     static connector: any | null;
+    static getChainId: () => string | null;
 
     // Core functions
-    static enableWeb3: (options?: EnableOptions) => Promise<unknown>;
-    /** @deprecated use enableWeb3 instead */
-    static enable: (options?: EnableOptions) => Promise<unknown>;
-    static setEnableWeb3: (enable: (options?: any) => Promise<unknown>) => Promise<unknown>;
+    static enableWeb3: (options?: EnableOptions) => Promise<MoralisWeb3Provider>;
     static cleanup: () => Promise<void>;
     static authenticate: (options?: AuthenticationOptions) => Promise<User>;
     static link: (account: string, options?: LinkOptions) => Promise<User>;
     static unlink: (account: string) => Promise<User>;
     static deactivateWeb3: () => Promise<void>;
+    static isWeb3Enabled: () => boolean;
 
     static switchNetwork: (chainId: string | number) => Promise<void>;
     static addNetwork: (
@@ -458,6 +480,7 @@ export namespace Moralis {
       rpcUrl: string,
       blockExplorerUrl: string | null
     ) => Promise<void>;
+    static isMetaMaskInstalled: () => Promise<boolean>;
 
     static transfer: (options: TransferOptions) => Promise<TransferResult>;
     static executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
