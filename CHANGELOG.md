@@ -1,3 +1,11 @@
+## [1.0.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.2...v1.0.3) (2022-01-19)
+
+
+### Bug Fixes
+
+* **deps:** bump ethers from 5.5.1 to 5.5.3 ([#184](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/184)) ([abafda3](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/abafda32e1775b558918fd337da6245459d42a93))
+* **deps:** bump ws from 8.4.0 to 8.4.2 ([#202](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/202)) ([ab99bea](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ab99beafbc4432941e77302ec4504ad0d18349b8))
+
 ## [1.0.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.1...v1.0.2) (2022-01-19)
 
 
