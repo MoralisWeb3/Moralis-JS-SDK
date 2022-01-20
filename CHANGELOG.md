@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.3...v1.0.4) (2022-01-20)
+
+
+### Bug Fixes
+
+* walletconnect import on CDN builds ([#216](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/216)) ([08629c9](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08629c99ba8d6c20952547803dc030cf60ac51cf))
+
 ## [1.0.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.2...v1.0.3) (2022-01-19)
 
 
