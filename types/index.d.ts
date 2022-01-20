@@ -82,10 +82,8 @@ declare enum EChains {
 }
 
 export namespace Moralis {
-  // TODO: fix types, import('ethers').providers gives errros when used in for example react-moralis
-  type EthersWeb3Provider = unknown;
-  // TODO: fix types, import('ethers').providers gives errros when used in for example react-moralis
-  type EthersExternalProvider = unknown;
+  type EthersWeb3Provider = import('ethers').providers.Web3Provider;
+  type EthersExternalProvider = import('ethers').providers.ExternalProvider;
   type EthersTransaction = import('ethers').Transaction;
   type EthersResult = import('ethers/lib/utils').Result;
 
