@@ -7,14 +7,11 @@ export interface paths {
   "/account/{network}/{address}/balance": {
     get: operations["balance"];
   };
-  "/account/{network}/{address}/fungible-tokens": {
+  "/account/{network}/{address}/tokens": {
     get: operations["getSPL"];
   };
-  "/account/{network}/{address}/non-fungible-tokens": {
+  "/account/{network}/{address}/nft": {
     get: operations["getNFTs"];
-  };
-  "/account/{address}/assets": {
-    get: operations["getAssets"];
   };
   "/account/{network}/{address}/portfolio": {
     get: operations["getPortfolio"];
@@ -41,7 +38,7 @@ export interface components {
     Portfolio: {
       nativeBalance: components["schemas"]["NativeBalance"];
       nfts: components["schemas"]["SPLNFT"][];
-      balances: components["schemas"]["SPLTokenBalance"][];
+      tokens: components["schemas"]["SPLTokenBalance"][];
     };
   };
 }
@@ -92,21 +89,6 @@ export interface operations {
       };
     };
   };
-  getAssets: {
-    parameters: {
-      path: {
-        network: "mainnet" | "testnet";
-        address: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["SPLTokenBalance"][];
-        };
-      };
-    };
-  };
   getPortfolio: {
     parameters: {
       path: {
@@ -133,7 +115,6 @@ export default class SolanaApi {
     balance: () => Promise<operations["balance"]["responses"]["200"]["content"]["application/json"]>;
     getSPL: () => Promise<operations["getSPL"]["responses"]["200"]["content"]["application/json"]>;
     getNFTs: () => Promise<operations["getNFTs"]["responses"]["200"]["content"]["application/json"]>;
-    getAssets: () => Promise<operations["getAssets"]["responses"]["200"]["content"]["application/json"]>;
     getPortfolio: () => Promise<operations["getPortfolio"]["responses"]["200"]["content"]["application/json"]>;
   }
 
