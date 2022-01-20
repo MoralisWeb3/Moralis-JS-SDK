@@ -8,7 +8,7 @@ const https = require('https');
 const openapiTS = require('openapi-typescript').default;
 
 // URL will be changed when api is deployed
-const API_HOST = '';
+const API_HOST = 'solana-gateway.moralis.io';
 const SWAGGER_PATH = '/api-json';
 
 const OUTPUT_DIRECTORY = '../types/generated/';
