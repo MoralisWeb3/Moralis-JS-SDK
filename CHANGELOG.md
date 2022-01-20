@@ -1,3 +1,12 @@
+## [1.0.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.5...v1.0.6) (2022-01-20)
+
+
+### Bug Fixes
+
+* filter out walletconnect dependency warning ([#220](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/220)) ([31e94ac](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/31e94ac84c79e03aa4b12fc78b32fdc3cd053d89))
+* include details on WEB3_DEACTIVATED event ([#218](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/218)) ([f2fe3e1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f2fe3e11daa97a253465971be9699b4f4f568d68))
+* move MoralisWeb3 types to Moralis ([#219](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/219)) ([945e79b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/945e79b346388baac1349ce7d0f551374ffc32c7))
+
 ## [1.0.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.4...v1.0.5) (2022-01-20)
 
 
