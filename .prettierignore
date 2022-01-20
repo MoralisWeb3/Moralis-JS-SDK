@@ -7,5 +7,7 @@ CHANGELOG.md
 /dist
 /lib
 /types/generated
-web3api.d.ts
+web3Api.d.ts
 src/MoralisWeb3Api.js
+solanaApi.d.ts
+src/MoralisSolanaApi.js

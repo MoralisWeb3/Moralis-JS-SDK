@@ -152,7 +152,6 @@ const genWebApi = async () => {
     wrappers[group][name] = { name, url, method };
   }
 
-
   Object.keys(wrappers).forEach(group => {
     content += '\n';
     content += `  static ${group} = {\n`;
