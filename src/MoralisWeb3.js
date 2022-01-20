@@ -186,6 +186,13 @@ class MoralisWeb3 {
   }
 
   static async cleanup() {
+    if (this.web3 && this.internalWeb3Provider) {
+      MoralisEmitter.emit(InternalWeb3Events.WEB3_DEACTIVATED, {
+        connector: this.internalWeb3Provider.connector,
+        provider: this.internalWeb3Provider.provider,
+      });
+    }
+
     if (this.internalWeb3Provider) {
       this.internalWeb3Provider.removeListener(
         InternalWeb3Events.ACCOUNT_CHANGED,
@@ -205,13 +212,6 @@ class MoralisWeb3 {
       );
 
       await this.internalWeb3Provider.deactivate();
-    }
-
-    if (this.web3) {
-      MoralisEmitter.emit(InternalWeb3Events.WEB3_DEACTIVATED, {
-        connector: this.internalWeb3Provider.connector,
-        provider: this.internalWeb3Provider.provider,
-      });
     }
 
     this.internalWeb3Provider = null;
