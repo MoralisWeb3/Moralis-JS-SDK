@@ -308,6 +308,8 @@ Moralis.Erd = Moralis.Elrond;
 Moralis.Dot = require('./MoralisDot').default;
 Moralis.UI = require('./MoralisUI').default;
 Moralis.Chains = require('./Chains').default;
+Moralis.AbstractWeb3Connector = require('./Web3Connector/AbstractWeb3Connector').default;
+
 Moralis._request = function (...args) {
   return CoreManager.getRESTController().request.apply(null, args);
 };
