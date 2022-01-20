@@ -1,3 +1,11 @@
+## [1.0.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.6...v1.0.7) (2022-01-20)
+
+
+### Bug Fixes
+
+* expose ethers type ([03f8c38](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/03f8c38bc0050465fe268f67a4d97dc099df7a3f))
+* Moralis.web3 might be null ([6a57509](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6a57509aad954f8d760eaf6dbb15f0a4b3adccf7))
+
 ## [1.0.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.5...v1.0.6) (2022-01-20)
 
 
