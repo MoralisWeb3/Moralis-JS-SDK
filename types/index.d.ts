@@ -237,7 +237,6 @@ export namespace Moralis {
   }
 
   // MoralisWeb3 types
-  let web3: MoralisWeb3Provider;
 
   let on: (eventName: string, listener: (args?: any) => void) => () => EventEmitter;
   let off: EventEmitter['off'];
@@ -246,6 +245,7 @@ export namespace Moralis {
   let addListener: EventEmitter['addListener'];
   let removeAllListeners: EventEmitter['removeAllListeners'];
 
+  let web3: null | MoralisWeb3Provider;
   let chainId: string | null;
   let account: string | null;
   let network: string | null;
