@@ -291,7 +291,7 @@ Moralis.Op = {
 };
 
 Moralis.Web3API = require('./MoralisWeb3Api').default;
-Moralis.SolanaApi = require('./MoralisSolanaApi').default;
+Moralis.SolanaAPI = require('./MoralisSolanaApi').default;
 Moralis.Push = require('./Push');
 Moralis.Query = require('./ParseQuery').default;
 Moralis.Relation = require('./ParseRelation').default;

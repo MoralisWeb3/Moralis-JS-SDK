@@ -3,17 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const fetchEndpoints = require('./utils/apiUtils');
 
-// URL will be changed when api is deployed
 const API_HOST = 'solana-gateway.moralis.io';
 const SWAGGER_PATH = '/api-json';
 
 const OUTPUT_DIRECTORY = '../src';
 const OUTPUT_FILENAME = 'MoralisSolanaApi.js';
-
-// const BodyParamTypes = {
-//   setBody: 'set body',
-//   property: 'property',
-// };
 
 let content = '';
 
@@ -98,12 +92,10 @@ static getErrorMessage(error, url) {
 static async fetch({ endpoint, params }) {
   const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
-      const { web3 } = this.Moralis;
-      
-      if (!params.address && web3) {
-        params.address = await (await web3.eth.getAccounts())[0];
-      }
+    if (!params.address) {
+      params.address = this.Moralis.account;
     }
+  }
     if (!params.network) params.network = 'mainnet';
     if (!params.responseType) params.responseType = 'native';
     if(!this.apiKey) {

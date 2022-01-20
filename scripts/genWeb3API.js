@@ -9,11 +9,6 @@ const SWAGGER_PATH = '/api-docs/v2/swagger.json';
 const OUTPUT_DIRECTORY = '../src';
 const OUTPUT_FILENAME = 'MoralisWeb3Api.js';
 
-// const BodyParamTypes = {
-//   setBody: 'set body',
-//   property: 'property',
-// };
-
 let content = '';
 
 content += `/**
