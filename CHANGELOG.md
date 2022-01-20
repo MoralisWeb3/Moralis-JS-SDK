@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.4...v1.0.5) (2022-01-20)
+
+
+### Bug Fixes
+
+* export abstractWeb3Connector ([#217](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/217)) ([2f46cf5](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f46cf51c50227d7debdf42b42ad3e4c78c27c6b))
+
 ## [1.0.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.3...v1.0.4) (2022-01-20)
 
 
