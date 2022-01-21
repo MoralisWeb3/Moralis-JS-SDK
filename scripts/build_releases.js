@@ -53,6 +53,7 @@ const execCommand = function (cmd) {
   console.log('Node.js Release:');
   console.log('React Native Release:');
   console.log('Web3Api Release:');
+  console.log('SolanaApi Release:');
   await Promise.all([
     execCommand(`${crossEnv} PARSE_BUILD=browser NEXT_VERSION=${nextVersion} ${gulp} compile`),
     execCommand(`${crossEnv} PARSE_BUILD=weapp NEXT_VERSION=${nextVersion} ${gulp} compile`),
@@ -61,16 +62,21 @@ const execCommand = function (cmd) {
     execCommand(
       `npm run generate-web3Api && ${crossEnv} PARSE_BUILD=web3api ${gulp} compile-web3api`
     ),
+    execCommand(
+      `npm run generate-solanaApi && ${crossEnv} PARSE_BUILD=solanaapi ${gulp} compile-solanaapi`
+    ),
   ]);
   console.log('Bundling and minifying for CDN distribution:');
   await Promise.all([
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify`),
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-weapp`),
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-web3api`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} browserify-solanaapi`),
   ]);
   await Promise.all([
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify`),
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-weapp`),
     execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-web3api`),
+    execCommand(`${crossEnv} NEXT_VERSION=${nextVersion} ${gulp} minify-solanaapi`),
   ]);
 })();
