@@ -107,20 +107,6 @@ static async apiCall(name, options) {
       throw new Error('Web3Api not initialized, run Moralis.start() first');
     }
 
-    if(this.Moralis) {
-      const { User, web3 } = this.Moralis;
-      
-      const user = User.current();
-
-      if (!options.address) {
-        if (user) {
-          options.address = this.Moralis.account
-        } else if (web3) {
-          options.address = await (await web3.eth.getAccounts())[0];
-        }
-      }
-    }
-
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
@@ -130,8 +116,8 @@ static async apiCall(name, options) {
       });
       return response.data.result
     } catch (error) {
-      if (error.response) { 
-        throw error.response.data;
+      if (error.response?.data?.error) { 
+        throw new Error(error.response.data.error);
       }
       throw error;
     }
@@ -144,7 +130,7 @@ getDateToBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET
 getLogsByAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getLogsByAddress","url":"/:address/logs"}, params: options }),
 getNFTTransfersByBlock: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getNFTTransfersByBlock","url":"/block/:block_number_or_hash/nft/transfers"}, params: options }),
 getTransaction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"native","name":"getTransaction","url":"/transaction/:transaction_hash"}, params: options }),
-getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
+getContractEvents: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"getContractEvents","url":"/:address/events","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }),
 runContractFunction: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"native","name":"runContractFunction","url":"/:address/function","bodyParams":[{"key":"abi","type":"property","required":true},{"key":"params","type":"property","required":false}]}, params: options }),
   }
 
@@ -190,7 +176,7 @@ getPairAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET
   }
 
   static storage = {
-uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"abi","type":"set body","required":false}]}, params: options }),
+uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }),
   }
 }
 

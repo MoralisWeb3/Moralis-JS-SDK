@@ -6,6 +6,7 @@
 import { EventEmitter } from 'events';
 
 import Web3Api from './generated/web3Api';
+import SolanaApi from './generated/solanaApi';
 
 declare enum ErrorCode {
   OTHER_CAUSE = -1,
@@ -530,6 +531,11 @@ export namespace Moralis {
    * The Moralis Web3API.
    */
   class Web3API extends Web3Api {}
+
+  /**
+   * The Moralis SolanaAPI.
+   */
+  class SolanaAPI extends SolanaApi {}
 
   /**
    * The Moralis Web3API.
