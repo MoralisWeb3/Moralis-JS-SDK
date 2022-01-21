@@ -997,10 +997,6 @@ export interface components {
        * @example KryptoKitties
        */
       name: string;
-      /** @description The abi of the token Contract */
-      abi?: string;
-      /** @description value -1 if the contract does not support token_uri */
-      supports_token_uri?: number;
       /** @description Timestamp of when the contract was last synced with the node */
       synced_at?: string;
       /**

@@ -43,6 +43,10 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
       }
 
       if (!WalletConnectProvider) {
+        WalletConnectProvider = window.WalletConnectProvider.default;
+      }
+
+      if (!WalletConnectProvider) {
         throw new Error(
           'Cannot enable WalletConnect: dependency "@walletconnect/web3-provider" is missing'
         );

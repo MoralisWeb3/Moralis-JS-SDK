@@ -1,3 +1,49 @@
+## [1.0.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.6...v1.0.7) (2022-01-20)
+
+
+### Bug Fixes
+
+* expose ethers type ([03f8c38](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/03f8c38bc0050465fe268f67a4d97dc099df7a3f))
+* Moralis.web3 might be null ([6a57509](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6a57509aad954f8d760eaf6dbb15f0a4b3adccf7))
+
+## [1.0.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.5...v1.0.6) (2022-01-20)
+
+
+### Bug Fixes
+
+* filter out walletconnect dependency warning ([#220](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/220)) ([31e94ac](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/31e94ac84c79e03aa4b12fc78b32fdc3cd053d89))
+* include details on WEB3_DEACTIVATED event ([#218](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/218)) ([f2fe3e1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f2fe3e11daa97a253465971be9699b4f4f568d68))
+* move MoralisWeb3 types to Moralis ([#219](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/219)) ([945e79b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/945e79b346388baac1349ce7d0f551374ffc32c7))
+
+## [1.0.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.4...v1.0.5) (2022-01-20)
+
+
+### Bug Fixes
+
+* export abstractWeb3Connector ([#217](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/217)) ([2f46cf5](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f46cf51c50227d7debdf42b42ad3e4c78c27c6b))
+
+## [1.0.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.3...v1.0.4) (2022-01-20)
+
+
+### Bug Fixes
+
+* walletconnect import on CDN builds ([#216](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/216)) ([08629c9](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08629c99ba8d6c20952547803dc030cf60ac51cf))
+
+## [1.0.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.2...v1.0.3) (2022-01-19)
+
+
+### Bug Fixes
+
+* **deps:** bump ethers from 5.5.1 to 5.5.3 ([#184](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/184)) ([abafda3](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/abafda32e1775b558918fd337da6245459d42a93))
+* **deps:** bump ws from 8.4.0 to 8.4.2 ([#202](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/202)) ([ab99bea](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ab99beafbc4432941e77302ec4504ad0d18349b8))
+
+## [1.0.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.1...v1.0.2) (2022-01-19)
+
+
+### Bug Fixes
+
+* typings for ethers ([855b41d](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/855b41d0e0906d40cb73f5be95d1dace4cb1c287))
+
 ## [1.0.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.0...v1.0.1) (2022-01-17)
 
 

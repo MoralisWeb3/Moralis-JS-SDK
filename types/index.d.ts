@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="@ethersproject/providers" />
 /// <reference path="node.d.ts" />
 /// <reference path="react-native.d.ts" />
 
@@ -82,6 +83,11 @@ declare enum EChains {
 }
 
 export namespace Moralis {
+  type EthersWeb3Provider = import('ethers').providers.Web3Provider;
+  type EthersExternalProvider = import('ethers').providers.ExternalProvider;
+  type EthersTransaction = import('ethers').Transaction;
+  type EthersResult = import('ethers/lib/utils').Result;
+
   let applicationId: string;
   let javaScriptKey: string | undefined;
   let liveQueryServerURL: string;
@@ -231,6 +237,86 @@ export namespace Moralis {
     updatedAt: string;
   }
 
+  // MoralisWeb3 types
+
+  let on: (eventName: string, listener: (args?: any) => void) => () => EventEmitter;
+  let off: EventEmitter['off'];
+  let once: EventEmitter['once'];
+  let removeListener: EventEmitter['removeListener'];
+  let addListener: EventEmitter['addListener'];
+  let removeAllListeners: EventEmitter['removeAllListeners'];
+
+  let web3: null | MoralisWeb3Provider;
+  let chainId: string | null;
+  let account: string | null;
+  let network: string | null;
+  let provider: unknown | null;
+  let connectorType: string | null;
+  let connector: any | null;
+  let getChainId: () => string | null;
+
+  // Core functions
+  let enableWeb3: (options?: EnableOptions) => Promise<MoralisWeb3Provider>;
+  let cleanup: () => Promise<void>;
+  let authenticate: (options?: AuthenticationOptions) => Promise<User>;
+  let link: (account: string, options?: LinkOptions) => Promise<User>;
+  let unlink: (account: string) => Promise<User>;
+  let deactivateWeb3: () => Promise<void>;
+  let isWeb3Enabled: () => boolean;
+
+  let switchNetwork: (chainId: string | number) => Promise<void>;
+  let addNetwork: (
+    chainId: string | number,
+    chainName: string,
+    currencyName: string,
+    currencySymbol: string,
+    rpcUrl: string,
+    blockExplorerUrl: string | null
+  ) => Promise<void>;
+  let isMetaMaskInstalled: () => Promise<boolean>;
+
+  let transfer: (options: TransferOptions) => Promise<TransferResult>;
+  let executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
+
+  // Plugins
+  let initPlugins: (installedPlugins?: PluginSpecs[]) => Promise<void>;
+
+  // Helper functions
+  let getWeb3Provider: (options: Pick<EnableOptions, 'provider'>) => Web3Provider;
+  let isDotAuth: (options: Pick<EnableOptions, 'provider'>) => boolean;
+  let isElrondAuth: (options: Pick<EnableOptions, 'provider'>) => boolean;
+
+  // Convenience functions
+  /** @deprecated use the functions from Moralis.Web3API instead */
+  let getAllERC20: (options: CommonConvenienceOptions) => Promise<ERC20Result[]>;
+  /** @deprecated use the functions from Moralis.Web3API instead */
+  let getERC20: (
+    options: CommonConvenienceOptions & {
+      symbol?: string;
+      tokenAddress?: string;
+    }
+  ) => Promise<ERC20Result>;
+  /** @deprecated use the functions from Moralis.Web3API instead */
+  let getNFTs: (options: CommonConvenienceOptions) => Promise<NFTResult[]>;
+  /** @deprecated use the functions from Moralis.Web3API instead */
+  let getNFTsCount: (options: CommonConvenienceOptions) => Promise<CountResult>;
+  /** @deprecated use the functions from Moralis.Web3API instead */
+  let getTransactions: (
+    options: CommonConvenienceOptions & { order?: SortOrder }
+  ) => Promise<TransactionResult[]>;
+  /** @deprecated use the functions from Moralis.Web3API instead */
+  let getTransactionsCount: (options: CommonConvenienceOptions) => Promise<CountResult>;
+
+  // Eth listeners
+  let getSigningData: () => string;
+
+  let onAccountChanged: (callback: Web3AccountChangedEventCallback) => () => EventEmitter;
+  let onChainChanged: (callback: Web3ChainChangedEventCallback) => () => EventEmitter;
+  let onConnect: (callback: Web3ConnectEventCallback) => () => EventEmitter;
+  let onDisconnect: (callback: Web3DisconnectEventCallback) => () => EventEmitter;
+  let onWeb3Enabled: (callback: Web3EnabledEventCallback) => () => EventEmitter;
+  let onWeb3Deactivated: (callback: Web3DeactivatedEventCallback) => () => EventEmitter;
+
   class CommonWeb3Provider {
     activate: () => Promise<unknown>;
     deactivate: () => Promise<void>;
@@ -247,6 +333,7 @@ export namespace Moralis {
   type Web3Provider = MoralisWalletConnectProvider | MoralisInjectedProvider;
   interface AuthenticationOptions {
     provider?: Web3ProviderType;
+    connector?: Connector;
     type?: AuthenticationType;
     chainId?: number;
     signingMessage?: string;
@@ -343,7 +430,8 @@ export namespace Moralis {
     token_id?: number | string;
     system?: TransferSystem;
   }
-  type TransferResult = unknown;
+
+  type TransferResult = EthersTransaction;
 
   type ExecuteFunctionParams = Record<string, any>;
   interface ExecuteFunctionOptions {
@@ -353,8 +441,8 @@ export namespace Moralis {
     msgValue?: string;
     params?: ExecuteFunctionParams;
   }
-  type ExecuteFunctionCallResult = unknown;
-  type ExecuteFunctionSendResult = unknown;
+  type ExecuteFunctionCallResult = EthersResult;
+  type ExecuteFunctionSendResult = EthersTransaction;
   type ExecuteFunctionResult = ExecuteFunctionCallResult | ExecuteFunctionSendResult;
 
   // ETH listeners
@@ -362,14 +450,27 @@ export namespace Moralis {
     chainId: string;
   }
 
-  type Connector = unknown;
-  type Provider = unknown;
+  interface Connector {
+    type: string;
+    network: string;
+    account: null | string;
+    chainId: null | string;
+    activate: () => Promise<{
+      provider: Provider;
+      account?: string | null;
+      chainId?: string | null;
+    }>;
+    deactivate: () => Promise<void>;
+    [key: string]: any;
+  }
+
+  type Provider = EthersExternalProvider;
   interface EnableInfo {
     chainId: null | string;
     account: null | string;
     connector: Connector;
     provider: Provider;
-    web3: unknown;
+    web3: MoralisWeb3Provider;
   }
 
   interface DeactivateInfo {
@@ -418,90 +519,13 @@ export namespace Moralis {
   type Web3EnabledEventCallback = (enableInfo: EnableInfo) => void;
   type Web3DeactivatedEventCallback = (chainId: DeactivateInfo) => void;
 
+  type MoralisWeb3Provider = EthersWeb3Provider;
+
   /**
    * The Moralis Web3 Provider.
    */
-  class Web3 {
-    static activeWeb3Provider?: Web3Provider;
-    static web3: unknown;
-
-    static on: (eventName: string, listener: (args?: any) => void) => () => EventEmitter;
-    static off: EventEmitter['off'];
-    static once: EventEmitter['once'];
-    static removeListener: EventEmitter['removeListener'];
-    static addListener: EventEmitter['addListener'];
-    static removeAllListeners: EventEmitter['removeAllListeners'];
-
-    static chainId: string | null;
-    static account: string | null;
-    static network: string | null;
-    static provider: unknown | null;
-    static connectorType: string | null;
-    static connector: any | null;
-
-    // Core functions
-    static enableWeb3: (options?: EnableOptions) => Promise<unknown>;
-    /** @deprecated use enableWeb3 instead */
-    static enable: (options?: EnableOptions) => Promise<unknown>;
-    static setEnableWeb3: (enable: (options?: any) => Promise<unknown>) => Promise<unknown>;
-    static cleanup: () => Promise<void>;
-    static authenticate: (options?: AuthenticationOptions) => Promise<User>;
-    static link: (account: string, options?: LinkOptions) => Promise<User>;
-    static unlink: (account: string) => Promise<User>;
-    static deactivateWeb3: () => Promise<void>;
-
-    static switchNetwork: (chainId: string | number) => Promise<void>;
-    static addNetwork: (
-      chainId: string | number,
-      chainName: string,
-      currencyName: string,
-      currencySymbol: string,
-      rpcUrl: string,
-      blockExplorerUrl: string | null
-    ) => Promise<void>;
-
-    static transfer: (options: TransferOptions) => Promise<TransferResult>;
-    static executeFunction: (options: ExecuteFunctionOptions) => Promise<ExecuteFunctionResult>;
-
-    // Plugins
-    static initPlugins: (installedPlugins?: PluginSpecs[]) => Promise<void>;
-
-    // Helper functions
-    static getWeb3Provider: (options: Pick<EnableOptions, 'provider'>) => Web3Provider;
-    static isDotAuth: (options: Pick<EnableOptions, 'provider'>) => boolean;
-    static isElrondAuth: (options: Pick<EnableOptions, 'provider'>) => boolean;
-
-    // Convenience functions
-    /** @deprecated use the functions from Moralis.Web3API instead */
-    static getAllERC20: (options: CommonConvenienceOptions) => Promise<ERC20Result[]>;
-    /** @deprecated use the functions from Moralis.Web3API instead */
-    static getERC20: (
-      options: CommonConvenienceOptions & {
-        symbol?: string;
-        tokenAddress?: string;
-      }
-    ) => Promise<ERC20Result>;
-    /** @deprecated use the functions from Moralis.Web3API instead */
-    static getNFTs: (options: CommonConvenienceOptions) => Promise<NFTResult[]>;
-    /** @deprecated use the functions from Moralis.Web3API instead */
-    static getNFTsCount: (options: CommonConvenienceOptions) => Promise<CountResult>;
-    /** @deprecated use the functions from Moralis.Web3API instead */
-    static getTransactions: (
-      options: CommonConvenienceOptions & { order?: SortOrder }
-    ) => Promise<TransactionResult[]>;
-    /** @deprecated use the functions from Moralis.Web3API instead */
-    static getTransactionsCount: (options: CommonConvenienceOptions) => Promise<CountResult>;
-
-    // Eth listeners
-    static getSigningData: () => string;
-
-    static onAccountChanged: (callback: Web3AccountChangedEventCallback) => () => EventEmitter;
-    static onChainChanged: (callback: Web3ChainChangedEventCallback) => () => EventEmitter;
-    static onConnect: (callback: Web3ConnectEventCallback) => () => EventEmitter;
-    static onDisconnect: (callback: Web3DisconnectEventCallback) => () => EventEmitter;
-    static onWeb3Enabled: (callback: Web3EnabledEventCallback) => () => EventEmitter;
-    static onWeb3Deactivated: (callback: Web3DeactivatedEventCallback) => () => EventEmitter;
-  }
+  /** @deprecated Any function on Moralis.Web3.xx can also be called on Moralis.xx, use that one for proper type definitions */
+  let Web3: any;
 
   /**
    * The Moralis Web3API.
