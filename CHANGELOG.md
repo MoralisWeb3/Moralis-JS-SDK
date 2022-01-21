@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.7...v1.1.0) (2022-01-21)
+
+
+### Features
+
+* add SolanaAPI ([f870001](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f870001abe92b0197fa498b6d0a0cb7723342d27))
+
 ## [1.0.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.6...v1.0.7) (2022-01-20)
 
 
