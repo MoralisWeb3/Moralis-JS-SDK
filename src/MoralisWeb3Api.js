@@ -116,8 +116,8 @@ static async apiCall(name, options) {
       });
       return response.data.result
     } catch (error) {
-      if (error.response) { 
-        throw error.response.data;
+      if (error.response?.data?.error) { 
+        throw new Error(error.response.data.error);
       }
       throw error;
     }

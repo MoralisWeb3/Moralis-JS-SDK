@@ -84,13 +84,18 @@ const makeMethod = (pathDetails, path) => {
 
   const operations = `operations["${path}"]`;
 
-  const options = hasQuery
-    ? `${operations}["parameters"]["query"] ${
-        hasPath ? `& ${operations}["parameters"]["path"]` : ''
-      }`
-    : undefined;
+  const options = [];
+  if (hasQuery) {
+    options.push(`${operations}["parameters"]["query"]`);
+  }
+  if (hasPath) {
+    options.push(`${operations}["parameters"]["path"]`);
+  }
+
+  const optionsString = options.length > 0 ? options.join(' & ') : undefined;
+
   const result = `${operations}["responses"]["200"]["content"]["application/json"]`;
-  const optionParam = options ? `options: ${options}` : '';
+  const optionParam = optionsString ? `options: ${optionsString}` : '';
 
   return `    ${path}: (${optionParam}) => Promise<${result}>;
 `;

@@ -112,10 +112,10 @@ export default class SolanaApi {
   static initialize: (options: {apiKey?: string, serverUrl?: string, Moralis?: any}) => void;
 
   static account: {
-    balance: () => Promise<operations["balance"]["responses"]["200"]["content"]["application/json"]>;
-    getSPL: () => Promise<operations["getSPL"]["responses"]["200"]["content"]["application/json"]>;
-    getNFTs: () => Promise<operations["getNFTs"]["responses"]["200"]["content"]["application/json"]>;
-    getPortfolio: () => Promise<operations["getPortfolio"]["responses"]["200"]["content"]["application/json"]>;
+    balance: (options: operations["balance"]["parameters"]["path"]) => Promise<operations["balance"]["responses"]["200"]["content"]["application/json"]>;
+    getSPL: (options: operations["getSPL"]["parameters"]["path"]) => Promise<operations["getSPL"]["responses"]["200"]["content"]["application/json"]>;
+    getNFTs: (options: operations["getNFTs"]["parameters"]["path"]) => Promise<operations["getNFTs"]["responses"]["200"]["content"]["application/json"]>;
+    getPortfolio: (options: operations["getPortfolio"]["parameters"]["path"]) => Promise<operations["getPortfolio"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }
