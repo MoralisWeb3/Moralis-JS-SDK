@@ -12,6 +12,7 @@ import TransferUtils from './TransferUtils';
 import { run } from './Cloud';
 import createSigningData from './createSigningData';
 import WalletConnectWeb3Connector from './Web3Connector/WalletConnectWeb3Connector';
+import MagicWeb3Connector from './Web3Connector/MagicWeb3Connector';
 import InjectedWeb3Connector from './Web3Connector/InjectedWeb3Connector';
 import NetworkWeb3Connector from './Web3Connector/NetworkWeb3Connector';
 import ParseError from './ParseError';
@@ -176,6 +177,8 @@ class MoralisWeb3 {
         return WalletConnectWeb3Connector;
       case 'network':
         return NetworkWeb3Connector;
+      case 'MagicConnect':
+        return MagicWeb3Connector;
       default:
         return InjectedWeb3Connector;
     }
