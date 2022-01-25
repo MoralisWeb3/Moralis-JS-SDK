@@ -21,6 +21,11 @@ export const InternalWeb3Events = Object.freeze({
 class InternalWeb3Provider extends EventEmitter {
   constructor(connector) {
     super();
+
+    if (!connector) {
+      throw new Error('Cannot initialize InternalWeb3Provider without a connector');
+    }
+
     this.connector = connector;
 
     this.handleAccountChanged = this.handleAccountChanged.bind(this);
@@ -30,6 +35,10 @@ class InternalWeb3Provider extends EventEmitter {
   }
 
   async activate(options) {
+    if (!this.connector) {
+      throw new Error('Cannot acticate InternalWeb3Provider without a connector');
+    }
+
     const { provider, chainId, account } = await this.connector.activate(options);
 
     this.provider = provider;
