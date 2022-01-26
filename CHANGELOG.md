@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.1.1...v1.1.2) (2022-01-26)
+
+
+### Bug Fixes
+
+* set default address for Web3API and SolanaAPI ([57d15cc](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/57d15ccdfc85a1a3583348cf8f1b3aca39604611))
+
 ## [1.1.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.1.0...v1.1.1) (2022-01-26)
 
 
