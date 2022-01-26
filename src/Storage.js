@@ -83,7 +83,7 @@ const Storage = {
 
   generatePath(path: string): string {
     if (!CoreManager.get('APPLICATION_ID')) {
-      throw new Error('You need to call Moralis.start wit an applicationId before using Moralis.');
+      throw new Error('You need to call Moralis.start with an applicationId before using Moralis.');
     }
     if (typeof path !== 'string') {
       throw new Error('Tried to get a Storage path that was not a String.');
