@@ -76,15 +76,20 @@ static getErrorMessage(error, url) {
 static async fetch({ endpoint, params }) {
   const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
+    const { User } = this.Moralis;
+    const user = User.current();
+
     if (!params.address) {
-      params.address = this.Moralis.account;
+      if (user) {
+        params.address = user.get('solAddress');
+      }
     }
   }
-    if (!params.network) params.network = 'mainnet';
-    if (!params.responseType) params.responseType = 'native';
-    if(!this.apiKey) {
-      return this.apiCall(endpoint.name, params);
-    }
+  if (!params.network) params.network = 'mainnet';
+  if (!params.responseType) params.responseType = 'native';
+  if(!this.apiKey) {
+    return this.apiCall(endpoint.name, params);
+  }
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);

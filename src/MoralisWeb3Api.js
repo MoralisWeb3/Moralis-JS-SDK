@@ -75,13 +75,20 @@ static getErrorMessage(error, url) {
 static async fetch({ endpoint, params }) {
   const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
-      if (!params.address) {
-        params.address = this.Moralis.account;
+    const { User, account } = this.Moralis;
+    const user = User.current();
+
+    if (!params.address) {
+      if (user) {
+        params.address = user.get('ethAddress');
+      } else if (account) {
+        params.address = account
       }
     }
-    if(!this.apiKey) {
-      return this.apiCall(endpoint.name, params);
-    }
+  }
+  if(!this.apiKey) {
+    return this.apiCall(endpoint.name, params);
+  }
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
