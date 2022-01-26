@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.1.0...v1.1.1) (2022-01-26)
+
+
+### Bug Fixes
+
+* avoid duplicate enableWeb3 calls ([8df9484](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/8df94845de63e4db460a14d60e455807cada89a3))
+* better error message when no appId provided ([225a696](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/225a6967433a25e47e378e16d05ae17f10ea4ca4))
+* expose Moralis.web3Library ([59a7c28](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/59a7c28d012f5476b8d6541f68da23b3e7dbbda7))
+
 # [1.1.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.0.7...v1.1.0) (2022-01-21)
 
 
