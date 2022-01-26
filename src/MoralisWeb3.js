@@ -743,6 +743,10 @@ class MoralisWeb3 {
     return this.chainId;
   }
 
+  static get web3Library() {
+    return ethers;
+  }
+
   static _forwardToConnector(methodName, args) {
     const { connector } = this.getInternalWeb3Provider();
 
