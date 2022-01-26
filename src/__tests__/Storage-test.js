@@ -293,7 +293,7 @@ describe('Storage (Default StorageController)', () => {
 
   it('can generate a unique storage path', () => {
     expect(Storage.generatePath.bind(null, 'hello')).toThrow(
-      'You need to call Moralis.start wit an applicationId before using Moralis.'
+      'You need to call Moralis.start with an applicationId before using Moralis.'
     );
     CoreManager.set('APPLICATION_ID', 'appid');
     expect(Storage.generatePath.bind(null, 12)).toThrow(
