@@ -87,6 +87,7 @@ export namespace Moralis {
   type EthersExternalProvider = import('ethers').providers.ExternalProvider;
   type EthersTransaction = import('ethers').Transaction;
   type EthersResult = import('ethers/lib/utils').Result;
+  type EthersLibrary = typeof import('ethers').ethers;
 
   let applicationId: string;
   let javaScriptKey: string | undefined;
@@ -254,6 +255,8 @@ export namespace Moralis {
   let connectorType: string | null;
   let connector: any | null;
   let getChainId: () => string | null;
+
+  let web3Library: EthersLibrary;
 
   // Core functions
   let enableWeb3: (options?: EnableOptions) => Promise<MoralisWeb3Provider>;

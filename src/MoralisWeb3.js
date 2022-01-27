@@ -32,6 +32,7 @@ class MoralisWeb3 {
   // Internal web3 provider, containing the Ethers.js Web3 library for internal usage for handling transactions, contracts etc.
   static internalWeb3Provider = null;
   static Plugins = {};
+  static isEnablingWeb3 = false;
 
   static addListener(eventName, listener) {
     MoralisEmitter.on(eventName, listener);
@@ -77,68 +78,82 @@ class MoralisWeb3 {
   }
 
   static async enableWeb3(options) {
-    if (this.speedyNodeApiKey) {
-      options.speedyNodeApiKey = this.speedyNodeApiKey;
-      options.provider = 'network';
+    if (this.isEnablingWeb3) {
+      throw new Error(
+        'Cannot execute Moralis.enableWeb3(), as Moralis Moralis.enableWeb3() already has been called, but is not finished yet '
+      );
     }
-
-    if (this.internalWeb3Provider) {
-      await this.cleanup();
-    }
-
-    const Connector = options?.connector ?? MoralisWeb3.getWeb3Connector(options?.provider);
-    const connector = new Connector(options);
-
-    this.internalWeb3Provider = new InternalWeb3Provider(connector);
-
-    this.internalWeb3Provider.on(InternalWeb3Events.ACCOUNT_CHANGED, args =>
-      this.handleWeb3AccountChanged(args)
-    );
-    this.internalWeb3Provider.on(InternalWeb3Events.CHAIN_CHANGED, args =>
-      this.handleWeb3ChainChanged(args)
-    );
-    this.internalWeb3Provider.on(InternalWeb3Events.PROVIDER_CONNECT, args =>
-      this.handleWeb3Connect(args)
-    );
-    this.internalWeb3Provider.on(InternalWeb3Events.PROVIDER_DISCONNECT, args =>
-      this.handleWeb3Disconnect(args)
-    );
-
-    let provider;
-    let chainId;
-    let account;
-    let internalWeb3;
-
     try {
-      ({
-        provider,
+      this.isEnablingWeb3 = true;
+
+      if (this.speedyNodeApiKey) {
+        options.speedyNodeApiKey = this.speedyNodeApiKey;
+        options.provider = 'network';
+      }
+
+      if (this.internalWeb3Provider) {
+        await this.cleanup();
+      }
+
+      const Connector = options?.connector ?? MoralisWeb3.getWeb3Connector(options?.provider);
+      const connector = new Connector(options);
+
+      this.internalWeb3Provider = new InternalWeb3Provider(connector);
+
+      this.internalWeb3Provider.on(InternalWeb3Events.ACCOUNT_CHANGED, args =>
+        this.handleWeb3AccountChanged(args)
+      );
+      this.internalWeb3Provider.on(InternalWeb3Events.CHAIN_CHANGED, args =>
+        this.handleWeb3ChainChanged(args)
+      );
+      this.internalWeb3Provider.on(InternalWeb3Events.PROVIDER_CONNECT, args =>
+        this.handleWeb3Connect(args)
+      );
+      this.internalWeb3Provider.on(InternalWeb3Events.PROVIDER_DISCONNECT, args =>
+        this.handleWeb3Disconnect(args)
+      );
+
+      let provider;
+      let chainId;
+      let account;
+      let internalWeb3;
+
+      try {
+        ({
+          provider,
+          chainId,
+          account,
+          web3: internalWeb3,
+        } = await this.internalWeb3Provider.activate(options));
+
+        if (!provider) {
+          throw new Error('Failed to activate, no provider returned');
+        }
+      } catch (error) {
+        await this.cleanup();
+        throw error;
+      }
+
+      let web3 = null;
+
+      web3 = new ethers.providers.Web3Provider(provider);
+
+      this.web3 = web3;
+      MoralisEmitter.emit(InternalWeb3Events.WEB3_ENABLED, {
         chainId,
         account,
-        web3: internalWeb3,
-      } = await this.internalWeb3Provider.activate(options));
+        connector,
+        provider,
+        web3,
+      });
 
-      if (!provider) {
-        throw new Error('Failed to activate, no provider returned');
-      }
+      return web3;
+      // eslint-disable-next-line no-useless-catch
     } catch (error) {
-      await this.cleanup();
       throw error;
+    } finally {
+      this.isEnablingWeb3 = false;
     }
-
-    let web3 = null;
-
-    web3 = new ethers.providers.Web3Provider(provider);
-
-    this.web3 = web3;
-    MoralisEmitter.emit(InternalWeb3Events.WEB3_ENABLED, {
-      chainId,
-      account,
-      connector,
-      provider,
-      web3,
-    });
-
-    return web3;
   }
 
   static isDotAuth(options) {
@@ -744,6 +759,10 @@ class MoralisWeb3 {
 
   static getChainId() {
     return this.chainId;
+  }
+
+  static get web3Library() {
+    return ethers;
   }
 
   static _forwardToConnector(methodName, args) {
