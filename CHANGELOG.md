@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.1.2...v1.2.0) (2022-01-27)
+
+
+### Features
+
+* add authentication via MagicLink ([9420eb9](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9420eb96d8b942cccf1b65842886d13b1109b90a))
+
 ## [1.1.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.1.1...v1.1.2) (2022-01-26)
 
 
