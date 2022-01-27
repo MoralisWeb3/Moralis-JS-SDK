@@ -43,12 +43,12 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
       }
 
       if (!WalletConnectProvider) {
-        WalletConnectProvider = window.WalletConnectProvider.default;
+        WalletConnectProvider = window?.WalletConnectProvider?.default;
       }
 
       if (!WalletConnectProvider) {
         throw new Error(
-          'Cannot enable WalletConnect: dependency "@walletconnect/web3-provider" is missing'
+          'Cannot enable via WalletConnect: dependency "@walletconnect/web3-provider" is missing'
         );
       }
 
@@ -60,7 +60,7 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
     }
 
     if (!this.provider) {
-      throw new Error('Could not connect with WalletConnect, error in connecting to provider');
+      throw new Error('Could not connect via WalletConnect, error in connecting to provider');
     }
 
     const accounts = await this.provider.enable();

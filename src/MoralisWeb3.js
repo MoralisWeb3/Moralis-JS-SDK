@@ -192,7 +192,7 @@ class MoralisWeb3 {
         return WalletConnectWeb3Connector;
       case 'network':
         return NetworkWeb3Connector;
-      case 'magicConnect':
+      case 'magicLink':
         return MagicWeb3Connector;
       default:
         return InjectedWeb3Connector;

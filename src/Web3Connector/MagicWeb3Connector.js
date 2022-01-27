@@ -1,8 +1,9 @@
+/* global window */
 import { ethers } from 'ethers';
 import AbstractWeb3Connector from './AbstractWeb3Connector';
 
 export default class MagicWeb3Connector extends AbstractWeb3Connector {
-  type = 'magicConnect';
+  type = 'MagicLink';
   async activate({ email, apiKey, network }) {
     let magic = null;
     let ether = null;
@@ -14,18 +15,28 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
     }
 
     if (!email) {
-      throw new Error('Email not provided, please provide Email');
+      throw new Error('"email" not provided, please provide Email');
     }
     if (!apiKey) {
-      throw new Error('Api key not provided, please provide Api Key');
+      throw new Error('"apiKey" not provided, please provide Api Key');
     }
     if (!network) {
-      throw new Error('Network not provided, please provide network');
+      throw new Error('"network" not provided, please provide network');
     }
 
-    const Magic = require('magic-sdk')?.Magic;
+    let Magic;
+    try {
+      Magic = require('magic-sdk')?.Magic;
+    } catch (error) {
+      // Do nothing. User might not need walletconnect
+    }
+
     if (!Magic) {
-      throw new Error('Error Connecting magic please instal Magic SDK');
+      Magic = window?.Magic;
+    }
+
+    if (!Magic) {
+      throw new Error('Cannot enable via MagicLink: dependency "magic-sdk" is missing');
     }
 
     try {
@@ -37,8 +48,9 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
         email: email,
       });
     } catch (err) {
-      throw new Error('Error authenticating magic, please double check network and apikey');
+      throw new Error('Error during enable via MagicLink, please double check network and apikey');
     }
+
     const loggedIn = await magic.user.isLoggedIn();
     if (loggedIn) {
       const signer = ether.getSigner();
@@ -57,7 +69,7 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
         chainId: this.chainId,
       };
     }
-    throw new Error('something went wrong on login');
+    throw new Error('Error during enable via MagicLink, login to magic failed');
   }
 
   deactivate = async () => {
