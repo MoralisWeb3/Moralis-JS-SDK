@@ -2,6 +2,7 @@
 const filteredWarnings = [
   // Optional dependency, where we handle the dependency check on run-time
   '@walletconnect/web3-provider',
+  'magic-sdk',
 ];
 
 /**
