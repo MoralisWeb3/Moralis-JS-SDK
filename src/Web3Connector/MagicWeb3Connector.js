@@ -13,8 +13,14 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
       // Do nothing
     }
 
-    if (!email && !apiKey && !network) {
-      throw new Error('Please provide all params required apikey, email, network');
+    if (!email) {
+      throw new Error('Email not provided, please provide Email');
+    }
+    if (!apiKey) {
+      throw new Error('Api key not provided, please provide Api Key');
+    }
+    if (!network) {
+      throw new Error('Network not provided, please provide network');
     }
 
     const Magic = require('magic-sdk')?.Magic;
@@ -38,10 +44,10 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
       const signer = ether.getSigner();
       const { chainId } = await ether.getNetwork();
       const address = (await signer.getAddress()).toLowerCase();
-      // Assing Constants
+      // Assign Constants
       this.account = address;
       this.provider = ether.provider;
-      this.chainId = `$0x${chainId.toString(16)}`;
+      this.chainId = `0x${chainId.toString(16)}`;
       // Assign magic user for deactivation
       this.magicUser = magic;
       this.subscribeToEvents(this.provider);
