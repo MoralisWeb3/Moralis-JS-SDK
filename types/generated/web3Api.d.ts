@@ -2517,7 +2517,7 @@ export default class Web3Api {
 
   static native: {
     getBlock: (options: operations["getBlock"]["parameters"]["query"] & operations["getBlock"]["parameters"]["path"]) => Promise<operations["getBlock"]["responses"]["200"]["content"]["application/json"]>;
-    getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"] ) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
+    getDateToBlock: (options: operations["getDateToBlock"]["parameters"]["query"]) => Promise<operations["getDateToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getLogsByAddress: (options: operations["getLogsByAddress"]["parameters"]["query"] & operations["getLogsByAddress"]["parameters"]["path"]) => Promise<operations["getLogsByAddress"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTransfersByBlock: (options: operations["getNFTTransfersByBlock"]["parameters"]["query"] & operations["getNFTTransfersByBlock"]["parameters"]["path"]) => Promise<operations["getNFTTransfersByBlock"]["responses"]["200"]["content"]["application/json"]>;
     getTransaction: (options: operations["getTransaction"]["parameters"]["query"] & operations["getTransaction"]["parameters"]["path"]) => Promise<operations["getTransaction"]["responses"]["200"]["content"]["application/json"]>;
@@ -2536,15 +2536,15 @@ export default class Web3Api {
   }
 
   static token: {
-    getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"] ) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenMetadata: (options: operations["getTokenMetadata"]["parameters"]["query"]) => Promise<operations["getTokenMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getNFTTrades: (options: operations["getNFTTrades"]["parameters"]["query"] & operations["getNFTTrades"]["parameters"]["path"]) => Promise<operations["getNFTTrades"]["responses"]["200"]["content"]["application/json"]>;
     getNFTLowestPrice: (options: operations["getNFTLowestPrice"]["parameters"]["query"] & operations["getNFTLowestPrice"]["parameters"]["path"]) => Promise<operations["getNFTLowestPrice"]["responses"]["200"]["content"]["application/json"]>;
-    getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"] ) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
+    getTokenMetadataBySymbol: (options: operations["getTokenMetadataBySymbol"]["parameters"]["query"]) => Promise<operations["getTokenMetadataBySymbol"]["responses"]["200"]["content"]["application/json"]>;
     getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["query"] & operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAddressTransfers: (options: operations["getTokenAddressTransfers"]["parameters"]["query"] & operations["getTokenAddressTransfers"]["parameters"]["path"]) => Promise<operations["getTokenAddressTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getTokenAllowance: (options: operations["getTokenAllowance"]["parameters"]["query"] & operations["getTokenAllowance"]["parameters"]["path"]) => Promise<operations["getTokenAllowance"]["responses"]["200"]["content"]["application/json"]>;
-    searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"] ) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
-    getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"] ) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
+    searchNFTs: (options: operations["searchNFTs"]["parameters"]["query"]) => Promise<operations["searchNFTs"]["responses"]["200"]["content"]["application/json"]>;
+    getNftTransfersFromToBlock: (options: operations["getNftTransfersFromToBlock"]["parameters"]["query"]) => Promise<operations["getNftTransfersFromToBlock"]["responses"]["200"]["content"]["application/json"]>;
     getAllTokenIds: (options: operations["getAllTokenIds"]["parameters"]["query"] & operations["getAllTokenIds"]["parameters"]["path"]) => Promise<operations["getAllTokenIds"]["responses"]["200"]["content"]["application/json"]>;
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
@@ -2558,7 +2558,7 @@ export default class Web3Api {
 
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
-    resolveAddress: () => Promise<operations["resolveAddress"]["responses"]["200"]["content"]["application/json"]>;
+    resolveAddress: (options: operations["resolveAddress"]["parameters"]["path"]) => Promise<operations["resolveAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
 
   static defi: {
