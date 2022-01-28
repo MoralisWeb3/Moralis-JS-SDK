@@ -65,6 +65,7 @@ class MoralisWeb3 {
   }
 
   static handleWeb3ChainChanged(chainId) {
+    this.web3 = this.internalWeb3Provider.web3;
     MoralisEmitter.emit(InternalWeb3Events.CHAIN_CHANGED, chainId);
   }
 
@@ -134,11 +135,9 @@ class MoralisWeb3 {
         throw error;
       }
 
-      let web3 = null;
+      const web3 = internalWeb3;
+      this.web3 = internalWeb3;
 
-      web3 = new ethers.providers.Web3Provider(provider);
-
-      this.web3 = web3;
       MoralisEmitter.emit(InternalWeb3Events.WEB3_ENABLED, {
         chainId,
         account,

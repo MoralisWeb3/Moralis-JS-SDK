@@ -53,7 +53,7 @@ class InternalWeb3Provider extends EventEmitter {
       this.connector.on(ConnectorEvents.DISCONNECT, this.handleDisconnect);
     }
 
-    return { provider, chainId, account };
+    return { provider, chainId, account, web3: this.web3 };
   }
 
   // Returns a provider that can sign messages (throws if not possible, ie. the account cannot sign)
