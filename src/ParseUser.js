@@ -1163,6 +1163,7 @@ const DefaultController = {
         }
         currentUser._logOutWithAll();
         currentUser._finishFetch({ sessionToken: undefined });
+        currentUser._clearServerData();
       }
       currentUserCacheMatchesDisk = true;
       currentUserCache = null;
