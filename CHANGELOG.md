@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.1...v1.2.2) (2022-01-28)
+
+
+### Bug Fixes
+
+* clear user state on logout ([#234](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/234)) ([5485b11](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5485b119cf9c8fd88b6d8b98fa5f19b80f404087))
+
 ## [1.2.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.0...v1.2.1) (2022-01-28)
 
 
