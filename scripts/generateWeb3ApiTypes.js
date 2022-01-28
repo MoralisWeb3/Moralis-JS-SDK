@@ -83,11 +83,15 @@ const makeMethod = (pathDetails, path) => {
 
   const operations = `operations["${path}"]`;
 
-  const options = hasQuery
-    ? `${operations}["parameters"]["query"] ${
-        hasPath ? `& ${operations}["parameters"]["path"]` : ''
-      }`
-    : undefined;
+  const options = [];
+  if (hasQuery) {
+    options.push(`${operations}["parameters"]["query"]`);
+  }
+  if (hasPath) {
+    options.push(`${operations}["parameters"]["path"]`);
+  }
+
+  const optionsString = options.length > 0 ? options.join(' & ') : undefined;
 
   const responseCodes = Object.keys(pathDetails[path].data?.responses);
   const responseCode = responseCodes.length > 0 ? responseCodes[0] : '200';
@@ -96,7 +100,7 @@ const makeMethod = (pathDetails, path) => {
     responseCode === '200'
       ? `${operations}["responses"]["${responseCode}"]["content"]["application/json"]`
       : 'unknown';
-  const optionParam = options ? `options: ${options}` : '';
+  const optionParam = optionsString ? `options: ${optionsString}` : '';
 
   return `    ${path}: (${optionParam}) => Promise<${result}>;
 `;
