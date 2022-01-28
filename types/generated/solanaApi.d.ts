@@ -16,6 +16,9 @@ export interface paths {
   "/account/{network}/{address}/portfolio": {
     get: operations["getPortfolio"];
   };
+  "/nft/{network}/{address}/metadata": {
+    get: operations["getNFTMetadata"];
+  };
 }
 
 export interface components {
@@ -39,6 +42,21 @@ export interface components {
       nativeBalance: components["schemas"]["NativeBalance"];
       nfts: components["schemas"]["SPLNFT"][];
       tokens: components["schemas"]["SPLTokenBalance"][];
+    };
+    MetaplexNFT: {
+      metadataUri: string;
+      masterEdition: boolean;
+      isMutable: boolean;
+      primarySaleHappened: boolean;
+      sellerFeeBasisPoints: number;
+      updateAuthority: string;
+    };
+    NFTMetadata: {
+      mint: string;
+      standard: string;
+      name: string;
+      symbol: string;
+      metaplex: components["schemas"]["MetaplexNFT"];
     };
   };
 }
@@ -104,6 +122,21 @@ export interface operations {
       };
     };
   };
+  getNFTMetadata: {
+    parameters: {
+      path: {
+        address: string;
+        network: "mainnet" | "testnet";
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["NFTMetadata"];
+        };
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -116,6 +149,10 @@ export default class SolanaApi {
     getSPL: (options: operations["getSPL"]["parameters"]["path"]) => Promise<operations["getSPL"]["responses"]["200"]["content"]["application/json"]>;
     getNFTs: (options: operations["getNFTs"]["parameters"]["path"]) => Promise<operations["getNFTs"]["responses"]["200"]["content"]["application/json"]>;
     getPortfolio: (options: operations["getPortfolio"]["parameters"]["path"]) => Promise<operations["getPortfolio"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
+  static nft: {
+    getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }

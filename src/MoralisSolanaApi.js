@@ -138,6 +138,10 @@ getSPL: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","gro
 getNFTs: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"account","name":"getNFTs","url":"/account/:network/:address/nft"}, params: options }),
 getPortfolio: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"account","name":"getPortfolio","url":"/account/:network/:address/portfolio"}, params: options }),
   }
+
+  static nft = {
+getNFTMetadata: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"nft","name":"getNFTMetadata","url":"/nft/:network/:address/metadata"}, params: options }),
+  }
 }
 
 export default SolanaApi;
