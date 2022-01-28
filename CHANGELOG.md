@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.2...v1.2.3) (2022-01-28)
+
+
+### Bug Fixes
+
+* type gen for web3Api when no queryparam ([#236](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/236)) ([515c86d](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/515c86dff235810c62bddbf5919f9375eb12be00))
+
 ## [1.2.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.1...v1.2.2) (2022-01-28)
 
 
