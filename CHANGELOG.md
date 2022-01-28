@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.0...v1.2.1) (2022-01-28)
+
+
+### Bug Fixes
+
+* update web3 on chainChange ([#233](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/233)) ([0a9beda](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0a9beda46ef853c6ee8df549d1c90a5b2f5eff5d))
+
 # [1.2.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.1.2...v1.2.0) (2022-01-27)
 
 
