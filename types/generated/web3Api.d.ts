@@ -2558,7 +2558,7 @@ export default class Web3Api {
 
   static resolve: {
     resolveDomain: (options: operations["resolveDomain"]["parameters"]["query"] & operations["resolveDomain"]["parameters"]["path"]) => Promise<operations["resolveDomain"]["responses"]["200"]["content"]["application/json"]>;
-    resolveAddress: () => Promise<operations["resolveAddress"]["responses"]["200"]["content"]["application/json"]>;
+    resolveAddress: (options: operations["resolveAddress"]["parameters"]["path"]) => Promise<operations["resolveAddress"]["responses"]["200"]["content"]["application/json"]>;
   }
 
   static defi: {
