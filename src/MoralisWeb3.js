@@ -652,6 +652,7 @@ class MoralisWeb3 {
     contractAddress,
     abi,
     functionName,
+    functionOverload,
     msgValue,
     params = {},
     overrides = {},
@@ -699,7 +700,13 @@ class MoralisWeb3 {
     });
 
     const contract = new ethers.Contract(contractAddress, abi, signerOrProvider);
-
+    if (functionOverload) {
+      const types = [];
+      for (const input of functionData.inputs) {
+        types.push(input.type);
+      }
+      functionName = `${functionName}(${String(types)})`;
+    }
     const response = await contract[functionName](
       ...Object.values(parsedInputs),
       msgValue ? { value: ethers.BigNumber.from(`${msgValue}`) } : {}
