@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.3...v1.2.4) (2022-01-31)
+
+
+### Bug Fixes
+
+* filter console warnings of magic and wc ([#238](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/238)) ([dec4e2e](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dec4e2ea8190167ee3bfd821705dae7db9cc4ec9))
+
 ## [1.2.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.2...v1.2.3) (2022-01-28)
 
 
