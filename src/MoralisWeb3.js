@@ -18,6 +18,7 @@ import ParseError from './ParseError';
 import InternalWeb3Provider, { InternalWeb3Events } from './InternalWeb3Provider';
 import detectEthereumProvider from '@metamask/detect-provider';
 import MagicWeb3Connector from './Web3Connector/MagicWeb3Connector';
+import { Web3AuthConnector } from './Web3Connector/Web3AuthConnector';
 
 const MoralisEmitter = new EventEmitter();
 
@@ -193,6 +194,8 @@ class MoralisWeb3 {
         return NetworkWeb3Connector;
       case 'magicLink':
         return MagicWeb3Connector;
+      case 'Web3AuthConnector':
+        return Web3AuthConnector;
       default:
         return InjectedWeb3Connector;
     }
