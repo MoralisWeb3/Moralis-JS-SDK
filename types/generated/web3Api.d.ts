@@ -176,7 +176,7 @@ export interface paths {
     get: operations["resolveAddress"];
   };
   "/{pair_address}/reserves": {
-    /** Get the liquidity reserves for a given pair address */
+    /** Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment. */
     get: operations["getPairReserves"];
   };
   "/{token0_address}/{token1_address}/pairAddress": {
@@ -2418,7 +2418,7 @@ export interface operations {
       };
     };
   };
-  /** Get the liquidity reserves for a given pair address */
+  /** Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment. */
   getPairReserves: {
     parameters: {
       query: {
