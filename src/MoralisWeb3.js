@@ -92,10 +92,6 @@ class MoralisWeb3 {
         options.provider = 'network';
       }
 
-      if (this.internalWeb3Provider) {
-        await this.cleanup();
-      }
-
       const Connector = options?.connector ?? MoralisWeb3.getWeb3Connector(options?.provider);
       const connector = new Connector(options);
 
@@ -202,6 +198,9 @@ class MoralisWeb3 {
     return this.cleanup();
   }
 
+  /**
+   * Cleanup previously established provider
+   */
   static async cleanup() {
     if (this.web3 && this.internalWeb3Provider) {
       MoralisEmitter.emit(InternalWeb3Events.WEB3_DEACTIVATED, {
@@ -228,7 +227,13 @@ class MoralisWeb3 {
         this.handleWeb3Disconnect
       );
 
-      await this.internalWeb3Provider.deactivate();
+      // WIP: deactivate ALL connections??
+      // For example, if walletconnect has been enabled, then later on metamask, then wc is not the internalProvider, but still has an active connection
+      try {
+        await this.internalWeb3Provider.deactivate();
+      } catch (error) {
+        // Do nothing
+      }
     }
 
     this.internalWeb3Provider = null;
