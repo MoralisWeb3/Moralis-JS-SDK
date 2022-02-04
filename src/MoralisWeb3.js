@@ -84,6 +84,7 @@ class MoralisWeb3 {
         'Cannot execute Moralis.enableWeb3(), as Moralis Moralis.enableWeb3() already has been called, but is not finished yet '
       );
     }
+
     try {
       this.isEnablingWeb3 = true;
 
@@ -95,7 +96,9 @@ class MoralisWeb3 {
       const Connector = options?.connector ?? MoralisWeb3.getWeb3Connector(options?.provider);
       const connector = new Connector(options);
 
-      this.internalWeb3Provider = new InternalWeb3Provider(connector);
+      const anyNetwork = options?.anyNetwork === true ? true : false;
+
+      this.internalWeb3Provider = new InternalWeb3Provider(connector, anyNetwork);
 
       this.internalWeb3Provider.on(InternalWeb3Events.ACCOUNT_CHANGED, args =>
         this.handleWeb3AccountChanged(args)
