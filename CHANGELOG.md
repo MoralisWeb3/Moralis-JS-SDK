@@ -1,3 +1,12 @@
+## [1.2.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.4...v1.2.5) (2022-02-04)
+
+
+### Bug Fixes
+
+* cleanup web3 on logout ([#250](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/250)) ([d676d87](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d676d87acbdbef798bbaa9375890bc540c4c2110))
+* expose setting of 'any' network on  provider ([#251](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/251)) ([16537fa](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/16537fae14228b6a2aba23675033266e81065ec6))
+* preserve sessions for walletconnect and magic ([#249](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/249)) ([82c33e6](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/82c33e661ec1ac5e081f896ccc20b7859ce95c09))
+
 ## [1.2.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.3...v1.2.4) (2022-01-31)
 
 
