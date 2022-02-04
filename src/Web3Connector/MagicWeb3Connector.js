@@ -4,15 +4,9 @@ import AbstractWeb3Connector from './AbstractWeb3Connector';
 
 export default class MagicWeb3Connector extends AbstractWeb3Connector {
   type = 'MagicLink';
-  async activate({ email, apiKey, network }) {
+  async activate({ email, apiKey, network } = {}) {
     let magic = null;
     let ether = null;
-
-    try {
-      await this.deactivate();
-    } catch (error) {
-      // Do nothing
-    }
 
     if (!email) {
       throw new Error('"email" not provided, please provide Email');
@@ -79,5 +73,6 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
     }
     this.account = null;
     this.chainId = null;
+    this.provider = null;
   };
 }
