@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.5...v1.2.6) (2022-02-04)
+
+
+### Bug Fixes
+
+* account for metamask disconnect issue ([#252](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/252)) ([8664602](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/866460290cb248a01bed9db52ae1ca8d9dda7899))
+
 ## [1.2.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.4...v1.2.5) (2022-02-04)
 
 
