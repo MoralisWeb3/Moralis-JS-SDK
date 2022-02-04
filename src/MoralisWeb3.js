@@ -65,7 +65,7 @@ class MoralisWeb3 {
   }
 
   static handleWeb3ChainChanged(chainId) {
-    this.web3 = this.internalWeb3Provider.web3;
+    this.web3 = this.internalWeb3Provider?.web3;
     MoralisEmitter.emit(InternalWeb3Events.CHAIN_CHANGED, chainId);
   }
 
@@ -74,6 +74,9 @@ class MoralisWeb3 {
   }
 
   static handleWeb3Disconnect(error) {
+    if (error?.message === 'MetaMask: Disconnected from chain. Attempting to connect.') {
+      return;
+    }
     this.cleanup();
     MoralisEmitter.emit(InternalWeb3Events.PROVIDER_DISCONNECT, error);
   }
