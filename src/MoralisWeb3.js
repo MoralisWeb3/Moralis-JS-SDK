@@ -227,7 +227,6 @@ class MoralisWeb3 {
         this.handleWeb3Disconnect
       );
 
-      // WIP: deactivate ALL connections??
       // For example, if walletconnect has been enabled, then later on metamask, then wc is not the internalProvider, but still has an active connection
       try {
         await this.internalWeb3Provider.deactivate();
