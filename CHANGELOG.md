@@ -1,3 +1,13 @@
+## [1.2.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.6...v1.2.7) (2022-02-07)
+
+
+### Bug Fixes
+
+* newsession param for walletconnect and magic ([a0928dc](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0928dcbeb2b25bdae56526c89ea95ab574cd4ad))
+* prevent cleanup when enabling web3 ([01a7cd0](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/01a7cd0cd67566b8167d0f2a124a6339326ee94a))
+* prevent double cleanup on authentication ([bc4abe1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc4abe1c8b0ba7e564c9adf66f5d94a655006ea0))
+* types for anyNetwork in enableWeb3 ([4573a8a](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4573a8af1dcacec54924de8cca022486347913b5))
+
 ## [1.2.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.5...v1.2.6) (2022-02-04)
 
 
