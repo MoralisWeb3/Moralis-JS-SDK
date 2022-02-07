@@ -4,9 +4,9 @@ import AbstractWeb3Connector from './AbstractWeb3Connector';
 export class Web3AuthConnector extends AbstractWeb3Connector {
   type = 'Web3AuthConnector';
 
-  activate = async ({ infuraId, hexChainId, displayName, clientId }) => {
+  activate = async ({ rpcTarget, hexChainId, displayName, clientId }) => {
     // Checking that all params are given
-    if (!infuraId) {
+    if (!rpcTarget) {
       throw new Error('"infuraId" not provided, please provide infuraId');
     }
     if (!hexChainId) {
@@ -34,7 +34,7 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
     const ethChainConfig = {
       chainNamespace: CHAIN_NAMESPACES.EIP155,
       chainId: hexChainId,
-      rpcTarget: `https://ropsten.infura.io/v3/${infuraId}`,
+      rpcTarget: rpcTarget,
       displayName: displayName,
       blockExplorer: 'https://ropsten.etherscan.io/',
       ticker: 'ETH',
@@ -55,33 +55,24 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
 
     // Authenticating
     await web3auth.initModal();
-    web3auth?.connect();
+    let provider = null;
+    try {
+      provider = await web3auth.connect();
+    } catch {
+      // Do nothing, check next line down
+    }
 
-    // Modified Promise Structure to convert listener into async
-    const autheticated = async () => {
-      return new Promise((resolve, reject) => {
-        web3auth.on(ADAPTER_STATUS.CONNECTED, async data => {
-          const ether = new ethers.providers.Web3Provider(web3auth.provider);
-          const signer = ether.getSigner();
-          const { chainId } = await ether.getNetwork();
-          const address = (await signer.getAddress()).toLowerCase();
-          resolve({
-            provider: { ...web3auth.provider },
-            account: address,
-            chainId: `0x${chainId.toString(16)}`,
-          });
-        });
-        web3auth.on(ADAPTER_STATUS.ERRORED, error => {
-          reject(error);
-        });
-      });
-    };
+    if (!provider) {
+      throw new Error('Error authenticating');
+    }
 
     // Gathering data
-    const userAuth = await autheticated();
-    this.account = userAuth.account;
-    this.chainId = userAuth.chainId;
-    this.provider = userAuth.provider;
+    const ether = new ethers.providers.Web3Provider(web3auth.provider);
+    const signer = ether.getSigner();
+    const address = (await signer.getAddress()).toLowerCase();
+    this.account = address;
+    this.chainId = provider.chainId;
+    this.provider = { ...web3auth.provider };
     this.web3Instance = web3auth;
     this.subscribeToEvents(this.provider);
     return {
