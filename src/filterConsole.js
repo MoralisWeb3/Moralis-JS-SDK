@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
+/* global window */
 const filteredWarnings = [
-  // Optional dependency, where we handle the dependency check on run-time
+  // Optional dependencies, where we handle the dependency check on run-time
   `Module not found: Can't resolve '@walletconnect/web3-provider'`,
   `Module not found: Can't resolve 'magic-sdk'`,
 ];
@@ -9,17 +10,25 @@ const filteredWarnings = [
  * Filters console messages that include text from the blacklist
  */
 const filterConsole = () => {
-  const warnFn = console.log;
-
+  // Filter console.warn
+  const preservedConsoleWarn = console.warn;
   console.warn = (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      filteredWarnings.filter(filter => args[0].includes(args[0])).length > 1
-    ) {
+    let value = args ? args[0] : null;
+    // For the current use-cases we only care about the first argument being string
+    if (!value || typeof value !== 'string') {
+      return preservedConsoleWarn.apply(console, args);
+    }
+
+    // Raplace all types of single quotes to one format
+    value = value.replace('’', "'").replace('‘', "'").replace('’', "'");
+
+    // Filter out blacklisted strings
+    if (filteredWarnings.filter(filter => value.includes(filter)).length >= 1) {
       return;
     }
 
-    return warnFn;
+    // Otherwise return default function
+    return preservedConsoleWarn.apply(console, args);
   };
 };
 

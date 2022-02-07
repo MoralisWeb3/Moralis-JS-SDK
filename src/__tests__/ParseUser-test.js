@@ -31,6 +31,9 @@ jest.dontMock('../UniqueInstanceStateController');
 jest.dontMock('crypto-js/aes');
 jest.dontMock('crypto-js/enc-utf8');
 jest.setMock('ethers', () => {});
+jest.mock('../Parse.js', () => ({
+  cleanup: () => {},
+}));
 
 jest.mock('uuid', () => {
   let value = 0;

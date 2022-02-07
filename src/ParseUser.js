@@ -1139,7 +1139,9 @@ const DefaultController = {
   },
 
   logOut(options: RequestOptions): Promise<ParseUser> {
-    MoralisWeb3.cleanup();
+    const Moralis = require('./Parse');
+
+    Moralis.cleanup();
     const RESTController = CoreManager.getRESTController();
     if (options.sessionToken) {
       return RESTController.request('POST', 'logout', {}, options);

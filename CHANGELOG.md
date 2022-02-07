@@ -1,3 +1,36 @@
+## [1.2.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.6...v1.2.7) (2022-02-07)
+
+
+### Bug Fixes
+
+* newsession param for walletconnect and magic ([a0928dc](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0928dcbeb2b25bdae56526c89ea95ab574cd4ad))
+* prevent cleanup when enabling web3 ([01a7cd0](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/01a7cd0cd67566b8167d0f2a124a6339326ee94a))
+* prevent double cleanup on authentication ([bc4abe1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc4abe1c8b0ba7e564c9adf66f5d94a655006ea0))
+* types for anyNetwork in enableWeb3 ([4573a8a](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4573a8af1dcacec54924de8cca022486347913b5))
+
+## [1.2.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.5...v1.2.6) (2022-02-04)
+
+
+### Bug Fixes
+
+* account for metamask disconnect issue ([#252](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/252)) ([8664602](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/866460290cb248a01bed9db52ae1ca8d9dda7899))
+
+## [1.2.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.4...v1.2.5) (2022-02-04)
+
+
+### Bug Fixes
+
+* cleanup web3 on logout ([#250](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/250)) ([d676d87](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d676d87acbdbef798bbaa9375890bc540c4c2110))
+* expose setting of 'any' network on  provider ([#251](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/251)) ([16537fa](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/16537fae14228b6a2aba23675033266e81065ec6))
+* preserve sessions for walletconnect and magic ([#249](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/249)) ([82c33e6](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/82c33e661ec1ac5e081f896ccc20b7859ce95c09))
+
+## [1.2.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.3...v1.2.4) (2022-01-31)
+
+
+### Bug Fixes
+
+* filter console warnings of magic and wc ([#238](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/238)) ([dec4e2e](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dec4e2ea8190167ee3bfd821705dae7db9cc4ec9))
+
 ## [1.2.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.2...v1.2.3) (2022-01-28)
 
 

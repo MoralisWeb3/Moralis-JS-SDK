@@ -19,7 +19,7 @@ export const InternalWeb3Events = Object.freeze({
  * Gives access to ethers functionalities, initialized by the connector
  */
 class InternalWeb3Provider extends EventEmitter {
-  constructor(connector) {
+  constructor(connector, anyNetwork = false) {
     super();
 
     if (!connector) {
@@ -27,6 +27,7 @@ class InternalWeb3Provider extends EventEmitter {
     }
 
     this.connector = connector;
+    this.anyNetwork = anyNetwork;
 
     this.handleAccountChanged = this.handleAccountChanged.bind(this);
     this.handleChainChanged = this.handleChainChanged.bind(this);
@@ -44,7 +45,9 @@ class InternalWeb3Provider extends EventEmitter {
     this.provider = provider;
     this.chainId = chainId;
     this.account = account;
-    this.web3 = new ethers.providers.Web3Provider(provider, fromHexToDecimal(chainId));
+
+    const network = this.anyNetwork ? 'any' : fromHexToDecimal(chainId);
+    this.web3 = new ethers.providers.Web3Provider(provider, network);
 
     if (this.connector.on) {
       this.connector.on(ConnectorEvents.ACCOUNT_CHANGED, this.handleAccountChanged);

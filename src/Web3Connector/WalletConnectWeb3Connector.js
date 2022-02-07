@@ -15,15 +15,14 @@ export const WalletConnectEvent = Object.freeze({
  * Note: this assumes using WalletConnect v1
  * // TODO: support WalletConnect v2
  */
+
 class WalletConnectWeb3Connector extends AbstractWeb3Connector {
   type = 'WalletConnect';
 
-  async activate({ chainId: providedChainId, mobileLinks } = {}) {
-    // Cleanup old data if present to avoid using previous sessions
-    try {
-      await this.deactivate();
-    } catch (error) {
-      // Do nothing
+  async activate({ chainId: providedChainId, mobileLinks, newSession } = {}) {
+    // Log out of any previous sessions
+    if (newSession) {
+      this.cleanup();
     }
 
     if (!this.provider) {
@@ -76,9 +75,8 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
     return { provider: this.provider, account, chainId: verifiedChainId };
   }
 
-  async deactivate() {
-    this.unsubscribeToEvents(this.provider);
-
+  // Cleanup old sessions
+  cleanup() {
     try {
       if (window) {
         window.localStorage.removeItem('walletconnect');
@@ -86,17 +84,22 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
     } catch (error) {
       // Do nothing
     }
+  }
 
-    this.account = null;
-    this.chainId = null;
+  async deactivate() {
+    this.unsubscribeToEvents(this.provider);
 
     if (this.provider) {
       try {
-        await this.provider.disconnect();
+        await this.provider.close();
       } catch {
         // Do nothing
       }
     }
+
+    this.account = null;
+    this.chainId = null;
+    this.provider = null;
   }
 }
 

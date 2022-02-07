@@ -66,7 +66,7 @@ class MoralisWeb3 {
   }
 
   static handleWeb3ChainChanged(chainId) {
-    this.web3 = this.internalWeb3Provider.web3;
+    this.web3 = this.internalWeb3Provider?.web3;
     MoralisEmitter.emit(InternalWeb3Events.CHAIN_CHANGED, chainId);
   }
 
@@ -75,6 +75,9 @@ class MoralisWeb3 {
   }
 
   static handleWeb3Disconnect(error) {
+    if (error?.message === 'MetaMask: Disconnected from chain. Attempting to connect.') {
+      return;
+    }
     this.cleanup();
     MoralisEmitter.emit(InternalWeb3Events.PROVIDER_DISCONNECT, error);
   }
@@ -85,6 +88,7 @@ class MoralisWeb3 {
         'Cannot execute Moralis.enableWeb3(), as Moralis Moralis.enableWeb3() already has been called, but is not finished yet '
       );
     }
+
     try {
       this.isEnablingWeb3 = true;
 
@@ -93,14 +97,12 @@ class MoralisWeb3 {
         options.provider = 'network';
       }
 
-      if (this.internalWeb3Provider) {
-        await this.cleanup();
-      }
-
       const Connector = options?.connector ?? MoralisWeb3.getWeb3Connector(options?.provider);
       const connector = new Connector(options);
 
-      this.internalWeb3Provider = new InternalWeb3Provider(connector);
+      const anyNetwork = options?.anyNetwork === true ? true : false;
+
+      this.internalWeb3Provider = new InternalWeb3Provider(connector, anyNetwork);
 
       this.internalWeb3Provider.on(InternalWeb3Events.ACCOUNT_CHANGED, args =>
         this.handleWeb3AccountChanged(args)
@@ -205,7 +207,14 @@ class MoralisWeb3 {
     return this.cleanup();
   }
 
+  /**
+   * Cleanup previously established provider
+   */
   static async cleanup() {
+    if (this.isEnablingWeb3) {
+      return;
+    }
+
     if (this.web3 && this.internalWeb3Provider) {
       MoralisEmitter.emit(InternalWeb3Events.WEB3_DEACTIVATED, {
         connector: this.internalWeb3Provider.connector,
@@ -231,7 +240,12 @@ class MoralisWeb3 {
         this.handleWeb3Disconnect
       );
 
-      await this.internalWeb3Provider.deactivate();
+      // For example, if walletconnect has been enabled, then later on metamask, then wc is not the internalProvider, but still has an active connection
+      try {
+        await this.internalWeb3Provider.deactivate();
+      } catch (error) {
+        // Do nothing
+      }
     }
 
     this.internalWeb3Provider = null;
@@ -243,8 +257,6 @@ class MoralisWeb3 {
     if (isLoggedIn) {
       await ParseUser.logOut();
     }
-
-    await this.cleanup();
 
     if (MoralisWeb3.isDotAuth(options)) {
       return MoralisDot.authenticate(options);
