@@ -208,6 +208,10 @@ class MoralisWeb3 {
    * Cleanup previously established provider
    */
   static async cleanup() {
+    if (this.isEnablingWeb3) {
+      return;
+    }
+
     if (this.web3 && this.internalWeb3Provider) {
       MoralisEmitter.emit(InternalWeb3Events.WEB3_DEACTIVATED, {
         connector: this.internalWeb3Provider.connector,
