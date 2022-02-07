@@ -20,6 +20,11 @@ class WalletConnectWeb3Connector extends AbstractWeb3Connector {
   type = 'WalletConnect';
 
   async activate({ chainId: providedChainId, mobileLinks, newSession } = {}) {
+    // Log out of any previous sessions
+    if (newSession) {
+      this.cleanup();
+    }
+
     if (!this.provider) {
       let WalletConnectProvider;
       const config = {
