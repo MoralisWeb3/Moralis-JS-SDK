@@ -7,7 +7,7 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
   activate = async ({ rpcTarget, hexChainId, displayName, clientId }) => {
     // Checking that all params are given
     if (!rpcTarget) {
-      throw new Error('"infuraId" not provided, please provide infuraId');
+      throw new Error('"rpcUrl" not provided, please provide infuraId');
     }
     if (!hexChainId) {
       throw new Error('"hexChainId" not provided, please provide hexChainId');
