@@ -340,8 +340,12 @@ export namespace Moralis {
     type?: AuthenticationType;
     chainId?: number;
     signingMessage?: string;
+    anyNetwork?: boolean;
   }
-  type EnableOptions = Pick<AuthenticationOptions, 'provider' | 'chainId'>;
+  type EnableOptions = Pick<
+    AuthenticationOptions,
+    'provider' | 'connector' | 'chainId' | 'anyNetwork'
+  >;
   type LinkOptions = Object.SaveOptions;
 
   type EthChain = 'eth' | 'mainnet' | '0x1';
