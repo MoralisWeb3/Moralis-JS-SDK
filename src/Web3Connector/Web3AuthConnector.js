@@ -67,19 +67,30 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
     }
 
     // Gathering data
-    const ether = new ethers.providers.Web3Provider(web3auth.provider);
-    const signer = ether.getSigner();
-    const address = (await signer.getAddress()).toLowerCase();
-    this.account = address;
-    this.chainId = provider.chainId;
-    this.provider = { ...web3auth.provider };
-    this.web3Instance = web3auth;
-    this.subscribeToEvents(this.provider);
-    return {
-      chainId: this.chainId,
-      account: this.account,
-      provider: this.provider,
-    };
+    try {
+      const isSocialLogin = web3auth?.provider ? false : true;
+      const ether = new ethers.providers.Web3Provider(
+        web3auth?.provider ? web3auth.provider : web3auth
+      );
+
+      const signer = ether.getSigner();
+      const { chainId } = await ether.getNetwork();
+      const address = (await signer.getAddress()).toLowerCase();
+
+      this.account = address;
+      this.chainId = `0x${chainId.toString(16)}`;
+      this.provider = isSocialLogin ? ether : web3auth?.provider;
+
+      this.web3Instance = web3auth;
+      this.subscribeToEvents(this.provider);
+      return {
+        chainId: this.chainId,
+        account: this.account,
+        provider: this.provider,
+      };
+    } catch {
+      throw new Error('An Error occurred while authenticating please retry');
+    }
   };
 
   deactivate = async () => {

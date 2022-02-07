@@ -176,7 +176,7 @@ export interface paths {
     get: operations["resolveAddress"];
   };
   "/{pair_address}/reserves": {
-    /** Get the liquidity reserves for a given pair address */
+    /** Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment. */
     get: operations["getPairReserves"];
   };
   "/{token0_address}/{token1_address}/pairAddress": {
@@ -1705,6 +1705,8 @@ export interface operations {
         limit?: number;
         /** The addresses to get balances for (Optional) */
         token_addresses?: string[];
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** The owner of a given token */
@@ -2137,6 +2139,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
@@ -2198,6 +2202,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
@@ -2324,6 +2330,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** Address of the contract */
@@ -2418,7 +2426,7 @@ export interface operations {
       };
     };
   };
-  /** Get the liquidity reserves for a given pair address */
+  /** Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment. */
   getPairReserves: {
     parameters: {
       query: {
