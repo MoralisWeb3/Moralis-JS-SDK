@@ -255,8 +255,6 @@ class MoralisWeb3 {
       await ParseUser.logOut();
     }
 
-    await this.cleanup();
-
     if (MoralisWeb3.isDotAuth(options)) {
       return MoralisDot.authenticate(options);
     }
