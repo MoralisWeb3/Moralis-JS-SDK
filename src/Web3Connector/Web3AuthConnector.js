@@ -1,3 +1,4 @@
+/* global window */
 import { ethers } from 'ethers';
 import verifyChainId from '../utils/verifyChainId';
 import AbstractWeb3Connector from './AbstractWeb3Connector';
@@ -6,19 +7,19 @@ import { Web3ConnectorChainConstants } from './Web3ConnectorChainConstants';
 export class Web3Auth extends AbstractWeb3Connector {
   type = 'web3Auth';
 
-  activate = async ({ rpcTarget, hexChainId, clientId }) => {
+  activate = async ({ rpcTarget, chainId, clientId }) => {
     // Checking that all params are given
     if (!rpcTarget) {
       throw new Error('"rpcUrl" not provided, please provide infuraId');
     }
-    if (!hexChainId) {
-      throw new Error('"hexChainId" not provided, please provide hexChainId');
+    if (!chainId) {
+      throw new Error('"chainId" not provided, please provide chainId');
     }
     if (!clientId) {
       throw new Error('"clientId" not provided, please provide clientId');
     }
 
-    // Initalizing Web3Auth
+    // Initalizing Web3Auth and getting constants
     let Web3Auth;
     let CHAIN_NAMESPACES;
     let ADAPTER_STATUS;
@@ -30,21 +31,34 @@ export class Web3Auth extends AbstractWeb3Connector {
       // Do Nothing Individual Checks are done below
     }
 
+    // Check for if user is using CDN to import
+    if (!Web3Auth) {
+      Web3Auth = window?.Web3auth?.Web3Auth;
+    }
+
+    if (!CHAIN_NAMESPACES) {
+      CHAIN_NAMESPACES = window.Base?.CHAIN_NAMESPACES;
+    }
+
+    if (!ADAPTER_STATUS) {
+      ADAPTER_STATUS = window.Base?.ADAPTER_STATUS;
+    }
+
+    // Error checking for if libary is not installed
     if (!Web3Auth) {
       throw new Error('"@web3auth/web3auth" not installed, please install');
     }
-    if (!CHAIN_NAMESPACES) {
-      throw new Error('"@web3auth/base" not installed, please install');
-    }
-    if (!ADAPTER_STATUS) {
+    if (!CHAIN_NAMESPACES || !ADAPTER_STATUS) {
       throw new Error('"@web3auth/base" not installed, please install');
     }
 
-    const chainMetaData = Web3ConnectorChainConstants[verifyChainId(hexChainId)];
+    // Get Chain Connstant
+    const chainMetaData = Web3ConnectorChainConstants[verifyChainId(chainId)];
     if (!chainMetaData) {
-      throw new Error('"hexChainId" not supported, please double check chainId');
+      throw new Error('"chainId" not supported, please double check chainId');
     }
 
+    // Build config
     const ethChainConfig = {
       chainNamespace: CHAIN_NAMESPACES.EIP155,
       chainId: chainMetaData.chainId,
@@ -55,6 +69,7 @@ export class Web3Auth extends AbstractWeb3Connector {
       tickerName: chainMetaData.tickerName,
     };
 
+    // Build Web3Auth
     let web3auth;
     try {
       web3auth = new Web3Auth({
@@ -68,7 +83,7 @@ export class Web3Auth extends AbstractWeb3Connector {
       throw new Error('Error initializing Web3Auth');
     }
 
-    // Authenticating
+    // Authenticate
     await web3auth.initModal();
     let provider = null;
     try {
@@ -78,10 +93,10 @@ export class Web3Auth extends AbstractWeb3Connector {
     }
 
     if (!provider) {
-      throw new Error('Error authenticating');
+      throw new Error('Error getting provider');
     }
 
-    // Gathering data
+    // Gather User data
     try {
       const isSocialLogin = web3auth?.provider ? false : true;
       const ether = new ethers.providers.Web3Provider(
