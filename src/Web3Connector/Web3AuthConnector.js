@@ -31,7 +31,7 @@ export class Web3Auth extends AbstractWeb3Connector {
       // Do Nothing Individual Checks are done below
     }
 
-    // Check for if user is using CDN to import
+    // Check if user is using CDN to import
     if (!Web3Auth) {
       Web3Auth = window?.Web3auth?.Web3Auth;
     }
@@ -44,7 +44,7 @@ export class Web3Auth extends AbstractWeb3Connector {
       ADAPTER_STATUS = window.Base?.ADAPTER_STATUS;
     }
 
-    // Error checking for if libary is not installed
+    // Error checking for if library is not installed
     if (!Web3Auth) {
       throw new Error('"@web3auth/web3auth" not installed, please install');
     }
@@ -52,7 +52,7 @@ export class Web3Auth extends AbstractWeb3Connector {
       throw new Error('"@web3auth/base" not installed, please install');
     }
 
-    // Get Chain Connstant
+    // Get Chain Constant's
     const chainMetaData = Web3ConnectorChainConstants[verifyChainId(chainId)];
     if (!chainMetaData) {
       throw new Error('"chainId" not supported, please double check chainId');
