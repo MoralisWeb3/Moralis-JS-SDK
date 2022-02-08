@@ -337,7 +337,7 @@ export namespace Moralis {
     | 'walletConnect'
     | 'wc'
     | 'magicLink'
-    | 'Web3AuthConnector';
+    | 'web3Auth';
   type AuthenticationType = 'evm' | 'dot' | 'polkadot' | 'kusama' | 'erd' | 'elrond' | 'sol';
   type Web3Provider = MoralisWalletConnectProvider | MoralisInjectedProvider;
   interface AuthenticationOptions {

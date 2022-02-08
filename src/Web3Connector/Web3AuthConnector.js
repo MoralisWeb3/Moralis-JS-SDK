@@ -1,10 +1,12 @@
 import { ethers } from 'ethers';
+import verifyChainId from '../utils/verifyChainId';
 import AbstractWeb3Connector from './AbstractWeb3Connector';
+import { Web3ConnectorChainConstants } from './Web3ConnectorChainConstants';
 
-export class Web3AuthConnector extends AbstractWeb3Connector {
-  type = 'Web3AuthConnector';
+export class Web3Auth extends AbstractWeb3Connector {
+  type = 'web3Auth';
 
-  activate = async ({ rpcTarget, hexChainId, displayName, clientId }) => {
+  activate = async ({ rpcTarget, hexChainId, clientId }) => {
     // Checking that all params are given
     if (!rpcTarget) {
       throw new Error('"rpcUrl" not provided, please provide infuraId');
@@ -12,16 +14,22 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
     if (!hexChainId) {
       throw new Error('"hexChainId" not provided, please provide hexChainId');
     }
-    if (!displayName) {
-      throw new Error('"displayName" not provided, please provide displayName');
-    }
     if (!clientId) {
       throw new Error('"clientId" not provided, please provide clientId');
     }
 
     // Initalizing Web3Auth
-    const { Web3Auth } = require('@web3auth/web3auth');
-    const { CHAIN_NAMESPACES, ADAPTER_STATUS } = require('@web3auth/base');
+    let Web3Auth;
+    let CHAIN_NAMESPACES;
+    let ADAPTER_STATUS;
+    try {
+      Web3Auth = require('@web3auth/web3auth')?.Web3Auth;
+      CHAIN_NAMESPACES = require('@web3auth/base')?.CHAIN_NAMESPACES;
+      ADAPTER_STATUS = require('@web3auth/base')?.ADAPTER_STATUS;
+    } catch {
+      // Do Nothing Individual Checks are done below
+    }
+
     if (!Web3Auth) {
       throw new Error('"@web3auth/web3auth" not installed, please install');
     }
@@ -31,15 +39,22 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
     if (!ADAPTER_STATUS) {
       throw new Error('"@web3auth/base" not installed, please install');
     }
+
+    const chainMetaData = Web3ConnectorChainConstants[verifyChainId(hexChainId)];
+    if (!chainMetaData) {
+      throw new Error('"hexChainId" not supported, please double check chainId');
+    }
+
     const ethChainConfig = {
       chainNamespace: CHAIN_NAMESPACES.EIP155,
-      chainId: hexChainId,
+      chainId: chainMetaData.chainId,
       rpcTarget: rpcTarget,
-      displayName: displayName,
-      blockExplorer: 'https://ropsten.etherscan.io/',
-      ticker: 'ETH',
-      tickerName: 'Ethereum',
+      displayName: chainMetaData.displayName,
+      blockExplorer: chainMetaData.blockExplorer,
+      ticker: chainMetaData.ticker,
+      tickerName: chainMetaData.tickerName,
     };
+
     let web3auth;
     try {
       web3auth = new Web3Auth({
@@ -74,11 +89,11 @@ export class Web3AuthConnector extends AbstractWeb3Connector {
       );
 
       const signer = ether.getSigner();
-      const { chainId } = await ether.getNetwork();
-      const address = (await signer.getAddress()).toLowerCase();
+      const values = await Promise.all([ether.getNetwork(), signer.getAddress()]);
+      const providerChainId = values[0].chainId;
 
-      this.account = address;
-      this.chainId = `0x${chainId.toString(16)}`;
+      this.account = values[1].toLocaleLowerCase();
+      this.chainId = `0x${providerChainId.toString(16)}`;
       this.provider = isSocialLogin ? ether : web3auth?.provider;
 
       this.web3Instance = web3auth;
