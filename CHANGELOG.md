@@ -1,3 +1,11 @@
+## [1.3.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.0...v1.3.1) (2022-02-09)
+
+
+### Bug Fixes
+
+* FromWei type from number to string ([#257](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/257)) ([fdb5804](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fdb5804afc694a1de37eed93c0627da459af7f47))
+* overloaded functions for executeFunction ([#256](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/256)) ([28b2468](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/28b24686172f861452aa7747d0c5e5b5745645e8))
+
 # [1.3.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.7...v1.3.0) (2022-02-09)
 
 
