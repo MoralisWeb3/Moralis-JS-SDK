@@ -37,7 +37,7 @@
     "@babel/runtime": "7.16.7",
     "@babel/runtime-corejs3": "7.16.8",
     "@metamask/detect-provider": "^1.2.0",
-    "axios": "0.24.0",
+    "axios": "0.25.0",
     "ethers": "5.5.3",
     "react-native-crypto-js": "1.0.0",
     "uuid": "^8.3.2",
