@@ -190,6 +190,9 @@ export interface paths {
     /** Uploads multiple files and place them in a folder directory */
     post: operations["uploadFolder"];
   };
+  "/web3/version": {
+    get: operations["web3ApiVersion"];
+  };
 }
 
 export interface components {
@@ -1273,6 +1276,13 @@ export interface components {
        * @example https://ipfs.moralis.io/QmPQ3YJ3hgfsBzJ1U4MGyV2C1GhDy6MWCENr1qMdMpKVnY/moralis/logo.jpg
        */
       path: string;
+    };
+    web3version: {
+      /**
+       * @description version of the api
+       * @example 1.0.0
+       */
+      version: string;
     };
   };
 }
@@ -2516,6 +2526,16 @@ export interface operations {
       };
     };
   };
+  web3ApiVersion: {
+    responses: {
+      /** Returns the web3 api version */
+      200: {
+        content: {
+          "application/json": components["schemas"]["web3version"];
+        };
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -2576,6 +2596,10 @@ export default class Web3Api {
 
   static storage: {
     uploadFolder: () => Promise<operations["uploadFolder"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
+  static info: {
+    web3ApiVersion: () => Promise<operations["web3ApiVersion"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }
