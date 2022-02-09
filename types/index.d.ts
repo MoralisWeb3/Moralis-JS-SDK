@@ -556,7 +556,7 @@ export namespace Moralis {
   class Units {
     static ETH: (value: number | string) => string;
     static Token: (value: number | string, decimals?: number) => string;
-    static FromWei: (value: number | string, decimals?: number) => number;
+    static FromWei: (value: number | string, decimals?: number) => string;
   }
 
   /**
