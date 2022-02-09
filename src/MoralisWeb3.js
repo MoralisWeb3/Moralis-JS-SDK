@@ -680,9 +680,64 @@ class MoralisWeb3 {
       signerOrProvider,
     } = this.getInternalWeb3Provider();
 
-    const functionData = abi.find(x => x.name === functionName);
+    // Check if function is an overloaded function definition. ex "getMessage(string)", or "getMessage()"
+    const overloadedFunction = functionName.match(/^(.+)\((.*)\)$/);
 
-    if (!functionData) throw new Error('Function does not exist in abi');
+    let functionData;
+    if (overloadedFunction) {
+      // Get functiondata from overloaded function
+      const nameWithoutTopics = overloadedFunction[1];
+      const topics = overloadedFunction[2]
+        .split(',')
+        .map(topic => topic.trim())
+        .filter(topic => !!topic);
+
+      const functionDataArray = abi.filter(x => x.name === nameWithoutTopics);
+
+      if (functionDataArray.length === 0) {
+        throw new Error('Function does not exist in abi');
+      }
+
+      functionData = functionDataArray.find(data => {
+        return (
+          (data?.inputs.length ?? 0) === topics.length &&
+          data.inputs.every((input, index) => input.type === topics[index])
+        );
+      });
+
+      if (!functionData) {
+        const possibleTopics = functionDataArray.map(
+          data => `${data.name}(${data.inputs.map(input => input.type).join(',')})`
+        );
+
+        throw new Error(
+          `Function with the provided topic does not exist in abi. Possible funcationNames: ${possibleTopics.join(
+            ' ,'
+          )}`
+        );
+      }
+    } else {
+      // Get functiondata from 'normal' function
+      const functionDataArray = abi.filter(x => x.name === functionName);
+
+      if (functionDataArray.length === 0) {
+        throw new Error('Function does not exist in abi');
+      }
+
+      if (functionDataArray.length > 1) {
+        const possibleTopics = functionDataArray.map(
+          data => `${data.name}(${data.inputs.map(input => input.type).join(',')})`
+        );
+
+        throw new Error(
+          `Multiple function definitions found in the abi. Please include the topic in the functionName. Possible funcationNames: ${possibleTopics.join(
+            ' ,'
+          )}`
+        );
+      }
+
+      functionData = functionDataArray[0];
+    }
 
     const stateMutability = functionData?.stateMutability;
 
@@ -715,7 +770,13 @@ class MoralisWeb3 {
 
     const contract = new ethers.Contract(contractAddress, abi, signerOrProvider);
 
-    const response = await contract[functionName](
+    const contractMethod = contract[functionName];
+
+    if (!contractMethod) {
+      throw new Error(`Cannot find function "${functionName}" on the contract`);
+    }
+
+    const response = await contractMethod(
       ...Object.values(parsedInputs),
       msgValue ? { value: ethers.BigNumber.from(`${msgValue}`) } : {}
     );
