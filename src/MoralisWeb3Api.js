@@ -185,6 +185,10 @@ getPairAddress: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET
   static storage = {
 uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST","group":"storage","name":"uploadFolder","url":"/ipfs/uploadFolder","bodyParams":[{"key":"data","type":"set body","required":false}]}, params: options }),
   }
+
+  static info = {
+web3ApiVersion: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"info","name":"web3ApiVersion","url":"/web3/version"}, params: options }),
+  }
 }
 
 export default Web3Api;
