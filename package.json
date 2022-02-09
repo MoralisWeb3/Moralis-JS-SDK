@@ -89,7 +89,7 @@
     "jest-environment-jsdom": "^27.4.4",
     "lint-staged": "^12.1.2",
     "merge-stream": "^2.0.0",
-    "metro-react-native-babel-preset": "0.66.2",
+    "metro-react-native-babel-preset": "0.67.0",
     "openapi-typescript": "^4.5.0",
     "parse-server": "git+https://git@github.com/parse-community/parse-server.git#alpha",
     "prettier": "^2.5.1",
