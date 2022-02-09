@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.7...v1.3.0) (2022-02-09)
+
+
+### Features
+
+* add web3Auth as connection method ([a7724f1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a7724f1acd4be7ad45e131156a645dd51c1553e1))
+
 ## [1.2.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.2.6...v1.2.7) (2022-02-07)
 
 
