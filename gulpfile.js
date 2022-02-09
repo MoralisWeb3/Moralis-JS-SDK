@@ -229,6 +229,7 @@ gulp.task('browserify', function (cb) {
     .ignore('_process')
     .ignore('@walletconnect/web3-provider')
     .ignore('magic-sdk')
+    .ignore('@web3auth/web3auth')
     .bundle();
   stream.on('end', () => {
     cb();
@@ -249,6 +250,7 @@ gulp.task('browserify-weapp', function (cb) {
     .exclude('xmlhttprequest')
     .ignore('_process')
     .ignore('@walletconnect/web3-provider')
+    .ignore('@web3auth/web3auth')
     .ignore('magic-sdk')
     .bundle();
   stream.on('end', () => {
