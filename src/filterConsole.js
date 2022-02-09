@@ -4,6 +4,7 @@ const filteredWarnings = [
   // Optional dependencies, where we handle the dependency check on run-time
   `Module not found: Can't resolve '@walletconnect/web3-provider'`,
   `Module not found: Can't resolve 'magic-sdk'`,
+  `Module not found: Can't resolve '@web3auth/web3auth'`,
 ];
 
 /**
