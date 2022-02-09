@@ -2,31 +2,19 @@
 import { ethers } from 'ethers';
 import verifyChainId from '../utils/verifyChainId';
 import AbstractWeb3Connector from './AbstractWeb3Connector';
-import { Web3ConnectorChainConstants } from './Web3ConnectorChainConstants';
-
 export class Web3Auth extends AbstractWeb3Connector {
   type = 'web3Auth';
 
-  activate = async ({ rpcTarget, chainId, clientId }) => {
+  activate = async ({ chainId = '0x1', clientId, theme, appLogo, loginMethodsOrder } = {}) => {
     // Checking that all params are given
-    if (!rpcTarget) {
-      throw new Error('"rpcUrl" not provided, please provide infuraId');
-    }
-    if (!chainId) {
-      throw new Error('"chainId" not provided, please provide chainId');
-    }
     if (!clientId) {
       throw new Error('"clientId" not provided, please provide clientId');
     }
 
     // Initalizing Web3Auth and getting constants
     let Web3Auth;
-    let CHAIN_NAMESPACES;
-    let ADAPTER_STATUS;
     try {
       Web3Auth = require('@web3auth/web3auth')?.Web3Auth;
-      CHAIN_NAMESPACES = require('@web3auth/base')?.CHAIN_NAMESPACES;
-      ADAPTER_STATUS = require('@web3auth/base')?.ADAPTER_STATUS;
     } catch {
       // Do Nothing Individual Checks are done below
     }
@@ -36,37 +24,15 @@ export class Web3Auth extends AbstractWeb3Connector {
       Web3Auth = window?.Web3auth?.Web3Auth;
     }
 
-    if (!CHAIN_NAMESPACES) {
-      CHAIN_NAMESPACES = window.Base?.CHAIN_NAMESPACES;
-    }
-
-    if (!ADAPTER_STATUS) {
-      ADAPTER_STATUS = window.Base?.ADAPTER_STATUS;
-    }
-
     // Error checking for if library is not installed
     if (!Web3Auth) {
       throw new Error('"@web3auth/web3auth" not installed, please install');
     }
-    if (!CHAIN_NAMESPACES || !ADAPTER_STATUS) {
-      throw new Error('"@web3auth/base" not installed, please install');
-    }
-
-    // Get Chain Constant's
-    const chainMetaData = Web3ConnectorChainConstants[verifyChainId(chainId)];
-    if (!chainMetaData) {
-      throw new Error('"chainId" not supported, please double check chainId');
-    }
 
     // Build config
     const ethChainConfig = {
-      chainNamespace: CHAIN_NAMESPACES.EIP155,
-      chainId: chainMetaData.chainId,
-      rpcTarget: rpcTarget,
-      displayName: chainMetaData.displayName,
-      blockExplorer: chainMetaData.blockExplorer,
-      ticker: chainMetaData.ticker,
-      tickerName: chainMetaData.tickerName,
+      chainNamespace: 'eip155',
+      chainId: verifyChainId(chainId),
     };
 
     // Build Web3Auth
@@ -74,13 +40,18 @@ export class Web3Auth extends AbstractWeb3Connector {
     try {
       web3auth = new Web3Auth({
         chainConfig: ethChainConfig,
+        uiConfig: {
+          theme: theme ?? 'dark',
+          appLogo: appLogo ?? 'https://moralis.io/wp-content/uploads/2021/05/moralisWhiteLogo.svg',
+          loginMethodsOrder,
+        },
         clientId: clientId,
       });
     } catch {
       // Do Nothing error checked below
     }
     if (!web3auth) {
-      throw new Error('Error initializing Web3Auth');
+      throw new Error('Could not connect via Web3Auth, error during initializing Web3Auth');
     }
 
     // Authenticate
@@ -93,7 +64,7 @@ export class Web3Auth extends AbstractWeb3Connector {
     }
 
     if (!provider) {
-      throw new Error('Error getting provider');
+      throw new Error('Could not connect via Web3Auth, error in connecting to provider');
     }
 
     // Gather User data
@@ -119,7 +90,7 @@ export class Web3Auth extends AbstractWeb3Connector {
         provider: this.provider,
       };
     } catch {
-      throw new Error('An Error occurred while authenticating please retry');
+      throw new Error('Could not connect via Web3Auth, error while authenticating');
     }
   };
 
@@ -130,5 +101,6 @@ export class Web3Auth extends AbstractWeb3Connector {
     }
     this.account = null;
     this.chainId = null;
+    this.provider = null;
   };
 }
