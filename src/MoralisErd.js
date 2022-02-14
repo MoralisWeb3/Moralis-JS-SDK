@@ -70,14 +70,16 @@ class MoralisErd {
     return user;
   }
 
-  static async link(account) {
+  static async link(account, options) {
+    const message = options?.signingMessage || MoralisErd.getSigningData();
+
     const user = await ParseUser.current();
     const erdAddress = account.toLowerCase();
     const ErdAddress = ParseObject.extend('_ErdAddress');
     const query = new ParseQuery(ErdAddress);
     const erdAddressRecord = await query.get(erdAddress).catch(() => null);
     if (!erdAddressRecord) {
-      const data = MoralisErd.getSigningData();
+      const data = await createSigningData(message);
       const signature = await MoralisErd.sign(data);
       const authData = { id: erdAddress, signature, data };
       await user.linkWith('moralisErd', { authData });

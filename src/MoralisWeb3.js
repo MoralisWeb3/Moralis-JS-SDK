@@ -296,7 +296,7 @@ class MoralisWeb3 {
 
   static async link(account, options) {
     const { signer } = this.getInternalWeb3Provider();
-    const data = options?.signingMessage || MoralisWeb3.getSigningData();
+    const message = options?.signingMessage || MoralisWeb3.getSigningData();
     const user = await ParseUser.currentAsync();
     const ethAddress = account.toLowerCase();
 
@@ -304,6 +304,7 @@ class MoralisWeb3 {
     const query = new ParseQuery(EthAddress);
     const ethAddressRecord = await query.get(ethAddress).catch(() => null);
     if (!ethAddressRecord) {
+      const data = await createSigningData(message);
       const signature = await signer.signMessage(data);
 
       if (!signature) throw new Error('Data not signed');

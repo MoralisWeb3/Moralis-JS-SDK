@@ -56,14 +56,16 @@ class MoralisSol {
     return user;
   }
 
-  static async link(account) {
+  static async link(account, options) {
+    const message = options?.signingMessage || MoralisSol.getSigningData();
+
     const user = await ParseUser.current();
     const solAddress = account;
     const SolAddress = ParseObject.extend('_SolAddress');
     const query = new ParseQuery(SolAddress);
     const solAddressRecord = await query.get(solAddress).catch(() => null);
     if (!solAddressRecord) {
-      const data = MoralisSol.getSigningData();
+      const data = await createSigningData(message);
       const signature = await MoralisSol.sign(solAddress, data);
       const authData = { id: solAddress, signature, data };
       await user.linkWith('moralisSol', { authData });
