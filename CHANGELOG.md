@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.1...v1.3.2) (2022-02-14)
+
+
+### Bug Fixes
+
+* use secure signing message for link action ([#261](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/261)) ([f3be548](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3be5488a93c82695a8cf0ba38b4200b8e6875dd))
+
 ## [1.3.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.0...v1.3.1) (2022-02-09)
 
 
