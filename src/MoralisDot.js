@@ -37,14 +37,16 @@ class MoralisDot {
     return user;
   }
 
-  static async link(account) {
+  static async link(account, options) {
+    const message = options?.signingMessage || MoralisDot.getSigningData();
+
     const user = await ParseUser.current();
     const dotAddress = account;
     const DotAddress = ParseObject.extend('_DotAddress');
     const query = new ParseQuery(DotAddress);
     const dotAddressRecord = await query.get(dotAddress).catch(() => null);
     if (!dotAddressRecord) {
-      const data = MoralisDot.getSigningData();
+      const data = await createSigningData(message);
       const signature = await MoralisDot.sign(dotAddress, data);
       const authData = { id: dotAddress, signature, data };
       await user.linkWith('moralisDot', { authData });
