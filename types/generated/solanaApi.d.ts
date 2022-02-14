@@ -65,7 +65,7 @@ export interface operations {
   balance: {
     parameters: {
       path: {
-        network: "mainnet" | "testnet";
+        network: "mainnet" | "devnet";
         address: string;
       };
     };
@@ -80,7 +80,7 @@ export interface operations {
   getSPL: {
     parameters: {
       path: {
-        network: "mainnet" | "testnet";
+        network: "mainnet" | "devnet";
         address: string;
       };
     };
@@ -95,7 +95,7 @@ export interface operations {
   getNFTs: {
     parameters: {
       path: {
-        network: "mainnet" | "testnet";
+        network: "mainnet" | "devnet";
         address: string;
       };
     };
@@ -111,7 +111,7 @@ export interface operations {
     parameters: {
       path: {
         address: string;
-        network: "mainnet" | "testnet";
+        network: "mainnet" | "devnet";
       };
     };
     responses: {
@@ -126,7 +126,7 @@ export interface operations {
     parameters: {
       path: {
         address: string;
-        network: "mainnet" | "testnet";
+        network: "mainnet" | "devnet";
       };
     };
     responses: {
