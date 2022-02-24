@@ -138,8 +138,10 @@ export interface paths {
   "/nft/{address}/{token_id}/metadata/resync": {
     /**
      * ReSync the metadata for an NFT
-     * * The metadata flag will request a resync of the metadata for an nft
-     * * The uri flag will request fetch the token_uri for an NFT and then fetch it's metadata. To be used when the token uri get updated
+     * * The metadata(default) flag will request a the NFT's metadata from the already existing token_uri
+     * * The uri flag will fetch the latest token_uri from the given NFT address
+     * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
+     * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
      */
     get: operations["reSyncMetadata"];
   };
@@ -2255,16 +2257,20 @@ export interface operations {
   };
   /**
    * ReSync the metadata for an NFT
-   * * The metadata flag will request a resync of the metadata for an nft
-   * * The uri flag will request fetch the token_uri for an NFT and then fetch it's metadata. To be used when the token uri get updated
+   * * The metadata(default) flag will request a the NFT's metadata from the already existing token_uri
+   * * The uri flag will fetch the latest token_uri from the given NFT address
+   * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
+   * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
    */
   reSyncMetadata: {
     parameters: {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** the type of resync to operate */
+        /** The type of resync to operate */
         flag?: "uri" | "metadata";
+        /** To define the behaviour of the endpoint */
+        mode?: "async" | "sync";
       };
       path: {
         /** Address of the contract */
@@ -2274,6 +2280,8 @@ export interface operations {
       };
     };
     responses: {
+      /** (In sync mode) Resync request executed. */
+      200: unknown;
       /** The resync request was received and will be executed. */
       202: unknown;
     };
@@ -2577,7 +2585,7 @@ export default class Web3Api {
     getContractNFTTransfers: (options: operations["getContractNFTTransfers"]["parameters"]["query"] & operations["getContractNFTTransfers"]["parameters"]["path"]) => Promise<operations["getContractNFTTransfers"]["responses"]["200"]["content"]["application/json"]>;
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
-    reSyncMetadata: (options: operations["reSyncMetadata"]["parameters"]["query"] & operations["reSyncMetadata"]["parameters"]["path"]) => Promise<unknown>;
+    reSyncMetadata: (options: operations["reSyncMetadata"]["parameters"]["query"] & operations["reSyncMetadata"]["parameters"]["path"]) => Promise<operations["reSyncMetadata"]["responses"]["200"]["content"]["application/json"]>;
     syncNFTContract: (options: operations["syncNFTContract"]["parameters"]["query"] & operations["syncNFTContract"]["parameters"]["path"]) => Promise<unknown>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>;
     getTokenIdOwners: (options: operations["getTokenIdOwners"]["parameters"]["query"] & operations["getTokenIdOwners"]["parameters"]["path"]) => Promise<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"]>;
