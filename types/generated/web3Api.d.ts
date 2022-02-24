@@ -139,7 +139,7 @@ export interface paths {
     /**
      * ReSync the metadata for an NFT
      * * The metadata(default) flag will request a the NFT's metadata from the already existing token_uri
-     * * The uri flag will fetch the latest token_uri from the given NFT address
+     * * The uri flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
      * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
      * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
      */
@@ -2258,7 +2258,7 @@ export interface operations {
   /**
    * ReSync the metadata for an NFT
    * * The metadata(default) flag will request a the NFT's metadata from the already existing token_uri
-   * * The uri flag will fetch the latest token_uri from the given NFT address
+   * * The uri flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
    * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
    * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
    */
