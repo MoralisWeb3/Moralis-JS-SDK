@@ -1160,6 +1160,10 @@ export interface components {
       block_number?: string;
       validated?: string;
     };
+    metadataResync: {
+      /** @description The status of resync request */
+      status: string;
+    };
     erc721Metadata: {
       /**
        * @description The name of the token Contract
@@ -2281,9 +2285,23 @@ export interface operations {
     };
     responses: {
       /** (In sync mode) Resync request executed. */
-      200: unknown;
+      200: {
+        content: {
+          "application/json": components["schemas"]["metadataResync"];
+        };
+      };
       /** The resync request was received and will be executed. */
-      202: unknown;
+      202: {
+        content: {
+          "application/json": components["schemas"]["metadataResync"];
+        };
+      };
+      /** (In sync mode) Resync request executed and metadata could not be updated. */
+      404: {
+        content: {
+          "application/json": components["schemas"]["metadataResync"];
+        };
+      };
     };
   };
   /** Sync a Contract for NFT Index */
