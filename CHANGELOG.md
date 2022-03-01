@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.2...v1.3.3) (2022-03-01)
+
+
+### Bug Fixes
+
+* better authentication types for connectors ([#274](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/274)) ([d608166](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d6081669a96b2445835020311341d2961c82a3cd))
+
 ## [1.3.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.1...v1.3.2) (2022-02-14)
 
 
