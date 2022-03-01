@@ -1423,6 +1423,7 @@ export namespace Moralis {
 
     allowCustomUserClass(isAllowed: boolean): void;
     become<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
+    me<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
     current<T extends User>(): T | undefined;
     currentAsync<T extends User>(): Promise<T | null>;
     signUp<T extends User>(
