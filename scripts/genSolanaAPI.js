@@ -89,7 +89,9 @@ static getErrorMessage(error, url) {
   );
 }
 
-static async fetch({ endpoint, params }) {
+static async fetch({ endpoint, params: providedParams }) {
+  // Make a shallow copy to prevent modification of original params
+  const params = {...providedParams};
   const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
     const { User } = this.Moralis;
