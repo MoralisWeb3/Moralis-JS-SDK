@@ -340,18 +340,51 @@ export namespace Moralis {
     | 'web3Auth';
   type AuthenticationType = 'evm' | 'dot' | 'polkadot' | 'kusama' | 'erd' | 'elrond' | 'sol';
   type Web3Provider = MoralisWalletConnectProvider | MoralisInjectedProvider;
-  interface AuthenticationOptions {
+
+  interface CommonEnableOptions {
+    // TODO: include proidr in specified connector interfaces as tyoe guard
     provider?: Web3ProviderType;
     connector?: Connector;
-    type?: AuthenticationType;
-    chainId?: number;
-    signingMessage?: string;
     anyNetwork?: boolean;
   }
-  type EnableOptions = Pick<
-    AuthenticationOptions,
-    'provider' | 'connector' | 'chainId' | 'anyNetwork'
-  >;
+  interface WalletConnectWeb3ConnectorEnableOptions extends CommonEnableOptions {
+    chainId?: number;
+    mobileLinks?: string[];
+    newSession?: boolean;
+  }
+  interface NetworkWeb3ConnectorEnableOptions extends CommonEnableOptions {
+    urls?: Record<string, string>;
+    chainId?: number;
+  }
+
+  interface MagicWeb3ConnectorEnableOptions extends CommonEnableOptions {
+    email: string;
+    apiKey: string;
+    network: string;
+    newSession?: string;
+  }
+
+  interface Web3AuthWeb3ConnectorEnableOptions extends CommonEnableOptions {
+    chainId?: number;
+    clientId: string;
+    theme?: string;
+    appLogo?: string;
+    loginMethodsOrder?: string[];
+  }
+
+  interface Web3InjectedConnectorEnableOptions extends CommonEnableOptions {}
+
+  type EnableOptions =
+    | Web3InjectedConnectorEnableOptions
+    | WalletConnectWeb3ConnectorEnableOptions
+    | NetworkWeb3ConnectorEnableOptions
+    | MagicWeb3ConnectorEnableOptions
+    | Web3AuthWeb3ConnectorEnableOptions;
+  type AuthenticationOptions = EnableOptions & {
+    type?: AuthenticationType;
+    signingMessage?: string;
+  };
+  // type EnableOptions = Omit<AuthenticationOptions, 'type' | 'signingMessage'>;
   type LinkOptions = Object.SaveOptions;
 
   type EthChain = 'eth' | 'mainnet' | '0x1';
