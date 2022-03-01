@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.4...v1.3.5) (2022-03-01)
+
+
+### Bug Fixes
+
+* prevent deletion of params in api call ([#276](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/276)) ([505df2b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/505df2bf5ac86024fd31f56189136606fa1c95a3))
+
 ## [1.3.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.3...v1.3.4) (2022-03-01)
 
 
