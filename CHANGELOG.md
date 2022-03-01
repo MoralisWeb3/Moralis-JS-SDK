@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.3...v1.3.4) (2022-03-01)
+
+
+### Bug Fixes
+
+* add missing type for User.me ([#275](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/275)) ([a3cbd0e](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a3cbd0ec7de92f63bc08ea6a6b622ab5d93f464e))
+
 ## [1.3.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.2...v1.3.3) (2022-03-01)
 
 
