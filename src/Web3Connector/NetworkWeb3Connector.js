@@ -72,7 +72,13 @@ class MiniRpcProvider {
 class NetworkWeb3Connector extends AbstractWeb3Connector {
   type = 'network';
 
-  constructor({ urls, defaultChainId, speedyNodeApiKey } = {}) {
+  constructor({
+    urls,
+    // `defaultChainId` is deprecated, use `chaiId` instead
+    defaultChainId,
+    chainId,
+    speedyNodeApiKey,
+  } = {}) {
     super();
 
     if (!urls && speedyNodeApiKey) {
@@ -91,7 +97,7 @@ class NetworkWeb3Connector extends AbstractWeb3Connector {
       );
     }
 
-    this.chainId = verifyChainId(defaultChainId ?? Number(Object.keys(urls)[0]));
+    this.chainId = verifyChainId(chainId ?? defaultChainId ?? Number(Object.keys(urls)[0]));
     this.providers = Object.keys(urls).reduce((accumulator, chainId) => {
       accumulator[Number(chainId)] = new MiniRpcProvider(Number(chainId), urls[Number(chainId)]);
       return accumulator;
