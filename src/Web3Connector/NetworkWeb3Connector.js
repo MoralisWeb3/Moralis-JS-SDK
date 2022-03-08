@@ -116,13 +116,11 @@ class NetworkWeb3Connector extends AbstractWeb3Connector {
       throw new Error(`No rpc url provided for chainId ${this.chainId}`);
     }
 
-    let account = null;
-
     if (privateKey != null) {
-      account = new ethers.Wallet(privateKey).getAddress();
+      this.account = await new ethers.Wallet(privateKey).getAddress();
     }
 
-    return { provider, chainId: this.chainId, account };
+    return { provider, chainId: this.chainId, account: this.account };
   }
 }
 

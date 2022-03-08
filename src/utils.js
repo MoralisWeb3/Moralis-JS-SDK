@@ -108,31 +108,9 @@ const checkForSdkUpdates = async () => {
   }
 };
 
-const trackEvent = async (name, subdomain, options) => {
-  try {
-    const { response } = await RESTController.ajax(
-      'POST',
-      'https://internal-api.moralis.io/api/functions/trackEvent',
-      JSON.stringify({
-        subdomain,
-        event: name,
-        options,
-      }),
-      {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }
-    );
-    return response.result;
-  } catch (error) {
-    //
-  }
-};
-
 module.exports = {
   fetchSwaggerJson,
   getPathByTag,
   fetchEndpoints,
   checkForSdkUpdates,
-  trackEvent,
 };
