@@ -16,7 +16,7 @@ import InstallationController from './InstallationController';
 import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
-const { checkForSdkUpdates, trackEvent } = require('./utils');
+const { checkForSdkUpdates, trackEvent, TrackingEventName } = require('./utils');
 import { ethers } from 'ethers';
 import { filterConsole } from './filterConsole';
 
@@ -82,7 +82,11 @@ class Moralis extends MoralisWeb3 {
       sdk_enviroment: process.env.PARSE_BUILD,
       appId: appId,
     };
-    trackEvent('Moralis SDK start', serverUrl.split('/')[2].split(':')[0], trackOptions);
+    trackEvent(
+      TrackingEventName.START_FUNCTION,
+      serverUrl.split('/')[2].split(':')[0],
+      trackOptions
+    );
   }
 
   /**
