@@ -71,7 +71,9 @@ class InternalWeb3Provider extends EventEmitter {
   get signerOrProvider() {
     try {
       if (this.account) {
-        return this.web3.getSigner(this.account);
+        return this.privateKey != null
+          ? new ethers.Wallet(this.privateKey, this.web3)
+          : this.web3.getSigner(this.account);
       }
       return this.web3;
     } catch (error) {
