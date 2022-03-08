@@ -19,7 +19,7 @@ export const InternalWeb3Events = Object.freeze({
  * Gives access to ethers functionalities, initialized by the connector
  */
 class InternalWeb3Provider extends EventEmitter {
-  constructor(connector, anyNetwork = false) {
+  constructor(connector, anyNetwork = false, privateKey = null) {
     super();
 
     if (!connector) {
@@ -28,6 +28,7 @@ class InternalWeb3Provider extends EventEmitter {
 
     this.connector = connector;
     this.anyNetwork = anyNetwork;
+    this.privateKey = privateKey;
 
     this.handleAccountChanged = this.handleAccountChanged.bind(this);
     this.handleChainChanged = this.handleChainChanged.bind(this);
@@ -61,7 +62,9 @@ class InternalWeb3Provider extends EventEmitter {
 
   // Returns a provider that can sign messages (throws if not possible, ie. the account cannot sign)
   get signer() {
-    return this.web3.getSigner(this.account);
+    return this.privateKey != null
+      ? new ethers.Wallet(this.privateKey, this.web3)
+      : this.web3.getSigner(this.account);
   }
 
   // Returns a provider that can sign messages or the normal web3 provider as fallback
@@ -102,6 +105,7 @@ class InternalWeb3Provider extends EventEmitter {
     this.chianId = null;
     this.web3 = null;
     this.provider = null;
+    this.privateKey = null;
 
     if (this.connector) {
       if (this.connector.removeListener) {

@@ -3,6 +3,7 @@ import { fromHexToDecimal } from '../utils/convert';
 import verifyChainId from '../utils/verifyChainId';
 import AbstractWeb3Connector from './AbstractWeb3Connector';
 import { getMoralisRpcs } from './MoralisRpcs';
+import { ethers } from 'ethers';
 
 class MiniRpcProvider {
   constructor(chainId, url) {
@@ -104,7 +105,7 @@ class NetworkWeb3Connector extends AbstractWeb3Connector {
     }, {});
   }
 
-  async activate({ chainId: providedChainId } = {}) {
+  async activate({ chainId: providedChainId, privateKey = null } = {}) {
     if (providedChainId) {
       this.chainId = verifyChainId(providedChainId);
     }
@@ -115,7 +116,13 @@ class NetworkWeb3Connector extends AbstractWeb3Connector {
       throw new Error(`No rpc url provided for chainId ${this.chainId}`);
     }
 
-    return { provider, chainId: this.chainId, account: null };
+    let account = null;
+
+    if (privateKey != null) {
+      account = new ethers.Wallet(privateKey).getAddress();
+    }
+
+    return { provider, chainId: this.chainId, account };
   }
 }
 
