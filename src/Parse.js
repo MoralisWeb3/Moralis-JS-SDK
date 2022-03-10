@@ -38,6 +38,7 @@ class Moralis extends MoralisWeb3 {
   static async start(options) {
     const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret } = options;
     let apiKey;
+    let trackOptions;
 
     if (process.env.PARSE_BUILD !== 'node') {
       // Non-node environments (browser, react-native)
@@ -68,23 +69,29 @@ class Moralis extends MoralisWeb3 {
     this.Web3API.initialize({ serverUrl, apiKey, Moralis });
     this.SolanaAPI.initialize({ serverUrl, apiKey, Moralis });
     if (appId && serverUrl) {
+      trackOptions = {
+        subdomain: serverUrl.split('/')[2].split(':')[0],
+        sdk_type: 'javascript',
+        sdk_version: process.env.NEXT_VERSION,
+        sdk_enviroment: process.env.PARSE_BUILD,
+        appId: appId,
+      };
       await this.initPlugins(plugins);
+    } else {
+      trackOptions = {
+        sdk_type: 'javascript',
+        sdk_version: process.env.NEXT_VERSION,
+        sdk_enviroment: process.env.PARSE_BUILD,
+      };
     }
 
     // Check if SDK is updated
     checkForSdkUpdates();
 
     // Track start function call
-    const trackOptions = {
-      subdomain: serverUrl.split('/')[2].split(':')[0],
-      sdk_type: 'javascript',
-      sdk_version: process.env.NEXT_VERSION,
-      sdk_enviroment: process.env.PARSE_BUILD,
-      appId: appId,
-    };
     trackEvent(
       TrackingEventName.START_FUNCTION,
-      serverUrl.split('/')[2].split(':')[0],
+      serverUrl ? serverUrl.split('/')[2].split(':')[0] : null,
       trackOptions
     );
   }
