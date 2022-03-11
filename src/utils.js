@@ -3,10 +3,6 @@ import RESTController from './RESTController';
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
 
-const TrackingEventName = Object.freeze({
-  START_FUNCTION: 'Moralis SDK start',
-});
-
 const fetchSwaggerJson = async () => {
   const { response } = await RESTController.ajax(
     'GET',
@@ -112,32 +108,9 @@ const checkForSdkUpdates = async () => {
   }
 };
 
-const trackEvent = async (name, subdomain, options) => {
-  try {
-    const { response } = await RESTController.ajax(
-      'POST',
-      'https://internal-api.moralis.io/api/functions/trackEvent',
-      JSON.stringify({
-        subdomain,
-        event: name,
-        options,
-      }),
-      {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }
-    );
-    return response.result;
-  } catch (error) {
-    //
-  }
-};
-
 module.exports = {
   fetchSwaggerJson,
   getPathByTag,
   fetchEndpoints,
   checkForSdkUpdates,
-  trackEvent,
-  TrackingEventName,
 };

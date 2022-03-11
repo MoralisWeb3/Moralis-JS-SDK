@@ -16,7 +16,7 @@ import InstallationController from './InstallationController';
 import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
-const { checkForSdkUpdates, trackEvent, TrackingEventName } = require('./utils');
+const { checkForSdkUpdates } = require('./utils');
 import { ethers } from 'ethers';
 import { filterConsole } from './filterConsole';
 
@@ -66,34 +66,14 @@ class Moralis extends MoralisWeb3 {
     this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;
 
-    this.Web3API.initialize({ serverUrl, apiKey, Moralis });
-    this.SolanaAPI.initialize({ serverUrl, apiKey, Moralis });
+    this.Web3API.initialize({ serverUrl, apiKey, Moralis, appId });
+    this.SolanaAPI.initialize({ serverUrl, apiKey, Moralis, appId });
     if (appId && serverUrl) {
-      trackOptions = {
-        subdomain: serverUrl.split('/')[2].split(':')[0],
-        sdk_type: 'javascript',
-        sdk_version: process.env.NEXT_VERSION,
-        sdk_enviroment: process.env.PARSE_BUILD,
-        appId: appId,
-      };
       await this.initPlugins(plugins);
-    } else {
-      trackOptions = {
-        sdk_type: 'javascript',
-        sdk_version: process.env.NEXT_VERSION,
-        sdk_enviroment: process.env.PARSE_BUILD,
-      };
     }
 
     // Check if SDK is updated
     checkForSdkUpdates();
-
-    // Track start function call
-    trackEvent(
-      TrackingEventName.START_FUNCTION,
-      serverUrl ? serverUrl.split('/')[2].split(':')[0] : null,
-      trackOptions
-    );
   }
 
   /**
