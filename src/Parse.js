@@ -66,8 +66,8 @@ class Moralis extends MoralisWeb3 {
     this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;
 
-    this.Web3API.initialize({ serverUrl, apiKey, Moralis, appId });
-    this.SolanaAPI.initialize({ serverUrl, apiKey, Moralis, appId });
+    this.Web3API.initialize({ serverUrl, apiKey, Moralis });
+    this.SolanaAPI.initialize({ serverUrl, apiKey, Moralis });
     if (appId && serverUrl) {
       await this.initPlugins(plugins);
     }

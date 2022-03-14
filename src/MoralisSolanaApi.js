@@ -11,13 +11,12 @@ class SolanaApi {
     setBody: 'set body',
     property: 'property',
   };
-  static initialize({apiKey, serverUrl, Moralis = null, appId}) {
+  static initialize({apiKey, serverUrl, Moralis = null}) {
     if (!serverUrl && !apiKey) {
       throw new Error('SolanaApi.initialize failed: initialize with apiKey or serverUrl');
     }
     if(apiKey) this.apiKey = apiKey;
     if(serverUrl) this.serverUrl = serverUrl;
-    if(appId) this.appId = appId;
     this.Moralis = Moralis;
   }
 
@@ -121,18 +120,10 @@ static async apiCall(name, options) {
 
     try {
       const http = axios.create({ baseURL: this.serverUrl });
-      if(process.env.PARSE_BUILD !== 'node') {
-        // eslint-disable-next-line no-undef
-        const sessionToken = JSON.parse(localStorage.getItem(`Parse/${this.appId}/currentUser`));
-        // eslint-disable-next-line no-undef
-        const installationId = localStorage.getItem(`Parse/${this.appId}/installationId`);
-        if(sessionToken) {
-          options._SessionToken = sessionToken.sessionToken;
-        }
-        if(installationId) {
-          options._InstallationId = installationId;
-        }
-        options._ApplicationId = this.appId
+      const user = this.Moralis.User.current();
+      if(user) {
+        options._SessionToken = user.attributes.sessionToken;
+        options._ApplicationId = this.Moralis.applicationId;
       }
       
       const response =  await http.post(`/functions/sol-${name}`, options, {
