@@ -60,14 +60,14 @@ class InternalWeb3Provider extends EventEmitter {
     return { provider, chainId, account, web3: this.web3 };
   }
 
-  // Returns a provider that can sign messages (throws if not possible, ie. the account cannot sign)
+  // Returns a provider (or wallet if a privateKey is provided) that can sign messages (throws if not possible, ie. the account cannot sign)
   get signer() {
     return this.privateKey != null
       ? new ethers.Wallet(this.privateKey, this.web3)
       : this.web3.getSigner(this.account);
   }
 
-  // Returns a provider that can sign messages or the normal web3 provider as fallback
+  // Returns a provider (or wallet if a privateKey is provided) that can sign messages or the normal web3 provider as fallback
   get signerOrProvider() {
     try {
       if (this.account) {
