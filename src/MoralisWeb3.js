@@ -760,7 +760,7 @@ class MoralisWeb3 {
 
     for (const input of functionData.inputs) {
       const value = params[input.name];
-      if (!value && typeof value !== 'number' && typeof value !== 'boolean') {
+      if (!value && typeof value !== 'number' && typeof value !== 'boolean' && input.name !== '') {
         errors.push(`${input.name} is required`);
       }
     }
