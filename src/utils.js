@@ -139,8 +139,6 @@ const trackEvent = async (name, subdomain, options) => {
  * a subddomain
  */
 const validServerUrlRegex = /^https?:\/\/(?<subdomain>\w+\.\w+\.\w+)(:\d{4})?\/server\/?$/;
-const INVALID_SERVERURL_ERROR =
-  'Invalid serverUrl, url should be in the format of https://xxxxxxxxxxxx.usemoralis.com:2053/server';
 
 const validateServerUrl = serverUrl => {
   return validServerUrlRegex.test(serverUrl);
