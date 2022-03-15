@@ -1,3 +1,11 @@
+## [1.5.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.1...v1.5.2) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 0.24.0 to 0.26.1 ([#288](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/288)) ([240c3f0](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/240c3f017c4d888a02c8ff1186315f3bb3de2713))
+* **deps:** bump ethers from 5.5.3 to 5.6.0 ([#287](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/287)) ([3632dd6](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3632dd6731d563728fbfa83d82f5c7c5604d3c7f))
+
 ## [1.5.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.0...v1.5.1) (2022-03-15)
 
 
