@@ -355,6 +355,7 @@ export namespace Moralis {
   interface NetworkWeb3ConnectorEnableOptions extends CommonEnableOptions {
     urls?: Record<string, string>;
     chainId?: number;
+    privateKey?: string;
   }
 
   interface MagicWeb3ConnectorEnableOptions extends CommonEnableOptions {

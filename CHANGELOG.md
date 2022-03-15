@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.5...v1.4.0) (2022-03-14)
+
+
+### Features
+
+* sign with privateKey on NodeJs ([#286](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/286)) ([9455b3e](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9455b3e72cf66bb9c12b719dfa59f8bd94207087))
+
 ## [1.3.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.4...v1.3.5) (2022-03-01)
 
 

@@ -82,7 +82,7 @@ class MoralisWeb3 {
     MoralisEmitter.emit(InternalWeb3Events.PROVIDER_DISCONNECT, error);
   }
 
-  static async enableWeb3(options) {
+  static async enableWeb3(options = {}) {
     if (this.isEnablingWeb3) {
       throw new Error(
         'Cannot execute Moralis.enableWeb3(), as Moralis Moralis.enableWeb3() already has been called, but is not finished yet '
@@ -102,7 +102,11 @@ class MoralisWeb3 {
 
       const anyNetwork = options?.anyNetwork === true ? true : false;
 
-      this.internalWeb3Provider = new InternalWeb3Provider(connector, anyNetwork);
+      this.internalWeb3Provider = new InternalWeb3Provider(
+        connector,
+        anyNetwork,
+        options.privateKey
+      );
 
       this.internalWeb3Provider.on(InternalWeb3Events.ACCOUNT_CHANGED, args =>
         this.handleWeb3AccountChanged(args)
@@ -756,7 +760,7 @@ class MoralisWeb3 {
 
     for (const input of functionData.inputs) {
       const value = params[input.name];
-      if (!value && typeof value !== 'number' && typeof value !== 'boolean') {
+      if (!value && typeof value !== 'number' && typeof value !== 'boolean' && input.name !== '') {
         errors.push(`${input.name} is required`);
       }
     }
