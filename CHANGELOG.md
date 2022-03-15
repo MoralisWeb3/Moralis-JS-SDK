@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.0...v1.5.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* send sessionToken with apiRequest for correct rate-limiting ([bef928b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bef928b3f27f608e599ee22abe4c13ab0e83b74f))
+
 # [1.5.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.1...v1.5.0) (2022-03-15)
 
 
