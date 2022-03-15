@@ -896,6 +896,8 @@ export interface components {
        * @example 100
        */
       page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       result?: components["schemas"]["nftOwner"][];
     };
     nftTransfer: {
@@ -979,6 +981,8 @@ export interface components {
        * @example 100
        */
       page_size: number;
+      /** @description The cursor to get to the next page */
+      cursor: string;
       result: components["schemas"]["nftTransfer"][];
       /**
        * @description Indicator if the block exists
