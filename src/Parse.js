@@ -16,7 +16,7 @@ import InstallationController from './InstallationController';
 import * as ParseOp from './ParseOp';
 import RESTController from './RESTController';
 import MoralisWeb3 from './MoralisWeb3';
-const { checkForSdkUpdates, trackEvent, TrackingEventName } = require('./utils');
+const { checkForSdkUpdates, trackEvent, TrackingEventName, getSubdomain } = require('./utils');
 import { ethers } from 'ethers';
 import { filterConsole } from './filterConsole';
 
@@ -70,7 +70,7 @@ class Moralis extends MoralisWeb3 {
     this.SolanaAPI.initialize({ serverUrl, apiKey, Moralis });
     if (appId && serverUrl) {
       trackOptions = {
-        subdomain: serverUrl.split('/')[2].split(':')[0],
+        subdomain: getSubdomain(serverUrl),
         sdk_type: 'javascript',
         sdk_version: process.env.NEXT_VERSION,
         sdk_enviroment: process.env.PARSE_BUILD,
@@ -91,7 +91,7 @@ class Moralis extends MoralisWeb3 {
     // Track start function call
     trackEvent(
       TrackingEventName.START_FUNCTION,
-      serverUrl ? serverUrl.split('/')[2].split(':')[0] : null,
+      serverUrl ? getSubdomain(serverUrl) : null,
       trackOptions
     );
   }

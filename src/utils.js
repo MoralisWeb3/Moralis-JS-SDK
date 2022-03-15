@@ -133,6 +133,15 @@ const trackEvent = async (name, subdomain, options) => {
   }
 };
 
+const getSubdomain = serverUrl => {
+  const subdomain = serverUrl.split('/')[2];
+  const getPort = subdomain.split(':');
+  if (getPort.length > 1) {
+    return getPort[0];
+  }
+  return subdomain;
+};
+
 module.exports = {
   fetchSwaggerJson,
   getPathByTag,
@@ -140,4 +149,5 @@ module.exports = {
   checkForSdkUpdates,
   trackEvent,
   TrackingEventName,
+  getSubdomain,
 };
