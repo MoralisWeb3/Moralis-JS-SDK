@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.0...v1.4.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* show rate limit info on api request ([#290](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/290)) ([e5410ba](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e5410ba6e787d5e14bab1bfac271b9f03b2b6c41))
+
 # [1.4.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.5...v1.4.0) (2022-03-14)
 
 
