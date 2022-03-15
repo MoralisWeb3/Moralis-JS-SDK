@@ -170,6 +170,11 @@ static async fetchFromServer(name, options) {
     try {
       const http = axios.create({ baseURL: this.serverUrl });
       if (!options.chain) options.chain = 'eth';
+      const user = this.Moralis.User.current();
+      if(user) {
+        options._SessionToken = user.attributes.sessionToken;
+        options._ApplicationId = this.Moralis.applicationId;
+      }
       
       const response =  await http.post(\`/functions/\${name}\`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
