@@ -3,6 +3,10 @@ import RESTController from './RESTController';
 const DEEP_INDEX_API_HOST = 'deep-index.moralis.io';
 const DEEP_INDEX_SWAGGER_PATH = '/api-docs/v2/swagger.json';
 
+const TrackingEventName = Object.freeze({
+  START_FUNCTION: 'Moralis SDK start',
+});
+
 const fetchSwaggerJson = async () => {
   const { response } = await RESTController.ajax(
     'GET',
@@ -108,9 +112,56 @@ const checkForSdkUpdates = async () => {
   }
 };
 
+const trackEvent = async (name, subdomain, options) => {
+  try {
+    const { response } = await RESTController.ajax(
+      'POST',
+      'https://internal-api.moralis.io/api/functions/trackEvent',
+      JSON.stringify({
+        subdomain,
+        event: name,
+        options,
+      }),
+      {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    );
+    return response.result;
+  } catch (error) {
+    //
+  }
+};
+
+/**
+ * Regex to validate serverUrl, for example: https://xxxxxxxxxxxx.yyyyyyyyyy.zzzzzz:1234/server
+ * It's very generous and doesn't assume the value of domain, subdomain and port, it only checks if we can extract
+ * a subddomain
+ */
+const validServerUrlRegex = /^https?:\/\/(?<subdomain>\w+\.\w+\.\w+)(:\d{4})?\/server\/?$/;
+
+const validateServerUrl = serverUrl => {
+  return validServerUrlRegex.test(serverUrl);
+};
+
+const getSubdomain = serverUrl => {
+  const isValidServerUrl = validateServerUrl(serverUrl);
+
+  if (!isValidServerUrl) {
+    return null;
+  }
+
+  const match = validServerUrlRegex.exec(serverUrl);
+
+  return match?.groups?.subdomain ?? null;
+};
+
 module.exports = {
   fetchSwaggerJson,
   getPathByTag,
   fetchEndpoints,
   checkForSdkUpdates,
+  trackEvent,
+  TrackingEventName,
+  getSubdomain,
 };
