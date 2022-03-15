@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.2...v1.5.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* revert openapi-typescript ([#293](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/293)) ([08c00dc](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08c00dc6d5f74270c0d4ef13253b07572468859e))
+
 ## [1.5.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.1...v1.5.2) (2022-03-15)
 
 
