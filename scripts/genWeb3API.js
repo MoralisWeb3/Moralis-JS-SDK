@@ -79,7 +79,25 @@ static getParameterizedUrl(url, params) {
   return parameterizedUrl;
 }
 
-static getErrorMessage(error, url) {
+static getApiRateLimitInfo(headers) {
+  return {
+    'x-rate-limit-limit': headers['x-rate-limit-limit'],
+    'x-rate-limit-remaining': headers['x-rate-limit-remaining'],
+    'x-rate-limit-remaining-ttl': headers['x-rate-limit-remaining-ttl'],
+    'x-rate-limit-throttle-limit': headers['x-rate-limit-throttle-limit'],
+    'x-rate-limit-throttle-remaining': headers['x-rate-limit-throttle-remaining'],
+    'x-rate-limit-throttle-remaining-ttl': headers['x-rate-limit-throttle-remaining-ttl'],
+    'x-rate-limit-throttle-used': headers['x-rate-limit-throttle-used'],
+    'x-rate-limit-used': headers['x-rate-limit-used'],
+    'x-request-weight': headers['x-request-weight'],
+    'x-rate-limit-throttle-ip-used': headers['x-rate-limit-throttle-ip-used'],
+    'x-rate-limit-remaining-ip-ttl': headers['x-rate-limit-remaining-ip-ttl'],
+    'x-rate-limit-throttle-remaining-ip-ttl': headers['x-rate-limit-throttle-remaining-ip-ttl'],
+    'x-rate-limit-ip-used': headers['x-rate-limit-ip-used'],
+  };
+}
+
+static getApiErrorMessage(error, url) {
   return (
     error?.response?.data?.message ||
     error?.message ||
@@ -91,7 +109,6 @@ static getErrorMessage(error, url) {
 static async fetch({ endpoint, params: providedParams }) {
   // Make a shallow copy to prevent modification of original params
   const params = {...providedParams};
-  const { method = 'GET', url, bodyParams } = endpoint;
   if(this.Moralis) {
     const { User, account } = this.Moralis;
     const user = User.current();
@@ -104,9 +121,17 @@ static async fetch({ endpoint, params: providedParams }) {
       }
     }
   }
+
   if(!this.apiKey) {
-    return this.apiCall(endpoint.name, params);
+    return this.fetchFromServer(endpoint.name, params);
   }
+
+  return this.fetchFromApi(endpoint, params)
+}
+
+static async fetchFromApi(endpoint, params) {
+  const { method = 'GET', url, bodyParams } = endpoint;
+
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
     const body = this.getBody(params, bodyParams);
@@ -122,12 +147,22 @@ static async fetch({ endpoint, params: providedParams }) {
     });
     return response.data;
   } catch (error) {
-    const msg = this.getErrorMessage(error, url);
+    const {status, headers, data} = error.response;
+
+    let msg
+    if(status === 429){
+      msg = \`This Moralis Server is rate-limited because of the plan restrictions. See the details about the current rate and throttle limits: \${JSON.stringify(
+        this.getApiRateLimitInfo(headers)
+      )}\`
+    } else {
+      msg = this.getApiErrorMessage(error, url);
+    }
+
     throw new Error(msg);
   }
 }
 
-static async apiCall(name, options) {
+static async fetchFromServer(name, options) {
     if (!this.serverUrl) {
       throw new Error('Web3Api not initialized, run Moralis.start() first');
     }

@@ -1,3 +1,29 @@
+# [1.5.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.1...v1.5.0) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump follow-redirects from 1.14.7 to 1.14.9 ([#270](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/270)) ([181edf1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/181edf1a52d8c4a9a98297a9d101bcd48e22b41a))
+
+
+### Features
+
+* add metrics for start event ([28bb292](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/28bb2927f924a8c08440bb86fd54cad563c13e07))
+
+## [1.4.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.0...v1.4.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* show rate limit info on api request ([#290](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/290)) ([e5410ba](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e5410ba6e787d5e14bab1bfac271b9f03b2b6c41))
+
+# [1.4.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.5...v1.4.0) (2022-03-14)
+
+
+### Features
+
+* sign with privateKey on NodeJs ([#286](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/286)) ([9455b3e](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9455b3e72cf66bb9c12b719dfa59f8bd94207087))
+
 ## [1.3.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.4...v1.3.5) (2022-03-01)
 
 
