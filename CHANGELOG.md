@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.1...v1.5.0) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump follow-redirects from 1.14.7 to 1.14.9 ([#270](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/270)) ([181edf1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/181edf1a52d8c4a9a98297a9d101bcd48e22b41a))
+
+
+### Features
+
+* add metrics for start event ([28bb292](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/28bb2927f924a8c08440bb86fd54cad563c13e07))
+
 ## [1.4.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.0...v1.4.1) (2022-03-15)
 
 
