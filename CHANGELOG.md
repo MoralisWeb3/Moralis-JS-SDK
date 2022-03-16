@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.3...v1.5.4) (2022-03-16)
+
+
+### Bug Fixes
+
+* add cursor to api responses ([#294](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/294)) ([e8770c5](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e8770c5996f80b2261bdc5348d3e4411a95c3749))
+
 ## [1.5.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.2...v1.5.3) (2022-03-15)
 
 
