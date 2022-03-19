@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.4...v1.5.5) (2022-03-19)
+
+
+### Bug Fixes
+
+* react-native compatibility for v0.64+ ([b906444](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b9064443746dfa35e084fb665e6bdb13575ec4dd))
+
 ## [1.5.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.3...v1.5.4) (2022-03-16)
 
 
