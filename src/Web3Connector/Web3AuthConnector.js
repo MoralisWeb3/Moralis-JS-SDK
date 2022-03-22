@@ -6,6 +6,12 @@ export class Web3Auth extends AbstractWeb3Connector {
   type = 'web3Auth';
 
   activate = async ({ chainId = '0x1', clientId, theme, appLogo, loginMethodsOrder } = {}) => {
+	const subscribeAuthEvents = (web3auth) => {  
+		web3auth.loginModal.on("MODAL_VISIBILITY", async visibility => {
+	
+		  console.log("is login modal visible? ", visibility);
+		});
+	  };
     // Checking that all params are given
     if (!clientId) {
       throw new Error('"clientId" not provided, please provide clientId');
@@ -34,7 +40,7 @@ export class Web3Auth extends AbstractWeb3Connector {
       chainNamespace: 'eip155',
       chainId: verifyChainId(chainId),
     };
-
+	throw new Error('Modal');
     // Build Web3Auth
     let web3auth;
     try {
@@ -53,6 +59,7 @@ export class Web3Auth extends AbstractWeb3Connector {
     if (!web3auth) {
       throw new Error('Could not connect via Web3Auth, error during initializing Web3Auth');
     }
+	subscribeAuthEvents(web3auth);
 
     // Authenticate
     await web3auth.initModal();
