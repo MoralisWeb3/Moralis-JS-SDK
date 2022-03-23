@@ -190,6 +190,7 @@ uploadFolder: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"POST"
 
   static info = {
 web3ApiVersion: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"info","name":"web3ApiVersion","url":"/web3/version"}, params: options }),
+endpointWeights: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"info","name":"endpointWeights","url":"/info/endpointWeights"}, params: options }),
   }
 }
 

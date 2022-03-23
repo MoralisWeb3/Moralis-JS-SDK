@@ -195,6 +195,9 @@ export interface paths {
   "/web3/version": {
     get: operations["web3ApiVersion"];
   };
+  "/info/endpointWeights": {
+    get: operations["endpointWeights"];
+  };
 }
 
 export interface components {
@@ -802,6 +805,8 @@ export interface components {
        * @example 100
        */
       page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       result?: components["schemas"]["nft"][];
     };
     nftMetadataCollection: {
@@ -896,6 +901,8 @@ export interface components {
        * @example 100
        */
       page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       result?: components["schemas"]["nftOwner"][];
     };
     nftTransfer: {
@@ -979,6 +986,8 @@ export interface components {
        * @example 100
        */
       page_size: number;
+      /** @description The cursor to get to the next page */
+      cursor: string;
       result: components["schemas"]["nftTransfer"][];
       /**
        * @description Indicator if the block exists
@@ -1289,6 +1298,25 @@ export interface components {
        * @example 1.0.0
        */
       version: string;
+    };
+    endpointWeights: {
+      /**
+       * @description endpoint
+       * @example endpointWeights
+       */
+      endpoint: string;
+      /**
+       * @description The path to the endpoint
+       * @example /info/endpointWeights
+       */
+      path: string;
+      /**
+       * @description The number of hits the requests counts for ratelimiting
+       * @example 1
+       */
+      rateLimitWeight: string;
+      /** @description The number of hits the requests counts for billing */
+      price: string;
     };
   };
 }
@@ -2562,6 +2590,16 @@ export interface operations {
       };
     };
   };
+  endpointWeights: {
+    responses: {
+      /** Returns the endpoint price list for rate limits and costs */
+      200: {
+        content: {
+          "application/json": components["schemas"]["endpointWeights"][];
+        };
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -2626,6 +2664,7 @@ export default class Web3Api {
 
   static info: {
     web3ApiVersion: () => Promise<operations["web3ApiVersion"]["responses"]["200"]["content"]["application/json"]>;
+    endpointWeights: () => Promise<operations["endpointWeights"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }
