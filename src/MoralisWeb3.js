@@ -78,6 +78,9 @@ class MoralisWeb3 {
     if (error?.message === 'MetaMask: Disconnected from chain. Attempting to connect.') {
       return;
     }
+    if (error?.message === 'Web3Auth: User closed login modal.') {
+      this.isEnablingWeb3 = false;
+    }
     this.cleanup();
     MoralisEmitter.emit(InternalWeb3Events.PROVIDER_DISCONNECT, error);
   }

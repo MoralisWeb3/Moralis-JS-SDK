@@ -41,6 +41,13 @@ class InternalWeb3Provider extends EventEmitter {
       throw new Error('Cannot acticate InternalWeb3Provider without a connector');
     }
 
+    if (this.connector.on) {
+      this.connector.on(ConnectorEvents.ACCOUNT_CHANGED, this.handleAccountChanged);
+      this.connector.on(ConnectorEvents.CHAIN_CHANGED, this.handleChainChanged);
+      this.connector.on(ConnectorEvents.CONNECT, this.handleConnect);
+      this.connector.on(ConnectorEvents.DISCONNECT, this.handleDisconnect);
+    }
+
     const { provider, chainId, account } = await this.connector.activate(options);
 
     this.provider = provider;
@@ -49,13 +56,6 @@ class InternalWeb3Provider extends EventEmitter {
 
     const network = this.anyNetwork ? 'any' : fromHexToDecimal(chainId);
     this.web3 = new ethers.providers.Web3Provider(provider, network);
-
-    if (this.connector.on) {
-      this.connector.on(ConnectorEvents.ACCOUNT_CHANGED, this.handleAccountChanged);
-      this.connector.on(ConnectorEvents.CHAIN_CHANGED, this.handleChainChanged);
-      this.connector.on(ConnectorEvents.CONNECT, this.handleConnect);
-      this.connector.on(ConnectorEvents.DISCONNECT, this.handleDisconnect);
-    }
 
     return { provider, chainId, account, web3: this.web3 };
   }
