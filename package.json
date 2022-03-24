@@ -1,6 +1,6 @@
 {
   "name": "moralis",
-  "version": "1.4.0",
+  "version": "1.5.5",
   "description": "The Moralis JavaScript SDK",
   "homepage": "https://docs.moralis.io",
   "keywords": [
@@ -37,8 +37,8 @@
     "@babel/runtime": "7.16.7",
     "@babel/runtime-corejs3": "7.16.8",
     "@metamask/detect-provider": "^1.2.0",
-    "axios": "0.24.0",
-    "ethers": "5.5.3",
+    "axios": "0.26.1",
+    "ethers": "5.6.0",
     "react-native-crypto-js": "1.0.0",
     "uuid": "^8.3.2",
     "ws": "^8.3.0",

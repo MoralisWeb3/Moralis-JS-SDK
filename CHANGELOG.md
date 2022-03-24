@@ -1,3 +1,58 @@
+## [1.5.5](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.4...v1.5.5) (2022-03-19)
+
+
+### Bug Fixes
+
+* react-native compatibility for v0.64+ ([b906444](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b9064443746dfa35e084fb665e6bdb13575ec4dd))
+
+## [1.5.4](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.3...v1.5.4) (2022-03-16)
+
+
+### Bug Fixes
+
+* add cursor to api responses ([#294](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/294)) ([e8770c5](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e8770c5996f80b2261bdc5348d3e4411a95c3749))
+
+## [1.5.3](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.2...v1.5.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* revert openapi-typescript ([#293](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/293)) ([08c00dc](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08c00dc6d5f74270c0d4ef13253b07572468859e))
+
+## [1.5.2](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.1...v1.5.2) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 0.24.0 to 0.26.1 ([#288](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/288)) ([240c3f0](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/240c3f017c4d888a02c8ff1186315f3bb3de2713))
+* **deps:** bump ethers from 5.5.3 to 5.6.0 ([#287](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/287)) ([3632dd6](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3632dd6731d563728fbfa83d82f5c7c5604d3c7f))
+
+## [1.5.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.0...v1.5.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* send sessionToken with apiRequest for correct rate-limiting ([bef928b](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bef928b3f27f608e599ee22abe4c13ab0e83b74f))
+
+# [1.5.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.1...v1.5.0) (2022-03-15)
+
+
+### Bug Fixes
+
+* **deps:** bump follow-redirects from 1.14.7 to 1.14.9 ([#270](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/270)) ([181edf1](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/181edf1a52d8c4a9a98297a9d101bcd48e22b41a))
+
+
+### Features
+
+* add metrics for start event ([28bb292](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/28bb2927f924a8c08440bb86fd54cad563c13e07))
+
+## [1.4.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.4.0...v1.4.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* show rate limit info on api request ([#290](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/290)) ([e5410ba](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e5410ba6e787d5e14bab1bfac271b9f03b2b6c41))
+
 # [1.4.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.3.5...v1.4.0) (2022-03-14)
 
 
