@@ -1,5 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 module.exports = {
+  repositoryUrl: 'https://github.com/MoralisWeb3/Moralis-JS-SDK',
   branches: [
     'fix-versioning-during-deployment',
     'main',
