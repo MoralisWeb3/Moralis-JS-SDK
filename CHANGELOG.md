@@ -1,3 +1,10 @@
+## [1.5.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.6...v1.5.7) (2022-03-30)
+
+
+### Bug Fixes
+
+* **deps:** bump minimist from 1.2.5 to 1.2.6 ([#305](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/305)) ([0e6c490](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0e6c49034093697d5897f49171d71990a3342ad9))
+
 ## [1.5.6](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.5...v1.5.6) (2022-03-29)
 
 
