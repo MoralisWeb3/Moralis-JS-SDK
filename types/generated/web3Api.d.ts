@@ -1743,8 +1743,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The addresses to get balances for (Optional) */
@@ -1776,8 +1774,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The transfer direction */
         direction?: "both" | "to" | "from";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2150,8 +2146,6 @@ export interface operations {
         to_date?: string;
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2179,8 +2173,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2208,8 +2200,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2242,8 +2232,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2390,8 +2378,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2421,8 +2407,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
