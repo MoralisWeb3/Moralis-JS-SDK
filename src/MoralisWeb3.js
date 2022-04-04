@@ -407,17 +407,18 @@ class MoralisWeb3 {
         case 'web3Sign':
           if (!triggersArray[i].message)
             throw new Error('web3Sign trigger does not have a message to sign');
-          if (!triggersArray[i].signer || triggersArray[i].signer)
+          if (!triggersArray[i].signer)
             throw new Error('web3Sign trigger signer address missing or invalid');
 
           // eslint-disable-next-line no-case-declarations
-          let response = await this.getInternalWeb3Provider().signer.signMessage(
-            triggersArray[i].message
+          const message = JSON.parse(triggersArray[i].message);
+          delete message.types.EIP712Domain;
+          // eslint-disable-next-line no-case-declarations
+          let response = await this.getInternalWeb3Provider().signer._signTypedData(
+            message.domain,
+            message.types,
+            message.message
           );
-
-          if (triggersArray[i]?.shouldAwait) {
-            response = await response.wait();
-          }
 
           // Save response
           if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
