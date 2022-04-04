@@ -420,10 +420,6 @@ class MoralisWeb3 {
             message.message
           );
 
-          // if (triggersArray[i]?.shouldAwait) {
-          //   response = await response.wait();
-          // }
-
           // Save response
           if (triggersArray[i]?.saveResponse === true) this.memoryCard.save(response);
 
