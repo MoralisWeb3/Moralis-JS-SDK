@@ -1,3 +1,10 @@
+## [1.5.9](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.8...v1.5.9) (2022-04-08)
+
+
+### Bug Fixes
+
+* plugin triggers to handle web3sign correctly ([#309](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/309)) ([26fc670](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26fc670f558492a31eb888e259d86811b6432f03))
+
 ## [1.5.8](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.7...v1.5.8) (2022-03-31)
 
 
