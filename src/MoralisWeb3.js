@@ -75,12 +75,11 @@ class MoralisWeb3 {
   }
 
   static handleWeb3Disconnect(error) {
+    // Do not disconnect when MetaMask is attempting to reconnect
     if (error?.message === 'MetaMask: Disconnected from chain. Attempting to connect.') {
       return;
     }
-    if (error?.message === 'Web3Auth: User closed login modal.') {
-      this.isEnablingWeb3 = false;
-    }
+
     this.cleanup();
     MoralisEmitter.emit(InternalWeb3Events.PROVIDER_DISCONNECT, error);
   }
@@ -219,6 +218,10 @@ class MoralisWeb3 {
    */
   static async cleanup() {
     if (this.isEnablingWeb3) {
+      // Enabling is aborted before finishing
+      this.isEnablingWeb3 = false;
+      this.internalWeb3Provider = null;
+      this.web3 = null;
       return;
     }
 
