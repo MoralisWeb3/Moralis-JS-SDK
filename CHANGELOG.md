@@ -1,3 +1,17 @@
+## [1.5.9](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.8...v1.5.9) (2022-04-08)
+
+
+### Bug Fixes
+
+* plugin triggers to handle web3sign correctly ([#309](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/309)) ([26fc670](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26fc670f558492a31eb888e259d86811b6432f03))
+
+## [1.5.8](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.7...v1.5.8) (2022-03-31)
+
+
+### Bug Fixes
+
+* return exact rate limit response coming from api ([#303](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/303)) ([33a05e6](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/33a05e6ab7fd0bca0667d4b098da8552c5c03255))
+
 ## [1.5.7](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.6...v1.5.7) (2022-03-30)
 
 

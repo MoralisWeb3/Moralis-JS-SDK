@@ -66,17 +66,9 @@ static getParameterizedUrl(url, params) {
 static getApiRateLimitInfo(headers) {
   return {
     'x-rate-limit-limit': headers['x-rate-limit-limit'],
-    'x-rate-limit-remaining': headers['x-rate-limit-remaining'],
     'x-rate-limit-remaining-ttl': headers['x-rate-limit-remaining-ttl'],
-    'x-rate-limit-throttle-limit': headers['x-rate-limit-throttle-limit'],
-    'x-rate-limit-throttle-remaining': headers['x-rate-limit-throttle-remaining'],
-    'x-rate-limit-throttle-remaining-ttl': headers['x-rate-limit-throttle-remaining-ttl'],
-    'x-rate-limit-throttle-used': headers['x-rate-limit-throttle-used'],
     'x-rate-limit-used': headers['x-rate-limit-used'],
-    'x-request-weight': headers['x-request-weight'],
-    'x-rate-limit-throttle-ip-used': headers['x-rate-limit-throttle-ip-used'],
     'x-rate-limit-remaining-ip-ttl': headers['x-rate-limit-remaining-ip-ttl'],
-    'x-rate-limit-throttle-remaining-ip-ttl': headers['x-rate-limit-throttle-remaining-ip-ttl'],
     'x-rate-limit-ip-used': headers['x-rate-limit-ip-used'],
   };
 }

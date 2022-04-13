@@ -110,7 +110,7 @@ export interface paths {
   "/nft/{address}": {
     /**
      * Gets data, including metadata (where available), for all token ids for the given contract address.
-     * * Results are sorted by the block the token id was minted (descending) and limited to 100 per page by default
+     * * Results are limited to 500 per page by default
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getAllTokenIds"];
@@ -2163,7 +2163,7 @@ export interface operations {
   };
   /**
    * Gets data, including metadata (where available), for all token ids for the given contract address.
-   * * Results are sorted by the block the token id was minted (descending) and limited to 100 per page by default
+   * * Results are limited to 500 per page by default
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getAllTokenIds: {
