@@ -38,7 +38,7 @@ class InternalWeb3Provider extends EventEmitter {
 
   async activate(options) {
     if (!this.connector) {
-      throw new Error('Cannot acticate InternalWeb3Provider without a connector');
+      throw new Error('Cannot activate InternalWeb3Provider without a connector');
     }
 
     if (this.connector.on) {
