@@ -2099,8 +2099,8 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
+        /** cursor */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
