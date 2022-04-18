@@ -1806,8 +1806,8 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
@@ -2099,8 +2099,8 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
+        /** cursor */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
