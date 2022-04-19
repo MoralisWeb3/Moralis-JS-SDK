@@ -1,13 +1,3 @@
-2.0.0.md
-CHANGELOG.md
-
-# Output folders
-/out
-/coverage
-/dist
-/lib
-/types/generated
-web3Api.d.ts
-src/MoralisWeb3Api.js
-solanaApi.d.ts
-src/MoralisSolanaApi.js
+lib
+lib.esm
+node_modules

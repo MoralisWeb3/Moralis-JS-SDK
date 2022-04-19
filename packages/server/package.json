@@ -1,0 +1,33 @@
+{
+  "name": "@moralis/server",
+  "author": "Moralis",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "test": "yarn jest",
+    "test:coverage": "yarn run test --coverage",
+    "test:watch": "yarn run test --watch",
+    "format": "prettier . -write",
+    "lint": "eslint .",
+    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/parse": "^2.18.13",
+    "eslint": "^8.7.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@moralis/core": "^1.0.0",
+    "@moralis/utils": "^1.0.0",
+    "jest": "^27.4.7",
+    "xstate": "^4.30.1",
+    "yup": "^0.32.11"
+  }
+}
