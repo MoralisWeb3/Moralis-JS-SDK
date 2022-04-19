@@ -1,18 +1,35 @@
-coverage
-dist
-lib
-logs
-node_modules
-test_output
-integration/test_logs
-*~
-.DS_Store
-.idea/
-integration/test_logs
-test_logs
-out/
-docs/
-.eslintcache
+# node_modules
+node_modules/
+packages/**/node_modules
+
+# Error / debug
+lerna-debug.log
+npm-debug.log
+yarn-error.log
+
+# Build
+packages/**/build
+packages/**/dist
+packages/**/lib
+packages/**/lib.esm
+packages/**/coverage
+coverage/
+
+
+# Typescript
+packages/**/tsconfig.tsbuildinfo
+
+# Test coverage
+packages/**/coverage
+
+# Turbo
+.turbo
+
+# Env files
 .env
-eslint_report.json
-.npmrc
+
+# Other
+.DS_Store
+.tmp/
+TODO.md
+archive/**/*

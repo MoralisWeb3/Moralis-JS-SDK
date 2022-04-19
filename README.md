@@ -1,77 +1,61 @@
-<p align="center">
-    <a href="https://moralis.io">
-    <img width="132" height="101" src="https://moralis.io/wp-content/uploads/2021/01/logo.png" class="attachment-full size-full" alt="Moralis Build Serverless web3 apps" loading="lazy" /></a>
-</p>
+# Moralis
 
-<h2 align="center">Moralis SDK for JavaScript</h2>
+# Packages
 
-<p align="center">
-    A library that gives you access to the powerful Moralis Server backend from your JavaScript app. <a href="https://admin.moralis.io">Create Server Here</a>
-</p>
+## Umbrella package
 
-<br>
+| package      | Version | Changelog | Description                                                      |
+| ------------ | ------- | --------- | ---------------------------------------------------------------- |
+| @moralis/all | TODO    | TODO      | Umbrella package that includes all packages and initialises them |
 
-For more information on Moralis and its features, see [the website](https://moralis.io), [the JavaScript guide](https://docs.moralis.io), [the Cloud Code guide](https://docs.moralis.io/moralis-server/cloud-code) or [Web3 Reference](https://docs.moralis.io/moralis-server/web3-sdk/intro).
+## Main modules
 
-## Getting Started
+| package                                    | Version | Changelog | Description                                                                          |
+| ------------------------------------------ | ------- | --------- | ------------------------------------------------------------------------------------ |
+| [@moralis/core](./packages/core/README.md) | TODO    | TODO      | Core logic, responsible for core logic and sharing state and events between packages |
+| @moralis/server                            | TODO    | TODO      | All logic regarding the moralis server                                               |
 
-The easiest way to integrate the Moralis SDK into your JavaScript project is through the [npm module](https://npmjs.org/moralis).
-However, if you want to use a pre-compiled file, you can fetch it from [unpkg](https://unpkg.com). The development version is available at [https://unpkg.com/moralis/dist/moralis.js](https://unpkg.com/moralis/dist/moralis.js), and the minified production version is at [https://unpkg.com/moralis/dist/moralis.min.js](https://unpkg.com/moralis/dist/moralis.min.js).
+## API modules
 
-## Webpack v5 support
+| package           | Version | Changelog | Description |
+| ----------------- | ------- | --------- | ----------- |
+| @moralis/web3-api | TODO    | TODO      |             |
+| @moralis/sol-api  | TODO    | TODO      |             |
 
-There are a lot of breaking changes in Webpack v5. Set up your project to work with Moralis JS SDK:
+## Network modules
 
-### configuring Webpack v5
+| package      | Version | Changelog | Description                                       |
+| ------------ | ------- | --------- | ------------------------------------------------- |
+| @moralis/evm | TODO    | TODO      | All logic regarding connecting to EVM networks    |
+| @moralis/sol | TODO    | TODO      | All logic regarding connecting to Solana networks |
 
-We highly recommend you to use the stable `4.0.3` version of Webpack. If you want to use Moralis on your project with Webpack v5 you need to add the fallback to your `webpack.config.js` file:
+## EVM connectors
 
-```
-module.exports = {
-    resolve: {
-        fallback: {
-            assert: require.resolve('assert'),
-            crypto: require.resolve('crypto-browserify'),
-            http: require.resolve('stream-http'),
-            https: require.resolve('https-browserify'),
-            os: require.resolve('os-browserify/browser'),
-            stream: require.resolve('stream-browserify'),
-        },
-    },
-};
-```
+| package                              | Version | Changelog | Description                                              |
+| ------------------------------------ | ------- | --------- | -------------------------------------------------------- |
+| @moralis/evm-connector-utils         | TODO    | TODO      | Utilities for EVM connectors                             |
+| @moralis/evm-metamask-connector      | TODO    | TODO      | Connector to connect to an EVM network via Metamask      |
+| @moralis/evm-walletconnect-connector | TODO    | TODO      | Connector to connect to an EVM network via Walletconnect |
 
-### Using Moralis on Different Platforms
+## Solana connectors
 
-The JavaScript ecosystem is wide and incorporates a large number of platforms and execution environments. To handle this, the Moralis npm module contains special versions of the SDK tailored to use in Node.js and [React Native](https://reactnative.dev/) environments. Not all features make sense in all environments, so using the appropriate package will ensure that items like local storage, user sessions, and HTTP requests use appropriate dependencies. For server side rendered applications, you may set the `SERVER_RENDERING` variable to prevent warnings at runtime.
+| package | Version | Changelog | Description |
+| ------- | ------- | --------- | ----------- |
+| TODO    | TODO    | TODO      | TODO        |
 
-To use the npm modules for a browser based application, include it as you normally would:
+# Development
 
-```js
-const Moralis = require('moralis');
-// ES6 Minimized
-import Moralis from 'moralis/dist/moralis.min.js';
-```
+## Architecture
 
-For server-side applications or Node.js command line tools, include `'moralis/node'`:
+### Monorepo
 
-```js
-// In a node.js environment
-const Moralis = require('moralis/node');
-```
+TODO: add description about structure of packages
 
-For React Native applications, include `'moralis/react-native.js'`:
+### State management
 
-```js
-// In a React Native application
-const Moralis = require('moralis/react-native.js');
+TODO: add description about xstate
 
-// On React Native >= 0.50 and Moralis >= 1.11.0, set the Async
-const AsyncStorage = require('react-native').AsyncStorage;
-Moralis.setAsyncStorage(AsyncStorage);
-```
+## Testing
 
-## Typescript support
-
-Typescript types are supported out-of-the box.
-The types are defined in `/types`. These are updated with every release.
+TODO: using Jest for unit tests
+TODO: using Jest for integration tests
