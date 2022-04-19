@@ -1880,8 +1880,8 @@ export interface operations {
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
         marketplace?: "opensea";
-        /** offset */
-        offset?: number;
+        /** cursor */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
