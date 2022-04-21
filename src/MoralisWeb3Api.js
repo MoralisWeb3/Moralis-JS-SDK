@@ -121,7 +121,15 @@ static async fetchFromApi(endpoint, params) {
         'x-api-key': this.apiKey,
       },
     });
-    return response.data;
+    const result = response.data;
+      if(result.cursor){
+        if(params.cursor === result.cursor) {
+          return [];
+        }
+        params.cursor = result.cursor;
+        result.next = async () => await this.fetchFromApi(endpoint, params);
+      }
+      return result
   } catch (error) {
     const {status, headers, data} = error.response;
 
@@ -155,7 +163,15 @@ static async fetchFromServer(name, options) {
       const response =  await http.post(`/functions/${name}`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
-      return response.data.result
+      const {result} = response.data;
+      if(result.cursor){
+        if(options.cursor === result.cursor) {
+          return [];
+        }
+        options.cursor = result.cursor;
+        result.next = async () => await this.fetchFromServer(name, options);
+      }
+      return result
     } catch (error) {
       if (error.response?.data?.error) { 
         throw new Error(error.response.data.error);
