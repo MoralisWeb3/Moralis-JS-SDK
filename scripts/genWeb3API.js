@@ -79,6 +79,21 @@ static getParameterizedUrl(url, params) {
   return parameterizedUrl;
 }
 
+static getNextOptions(result, options) {
+  const nextOptions = options;
+  if (!result.page_size) return options
+  if (result.cursor && result.cursor !== undefined) {
+    if (nextOptions.cursor === result.cursor) return [];
+    nextOptions.cursor = result.cursor;
+  } else {
+    if (result.total > (result.page_size * result.page) + 1) {
+      nextOptions.offset = (result.page + 1) * (nextOptions.limit || 500);
+    }
+  }
+
+  return nextOptions;
+}
+
 static getApiRateLimitInfo(headers) {
   return {
     'x-rate-limit-limit': headers['x-rate-limit-limit'],
@@ -138,21 +153,9 @@ static async fetchFromApi(endpoint, params) {
       },
     });
     const result = response.data;
-    if(result.page_size) {
-      if(result.cursor) {
-        if(params.cursor === result.cursor) {
-          return [];
-        }
-        params.cursor = result.cursor;
-        result.next = () => this.fetchFromApi(endpoint, params);
-      }else {
-        if(result.total > (result.page_size * result.page) + 1){
-          params.offset = (result.page+1) * (params.limit || 500);
-          result.next = () => this.fetchFromApi(endpoint, params);
-        }
-      }
-    }
-      return result
+    const nextOptions = this.getNextOptions(result, params)
+    result.next = () => this.fetchFromApi(endpoint, nextOptions);
+    return result
   } catch (error) {
     const {status, headers, data} = error.response;
 
@@ -187,20 +190,8 @@ static async fetchFromServer(name, options) {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
       const {result} = response.data;
-      if(result.page_size) {
-        if(result.cursor) {
-          if(options.cursor === result.cursor) {
-            return [];
-          }
-          options.cursor = result.cursor;
-          result.next = () => this.fetchFromServer(name, options);
-        }else {
-          if(result.total > (result.page_size * result.page) + 1){
-            options.offset = (result.page+1) * (options.limit || 500);
-            result.next = () => this.fetchFromServer(name, options);
-          }
-        }
-      }
+      const nextOptions = this.getNextOptions(result, options)
+      result.next = () => this.fetchFromServer(name, nextOptions);
       return result
     } catch (error) {
       if (error.response?.data?.error) { 
