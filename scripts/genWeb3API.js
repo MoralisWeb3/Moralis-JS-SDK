@@ -143,7 +143,7 @@ static async fetchFromApi(endpoint, params) {
           return [];
         }
         params.cursor = result.cursor;
-        result.next = async () => await this.fetchFromApi(endpoint, params);
+        result.next = this.fetchFromApi(endpoint, params);
       }
       return result
   } catch (error) {
@@ -185,7 +185,7 @@ static async fetchFromServer(name, options) {
           return [];
         }
         options.cursor = result.cursor;
-        result.next = async () => await this.fetchFromServer(name, options);
+        result.next = this.fetchFromServer(name, options);
       }
       return result
     } catch (error) {
