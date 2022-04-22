@@ -64,19 +64,20 @@ static getParameterizedUrl(url, params) {
 }
 
 static getNextOptions(result, options) {
-  const nextOptions = options;
-  if (!result.page_size) return options
-  if (result.cursor && result.cursor !== undefined) {
-    if (nextOptions.cursor === result.cursor) return [];
+  const nextOptions = {...options};
+  if (!result.page_size || !result.total || result.page == undefined) return options
+  if (result.cursor) {
     nextOptions.cursor = result.cursor;
   } else {
-    if (result.total > (result.page_size * result.page) + 1) {
+    if (result.total > (result.page_size * (result.page + 1))) {
       nextOptions.offset = (result.page + 1) * (nextOptions.limit || 500);
     }
   }
 
   return nextOptions;
 }
+
+static checkObjEqual = (...objects) => objects.every(obj => JSON.stringify(obj) === JSON.stringify(objects[0]));
 
 static getApiRateLimitInfo(headers) {
   return {
@@ -138,7 +139,7 @@ static async fetchFromApi(endpoint, params) {
     });
     const result = response.data;
     const nextOptions = this.getNextOptions(result, params)
-    result.next = () => this.fetchFromApi(endpoint, nextOptions);
+    if(!this.checkObjEqual(nextOptions, params)) result.next = () => this.fetchFromApi(endpoint, nextOptions);
     return result
   } catch (error) {
     const {status, headers, data} = error.response;
@@ -175,7 +176,7 @@ static async fetchFromServer(name, options) {
       });
       const {result} = response.data;
       const nextOptions = this.getNextOptions(result, options)
-      result.next = () => this.fetchFromServer(name, nextOptions);
+      if(!this.checkObjEqual(nextOptions, options)) result.next = () => this.fetchFromServer(name, nextOptions);
       return result
     } catch (error) {
       if (error.response?.data?.error) { 
