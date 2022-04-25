@@ -85,7 +85,7 @@
     "husky": "^7.0.4",
     "jasmine": "^4.0.2",
     "jasmine-reporters": "^2.5.0",
-    "jest": "^27.4.5",
+    "jest": "^28.0.0",
     "jest-environment-jsdom": "^27.4.4",
     "lint-staged": "^12.1.2",
     "merge-stream": "^2.0.0",
