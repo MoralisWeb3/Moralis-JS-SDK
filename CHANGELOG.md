@@ -1,3 +1,10 @@
+## [1.5.10](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.9...v1.5.10) (2022-04-25)
+
+
+### Bug Fixes
+
+* web3Auth should work when retry after closing modal ([d76537a](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d76537aa397a5b06fe94c3ee7d09173f1b1c4409))
+
 ## [1.5.9](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.8...v1.5.9) (2022-04-08)
 
 
