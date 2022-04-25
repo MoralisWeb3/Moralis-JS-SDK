@@ -11,7 +11,7 @@ export const UnreachableError = new MoralisCoreError({
  *
  * When used properly with Typescript, this code should never reach, as it is typed as 'never'
  *
- * If the code does reach this assertion an {@link UnreachableError} is thrown
+ * If the code does reach this assertion an UnreachableError is thrown
  */
 export const assertUnreachable = (x: never): never => {
   throw UnreachableError;

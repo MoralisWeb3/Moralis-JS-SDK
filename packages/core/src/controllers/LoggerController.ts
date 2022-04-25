@@ -1,5 +1,5 @@
 import { isMoralisError } from '../Error/isMoralisError';
-import { LogLevel } from '../MoralisConfig';
+import { LogLevel } from '../Config';
 import { MoralisCore } from '../MoralisCore';
 
 type Details = Record<string, any>;

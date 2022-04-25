@@ -2,7 +2,6 @@ import { defaultConfig, MoralisConfigOptions } from './configOptions';
 
 /**
  * MoralisConfig, that is used to set and get configuration options
- * @category Config
  */
 export class MoralisConfig {
   private _value: MoralisConfigOptions;
@@ -13,7 +12,7 @@ export class MoralisConfig {
 
   /**
    * Get the config value of the provided key
-   * @param key A key from {@link MoralisConfigOptions} to get the config from
+   * @param key A key from MoralisConfigOptions to get the config from
    * @returns the value of the provided key
    */
   get<Key extends keyof MoralisConfigOptions>(key: Key): MoralisConfigOptions[Key] {

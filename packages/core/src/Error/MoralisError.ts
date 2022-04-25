@@ -10,7 +10,6 @@ import {
 
 export type MoralisErrorDetails = Record<string, unknown>;
 
-// TODO: allow NO error code and only message as string? Then revert to a GenericError with the message
 export interface NewMoralisOptions<ErrorCode extends MoralisErrorCode> {
   message: string;
   code: ErrorCode;
@@ -29,7 +28,6 @@ export class MoralisError extends Error {
   static makeMessage = (message: string, code: MoralisErrorCode) => `[${code}] ${message}`;
 
   constructor({ message, code, details, cause }: NewMoralisOptions<MoralisErrorCode>) {
-    // TODO: use the toString instead?????
     // TODO: polyfill / ponyfill the 'cause' behaviour and Test with NODJS < 16
     // @ts-ignore Typescript does not recognise 'cause' ? OR we have wrong TS version
     super(MoralisError.makeMessage(message, code), { cause });
