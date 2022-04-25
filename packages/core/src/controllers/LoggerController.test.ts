@@ -1,5 +1,5 @@
 import { CoreErrorCode, MoralisError } from '../Error';
-import { LogLevel } from '../MoralisConfig';
+import { LogLevel } from '../Config';
 import { makeMockMoralisCore } from '../test/makeMockMoralisCore';
 import { Logger } from './LoggerController';
 

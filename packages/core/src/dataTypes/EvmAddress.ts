@@ -2,7 +2,7 @@ import { CoreErrorCode } from '../Error/ErrorCode';
 import { MoralisCoreError } from '../Error/MoralisError';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { MoralisDataType } from './MoralisDataType';
-import { ConfigAddressFormat } from '../MoralisConfig';
+import { ConfigAddressFormat } from '../Config';
 import core from '../MoralisCore';
 
 export type InputEvmAddress = string;

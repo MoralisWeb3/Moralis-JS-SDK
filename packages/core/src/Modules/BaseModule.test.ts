@@ -1,12 +1,12 @@
-import { CoreModuleType } from '../Modules';
-import { BaseClass } from './BaseClass';
+import { CoreModuleType } from './CoreModuleType';
+import { BaseModule } from './BaseModule';
 import { makeMockMoralisCore } from '../test/makeMockMoralisCore';
 
-describe('BaseClass', () => {
+describe('BaseModule', () => {
   const core = makeMockMoralisCore();
-  const name = 'testClass';
+  const name = 'testModule';
 
-  class SimpleMoralisClass extends BaseClass {}
+  class SimpleMoralisClass extends BaseModule {}
   const instance = new SimpleMoralisClass({
     name,
     core,

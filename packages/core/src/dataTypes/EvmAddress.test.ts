@@ -28,7 +28,7 @@ describe('EvmAddress', () => {
 
   it('should throw an error when creating with an invalid address', () => {
     expect(() => EvmAddress.create(TEST_INVALID_ADDRESS)).toThrowErrorMatchingInlineSnapshot(
-      `"[c0005] Invalid address provided"`,
+      `"[C0005] Invalid address provided"`,
     );
   });
 
@@ -87,7 +87,7 @@ describe('EvmAddress', () => {
 
     //@ts-ignore
     expect(() => address.format('')).toThrowErrorMatchingInlineSnapshot(
-      `"[c0005] Cannot format address, invalid config.formatAddress"`,
+      `"[C0005] Cannot format address, invalid config.formatAddress"`,
     );
   });
 

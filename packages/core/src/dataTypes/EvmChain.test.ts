@@ -27,7 +27,7 @@ describe('EvmChain', () => {
 
   it('should throw an error when creating a chain with unknown name', () => {
     expect(() => EvmChain.create('bitcoin')).toThrowErrorMatchingInlineSnapshot(
-      `"[c0005] Invalid provided chain, value must be a number, chain-name or a hex-string starting with '0x'"`,
+      `"[C0005] Invalid provided chain, value must be a number, chain-name or a hex-string starting with '0x'"`,
     );
   });
 

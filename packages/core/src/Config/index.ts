@@ -1,2 +1,2 @@
-export * from './MoralisConfig';
+export * from './Config';
 export * from './configOptions';

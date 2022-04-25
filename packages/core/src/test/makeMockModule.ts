@@ -1,10 +1,10 @@
 import { MoralisCore } from '../MoralisCore';
-import { BaseClass } from '../BaseClass/BaseClass';
+import { BaseModule } from '../Modules';
 
-export const makeMockModule = (core: MoralisCore): BaseClass => {
+export const makeMockModule = (core: MoralisCore): BaseModule => {
   const name = 'mockModule';
 
-  class MockModule extends BaseClass {}
+  class MockModule extends BaseModule {}
   const mockModule = new MockModule({
     core,
     name,

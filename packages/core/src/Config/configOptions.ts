@@ -39,7 +39,7 @@ export const defaultConfig: MoralisConfigOptions = {
 
   logLevel: LogLevel.INFO,
 
-  formatChainId: 'decimal',
+  formatChainId: 'hex',
   formatAddress: 'lowercase',
 
   // defaultNetwork: 'evm',
