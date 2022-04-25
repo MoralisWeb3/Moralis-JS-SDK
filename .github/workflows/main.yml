@@ -26,7 +26,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm run install:clean
@@ -49,7 +49,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
       - name: ESLint
         run: npm run lint:ci
         continue-on-error: true
@@ -79,7 +79,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
       - name: Prettier
         run: npm run format:check
 
@@ -101,6 +101,6 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
       - name: Jest
         run: npm run test:ci
