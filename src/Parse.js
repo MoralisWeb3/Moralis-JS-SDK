@@ -138,7 +138,7 @@ class Moralis extends MoralisWeb3 {
       /* eslint-disable no-console */
       console.log(
         "It looks like you're using the browser version of the SDK in a " +
-          "node.js environment. You should require('parse/node') instead."
+          "node.js environment. You should require('moralis/node') instead."
       );
       /* eslint-enable no-console */
     }
