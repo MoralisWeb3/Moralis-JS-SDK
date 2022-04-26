@@ -5,6 +5,22 @@ import AbstractWeb3Connector from './AbstractWeb3Connector';
 export class Web3Auth extends AbstractWeb3Connector {
   type = 'web3Auth';
 
+  connect = web3auth => {
+    return new Promise((resolve, reject) => {
+      const subscribeAuthEvents = web3auth => {
+        web3auth.loginModal.on('MODAL_VISIBILITY', async visibility => {
+          if (!visibility) {
+            reject(new Error('Web3Auth: User closed login modal.'));
+          }
+        });
+      };
+
+      subscribeAuthEvents(web3auth);
+
+      web3auth.connect().then(resolve).catch(reject);
+    });
+  };
+
   activate = async ({ chainId = '0x1', clientId, theme, appLogo, loginMethodsOrder } = {}) => {
     // Checking that all params are given
     if (!clientId) {
@@ -34,7 +50,6 @@ export class Web3Auth extends AbstractWeb3Connector {
       chainNamespace: 'eip155',
       chainId: verifyChainId(chainId),
     };
-
     // Build Web3Auth
     let web3auth;
     try {
@@ -57,11 +72,7 @@ export class Web3Auth extends AbstractWeb3Connector {
     // Authenticate
     await web3auth.initModal();
     let provider = null;
-    try {
-      provider = await web3auth.connect();
-    } catch {
-      // Do nothing, check next line down
-    }
+    provider = await this.connect(web3auth);
 
     if (!provider) {
       throw new Error('Could not connect via Web3Auth, error in connecting to provider');

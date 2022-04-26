@@ -32,13 +32,13 @@ describe('Browser', () => {
     process.env.PARSE_BUILD = 'node';
   });
 
-  it('warning initializing parse/node in browser', () => {
+  it('warning initializing moralis/node in browser', () => {
     const Parse = require('../Parse');
     jest.spyOn(console, 'log').mockImplementationOnce(() => {});
     jest.spyOn(Parse, '_initialize').mockImplementationOnce(() => {});
     Parse.initialize('A', 'B');
     expect(console.log).toHaveBeenCalledWith(
-      "It looks like you're using the browser version of the SDK in a node.js environment. You should require('parse/node') instead."
+      "It looks like you're using the browser version of the SDK in a node.js environment. You should require('moralis/node') instead."
     );
     expect(Parse._initialize).toHaveBeenCalledTimes(1);
   });
