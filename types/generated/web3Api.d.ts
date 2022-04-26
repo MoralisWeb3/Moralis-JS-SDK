@@ -614,7 +614,7 @@ export interface components {
        * @description The number of decimals on of the token
        * @example 18
        */
-      decimals: string;
+      decimals: number;
       /**
        * @description Timestamp of when the contract was last synced with the node
        * @example 123456789
