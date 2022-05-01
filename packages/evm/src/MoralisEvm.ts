@@ -1,12 +1,12 @@
 import { ethers } from 'ethers';
-import core from '@moralis/core';
+import core, { EvmTransactionInput } from '@moralis/core';
 import { NetworkModule, EvmConnect } from '@moralis/core';
 import { MODULE_NAME } from './config';
 import { EvmNetworkEvent, EvmNetworkEventMap } from './events/EvmNetworkEvent';
 import { makeSendTransaction } from './chainMethods/sendTransaction';
 import { makeSignMessage } from './chainMethods/signMessage';
-import { makeTransferNative } from './chainMethods/transferNative';
-import { makeTransferErc20 } from './chainMethods/transferErc20';
+import { makeTransferNative, TransferNativeOptions } from './chainMethods/transferNative';
+import { makeTransferErc20, TransferErc20Options } from './chainMethods/transferErc20';
 import { Connection } from './Connection/Connection';
 
 // TODO: export getter to get all chains?
@@ -21,6 +21,10 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
       core,
     });
   }
+
+  /**
+   * Event listeners
+   */
 
   onConnecting = (fn: EvmNetworkEventMap['Connecting']) => this.listen(EvmNetworkEvent.CONNECTING, fn);
   onConnected = (fn: EvmNetworkEventMap['Connected']) => this.listen(EvmNetworkEvent.CONNECTED, fn);
@@ -90,10 +94,10 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
    * Chain Methods
    */
 
-  signMessage = makeSignMessage(this.connection.provider);
-  sendTransaction = makeSendTransaction(this.connection.provider, this.chain);
-  transferNative = makeTransferNative(this.sendTransaction);
-  transferErc20 = makeTransferErc20(this.connection.provider, this.chain);
+  signMessage = (message: string) => makeSignMessage(this.provider)(message);
+  sendTransaction = (data: EvmTransactionInput) => makeSendTransaction(this.provider, this.chain)(data);
+  transferNative = (data: TransferNativeOptions) => makeTransferNative(this.sendTransaction)(data);
+  transferErc20 = (data: TransferErc20Options) => makeTransferErc20(this.provider, this.chain)(data);
   // TODO: add executeTransaction
   // TODO: add transfer
   // TODO: add getBalance?

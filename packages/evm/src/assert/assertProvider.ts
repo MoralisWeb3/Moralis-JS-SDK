@@ -13,7 +13,8 @@ export const assertProvider = (provider: unknown, message?: string) => {
   if (!isValidProvider(provider)) {
     throw new MoralisNetworkError({
       code: NetworkErrorCode.NO_CHAIN_SET,
-      message: message ?? 'Provider is not set. Make sure to have called MoralisEvm.connect first',
+      message:
+        message ?? 'Provider is not set. Make sure to have called Moralis.connect() or MoralisEvm.connect() first',
     });
   }
 

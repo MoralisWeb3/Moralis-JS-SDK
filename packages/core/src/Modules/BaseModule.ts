@@ -34,8 +34,6 @@ export abstract class BaseModule<Events extends EventMap = any> {
     this.type = type;
     this.core = core;
     this.logger = new Logger(core, this.name);
-
-    // this.listen = this.listen.bind(this);
   }
 
   /**
@@ -56,18 +54,7 @@ export abstract class BaseModule<Events extends EventMap = any> {
    * Listen to an event, and returns a cleanup function
    */
   listen<Event extends keyof Events>(eventName: Event, listener: Events[Event]) {
-    this.on(eventName, listener);
-    return () => this.removeListener(eventName, listener);
+    this.emitter.on(eventName, listener);
+    return () => this.emitter.removeListener(eventName, listener);
   }
-
-  on = this.emitter.on;
-  off = this.emitter.off;
-  once = this.emitter.once;
-  emit = this.emitter.emit;
-  listeners = this.emitter.listeners;
-  listenerCount = this.emitter.listenerCount;
-  addListener = this.emitter.addListener;
-  removeListener = this.emitter.removeListener;
-  removeAllListeners = this.emitter.removeAllListeners;
-  eventNames = this.emitter.eventNames;
 }

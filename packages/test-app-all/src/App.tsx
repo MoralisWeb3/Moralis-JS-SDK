@@ -7,9 +7,9 @@ import { LogLevel } from '@moralis/core';
 // @ts-ignore
 window.Moralis = Moralis;
 Moralis.start({
-  serverUrl: 'https://q3slxxmqigzl.usemoralis.com:2053/server',
-  appId: 'SAXOUWvburVcDCu9w47jIuZfiac5531wleepNRoa',
-  apiKey: '',
+  serverUrl: process.env.SERVER_URL,
+  appId: process.env.APP_ID,
+  apiKey: process.env.API_KEY,
   logLevel: LogLevel.VERBOSE,
 });
 

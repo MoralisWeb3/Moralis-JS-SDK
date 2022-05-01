@@ -9,12 +9,23 @@ import { EvmProvider } from './EvmProvider';
 
 // Evm connections
 export type EvmBaseConnectOptions = Record<string, unknown>;
+export type SolBaseConnectOptions = Record<string, unknown>;
 
 export type EvmConnect = {
   (wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
   (wallet: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
   (wallet: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
 };
+
+export type SolConnect = {
+  (wallet: 'phantom', options?: SolPhantomConnectorConnectOptions): Promise<EvmConnectData>;
+  (wallet: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
+};
+
+export interface SolPhantomConnectorConnectOptions extends SolBaseConnectOptions {
+  // TODO: implement
+  debug: true;
+}
 
 export interface EvmMetamaskConnectorConnectOptions extends EvmBaseConnectOptions {
   // Whether error messages should be logged to the console. Does not affect errors thrown due to invalid options

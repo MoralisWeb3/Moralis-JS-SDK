@@ -14,6 +14,7 @@ export interface TransferNativeOptions {
   chain?: EvmChainish;
 }
 
+// TODO: error catching?
 export const makeTransferNative =
   (sendTransaction: (data: EvmTransactionInput) => Promise<EvmTransactionResponse>) =>
   async (options: TransferNativeOptions) => {
