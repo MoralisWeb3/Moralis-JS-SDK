@@ -1,13 +1,15 @@
 import { ConfigEnvironment, MoralisServerError, ServerErrorCode } from '@moralis/core';
 
+// TODO: implement support for nodeJs and react-native
+// TODO: maybe as different packages?/modules?
 export const getParse = (environment: ConfigEnvironment) => {
   switch (environment) {
     case 'browser':
       return import('parse').then((parse) => parse.default);
-    case 'nodejs':
-      return import('parse/node').then((parse) => parse.default);
-    case 'react-native':
-      return import('parse/react-native').then((parse) => parse.default);
+    // case 'nodejs':
+    // return import('parse/node').then((parse) => parse.default);
+    // case 'react-native':
+    // return import('parse/react-native').then((parse) => parse.default);
     default:
       throw new MoralisServerError({ code: ServerErrorCode.INVALID_PARSE_ENVIRONMENT, message: 'Invalid environment' });
   }
@@ -30,7 +32,7 @@ export function validateAppId(appId: string | null): asserts appId is string {
  * Without having this initialisation happen succesfully, we will have no access to the server,
  * and thus most Parse functionalities will not work.
  */
-export const initialiseParse = async ({
+export const initializeParse = async ({
   appId,
   serverUrl,
   environment,

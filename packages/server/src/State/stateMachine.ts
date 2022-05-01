@@ -1,5 +1,5 @@
 import { createMachine } from 'xstate';
-import { AuthenticatedData, AuthenticateOptions } from '../Authenticate/EvmAuth';
+import { AuthenticateData, AuthenticateEventOptions } from '../Authenticate/EvmAuth';
 
 // TODO: get from Core?
 export type Network = 'evm' | 'sol';
@@ -13,9 +13,9 @@ export interface StateContext {
 export type StateEvents =
   | { type: 'INITIALIZE' }
   // TODO: split up in EVM_AUTH, SOL_AUTH, etc. etc
-  | ({ type: 'AUTHENTICATE' } & AuthenticateOptions)
+  | ({ type: 'AUTHENTICATE' } & AuthenticateEventOptions)
   | { type: 'LOGOUT' }
-  | { type: 'AUTHENTICATING_SUCCESS'; data: AuthenticatedData }
+  | { type: 'AUTHENTICATING_SUCCESS'; data: AuthenticateData }
   | { type: 'AUTHENTICATING_ERROR'; data: Error };
 
 /**

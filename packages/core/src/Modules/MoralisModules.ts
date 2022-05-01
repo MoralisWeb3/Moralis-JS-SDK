@@ -95,6 +95,7 @@ export class MoralisModules {
     return Array.from(this._modules.values());
   };
 
+  // TODO: make get names
   /**
    * Returns the names of all registered modules
    */

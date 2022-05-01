@@ -1,1 +1,3 @@
-export * from './EvmMetamaskConnector';
+import EvmMetamaskConnector from './EvmMetamaskConnector';
+
+export default EvmMetamaskConnector;

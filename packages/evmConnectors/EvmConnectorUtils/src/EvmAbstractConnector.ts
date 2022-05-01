@@ -13,8 +13,16 @@ import {
   ProviderChainId,
   ProviderInfo,
   ProviderRpcError,
+  Logger,
+  MoralisCore,
 } from '@moralis/core';
 
+interface AbstractConnectorConfig {
+  name: string;
+  core: MoralisCore;
+}
+
+// TODO: add eventListeners typesafe to this class (onAccountChange etc.)
 // TODO: make this an abstract class and implement it?
 /**
  * Abstract connector to connect EIP-1193 providers to Moralis
@@ -27,12 +35,15 @@ import {
  * - network: the network type that is used (eg. 'evm')
  */
 export class EvmAbstractConnector extends EventEmitter {
-  static id: string;
-  static network = 'evm';
+  name: string;
+  core: MoralisCore;
+  logger: Logger;
+  network = 'evm';
 
   account: EvmAddress | null = null;
   chain: EvmChain | null = null;
 
+  isSubscribedToEvents = false;
   // Provider can be a different type (provided by the library, than the basic EvmProvider that we use)
   // To get the EvmProvider, use the `provider` getter
   _provider: unknown | null = null;
@@ -46,8 +57,12 @@ export class EvmAbstractConnector extends EventEmitter {
     return this._provider as unknown as EvmProvider;
   }
 
-  constructor() {
+  constructor({ name, core }: AbstractConnectorConfig) {
     super();
+    this.name = name;
+    this.core = core;
+    this.logger = new Logger(core, `evmConnector: ${this.name}`);
+
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
     this.handleChainChanged = this.handleChainChanged.bind(this);
     this.handleConnect = this.handleConnect.bind(this);
@@ -55,18 +70,22 @@ export class EvmAbstractConnector extends EventEmitter {
   }
 
   subscribeToEvents(provider: EvmProvider) {
+    if (this.isSubscribedToEvents) {
+      return;
+    }
     provider.on(EvmProviderEvent.CHAIN_CHANGED, this.handleChainChanged);
     provider.on(EvmProviderEvent.ACCOUNTS_CHANGED, this.handleAccountsChanged);
     provider.on(EvmProviderEvent.CONNECT, this.handleConnect);
     provider.on(EvmProviderEvent.DISCONNECT, this.handleDisconnect);
+    this.isSubscribedToEvents = true;
   }
 
-  unsubscribeToEvents(provider: EvmProvider) {
-    provider.removeListener(EvmProviderEvent.CHAIN_CHANGED, this.handleChainChanged);
-    provider.removeListener(EvmProviderEvent.ACCOUNTS_CHANGED, this.handleAccountsChanged);
-    provider.removeListener(EvmProviderEvent.CONNECT, this.handleConnect);
-    provider.removeListener(EvmProviderEvent.DISCONNECT, this.handleDisconnect);
-  }
+  // unsubscribeToEvents(provider: EvmProvider) {
+  //   provider.removeListener(EvmProviderEvent.CHAIN_CHANGED, this.handleChainChanged);
+  //   provider.removeListener(EvmProviderEvent.ACCOUNTS_CHANGED, this.handleAccountsChanged);
+  //   provider.removeListener(EvmProviderEvent.CONNECT, this.handleConnect);
+  //   provider.removeListener(EvmProviderEvent.DISCONNECT, this.handleDisconnect);
+  // }
 
   /**
    * Connects the provider.
@@ -112,16 +131,16 @@ export class EvmAbstractConnector extends EventEmitter {
     this.emit(EvmConnectorEvent.DISCONNECT, error);
   }
 
-  /**
-   * Cleans all active listners, connections and stale references
-   */
-  async deactivate() {
-    if (this.provider) {
-      this.unsubscribeToEvents(this.provider);
-    }
+  // /**
+  //  * Cleans all active listners, connections and stale references
+  //  */
+  // async deactivate() {
+  //   if (this.provider) {
+  //     this.unsubscribeToEvents(this.provider);
+  //   }
 
-    this.account = null;
-    this.chain = null;
-    this._provider = null;
-  }
+  //   this.account = null;
+  //   this.chain = null;
+  //   this._provider = null;
+  // }
 }

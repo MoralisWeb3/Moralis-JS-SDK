@@ -13,6 +13,9 @@ export enum CoreErrorCode {
   NOT_INITIALIZED = 'C0008',
   ALREADY_INITIALIZED = 'C0009',
   NOT_IMPLEMENTED = 'C0010',
+  METHOD_FAILED = 'C0011',
+  STATE_MACHINE_STARTED = 'C0012',
+  STATE_MACHINE_NOT_STARTED = 'C0013',
 }
 
 export enum ServerErrorCode {
@@ -30,6 +33,10 @@ export enum NetworkErrorCode {
   CANNOT_CONNECT = 'N0002',
   NO_PROVIDER = 'N0003',
   NO_ACCOUNT = 'N0004',
+  DUPLICATE_WALLET = 'N0005',
+  WALLET_NOT_FOUND = 'N0006',
+  CONTRACT_NOT_SET = 'N0007',
+  NO_CHAIN_SET = 'N0008',
 }
 
 export enum NetworkConnectorErrorCode {

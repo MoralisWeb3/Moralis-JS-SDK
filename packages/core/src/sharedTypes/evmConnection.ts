@@ -8,8 +8,13 @@ import { InputChainId } from '../dataTypes/EvmChain';
 import { EvmProvider } from './EvmProvider';
 
 // Evm connections
-export type EvmConnectorName = 'metamask' | 'walletConnect';
 export type EvmBaseConnectOptions = Record<string, unknown>;
+
+export type EvmConnect = {
+  (wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
+  (wallet: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
+  (wallet: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
+};
 
 export interface EvmMetamaskConnectorConnectOptions extends EvmBaseConnectOptions {
   // Whether error messages should be logged to the console. Does not affect errors thrown due to invalid options
@@ -27,22 +32,6 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
   newSession?: boolean;
 }
 
-export interface BaseConnectorOptions extends Record<string, unknown> {
-  walletType?: EvmConnectorName;
-  options?: unknown;
-}
-export interface EvmMetamaskConnectOptions extends BaseConnectorOptions {
-  walletType: 'metamask';
-  options?: EvmMetamaskConnectorConnectOptions;
-}
-
-export interface EvmWalletConnectConnectOptions extends BaseConnectorOptions {
-  walletType: 'walletConnect';
-  options?: EvmWalletConnectConnectorOptions;
-}
-
-export type EvmConnectOptions = EvmMetamaskConnectOptions | EvmWalletConnectConnectOptions;
-
 export type AnyConnector = any;
 
 export interface EvmConnectResponse {
@@ -52,5 +41,5 @@ export interface EvmConnectResponse {
 }
 
 export interface EvmConnectData<Connector extends AnyConnector = AnyConnector> extends EvmConnectResponse {
-  connector: Connector;
+  wallet: Connector;
 }

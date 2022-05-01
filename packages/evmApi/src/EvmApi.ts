@@ -1,4 +1,4 @@
-import core, { BaseApiClass } from '@moralis/core';
+import core, { ApiModule } from '@moralis/core';
 import { getTokenBalancesResolver } from './resolvers/account/getTokenBalances';
 import { getBlockResolver } from './resolvers/native/getBlock';
 import { getDateToBlockResolver } from './resolvers/native/getDateToBlock';
@@ -16,7 +16,7 @@ export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 // TODO: use generic rest handler in entire Moralis
 // TODO: add start method to initialize
 // TODO: get default chainId (get from web3, then get from default settings in config)
-export class MoralisEvmApi extends BaseApiClass {
+export class MoralisEvmApi extends ApiModule {
   constructor() {
     // TODO: read account from web3/auth
     super({

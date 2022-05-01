@@ -2,6 +2,7 @@ import EventEmitter from 'eventemitter3';
 import { MoralisCore } from '..';
 import { Logger } from '../controllers';
 import { CoreModuleType } from './CoreModuleType';
+import TypedEmitter, { EventMap } from 'typed-emitter';
 
 /**
  * Configuration for the creation of any Moralis module
@@ -21,20 +22,20 @@ export interface BaseModuleConfig {
  *
  * When creating an api, or network module, you should use the ApiModule or NetworkModule
  */
-export abstract class BaseModule extends EventEmitter {
+export abstract class BaseModule<Events extends EventMap = any> {
   name: string;
   type: CoreModuleType;
   core: MoralisCore;
   logger: Logger;
+  emitter = new EventEmitter() as unknown as TypedEmitter<Events>;
 
   constructor({ name, type = CoreModuleType.DEFAULT, core }: BaseModuleConfig) {
-    super();
     this.name = name;
     this.type = type;
     this.core = core;
     this.logger = new Logger(core, this.name);
 
-    this.listen = this.listen.bind(this);
+    // this.listen = this.listen.bind(this);
   }
 
   /**
@@ -54,8 +55,19 @@ export abstract class BaseModule extends EventEmitter {
   /**
    * Listen to an event, and returns a cleanup function
    */
-  listen<Args extends unknown>(eventName: string, listener: (args: Args) => void) {
+  listen<Event extends keyof Events>(eventName: Event, listener: Events[Event]) {
     this.on(eventName, listener);
     return () => this.removeListener(eventName, listener);
   }
+
+  on = this.emitter.on;
+  off = this.emitter.off;
+  once = this.emitter.once;
+  emit = this.emitter.emit;
+  listeners = this.emitter.listeners;
+  listenerCount = this.emitter.listenerCount;
+  addListener = this.emitter.addListener;
+  removeListener = this.emitter.removeListener;
+  removeAllListeners = this.emitter.removeAllListeners;
+  eventNames = this.emitter.eventNames;
 }

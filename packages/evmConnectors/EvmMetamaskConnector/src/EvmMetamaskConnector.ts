@@ -1,32 +1,38 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import { EvmAbstractConnector } from '@moralis/evm-connector-utils';
-import {
+import core, {
   EvmAddress,
   EvmChain,
   EvmChainish,
   EvmConnectResponse,
   EvmMetamaskConnectorConnectOptions,
   EvmProvider,
-  Logger,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
 } from '@moralis/core';
-import core from '@moralis/core';
 
-const defaultOptions: EvmMetamaskConnectorConnectOptions = {
+const DEFAULT_OPTIONS: EvmMetamaskConnectorConnectOptions = {
   silent: false,
   timeout: 30000,
 };
 
-// TODO: general way of naming
-const logger = new Logger(core, 'evmConnector:metamask');
-
 export type MetamaskProvider = EvmProvider & { isMetaMask?: boolean; providers?: MetamaskProvider[] };
 export class EvmMetamaskConnector extends EvmAbstractConnector {
-  static id = 'metamask';
-  static network = 'evm';
+  constructor() {
+    super({
+      name: 'metamask',
+      core,
+    });
 
-  private async getProvider(options?: EvmMetamaskConnectorConnectOptions) {
+    // TODO: initialize provider if possible
+    // TODO add subscriptions
+  }
+
+  private async getProvider(options?: EvmMetamaskConnectorConnectOptions): Promise<MetamaskProvider> {
+    if (this._provider) {
+      return this._provider as MetamaskProvider;
+    }
+
     let provider: MetamaskProvider | null = (await detectEthereumProvider({
       silent: options?.silent,
       timeout: options?.timeout,
@@ -35,6 +41,7 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
 
     // Provider can be a single provider or array of providers (for example when user has coinbasewallet and metamask installed)
     if (provider && provider.providers?.length) {
+      console.log('found MM provider(s)', provider);
       provider = provider.providers.find((currentProvider) => currentProvider.isMetaMask) ?? null;
     }
 
@@ -49,10 +56,9 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
     return provider;
   }
 
-  // TODO: add eagerconnect (and move setting the provider to an "init" function)
   async connect(_options?: Partial<EvmMetamaskConnectorConnectOptions>): Promise<EvmConnectResponse> {
-    const options = { ...defaultOptions, _options };
-    logger.verbose('Connecting', { providedOptions: _options, options });
+    const options = { ...DEFAULT_OPTIONS, _options };
+    this.logger.verbose('Connecting', { providedOptions: _options, options });
     const provider = await this.getProvider(options);
     this._provider = provider;
 
@@ -69,7 +75,6 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
     return { provider: this.provider!, chain: this.chain, account: this.account };
   }
 
-  // TODO: refactor to use this as static function?
   async switchNetwork(providedChain: EvmChainish) {
     const provider = await this.getProvider();
 
@@ -86,7 +91,6 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
     });
   }
 
-  // TODO: refactor to use this as static function?
   async addNetwork(providedChain: EvmChainish) {
     const chain = EvmChain.create(providedChain);
 
@@ -94,19 +98,45 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
 
     await provider.request({
       method: 'wallet_addEthereumChain',
+      // TODO: accept EvmChainish
       params: [
         {
           chainId: chain.hex,
           chainName: chain.name,
-          nativeCurrency: {
-            name: chain.currency.name,
-            symbol: chain.currency.symbol,
-            decimals: chain.currency.decimals,
-          },
+          nativeCurrency: chain.currency
+            ? {
+                name: chain.currency.name,
+                symbol: chain.currency.symbol,
+                decimals: chain.currency.decimals,
+              }
+            : undefined,
           rpcUrls: chain.rpcUrls,
-          blockExplorerUrls: chain.blockExplorers,
+          blockExplorerUrls: [chain.explorer],
         },
       ],
     });
   }
+
+  async watchToken() {
+    // const wasAdded = await ethereum.request({
+    //   method: 'wallet_watchAsset',
+    //   params: {
+    //     type: 'ERC20', // Initially only supports ERC20, but eventually more!
+    //     options: {
+    //       address: tokenAddress, // The address that the token is at.
+    //       symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+    //       decimals: tokenDecimals, // The number of decimals in the token
+    //       image: tokenImage, // A string url of the token logo
+    //     },
+    //   },
+    // });
+    // if (wasAdded) {
+    //   console.log('Thanks for your interest!');
+    // } else {
+    //   console.log('Your loss!');
+    // }
+  }
 }
+
+const evmMetamaskConnector = new EvmMetamaskConnector();
+export default evmMetamaskConnector;

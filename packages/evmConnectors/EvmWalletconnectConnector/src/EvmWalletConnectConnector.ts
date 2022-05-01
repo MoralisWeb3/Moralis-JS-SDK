@@ -2,9 +2,7 @@ import {
   EvmAddress,
   EvmChain,
   EvmConnectResponse,
-  EvmProvider,
   EvmWalletConnectConnectorOptions,
-  Logger,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
 } from '@moralis/core';
@@ -20,15 +18,16 @@ const defaultOptions: EvmWalletConnectConnectorOptions = {
   newSession: false,
 };
 
-// TODO: general way of naming
-const logger = new Logger(core, 'evmConnector:metamask');
-
 /**
  * Connector for WalletConnect v1
  */
 export class EvmWalletconnectConnector extends EvmAbstractConnector {
-  static id = 'wallet-connect';
-  static network = 'evm';
+  constructor() {
+    super({
+      name: 'wallet-connect',
+      core,
+    });
+  }
 
   // Internal provider, is typed as WalletConnectProvider and has more options than our "basic" EvmProvider typed
   _provider: WalletConnectProvider | null = null;
@@ -50,7 +49,6 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
     };
 
     // TODO: import default for CDN support?
-    // TODO: lazy load the dependency
     const provider = new WalletConnectProvider(config);
 
     // Should not happen but in theory, but lets be safe
@@ -68,7 +66,7 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
     // TODO: move setting the provider to an "init" function (in combination with eager connect?)
     const options = { ...defaultOptions, _options };
 
-    logger.verbose('Connecting', { providedOptions: _options, options });
+    this.logger.verbose('Connecting', { providedOptions: _options, options });
 
     // Log out of any previous sessions
     if (options.newSession) {
@@ -105,19 +103,22 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
     }
   }
 
-  async deactivate() {
-    if (this._provider) {
-      this.unsubscribeToEvents(this.provider as EvmProvider);
+  // async deactivate() {
+  //   if (this._provider) {
+  //     this.unsubscribeToEvents(this.provider as EvmProvider);
 
-      try {
-        await this._provider.close();
-      } catch {
-        // Do nothing
-      }
-    }
+  //     try {
+  //       await this._provider.close();
+  //     } catch {
+  //       // Do nothing
+  //     }
+  //   }
 
-    this._provider = null;
-    this.chain = null;
-    this.account = null;
-  }
+  //   this._provider = null;
+  //   this.chain = null;
+  //   this.account = null;
+  // }
 }
+
+const evmWalletConnectConnector = new EvmWalletconnectConnector();
+export default evmWalletConnectConnector;

@@ -14,9 +14,7 @@
     "test:coverage": "yarn jest --coverage",
     "format": "prettier . -write",
     "lint": "eslint .",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
   },
   "devDependencies": {
     "eslint": "^8.7.0",

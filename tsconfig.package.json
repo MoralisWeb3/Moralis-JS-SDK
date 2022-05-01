@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "skipLibCheck": true,
     "outDir": "./lib",
     "baseUrl": ".",
     "composite": true,

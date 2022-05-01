@@ -1,18 +1,19 @@
 import { CoreErrorCode } from '../Error/ErrorCode';
 import { MoralisCoreError } from '../Error/MoralisError';
 import { getAddress, isAddress } from '@ethersproject/address';
-import { MoralisDataType } from './MoralisDataType';
 import { ConfigAddressFormat } from '../Config';
 import core from '../MoralisCore';
+import { MoralisData } from './abstract';
 
+// TODO: support EVN address
 export type InputEvmAddress = string;
 export type EvmAddressish = EvmAddress | InputEvmAddress;
 
 /**
- * The EvmAddress class is a MoralisDataType that references to a EVM address
+ * The EvmAddress class is a MoralisData that references to a EVM address
  * A new instance can be created via `EvmAddress.create(address)`, where the provided chain can be a valid address (in lowercase or checksum)
  */
-export class EvmAddress implements MoralisDataType {
+export class EvmAddress implements MoralisData {
   // Checksum address
   private _value: string;
 

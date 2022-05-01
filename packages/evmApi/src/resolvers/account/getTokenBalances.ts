@@ -1,4 +1,4 @@
-import { ERC20Token } from '@moralis/core';
+import { Erc20Token, Erc20Value } from '@moralis/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -13,18 +13,19 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getTokenBalancesResolver = new EvmResolver({
   getPath: (params: ApiParams) => `${params.address}/erc20`,
   apiToResult: (data: ApiResult) =>
-    data.map(
-      (token) =>
-        new ERC20Token({
-          balance: token.balance,
-          decimals: token.decimals,
-          name: token.name,
-          symbol: token.symbol,
-          tokenAddress: token.token_address,
-          logo: token.logo,
-          thumbnail: token.thumbnail,
-        }),
-    ),
-  resultToJson: (data) => data.map((token) => token.toJSON()),
+    data.map((token) => ({
+      token: new Erc20Token({
+        decimals: token.decimals,
+        name: token.name,
+        symbol: token.symbol,
+        contractAddress: token.token_address,
+        logo: token.logo,
+        thumbnail: token.thumbnail,
+        // TODO: add chain info (or omit it from Erc20Token type)
+        chain: 0,
+      }),
+      value: new Erc20Value(token.balance, token.decimals),
+    })),
+  resultToJson: (data) => data.map(({ token, value }) => ({ token: token.toJSON(), value: value.format() })),
   parseParams: (params) => params,
 });
