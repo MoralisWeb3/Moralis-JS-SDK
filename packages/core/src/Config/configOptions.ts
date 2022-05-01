@@ -24,7 +24,7 @@ export interface MoralisConfigOptions {
   formatChainId: ConfigChainIdFormat;
 
   // defaultNetwork: ConfigNetwork;
-  defaultEvmConnector: ConfigEvmNetworkConnector;
+  defaultEvmWallet: ConfigEvmNetworkConnector;
   environment: ConfigEnvironment;
   // TODO: move to other config, as this is not configurable by the user
   supportedEvmChainIds: number[];
@@ -35,7 +35,13 @@ export const supportedEvmChainIds = [1, 3, 4, 5, 42, 137, 80001, 56, 97, 43114, 
 export const defaultConfig: MoralisConfigOptions = {
   appId: null,
   serverUrl: null,
+
+  // TODO: replace apiKey for moralisSecret
   apiKey: null,
+
+  // TODO: add plugins as option
+  // TODO: add javascriptKey as option
+  // TODO: add masterkey
 
   logLevel: LogLevel.INFO,
 
@@ -43,7 +49,7 @@ export const defaultConfig: MoralisConfigOptions = {
   formatAddress: 'lowercase',
 
   // defaultNetwork: 'evm',
-  defaultEvmConnector: 'metamask',
+  defaultEvmWallet: 'metamask',
   environment: 'browser',
   supportedEvmChainIds,
 };

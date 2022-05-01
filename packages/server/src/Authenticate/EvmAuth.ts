@@ -2,31 +2,48 @@
  * Creates a callback invoker that can be consumer by xState.
  */
 
-import core, { EvmConnectOptions, Logger } from '@moralis/core';
+import core, {
+  EvmBaseConnectOptions,
+  Logger,
+  EvmMetamaskConnectorConnectOptions,
+  EvmWalletConnectConnectorOptions,
+} from '@moralis/core';
 import { InvokeCallback } from 'xstate';
-import Parse from 'parse';
+import type Parse from 'parse';
 import { AuthType } from './AuthType';
 
 // TODO: implement SOL authentication / Generalize to not using EVM
 // TODO: Add correct response data and according types
 
-export interface AuthenticatedData {
-  user: any;
-}
+// WIP: return user
+export type AuthenticateData = { user: any };
 
-export interface SolConnectOptions {
-  walletType: unknown;
-}
-
-export type AuthenticateEvmOptions = EvmConnectOptions & {
-  network: 'evm';
+// TODO: combine this data type with the sharedType EvmConnect
+export type EvmAuthenticate = {
+  (network: 'evm', wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<AuthenticateData>;
+  (network: 'evm', wallet: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<AuthenticateData>;
+  (network: string, wallet: string, options?: EvmBaseConnectOptions): Promise<AuthenticateData>;
 };
 
-export type AuthenticateSolOptions = SolConnectOptions & {
-  network: 'sol';
-};
+export interface AuthenticateEventOptions {
+  network: string;
+  wallet: string;
+  options?: unknown;
+}
 
-export type AuthenticateOptions = AuthenticateEvmOptions | AuthenticateSolOptions;
+// export interface SolConnectOptions {
+//   wallet: unknown;
+// }
+
+// export type AuthenticateEvmOptions = EvmBaseConnectOptions & {
+//   network: 'evm';
+// };
+
+// export type AuthenticateSolOptions = SolConnectOptions & {
+//   network: 'sol';
+// };
+
+// export type AuthenticateOptions = AuthenticateEvmOptions | AuthenticateSolOptions;
 
 /**
  * Creates the data for the authentication message by extending the message
@@ -41,10 +58,14 @@ const createSigningData = async ({ message, server }: { message: string; server:
   return data;
 };
 
-const connectSignAndAuth = async ({ network }: AuthenticateOptions, server: typeof Parse, message: string) => {
+const connectSignAndAuth = async (
+  { network, wallet }: AuthenticateEventOptions,
+  server: typeof Parse,
+  message: string,
+) => {
   const module = core.modules.getNetwork(network);
 
-  const { account } = await module.connect();
+  const { account } = await module.connect(wallet);
   const data = await createSigningData({ message, server });
   const signature = await module.signMessage(data);
   const authData = { id: account, signature, data };
@@ -57,16 +78,16 @@ const connectSignAndAuth = async ({ network }: AuthenticateOptions, server: type
 
 export const createAuthenticateCallback =
   (
-    options: AuthenticateOptions,
+    options: AuthenticateEventOptions,
     server: typeof Parse,
     message: string,
     logger: Logger,
   ): InvokeCallback<
     any,
-    { type: 'AUTHENTICATING_SUCCESS'; data: AuthenticatedData } | { type: 'AUTHENTICATING_ERROR'; data: Error }
+    { type: 'AUTHENTICATING_SUCCESS'; data: AuthenticateData } | { type: 'AUTHENTICATING_ERROR'; data: Error }
   > =>
   (callback, onReceive) => {
-    logger.verbose(`Authenticating via evm with "${options.walletType}"`);
+    logger.verbose(`Authenticating via evm with "${options.wallet}"`);
 
     connectSignAndAuth(options, server, message)
       .then(({ user }) => {

@@ -1,6 +1,7 @@
 // TODO: move this to Core or network module?
 // Events emitted by the connectors,
 // The InternalWeb3Provider of Moralis will listen to these
+// TODO: rename to EvmWalletEvent
 export enum EvmConnectorEvent {
   CONNECT = 'connect',
   DISCONNECT = 'disconnect',

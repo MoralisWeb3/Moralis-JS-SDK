@@ -2,8 +2,8 @@ import { ConfigChainIdFormat } from '..';
 import { assertUnreachable } from '../Assert/assertUnreachable';
 import { chainList, EvmChainListDataEntry } from '../data/chaindata';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisDataType } from './MoralisDataType';
 import core from '../MoralisCore';
+import { MoralisData } from './abstract';
 
 // TODO: combine logic of chainname, issupported and apihex (as it is all based on the supported servers)
 // TODO: Export ChainName enum
@@ -50,11 +50,11 @@ const chainNameToChainIdMap = {
 } as const;
 
 /**
- * The EvmChain class is a MoralisDataType that references to a EVM chain
+ * The EvmChain class is a MoralisData that references to a EVM chain
  * A new instance can be created via `EvmChain.create(chain)`, where the provided chain can be a valid chain number (1),
  * hex-string ("0x1"), or any suppored ChainName
  */
-export class EvmChain implements MoralisDataType {
+export class EvmChain implements MoralisData {
   // hex-string chainId
   private _value: InternalEvmChain;
   private _chainlistData: EvmChainListDataEntry | null;
@@ -81,14 +81,23 @@ export class EvmChain implements MoralisDataType {
         return true;
       }
 
-      if (chain.startsWith('0x')) {
+      if (chain.startsWith('0x') && chain !== '0x' && chain !== '0x0') {
         return true;
       }
 
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
-        message: "Invalid provided chain, value must be a number, chain-name or a hex-string starting with '0x'",
+        message:
+          "Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'",
       });
+    } else {
+      if (chain <= 0) {
+        throw new MoralisCoreError({
+          code: CoreErrorCode.INVALID_ARGUMENT,
+          message:
+            "Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'",
+        });
+      }
     }
 
     return true;
@@ -114,10 +123,7 @@ export class EvmChain implements MoralisDataType {
    */
   private _getChainlistData() {
     if (!this._chainlistData) {
-      throw new MoralisCoreError({
-        code: CoreErrorCode.NO_DATA_FOUND,
-        message: 'Could not find data for the provided chain',
-      });
+      return null;
     }
 
     return this._chainlistData;
@@ -196,19 +202,57 @@ export class EvmChain implements MoralisDataType {
     return assertUnreachable(formatStyle);
   }
 
+  display() {
+    return this.name ? `${this.name} (${this.hex})` : this.hex;
+  }
+
   get name() {
-    return this._getChainlistData().name;
+    return this._getChainlistData()?.name;
   }
 
   get currency() {
-    return this._getChainlistData().nativeCurrency;
+    return this._getChainlistData()?.nativeCurrency;
   }
 
   get rpcUrls() {
-    return this._getChainlistData().rpc;
+    return this._getChainlistData()?.rpc;
   }
 
-  get blockExplorers() {
-    return this._getChainlistData().explorers ?? null;
+  get explorer() {
+    const explorers = this._getChainlistData()?.explorers;
+
+    if (!explorers || explorers.length === 0) {
+      return null;
+    }
+
+    return explorers[0];
+  }
+
+  getExplorerPath(value: { block: string } | { transaction: string } | { account: string } | { erc20: string }) {
+    const explorer = this.explorer;
+
+    if (!explorer || explorer.standard !== 'EIP3091') {
+      return null;
+    }
+
+    const url = explorer.url;
+
+    // See https://eips.ethereum.org/EIPS/eip-3091 for paths
+    if ('block' in value) {
+      return `${url}/block/${value.block}`;
+    }
+
+    if ('transaction' in value) {
+      return `${url}/tx/${value.transaction}`;
+    }
+
+    if ('account' in value) {
+      return `${url}/address/${value.account}`;
+    }
+
+    if ('erc20' in value) {
+      return `${url}/token/${value.erc20}`;
+    }
+    return null;
   }
 }

@@ -1,20 +1,13 @@
 import { CoreModuleType } from './CoreModuleType';
-import { EvmChain, EvmAddress } from '../dataTypes';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { BaseModule, BaseModuleConfig } from './BaseModule';
+import { EvmConnectResponse } from '../sharedTypes';
+import { EventMap } from 'typed-emitter';
 
 /**
  * Configuration for the creation of any Moralis Api module
  */
 export interface NetworkModuleConfig extends BaseModuleConfig {}
-
-// TODO: make more generic and fix unknown types, as it it is EVM-specific right now
-interface ConnectResponse {
-  chain: EvmChain | null;
-  account: EvmAddress | null;
-  provider: unknown;
-  connector: unknown;
-}
 
 /**
  * The base class of every Moralis Network class that gets registered as a module via MoralisModules
@@ -22,7 +15,7 @@ interface ConnectResponse {
  * - `name`: name of the module (should be unique)
  * - `core`: the MoralisCore instance
  */
-export abstract class NetworkModule extends BaseModule {
+export abstract class NetworkModule<Events extends EventMap = any> extends BaseModule<Events> {
   type: CoreModuleType.NETWORK;
 
   constructor({ name, core }: NetworkModuleConfig) {
@@ -34,7 +27,8 @@ export abstract class NetworkModule extends BaseModule {
    * connect function, that allows any Moralis module to connect to the network.
    * This function returns a ConnectResponse object
    */
-  async connect(options?: Record<string, unknown>): Promise<ConnectResponse> {
+  // TODO: make compatible with "any" network connect response type
+  async connect(wallet: string, options?: unknown): Promise<EvmConnectResponse> {
     throw new MoralisCoreError({
       code: CoreErrorCode.NOT_IMPLEMENTED,
       message: `'connect()' is not implemented for module "${this.name}"`,

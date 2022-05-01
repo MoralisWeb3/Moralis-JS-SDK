@@ -1,5 +1,6 @@
 import { CoreModuleType } from './CoreModuleType';
 import { BaseModule, BaseModuleConfig } from './BaseModule';
+import { EventMap } from 'typed-emitter';
 
 /**
  * Configuration for the creation of any Moralis Api module
@@ -15,7 +16,7 @@ export interface ApiModuleConfig extends BaseModuleConfig {
  * - `core`: the MoralisCore instance
  * - `baseUrl`: the base url where of the api
  */
-export abstract class ApiModule extends BaseModule {
+export abstract class ApiModule<Events extends EventMap = any> extends BaseModule<Events> {
   baseUrl: string;
   type: CoreModuleType.API;
 

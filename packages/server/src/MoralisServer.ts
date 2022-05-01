@@ -1,8 +1,8 @@
-import core, { BaseClass, MoralisServerError, ServerErrorCode } from '@moralis/core';
+import core, { BaseModule, MoralisServerError, ServerErrorCode } from '@moralis/core';
 import { interpret } from 'xstate';
 import { stateMachine } from './State/stateMachine';
-import Parse from 'parse';
-import { initialiseParse } from './initialiseParse';
+import type Parse from 'parse';
+import { initializeParse } from './initializeParse';
 import {
   OnAuthenticatedCallback,
   OnAuthenticatingCallback,
@@ -11,14 +11,14 @@ import {
   OnLogoutCallback,
   ServerEvent,
 } from './events';
-import { AuthenticatedData, AuthenticateOptions, createAuthenticateCallback } from './Authenticate/EvmAuth';
+import { AuthenticateData, EvmAuthenticate, createAuthenticateCallback } from './Authenticate/EvmAuth';
 
 // TODO: set restontroller (maybe even set in globally in Core?)
 // TODO: setup parse via NodeJs, and or react native
 // TODO: add verbose logs
 // TODO: make compatible with SOL connect or other connect methods ( probably use type guards)
 // TODO: error handling on forwarding to parse, ideally we want to wrap any of the function calls of Parse in an Error handler that makes it a MoralisError, alternatively, we could at least implement our own RESTcontroller
-export class MoralisServer extends BaseClass {
+export class MoralisServer extends BaseModule {
   stateService;
   stateMachine;
   parse: typeof Parse | null = null;
@@ -51,7 +51,7 @@ export class MoralisServer extends BaseClass {
 
   async start() {
     this.logger.verbose('Initializing Parse server');
-    this.parse = await initialiseParse({
+    this.parse = await initializeParse({
       appId: this.core.config.get('appId'),
       serverUrl: this.core.config.get('serverUrl'),
       environment: this.core.config.get('environment'),
@@ -170,7 +170,7 @@ export class MoralisServer extends BaseClass {
     this.authenticateMessage = message;
   }
 
-  authenticate(options: AuthenticateOptions) {
+  authenticate: EvmAuthenticate = (network, wallet, options) => {
     // WIP
     // TODO: default to "EVM" network
 
@@ -180,8 +180,13 @@ export class MoralisServer extends BaseClass {
     // TODO: differentiate different auth types
     // TODO: verify if can authenticate
 
-    this.stateService.send({ type: 'AUTHENTICATE', ...options });
-  }
+    this.stateService.send({ type: 'AUTHENTICATE', network, wallet, options });
+
+    // WIP: return user
+    return Promise.resolve({
+      user: null,
+    });
+  };
 
   // State change handlers
   private handleInitialized = () => {
@@ -195,7 +200,7 @@ export class MoralisServer extends BaseClass {
     this.emit(ServerEvent.AUTHENTICATING);
   };
 
-  private handleAuthenticateSuccess = (data: AuthenticatedData) => {
+  private handleAuthenticateSuccess = (data: AuthenticateData) => {
     this.logger.verbose(`Authenticate success`, { data });
 
     this.emit(ServerEvent.AUTHENTICATED);
