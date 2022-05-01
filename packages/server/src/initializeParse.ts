@@ -1,11 +1,12 @@
 import { ConfigEnvironment, MoralisServerError, ServerErrorCode } from '@moralis/core';
+import parse from 'parse';
 
 // TODO: implement support for nodeJs and react-native
 // TODO: maybe as different packages?/modules?
 export const getParse = (environment: ConfigEnvironment) => {
   switch (environment) {
     case 'browser':
-      return import('parse').then((parse) => parse.default);
+      return parse;
     // case 'nodejs':
     // return import('parse/node').then((parse) => parse.default);
     // case 'react-native':

@@ -119,12 +119,17 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
    */
 
   private handleDisconnected = (context: StateContext, event: StateEvent) => {
-    this.wallet = null;
+    if (event.type === 'xstate.init') {
+      // Don't do anything initially, as we start in disconnected state
+      return;
+    }
+
     this._internalProvider = null;
     this._updateProvider();
 
     this.wallet!.off(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
     this.wallet!.off(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
+    this.wallet = null;
 
     this._logger.verbose('Disconnected', { context, event });
     this._emitter.emit(EvmNetworkEvent.DISCONNECTED);
@@ -269,6 +274,10 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
 
     this.transition({ type: 'DISCONNECT' });
   };
+
+  /**
+   * Getters
+   */
 
   get hasProvider() {
     return this._provider !== null;

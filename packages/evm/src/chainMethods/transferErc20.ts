@@ -11,6 +11,7 @@ export interface TransferErc20Options {
   chain?: EvmChainish;
 }
 
+// TODO: error catching?
 export const makeTransferErc20 =
   (_provider: null | ethers.providers.JsonRpcSigner, _chain: EvmChainish | null) =>
   async (options: TransferErc20Options) => {

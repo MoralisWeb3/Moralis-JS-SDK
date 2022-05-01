@@ -1,5 +1,4 @@
-import { EvmConnectData } from '@moralis/core/lib';
-import { InitEvent } from './MoralisState';
+import { EvmConnectData, InitEvent } from '@moralis/core';
 
 export interface ConnectEventOptions {
   wallet: string;
