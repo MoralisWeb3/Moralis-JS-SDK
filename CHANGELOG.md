@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.11...v1.6.0) (2022-05-02)
+
+
+### Features
+
+* **api-pagination:** add next() function on response for paginated results ([eea34bc](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/eea34bcf967c3571a5c7a6d1143ed70a07ef9e28))
+
 ## [1.5.11](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.10...v1.5.11) (2022-04-26)
 
 
