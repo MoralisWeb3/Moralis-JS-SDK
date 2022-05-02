@@ -137,7 +137,7 @@ class Moralis extends MoralisWeb3 {
     ) {
       /* eslint-disable no-console */
       console.log(
-        "It looks like you're using the browser version of the SDK in a " +
+        "Moralis: It looks like you're using the browser version of the SDK in a " +
           "node.js environment. You should require('moralis/node') instead."
       );
       /* eslint-enable no-console */
@@ -382,7 +382,7 @@ Moralis.isLocalDatastoreEnabled = function () {
  */
 Moralis.dumpLocalDatastore = function () {
   if (!Moralis.LocalDatastore.isEnabled) {
-    console.log('Moralis.enableLocalDatastore() must be called first'); // eslint-disable-line no-console
+    console.log('Moralis: Moralis.enableLocalDatastore() must be called first'); // eslint-disable-line no-console
     return Promise.resolve({});
   }
   return Moralis.LocalDatastore._getAllContents();
