@@ -102,7 +102,7 @@ const makeMethod = (pathDetails, path) => {
       : 'unknown';
   const optionParam = optionsString ? `options: ${optionsString}` : '';
 
-  return `    ${path}: (${optionParam}) => Promise<${result}>;
+  return `    ${path}: (${optionParam}) => Promise<${result} & defaultResponse<${result}>>;
 `;
 };
 
@@ -141,6 +141,12 @@ const generateWeb3ApiTypes = async () => {
 
   // Generate automatic types from swagger via openapi-typescript
   content += await openapiTS(swaggerJSON);
+  content += '\n';
+  content += `
+  export interface defaultResponse<T> {
+    next?: () => Promise<T & this>;
+  }
+  `;
   content += '\n';
 
   // Add our custom types

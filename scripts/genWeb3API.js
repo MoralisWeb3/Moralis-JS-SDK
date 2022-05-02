@@ -79,6 +79,22 @@ static getParameterizedUrl(url, params) {
   return parameterizedUrl;
 }
 
+static getNextOptions(result, options) {
+  const nextOptions = {...options};
+  if (!result.page_size || !result.total || result.page === undefined) return options
+  if (result.cursor) {
+    if(result.total > (result.page_size * (result.page + 1))) nextOptions.cursor = result.cursor;
+  } else {
+    if (result.total > (result.page_size * (result.page + 1))) {
+      nextOptions.offset = (result.page + 1) * (nextOptions.limit || 500);
+    }
+  }
+
+  return nextOptions;
+}
+
+static checkObjEqual = (...objects) => objects.every(obj => JSON.stringify(obj) === JSON.stringify(objects[0]));
+
 static getApiRateLimitInfo(headers) {
   return {
     'x-rate-limit-limit': headers['x-rate-limit-limit'],
@@ -137,7 +153,10 @@ static async fetchFromApi(endpoint, params) {
         'x-api-key': this.apiKey,
       },
     });
-    return response.data;
+    const result = response.data;
+    const nextOptions = this.getNextOptions(result, params)
+    if(!this.checkObjEqual(nextOptions, params)) result.next = () => this.fetchFromApi(endpoint, nextOptions);
+    return result
   } catch (error) {
     const {status, headers, data} = error.response;
 
@@ -171,7 +190,10 @@ static async fetchFromServer(name, options) {
       const response =  await http.post(\`/functions/\${name}\`, options, {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       });
-      return response.data.result
+      const {result} = response.data;
+      const nextOptions = this.getNextOptions(result, options)
+      if(!this.checkObjEqual(nextOptions, options)) result.next = () => this.fetchFromServer(name, nextOptions);
+      return result
     } catch (error) {
       if (error.response?.data?.error) { 
         throw new Error(error.response.data.error);
