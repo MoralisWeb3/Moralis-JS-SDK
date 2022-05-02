@@ -39,7 +39,7 @@ describe('Browser', () => {
     Parse.initialize('A', 'B');
     expect(console.log).toHaveBeenCalledWith(
       "Moralis: It looks like you're using the browser version of the SDK in a " +
-      "node.js environment. You should require('moralis/node') instead."
+        "node.js environment. You should require('moralis/node') instead."
     );
     expect(Parse._initialize).toHaveBeenCalledTimes(1);
   });
