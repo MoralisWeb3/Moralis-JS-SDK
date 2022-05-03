@@ -10,7 +10,8 @@ import * as Utils from '@moralis/utils';
 // register all Moralis modules to MoralisCore
 Core.registerModules({
   networks: [Evm],
-  modules: [Server, EvmApi],
+  apis: [EvmApi],
+  modules: [Server],
 });
 
 const start = Core.start;

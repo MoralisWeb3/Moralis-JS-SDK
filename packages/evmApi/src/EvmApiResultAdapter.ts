@@ -1,5 +1,5 @@
 import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralis/core';
-import { MoralisObjectDataType } from '@moralis/core/lib/dataTypes/MoralisObjectDataType';
+import { MoralisDataObject } from '@moralis/core';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
 enum EvmApiFormatType {
@@ -26,7 +26,7 @@ export type AdaptedApiResult<Value extends object = object> =
         | null
         | EvmAddress
         | EvmChain
-        | MoralisObjectDataType
+        | MoralisDataObject
         | AdaptedApiResult;
     }
   | AdaptedApiResult[];
