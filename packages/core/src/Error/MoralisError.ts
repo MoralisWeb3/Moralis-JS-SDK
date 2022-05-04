@@ -19,7 +19,6 @@ export interface NewMoralisOptions<ErrorCode extends MoralisErrorCode> {
 
 export class MoralisError extends Error {
   name: string;
-  // message: string;
   code: MoralisErrorCode;
   details?: MoralisErrorDetails;
   cause?: Error | MoralisError;
@@ -28,7 +27,6 @@ export class MoralisError extends Error {
   static makeMessage = (message: string, code: MoralisErrorCode) => `[${code}] ${message}`;
 
   constructor({ message, code, details, cause }: NewMoralisOptions<MoralisErrorCode>) {
-    // TODO: polyfill / ponyfill the 'cause' behaviour and Test with NODJS < 16
     // @ts-ignore Typescript does not recognise 'cause' ? OR we have wrong TS version
     super(MoralisError.makeMessage(message, code), { cause });
 
@@ -36,7 +34,6 @@ export class MoralisError extends Error {
     Object.setPrototypeOf(this, MoralisError.prototype);
 
     this.name = 'Moralis SDK Error';
-    // this.message = message;
     this.code = code;
     this.details = details;
 
@@ -52,55 +49,6 @@ export class MoralisError extends Error {
       Error.captureStackTrace(this, MoralisError);
     }
   }
-
-  // get stack() {
-  //   if (!this._error.stack) return '';
-  //   return 'LOL is this an error?';
-  //   // return 'Error\n' + this._error.stack.split('\n').slice(2).join('\n');
-  // }
-
-  // get why() {
-  //   console.log('CALLING WHY');
-  //   function _msg(message: string) {
-  //     return message ? ': ' + message : '';
-  //   }
-  //   let _why = this.name + _msg(this.message);
-  //   for (let i = 1; i < this.chain.length; i++) {
-  //     const e = this.chain[i];
-  //     _why += ' <- ' + e.name + _msg(e.message);
-  //   }
-  //   return _why;
-  // }
-
-  // get stacks() {
-  //   let _stacks = this.stack;
-  //   for (let i = 1; i < this.chain.length; i++) {
-  //     const e = this.chain[i];
-  //     _stacks += '\n<- ' + e.stack;
-  //   }
-  //   return _stacks;
-  // }
-
-  // hasCause(name: string) {
-  //   return this.chain.some(function (e) {
-  //     return e.name === name;
-  //   });
-  // }
-
-  // toJSON() {
-  //   return {
-  //     name: this.name,
-  //     message: this.message,
-  //     details: this.details,
-  //     code: this.code,
-  //     why: this.why,
-  //     stacks: this.stacks,
-  //   };
-  // }
-
-  // toString() {
-  //   return `Moralis SDK Error [${this.code}]: ${this.name} ${this.message}`;
-  // }
 }
 
 export class MoralisCoreError extends MoralisError {

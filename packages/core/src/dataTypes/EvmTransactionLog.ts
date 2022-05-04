@@ -43,7 +43,6 @@ export class EvmTransactionLog implements MoralisDataObject {
 
   equals(value: this): boolean {
     return (
-      // TODO also add chain check in here to make sure there is no cross-chain mistake in this check
       value._value.transactionHash === this._value.transactionHash &&
       value._value.address.equals(this._value.address) &&
       value._value.logIndex === this._value.logIndex

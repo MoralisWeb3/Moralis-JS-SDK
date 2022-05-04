@@ -1,4 +1,4 @@
-import { Erc20Value, Erc20Valueish, EvmAddress, EvmAddressish, EvmChainish } from '@moralis/core/lib';
+import { Erc20Value, Erc20Valueish, EvmAddress, EvmAddressish, EvmChainish } from '@moralis/core';
 import { ethers } from 'ethers';
 import { assertProvider } from '../assert/assertProvider';
 import { Erc20__factory } from '../Contract';
@@ -11,7 +11,6 @@ export interface TransferErc20Options {
   chain?: EvmChainish;
 }
 
-// TODO: error catching?
 export const makeTransferErc20 =
   (_provider: null | ethers.providers.JsonRpcSigner, _chain: EvmChainish | null) =>
   async (options: TransferErc20Options) => {

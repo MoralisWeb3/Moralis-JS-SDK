@@ -27,7 +27,6 @@ export abstract class NetworkModule<Events extends EventMap = any> extends BaseM
    * connect function, that allows any Moralis module to connect to the network.
    * This function returns a ConnectResponse object
    */
-  // TODO: make compatible with "any" network connect response type
   async connect(wallet: string, options?: unknown): Promise<EvmConnectResponse> {
     throw new MoralisCoreError({
       code: CoreErrorCode.NOT_IMPLEMENTED,
@@ -45,4 +44,6 @@ export abstract class NetworkModule<Events extends EventMap = any> extends BaseM
       message: `'signMessage()' is not implemented for module "${this.name}"`,
     });
   }
+
+  abstract get supportedConnectors(): string[];
 }

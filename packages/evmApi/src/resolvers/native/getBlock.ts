@@ -1,4 +1,4 @@
-import { EvmAddress, EvmChain, EvmChainish } from '@moralis/core/lib';
+import { EvmAddress, EvmChain, EvmChainish } from '@moralis/core';
 import { operations } from '../../generated/types';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
@@ -37,6 +37,7 @@ const apiToResult = (apiData: ApiResult) => {
 };
 type AdaptedResult = ReturnType<typeof apiToResult>;
 
+// TODO: use Transaction DataTypes
 export const getBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, AdaptedResult>({
   getPath: (params: Params) => `block/${params.block_number_or_hash}`,
   apiToResult: (apiData: ApiResult) => {
@@ -59,7 +60,6 @@ export const getBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, Ad
       })),
     };
   },
-  // TODO: add function to convert to JSON and resolve the datatypes (maybe even add a Moralis DataType of transactions/logs)
   resultToJson: (data) => data,
   parseParams: (params) => ({
     ...params,

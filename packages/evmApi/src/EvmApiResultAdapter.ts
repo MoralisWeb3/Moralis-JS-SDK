@@ -37,7 +37,6 @@ export type JSONApiResult<Value extends object = object> =
     }
   | JSONApiResult[];
 
-// TODO: make part of core config
 export class EvmApiResultAdapter<Data extends unknown, AdaptedData extends unknown, JSONData extends unknown> {
   private _data: Data;
   private _adapter: (data: Data) => AdaptedData;

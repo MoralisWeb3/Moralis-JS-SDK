@@ -53,16 +53,11 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   };
 
   private getSearchParams(params: ApiParams) {
-    console.log('getSP', params);
-
     return Object.keys(params).reduce((result, key) => {
       // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
       if (!params[key] || this.isBodyParam(key)) {
-        console.log('getSP return', key);
-
         return result;
       }
-      console.log('getSP add', key);
 
       // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
       return { ...result, [key]: params[key] };
@@ -115,8 +110,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   };
 
   fetch = (params: Params) => {
-    console.log({ this: this });
-    console.log({ apiGet: this._apiGet });
     return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }

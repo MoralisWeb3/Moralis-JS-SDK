@@ -8,13 +8,6 @@ import { ServerEvent, ServerEventMap } from '../events/ServerEvents';
 import { assertInstance } from '../assert/assertInstance';
 import { handleLogout } from '../AuthMethods/handleLogout';
 
-// TODO: handle defaults from config
-// TODO: make typesafe with accordance of config defaults
-// TODO: support other auth methods as well, and don't assume any type (as any module can be registered)
-// TODO: account for default network, and default method and default connector...
-// TODO: make this logout request async and account for errors. Possible error and logging-out state in the state maching?
-// TODO: set default authenticateMessage in core/when using Moralis.start
-
 export class Authentication extends MoralisState<StateContext, StateEvent, State> {
   private _server: typeof Parse | null = null;
   private _logger;

@@ -1,4 +1,4 @@
-import { MoralisNetworkError, NetworkErrorCode } from '@moralis/core/lib';
+import { MoralisNetworkError, NetworkErrorCode } from '@moralis/core';
 import { EvmAbstractConnector } from '@moralis/evm-connector-utils';
 import MetamaskConnector from '@moralis/evm-metamask-connector';
 

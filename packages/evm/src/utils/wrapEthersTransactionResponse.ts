@@ -4,7 +4,7 @@ import {
   EvmTransactionReceiptInput,
   EvmTransactionResponse,
   EvmTransactionResponseInput,
-} from '@moralis/core/lib';
+} from '@moralis/core';
 import { ethers } from 'ethers';
 
 const ethTxReceiptToMoralisTxReceipt = ({

@@ -8,11 +8,7 @@ import Core from '@moralis/core';
 import * as Utils from '@moralis/utils';
 
 // register all Moralis modules to MoralisCore
-Core.registerModules({
-  networks: [Evm],
-  apis: [EvmApi],
-  modules: [Server],
-});
+Core.registerModules([Evm, Server, EvmApi]);
 
 const start = Core.start;
 

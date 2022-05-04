@@ -80,7 +80,6 @@ export class EvmTransactionResponse implements MoralisDataObject {
   ) {
     this._value = EvmTransactionResponse.parse(value);
     this._resolveCall = resolveCall;
-    console.log('Parsed EvmtransactionResponse', this._value);
   }
 
   static create(
@@ -100,8 +99,6 @@ export class EvmTransactionResponse implements MoralisDataObject {
 
   static parse(value: EvmTransactionResponseInput): EvmTransactionResponseData {
     EvmTransactionResponse.validate(value);
-
-    console.log('Parsing EvmtransactionResponse', value);
 
     return {
       hash: value.hash,

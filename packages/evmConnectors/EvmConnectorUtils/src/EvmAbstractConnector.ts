@@ -22,8 +22,6 @@ interface AbstractConnectorConfig {
   core: MoralisCore;
 }
 
-// TODO: add eventListeners typesafe to this class (onAccountChange etc.)
-// TODO: make this an abstract class and implement it?
 /**
  * Abstract connector to connect EIP-1193 providers to Moralis
  *
@@ -48,8 +46,7 @@ export class EvmAbstractConnector extends EventEmitter {
   // To get the EvmProvider, use the `provider` getter
   _provider: unknown | null = null;
 
-  // TODO: find better solution for duplication of this._provider and this.provider, the main issue is that providers as Walletconnect are an EvmProvider, but not typed as one (as WalletconnecProvider does not extend the EvmProvider)
-  // TODO: ... maybe a generic type might help
+  // Returns a EvmProvider
   get provider(): EvmProvider | null {
     if (!this._provider) {
       return null;
@@ -106,7 +103,6 @@ export class EvmAbstractConnector extends EventEmitter {
    */
   handleAccountsChanged(accounts: ProviderAccounts) {
     if (accounts.length === 0) {
-      // TODO: handle edge case by disconnecting
       return;
     }
 

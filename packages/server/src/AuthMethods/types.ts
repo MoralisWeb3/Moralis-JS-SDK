@@ -8,7 +8,6 @@ import type Parse from 'parse';
 /**
  * Possible auth methods for the user
  */
-// TODO: convert to string, as it is easier to user by users
 export enum AuthMethod {
   EVM = 'evm',
   SOL = 'sol',
@@ -29,7 +28,6 @@ export interface PasswordAuthOptions {
   username: string;
 }
 
-// TODO: combine this data type with the sharedType EvmConnect/SolConnect in /core
 export type EvmAuthenticate = {
   (method: AuthMethod.EVM, wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<AuthenticateData>;
   (
@@ -51,6 +49,4 @@ export type PassAuthenticae = {
   (method: AuthMethod.PASSWORD, options?: PasswordAuthOptions): Promise<AuthenticateData>;
 };
 
-// TODO: make this into an overloaded function definition
-// TODO: add fallback types, ot at least allow user to overwrite with their own custom connectors etc.
 export type Authenticate = (method: AuthMethod, options?: Record<string, unknown>) => Promise<AuthenticateData>;

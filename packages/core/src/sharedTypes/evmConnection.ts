@@ -1,6 +1,5 @@
 /**
  * Type definitions that are used in multiple packages
- * // TODO: consider moving this to a separate types package
  */
 
 import { EvmAddress, EvmChain } from '..';
@@ -23,7 +22,6 @@ export type SolConnect = {
 };
 
 export interface SolPhantomConnectorConnectOptions extends SolBaseConnectOptions {
-  // TODO: implement
   debug: true;
 }
 

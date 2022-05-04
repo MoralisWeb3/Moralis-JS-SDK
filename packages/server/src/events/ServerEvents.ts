@@ -1,6 +1,3 @@
-// import { AnyConnector, EvmAddress, EvmChain, EvmConnectData } from '@moralis/core/lib';
-// import { ethers } from 'ethers';
-
 import { AuthenticateData } from '../AuthMethods/types';
 
 /**

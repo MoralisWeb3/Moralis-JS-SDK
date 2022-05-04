@@ -1,13 +1,9 @@
-import { ConfigChainIdFormat } from '..';
+import { EvmChainIdFormat } from '../Config';
 import { assertUnreachable } from '../Assert/assertUnreachable';
 import { chainList, EvmChainListDataEntry } from '../data/chaindata';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import core from '../MoralisCore';
 import { MoralisData } from './abstract';
-
-// TODO: combine logic of chainname, issupported and apihex (as it is all based on the supported servers)
-// TODO: Export ChainName enum
-// TODO: add chain based on any name in chainData
 
 // Chain names, that are accepted by the evm api
 export type ChainName =
@@ -75,7 +71,6 @@ export class EvmChain implements MoralisData {
   }
 
   static validate(chain: InputChainId) {
-    // TODO: add better validation
     if (typeof chain === 'string') {
       if (isSupportedChainName(chain)) {
         return true;
@@ -130,13 +125,6 @@ export class EvmChain implements MoralisData {
   }
 
   /**
-   * Returns true if the chain is supported by Moralis, false otherwise
-   */
-  get isSupported() {
-    return core.config.get('supportedEvmChainIds').includes(this.decimal);
-  }
-
-  /**
    * Returns the decimal representation of the chain
    */
   get decimal() {
@@ -153,7 +141,6 @@ export class EvmChain implements MoralisData {
   /**
    * Validate and cast to api compatible hex
    */
-  // TODO: add validation and better casting
   get apiHex() {
     return this._value as
       | '0x1'
@@ -188,8 +175,8 @@ export class EvmChain implements MoralisData {
    * Formats the chain to the given output; in decimal value or as hex-string.
    * The default formatting can be set in MoralisConfig
    */
-  format(_formatStyle?: ConfigChainIdFormat) {
-    const formatStyle = _formatStyle ?? core.config.get('formatChainId');
+  format(_formatStyle?: EvmChainIdFormat) {
+    const formatStyle = _formatStyle ?? core.config.get('formatEvmChainId');
 
     if (formatStyle === 'decimal') {
       return this.decimal;

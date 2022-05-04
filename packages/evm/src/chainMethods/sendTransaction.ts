@@ -4,7 +4,6 @@ import { assertChain } from '../assert/assertChain';
 import { assertProvider } from '../assert/assertProvider';
 import { wrapEthersTransactionResponse } from '../utils/wrapEthersTransactionResponse';
 
-// TODO: error catching?
 export const makeSendTransaction =
   (_provider: ethers.providers.JsonRpcSigner | null, _chain: EvmChain | null) => async (data: EvmTransactionInput) => {
     const provider = assertProvider(_provider);

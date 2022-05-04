@@ -4,6 +4,15 @@ import { MoralisCore } from '../MoralisCore';
 
 type Details = Record<string, any>;
 
+const logLevelMap: Record<LogLevel, number> = {
+  verbose: 5,
+  debug: 4,
+  info: 3,
+  warning: 2,
+  error: 1,
+  off: 0,
+};
+
 /**
  * LoggerController, responsible to create log messages for each module.
  * It should be created with the name of the module like `new Logger('module-name')`
@@ -40,8 +49,11 @@ export class Logger {
     }
   }
 
-  private _shouldLog(level: LogLevel) {
-    if (level > this.level) {
+  private _shouldLog(logLevel: LogLevel) {
+    const level = logLevelMap[logLevel];
+    const acceptedLevel = logLevelMap[this.level];
+
+    if (level > acceptedLevel) {
       return false;
     }
 
@@ -53,7 +65,7 @@ export class Logger {
   }
 
   error(error: Error | string, details?: Details) {
-    if (!this._shouldLog(LogLevel.ERROR)) {
+    if (!this._shouldLog('error')) {
       return;
     }
 
@@ -79,7 +91,7 @@ export class Logger {
   }
 
   warn(message: string, details?: Details) {
-    if (!this._shouldLog(LogLevel.WARNING)) {
+    if (!this._shouldLog('warning')) {
       return;
     }
 
@@ -87,7 +99,7 @@ export class Logger {
   }
 
   info(message: string, details?: Details) {
-    if (!this._shouldLog(LogLevel.INFO)) {
+    if (!this._shouldLog('info')) {
       return;
     }
 
@@ -95,7 +107,7 @@ export class Logger {
   }
 
   debug(message: string, details?: Details) {
-    if (!this._shouldLog(LogLevel.DEBUG)) {
+    if (!this._shouldLog('debug')) {
       return;
     }
 
@@ -103,7 +115,7 @@ export class Logger {
   }
 
   verbose(message: string, details?: Details) {
-    if (!this._shouldLog(LogLevel.VERBOSE)) {
+    if (!this._shouldLog('verbose')) {
       return;
     }
 

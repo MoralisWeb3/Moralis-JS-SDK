@@ -6,13 +6,6 @@ import { Authentication } from './Authentication/Authentication';
 import { Authenticate } from './AuthMethods/types';
 import { assertInstance } from './assert/assertInstance';
 
-// TODO: set restontroller (maybe even set in globally in Core?)
-// TODO: setup parse via NodeJs, and or react native
-// TODO: add verbose logs
-// TODO: make compatible with SOL connect or other connect methods ( probably use type guards)
-// TODO: error handling on forwarding to parse, ideally we want to wrap any of the function calls of Parse in an Error handler that makes it a MoralisError, alternatively, we could at least implement our own RESTcontroller
-// TODO: add Parse-sdk error handling to resolve Parse errors into moralis errors when possible
-
 export class MoralisServer extends BaseModule<ServerEventMap> {
   private _parse: typeof Parse | null = null;
 
@@ -30,7 +23,7 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     this._parse = await initializeParse({
       appId: this.core.config.get('appId'),
       serverUrl: this.core.config.get('serverUrl'),
-      environment: this.core.config.get('environment'),
+      environment: this.core.config.get('buidEnvironment'),
     });
     this.authentication.setServer(this._parse);
 

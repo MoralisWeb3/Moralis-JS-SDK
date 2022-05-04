@@ -14,7 +14,7 @@ export interface Params {
   chain?: EvmChainish;
   subdomain?: ApiParams['subdomain'];
   providerUrl?: ApiParams['providerUrl'];
-  // TODO: allow allow function_name
+  // TODO: allow also function_name, with proper typechecking where one of both is required. then parse in correctly as param
   functionName: ApiParams['function_name'];
   address: EvmAddressish;
   abi: ApiParams['abi'];
