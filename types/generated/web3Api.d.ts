@@ -1609,6 +1609,8 @@ export interface operations {
         to_date?: string;
         /** offset */
         offset?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: unknown;
         /** limit */
         limit?: number;
       };
