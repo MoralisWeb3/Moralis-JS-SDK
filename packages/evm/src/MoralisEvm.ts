@@ -9,9 +9,6 @@ import { makeTransferNative, TransferNativeOptions } from './chainMethods/transf
 import { makeTransferErc20, TransferErc20Options } from './chainMethods/transferErc20';
 import { Connection } from './Connection/Connection';
 
-// TODO: export getter to get all chains?
-// TODO: make optional connect wallet name, and use defaultEvmConnector (but keep typesafe???)
-
 export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   connection: Connection = new Connection(this.logger, this.emitter);
 
@@ -48,6 +45,10 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
 
   get wallets() {
     return this.connection.wallets;
+  }
+
+  get supportedConnectors() {
+    return this.connection.wallets.names;
   }
 
   get wallet() {
@@ -98,12 +99,6 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   sendTransaction = (data: EvmTransactionInput) => makeSendTransaction(this.provider, this.chain)(data);
   transferNative = (data: TransferNativeOptions) => makeTransferNative(this.sendTransaction)(data);
   transferErc20 = (data: TransferErc20Options) => makeTransferErc20(this.provider, this.chain)(data);
-  // TODO: add executeTransaction
-  // TODO: add transfer
-  // TODO: add getBalance?
-  // TODO: deploy contract?
-  // TODO ENS utils
-  // TODO Contract utils
 }
 
 const moralisEvm = new MoralisEvm();

@@ -17,12 +17,6 @@ import { connectWallet } from './connectWallet';
 import { Wallets } from './Wallets';
 import { StateContext, State, StateEvent } from './types';
 
-// TODO: event emitting
-// TODO: allow metamask cancelation -> ConnectingError
-// TODO: add timeout mechanic? If so we need to cancel Metamask/Walletconnect etc. request as well
-// TODO: metamask connection cancel should reset state to DISCONNECTED
-// TODO: implement force new session
-
 export class Connection extends MoralisState<StateContext, StateEvent, State> {
   private _logger;
   private _emitter;

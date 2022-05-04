@@ -92,7 +92,6 @@ export class EvmTransactionReceipt implements MoralisDataObject {
   }
 
   equals(value: this): boolean {
-    // TODO: better equality check that is more performant: include chain+hash+address?
     return JSON.stringify(this.toJSON()) === JSON.stringify(value.toJSON());
   }
 

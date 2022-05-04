@@ -6,7 +6,7 @@ import {
   EvmNativeish,
   EvmTransactionInput,
   EvmTransactionResponse,
-} from '@moralis/core/lib';
+} from '@moralis/core';
 
 export interface TransferNativeOptions {
   to: EvmAddressish;
@@ -14,7 +14,6 @@ export interface TransferNativeOptions {
   chain?: EvmChainish;
 }
 
-// TODO: error catching?
 export const makeTransferNative =
   (sendTransaction: (data: EvmTransactionInput) => Promise<EvmTransactionResponse>) =>
   async (options: TransferNativeOptions) => {

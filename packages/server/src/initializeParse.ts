@@ -1,9 +1,7 @@
-import { ConfigEnvironment, MoralisServerError, ServerErrorCode } from '@moralis/core';
+import { BuildEnvironment, MoralisServerError, ServerErrorCode } from '@moralis/core';
 import parse from 'parse';
 
-// TODO: implement support for nodeJs and react-native
-// TODO: maybe as different packages?/modules?
-export const getParse = (environment: ConfigEnvironment) => {
+export const getParse = (environment: BuildEnvironment) => {
   switch (environment) {
     case 'browser':
       return parse;
@@ -40,34 +38,15 @@ export const initializeParse = async ({
 }: {
   appId: string | null;
   serverUrl: string | null;
-  environment: ConfigEnvironment;
+  environment: BuildEnvironment;
 }) => {
   validateServerUrl(serverUrl);
   validateAppId(appId);
 
   const parse = await getParse(environment);
 
-  // TODO: set masterkey when used
   parse.initialize(appId);
   parse.serverURL = serverUrl;
-
-  // TODO set config for parse
-  // TODO set coremanager values for parse
-  // WIP
-
-  // TODO: for react-native
-  // import { AsyncStorage } from 'react-native';
-  // Parse.setAsyncStorage(AsyncStorage);
-
-  //TODO
-  /**
-   * setCryptoController
-   * setInstallationController
-   * setRESTController
-   *
-   * idemptotency?
-   * secret?
-   */
 
   return parse;
 };

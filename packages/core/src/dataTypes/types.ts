@@ -1,4 +1,3 @@
-// TODO import from ethers
 export type Bytes = ArrayLike<number>;
 export type BytesLike = Bytes | string;
 export declare type AccessList = Array<{

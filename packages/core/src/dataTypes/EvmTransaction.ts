@@ -1,4 +1,5 @@
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { MoralisDataObject } from './abstract';
 import { EvmAddress, EvmAddressish } from './EvmAddress';
 import { EvmChain, EvmChainish } from './EvmChain';
@@ -44,7 +45,6 @@ export interface EvmTransactionData {
   maxFeePerGas?: BigNumber;
 }
 
-// TODO import from ethersJs
 interface EthersJsTransactionRequest {
   to?: string;
   from?: string;
@@ -70,7 +70,6 @@ export class EvmTransaction implements MoralisDataObject {
 
   constructor(value: EvmTransactionInput, sendCall?: (value: EvmTransaction) => Promise<EvmTransactionResponse>) {
     this._value = EvmTransaction.parse(value);
-    console.log('parsed EvmTransaction', this._value);
     this._sendCall = sendCall;
   }
 
@@ -86,7 +85,6 @@ export class EvmTransaction implements MoralisDataObject {
   }
 
   static parse(value: EvmTransactionInput): EvmTransactionData {
-    console.log('parsing EvmTransaction', value);
     return {
       to: maybe(value.to, EvmAddress.create),
       from: maybe(value.from, EvmAddress.create),
@@ -124,8 +122,10 @@ export class EvmTransaction implements MoralisDataObject {
 
   send = () => {
     if (!this._sendCall) {
-      // TODO: make moralis error
-      throw new Error('Cannot send transaction, no supported call method provided');
+      throw new MoralisCoreError({
+        code: CoreErrorCode.GENERIC_CORE_ERROR,
+        message: 'Cannot send transaction, no supported call method provided',
+      });
     }
     return this._sendCall(this);
   };
@@ -145,8 +145,6 @@ export class EvmTransaction implements MoralisDataObject {
       maxPriorityFeePerGas: value.maxPriorityFeePerGas?.toString(),
       maxFeePerGas: value.maxFeePerGas?.toString(),
     };
-
-    // TODO: remove undefined values
 
     return out;
   }

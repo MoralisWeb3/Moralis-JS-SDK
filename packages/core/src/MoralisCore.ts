@@ -1,14 +1,14 @@
 import { BaseModule } from './Modules/BaseModule';
-import { NetworkModule } from './Modules/NetworkModule';
-import { ApiModule } from './Modules/ApiModule';
-import { MoralisConfig, MoralisConfigOptions } from './Config';
+import { MoralisConfig, ConfigValues } from './Config';
 import { MoralisModules } from './Modules/MoralisModules';
 import { Logger } from './controllers/LoggerController';
 
 /**
- * MoralisCore class that is used in all Moralis applications
- * It's responsible for:
- * - registering and accessing modules
+ * MoralisCore is used in all Moralis applications
+ * This class is **required** to be implemented in every app
+ *
+ * This class is responsible for:
+ * - registering, removing and accessing modules
  * - accessing and changing the config
  */
 export class MoralisCore {
@@ -19,37 +19,40 @@ export class MoralisCore {
 
   constructor() {
     this.modules = new MoralisModules();
-    this.config = new MoralisConfig();
+    this.config = new MoralisConfig(this.modules);
     this.logger = new Logger(this, this.name);
   }
 
   /**
-   * Initialize all specified modules and configurations
+   * Register all specified modules and configurations
+   * @params array of all modules (any module that is extended from BaseModule) that you want to include
    */
-  registerModules = ({
-    networks: providedNetworks = [],
-    apis: providedApis = [],
-    modules: providedModules = [],
-  }: {
-    networks?: NetworkModule[];
-    apis?: ApiModule[];
-    modules?: BaseModule[];
-  }) => {
-    providedNetworks.forEach(this.modules.register);
-    providedApis.forEach(this.modules.register);
-    providedModules.forEach(this.modules.register);
+  registerModules = (modules: BaseModule[]) => {
+    modules.forEach(this.modules.register);
 
-    this.logger.verbose('Modules initialized', { allModules: this.modules.listNames() });
+    this.logger.verbose('Modules registered', { allModules: this.modules.listNames() });
+  };
+
+  /**
+   * Register a new module
+   */
+  registerModule = (module: BaseModule) => {
+    this.modules.register(module);
+
+    this.logger.verbose('Module registered', { module: module.name });
   };
 
   /**
    * Start all modules, this function should be called before any interaction with a module,
-   * as it is responsible for initialising the modules
+   * as it is responsible for initialising the modules.
+   *
+   * This will call `start()` on every registered module
    */
-  start = async (providedConfig?: Partial<MoralisConfigOptions>) => {
+  start = async (providedConfig?: Partial<ConfigValues>) => {
     if (providedConfig) {
       this.config.merge(providedConfig);
     }
+
     const allModules = this.modules.list();
 
     this.logger.verbose('Starting all registered modules', {

@@ -11,7 +11,6 @@ interface BaseOptions {
  * compatible with browser, nodejJs and react-native
  */
 export class RequestController {
-  // TODO: inject core dependency
   private static baseRequest<Body extends {}, Response extends unknown>(options?: BaseOptions) {
     return ky.create({
       headers: options?.headers,

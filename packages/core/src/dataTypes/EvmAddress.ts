@@ -1,11 +1,10 @@
 import { CoreErrorCode } from '../Error/ErrorCode';
 import { MoralisCoreError } from '../Error/MoralisError';
 import { getAddress, isAddress } from '@ethersproject/address';
-import { ConfigAddressFormat } from '../Config';
+import { EvmAddressFormat } from '../Config';
 import core from '../MoralisCore';
 import { MoralisData } from './abstract';
 
-// TODO: support EVN address
 export type InputEvmAddress = string;
 export type EvmAddressish = EvmAddress | InputEvmAddress;
 
@@ -63,8 +62,8 @@ export class EvmAddress implements MoralisData {
     return this._value === address._value;
   }
 
-  format(_formatStyle?: ConfigAddressFormat) {
-    const formatStyle = _formatStyle ?? core.config.get('formatAddress');
+  format(_formatStyle?: EvmAddressFormat) {
+    const formatStyle = _formatStyle ?? core.config.get('formatEvmAddress');
 
     if (formatStyle === 'checksum') {
       return this.checksum;

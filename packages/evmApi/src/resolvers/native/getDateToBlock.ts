@@ -1,4 +1,4 @@
-import { EvmChain, EvmChainish } from '@moralis/core/lib';
+import { EvmChain, EvmChainish } from '@moralis/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -8,7 +8,7 @@ type QueryParams = operations[operation]['parameters']['query'];
 type ApiParams = QueryParams;
 export interface Params extends Omit<ApiParams, 'chain'> {
   chain?: EvmChainish;
-  // TODO: also allow JS date input
+  // TODO: also allow JS date input in every date input
   date: string;
 }
 

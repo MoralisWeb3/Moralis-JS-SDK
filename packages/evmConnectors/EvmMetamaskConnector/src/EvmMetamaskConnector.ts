@@ -23,9 +23,6 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
       name: 'metamask',
       core,
     });
-
-    // TODO: initialize provider if possible
-    // TODO add subscriptions
   }
 
   private async getProvider(options?: EvmMetamaskConnectorConnectOptions): Promise<MetamaskProvider> {
@@ -41,7 +38,6 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
 
     // Provider can be a single provider or array of providers (for example when user has coinbasewallet and metamask installed)
     if (provider && provider.providers?.length) {
-      console.log('found MM provider(s)', provider);
       provider = provider.providers.find((currentProvider) => currentProvider.isMetaMask) ?? null;
     }
 
@@ -98,7 +94,6 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
 
     await provider.request({
       method: 'wallet_addEthereumChain',
-      // TODO: accept EvmChainish
       params: [
         {
           chainId: chain.hex,
@@ -115,26 +110,6 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
         },
       ],
     });
-  }
-
-  async watchToken() {
-    // const wasAdded = await ethereum.request({
-    //   method: 'wallet_watchAsset',
-    //   params: {
-    //     type: 'ERC20', // Initially only supports ERC20, but eventually more!
-    //     options: {
-    //       address: tokenAddress, // The address that the token is at.
-    //       symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
-    //       decimals: tokenDecimals, // The number of decimals in the token
-    //       image: tokenImage, // A string url of the token logo
-    //     },
-    //   },
-    // });
-    // if (wasAdded) {
-    //   console.log('Thanks for your interest!');
-    // } else {
-    //   console.log('Your loss!');
-    // }
   }
 }
 

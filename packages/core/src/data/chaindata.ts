@@ -1,5 +1,3 @@
-// TODO: fetch this data async, or via Moralis server
-
 export interface EvmNativeCurrency {
   name: string;
   symbol: string;

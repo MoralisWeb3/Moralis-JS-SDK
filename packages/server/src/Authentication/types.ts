@@ -2,7 +2,6 @@ import { InitEvent } from '@moralis/core';
 import { AuthenticateData, AuthMethod } from '../AuthMethods/types';
 
 export interface AuthenticateEventOptions {
-  // TODO: make more typesafe and flexible
   method: AuthMethod;
   options?: Record<string, unknown>;
 }
@@ -46,8 +45,5 @@ export type State =
     }
   | {
       value: 'Authenticated';
-      context: StateContext & {
-        // TODO: add details for authenticating
-        // wallet: string;
-      };
+      context: StateContext & {};
     };

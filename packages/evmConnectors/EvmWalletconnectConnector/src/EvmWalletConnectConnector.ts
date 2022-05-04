@@ -48,7 +48,6 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
       },
     };
 
-    // TODO: import default for CDN support?
     const provider = new WalletConnectProvider(config);
 
     // Should not happen but in theory, but lets be safe
@@ -63,7 +62,6 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
   }
 
   async connect(_options?: Partial<EvmWalletConnectConnectorOptions>): Promise<EvmConnectResponse> {
-    // TODO: move setting the provider to an "init" function (in combination with eager connect?)
     const options = { ...defaultOptions, _options };
 
     this.logger.verbose('Connecting', { providedOptions: _options, options });
@@ -75,10 +73,6 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
 
     const provider = this.getProvider(options);
     this._provider = provider;
-
-    if (this._provider?.connected) {
-      //TODO: cancel/abort?
-    }
 
     const accounts = await provider.enable();
     this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;

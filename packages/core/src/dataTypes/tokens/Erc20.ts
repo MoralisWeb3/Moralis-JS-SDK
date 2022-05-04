@@ -11,9 +11,6 @@ interface Erc20Input {
   chain: EvmChainish;
   logo?: string | null;
   thumbnail?: string | null;
-
-  // TODO: add balance to this dataType? Or make Erc20WithValue datatype
-  // balance?: BigNumberish;
 }
 
 interface Erc20Data {

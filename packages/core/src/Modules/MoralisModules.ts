@@ -6,15 +6,22 @@ import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { ApiModule } from '..';
 
 /**
- * Handles the mapping of all registered modules in Moralis
+ * MoralisModues handles all registered modules.
  * Any package that is used in Moralis, should register itself via this class.
  * This allows cross-communication between modules and easy management of the modules
+ *
+ * This class is responsible for:
+ * - registering new modules
+ * - removing modules (in theory possible for exotic usecases, but might break the app if done after initialisation)
+ * - getting individual modules by name, type or everything
  */
 export class MoralisModules {
   private _modules = new Map<string, BaseModule>();
 
   /**
-   * Register a new module based on a {@link BaseClass}
+   * Register a new module by providing a module that is extended from BaseClass.
+   * This will throw an error if the name is not unique
+   * @param moralisModule the module that needs to be registered
    */
   register = (moralisModule: AnyBaseClass) => {
     if (this._modules.has(moralisModule.name)) {
@@ -30,7 +37,9 @@ export class MoralisModules {
   /**
    * Returns the module with the given name.
    * This module should have been registered with `register`
-   * Throws an error if no module with the given name has been registered.
+   * @param name the module name
+   * @returns a valid BaseModule
+   * @throws a MoralisCoreError if no module with the given name has been registered
    */
   get = (name: string): BaseModule => {
     const module = this._modules.get(name);
@@ -44,7 +53,9 @@ export class MoralisModules {
 
   /**
    * Returns the network module with the provided name.
-   * Throws an error if no network module with the given name has been registered
+   * @param name the module name
+   * @returns a valid NetworkModule
+   * @throws a MoralisCoreError if no network module with the given name has been registered
    */
   getNetwork = (name: string): NetworkModule => {
     const module = this.get(name);
@@ -61,7 +72,9 @@ export class MoralisModules {
 
   /**
    * Returns the network module with the provided name.
-   * Throws an error if no network module with the given name has been registered
+   * @param name the module name
+   * @returns a valid ApiModule
+   * @throws a MoralisCoreError if no network module with the given name has been registered
    */
   getApi = (name: string): ApiModule => {
     const module = this.get(name);
@@ -78,7 +91,8 @@ export class MoralisModules {
 
   /**
    * Remove the module with the provided name, if it has been registered,
-   * or throws an error if the module cannot be found.
+   * @param name the module name
+   * @throws a MoralisCoreError if the module cannot be found.
    */
   remove = (name: string) => {
     const isRemoved = this._modules.delete(name);
@@ -90,12 +104,12 @@ export class MoralisModules {
 
   /**
    * List all the registered modules
+   * @returns an array of BaseModule that have been registered
    */
   list = () => {
     return Array.from(this._modules.values());
   };
 
-  // TODO: make get names
   /**
    * Returns the names of all registered modules
    */

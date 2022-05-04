@@ -13,7 +13,6 @@ export type Erc20ValueData = {
   decimals: number;
 };
 
-// TODO: make generic with EvmNative
 export class Erc20Value implements MoralisData {
   private _value: Erc20ValueData;
 
