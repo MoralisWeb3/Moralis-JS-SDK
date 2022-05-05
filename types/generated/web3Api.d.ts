@@ -202,6 +202,26 @@ export interface paths {
 
 export interface components {
   schemas: {
+    logCollection: {
+      /**
+       * @description The total number of matches for this query
+       * @example 100
+       */
+      total?: number;
+      /**
+       * @description The page of the current result
+       * @example 1
+       */
+      page?: number;
+      /**
+       * @description The number of results per page
+       * @example 100
+       */
+      page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["logEventByAddress"][];
+    };
     logEventByAddress: {
       /**
        * @description The transaction hash
@@ -1428,7 +1448,7 @@ export interface operations {
       /** Returns the logs of an address */
       200: {
         content: {
-          "application/json": components["schemas"]["logEventByAddress"];
+          "application/json": components["schemas"]["logCollection"];
         };
       };
     };
