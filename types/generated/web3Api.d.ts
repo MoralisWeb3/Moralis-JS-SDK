@@ -1414,6 +1414,10 @@ export interface operations {
         topic2?: string;
         /** topic3 */
         topic3?: string;
+        /** limit */
+        limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** address */
@@ -1716,6 +1720,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** address */
