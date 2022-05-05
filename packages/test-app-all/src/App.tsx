@@ -9,7 +9,7 @@ window.Moralis = Moralis;
 Moralis.start({
   serverUrl: process.env.REACT_APP_SERVER_URL,
   appId: process.env.REACT_APP_APP_ID,
-  apiKey: process.env.API_KEY,
+  apiKey: process.env.REACT_APP_API_KEY,
   logLevel: 'verbose',
 });
 

@@ -31,15 +31,6 @@ export class RequestController {
             });
           },
         ],
-        afterResponse: [
-          (request) => {
-            core.logger.verbose('[RequestController] request success', {
-              url: request.url,
-              method: request.method,
-              body: request.bodyUsed,
-            });
-          },
-        ],
         beforeError: [
           (httpError) => {
             core.logger.verbose('[RequestController] request error', {
