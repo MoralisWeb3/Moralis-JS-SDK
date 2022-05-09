@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.6.0...v1.7.0) (2022-05-09)
+
+
+### Features
+
+* Specifiy warning/error source ([#326](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/326)) ([05ad14f](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/05ad14ff160be4531ef31518b448a814f68aab16))
+
 # [1.6.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.5.11...v1.6.0) (2022-05-02)
 
 
