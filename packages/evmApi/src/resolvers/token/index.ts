@@ -1,3 +1,1 @@
-export { getTokenAllowanceResolver } from './getTokenAllowance';
-export { getNFTMetadataResolver } from './getNFTMetadata';
-export { getTokenMetadataResolver } from './getTokenMetadata';
+export { getTokenMetadataBySymbolResolver } from './getTokenMetadataBySymbol';

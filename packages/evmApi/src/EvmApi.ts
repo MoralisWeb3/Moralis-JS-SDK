@@ -1,4 +1,4 @@
-import { getTokenMetadataResolver } from './resolvers/token';
+import { getTokenMetadataBySymbolResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
 import {
@@ -32,7 +32,7 @@ export class MoralisEvmApi extends ApiModule {
   }
   get token() {
     return {
-      getTokenMetadata: getTokenMetadataResolver.fetch,
+      getTokenMetadataBySymbol: getTokenMetadataBySymbolResolver.fetch,
     };
   }
 }
