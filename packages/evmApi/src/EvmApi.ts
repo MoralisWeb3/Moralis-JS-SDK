@@ -3,6 +3,7 @@ import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/
 import {
   getBlockResolver,
   getDateToBlockResolver,
+  getTransactionResolver,
   runContractFunctionResolver,
 } from './resolvers/native';
 
@@ -21,6 +22,7 @@ export class MoralisEvmApi extends ApiModule {
       runContractFunction: runContractFunctionResolver.fetch,
       getBlock: getBlockResolver.fetch,
       getDateToBlock: getDateToBlockResolver.fetch,
+      getTransaction: getTransactionResolver.fetch,
     };
   }
   get account() {

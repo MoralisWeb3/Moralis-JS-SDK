@@ -19,6 +19,18 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
+          Moralis.EvmApi.native
+            .getTransaction({
+              transaction_hash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5',
+            })
+            .then(console.log);
+        }}
+      >
+        getTransaction
+      </button>
+
+      <button
+        onClick={() => {
           Moralis.EvmApi.account
             .getNativeBalance({
               address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
