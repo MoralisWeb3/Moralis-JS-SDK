@@ -1958,7 +1958,7 @@ class ParseQuery {
             onError(err);
           } else {
             // eslint-disable-next-line no-console
-            console.warn('Subscription error', err);
+            console.warn('Moralis: Subscription error', err);
           }
         });
       })
@@ -1967,7 +1967,7 @@ class ParseQuery {
           onError(err);
         } else {
           // eslint-disable-next-line no-console
-          console.warn('Subscription connection error', err);
+          console.warn('Moralis: Subscription connection error', err);
         }
       });
 

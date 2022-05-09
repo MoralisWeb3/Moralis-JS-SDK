@@ -105,7 +105,7 @@ const checkForSdkUpdates = async () => {
     if (isSemanticVersionLarger(latestVersion, installedVersion))
       // eslint-disable-next-line no-console
       console.warn(
-        `You are not using the latest version of the SDK. Please update it as soon as possible to enjoy the newest features. Most recent version: ${latestVersion}`
+        `Moralis: You are not using the latest version of the SDK. Please update it as soon as possible to enjoy the newest features. Most recent version: ${latestVersion}`
       );
   } catch (error) {
     // Cannot verify version, might be network error etc. We don't bother showing anything in that case

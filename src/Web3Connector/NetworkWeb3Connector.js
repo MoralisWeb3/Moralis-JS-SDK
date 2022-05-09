@@ -94,7 +94,7 @@ class NetworkWeb3Connector extends AbstractWeb3Connector {
     if (process.env.PARSE_BUILD !== 'node' && speedyNodeApiKey) {
       // eslint-disable-next-line no-console
       console.warn(
-        'Using speedyNodeApiKey on the browser enviroment is not recommended, as it is publicly visible.'
+        'Moralis: Using speedyNodeApiKey on the browser enviroment is not recommended, as it is publicly visible.'
       );
     }
 

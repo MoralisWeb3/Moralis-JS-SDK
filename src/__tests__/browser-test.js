@@ -38,7 +38,8 @@ describe('Browser', () => {
     jest.spyOn(Parse, '_initialize').mockImplementationOnce(() => {});
     Parse.initialize('A', 'B');
     expect(console.log).toHaveBeenCalledWith(
-      "It looks like you're using the browser version of the SDK in a node.js environment. You should require('moralis/node') instead."
+      "Moralis: It looks like you're using the browser version of the SDK in a " +
+        "node.js environment. You should require('moralis/node') instead."
     );
     expect(Parse._initialize).toHaveBeenCalledTimes(1);
   });
