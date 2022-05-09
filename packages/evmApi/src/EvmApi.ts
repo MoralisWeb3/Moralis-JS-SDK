@@ -1,10 +1,9 @@
-import { getNFTMetadataResolver } from './resolvers/token/getNFTMetadata';
+import { getTokenMetadataResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
 import {
   getBlockResolver,
   getDateToBlockResolver,
-  getTransactionResolver,
   runContractFunctionResolver,
 } from './resolvers/native';
 
@@ -23,7 +22,6 @@ export class MoralisEvmApi extends ApiModule {
       runContractFunction: runContractFunctionResolver.fetch,
       getBlock: getBlockResolver.fetch,
       getDateToBlock: getDateToBlockResolver.fetch,
-      getTransaction: getTransactionResolver.fetch,
     };
   }
   get account() {
@@ -34,7 +32,7 @@ export class MoralisEvmApi extends ApiModule {
   }
   get token() {
     return {
-      getNFTMetadata: getNFTMetadataResolver.fetch,
+      getTokenMetadata: getTokenMetadataResolver.fetch,
     };
   }
 }
