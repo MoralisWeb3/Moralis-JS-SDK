@@ -1,4 +1,4 @@
-import { getNFTMetadataResolver } from './resolvers/token/getNFTMetadata';
+import { getNFTMetadataResolver, getTokenAllowanceResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
 import {
@@ -35,6 +35,7 @@ export class MoralisEvmApi extends ApiModule {
   get token() {
     return {
       getNFTMetadata: getNFTMetadataResolver.fetch,
+      getTokenAllowance: getTokenAllowanceResolver.fetch,
     };
   }
 }
