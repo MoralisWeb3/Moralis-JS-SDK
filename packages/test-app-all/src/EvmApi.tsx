@@ -56,9 +56,8 @@ export const EvmApi = () => {
       <button
         onClick={() => {
           Moralis.EvmApi.token
-            .getTokenMetadata({
-              subdomain: "",
-              addresses: []
+            .getTokenPrice({
+              address: ''
             })
             .then(console.log);
         }}

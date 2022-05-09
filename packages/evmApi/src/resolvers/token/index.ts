@@ -1,1 +1,1 @@
-export { getTokenMetadataBySymbolResolver } from './getTokenMetadataBySymbol';
+export { getTokenPriceResolver } from './getTokenPrice';
