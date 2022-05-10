@@ -16,6 +16,18 @@ export const EvmApi = () => {
       >
         getBlock
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenPrice({
+              address: ''
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenPrice
+      </button>
     </div>
   );
 };
