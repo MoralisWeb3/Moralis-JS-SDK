@@ -16,6 +16,18 @@ export const EvmApi = () => {
       >
         getBlock
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.resolve
+            .resolveDomain({
+              domain: 'brad.crypto',
+            })
+            .then(console.log);
+        }}
+      >
+        resolveDomain
+      </button>
     </div>
   );
 };
