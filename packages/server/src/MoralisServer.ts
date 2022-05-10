@@ -77,21 +77,79 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     return assertInstance(this._parse);
   }
 
-  // get ACL() {
-  //   return this.instance().ACL;
-  // }
+  get ACL() {
+    return this.instance().ACL;
+  }
 
-  // ACL = this.instance().ACL;
-  // Polygon = this.instance().Polygon;
-  // Object = this.instance().Object;
-  // Query = this.instance().Query;
-  // User = this.instance().User;
-  // File = this.instance().File;
-  // Schema = this.instance().Schema;
-  // Cloud = this.instance().Cloud;
-  // Session = this.instance().Session;
-  // Role = this.instance().Role;
-  // GeoPoint = this.instance().GeoPoint;
+  get CLP() {
+    // @ts-ignore Not typed in parse
+    return this.instance().CLP;
+  }
+
+  get Cloud() {
+    return this.instance().Cloud;
+  }
+
+  get File() {
+    return this.instance().File;
+  }
+
+  get GeoPoint() {
+    return this.instance().GeoPoint;
+  }
+
+  get Polygon() {
+    return this.instance().Polygon;
+  }
+
+  get LocalDatastore() {
+    // @ts-ignore Not typed in parse
+    return this.instance().LocalDatastore;
+  }
+
+  get Object() {
+    return this.instance().Object;
+  }
+
+  get Op() {
+    // @ts-ignore Not typed in parse
+    return this.instance().Op;
+  }
+
+  get Query() {
+    return this.instance().Query;
+  }
+
+  get Relation() {
+    return this.instance().Relation;
+  }
+
+  get Role() {
+    return this.instance().Role;
+  }
+
+  get Session() {
+    return this.instance().Session;
+  }
+
+  get Storage() {
+    // @ts-ignore Not typed in parse
+    return this.instance().Storage;
+  }
+
+  get User() {
+    return this.instance().User;
+  }
+
+  get LiveQuery() {
+    // @ts-ignore Not typed in parse
+    return this.instance().LiveQuery;
+  }
+
+  get LiveQueryClient() {
+    // @ts-ignore Not typed in parse
+    return this.instance().LiveQueryClient;
+  }
 }
 
 const moralisServer = new MoralisServer();
