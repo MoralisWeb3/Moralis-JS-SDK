@@ -1,3 +1,4 @@
+import { getTokenAllowanceResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
 import {
@@ -27,6 +28,11 @@ export class MoralisEvmApi extends ApiModule {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+    };
+  }
+  get token() {
+    return {
+      getTokenAllowance: getTokenAllowanceResolver.fetch,
     };
   }
 }
