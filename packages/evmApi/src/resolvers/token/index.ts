@@ -1,0 +1,1 @@
+export { reSyncMetadataResolver } from './reSyncMetadata';
