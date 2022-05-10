@@ -1,0 +1,1 @@
+export { resolveAddressResolver } from './resolveAddress';
