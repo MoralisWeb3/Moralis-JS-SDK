@@ -28,6 +28,20 @@ export const EvmApi = () => {
       >
         getNativeBalance
       </button>
+
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .reSyncMetadata({
+              address: '',
+              token_id: ''
+            })
+            .then(console.log);
+        }}
+      >
+        reSyncMetadata
+      </button>
     </div>
   );
 };
