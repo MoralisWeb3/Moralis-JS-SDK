@@ -1,0 +1,1 @@
+export { getTokenBalancesResolver } from './getTokenBalances';
