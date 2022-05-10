@@ -1,0 +1,1 @@
+export { getNFTMetadataResolver } from './getNFTMetadata';

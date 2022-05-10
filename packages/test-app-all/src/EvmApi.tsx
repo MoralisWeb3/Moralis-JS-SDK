@@ -16,6 +16,18 @@ export const EvmApi = () => {
       >
         getBlock
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getNFTMetadata({
+              address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTMetadata
+      </button>
     </div>
   );
 };
