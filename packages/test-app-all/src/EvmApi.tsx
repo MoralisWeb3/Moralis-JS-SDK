@@ -16,6 +16,18 @@ export const EvmApi = () => {
       >
         getBlock
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenMetadataBySymbol({
+              symbols: ['ETH'],
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenMetadataBySymbol
+      </button>
     </div>
   );
 };
