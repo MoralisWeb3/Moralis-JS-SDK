@@ -28,6 +28,16 @@ export const EvmApi = () => {
       >
         getNativeBalance
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.resolve.resolveDomain({
+            domain: 'brad.crypto',
+          });
+        }}
+      >
+        resolveDomain
+      </button>
     </div>
   );
 };
