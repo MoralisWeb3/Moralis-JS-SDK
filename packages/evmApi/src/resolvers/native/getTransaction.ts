@@ -1,8 +1,8 @@
 import { BigNumber } from 'ethers';
 import { Camelize } from './../../utils/toCamelCase';
-import { EvmTransaction, EvmTransactionLog, EvmAddress } from '@moralis/core';
+import { EvmTransaction, EvmTransactionLog, EvmAddress, EvmTransactionInput } from '@moralis/core';
 import { operations } from '../../generated/types';
-import { formatClass } from '../../utils/classFormatter';
+import { getExtraData } from '../../utils/getExtraData';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -18,10 +18,12 @@ export const getTransactionResolver = new EvmResolver({
   getPath: (params: ApiParams) => `transaction/${params.transaction_hash}`,
   apiToResult: (data: ApiResult) => {
     const transaction = toCamelCase(data);
-    const { main, extras } = formatClass<EvmTransaction, Camelize<ApiResult>>(EvmTransaction, transaction);
+    const extras = getExtraData<EvmTransactionInput, Camelize<ApiResult>>(transaction);
     return {
       ...extras,
-      transaction: main,
+      transaction: new EvmTransaction({
+        ...transaction,
+      }),
       logs: data.logs.map(
         (log) =>
           new EvmTransactionLog({
