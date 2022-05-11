@@ -10,6 +10,7 @@ export interface EvmTransactionLogInput {
   topics: string[];
   blockHash: string;
   blockNumber: number;
+  blockTimestamp?: string;
 }
 
 export interface EvmTransactionLogData {
@@ -21,6 +22,7 @@ export interface EvmTransactionLogData {
   topics: string[];
   blockHash: string;
   blockNumber: number;
+  blockTimestamp?: string;
 }
 
 export class EvmTransactionLog implements MoralisDataObject {
@@ -32,7 +34,14 @@ export class EvmTransactionLog implements MoralisDataObject {
 
   static parse(value: EvmTransactionLogInput): EvmTransactionLogData {
     return {
-      ...value,
+      logIndex: value.logIndex,
+      transactionHash: value.transactionHash,
+      transactionIndex: value.transactionIndex,
+      data: value.data,
+      topics: value.topics,
+      blockHash: value.blockHash,
+      blockNumber: value.blockNumber,
+      blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address),
     };
   }
