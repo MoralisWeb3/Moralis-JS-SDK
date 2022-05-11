@@ -1,5 +1,5 @@
 import core, { ApiModule } from '@moralis/core';
-import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
+import { getTokenBalancesResolver } from './resolvers/account';
 import { getBlockResolver, getDateToBlockResolver, runContractFunctionResolver } from './resolvers/native';
 import { resolveDomainResolver } from './resolvers/resolve';
 
@@ -23,7 +23,6 @@ export class MoralisEvmApi extends ApiModule {
   get account() {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
-      getNativeBalance: getNativeBalanceResolver.fetch,
     };
   }
   get resolve() {
