@@ -1,7 +1,7 @@
 import core, { ApiModule } from '@moralis/core';
-import { getTokenBalancesResolver } from './resolvers/account';
-import { getBlockResolver, getDateToBlockResolver, runContractFunctionResolver } from './resolvers/native';
 import { resolveDomainResolver } from './resolvers/resolve';
+import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
+import { getBlockResolver, getDateToBlockResolver, runContractFunctionResolver } from './resolvers/native';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
@@ -23,6 +23,7 @@ export class MoralisEvmApi extends ApiModule {
   get account() {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
+      getNativeBalance: getNativeBalanceResolver.fetch,
     };
   }
   get resolve() {
