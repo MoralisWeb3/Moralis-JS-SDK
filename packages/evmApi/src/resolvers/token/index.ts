@@ -1,0 +1,2 @@
+
+export { getTokenMetadataResolver } from './getTokenMetadata';
