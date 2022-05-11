@@ -21,7 +21,7 @@ export const getTokenPriceResolver = new EvmResolver({
   resultToJson: (data) => ({
     ...data,
     exchangeAddress: data.exchangeAddress.format(),
-    balance: data.nativePrice.format(),
+    nativePrice: data.nativePrice.format(),
   }),
   parseParams: (params) => params,
 });
