@@ -675,6 +675,8 @@ export namespace Moralis {
      */
     getData(): Promise<string>;
     url(options?: { forceSecure?: boolean }): string;
+    ipfs(): string;
+    hash(): string;
     metadata(): Record<string, any>;
     tags(): Record<string, any>;
     name(): string;
