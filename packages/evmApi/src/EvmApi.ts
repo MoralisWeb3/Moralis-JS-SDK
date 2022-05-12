@@ -1,3 +1,4 @@
+import { getPairReservesResolver } from './resolvers/defi';
 import core, { ApiModule } from '@moralis/core';
 import { resolveDomainResolver } from './resolvers/resolve';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
@@ -29,6 +30,11 @@ export class MoralisEvmApi extends ApiModule {
   get resolve() {
     return {
       resolveDomain: resolveDomainResolver.fetch,
+    };
+  }
+  get defi() {
+    return {
+      getPairReserves: getPairReservesResolver.fetch,
     };
   }
 }
