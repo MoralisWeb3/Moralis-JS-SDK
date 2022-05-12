@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
+    "gen:types": "openapi-typescript https://deep-index.moralis.io/api-docs/v2/swagger.json --output src/generated/types.ts",
     "dev": "tsc --watch"
   },
   "devDependencies": {

@@ -1,0 +1,1 @@
+export { resolveDomainResolver } from './resolveDomain';
