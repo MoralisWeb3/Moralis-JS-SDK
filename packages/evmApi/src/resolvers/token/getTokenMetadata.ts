@@ -17,18 +17,19 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'addresses'>>
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getTokenMetadataResolver = new EvmResolver({
-  getPath: (params: ApiParams) => `erc20/metadata`,
+  getPath: (params: Params) => `erc20/metadata`,
   apiToResult: (data: ApiResult) =>
     data.map((token) => {
-      const extras = getExtraData<Erc20Input, Camelize<ApiResult[0]>>(toCamelCase(token));
+      const tokenType = new Erc20Token({
+        ...toCamelCase(token),
+        contractAddress: token.address,
+        // TODO: add chain info (or omit it from Erc20Token type),
+        chain: 1,
+      });
+      const extras = getExtraData<Erc20Input, Camelize<ApiResult[0]>>(tokenType.result, toCamelCase(token));
       return {
         ...extras,
-        token: new Erc20Token({
-          ...toCamelCase(token),
-          contractAddress: token.address,
-          // TODO: add chain info (or omit it from Erc20Token type),
-          chain: 1,
-        }),
+        token: tokenType,
         // address: extras.address,
       };
     }),
