@@ -29,6 +29,27 @@ export const EvmApi = () => {
         getNativeBalance
       </button>
 
+      <button
+        onClick={() => {
+          Moralis.EvmApi.resolve.resolveDomain({
+            domain: 'brad.crypto',
+          });
+        }}
+      >
+        resolveDomain
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.defi
+            .getPairReserves({
+              pair_address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+            })
+            .then(console.log);
+        }}
+      >
+        getPairReserves
+      </button>
 
       <button
         onClick={() => {
