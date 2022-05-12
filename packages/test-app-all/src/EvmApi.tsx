@@ -55,8 +55,8 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.token
             .reSyncMetadata({
-              address: '',
-              token_id: ''
+              address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
+              tokenId: '18'
             })
             .then(console.log);
         }}
