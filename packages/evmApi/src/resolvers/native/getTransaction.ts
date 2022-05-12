@@ -1,6 +1,13 @@
 import { BigNumber } from 'ethers';
 import { Camelize } from './../../utils/toCamelCase';
-import { EvmTransaction, EvmTransactionLog, EvmAddress, EvmTransactionInput } from '@moralis/core';
+import {
+  EvmTransaction,
+  EvmTransactionLog,
+  EvmAddress,
+  EvmTransactionInput,
+  EvmChainish,
+  EvmChain,
+} from '@moralis/core';
 import { operations } from '../../generated/types';
 import { getExtraData } from '../../utils/getExtraData';
 import { toCamelCase } from '../../utils/toCamelCase';
@@ -14,16 +21,21 @@ type ApiParams = QueryParams & PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
+export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
+  chain?: EvmChainish;
+}
+
 export const getTransactionResolver = new EvmResolver({
-  getPath: (params: ApiParams) => `transaction/${params.transaction_hash}`,
+  getPath: (params: Params) => `transaction/${params.transactionHash}`,
   apiToResult: (data: ApiResult) => {
     const transaction = toCamelCase(data);
-    const extras = getExtraData<EvmTransactionInput, Camelize<ApiResult>>(transaction);
+    const transactionType = new EvmTransaction({
+      ...transaction,
+    });
+    const extras = getExtraData<EvmTransactionInput, Camelize<ApiResult>>(transactionType.result, transaction);
     return {
       ...extras,
-      transaction: new EvmTransaction({
-        ...transaction,
-      }),
+      transaction: transactionType,
       logs: data.logs.map(
         (log) =>
           new EvmTransactionLog({
@@ -48,5 +60,9 @@ export const getTransactionResolver = new EvmResolver({
     receiptCumulativeGasUsed: data.receiptCumulativeGasUsed.toNumber(),
     receiptGasUsed: data.receiptGasUsed.toNumber(),
   }),
-  parseParams: (params) => params,
+  parseParams: (params: Params): ApiParams => ({
+    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    subdomain: params.subdomain || undefined,
+    transaction_hash: params.transactionHash,
+  }),
 });
