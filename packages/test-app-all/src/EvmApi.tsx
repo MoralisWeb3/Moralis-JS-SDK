@@ -21,7 +21,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.token
             .getTokenPrice({
-              address: ''
+              address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5'
             })
             .then(console.log);
         }}
