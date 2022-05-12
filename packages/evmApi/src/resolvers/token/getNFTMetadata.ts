@@ -1,4 +1,4 @@
-import { EvmAddress } from '@moralis/core';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralis/core';
 import { toCamelCase } from './../../utils/toCamelCase';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
@@ -11,15 +11,25 @@ type ApiParams = QueryParams & PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
+export interface Params {
+  chain?: EvmChainish;
+  address: EvmAddressish;
+}
+
 export const getNFTMetadataResolver = new EvmResolver({
-  getPath: (params: ApiParams) => `nft/${params.address}/metadata`,
+  getPath: (params: Params) => `nft/${params.address}/metadata`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),
     tokenAddress: EvmAddress.create(data.token_address),
+    syncedAt: data.synced_at ? new Date(data.synced_at) : undefined,
   }),
   resultToJson: (data) => ({
     ...data,
     tokenAddress: data.tokenAddress.format(),
+    syncedAt: data.syncedAt?.toDateString(),
   }),
-  parseParams: (params) => params,
+  parseParams: (params: Params): ApiParams => ({
+    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    address: EvmAddress.create(params.address).lowercase,
+  }),
 });
