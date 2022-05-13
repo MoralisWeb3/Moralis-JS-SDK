@@ -8,26 +8,36 @@ import { EvmTransactionResponse, EvmTransactionResponseInput } from './EvmTransa
 import { maybe } from './utils';
 
 export interface EvmTransactionReceiptInput {
+  to: EvmAddressish;
+  from: EvmAddressish;
   contractAddress?: null | EvmAddressish;
   transactionIndex: number;
 
   gasUsed: BigNumberish;
   cumulativeGasUsed: BigNumberish;
   gasPrice: BigNumberish;
+  gas?: BigNumberish;
 
   logs: EvmTransactionLogInput[];
 
   root?: null | string;
   status?: null | number;
+
+  blockHash?: null | string;
+  blockNumber?: null | number;
+  input?: null | string;
 }
 
 export interface EvmTransactionReceiptData {
+  to: EvmAddress;
+  from: EvmAddress;
   contractAddress?: EvmAddress;
   transactionIndex: number;
 
   gasUsed: BigNumber;
   cumulativeGasUsed: BigNumber;
   gasPrice: BigNumber;
+  gas?: BigNumberish;
 
   logs: EvmTransactionLog[];
 
@@ -35,6 +45,10 @@ export interface EvmTransactionReceiptData {
   status?: number;
 
   transaction: EvmTransactionResponse;
+
+  blockHash?: null | string;
+  blockNumber?: null | number;
+  input?: null | string;
 }
 
 export class EvmTransactionReceipt implements MoralisDataObject {
@@ -70,11 +84,15 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     EvmTransactionReceipt.validate(value);
 
     return {
+      ...value,
+      from: EvmAddress.create(value.from),
+      to: EvmAddress.create(value.to),
       transactionIndex: value.transactionIndex,
 
       contractAddress: maybe(value.contractAddress, EvmAddress.create),
 
       gasUsed: BigNumber.from(value.gasUsed),
+      gas: maybe(value.gas, BigNumber.from),
       cumulativeGasUsed: BigNumber.from(value.cumulativeGasUsed),
       gasPrice: BigNumber.from(value.gasPrice),
 
@@ -103,12 +121,16 @@ export class EvmTransactionReceipt implements MoralisDataObject {
       contractAddress: value.contractAddress?.format(),
 
       gasUsed: value.gasUsed.toString(),
+      gas: value.gas?.toString(),
       cumulativeGasUsed: value.cumulativeGasUsed.toString(),
       gasPrice: value.gasPrice.toString(),
 
       logs: value.logs.map((log) => log.toJSON()),
 
       transaction: value.transaction.toJSON(),
+
+      from: value.from.format(),
+      to: value.to.format(),
     };
   }
 

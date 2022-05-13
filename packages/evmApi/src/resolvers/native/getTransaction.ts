@@ -1,15 +1,13 @@
-import { BigNumber } from 'ethers';
 import { Camelize } from './../../utils/toCamelCase';
 import {
-  EvmTransaction,
-  EvmTransactionLog,
-  EvmAddress,
-  EvmTransactionInput,
   EvmChainish,
   EvmChain,
+  EvmTransactionReceipt,
+  EvmTransactionResponse,
+  EvmTransactionLogInput,
 } from '@moralis/core';
 import { operations } from '../../generated/types';
-import { getExtraData } from '../../utils/getExtraData';
+// import { getExtraData } from '../../utils/getExtraData';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -29,37 +27,42 @@ export const getTransactionResolver = new EvmResolver({
   getPath: (params: Params) => `transaction/${params.transactionHash}`,
   apiToResult: (data: ApiResult) => {
     const transaction = toCamelCase(data);
-    const transactionType = new EvmTransaction({
+    const transactionType = new EvmTransactionResponse({
       ...transaction,
+      from: transaction.fromAddress,
+      to: transaction.toAddress,
+      // TODO: properly pass chain
+      chain: EvmChain.create(1),
+      data: transaction.hash,
+      blockNumber: Number(transaction.blockNumber),
+      blockTimestamp: Date.parse(transaction.blockTimestamp),
     });
-    const extras = getExtraData<EvmTransactionInput, Camelize<ApiResult>>(transactionType.result, transaction);
-    return {
-      ...extras,
-      transaction: transactionType,
-      logs: data.logs.map(
-        (log) =>
-          new EvmTransactionLog({
-            ...toCamelCase(log),
+    const transactionReciept = new EvmTransactionReceipt(
+      {
+        ...transaction,
+        from: transaction.fromAddress,
+        to: transaction.toAddress,
+        gasUsed: transaction.receiptGasUsed,
+        contractAddress: transaction.receiptContractAddress,
+        cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
+        transactionIndex: Number(transaction.transactionIndex),
+        blockNumber: Number(transaction.blockNumber),
+        logs: transaction.logs.map(
+          (log): EvmTransactionLogInput => ({
+            ...log,
             topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
-            logIndex: Number(log.log_index),
-            transactionIndex: Number(log.transaction_index),
-            blockNumber: Number(log.block_number),
+            logIndex: Number(log.logIndex),
+            transactionIndex: Number(log.transactionIndex),
+            blockNumber: Number(log.blockNumber),
           }),
-      ),
-      fromAddress: EvmAddress.create(extras.fromAddress!),
-      toAddress: EvmAddress.create(extras.toAddress!),
-      receiptCumulativeGasUsed: BigNumber.from(extras.receiptCumulativeGasUsed!),
-      receiptGasUsed: BigNumber.from(extras.receiptGasUsed!),
-    };
+        ),
+      },
+      transactionType,
+    );
+    // const extras = getExtraData<EvmTransactionInput, Camelize<ApiResult>>(transactionReciept.result, transaction);
+    return transactionReciept;
   },
-  resultToJson: (data) => ({
-    ...data,
-    logs: data.logs.map((log) => log.toJSON()),
-    fromAddress: data.fromAddress.format(),
-    toAddress: data.toAddress.format(),
-    receiptCumulativeGasUsed: data.receiptCumulativeGasUsed.toNumber(),
-    receiptGasUsed: data.receiptGasUsed.toNumber(),
-  }),
+  resultToJson: (data) => data.toJSON(),
   parseParams: (params: Params): ApiParams => ({
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
     subdomain: params.subdomain || undefined,

@@ -25,10 +25,6 @@ export interface EvmTransactionInput {
 
   maxPriorityFeePerGas?: null | BigNumberish;
   maxFeePerGas?: null | BigNumberish;
-  blockHash?: null | string;
-  blockNumber?: null | number;
-  transactionIndex?: null | number;
-  input?: null | string;
 }
 
 export interface EvmTransactionData {
@@ -38,7 +34,6 @@ export interface EvmTransactionData {
 
   gasLimit?: BigNumber;
   gasPrice?: BigNumber;
-  gas?: null | BigNumberish;
 
   data?: BytesLike;
   value?: BigNumber;
@@ -49,10 +44,6 @@ export interface EvmTransactionData {
 
   maxPriorityFeePerGas?: BigNumber;
   maxFeePerGas?: BigNumber;
-  blockHash?: null | string;
-  blockNumber?: null | number;
-  transactionIndex?: null | number;
-  input?: null | string;
 }
 
 interface EthersJsTransactionRequest {
@@ -102,7 +93,6 @@ export class EvmTransaction implements MoralisDataObject {
 
       gasLimit: maybe(value.gasLimit, BigNumber.from),
       gasPrice: maybe(value.gasPrice, BigNumber.from),
-      gas: maybe(value.gasPrice, BigNumber.from),
 
       data: maybe(value.data),
       value: maybe(value.value, BigNumber.from),
@@ -113,10 +103,6 @@ export class EvmTransaction implements MoralisDataObject {
 
       maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.from),
       maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.from),
-      input: value.input,
-      transactionIndex: maybe(value.transactionIndex),
-      blockHash: maybe(value.blockHash),
-      blockNumber: maybe(value.blockNumber),
     };
   }
 
@@ -155,15 +141,10 @@ export class EvmTransaction implements MoralisDataObject {
       nonce: value.nonce?.toString(),
       gasLimit: value.gasLimit?.toString(),
       gasPrice: value.gasPrice?.toString(),
-      gas: value.gas?.toString(),
       value: value.value?.toString(),
       chain: value.chain?.format(),
       maxPriorityFeePerGas: value.maxPriorityFeePerGas?.toString(),
       maxFeePerGas: value.maxFeePerGas?.toString(),
-      input: value.input,
-      transactionIndex: value.transactionIndex,
-      blockHash: value.blockHash,
-      blockNumber: value.blockNumber?.toString(),
     };
 
     return out;

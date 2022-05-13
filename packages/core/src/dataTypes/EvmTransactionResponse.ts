@@ -24,7 +24,7 @@ export interface EvmTransactionResponseInput {
   blockHash?: null | string;
   blockTimestamp?: null | number | Date;
 
-  gasLimit: BigNumberish;
+  gasLimit?: BigNumberish;
   gasPrice?: null | BigNumberish;
 
   data: string;
@@ -53,7 +53,7 @@ interface EvmTransactionResponseData {
   blockHash?: string;
   blockTimestamp?: Date;
 
-  gasLimit: BigNumber;
+  gasLimit?: BigNumber;
   gasPrice?: BigNumber;
 
   data: string;
@@ -114,15 +114,15 @@ export class EvmTransactionResponse implements MoralisDataObject {
       blockHash: maybe(value.blockHash),
       blockTimestamp: maybe(value.blockTimestamp, (value) => (value instanceof Date ? value : new Date(value))),
 
-      gasLimit: BigNumber.from(value.gasLimit),
-      gasPrice: maybe(BigNumber.from(value.gasPrice)),
+      gasLimit: maybe(value.gasLimit, BigNumber.from),
+      gasPrice: maybe(value.gasPrice, BigNumber.from),
 
       data: maybe(value.data),
 
       type: maybe(value.type),
 
-      maxPriorityFeePerGas: maybe(BigNumber.from(value.maxPriorityFeePerGas)),
-      maxFeePerGas: maybe(BigNumber.from(value.maxFeePerGas)),
+      maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.from),
+      maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.from),
     };
   }
 
@@ -188,7 +188,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
       from: value.from.format(),
       to: value.from?.format(),
       value: value.value.toString(),
-      gasLimit: value.gasLimit.toString(),
+      gasLimit: value.gasLimit?.toString() ?? null,
       gasPrice: value.gasPrice?.toString() ?? null,
       maxPriorityFeePerGas: value.maxPriorityFeePerGas?.toString(),
       maxFeePerGas: value.maxFeePerGas?.toString(),
