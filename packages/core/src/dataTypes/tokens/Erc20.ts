@@ -3,7 +3,7 @@ import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
 import { maybe } from '../utils';
 
-interface Erc20Input {
+export interface Erc20Input {
   decimals: number | string;
   name: string;
   symbol: string;
@@ -55,5 +55,9 @@ export class Erc20Token implements MoralisDataObject {
 
   format() {
     return this.toJSON();
+  }
+
+  get result() {
+    return this._value;
   }
 }
