@@ -1,4 +1,3 @@
-import { getNextParams } from './../../utils/getNextParams';
 import { toCamelCase } from './../../utils/toCamelCase';
 import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog } from '@moralis/core';
 import { operations } from '../../generated/types';
@@ -34,5 +33,4 @@ export const getLogsByAddressResolver = new EvmPaginatedResolver({
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
     address: EvmAddress.create(params.address).lowercase,
   }),
-  getNextParams: (params: Params, result: Omit<ApiResult, 'result'>) => getNextParams(params, result),
 });

@@ -1,6 +1,7 @@
 import core, { RequestController } from '@moralis/core';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
+import { getNextParams } from '../utils/getNextParams';
 
 type Method = 'get' | 'post';
 
@@ -23,7 +24,6 @@ interface EvmPaginatedResolverOptions<ApiParams, Params, ApiResult, AdaptedResul
   apiToResult: (result: ApiResult) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
-  getNextParams: (params: Params, result: ApiResult) => Params;
   method?: Method;
   bodyParams?: readonly (keyof Params)[];
 }
@@ -33,7 +33,6 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
   private apiToResult: (result: ApiResult) => AdaptedResult;
   private resultToJson: (result: AdaptedResult) => JSONResult;
   private parseParams: (params: Params) => ApiParams;
-  private getNextParams: (params: Params, result: ApiResult) => Params;
   private method: Method;
   private bodyParams?: readonly (keyof Params)[];
 
@@ -42,7 +41,6 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
     apiToResult,
     resultToJson,
     parseParams,
-    getNextParams,
     method,
     bodyParams,
   }: EvmPaginatedResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
@@ -50,7 +48,6 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
     this.apiToResult = apiToResult;
     this.resultToJson = resultToJson;
     this.parseParams = parseParams;
-    this.getNextParams = getNextParams;
     this.method = method ?? 'get';
     this.bodyParams = bodyParams;
   }
@@ -108,7 +105,9 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () => this.fetch(this.getNextParams(params,result)));
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () =>
+      this.fetch(getNextParams(params, result)),
+    );
   };
 
   private _apiPost = async (params: Params) => {
@@ -124,10 +123,12 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () => this.fetch(this.getNextParams(params,result)));
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () =>
+      this.fetch(getNextParams(params, result)),
+    );
   };
 
-  fetch = (params: Params): any => {
+  fetch = (params: Params): unknown => {
     return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }
