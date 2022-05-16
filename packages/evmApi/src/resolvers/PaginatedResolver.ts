@@ -5,12 +5,12 @@ import { getNextParams } from '../utils/getNextParams';
 
 type Method = 'get' | 'post';
 
-export interface PaginatedResponse {
+export interface PaginatedResponse<Data> {
   total?: number;
   page?: number;
   page_size?: number;
   cursor?: string;
-  result?: any;
+  result?: Data;
 }
 
 export interface PaginatedOptions {
@@ -106,7 +106,7 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
     });
 
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () =>
-      this.fetch(getNextParams(params, result)),
+      this.fetch(getNextParams<Params, AdaptedResult>(params, result)),
     );
   };
 
@@ -124,11 +124,11 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
     });
 
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () =>
-      this.fetch(getNextParams(params, result)),
+      this.fetch(getNextParams<Params, AdaptedResult>(params, result)),
     );
   };
 
-  fetch = (params: Params): unknown => {
+  fetch = (params: Params): Promise<EvmApiResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult, unknown>> => {
     return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }

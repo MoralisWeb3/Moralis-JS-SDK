@@ -27,7 +27,7 @@ export const getLogsByAddressResolver = new EvmPaginatedResolver({
           blockNumber: Number(log.block_number),
         }),
     ),
-  resultToJson: (data) => data,
+  resultToJson: (data) => data?.map((log) => log.toJSON()),
   parseParams: (params: Params): ApiParams => ({
     ...params,
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,

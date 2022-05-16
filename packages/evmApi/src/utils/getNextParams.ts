@@ -1,6 +1,6 @@
 import { PaginatedOptions, PaginatedResponse } from "../resolvers/PaginatedResolver";
 
-export const getNextParams = <T extends PaginatedOptions>(params: T, data: Partial<PaginatedResponse>) => {
+export const getNextParams = <T extends PaginatedOptions, I>(params: T, data: Partial<PaginatedResponse<I>>) => {
   const nextParams = params;
   if (!data.page_size || !data.total || data.page === undefined) return params;
   if (data.cursor) {

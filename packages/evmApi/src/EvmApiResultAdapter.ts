@@ -40,7 +40,7 @@ export type JSONApiResult<Value extends object = object> =
   | JSONApiResult[];
 
 export class EvmApiResultAdapter<
-  Data extends PaginatedResponse,
+  Data extends PaginatedResponse<AdaptedData>,
   AdaptedData extends unknown,
   JSONData extends unknown,
   Params extends unknown,
@@ -74,7 +74,7 @@ export class EvmApiResultAdapter<
     return this._nextCall;
   }
 
-  get pagination(): Partial<Camelize<PaginatedResponse>> | null {
+  get pagination(): Partial<Camelize<PaginatedResponse<AdaptedData>>> | null {
     return !this._data.page_size || !this._data.total || this._data.page === undefined
       ? null
       : {
