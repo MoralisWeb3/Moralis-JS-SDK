@@ -1,9 +1,8 @@
+import { checkObjEqual } from './../utils/checkObjEqual';
+import { EvmResolver, EvmResolverOptions } from './Resolver';
 import core, { RequestController } from '@moralis/core';
-import { BASE_URL } from '../EvmApi';
-import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 import { getNextParams } from '../utils/getNextParams';
-
-type Method = 'get' | 'post';
+import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
 
 export interface PaginatedResponse<Data> {
   total?: number;
@@ -19,23 +18,13 @@ export interface PaginatedOptions {
   cursor?: string;
 }
 
-interface EvmPaginatedResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
-  getPath: (params: Params) => string;
-  apiToResult: (result: ApiResult) => AdaptedResult;
-  resultToJson: (result: AdaptedResult) => JSONResult;
-  parseParams: (params: Params) => ApiParams;
-  method?: Method;
-  bodyParams?: readonly (keyof Params)[];
-}
-
-export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
-  private getPath: (params: Params) => string;
-  private apiToResult: (result: ApiResult) => AdaptedResult;
-  private resultToJson: (result: AdaptedResult) => JSONResult;
-  private parseParams: (params: Params) => ApiParams;
-  private method: Method;
-  private bodyParams?: readonly (keyof Params)[];
-
+export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> extends EvmResolver<
+  ApiParams,
+  Params,
+  ApiResult,
+  AdaptedResult,
+  JSONResult
+> {
   constructor({
     getPath,
     apiToResult,
@@ -43,55 +32,12 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
     parseParams,
     method,
     bodyParams,
-  }: EvmPaginatedResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
-    this.getPath = getPath;
-    this.apiToResult = apiToResult;
-    this.resultToJson = resultToJson;
-    this.parseParams = parseParams;
-    this.method = method ?? 'get';
-    this.bodyParams = bodyParams;
-  }
-
-  private getUrl = (params: Params) => {
-    return `${BASE_URL}/${this.getPath(params)}`;
-  };
-
-  private isBodyParam = (param: string) => {
-    if (this.method === 'get') {
-      return false;
-    }
-    if (!this.bodyParams || this.bodyParams.length === 0) {
-      return false;
-    }
-    // @ts-ignore TODO: fix the param string cast from keyof
-    return this.bodyParams.includes(param);
-  };
-
-  private getSearchParams(params: ApiParams) {
-    return Object.keys(params).reduce((result, key) => {
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      if (!params[key] || this.isBodyParam(key)) {
-        return result;
-      }
-
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      return { ...result, [key]: params[key] };
-    }, {});
-  }
-
-  private getBodyParams(params: ApiParams) {
-    return Object.keys(params).reduce((result, key) => {
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      if (!params[key] || !this.isBodyParam(key)) {
-        return result;
-      }
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      return { ...result, [key]: params[key] };
-    }, {});
+  }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
+    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams });
   }
 
   // // TODO: error handler to ApiError
-  private _apiGet = async (params: Params) => {
+  _apiGet = async (params: Params) => {
     const url = this.getUrl(params);
 
     const apiParams = this.parseParams(params);
@@ -105,12 +51,15 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () =>
-      this.fetch(getNextParams<Params, AdaptedResult>(params, result)),
+    return new EvmApiPaginatedResultAdapter(
+      result,
+      this.apiToResult,
+      this.resultToJson,
+      this.resolveNextCall(params, result),
     );
   };
 
-  private _apiPost = async (params: Params) => {
+  _apiPost = async (params: Params) => {
     const url = this.getUrl(params);
     const apiParams = this.parseParams(params);
 
@@ -123,12 +72,20 @@ export class EvmPaginatedResolver<ApiParams, Params, ApiResult, AdaptedResult, J
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, () =>
-      this.fetch(getNextParams<Params, AdaptedResult>(params, result)),
+    return new EvmApiPaginatedResultAdapter(
+      result,
+      this.apiToResult,
+      this.resultToJson,
+      this.resolveNextCall(params, result),
     );
   };
 
-  fetch = (params: Params): Promise<EvmApiResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult, unknown>> => {
+  private resolveNextCall = (params: Params, result: Awaited<ApiResult>) => {
+    const nextParams = getNextParams<Params, AdaptedResult>(params, result);
+    return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
+  };
+
+  fetch = (params: Params): Promise<EvmApiPaginatedResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult>> => {
     return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }

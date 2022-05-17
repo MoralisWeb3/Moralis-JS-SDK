@@ -1,7 +1,5 @@
 import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralis/core';
 import { MoralisDataObject } from '@moralis/core';
-import { PaginatedResponse } from './resolvers/PaginatedResolver';
-import { Camelize } from './utils/toCamelCase';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
 enum EvmApiFormatType {
@@ -40,26 +38,22 @@ export type JSONApiResult<Value extends object = object> =
   | JSONApiResult[];
 
 export class EvmApiResultAdapter<
-  Data extends PaginatedResponse<AdaptedData>,
+  Data extends unknown,
   AdaptedData extends unknown,
   JSONData extends unknown,
-  Params extends unknown,
 > {
-  private _data: Data;
-  private _adapter: (data: Data) => AdaptedData;
-  private _jsonAdapter: (data: AdaptedData) => JSONData;
-  private _nextCall?: (params: Params) => unknown;
+  protected _data: Data;
+  protected _adapter: (data: Data) => AdaptedData;
+  protected _jsonAdapter: (data: AdaptedData) => JSONData;
 
   constructor(
     data: Data,
     adapter: (data: Data) => AdaptedData,
     jsonAdapter: (data: AdaptedData) => JSONData,
-    nextCall?: (params: Params) => unknown,
   ) {
     this._data = data;
     this._adapter = adapter;
     this._jsonAdapter = jsonAdapter;
-    this._nextCall = nextCall ?? undefined;
   }
 
   get legacy() {
@@ -68,21 +62,6 @@ export class EvmApiResultAdapter<
 
   get result(): AdaptedData {
     return this._adapter(this._data);
-  }
-
-  get next() {
-    return this._nextCall;
-  }
-
-  get pagination(): Partial<Camelize<PaginatedResponse<AdaptedData>>> | null {
-    return !this._data.page_size || !this._data.total || this._data.page === undefined
-      ? null
-      : {
-          total: this._data.total,
-          page: this._data.page,
-          pageSize: this._data.page_size,
-          cursor: this._data.cursor,
-        };
   }
 
   // TODO:  Cast all to primitive types
