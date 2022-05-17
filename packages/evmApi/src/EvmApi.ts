@@ -2,6 +2,7 @@ import { getPairReservesResolver } from './resolvers/defi';
 import core, { ApiModule } from '@moralis/core';
 import { resolveDomainResolver } from './resolvers/resolve';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
+import { reSyncMetadataResolver } from './resolvers/token';
 import {
   getBlockResolver,
   getDateToBlockResolver,
@@ -31,6 +32,11 @@ export class MoralisEvmApi extends ApiModule {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+    };
+  }
+  get token() {
+    return {
+      reSyncMetadata: reSyncMetadataResolver.fetch,
     };
   }
   get resolve() {
