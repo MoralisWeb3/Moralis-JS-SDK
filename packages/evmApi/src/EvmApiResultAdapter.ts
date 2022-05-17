@@ -38,9 +38,9 @@ export type JSONApiResult<Value extends object = object> =
   | JSONApiResult[];
 
 export class EvmApiResultAdapter<Data extends unknown, AdaptedData extends unknown, JSONData extends unknown> {
-  private _data: Data;
-  private _adapter: (data: Data) => AdaptedData;
-  private _jsonAdapter: (data: AdaptedData) => JSONData;
+  protected _data: Data;
+  protected _adapter: (data: Data) => AdaptedData;
+  protected _jsonAdapter: (data: AdaptedData) => JSONData;
 
   constructor(data: Data, adapter: (data: Data) => AdaptedData, jsonAdapter: (data: AdaptedData) => JSONData) {
     this._data = data;
