@@ -3,6 +3,7 @@ import core, { ApiModule } from '@moralis/core';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveDomainResolver } from './resolvers/resolve';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
+import { reSyncMetadataResolver } from './resolvers/token';
 import {
   getBlockResolver,
   getDateToBlockResolver,
@@ -46,6 +47,7 @@ export class MoralisEvmApi extends ApiModule {
   }
   get token() {
     return {
+      reSyncMetadata: reSyncMetadataResolver.fetch,
       getTokenPrice: getTokenPriceResolver.fetch,
     };
   }
