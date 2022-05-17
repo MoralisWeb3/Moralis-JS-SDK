@@ -41,6 +41,18 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
+          Moralis.EvmApi.resolve
+            .resolveAddress({
+              address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+            })
+            .then(console.log);
+        }}
+      >
+        resolveAddress
+      </button>
+
+      <button
+        onClick={() => {
           Moralis.EvmApi.defi
             .getPairReserves({
               pair_address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
