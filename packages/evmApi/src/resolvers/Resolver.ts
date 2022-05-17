@@ -75,7 +75,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     }, {});
   }
 
-  // // TODO: error handler to ApiError
+  // TODO: error handler to ApiError
   protected _apiGet = async (params: Params) => {
     const url = this.getUrl(params);
 
