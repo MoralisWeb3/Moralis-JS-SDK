@@ -31,7 +31,7 @@ export const getTokenAllowanceResolver = new EvmResolver({
     ...params,
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
     address: EvmAddress.create(params.address).lowercase,
-    owner_address: EvmAddress.create(params.address).lowercase,
-    spender_address: EvmAddress.create(params.address).lowercase,
+    owner_address: EvmAddress.create(params.ownerAddress).lowercase,
+    spender_address: EvmAddress.create(params.spenderAddress).lowercase,
   }),
 });
