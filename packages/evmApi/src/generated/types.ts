@@ -202,6 +202,26 @@ export interface paths {
 
 export interface components {
   schemas: {
+    logCollection: {
+      /**
+       * @description The total number of matches for this query
+       * @example 100
+       */
+      total?: number;
+      /**
+       * @description The page of the current result
+       * @example 1
+       */
+      page?: number;
+      /**
+       * @description The number of results per page
+       * @example 100
+       */
+      page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["logEventByAddress"][];
+    };
     logEventByAddress: {
       /**
        * @description The transaction hash
@@ -614,7 +634,7 @@ export interface components {
        * @description The number of decimals on of the token
        * @example 18
        */
-      decimals: string;
+      decimals: number;
       /**
        * @description Timestamp of when the contract was last synced with the node
        * @example 123456789
@@ -1415,6 +1435,10 @@ export interface operations {
         topic2?: string;
         /** topic3 */
         topic3?: string;
+        /** limit */
+        limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** address */
@@ -1425,7 +1449,7 @@ export interface operations {
       /** Returns the logs of an address */
       200: {
         content: {
-          "application/json": components["schemas"]["logEventByAddress"];
+          "application/json": components["schemas"]["logCollection"];
         };
       };
     };
@@ -1610,6 +1634,8 @@ export interface operations {
         to_date?: string;
         /** offset */
         offset?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: unknown;
         /** limit */
         limit?: number;
       };
@@ -1715,6 +1741,8 @@ export interface operations {
         offset?: number;
         /** limit */
         limit?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
       };
       path: {
         /** address */
@@ -1807,8 +1835,8 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** offset */
-        offset?: number;
+        /** The cursor returned in the last response (for getting the next page) */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
@@ -1881,8 +1909,8 @@ export interface operations {
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
         marketplace?: "opensea";
-        /** offset */
-        offset?: number;
+        /** cursor */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
@@ -2100,8 +2128,10 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
+        /** The addresses to get metadata for */
+        addresses?: string[];
+        /** cursor */
+        cursor?: string;
         /** limit */
         limit?: number;
       };
