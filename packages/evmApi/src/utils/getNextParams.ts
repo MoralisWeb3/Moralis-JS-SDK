@@ -1,10 +1,8 @@
 import { PaginatedOptions, PaginatedResponse } from '../resolvers/PaginatedResolver';
 
-export const getNextParams = <Params extends PaginatedOptions, AdaptedResult>(
-  params: Params,
-  data: Partial<PaginatedResponse<AdaptedResult>>,
-) => {
-  const nextParams = Object.assign({}, params);
+export const getNextParams = <Options extends PaginatedOptions>(params: Options, data: PaginatedResponse<unknown>) => {
+  const nextParams = { ...params };
+
   if (!data.page_size || !data.total || data.page === undefined) return params;
   if (data.cursor) {
     if (data.total > data.page_size * (data.page + 1)) nextParams.cursor = data.cursor;

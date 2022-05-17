@@ -37,11 +37,7 @@ export type JSONApiResult<Value extends object = object> =
     }
   | JSONApiResult[];
 
-export class EvmApiResultAdapter<
-  Data extends unknown,
-  AdaptedData extends unknown,
-  JSONData extends unknown,
-> {
+export class EvmApiResultAdapter<Data extends unknown, AdaptedData extends unknown, JSONData extends unknown> {
   protected _data: Data;
   protected _adapter: (data: Data) => AdaptedData;
   protected _jsonAdapter: (data: AdaptedData) => JSONData;

@@ -1,33 +1,36 @@
 import { ApiErrorCode, MoralisApiError } from '@moralis/core';
 import { EvmApiResultAdapter } from './EvmApiResultAdapter';
 import { PaginatedResponse } from './resolvers/PaginatedResolver';
-import { Camelize } from './utils/toCamelCase';
 
 export class EvmApiPaginatedResultAdapter<
-  Data extends PaginatedResponse<AdaptedData>,
+  Data extends PaginatedResponse<unknown>,
   AdaptedData extends unknown,
   JSONData extends unknown,
 > extends EvmApiResultAdapter<Data, AdaptedData, JSONData> {
-  private _nextCall?: () => Promise<this>;
+  private _nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData>>;
 
   constructor(
     data: Data,
     adapter: (data: Data) => AdaptedData,
     jsonAdapter: (data: AdaptedData) => JSONData,
-    nextCall?: () => any,
+    nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData>>,
   ) {
     super(data, adapter, jsonAdapter);
     this._nextCall = nextCall;
   }
 
-  next() {
-    if (this._nextCall) {
-      return this._nextCall();
+  next = () => {
+    if (!this._nextCall) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.PAGE_LIMIT_EXCEEDED,
+        message: 'Cannot call .next(). Page limit exceeded.',
+      });
     }
-    throw new MoralisApiError({ code: ApiErrorCode.PAGE_LIMIT_ERROR, message: 'page limit exceeded' });
-  }
 
-  get pagination(): Camelize<PaginatedResponse<AdaptedData>> {
+    return this._nextCall();
+  };
+
+  get pagination() {
     return {
       total: this._data.total,
       page: this._data.page,

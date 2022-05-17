@@ -60,7 +60,7 @@ export enum NetworkConnectorErrorCode {
 
 export enum ApiErrorCode {
   GENERIC_API_ERROR = 'A0001',
-  PAGE_LIMIT_ERROR = 'A0002',
+  PAGE_LIMIT_EXCEEDED = 'A0002',
 
   NOT_IMPLEMENTED = 'A9000',
 }
