@@ -20,14 +20,6 @@ export class EvmApiPaginatedResultAdapter<
     this._nextCall = nextCall;
   }
 
-  get legacy() {
-    return this._data;
-  }
-
-  get result(): AdaptedData {
-    return this._adapter(this._data);
-  }
-
   next() {
     if (this._nextCall) {
       return this._nextCall();
