@@ -75,6 +75,18 @@ export const EvmApi = () => {
       >
         reSyncMetadata
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenPrice({
+              address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenPrice
+      </button>
     </div>
   );
 };
