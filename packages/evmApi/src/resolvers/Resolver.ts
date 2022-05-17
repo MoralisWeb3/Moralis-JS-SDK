@@ -4,7 +4,7 @@ import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
 type Method = 'get' | 'post';
 
-interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
+export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
   apiToResult: (result: ApiResult) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
@@ -14,12 +14,12 @@ interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONRe
 }
 
 export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
-  private getPath: (params: Params) => string;
-  private apiToResult: (result: ApiResult) => AdaptedResult;
-  private resultToJson: (result: AdaptedResult) => JSONResult;
-  private parseParams: (params: Params) => ApiParams;
-  private method: Method;
-  private bodyParams?: readonly (keyof Params)[];
+  protected getPath: (params: Params) => string;
+  protected apiToResult: (result: ApiResult) => AdaptedResult;
+  protected resultToJson: (result: AdaptedResult) => JSONResult;
+  protected parseParams: (params: Params) => ApiParams;
+  protected method: Method;
+  protected bodyParams?: readonly (keyof Params)[];
 
   constructor({
     getPath,
@@ -37,11 +37,11 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.bodyParams = bodyParams;
   }
 
-  private getUrl = (params: Params) => {
+  protected getUrl = (params: Params) => {
     return `${BASE_URL}/${this.getPath(params)}`;
   };
 
-  private isBodyParam = (param: string) => {
+  protected isBodyParam = (param: string) => {
     if (this.method === 'get') {
       return false;
     }
@@ -52,7 +52,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     return this.bodyParams.includes(param);
   };
 
-  private getSearchParams(params: ApiParams) {
+  protected getSearchParams(params: ApiParams) {
     return Object.keys(params).reduce((result, key) => {
       // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
       if (!params[key] || this.isBodyParam(key)) {
@@ -64,7 +64,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     }, {});
   }
 
-  private getBodyParams(params: ApiParams) {
+  protected getBodyParams(params: ApiParams) {
     return Object.keys(params).reduce((result, key) => {
       // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
       if (!params[key] || !this.isBodyParam(key)) {
@@ -75,8 +75,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     }, {});
   }
 
-  // // TODO: error handler to ApiError
-  private _apiGet = async (params: Params) => {
+  // TODO: error handler to ApiError
+  protected _apiGet = async (params: Params) => {
     const url = this.getUrl(params);
 
     const apiParams = this.parseParams(params);
@@ -93,7 +93,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
   };
 
-  private _apiPost = async (params: Params) => {
+  protected _apiPost = async (params: Params) => {
     const url = this.getUrl(params);
     const apiParams = this.parseParams(params);
 
