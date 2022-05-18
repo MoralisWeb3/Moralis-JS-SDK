@@ -12,7 +12,8 @@
     "test": "yarn jest",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
-    "format": "prettier . -write",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "lint": "eslint .",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
   },

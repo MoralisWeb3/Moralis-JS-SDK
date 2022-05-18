@@ -15,7 +15,7 @@ export interface Params extends Omit<ApiParams, 'chain'> {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getDateToBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, ApiResult, ApiResult>({
-  getPath: (params: Params) => `dateToBlock`,
+  getPath: () => `dateToBlock`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,
   parseParams: (params) => ({

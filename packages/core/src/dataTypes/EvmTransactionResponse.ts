@@ -89,13 +89,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
     return new EvmTransactionResponse(value, resolveCall);
   }
 
-  static validate(value: EvmTransactionResponseInput) {
-    return true;
-  }
-
   static parse(value: EvmTransactionResponseInput): EvmTransactionResponseData {
-    EvmTransactionResponse.validate(value);
-
     return {
       hash: value.hash,
       nonce: BigNumber.from(value.nonce),
@@ -127,7 +121,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
     return this._value.chain.equals(value._value.chain) && this._value.hash === value._value.hash;
   }
 
-  wait = async (confirmations: number = 1) => {
+  wait = async (confirmations = 1) => {
     if (!this._resolveCall) {
       throw new MoralisCoreError({
         code: CoreErrorCode.METHOD_FAILED,
@@ -143,8 +137,10 @@ export class EvmTransactionResponse implements MoralisDataObject {
       let message = `Failed waiting for transaction confirmation.`;
 
       if (error instanceof Error) {
-        let ethError: any = error;
-        let details: Record<string, unknown> = {};
+        // TODO: better error casting
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const ethError: any = error;
+        const details: Record<string, unknown> = {};
 
         if (ethError.reason) {
           message += ` Reason: ${ethError.reason}`;

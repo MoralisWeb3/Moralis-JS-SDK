@@ -29,6 +29,7 @@ export const getTransactionResolver = new EvmResolver({
           blockHash: log.block_hash,
           blockNumber: +log.block_number,
           data: log.data,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
           transactionHash: log.transaction_hash,
           blockTimestamp: log.block_timestamp,

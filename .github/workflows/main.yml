@@ -4,10 +4,12 @@ on:
     branches:
       - main
       - beta
+      - alpha
   push:
     branches:
       - main
       - beta
+      - alpha
 jobs:
   setup:
     name: Build dependencies
@@ -29,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run install:clean
+        run: yarn install
 
   lint:
     name: Eslint
@@ -51,7 +53,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
       - name: ESLint
-        run: npm run lint:ci
+        run: yarn lint
         continue-on-error: true
       - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@1.2.0
@@ -81,7 +83,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
       - name: Prettier
-        run: npm run format:check
+        run: yarn format:check
 
   test:
     name: Tests
@@ -103,4 +105,4 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
       - name: Jest
-        run: npm run test:ci
+        run: yarn test
