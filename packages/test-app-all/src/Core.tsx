@@ -16,6 +16,7 @@ export const Core1 = () => {
         if(module === 'EmvApi')
           Moralis.Core.modules.remove('emvApi')
         console.log("after removing:",typeof(list))
+      }
         
     const registerModule = (module: string) => {
         if(module === 'Evm')
@@ -26,6 +27,11 @@ export const Core1 = () => {
           Core.registerModules([EvmApi]);
         const list = Moralis.Core.modules.list()
         console.log("after registering:",list)
+      }
+
+      const readConfig = (key: any) => {
+        let key1 = Moralis.Core.config.get(key)
+        console.log("read config:",key1)
       }
 
   return (
@@ -39,6 +45,7 @@ export const Core1 = () => {
     <button onClick={() => registerModule('Evm')}>Register evm module</button>
     <button onClick={() => registerModule('EvmApi')}>Register evmApi module</button>
     <button onClick={() => registerModule('Server')}>Register server module</button>
+    <button onClick={() => readConfig('serverUrl')}>Read config</button>
 
     </div>
   );
