@@ -62,13 +62,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     return new EvmTransactionReceipt(value, EvmTransactionResponse.create(transaction));
   }
 
-  static validate(value: EvmTransactionReceiptInput) {
-    return true;
-  }
-
   static parse(value: EvmTransactionReceiptInput, transaction: EvmTransactionResponse): EvmTransactionReceiptData {
-    EvmTransactionReceipt.validate(value);
-
     return {
       ...value,
       transactionIndex: value.transactionIndex,

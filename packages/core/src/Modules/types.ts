@@ -1,4 +1,4 @@
-import { ApiModule } from '..';
+import { ApiModule } from './ApiModule';
 import { BaseModule } from './BaseModule';
 import { NetworkModule } from './NetworkModule';
 

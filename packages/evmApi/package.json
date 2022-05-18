@@ -9,7 +9,9 @@
   "sideEffects": false,
   "scripts": {
     "format": "prettier . -write",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
     "gen:types": "openapi-typescript https://deep-index.moralis.io/api-docs/v2/swagger.json --output src/generated/types.ts",
