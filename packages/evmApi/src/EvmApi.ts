@@ -10,6 +10,7 @@ import {
   getDateToBlockResolver,
   runContractFunctionResolver,
   getLogsByAddressResolver,
+  getTransactionResolver,
 } from './resolvers/native';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
@@ -27,6 +28,7 @@ export class MoralisEvmApi extends ApiModule {
       runContractFunction: runContractFunctionResolver.fetch,
       getBlock: getBlockResolver.fetch,
       getDateToBlock: getDateToBlockResolver.fetch,
+      getTransaction: getTransactionResolver.fetch,
       getLogsByAddress: getLogsByAddressResolver.fetch,
     };
   }

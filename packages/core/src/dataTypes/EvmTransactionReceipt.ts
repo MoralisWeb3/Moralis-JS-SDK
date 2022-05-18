@@ -70,6 +70,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     EvmTransactionReceipt.validate(value);
 
     return {
+      ...value,
       transactionIndex: value.transactionIndex,
 
       contractAddress: maybe(value.contractAddress, EvmAddress.create),
