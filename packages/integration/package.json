@@ -25,6 +25,7 @@
   "dependencies": {
     "@moralis/core": "^1.0.0",
     "@moralis/server": "^1.0.0",
-    "@moralis/evm": "^1.0.0"
+    "@moralis/evm": "^1.0.0",
+    "@moralis/evm-api": "^1.0.0"
   }
 }

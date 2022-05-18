@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { EvmConnectorEvent } from '@moralis/evm-connector-utils/src/events';
+import { EvmConnectorEvent } from './events';
 import {
   EvmAddress,
   EvmBaseConnectOptions,
