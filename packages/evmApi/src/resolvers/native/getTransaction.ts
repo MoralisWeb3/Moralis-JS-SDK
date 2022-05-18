@@ -1,14 +1,6 @@
 import { Camelize } from './../../utils/toCamelCase';
-import {
-  EvmChainish,
-  EvmChain,
-  EvmTransactionReceipt,
-  EvmTransactionResponse,
-  EvmTransactionLogInput,
-} from '@moralis/core';
+import { EvmChainish, EvmChain, EvmTransactionReceipt } from '@moralis/core';
 import { operations } from '../../generated/types';
-// import { getExtraData } from '../../utils/getExtraData';
-import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getTransaction';
@@ -26,40 +18,52 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 export const getTransactionResolver = new EvmResolver({
   getPath: (params: Params) => `transaction/${params.transactionHash}`,
   apiToResult: (data: ApiResult) => {
-    const transaction = toCamelCase(data);
-    const transactionType = new EvmTransactionResponse({
-      ...transaction,
-      from: transaction.fromAddress,
-      to: transaction.toAddress,
-      // TODO: properly pass chain
-      chain: EvmChain.create(1),
-      data: transaction.hash,
-      blockNumber: Number(transaction.blockNumber),
-      blockTimestamp: Date.parse(transaction.blockTimestamp),
-    });
-    const transactionReciept = new EvmTransactionReceipt(
+    const transactionReciept = EvmTransactionReceipt.create(
       {
-        ...transaction,
-        from: transaction.fromAddress,
-        to: transaction.toAddress,
-        gasUsed: transaction.receiptGasUsed,
-        contractAddress: transaction.receiptContractAddress,
-        cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
-        transactionIndex: Number(transaction.transactionIndex),
-        blockNumber: Number(transaction.blockNumber),
-        logs: transaction.logs.map(
-          (log): EvmTransactionLogInput => ({
-            ...log,
-            topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
-            logIndex: Number(log.logIndex),
-            transactionIndex: Number(log.transactionIndex),
-            blockNumber: Number(log.blockNumber),
-          }),
-        ),
+        // Transaction Receipt data
+        cumulativeGasUsed: data.receipt_cumulative_gas_used,
+        gasPrice: data.gas_price,
+        gasUsed: data.receipt_gas_used,
+        logs: data.logs.map((log) => ({
+          address: log.address,
+          blockHash: log.block_hash,
+          blockNumber: +log.block_number,
+          data: log.data,
+          topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
+          transactionHash: log.transaction_hash,
+          blockTimestamp: log.block_timestamp,
+          logIndex: +log.log_index,
+          transactionIndex: +log.transaction_index,
+        })),
+        transactionIndex: +data.transaction_index,
+        contractAddress: data.receipt_contract_address,
+        root: data.receipt_root,
+        status: +data.receipt_status,
       },
-      transactionType,
+      {
+        // Transaction Response data
+        // TODO: properly pass chain
+        chain: EvmChain.create(1),
+        data: data.input,
+        from: data.from_address,
+        hash: data.hash,
+        nonce: data.nonce,
+        value: data.value,
+        blockHash: data.block_hash,
+        blockNumber: +data.block_number,
+        blockTimestamp: new Date(data.block_timestamp),
+        gasPrice: data.gas_price,
+        gasLimit: data.gas,
+        to: data.to_address,
+        // Not specified in Api response
+        accessList: undefined,
+        confirmations: undefined,
+        maxFeePerGas: undefined,
+        maxPriorityFeePerGas: undefined,
+        type: undefined,
+      },
     );
-    // const extras = getExtraData<EvmTransactionInput, Camelize<ApiResult>>(transactionReciept.result, transaction);
+
     return transactionReciept;
   },
   resultToJson: (data) => data.toJSON(),

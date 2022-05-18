@@ -1,10 +1,11 @@
 import { MoralisDataObject } from './abstract';
 import { EvmAddress, EvmAddressish } from './EvmAddress';
+import { maybe } from './utils';
 
 export interface EvmTransactionLogInput {
-  logIndex: number;
+  logIndex?: number;
   transactionHash: string;
-  transactionIndex: number;
+  transactionIndex?: number;
   address: EvmAddressish;
   data: string;
   topics: string[];
@@ -14,9 +15,9 @@ export interface EvmTransactionLogInput {
 }
 
 export interface EvmTransactionLogData {
-  logIndex: number;
+  logIndex?: number;
   transactionHash: string;
-  transactionIndex: number;
+  transactionIndex?: number;
   address: EvmAddress;
   data: string;
   topics: string[];
@@ -34,9 +35,9 @@ export class EvmTransactionLog implements MoralisDataObject {
 
   static parse(value: EvmTransactionLogInput): EvmTransactionLogData {
     return {
-      logIndex: value.logIndex,
+      logIndex: maybe(value.logIndex),
       transactionHash: value.transactionHash,
-      transactionIndex: value.transactionIndex,
+      transactionIndex: maybe(value.transactionIndex),
       data: value.data,
       topics: value.topics,
       blockHash: value.blockHash,

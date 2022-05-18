@@ -55,9 +55,7 @@ interface EvmTransactionResponseData {
 
   gasLimit?: BigNumber;
   gasPrice?: BigNumber;
-
   data: string;
-
   type?: number;
 
   accessList?: AccessList;
@@ -65,8 +63,6 @@ interface EvmTransactionResponseData {
   maxPriorityFeePerGas?: BigNumber;
   maxFeePerGas?: BigNumber;
 }
-
-// type ResolveEvmTransaction = (confirmations?: number) => EvmTransactionReceipt
 
 export class EvmTransactionResponse implements MoralisDataObject {
   private _value: EvmTransactionResponseData;

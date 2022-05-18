@@ -14,7 +14,6 @@ export interface EvmTransactionInput {
 
   gasLimit?: null | BigNumberish;
   gasPrice?: null | BigNumberish;
-  gas?: null | BigNumberish;
 
   data?: null | BytesLike;
   value?: null | BigNumberish;

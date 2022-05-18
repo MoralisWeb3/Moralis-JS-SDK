@@ -1,0 +1,1 @@
+export { getPairReservesResolver } from './getPairReserves';
