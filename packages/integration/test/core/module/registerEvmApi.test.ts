@@ -10,7 +10,7 @@ describe('Moralis Core', () => {
     expect(listModule).not.toBeUndefined();
     expect(listModule).toEqual(expect.arrayContaining([expect.objectContaining({})]));
     expect(() => Core.registerModules([EvmApi])).toThrowErrorMatchingInlineSnapshot(
-      `"[C0002] The module evm-api has already been registered."`,
+      `"[C0002] The module evmApi has already been registered."`,
     );
   });
 });
