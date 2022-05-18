@@ -30,13 +30,13 @@ export interface EIP1102Request extends RequestArguments {
 
 export interface SimpleEventEmitter {
   // add listener
-  on(event: string, listener: any): void;
+  on(event: string, listener: (args: unknown) => void): void;
   // add one-time listener
-  once(event: string, listener: any): void;
+  once(event: string, listener: (args: unknown) => void): void;
   // remove listener
-  removeListener(event: string, listener: any): void;
+  removeListener(event: string, listener: (args: unknown) => void): void;
   // removeListener alias
-  off(event: string, listener: any): void;
+  off(event: string, listener: (args: unknown) => void): void;
 }
 
 export interface EIP1193Provider extends SimpleEventEmitter {

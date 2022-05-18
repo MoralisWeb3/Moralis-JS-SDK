@@ -35,8 +35,6 @@ export class EvmNative implements MoralisData {
   }
 
   static parse(native: InputEvmNative, unit: UnitOrDecimals) {
-    EvmNative.validate(native);
-
     let decimals: number;
     if (typeof unit === 'number') {
       decimals = unit;
@@ -53,10 +51,6 @@ export class EvmNative implements MoralisData {
     const value = parseUnits(native.toString(), decimals);
 
     return value;
-  }
-
-  static validate(native: InputEvmNative) {
-    return true;
   }
 
   static equals(nativeA: EvmNative, nativeB: EvmNative) {

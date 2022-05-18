@@ -16,6 +16,7 @@ export interface ApiModuleConfig extends BaseModuleConfig {
  * - `core`: the MoralisCore instance
  * - `baseUrl`: the base url where of the api
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ApiModule<Events extends EventMap = any> extends BaseModule<Events> {
   baseUrl: string;
   type: CoreModuleType.API;

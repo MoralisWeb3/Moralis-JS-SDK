@@ -259,9 +259,9 @@ Connectors are modules that allow access to on-chain activities. These are requi
 
 ## Other
 
-| package        | Version | Changelog | Description |
-| -------------- | ------- | --------- | ----------- |
-| @moralis/utils | TODO    | TODO      |             |
+| package | Version | Changelog | Description |
+| ------- | ------- | --------- | ----------- |
+|         | TODO    | TODO      |             |
 
 # 🧙‍♂️ Community
 

@@ -8,8 +8,9 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "format": "prettier . -write",
-    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
     "dev": "tsc --watch"
@@ -21,7 +22,6 @@
   },
   "dependencies": {
     "eventemitter3": "^4.0.7",
-    "@moralis/core": "^1.0.0",
-    "@moralis/utils": "^1.0.0"
+    "@moralis/core": "^1.0.0"
   }
 }
