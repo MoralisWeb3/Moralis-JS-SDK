@@ -6,3 +6,5 @@ dist
 coverage/
 lib.esm
 node_modules
+
+src/generated

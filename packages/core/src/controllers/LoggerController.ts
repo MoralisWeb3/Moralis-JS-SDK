@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import { isMoralisError } from '../Error/isMoralisError';
 import { LogLevel } from '../Config';
 import { MoralisCore } from '../MoralisCore';
 
-type Details = Record<string, any>;
+type Details = Record<string, unknown>;
 
 const logLevelMap: Record<LogLevel, number> = {
   verbose: 5,

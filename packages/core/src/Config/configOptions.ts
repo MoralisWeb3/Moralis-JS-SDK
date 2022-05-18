@@ -34,7 +34,7 @@ const validateServerUrl = (value: string | null, config: ConfigValues, modules: 
   return null;
 };
 
-const validateMoralisSecret = (value: string | null, config: ConfigValues, modules: BaseModule[]) => {
+const validateMoralisSecret = (value: string | null, config: ConfigValues) => {
   if (config.buidEnvironment !== 'node') {
     return 'Can only be set in a node "buildEnvironment" for security reasons.';
   }
@@ -42,7 +42,7 @@ const validateMoralisSecret = (value: string | null, config: ConfigValues, modul
   return null;
 };
 
-const validateMasterKey = (value: string | null, config: ConfigValues, modules: BaseModule[]) => {
+const validateMasterKey = (value: string | null, config: ConfigValues) => {
   if (config.buidEnvironment !== 'node') {
     return 'Can only be set in a node "buildEnvironment" for security reasons.';
   }

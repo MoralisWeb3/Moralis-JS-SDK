@@ -22,6 +22,7 @@ export interface BaseModuleConfig {
  *
  * When creating an api, or network module, you should use the ApiModule or NetworkModule
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class BaseModule<Events extends EventMap = any> {
   name: string;
   type: CoreModuleType;
@@ -40,6 +41,7 @@ export abstract class BaseModule<Events extends EventMap = any> {
    * Start the module (if needed).
    * This function can be used to initialize variables etc.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   start(): void | Promise<void> {}
 
   /**

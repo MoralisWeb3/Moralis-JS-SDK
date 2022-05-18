@@ -41,6 +41,7 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
   newSession?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyConnector = any;
 
 export interface EvmConnectResponse {
