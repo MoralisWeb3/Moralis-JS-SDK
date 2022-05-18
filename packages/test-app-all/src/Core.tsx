@@ -12,11 +12,16 @@ export const Core1 = () => {
           Core.registerModules([Evm]);
         if(module === 'Server')
           Core.registerModules([Server]);
-        if(module === 'EmvApi')
+        if(module === 'EvmApi')
           Core.registerModules([EvmApi]);
         const list = Moralis.Core.modules.list()
         console.log("after registering:",list)
       }
+    
+    const setConfig = (key: any, value: string) => {
+     Moralis.Core.config.set(key, value)
+      console.log("value is set")
+    }
 
   return (
     <div>
@@ -25,6 +30,8 @@ export const Core1 = () => {
     <button onClick={() => registerModule('Evm')}>Register evm module</button>
     <button onClick={() => registerModule('EvmApi')}>Register evmApi module</button>
     <button onClick={() => registerModule('Server')}>Register server module</button>
+
+    <button onClick={() => setConfig('serverUrl', 'https://cq7vjfglnsje.usemoralis.com:2053/server')}>Set config</button>
 
     </div>
   );
