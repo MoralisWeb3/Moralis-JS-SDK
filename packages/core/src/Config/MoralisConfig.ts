@@ -1,5 +1,5 @@
 import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisModules } from '../Modules';
+import { MoralisModules } from '../Modules/MoralisModules';
 import { ConfigOption, ConfigOptions, configOptions, ConfigValues, defaultConfig } from './configOptions';
 
 /**

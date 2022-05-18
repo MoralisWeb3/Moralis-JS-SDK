@@ -74,7 +74,7 @@ describe('EvmAddress', () => {
   });
 
   it('should format in checksum by default if specified in the config', () => {
-    core.config.set('formatAddress', 'checksum');
+    core.config.set('formatEvmAddress', 'checksum');
     const address = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
     const value = address.format();
 

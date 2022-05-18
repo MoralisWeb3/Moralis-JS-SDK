@@ -1,8 +1,8 @@
+import { EventMap } from 'typed-emitter';
 import { CoreModuleType } from './CoreModuleType';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { BaseModule, BaseModuleConfig } from './BaseModule';
 import { EvmConnectResponse } from '../sharedTypes';
-import { EventMap } from 'typed-emitter';
 
 /**
  * Configuration for the creation of any Moralis Api module

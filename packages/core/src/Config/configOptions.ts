@@ -1,4 +1,5 @@
-import { BaseModule, NetworkModule } from '../Modules';
+import { BaseModule } from '../Modules/BaseModule';
+import { NetworkModule } from '../Modules/NetworkModule';
 import { ModuleName } from '../Modules/ModuleName';
 
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'off';
@@ -81,7 +82,7 @@ export const configOptions: {
   // The 'LogLevel', to indicate what kind of logs will be shown in the console
   logLevel: {
     name: 'logLevel',
-    defaultValue: 'verbose',
+    defaultValue: 'info',
   },
   // The build environment where this library is used
   buidEnvironment: {

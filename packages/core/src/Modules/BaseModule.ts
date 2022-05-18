@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
-import { MoralisCore } from '..';
-import { Logger } from '../controllers';
+import { MoralisCore } from '../MoralisCore';
+import { Logger } from '../controllers/LoggerController';
 import { CoreModuleType } from './CoreModuleType';
 import TypedEmitter, { EventMap } from 'typed-emitter';
 
