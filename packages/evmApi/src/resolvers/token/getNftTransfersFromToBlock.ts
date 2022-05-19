@@ -1,3 +1,4 @@
+import { PaginatedOptions } from './../PaginatedResolver';
 import { toCamelCase } from './../../utils/toCamelCase';
 import { EvmChain, EvmChainish, EvmAddress, EvmNative } from '@moralis/core';
 import { operations } from '../../generated/types';
@@ -8,7 +9,7 @@ type operation = 'getNftTransfersFromToBlock';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type ApiParams = QueryParams;
-export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
+export interface Params extends Camelize<Omit<ApiParams, 'chain'>>, PaginatedOptions {
   chain?: EvmChainish;
 }
 
