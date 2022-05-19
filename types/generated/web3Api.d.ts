@@ -766,8 +766,12 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
-      /** @description when the metadata was last updated */
+      /** @description When the metadata was last updated */
       synced_at?: string;
+      /** @description When the token_uri was last updated */
+      last_token_uri_sync?: string;
+      /** @description When the metadata was last updated */
+      last_metadata_sync?: string;
       /**
        * @description The number of this item the user owns (used by ERC1155)
        * @example 1
@@ -804,8 +808,12 @@ export interface components {
       token_uri: string;
       /** @description The metadata of the token */
       metadata: string;
-      /** @description when the metadata was last updated */
+      /** @description When the metadata was last updated */
       synced_at: string;
+      /** @description When the token_uri was last updated */
+      last_token_uri_sync: string;
+      /** @description When the metadata was last updated */
+      last_metadata_sync: string;
     } & {
       token_hash: unknown;
     };
@@ -882,8 +890,12 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
-      /** @description when the metadata was last updated */
+      /** @description When the metadata was last updated */
       synced_at?: string;
+      /** @description When the token_uri was last updated */
+      last_token_uri_sync?: string;
+      /** @description When the metadata was last updated */
+      last_metadata_sync?: string;
       /**
        * @description The number of this item the user owns (used by ERC1155)
        * @example 1
