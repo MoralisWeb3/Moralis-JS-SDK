@@ -12,7 +12,7 @@ export interface PaginatedResponse<Data> {
   result: Data;
 }
 
-export interface PaginatedOptions {
+export interface PaginatedOptions extends Record<string, unknown> {
   offset?: number;
   limit?: number;
   cursor?: string;
@@ -66,7 +66,11 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const result = await RequestController.post<PaginatedResponse<ApiResult>, any, any>(url, searchParams, bodyParams, {
+    const result = await RequestController.post<
+      PaginatedResponse<ApiResult>,
+      Record<string, string>,
+      Record<string, string>
+    >(url, searchParams, bodyParams, {
       headers: {
         'x-api-key': core.config.get('apiKey') ?? undefined,
       },
