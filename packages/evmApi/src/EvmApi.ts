@@ -1,10 +1,8 @@
-import { getTokenPriceResolver } from './resolvers/token';
+import { getTokenAllowanceResolver, getTokenPriceResolver, reSyncMetadataResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getPairReservesResolver } from './resolvers/defi';
-import { resolveDomainResolver } from './resolvers/resolve';
+import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
-import { resolveAddressResolver } from './resolvers/resolve/resolveAddress';
-import { reSyncMetadataResolver, getTokenAllowanceResolver } from './resolvers/token';
 import {
   getBlockResolver,
   getDateToBlockResolver,
@@ -12,6 +10,7 @@ import {
   getLogsByAddressResolver,
   getTransactionResolver,
 } from './resolvers/native';
+import { endpointWeightsResolver } from './resolvers/info';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
@@ -54,6 +53,11 @@ export class MoralisEvmApi extends ApiModule {
       reSyncMetadata: reSyncMetadataResolver.fetch,
       getTokenPrice: getTokenPriceResolver.fetch,
       getTokenAllowance: getTokenAllowanceResolver.fetch,
+    };
+  }
+  get info() {
+    return {
+      endpointWeights: endpointWeightsResolver.fetch,
     };
   }
 }

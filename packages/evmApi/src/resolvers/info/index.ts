@@ -1,0 +1,1 @@
+export { endpointWeightsResolver } from './endpointWeights';
