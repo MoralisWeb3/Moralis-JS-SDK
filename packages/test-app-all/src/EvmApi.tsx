@@ -30,10 +30,10 @@ export const EvmApi = () => {
       </button>
 
       <button
-        onClick={() => {
-          Moralis.EvmApi.resolve.resolveDomain({
+        onClick={ async() => {
+         console.log( await Moralis.EvmApi.resolve.resolveDomain({
             domain: 'brad.crypto',
-          });
+          }), "<== resolved");
         }}
       >
         resolveDomain

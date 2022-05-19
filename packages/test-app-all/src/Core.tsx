@@ -16,6 +16,7 @@ export const Core1 = () => {
         if(module === 'EmvApi')
           Moralis.Core.modules.remove('emvApi')
         console.log("after removing:",typeof(list))
+      }
         
     const registerModule = (module: string) => {
         if(module === 'Evm')
