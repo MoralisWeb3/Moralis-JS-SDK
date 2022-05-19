@@ -1,10 +1,8 @@
-import { getTokenPriceResolver } from './resolvers/token';
+import { getTokenAllowanceResolver, getTokenPriceResolver, reSyncMetadataResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getPairReservesResolver } from './resolvers/defi';
-import { resolveDomainResolver } from './resolvers/resolve';
-import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
-import { resolveAddressResolver } from './resolvers/resolve/resolveAddress';
-import { reSyncMetadataResolver, getTokenAllowanceResolver } from './resolvers/token';
+import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
+import { getTokenBalancesResolver, getNativeBalanceResolver, getTokenTransfersResolver } from './resolvers/account';
 import {
   getBlockResolver,
   getDateToBlockResolver,
@@ -36,6 +34,7 @@ export class MoralisEvmApi extends ApiModule {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+      getTokenTransfers: getTokenTransfersResolver.fetch,
     };
   }
   get resolve() {
