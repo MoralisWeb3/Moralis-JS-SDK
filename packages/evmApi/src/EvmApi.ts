@@ -1,8 +1,8 @@
-import { getNFTTransfersResolver, getTokenAllowanceResolver, getTokenPriceResolver, reSyncMetadataResolver } from './resolvers/token';
+import { getTokenAllowanceResolver, getTokenPriceResolver, reSyncMetadataResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
-import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
+import { getTokenBalancesResolver, getNativeBalanceResolver, getNFTTransfersResolver } from './resolvers/account';
 import {
   getBlockResolver,
   getDateToBlockResolver,
