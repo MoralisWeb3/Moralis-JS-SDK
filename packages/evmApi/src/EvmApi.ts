@@ -1,17 +1,33 @@
-import { getTokenPriceResolver } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
+import {
+  getTokenAllowanceResolver,
+  getTokenPriceResolver,
+  reSyncMetadataResolver,
+  getNFTLowestPriceResolver,
+  getContractNFTTransfersResolver,
+  getWalletTokenIdTransfersResolver,
+  getNFTTradesResolver,
+  getTokenAddressTransfersResolver,
+  getNftTransfersFromToBlockResolver,
+} from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
-import { resolveDomainResolver } from './resolvers/resolve';
-import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
-import { resolveAddressResolver } from './resolvers/resolve/resolveAddress';
-import { reSyncMetadataResolver, getTokenAllowanceResolver } from './resolvers/token';
+import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
+import {
+  getTokenBalancesResolver,
+  getNativeBalanceResolver,
+  getNFTTransfersResolver,
+  getTransactionsResolver,
+  getTokenTransfersResolver,
+} from './resolvers/account';
 import {
   getBlockResolver,
   getDateToBlockResolver,
   runContractFunctionResolver,
   getLogsByAddressResolver,
   getTransactionResolver,
+  getNFTTransfersByBlockResolver,
 } from './resolvers/native';
+import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
@@ -30,12 +46,16 @@ export class MoralisEvmApi extends ApiModule {
       getDateToBlock: getDateToBlockResolver.fetch,
       getTransaction: getTransactionResolver.fetch,
       getLogsByAddress: getLogsByAddressResolver.fetch,
+      getNFTTransfersByBlock: getNFTTransfersByBlockResolver.fetch,
     };
   }
   get account() {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+      getNFTTransfers: getNFTTransfersResolver.fetch,
+      getTokenTransfers: getTokenTransfersResolver.fetch,
+      getTransactions: getTransactionsResolver.fetch,
     };
   }
   get resolve() {
@@ -54,6 +74,18 @@ export class MoralisEvmApi extends ApiModule {
       reSyncMetadata: reSyncMetadataResolver.fetch,
       getTokenPrice: getTokenPriceResolver.fetch,
       getTokenAllowance: getTokenAllowanceResolver.fetch,
+      getContractNFTTransfers: getContractNFTTransfersResolver.fetch,
+      getNftTransfersFromToBlock: getNftTransfersFromToBlockResolver.fetch,
+      getTokenAddressTransfers: getTokenAddressTransfersResolver.fetch,
+      getNFTTrades: getNFTTradesResolver.fetch,
+      getNFTLowestPrice: getNFTLowestPriceResolver.fetch,
+      getWalletTokenIdTransfers: getWalletTokenIdTransfersResolver.fetch,
+    };
+  }
+  get info() {
+    return {
+      web3ApiVersion: web3ApiVersionResolver.fetch,
+      endpointWeights: endpointWeightsResolver.fetch,
     };
   }
 }
