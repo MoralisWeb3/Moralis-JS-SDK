@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.package.json",
   "compilerOptions": {
-    "outDir": "./lib",
-    "rootDir": "./src"
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "isolatedModules": true
   },
-  "include": ["src/**/*", "types/**/*"]
+  "include": ["src/**/*", "test/**/*", "types/**/*"]
 }
