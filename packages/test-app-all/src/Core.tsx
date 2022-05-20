@@ -29,6 +29,11 @@ export const Core1 = () => {
         console.log("after registering:",list)
       }
 
+      const readConfig = (key: any) => {
+        let key1 = Moralis.Core.config.get(key)
+        console.log("read config:",key1)
+      }
+
   return (
     <div>
       <h2>Core</h2>
@@ -40,6 +45,7 @@ export const Core1 = () => {
     <button onClick={() => registerModule('Evm')}>Register evm module</button>
     <button onClick={() => registerModule('EvmApi')}>Register evmApi module</button>
     <button onClick={() => registerModule('Server')}>Register server module</button>
+    <button onClick={() => readConfig('serverUrl')}>Read config</button>
 
     </div>
   );
