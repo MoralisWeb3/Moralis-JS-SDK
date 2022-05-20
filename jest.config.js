@@ -7,17 +7,15 @@ module.exports = {
     '^@moralis/evm-api': '<rootDir>/../evmApi/src',
     '^@moralis/(.*)$': '<rootDir>/../$1/src',
   },
-  // Use esbuild to transpile TypeScript files on the fly.
-  transform: {
-    // TODO: coverage reporting is wrong, fix this OR use ts-jest instead
-    // See: https://github.com/aelbore/esbuild-jest/issues/21
-    // and https://github.com/aelbore/esbuild-jest/issues/59
-    '^.+\\.tsx?$': [
-      'esbuild-jest',
-      {
-        sourcemap: true,
+  preset: 'ts-jest/presets/js-with-ts-esm',
+  globals: {
+    'ts-jest': {
+      useESM: true,
+      diagnostics: {
+        // exclude type checking in tests: https://github.com/kulshekhar/ts-jest/issues/822
+        exclude: ['**'],
       },
-    ],
+    },
   },
   collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
   coverageThreshold: null,
