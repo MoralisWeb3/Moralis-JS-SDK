@@ -37,13 +37,13 @@ export type StateEvent =
 export type State =
   | {
       value: 'Unauthenticated';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Authenticating';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Authenticated';
-      context: StateContext & {};
+      context: StateContext;
     };

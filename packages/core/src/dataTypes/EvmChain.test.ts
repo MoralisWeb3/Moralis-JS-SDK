@@ -96,7 +96,7 @@ describe('EvmChain', () => {
   });
 
   it('should format in decimals by default if specified in the config', () => {
-    core.config.set('formatChainId', 'decimal');
+    core.config.set('formatEvmChainId', 'decimal');
     const chain = EvmChain.create('0x1');
     const value = chain.format();
 

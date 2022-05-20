@@ -1,4 +1,4 @@
-import { EvmChainIdFormat } from '../Config';
+import { EvmChainIdFormat } from '../Config/configOptions';
 import { assertUnreachable } from '../Assert/assertUnreachable';
 import { chainList, EvmChainListDataEntry } from '../data/chaindata';
 import { CoreErrorCode, MoralisCoreError } from '../Error';

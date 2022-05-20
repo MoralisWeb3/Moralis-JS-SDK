@@ -1,5 +1,5 @@
 import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisModules } from '../Modules';
+import { MoralisModules } from '../Modules/MoralisModules';
 import { ConfigOption, ConfigOptions, configOptions, ConfigValues, defaultConfig } from './configOptions';
 
 /**
@@ -39,6 +39,7 @@ export class MoralisConfig {
    * @param config A partial configuration of key-values
    */
   merge(config: Partial<ConfigValues>) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.entries(config).forEach(([key, value]: [any, unknown]) => {
       this.set(key, value);
     });

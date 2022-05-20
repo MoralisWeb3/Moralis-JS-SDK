@@ -16,6 +16,12 @@
       "dependsOn": ["build"],
       "outputs": ["coverage/**"]
     },
+    "format": {
+      "dependsOn": ["build"]
+    },
+    "format:check": {
+      "dependsOn": ["build"]
+    },
     "lint": {
       "dependsOn": ["^build"],
       "outputs": []

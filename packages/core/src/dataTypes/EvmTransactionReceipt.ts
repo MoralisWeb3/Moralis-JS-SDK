@@ -15,7 +15,7 @@ export interface EvmTransactionReceiptInput {
   cumulativeGasUsed: BigNumberish;
   gasPrice: BigNumberish;
 
-  logs: EvmTransactionLogInput[];
+  logs?: EvmTransactionLogInput[];
 
   root?: null | string;
   status?: null | number;
@@ -29,7 +29,7 @@ export interface EvmTransactionReceiptData {
   cumulativeGasUsed: BigNumber;
   gasPrice: BigNumber;
 
-  logs: EvmTransactionLog[];
+  logs?: EvmTransactionLog[];
 
   root?: string;
   status?: number;
@@ -62,14 +62,9 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     return new EvmTransactionReceipt(value, EvmTransactionResponse.create(transaction));
   }
 
-  static validate(value: EvmTransactionReceiptInput) {
-    return true;
-  }
-
   static parse(value: EvmTransactionReceiptInput, transaction: EvmTransactionResponse): EvmTransactionReceiptData {
-    EvmTransactionReceipt.validate(value);
-
     return {
+      ...value,
       transactionIndex: value.transactionIndex,
 
       contractAddress: maybe(value.contractAddress, EvmAddress.create),
@@ -78,7 +73,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
       cumulativeGasUsed: BigNumber.from(value.cumulativeGasUsed),
       gasPrice: BigNumber.from(value.gasPrice),
 
-      logs: value.logs.map((log) => EvmTransactionLog.create(log)),
+      logs: value.logs?.map((log) => EvmTransactionLog.create(log)),
 
       root: maybe(value.root),
       status: maybe(value.status),
@@ -106,7 +101,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
       cumulativeGasUsed: value.cumulativeGasUsed.toString(),
       gasPrice: value.gasPrice.toString(),
 
-      logs: value.logs.map((log) => log.toJSON()),
+      logs: value.logs?.map((log) => log.toJSON()),
 
       transaction: value.transaction.toJSON(),
     };

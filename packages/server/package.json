@@ -8,11 +8,12 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test": "yarn jest",
+    "test": "echo 'not implemented'",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
-    "format": "prettier . -write",
-    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
     "dev": "tsc --watch"
