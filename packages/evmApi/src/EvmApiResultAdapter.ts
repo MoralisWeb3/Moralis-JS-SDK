@@ -42,11 +42,7 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
   protected _adapter: (data: Data) => AdaptedData;
   protected _jsonAdapter: (data: AdaptedData) => JSONData;
 
-  constructor(
-    data: Data,
-    adapter: (data: Data) => AdaptedData,
-    jsonAdapter: (data: AdaptedData) => JSONData,
-  ) {
+  constructor(data: Data, adapter: (data: Data) => AdaptedData, jsonAdapter: (data: AdaptedData) => JSONData) {
     this._data = data;
     this._adapter = adapter;
     this._jsonAdapter = jsonAdapter;
@@ -82,6 +78,9 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
       return this.result;
     }
 
-    throw new MoralisApiError({ code: ApiErrorCode.GENERIC_API_ERROR, message: 'provided formatType not supported' });
+    throw new MoralisApiError({
+      code: ApiErrorCode.GENERIC_API_ERROR,
+      message: 'provided formatType not supported',
+    });
   }
 }
