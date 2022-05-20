@@ -30,10 +30,13 @@ export const EvmApi = () => {
       </button>
 
       <button
-        onClick={() => {
-          Moralis.EvmApi.resolve.resolveDomain({
-            domain: 'brad.crypto',
-          });
+        onClick={async () => {
+          console.log(
+            await Moralis.EvmApi.resolve.resolveDomain({
+              domain: 'brad.crypto',
+            }),
+            '<== resolved',
+          );
         }}
       >
         resolveDomain
@@ -73,6 +76,60 @@ export const EvmApi = () => {
         }}
       >
         getLogsByAddress
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.info.web3ApiVersion({}).then(console.log);
+        }}
+      >
+        web3ApiVersion
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getWalletTokenIdTransfers({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              tokenId: '18',
+            })
+            .then(console.log);
+        }}
+      >
+        getWalletTokenIdTransfers
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getNFTLowestPrice({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              days: 3,
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTLowestPrice
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getNFTTrades({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTTrades
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.info.endpointWeights({}).then(console.log);
+        }}
+      >
+        endpointWeights
       </button>
 
       <button
