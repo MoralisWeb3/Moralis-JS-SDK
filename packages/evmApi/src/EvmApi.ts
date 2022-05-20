@@ -8,14 +8,8 @@ import {
 } from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getPairReservesResolver } from './resolvers/defi';
-import {
-  resolveAddressResolver,
-  resolveDomainResolver,
-} from './resolvers/resolve';
-import {
-  getTokenBalancesResolver,
-  getNativeBalanceResolver,
-} from './resolvers/account';
+import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
+import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';
 import {
   getBlockResolver,
   getDateToBlockResolver,

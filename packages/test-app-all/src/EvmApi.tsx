@@ -121,7 +121,7 @@ export const EvmApi = () => {
             .then(console.log);
         }}
       >
-        getNFTTransfers
+        getNFTTrades
       </button>
     </div>
   );
