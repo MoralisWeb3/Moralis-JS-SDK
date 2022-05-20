@@ -82,6 +82,9 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
       return this.result;
     }
 
-    throw new MoralisApiError({ code: ApiErrorCode.GENERIC_API_ERROR, message: 'provided formatType not supported' });
+    throw new MoralisApiError({
+      code: ApiErrorCode.GENERIC_API_ERROR,
+      message: 'provided formatType not supported',
+    });
   }
 }
