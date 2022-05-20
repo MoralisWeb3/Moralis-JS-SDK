@@ -9,7 +9,8 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test": "yarn jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules yarn jest --runInBand --no-cache --detectOpenHandles --forceExit",
+    "test:old": "yarn jest",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
     "format": "prettier . --write",
@@ -24,8 +25,8 @@
   },
   "dependencies": {
     "@moralis/core": "^1.0.0",
-    "@moralis/server": "^1.0.0",
     "@moralis/evm": "^1.0.0",
-    "@moralis/evm-api": "^1.0.0"
+    "@moralis/evm-api": "^1.0.0",
+    "@moralis/server": "^1.0.0"
   }
 }
