@@ -170,6 +170,19 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
+          Moralis.EvmApi.token
+            .getNftTransfersFromToBlock({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              fromBlock: 1,
+            })
+            .then(console.log);
+        }}
+      >
+        getNftTransfersFromToBlock
+      </button>
+
+      <button
+        onClick={() => {
           Moralis.EvmApi.native
             .getNFTTransfersByBlock({
               blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
