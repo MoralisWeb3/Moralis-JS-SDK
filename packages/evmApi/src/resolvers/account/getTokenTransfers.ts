@@ -3,6 +3,7 @@ import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, Erc20Value } from '@m
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
+import { BigNumber } from 'ethers';
 
 type operation = 'getTokenTransfers';
 
@@ -24,7 +25,7 @@ export const getTokenTransfersResolver = new EvmPaginatedResolver({
       address: EvmAddress.create(transfer.address),
       toAddress: EvmAddress.create(transfer.to_address),
       fromAddress: EvmAddress.create(transfer.from_address),
-      value: Erc20Value.create(transfer.value),
+      value: BigNumber.from(transfer.value),
       blockTimestamp: new Date(transfer.block_timestamp),
     })),
   resultToJson: (data) =>
@@ -33,7 +34,7 @@ export const getTokenTransfersResolver = new EvmPaginatedResolver({
       address: transfer.address.format(),
       toAddress: transfer.toAddress.format(),
       fromAddress: transfer.fromAddress.format(),
-      value: transfer.value.format(),
+      value: transfer.value.toString(),
       blockTimestamp: transfer.blockTimestamp.toLocaleString(),
     })),
   parseParams: (params: Params): ApiParams => ({
