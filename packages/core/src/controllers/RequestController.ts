@@ -82,7 +82,7 @@ export class RequestController {
 
     return new MoralisCoreError({
       code: CoreErrorCode.REQUEST_ERROR,
-      message: `Request failed`,
+      message: `Request failed: ${error.message}`,
       cause: error,
     });
   }
