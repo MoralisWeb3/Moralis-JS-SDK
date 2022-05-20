@@ -30,10 +30,13 @@ export const EvmApi = () => {
       </button>
 
       <button
-        onClick={ async() => {
-         console.log( await Moralis.EvmApi.resolve.resolveDomain({
-            domain: 'brad.crypto',
-          }), "<== resolved");
+        onClick={async () => {
+          console.log(
+            await Moralis.EvmApi.resolve.resolveDomain({
+              domain: 'brad.crypto',
+            }),
+            '<== resolved',
+          );
         }}
       >
         resolveDomain
@@ -77,12 +80,23 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
-          Moralis.EvmApi.info
-            .web3ApiVersion({})
-            .then(console.log);
+          Moralis.EvmApi.info.web3ApiVersion({}).then(console.log);
         }}
       >
         web3ApiVersion
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getWalletTokenIdTransfers({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              tokenId: '18',
+            })
+            .then(console.log);
+        }}
+      >
+        getWalletTokenIdTransfers
       </button>
     </div>
   );
