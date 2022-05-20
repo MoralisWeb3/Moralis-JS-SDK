@@ -13,7 +13,7 @@ module.exports = {
       useESM: true,
       diagnostics: {
         // exclude type checking in tests: https://github.com/kulshekhar/ts-jest/issues/822
-        // exclude: ['**'],
+        exclude: ['**'],
       },
     },
   },

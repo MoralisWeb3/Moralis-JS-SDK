@@ -1,3 +1,9 @@
 {
-  "extends": "../../tsconfig.package.json"
+  "extends": "../../tsconfig.package.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "isolatedModules": true
+  },
+  "include": ["src/**/*", "test/**/*", "types/**/*"]
 }
