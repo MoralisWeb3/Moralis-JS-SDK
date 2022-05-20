@@ -1,10 +1,10 @@
 import { Moralis } from '@moralis/all';
-import Core from '@moralis/core';
+import MoralisCore from '@moralis/core';
 import Server from '@moralis/server';
 import EvmApi from '@moralis/evm-api';
 import Evm from '@moralis/evm';
 
-export const Core1 = () => {
+export const Core = () => {
   const removeModule = (module: string) => {
     if (module === 'Evm') Moralis.Core.modules.remove('evm');
     if (module === 'Server') Moralis.Core.modules.remove('server');
@@ -14,9 +14,9 @@ export const Core1 = () => {
   };
 
   const registerModule = (module: string) => {
-    if (module === 'Evm') Core.registerModules([Evm]);
-    if (module === 'Server') Core.registerModules([Server]);
-    if (module === 'EvmApi') Core.registerModules([EvmApi]);
+    if (module === 'Evm') MoralisCore.registerModules([Evm]);
+    if (module === 'Server') MoralisCore.registerModules([Server]);
+    if (module === 'EvmApi') MoralisCore.registerModules([EvmApi]);
     const list = Moralis.Core.modules.list();
     console.log('after registering:', list);
   };
