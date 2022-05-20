@@ -24,6 +24,7 @@ export const getNFTTradesResolver = new EvmPaginatedResolver({
       sellerAddress: EvmAddress.create(trade.seller_address),
       buyerAddress: EvmAddress.create(trade.buyer_address),
       marketplaceAddress: EvmAddress.create(trade.marketplace_address),
+      tokenAddress: EvmAddress.create(trade.token_address as string),
       price: EvmNative.create(trade.price),
       blockTimestamp: new Date(trade.block_timestamp),
     })),
