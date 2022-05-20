@@ -10,7 +10,12 @@ import {
 } from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
-import { getTokenBalancesResolver, getNativeBalanceResolver, getTransactionsResolver } from './resolvers/account';
+import {
+  getTokenBalancesResolver,
+  getNativeBalanceResolver,
+  getTransactionsResolver,
+  getTokenTransfersResolver,
+} from './resolvers/account';
 import {
   getBlockResolver,
   getDateToBlockResolver,
@@ -43,6 +48,7 @@ export class MoralisEvmApi extends ApiModule {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+      getTokenTransfers: getTokenTransfersResolver.fetch,
       getTransactions: getTransactionsResolver.fetch,
     };
   }
