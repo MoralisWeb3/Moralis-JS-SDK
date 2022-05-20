@@ -23,6 +23,7 @@ export const getNFTLowestPriceResolver = new EvmResolver({
     sellerAddress: EvmAddress.create(data.seller_address),
     buyerAddress: EvmAddress.create(data.buyer_address),
     marketplaceAddress: EvmAddress.create(data.marketplace_address),
+    tokenAddress: EvmAddress.create(data.token_address as string),
     price: EvmNative.create(data.price),
     blockTimestamp: new Date(data.block_timestamp),
   }),
