@@ -27,7 +27,7 @@ describe('BaseModule', () => {
 
   it('should listen to events', (done) => {
     const EVENT = 'TestEvent';
-    const cleanup = instance.listen(EVENT, (value) => {
+    const cleanup = instance.listen(EVENT, (value: string) => {
       expect(value).toBe('success');
       cleanup();
       expect(instance.emitter.listenerCount(EVENT)).toBe(0);
