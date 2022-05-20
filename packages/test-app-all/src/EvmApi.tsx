@@ -131,6 +131,18 @@ export const EvmApi = () => {
       >
         endpointWeights
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenAddressTransfers({
+              address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenAddressTransfers
+      </button>
     </div>
   );
 };
