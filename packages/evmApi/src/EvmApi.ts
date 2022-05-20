@@ -17,7 +17,7 @@ import {
   getLogsByAddressResolver,
   getTransactionResolver,
 } from './resolvers/native';
-import { web3ApiVersionResolver } from './resolvers/info';
+import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
@@ -68,6 +68,7 @@ export class MoralisEvmApi extends ApiModule {
   get info() {
     return {
       web3ApiVersion: web3ApiVersionResolver.fetch,
+      endpointWeights: endpointWeightsResolver.fetch,
     };
   }
 }

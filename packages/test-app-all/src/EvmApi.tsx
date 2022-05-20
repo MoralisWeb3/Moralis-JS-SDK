@@ -123,6 +123,14 @@ export const EvmApi = () => {
       >
         getNFTTrades
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.info.endpointWeights({}).then(console.log);
+        }}
+      >
+        endpointWeights
+      </button>
     </div>
   );
 };
