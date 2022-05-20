@@ -10,7 +10,6 @@ import {
   getLogsByAddressResolver,
   getTransactionResolver,
 } from './resolvers/native';
-import { endpointWeightsResolver } from './resolvers/info';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
@@ -54,11 +53,6 @@ export class MoralisEvmApi extends ApiModule {
       getTokenPrice: getTokenPriceResolver.fetch,
       getTokenAllowance: getTokenAllowanceResolver.fetch,
       getAllTokenIds: getAllTokenIdsResolver.fetch
-    };
-  }
-  get info() {
-    return {
-      endpointWeights: endpointWeightsResolver.fetch,
     };
   }
 }
