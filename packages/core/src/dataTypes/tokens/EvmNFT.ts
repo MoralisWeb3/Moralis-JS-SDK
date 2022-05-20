@@ -16,7 +16,6 @@ interface EvmNFTInput {
   tokenUri: string;
   tokenAddress: EvmAddressish;
   metadata?: string;
-  syncedAt?: string;
 }
 
 interface EvmNFTData {
@@ -25,7 +24,6 @@ interface EvmNFTData {
   tokenUri: string;
   tokenAddress: EvmAddress;
   metadata: EvmNFTMetadata;
-  syncedAt?: Date;
 }
 
 export class EvmNFT implements MoralisDataObject {
@@ -40,7 +38,6 @@ export class EvmNFT implements MoralisDataObject {
     contractType: this.validateType(value.contractType),
     tokenAddress: EvmAddress.create(value.tokenAddress),
     metadata: maybe(value.metadata, EvmNFTMetadata.create),
-    syncedAt: value.syncedAt ? new Date(value.syncedAt) : undefined,
     tokenUri: value.tokenUri,
   });
 
@@ -67,7 +64,6 @@ export class EvmNFT implements MoralisDataObject {
     return {
       ...value,
       tokenAddress: value.tokenAddress.format(),
-      syncedAt: value.syncedAt?.toDateString(),
       metadata: value.metadata?.toJSON(),
     };
   }

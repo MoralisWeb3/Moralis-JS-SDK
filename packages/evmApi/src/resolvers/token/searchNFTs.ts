@@ -21,6 +21,7 @@ export const searchNFTsResolver = new EvmPaginatedResolver({
     data.result?.map((nft) => ({
       // TODO: Explicitly define keys that don't exit in the NFT data type (currently some keys returned by the api are not specifies in swagger docs)
       ...toCamelCase(nft),
+      syncedAt: new Date(nft.synced_at),
       token: new EvmNFT({
         contractType: nft.contract_type,
         syncedAt: nft.synced_at,
@@ -33,6 +34,7 @@ export const searchNFTsResolver = new EvmPaginatedResolver({
   resultToJson: (data) =>
     data?.map((nft) => ({
       ...nft,
+      syncedAt: nft.syncedAt.toLocaleDateString(),
       token: nft.token.toJSON(),
     })),
   parseParams: (params: Params): ApiParams => ({
