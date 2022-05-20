@@ -19,6 +19,7 @@ export const searchNFTsResolver = new EvmPaginatedResolver({
   getPath: () => `nft/search`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((nft) => ({
+      // TODO: Explicitly define keys that don't exit in the NFT data type (currently some keys returned by the api are not specifies in swagger docs)
       ...toCamelCase(nft),
       token: new EvmNFT({
         contractType: nft.contract_type,
