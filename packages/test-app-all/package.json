@@ -18,7 +18,9 @@
     "start": "craco start",
     "dev": "craco start",
     "build": "craco build",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "eslintConfig": {
     "extends": [

@@ -11,7 +11,7 @@ interface BaseOptions {
  * compatible with browser, nodejJs and react-native
  */
 export class RequestController {
-  private static baseRequest<Body extends {}, Response extends unknown>(options?: BaseOptions) {
+  private static baseRequest(options?: BaseOptions) {
     return ky.create({
       headers: options?.headers,
       retry: {
@@ -69,7 +69,7 @@ export class RequestController {
       const httpError = error as HTTPError;
       return new MoralisCoreError({
         code: CoreErrorCode.REQUEST_ERROR,
-        message: `Request failed with status ${httpError.response.status}`,
+        message: `Request failed with status ${httpError.response.status}: ${httpError.message}`,
         cause: error,
         details: {
           status: httpError.response.status,
@@ -82,12 +82,12 @@ export class RequestController {
 
     return new MoralisCoreError({
       code: CoreErrorCode.REQUEST_ERROR,
-      message: `Request failed`,
+      message: `Request failed: ${error.message}`,
       cause: error,
     });
   }
 
-  static async post<Response extends unknown, Params extends Record<string, string>, Body extends {}>(
+  static async post<Response, Params extends Record<string, string>, Body extends Record<string, unknown>>(
     url: string,
     params?: Params,
     body?: Body,
@@ -103,7 +103,7 @@ export class RequestController {
       throw this.makeError(error);
     }
   }
-  static async get<Response extends unknown, Params extends Record<string, string>>(
+  static async get<Response, Params extends Record<string, string>>(
     url: string,
     params?: Params,
     options?: BaseOptions,

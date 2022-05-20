@@ -68,6 +68,7 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
 
     this.subscribeToEvents(provider);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return { provider: this.provider!, chain: this.chain, account: this.account };
   }
 
