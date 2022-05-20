@@ -1,4 +1,9 @@
-import { getTokenAllowanceResolver, getTokenPriceResolver, reSyncMetadataResolver, getAllTokenIdsResolver } from './resolvers/token';
+import {
+  getTokenAllowanceResolver,
+  getTokenPriceResolver,
+  reSyncMetadataResolver,
+  getAllTokenIdsResolver,
+} from './resolvers/token';
 import core, { ApiModule } from '@moralis/core';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
@@ -52,7 +57,7 @@ export class MoralisEvmApi extends ApiModule {
       reSyncMetadata: reSyncMetadataResolver.fetch,
       getTokenPrice: getTokenPriceResolver.fetch,
       getTokenAllowance: getTokenAllowanceResolver.fetch,
-      getAllTokenIds: getAllTokenIdsResolver.fetch
+      getAllTokenIds: getAllTokenIdsResolver.fetch,
     };
   }
 }
