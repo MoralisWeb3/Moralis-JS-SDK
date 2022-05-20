@@ -23,6 +23,7 @@ import {
   runContractFunctionResolver,
   getLogsByAddressResolver,
   getTransactionResolver,
+  getNFTTransfersByBlockResolver,
 } from './resolvers/native';
 import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
 
@@ -43,6 +44,7 @@ export class MoralisEvmApi extends ApiModule {
       getDateToBlock: getDateToBlockResolver.fetch,
       getTransaction: getTransactionResolver.fetch,
       getLogsByAddress: getLogsByAddressResolver.fetch,
+      getNFTTransfersByBlock: getNFTTransfersByBlockResolver.fetch,
     };
   }
   get account() {

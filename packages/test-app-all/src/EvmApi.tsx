@@ -180,6 +180,18 @@ export const EvmApi = () => {
       >
         getNftTransfersFromToBlock
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.native
+            .getNFTTransfersByBlock({
+              blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTTransfersByBlock
+      </button>
     </div>
   );
 };
