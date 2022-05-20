@@ -134,6 +134,18 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenAddressTransfers({
+              address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenAddressTransfers
+      </button>
+
+      <button
+        onClick={() => {
           Moralis.EvmApi.account
             .getTransactions({
               address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
