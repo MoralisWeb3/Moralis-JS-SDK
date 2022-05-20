@@ -204,6 +204,18 @@ export const EvmApi = () => {
       >
         getContractNFTTransfers
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getNFTTransfers({
+              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTTransfers
+      </button>
     </div>
   );
 };

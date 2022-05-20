@@ -15,6 +15,7 @@ import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resol
 import {
   getTokenBalancesResolver,
   getNativeBalanceResolver,
+  getNFTTransfersResolver,
   getTransactionsResolver,
   getTokenTransfersResolver,
 } from './resolvers/account';
@@ -52,6 +53,7 @@ export class MoralisEvmApi extends ApiModule {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+      getNFTTransfers: getNFTTransfersResolver.fetch,
       getTokenTransfers: getTokenTransfersResolver.fetch,
       getTransactions: getTransactionsResolver.fetch,
     };
