@@ -69,7 +69,7 @@ export class RequestController {
       const httpError = error as HTTPError;
       return new MoralisCoreError({
         code: CoreErrorCode.REQUEST_ERROR,
-        message: `Request failed with status ${httpError.response.status}`,
+        message: `Request failed with status ${httpError.response.status}: ${httpError.message}`,
         cause: error,
         details: {
           status: httpError.response.status,
@@ -82,7 +82,7 @@ export class RequestController {
 
     return new MoralisCoreError({
       code: CoreErrorCode.REQUEST_ERROR,
-      message: `Request failed`,
+      message: `Request failed: ${error.message}`,
       cause: error,
     });
   }
