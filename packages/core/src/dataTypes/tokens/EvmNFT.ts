@@ -1,6 +1,5 @@
-import { MoralisDataObject } from '../abstract';
+import { MoralisDataObject, MoralisDataObjectValue } from '../abstract';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
-import { EvmNFTMetadata } from '.';
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
 import { maybe } from '../utils';
 
@@ -13,19 +12,21 @@ export enum ContractType {
 interface EvmNFTInput {
   tokenId: number | string;
   contractType: string;
-  tokenUri: string;
+  tokenUri?: string;
   tokenAddress: EvmAddressish;
   metadata?: string;
-  syncedAt?: string;
+  name: string;
+  symbol: string;
 }
 
 interface EvmNFTData {
   tokenId: number | string;
   contractType: ContractType;
-  tokenUri: string;
+  tokenUri?: string;
   tokenAddress: EvmAddress;
-  metadata: EvmNFTMetadata;
-  syncedAt?: Date;
+  metadata: MoralisDataObjectValue;
+  name: string;
+  symbol: string;
 }
 
 export class EvmNFT implements MoralisDataObject {
@@ -36,12 +37,11 @@ export class EvmNFT implements MoralisDataObject {
   }
 
   static parse = (value: EvmNFTInput): EvmNFTData => ({
-    tokenId: value.tokenId,
+    ...value,
     contractType: this.validateType(value.contractType),
     tokenAddress: EvmAddress.create(value.tokenAddress),
-    metadata: maybe(value.metadata, EvmNFTMetadata.create),
-    syncedAt: value.syncedAt ? new Date(value.syncedAt) : undefined,
-    tokenUri: value.tokenUri,
+    metadata: maybe(value.metadata, JSON.parse),
+    tokenUri: maybe(value.tokenUri),
   });
 
   static validateType(value: string) {
@@ -59,7 +59,7 @@ export class EvmNFT implements MoralisDataObject {
   }
 
   equals(value: this): boolean {
-    return value._value.tokenUri === this._value.tokenUri && value._value.metadata?.equals(this._value.metadata);
+    return value._value.tokenUri === this._value.tokenUri;
   }
 
   toJSON() {
@@ -67,8 +67,6 @@ export class EvmNFT implements MoralisDataObject {
     return {
       ...value,
       tokenAddress: value.tokenAddress.format(),
-      syncedAt: value.syncedAt?.toDateString(),
-      metadata: value.metadata?.toJSON(),
     };
   }
 

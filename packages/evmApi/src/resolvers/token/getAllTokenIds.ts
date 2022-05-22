@@ -1,4 +1,3 @@
-import { toCamelCase } from './../../utils/toCamelCase';
 import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralis/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
@@ -20,15 +19,22 @@ export const getAllTokenIdsResolver = new EvmPaginatedResolver({
   getPath: (params: Params) => `nft/${params.address}`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((nft) => ({
-      ...toCamelCase(nft),
       token: new EvmNFT({
         contractType: nft.contract_type,
-        syncedAt: nft.synced_at,
         tokenAddress: nft.token_address,
         tokenId: nft.token_id,
-        tokenUri: nft.token_uri ?? '',
+        tokenUri: nft.token_uri,
         metadata: nft.metadata,
+        name: nft.name,
+        symbol: nft.symbol,
       }),
+      syncedAt: nft.synced_at ? new Date(nft.synced_at) : undefined,
+      amount: nft.amount,
+      // TODO: below are data returned that are not present in swagger docs so no type definition (report to api squad)
+      // tokenHash: nft.token_hash
+      // blockNumberMinted: nft.
+      // lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
+      // lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
     })),
   resultToJson: (data) =>
     data?.map((nft) => ({
