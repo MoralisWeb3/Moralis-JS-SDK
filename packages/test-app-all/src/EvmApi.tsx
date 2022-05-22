@@ -221,8 +221,10 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.token
             .getTokenMetadata({
-              chain: 'rinkeby',
-              addresses: ['0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5'],
+              chain: 'eth',
+              addresses: [
+                "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+              ],
             })
             .then(console.log);
         }}
