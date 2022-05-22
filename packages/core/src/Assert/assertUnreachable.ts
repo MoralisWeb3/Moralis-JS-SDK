@@ -13,6 +13,7 @@ export const UnreachableError = new MoralisCoreError({
  *
  * If the code does reach this assertion an UnreachableError is thrown
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const assertUnreachable = (x: never): never => {
   throw UnreachableError;
 };

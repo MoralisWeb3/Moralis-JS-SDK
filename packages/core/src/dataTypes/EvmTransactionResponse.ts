@@ -24,7 +24,7 @@ export interface EvmTransactionResponseInput {
   blockHash?: null | string;
   blockTimestamp?: null | number | Date;
 
-  gasLimit: BigNumberish;
+  gasLimit?: BigNumberish;
   gasPrice?: null | BigNumberish;
 
   data: string;
@@ -53,11 +53,9 @@ interface EvmTransactionResponseData {
   blockHash?: string;
   blockTimestamp?: Date;
 
-  gasLimit: BigNumber;
+  gasLimit?: BigNumber;
   gasPrice?: BigNumber;
-
   data: string;
-
   type?: number;
 
   accessList?: AccessList;
@@ -65,8 +63,6 @@ interface EvmTransactionResponseData {
   maxPriorityFeePerGas?: BigNumber;
   maxFeePerGas?: BigNumber;
 }
-
-// type ResolveEvmTransaction = (confirmations?: number) => EvmTransactionReceipt
 
 export class EvmTransactionResponse implements MoralisDataObject {
   private _value: EvmTransactionResponseData;
@@ -93,13 +89,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
     return new EvmTransactionResponse(value, resolveCall);
   }
 
-  static validate(value: EvmTransactionResponseInput) {
-    return true;
-  }
-
   static parse(value: EvmTransactionResponseInput): EvmTransactionResponseData {
-    EvmTransactionResponse.validate(value);
-
     return {
       hash: value.hash,
       nonce: BigNumber.from(value.nonce),
@@ -114,15 +104,15 @@ export class EvmTransactionResponse implements MoralisDataObject {
       blockHash: maybe(value.blockHash),
       blockTimestamp: maybe(value.blockTimestamp, (value) => (value instanceof Date ? value : new Date(value))),
 
-      gasLimit: BigNumber.from(value.gasLimit),
-      gasPrice: maybe(BigNumber.from(value.gasPrice)),
+      gasLimit: maybe(value.gasLimit, BigNumber.from),
+      gasPrice: maybe(value.gasPrice, BigNumber.from),
 
       data: maybe(value.data),
 
       type: maybe(value.type),
 
-      maxPriorityFeePerGas: maybe(BigNumber.from(value.maxPriorityFeePerGas)),
-      maxFeePerGas: maybe(BigNumber.from(value.maxFeePerGas)),
+      maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.from),
+      maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.from),
     };
   }
 
@@ -131,7 +121,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
     return this._value.chain.equals(value._value.chain) && this._value.hash === value._value.hash;
   }
 
-  wait = async (confirmations: number = 1) => {
+  wait = async (confirmations = 1) => {
     if (!this._resolveCall) {
       throw new MoralisCoreError({
         code: CoreErrorCode.METHOD_FAILED,
@@ -147,8 +137,10 @@ export class EvmTransactionResponse implements MoralisDataObject {
       let message = `Failed waiting for transaction confirmation.`;
 
       if (error instanceof Error) {
-        let ethError: any = error;
-        let details: Record<string, unknown> = {};
+        // TODO: better error casting
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const ethError: any = error;
+        const details: Record<string, unknown> = {};
 
         if (ethError.reason) {
           message += ` Reason: ${ethError.reason}`;
@@ -188,7 +180,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
       from: value.from.format(),
       to: value.from?.format(),
       value: value.value.toString(),
-      gasLimit: value.gasLimit.toString(),
+      gasLimit: value.gasLimit?.toString() ?? null,
       gasPrice: value.gasPrice?.toString() ?? null,
       maxPriorityFeePerGas: value.maxPriorityFeePerGas?.toString(),
       maxFeePerGas: value.maxFeePerGas?.toString(),

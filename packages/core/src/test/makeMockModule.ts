@@ -1,5 +1,5 @@
 import { MoralisCore } from '../MoralisCore';
-import { BaseModule } from '../Modules';
+import { BaseModule } from '../Modules/BaseModule';
 
 export const makeMockModule = (core: MoralisCore): BaseModule => {
   const name = 'mockModule';
