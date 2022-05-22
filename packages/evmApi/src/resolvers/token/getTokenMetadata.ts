@@ -1,6 +1,5 @@
-import { Erc20Input, Erc20Token, EvmChain, EvmChainish, EvmAddressish, EvmAddress } from '@moralis/core';
+import { Erc20Token, EvmChain, EvmChainish, EvmAddressish, EvmAddress } from '@moralis/core';
 import { operations } from '../../generated/types';
-import { getExtraData } from '../../utils/getExtraData';
 import { Camelize, toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -26,10 +25,10 @@ export const getTokenMetadataResolver = new EvmResolver({
         // TODO: add chain info (or omit it from Erc20Token type),
         chain: 1,
       });
-      const extras = getExtraData<Erc20Input, Camelize<ApiResult[0]>>(tokenType.result, toCamelCase(token));
       return {
-        ...extras,
         token: tokenType,
+        blockNumber: token.block_number,
+        validated: token.validated,
         // address: extras.address,
       };
     }),
