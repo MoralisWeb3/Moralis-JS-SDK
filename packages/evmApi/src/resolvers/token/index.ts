@@ -8,3 +8,7 @@ export { getTokenAddressTransfersResolver } from './getTokenAddressTransfers';
 export { getNFTTradesResolver } from './getNFTTrades';
 export { getNFTLowestPriceResolver } from './getNFTLowestPrice';
 export { getWalletTokenIdTransfersResolver } from './getWalletTokenIdTransfers';
+export { searchNFTsResolver } from './searchNFTs';
+export { getNFTOwnersResolver } from './getNFTOwners';
+export { getTokenIdOwnersResolver } from './getTokenIdOwners';
+export { getTokenIdMetadataResolver } from './getTokenIdMetadata';

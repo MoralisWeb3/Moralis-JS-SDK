@@ -14,9 +14,10 @@ interface EvmNFTInput {
   contractType: string;
   tokenUri?: string;
   tokenAddress: EvmAddressish;
+  tokenHash?: string;
   metadata?: string;
-  name: string;
-  symbol: string;
+  name?: string;
+  symbol?: string;
 }
 
 interface EvmNFTData {
@@ -24,9 +25,10 @@ interface EvmNFTData {
   contractType: ContractType;
   tokenUri?: string;
   tokenAddress: EvmAddress;
+  tokenHash?: string;
   metadata: MoralisDataObjectValue;
-  name: string;
-  symbol: string;
+  name?: string;
+  symbol?: string;
 }
 
 export class EvmNFT implements MoralisDataObject {
@@ -42,6 +44,9 @@ export class EvmNFT implements MoralisDataObject {
     tokenAddress: EvmAddress.create(value.tokenAddress),
     metadata: maybe(value.metadata, JSON.parse),
     tokenUri: maybe(value.tokenUri),
+    tokenHash: maybe(value.tokenHash),
+    name: maybe(value.name),
+    symbol: maybe(value.symbol),
   });
 
   static validateType(value: string) {

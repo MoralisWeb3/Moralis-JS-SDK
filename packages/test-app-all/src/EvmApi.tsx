@@ -228,6 +228,72 @@ export const EvmApi = () => {
       >
         getAllTokenIds
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .searchNFTs({
+              q: 'Pancake',
+            })
+            .then(console.log);
+        }}
+      >
+        searchNFTs
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getNFTs({
+              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTs
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getNFTOwners({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              format: 'decimal'
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTOwners
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenIdOwners({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              format: 'decimal',
+              tokenId: '1'
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenIdOwners
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenIdMetadata({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              format: 'decimal',
+              tokenId: '1'
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenIdMetadata
+      </button>
+
     </div>
   );
 };
