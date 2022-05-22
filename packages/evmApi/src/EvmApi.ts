@@ -77,17 +77,13 @@ export class MoralisEvmApi extends ApiModule {
       getNFTTrades: getNFTTradesResolver.fetch,
       getNFTLowestPrice: getNFTLowestPriceResolver.fetch,
       getWalletTokenIdTransfers: getWalletTokenIdTransfersResolver.fetch,
+      getTokenMetadataBySymbol: getTokenMetadataBySymbolResolver.fetch,
     };
   }
   get info() {
     return {
       web3ApiVersion: web3ApiVersionResolver.fetch,
       endpointWeights: endpointWeightsResolver.fetch,
-    };
-  }
-  get token() {
-    return {
-      getTokenMetadataBySymbol: getTokenMetadataBySymbolResolver.fetch,
     };
   }
 }

@@ -6,3 +6,4 @@ export { getTokenAddressTransfersResolver } from './getTokenAddressTransfers';
 export { getNFTTradesResolver } from './getNFTTrades';
 export { getNFTLowestPriceResolver } from './getNFTLowestPrice';
 export { getWalletTokenIdTransfersResolver } from './getWalletTokenIdTransfers';
+export { getTokenMetadataBySymbolResolver } from './getTokenMetadataBySymbol';
