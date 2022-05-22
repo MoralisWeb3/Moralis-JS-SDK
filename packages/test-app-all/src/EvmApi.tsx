@@ -294,6 +294,21 @@ export const EvmApi = () => {
         getTokenIdMetadata
       </button>
 
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getNFTsForContract({
+              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+              format: 'decimal',
+              chain: 'polygon',
+              tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963'
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTsForContract
+      </button>
+
     </div>
   );
 };

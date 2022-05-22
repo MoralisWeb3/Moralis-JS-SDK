@@ -24,6 +24,7 @@ import {
   getTransactionsResolver,
   getTokenTransfersResolver,
   getNFTsResolver,
+  getNFTsForContractResolver,
 } from './resolvers/account';
 import {
   getBlockResolver,
@@ -63,6 +64,7 @@ export class MoralisEvmApi extends ApiModule {
       getTokenTransfers: getTokenTransfersResolver.fetch,
       getTransactions: getTransactionsResolver.fetch,
       getNFTs: getNFTsResolver.fetch,
+      getNFTsForContract: getNFTsForContractResolver.fetch,
     };
   }
   get resolve() {
