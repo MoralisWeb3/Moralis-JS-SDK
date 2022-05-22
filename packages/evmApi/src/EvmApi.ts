@@ -7,6 +7,7 @@ import {
   getWalletTokenIdTransfersResolver,
   getNFTTradesResolver,
   getTokenAddressTransfersResolver,
+  getNFTMetadataResolver,
 } from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
@@ -72,6 +73,7 @@ export class MoralisEvmApi extends ApiModule {
       getNFTTrades: getNFTTradesResolver.fetch,
       getNFTLowestPrice: getNFTLowestPriceResolver.fetch,
       getWalletTokenIdTransfers: getWalletTokenIdTransfersResolver.fetch,
+      getNFTMetadata: getNFTMetadataResolver.fetch,
     };
   }
   get info() {
