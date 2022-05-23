@@ -3,6 +3,10 @@ import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
 type Method = 'get' | 'post';
+export enum BodyType {
+  PROPERTY = 'property',
+  BODY = 'set body',
+}
 
 export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
@@ -11,6 +15,7 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
   parseParams: (params: Params) => ApiParams;
   method?: Method;
   bodyParams?: readonly (keyof Params)[];
+  bodyType?: BodyType;
 }
 
 export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
@@ -20,6 +25,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
   protected bodyParams?: readonly (keyof Params)[];
+  protected bodyType?: BodyType;
 
   constructor({
     getPath,
@@ -28,6 +34,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     parseParams,
     method,
     bodyParams,
+    bodyType,
   }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
     this.getPath = getPath;
     this.apiToResult = apiToResult;
@@ -35,6 +42,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.parseParams = parseParams;
     this.method = method ?? 'get';
     this.bodyParams = bodyParams;
+    this.bodyType = bodyType ?? BodyType.PROPERTY;
   }
 
   protected getUrl = (params: Params) => {
@@ -70,8 +78,13 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       if (!params[key] || !this.isBodyParam(key)) {
         return result;
       }
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      return { ...result, [key]: params[key] };
+      if (this.bodyType === BodyType.PROPERTY) {
+        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+        return { ...result, [key]: params[key] };
+      } else {
+        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+        return params[key];
+      }
     }, {});
   }
 
