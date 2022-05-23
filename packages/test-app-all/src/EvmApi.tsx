@@ -216,6 +216,19 @@ export const EvmApi = () => {
       >
         getNFTTransfers
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.native
+            .getDateToBlock({
+              date: "2021-09-29T13:09:15+00:00"
+            })
+            .then(console.log);
+        }}
+      >
+        getDateToBlock
+      </button>
+
     </div>
   );
 };
