@@ -3,7 +3,6 @@ import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
 import { maybe } from '../utils';
 
-// export type ContractType = 'ERC721' | 'ERC1155';
 export enum ContractType {
   ERC721 = 'ERC721',
   ERC1155 = 'ERC1155',
@@ -42,14 +41,14 @@ export class EvmNFT implements MoralisDataObject {
     ...value,
     contractType: this.validateType(value.contractType),
     tokenAddress: EvmAddress.create(value.tokenAddress),
-    metadata: maybe(value.metadata, JSON.parse),
+    metadata: maybe(value.metadata, this.validateMetadata),
     tokenUri: maybe(value.tokenUri),
     tokenHash: maybe(value.tokenHash),
     name: maybe(value.name),
     symbol: maybe(value.symbol),
   });
 
-  static validateType(value: string) {
+  private static validateType(value: string) {
     switch (value.toUpperCase()) {
       case ContractType.ERC1155:
         return ContractType.ERC1155;
@@ -62,6 +61,17 @@ export class EvmNFT implements MoralisDataObject {
         });
     }
   }
+
+  private static validateMetadata = (value: string): MoralisDataObjectValue => {
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      throw new MoralisCoreError({
+        code: CoreErrorCode.INVALID_ARGUMENT,
+        message: 'Invalid metadata provided, cannot parse the value to JSON',
+      });
+    }
+  };
 
   equals(value: this): boolean {
     return value._value.tokenUri === this._value.tokenUri;
