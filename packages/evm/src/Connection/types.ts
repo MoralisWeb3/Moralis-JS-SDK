@@ -31,11 +31,11 @@ export type StateEvent = InitEvent | ConnectEvent | ConnectSuccessEvent | Connec
 export type State =
   | {
       value: 'Disconnected';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Connecting';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Connected';

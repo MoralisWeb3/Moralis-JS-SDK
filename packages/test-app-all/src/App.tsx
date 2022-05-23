@@ -2,6 +2,7 @@ import Moralis from '@moralis/all';
 import { Evm } from './Evm';
 import { Server } from './Server';
 import { EvmApi } from './EvmApi';
+import { Core } from './Core';
 
 // @ts-ignore
 window.Moralis = Moralis;
@@ -22,6 +23,8 @@ function App() {
       <Server />
       <hr />
       <EvmApi />
+      <hr />
+      <Core />
       <hr />
     </div>
   );

@@ -35,12 +35,16 @@ export class MoralisState<
   }
 
   private assertStarted() {
-    if (!this.isStarted) {
+    const value = this._value;
+
+    if (!value || !this.isStarted) {
       throw new MoralisCoreError({
         code: CoreErrorCode.STATE_MACHINE_NOT_STARTED,
         message: `State machine "${this.name}" not started. Call moralisState.start() first.`,
       });
     }
+
+    return value;
   }
 
   start(_config: StateMachine.Config<StateContext, StateEvent, State>) {
@@ -68,18 +72,18 @@ export class MoralisState<
   }
 
   get state() {
-    this.assertStarted();
-    return this._value!.service.state;
+    const value = this.assertStarted();
+    return value.service.state;
   }
 
   get machine() {
-    this.assertStarted();
-    return this._value!.machine;
+    const value = this.assertStarted();
+    return value.machine;
   }
 
   get service() {
-    this.assertStarted();
-    return this._value!.service;
+    const value = this.assertStarted();
+    return value.service;
   }
 
   match(value: State['value']) {
@@ -104,7 +108,7 @@ export class MoralisState<
   }
 
   transition(event: StateEvent) {
-    this.assertStarted();
-    return this._value!.service.send(event);
+    const value = this.assertStarted();
+    return value.service.send(event);
   }
 }

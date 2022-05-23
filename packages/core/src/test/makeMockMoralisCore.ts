@@ -5,9 +5,7 @@ export const makeMockMoralisCore = (): MoralisCore => {
   const core = new MoralisCore();
   const mockModule = makeMockModule(core);
 
-  core.registerModules({
-    modules: [mockModule],
-  });
+  core.registerModules([mockModule]);
 
   return core;
 };

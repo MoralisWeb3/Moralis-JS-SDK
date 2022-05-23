@@ -1,5 +1,6 @@
 import { BaseModule } from './Modules/BaseModule';
-import { MoralisConfig, ConfigValues } from './Config';
+import { ConfigValues } from './Config/configOptions';
+import { MoralisConfig } from './Config/MoralisConfig';
 import { MoralisModules } from './Modules/MoralisModules';
 import { Logger } from './controllers/LoggerController';
 

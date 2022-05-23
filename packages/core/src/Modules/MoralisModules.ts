@@ -3,7 +3,7 @@ import { NetworkModule } from './NetworkModule';
 import { isApiModule, isNetworkModule } from './utils';
 import { AnyBaseClass } from './types';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { ApiModule } from '..';
+import { ApiModule } from './ApiModule';
 
 /**
  * MoralisModues handles all registered modules.

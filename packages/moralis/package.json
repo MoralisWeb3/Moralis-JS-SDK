@@ -8,15 +8,15 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "format": "prettier . -write",
-    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
     "dev": "tsc --watch"
   },
   "dependencies": {
     "@moralis/core": "^1.0.0",
-    "@moralis/utils": "^1.0.0",
     "@moralis/server": "^1.0.0",
     "@moralis/evm-api": "^1.0.0",
     "@moralis/evm": "^1.0.0"

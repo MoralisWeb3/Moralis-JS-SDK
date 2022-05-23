@@ -78,9 +78,11 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
     this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
     this.chain = new EvmChain(provider.chainId);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.subscribeToEvents(this.provider!);
 
     return {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       provider: this.provider!,
       chain: this.chain,
       account: this.account,
