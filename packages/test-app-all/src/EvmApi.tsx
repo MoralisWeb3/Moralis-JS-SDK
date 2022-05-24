@@ -258,7 +258,7 @@ export const EvmApi = () => {
           Moralis.EvmApi.token
             .getNFTOwners({
               address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
-              format: 'decimal'
+              format: 'decimal',
             })
             .then(console.log);
         }}
@@ -272,7 +272,7 @@ export const EvmApi = () => {
             .getTokenIdOwners({
               address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
               format: 'decimal',
-              tokenId: '1'
+              tokenId: '1',
             })
             .then(console.log);
         }}
@@ -286,7 +286,7 @@ export const EvmApi = () => {
             .getTokenIdMetadata({
               address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
               format: 'decimal',
-              tokenId: '1'
+              tokenId: '1',
             })
             .then(console.log);
         }}
@@ -301,7 +301,7 @@ export const EvmApi = () => {
               address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
               format: 'decimal',
               chain: 'polygon',
-              tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963'
+              tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
             })
             .then(console.log);
         }}
@@ -309,6 +309,18 @@ export const EvmApi = () => {
         getNFTsForContract
       </button>
 
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .reSyncMetadata({
+              address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
+              tokenId: '18',
+            })
+            .then(console.log);
+        }}
+      >
+        reSyncMetadata
+      </button>
     </div>
   );
 };
