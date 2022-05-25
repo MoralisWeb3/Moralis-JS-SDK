@@ -1,4 +1,4 @@
-import { MoralisNetworkError, NetworkErrorCode } from '@moralis/core';
+import { MoralisNetworkError, NetworkErrorCode } from '@moralisweb3/core';
 import { ethers } from 'ethers';
 
 const isValidProvider = (provider: unknown): provider is ethers.providers.JsonRpcSigner => {

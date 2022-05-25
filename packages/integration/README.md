@@ -1,1 +1,1 @@
-# @moralis/utils
+# @moralisweb3/utils

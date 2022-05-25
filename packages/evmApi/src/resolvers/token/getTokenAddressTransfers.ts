@@ -1,5 +1,5 @@
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, Erc20Value } from '@moralis/core';
+import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, Erc20Value } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
