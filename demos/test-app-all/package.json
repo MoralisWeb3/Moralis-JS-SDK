@@ -1,5 +1,5 @@
 {
-  "name": "@testalis/test-app-all",
+  "name": "@morlaisweb3/test-app-all",
   "version": "2.0.0-alpha.0",
   "private": true,
   "dependencies": {
@@ -19,8 +19,8 @@
     "dev": "craco start",
     "build": "craco build",
     "eject": "craco eject",
-    "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check"
   },
   "eslintConfig": {
     "extends": [
