@@ -25,12 +25,12 @@
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
     "dev": "yarn nx run-many --target=dev --all",
-    "test": "yarn nx run-many --target=test --all",
     "lint": "yarn nx run-many --target=lint --all",
     "clean": "yarn nx run-many --target=clean --all",
+    "test": "yarn nx run-many --target=test --all",
     "test:watch": "yarn nx run-many --target=test:watch --all",
     "test:coverage": "yarn turbo run test:coverage --parallel",
-    "test:ci": "CI=true jest",
+    "test:ci": "yarn nx run-many --target=test:ci --all",
     "format": "yarn nx run-many --target=format --all",
     "format:check": "yarn nx run-many --target=format:check --all",
     "release": "yarn build && echo 'publishing not implemented yet'"

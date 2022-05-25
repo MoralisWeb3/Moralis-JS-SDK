@@ -10,6 +10,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules yarn jest --runInBand --no-cache --detectOpenHandles --forceExit",
+    "test:ci": "yarn test --ci",
     "test:old": "yarn jest",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",

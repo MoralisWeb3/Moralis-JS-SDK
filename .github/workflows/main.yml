@@ -105,4 +105,4 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
       - name: Jest
-        run: yarn test
+        run: yarn test:ci

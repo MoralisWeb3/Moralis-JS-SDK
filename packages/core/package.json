@@ -9,6 +9,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "yarn jest",
+    "test:ci": "yarn test --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
