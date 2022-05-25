@@ -28,8 +28,8 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
+    expect(result.legacy.total).toBe(900);
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.toJSON()).toEqual(expect.arrayContaining([expect.objectContaining({})]));
   });
 
   it('should not get the NFTs and return an error code for an invalid address', () => {
@@ -48,7 +48,7 @@ describe('Moralis EvmApi', () => {
     expect(failedResult).toBeDefined();
     expect(
       EvmApi.account.getNFTsForContract({
-        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387',
         format: 'decimal',
         chain: 'polygon',
         tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
