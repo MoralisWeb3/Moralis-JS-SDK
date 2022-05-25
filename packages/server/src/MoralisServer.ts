@@ -1,4 +1,4 @@
-import core, { BaseModule } from '@moralis/core';
+import core, { BaseModule } from '@moralisweb3/core';
 import type Parse from 'parse';
 import { initializeParse } from './initializeParse';
 import { ServerEvent, ServerEventMap } from './events/ServerEvents';

@@ -1,4 +1,4 @@
-import { EvmChain, MoralisNetworkError, NetworkErrorCode } from '@moralis/core';
+import { EvmChain, MoralisNetworkError, NetworkErrorCode } from '@moralisweb3/core';
 
 const isValidChain = (chain: unknown): chain is EvmChain => {
   if (chain instanceof EvmChain) {

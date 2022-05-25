@@ -25,7 +25,7 @@
     "sourceMap": true,
     "target": "es5",
     "paths": {
-      "@moralis/*": ["./packages/*"]
+      "@moralisweb3/*": ["./packages/*"]
     },
     "useUnknownInCatchVariables": false
   },
