@@ -2,7 +2,7 @@ import { setupServer } from 'msw/node';
 import { mockResolveDomain } from './evmApi/resolveDomain';
 import { mockResolveAddress } from './evmApi/resolveAddress';
 import { mockGetLogsByAddress } from './evmApi/getLogsByAddress';
-import { mockGetPairAddress } from './evmApi/getPairAddress';
+import { mockGetPairReserves } from './evmApi/getPairReserves';
 import { mockGetNativeBalance } from './evmApi/getNativeBalance';
 import { mockGetNFTsForContract } from './evmApi/getNFTsForContract';
 import { mockGetTokenTransfer } from './evmApi/getTokenTransfers';
@@ -15,7 +15,7 @@ const handlers = [
   mockResolveAddress,
   mockGetNativeBalance,
   mockGetTokenPrice,
-  mockGetPairAddress,
+  mockGetPairReserves,
   mockGetLogsByAddress,
   mockGetTokenTransfer,
   mockGetTransactions,
