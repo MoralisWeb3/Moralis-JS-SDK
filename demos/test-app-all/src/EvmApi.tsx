@@ -30,10 +30,13 @@ export const EvmApi = () => {
       </button>
 
       <button
-        onClick={() => {
-          Moralis.EvmApi.resolve.resolveDomain({
-            domain: 'brad.crypto',
-          });
+        onClick={async () => {
+          console.log(
+            await Moralis.EvmApi.resolve.resolveDomain({
+              domain: 'brad.crypto',
+            }),
+            '<== resolved',
+          );
         }}
       >
         resolveDomain
@@ -77,54 +80,235 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
+          Moralis.EvmApi.info.web3ApiVersion({}).then(console.log);
+        }}
+      >
+        web3ApiVersion
+      </button>
+
+      <button
+        onClick={() => {
           Moralis.EvmApi.token
-            .reSyncMetadata({
-              address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
+            .getWalletTokenIdTransfers({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
               tokenId: '18',
             })
             .then(console.log);
         }}
       >
-        reSyncMetadata
+        getWalletTokenIdTransfers
       </button>
 
       <button
         onClick={() => {
           Moralis.EvmApi.token
-            .getTokenPrice({
-              address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
+            .getNFTLowestPrice({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              days: 3,
             })
             .then(console.log);
         }}
       >
-        getTokenPrice
+        getNFTLowestPrice
       </button>
 
       <button
         onClick={() => {
           Moralis.EvmApi.token
-            .getTokenAllowance({
-              address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-              ownerAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-              spenderAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+            .getNFTTrades({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
             })
             .then(console.log);
         }}
       >
-        getTokenAllowance
+        getNFTTrades
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.info.endpointWeights({}).then(console.log);
+        }}
+      >
+        endpointWeights
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenAddressTransfers({
+              address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenAddressTransfers
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getTransactions({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+            })
+            .then(console.log);
+        }}
+      >
+        getTransactions
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getTokenTransfers({
+              address: '0x3d6c0e79a1239df0039ec16Cc80f7A343b6C530e',
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenTransfers
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getNftTransfersFromToBlock({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              fromBlock: 1,
+            })
+            .then(console.log);
+        }}
+      >
+        getNftTransfersFromToBlock
       </button>
 
       <button
         onClick={() => {
           Moralis.EvmApi.native
-            .getTransaction({
-              transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5',
+            .getNFTTransfersByBlock({
+              blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
             })
             .then(console.log);
         }}
       >
-        getTransaction
+        getNFTTransfersByBlock
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getContractNFTTransfers({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+            })
+            .then(console.log);
+        }}
+      >
+        getContractNFTTransfers
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getNFTTransfers({
+              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTTransfers
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getAllTokenIds({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+            })
+            .then(console.log);
+        }}
+      >
+        getAllTokenIds
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .searchNFTs({
+              q: 'Pancake',
+            })
+            .then(console.log);
+        }}
+      >
+        searchNFTs
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getNFTs({
+              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTs
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getNFTOwners({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              format: 'decimal'
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTOwners
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenIdOwners({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              format: 'decimal',
+              tokenId: '1'
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenIdOwners
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenIdMetadata({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+              format: 'decimal',
+              tokenId: '1'
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenIdMetadata
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.account
+            .getNFTsForContract({
+              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+              format: 'decimal',
+              chain: 'polygon',
+              tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963'
+            })
+            .then(console.log);
+        }}
+      >
+        getNFTsForContract
+      </button>
+
     </div>
   );
 };
