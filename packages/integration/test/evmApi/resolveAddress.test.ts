@@ -24,19 +24,20 @@ describe('Moralis EvmApi', () => {
       address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     });
 
+    expect(result.toJSON().name).toBe('vitalik.eth');
+    expect(result).toBeDefined();
     expect(result.toJSON().name).toBe('vitalik.eth'.toLowerCase());
     expect(result.legacy.name).toBe('vitalik.eth');
     expect(result.result.name).toBe('vitalik.eth');
   });
 
-  it('should not resolve an address and return an error code', () => {
-    const failedResult = EvmApi.resolve
+  it('should not resolve an address and return an error code', async () => {
+    const failedResult = await EvmApi.resolve
       .resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA9604',
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
       })
       .then()
       .catch((err) => {
-        console.log('error ==>', err);
         return err;
       });
 
