@@ -1,5 +1,5 @@
-import Core from '@moralis/core';
-import EvmApi from '@moralis/evm-api';
+import Core from '@moralisweb3/core';
+import EvmApi from '@moralisweb3/evm-api';
 
 describe('Moralis Core', () => {
   it('should register evm-api module', () => {

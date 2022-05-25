@@ -1,5 +1,5 @@
-import Core from '@moralis/core';
-import Evm from '@moralis/evm';
+import Core from '@moralisweb3/core';
+import Evm from '@moralisweb3/evm';
 
 describe('Moralis Core', () => {
   test('should remove evm module', () => {

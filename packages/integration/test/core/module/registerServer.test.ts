@@ -1,5 +1,5 @@
-import Core from '@moralis/core';
-import Server from '@moralis/server';
+import Core from '@moralisweb3/core';
+import Server from '@moralisweb3/server';
 
 describe('Moralis Core', () => {
   it('should register server module', () => {
