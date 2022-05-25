@@ -6,7 +6,7 @@ import {
   EvmNativeish,
   EvmTransactionInput,
   EvmTransactionResponse,
-} from '@moralis/core';
+} from '@moralisweb3/core';
 
 export interface TransferNativeOptions {
   to: EvmAddressish;

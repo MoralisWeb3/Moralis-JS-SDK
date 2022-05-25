@@ -1,4 +1,4 @@
-import core, { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError, RequestController } from '@moralis/core';
+import core, { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 

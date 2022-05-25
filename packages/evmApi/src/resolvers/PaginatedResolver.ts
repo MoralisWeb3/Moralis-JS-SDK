@@ -1,6 +1,6 @@
 import { checkObjEqual } from './../utils/checkObjEqual';
 import { EvmResolver, EvmResolverOptions, ServerResponse } from './Resolver';
-import core, { RequestController } from '@moralis/core';
+import core, { RequestController } from '@moralisweb3/core';
 import { getNextParams } from '../utils/getNextParams';
 import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
 

@@ -1,5 +1,5 @@
-import Core, { EvmAddress } from '@moralis/core';
-import EvmApi from '@moralis/evm-api';
+import Core, { EvmAddress } from '@moralisweb3/core';
+import EvmApi from '@moralisweb3/evm-api';
 import { MOCK_API_KEY } from '../../mockRequests/config';
 import { mockServer } from '../../mockRequests/mockRequests';
 

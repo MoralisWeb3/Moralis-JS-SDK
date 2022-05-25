@@ -2,7 +2,7 @@ import { Camelize } from './../../utils/toCamelCase';
 import { BigNumber } from 'ethers';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralis/core';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/core';
 
 type operation = 'getTokenAllowance';
 

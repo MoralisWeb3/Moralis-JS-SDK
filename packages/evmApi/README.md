@@ -1,1 +1,1 @@
-# @moralis/evm-api
+# @moralisweb3/evm-api

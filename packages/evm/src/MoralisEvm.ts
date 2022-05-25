@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
-import core, { EvmTransactionInput } from '@moralis/core';
-import { NetworkModule, EvmConnect } from '@moralis/core';
+import core, { EvmTransactionInput } from '@moralisweb3/core';
+import { NetworkModule, EvmConnect } from '@moralisweb3/core';
 import { MODULE_NAME } from './config';
 import { EvmNetworkEvent, EvmNetworkEventMap } from './events/EvmNetworkEvent';
 import { makeSendTransaction } from './chainMethods/sendTransaction';

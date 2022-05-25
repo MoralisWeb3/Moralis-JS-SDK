@@ -1,4 +1,4 @@
-import { EvmAddress } from '@moralis/core';
+import { EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 

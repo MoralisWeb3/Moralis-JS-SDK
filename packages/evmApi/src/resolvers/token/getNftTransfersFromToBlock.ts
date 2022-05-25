@@ -1,6 +1,6 @@
 import { PaginatedOptions } from './../PaginatedResolver';
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddress, EvmNative } from '@moralis/core';
+import { EvmChain, EvmChainish, EvmAddress, EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver } from '../PaginatedResolver';
