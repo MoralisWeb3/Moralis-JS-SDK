@@ -39,6 +39,7 @@ type AdaptedResult = ReturnType<typeof apiToResult>;
 
 // TODO: use Transaction DataTypes
 export const getBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, AdaptedResult>({
+  name: 'getBlock',
   getPath: (params: Params) => `block/${params.block_number_or_hash}`,
   apiToResult: (apiData: ApiResult) => {
     const data = toCamelCase(apiData);

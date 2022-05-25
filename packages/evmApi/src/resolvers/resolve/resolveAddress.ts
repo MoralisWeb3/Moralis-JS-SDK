@@ -14,6 +14,7 @@ export interface Params {
 }
 
 export const resolveAddressResolver = new EvmResolver({
+  name: 'resolveAddress',
   getPath: (params: Params) => `resolve/${params.address}/reverse`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,

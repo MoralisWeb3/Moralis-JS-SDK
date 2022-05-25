@@ -18,6 +18,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getTokenTransfersResolver = new EvmPaginatedResolver({
+  name: 'getTokenTransfers',
   getPath: (params: Params) => `${params.address}/erc20/transfers`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((transfer) => ({

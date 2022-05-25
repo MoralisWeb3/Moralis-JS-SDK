@@ -23,6 +23,7 @@ export interface Params {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const runContractFunctionResolver = new EvmResolver<ApiParams, Params, ApiResult, ApiResult, ApiResult>({
+  name: 'runContractFunction',
   getPath: (params: Params) => `${params.address}/function`,
   apiToResult: (data: ApiResult) => {
     return data;

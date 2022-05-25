@@ -8,7 +8,6 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "format": "prettier . -write",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format": "prettier . --write",
     "format:check": "prettier . --check",

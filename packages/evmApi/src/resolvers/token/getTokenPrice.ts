@@ -17,6 +17,7 @@ interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 }
 
 export const getTokenPriceResolver = new EvmResolver({
+  name: 'getTokenPrice',
   getPath: (params: ApiParams) => `erc20/${params.address}/price`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),

@@ -11,6 +11,7 @@ type ApiParams = QueryParams & PathParams;
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getTokenBalancesResolver = new EvmResolver({
+  name: 'getTokenBalances',
   getPath: (params: ApiParams) => `${params.address}/erc20`,
   apiToResult: (data: ApiResult) =>
     data.map((token) => ({

@@ -11,6 +11,7 @@ type ApiParams = QueryParams & PathParams;
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const resolveDomainResolver = new EvmResolver({
+  name: 'resolveDomain',
   getPath: (params: ApiParams) => `resolve/${params.domain}`,
   apiToResult: (data: ApiResult) => ({
     address: EvmAddress.create(data.address),

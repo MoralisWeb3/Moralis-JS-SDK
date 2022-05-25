@@ -17,6 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getLogsByAddressResolver = new EvmPaginatedResolver({
+  name: 'getLogsByAddress',
   getPath: (params: Params) => `${params.address}/logs`,
   apiToResult: (data: ApiResult) =>
     data.result?.map(

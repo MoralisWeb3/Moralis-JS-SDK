@@ -9,6 +9,11 @@ import {
   getNFTTradesResolver,
   getTokenAddressTransfersResolver,
   getNftTransfersFromToBlockResolver,
+  getAllTokenIdsResolver,
+  searchNFTsResolver,
+  getNFTOwnersResolver,
+  getTokenIdOwnersResolver,
+  getTokenIdMetadataResolver,
 } from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
@@ -18,6 +23,8 @@ import {
   getNFTTransfersResolver,
   getTransactionsResolver,
   getTokenTransfersResolver,
+  getNFTsResolver,
+  getNFTsForContractResolver,
 } from './resolvers/account';
 import {
   getBlockResolver,
@@ -28,15 +35,26 @@ import {
   getNFTTransfersByBlockResolver,
 } from './resolvers/native';
 import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
+import { uploadFolderResolver } from './resolvers/storage';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
+  apiKey = core.config.get('apiKey');
+  serverUrl = core.config.get('serverUrl');
+
   constructor() {
     super({
       name: 'evmApi',
       core,
       baseUrl: BASE_URL,
     });
+  }
+
+  start(): void | Promise<void> {
+    const evm = this.core.modules.getNetwork('evm');
+    // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+    // eslint-disable-next-line no-console
+    console.log(evm);
   }
 
   get native() {
@@ -56,6 +74,8 @@ export class MoralisEvmApi extends ApiModule {
       getNFTTransfers: getNFTTransfersResolver.fetch,
       getTokenTransfers: getTokenTransfersResolver.fetch,
       getTransactions: getTransactionsResolver.fetch,
+      getNFTs: getNFTsResolver.fetch,
+      getNFTsForContract: getNFTsForContractResolver.fetch,
     };
   }
   get resolve() {
@@ -80,12 +100,22 @@ export class MoralisEvmApi extends ApiModule {
       getNFTTrades: getNFTTradesResolver.fetch,
       getNFTLowestPrice: getNFTLowestPriceResolver.fetch,
       getWalletTokenIdTransfers: getWalletTokenIdTransfersResolver.fetch,
+      getAllTokenIds: getAllTokenIdsResolver.fetch,
+      searchNFTs: searchNFTsResolver.fetch,
+      getNFTOwners: getNFTOwnersResolver.fetch,
+      getTokenIdOwners: getTokenIdOwnersResolver.fetch,
+      getTokenIdMetadata: getTokenIdMetadataResolver.fetch,
     };
   }
   get info() {
     return {
       web3ApiVersion: web3ApiVersionResolver.fetch,
       endpointWeights: endpointWeightsResolver.fetch,
+    };
+  }
+  get storage() {
+    return {
+      uploadFolder: uploadFolderResolver.fetch,
     };
   }
 }

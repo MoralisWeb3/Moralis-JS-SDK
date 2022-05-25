@@ -17,6 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 }
 
 export const reSyncMetadataResolver = new EvmResolver({
+  name: 'reSyncMetadata',
   getPath: (params: Params) => `nft/${EvmAddress.create(params.address).lowercase}/${params.tokenId}/metadata/resync`,
   apiToResult: (data: ApiResult) => ({
     ...data,

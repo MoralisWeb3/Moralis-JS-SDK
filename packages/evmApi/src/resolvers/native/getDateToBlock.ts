@@ -14,11 +14,18 @@ export interface Params extends Omit<ApiParams, 'chain'> {
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getDateToBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, ApiResult, ApiResult>({
+export const getDateToBlockResolver = new EvmResolver({
+  name: 'getDateToBlock',
   getPath: () => `dateToBlock`,
-  apiToResult: (data: ApiResult) => data,
-  resultToJson: (data) => data,
-  parseParams: (params) => ({
+  apiToResult: (data: ApiResult) => ({
+    ...data,
+    date: new Date(data.date),
+  }),
+  resultToJson: (data) => ({
+    ...data,
+    date: data.date.toLocaleDateString(),
+  }),
+  parseParams: (params: Params): ApiParams => ({
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
     date: params.date,
   }),

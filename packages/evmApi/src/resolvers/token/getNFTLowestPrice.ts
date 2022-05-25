@@ -17,6 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getNFTLowestPriceResolver = new EvmResolver({
+  name: 'getNFTLowestPrice',
   getPath: (params: Params) => `nft/${params.address}/lowestprice`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),

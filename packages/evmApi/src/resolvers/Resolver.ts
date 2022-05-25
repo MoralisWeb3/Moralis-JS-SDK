@@ -1,8 +1,16 @@
-import core, { RequestController } from '@moralis/core';
+import core, { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError, RequestController } from '@moralis/core';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
 type Method = 'get' | 'post';
+export enum BodyType {
+  PROPERTY = 'property',
+  BODY = 'set body',
+}
+
+export interface ServerResponse<ApiResult> {
+  result: ApiResult;
+}
 
 export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
@@ -11,6 +19,8 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
   parseParams: (params: Params) => ApiParams;
   method?: Method;
   bodyParams?: readonly (keyof Params)[];
+  bodyType?: BodyType;
+  name: string;
 }
 
 export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
@@ -20,6 +30,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
   protected bodyParams?: readonly (keyof Params)[];
+  protected bodyType?: BodyType;
+  protected name: string;
 
   constructor({
     getPath,
@@ -28,6 +40,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     parseParams,
     method,
     bodyParams,
+    bodyType,
+    name,
   }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
     this.getPath = getPath;
     this.apiToResult = apiToResult;
@@ -35,6 +49,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.parseParams = parseParams;
     this.method = method ?? 'get';
     this.bodyParams = bodyParams;
+    this.bodyType = bodyType ?? BodyType.PROPERTY;
+    this.name = name;
   }
 
   protected getUrl = (params: Params) => {
@@ -70,16 +86,21 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       if (!params[key] || !this.isBodyParam(key)) {
         return result;
       }
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      return { ...result, [key]: params[key] };
+      if (this.bodyType === BodyType.PROPERTY) {
+        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+        return { ...result, [key]: params[key] };
+      } else {
+        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+        return params[key];
+      }
     }, {});
   }
 
   // TODO: error handler to ApiError
   protected _apiGet = async (params: Params) => {
-    const url = this.getUrl(params);
+    const url = this._getUrl(params);
 
-    const apiParams = this.parseParams(params);
+    const apiParams = this._parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
 
@@ -94,8 +115,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   };
 
   protected _apiPost = async (params: Params) => {
-    const url = this.getUrl(params);
-    const apiParams = this.parseParams(params);
+    const url = this._getUrl(params);
+    const apiParams = this._parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -114,7 +135,50 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
   };
 
+  protected _serverRequest = async (params: Params) => {
+    const url = this._getUrl(params);
+    const apiParams = this._parseParams(params);
+
+    const searchParams = this.getSearchParams(apiParams);
+    const bodyParams = this.getBodyParams(apiParams);
+
+    const { result } = await RequestController.post<
+      ServerResponse<ApiResult>,
+      Record<string, string>,
+      Record<string, string>
+    >(url, searchParams, bodyParams);
+
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+  };
+
+  protected _getUrl(params: Params) {
+    const apiKey = core.config.get('apiKey');
+    if (!apiKey) {
+      const serverUrl = core.config.get('serverUrl');
+      if (!serverUrl) {
+        throw new MoralisApiError({
+          code: ApiErrorCode.GENERIC_API_ERROR,
+          message: 'EvmApi failed: start with apiKey or serverUrl',
+        });
+      }
+      return `${serverUrl}/functions/${this.name}`;
+    }
+    return this.getUrl(params);
+  }
+
+  protected _parseParams(params: Params) {
+    const evm = core.modules.getNetwork('evm');
+    if (evm) {
+      // @ts-ignore TODO: fix types for params (probably extend a default options interface)
+      params.chain = params.chain ?? EvmChain.create(evm.chain).apiHex;
+      // @ts-ignore
+      params.address = params.address ?? EvmAddress.create(evm.account).lowercase;
+    }
+    return this.parseParams(params);
+  }
+
   fetch = (params: Params) => {
+    if (!core.config.get('apiKey')) return this._serverRequest(params);
     return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }

@@ -9,6 +9,7 @@ type ApiParams = PathParams;
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getPairReservesResolver = new EvmResolver({
+  name: 'getPairReserves',
   getPath: (params: ApiParams) => `${params.pair_address}/reserves`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,

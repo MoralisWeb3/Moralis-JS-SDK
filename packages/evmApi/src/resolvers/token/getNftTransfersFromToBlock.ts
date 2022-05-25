@@ -16,7 +16,8 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>>, PaginatedOpt
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getNftTransfersFromToBlockResolver = new EvmPaginatedResolver({
-  getPath: (params: Params) => `nft/transfers`,
+  name: 'getNftTransfersFromToBlock',
+  getPath: () => `nft/transfers`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((transfer) => ({
       ...toCamelCase(transfer),

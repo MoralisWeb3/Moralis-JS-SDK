@@ -17,6 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getContractNFTTransfersResolver = new EvmPaginatedResolver({
+  name: 'getContractNFTTransfers',
   getPath: (params: Params) => `nft/${params.address}/transfers`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((transfer) => ({

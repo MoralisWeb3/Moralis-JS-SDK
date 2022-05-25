@@ -1,0 +1,1 @@
+export { uploadFolderResolver } from './uploadFolder';

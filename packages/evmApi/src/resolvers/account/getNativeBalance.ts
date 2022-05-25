@@ -17,6 +17,7 @@ interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 }
 
 export const getNativeBalanceResolver = new EvmResolver({
+  name: 'getNativeBalance',
   getPath: (params: ApiParams) => `${params.address}/balance`,
   apiToResult: (data: ApiResult) => ({
     balance: EvmNative.create(data.balance, 'wei'),

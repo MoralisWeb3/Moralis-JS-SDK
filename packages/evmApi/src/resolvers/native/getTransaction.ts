@@ -16,6 +16,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 }
 
 export const getTransactionResolver = new EvmResolver({
+  name: 'getTransaction',
   getPath: (params: Params) => `transaction/${params.transactionHash}`,
   apiToResult: (data: ApiResult) => {
     const transactionReciept = EvmTransactionReceipt.create(
