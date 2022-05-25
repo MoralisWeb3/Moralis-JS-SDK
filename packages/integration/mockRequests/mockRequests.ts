@@ -5,6 +5,7 @@ import { mockGetLogsByAddress } from './evmApi/getLogsByAddress';
 import { mockGetPairAddress } from './evmApi/getPairAddress';
 import { mockGetNativeBalance } from './evmApi/getNativeBalance';
 import { mockGetTokenTransfer } from './evmApi/getTokenTransfers';
+import { mockGetTransactions } from './evmApi/getTransactions';
 import { mockGetTokenPrice } from './evmApi/getTokenPrice';
 
 const handlers = [
@@ -15,6 +16,7 @@ const handlers = [
   mockGetPairAddress,
   mockGetLogsByAddress,
   mockGetTokenTransfer,
+  mockGetTransactions,
 ];
 
 export const mockServer = setupServer(...handlers);
