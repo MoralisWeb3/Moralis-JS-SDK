@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-export const mockGetNativeBalances: Record<string, string> = {
-  '0x7dE3085b3190B3a787822Ee16F23be010f5F8686': '39600000000000000',
+export const mockGetTransactionss: Record<string, string> = {
+  address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
 };
 
-export const mockGetNativeBalance = rest.get(`${EVM_API_ROOT}/:address/balance`, (req, res, ctx) => {
+export const mockGetTransactions = rest.get(`${EVM_API_ROOT}/account/:address`, (req, res, ctx) => {
   const address = req.params.address as string;
   const apiKey = req.headers.get('x-api-key');
 
@@ -13,7 +13,7 @@ export const mockGetNativeBalance = rest.get(`${EVM_API_ROOT}/:address/balance`,
     return res(ctx.status(401));
   }
 
-  const value = mockGetNativeBalances[address];
+  const value = mockGetTransactionss[address];
 
   if (!value) {
     return res(ctx.status(404));
@@ -22,7 +22,7 @@ export const mockGetNativeBalance = rest.get(`${EVM_API_ROOT}/:address/balance`,
   return res(
     ctx.status(200),
     ctx.json({
-      balance: value,
+      address: value,
     }),
   );
 });

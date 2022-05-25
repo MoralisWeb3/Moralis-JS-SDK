@@ -19,22 +19,20 @@ describe('Moralis EvmApi', () => {
     server.close();
   });
 
-  it('should resolve an address and return a name', async () => {
-    const result = await EvmApi.resolve.resolveAddress({
-      address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+  it('should get the transactions of an account', async () => {
+    const result = await EvmApi.account.getTransactions({
+      address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
     });
 
-    expect(result.toJSON().name).toBe('vitalik.eth');
     expect(result).toBeDefined();
-    expect(result.toJSON().name).toBe('vitalik.eth'.toLowerCase());
-    expect(result.legacy.name).toBe('vitalik.eth');
-    expect(result.result.name).toBe('vitalik.eth');
+    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.toJSON()).toEqual(expect.arrayContaining([expect.objectContaining({})]));
   });
 
-  it('should not resolve an address and return an error code', async () => {
-    const failedResult = await EvmApi.resolve
-      .resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+  it('should not get the transactions of an invalid account and throw an error ', () => {
+    const failedResult = EvmApi.account
+      .getTransactions({
+        address: '0x7dE3085b3190B3a787822Ee16F23be010f5F868',
       })
       .then()
       .catch((err) => {
@@ -43,8 +41,8 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.resolve.resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA9604',
+      EvmApi.account.getTransactions({
+        address: '0x7dE3085b3190B3a787822Ee16F23be010f5F868',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
   });
