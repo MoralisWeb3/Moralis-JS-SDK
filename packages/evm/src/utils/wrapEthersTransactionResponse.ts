@@ -4,7 +4,7 @@ import {
   EvmTransactionReceiptInput,
   EvmTransactionResponse,
   EvmTransactionResponseInput,
-} from '@moralis/core';
+} from '@moralisweb3/core';
 import { ethers } from 'ethers';
 
 const ethTxReceiptToMoralisTxReceipt = ({
