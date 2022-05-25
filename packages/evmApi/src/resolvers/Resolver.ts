@@ -170,7 +170,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
 
   protected resolveDefaultParams(params: ApiParams) {
     const evm = core.modules.getNetwork('evm');
-    // @ts-ignore TODO: fix type as it should be of type EvmApi
+    // @ts-ignore TODO: fix type as it should be of type MoralisEvm
     if ((!evm || !evm.isConnected) && 'address' in params && !params.address) {
       throw new MoralisApiError({
         code: ApiErrorCode.GENERIC_API_ERROR,
