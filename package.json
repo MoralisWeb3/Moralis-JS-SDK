@@ -32,7 +32,8 @@
     "test:coverage": "yarn turbo run test:coverage --parallel",
     "test:ci": "CI=true jest",
     "format": "yarn nx run-many --target=format --all",
-    "format:check": "yarn nx run-many --target=format:check --all"
+    "format:check": "yarn nx run-many --target=format:check --all",
+    "release": "yarn build && echo 'publishing not implemented yet'"
   },
   "workspaces": {
     "packages": [
