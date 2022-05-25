@@ -1,4 +1,4 @@
-import { EvmConnectData, InitEvent } from '@moralis/core';
+import { EvmConnectData, InitEvent } from '@moralisweb3/core';
 
 export interface ConnectEventOptions {
   wallet: string;
@@ -31,11 +31,11 @@ export type StateEvent = InitEvent | ConnectEvent | ConnectSuccessEvent | Connec
 export type State =
   | {
       value: 'Disconnected';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Connecting';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Connected';

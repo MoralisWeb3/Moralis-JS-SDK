@@ -1,7 +1,7 @@
 import { CoreErrorCode } from '../Error/ErrorCode';
 import { MoralisCoreError } from '../Error/MoralisError';
 import { getAddress, isAddress } from '@ethersproject/address';
-import { EvmAddressFormat } from '../Config';
+import { EvmAddressFormat } from '../Config/configOptions';
 import core from '../MoralisCore';
 import { MoralisData } from './abstract';
 

@@ -1,4 +1,4 @@
-import { InitEvent } from '@moralis/core';
+import { InitEvent } from '@moralisweb3/core';
 import { AuthenticateData, AuthMethod } from '../AuthMethods/types';
 
 export interface AuthenticateEventOptions {
@@ -37,13 +37,13 @@ export type StateEvent =
 export type State =
   | {
       value: 'Unauthenticated';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Authenticating';
-      context: StateContext & {};
+      context: StateContext;
     }
   | {
       value: 'Authenticated';
-      context: StateContext & {};
+      context: StateContext;
     };

@@ -2,8 +2,8 @@
  * Type definitions that are used in multiple packages
  */
 
-import { EvmAddress, EvmChain } from '..';
-import { InputChainId } from '../dataTypes/EvmChain';
+import { EvmAddress } from '../dataTypes/EvmAddress';
+import { InputChainId, EvmChain } from '../dataTypes/EvmChain';
 import { EvmProvider } from './EvmProvider';
 
 // Evm connections
@@ -41,6 +41,7 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
   newSession?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyConnector = any;
 
 export interface EvmConnectResponse {

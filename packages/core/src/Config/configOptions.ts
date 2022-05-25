@@ -1,4 +1,5 @@
-import { BaseModule, NetworkModule } from '../Modules';
+import { BaseModule } from '../Modules/BaseModule';
+import { NetworkModule } from '../Modules/NetworkModule';
 import { ModuleName } from '../Modules/ModuleName';
 
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'off';
@@ -34,7 +35,7 @@ const validateServerUrl = (value: string | null, config: ConfigValues, modules: 
   return null;
 };
 
-const validateMoralisSecret = (value: string | null, config: ConfigValues, modules: BaseModule[]) => {
+const validateMoralisSecret = (value: string | null, config: ConfigValues) => {
   if (config.buidEnvironment !== 'node') {
     return 'Can only be set in a node "buildEnvironment" for security reasons.';
   }
@@ -42,7 +43,7 @@ const validateMoralisSecret = (value: string | null, config: ConfigValues, modul
   return null;
 };
 
-const validateMasterKey = (value: string | null, config: ConfigValues, modules: BaseModule[]) => {
+const validateMasterKey = (value: string | null, config: ConfigValues) => {
   if (config.buidEnvironment !== 'node') {
     return 'Can only be set in a node "buildEnvironment" for security reasons.';
   }
@@ -81,7 +82,7 @@ export const configOptions: {
   // The 'LogLevel', to indicate what kind of logs will be shown in the console
   logLevel: {
     name: 'logLevel',
-    defaultValue: 'verbose',
+    defaultValue: 'info',
   },
   // The build environment where this library is used
   buidEnvironment: {

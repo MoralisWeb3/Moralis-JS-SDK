@@ -134,22 +134,22 @@ It's possible to install all functionalities of Moralis by installing `moralis` 
 
 #### 1. Install the dependencies
 
-Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralis/core` package. For example:
+Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
 
 ```shell
-yarn add @moralis/core @moralis/evm @moralis/evm-api @moralis/evm-walletconnect-connector
+yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-walletconnect-connector
 ```
 
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
-import MoralisCore from '@moralis/core';
-import Server from '@moralis/server';
-import EvmApi from '@moralis/evm-api';
-import Evm from '@moralis/evm';
-import WalletConnectConnector from '@moralis/evm-walletconnect-connector';
+import MoralisCore from '@moralisweb3/core';
+import Server from '@moralisweb3/server';
+import EvmApi from '@moralisweb3/evm-api';
+import Evm from '@moralisweb3/evm';
+import WalletConnectConnector from '@moralisweb3/evm-walletconnect-connector';
 
-// Register all imported modules to the @moralis/core module
+// Register all imported modules to the @moralisweb3/core module
 MoralisCore.registerModules({
   // Add any network modules
   networks: [Evm],
@@ -176,7 +176,7 @@ MoralisCore.start({
 Now you can use any functionality from the installed modules. The only difference is that you need to call in your code:
 
 ```javascript
-import Evm from '@moralis/evm';
+import Evm from '@moralisweb3/evm';
 
 Evm.connect();
 ```
@@ -193,8 +193,8 @@ Of course you are free to combine the modules in a single object, and use that i
 
 ```javascript
 // moralis.ts
-import Evm from '@moralis/evm';
-import Server from '@moralis/server';
+import Evm from '@moralisweb3/evm';
+import Server from '@moralisweb3/server';
 
 export const Moralis = {
   Evm,
@@ -219,49 +219,49 @@ Moralis.Evm.connect();
 
 The core module is required in all applications. It will handle global dependencies and communications between other packages.
 
-| package                                    | Version | Changelog | Description                                                                          |
-| ------------------------------------------ | ------- | --------- | ------------------------------------------------------------------------------------ |
-| [@moralis/core](./packages/core/README.md) | TODO    | TODO      | Core logic, responsible for core logic and sharing state and events between packages |
+| package                                        | Version | Changelog | Description                                                                          |
+| ---------------------------------------------- | ------- | --------- | ------------------------------------------------------------------------------------ |
+| [@moralisweb3/core](./packages/core/README.md) | TODO    | TODO      | Core logic, responsible for core logic and sharing state and events between packages |
 
 ## Main modules
 
-| package                                          | Version | Changelog | Description                                                         |
-| ------------------------------------------------ | ------- | --------- | ------------------------------------------------------------------- |
-| [@moralis/server](./packages/server/README.md)   | TODO    | TODO      | Connecting and interaction with your moralis server instance server |
-| [@moralis/plugins](./packages/plugins/README.md) | TODO    | TODO      |                                                                     |
+| package                                              | Version | Changelog | Description                                                         |
+| ---------------------------------------------------- | ------- | --------- | ------------------------------------------------------------------- |
+| [@moralisweb3/server](./packages/server/README.md)   | TODO    | TODO      | Connecting and interaction with your moralis server instance server |
+| [@moralisweb3/plugins](./packages/plugins/README.md) | TODO    | TODO      |                                                                     |
 
 ## API modules
 
 These are packages that wrap around the Moralis apis for easy use. You can call to any endpoint with a single function call. These modules will also wrap the returned data in Moralis datatypes, to ensure consistent data accross all modules.
 
-| package                                          | Version | Changelog | Description |
-| ------------------------------------------------ | ------- | --------- | ----------- |
-| [@moralis/evm-api](./packages/evm-api/README.md) | TODO    | TODO      |             |
-| [@moralis/sol-api](./packages/sol-api/README.md) | TODO    | TODO      |             |
+| package                                              | Version | Changelog | Description |
+| ---------------------------------------------------- | ------- | --------- | ----------- |
+| [@moralisweb3/evm-api](./packages/evm-api/README.md) | TODO    | TODO      |             |
+| [@moralisweb3/sol-api](./packages/sol-api/README.md) | TODO    | TODO      |             |
 
 ## Network modules
 
-| package                                  | Version | Changelog | Description                                       |
-| ---------------------------------------- | ------- | --------- | ------------------------------------------------- |
-| [@moralis/evm](./packages/evm/README.md) | TODO    | TODO      | All logic regarding connecting to EVM networks    |
-| [@moralis/sol](./packages/sol/README.md) | TODO    | TODO      | All logic regarding connecting to Solana networks |
+| package                                      | Version | Changelog | Description                                       |
+| -------------------------------------------- | ------- | --------- | ------------------------------------------------- |
+| [@moralisweb3/evm](./packages/evm/README.md) | TODO    | TODO      | All logic regarding connecting to EVM networks    |
+| [@moralisweb3/sol](./packages/sol/README.md) | TODO    | TODO      | All logic regarding connecting to Solana networks |
 
 ## Connectors
 
 Connectors are modules that allow access to on-chain activities. These are required to establish a connection with any network package.
 
-| package                                                                                               | Version | Changelog | Description                                              |
-| ----------------------------------------------------------------------------------------------------- | ------- | --------- | -------------------------------------------------------- |
-| [@moralis/evm-connector-utils](./packages/evmConnectors/EvmConnectorUtils/README.md)                  | TODO    | TODO      | Utilities for EVM connectors                             |
-| [@moralis/evm-metamask-connector](./packages/evmConnectors/EvmMetamaskConnector/README.md)            | TODO    | TODO      | Connector to connect to an EVM network via Metamask      |
-| [@moralis/evm-wallet-connect-connector](./packages/evmConnectors/EvmWalletconnectConnector/README.md) | TODO    | TODO      | Connector to connect to an EVM network via Walletconnect |
-| @moralis/sol-phantom                                                                                  | TODO    | TODO      | TODO                                                     |
+| package                                                                                                   | Version | Changelog | Description                                              |
+| --------------------------------------------------------------------------------------------------------- | ------- | --------- | -------------------------------------------------------- |
+| [@moralisweb3/evm-connector-utils](./packages/evmConnectors/EvmConnectorUtils/README.md)                  | TODO    | TODO      | Utilities for EVM connectors                             |
+| [@moralisweb3/evm-metamask-connector](./packages/evmConnectors/EvmMetamaskConnector/README.md)            | TODO    | TODO      | Connector to connect to an EVM network via Metamask      |
+| [@moralisweb3/evm-wallet-connect-connector](./packages/evmConnectors/EvmWalletconnectConnector/README.md) | TODO    | TODO      | Connector to connect to an EVM network via Walletconnect |
+| @moralisweb3/sol-phantom                                                                                  | TODO    | TODO      | TODO                                                     |
 
 ## Other
 
-| package        | Version | Changelog | Description |
-| -------------- | ------- | --------- | ----------- |
-| @moralis/utils | TODO    | TODO      |             |
+| package | Version | Changelog | Description |
+| ------- | ------- | --------- | ----------- |
+|         | TODO    | TODO      |             |
 
 # 🧙‍♂️ Community
 

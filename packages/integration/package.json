@@ -1,7 +1,7 @@
 {
-  "name": "@moralis/integration",
+  "name": "@moralisweb3/integration",
   "author": "Moralis",
-  "version": "1.0.0",
+  "version": "2.0.0-alpha.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -9,10 +9,12 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test": "yarn jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules yarn jest --runInBand --no-cache --detectOpenHandles --forceExit",
+    "test:old": "yarn jest",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
-    "format": "prettier . -write",
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint .",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
   },
@@ -22,8 +24,9 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralis/core": "^1.0.0",
-    "@moralis/server": "^1.0.0",
-    "@moralis/evm": "^1.0.0"
+    "@moralisweb3/core": "^2.0.0-alpha.0",
+    "@moralisweb3/server": "^2.0.0-alpha.0",
+    "@moralisweb3/evm": "^2.0.0-alpha.0",
+    "@moralisweb3/evm-api": "^2.0.0-alpha.0"
   }
 }

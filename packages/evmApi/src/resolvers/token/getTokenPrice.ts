@@ -1,5 +1,5 @@
 import { toCamelCase, Camelize } from './../../utils/toCamelCase';
-import { EvmNative, EvmAddress, EvmChainish, EvmAddressish, EvmChain } from '@moralis/core';
+import { EvmNative, EvmAddress, EvmChainish, EvmAddressish, EvmChain } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -20,13 +20,13 @@ export const getTokenPriceResolver = new EvmResolver({
   getPath: (params: ApiParams) => `erc20/${params.address}/price`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),
-    nativePrice: EvmNative.create(data.nativePrice?.value!, data.nativePrice?.decimals!),
-    exchangeAddress: EvmAddress.create(data.exchangeAddress!),
+    nativePrice: data.nativePrice?.value ? EvmNative.create(data.nativePrice?.value, data.nativePrice?.decimals) : null,
+    exchangeAddress: data.exchangeAddress ? EvmAddress.create(data.exchangeAddress) : null,
   }),
   resultToJson: (data) => ({
     ...data,
-    exchangeAddress: data.exchangeAddress.format(),
-    nativePrice: data.nativePrice.format(),
+    exchangeAddress: data.exchangeAddress ? data.exchangeAddress.format() : null,
+    nativePrice: data.nativePrice ? data.nativePrice.format() : null,
   }),
   parseParams: (params: Params): ApiParams => ({
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,

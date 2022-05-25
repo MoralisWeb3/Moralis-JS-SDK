@@ -1,15 +1,16 @@
 {
-  "name": "@moralis/evm-connector-utils",
+  "name": "@moralisweb3/evm-connector-utils",
   "author": "Moralis",
-  "version": "1.0.0",
+  "version": "2.0.0-alpha.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "format": "prettier . -write",
-    "lint": "eslint .",
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
     "dev": "tsc --watch"
@@ -21,7 +22,6 @@
   },
   "dependencies": {
     "eventemitter3": "^4.0.7",
-    "@moralis/core": "^1.0.0",
-    "@moralis/utils": "^1.0.0"
+    "@moralisweb3/core": "^2.0.0-alpha.0"
   }
 }

@@ -1,11 +1,11 @@
-import { ApiErrorCode, MoralisApiError } from '@moralis/core';
+import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
 import { EvmApiResultAdapter } from './EvmApiResultAdapter';
 import { PaginatedResponse } from './resolvers/PaginatedResolver';
 
 export class EvmApiPaginatedResultAdapter<
   Data extends PaginatedResponse<unknown>,
-  AdaptedData extends unknown,
-  JSONData extends unknown,
+  AdaptedData,
+  JSONData,
 > extends EvmApiResultAdapter<Data, AdaptedData, JSONData> {
   private _nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData>>;
 

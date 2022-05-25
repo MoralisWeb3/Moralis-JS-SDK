@@ -1,4 +1,4 @@
-import core, { RequestController } from '@moralis/core';
+import core, { RequestController } from '@moralisweb3/core';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
@@ -100,11 +100,16 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const result = await RequestController.post<ApiResult, any, any>(url, searchParams, bodyParams, {
-      headers: {
-        'x-api-key': core.config.get('apiKey') ?? undefined,
+    const result = await RequestController.post<ApiResult, Record<string, string>, Record<string, string>>(
+      url,
+      searchParams,
+      bodyParams,
+      {
+        headers: {
+          'x-api-key': core.config.get('apiKey') ?? undefined,
+        },
       },
-    });
+    );
 
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
   };

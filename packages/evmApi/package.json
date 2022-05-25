@@ -1,15 +1,16 @@
 {
-  "name": "@moralis/evm-api",
+  "name": "@moralisweb3/evm-api",
   "author": "Moralis",
-  "version": "1.0.0",
+  "version": "2.0.0-alpha.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "format": "prettier . -write",
-    "lint": "eslint .",
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
     "gen:types": "openapi-typescript https://deep-index.moralis.io/api-docs/v2/swagger.json --output src/generated/types.ts",
@@ -22,6 +23,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralis/core": "^1.0.0"
+    "@moralisweb3/core": "^2.0.0-alpha.0"
   }
 }

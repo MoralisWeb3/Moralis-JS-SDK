@@ -1,4 +1,4 @@
-import { EvmChain, EvmChainish } from '@moralis/core';
+import { EvmChain, EvmChainish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -15,7 +15,7 @@ export interface Params extends Omit<ApiParams, 'chain'> {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getDateToBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, ApiResult, ApiResult>({
-  getPath: (params: Params) => `dateToBlock`,
+  getPath: () => `dateToBlock`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,
   parseParams: (params) => ({

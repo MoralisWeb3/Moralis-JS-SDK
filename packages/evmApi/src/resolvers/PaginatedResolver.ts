@@ -1,6 +1,6 @@
 import { checkObjEqual } from './../utils/checkObjEqual';
 import { EvmResolver, EvmResolverOptions } from './Resolver';
-import core, { RequestController } from '@moralis/core';
+import core, { RequestController } from '@moralisweb3/core';
 import { getNextParams } from '../utils/getNextParams';
 import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
 
@@ -12,7 +12,7 @@ export interface PaginatedResponse<Data> {
   result: Data;
 }
 
-export interface PaginatedOptions {
+export interface PaginatedOptions extends Record<string, unknown> {
   offset?: number;
   limit?: number;
   cursor?: string;
@@ -66,7 +66,11 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const result = await RequestController.post<PaginatedResponse<ApiResult>, any, any>(url, searchParams, bodyParams, {
+    const result = await RequestController.post<
+      PaginatedResponse<ApiResult>,
+      Record<string, string>,
+      Record<string, string>
+    >(url, searchParams, bodyParams, {
       headers: {
         'x-api-key': core.config.get('apiKey') ?? undefined,
       },

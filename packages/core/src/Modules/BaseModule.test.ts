@@ -27,13 +27,13 @@ describe('BaseModule', () => {
 
   it('should listen to events', (done) => {
     const EVENT = 'TestEvent';
-    const cleanup = instance.listen(EVENT, (value) => {
+    const cleanup = instance.listen(EVENT, (value: string) => {
       expect(value).toBe('success');
       cleanup();
-      expect(instance.listenerCount(EVENT)).toBe(0);
+      expect(instance.emitter.listenerCount(EVENT)).toBe(0);
       done();
     });
-    instance.emit(EVENT, 'success');
+    instance.emitter.emit(EVENT, 'success');
   });
 
   it('should cleanup the class correctly', () => {

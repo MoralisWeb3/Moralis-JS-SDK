@@ -5,9 +5,9 @@ import {
   EvmWalletConnectConnectorOptions,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
-} from '@moralis/core';
-import core from '@moralis/core';
-import { EvmAbstractConnector, getMoralisRpcs } from '@moralis/evm-connector-utils';
+} from '@moralisweb3/core';
+import core from '@moralisweb3/core';
+import { EvmAbstractConnector, getMoralisRpcs } from '@moralisweb3/evm-connector-utils';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { IWalletConnectProviderOptions } from '@walletconnect/types';
 
@@ -78,9 +78,11 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
     this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
     this.chain = new EvmChain(provider.chainId);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.subscribeToEvents(this.provider!);
 
     return {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       provider: this.provider!,
       chain: this.chain,
       account: this.account,

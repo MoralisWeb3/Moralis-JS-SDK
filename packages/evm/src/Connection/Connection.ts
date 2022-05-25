@@ -10,8 +10,8 @@ import {
   MoralisNetworkError,
   NetworkErrorCode,
   MoralisState,
-} from '@moralis/core';
-import { EvmAbstractConnector, EvmConnectorEvent } from '@moralis/evm-connector-utils';
+} from '@moralisweb3/core';
+import { EvmAbstractConnector, EvmConnectorEvent } from '@moralisweb3/evm-connector-utils';
 import { EvmNetworkEvent, EvmNetworkEventMap } from '../events/EvmNetworkEvent';
 import { connectWallet } from './connectWallet';
 import { Wallets } from './Wallets';
@@ -121,9 +121,11 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     this._internalProvider = null;
     this._updateProvider();
 
-    this.wallet!.off(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
-    this.wallet!.off(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
-    this.wallet = null;
+    if (this.wallet) {
+      this.wallet.off(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
+      this.wallet.off(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
+      this.wallet = null;
+    }
 
     this._logger.verbose('Disconnected', { context, event });
     this._emitter.emit(EvmNetworkEvent.DISCONNECTED);
@@ -181,8 +183,8 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     this._internalProvider = provider;
     this._updateProvider();
 
-    this.wallet!.on(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
-    this.wallet!.on(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
+    wallet.on(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
+    wallet.on(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
 
     this._emitter.emit(EvmNetworkEvent.CONNECTED, event.data);
   };
@@ -235,7 +237,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     });
 
     return new Promise((resolve, reject) => {
-      const handleResolve = (data: EvmConnectData<any>) => {
+      const handleResolve = (data: EvmConnectData<unknown>) => {
         resolve(data);
         this._emitter.off(EvmNetworkEvent.CONNECTED, handleResolve);
         this._emitter.off(EvmNetworkEvent.CONNECTING_ERROR, handleReject);

@@ -1,4 +1,4 @@
-import Moralis from '@moralis/all';
+import Moralis from '@moralisweb3/all';
 
 export const EvmApi = () => {
   return (

@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { EvmConnectorEvent } from '@moralis/evm-connector-utils/src/events';
+import { EvmConnectorEvent } from './events';
 import {
   EvmAddress,
   EvmBaseConnectOptions,
@@ -15,7 +15,7 @@ import {
   ProviderRpcError,
   Logger,
   MoralisCore,
-} from '@moralis/core';
+} from '@moralisweb3/core';
 
 interface AbstractConnectorConfig {
   name: string;
@@ -91,6 +91,7 @@ export class EvmAbstractConnector extends EventEmitter {
    * - chainId(optional): the chainId that has been connected to (in hex format)
    * - account(optional): the address that is connected to the provider
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async connect(options?: EvmBaseConnectOptions): Promise<EvmConnectResponse> {
     throw new MoralisNetworkConnectorError({
       code: NetworkConnectorErrorCode.NOT_IMPLEMENTED,

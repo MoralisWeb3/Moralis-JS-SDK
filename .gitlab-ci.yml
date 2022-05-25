@@ -1,0 +1,14 @@
+# Publish on new commits on main, alpha and beta branch
+deploy:
+  stage: deploy
+  only:
+    - main
+    - beta
+    - alpha
+  tags:
+    - moralis-runner
+  script:
+    - cd /home/gitlab-runner && rm -rf Moralis-JS-SDK
+    - git clone git@github.com:MoralisWeb3/Moralis-JS-SDK.git && cd Moralis-JS-SDK
+    - git checkout $CI_COMMIT_REF_NAME
+    - yarn release

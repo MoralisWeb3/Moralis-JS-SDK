@@ -1,5 +1,5 @@
-import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralis/core';
-import { MoralisDataObject } from '@moralis/core';
+import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralisweb3/core';
+import { MoralisDataObject } from '@moralisweb3/core';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
 enum EvmApiFormatType {
@@ -37,7 +37,7 @@ export type JSONApiResult<Value extends object = object> =
     }
   | JSONApiResult[];
 
-export class EvmApiResultAdapter<Data extends unknown, AdaptedData extends unknown, JSONData extends unknown> {
+export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
   protected _data: Data;
   protected _adapter: (data: Data) => AdaptedData;
   protected _jsonAdapter: (data: AdaptedData) => JSONData;
@@ -78,6 +78,9 @@ export class EvmApiResultAdapter<Data extends unknown, AdaptedData extends unkno
       return this.result;
     }
 
-    throw new MoralisApiError({ code: ApiErrorCode.GENERIC_API_ERROR, message: 'provided formatType not supported' });
+    throw new MoralisApiError({
+      code: ApiErrorCode.GENERIC_API_ERROR,
+      message: 'provided formatType not supported',
+    });
   }
 }

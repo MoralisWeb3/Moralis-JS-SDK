@@ -1,15 +1,15 @@
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog } from '@moralis/core';
+import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
-import { EvmPaginatedResolver } from '../PaginatedResolver';
+import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getLogsByAddress';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
   chain?: EvmChainish;
   address: EvmAddressish;
 }
@@ -23,6 +23,7 @@ export const getLogsByAddressResolver = new EvmPaginatedResolver({
       (log) =>
         new EvmTransactionLog({
           ...toCamelCase(log),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
           blockNumber: Number(log.block_number),
         }),
