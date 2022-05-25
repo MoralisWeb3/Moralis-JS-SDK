@@ -12,7 +12,9 @@ describe('Moralis EvmApi', () => {
       apiKey: MOCK_API_KEY,
     });
 
-    server.listen();
+    server.listen({
+      onUnhandledRequest: 'warn',
+    });
   });
 
   afterAll(() => {
@@ -21,16 +23,16 @@ describe('Moralis EvmApi', () => {
 
   it('should get the transactions of an account', async () => {
     const result = await EvmApi.account.getTransactions({
-      address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
+      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
     });
 
     expect(result).toBeDefined();
+    expect(result.legacy.total).toBe(404);
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.toJSON()).toEqual(expect.arrayContaining([expect.objectContaining({})]));
   });
 
-  it('should not get the transactions of an invalid account and throw an error ', () => {
-    const failedResult = EvmApi.account
+  it('should not get the transactions of an invalid account and throw an error ', async () => {
+    const failedResult = await EvmApi.account
       .getTransactions({
         address: '0x7dE3085b3190B3a787822Ee16F23be010f5F868',
       })
