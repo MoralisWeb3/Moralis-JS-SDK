@@ -40,9 +40,11 @@ export class EvmPaginatedResolver<
 
   // TODO: error handler to ApiError
   _apiGet = async (params: Params) => {
-    const url = this._getUrl(params);
+    const url = this.getUrl(params);
 
-    const apiParams = this._parseParams(params);
+    let apiParams = this.parseParams(params);
+
+    apiParams = this.resolveDefaultParams(apiParams);
 
     const searchParams = this.getSearchParams(apiParams);
 
@@ -62,8 +64,10 @@ export class EvmPaginatedResolver<
   };
 
   _apiPost = async (params: Params) => {
-    const url = this._getUrl(params);
-    const apiParams = this._parseParams(params);
+    const url = this.getUrl(params);
+    let apiParams = this.parseParams(params);
+
+    apiParams = this.resolveDefaultParams(apiParams);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -87,8 +91,10 @@ export class EvmPaginatedResolver<
   };
 
   protected _serverRequest = async (params: Params) => {
-    const url = this._getUrl(params);
-    const apiParams = this._parseParams(params);
+    const url = this.getServerUrl();
+    let apiParams = this.parseParams(params);
+
+    apiParams = this.resolveDefaultParams(apiParams);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);

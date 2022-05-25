@@ -46,9 +46,9 @@ export const getNFTOwnersResolver = new EvmPaginatedResolver({
       syncedAt: nft.syncedAt?.toLocaleDateString(),
       token: nft.token.toJSON(),
     })),
-  parseParams: (params: Params): ApiParams => ({
+  parseParams: (params: Params) => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
-    address: EvmAddress.create(params.address).lowercase,
+    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
   }),
 });

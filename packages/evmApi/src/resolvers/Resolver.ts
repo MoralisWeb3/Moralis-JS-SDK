@@ -98,9 +98,11 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
 
   // TODO: error handler to ApiError
   protected _apiGet = async (params: Params) => {
-    const url = this._getUrl(params);
+    const url = this.getUrl(params);
 
-    const apiParams = this._parseParams(params);
+    let apiParams = this.parseParams(params);
+
+    apiParams = this.resolveDefaultParams(apiParams);
 
     const searchParams = this.getSearchParams(apiParams);
 
@@ -115,8 +117,10 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   };
 
   protected _apiPost = async (params: Params) => {
-    const url = this._getUrl(params);
-    const apiParams = this._parseParams(params);
+    const url = this.getUrl(params);
+    let apiParams = this.parseParams(params);
+
+    apiParams = this.resolveDefaultParams(apiParams);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -136,8 +140,10 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   };
 
   protected _serverRequest = async (params: Params) => {
-    const url = this._getUrl(params);
-    const apiParams = this._parseParams(params);
+    const url = this.getServerUrl();
+    let apiParams = this.parseParams(params);
+
+    apiParams = this.resolveDefaultParams(apiParams);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -151,30 +157,34 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
   };
 
-  protected _getUrl(params: Params) {
-    const apiKey = core.config.get('apiKey');
-    if (!apiKey) {
-      const serverUrl = core.config.get('serverUrl');
-      if (!serverUrl) {
-        throw new MoralisApiError({
-          code: ApiErrorCode.GENERIC_API_ERROR,
-          message: 'EvmApi failed: start with apiKey or serverUrl',
-        });
-      }
-      return `${serverUrl}/functions/${this.name}`;
+  protected getServerUrl() {
+    const serverUrl = core.config.get('serverUrl');
+    if (!serverUrl) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.GENERIC_API_ERROR,
+        message: 'EvmApi failed: start with apiKey or serverUrl',
+      });
     }
-    return this.getUrl(params);
+    return `${serverUrl}/functions/${this.name}`;
   }
 
-  protected _parseParams(params: Params) {
+  protected resolveDefaultParams(params: ApiParams) {
     const evm = core.modules.getNetwork('evm');
-    if (evm) {
+    // @ts-ignore TODO: fix type as it should be of type EvmApi
+    if ((!evm || !evm.isConnected) && 'address' in params && !params.address) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.GENERIC_API_ERROR,
+        message: 'EvmApi failed: address is required',
+      });
+    }
+    // @ts-ignore
+    if (evm && evm.isConnected) {
       // @ts-ignore TODO: fix types for params (probably extend a default options interface)
       params.chain = params.chain ?? EvmChain.create(evm.chain).apiHex;
       // @ts-ignore
       params.address = params.address ?? EvmAddress.create(evm.account).lowercase;
     }
-    return this.parseParams(params);
+    return params;
   }
 
   fetch = (params: Params) => {

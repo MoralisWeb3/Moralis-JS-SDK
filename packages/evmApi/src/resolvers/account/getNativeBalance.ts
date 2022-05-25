@@ -13,7 +13,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 export const getNativeBalanceResolver = new EvmResolver({
@@ -25,9 +25,9 @@ export const getNativeBalanceResolver = new EvmResolver({
   resultToJson: (data) => ({
     balance: data.balance.format(),
   }),
-  parseParams: (params: Params): ApiParams => ({
+  parseParams: (params: Params) => ({
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: EvmAddress.create(params.address).lowercase,
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
     to_block: params.toBlock,
     providerUrl: params.providerUrl,
   }),

@@ -11,7 +11,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'cursor'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -57,10 +57,10 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
       ),
     ),
   resultToJson: (data) => data?.map((transaction) => transaction.toJSON()),
-  parseParams: (params: Params): ApiParams => ({
+  parseParams: (params: Params) => ({
     ...params,
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: EvmAddress.create(params.address).lowercase,
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

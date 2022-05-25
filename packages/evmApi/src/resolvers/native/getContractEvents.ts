@@ -12,7 +12,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
   abi: unknown;
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -37,7 +37,7 @@ export const getContractEventsResolver = new EvmResolver({
     limit: params.limit,
     offset: params.offset,
     subdomain: params.subdomain,
-    address: EvmAddress.create(params.address).lowercase,
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
     abi: params.abi,
   }),
   method,

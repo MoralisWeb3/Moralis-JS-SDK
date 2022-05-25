@@ -11,7 +11,7 @@ type ApiParams = QueryParams & PathParams;
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -44,9 +44,9 @@ export const getTokenIdMetadataResolver = new EvmResolver({
     syncedAt: data.syncedAt?.toLocaleDateString(),
     token: data.token.toJSON(),
   }),
-  parseParams: (params: Params): ApiParams => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
-    address: EvmAddress.create(params.address).lowercase,
+  parseParams: (params: Params) => ({
+    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
     token_id: params.tokenId,
     format: params.format,
   }),

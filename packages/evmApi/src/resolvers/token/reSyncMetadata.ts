@@ -13,19 +13,19 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 export const reSyncMetadataResolver = new EvmResolver({
   name: 'reSyncMetadata',
-  getPath: (params: Params) => `nft/${EvmAddress.create(params.address).lowercase}/${params.tokenId}/metadata/resync`,
+  getPath: (params: Params) => `nft/${params.address}/${params.tokenId}/metadata/resync`,
   apiToResult: (data: ApiResult) => ({
     ...data,
   }),
   resultToJson: (data) => data,
-  parseParams: (params: Params): ApiParams => ({
+  parseParams: (params: Params) => ({
     chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: EvmAddress.create(params.address).lowercase,
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
     token_id: params.tokenId,
     flag: params.flag,
     mode: params.mode,

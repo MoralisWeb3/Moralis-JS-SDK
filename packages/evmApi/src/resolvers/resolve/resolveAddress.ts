@@ -1,5 +1,6 @@
 import { EvmAddress, EvmAddressish } from '@moralis/core';
 import { operations } from '../../generated/types';
+import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'resolveAddress';
@@ -9,8 +10,8 @@ type ApiParams = PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export interface Params {
-  address: EvmAddressish;
+export interface Params extends Camelize<Omit<ApiParams, 'address'>> {
+  address?: EvmAddressish;
 }
 
 export const resolveAddressResolver = new EvmResolver({
@@ -18,7 +19,7 @@ export const resolveAddressResolver = new EvmResolver({
   getPath: (params: Params) => `resolve/${params.address}/reverse`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,
-  parseParams: (params: Params): ApiParams => ({
-    address: EvmAddress.create(params.address).lowercase,
+  parseParams: (params: Params) => ({
+    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
   }),
 });
