@@ -25,12 +25,12 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
+    expect(result.legacy.total).toBe(856189);
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.toJSON()).toEqual(expect.arrayContaining([expect.objectContaining({})]));
   });
 
-  it('should not get logs for an invalid address and return an error code', () => {
-    const failedResult = EvmApi.native
+  it('should not get logs for an invalid address and return an error code', async () => {
+    const failedResult = await EvmApi.native
       .getLogsByAddress({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
       })

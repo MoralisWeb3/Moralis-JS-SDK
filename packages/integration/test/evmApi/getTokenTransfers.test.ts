@@ -25,8 +25,8 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
+    expect(result.legacy.total).toBe(44);
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.toJSON()).toEqual(expect.arrayContaining([expect.objectContaining({})]));
   });
 
   it('should not get token transfers of an invalid account address and throw an error ', () => {
