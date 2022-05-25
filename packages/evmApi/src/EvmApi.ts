@@ -1,5 +1,5 @@
 import { getTokenPriceResolver } from './resolvers/token';
-import core, { ApiModule } from '@moralis/core';
+import core, { ApiModule } from '@moralisweb3/core';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveDomainResolver } from './resolvers/resolve';
 import { getTokenBalancesResolver, getNativeBalanceResolver } from './resolvers/account';

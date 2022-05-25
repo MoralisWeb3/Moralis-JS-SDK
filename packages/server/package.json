@@ -1,7 +1,7 @@
 {
-  "name": "@moralis/server",
+  "name": "@moralisweb3/server",
   "author": "Moralis",
-  "version": "1.0.0",
+  "version": "2.0.0-alpha.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -26,7 +26,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralis/core": "^1.0.0",
+    "@moralisweb3/core": "^2.0.0-alpha.0",
     "jest": "^27.4.7",
     "parse": "^3.4.1"
   }

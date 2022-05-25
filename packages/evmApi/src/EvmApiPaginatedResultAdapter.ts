@@ -1,4 +1,4 @@
-import { ApiErrorCode, MoralisApiError } from '@moralis/core';
+import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
 import { EvmApiResultAdapter } from './EvmApiResultAdapter';
 import { PaginatedResponse } from './resolvers/PaginatedResolver';
 

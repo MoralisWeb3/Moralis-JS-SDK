@@ -1,11 +1,11 @@
 module.exports = {
   // Map workspaces to their source code so that Jest can resolve them correctly.
   moduleNameMapper: {
-    '^@moralis/evm-connector-utils$': '<rootDir>/../evmConnectors/EvmConnectorUtils/src',
-    '^@moralis/evm-metamask-connector$': '<rootDir>/../evmConnectors/EvmMetamaskConnector/src',
-    '^@moralis/evm-walletconnect-connector$': '<rootDir>/../evmConnectors/EvmWalletconnectConnector/src',
-    '^@moralis/evm-api': '<rootDir>/../evmApi/src',
-    '^@moralis/(.*)$': '<rootDir>/../$1/src',
+    '^@moralisweb3/evm-connector-utils$': '<rootDir>/../evmConnectors/EvmConnectorUtils/src',
+    '^@moralisweb3/evm-metamask-connector$': '<rootDir>/../evmConnectors/EvmMetamaskConnector/src',
+    '^@moralisweb3/evm-walletconnect-connector$': '<rootDir>/../evmConnectors/EvmWalletconnectConnector/src',
+    '^@moralisweb3/evm-api': '<rootDir>/../evmApi/src',
+    '^@moralisweb3/(.*)$': '<rootDir>/../$1/src',
   },
   // Use esbuild to transpile TypeScript files on the fly.
   transform: {

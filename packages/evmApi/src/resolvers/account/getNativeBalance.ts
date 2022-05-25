@@ -1,4 +1,4 @@
-import { EvmNative } from '@moralis/core';
+import { EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
