@@ -1,15 +1,15 @@
 {
-  "name": "@moralis/evm-wallet-connect-connector",
+  "name": "@moralisweb3/evm-wallet-connect-connector",
   "author": "Moralis",
-  "version": "1.0.0",
+  "version": "2.0.0-alpha.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "format": "prettier . --write",
-    "format:check": "prettier . --check",
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",
@@ -22,8 +22,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralis/core": "^1.0.0",
-    "@moralis/evm-connector-utils": "^1.0.0",
+    "@moralisweb3/core": "^2.0.0-alpha.0",
+    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.0",
     "@walletconnect/web3-provider": "^1.7.5"
   }
 }

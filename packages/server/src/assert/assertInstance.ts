@@ -1,4 +1,4 @@
-import { MoralisServerError, ServerErrorCode } from '@moralis/core';
+import { MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import type Parse from 'parse';
 
 const isValidInstance = (instance: unknown): instance is typeof Parse => {

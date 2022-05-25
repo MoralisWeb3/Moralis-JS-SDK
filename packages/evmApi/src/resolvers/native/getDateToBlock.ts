@@ -1,4 +1,4 @@
-import { EvmChain, EvmChainish } from '@moralis/core';
+import { EvmChain, EvmChainish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 

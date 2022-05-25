@@ -1,0 +1,19 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "@moralisweb3/test-app-all": "0.1.0",
+    "@moralisweb3/core": "1.7.0",
+    "@moralisweb3/evm": "1.7.0",
+    "@moralisweb3/evm-api": "1.7.0",
+    "@moralisweb3/evm-connector-utils": "1.7.0",
+    "@moralisweb3/evm-metamask-connector": "1.7.0",
+    "@moralisweb3/evm-wallet-connect-connector": "1.7.0",
+    "@moralisweb3/integration": "1.7.0",
+    "moralis": "1.7.0",
+    "@moralisweb3/server": "1.7.0"
+  },
+  "changesets": [
+    "tough-cameras-nail"
+  ]
+}

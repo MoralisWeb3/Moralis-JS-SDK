@@ -1,4 +1,4 @@
-import { Moralis } from '@moralisweb3/all';
+import { Moralis } from 'moralis';
 import MoralisCore from '@moralisweb3/core';
 import Server from '@moralisweb3/server';
 import EvmApi from '@moralisweb3/evm-api';

@@ -1,5 +1,5 @@
-import { Moralis } from '@moralis/all';
-import { AuthMethod } from '@moralis/server/lib/AuthMethods/types';
+import { Moralis } from 'moralis';
+import { AuthMethod } from '@moralisweb3/server/lib/AuthMethods/types';
 
 export const Server = () => {
   return (
