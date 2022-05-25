@@ -2,7 +2,7 @@ import {
   EvmMetamaskConnectorConnectOptions,
   EvmWalletConnectConnectorOptions,
   SolPhantomConnectorConnectOptions,
-} from '@moralis/core';
+} from '@moralisweb3/core';
 import type Parse from 'parse';
 
 /**
