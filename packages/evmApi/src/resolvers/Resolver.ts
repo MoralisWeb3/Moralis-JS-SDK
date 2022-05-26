@@ -78,8 +78,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       if (!params[key] || !this.isBodyParam(key)) {
         return result;
       }
-        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-        return { ...result, [key]: params[key] };
+      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+      return { ...result, [key]: params[key] };
     }, {});
   }
 

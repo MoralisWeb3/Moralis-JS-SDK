@@ -51,6 +51,6 @@ export const getNFTsResolver = new EvmPaginatedResolver({
     ...params,
     chain: resolveDefaultChain(params.chain),
     token_addresses: params.tokenAddresses?.map((address) => EvmAddress.create(address).lowercase),
-    address: resolveDefaultAddress(params.address)
+    address: resolveDefaultAddress(params.address),
   }),
 });

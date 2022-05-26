@@ -39,7 +39,6 @@ import { uploadFolderResolver } from './resolvers/storage';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
-
   constructor() {
     super({
       name: 'evmApi',
