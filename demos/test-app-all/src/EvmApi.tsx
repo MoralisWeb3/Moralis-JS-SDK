@@ -7,14 +7,6 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
-          Moralis.EvmApi.start();
-        }}
-      >
-        start
-      </button>
-
-      <button
-        onClick={() => {
           Moralis.EvmApi.native
             .getBlock({
               block_number_or_hash: '1000000',
@@ -29,7 +21,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.account
             .getNativeBalance({
-              address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
+              // address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
             })
             .then(console.log);
         }}
@@ -78,7 +70,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.native
             .getLogsByAddress({
-              // address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+              address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
             })
             .then(console.log);
         }}

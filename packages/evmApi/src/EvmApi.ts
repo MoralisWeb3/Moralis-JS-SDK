@@ -39,8 +39,6 @@ import { uploadFolderResolver } from './resolvers/storage';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class MoralisEvmApi extends ApiModule {
-  apiKey = core.config.get('apiKey');
-  serverUrl = core.config.get('serverUrl');
 
   constructor() {
     super({
@@ -48,13 +46,6 @@ export class MoralisEvmApi extends ApiModule {
       core,
       baseUrl: BASE_URL,
     });
-  }
-
-  start(): void | Promise<void> {
-    const evm = this.core.modules.getNetwork('evm');
-    // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-    // eslint-disable-next-line no-console
-    console.log(evm);
   }
 
   get native() {
