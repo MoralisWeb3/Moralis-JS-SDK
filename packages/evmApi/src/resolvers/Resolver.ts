@@ -1,12 +1,8 @@
-import core, { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError, RequestController } from '@moralisweb3/core';
+import core, { ApiErrorCode, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
 type Method = 'get' | 'post';
-export enum BodyType {
-  PROPERTY = 'property',
-  BODY = 'set body',
-}
 
 export interface ServerResponse<ApiResult> {
   result: ApiResult;
@@ -19,7 +15,6 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
   parseParams: (params: Params) => ApiParams;
   method?: Method;
   bodyParams?: readonly (keyof Params)[];
-  bodyType?: BodyType;
   name: string;
 }
 
@@ -30,7 +25,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
   protected bodyParams?: readonly (keyof Params)[];
-  protected bodyType?: BodyType;
   protected name: string;
 
   constructor({
@@ -40,7 +34,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     parseParams,
     method,
     bodyParams,
-    bodyType,
     name,
   }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
     this.getPath = getPath;
@@ -49,7 +42,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.parseParams = parseParams;
     this.method = method ?? 'get';
     this.bodyParams = bodyParams;
-    this.bodyType = bodyType ?? BodyType.PROPERTY;
     this.name = name;
   }
 
@@ -86,13 +78,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       if (!params[key] || !this.isBodyParam(key)) {
         return result;
       }
-      if (this.bodyType === BodyType.PROPERTY) {
         // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
         return { ...result, [key]: params[key] };
-      } else {
-        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-        return params[key];
-      }
     }, {});
   }
 
@@ -100,9 +87,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected _apiGet = async (params: Params) => {
     const url = this.getUrl(params);
 
-    let apiParams = this.parseParams(params);
-
-    apiParams = this.resolveDefaultParams(apiParams);
+    const apiParams = this.parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
 
@@ -118,9 +103,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
 
   protected _apiPost = async (params: Params) => {
     const url = this.getUrl(params);
-    let apiParams = this.parseParams(params);
-
-    apiParams = this.resolveDefaultParams(apiParams);
+    const apiParams = this.parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -141,9 +124,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
 
   protected _serverRequest = async (params: Params) => {
     const url = this.getServerUrl();
-    let apiParams = this.parseParams(params);
-
-    apiParams = this.resolveDefaultParams(apiParams);
+    const apiParams = this.parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -166,25 +147,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       });
     }
     return `${serverUrl}/functions/${this.name}`;
-  }
-
-  protected resolveDefaultParams(params: ApiParams) {
-    const evm = core.modules.getNetwork('evm');
-    // @ts-ignore TODO: fix type as it should be of type MoralisEvm
-    if ((!evm || !evm.isConnected) && 'address' in params && !params.address) {
-      throw new MoralisApiError({
-        code: ApiErrorCode.GENERIC_API_ERROR,
-        message: 'EvmApi failed: address is required',
-      });
-    }
-    // @ts-ignore
-    if (evm && evm.isConnected) {
-      // @ts-ignore TODO: fix types for params (probably extend a default options interface)
-      params.chain = params.chain ?? EvmChain.create(evm.chain).apiHex;
-      // @ts-ignore
-      params.address = params.address ?? EvmAddress.create(evm.account).lowercase;
-    }
-    return params;
   }
 
   fetch = (params: Params) => {

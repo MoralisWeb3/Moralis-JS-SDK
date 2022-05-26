@@ -1,7 +1,8 @@
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '@moralis/core';
+import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { Camelize } from '../../utils/toCamelCase';
-import { BodyType, EvmResolver } from '../Resolver';
+import { EvmResolver } from '../Resolver';
 
 type operation = 'getContractEvents';
 const method = 'post';
@@ -12,7 +13,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
   abi: unknown;
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -27,7 +28,7 @@ export const getContractEventsResolver = new EvmResolver({
     })),
   resultToJson: (data) => data,
   parseParams: (params: Params) => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain),
     from_block: params.fromBlock,
     to_block: params.toBlock,
     from_date: params.toDate,
@@ -37,10 +38,9 @@ export const getContractEventsResolver = new EvmResolver({
     limit: params.limit,
     offset: params.offset,
     subdomain: params.subdomain,
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+    address: EvmAddress.create(params.address).lowercase,
     abi: params.abi,
   }),
   method,
   bodyParams,
-  bodyType: BodyType.BODY,
 });

@@ -1,5 +1,5 @@
 import { operations } from '../../generated/types';
-import { BodyType, EvmResolver } from '../Resolver';
+import { EvmResolver } from '../Resolver';
 
 type operation = 'uploadFolder';
 const method = 'post';
@@ -25,5 +25,4 @@ export const uploadFolderResolver = new EvmResolver({
   }),
   method,
   bodyParams,
-  bodyType: BodyType.BODY,
 });

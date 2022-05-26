@@ -32,19 +32,16 @@ export class EvmPaginatedResolver<
     parseParams,
     method,
     bodyParams,
-    bodyType,
     name,
   }: EvmResolverOptions<ApiParams, Params, PaginatedResponse<ApiResult>, AdaptedResult, JSONResult>) {
-    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams, bodyType, name });
+    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams, name });
   }
 
   // TODO: error handler to ApiError
   _apiGet = async (params: Params) => {
     const url = this.getUrl(params);
 
-    let apiParams = this.parseParams(params);
-
-    apiParams = this.resolveDefaultParams(apiParams);
+    const apiParams = this.parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
 
@@ -65,9 +62,7 @@ export class EvmPaginatedResolver<
 
   _apiPost = async (params: Params) => {
     const url = this.getUrl(params);
-    let apiParams = this.parseParams(params);
-
-    apiParams = this.resolveDefaultParams(apiParams);
+    const apiParams = this.parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
@@ -92,9 +87,7 @@ export class EvmPaginatedResolver<
 
   protected _serverRequest = async (params: Params) => {
     const url = this.getServerUrl();
-    let apiParams = this.parseParams(params);
-
-    apiParams = this.resolveDefaultParams(apiParams);
+    const apiParams = this.parseParams(params);
 
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
