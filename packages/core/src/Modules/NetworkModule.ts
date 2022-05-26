@@ -1,3 +1,4 @@
+import { EvmAddress, EvmChain } from './../dataTypes';
 import { EventMap } from 'typed-emitter';
 import { CoreModuleType } from './CoreModuleType';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
@@ -49,4 +50,10 @@ export abstract class NetworkModule<Events extends EventMap = any> extends BaseM
   }
 
   abstract get supportedConnectors(): string[];
+
+  abstract get isConnected(): boolean;
+
+  abstract get chain(): EvmChain | null;
+
+  abstract get account(): EvmAddress | null;
 }
