@@ -123,7 +123,6 @@ export interface paths {
     /**
      * Gets all owners of NFT items within a given contract collection
      * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-     * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getNFTOwners"];
@@ -160,7 +159,6 @@ export interface paths {
     /**
      * Gets all owners of NFT items within a given contract collection
      * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-     * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getTokenIdOwners"];
@@ -2264,7 +2262,6 @@ export interface operations {
   /**
    * Gets all owners of NFT items within a given contract collection
    * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-   * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getNFTOwners: {
@@ -2410,7 +2407,6 @@ export interface operations {
   /**
    * Gets all owners of NFT items within a given contract collection
    * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-   * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getTokenIdOwners: {
