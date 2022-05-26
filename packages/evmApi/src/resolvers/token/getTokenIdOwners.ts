@@ -1,5 +1,6 @@
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
@@ -47,7 +48,7 @@ export const getTokenIdOwnersResolver = new EvmPaginatedResolver({
       token: nft.token.toJSON(),
     })),
   parseParams: (params: Params) => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
+    chain: resolveDefaultChain(params.chain),
     address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
     token_id: params.tokenId,
     cursor: params.cursor,

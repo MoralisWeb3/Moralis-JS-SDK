@@ -1,5 +1,6 @@
+import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddress, EvmNative } from '@moralisweb3/core';
+import { EvmChainish, EvmAddress, EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
@@ -40,7 +41,7 @@ export const getNFTTransfersByBlockResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain),
     block_number_or_hash: params.blockNumberOrHash,
   }),
 });

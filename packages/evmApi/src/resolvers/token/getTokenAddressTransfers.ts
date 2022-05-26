@@ -1,8 +1,9 @@
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, Erc20Value } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, Erc20Value } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenAddressTransfers';
 
@@ -11,7 +12,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -39,8 +40,8 @@ export const getTokenAddressTransfersResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params) => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+    chain: resolveDefaultChain(params.chain),
+    address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

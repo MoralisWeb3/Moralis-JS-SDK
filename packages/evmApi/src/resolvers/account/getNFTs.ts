@@ -1,5 +1,6 @@
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
@@ -48,8 +49,8 @@ export const getNFTsResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params) => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain),
     token_addresses: params.tokenAddresses?.map((address) => EvmAddress.create(address).lowercase),
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+    address: resolveDefaultAddress(params.address)
   }),
 });

@@ -1,8 +1,9 @@
 import { BigNumber } from 'ethers';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmTransactionReceipt } from '@moralisweb3/core';
+import { EvmChain, EvmChainish, EvmAddressish, EvmTransactionReceipt } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
+import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTransactions';
 
@@ -59,8 +60,8 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
   resultToJson: (data) => data?.map((transaction) => transaction.toJSON()),
   parseParams: (params: Params) => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+    chain: resolveDefaultChain(params.chain),
+    address: resolveDefaultAddress(params.address),
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

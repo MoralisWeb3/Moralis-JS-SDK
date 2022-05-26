@@ -1,7 +1,8 @@
 import { EvmResolver } from './../Resolver';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenIdMetadata';
 
@@ -11,7 +12,7 @@ type ApiParams = QueryParams & PathParams;
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -44,9 +45,9 @@ export const getTokenIdMetadataResolver = new EvmResolver({
     syncedAt: data.syncedAt?.toLocaleDateString(),
     token: data.token.toJSON(),
   }),
-  parseParams: (params: Params) => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+  parseParams: (params: Params): ApiParams => ({
+    chain: resolveDefaultChain(params.chain),
+    address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     format: params.format,
   }),

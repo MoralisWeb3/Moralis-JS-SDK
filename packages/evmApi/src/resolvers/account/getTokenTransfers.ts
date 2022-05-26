@@ -1,9 +1,10 @@
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 import { BigNumber } from 'ethers';
+import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenTransfers';
 
@@ -38,10 +39,10 @@ export const getTokenTransfersResolver = new EvmPaginatedResolver({
       value: transfer.value.toString(),
       blockTimestamp: transfer.blockTimestamp.toLocaleString(),
     })),
-  parseParams: (params: Params) => ({
+  parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+    chain: resolveDefaultChain(params.chain),
+    address: resolveDefaultAddress(params.address),
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,
