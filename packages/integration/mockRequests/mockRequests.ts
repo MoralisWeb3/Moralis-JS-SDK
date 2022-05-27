@@ -10,6 +10,7 @@ import { mockGetTransactions } from './evmApi/getTransactions';
 import { mockGetTokenPrice } from './evmApi/getTokenPrice';
 import { mockGetNFTTrades } from './evmApi/getNFTTrades';
 import { mockGetContractNFTTransfers } from './evmApi/getContractNFTTransfers';
+import { mockGetNFTLowestPrice } from './evmApi/getNFTLowestPrice';
 
 const handlers = [
   mockResolveDomain,
@@ -23,6 +24,7 @@ const handlers = [
   mockGetNFTsForContract,
   mockGetNFTTrades,
   mockGetContractNFTTransfers,
+  mockGetNFTLowestPrice,
 ];
 
 export const mockServer = setupServer(...handlers);
