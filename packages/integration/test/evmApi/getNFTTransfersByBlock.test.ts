@@ -46,6 +46,11 @@ describe('Moralis EvmApi', () => {
       EvmApi.native.getNFTTransfersByBlock({
         blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b917',
       }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid block number provided"`);
+    expect(
+      EvmApi.native.getNFTTransfersByBlock({
+        blockNumberOrHash: '',
+      }),
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 404"`);
   });
 });
