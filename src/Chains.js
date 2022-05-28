@@ -12,5 +12,6 @@ const Chains = {
   AVAX_MAINNET: '0xa86a',
   AVAX_TESTNET: '0xa869',
   FANTOM_MAINNET: '0xfa',
+  CRONOS_MAINNET: '0x19',
 };
 export default Chains;
