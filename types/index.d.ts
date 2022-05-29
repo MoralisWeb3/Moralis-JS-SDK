@@ -401,7 +401,7 @@ export namespace Moralis {
   type FantomChain = 'fantom' | 'ftm' | '0xfa';
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type AvalancheTestChain = 'avalanche testnet' | 'avax testnet' | '0xa869' | 'fuji';
-  type ChronosChain = 'chronos' | 'chronos mainnet' | '0x19';
+  type ChronosChain = 'cro' | 'chronos' | 'chronos mainnet' | '0x19';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
   type Chain =
     | EthChain
