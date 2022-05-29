@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.7.0...v1.8.0) (2022-05-29)
+
+
+### Features
+
+* Add support for cronos ([#410](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/410)) ([490821f](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/490821f6bcb1a81ce282a164814e450370eba5f0))
+
 # [1.7.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.6.0...v1.7.0) (2022-05-09)
 
 
