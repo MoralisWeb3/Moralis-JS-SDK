@@ -6,16 +6,18 @@ export class EvmApiPaginatedResultAdapter<
   Data extends PaginatedResponse<unknown>,
   AdaptedData,
   JSONData,
-> extends EvmApiResultAdapter<Data, AdaptedData, JSONData> {
-  private _nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData>>;
+  Params,
+> extends EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
+  private _nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>;
 
   constructor(
     data: Data,
-    adapter: (data: Data) => AdaptedData,
+    adapter: (data: Data, params: Params) => AdaptedData,
     jsonAdapter: (data: AdaptedData) => JSONData,
-    nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData>>,
+    params: Params,
+    nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>,
   ) {
-    super(data, adapter, jsonAdapter);
+    super(data, adapter, jsonAdapter, params);
     this._nextCall = nextCall;
   }
 
