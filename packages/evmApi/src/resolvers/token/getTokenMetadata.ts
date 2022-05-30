@@ -17,13 +17,14 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export const getTokenMetadataResolver = new EvmResolver({
   getPath: (params: Params) => `erc20/metadata`,
-  apiToResult: (data: ApiResult) =>
+  apiToResult: (data: ApiResult, params: Params) =>
     data.map((token) => {
       const tokenType = new Erc20Token({
         ...toCamelCase(token),
         contractAddress: token.address,
-        // TODO: add chain info (or omit it from Erc20Token type),
-        chain: 1,
+        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        chain: params.chain!,
       });
       return {
         token: tokenType,
@@ -35,7 +36,7 @@ export const getTokenMetadataResolver = new EvmResolver({
   parseParams: (params: Params): ApiParams => ({
     providerUrl: params.providerUrl || undefined,
     subdomain: params.subdomain || undefined,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
     addresses: params.addresses.map((address) => EvmAddress.create(address).format()),
   }),
 });

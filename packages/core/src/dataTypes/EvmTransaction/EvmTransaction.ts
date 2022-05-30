@@ -1,69 +1,23 @@
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisDataObject } from './abstract';
-import { EvmAddress, EvmAddressish } from './EvmAddress';
-import { EvmChain, EvmChainish } from './EvmChain';
+import { BigNumber } from '@ethersproject/bignumber';
+import { accessListify } from '@ethersproject/transactions';
+import { MoralisCoreError, CoreErrorCode } from '../../Error';
+import { MoralisDataObject } from '../abstract';
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
 import { EvmTransactionResponse } from './EvmTransactionResponse';
-import { AccessListish, BytesLike } from './types';
-import { maybe } from './utils';
+import { maybe } from '../utils';
+import { EvmNative } from '../EvmNative';
+import { EvmTransactionInput, EvmTransactionData, EthersJsTransactionRequest } from './EvmTransactionTypes';
 
-export interface EvmTransactionInput {
-  to?: null | EvmAddressish;
-  from?: null | EvmAddressish;
-  nonce?: null | BigNumberish;
+export type EvmTransactionish = EvmTransactionInput | EvmTransaction;
 
-  gasLimit?: null | BigNumberish;
-  gasPrice?: null | BigNumberish;
-
-  data?: null | BytesLike;
-  value?: null | BigNumberish;
-  chain?: null | EvmChainish;
-
-  type?: null | number;
-  accessList?: null | AccessListish;
-
-  maxPriorityFeePerGas?: null | BigNumberish;
-  maxFeePerGas?: null | BigNumberish;
-}
-
-export interface EvmTransactionData {
-  to?: EvmAddress;
-  from?: EvmAddress;
-  nonce?: BigNumber;
-
-  gasLimit?: BigNumber;
-  gasPrice?: BigNumber;
-
-  data?: BytesLike;
-  value?: BigNumber;
-  chain?: EvmChain;
-
-  type?: number;
-  accessList?: AccessListish;
-
-  maxPriorityFeePerGas?: BigNumber;
-  maxFeePerGas?: BigNumber;
-}
-
-interface EthersJsTransactionRequest {
-  to?: string;
-  from?: string;
-  nonce?: BigNumberish;
-
-  gasLimit?: BigNumberish;
-  gasPrice?: BigNumberish;
-
-  data?: BytesLike;
-  value?: BigNumberish;
-  chainId?: number;
-
-  type?: number;
-  accessList?: AccessListish;
-
-  maxPriorityFeePerGas?: BigNumberish;
-  maxFeePerGas?: BigNumberish;
-}
-
+/**
+ * The EvmTransaction class is a MoralisData that references an Evm transaction request,
+ * that is meant to be sent to the network.
+ *
+ * @see EvmTransactionResponse for a published transaction that has been sent to the network
+ * @see EvmTransactionReceipt for a confirmed transaction
+ */
 export class EvmTransaction implements MoralisDataObject {
   private _value;
   private _sendCall;
@@ -74,7 +28,7 @@ export class EvmTransaction implements MoralisDataObject {
   }
 
   static create(
-    transaction: EvmTransactionInput | EvmTransaction,
+    transaction: EvmTransactionish,
     sendCall?: (value: EvmTransaction) => Promise<EvmTransactionResponse>,
   ): EvmTransaction {
     if (transaction instanceof EvmTransaction) {
@@ -94,19 +48,30 @@ export class EvmTransaction implements MoralisDataObject {
       gasPrice: maybe(value.gasPrice, BigNumber.from),
 
       data: maybe(value.data),
-      value: maybe(value.value, BigNumber.from),
+      value: maybe(value.value, (val) => EvmNative.create(val, 'wei')),
       chain: maybe(value.chain, EvmChain.create),
 
       type: maybe(value.type),
-      accessList: maybe(value.accessList),
+      accessList: maybe(value.accessList, accessListify),
 
       maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.from),
       maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.from),
     };
   }
 
-  equals(value: this): boolean {
-    return JSON.stringify(value.toJSON()) === JSON.stringify(this.toJSON());
+  static equals(providedTransactionA: EvmTransactionish, providedTransactionB: EvmTransactionish) {
+    const transactionA = EvmTransaction.create(providedTransactionA);
+    const transactionB = EvmTransaction.create(providedTransactionB);
+
+    if (transactionA.toJSON() === transactionB.toJSON()) {
+      return false;
+    }
+
+    return true;
+  }
+
+  equals(value: EvmTransactionish): boolean {
+    return EvmTransaction.equals(this, value);
   }
 
   toEthRequest(): EthersJsTransactionRequest {
@@ -117,6 +82,7 @@ export class EvmTransaction implements MoralisDataObject {
       to: value.to?.checksum,
       from: value.from?.checksum,
       chainId: chain?.decimal,
+      value: value.value?.format(),
     };
   }
 

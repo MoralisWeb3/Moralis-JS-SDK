@@ -18,9 +18,12 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export const getNFTOwnersResolver = new EvmPaginatedResolver({
   getPath: (params: Params) => `nft/${params.address}/owners`,
-  apiToResult: (data: ApiResult) =>
+  apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((nft) => ({
       token: new EvmNFT({
+        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        chain: params.chain!,
         contractType: nft.contract_type,
         tokenAddress: nft.token_address,
         tokenId: nft.token_id,
