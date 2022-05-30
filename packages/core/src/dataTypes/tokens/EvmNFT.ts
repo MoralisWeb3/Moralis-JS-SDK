@@ -2,6 +2,7 @@ import { MoralisDataObject, MoralisDataObjectValue } from '../abstract';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
 import { maybe } from '../utils';
+import { EvmChain, EvmChainish } from '../EvmChain';
 
 export enum ContractType {
   ERC721 = 'ERC721',
@@ -11,6 +12,7 @@ export enum ContractType {
 interface EvmNFTInput {
   tokenId: number | string;
   contractType: string;
+  chain: EvmChainish;
   tokenUri?: string;
   tokenAddress: EvmAddressish;
   tokenHash?: string;
@@ -22,6 +24,7 @@ interface EvmNFTInput {
 interface EvmNFTData {
   tokenId: number | string;
   contractType: ContractType;
+  chain: EvmChain;
   tokenUri?: string;
   tokenAddress: EvmAddress;
   tokenHash?: string;
@@ -30,6 +33,11 @@ interface EvmNFTData {
   symbol?: string;
 }
 
+export type EvmNFTish = EvmNFTInput | EvmNFT;
+
+/**
+ * The EvmNFT class is a MoralisData that references to a the NFT of the type; Erc721 or Erc1155
+ */
 export class EvmNFT implements MoralisDataObject {
   private _value: EvmNFTData;
 
@@ -39,6 +47,7 @@ export class EvmNFT implements MoralisDataObject {
 
   static parse = (value: EvmNFTInput): EvmNFTData => ({
     ...value,
+    chain: EvmChain.create(value.chain),
     contractType: this.validateType(value.contractType),
     tokenAddress: EvmAddress.create(value.tokenAddress),
     metadata: maybe(value.metadata, this.validateMetadata),
@@ -73,8 +82,31 @@ export class EvmNFT implements MoralisDataObject {
     }
   };
 
-  equals(value: this): boolean {
-    return value._value.tokenUri === this._value.tokenUri;
+  static create(value: EvmNFTish) {
+    if (value instanceof EvmNFT) {
+      return value;
+    }
+
+    return new EvmNFT(value);
+  }
+
+  static equals(valueA: EvmNFTish, valueB: EvmNFTish) {
+    const nftA = EvmNFT.create(valueA);
+    const nftB = EvmNFT.create(valueB);
+
+    if (!nftA._value.chain.equals(nftB._value.chain)) {
+      return false;
+    }
+
+    if (!nftA._value.tokenAddress.equals(nftB._value.tokenAddress)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  equals(value: EvmNFTish): boolean {
+    return EvmNFT.equals(this, value);
   }
 
   toJSON() {
@@ -82,6 +114,7 @@ export class EvmNFT implements MoralisDataObject {
     return {
       ...value,
       tokenAddress: value.tokenAddress.format(),
+      chain: value.chain.format(),
     };
   }
 
