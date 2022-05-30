@@ -13,6 +13,10 @@ export type Erc20ValueData = {
   decimals: number;
 };
 
+/**
+ * The Erc20Value class is a MoralisData that references to a the value of an Erc20Token
+ * It holds data about the data about the amount of tokens and the number of decimals.
+ */
 export class Erc20Value implements MoralisData {
   private _value: Erc20ValueData;
 
@@ -36,15 +40,34 @@ export class Erc20Value implements MoralisData {
     return new Erc20Value(value, decimals);
   }
 
-  equals(value: this): boolean {
-    return this.value.eq(value.value);
+  static equals(valueA: Erc20Valueish, valueB: Erc20Valueish) {
+    const erc20ValueA = Erc20Value.create(valueA);
+    const erc20ValueB = Erc20Value.create(valueB);
+
+    return erc20ValueA.value.eq(erc20ValueB.value);
+  }
+
+  equals(value: Erc20Valueish): boolean {
+    return Erc20Value.equals(this, value);
+  }
+
+  get decimals() {
+    return this._value.decimals;
+  }
+
+  get amount() {
+    return this._value.amount;
   }
 
   get value() {
     return parseUnits(this._value.amount.toString(), this._value.decimals);
   }
 
-  format() {
+  toString() {
     return this.value.toString();
+  }
+
+  format() {
+    return this.toString();
   }
 }

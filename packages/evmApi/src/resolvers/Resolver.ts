@@ -1,4 +1,4 @@
-import core, { RequestController } from '@moralisweb3/core';
+import core, { ApiErrorCode, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
@@ -8,24 +8,30 @@ export enum BodyType {
   BODY = 'set body',
 }
 
+export interface ServerResponse<ApiResult> {
+  result: ApiResult;
+}
+
 export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
-  apiToResult: (result: ApiResult) => AdaptedResult;
+  apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
   method?: Method;
   bodyParams?: readonly (keyof Params)[];
   bodyType?: BodyType;
+  name: string;
 }
 
 export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   protected getPath: (params: Params) => string;
-  protected apiToResult: (result: ApiResult) => AdaptedResult;
+  protected apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   protected resultToJson: (result: AdaptedResult) => JSONResult;
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
   protected bodyParams?: readonly (keyof Params)[];
   protected bodyType?: BodyType;
+  protected name: string;
 
   constructor({
     getPath,
@@ -35,6 +41,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     method,
     bodyParams,
     bodyType,
+    name,
   }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
     this.getPath = getPath;
     this.apiToResult = apiToResult;
@@ -43,6 +50,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.method = method ?? 'get';
     this.bodyParams = bodyParams;
     this.bodyType = bodyType ?? BodyType.PROPERTY;
+    this.name = name;
   }
 
   protected getUrl = (params: Params) => {
@@ -102,7 +110,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected _apiPost = async (params: Params) => {
@@ -123,10 +131,40 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     );
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
+  protected _serverRequest = async (params: Params) => {
+    const url = this.getServerUrl();
+    const apiParams = this.parseParams(params);
+
+    const searchParams = this.getSearchParams(apiParams);
+    const bodyParams = this.getBodyParams(apiParams);
+
+    const { result } = await RequestController.post<
+      ServerResponse<ApiResult>,
+      Record<string, string>,
+      Record<string, string>
+    >(url, searchParams, bodyParams);
+
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
+  };
+
+  protected getServerUrl() {
+    const serverUrl = core.config.get('serverUrl');
+    if (!serverUrl) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.GENERIC_API_ERROR,
+        message: 'EvmApi failed: start with apiKey or serverUrl',
+      });
+    }
+    return `${serverUrl}/functions/${this.name}`;
+  }
+
   fetch = (params: Params) => {
-    return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    if (core.config.get('apiKey')) {
+      return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    }
+    return this._serverRequest(params);
   };
 }

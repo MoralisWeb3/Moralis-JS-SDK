@@ -12,27 +12,29 @@ describe('Moralis EvmApi', () => {
       apiKey: MOCK_API_KEY,
     });
 
-    server.listen({ onUnhandledRequest: 'warn' });
+    server.listen({
+      onUnhandledRequest: 'warn',
+    });
   });
 
   afterAll(() => {
     server.close();
   });
 
-  it('should get the token transfers of an account', async () => {
-    const result = await EvmApi.account.getTokenTransfers({
-      address: '0x3d6c0e79a1239df0039ec16Cc80f7A343b6C530e',
+  it('should get the block of an account', async () => {
+    const result = await EvmApi.native.getBlock({
+      block_number_or_hash: '1000000',
     });
 
     expect(result).toBeDefined();
-    expect(result.legacy.total).toBe(44);
+    expect(result.legacy.hash).toBe('0x8e38b4dbf6b11fcc3b9dee84fb7986e29ca0a02cecd8977c161ff7333329681e');
     expect(result).toEqual(expect.objectContaining({}));
   });
 
-  it('should not get token transfers of an invalid account address and throw an error ', () => {
-    const failedResult = EvmApi.account
-      .getTokenTransfers({
-        address: '0x3d6c0e79a1239df0039ec16Cc80f7A343b6C530',
+  it('should not get the block of an hash and throw an error ', async () => {
+    const failedResult = await EvmApi.native
+      .getBlock({
+        block_number_or_hash: '100000',
       })
       .then()
       .catch((err) => {
@@ -41,8 +43,8 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.account.getTokenTransfers({
-        address: '0x3d6c0e79a1239df0039ec16Cc80f7A343b6C530',
+      EvmApi.native.getBlock({
+        block_number_or_hash: '100000',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
   });

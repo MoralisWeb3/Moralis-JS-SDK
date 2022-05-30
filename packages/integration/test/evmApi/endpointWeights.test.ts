@@ -12,18 +12,20 @@ describe('Moralis EvmApi', () => {
       apiKey: MOCK_API_KEY,
     });
 
-    server.listen({ onUnhandledRequest: 'warn' });
+    server.listen({
+      onUnhandledRequest: 'warn',
+    });
   });
 
   afterAll(() => {
     server.close();
   });
 
-  it('should get the info Version for web3 Api ', async () => {
-    const result = await EvmApi.info.web3ApiVersion({});
+  it('should get the endpoint weight ', async () => {
+    const result = await EvmApi.info.endpointWeights({});
 
-    expect(result.toJSON().version).toBe('0.0.53');
-    expect(result.legacy.version).toBe('0.0.53');
-    expect(result.result.version).toBe('0.0.53');
+    expect(result.toJSON()).toStrictEqual({ endpoint: 'getBlock' });
+    expect(result).toBeDefined();
+    expect(result).toEqual(expect.arrayContaining([]));
   });
 });

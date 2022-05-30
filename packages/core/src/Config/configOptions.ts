@@ -1,6 +1,7 @@
 import { BaseModule } from '../Modules/BaseModule';
 import { NetworkModule } from '../Modules/NetworkModule';
 import { ModuleName } from '../Modules/ModuleName';
+import { EvmChain, EvmChainish } from '../dataTypes';
 
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'off';
 export type BuildEnvironment = 'browser' | 'node' | 'react-native';
@@ -62,12 +63,24 @@ const validateEvmConnector = (value: string, config: ConfigValues, modules: Base
   return null;
 };
 
+const validateEvmApiChain = (value: EvmChainish) => {
+  // TODO: validate if chain is valid api chain
+  try {
+    EvmChain.create(value);
+  } catch (error) {
+    return error.message;
+  }
+
+  return null;
+};
+
 export const configOptions: {
   logLevel: ConfigOption<LogLevel>;
   buidEnvironment: ConfigOption<BuildEnvironment>;
 
   defaultNetwork: ConfigOption<Network>;
   defaultEvmConnector: ConfigOption<EvmConnector>;
+  defaultEvmApiChain: ConfigOption<EvmChainish>;
 
   appId: ConfigOption<string | null>;
   serverUrl: ConfigOption<string | null>;
@@ -100,6 +113,11 @@ export const configOptions: {
     name: 'defaultEvmConnector',
     defaultValue: 'metamask',
     validation: validateEvmConnector,
+  },
+  defaultEvmApiChain: {
+    name: 'defaultEvmApiChain',
+    defaultValue: '0x1',
+    validation: validateEvmApiChain,
   },
 
   // The appId of the moralis server
@@ -154,6 +172,7 @@ export const defaultConfig: ConfigValues = {
   buidEnvironment: configOptions.buidEnvironment.defaultValue,
   defaultNetwork: configOptions.defaultNetwork.defaultValue,
   defaultEvmConnector: configOptions.defaultEvmConnector.defaultValue,
+  defaultEvmApiChain: configOptions.defaultEvmApiChain.defaultValue,
   appId: configOptions.appId.defaultValue,
   serverUrl: configOptions.serverUrl.defaultValue,
   moralisSecret: configOptions.moralisSecret.defaultValue,

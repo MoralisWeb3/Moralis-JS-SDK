@@ -1,42 +1,21 @@
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisDataObject } from './abstract';
-import { EvmAddress, EvmAddressish } from './EvmAddress';
-import { EvmNative } from './EvmNative';
-import { EvmTransactionLog, EvmTransactionLogInput } from './EvmTransactionLog';
-import { EvmTransactionResponse, EvmTransactionResponseInput } from './EvmTransactionResponse';
-import { maybe } from './utils';
+import { BigNumber } from '@ethersproject/bignumber';
+import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { MoralisDataObject } from '../abstract';
+import { EvmAddress } from '../EvmAddress';
+import { EvmNative } from '../EvmNative';
+import { EvmTransactionLog } from '../EvmTransactionLog';
+import { EvmTransactionResponse, EvmTransactionResponseish } from './EvmTransactionResponse';
+import { maybe } from '../utils';
+import { EvmTransactionReceiptData, EvmTransactionReceiptInput } from './EvmTransactionReceiptTypes';
 
-export interface EvmTransactionReceiptInput {
-  contractAddress?: null | EvmAddressish;
-  transactionIndex: number;
-
-  gasUsed: BigNumberish;
-  cumulativeGasUsed: BigNumberish;
-  gasPrice: BigNumberish;
-
-  logs?: EvmTransactionLogInput[];
-
-  root?: null | string;
-  status?: null | number;
-}
-
-export interface EvmTransactionReceiptData {
-  contractAddress?: EvmAddress;
-  transactionIndex: number;
-
-  gasUsed: BigNumber;
-  cumulativeGasUsed: BigNumber;
-  gasPrice: BigNumber;
-
-  logs?: EvmTransactionLog[];
-
-  root?: string;
-  status?: number;
-
-  transaction: EvmTransactionResponse;
-}
-
+export type EvmTransactionReceiptish = EvmTransactionReceiptInput | EvmTransactionReceipt;
+/**
+ * The EvmTransaction class is a MoralisData that references a confirmed Evm transaction,
+ * that has been sent to the network.
+ *
+ * @see EvmTransaction for an unpublished transaction that has to be sent to to the network
+ * @see EvmTransactionResponse for a published transaction that has been sent to the network
+ */
 export class EvmTransactionReceipt implements MoralisDataObject {
   private _value: EvmTransactionReceiptData;
 
@@ -44,10 +23,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     this._value = EvmTransactionReceipt.parse(value, transaction);
   }
 
-  static create(
-    value: EvmTransactionReceiptInput | EvmTransactionReceipt,
-    transaction?: EvmTransactionResponse | EvmTransactionResponseInput,
-  ): EvmTransactionReceipt {
+  static create(value: EvmTransactionReceiptish, transaction?: EvmTransactionResponseish): EvmTransactionReceipt {
     if (value instanceof EvmTransactionReceipt) {
       return value;
     }
@@ -86,8 +62,23 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     return EvmNative.create(this._value.cumulativeGasUsed.mul(this._value.gasPrice), 'wei');
   }
 
-  equals(value: this): boolean {
-    return JSON.stringify(this.toJSON()) === JSON.stringify(value.toJSON());
+  static equals(valueA: EvmTransactionReceiptish, valueB: EvmTransactionReceiptish): boolean {
+    const transactionReceiptA = EvmTransactionReceipt.create(valueA);
+    const transactionReceiptB = EvmTransactionReceipt.create(valueB);
+
+    if (!transactionReceiptA._value.transaction.equals(transactionReceiptB._value.transaction)) {
+      return false;
+    }
+
+    if (transactionReceiptA._value.status !== transactionReceiptB._value.status) {
+      return false;
+    }
+
+    return true;
+  }
+
+  equals(value: EvmTransactionReceiptish): boolean {
+    return EvmTransactionReceipt.equals(this, value);
   }
 
   toJSON() {

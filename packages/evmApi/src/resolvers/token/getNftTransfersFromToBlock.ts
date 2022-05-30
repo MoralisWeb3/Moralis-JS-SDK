@@ -1,6 +1,7 @@
+import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
 import { PaginatedOptions } from './../PaginatedResolver';
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddress, EvmNative } from '@moralisweb3/core';
+import { EvmChainish, EvmAddress, EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver } from '../PaginatedResolver';
@@ -16,7 +17,8 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>>, PaginatedOpt
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getNftTransfersFromToBlockResolver = new EvmPaginatedResolver({
-  getPath: (params: Params) => `nft/transfers`,
+  name: 'getNftTransfersFromToBlock',
+  getPath: () => `nft/transfers`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((transfer) => ({
       ...toCamelCase(transfer),
@@ -39,7 +41,7 @@ export const getNftTransfersFromToBlockResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
+    chain: resolveDefaultChain(params.chain).apiHex,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

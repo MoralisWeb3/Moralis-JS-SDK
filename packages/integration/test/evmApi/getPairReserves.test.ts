@@ -12,7 +12,9 @@ describe('Moralis EvmApi', () => {
       apiKey: MOCK_API_KEY,
     });
 
-    server.listen();
+    server.listen({
+      onUnhandledRequest: 'warn',
+    });
   });
 
   afterAll(() => {
@@ -21,7 +23,7 @@ describe('Moralis EvmApi', () => {
 
   it('should get the liquidity reserves for a given pair address ', async () => {
     const result = await EvmApi.defi.getPairReserves({
-      pair_address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+      pairAddress: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
     });
 
     expect(result.toJSON().reserve0).toBe('232416936901978959300412');
@@ -32,7 +34,7 @@ describe('Moralis EvmApi', () => {
   it('should not get the liquidity reserves for a given pair address ', async () => {
     const failedResult = await EvmApi.defi
       .getPairReserves({
-        pair_address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+        pairAddress: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
       })
       .then()
       .catch((err) => {

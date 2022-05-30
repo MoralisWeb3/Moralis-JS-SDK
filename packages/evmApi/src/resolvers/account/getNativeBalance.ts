@@ -1,5 +1,6 @@
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, EvmNative } from '@moralisweb3/core';
+import { EvmAddressish, EvmChainish, EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain, resolveDefaultAddress } from '../../utils/resolveDefaultParams';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -11,13 +12,14 @@ type ApiParams = QueryParams & PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 export const getNativeBalanceResolver = new EvmResolver({
-  getPath: (params: ApiParams) => `${params.address}/balance`,
+  name: 'getNativeBalance',
+  getPath: (params: Params) => `${params.address}/balance`,
   apiToResult: (data: ApiResult) => ({
     balance: EvmNative.create(data.balance, 'wei'),
   }),
@@ -25,8 +27,8 @@ export const getNativeBalanceResolver = new EvmResolver({
     balance: data.balance.format(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
-    address: EvmAddress.create(params.address).lowercase,
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
     to_block: params.toBlock,
     providerUrl: params.providerUrl,
   }),

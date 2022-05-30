@@ -21,7 +21,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.account
             .getNativeBalance({
-              address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
+              // address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
             })
             .then(console.log);
         }}
@@ -58,7 +58,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.defi
             .getPairReserves({
-              pair_address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+              pairAddress: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
             })
             .then(console.log);
         }}
@@ -298,9 +298,9 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.account
             .getNFTsForContract({
-              address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+              // address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
               format: 'decimal',
-              chain: 'polygon',
+              // chain: 'polygon',
               tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
             })
             .then(console.log);

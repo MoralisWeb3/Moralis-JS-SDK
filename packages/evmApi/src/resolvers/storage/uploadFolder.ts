@@ -14,6 +14,7 @@ export interface Params {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const uploadFolderResolver = new EvmResolver({
+  name: 'uploadFolder',
   getPath: () => `ipfs/uploadFolder`,
   apiToResult: (data: ApiResult) => {
     return data;

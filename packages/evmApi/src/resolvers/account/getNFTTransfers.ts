@@ -1,8 +1,9 @@
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
+import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getNFTTransfers';
 
@@ -11,12 +12,13 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getNFTTransfersResolver = new EvmPaginatedResolver({
+  name: 'getNFTTransfers',
   getPath: (params: Params) => `${params.address}/nft/transfers`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((transfer) => ({
@@ -40,7 +42,7 @@ export const getNFTTransfersResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
-    address: EvmAddress.create(params.address).lowercase,
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
   }),
 });

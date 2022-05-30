@@ -54,12 +54,12 @@ export class EvmAddress implements MoralisData {
     return this._value.toLowerCase();
   }
 
-  static equals(addressA: EvmAddress, addressB: EvmAddress) {
-    return addressA._value === addressB._value;
+  static equals(addressA: EvmAddressish, addressB: EvmAddressish) {
+    return EvmAddress.create(addressA)._value === EvmAddress.create(addressB)._value;
   }
 
-  equals(address: EvmAddress) {
-    return this._value === address._value;
+  equals(address: EvmAddressish) {
+    return EvmAddress.equals(this, address);
   }
 
   format(_formatStyle?: EvmAddressFormat) {
