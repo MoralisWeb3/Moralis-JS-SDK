@@ -22,9 +22,9 @@ const handlers = [
   mockGetLogsByAddress,
   mockGetTokenTransfer,
   mockGetTransactions,
+  mockGetNFTTransfers,
   mockGetNFTsForContract,
   mockGetNFTs,
-  mockGetNFTTransfers,
   mockWeb3ApiVersion,
   mockGetNFTTrades,
 ];
