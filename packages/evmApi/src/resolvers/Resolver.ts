@@ -6,7 +6,7 @@ type Method = 'get' | 'post';
 
 export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
-  apiToResult: (result: ApiResult) => AdaptedResult;
+  apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
   method?: Method;
@@ -15,7 +15,7 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
 
 export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   protected getPath: (params: Params) => string;
-  protected apiToResult: (result: ApiResult) => AdaptedResult;
+  protected apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   protected resultToJson: (result: AdaptedResult) => JSONResult;
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
@@ -90,7 +90,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected _apiPost = async (params: Params) => {
@@ -111,7 +111,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     );
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   fetch = (params: Params) => {

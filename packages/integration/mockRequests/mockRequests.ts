@@ -20,6 +20,8 @@ import { mockGetContractNFTTransfers } from './evmApi/getContractNFTTransfers';
 import { mockGetNFTLowestPrice } from './evmApi/getNFTLowestPrice';
 import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 import { mockGetBlock } from './evmApi/getBlock';
+import { mockGetNFTMetada } from './evmApi/getNFTMetadata';
+import { mockEndpointWeights } from './evmApi/endpointWeights';
 
 const handlers = [
   mockResolveDomain,
@@ -43,6 +45,8 @@ const handlers = [
   mockGetNFTLowestPrice,
   mockGetAllTokenIds,
   mockGetBlock,
+  mockGetNFTMetada,
+  mockEndpointWeights,
 ];
 
 export const mockServer = setupServer(...handlers);

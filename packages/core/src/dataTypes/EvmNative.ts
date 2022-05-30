@@ -20,6 +20,9 @@ type UnitOrDecimals = EvmNativeUnit | number;
 export type InputEvmNative = BigNumberish;
 export type EvmNativeish = InputEvmNative | EvmNative;
 
+/**
+ * The EvmNative class is a MoralisData that references to a the value of a native currency (like ETH, BNB etc.)
+ */
 export class EvmNative implements MoralisData {
   private _value: BigNumber;
 
@@ -53,20 +56,23 @@ export class EvmNative implements MoralisData {
     return value;
   }
 
-  static equals(nativeA: EvmNative, nativeB: EvmNative) {
-    return nativeA._value.eq(nativeB._value);
+  static equals(valueA: EvmNativeish, valueB: EvmNativeish) {
+    const evmNativeA = EvmNative.create(valueA);
+    const evmNativeB = EvmNative.create(valueB);
+
+    return evmNativeA._value.eq(evmNativeB._value);
   }
 
-  equals(native: EvmNative) {
-    return this._value === native._value;
+  equals(value: EvmNative) {
+    return EvmNative.equals(this, value);
   }
 
-  get bignumber() {
+  get value() {
     return this._value;
   }
 
   get wei() {
-    return this.bignumber.toString();
+    return this.value.toString();
   }
 
   get gwei() {
@@ -77,7 +83,11 @@ export class EvmNative implements MoralisData {
     return formatUnits(this._value, 'ether');
   }
 
-  format() {
+  toString() {
     return this.wei;
+  }
+
+  format() {
+    return this.toString();
   }
 }

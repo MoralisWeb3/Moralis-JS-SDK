@@ -17,7 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 
 export const getTransactionResolver = new EvmResolver({
   getPath: (params: Params) => `transaction/${params.transactionHash}`,
-  apiToResult: (data: ApiResult) => {
+  apiToResult: (data: ApiResult, params: Params) => {
     const transactionReciept = EvmTransactionReceipt.create(
       {
         // Transaction Receipt data
@@ -43,8 +43,9 @@ export const getTransactionResolver = new EvmResolver({
       },
       {
         // Transaction Response data
-        // TODO: properly pass chain
-        chain: EvmChain.create(1),
+        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        chain: params.chain!,
         data: data.input,
         from: data.from_address,
         hash: data.hash,

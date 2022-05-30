@@ -18,8 +18,11 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export const getTokenIdMetadataResolver = new EvmResolver({
   getPath: (params: Params) => `nft/${params.address}/${params.tokenId}`,
-  apiToResult: (data: ApiResult) => ({
+  apiToResult: (data: ApiResult, params: Params) => ({
     token: new EvmNFT({
+      // TODO: Fix typing that chain always is set (because we have default value in parseParams)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      chain: params.chain!,
       contractType: data.contract_type,
       tokenAddress: data.token_address,
       tokenId: data.token_id,
