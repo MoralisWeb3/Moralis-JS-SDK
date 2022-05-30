@@ -12,6 +12,7 @@ Moralis.start({
   appId: process.env.REACT_APP_APP_ID,
   // apiKey: process.env.REACT_APP_API_KEY,
   logLevel: 'verbose',
+  defaultEvmApiChain: 'eth',
 });
 
 function App() {

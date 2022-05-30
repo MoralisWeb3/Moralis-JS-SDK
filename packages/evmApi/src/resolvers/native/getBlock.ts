@@ -1,5 +1,6 @@
-import { EvmAddress, EvmChain, EvmChainish } from '@moralisweb3/core';
+import { EvmAddress, EvmChainish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -64,6 +65,6 @@ export const getBlockResolver = new EvmResolver<ApiParams, Params, ApiResult, Ad
   resultToJson: (data) => data,
   parseParams: (params) => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
   }),
 });
