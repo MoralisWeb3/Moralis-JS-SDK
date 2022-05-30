@@ -345,6 +345,18 @@ export const EvmApi = () => {
       >
         getNFTMetadata
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .getTokenMetadataBySymbol({
+              symbols: ['LINK'],
+            })
+            .then(console.log);
+        }}
+      >
+        getTokenMetadataBySymbol
+      </button>
     </div>
   );
 };
