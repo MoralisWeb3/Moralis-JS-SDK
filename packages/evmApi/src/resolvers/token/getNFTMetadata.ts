@@ -17,6 +17,7 @@ export interface Params {
 }
 
 export const getNFTMetadataResolver = new EvmResolver({
+  name: 'getNFTMetadata',
   getPath: (params: Params) => `nft/${params.address}/metadata`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),

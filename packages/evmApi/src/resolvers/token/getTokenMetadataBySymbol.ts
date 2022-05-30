@@ -16,6 +16,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 }
 
 export const getTokenMetadataBySymbolResolver = new EvmResolver({
+  name: 'getTokenMetadataBySymbol',
   getPath: (params: ApiParams) => `/erc20/metadata/symbols`,
   apiToResult: (data: ApiResult) =>
     data.map((token) => {

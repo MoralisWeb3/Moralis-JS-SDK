@@ -1,4 +1,5 @@
-import { Erc20Token, Erc20Value, EvmChain, EvmChainish } from '@moralisweb3/core';
+import { resolveDefaultAddress, resolveDefaultChain } from './../../utils/resolveDefaultParams';
+import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
@@ -11,11 +12,13 @@ type ApiParams = QueryParams & PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
+  address?: EvmAddressish;
 }
 
 export const getTokenBalancesResolver = new EvmResolver({
+  name: 'getTokenBalances',
   getPath: (params: ApiParams) => `${params.address}/erc20`,
   apiToResult: (data: ApiResult, params: ApiParams) =>
     data.map((token) => ({
@@ -26,15 +29,15 @@ export const getTokenBalancesResolver = new EvmResolver({
         contractAddress: token.token_address,
         logo: token.logo,
         thumbnail: token.thumbnail,
-        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        chain: params.chain!,
+        chain: resolveDefaultChain(params.chain),
       }),
       value: new Erc20Value(token.balance, token.decimals),
     })),
   resultToJson: (data) => data.map(({ token, value }) => ({ token: token.toJSON(), value: value.format() })),
   parseParams: (params: Params): ApiParams => ({
-    ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
+    to_block: params.toBlock,
+    token_addresses: params.tokenAddresses,
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
   }),
 });

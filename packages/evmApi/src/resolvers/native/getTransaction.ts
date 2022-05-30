@@ -1,5 +1,6 @@
+import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
 import { Camelize } from './../../utils/toCamelCase';
-import { EvmChainish, EvmChain, EvmTransactionReceipt } from '@moralisweb3/core';
+import { EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -16,6 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 }
 
 export const getTransactionResolver = new EvmResolver({
+  name: 'getTransaction',
   getPath: (params: Params) => `transaction/${params.transactionHash}`,
   apiToResult: (data: ApiResult, params: Params) => {
     const transactionReciept = EvmTransactionReceipt.create(
@@ -43,9 +45,7 @@ export const getTransactionResolver = new EvmResolver({
       },
       {
         // Transaction Response data
-        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        chain: params.chain!,
+        chain: resolveDefaultChain(params.chain),
         data: data.input,
         from: data.from_address,
         hash: data.hash,
@@ -70,7 +70,7 @@ export const getTransactionResolver = new EvmResolver({
   },
   resultToJson: (data) => data.toJSON(),
   parseParams: (params: Params): ApiParams => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
     subdomain: params.subdomain || undefined,
     transaction_hash: params.transactionHash,
   }),

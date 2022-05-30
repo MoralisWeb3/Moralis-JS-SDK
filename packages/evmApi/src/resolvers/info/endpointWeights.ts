@@ -6,6 +6,7 @@ type operation = 'endpointWeights';
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const endpointWeightsResolver = new EvmResolver({
+  name: 'endpointWeights',
   getPath: () => `info/endpointWeights`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,

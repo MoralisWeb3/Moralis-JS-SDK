@@ -1,7 +1,8 @@
 import { EvmResolver } from './../Resolver';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenIdMetadata';
 
@@ -17,12 +18,11 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getTokenIdMetadataResolver = new EvmResolver({
+  name: 'getTokenIdMetadata',
   getPath: (params: Params) => `nft/${params.address}/${params.tokenId}`,
   apiToResult: (data: ApiResult, params: Params) => ({
     token: new EvmNFT({
-      // TODO: Fix typing that chain always is set (because we have default value in parseParams)
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      chain: params.chain!,
+      chain: resolveDefaultChain(params.chain),
       contractType: data.contract_type,
       tokenAddress: data.token_address,
       tokenId: data.token_id,
@@ -47,7 +47,7 @@ export const getTokenIdMetadataResolver = new EvmResolver({
     token: data.token.toJSON(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     format: params.format,

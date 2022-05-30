@@ -1,4 +1,5 @@
-import { EvmChain, EvmChainish } from '@moralisweb3/core';
+import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
+import { EvmChainish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -15,6 +16,7 @@ export interface Params extends Omit<ApiParams, 'chain'> {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getDateToBlockResolver = new EvmResolver({
+  name: 'getDateToBlock',
   getPath: () => `dateToBlock`,
   apiToResult: (data: ApiResult) => ({
     ...data,
@@ -25,7 +27,7 @@ export const getDateToBlockResolver = new EvmResolver({
     date: data.date.toLocaleDateString(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
     date: params.date,
   }),
 });

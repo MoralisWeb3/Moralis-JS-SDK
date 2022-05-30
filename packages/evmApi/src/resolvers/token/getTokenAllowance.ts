@@ -2,7 +2,8 @@ import { Camelize } from './../../utils/toCamelCase';
 import { BigNumber } from 'ethers';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/core';
+import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/core';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenAllowance';
 
@@ -20,7 +21,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'owner_addres
 }
 
 export const getTokenAllowanceResolver = new EvmResolver({
-  getPath: (params: Params) => `erc20/${EvmAddress.create(params.address).lowercase}/allowance`,
+  name: 'getTokenAllowance',
+  // TODO: handle for cases when EvmAddress is sent in params
+  getPath: (params: Params) => `erc20/${params.address}/allowance`,
   apiToResult: (data: ApiResult) => ({
     allowance: BigNumber.from(data.allowance),
   }),
@@ -29,7 +32,7 @@ export const getTokenAllowanceResolver = new EvmResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     owner_address: EvmAddress.create(params.ownerAddress).lowercase,
     spender_address: EvmAddress.create(params.spenderAddress).lowercase,

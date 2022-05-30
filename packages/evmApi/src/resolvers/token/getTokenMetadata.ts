@@ -1,5 +1,6 @@
-import { Erc20Token, EvmChain, EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
+import { Erc20Token, EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { Camelize, toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -16,15 +17,14 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'addresses'>>
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getTokenMetadataResolver = new EvmResolver({
+  name: 'getTokenMetadata',
   getPath: (params: Params) => `erc20/metadata`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.map((token) => {
       const tokenType = new Erc20Token({
         ...toCamelCase(token),
         contractAddress: token.address,
-        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        chain: params.chain!,
+        chain: resolveDefaultChain(params.chain),
       });
       return {
         token: tokenType,
@@ -36,7 +36,7 @@ export const getTokenMetadataResolver = new EvmResolver({
   parseParams: (params: Params): ApiParams => ({
     providerUrl: params.providerUrl || undefined,
     subdomain: params.subdomain || undefined,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
+    chain: resolveDefaultChain(params.chain).apiHex,
     addresses: params.addresses.map((address) => EvmAddress.create(address).format()),
   }),
 });

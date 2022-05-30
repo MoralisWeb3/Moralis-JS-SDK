@@ -1,5 +1,6 @@
 import { EvmAddress, EvmChain, EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -74,6 +75,7 @@ const apiToResult = (apiData: ApiResult) => {
 
 // TODO: use Transaction DataTypes
 export const getBlockResolver = new EvmResolver({
+  name: 'getBlock',
   getPath: (params: Params) => `block/${params.block_number_or_hash}`,
   apiToResult: (apiData: ApiResult) => apiToResult(apiData),
   resultToJson: (data) => ({
@@ -83,6 +85,6 @@ export const getBlockResolver = new EvmResolver({
   }),
   parseParams: (params) => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
   }),
 });

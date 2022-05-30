@@ -1,5 +1,5 @@
 import { checkObjEqual } from './../utils/checkObjEqual';
-import { EvmResolver, EvmResolverOptions } from './Resolver';
+import { EvmResolver, EvmResolverOptions, ServerResponse } from './Resolver';
 import core, { RequestController } from '@moralisweb3/core';
 import { getNextParams } from '../utils/getNextParams';
 import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
@@ -32,8 +32,9 @@ export class EvmPaginatedResolver<
     parseParams,
     method,
     bodyParams,
+    name,
   }: EvmResolverOptions<ApiParams, Params, PaginatedResponse<ApiResult>, AdaptedResult, JSONResult>) {
-    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams });
+    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams, name });
   }
 
   // TODO: error handler to ApiError
@@ -86,6 +87,28 @@ export class EvmPaginatedResolver<
     );
   };
 
+  protected _serverRequest = async (params: Params) => {
+    const url = this.getServerUrl();
+    const apiParams = this.parseParams(params);
+
+    const searchParams = this.getSearchParams(apiParams);
+    const bodyParams = this.getBodyParams(apiParams);
+
+    const { result } = await RequestController.post<
+      ServerResponse<PaginatedResponse<ApiResult>>,
+      Record<string, string>,
+      Record<string, string>
+    >(url, searchParams, bodyParams);
+
+    return new EvmApiPaginatedResultAdapter(
+      result,
+      this.apiToResult,
+      this.resultToJson,
+      params,
+      this.resolveNextCall(params, result),
+    );
+  };
+
   private resolveNextCall = (params: Params, result: Awaited<PaginatedResponse<ApiResult>>) => {
     const nextParams = getNextParams(params, result);
     return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
@@ -96,6 +119,9 @@ export class EvmPaginatedResolver<
   ): Promise<
     EvmApiPaginatedResultAdapter<Awaited<PaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
   > => {
-    return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    if (core.config.get('apiKey')) {
+      return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    }
+    return this._serverRequest(params);
   };
 }

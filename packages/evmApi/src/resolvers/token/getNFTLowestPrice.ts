@@ -1,8 +1,9 @@
 import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getNFTLowestPrice';
 
@@ -17,6 +18,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getNFTLowestPriceResolver = new EvmResolver({
+  name: 'getNFTLowestPrice',
   getPath: (params: Params) => `nft/${params.address}/lowestprice`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),
@@ -37,7 +39,7 @@ export const getNFTLowestPriceResolver = new EvmResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     provider_url: params.providerUrl,
   }),

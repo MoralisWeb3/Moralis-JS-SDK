@@ -1,5 +1,6 @@
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
@@ -11,20 +12,19 @@ type ApiParams = QueryParams & PathParams;
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'token_address'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
   tokenAddress: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getNFTsForContractResolver = new EvmPaginatedResolver({
+  name: 'getNFTsForContract',
   getPath: (params: Params) => `${params.address}/nft/${params.tokenAddress}`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((nft) => ({
       token: new EvmNFT({
-        // TODO: Fix typing that chain always is set (because we have default value in parseParams)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        chain: params.chain!,
+        chain: resolveDefaultChain(params.chain),
         contractType: nft.contract_type,
         tokenAddress: nft.token_address,
         tokenId: nft.token_id,
@@ -51,8 +51,8 @@ export const getNFTsForContractResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
-    address: EvmAddress.create(params.address).lowercase,
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
     token_address: EvmAddress.create(params.tokenAddress).lowercase,
   }),
 });

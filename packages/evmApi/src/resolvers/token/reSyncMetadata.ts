@@ -1,5 +1,6 @@
-import { EvmChainish, EvmAddressish, EvmAddress, EvmChain } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
@@ -17,13 +18,14 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 }
 
 export const reSyncMetadataResolver = new EvmResolver({
-  getPath: (params: Params) => `nft/${EvmAddress.create(params.address).lowercase}/${params.tokenId}/metadata/resync`,
+  name: 'reSyncMetadata',
+  getPath: (params: Params) => `nft/${params.address}/${params.tokenId}/metadata/resync`,
   apiToResult: (data: ApiResult) => ({
     ...data,
   }),
   resultToJson: (data) => data,
   parseParams: (params: Params): ApiParams => ({
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     flag: params.flag,

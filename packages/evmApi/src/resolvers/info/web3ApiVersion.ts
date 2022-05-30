@@ -6,6 +6,7 @@ type operation = 'web3ApiVersion';
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const web3ApiVersionResolver = new EvmResolver({
+  name: 'web3ApiVersion',
   getPath: () => `web3/version`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,

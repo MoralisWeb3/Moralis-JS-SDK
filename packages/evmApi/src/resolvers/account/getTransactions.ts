@@ -1,8 +1,9 @@
 import { BigNumber } from 'ethers';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmTransactionReceipt } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmTransactionReceipt } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
+import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTransactions';
 
@@ -11,12 +12,13 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'cursor'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address: EvmAddressish;
+  address?: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getTransactionsResolver = new EvmPaginatedResolver({
+  name: 'getTransactions',
   getPath: (params: Params) => `${params.address}`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((transaction) =>
@@ -32,9 +34,7 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
           status: +transaction.receipt_status,
         },
         {
-          // TODO: Fix typing that chain always is set (because we have default value in parseParams)
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          chain: params.chain!,
+          chain: resolveDefaultChain(params.chain),
           data: transaction.input,
           from: transaction.from_address,
           hash: transaction.hash,
@@ -58,8 +58,8 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
   resultToJson: (data) => data?.map((transaction) => transaction.toJSON()),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : 'eth',
-    address: EvmAddress.create(params.address).lowercase,
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,
