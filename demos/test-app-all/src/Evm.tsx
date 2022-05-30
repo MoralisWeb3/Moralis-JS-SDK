@@ -1,5 +1,5 @@
-import { Moralis } from '@moralis/all';
-import { Erc20Value, EvmNative } from '@moralis/core';
+import { Moralis } from 'moralis';
+import { Erc20Value, EvmNative } from '@moralisweb3/core';
 // import { sushimakerAbi } from './sushimakerAbi';
 
 // const sushimakerAddresses = {

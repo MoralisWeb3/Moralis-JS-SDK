@@ -1,4 +1,4 @@
-import { BuildEnvironment, MoralisServerError, ServerErrorCode } from '@moralis/core';
+import { BuildEnvironment, MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import parse from 'parse';
 
 export const getParse = (environment: BuildEnvironment) => {

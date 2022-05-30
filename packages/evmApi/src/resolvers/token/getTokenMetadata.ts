@@ -1,4 +1,4 @@
-import { Erc20Token, EvmChain, EvmChainish, EvmAddressish, EvmAddress } from '@moralis/core';
+import { Erc20Token, EvmChain, EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize, toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';

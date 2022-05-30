@@ -1,4 +1,4 @@
-import Core from '@moralis/core';
+import Core from '@moralisweb3/core';
 
 describe('Configuration test', () => {
   test('should read the configuration set to the value', () => {
