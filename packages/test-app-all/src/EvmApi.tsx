@@ -1,4 +1,5 @@
-import Moralis from '@moralis/all';
+/* eslint-disable no-console */
+import Moralis from 'moralis';
 
 export const EvmApi = () => {
   return (
