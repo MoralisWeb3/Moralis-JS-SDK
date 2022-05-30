@@ -27,9 +27,7 @@ export const getTokenMetadataBySymbolResolver = new EvmResolver({
       });
       return {
         token: erc20token,
-        address: token.address,
         blockNumber: token.block_number,
-        logoHash: token.logo_hash,
         validated: token.validated,
       };
     }),
