@@ -15,6 +15,7 @@ import {
   getNFTOwnersResolver,
   getTokenIdOwnersResolver,
   getTokenIdMetadataResolver,
+  getNFTMetadataResolver,
 } from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
@@ -96,6 +97,7 @@ export class MoralisEvmApi extends ApiModule {
       getNFTOwners: getNFTOwnersResolver.fetch,
       getTokenIdOwners: getTokenIdOwnersResolver.fetch,
       getTokenIdMetadata: getTokenIdMetadataResolver.fetch,
+      getNFTMetadata: getNFTMetadataResolver.fetch,
     };
   }
   get info() {
