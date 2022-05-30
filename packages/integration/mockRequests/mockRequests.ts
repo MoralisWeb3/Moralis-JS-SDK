@@ -8,8 +8,15 @@ import { mockGetNFTsForContract } from './evmApi/getNFTsForContract';
 import { mockGetTokenTransfer } from './evmApi/getTokenTransfers';
 import { mockGetTransactions } from './evmApi/getTransactions';
 import { mockGetTokenPrice } from './evmApi/getTokenPrice';
+import { mockGetNFTs } from './evmApi/getNFTs';
+import { mockGetNFTTransfers } from './evmApi/getNFTTransfers';
+import { mockWeb3ApiVersion } from './evmApi/web3ApiVersion';
 import { mockGetNFTTrades } from './evmApi/getNFTTrades';
 import { mockSearchNFTs } from './evmApi/searchNFTs';
+import { mockGetNFTTransfersByBlock } from './evmApi/getNFTTransfersByBlock';
+import { mockGetContractNFTTransfers } from './evmApi/getContractNFTTransfers';
+import { mockGetNFTLowestPrice } from './evmApi/getNFTLowestPrice';
+import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 
 const handlers = [
   mockResolveDomain,
@@ -20,9 +27,16 @@ const handlers = [
   mockGetLogsByAddress,
   mockGetTokenTransfer,
   mockGetTransactions,
+  mockGetNFTTransfers,
   mockGetNFTsForContract,
+  mockGetNFTs,
+  mockWeb3ApiVersion,
   mockGetNFTTrades,
   mockSearchNFTs,
+  mockGetNFTTransfersByBlock,
+  mockGetContractNFTTransfers,
+  mockGetNFTLowestPrice,
+  mockGetAllTokenIds,
 ];
 
 export const mockServer = setupServer(...handlers);
