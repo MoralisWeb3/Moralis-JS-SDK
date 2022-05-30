@@ -10,6 +10,7 @@ export interface Erc20Input {
   contractAddress: EvmAddressish;
   chain: EvmChainish;
   logo?: string | null;
+  logoHash?: string | null;
   thumbnail?: string | null;
 }
 
@@ -20,6 +21,7 @@ interface Erc20Data {
   contractAddress: EvmAddress;
   chain: EvmChain;
   logo?: string | null;
+  logoHash?: string | null;
   thumbnail?: string | null;
 }
 
@@ -36,6 +38,7 @@ export class Erc20Token implements MoralisDataObject {
     symbol: value.symbol,
     contractAddress: EvmAddress.create(value.contractAddress),
     logo: maybe(value.logo),
+    logoHash: maybe(value.logoHash),
     thumbnail: maybe(value.thumbnail),
     chain: EvmChain.create(value.chain),
   });
