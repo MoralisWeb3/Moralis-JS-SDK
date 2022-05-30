@@ -1,6 +1,6 @@
 import type Parse from 'parse';
 import TypedEmitter from 'typed-emitter';
-import { Logger, MoralisServerError, MoralisState, ServerErrorCode } from '@moralis/core';
+import { Logger, MoralisServerError, MoralisState, ServerErrorCode } from '@moralisweb3/core';
 import { State, StateContext, StateEvent } from './types';
 import { handleAuth } from '../AuthMethods/handleAuth';
 import { Authenticate, AuthenticateData, AuthMethod } from '../AuthMethods/types';

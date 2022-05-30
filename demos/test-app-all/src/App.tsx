@@ -1,4 +1,4 @@
-import Moralis from '@moralis/all';
+import Moralis from 'moralis';
 import { Evm } from './Evm';
 import { Server } from './Server';
 import { EvmApi } from './EvmApi';

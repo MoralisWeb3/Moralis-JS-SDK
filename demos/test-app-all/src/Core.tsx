@@ -1,8 +1,8 @@
-import { Moralis } from '@moralis/all';
-import MoralisCore from '@moralis/core';
-import Server from '@moralis/server';
-import EvmApi from '@moralis/evm-api';
-import Evm from '@moralis/evm';
+import { Moralis } from 'moralis';
+import MoralisCore from '@moralisweb3/core';
+import Server from '@moralisweb3/server';
+import EvmApi from '@moralisweb3/evm-api';
+import Evm from '@moralisweb3/evm';
 
 export const Core = () => {
   const removeModule = (module: string) => {
