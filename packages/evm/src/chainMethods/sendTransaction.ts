@@ -1,4 +1,4 @@
-import { EvmChain, EvmTransactionInput, EvmTransaction } from '@moralis/core';
+import { EvmChain, EvmTransactionInput, EvmTransaction } from '@moralisweb3/core';
 import { ethers } from 'ethers';
 import { assertChain } from '../assert/assertChain';
 import { assertProvider } from '../assert/assertProvider';

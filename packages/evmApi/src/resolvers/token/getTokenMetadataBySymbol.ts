@@ -1,5 +1,5 @@
 import { Camelize } from './../../utils/toCamelCase';
-import { Erc20Token, EvmChainish, EvmChain } from '@moralis/core';
+import { Erc20Token, EvmChainish, EvmChain } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';

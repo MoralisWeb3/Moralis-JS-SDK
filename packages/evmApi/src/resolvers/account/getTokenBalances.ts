@@ -1,4 +1,4 @@
-import { Erc20Token, Erc20Value } from '@moralis/core';
+import { Erc20Token, Erc20Value } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 

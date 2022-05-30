@@ -2,14 +2,14 @@ const path = require('path');
 const { getLoader, loaderByName } = require('@craco/craco');
 
 const packages = [
-  path.join(__dirname, '../moralis'),
-  path.join(__dirname, '../core'),
-  path.join(__dirname, '../server'),
-  path.join(__dirname, '../evm'),
-  path.join(__dirname, '../evmApi'),
-  path.join(__dirname, '../evmConnectors/EvmConnectorUtils'),
-  path.join(__dirname, '../evmConnectors/EvmMetamaskConnector'),
-  path.join(__dirname, '../evmConnectors/EvmWalletconnectConnector'),
+  path.join(__dirname, '../../packages/moralis'),
+  path.join(__dirname, '../../packages/core'),
+  path.join(__dirname, '../../packages/server'),
+  path.join(__dirname, '../../packages/evm'),
+  path.join(__dirname, '../../packages/evmApi'),
+  path.join(__dirname, '../../packages/evmConnectors/EvmConnectorUtils'),
+  path.join(__dirname, '../../packages/evmConnectors/EvmMetamaskConnector'),
+  path.join(__dirname, '../../packages/evmConnectors/EvmWalletconnectConnector'),
 ];
 
 module.exports = {

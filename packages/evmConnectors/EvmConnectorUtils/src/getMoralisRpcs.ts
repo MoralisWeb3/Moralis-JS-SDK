@@ -1,4 +1,4 @@
-import { EvmChain, EvmChainish, MoralisNetworkConnectorError, NetworkConnectorErrorCode } from '@moralis/core';
+import { EvmChain, EvmChainish, MoralisNetworkConnectorError, NetworkConnectorErrorCode } from '@moralisweb3/core';
 
 /**
  * Get all MoralisRpcs, based on the provided speedyNodeKey

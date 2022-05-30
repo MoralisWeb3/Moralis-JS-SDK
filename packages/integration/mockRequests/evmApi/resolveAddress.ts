@@ -2,10 +2,10 @@ import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
 export const mockResolveAddresses: Record<string, string> = {
-  '0xd8da6bf26964af9d7eed9e03e53415d37aa96045': 'vitalik.eth',
+  '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045': 'vitalik.eth',
 };
 
-export const mockResolveAddress = rest.get(`${EVM_API_ROOT}/resolve/:address`, (req, res, ctx) => {
+export const mockResolveAddress = rest.get(`${EVM_API_ROOT}/resolve/:address/reverse`, (req, res, ctx) => {
   const address = req.params.address as string;
   const apiKey = req.headers.get('x-api-key');
 

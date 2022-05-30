@@ -1,22 +1,31 @@
-import { getTokenMetadataBySymbolResolver } from './resolvers/token';
-import core, { ApiModule } from '@moralis/core';
+import core, { ApiModule } from '@moralisweb3/core';
 import {
   getTokenAllowanceResolver,
   getTokenPriceResolver,
   reSyncMetadataResolver,
   getNFTLowestPriceResolver,
+  getContractNFTTransfersResolver,
   getWalletTokenIdTransfersResolver,
   getNFTTradesResolver,
   getTokenAddressTransfersResolver,
   getNftTransfersFromToBlockResolver,
+  getAllTokenIdsResolver,
+  searchNFTsResolver,
+  getNFTOwnersResolver,
+  getTokenIdOwnersResolver,
+  getTokenIdMetadataResolver,
+  getTokenMetadataBySymbolResolver,
 } from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
 import {
   getTokenBalancesResolver,
   getNativeBalanceResolver,
+  getNFTTransfersResolver,
   getTransactionsResolver,
   getTokenTransfersResolver,
+  getNFTsResolver,
+  getNFTsForContractResolver,
 } from './resolvers/account';
 import {
   getBlockResolver,
@@ -52,8 +61,11 @@ export class MoralisEvmApi extends ApiModule {
     return {
       getTokenBalances: getTokenBalancesResolver.fetch,
       getNativeBalance: getNativeBalanceResolver.fetch,
+      getNFTTransfers: getNFTTransfersResolver.fetch,
       getTokenTransfers: getTokenTransfersResolver.fetch,
       getTransactions: getTransactionsResolver.fetch,
+      getNFTs: getNFTsResolver.fetch,
+      getNFTsForContract: getNFTsForContractResolver.fetch,
     };
   }
   get resolve() {
@@ -72,12 +84,18 @@ export class MoralisEvmApi extends ApiModule {
       reSyncMetadata: reSyncMetadataResolver.fetch,
       getTokenPrice: getTokenPriceResolver.fetch,
       getTokenAllowance: getTokenAllowanceResolver.fetch,
+      getContractNFTTransfers: getContractNFTTransfersResolver.fetch,
       getNftTransfersFromToBlock: getNftTransfersFromToBlockResolver.fetch,
       getTokenAddressTransfers: getTokenAddressTransfersResolver.fetch,
       getNFTTrades: getNFTTradesResolver.fetch,
       getNFTLowestPrice: getNFTLowestPriceResolver.fetch,
       getWalletTokenIdTransfers: getWalletTokenIdTransfersResolver.fetch,
       getTokenMetadataBySymbol: getTokenMetadataBySymbolResolver.fetch,
+      getAllTokenIds: getAllTokenIdsResolver.fetch,
+      searchNFTs: searchNFTsResolver.fetch,
+      getNFTOwners: getNFTOwnersResolver.fetch,
+      getTokenIdOwners: getTokenIdOwnersResolver.fetch,
+      getTokenIdMetadata: getTokenIdMetadataResolver.fetch,
     };
   }
   get info() {
