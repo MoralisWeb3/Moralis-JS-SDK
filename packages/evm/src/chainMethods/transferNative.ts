@@ -26,7 +26,7 @@ export const makeTransferNative =
 
     const transaction = await sendTransaction({
       to: to.checksum,
-      value: value.bignumber,
+      value: value.value,
       chain,
     });
 
