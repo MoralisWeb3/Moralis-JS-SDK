@@ -1,4 +1,4 @@
-import core, { ApiModule } from '@moralis/core';
+import core, { ApiModule } from '@moralisweb3/core';
 import {
   getTokenAllowanceResolver,
   getTokenPriceResolver,
@@ -9,6 +9,14 @@ import {
   getNFTTradesResolver,
   getTokenAddressTransfersResolver,
   getNftTransfersFromToBlockResolver,
+  getTokenMetadataResolver,
+  getAllTokenIdsResolver,
+  searchNFTsResolver,
+  getNFTOwnersResolver,
+  getTokenIdOwnersResolver,
+  getTokenIdMetadataResolver,
+  getTokenMetadataBySymbolResolver,
+  getNFTMetadataResolver,
 } from './resolvers/token';
 import { getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
@@ -18,6 +26,8 @@ import {
   getNFTTransfersResolver,
   getTransactionsResolver,
   getTokenTransfersResolver,
+  getNFTsResolver,
+  getNFTsForContractResolver,
 } from './resolvers/account';
 import {
   getBlockResolver,
@@ -56,6 +66,8 @@ export class MoralisEvmApi extends ApiModule {
       getNFTTransfers: getNFTTransfersResolver.fetch,
       getTokenTransfers: getTokenTransfersResolver.fetch,
       getTransactions: getTransactionsResolver.fetch,
+      getNFTs: getNFTsResolver.fetch,
+      getNFTsForContract: getNFTsForContractResolver.fetch,
     };
   }
   get resolve() {
@@ -80,6 +92,14 @@ export class MoralisEvmApi extends ApiModule {
       getNFTTrades: getNFTTradesResolver.fetch,
       getNFTLowestPrice: getNFTLowestPriceResolver.fetch,
       getWalletTokenIdTransfers: getWalletTokenIdTransfersResolver.fetch,
+      getTokenMetadataBySymbol: getTokenMetadataBySymbolResolver.fetch,
+      getTokenMetadata: getTokenMetadataResolver.fetch,
+      getAllTokenIds: getAllTokenIdsResolver.fetch,
+      searchNFTs: searchNFTsResolver.fetch,
+      getNFTOwners: getNFTOwnersResolver.fetch,
+      getTokenIdOwners: getTokenIdOwnersResolver.fetch,
+      getTokenIdMetadata: getTokenIdMetadataResolver.fetch,
+      getNFTMetadata: getNFTMetadataResolver.fetch,
     };
   }
   get info() {

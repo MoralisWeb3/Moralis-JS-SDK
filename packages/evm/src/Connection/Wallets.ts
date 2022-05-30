@@ -1,6 +1,6 @@
-import { MoralisNetworkError, NetworkErrorCode } from '@moralis/core';
-import { EvmAbstractConnector } from '@moralis/evm-connector-utils';
-import MetamaskConnector from '@moralis/evm-metamask-connector';
+import { MoralisNetworkError, NetworkErrorCode } from '@moralisweb3/core';
+import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
+import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 
 const DEFAULT_WALLETS: EvmAbstractConnector[] = [MetamaskConnector];
 

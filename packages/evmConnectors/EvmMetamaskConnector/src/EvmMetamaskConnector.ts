@@ -1,5 +1,5 @@
 import detectEthereumProvider from '@metamask/detect-provider';
-import { EvmAbstractConnector } from '@moralis/evm-connector-utils';
+import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import core, {
   EvmAddress,
   EvmChain,
@@ -9,7 +9,7 @@ import core, {
   EvmProvider,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
-} from '@moralis/core';
+} from '@moralisweb3/core';
 
 const DEFAULT_OPTIONS: EvmMetamaskConnectorConnectOptions = {
   silent: false,

@@ -1,1 +1,1 @@
-# @moralis/evm-metamask-connector
+# @moralisweb3/evm-metamask-connector

@@ -1,6 +1,6 @@
-# @moralis/core
+# @moralisweb3/core
 
-The `@moralis/core` should be used in _every_ application that uses Moralis. It is already included if you install the unbrella package `moralis`.
+The `@moralisweb3/core` should be used in _every_ application that uses Moralis. It is already included if you install the unbrella package `moralis`.
 
 The core responsibilities of this package are
 
@@ -13,7 +13,7 @@ The core responsibilities of this package are
 
 # Table of contents
 
-- [@moralis/core](#moraliscore)
+- [@moralisweb3/core](#moraliscore)
 - [Table of contents](#table-of-contents)
 - [Modules](#modules)
   - [Registering modules via `registerModules()`](#registering-modules-via-registermodules)
@@ -33,17 +33,17 @@ The core responsibilities of this package are
 
 **Note: this is automatically handled when using the `moralis` umbrella package**
 
-When you import packages from moralis `@moralis/xxx`, you need to let this core package know what modules you are using. This is required to enable cross-communication between different modules.
+When you import packages from moralis `@moralisweb3/xxx`, you need to let this core package know what modules you are using. This is required to enable cross-communication between different modules.
 
 You can do this by using the `registerModules()` function. This should be done **before** calling any Moralis logic. Ideally this should be at the top of your code, just after the imports.
 
 _Example when using Moralis with the evm network, evm api and server_
 
 ```js
-import * as Core from '@moralis/core';
-import Server from '@moralis/server';
-import EvmApi from '@moralis/evm-api';
-import Evm from '@moralis/evm';
+import * as Core from '@moralisweb3/core';
+import Server from '@moralisweb3/server';
+import EvmApi from '@moralisweb3/evm-api';
+import Evm from '@moralisweb3/evm';
 
 Core.registerModules({
   networks: [Evm],
@@ -63,7 +63,7 @@ You can start every package separately via a `start()` function. But easier is t
 You can provide a configuration object (see [Config](#config)). Some config options are required, depending on what packages you have registered (for example you will need a `serverUrl` and `appId` to use the server package).
 
 ```js
-import * as Core from '@moralis/core';
+import * as Core from '@moralisweb3/core';
 
 Core.start({
   serverUrl: '<YOUR_SERVER_URL>',

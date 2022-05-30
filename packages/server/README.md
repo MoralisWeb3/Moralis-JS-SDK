@@ -1,1 +1,1 @@
-# @moralis/server
+# @moralisweb3/server

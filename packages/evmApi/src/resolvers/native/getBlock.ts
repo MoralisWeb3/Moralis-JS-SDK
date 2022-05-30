@@ -1,4 +1,4 @@
-import { EvmAddress, EvmChain, EvmChainish, EvmTransactionReceipt } from '@moralis/core';
+import { EvmAddress, EvmChain, EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
