@@ -29,7 +29,6 @@ export const getTokenMetadataResolver = new EvmResolver({
         token: tokenType,
         blockNumber: token.block_number,
         validated: token.validated,
-        // address: extras.address,
       };
     }),
   resultToJson: (data) => data.map((item) => ({ ...item, token: item.token.toJSON() })),
