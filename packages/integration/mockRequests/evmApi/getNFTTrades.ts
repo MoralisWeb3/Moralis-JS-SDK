@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-export const mockGetTokenTransfers: Record<string, number> = {
-  '0x3d6c0e79a1239df0039ec16Cc80f7A343b6C530e': 44,
+export const mockGetNFTTradess: Record<string, number> = {
+  '0x7de3085b3190b3a787822ee16f23be010f5f8686': 53,
 };
 
-export const mockGetTokenTransfer = rest.get(`${EVM_API_ROOT}/:address/erc20/transfers`, (req, res, ctx) => {
+export const mockGetNFTTrades = rest.get(`${EVM_API_ROOT}/nft/:address/trades`, (req, res, ctx) => {
   const address = req.params.address as string;
   const apiKey = req.headers.get('x-api-key');
 
@@ -13,7 +13,7 @@ export const mockGetTokenTransfer = rest.get(`${EVM_API_ROOT}/:address/erc20/tra
     return res(ctx.status(401));
   }
 
-  const value = mockGetTokenTransfers[address];
+  const value = mockGetNFTTradess[address];
 
   if (!value) {
     return res(ctx.status(404));

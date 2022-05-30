@@ -1,19 +1,17 @@
+/* eslint-disable no-console */
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-export const mockGetTransactionss: Record<string, number> = {
-  '0x7de3085b3190b3a787822ee16f23be010f5f8686': 404,
-};
+export const mockWeb3ApiVersions = '0.0.53';
 
-export const mockGetTransactions = rest.get(`${EVM_API_ROOT}/:address`, (req, res, ctx) => {
-  const address = req.params.address as string;
+export const mockWeb3ApiVersion = rest.get(`${EVM_API_ROOT}/web3/version`, (req, res, ctx) => {
   const apiKey = req.headers.get('x-api-key');
 
   if (apiKey !== MOCK_API_KEY) {
     return res(ctx.status(401));
   }
 
-  const value = mockGetTransactionss[address];
+  const value = mockWeb3ApiVersions;
 
   if (!value) {
     return res(ctx.status(404));
@@ -22,7 +20,7 @@ export const mockGetTransactions = rest.get(`${EVM_API_ROOT}/:address`, (req, re
   return res(
     ctx.status(200),
     ctx.json({
-      total: value,
+      version: value,
     }),
   );
 });
