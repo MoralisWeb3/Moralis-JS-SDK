@@ -97,7 +97,7 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
 
   signMessage = (message: string) => makeSignMessage(this.provider)(message);
   sendTransaction = (data: EvmTransactionInput) => makeSendTransaction(this.provider, this.chain)(data);
-  transferNative = (data: TransferNativeOptions) => makeTransferNative(this.sendTransaction)(data);
+  transferNative = (data: TransferNativeOptions) => makeTransferNative(this.sendTransaction, this.chain)(data);
   transferErc20 = (data: TransferErc20Options) => makeTransferErc20(this.provider, this.chain)(data);
 }
 
