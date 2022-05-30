@@ -12,6 +12,7 @@ import { mockGetNFTs } from './evmApi/getNFTs';
 import { mockGetNFTTransfers } from './evmApi/getNFTTransfers';
 import { mockWeb3ApiVersion } from './evmApi/web3ApiVersion';
 import { mockGetNFTTrades } from './evmApi/getNFTTrades';
+import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 
 const handlers = [
   mockResolveDomain,
@@ -27,6 +28,7 @@ const handlers = [
   mockGetNFTs,
   mockWeb3ApiVersion,
   mockGetNFTTrades,
+  mockGetAllTokenIds,
 ];
 
 export const mockServer = setupServer(...handlers);
