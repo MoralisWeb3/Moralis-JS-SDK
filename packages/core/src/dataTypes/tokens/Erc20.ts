@@ -25,6 +25,12 @@ interface Erc20Data {
   thumbnail?: string | null;
 }
 
+export type Erc20Tokenish = Erc20Input | Erc20Token;
+
+/**
+ * The Erc20Token class is a MoralisData that references to a Erc20 Token
+ * It holds data about the data and metadata of an Erc20 token
+ */
 export class Erc20Token implements MoralisDataObject {
   private _value: Erc20Data;
 
@@ -43,8 +49,31 @@ export class Erc20Token implements MoralisDataObject {
     chain: EvmChain.create(value.chain),
   });
 
-  equals(value: this): boolean {
-    return value._value.contractAddress === this._value.contractAddress && value._value.chain.equals(this._value.chain);
+  static create(value: Erc20Tokenish) {
+    if (value instanceof Erc20Token) {
+      return value;
+    }
+
+    return new Erc20Token(value);
+  }
+
+  static equals(valueA: Erc20Tokenish, valueB: Erc20Tokenish) {
+    const erc20A = Erc20Token.create(valueA);
+    const erc20B = Erc20Token.create(valueB);
+
+    if (!erc20A._value.chain.equals(erc20B._value.chain)) {
+      return false;
+    }
+
+    if (!erc20A._value.contractAddress.equals(erc20B._value.contractAddress)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  equals(value: Erc20Tokenish): boolean {
+    return Erc20Token.equals(this, value);
   }
 
   toJSON() {
