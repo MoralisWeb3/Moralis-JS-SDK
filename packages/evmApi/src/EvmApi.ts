@@ -111,8 +111,8 @@ export class MoralisEvmApi extends ApiModule {
   }
   get storage() {
     return {
-      uploadFolder: uploadFolderResolver.fetch
-    }
+      uploadFolder: uploadFolderResolver.fetch,
+    };
   }
 }
 

@@ -19,6 +19,7 @@ module.exports = {
     'no-console': 'error',
     'no-var': 'error',
     'no-undef': 'off',
+    'no-else-return': 'error',
     'no-extra-semi': 'off', // doesn't get along well with prettier
     'no-unused-vars': 'off', // got typescript for that,
     'no-redeclare': 'off', // No idea what it does, but it dies
