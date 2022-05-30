@@ -5,7 +5,7 @@ import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 type Method = 'get' | 'post';
 export enum BodyType {
   PROPERTY = 'property',
-  BODY = 'set body',
+  BODY = 'body',
 }
 
 export interface ServerResponse<ApiResult> {
