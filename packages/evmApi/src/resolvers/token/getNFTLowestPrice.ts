@@ -39,7 +39,7 @@ export const getNFTLowestPriceResolver = new EvmResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     provider_url: params.providerUrl,
   }),

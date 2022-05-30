@@ -46,7 +46,7 @@ export const getTokenIdMetadataResolver = new EvmResolver({
     token: data.token.toJSON(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     format: params.format,

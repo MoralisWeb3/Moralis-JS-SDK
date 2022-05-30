@@ -41,7 +41,7 @@ export const getNftTransfersFromToBlockResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

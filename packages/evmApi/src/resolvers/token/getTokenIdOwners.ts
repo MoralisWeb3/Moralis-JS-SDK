@@ -12,7 +12,7 @@ type ApiParams = QueryParams & PathParams;
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -47,9 +47,9 @@ export const getTokenIdOwnersResolver = new EvmPaginatedResolver({
       syncedAt: nft.syncedAt?.toLocaleDateString(),
       token: nft.token.toJSON(),
     })),
-  parseParams: (params: Params) => ({
-    chain: resolveDefaultChain(params.chain),
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+  parseParams: (params: Params): ApiParams => ({
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     cursor: params.cursor,
     format: params.format,

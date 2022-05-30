@@ -41,8 +41,8 @@ export const getTokenTransfersResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
-    address: resolveDefaultAddress(params.address),
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

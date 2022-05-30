@@ -71,7 +71,7 @@ export const getTransactionResolver = new EvmResolver({
   },
   resultToJson: (data) => data.toJSON(),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     subdomain: params.subdomain || undefined,
     transaction_hash: params.transactionHash,
   }),

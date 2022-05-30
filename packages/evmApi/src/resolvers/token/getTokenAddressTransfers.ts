@@ -38,9 +38,9 @@ export const getTokenAddressTransfersResolver = new EvmPaginatedResolver({
       value: transfer.value.format(),
       blockTimestamp: transfer.blockTimestamp.toLocaleString(),
     })),
-  parseParams: (params: Params) => ({
+  parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,

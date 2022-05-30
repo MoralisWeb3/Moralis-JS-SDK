@@ -53,7 +53,7 @@ export const searchNFTsResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     addresses: params.addresses?.map((address) => EvmAddress.create(address).lowercase),
   }),
 });

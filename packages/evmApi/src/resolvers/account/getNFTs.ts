@@ -47,10 +47,10 @@ export const getNFTsResolver = new EvmPaginatedResolver({
       syncedAt: nft.syncedAt?.toLocaleDateString(),
       token: nft.token.toJSON(),
     })),
-  parseParams: (params: Params) => ({
+  parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     token_addresses: params.tokenAddresses?.map((address) => EvmAddress.create(address).lowercase),
-    address: resolveDefaultAddress(params.address),
+    address: resolveDefaultAddress(params.address).lowercase,
   }),
 });

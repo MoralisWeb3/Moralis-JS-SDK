@@ -30,8 +30,8 @@ export const runContractFunctionResolver = new EvmResolver<ApiParams, Params, Ap
     return data;
   },
   resultToJson: (data) => data,
-  parseParams: (params: Params) => ({
-    chain: resolveDefaultChain(params.chain),
+  parseParams: (params: Params): ApiParams => ({
+    chain: resolveDefaultChain(params.chain).apiHex,
     function_name: params.functionName,
     address: EvmAddress.create(params.address).lowercase,
     abi: params.abi,

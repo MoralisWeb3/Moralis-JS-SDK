@@ -40,9 +40,9 @@ export const getNFTTransfersResolver = new EvmPaginatedResolver({
       blockTimestamp: transfer.blockTimestamp.toLocaleString(),
       value: transfer.value?.format(),
     })),
-  parseParams: (params: Params) => ({
+  parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
-    address: resolveDefaultAddress(params.address),
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
   }),
 });

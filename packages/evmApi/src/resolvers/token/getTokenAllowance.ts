@@ -32,7 +32,7 @@ export const getTokenAllowanceResolver = new EvmResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     owner_address: EvmAddress.create(params.ownerAddress).lowercase,
     spender_address: EvmAddress.create(params.spenderAddress).lowercase,

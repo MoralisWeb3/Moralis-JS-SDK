@@ -38,7 +38,7 @@ export const getTokenBalancesResolver = new EvmResolver({
   parseParams: (params: Params): ApiParams => ({
     to_block: params.toBlock,
     token_addresses: params.tokenAddresses,
-    chain: resolveDefaultChain(params.chain),
-    address: resolveDefaultAddress(params.address),
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
   }),
 });

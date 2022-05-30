@@ -31,9 +31,9 @@ export const getLogsByAddressResolver = new EvmPaginatedResolver({
         }),
     ),
   resultToJson: (data) => data?.map((log) => log.toJSON()),
-  parseParams: (params: Params) => ({
+  parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
   }),
 });

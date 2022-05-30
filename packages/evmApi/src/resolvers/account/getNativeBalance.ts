@@ -27,8 +27,8 @@ export const getNativeBalanceResolver = new EvmResolver({
     balance: data.balance.format(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain),
-    address: resolveDefaultAddress(params.address),
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
     to_block: params.toBlock,
     providerUrl: params.providerUrl,
   }),

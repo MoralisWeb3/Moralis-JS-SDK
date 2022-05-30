@@ -25,7 +25,7 @@ export const reSyncMetadataResolver = new EvmResolver({
   }),
   resultToJson: (data) => data,
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     flag: params.flag,

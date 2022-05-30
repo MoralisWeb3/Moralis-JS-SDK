@@ -58,10 +58,10 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
       ),
     ),
   resultToJson: (data) => data?.map((transaction) => transaction.toJSON()),
-  parseParams: (params: Params) => ({
+  parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
-    address: resolveDefaultAddress(params.address),
+    chain: resolveDefaultChain(params.chain).apiHex,
+    address: resolveDefaultAddress(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

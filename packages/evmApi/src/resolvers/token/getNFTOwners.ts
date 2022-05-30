@@ -49,7 +49,7 @@ export const getNFTOwnersResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
   }),
 });

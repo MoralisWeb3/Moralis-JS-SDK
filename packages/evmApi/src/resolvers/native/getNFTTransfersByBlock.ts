@@ -41,7 +41,7 @@ export const getNFTTransfersByBlockResolver = new EvmPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     block_number_or_hash: params.blockNumberOrHash,
   }),
 });

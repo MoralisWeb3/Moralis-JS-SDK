@@ -31,7 +31,7 @@ export const getTokenPriceResolver = new EvmResolver({
     nativePrice: data.nativePrice ? data.nativePrice.format() : null,
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     exchange: params.exchange,
     to_block: params.toBlock,

@@ -27,7 +27,7 @@ export const getDateToBlockResolver = new EvmResolver({
     date: data.date.toLocaleDateString(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain),
+    chain: resolveDefaultChain(params.chain).apiHex,
     date: params.date,
   }),
 });
