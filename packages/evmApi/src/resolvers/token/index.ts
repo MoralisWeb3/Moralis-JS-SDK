@@ -13,3 +13,4 @@ export { searchNFTsResolver } from './searchNFTs';
 export { getNFTOwnersResolver } from './getNFTOwners';
 export { getTokenIdOwnersResolver } from './getTokenIdOwners';
 export { getTokenIdMetadataResolver } from './getTokenIdMetadata';
+export { getNFTMetadataResolver } from './getNFTMetadata';
