@@ -3,6 +3,10 @@ import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
 type Method = 'get' | 'post';
+export enum BodyType {
+  PROPERTY = 'property',
+  BODY = 'set body',
+}
 
 export interface ServerResponse<ApiResult> {
   result: ApiResult;
@@ -15,6 +19,7 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
   parseParams: (params: Params) => ApiParams;
   method?: Method;
   bodyParams?: readonly (keyof Params)[];
+  bodyType?: BodyType;
   name: string;
 }
 
@@ -25,6 +30,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
   protected bodyParams?: readonly (keyof Params)[];
+  protected bodyType?: BodyType;
   protected name: string;
 
   constructor({
@@ -34,6 +40,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     parseParams,
     method,
     bodyParams,
+    bodyType,
     name,
   }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
     this.getPath = getPath;
@@ -42,6 +49,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.parseParams = parseParams;
     this.method = method ?? 'get';
     this.bodyParams = bodyParams;
+    this.bodyType = bodyType ?? BodyType.PROPERTY;
     this.name = name;
   }
 
@@ -78,8 +86,12 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       if (!params[key] || !this.isBodyParam(key)) {
         return result;
       }
+      if (this.bodyType === BodyType.PROPERTY) {
+        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+        return { ...result, [key]: params[key] };
+      }
       // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      return { ...result, [key]: params[key] };
+      return params[key];
     }, {});
   }
 

@@ -32,9 +32,10 @@ export class EvmPaginatedResolver<
     parseParams,
     method,
     bodyParams,
+    bodyType,
     name,
   }: EvmResolverOptions<ApiParams, Params, PaginatedResponse<ApiResult>, AdaptedResult, JSONResult>) {
-    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams, name });
+    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams, bodyType, name });
   }
 
   // TODO: error handler to ApiError

@@ -193,7 +193,25 @@ export const EvmApi = () => {
       >
         getBlock
       </button>
-      
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.storage
+            .uploadFolder({
+              data: [
+                {
+                  path: "moralis/logo.jpg",
+                  content:
+                    "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3",
+                },
+              ],
+            })
+            .then(console.log);
+        }}
+      >
+        uploadFolder
+      </button>
+
     </div>
   );
 };
