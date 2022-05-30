@@ -9,7 +9,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.native
             .getBlock({
-              block_number_or_hash: '1000',
+              block_number_or_hash: '1000000',
             })
             .then(console.log);
         }}
