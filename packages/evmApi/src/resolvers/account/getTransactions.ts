@@ -18,7 +18,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export const getTransactionsResolver = new EvmPaginatedResolver({
   getPath: (params: Params) => `${params.address}`,
-  apiToResult: (data: ApiResult) =>
+  apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((transaction) =>
       EvmTransactionReceipt.create(
         {
@@ -32,9 +32,9 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
           status: +transaction.receipt_status,
         },
         {
-          // Transaction Response data
-          // TODO: properly pass chain
-          chain: EvmChain.create(1),
+          // TODO: Fix typing that chain always is set (because we have default value in parseParams)
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          chain: params.chain!,
           data: transaction.input,
           from: transaction.from_address,
           hash: transaction.hash,

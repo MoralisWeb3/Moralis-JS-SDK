@@ -53,12 +53,15 @@ export class EvmNative implements MoralisData {
     return value;
   }
 
-  static equals(nativeA: EvmNative, nativeB: EvmNative) {
-    return nativeA._value.eq(nativeB._value);
+  static equals(valueA: EvmNativeish, valueB: EvmNativeish) {
+    const evmNativeA = EvmNative.create(valueA);
+    const evmNativeB = EvmNative.create(valueB);
+
+    return evmNativeA._value.eq(evmNativeB._value);
   }
 
-  equals(native: EvmNative) {
-    return this._value === native._value;
+  equals(value: EvmNative) {
+    return EvmNative.equals(this, value);
   }
 
   get bignumber() {

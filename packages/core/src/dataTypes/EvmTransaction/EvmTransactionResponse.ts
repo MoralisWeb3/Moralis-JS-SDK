@@ -1,69 +1,22 @@
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisDataObject } from './abstract';
-import { EvmAddress, EvmAddressish } from './EvmAddress';
-import { EvmChain, EvmChainish } from './EvmChain';
-import { EvmNative, EvmNativeish } from './EvmNative';
+import { BigNumber } from '@ethersproject/bignumber';
+import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { MoralisDataObject } from '../abstract';
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
+import { EvmNative } from '../EvmNative';
 import { EvmTransactionReceipt } from './EvmTransactionReceipt';
-import { AccessList, AccessListish } from './types';
-import { maybe } from './utils';
+import { maybe } from '../utils';
+import { EvmTransactionResponseData, EvmTransactionResponseInput } from './EvmTransactionResponseTypes';
 
-export interface EvmTransactionResponseInput {
-  hash: string;
-  nonce: BigNumberish;
+export type EvmTransactionResponseish = EvmTransactionResponseInput | EvmTransactionResponse;
 
-  chain: EvmChainish;
-
-  from: EvmAddressish;
-  to?: null | EvmAddressish;
-  value: EvmNativeish;
-
-  confirmations?: null | number;
-
-  blockNumber?: null | number;
-  blockHash?: null | string;
-  blockTimestamp?: null | number | Date;
-
-  gasLimit?: BigNumberish;
-  gasPrice?: null | BigNumberish;
-
-  data: string;
-
-  type?: null | number;
-
-  accessList?: null | AccessListish;
-
-  maxPriorityFeePerGas?: null | BigNumberish;
-  maxFeePerGas?: null | BigNumberish;
-}
-
-type EvmTransactionResponseish = EvmTransactionResponseInput | EvmTransactionResponse;
-
-interface EvmTransactionResponseData {
-  hash: string;
-  nonce: BigNumber;
-  chain: EvmChain;
-
-  from: EvmAddress;
-  to?: EvmAddress;
-  value: EvmNative;
-
-  confirmations?: number;
-  blockNumber?: number;
-  blockHash?: string;
-  blockTimestamp?: Date;
-
-  gasLimit?: BigNumber;
-  gasPrice?: BigNumber;
-  data: string;
-  type?: number;
-
-  accessList?: AccessList;
-
-  maxPriorityFeePerGas?: BigNumber;
-  maxFeePerGas?: BigNumber;
-}
-
+/**
+ * The EvmTransaction class is a MoralisData that references an Evm transaction response,
+ * that has been sent to the network.
+ *
+ * @see EvmTransaction for an unpublished transaction that has to be sent to to the network
+ * @see EvmTransactionReceipt for a confirmed transaction
+ */
 export class EvmTransactionResponse implements MoralisDataObject {
   private _value: EvmTransactionResponseData;
   private _resolveCall;
@@ -97,7 +50,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
 
       from: EvmAddress.create(value.from),
       to: maybe(value.to, EvmAddress.create),
-      value: EvmNative.create(value.value, 'wei'),
+      value: maybe(value.value, (val) => EvmNative.create(val, 'wei')),
 
       confirmations: maybe(value.confirmations),
       blockNumber: maybe(value.blockNumber),
@@ -116,9 +69,27 @@ export class EvmTransactionResponse implements MoralisDataObject {
     };
   }
 
-  equals(value: this): boolean {
-    // Same hash on same chain
-    return this._value.chain.equals(value._value.chain) && this._value.hash === value._value.hash;
+  static equals(valueA: EvmTransactionResponseish, valueB: EvmTransactionResponseish) {
+    const transactionResponseA = EvmTransactionResponse.create(valueA);
+    const transactionResponseB = EvmTransactionResponse.create(valueB);
+
+    if (!transactionResponseA._value.chain.equals(transactionResponseB._value.chain)) {
+      return false;
+    }
+
+    if (transactionResponseA._value.blockNumber !== transactionResponseB._value.blockNumber) {
+      return false;
+    }
+
+    if (transactionResponseA._value.hash !== transactionResponseB._value.hash) {
+      return false;
+    }
+
+    return true;
+  }
+
+  equals(value: EvmTransactionResponseish): boolean {
+    return EvmTransactionResponse.equals(this, value);
   }
 
   wait = async (confirmations = 1) => {

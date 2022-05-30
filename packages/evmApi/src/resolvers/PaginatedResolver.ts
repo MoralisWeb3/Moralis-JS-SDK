@@ -55,6 +55,7 @@ export class EvmPaginatedResolver<
       result,
       this.apiToResult,
       this.resultToJson,
+      params,
       this.resolveNextCall(params, result),
     );
   };
@@ -80,6 +81,7 @@ export class EvmPaginatedResolver<
       result,
       this.apiToResult,
       this.resultToJson,
+      params,
       this.resolveNextCall(params, result),
     );
   };
@@ -91,7 +93,9 @@ export class EvmPaginatedResolver<
 
   fetch = (
     params: Params,
-  ): Promise<EvmApiPaginatedResultAdapter<Awaited<PaginatedResponse<ApiResult>>, AdaptedResult, JSONResult>> => {
+  ): Promise<
+    EvmApiPaginatedResultAdapter<Awaited<PaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
+  > => {
     return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }
