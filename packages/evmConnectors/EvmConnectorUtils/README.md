@@ -1,1 +1,1 @@
-# @moralis/evm-conncetor-utils
+# @moralisweb3/evm-conncetor-utils

@@ -1,5 +1,5 @@
 import { createSigningData } from '../utils/createSigningData';
-import { NetworkModule } from '@moralis/core';
+import { NetworkModule } from '@moralisweb3/core';
 import { AuthType } from '../types';
 
 interface EvmAuthOptions {

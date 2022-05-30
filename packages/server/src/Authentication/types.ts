@@ -1,4 +1,4 @@
-import { InitEvent } from '@moralis/core';
+import { InitEvent } from '@moralisweb3/core';
 import { AuthenticateData, AuthMethod } from '../AuthMethods/types';
 
 export interface AuthenticateEventOptions {

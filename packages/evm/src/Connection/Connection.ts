@@ -10,8 +10,8 @@ import {
   MoralisNetworkError,
   NetworkErrorCode,
   MoralisState,
-} from '@moralis/core';
-import { EvmAbstractConnector, EvmConnectorEvent } from '@moralis/evm-connector-utils';
+} from '@moralisweb3/core';
+import { EvmAbstractConnector, EvmConnectorEvent } from '@moralisweb3/evm-connector-utils';
 import { EvmNetworkEvent, EvmNetworkEventMap } from '../events/EvmNetworkEvent';
 import { connectWallet } from './connectWallet';
 import { Wallets } from './Wallets';

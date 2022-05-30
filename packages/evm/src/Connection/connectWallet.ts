@@ -1,4 +1,4 @@
-import { EvmBaseConnectOptions } from '@moralis/core';
+import { EvmBaseConnectOptions } from '@moralisweb3/core';
 import { Wallets } from './Wallets';
 
 export const connectWallet = async <Options extends EvmBaseConnectOptions>(
