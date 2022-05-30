@@ -15,7 +15,7 @@ import {
   ProviderRpcError,
   Logger,
   MoralisCore,
-} from '@moralis/core';
+} from '@moralisweb3/core';
 
 interface AbstractConnectorConfig {
   name: string;

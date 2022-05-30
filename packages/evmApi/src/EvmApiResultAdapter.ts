@@ -1,5 +1,5 @@
-import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralis/core';
-import { MoralisDataObject } from '@moralis/core';
+import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralisweb3/core';
+import { MoralisDataObject } from '@moralisweb3/core';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
 enum EvmApiFormatType {
@@ -42,11 +42,7 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
   protected _adapter: (data: Data) => AdaptedData;
   protected _jsonAdapter: (data: AdaptedData) => JSONData;
 
-  constructor(
-    data: Data,
-    adapter: (data: Data) => AdaptedData,
-    jsonAdapter: (data: AdaptedData) => JSONData,
-  ) {
+  constructor(data: Data, adapter: (data: Data) => AdaptedData, jsonAdapter: (data: AdaptedData) => JSONData) {
     this._data = data;
     this._adapter = adapter;
     this._jsonAdapter = jsonAdapter;
