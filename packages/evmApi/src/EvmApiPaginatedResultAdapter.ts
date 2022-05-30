@@ -12,7 +12,7 @@ export class EvmApiPaginatedResultAdapter<
 
   constructor(
     data: Data,
-    adapter: (data: Data) => AdaptedData,
+    adapter: (data: Data, params: Params) => AdaptedData,
     jsonAdapter: (data: AdaptedData) => JSONData,
     params: Params,
     nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>,
