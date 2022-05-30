@@ -12,6 +12,7 @@ import { mockGetNFTs } from './evmApi/getNFTs';
 import { mockGetNFTTransfers } from './evmApi/getNFTTransfers';
 import { mockWeb3ApiVersion } from './evmApi/web3ApiVersion';
 import { mockGetNFTTrades } from './evmApi/getNFTTrades';
+import { mockGetTokenAddressTransfers } from './evmApi/getTokenAddressTransfers';
 import { mockSearchNFTs } from './evmApi/searchNFTs';
 import { mockGetNFTTransfersByBlock } from './evmApi/getNFTTransfersByBlock';
 import { mockGetContractNFTTransfers } from './evmApi/getContractNFTTransfers';
@@ -32,6 +33,7 @@ const handlers = [
   mockGetNFTs,
   mockWeb3ApiVersion,
   mockGetNFTTrades,
+  mockGetTokenAddressTransfers,
   mockSearchNFTs,
   mockGetNFTTransfersByBlock,
   mockGetContractNFTTransfers,
