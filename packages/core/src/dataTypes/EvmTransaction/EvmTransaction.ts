@@ -70,7 +70,7 @@ export class EvmTransaction implements MoralisDataObject {
     return true;
   }
 
-  equals(value: this): boolean {
+  equals(value: EvmTransactionish): boolean {
     return EvmTransaction.equals(this, value);
   }
 

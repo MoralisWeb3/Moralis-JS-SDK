@@ -88,7 +88,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
     return true;
   }
 
-  equals(value: this): boolean {
+  equals(value: EvmTransactionResponseish): boolean {
     return EvmTransactionResponse.equals(this, value);
   }
 
