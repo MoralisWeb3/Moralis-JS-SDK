@@ -37,15 +37,22 @@ export type JSONApiResult<Value extends object = object> =
     }
   | JSONApiResult[];
 
-export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
+export class EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
   protected _data: Data;
-  protected _adapter: (data: Data) => AdaptedData;
+  protected _adapter: (data: Data, params: Params) => AdaptedData;
   protected _jsonAdapter: (data: AdaptedData) => JSONData;
+  protected _params: Params;
 
-  constructor(data: Data, adapter: (data: Data) => AdaptedData, jsonAdapter: (data: AdaptedData) => JSONData) {
+  constructor(
+    data: Data,
+    adapter: (data: Data, params: Params) => AdaptedData,
+    jsonAdapter: (data: AdaptedData) => JSONData,
+    params: Params,
+  ) {
     this._data = data;
     this._adapter = adapter;
     this._jsonAdapter = jsonAdapter;
+    this._params = params;
   }
 
   get legacy() {
@@ -53,7 +60,7 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData> {
   }
 
   get result(): AdaptedData {
-    return this._adapter(this._data);
+    return this._adapter(this._data, this._params);
   }
 
   // TODO:  Cast all to primitive types

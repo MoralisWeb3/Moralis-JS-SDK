@@ -10,7 +10,7 @@ export interface ServerResponse<ApiResult> {
 
 export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
-  apiToResult: (result: ApiResult) => AdaptedResult;
+  apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
   method?: Method;
@@ -20,7 +20,7 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
 
 export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   protected getPath: (params: Params) => string;
-  protected apiToResult: (result: ApiResult) => AdaptedResult;
+  protected apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   protected resultToJson: (result: AdaptedResult) => JSONResult;
   protected parseParams: (params: Params) => ApiParams;
   protected method: Method;
@@ -98,7 +98,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected _apiPost = async (params: Params) => {
@@ -119,7 +119,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     );
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected _serverRequest = async (params: Params) => {
@@ -135,7 +135,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       Record<string, string>
     >(url, searchParams, bodyParams);
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson);
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected getServerUrl() {
@@ -150,7 +150,9 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   }
 
   fetch = (params: Params) => {
-    if (!core.config.get('apiKey')) return this._serverRequest(params);
-    return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    if (core.config.get('apiKey')) {
+      return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    }
+    return this._serverRequest(params);
   };
 }

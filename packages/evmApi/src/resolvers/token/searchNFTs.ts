@@ -18,9 +18,10 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const searchNFTsResolver = new EvmPaginatedResolver({
   name: 'searchNFTs',
   getPath: () => `nft/search`,
-  apiToResult: (data: ApiResult) =>
+  apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((nft) => ({
       token: new EvmNFT({
+        chain: resolveDefaultChain(params.chain),
         contractType: nft.contract_type,
         tokenAddress: nft.token_address,
         tokenId: nft.token_id,

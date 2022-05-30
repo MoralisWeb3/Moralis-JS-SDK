@@ -20,8 +20,9 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getTokenIdMetadataResolver = new EvmResolver({
   name: 'getTokenIdMetadata',
   getPath: (params: Params) => `nft/${params.address}/${params.tokenId}`,
-  apiToResult: (data: ApiResult) => ({
+  apiToResult: (data: ApiResult, params: Params) => ({
     token: new EvmNFT({
+      chain: resolveDefaultChain(params.chain),
       contractType: data.contract_type,
       tokenAddress: data.token_address,
       tokenId: data.token_id,

@@ -160,14 +160,14 @@ export class EvmChain implements MoralisData {
   /**
    * Compares if 2 chains are equal, based on the chainId
    */
-  static equals(chainA: EvmChain, chainB: EvmChain) {
-    return chainA._value === chainB._value;
+  static equals(chainA: EvmChainish, chainB: EvmChainish) {
+    return EvmChain.create(chainA)._value === EvmChain.create(chainB)._value;
   }
 
   /**
    * Compares if the current chain is equal to the provided chain, based on the chainId
    */
-  equals(chain: EvmChain) {
+  equals(chain: EvmChainish) {
     return EvmChain.equals(this, chain);
   }
 

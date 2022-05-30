@@ -1,3 +1,4 @@
+export { getTokenMetadataResolver } from './getTokenMetadata';
 export { getTokenAllowanceResolver } from './getTokenAllowance';
 export { getTokenPriceResolver } from './getTokenPrice';
 export { reSyncMetadataResolver } from './reSyncMetadata';
@@ -8,7 +9,9 @@ export { getTokenAddressTransfersResolver } from './getTokenAddressTransfers';
 export { getNFTTradesResolver } from './getNFTTrades';
 export { getNFTLowestPriceResolver } from './getNFTLowestPrice';
 export { getWalletTokenIdTransfersResolver } from './getWalletTokenIdTransfers';
+export { getTokenMetadataBySymbolResolver } from './getTokenMetadataBySymbol';
 export { searchNFTsResolver } from './searchNFTs';
 export { getNFTOwnersResolver } from './getNFTOwners';
 export { getTokenIdOwnersResolver } from './getTokenIdOwners';
 export { getTokenIdMetadataResolver } from './getTokenIdMetadata';
+export { getNFTMetadataResolver } from './getNFTMetadata';

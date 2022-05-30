@@ -19,8 +19,8 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 
 export const getTokenBalancesResolver = new EvmResolver({
   name: 'getTokenBalances',
-  getPath: (params: Params) => `${params.address}/erc20`,
-  apiToResult: (data: ApiResult) =>
+  getPath: (params: ApiParams) => `${params.address}/erc20`,
+  apiToResult: (data: ApiResult, params: ApiParams) =>
     data.map((token) => ({
       token: new Erc20Token({
         decimals: token.decimals,
@@ -29,8 +29,7 @@ export const getTokenBalancesResolver = new EvmResolver({
         contractAddress: token.token_address,
         logo: token.logo,
         thumbnail: token.thumbnail,
-        // TODO: add chain info (or omit it from Erc20Token type)
-        chain: 0,
+        chain: resolveDefaultChain(params.chain),
       }),
       value: new Erc20Value(token.balance, token.decimals),
     })),
