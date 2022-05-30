@@ -19,6 +19,7 @@ import { mockGetNFTTransfersByBlock } from './evmApi/getNFTTransfersByBlock';
 import { mockGetContractNFTTransfers } from './evmApi/getContractNFTTransfers';
 import { mockGetNFTLowestPrice } from './evmApi/getNFTLowestPrice';
 import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
+import { mockGetNFTMetada } from './evmApi/getNFTMetadata';
 import { mockEndpointWeights } from './evmApi/endpointWeights';
 
 const handlers = [
@@ -42,6 +43,7 @@ const handlers = [
   mockGetContractNFTTransfers,
   mockGetNFTLowestPrice,
   mockGetAllTokenIds,
+  mockGetNFTMetada,
   mockEndpointWeights,
 ];
 
