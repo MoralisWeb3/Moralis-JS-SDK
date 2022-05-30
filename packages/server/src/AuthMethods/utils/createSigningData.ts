@@ -1,5 +1,5 @@
 import type Parse from 'parse';
-import core from '@moralis/core';
+import core from '@moralisweb3/core';
 
 /**
  * Creates the data for the authentication message by extending the message

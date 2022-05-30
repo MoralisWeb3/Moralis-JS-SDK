@@ -1,5 +1,5 @@
 import { EvmResolver } from './../Resolver';
-import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralis/core';
+import { EvmChain, EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { Camelize } from '../../utils/toCamelCase';
 

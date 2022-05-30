@@ -1,4 +1,4 @@
-import core, { ApiModule } from '@moralis/core';
+import core, { ApiModule } from '@moralisweb3/core';
 import {
   getTokenAllowanceResolver,
   getTokenPriceResolver,

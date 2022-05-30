@@ -1,14 +1,14 @@
 {
-  "name": "@moralis/test-app-all",
-  "version": "0.1.0",
+  "name": "@morlaisweb3/test-app-all",
+  "version": "2.0.0-alpha.0",
   "private": true,
   "dependencies": {
-    "@moralis/all": "^1.0.0",
     "@types/node": "^16.11.26",
     "@types/react": "^18.0.3",
     "@types/react-dom": "^18.0.3",
     "craco": "^0.0.3",
     "jest": "26.6.0",
+    "moralis": "^2.0.0-alpha.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "^5.0.1",
@@ -19,8 +19,8 @@
     "dev": "craco start",
     "build": "craco build",
     "eject": "craco eject",
-    "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check"
   },
   "eslintConfig": {
     "extends": [

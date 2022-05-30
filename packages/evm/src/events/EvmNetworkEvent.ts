@@ -1,4 +1,4 @@
-import { AnyConnector, EvmAddress, EvmChain, EvmConnectData } from '@moralis/core';
+import { AnyConnector, EvmAddress, EvmChain, EvmConnectData } from '@moralisweb3/core';
 import { ethers } from 'ethers';
 
 /**

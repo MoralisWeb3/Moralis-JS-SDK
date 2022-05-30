@@ -1,5 +1,5 @@
-import Core from '@moralis/core';
-import EvmApi from '@moralis/evm-api';
+import Core from '@moralisweb3/core';
+import EvmApi from '@moralisweb3/evm-api';
 import { MOCK_API_KEY } from '../../mockRequests/config';
 import { mockServer } from '../../mockRequests/mockRequests';
 
@@ -28,8 +28,8 @@ describe('Moralis EvmApi', () => {
     expect(result).toBeDefined();
   });
 
-  it('should not get the native account balance and return an error code for an invalid address', () => {
-    const failedResult = EvmApi.account
+  it('should not get the native account balance and return an error code for an invalid address', async () => {
+    const failedResult = await EvmApi.account
       .getNativeBalance({
         address: '0x7dE3085b3190B3a787822Ee16F23be010f5F8686',
       })

@@ -1,5 +1,5 @@
 import type Parse from 'parse';
-import core, { MoralisServerError, ServerErrorCode } from '@moralis/core';
+import core, { MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import { evmAuth } from './evm/evm';
 
 interface HandleAuthOptions {
