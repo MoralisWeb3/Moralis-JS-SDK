@@ -180,6 +180,20 @@ export const EvmApi = () => {
       >
         getNFTMetadata
       </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.native
+            .getBlock({
+              chain: "bsc",
+              block_number_or_hash: "2"
+            })
+            .then(console.log);
+        }}
+      >
+        getBlock
+      </button>
+      
     </div>
   );
 };
