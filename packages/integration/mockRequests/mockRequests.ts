@@ -22,7 +22,7 @@ import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 import { mockGetBlock } from './evmApi/getBlock';
 import { mockGetNFTMetada } from './evmApi/getNFTMetadata';
 import { mockEndpointWeights } from './evmApi/endpointWeights';
-
+import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol';
 const handlers = [
   mockResolveDomain,
   mockResolveAddress,
@@ -47,6 +47,7 @@ const handlers = [
   mockGetBlock,
   mockGetNFTMetada,
   mockEndpointWeights,
+  mockGetTokenMetadataBySymbol,
 ];
 
 export const mockServer = setupServer(...handlers);
