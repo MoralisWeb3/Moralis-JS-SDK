@@ -1,8 +1,9 @@
 import { Camelize } from './../../utils/toCamelCase';
-import { Erc20Token, EvmChainish, EvmChain } from '@moralisweb3/core';
+import { Erc20Token, EvmChainish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenMetadataBySymbol';
 
@@ -17,14 +18,13 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 
 export const getTokenMetadataBySymbolResolver = new EvmResolver({
   name: 'getTokenMetadataBySymbol',
-  getPath: (params: ApiParams) => `/erc20/metadata/symbols`,
-  apiToResult: (data: ApiResult) =>
+  getPath: (params: ApiParams) => `erc20/metadata/symbols`,
+  apiToResult: (data: ApiResult, params: Params) =>
     data.map((token) => {
       const erc20token = new Erc20Token({
         ...toCamelCase(token),
         contractAddress: token.address,
-        // TODO: add chain info (or omit it from Erc20Token type)
-        chain: 1,
+        chain: resolveDefaultChain(params.chain),
       });
       return {
         token: erc20token,
@@ -35,6 +35,6 @@ export const getTokenMetadataBySymbolResolver = new EvmResolver({
   resultToJson: (data) => data.map((result) => ({ ...result, token: result.token.toJSON() })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: params.chain ? EvmChain.create(params.chain).apiHex : undefined,
+    chain: resolveDefaultChain(params.chain).apiHex,
   }),
 });
