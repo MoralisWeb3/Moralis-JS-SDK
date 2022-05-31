@@ -22,6 +22,7 @@ import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 import { mockGetBlock } from './evmApi/getBlock';
 import { mockGetNFTMetada } from './evmApi/getNFTMetadata';
 import { mockEndpointWeights } from './evmApi/endpointWeights';
+import { mockGetTransaction } from './evmApi/getTransaction';
 
 const handlers = [
   mockResolveDomain,
@@ -47,6 +48,7 @@ const handlers = [
   mockGetBlock,
   mockGetNFTMetada,
   mockEndpointWeights,
+  mockGetTransaction,
 ];
 
 export const mockServer = setupServer(...handlers);
