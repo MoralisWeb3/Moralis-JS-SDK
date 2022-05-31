@@ -1,18 +1,10 @@
 import { Moralis } from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
 import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
-// import { sushimakerAbi } from './sushimakerAbi';
-
-// const sushimakerAddresses = {
-//   eth: '0x5ad6211cd3fde39a9cecb5df6f380b8263d1e277',
-//   polygon: '0xf1c9881be22ebf108b8927c4d197d126346b5036',
-// };
-// const Sushimaker = new Contract(sushimakerAddresses.eth, 'eth', sushimakerAbi);
-// Sushimaker.setAddress(sushimakerAddresses.polygon, 'polygon');
 
 // Register connector connect connector
 Moralis.Evm.connectors.register(WalletConnectConnector);
-Moralis.Evm.connectors.remove('wallet-connect');
+// Moralis.Evm.connectors.remove('wallet-connect');
 
 export const Evm = () => {
   return (
