@@ -15,3 +15,4 @@ export { getNFTOwnersResolver } from './getNFTOwners';
 export { getTokenIdOwnersResolver } from './getTokenIdOwners';
 export { getTokenIdMetadataResolver } from './getTokenIdMetadata';
 export { getNFTMetadataResolver } from './getNFTMetadata';
+export { syncNFTContractResolver } from './syncNFTContract';
