@@ -22,6 +22,7 @@ import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 import { mockGetBlock } from './evmApi/getBlock';
 import { mockGetNFTMetada } from './evmApi/getNFTMetadata';
 import { mockEndpointWeights } from './evmApi/endpointWeights';
+import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol';
 import { mockGetTokenIdOwners } from './evmApi/getTokenIdOwners';
 import { mockGetNFTOwners } from './evmApi/getNFTOwners';
 import { mockGetTransaction } from './evmApi/getTransaction';
@@ -50,6 +51,7 @@ const handlers = [
   mockGetBlock,
   mockGetNFTMetada,
   mockEndpointWeights,
+  mockGetTokenMetadataBySymbol,
   mockGetTokenIdOwners,
   mockGetNFTOwners,
   mockGetTransaction,
