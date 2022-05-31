@@ -1,6 +1,7 @@
 import { Moralis } from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
 import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
+import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 
 // Register connector connect connector
 Moralis.Evm.connectors.register(WalletConnectConnector);
@@ -64,6 +65,13 @@ export const Evm = () => {
         }}
       >
         Transfer UNI
+      </button>
+      <button
+        onClick={() => {
+          MetamaskConnector.addNetwork('kovan');
+        }}
+      >
+        Add kovan network
       </button>
     </div>
   );

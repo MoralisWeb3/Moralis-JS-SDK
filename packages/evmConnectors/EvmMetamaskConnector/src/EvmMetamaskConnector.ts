@@ -106,8 +106,9 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
                 decimals: chain.currency.decimals,
               }
             : undefined,
+          // TODO: validate rpcUrls
           rpcUrls: chain.rpcUrls,
-          blockExplorerUrls: [chain.explorer],
+          blockExplorerUrls: chain.explorer?.url ? [chain.explorer.url] : null,
         },
       ],
     });
