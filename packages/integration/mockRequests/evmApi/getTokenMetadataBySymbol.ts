@@ -23,7 +23,7 @@ export const mockGetTokenMetadataBySymbol = rest.get(`${EVM_API_ROOT}/erc20/meta
   return res(
     ctx.status(200),
     ctx.json({
-      symbol: value,
+      address: value,
     }),
   );
 });

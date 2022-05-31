@@ -26,9 +26,8 @@ describe('Moralis EvmApi', () => {
       symbols: ['LINK'],
     });
 
-    //expect(result.toJSON()).toStrictEqual({ symbol: 'LINK' });
     expect(result).toBeDefined();
-    expect(result.toJSON()).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
     expect(result).toEqual(expect.arrayContaining([]));
+    expect(result.legacy).toStrictEqual({ address: '0x514910771af9ca656af840dff83e8264ecf986ca' });
   });
 });
