@@ -154,7 +154,9 @@ export class EvmChain implements MoralisData {
       | `0x61`
       | `0xa86a`
       | `0xa869`
-      | `0xfa`;
+      | `0xfa`
+      | 'cronos'
+      | '0x19';
   }
 
   /**
