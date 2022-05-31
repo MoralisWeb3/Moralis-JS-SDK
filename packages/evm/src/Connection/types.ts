@@ -1,11 +1,11 @@
 import { EvmConnectData, InitEvent } from '@moralisweb3/core';
 
 export interface ConnectEventOptions {
-  wallet: string;
+  connector: string;
   options?: Record<string, unknown>;
 }
 export interface StateContext {
-  wallet?: string;
+  connector?: string;
   options?: Record<string, unknown>;
   error?: Error;
 }
@@ -40,6 +40,6 @@ export type State =
   | {
       value: 'Connected';
       context: StateContext & {
-        wallet: string;
+        connector: string;
       };
     };

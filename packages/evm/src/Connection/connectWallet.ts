@@ -1,13 +1,13 @@
 import { EvmBaseConnectOptions } from '@moralisweb3/core';
-import { Wallets } from './Wallets';
+import { Connectors } from './Connectors';
 
 export const connectWallet = async <Options extends EvmBaseConnectOptions>(
-  wallets: Wallets,
-  walletName: string,
+  connectors: Connectors,
+  connectorName: string,
   options: Options,
 ) => {
-  const wallet = wallets.get(walletName);
-  const data = await wallet.connect(options);
+  const connector = connectors.get(connectorName);
+  const data = await connector.connect(options);
 
-  return { ...data, wallet };
+  return { ...data, connector };
 };

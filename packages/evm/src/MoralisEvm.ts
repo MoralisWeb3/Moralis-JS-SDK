@@ -43,16 +43,25 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
    * Connection getters
    */
 
-  get wallets() {
-    return this.connection.wallets;
+  /**
+   * Get all available connectors
+   */
+  get connectors() {
+    return this.connection.connectors;
   }
 
+  /**
+   * Get all names of available connectors
+   */
   get supportedConnectors() {
-    return this.connection.wallets.names;
+    return this.connection.connectors.names;
   }
 
-  get wallet() {
-    return this.connection.wallet;
+  /**
+   * Return the connected connector
+   */
+  get connector() {
+    return this.connection.connector;
   }
 
   get provider() {
@@ -83,8 +92,8 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
    * Connection methods
    */
 
-  connect: EvmConnect = async (wallet, options) => {
-    return this.connection.connect(wallet, options);
+  connect: EvmConnect = async (connector, options) => {
+    return this.connection.connect(connector, options);
   };
 
   disconnect = () => {

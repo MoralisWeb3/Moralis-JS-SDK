@@ -30,7 +30,7 @@ export abstract class NetworkModule<Events extends EventMap = any> extends BaseM
    * This function returns a ConnectResponse object
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async connect(wallet: string, options?: unknown): Promise<EvmConnectResponse> {
+  async connect(connector: string, options?: unknown): Promise<EvmConnectResponse> {
     throw new MoralisCoreError({
       code: CoreErrorCode.NOT_IMPLEMENTED,
       message: `'connect()' is not implemented for module "${this.name}"`,

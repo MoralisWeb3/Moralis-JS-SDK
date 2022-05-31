@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
+  "module": "./lib.esm/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -12,7 +13,7 @@
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "tsc",
+    "build": "rollup -c",
     "dev": "tsc --watch"
   },
   "devDependencies": {

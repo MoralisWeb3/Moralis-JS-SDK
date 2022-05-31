@@ -32,7 +32,7 @@ export type EvmAuthenticate = {
   (method: AuthMethod.EVM, wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<AuthenticateData>;
   (
     method: AuthMethod.EVM,
-    wallet: 'walletconnect',
+    connector: 'walletconnect',
     options?: EvmWalletConnectConnectorOptions,
   ): Promise<AuthenticateData>;
   // Fallback for custom connectors
@@ -40,7 +40,11 @@ export type EvmAuthenticate = {
 };
 
 export type SolAuthenticate = {
-  (method: AuthMethod.SOL, wallet: 'phantom', options?: SolPhantomConnectorConnectOptions): Promise<AuthenticateData>;
+  (
+    method: AuthMethod.SOL,
+    connector: 'phantom',
+    options?: SolPhantomConnectorConnectOptions,
+  ): Promise<AuthenticateData>;
   // Fallback for custom connectors
   // (method: string, wallet: string, options?: SolBaseConnectOptions): Promise<AuthenticateData>;
 };

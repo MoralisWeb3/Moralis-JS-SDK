@@ -1,5 +1,6 @@
 import { Moralis } from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
+import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
 // import { sushimakerAbi } from './sushimakerAbi';
 
 // const sushimakerAddresses = {
@@ -9,16 +10,20 @@ import { Erc20Value, EvmNative } from '@moralisweb3/core';
 // const Sushimaker = new Contract(sushimakerAddresses.eth, 'eth', sushimakerAbi);
 // Sushimaker.setAddress(sushimakerAddresses.polygon, 'polygon');
 
+// Register connector connect connector
+Moralis.Evm.connectors.register(WalletConnectConnector);
+Moralis.Evm.connectors.remove('wallet-connect');
+
 export const Evm = () => {
   return (
     <div>
       <h2>EVM</h2>
       <button onClick={() => Moralis.Evm.connect('metamask', { silent: false })}>Connect via metamask</button>
-      <button onClick={() => Moralis.Evm.connect('walletconnect', { newSession: true })}>
+      <button onClick={() => Moralis.Evm.connect('wallet-connect', { newSession: true })}>
         Connect via walletconnect
       </button>
       <button onClick={() => Moralis.Evm.disconnect()}>Disconnect</button>
-      <button onClick={() => console.log(Moralis.Evm.wallet)}>get wallet</button>
+      <button onClick={() => console.log(Moralis.Evm.connector)}>get connector</button>
       <button onClick={() => console.log(Moralis.Evm.account)}>get account</button>
       <button onClick={() => console.log(Moralis.Evm.chain)}>get chainId</button>
       <button onClick={() => console.log(Moralis.Evm.provider)}>get provider</button>

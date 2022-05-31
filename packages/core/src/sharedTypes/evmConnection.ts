@@ -11,14 +11,14 @@ export type EvmBaseConnectOptions = Record<string, unknown>;
 export type SolBaseConnectOptions = Record<string, unknown>;
 
 export type EvmConnect = {
-  (wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
-  (wallet: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
-  (wallet: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
+  (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
+  (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
+  (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
 };
 
 export type SolConnect = {
-  (wallet: 'phantom', options?: SolPhantomConnectorConnectOptions): Promise<EvmConnectData>;
-  (wallet: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
+  (connector: 'phantom', options?: SolPhantomConnectorConnectOptions): Promise<EvmConnectData>;
+  (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
 };
 
 export interface SolPhantomConnectorConnectOptions extends SolBaseConnectOptions {
@@ -33,7 +33,7 @@ export interface EvmMetamaskConnectorConnectOptions extends EvmBaseConnectOption
 }
 
 export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions {
-  // Prefered chainId, if supported by the wallet
+  // Prefered chainId, if supported by the connector
   chainId?: InputChainId;
   // List of mobile links
   mobileLinks?: string[];
@@ -51,5 +51,5 @@ export interface EvmConnectResponse {
 }
 
 export interface EvmConnectData<Connector extends AnyConnector = AnyConnector> extends EvmConnectResponse {
-  wallet: Connector;
+  connector: Connector;
 }

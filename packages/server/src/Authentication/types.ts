@@ -6,7 +6,7 @@ export interface AuthenticateEventOptions {
   options?: Record<string, unknown>;
 }
 export interface StateContext {
-  wallet?: string;
+  connector?: string;
   options?: Record<string, unknown>;
   error?: Error;
 }

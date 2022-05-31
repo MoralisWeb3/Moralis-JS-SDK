@@ -14,26 +14,26 @@ import {
 import { EvmAbstractConnector, EvmConnectorEvent } from '@moralisweb3/evm-connector-utils';
 import { EvmNetworkEvent, EvmNetworkEventMap } from '../events/EvmNetworkEvent';
 import { connectWallet } from './connectWallet';
-import { Wallets } from './Wallets';
+import { Connectors } from './Connectors';
 import { StateContext, State, StateEvent } from './types';
 
 export class Connection extends MoralisState<StateContext, StateEvent, State> {
   private _logger;
   private _emitter;
 
-  readonly wallets;
+  readonly connectors;
 
-  // Provider that is returned from a connection to a wallet (is used to establish the provider via _updateProvider())
+  // Provider that is returned from a connection to a connector (is used to establish the provider via _updateProvider())
   private _internalProvider: EvmProvider | null = null;
   // EthersJs provider, used to make chain interactions
   private _provider: providers.Web3Provider | null = null;
-  // Used wallet for the currect connection
-  wallet: EvmAbstractConnector | null = null;
+  // Used connector for the currect connection
+  connector: EvmAbstractConnector | null = null;
 
   constructor(logger: Logger, emitter: TypedEmitter<EvmNetworkEventMap>) {
     super('Connection');
 
-    this.wallets = new Wallets();
+    this.connectors = new Connectors();
     this._logger = logger;
     this._emitter = emitter;
 
@@ -85,7 +85,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
 
   /**
    * Updates the ._provider (and therefore .provider) instance, based on the
-   * _internalProvider, that is retreived from a wallet, and the provided chain.
+   * _internalProvider, that is retreived from a connector, and the provided chain.
    * We need to reset this provider every time a chain chainges, as recommended by ethersJs,
    * for user protection.
    */
@@ -121,10 +121,10 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     this._internalProvider = null;
     this._updateProvider();
 
-    if (this.wallet) {
-      this.wallet.off(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
-      this.wallet.off(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
-      this.wallet = null;
+    if (this.connector) {
+      this.connector.off(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
+      this.connector.off(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
+      this.connector = null;
     }
 
     this._logger.verbose('Disconnected', { context, event });
@@ -158,11 +158,11 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
       });
     }
 
-    const { wallet, options } = event.data;
+    const { connector, options } = event.data;
 
     this._emitter.emit(EvmNetworkEvent.CONNECTING);
 
-    connectWallet(this.wallets, wallet, options ?? {})
+    connectWallet(this.connectors, connector, options ?? {})
       .then((data) => this.transition({ type: 'CONNECT_SUCCESS', data }))
       .catch((error: Error) => this.transition({ type: 'CONNECT_ERROR', data: error }));
   };
@@ -178,13 +178,13 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
       });
     }
 
-    const { wallet, provider } = event.data;
-    this.wallet = wallet;
+    const { connector, provider } = event.data;
+    this.connector = connector;
     this._internalProvider = provider;
     this._updateProvider();
 
-    wallet.on(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
-    wallet.on(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
+    connector.on(EvmConnectorEvent.ACCOUNT_CHANGED, this._handleAccountChange);
+    connector.on(EvmConnectorEvent.CHAIN_CHANGED, this._handleChainChange);
 
     this._emitter.emit(EvmNetworkEvent.CONNECTED, event.data);
   };
@@ -209,7 +209,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
    * Trigger state changes
    */
 
-  connect: EvmConnect = async (wallet, options) => {
+  connect: EvmConnect = async (connector, options) => {
     if (this.isConnecting) {
       throw new MoralisNetworkError({
         code: NetworkErrorCode.CANNOT_CONNECT,
@@ -231,7 +231,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     this.transition({
       type: 'CONNECT',
       data: {
-        wallet,
+        connector,
         options,
       },
     });
@@ -288,10 +288,10 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
   }
 
   get chain() {
-    return this.wallet?.chain ?? null;
+    return this.connector?.chain ?? null;
   }
 
   get account() {
-    return this.wallet?.account ?? null;
+    return this.connector?.account ?? null;
   }
 }
