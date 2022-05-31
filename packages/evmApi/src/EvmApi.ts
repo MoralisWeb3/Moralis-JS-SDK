@@ -17,6 +17,7 @@ import {
   getTokenIdMetadataResolver,
   getTokenMetadataBySymbolResolver,
   getNFTMetadataResolver,
+  syncNFTContractResolver,
 } from './resolvers/token';
 import { getPairAddressResolver, getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
@@ -102,6 +103,7 @@ export class MoralisEvmApi extends ApiModule {
       getTokenIdOwners: getTokenIdOwnersResolver.fetch,
       getTokenIdMetadata: getTokenIdMetadataResolver.fetch,
       getNFTMetadata: getNFTMetadataResolver.fetch,
+      syncNFTContract: syncNFTContractResolver.fetch,
     };
   }
   get info() {
