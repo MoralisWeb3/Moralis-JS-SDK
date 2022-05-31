@@ -71,8 +71,7 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     return this.authentication.logout();
   };
 
-  
-   /**
+  /**
    * Link address to user profile
    */
   link = async (account: EvmAddressish) => {
@@ -108,7 +107,7 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     return user;
   };
 
-   /**
+  /**
    * Unlink address to user profile
    */
   unlink = async (account: EvmAddressish) => {
