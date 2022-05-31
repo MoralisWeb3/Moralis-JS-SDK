@@ -2,7 +2,7 @@ import core, { ApiErrorCode, MoralisApiError, RequestController } from '@moralis
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
-type Method = 'get' | 'post';
+type Method = 'get' | 'post' | 'put';
 export enum BodyType {
   PROPERTY = 'property',
   BODY = 'body',
@@ -134,6 +134,27 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
+  protected _apiPut = async (params: Params) => {
+    const url = this.getUrl(params);
+    const apiParams = this.parseParams(params);
+
+    const searchParams = this.getSearchParams(apiParams);
+    const bodyParams = this.getBodyParams(apiParams);
+
+    const result = await RequestController.put<ApiResult, Record<string, string>, Record<string, string>>(
+      url,
+      searchParams,
+      bodyParams,
+      {
+        headers: {
+          'x-api-key': core.config.get('apiKey') ?? undefined,
+        },
+      },
+    );
+
+    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
+  };
+
   protected _serverRequest = async (params: Params) => {
     const url = this.getServerUrl();
     const apiParams = this.parseParams(params);
@@ -163,7 +184,14 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
 
   fetch = (params: Params) => {
     if (core.config.get('apiKey')) {
-      return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+      switch (this.method) {
+        case 'post':
+          return this._apiPost(params);
+        case 'put':
+          return this._apiPut(params);
+        default:
+          return this._apiGet(params);
+      }
     }
     return this._serverRequest(params);
   };
