@@ -103,6 +103,24 @@ export class RequestController {
       throw this.makeError(error);
     }
   }
+
+  static async put<Response, Params extends Record<string, string>, Body extends Record<string, unknown>>(
+    url: string,
+    params?: Params,
+    body?: Body,
+    options?: BaseOptions,
+    abortSignal?: AbortController['signal'],
+  ) {
+    try {
+      const result = await this.baseRequest(options)
+        .put(url, { json: body, searchParams: params, signal: abortSignal })
+        .json<Response>();
+      return result;
+    } catch (error) {
+      throw this.makeError(error);
+    }
+  }
+
   static async get<Response, Params extends Record<string, string>>(
     url: string,
     params?: Params,
