@@ -1,10 +1,11 @@
-import core, { BaseModule } from '@moralisweb3/core';
+import core, { BaseModule, EvmAddress, EvmAddressish, MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import type Parse from 'parse';
 import { initializeParse } from './initializeParse';
 import { ServerEvent, ServerEventMap } from './events/ServerEvents';
 import { Authentication } from './Authentication/Authentication';
 import { Authenticate } from './AuthMethods/types';
 import { assertInstance } from './assert/assertInstance';
+import { createSigningData } from './AuthMethods/utils/createSigningData';
 
 export class MoralisServer extends BaseModule<ServerEventMap> {
   private _parse: typeof Parse | null = null;
@@ -68,6 +69,68 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
 
   logout = () => {
     return this.authentication.logout();
+  };
+
+  
+   /**
+   * Link address to user profile
+   */
+  link = async (account: EvmAddressish) => {
+    const user = await this.User.currentAsync();
+    if (!user) {
+      throw new MoralisServerError({
+        code: ServerErrorCode.AUTHENTICATION_FAILED,
+        message: `No logged in user`,
+      });
+    }
+    const address = EvmAddress.create(account).lowercase;
+
+    const EthAddress = this.Object.extend('_EthAddress');
+    const query = new this.Query(EthAddress);
+    const ethAddressRecord = await query.get(address).catch(() => null);
+    if (!ethAddressRecord) {
+      const network = core.modules.getNetwork('evm');
+      const data = await createSigningData({ message: 'Moralis: Link users', server: this.instance() });
+      const signature = await network.signMessage(data);
+
+      if (!signature) {
+        throw new MoralisServerError({
+          code: ServerErrorCode.DATA_NOT_SIGNED,
+          message: `Data not signed`,
+        });
+      }
+      const authData = { id: address, signature, data };
+      await user.linkWith('moralisEth', { authData });
+    }
+    user.addAllUnique('accounts', [address]);
+    user.set('ethAddress', address);
+    await user.save(null, {});
+    return user;
+  };
+
+   /**
+   * Unlink address to user profile
+   */
+  unlink = async (account: EvmAddressish) => {
+    const accountsLower = EvmAddress.create(account).lowercase;
+    const EthAddress = this.Object.extend('_EthAddress');
+    const query = new this.Query(EthAddress);
+    const ethAddressRecord = await query.get(accountsLower);
+    await ethAddressRecord.destroy();
+    const user = await this.User.currentAsync();
+    if (!user) {
+      throw new MoralisServerError({
+        code: ServerErrorCode.AUTHENTICATION_FAILED,
+        message: `No logged in user`,
+      });
+    }
+    const accounts = user.get('accounts') ?? [];
+    const nextAccounts = accounts.filter((v: string) => v !== accountsLower);
+    user.set('accounts', nextAccounts);
+    user.set('ethAddress', nextAccounts[0]);
+    await user._unlinkFrom('moralisEth');
+    await user.save();
+    return user;
   };
 
   /**

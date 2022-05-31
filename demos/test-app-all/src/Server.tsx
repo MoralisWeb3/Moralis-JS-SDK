@@ -10,6 +10,9 @@ export const Server = () => {
       </button>
 
       <button onClick={() => {}}>Logout</button>
+
+      <button onClick={() => Moralis.Server.link('0x3622277fec8fF2e6EF42c746F019476Ea321a7D3')}>Link</button>
+      <button onClick={() => Moralis.Server.unlink('0x3622277fec8fF2e6EF42c746F019476Ea321a7D3')}>Unlink</button>
     </div>
   );
 };
