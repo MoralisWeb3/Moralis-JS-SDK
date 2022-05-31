@@ -18,7 +18,7 @@ import {
   getTokenMetadataBySymbolResolver,
   getNFTMetadataResolver,
 } from './resolvers/token';
-import { getPairReservesResolver } from './resolvers/defi';
+import { getPairAddressResolver, getPairReservesResolver } from './resolvers/defi';
 import { resolveAddressResolver, resolveDomainResolver } from './resolvers/resolve';
 import {
   getTokenBalancesResolver,
@@ -80,6 +80,7 @@ export class MoralisEvmApi extends ApiModule {
   get defi() {
     return {
       getPairReserves: getPairReservesResolver.fetch,
+      getPairAddress: getPairAddressResolver.fetch,
     };
   }
   get token() {
