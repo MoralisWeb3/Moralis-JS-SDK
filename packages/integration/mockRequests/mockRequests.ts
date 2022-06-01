@@ -27,10 +27,12 @@ import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol'
 import { mockGetTokenIdOwners } from './evmApi/getTokenIdOwners';
 import { mockGetNFTOwners } from './evmApi/getNFTOwners';
 import { mockGetTransaction } from './evmApi/getTransaction';
+import { mockGetDateToBlock } from './evmApi/getDateToBlock';
 import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 
 const handlers = [
+  mockGetDateToBlock,
   mockResolveDomain,
   mockResolveAddress,
   mockGetNativeBalance,
@@ -38,7 +40,6 @@ const handlers = [
   mockGetPairReserves,
   mockGetLogsByAddress,
   mockGetTokenTransfer,
-  mockGetTransactions,
   mockGetNFTTransfers,
   mockGetNFTsForContract,
   mockGetNFTs,
@@ -61,6 +62,8 @@ const handlers = [
   mockGetTransaction,
   mockGetTokenAllowance,
   mockGetTokenMetadata,
+  // should be kept at the end of the array or specified because it takes precedence over another endpoint
+  mockGetTransactions,
 ];
 
 export const mockServer = setupServer(...handlers);
