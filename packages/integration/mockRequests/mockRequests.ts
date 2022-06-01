@@ -26,6 +26,7 @@ import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol'
 import { mockGetTokenIdOwners } from './evmApi/getTokenIdOwners';
 import { mockGetNFTOwners } from './evmApi/getNFTOwners';
 import { mockGetTransaction } from './evmApi/getTransaction';
+import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 
 const handlers = [
@@ -56,6 +57,7 @@ const handlers = [
   mockGetTokenIdOwners,
   mockGetNFTOwners,
   mockGetTransaction,
+  mockGetTokenAllowance,
   mockGetTokenMetadata,
 ];
 
