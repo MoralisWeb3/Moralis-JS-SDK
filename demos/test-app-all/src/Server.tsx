@@ -9,7 +9,42 @@ export const Server = () => {
         Authenticate via EVM metamask
       </button>
 
-      <button onClick={() => {}}>Logout</button>
+      <button
+        onClick={() => {
+          Moralis.Server.signUp({
+            username: 'example-user',
+            password: 'example-password',
+            email: 'example@email.com',
+            fields: {
+              age: 42,
+            },
+          })
+            .then(console.log)
+            .catch(console.error);
+        }}
+      >
+        Sign up
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.Server.signIn({
+            username: 'example-user',
+            password: 'example-password',
+          })
+            .then(console.log)
+            .catch(console.error);
+        }}
+      >
+        Sign in
+      </button>
+      <button
+        onClick={() => {
+          Moralis.Server.logout();
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };
