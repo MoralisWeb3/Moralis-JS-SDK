@@ -29,6 +29,7 @@ import { mockGetTransaction } from './evmApi/getTransaction';
 import { mockGetNFTTransfersFromToBlock } from './evmApi/getNFTTransfersFromToBlock';
 
 const handlers = [
+  mockGetNFTTransfersFromToBlock,
   mockResolveDomain,
   mockResolveAddress,
   mockGetNativeBalance,
@@ -56,7 +57,6 @@ const handlers = [
   mockGetTokenIdOwners,
   mockGetNFTOwners,
   mockGetTransaction,
-  mockGetNFTTransfersFromToBlock,
 ];
 
 export const mockServer = setupServer(...handlers);

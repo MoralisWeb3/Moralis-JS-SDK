@@ -7,7 +7,6 @@ export const mockGetNFTTransfersFromToBlocks: Record<string, number> = {
 };
 
 export const mockGetNFTTransfersFromToBlock = rest.get(`${EVM_API_ROOT}/nft/transfers`, (req, res, ctx) => {
-  console.log('the check =>');
   const address = req.url.searchParams.get('address') as string;
   const apiKey = req.headers.get('x-api-key');
 
@@ -16,7 +15,6 @@ export const mockGetNFTTransfersFromToBlock = rest.get(`${EVM_API_ROOT}/nft/tran
   }
 
   const value = mockGetNFTTransfersFromToBlocks[address];
-  console.log('the value =>', value);
 
   if (!value) {
     return res(ctx.status(404));

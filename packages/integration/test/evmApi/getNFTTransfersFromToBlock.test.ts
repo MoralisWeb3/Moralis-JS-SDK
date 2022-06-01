@@ -27,10 +27,9 @@ describe('Moralis EvmApi', () => {
       fromBlock: 1,
     });
 
-    // expect(result.legacy.total).toBe(118072744);
     expect(result).toBeDefined();
+    expect(result.legacy.total).toBe(118072744);
     expect(result).toEqual(expect.objectContaining({}));
-    // expect(result.legacy).toStrictEqual({ total: 118072744 });
   });
 
   it('should not get the NFT transfers from to block of an invalid block number and throw an error ', async () => {
