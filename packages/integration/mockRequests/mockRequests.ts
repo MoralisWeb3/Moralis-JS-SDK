@@ -26,6 +26,7 @@ import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol'
 import { mockGetTokenIdOwners } from './evmApi/getTokenIdOwners';
 import { mockGetNFTOwners } from './evmApi/getNFTOwners';
 import { mockGetTransaction } from './evmApi/getTransaction';
+import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 
 const handlers = [
   mockResolveDomain,
@@ -55,6 +56,7 @@ const handlers = [
   mockGetTokenIdOwners,
   mockGetNFTOwners,
   mockGetTransaction,
+  mockGetTokenMetadata,
 ];
 
 export const mockServer = setupServer(...handlers);
