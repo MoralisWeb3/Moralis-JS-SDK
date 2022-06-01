@@ -1,6 +1,6 @@
 import type Parse from 'parse';
 import TypedEmitter from 'typed-emitter';
-import { Logger, MoralisServerError, MoralisState, ServerErrorCode } from '@moralisweb3/core';
+import core, { Logger, MoralisServerError, MoralisState, ServerErrorCode } from '@moralisweb3/core';
 import { State, StateContext, StateEvent } from './types';
 import { handleAuth } from '../AuthMethods/handleAuth';
 import { Authenticate, AuthenticateData, AuthMethod } from '../AuthMethods/types';
@@ -12,8 +12,6 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
   private _server: typeof Parse | null = null;
   private _logger;
   private _emitter;
-
-  authenticateMessage = 'Moralis Authentication';
 
   constructor(logger: Logger, emitter: TypedEmitter<ServerEventMap>) {
     super('Authentication');
@@ -58,8 +56,8 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
     this._server = parse;
   }
 
-  setMessage(message: string) {
-    this.authenticateMessage = message;
+  setAuthenticationMessage(message: string) {
+    core.config.set('authenticationMessage', message);
   }
 
   /**
@@ -103,7 +101,7 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
 
     this._emitter.emit(ServerEvent.AUTHENTICATING);
 
-    handleAuth({ message: this.authenticateMessage, method, server: server, options })
+    handleAuth({ message: core.config.get('authenticationMessage'), method, server: server, options })
       .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
       .catch((error) => this.transition({ type: 'AUTHENTICATE_ERROR', data: error }));
   };
