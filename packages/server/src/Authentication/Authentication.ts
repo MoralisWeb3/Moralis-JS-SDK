@@ -7,6 +7,8 @@ import { Authenticate, AuthenticateData, AuthMethod } from '../AuthMethods/types
 import { ServerEvent, ServerEventMap } from '../events/ServerEvents';
 import { assertInstance } from '../assert/assertInstance';
 import { handleLogout } from '../AuthMethods/handleLogout';
+import { handleSignUp, SignUpOptions } from '../AuthMethods/handleSignUp';
+import { handleSignIn, SignInOptions } from '../AuthMethods/handleSignIn';
 
 export class Authentication extends MoralisState<StateContext, StateEvent, State> {
   private _server: typeof Parse | null = null;
@@ -24,7 +26,13 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
         Unauthenticated: {
           entry: this.handleUnauthenticated,
           on: {
-            AUTHENTICATE: {
+            NETWORK_AUTHENTICATE: {
+              target: 'Authenticating',
+            },
+            SIGN_UP: {
+              target: 'Authenticating',
+            },
+            SIGN_IN: {
               target: 'Authenticating',
             },
           },
@@ -89,21 +97,43 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
   private handleAuthenticating = (context: StateContext, event: StateEvent) => {
     this._logger.verbose('Authenticating', { context, event });
 
-    if (event.type !== 'AUTHENTICATE') {
-      throw new MoralisServerError({
-        code: ServerErrorCode.AUTHENTICATION_FAILED,
-        message: 'Cannot authenticate, authentication triggered incorrectly.',
-      });
+    if (event.type === 'NETWORK_AUTHENTICATE') {
+      const { method, options } = event.data;
+      const server = assertInstance(this._server);
+
+      this._emitter.emit(ServerEvent.AUTHENTICATING);
+
+      return handleAuth({ message: core.config.get('authenticationMessage'), method, server: server, options })
+        .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
+        .catch((error) => this.transition({ type: 'AUTHENTICATE_ERROR', data: error }));
     }
 
-    const { method, options } = event.data;
-    const server = assertInstance(this._server);
+    if (event.type === 'SIGN_UP') {
+      const { username, password, fields } = event.data.options;
+      const server = assertInstance(this._server);
 
-    this._emitter.emit(ServerEvent.AUTHENTICATING);
+      this._emitter.emit(ServerEvent.AUTHENTICATING);
 
-    handleAuth({ message: core.config.get('authenticationMessage'), method, server: server, options })
-      .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
-      .catch((error) => this.transition({ type: 'AUTHENTICATE_ERROR', data: error }));
+      return handleSignUp({ server, username, password, fields })
+        .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
+        .catch((error) => this.transition({ type: 'AUTHENTICATE_ERROR', data: error }));
+    }
+
+    if (event.type === 'SIGN_IN') {
+      const { username, password } = event.data.options;
+      const server = assertInstance(this._server);
+
+      this._emitter.emit(ServerEvent.AUTHENTICATING);
+
+      return handleSignIn({ server, username, password })
+        .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
+        .catch((error) => this.transition({ type: 'AUTHENTICATE_ERROR', data: error }));
+    }
+
+    throw new MoralisServerError({
+      code: ServerErrorCode.AUTHENTICATION_FAILED,
+      message: 'Cannot authenticate, authentication triggered with unsupported method.',
+    });
   };
 
   private handleAuthenticated = (context: StateContext, event: StateEvent) => {
@@ -160,17 +190,105 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
       await this.logout();
     }
 
-    if (!this.can('AUTHENTICATE')) {
+    if (!this.can('NETWORK_AUTHENTICATE')) {
       throw new MoralisServerError({
         code: ServerErrorCode.AUTHENTICATION_FAILED,
-        message: 'Cannot authenticate.',
+        message: 'Cannot authenticate from this state, this should not have happened.',
       });
     }
 
     this.transition({
-      type: 'AUTHENTICATE',
+      type: 'NETWORK_AUTHENTICATE',
       data: {
         method,
+        options,
+      },
+    });
+
+    return new Promise((resolve, reject) => {
+      const handleResolve = (data: AuthenticateData) => {
+        resolve(data);
+        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      };
+      const handleReject = (error: Error) => {
+        reject(error);
+        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      };
+
+      this._emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
+      this._emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+    });
+  };
+
+  signUp = async (options: SignUpOptions) => {
+    if (this.isAuthenticating) {
+      throw new MoralisServerError({
+        code: ServerErrorCode.AUTHENTICATION_FAILED,
+        message: 'Cannot authenticate, as an authentication attempt is already pending.',
+      });
+    }
+
+    if (this.isAuthenticated) {
+      await this.logout();
+    }
+
+    if (!this.can('SIGN_UP')) {
+      throw new MoralisServerError({
+        code: ServerErrorCode.AUTHENTICATION_FAILED,
+        message: 'Cannot authenticate from this state, this should not have happened.',
+      });
+    }
+
+    this.transition({
+      type: 'SIGN_UP',
+      data: {
+        method: AuthMethod.SIGN_UP,
+        options,
+      },
+    });
+
+    return new Promise((resolve, reject) => {
+      const handleResolve = (data: AuthenticateData) => {
+        resolve(data);
+        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      };
+      const handleReject = (error: Error) => {
+        reject(error);
+        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      };
+
+      this._emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
+      this._emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+    });
+  };
+
+  signIn = async (options: SignInOptions) => {
+    if (this.isAuthenticating) {
+      throw new MoralisServerError({
+        code: ServerErrorCode.AUTHENTICATION_FAILED,
+        message: 'Cannot authenticate, as an authentication attempt is already pending.',
+      });
+    }
+
+    if (this.isAuthenticated) {
+      await this.logout();
+    }
+
+    if (!this.can('SIGN_IN')) {
+      throw new MoralisServerError({
+        code: ServerErrorCode.AUTHENTICATION_FAILED,
+        message: 'Cannot authenticate from this state, this should not have happened.',
+      });
+    }
+
+    this.transition({
+      type: 'SIGN_IN',
+      data: {
+        method: AuthMethod.SIGN_IN,
         options,
       },
     });

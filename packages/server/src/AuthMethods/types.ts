@@ -3,6 +3,7 @@ import {
   EvmWalletConnectConnectorOptions,
   SolPhantomConnectorConnectOptions,
 } from '@moralisweb3/core';
+import { UserDataValue } from '../utils/setUserData';
 import type Parse from 'parse';
 
 /**
@@ -11,7 +12,8 @@ import type Parse from 'parse';
 export enum AuthMethod {
   EVM = 'evm',
   SOL = 'sol',
-  PASSWORD = 'password',
+  SIGN_UP = 'signUp',
+  SIGN_IN = 'SignIn',
 }
 
 /**
@@ -23,7 +25,14 @@ export enum AuthType {
 }
 
 export type AuthenticateData = { user: Parse.User };
-export interface PasswordAuthOptions {
+export interface SignUpAuthOptions {
+  password: string;
+  username: string;
+  email?: string;
+  fields?: Record<string, UserDataValue>;
+}
+
+export interface SignInAuthOptions {
   password: string;
   username: string;
 }
@@ -49,8 +58,12 @@ export type SolAuthenticate = {
   // (method: string, wallet: string, options?: SolBaseConnectOptions): Promise<AuthenticateData>;
 };
 
-export type PassAuthenticae = {
-  (method: AuthMethod.PASSWORD, options?: PasswordAuthOptions): Promise<AuthenticateData>;
+export type SignUpAuthenticate = {
+  (method: AuthMethod.SIGN_UP, options?: SignUpAuthOptions): Promise<AuthenticateData>;
+};
+
+export type SignInAuthenticate = {
+  (method: AuthMethod.SIGN_IN, options?: SignInAuthOptions): Promise<AuthenticateData>;
 };
 
 export type Authenticate = (method: AuthMethod, options?: Record<string, unknown>) => Promise<AuthenticateData>;
