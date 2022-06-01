@@ -3,7 +3,7 @@ import type Parse from 'parse';
 import { initializeParse } from './initializeParse';
 import { ServerEvent, ServerEventMap } from './events/ServerEvents';
 import { Authentication } from './Authentication/Authentication';
-import { Authenticate } from './AuthMethods/types';
+import { Authenticate, LinkAddressOptions } from './AuthMethods/types';
 import { assertInstance } from './assert/assertInstance';
 import { createSigningData } from './AuthMethods/utils/createSigningData';
 
@@ -74,22 +74,25 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
   /**
    * Link address to user profile
    */
-  link = async (account: EvmAddressish) => {
+  linkEvmAddress = async (account: EvmAddressish, options?: LinkAddressOptions) => {
     const user = await this.User.currentAsync();
     if (!user) {
       throw new MoralisServerError({
-        code: ServerErrorCode.AUTHENTICATION_FAILED,
-        message: `No logged in user`,
+        code: ServerErrorCode.NO_AUTHENTICATION,
+        message: `No EVM authentication`,
       });
     }
     const address = EvmAddress.create(account).lowercase;
 
-    const EthAddress = this.Object.extend('_EthAddress');
-    const query = new this.Query(EthAddress);
+    const ethAddress = this.Object.extend('_EthAddress');
+    const query = new this.Query(ethAddress);
     const ethAddressRecord = await query.get(address).catch(() => null);
     if (!ethAddressRecord) {
       const network = core.modules.getNetwork('evm');
-      const data = await createSigningData({ message: 'Moralis: Link users', server: this.instance() });
+      const data = await createSigningData({
+        message: options?.message ?? 'Moralis: Link users',
+        server: this.instance(),
+      });
       const signature = await network.signMessage(data);
 
       if (!signature) {
@@ -110,17 +113,17 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
   /**
    * Unlink address to user profile
    */
-  unlink = async (account: EvmAddressish) => {
+  unlinkEvmAddress = async (account: EvmAddressish) => {
     const accountsLower = EvmAddress.create(account).lowercase;
-    const EthAddress = this.Object.extend('_EthAddress');
-    const query = new this.Query(EthAddress);
+    const ethAddress = this.Object.extend('_EthAddress');
+    const query = new this.Query(ethAddress);
     const ethAddressRecord = await query.get(accountsLower);
     await ethAddressRecord.destroy();
     const user = await this.User.currentAsync();
     if (!user) {
       throw new MoralisServerError({
-        code: ServerErrorCode.AUTHENTICATION_FAILED,
-        message: `No logged in user`,
+        code: ServerErrorCode.NO_AUTHENTICATION,
+        message: `No EVM authentication`,
       });
     }
     const accounts = user.get('accounts') ?? [];

@@ -28,6 +28,10 @@ export interface PasswordAuthOptions {
   username: string;
 }
 
+export interface LinkAddressOptions {
+  message?: string;
+}
+
 export type EvmAuthenticate = {
   (method: AuthMethod.EVM, wallet: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<AuthenticateData>;
   (
