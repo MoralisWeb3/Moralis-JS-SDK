@@ -62,7 +62,8 @@ const handlers = [
   mockGetTransaction,
   mockGetTokenAllowance,
   mockGetTokenMetadata,
-  mockGetTransactions, // should be kept at the end of the array or specified because it takes precedence over another endpoint
+  // should be kept at the end of the array or specified because it takes precedence over another endpoint
+  mockGetTransactions,
 ];
 
 export const mockServer = setupServer(...handlers);
