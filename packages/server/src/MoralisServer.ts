@@ -60,10 +60,6 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
    * Authentication methods
    */
 
-  setAuthenticateMessage(message: string) {
-    this.authentication.setMessage(message);
-  }
-
   authenticate: Authenticate = (method, options) => {
     return this.authentication.authenticate(method, options);
   };
