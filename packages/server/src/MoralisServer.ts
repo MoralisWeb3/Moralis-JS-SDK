@@ -71,6 +71,17 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
   };
 
   /**
+   * Server utility methods
+   */
+  currentUser() {
+    return this.instance().User.current();
+  }
+
+  currentUserAsync() {
+    return this.instance().User.currentAsync();
+  }
+
+  /**
    * Parse access
    */
   instance() {
