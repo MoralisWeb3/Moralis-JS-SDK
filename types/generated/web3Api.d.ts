@@ -110,7 +110,7 @@ export interface paths {
   "/nft/{address}": {
     /**
      * Gets data, including metadata (where available), for all token ids for the given contract address.
-     * * Results are limited to 500 per page by default
+     * * Results are limited to 100 per page by default
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getAllTokenIds"];
@@ -1577,8 +1577,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -1747,8 +1745,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** The cursor returned in the last response (for getting the next page) */
         cursor?: unknown;
         /** limit */
@@ -1852,8 +1848,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2309,7 +2303,7 @@ export interface operations {
   };
   /**
    * Gets data, including metadata (where available), for all token ids for the given contract address.
-   * * Results are limited to 500 per page by default
+   * * Results are limited to 100 per page by default
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getAllTokenIds: {
