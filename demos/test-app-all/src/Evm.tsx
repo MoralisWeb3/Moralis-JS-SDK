@@ -67,6 +67,51 @@ export const Evm = () => {
         Transfer UNI
       </button>
       <button
+        onClick={async () => {
+          console.log('Transfer nft');
+
+          const txResponse = await Moralis.Evm.transferErc721({
+            contract: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+            to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
+            tokenId: '1',
+          });
+
+          console.log('TX', txResponse);
+          console.log('TX json', txResponse.toJSON());
+          console.log('TX exporerUrl', txResponse.exporerUrl);
+
+          const receipt = await txResponse.wait();
+          console.log('RECEIPT', receipt);
+          console.log('RECEIPT json', receipt.toJSON());
+          console.log('RECEIPT totalGasCost', receipt.totalGasCost);
+        }}
+      >
+        Transfer Erc721 NFT
+      </button>
+      <button
+        onClick={async () => {
+          console.log('Transfer nft');
+
+          const txResponse = await Moralis.Evm.transferErc1155({
+            contract: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+            to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
+            tokenId: '1',
+            value: 1,
+          });
+
+          console.log('TX', txResponse);
+          console.log('TX json', txResponse.toJSON());
+          console.log('TX exporerUrl', txResponse.exporerUrl);
+
+          const receipt = await txResponse.wait();
+          console.log('RECEIPT', receipt);
+          console.log('RECEIPT json', receipt.toJSON());
+          console.log('RECEIPT totalGasCost', receipt.totalGasCost);
+        }}
+      >
+        Transfer Erc1155 NFT
+      </button>
+      <button
         onClick={() => {
           MetamaskConnector.addNetwork('kovan');
         }}
