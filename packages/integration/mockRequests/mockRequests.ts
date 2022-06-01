@@ -22,11 +22,14 @@ import { mockGetAllTokenIds } from './evmApi/getAllTokenIds';
 import { mockGetBlock } from './evmApi/getBlock';
 import { mockGetNFTMetada } from './evmApi/getNFTMetadata';
 import { mockEndpointWeights } from './evmApi/endpointWeights';
+import { mockGetTokenIdMetadata } from './evmApi/getTokenIdMetadata';
 import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol';
 import { mockGetTokenIdOwners } from './evmApi/getTokenIdOwners';
 import { mockGetNFTOwners } from './evmApi/getNFTOwners';
 import { mockGetTransaction } from './evmApi/getTransaction';
 import { mockGetDateToBlock } from './evmApi/getDateToBlock';
+import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
+import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 
 const handlers = [
   mockGetDateToBlock,
@@ -52,10 +55,13 @@ const handlers = [
   mockGetBlock,
   mockGetNFTMetada,
   mockEndpointWeights,
+  mockGetTokenIdMetadata,
   mockGetTokenMetadataBySymbol,
   mockGetTokenIdOwners,
   mockGetNFTOwners,
   mockGetTransaction,
+  mockGetTokenAllowance,
+  mockGetTokenMetadata,
   mockGetTransactions, // should be kept at the end of the array or specified because it takes precedence over another endpoint
 ];
 
