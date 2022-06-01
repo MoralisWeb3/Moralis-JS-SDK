@@ -5,6 +5,8 @@ import { ServerEvent, ServerEventMap } from './events/ServerEvents';
 import { Authentication } from './Authentication/Authentication';
 import { Authenticate } from './AuthMethods/types';
 import { assertInstance } from './assert/assertInstance';
+import { SignUpOptions } from './AuthMethods/handleSignUp';
+import { SignInOptions } from './AuthMethods/handleSignIn';
 
 export class MoralisServer extends BaseModule<ServerEventMap> {
   private _parse: typeof Parse | null = null;
@@ -58,10 +60,6 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
    * Authentication methods
    */
 
-  setAuthenticateMessage(message: string) {
-    this.authentication.setMessage(message);
-  }
-
   authenticate: Authenticate = (method, options) => {
     return this.authentication.authenticate(method, options);
   };
@@ -69,6 +67,25 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
   logout = () => {
     return this.authentication.logout();
   };
+
+  signUp = async (options: SignUpOptions) => {
+    return this.authentication.signUp(options);
+  };
+
+  signIn = async (options: SignInOptions) => {
+    return this.authentication.signIn(options);
+  };
+
+  /**
+   * Server utility methods
+   */
+  currentUser() {
+    return this.instance().User.current();
+  }
+
+  currentUserAsync() {
+    return this.instance().User.currentAsync();
+  }
 
   /**
    * Parse access

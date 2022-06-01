@@ -16,6 +16,8 @@ export const makeTransferErc20 =
   async (options: TransferErc20Options) => {
     const provider = assertProvider(_provider);
 
+    // TODO: validate that provided chain is current chain
+
     const contractAddress = EvmAddress.create(options.contract);
     const toAddress = EvmAddress.create(options.to);
     const value = Erc20Value.create(options.value).value;
