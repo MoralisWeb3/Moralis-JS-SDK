@@ -106,7 +106,7 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     }
     user.addAllUnique('accounts', [address]);
     user.set('ethAddress', address);
-    await user.save(null, {});
+    await user.save();
     return user;
   };
 
