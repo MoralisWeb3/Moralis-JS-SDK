@@ -68,6 +68,21 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
+          Moralis.EvmApi.defi
+            .getPairAddress({
+              token0Address: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+              token1Address: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+              exchange: 'pancakeswapv1',
+              chain: 'bsc',
+            })
+            .then(console.log);
+        }}
+      >
+        getPairAddress
+      </button>
+
+      <button
+        onClick={() => {
           Moralis.EvmApi.native
             .getLogsByAddress({
               address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
@@ -356,6 +371,18 @@ export const EvmApi = () => {
         }}
       >
         getTokenMetadataBySymbol
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.EvmApi.token
+            .syncNFTContract({
+              address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+            })
+            .then(console.log);
+        }}
+      >
+        syncNFTContract
       </button>
     </div>
   );

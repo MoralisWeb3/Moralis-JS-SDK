@@ -7,7 +7,9 @@ import { makeSendTransaction } from './chainMethods/sendTransaction';
 import { makeSignMessage } from './chainMethods/signMessage';
 import { makeTransferNative, TransferNativeOptions } from './chainMethods/transferNative';
 import { makeTransferErc20, TransferErc20Options } from './chainMethods/transferErc20';
+import { makeTransferErc721, TransferErc721Options } from './chainMethods/transferErc721';
 import { Connection } from './Connection/Connection';
+import { makeTransferErc1155, TransferErc1155Options } from './chainMethods/transferErc1155';
 
 export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   connection: Connection = new Connection(this.logger, this.emitter);
@@ -108,6 +110,9 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   sendTransaction = (data: EvmTransactionInput) => makeSendTransaction(this.provider, this.chain)(data);
   transferNative = (data: TransferNativeOptions) => makeTransferNative(this.sendTransaction, this.chain)(data);
   transferErc20 = (data: TransferErc20Options) => makeTransferErc20(this.provider, this.chain)(data);
+  transferErc721 = (data: TransferErc721Options) => makeTransferErc721(this.provider, this.account, this.chain)(data);
+  transferErc1155 = (data: TransferErc1155Options) =>
+    makeTransferErc1155(this.provider, this.account, this.chain)(data);
 }
 
 const moralisEvm = new MoralisEvm();

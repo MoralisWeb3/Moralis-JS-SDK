@@ -24,6 +24,10 @@
   <br/>
 </div>
 
+> 🚨 **Alpha version: Do not use this version in production**
+>
+> This version is an **alpha** release and is under active development. Expect breaking changes until it is out of alpha.
+
 **Features**:
 
 - **Connect to EVM** via MetaMask, WalletConnect, MagicLink and many more connectors (or create your own connetor)
