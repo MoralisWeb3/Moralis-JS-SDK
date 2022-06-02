@@ -92,14 +92,12 @@ export class EvmPaginatedResolver<
     const url = this.getServerUrl();
     const apiParams = this.parseParams(params);
 
-    const searchParams = this.getSearchParams(apiParams);
-    const bodyParams = this.getBodyParams(apiParams);
-
     const { result } = await RequestController.post<
       ServerResponse<PaginatedResponse<ApiResult>>,
       Record<string, string>,
-      Record<string, string>
-    >(url, searchParams, bodyParams);
+      //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+      ApiParams
+    >(url, {}, apiParams);
 
     return new EvmApiPaginatedResultAdapter(
       result,
