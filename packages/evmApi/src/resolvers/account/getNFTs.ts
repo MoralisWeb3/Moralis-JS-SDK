@@ -1,7 +1,6 @@
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getNFTs';

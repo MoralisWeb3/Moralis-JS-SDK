@@ -1,7 +1,6 @@
 import { EvmResolver } from './../Resolver';
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { Camelize } from '../../utils/toCamelCase';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenIdMetadata';
