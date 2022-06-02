@@ -1,10 +1,12 @@
+import { Logger } from '@moralisweb3/core';
 import type Parse from 'parse';
 
 interface HandleLogoutOptions {
   server: typeof Parse;
+  logger: Logger;
 }
 
-export const handleLogout = async ({ server }: HandleLogoutOptions) => {
+export const handleLogout = async ({ server, logger }: HandleLogoutOptions) => {
   const currentUser = await server.User.currentAsync();
 
   // Clear server cache
@@ -13,7 +15,7 @@ export const handleLogout = async ({ server }: HandleLogoutOptions) => {
       (currentUser as Parse.User & { _clearServerData: () => void })._clearServerData();
     }
   } catch (error) {
-    // Do nothing, might server data might not be available
+    logger.warn('Failed to clear locally stored serverData');
   }
 
   await server.User.logOut();
