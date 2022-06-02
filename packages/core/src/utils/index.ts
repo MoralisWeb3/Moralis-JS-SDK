@@ -1,1 +1,1 @@
-export * from './toCamelCase'
+export * from './toCamelCase';
