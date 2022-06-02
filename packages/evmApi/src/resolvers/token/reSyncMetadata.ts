@@ -1,7 +1,6 @@
-import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'reSyncMetadata';

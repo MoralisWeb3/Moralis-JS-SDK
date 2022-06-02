@@ -1,7 +1,6 @@
 import { resolveDefaultAddress, resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish } from '@moralisweb3/core';
+import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getTokenBalances';

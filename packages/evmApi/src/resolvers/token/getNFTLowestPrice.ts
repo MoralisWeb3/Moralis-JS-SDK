@@ -1,7 +1,5 @@
-import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, toCamelCase, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 

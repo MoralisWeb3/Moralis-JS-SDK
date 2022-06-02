@@ -1,7 +1,6 @@
-import { Erc20Token, EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/core';
+import { Erc20Token, EvmChainish, EvmAddressish, EvmAddress, Camelize, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { Camelize, toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getTokenMetadata';
@@ -18,7 +17,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export const getTokenMetadataResolver = new EvmResolver({
   name: 'getTokenMetadata',
-  getPath: (params: Params) => `erc20/metadata`,
+  getPath: () => `erc20/metadata`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.map((token) => {
       const tokenType = new Erc20Token({
