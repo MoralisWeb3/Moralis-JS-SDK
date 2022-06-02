@@ -27,11 +27,13 @@ import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol'
 import { mockGetTokenIdOwners } from './evmApi/getTokenIdOwners';
 import { mockGetNFTOwners } from './evmApi/getNFTOwners';
 import { mockGetTransaction } from './evmApi/getTransaction';
+import { mockGetNFTTransfersFromToBlock } from './evmApi/getNFTTransfersFromToBlock';
 import { mockGetDateToBlock } from './evmApi/getDateToBlock';
 import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 
 const handlers = [
+  mockGetNFTTransfersFromToBlock,
   mockGetDateToBlock,
   mockResolveDomain,
   mockResolveAddress,
