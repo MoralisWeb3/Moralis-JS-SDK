@@ -31,22 +31,23 @@ export const getNFTOwnersResolver = new EvmPaginatedResolver({
         metadata: nft.metadata,
         name: nft.name,
         symbol: nft.symbol,
+        tokenHash: nft.token_hash,
       }),
       syncedAt: nft.synced_at ? new Date(nft.synced_at) : undefined,
       blockNumberMinted: nft.block_number_minted,
       blockNumber: nft.block_number,
       ownerOf: EvmAddress.create(nft.owner_of),
       amount: nft.amount,
-      // TODO: below are data returned that are not present in swagger docs so no type definition (report to api squad)
-      // tokenHash: nft.token_hash
-      //   lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
-      //   lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
+      lastMetadataSync: new Date(nft.last_metadata_sync),
+      lastTokenUriSync: new Date(nft.last_token_uri_sync),
     })),
   resultToJson: (data) =>
     data?.map((nft) => ({
       ...nft,
       syncedAt: nft.syncedAt?.toLocaleDateString(),
       token: nft.token.toJSON(),
+      lastMetadataSync: nft.lastMetadataSync?.toLocaleDateString(),
+      lastTokenUriSync: nft.lastTokenUriSync?.toLocaleDateString(),
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,

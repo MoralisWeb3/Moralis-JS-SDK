@@ -15,11 +15,30 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, 
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
+interface Result extends Omit<ApiResult, 'result'> {
+  result: [
+    {
+      amount: string;
+      block_number_minted: string;
+      contract_type: string;
+      last_metadata_sync: string;
+      last_token_uri_sync: string;
+      metadata: string;
+      name: string;
+      symbol: string;
+      synced_at: string;
+      token_address: string;
+      token_hash: string;
+      token_id: string;
+      token_uri: string;
+    },
+  ];
+}
 
 export const getAllTokenIdsResolver = new EvmPaginatedResolver({
   name: 'getAllTokenIds',
   getPath: (params: Params) => `nft/${params.address}`,
-  apiToResult: (data: ApiResult, params: Params) =>
+  apiToResult: (data: Result, params: Params) =>
     data.result?.map((nft) => ({
       token: new EvmNFT({
         chain: resolveDefaultChain(params.chain),
@@ -29,20 +48,22 @@ export const getAllTokenIdsResolver = new EvmPaginatedResolver({
         tokenUri: nft.token_uri,
         metadata: nft.metadata,
         name: nft.name,
+        tokenHash: nft.token_hash,
         symbol: nft.symbol,
       }),
       syncedAt: nft.synced_at ? new Date(nft.synced_at) : undefined,
       amount: nft.amount,
       // TODO: below are data returned that are not present in swagger docs so no type definition (report to api squad)
-      // tokenHash: nft.token_hash
-      // blockNumberMinted: nft.
-      // lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
-      // lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
+      blockNumberMinted: nft.block_number_minted,
+      lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
+      lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
     })),
   resultToJson: (data) =>
     data?.map((nft) => ({
       ...nft,
       token: nft.token.toJSON(),
+      lastMetadataSync: nft.lastMetadataSync?.toLocaleDateString(),
+      lastTokenUriSync: nft.lastTokenUriSync?.toLocaleDateString(),
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,

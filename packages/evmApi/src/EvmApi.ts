@@ -108,8 +108,8 @@ export class MoralisEvmApi extends ApiModule {
   }
   get info() {
     return {
-      web3ApiVersion: web3ApiVersionResolver.fetch,
-      endpointWeights: endpointWeightsResolver.fetch,
+      web3ApiVersion: () => web3ApiVersionResolver.fetch({}),
+      endpointWeights: () => endpointWeightsResolver.fetch({}),
     };
   }
   get storage() {

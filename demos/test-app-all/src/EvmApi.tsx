@@ -9,7 +9,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.native
             .getBlock({
-              block_number_or_hash: '1000000',
+              blockNumberOrHash: '1000000',
             })
             .then(console.log);
         }}
@@ -95,7 +95,7 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
-          Moralis.EvmApi.info.web3ApiVersion({}).then(console.log);
+          Moralis.EvmApi.info.web3ApiVersion().then(console.log);
         }}
       >
         web3ApiVersion
@@ -141,7 +141,7 @@ export const EvmApi = () => {
 
       <button
         onClick={() => {
-          Moralis.EvmApi.info.endpointWeights({}).then(console.log);
+          Moralis.EvmApi.info.endpointWeights().then(console.log);
         }}
       >
         endpointWeights

@@ -1,7 +1,7 @@
-import { EvmAddress, EvmChain, EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
+import { EvmAddress, EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { toCamelCase } from '../../utils/toCamelCase';
+import { Camelize, toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getBlock';
@@ -9,14 +9,13 @@ type operation = 'getBlock';
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
-export interface Params extends Omit<ApiParams, 'chain'> {
+export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
   chain?: EvmChainish;
-  // TODO: add camelCased block_number_or_hash
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult) => {
+const apiToResult = (apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
 
   return {
@@ -48,8 +47,7 @@ const apiToResult = (apiData: ApiResult) => {
         },
         {
           // Transaction Response data
-          // TODO: properly pass chain
-          chain: EvmChain.create(1),
+          chain: resolveDefaultChain(params.chain),
           data: transaction.input,
           from: transaction.fromAddress,
           hash: transaction.hash,
@@ -73,18 +71,18 @@ const apiToResult = (apiData: ApiResult) => {
   };
 };
 
-// TODO: use Transaction DataTypes
 export const getBlockResolver = new EvmResolver({
   name: 'getBlock',
-  getPath: (params: Params) => `block/${params.block_number_or_hash}`,
-  apiToResult: (apiData: ApiResult) => apiToResult(apiData),
+  getPath: (params: Params) => `block/${params.blockNumberOrHash}`,
+  apiToResult: apiToResult,
   resultToJson: (data) => ({
     ...data,
     transactions: data.transactions.map((transaction) => transaction.toJSON()),
     miner: data.miner.format(),
   }),
-  parseParams: (params) => ({
-    ...params,
+  parseParams: (params: Params): ApiParams => ({
     chain: resolveDefaultChain(params.chain).apiHex,
+    block_number_or_hash: params.blockNumberOrHash,
+    subdomain: params.subdomain,
   }),
 });
