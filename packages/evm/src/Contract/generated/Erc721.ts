@@ -27,7 +27,7 @@ import type {
   OnEvent,
 } from "./common";
 
-export interface Erc7210Interface extends utils.Interface {
+export interface Erc721Interface extends utils.Interface {
   functions: {
     "getApproved(uint256)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
@@ -162,12 +162,12 @@ export type ApprovalForAllEvent = TypedEvent<
 
 export type ApprovalForAllEventFilter = TypedEventFilter<ApprovalForAllEvent>;
 
-export interface Erc7210 extends BaseContract {
+export interface Erc721 extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: Erc7210Interface;
+  interface: Erc721Interface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

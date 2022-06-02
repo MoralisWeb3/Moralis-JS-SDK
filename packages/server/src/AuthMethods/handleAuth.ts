@@ -1,16 +1,17 @@
 import type Parse from 'parse';
 import core, { MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import { evmAuth } from './evm/evm';
+import { AuthMethod } from './types';
 
 interface HandleAuthOptions {
   message: string;
-  method: 'evm' | 'sol' | 'password';
+  method: AuthMethod;
   options?: Record<string, unknown>;
   server: typeof Parse;
 }
 
 export const handleAuth = async ({ message, method, server, options }: HandleAuthOptions) => {
-  if (method === 'evm') {
+  if (method === AuthMethod.EVM) {
     const connector = typeof options?.connector === 'string' ? options?.connector : null;
 
     if (!connector) {

@@ -82,6 +82,8 @@ export const configOptions: {
   defaultEvmConnector: ConfigOption<EvmConnector>;
   defaultEvmApiChain: ConfigOption<EvmChainish>;
 
+  authenticationMessage: ConfigOption<string>;
+
   appId: ConfigOption<string | null>;
   serverUrl: ConfigOption<string | null>;
   moralisSecret: ConfigOption<string | null>;
@@ -118,6 +120,11 @@ export const configOptions: {
     name: 'defaultEvmApiChain',
     defaultValue: '0x1',
     validation: validateEvmApiChain,
+  },
+
+  authenticationMessage: {
+    name: 'authenticationMessage',
+    defaultValue: 'Moralis Authentication',
   },
 
   // The appId of the moralis server
@@ -173,6 +180,7 @@ export const defaultConfig: ConfigValues = {
   defaultNetwork: configOptions.defaultNetwork.defaultValue,
   defaultEvmConnector: configOptions.defaultEvmConnector.defaultValue,
   defaultEvmApiChain: configOptions.defaultEvmApiChain.defaultValue,
+  authenticationMessage: configOptions.authenticationMessage.defaultValue,
   appId: configOptions.appId.defaultValue,
   serverUrl: configOptions.serverUrl.defaultValue,
   moralisSecret: configOptions.moralisSecret.defaultValue,
