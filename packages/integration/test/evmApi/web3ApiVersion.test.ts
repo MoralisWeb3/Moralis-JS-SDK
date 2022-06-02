@@ -23,7 +23,7 @@ describe('Moralis EvmApi', () => {
     const result = await EvmApi.info.web3ApiVersion({});
 
     expect(result.toJSON().version).toBe('0.0.53');
-    expect(result.legacy.version).toBe('0.0.53');
+    expect(result.raw.version).toBe('0.0.53');
     expect(result.result.version).toBe('0.0.53');
   });
 });

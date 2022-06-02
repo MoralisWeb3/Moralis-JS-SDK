@@ -29,7 +29,7 @@ describe('Moralis EvmApi', () => {
 
     expect(result).toBeDefined();
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.legacy).toStrictEqual({ name: 'Tether USD' });
+    expect(result.raw).toStrictEqual({ name: 'Tether USD' });
   });
 
   it('should not get the token metadata of an invalid account and throw an error ', async () => {
