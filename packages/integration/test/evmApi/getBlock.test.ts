@@ -27,7 +27,7 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
-    expect(result.legacy.hash).toBe('0x8e38b4dbf6b11fcc3b9dee84fb7986e29ca0a02cecd8977c161ff7333329681e');
+    expect(result.raw.hash).toBe('0x8e38b4dbf6b11fcc3b9dee84fb7986e29ca0a02cecd8977c161ff7333329681e');
     expect(result).toEqual(expect.objectContaining({}));
   });
 

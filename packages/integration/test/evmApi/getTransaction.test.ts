@@ -27,7 +27,7 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
-    expect(result.legacy.gas).toBe('247689');
+    expect(result.raw.gas).toBe('247689');
     expect(result).toEqual(expect.objectContaining({}));
   });
 

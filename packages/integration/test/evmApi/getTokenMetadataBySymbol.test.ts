@@ -28,6 +28,6 @@ describe('Moralis EvmApi', () => {
 
     expect(result).toBeDefined();
     expect(result).toEqual(expect.arrayContaining([]));
-    expect(result.legacy).toStrictEqual({ address: '0x514910771af9ca656af840dff83e8264ecf986ca' });
+    expect(result.raw).toStrictEqual({ address: '0x514910771af9ca656af840dff83e8264ecf986ca' });
   });
 });

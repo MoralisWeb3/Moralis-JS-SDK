@@ -29,7 +29,7 @@ describe('Moralis EvmApi', () => {
 
     expect(result).toBeDefined();
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.legacy.total).toBe(1);
+    expect(result.raw.total).toBe(1);
   });
   it('should not get the wallet token Id transfers of an invalid account and throw an error ', async () => {
     const failedResult = await EvmApi.token
