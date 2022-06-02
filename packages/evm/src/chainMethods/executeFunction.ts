@@ -4,18 +4,20 @@ import ethers, { BigNumberish, Contract, ContractFunction } from 'ethers';
 import { assertProvider } from '../assert/assertProvider';
 
 type Params = Record<string, unknown>;
+
+export interface ExecuteFunctionOverrides {
+  value?: BigNumberish;
+  from?: EvmAddressish;
+  gasLimit?: BigNumberish;
+  gasPrice?: BigNumberish;
+  nonce?: BigNumberish;
+}
 export interface EcecuteFunctionOptions {
   contractAddress: EvmAddressish;
   abi: JsonFragment[];
   functionName: string;
   params?: Params;
-  overrides?: {
-    value?: BigNumberish;
-    from?: EvmAddressish;
-    gasLimit?: BigNumberish;
-    gasPrice?: BigNumberish;
-    nonce?: BigNumberish;
-  };
+  overrides?: ExecuteFunctionOverrides;
 }
 
 const isContractFunction = <Result>(contractFunction: unknown): contractFunction is ContractFunction<Result> => {
@@ -25,10 +27,6 @@ const isContractFunction = <Result>(contractFunction: unknown): contractFunction
 
   return true;
 };
-
-// const getParsedInputs = (params: EcecuteFunctionOptions["params"]) => {
-
-// }
 
 const allInputsMatchTopics = (inputs: readonly JsonFragmentType[], topics: string[]) => {
   return inputs.every((input, index) => input.type === topics[index]);
@@ -148,6 +146,18 @@ const assertParams = (functionData: JsonFragment, params: Params = {}) => {
   });
 };
 
+const parseParams = (functionData: JsonFragment, params?: Params) =>
+  (functionData.inputs ?? []).map((input) => {
+    if (params && input.name && params[input.name]) {
+      return params[input.name];
+    }
+  });
+
+const parseOverrides = (overrides: ExecuteFunctionOverrides = {}) => ({
+  ...overrides,
+  from: overrides.from ? EvmAddress.create(overrides.from).checksum : undefined,
+});
+
 // TODO: add generic types to make sure functionName is defined (and possible return gemeric typed result? Can we use typechain as well?)
 // TODO: split up in read and write call (and wrap write call in EvmTransactionReceipt)
 export const makeExecutefunction =
@@ -159,15 +169,8 @@ export const makeExecutefunction =
     const { abi, functionName, params, overrides } = options;
 
     const functionData = getFunctionData(functionName, abi);
-    // const stateMutability = functionData.stateMutability;
-    // const isReadFunction = stateMutability === 'view' || stateMutability === 'pure';
 
     assertParams(functionData, params);
-    const parsedParams = (functionData.inputs ?? []).map((input) => {
-      if (params && input.name && params[input.name]) {
-        return params[input.name];
-      }
-    });
 
     const contract = new Contract(contractAddress.checksum, abi).connect(provider);
     const contractMethod = contract[functionName];
@@ -179,7 +182,10 @@ export const makeExecutefunction =
       });
     }
 
-    const result = contractMethod(...parsedParams, overrides);
+    const parsedParams = parseParams(functionData, params);
+    const parsedOverrides = parseOverrides(overrides);
+
+    const result = contractMethod(...parsedParams, parsedOverrides);
 
     return result;
   };

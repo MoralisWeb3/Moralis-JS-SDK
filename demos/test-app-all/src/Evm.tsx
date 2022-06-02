@@ -49,7 +49,7 @@ export const Evm = () => {
 
           const txResponse = await Moralis.Evm.transferErc20({
             // Unis token on ropsten
-            contract: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+            contractAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
             to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
             value: Erc20Value.create('0.01'),
           });
@@ -71,7 +71,7 @@ export const Evm = () => {
           console.log('Transfer nft');
 
           const txResponse = await Moralis.Evm.transferErc721({
-            contract: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+            contractAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
             to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
             tokenId: '1',
           });
@@ -93,7 +93,7 @@ export const Evm = () => {
           console.log('Transfer nft');
 
           const txResponse = await Moralis.Evm.transferErc1155({
-            contract: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+            contractAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
             to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
             tokenId: '1',
             value: 1,

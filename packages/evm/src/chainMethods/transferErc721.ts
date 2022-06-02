@@ -6,7 +6,7 @@ import { Erc721__factory } from '../Contract';
 import { wrapEthersTransactionResponse } from '../utils/wrapEthersTransactionResponse';
 
 export interface TransferErc721Options {
-  contract: EvmAddressish;
+  contractAddress: EvmAddressish;
   to: EvmAddressish;
   tokenId: BigNumberish;
   chain?: EvmChainish;
@@ -20,7 +20,7 @@ export const makeTransferErc721 =
 
     // TODO: validate that provided chain is current chain
 
-    const contractAddress = EvmAddress.create(options.contract);
+    const contractAddress = EvmAddress.create(options.contractAddress);
     const toAddress = EvmAddress.create(options.to);
     const tokenId = options.tokenId;
 
