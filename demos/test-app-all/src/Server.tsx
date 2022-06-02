@@ -45,6 +45,11 @@ export const Server = () => {
       >
         Logout
       </button>
+
+      <button onClick={() => Moralis.Server.linkEvmAddress('0x3622277fec8fF2e6EF42c746F019476Ea321a7D3')}>Link</button>
+      <button onClick={() => Moralis.Server.unlinkEvmAddress('0x3622277fec8fF2e6EF42c746F019476Ea321a7D3')}>
+        Unlink
+      </button>
     </div>
   );
 };
