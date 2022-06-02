@@ -26,6 +26,47 @@ export const Server = () => {
         const saved = await file.saveIPFS();
         console.log(saved)
       }}>File</button> */}
+      <button
+        onClick={() => {
+          Moralis.Server.signUp({
+            username: 'example-user',
+            password: 'example-password',
+            email: 'example@email.com',
+            fields: {
+              age: 42,
+            },
+          })
+            .then(console.log)
+            .catch(console.error);
+        }}
+      >
+        Sign up
+      </button>
+
+      <button
+        onClick={() => {
+          Moralis.Server.signIn({
+            username: 'example-user',
+            password: 'example-password',
+          })
+            .then(console.log)
+            .catch(console.error);
+        }}
+      >
+        Sign in
+      </button>
+      <button
+        onClick={() => {
+          Moralis.Server.logout();
+        }}
+      >
+        Logout
+      </button>
+
+      <button onClick={() => Moralis.Server.linkEvmAddress('0x3622277fec8fF2e6EF42c746F019476Ea321a7D3')}>Link</button>
+      <button onClick={() => Moralis.Server.unlinkEvmAddress('0x3622277fec8fF2e6EF42c746F019476Ea321a7D3')}>
+        Unlink
+      </button>
     </div>
   );
 };
