@@ -1,6 +1,6 @@
 <div align="center">
     <a align="center" href="https://moralis.io" target="_blank">
-      <img src="./docs/moralis-logo-dark.svg" alt="Moralis JS SDK" height=200/>
+      <img src="./docs/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
     </a>
     <h1 align="center">Moralis SDK (JavaScript / TypeScript)</h1>
     <a href="https://discord.gg/moralis" target="_blank">
@@ -24,9 +24,35 @@
   <br/>
 </div>
 
-> 🚨 **Alpha version: Do not use this version in production**
+---
+
+# 🚨 Alpha version
+
+> **Important: Do not use this alpha version in production**
 >
 > This version is an **alpha** release and is under active development. Expect breaking changes until it is out of alpha.
+
+Current Features in this alpha build:
+
+- [x] Install via a package manager as npm/yarn
+- [x] Connect to an Evm network with Metamask
+- [x] Connect to an Evm network with Walletconnect
+- [x] Authenticate to the server via Evm
+- [x] Authenticate to the server via password
+- [x] Evm transfer, and executeFunction utilities
+- [x] EvmApi
+
+Coming up:
+
+- [ ] Connect to an Evm network with other connectors
+- [ ] Usage in browsers via a script tag
+- [ ] Support for NodeJs
+- [ ] Support for react-native
+- [ ] Solana support
+- [ ] Support for authentication via other networks as Polkadot and Elrond
+- [ ] Plugins
+
+---
 
 **Features**:
 
