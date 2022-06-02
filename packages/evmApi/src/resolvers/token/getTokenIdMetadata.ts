@@ -41,7 +41,6 @@ export const getTokenIdMetadataResolver = new EvmResolver({
     }),
     syncedAt: data.synced_at ? new Date(data.synced_at) : undefined,
     amount: data.amount,
-    // TODO: below are data returned that are not present in swagger docs so no type definition (report to api squad)
     ownerOf: EvmAddress.create(data.owner_of),
     blockNumberMinted: data.block_number_minted,
     blockNumber: data.block_number,

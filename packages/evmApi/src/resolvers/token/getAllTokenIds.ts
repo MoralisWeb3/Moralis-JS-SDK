@@ -53,7 +53,6 @@ export const getAllTokenIdsResolver = new EvmPaginatedResolver({
       }),
       syncedAt: nft.synced_at ? new Date(nft.synced_at) : undefined,
       amount: nft.amount,
-      // TODO: below are data returned that are not present in swagger docs so no type definition (report to api squad)
       blockNumberMinted: nft.block_number_minted,
       lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
       lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
