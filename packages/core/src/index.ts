@@ -8,5 +8,6 @@ export * from './State';
 export * from './sharedTypes/index';
 export * from './dataTypes';
 export * from './controllers';
+export * from './utils';
 
 export default MoralisCore;

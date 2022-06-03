@@ -1,7 +1,5 @@
-import { Camelize } from './../../utils/toCamelCase';
-import { Erc20Token, EvmChainish } from '@moralisweb3/core';
+import { Erc20Token, EvmChainish, Camelize, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
@@ -18,7 +16,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 
 export const getTokenMetadataBySymbolResolver = new EvmResolver({
   name: 'getTokenMetadataBySymbol',
-  getPath: (params: ApiParams) => `erc20/metadata/symbols`,
+  getPath: () => `erc20/metadata/symbols`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.map((token) => {
       const erc20token = new Erc20Token({

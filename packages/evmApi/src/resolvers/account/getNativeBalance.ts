@@ -1,7 +1,6 @@
-import { EvmAddressish, EvmChainish, EvmNative } from '@moralisweb3/core';
+import { EvmAddressish, EvmChainish, EvmNative, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain, resolveDefaultAddress } from '../../utils/resolveDefaultParams';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getNativeBalance';

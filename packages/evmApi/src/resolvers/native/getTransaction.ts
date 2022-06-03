@@ -1,6 +1,5 @@
 import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { Camelize } from './../../utils/toCamelCase';
-import { EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
+import { EvmChainish, EvmTransactionReceipt, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 

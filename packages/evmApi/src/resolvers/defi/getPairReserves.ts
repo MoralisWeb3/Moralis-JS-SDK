@@ -1,7 +1,6 @@
-import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/core/lib';
+import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getPairReserves';

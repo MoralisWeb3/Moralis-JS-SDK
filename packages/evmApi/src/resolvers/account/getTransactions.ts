@@ -1,7 +1,6 @@
 import { BigNumber } from 'ethers';
-import { EvmChainish, EvmAddressish, EvmTransactionReceipt } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmTransactionReceipt, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
