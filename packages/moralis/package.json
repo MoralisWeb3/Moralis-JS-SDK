@@ -1,7 +1,7 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -16,9 +16,9 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.0.0-alpha.0",
-    "@moralisweb3/server": "^2.0.0-alpha.0",
-    "@moralisweb3/evm-api": "^2.0.0-alpha.0",
-    "@moralisweb3/evm": "^2.0.0-alpha.0"
+    "@moralisweb3/core": "^2.0.0-alpha.1",
+    "@moralisweb3/server": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-api": "^2.0.0-alpha.1",
+    "@moralisweb3/evm": "^2.0.0-alpha.1"
   }
 }
