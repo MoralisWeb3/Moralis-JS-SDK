@@ -52,6 +52,10 @@ Coming up:
 - [ ] Support for authentication via other networks as Polkadot and Elrond
 - [ ] Plugins
 
+### Known issue in this Alpha version
+
+- Walletconnect will not work in combination with Webpack-5 (create-react-app v5), without polyfilling dependencies. We will manually polyfill this in a next alpha update.
+
 ---
 
 **Features**:
