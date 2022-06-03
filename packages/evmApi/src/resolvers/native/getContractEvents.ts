@@ -1,8 +1,7 @@
 import { EvmPaginatedResolver, PaginatedOptions, PaginatedResponse } from './../PaginatedResolver';
-import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/core';
+import { EvmChainish, EvmAddress, EvmAddressish, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { Camelize } from '../../utils/toCamelCase';
 import { BodyType } from '../Resolver';
 
 type operation = 'getContractEvents';
