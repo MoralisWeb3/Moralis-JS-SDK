@@ -11,9 +11,13 @@ export const Server = () => {
 
       <button onClick={() => {}}>Logout</button>
 
-      <button onClick={() => {
-        Moralis.Server.fetchIPFS('QmUfpsyqc4hwozotRo4woyi5fJqvfcej5GcFvKiWoY6xr6')
-      }}>savefile</button>
+      <button
+        onClick={() => {
+          Moralis.Server.fetchIPFS('QmUfpsyqc4hwozotRo4woyi5fJqvfcej5GcFvKiWoY6xr6').then(console.log);
+        }}
+      >
+        getFile
+      </button>
 
       {/* <button onClick={async () => {
         const parts = [
