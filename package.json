@@ -31,7 +31,7 @@
     "yarn": "^1.22.17"
   },
   "scripts": {
-    "build": "yarn nx run-many --target=build --all",
+    "build": "yarn nx run-many --target=build --all --exclude=@morlaisweb3/test-app-all",
     "dev": "yarn nx run-many --target=dev --all",
     "lint": "yarn nx run-many --target=lint --all",
     "clean": "yarn nx run-many --target=clean --all",
