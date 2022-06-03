@@ -3,10 +3,11 @@ import { BodyType, EvmResolver } from '../Resolver';
 
 type operation = 'uploadFolder';
 const method = 'post';
-const bodyParams = ['data'] as const;
+const bodyParams = ['abi'] as const;
 
 export interface Params {
-  data: {
+  // TODO: needs refinement, the key should not be abi
+  abi: {
     path: string;
     content: string;
   }[];

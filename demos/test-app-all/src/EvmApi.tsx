@@ -414,7 +414,7 @@ export const EvmApi = () => {
         onClick={() => {
           Moralis.EvmApi.storage
             .uploadFolder({
-              data: [
+              abi: [
               {
                 path: "moralis/logo.jpg",
     content: "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3"
