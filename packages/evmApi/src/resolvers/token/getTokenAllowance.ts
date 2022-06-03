@@ -21,7 +21,6 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'owner_addres
 
 export const getTokenAllowanceResolver = new EvmResolver({
   name: 'getTokenAllowance',
-  // TODO: handle for cases when EvmAddress is sent in params
   getPath: (params: Params) => `erc20/${params.address}/allowance`,
   apiToResult: (data: ApiResult) => ({
     allowance: BigNumber.from(data.allowance),

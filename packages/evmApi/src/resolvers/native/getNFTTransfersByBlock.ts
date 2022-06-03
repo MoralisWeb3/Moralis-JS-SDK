@@ -1,5 +1,5 @@
 import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { EvmChainish, EvmAddress, EvmNative, Camelize, toCamelCase } from '@moralisweb3/core';
+import { EvmChainish, EvmAddress, EvmNative, Camelize, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
@@ -14,14 +14,22 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>>, PaginatedOpt
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-// TODO: fix type: use EvmNft
 export const getNFTTransfersByBlockResolver = new EvmPaginatedResolver({
   name: 'getNFTTransfersByBlock',
   getPath: (params: Params) => `block/${params.blockNumberOrHash}/nft/transfers`,
-  apiToResult: (data: ApiResult) =>
+  apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((transfer) => ({
-      ...toCamelCase(transfer),
-      tokenAddress: EvmAddress.create(transfer.to_address),
+      token: new EvmNFT({
+        chain: resolveDefaultChain(params.chain),
+        contractType: transfer.contract_type,
+        tokenAddress: transfer.token_address,
+        tokenId: transfer.token_id,
+      }),
+      blockNumber: transfer.block_number,
+      blockHash: transfer.block_hash,
+      transactionHash: transfer.transaction_hash,
+      transactionType: transfer.transaction_type,
+      transactionIndex: transfer.transaction_index,
       toAddress: EvmAddress.create(transfer.to_address),
       operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
       fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
@@ -31,7 +39,7 @@ export const getNFTTransfersByBlockResolver = new EvmPaginatedResolver({
   resultToJson: (data) =>
     data?.map((transfer) => ({
       ...transfer,
-      tokenAddress: transfer.tokenAddress.format(),
+      token: transfer.token.toJSON(),
       toAddress: transfer.toAddress.format(),
       fromAddress: transfer.fromAddress?.format(),
       operator: transfer.operator?.format(),

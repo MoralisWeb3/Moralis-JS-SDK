@@ -14,7 +14,15 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   address: EvmAddressish;
 }
 
-type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
+type GeneratedApiResult = operations[operation]['responses']['200']['content']['application/json'];
+
+// TODO: discard this interface when swagger docs is updated
+export interface ApiResult extends GeneratedApiResult {
+  block_number_minted: string;
+  block_number: string;
+  owner_of: string;
+  token_hash: string;
+}
 
 export const getTokenIdMetadataResolver = new EvmResolver({
   name: 'getTokenIdMetadata',
@@ -29,21 +37,22 @@ export const getTokenIdMetadataResolver = new EvmResolver({
       metadata: data.metadata,
       name: data.name,
       symbol: data.symbol,
+      tokenHash: data.token_hash,
     }),
     syncedAt: data.synced_at ? new Date(data.synced_at) : undefined,
     amount: data.amount,
-    // TODO: below are data returned that are not present in swagger docs so no type definition (report to api squad)
-    // ownerOf: EvmAddress.create(data.owner_of),
-    //   blockNumberMinted: data.block_number_minted,
-    //   blockNumber: data.block_number,
-    // tokenHash: nft.token_hash
-    //   lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
-    //   lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
+    ownerOf: EvmAddress.create(data.owner_of),
+    blockNumberMinted: data.block_number_minted,
+    blockNumber: data.block_number,
+    lastMetadataSync: data.last_metadata_sync ? new Date(data.last_metadata_sync) : undefined,
+    lastTokenUriSync: data.last_token_uri_sync ? new Date(data.last_token_uri_sync) : undefined,
   }),
   resultToJson: (data) => ({
     ...data,
     syncedAt: data.syncedAt?.toLocaleDateString(),
     token: data.token.toJSON(),
+    lastMetadataSync: data.lastMetadataSync?.toLocaleDateString(),
+    lastTokenUriSync: data.lastTokenUriSync?.toLocaleDateString(),
   }),
   parseParams: (params: Params): ApiParams => ({
     chain: resolveDefaultChain(params.chain).apiHex,
