@@ -14,15 +14,12 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
-      - name: Setup Node.js 12.x
+      - name: Setup Node 16
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
-
-      - name: Install Dependencies
-        run: yarn
-
+          node-version: '16'
+      - name: Install packages
+        run: yarn install
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
