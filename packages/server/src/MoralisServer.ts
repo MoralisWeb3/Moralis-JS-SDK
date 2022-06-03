@@ -5,6 +5,7 @@ import { ServerEvent, ServerEventMap } from './events/ServerEvents';
 import { Authentication } from './Authentication/Authentication';
 import { Authenticate, LinkAddressOptions } from './AuthMethods/types';
 import { assertInstance } from './assert/assertInstance';
+import { getIPFS } from './utils/ipfs';
 import { createSigningData } from './AuthMethods/utils/createSigningData';
 import { SignUpOptions } from './AuthMethods/handleSignUp';
 import { SignInOptions } from './AuthMethods/handleSignIn';
@@ -86,6 +87,10 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
 
   currentUserAsync() {
     return this.instance().User.currentAsync();
+  }
+
+  fetchIPFS(ipfsHash: string) {
+    return getIPFS(ipfsHash);
   }
 
   /**
