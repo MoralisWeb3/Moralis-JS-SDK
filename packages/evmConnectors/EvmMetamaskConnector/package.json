@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-metamask-connector",
   "author": "Moralis",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
-    "@moralisweb3/core": "^2.0.0-alpha.0",
-    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.0"
+    "@moralisweb3/core": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1"
   }
 }
