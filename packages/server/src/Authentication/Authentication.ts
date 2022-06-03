@@ -319,7 +319,7 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
     }
 
     const server = assertInstance(this._server);
-    await handleLogout({ server });
+    await handleLogout({ server, logger: this._logger });
 
     this.transition({ type: 'LOGOUT' });
   };
