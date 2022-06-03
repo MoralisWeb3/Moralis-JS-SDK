@@ -1,5 +1,17 @@
 # @moralisweb3/evm-wallet-connect-connector
 
+## 2.0.0-alpha.1
+
+### Major Changes
+
+- [`44b062f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/44b062f275157eb3c3967eccbd422bb77a732843) Thanks [@ErnoW](https://github.com/ErnoW)! - Correct release of sdkv2
+
+### Patch Changes
+
+- Updated dependencies [[`44b062f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/44b062f275157eb3c3967eccbd422bb77a732843)]:
+  - @moralisweb3/core@2.0.0-alpha.1
+  - @moralisweb3/evm-connector-utils@2.0.0-alpha.1
+
 ## 2.0.0-alpha.0
 
 ### Major Changes
