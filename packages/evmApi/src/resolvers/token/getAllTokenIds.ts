@@ -15,7 +15,8 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, 
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
-interface Result extends Omit<ApiResult, 'result'> {
+// TODO: discard this interface when swagger docs is updated
+interface GeneratedApiResult extends Omit<ApiResult, 'result'> {
   result: [
     {
       amount: string;
@@ -38,7 +39,7 @@ interface Result extends Omit<ApiResult, 'result'> {
 export const getAllTokenIdsResolver = new EvmPaginatedResolver({
   name: 'getAllTokenIds',
   getPath: (params: Params) => `nft/${params.address}`,
-  apiToResult: (data: Result, params: Params) =>
+  apiToResult: (data: GeneratedApiResult, params: Params) =>
     data.result?.map((nft) => ({
       token: new EvmNFT({
         chain: resolveDefaultChain(params.chain),

@@ -17,7 +17,8 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export interface Result extends ApiResult {
+// TODO: discard this interface when swagger docs is updated
+export interface GeneratedApiResult extends ApiResult {
   block_number_minted: string;
   block_number: string;
   owner_of: string;
@@ -27,7 +28,7 @@ export interface Result extends ApiResult {
 export const getTokenIdMetadataResolver = new EvmResolver({
   name: 'getTokenIdMetadata',
   getPath: (params: Params) => `nft/${params.address}/${params.tokenId}`,
-  apiToResult: (data: Result, params: Params) => ({
+  apiToResult: (data: GeneratedApiResult, params: Params) => ({
     token: new EvmNFT({
       chain: resolveDefaultChain(params.chain),
       contractType: data.contract_type,

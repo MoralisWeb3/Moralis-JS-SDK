@@ -22,7 +22,7 @@ export const getPairAddressResolver = new EvmResolver({
   name: 'getPairAddress',
   getPath: (params: Params) => `${params.token0Address}/${params.token1Address}/reserves`,
   apiToResult: (data: ApiResult, params: Params) => ({
-    //   ApiResult types generated all come as undefined which should not be the case
+    //   ApiResult types generated all come as undefined which should not be the case TODO:
     token0: {
       token: new Erc20Token({
         contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address) : '',
