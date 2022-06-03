@@ -97,6 +97,7 @@ export class EvmPaginatedResolver<
       Record<string, string>,
       //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
       ApiParams
+      // Requests to the server are always a post request with bodyparams, no need to supply searchparams
     >(url, {}, apiParams);
 
     return new EvmApiPaginatedResultAdapter(

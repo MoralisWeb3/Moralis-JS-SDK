@@ -159,12 +159,13 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     const url = this.getServerUrl();
     const apiParams = this.parseParams(params);
 
-    //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-    const { result } = await RequestController.post<ServerResponse<ApiResult>, Record<string, string>, ApiParams>(
-      url,
-      {},
-      apiParams,
-    );
+    const { result } = await RequestController.post<
+      ServerResponse<ApiResult>,
+      Record<string, string>,
+      //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
+      ApiParams
+      // Requests to the server are always a post request with bodyparams, no need to supply searchparams
+    >(url, {}, apiParams);
 
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
