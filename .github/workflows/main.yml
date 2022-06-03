@@ -19,8 +19,10 @@ jobs:
         os: [ubuntu-latest]
         node: [16]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies
@@ -42,8 +44,10 @@ jobs:
         node: [16]
     needs: setup
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies
@@ -72,8 +76,10 @@ jobs:
         node: [16]
     needs: setup
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies

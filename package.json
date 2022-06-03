@@ -41,7 +41,7 @@
     "test:ci": "yarn nx run-many --target=test:ci --all",
     "format": "yarn nx run-many --target=format --all",
     "format:check": "yarn nx run-many --target=format:check --all",
-    "release": "yarn build && echo 'publishing not implemented yet'"
+    "release": "yarn build && changeset publish"
   },
   "workspaces": {
     "packages": [

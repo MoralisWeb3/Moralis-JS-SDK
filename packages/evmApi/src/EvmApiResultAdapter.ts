@@ -4,7 +4,7 @@ import { MoralisDataObject } from '@moralisweb3/core';
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
 enum EvmApiFormatType {
   // Return the data directly, as is provided by the API
-  LEGACY = 'legacy',
+  RAW = 'raw',
   // Return the formatted result of all moralis DataTypes
   JSON = 'JSON',
   // Return class with moralis DataTypes and format functions
@@ -55,7 +55,7 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
     this._params = params;
   }
 
-  get legacy() {
+  get raw() {
     return this._data;
   }
 
@@ -68,13 +68,13 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
     return this._jsonAdapter(this.result);
   }
 
-  format(formatType: EvmApiFormatType.LEGACY): Data;
+  format(formatType: EvmApiFormatType.RAW): Data;
   // WIP: add type
   format(formatType: EvmApiFormatType.JSON): unknown;
   format(formatType: EvmApiFormatType.NORMAL): AdaptedData;
   format(formatType: EvmApiFormatType) {
-    if (formatType === EvmApiFormatType.LEGACY) {
-      return this.legacy;
+    if (formatType === EvmApiFormatType.RAW) {
+      return this.raw;
     }
 
     if (formatType === EvmApiFormatType.JSON) {

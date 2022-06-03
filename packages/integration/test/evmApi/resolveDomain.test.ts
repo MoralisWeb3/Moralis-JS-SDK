@@ -25,7 +25,7 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result.toJSON().address).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'.toLowerCase());
-    expect(result.legacy.address).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+    expect(result.raw.address).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
     expect(result.result.address.equals(new EvmAddress('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'))).toBe(true);
   });
 });

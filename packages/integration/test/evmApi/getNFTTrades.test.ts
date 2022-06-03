@@ -24,7 +24,7 @@ describe('Moralis EvmApi', () => {
       address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
     });
 
-    expect(result.legacy.total).toBe(53);
+    expect(result.raw.total).toBe(53);
     expect(result).toBeDefined();
   });
 

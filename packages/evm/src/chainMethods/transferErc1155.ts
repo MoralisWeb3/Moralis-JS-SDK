@@ -6,7 +6,7 @@ import { Erc1155__factory } from '../Contract';
 import { wrapEthersTransactionResponse } from '../utils/wrapEthersTransactionResponse';
 
 export interface TransferErc1155Options {
-  contract: EvmAddressish;
+  contractAddress: EvmAddressish;
   to: EvmAddressish;
   tokenId: BigNumberish;
   value: BigNumberish;
@@ -22,7 +22,7 @@ export const makeTransferErc1155 =
 
     // TODO: validate that provided chain is current chain
 
-    const contractAddress = EvmAddress.create(options.contract);
+    const contractAddress = EvmAddress.create(options.contractAddress);
     const toAddress = EvmAddress.create(options.to);
     const { tokenId } = options;
     const value = BigNumber.from(options.value);
