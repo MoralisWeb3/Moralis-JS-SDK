@@ -1,8 +1,6 @@
 import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { toCamelCase } from './../../utils/toCamelCase';
-import { EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog, Camelize, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getLogsByAddress';

@@ -1,7 +1,6 @@
-import { EvmAddress, EvmChainish, EvmTransactionReceipt } from '@moralisweb3/core';
+import { Camelize, EvmAddress, EvmChainish, EvmTransactionReceipt, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { Camelize, toCamelCase } from '../../utils/toCamelCase';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getBlock';

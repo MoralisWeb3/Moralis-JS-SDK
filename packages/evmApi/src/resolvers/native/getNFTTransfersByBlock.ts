@@ -1,7 +1,6 @@
 import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { EvmChainish, EvmAddress, EvmNative, EvmNFT } from '@moralisweb3/core';
+import { EvmChainish, EvmAddress, EvmNative, Camelize, EvmNFT } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { Camelize } from '../../utils/toCamelCase';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getNFTTransfersByBlock';
