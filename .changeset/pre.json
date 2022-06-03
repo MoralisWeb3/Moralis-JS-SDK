@@ -11,9 +11,10 @@
     "@moralisweb3/evm-wallet-connect-connector": "1.7.0",
     "@moralisweb3/integration": "1.7.0",
     "moralis": "1.7.0",
-    "@moralisweb3/server": "1.7.0"
+    "@moralisweb3/server": "1.7.0",
+    "@morlaisweb3/test-app-all": "2.0.0-alpha.0"
   },
   "changesets": [
-    "tough-cameras-nail"
+    "brave-paws-rescue"
   ]
 }
