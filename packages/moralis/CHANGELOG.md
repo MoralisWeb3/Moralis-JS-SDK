@@ -1,6 +1,6 @@
 # moralis
 
-## 2.0.0-alpha.1
+## 2.0.0-alpha.0
 
 ### Major Changes
 
@@ -297,7 +297,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`6ce5c1f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6ce5c1f8ed2b4c25eaef22bc05c76b44efbfb724)]:
-  - @moralisweb3/core@2.0.0-alpha.1
-  - @moralisweb3/evm@2.0.0-alpha.1
-  - @moralisweb3/evm-api@2.0.0-alpha.1
-  - @moralisweb3/server@2.0.0-alpha.1
+  - @moralisweb3/core@2.0.0-alpha.0
+  - @moralisweb3/evm@2.0.0-alpha.0
+  - @moralisweb3/evm-api@2.0.0-alpha.0
+  - @moralisweb3/server@2.0.0-alpha.0

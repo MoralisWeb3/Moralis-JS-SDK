@@ -5,7 +5,7 @@
   "fixed": [["@moralisweb3/core", "@moralisweb3/evm", "@moralisweb3/evm-api", "@moralisweb3/server"]],
   "linked": [],
   "access": "public",
-  "baseBranch": "main",
+  "baseBranch": "alpha",
   "updateInternalDependencies": "patch",
   "ignore": []
 }
