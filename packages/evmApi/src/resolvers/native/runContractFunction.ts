@@ -18,19 +18,19 @@ export interface Params {
   // TODO: allow also function_name, with proper typechecking where one of both is required. then parse in correctly as param
   functionName: ApiParams['function_name'];
   address: EvmAddressish;
-  abi: ApiParams['abi'];
-  params: ApiParams['params'];
+  abi: unknown;
+  params?: ApiParams['params'];
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const runContractFunctionResolver = new EvmResolver<ApiParams, Params, ApiResult, ApiResult, ApiResult>({
+export const runContractFunctionResolver = new EvmResolver({
   name: 'runContractFunction',
   getPath: (params: Params) => `${params.address}/function`,
   apiToResult: (data: ApiResult) => {
     return data;
   },
   resultToJson: (data) => data,
-  parseParams: (params: Params): ApiParams => ({
+  parseParams: (params: Params) => ({
     chain: resolveDefaultChain(params.chain).apiHex,
     function_name: params.functionName,
     address: EvmAddress.create(params.address).lowercase,
