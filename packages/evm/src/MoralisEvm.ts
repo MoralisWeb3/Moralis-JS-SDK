@@ -10,6 +10,7 @@ import { makeTransferErc20, TransferErc20Options } from './chainMethods/transfer
 import { makeTransferErc721, TransferErc721Options } from './chainMethods/transferErc721';
 import { Connection } from './Connection/Connection';
 import { makeTransferErc1155, TransferErc1155Options } from './chainMethods/transferErc1155';
+import { EcecuteFunctionOptions, makeExecutefunction } from './chainMethods/executeFunction';
 
 export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   connection: Connection = new Connection(this.logger, this.emitter);
@@ -113,6 +114,7 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   transferErc721 = (data: TransferErc721Options) => makeTransferErc721(this.provider, this.account, this.chain)(data);
   transferErc1155 = (data: TransferErc1155Options) =>
     makeTransferErc1155(this.provider, this.account, this.chain)(data);
+  executeFunction = (data: EcecuteFunctionOptions) => makeExecutefunction(this.provider)(data);
 }
 
 const moralisEvm = new MoralisEvm();

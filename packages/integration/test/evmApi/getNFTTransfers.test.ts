@@ -26,7 +26,7 @@ describe('Moralis EvmApi', () => {
 
     expect(result).toBeDefined();
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.legacy.total).toBe(126);
+    expect(result.raw.total).toBe(126);
   });
 
   it('should not get the NFTs Transfers and return an error code for an invalid address', () => {

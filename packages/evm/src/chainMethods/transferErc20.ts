@@ -5,7 +5,7 @@ import { Erc20__factory } from '../Contract';
 import { wrapEthersTransactionResponse } from '../utils/wrapEthersTransactionResponse';
 
 export interface TransferErc20Options {
-  contract: EvmAddressish;
+  contractAddress: EvmAddressish;
   to: EvmAddressish;
   value: Erc20Valueish;
   chain?: EvmChainish;
@@ -18,7 +18,7 @@ export const makeTransferErc20 =
 
     // TODO: validate that provided chain is current chain
 
-    const contractAddress = EvmAddress.create(options.contract);
+    const contractAddress = EvmAddress.create(options.contractAddress);
     const toAddress = EvmAddress.create(options.to);
     const value = Erc20Value.create(options.value).value;
 

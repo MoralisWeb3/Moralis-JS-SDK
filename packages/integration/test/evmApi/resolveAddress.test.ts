@@ -27,7 +27,7 @@ describe('Moralis EvmApi', () => {
     expect(result.toJSON().name).toBe('vitalik.eth');
     expect(result).toBeDefined();
     expect(result.toJSON().name).toBe('vitalik.eth'.toLowerCase());
-    expect(result.legacy.name).toBe('vitalik.eth');
+    expect(result.raw.name).toBe('vitalik.eth');
     expect(result.result.name).toBe('vitalik.eth');
   });
 

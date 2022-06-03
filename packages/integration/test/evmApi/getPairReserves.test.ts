@@ -27,7 +27,7 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result.toJSON().reserve0).toBe('232416936901978959300412');
-    expect(result.legacy.reserve0).toBe('232416936901978959300412');
+    expect(result.raw.reserve0).toBe('232416936901978959300412');
     expect(result.result.reserve0).toBe('232416936901978959300412');
   });
 
