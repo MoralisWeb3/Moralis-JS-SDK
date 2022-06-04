@@ -21,7 +21,7 @@ export class Web3Auth extends AbstractWeb3Connector {
     });
   };
 
-  activate = async ({ chainId = '0x1', clientId, theme, appLogo, loginMethodsOrder } = {}) => {
+  activate = async ({ chainId = '0x1', clientId, theme, appLogo, loginMethodsOrder, rpcUrl } = {}) => {
     // Checking that all params are given
     if (!clientId) {
       throw new Error('"clientId" not provided, please provide clientId');
@@ -49,6 +49,7 @@ export class Web3Auth extends AbstractWeb3Connector {
     const ethChainConfig = {
       chainNamespace: 'eip155',
       chainId: verifyChainId(chainId),
+      rpcTarget: rpcUrl
     };
     // Build Web3Auth
     let web3auth;
