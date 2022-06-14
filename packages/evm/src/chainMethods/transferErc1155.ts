@@ -1,8 +1,10 @@
 import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/core';
 import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers';
 import { assertAddress } from '../assert/assertAddress';
+import { assertChain } from '../assert/assertChain';
 import { assertProvider } from '../assert/assertProvider';
 import { Erc1155__factory } from '../Contract';
+import { validateChain } from '../utils/validators';
 import { wrapEthersTransactionResponse } from '../utils/wrapEthersTransactionResponse';
 
 export interface TransferErc1155Options {
@@ -19,8 +21,9 @@ export const makeTransferErc1155 =
   async (options: TransferErc1155Options) => {
     const provider = assertProvider(_provider);
     const fromAddress = assertAddress(_account, 'No account is connected');
+    const chain = assertChain(_chain, 'Chain is not set on MoralisEvm. Make sure to be properly connected');
 
-    // TODO: validate that provided chain is current chain
+    if (options.chain) validateChain(options.chain, chain);
 
     const contractAddress = EvmAddress.create(options.contractAddress);
     const toAddress = EvmAddress.create(options.to);
@@ -32,5 +35,5 @@ export const makeTransferErc1155 =
 
     const response = await token.safeTransferFrom(fromAddress.checksum, toAddress.checksum, tokenId, value, data);
 
-    return wrapEthersTransactionResponse(response, _chain);
+    return wrapEthersTransactionResponse(response, chain);
   };
