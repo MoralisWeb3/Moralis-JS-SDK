@@ -2,9 +2,11 @@ import { Moralis } from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
 import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
 import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
+import MagiclinkConnector from '@moralisweb3/evm-magic-link-connector';
 
 // Register connector connect connector
 Moralis.Evm.connectors.register(WalletConnectConnector);
+Moralis.Evm.connectors.register(MagiclinkConnector);
 // Moralis.Evm.connectors.remove('wallet-connect');
 
 export const Evm = () => {
@@ -12,6 +14,7 @@ export const Evm = () => {
     <div>
       <h2>EVM</h2>
       <button onClick={() => Moralis.Evm.connect('metamask', { silent: false })}>Connect via metamask</button>
+      <button onClick={() => Moralis.Evm.connect('magic-link', { email: 'shalom@moralis.io', apiKey: 'pk_live_D058327F385D65BB', chainId: 3 })}>Connect via magiclink</button>
       <button onClick={() => Moralis.Evm.connect('wallet-connect', { newSession: true })}>
         Connect via walletconnect
       </button>

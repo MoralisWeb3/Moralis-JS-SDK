@@ -1,0 +1,8 @@
+CHANGELOG.md
+
+# Output folders
+lib/**/*
+dist
+coverage/
+lib.esm
+node_modules

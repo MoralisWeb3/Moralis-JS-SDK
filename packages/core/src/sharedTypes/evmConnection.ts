@@ -41,6 +41,17 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
   newSession?: boolean;
 }
 
+export interface EvmMagicLinkConnectorOptions extends EvmBaseConnectOptions {
+  // Prefered chainId, if supported by the connector
+  chainId?: InputChainId;
+  // the publishable api-key that you can get in your Magic dashboard 
+  apiKey: string;
+  // Email to sign in with
+  email: string;
+  // Weather to reuse the same session (if available), or to force a new session
+  newSession?: boolean;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyConnector = any;
 
