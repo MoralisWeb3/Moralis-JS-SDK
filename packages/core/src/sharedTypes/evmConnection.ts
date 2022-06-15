@@ -44,7 +44,7 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
 export interface EvmMagicLinkConnectorOptions extends EvmBaseConnectOptions {
   // Prefered chainId, if supported by the connector
   chainId?: InputChainId;
-  // the publishable api-key that you can get in your Magic dashboard 
+  // the publishable api-key that you can get in your Magic dashboard
   apiKey: string;
   // Email to sign in with
   email: string;
