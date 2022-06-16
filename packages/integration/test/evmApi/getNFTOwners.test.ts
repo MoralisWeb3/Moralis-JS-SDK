@@ -28,8 +28,7 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
-    expect(result.raw.total).toBe(10);
-    expect(result).toEqual(expect.objectContaining({}));
+    expect(result).toEqual(expect.arrayContaining([]));
   });
 
   it('should not get NFT owners of an invalid address and throw an error ', async () => {
