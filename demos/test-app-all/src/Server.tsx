@@ -9,6 +9,10 @@ export const Server = () => {
         Authenticate via EVM metamask
       </button>
 
+      <button onClick={() => Moralis.Server.authenticate(AuthMethod.EVM, { connector: 'magic-link',  email: 'shalom@moralis.io', apiKey: 'pk_XXXX', chainId: 3 })}>
+        Authenticate via Magiclink
+      </button>
+
       <button onClick={() => {}}>Logout</button>
 
       <button
