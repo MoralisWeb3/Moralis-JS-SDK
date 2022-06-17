@@ -1,0 +1,30 @@
+{
+  "name": "@moralisweb3/evm-web3auth-connector",
+  "author": "Moralis",
+  "version": "2.0.0-alpha.1",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "@walletconnect/types": "^1.7.5",
+    "eslint": "^8.7.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@moralisweb3/core": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1",
+    "ethers": "^5.6.2",
+    "@web3auth/web3auth": "0.5.1"
+  }
+}
