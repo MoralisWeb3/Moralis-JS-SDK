@@ -9,6 +9,10 @@ export const Server = () => {
         Authenticate via EVM metamask
       </button>
 
+      <button onClick={() => Moralis.Server.authenticate(AuthMethod.EVM, { connector: 'web3auth', clientId: "BGyyhssMRWWCq5JlJZ-kkoOkmiJOZzyJ3MwTcAEhShXfULYNpp9PHpv4RwX-H259Ewl59EqJT0rfASHAzaKBudg", chainId: 4 })}>
+        Authenticate via Web3auth
+      </button>
+
       <button onClick={() => {}}>Logout</button>
 
       <button
