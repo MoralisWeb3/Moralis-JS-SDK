@@ -6,19 +6,22 @@ import cleaner from 'rollup-plugin-cleaner';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import replace from '@rollup/plugin-replace';
 import globals from 'rollup-plugin-node-globals';
+import babel from '@rollup/plugin-babel';
 
 export default {
   input: 'src/index.ts',
   output: [
-    // {
-    //   file: 'dist/index.js',
-    //   format: 'cjs',
-    //   sourcemap: true,
-    // },
     {
       file: packageJson.main,
-      format: 'esm',
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: 'dist/index.js',
+      name: 'Core',
+      format: 'umd',
       sourcemap: true,
     },
   ],
@@ -31,7 +34,9 @@ export default {
     json(),
     resolve(),
     commonjs(),
+    replace(),
     typescript({ useTsconfigDeclarationDir: true }),
+    babel(),
     globals(),
   ],
 };

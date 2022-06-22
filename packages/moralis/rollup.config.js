@@ -7,21 +7,24 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
+import babel from '@rollup/plugin-babel';
 
 export default {
   input: 'src/index.ts',
   output: [
-    // {
-    //   file: 'dist/index.js',
-    //   format: 'cjs',
-    //   sourcemap: true,
-    // },
     {
       file: packageJson.main,
-      format: 'esm',
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: 'dist/index.js',
+      name: 'Moralis',
+      format: 'umd',
       sourcemap: true,
     },
   ],
+  external: ['@moralisweb3/core', '@moralisweb3/server', '@moralisweb3/evm-api', '@moralisweb3/evm"'],
   plugins: [
     nodePolyfills(),
     cleaner({
@@ -32,6 +35,7 @@ export default {
     resolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
+    babel(),
     globals(),
   ],
 };

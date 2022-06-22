@@ -7,6 +7,9 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "echo 'not implemented'",
     "test:coverage": "yarn run test --coverage",

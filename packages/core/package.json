@@ -5,8 +5,12 @@
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
+  "module": "./lib/index.es.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit",
     "test:ci": "yarn test --ci",
@@ -16,7 +20,7 @@
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "tsc",
+    "build": "rollup -c rollup.config.js",
     "dev": "tsc --watch"
   },
   "devDependencies": {
