@@ -12,6 +12,7 @@ import babel from '@rollup/plugin-babel';
 
 export default {
   input: 'src/index.ts',
+  external: ['@moralisweb3/core'],
   output: [
     {
       file: packageJson.main,
@@ -19,10 +20,13 @@ export default {
       sourcemap: true,
     },
     {
-      file: 'dist/index.js',
-      name: 'EvmApi',
+      file: 'dist/index.umd.js',
+      name: 'MoralisEvmApi',
       format: 'umd',
       sourcemap: true,
+      globals: {
+        '@moralisweb3/core': 'MoralisCore',
+      },
     },
   ],
   plugins: [

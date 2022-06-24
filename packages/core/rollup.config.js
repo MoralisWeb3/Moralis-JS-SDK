@@ -19,8 +19,8 @@ export default {
       sourcemap: true,
     },
     {
-      file: 'dist/index.js',
-      name: 'Core',
+      file: 'dist/index.umd.js',
+      name: 'MoralisCore',
       format: 'umd',
       sourcemap: true,
     },

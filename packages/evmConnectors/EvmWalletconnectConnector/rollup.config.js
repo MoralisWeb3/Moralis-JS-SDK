@@ -10,12 +10,18 @@ import globals from 'rollup-plugin-node-globals';
 
 export default {
   input: 'src/index.ts',
+  external: ['@moralisweb3/core', '@moralisweb3/evm-connector-utils'],
   output: [
-    // {
-    //   file: 'dist/index.js',
-    //   format: 'cjs',
-    //   sourcemap: true,
-    // },
+    {
+      file: 'dist/index.umd.js',
+      name: 'MoralisEvmWalletconnectConnector',
+      format: 'umd',
+      sourcemap: true,
+      globals: {
+        '@moralisweb3/core': 'MoralisCore',
+        '@moralisweb3/evm-connector-utils': 'MoralisEvmConnectorUtils',
+      },
+    },
     {
       file: packageJson.main,
       format: 'esm',
@@ -29,7 +35,9 @@ export default {
     }),
     peerDepsExternal(),
     json(),
-    resolve(),
+    resolve({
+      preferBuiltins: false,
+    }),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     globals(),

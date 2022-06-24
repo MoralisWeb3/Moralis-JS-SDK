@@ -1,0 +1,14 @@
+{
+  "name": "@morlaisweb3/test-cdn",
+  "version": "0.0.1",
+  "scripts": {
+    "serve": "http-server ../../ -c-1 -p 10101",
+    "cypress": "cypress run --config video=false",
+    "e2e": "start-server-and-test serve http://localhost:10101 cypress"
+  },
+  "devDependencies": {
+    "cypress": "^10.2.0",
+    "http-server": "^14.1.1",
+    "start-server-and-test": "^1.14.0"
+  }
+}

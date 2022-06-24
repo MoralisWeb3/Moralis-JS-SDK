@@ -13,5 +13,4 @@ const start = Core.start;
 
 const Moralis = { Core, Server, Evm, EvmApi, start };
 
-export { Moralis };
 export default Moralis;

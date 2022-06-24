@@ -12,8 +12,8 @@
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
   },
   "devDependencies": {
     "eslint": "^8.7.0",

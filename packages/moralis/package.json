@@ -16,8 +16,8 @@
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "rollup -c rollup.config.js",
-    "dev": "tsc --watch"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
   },
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.1",

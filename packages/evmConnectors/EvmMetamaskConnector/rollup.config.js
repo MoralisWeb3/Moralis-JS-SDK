@@ -7,30 +7,27 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
-import babel from '@rollup/plugin-babel';
 
 export default {
   input: 'src/index.ts',
+  external: ['@moralisweb3/core', '@moralisweb3/evm-connector-utils'],
   output: [
     {
-      file: packageJson.main,
-      format: 'cjs',
-      sourcemap: true,
-    },
-    {
       file: 'dist/index.umd.js',
-      name: 'Moralis',
+      name: 'MoralisEvmMetamaskConnector',
       format: 'umd',
       sourcemap: true,
       globals: {
         '@moralisweb3/core': 'MoralisCore',
-        '@moralisweb3/server': 'MoralisServer',
-        '@moralisweb3/evm': 'MoralisEvm',
-        '@moralisweb3/evm-api': 'MoralisEvmApi',
+        '@moralisweb3/evm-connector-utils': 'MoralisEvmConnectorUtils',
       },
     },
+    {
+      file: packageJson.main,
+      format: 'esm',
+      sourcemap: true,
+    },
   ],
-  external: ['@moralisweb3/core', '@moralisweb3/server', '@moralisweb3/evm-api', '@moralisweb3/evm'],
   plugins: [
     nodePolyfills(),
     cleaner({
@@ -41,7 +38,6 @@ export default {
     resolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
-    babel(),
     globals(),
   ],
 };

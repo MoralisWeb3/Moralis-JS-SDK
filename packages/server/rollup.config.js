@@ -11,15 +11,19 @@ import globals from 'rollup-plugin-node-globals';
 export default {
   input: 'src/index.ts',
   output: [
-    // {
-    //   file: 'dist/index.js',
-    //   format: 'cjs',
-    //   sourcemap: true,
-    // },
     {
       file: packageJson.main,
-      format: 'esm',
+      format: 'cjs',
       sourcemap: true,
+    },
+    {
+      file: 'dist/index.umd.js',
+      name: 'MoralisServer',
+      format: 'umd',
+      sourcemap: true,
+      globals: {
+        '@moralisweb3/core': 'MoralisCore',
+      },
     },
   ],
   plugins: [
