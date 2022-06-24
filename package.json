@@ -87,7 +87,7 @@
     "jasmine-reporters": "^2.5.0",
     "jest": "^27.4.5",
     "jest-environment-jsdom": "^27.4.4",
-    "lint-staged": "^12.1.2",
+    "lint-staged": "^13.0.2",
     "merge-stream": "^2.0.0",
     "metro-react-native-babel-preset": "0.66.2",
     "openapi-typescript": "^4.5.0",
