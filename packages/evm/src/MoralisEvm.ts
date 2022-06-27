@@ -104,7 +104,7 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
   };
 
   cancelRequest = () => {
-    return this.connection.cancleRequest();
+    return this.connection.cancelRequest();
   };
 
   /**
