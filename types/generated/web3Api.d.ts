@@ -110,7 +110,7 @@ export interface paths {
   "/nft/{address}": {
     /**
      * Gets data, including metadata (where available), for all token ids for the given contract address.
-     * * Results are limited to 500 per page by default
+     * * Results are limited to 100 per page by default
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getAllTokenIds"];
@@ -123,7 +123,6 @@ export interface paths {
     /**
      * Gets all owners of NFT items within a given contract collection
      * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-     * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getNFTOwners"];
@@ -160,7 +159,6 @@ export interface paths {
     /**
      * Gets all owners of NFT items within a given contract collection
      * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-     * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getTokenIdOwners"];
@@ -288,7 +286,14 @@ export interface components {
        */
       block_hash: string;
       /** @description The content of the event */
-      data: { [key: string]: unknown };
+      data: {
+        /** @example 0x54ff6974c715956a5049a123408bff91fbe29f01 */
+        from?: string;
+        /** @example 0x74de5d4fcbf63e00296fd95d33236b9794016631 */
+        to?: string;
+        /** @example 260103496340000000000 */
+        value?: string;
+      };
     };
     log: {
       /** @example 273 */
@@ -745,7 +750,9 @@ export interface components {
       | "avalanche testnet"
       | "0xa869"
       | "fantom"
-      | "0xfa";
+      | "0xfa"
+      | "cronos"
+      | "0x19";
     nft: {
       /**
        * @description The address of the contract of the NFT
@@ -766,8 +773,12 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
-      /** @description when the metadata was last updated */
+      /** @description When the metadata was last updated */
       synced_at?: string;
+      /** @description When the token_uri was last updated */
+      last_token_uri_sync?: string;
+      /** @description When the metadata was last updated */
+      last_metadata_sync?: string;
       /**
        * @description The number of this item the user owns (used by ERC1155)
        * @example 1
@@ -786,28 +797,83 @@ export interface components {
     };
     nftMetadata: {
       /**
+       * @description The token id of the NFT
+       * @example 889
+       */
+      token_id: string;
+      /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0x8ce66ff0865570d1ff0bb0098fa41b4dc61e02e6
        */
       token_address: string;
       /**
-       * @description The token id of the NFT
-       * @example 15
+       * @description The uri to the metadata of the token
+       * @example https://ipfs.moralis.io:2053/ipfs/QmZZbo8u8zEWg7wtmZhJS2W718WL6FA95T4XdgmCcLp1SJ/889.json
        */
-      token_id: string;
+      token_uri: string;
+      /**
+       * @description The metadata of the token
+       * @example {"name":"Bape #889","description":"The #1 metavestor clan (NFT/DAO) by a team with multi billion dollar company experience.","image":"https://bapesclan.mypinata.cloud/ipfs/QmTSUD5JA6qHaC5t25mcXySfz19AV9u4Mb6Na7ntQ6tEwf/889.jpg","attributes":[{"trait_type":"Background","value":"Black"},{"trait_type":"Body","value":"Man"},{"trait_type":"Dress","value":"Suit Tie Blue"},{"trait_type":"Face","value":"Pipe"},{"trait_type":"Eye","value":"Eye"}]}
+       */
+      metadata: string;
+      /** @example 1 */
+      is_valid: number;
+      /** @example 2 */
+      syncing: number;
+      /** @example 0 */
+      frozen: number;
+      /** @example 0 */
+      resyncing: number;
+      /**
+       * Format: date-time
+       * @description when the metadata was last updated
+       * @example 2022-05-19T03:47:10.693Z
+       */
+      synced_at: string;
       /**
        * @description The type of NFT contract standard
        * @example ERC721
        */
       contract_type: string;
-      /** @description The uri to the metadata of the token */
-      token_uri: string;
-      /** @description The metadata of the token */
-      metadata: string;
-      /** @description when the metadata was last updated */
-      synced_at: string;
-    } & {
-      token_hash: unknown;
+      /** @example fffa3102469ce77f569893d16d5884f9 */
+      token_hash: string;
+      /** @example fd995c8a-f8b2-40cb-a407-f43e552638b4 */
+      batch_id: string;
+      /** @example Bape #889 */
+      metadata_name: string;
+      /** @example The #1 metavestor clan (NFT/DAO) by a team with multi billion dollar company experience. */
+      metadata_description: string;
+      /** @example [{"trait_type":"Background","value":"Black"},{"trait_type":"Body","value":"Man"},{"trait_type":"Dress","value":"Suit Tie Blue"},{"trait_type":"Face","value":"Pipe"},{"trait_type":"Eye","value":"Eye"}] */
+      metadata_attributes: string;
+      /** @example 14265936 */
+      block_number_minted: string;
+      opensea_lookup?: { [key: string]: unknown };
+      /** @example 0xdcf086e3f7954b38180daae1405569da86588bfe */
+      minter_address: string;
+      /** @example 0x2c8d7ec7a8439b0f67b50e93be63242de52e9b5cdfc7dc0aee80c6a2f104c41a */
+      transaction_minted: string;
+      frozen_log_index?: { [key: string]: unknown };
+      imported?: { [key: string]: unknown };
+      /**
+       * @description When the token_uri was last updated
+       * @example 2021-02-24T00:47:26.647Z
+       */
+      last_token_uri_sync?: string;
+      /**
+       * @description When the metadata was last updated
+       * @example 2021-02-24T00:47:26.647Z
+       */
+      last_metadata_sync?: string;
+      /**
+       * Format: date-time
+       * @example 2022-02-24T00:47:26.647Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @example 2022-04-09T23:56:44.807Z
+       */
+      updatedAt: string;
     };
     nftCollection: {
       /**
@@ -882,7 +948,7 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
-      /** @description when the metadata was last updated */
+      /** @description When the metadata was last updated */
       synced_at?: string;
       /**
        * @description The number of this item the user owns (used by ERC1155)
@@ -899,6 +965,21 @@ export interface components {
        * @example RARI
        */
       symbol: string;
+      /**
+       * @description The token hash
+       * @example 502cee781b0fb40ea02508b21d319ced
+       */
+      token_hash: string;
+      /**
+       * @description When the token_uri was last updated
+       * @example 2021-02-24T00:47:26.647Z
+       */
+      last_token_uri_sync: string;
+      /**
+       * @description When the metadata was last updated
+       * @example 2021-02-24T00:47:26.647Z
+       */
+      last_metadata_sync: string;
     };
     nftOwnerCollection: {
       /**
@@ -1282,16 +1363,51 @@ export interface components {
       address: string;
     };
     reservesCollection: {
-      /**
-       * @description reserve0
-       * @example 1177323085102288091856004
-       */
-      reserve0: string;
-      /**
-       * @description reserve1
-       * @example 9424175928981149993184
-       */
-      reserve1: string;
+      token0?: {
+        /** @example 0x2b591e99afe9f32eaa6214f7b7629768c40eeb39 */
+        address?: string;
+        /** @example HEX */
+        name?: string;
+        /** @example HEX */
+        symbol?: string;
+        /** @example 9 */
+        decimals?: string;
+        /** @example https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39.png */
+        logo?: string;
+        /** @example b3bd1b5512965d7b6aeee903dcc6d28b116d58c788eb41e9c1690baed878beaa */
+        logo_hash?: string;
+        /** @example https://cdn.moralis.io/eth/0x2b591e99afe9f32eaa6214f7b7629768c40eeb39_thumb.png */
+        thumbnail?: string;
+        /** @example 14836562 */
+        block_number?: string;
+        validated?: number;
+        /** @example 2022-01-20T09:39:55.818Z */
+        created_at?: string;
+      };
+      token1?: {
+        /** @example 0xdac17f958d2ee523a2206206994597c13d831ec7 */
+        address?: string;
+        /** @example Tether USD */
+        name?: string;
+        /** @example USDT */
+        symbol?: string;
+        /** @example 6 */
+        decimals?: string;
+        /** @example https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png */
+        logo?: string;
+        /** @example ee7aa2cdf100649a3521a082116258e862e6971261a39b5cd4e4354fcccbc54d */
+        logo_hash?: string;
+        /** @example https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7_thumb.png */
+        thumbnail?: string;
+        /** @example 4638568 */
+        block_number?: string;
+        /** @example 1 */
+        validated?: number;
+        /** @example 2022-01-20T09:39:55.818Z */
+        created_at?: string;
+      };
+      /** @example 0xbbb9bf440d0f686487925fef3b0a0f9aa67753f6 */
+      pairAddress?: string;
     };
     ipfsFileRequest: {
       /**
@@ -1461,8 +1577,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -1631,8 +1745,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** The cursor returned in the last response (for getting the next page) */
         cursor?: unknown;
         /** limit */
@@ -1736,8 +1848,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2193,7 +2303,7 @@ export interface operations {
   };
   /**
    * Gets data, including metadata (where available), for all token ids for the given contract address.
-   * * Results are limited to 500 per page by default
+   * * Results are limited to 100 per page by default
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getAllTokenIds: {
@@ -2252,7 +2362,6 @@ export interface operations {
   /**
    * Gets all owners of NFT items within a given contract collection
    * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-   * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getNFTOwners: {
@@ -2398,7 +2507,6 @@ export interface operations {
   /**
    * Gets all owners of NFT items within a given contract collection
    * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-   * * Make sure to include a sort parm on a column like block_number_minted for consistent pagination results
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getTokenIdOwners: {

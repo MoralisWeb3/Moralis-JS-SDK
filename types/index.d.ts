@@ -80,6 +80,7 @@ declare enum EChains {
   AVAX_MAINNET = '0xa86a',
   AVAX_TESTNET = '0xa869',
   FANTOM_MAINNET = '0xfa',
+  CRONOS_MAINNET = '0x19',
 }
 
 export namespace Moralis {
@@ -400,6 +401,7 @@ export namespace Moralis {
   type FantomChain = 'fantom' | 'ftm' | '0xfa';
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type AvalancheTestChain = 'avalanche testnet' | 'avax testnet' | '0xa869' | 'fuji';
+  type ChronosChain = 'cro' | 'chronos' | 'chronos mainnet' | '0x19';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
   type Chain =
     | EthChain
@@ -414,6 +416,7 @@ export namespace Moralis {
     | FantomChain
     | AvalancheChain
     | AvalancheTestChain
+    | ChronosChain
     | LocalDevChain;
 
   interface CommonConvenienceOptions {
@@ -1914,6 +1917,7 @@ export namespace Moralis {
     AVAX_MAINNET: EChains.AVAX_MAINNET;
     AVAX_TESTNET: EChains.AVAX_TESTNET;
     FANTOM_MAINNET: EChains.FANTOM_MAINNET;
+    CRONOS_MAINNET: EChains.CRONOS_MAINNET;
   }
 
   class Error {
