@@ -16,6 +16,7 @@ export const Evm = () => {
         Connect via walletconnect
       </button>
       <button onClick={() => Moralis.Evm.disconnect()}>Disconnect</button>
+      <button onClick={() => Moralis.Evm.cancelRequest()}>Cancel request</button>
       <button onClick={() => console.log(Moralis.Evm.connector)}>get connector</button>
       <button onClick={() => console.log(Moralis.Evm.account)}>get account</button>
       <button onClick={() => console.log(Moralis.Evm.chain)}>get chainId</button>

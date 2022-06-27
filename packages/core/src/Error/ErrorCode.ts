@@ -49,6 +49,7 @@ export enum NetworkErrorCode {
   WALLET_NOT_FOUND = 'N0006',
   CONTRACT_NOT_SET = 'N0007',
   NO_CHAIN_SET = 'N0008',
+  CANNOT_CANCEL = 'N0009',
 
   NOT_IMPLEMENTED = 'N9000',
 }

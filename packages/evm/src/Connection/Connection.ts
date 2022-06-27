@@ -271,6 +271,22 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     this.transition({ type: 'DISCONNECT' });
   };
 
+  cancleRequest = async () => {
+    if (!this.isConnecting) {
+      throw new MoralisNetworkError({
+        code: NetworkErrorCode.CANNOT_CANCEL,
+        message: 'Cannot cancel request, as no connection attempt is pending',
+      });
+    }
+    this.transition({
+      type: 'CONNECT_ERROR',
+      data: new MoralisNetworkError({
+        code: NetworkErrorCode.CANNOT_CONNECT,
+        message: 'Request cancelled',
+      }),
+    });
+  };
+
   /**
    * Getters
    */
