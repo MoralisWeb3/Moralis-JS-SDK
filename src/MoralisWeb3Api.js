@@ -65,7 +65,7 @@ static getParameterizedUrl(url, params) {
 
 static getNextOptions(result, options) {
   const nextOptions = {...options};
-  if (!result.page_size || !result.total || result.page === undefined) return options
+  if (!result || !result.page_size || !result.total || result.page === undefined) return options
   if (result.cursor) {
     if(result.total > (result.page_size * (result.page + 1))) nextOptions.cursor = result.cursor;
   } else {
