@@ -1,3 +1,11 @@
+## [1.8.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.8.0...v1.8.1) (2022-06-28)
+
+
+### Bug Fixes
+
+* fix pagination manual version bump ([fa46929](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fa469297921763d8f390882699382b366f12f83d))
+* **web3api:** paginated result fix ([b9453f0](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b9453f03fd12be4dacc8d3037befe0ad4179c973))
+
 # [1.8.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.7.0...v1.8.0) (2022-05-29)
 
 
