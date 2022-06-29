@@ -5,11 +5,11 @@
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
-  "module": "./lib/index.es.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib"
+    "lib",
+    "dist"
   ],
   "scripts": {
     "test": "echo 'not implemented'",

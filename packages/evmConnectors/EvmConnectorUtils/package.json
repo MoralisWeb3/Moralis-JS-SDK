@@ -7,6 +7,9 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "format": "prettier . '**/*.+(js|ts|json)' --write",
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",

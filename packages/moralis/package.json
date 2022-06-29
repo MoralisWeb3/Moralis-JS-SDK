@@ -5,11 +5,11 @@
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
-  "module": "./lib/index.es.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib"
+    "lib",
+    "dist"
   ],
   "scripts": {
     "format": "prettier . '**/*.+(js|ts|json)' --write",
@@ -23,6 +23,7 @@
     "@moralisweb3/core": "^2.0.0-alpha.1",
     "@moralisweb3/server": "^2.0.0-alpha.1",
     "@moralisweb3/evm-api": "^2.0.0-alpha.1",
-    "@moralisweb3/evm": "^2.0.0-alpha.1"
+    "@moralisweb3/evm": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1"
   }
 }

@@ -28,6 +28,6 @@
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.1",
     "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1",
-    "@walletconnect/web3-provider": "^1.7.8"
+    "@moralisweb3/wallet-connect-wrapper": "^2.0.0-alpha.1"
   }
 }
