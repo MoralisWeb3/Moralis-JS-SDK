@@ -1,1 +1,1 @@
-# @moralisweb3/evm-wallet-connect-connector
+# @moralisweb3/evm-web3auth-connector

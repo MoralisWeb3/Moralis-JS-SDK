@@ -5,16 +5,19 @@ import {
   MoralisNetworkConnectorError,
   EvmWeb3authConnectOptions,
   NetworkConnectorErrorCode,
+  ChainNamespaceType,
 } from '@moralisweb3/core';
 import core from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
-import { ethers } from 'ethers';
 import { Web3Auth, Web3AuthOptions } from '@web3auth/web3auth';
-import { SafeEventEmitterProvider } from '@web3auth/base';
+import { SafeEventEmitterProvider, ADAPTER_EVENTS } from '@web3auth/base';
 
-/**
- * Connector for WalletConnect v1
- */
+const DEFAULT_OPTIONS: Omit<EvmWeb3authConnectOptions, 'clientId'> = {
+  theme: 'dark',
+  appLogo: 'https://moralis.io/wp-content/uploads/2021/05/moralisWhiteLogo.svg',
+  chainId: '0x1',
+  chainNamespace: 'eip155',
+};
 export class EvmWeb3authConnector extends EvmAbstractConnector {
   constructor() {
     super({
@@ -28,17 +31,12 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
       return this._provider as any;
     }
 
-    web3auth.loginModal.on('MODAL_VISIBILITY', async (visibility: boolean) => {
-      if (!visibility) {
-        new Error('Web3Auth: User closed login modal.');
-      }
-    });
     const provider = await web3auth.connect();
 
     if (!provider) {
       throw new MoralisNetworkConnectorError({
         code: NetworkConnectorErrorCode.NO_PROVIDER,
-        message: 'Failed to create a WalletConnect provider',
+        message: 'Failed to create a provider',
       });
     }
 
@@ -46,38 +44,53 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
   }
 
   async connect(_options: EvmWeb3authConnectOptions): Promise<EvmConnectResponse> {
-    const chainId = EvmChain.create(_options.chainId || '0x1').apiHex;
+    const params = { ...DEFAULT_OPTIONS, ..._options };
     const options: Web3AuthOptions = {
       chainConfig: {
-        chainId: chainId,
-        chainNamespace: _options.chainConfig?.chainNamespace || 'eip155',
-        ..._options.chainConfig,
+        chainId: EvmChain.create(params.chainId!).apiHex,
+        chainNamespace: params.chainNamespace as ChainNamespaceType,
       },
       uiConfig: {
-        appLogo: _options.appLogo || 'https://moralis.io/wp-content/uploads/2021/05/moralisWhiteLogo.svg',
-        loginMethodsOrder: _options.loginMethodsOrder,
-        theme: _options.theme || 'dark',
+        appLogo: params.appLogo,
+        loginMethodsOrder: params.loginMethodsOrder,
+        theme: params.theme,
       },
-      clientId: _options.clientId,
+      clientId: params.clientId,
     };
 
-    this.logger.verbose('Connecting', { providedOptions: _options, options });
+    this.logger.verbose('Connecting', { providedOptions: _options, params });
 
-    const web3auth = new Web3Auth(options as Web3AuthOptions);
+    const web3auth = new Web3Auth(options);
 
-    await web3auth.initModal();
+    if (params.newSession) {
+      web3auth.clearCache();
+    }
 
-    await this.getProvider(web3auth);
+    this.subscribeAuthEvents(web3auth);
 
-    const isSocialLogin = web3auth.provider ? false : true;
-    const ether = new ethers.providers.Web3Provider(web3auth.provider || (web3auth as any));
+    await web3auth.initModal(/* {
+      modalConfig: {
+        [EVM_ADAPTERS.OPENLOGIN]: {
+          label: 'OpenLogin',
+          showOnModal: false,
+        },
+      },
+    } */);
 
-    const signer = ether.getSigner();
+    console.log('PROVIDER FROM WEB3AUTH', web3auth.provider);
 
-    const account = await signer.getAddress();
-    this.account = new EvmAddress(account);
-    this.chain = new EvmChain(options.chainConfig.chainId!);
-    this._provider = isSocialLogin ? ether : web3auth.provider;
+    const provider = await this.getProvider(web3auth);
+
+    // const provider = web3auth.provider;
+
+    const [accounts, chainId] = await Promise.all([
+      provider?.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
+      provider?.request({ method: 'eth_chainId' }) as Promise<string>,
+    ]);
+
+    this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
+    this.chain = new EvmChain(chainId!);
+    this._provider = web3auth.provider;
 
     this.subscribeToEvents(this.provider!);
 
@@ -86,6 +99,43 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
       chain: this.chain,
       account: this.account,
     };
+  }
+
+  subscribeAuthEvents(web3auth: Web3Auth) {
+    web3auth.on(ADAPTER_EVENTS.CONNECTED, (data) => {
+      console.log('Yeah!, you are successfully logged in', data);
+    });
+
+    web3auth.on(ADAPTER_EVENTS.CONNECTING, () => {
+      console.log('connecting');
+    });
+
+    web3auth.on(ADAPTER_EVENTS.DISCONNECTED, () => {
+      console.log('disconnected');
+    });
+
+    web3auth.on(ADAPTER_EVENTS.ERRORED, (error) => {
+      console.log('some error or user have cancelled login request', error);
+    });
+
+    web3auth.loginModal.on('MODAL_VISIBILITY', async (visibility: boolean) => {
+      if (!visibility) {
+        throw new MoralisNetworkConnectorError({
+          code: NetworkConnectorErrorCode.GENERIC_NETWORK_CONNECTOR_ERROR,
+          message: 'Web3Auth: User closed login modal.',
+        });
+      }
+    });
+  }
+
+  cleanup() {
+    try {
+      if (window) {
+        window.sessionStorage.removeItem('Web3Auth-cachedAdapter');
+      }
+    } catch (error) {
+      // Do nothing
+    }
   }
 }
 

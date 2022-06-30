@@ -17,7 +17,7 @@ export const Evm = () => {
       <button onClick={() => Moralis.Evm.connect('wallet-connect', { newSession: true })}>
         Connect via walletconnect
       </button>
-      <button onClick={() => Moralis.Evm.connect('web3auth', { clientId: "BGyyhssMRWWCq5JlJZ-kkoOkmiJOZzyJ3MwTcAEhShXfULYNpp9PHpv4RwX-H259Ewl59EqJT0rfASHAzaKBudg", chainId: 4 })}>
+      <button onClick={() => Moralis.Evm.connect('web3auth', { clientId: "BGyyhssMRWWCq5JlJZ-kkoOkmiJOZzyJ3MwTcAEhShXfULYNpp9PHpv4RwX-H259Ewl59EqJT0rfASHAzaKBudg", chainId: 4, newSession: true  })}>
         Connect via web3auth
       </button>
       <button onClick={() => Moralis.Evm.disconnect()}>Disconnect</button>

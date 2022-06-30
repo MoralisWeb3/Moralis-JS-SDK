@@ -13,6 +13,7 @@ export type SolBaseConnectOptions = Record<string, unknown>;
 export type EvmConnect = {
   (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
   (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
+  (connector: 'web3auth', options?: EvmWeb3authConnectOptions): Promise<EvmConnectData>;
   (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
 };
 
@@ -43,39 +44,16 @@ export interface EvmWeb3authConnectOptions extends EvmBaseConnectOptions {
   theme?: 'light' | 'dark';
   // Prefered chainId, if supported by the connector
   chainId?: InputChainId;
-  chainConfig?: CustomChainConfig;
+  // Weather to reuse the same session (if available), or to force a new session
+  newSession?: boolean;
+  chainNamespace?: ChainNamespaceType;
 }
 
 const CHAIN_NAMESPACES = {
   EIP155: 'eip155',
-  SOLANA: 'solana',
 } as const;
 // eip155 for all evm chains
 export type ChainNamespaceType = typeof CHAIN_NAMESPACES[keyof typeof CHAIN_NAMESPACES];
-
-interface CustomChainConfig {
-  chainNamespace: ChainNamespaceType;
-  /*
-   RPC target Url for the chain
-  */
-  rpcTarget?: string;
-  /*
-   Display Name for the chain
-  */
-  displayName?: string;
-  /*
-   Url of the block explorer
-   */
-  blockExplorer?: string;
-  /*
-   Default currency ticker of the network (e.g: ETH)
-  */
-  ticker?: string;
-  /*
-   Name for currency ticker (e.g: `Ethereum`)
-  */
-  tickerName?: string;
-}
 
 export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions {
   // Prefered chainId, if supported by the connector
