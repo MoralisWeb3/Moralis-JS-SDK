@@ -4,9 +4,16 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import cleaner from 'rollup-plugin-cleaner';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
 import babel from '@rollup/plugin-babel';
 import { uglify } from 'rollup-plugin-uglify';
+
+const isDev = (process.env.dev === 'true');
+
+function uglifyIfProd() {
+  return isDev ? undefined : uglify();
+}
 
 export function commonJs(packageJson) {
   const external = Object.keys(packageJson.dependencies);
@@ -52,13 +59,14 @@ export function esm(packageJson, internal) {
       resolve({
         preferBuiltins: false,
       }),
+      json(),
       commonjs(),
       typescript({ useTsconfigDeclarationDir: true }),
       babel({
         babelHelpers: 'bundled',
       }),
       globals(),
-      uglify(),
+      uglifyIfProd(),
     ],
   };
 }
@@ -91,6 +99,7 @@ export function umd(outputName, packageJson, externanMap) {
       resolve({
         preferBuiltins: false,
       }),
+      json(),
       commonjs({}),
       typescript({
         useTsconfigDeclarationDir: true,
@@ -99,7 +108,7 @@ export function umd(outputName, packageJson, externanMap) {
         babelHelpers: 'bundled',
       }),
       globals(),
-      uglify(),
+      uglifyIfProd(),
     ],
   };
 }

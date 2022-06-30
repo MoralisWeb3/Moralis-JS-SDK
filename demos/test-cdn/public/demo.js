@@ -25,23 +25,37 @@ function appendButton(label, handler) {
 }
 
 function initDemo() {
-  appendButton('Connect Metamask', () => {
+  appendButton('Evm.connect / metamask', () => {
     return Moralis.Evm.connect('metamask', {});
   });
 
-  appendButton('Connect WalletConnect', () => {
+  appendButton('Evm.connect / walletConnect', () => {
     return Moralis.Evm.connect('wallet-connect', {});
   });
 
-  appendButton('Transfer Native', () => {
+  appendButton('Evm.transferNative', () => {
     return Moralis.Evm.transferNative({
       to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
       value: '0.001',
     });
   });
 
-  appendButton('Fetch Api Version', () => {
+  appendButton('EvmApi.info.web3ApiVersion', () => {
     return Moralis.EvmApi.info.web3ApiVersion();
+  });
+
+  appendButton('EvmApi.native.getBlock', () => {
+    return Moralis.EvmApi.native.getBlock({
+      blockNumberOrHash: '1000000',
+    });
+  });
+
+  appendButton('Server.authenticate', () => {
+    return Moralis.Server.authenticate('evm', { connector: 'metamask', silent: false });
+  });
+
+  appendButton('Server.fetchIPFS', () => {
+    return Moralis.Server.fetchIPFS('QmUfpsyqc4hwozotRo4woyi5fJqvfcej5GcFvKiWoY6xr6');
   });
 }
 

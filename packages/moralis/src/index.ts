@@ -21,7 +21,7 @@ const Moralis = {
 
   // for UMD bundles
   CoreLib,
-  EvmConnectorUtilsLib
+  EvmConnectorUtilsLib,
 };
 
 export default Moralis;
