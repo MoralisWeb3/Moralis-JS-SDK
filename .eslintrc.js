@@ -13,6 +13,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    curly: 'error',
     'no-fallthrough': 'off',
     'no-constant-condition': 'off',
     'getter-return': 'off',
