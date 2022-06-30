@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "@walletconnect/types": "^1.7.8",
-    "eslint": "^8.7.0",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },

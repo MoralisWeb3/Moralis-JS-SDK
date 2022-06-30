@@ -5,7 +5,7 @@ function initMoralis() {
 
   Moralis.start({
     serverUrl: MORALIS_SERVER_URL,
-    appId: MORALIS_APP_ID
+    appId: MORALIS_APP_ID,
   });
 }
 

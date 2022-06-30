@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@typechain/ethers-v5": "^10.0.0",
-    "eslint": "^8.11.0",
     "jest": "^28.0.3",
     "prettier": "^2.5.1",
     "typechain": "^8.0.0",
