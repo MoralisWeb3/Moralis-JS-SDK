@@ -1,10 +1,9 @@
 import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/core';
 import { BigNumberish, ethers } from 'ethers';
 import { assertAddress } from '../assert/assertAddress';
-import { assertChain } from '../assert/assertChain';
+import { assertChain, assertChainEquality } from '../assert/assertChain';
 import { assertProvider } from '../assert/assertProvider';
 import { Erc721__factory } from '../Contract';
-import { validateChain } from '../utils/validators';
 import { wrapEthersTransactionResponse } from '../utils/wrapEthersTransactionResponse';
 
 export interface TransferErc721Options {
@@ -21,7 +20,9 @@ export const makeTransferErc721 =
     const fromAddress = assertAddress(_account, 'No account is connected');
 
     const chain = assertChain(_chain, 'Chain is not set on MoralisEvm. Make sure to be properly connected');
-    if (options.chain) validateChain(options.chain, chain);
+    if (options.chain) {
+      assertChainEquality(options.chain, chain);
+    }
 
     const contractAddress = EvmAddress.create(options.contractAddress);
     const toAddress = EvmAddress.create(options.to);
