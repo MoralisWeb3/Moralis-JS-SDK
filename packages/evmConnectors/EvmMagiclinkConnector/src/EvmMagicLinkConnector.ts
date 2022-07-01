@@ -8,7 +8,6 @@ import {
 } from '@moralisweb3/core';
 import core from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
-import { ethers } from 'ethers';
 import { EthNetworkConfiguration, Magic } from 'magic-sdk';
 
 /**
@@ -22,13 +21,13 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
     });
   }
 
-  private getProvider(magic: Magic): ethers.providers.Web3Provider {
+  // TODO: Implement with proper typings
+  private getProvider(magic: Magic): any {
     if (this._provider) {
-      return this._provider as ethers.providers.Web3Provider;
+      return this._provider;
     }
 
-    // TODO: Replace any with proper type
-    const provider = new ethers.providers.Web3Provider(magic.rpcProvider as any);
+    const provider = magic.rpcProvider;
 
     if (!provider) {
       throw new MoralisNetworkConnectorError({
@@ -57,18 +56,22 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
       this.cleanup(magic);
     }
 
-    const web3Provider = this.getProvider(magic);
-    this._provider = web3Provider.provider;
+    const provider = this.getProvider(magic);
+
+    console.log('provider', provider);
+
+    const [accounts, chainId] = await Promise.all([
+      provider.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
+      provider.request({ method: 'eth_chainId' }) as Promise<string>,
+    ]);
+    this._provider = provider;
 
     await magic.auth.loginWithMagicLink({
       email: options.email,
     });
 
-    const signer = web3Provider.getSigner();
-
-    const account = await signer.getAddress();
-    this.account = new EvmAddress(account);
-    this.chain = new EvmChain(options.chainId);
+    this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
+    this.chain = new EvmChain(chainId);
 
     this.subscribeToEvents(this.provider!);
 
