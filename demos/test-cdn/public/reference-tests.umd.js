@@ -1,4 +1,3 @@
-
 class Logger {
   constructor(element) {
     this.element = element;
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!instance) {
         throw new Error('Value cannot be null or undefined');
       }
-      logger.log(`${expression}  = ${typeof (instance)}`);
+      logger.log(`${expression} = ${typeof instance}`);
     } catch (e) {
       passed = false;
       logger.error(e + ` (${expression})`);
