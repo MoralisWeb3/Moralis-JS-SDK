@@ -12,10 +12,6 @@ module.exports = {
   globals: {
     'ts-jest': {
       useESM: true,
-      diagnostics: {
-        // exclude type checking in tests: https://github.com/kulshekhar/ts-jest/issues/822
-        exclude: ['**'],
-      },
     },
   },
   collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
