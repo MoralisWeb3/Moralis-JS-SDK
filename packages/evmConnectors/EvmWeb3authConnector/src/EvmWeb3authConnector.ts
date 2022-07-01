@@ -11,6 +11,7 @@ import core from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import { Web3Auth, Web3AuthOptions } from '@web3auth/web3auth';
 import { SafeEventEmitterProvider, ADAPTER_EVENTS } from '@web3auth/base';
+// import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 
 const DEFAULT_OPTIONS: Omit<EvmWeb3authConnectOptions, 'clientId'> = {
   theme: 'dark',
@@ -77,11 +78,13 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
       },
     } */);
 
-    console.log('PROVIDER FROM WEB3AUTH', web3auth.provider);
+     await this.getProvider(web3auth);
+    // const isSocialLogin = web3auth.provider ? false : true;
 
-    const provider = await this.getProvider(web3auth);
+    console.log('PROVIDER FROM WEB3AUTH PROVIDER', web3auth.provider);
+    console.log('PROVIDER FROM WEB3AUTH', web3auth);
 
-    // const provider = web3auth.provider;
+    const provider = web3auth.provider;
 
     const [accounts, chainId] = await Promise.all([
       provider?.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
@@ -126,16 +129,6 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
         });
       }
     });
-  }
-
-  cleanup() {
-    try {
-      if (window) {
-        window.sessionStorage.removeItem('Web3Auth-cachedAdapter');
-      }
-    } catch (error) {
-      // Do nothing
-    }
   }
 }
 
