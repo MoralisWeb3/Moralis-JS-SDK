@@ -56,6 +56,7 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
         loginMethodsOrder: params.loginMethodsOrder,
         theme: params.theme,
       },
+      enableLogging: true,
       clientId: params.clientId,
     };
 
@@ -78,19 +79,24 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
       },
     } */);
 
-     await this.getProvider(web3auth);
+    await this.getProvider(web3auth);
     // const isSocialLogin = web3auth.provider ? false : true;
 
-    console.log('PROVIDER FROM WEB3AUTH PROVIDER', web3auth.provider);
-    console.log('PROVIDER FROM WEB3AUTH', web3auth);
+    // console.log('PROVIDER FROM WEB3AUTH PROVIDER', web3auth.provider);
+    // console.log('PROVIDER FROM WEB3AUTH', web3auth);
 
     const provider = web3auth.provider;
+    try {
+      await provider?.request({ method: 'eth_requestAccounts' });
+    } catch (error) {
+      throw error;
+    }
 
-    const [accounts, chainId] = await Promise.all([
-      provider?.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
+    const [chainId, accounts] = await Promise.all([
       provider?.request({ method: 'eth_chainId' }) as Promise<string>,
+      provider?.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
     ]);
-
+    console.log('ACCOUNT', accounts);
     this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
     this.chain = new EvmChain(chainId!);
     this._provider = web3auth.provider;
@@ -123,7 +129,7 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
 
     web3auth.loginModal.on('MODAL_VISIBILITY', async (visibility: boolean) => {
       if (!visibility) {
-        throw new MoralisNetworkConnectorError({
+        new MoralisNetworkConnectorError({
           code: NetworkConnectorErrorCode.GENERIC_NETWORK_CONNECTOR_ERROR,
           message: 'Web3Auth: User closed login modal.',
         });
