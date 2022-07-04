@@ -1,5 +1,5 @@
 import { AuthMethod } from '@moralisweb3/server';
-import { Moralis } from 'moralis';
+import Moralis from 'moralis';
 
 export const Server = () => {
   return (
