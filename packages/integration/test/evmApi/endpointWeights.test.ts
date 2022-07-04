@@ -22,7 +22,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should get the endpoint weight ', async () => {
-    const result = await EvmApi.info.endpointWeights({});
+    const result = await EvmApi.info.endpointWeights();
 
     expect(result.toJSON()).toStrictEqual({ endpoint: 'getBlock' });
     expect(result).toBeDefined();

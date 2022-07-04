@@ -69,14 +69,18 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
+    const apiKey = core.config.get('apiKey');
+    const headers: { [key: string]: string } = {};
+    if (apiKey) {
+      headers['x-api-key'] = apiKey;
+    }
+
     const result = await RequestController.post<
       PaginatedResponse<ApiResult>,
       Record<string, string>,
       Record<string, string>
     >(url, searchParams, bodyParams, {
-      headers: {
-        'x-api-key': core.config.get('apiKey') ?? undefined,
-      },
+      headers,
     });
 
     return new EvmApiPaginatedResultAdapter(
