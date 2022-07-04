@@ -70,35 +70,6 @@ export class EvmChain implements MoralisData {
     return new EvmChain(chain);
   }
 
-  // TODO: Remove comment when implemented
-  // static validate(chain: InputChainId) {
-  //   if (typeof chain === 'string') {
-  //     if (isSupportedChainName(chain)) {
-  //       return true;
-  //     }
-
-  //     if (chain.startsWith('0x') && chain !== '0x' && chain !== '0x0') {
-  //       return true;
-  //     }
-
-  //     throw new MoralisCoreError({
-  //       code: CoreErrorCode.INVALID_ARGUMENT,
-  //       message:
-  //         "Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'",
-  //     });
-  //   } else {
-  //     if (chain <= 0) {
-  //       throw new MoralisCoreError({
-  //         code: CoreErrorCode.INVALID_ARGUMENT,
-  //         message:
-  //           "Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'",
-  //       });
-  //     }
-  //   }
-
-  //   return true;
-  // }
-
   /**
    * Parse the input to a value that is compatible with the internal _value
    */
