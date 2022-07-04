@@ -1,4 +1,4 @@
-import { Moralis } from 'moralis';
+import Moralis from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
 import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
 import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
