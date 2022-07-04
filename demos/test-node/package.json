@@ -1,12 +1,12 @@
 {
-  "name": "@morlaisweb3/test-node",
+  "name": "@moralisweb3/test-node",
   "author": "Moralis",
   "version": "2.0.0-alpha.1",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "build:dev": "tsc",
-    "start": "tsc && node build/main.js",
+    "start": "node build/main.js",
     "format": "prettier . 'src/**/*.+(js|ts|json)' --write",
     "format:check": "prettier . 'src/**/*.+(js|ts|json)' --check"
   },

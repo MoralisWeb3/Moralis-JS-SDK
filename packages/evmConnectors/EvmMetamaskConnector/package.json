@@ -8,7 +8,8 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib",
+    "lib/index.*",
+    "lib/**/*.d.ts",
     "dist"
   ],
   "scripts": {
