@@ -9,7 +9,8 @@
   "sideEffects": false,
   "files": [
     "lib/index.*",
-    "lib/**/*.d.ts"
+    "lib/**/*.d.ts",
+    "dist"
   ],
   "scripts": {
     "format": "prettier . '**/*.+(js|ts|json)' --write",
