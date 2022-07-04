@@ -1,5 +1,5 @@
 import { JsonFragment, JsonFragmentType } from '@ethersproject/abi';
-import { EvmAddress, EvmAddressish, MoralisServerError, ServerErrorCode } from '@moralisweb3/core/lib';
+import { EvmAddress, EvmAddressish, MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import ethers, { BigNumberish, Contract, ContractFunction } from 'ethers';
 import { assertProvider } from '../assert/assertProvider';
 

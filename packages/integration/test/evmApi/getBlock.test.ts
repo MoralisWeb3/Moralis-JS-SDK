@@ -23,7 +23,7 @@ describe('Moralis EvmApi', () => {
 
   it('should get the block of an account', async () => {
     const result = await EvmApi.native.getBlock({
-      block_number_or_hash: '1000000',
+      blockNumberOrHash: '1000000',
     });
 
     expect(result).toBeDefined();
@@ -34,7 +34,7 @@ describe('Moralis EvmApi', () => {
   it('should not get the block of an hash and throw an error ', async () => {
     const failedResult = await EvmApi.native
       .getBlock({
-        block_number_or_hash: '100000',
+        blockNumberOrHash: '100000',
       })
       .then()
       .catch((err) => {
@@ -44,7 +44,7 @@ describe('Moralis EvmApi', () => {
     expect(failedResult).toBeDefined();
     expect(
       EvmApi.native.getBlock({
-        block_number_or_hash: '100000',
+        blockNumberOrHash: '100000',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
   });

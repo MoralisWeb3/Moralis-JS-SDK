@@ -41,11 +41,11 @@ Current Features in this alpha build:
 - [x] Authenticate to the server via password
 - [x] Evm transfer, and executeFunction utilities
 - [x] EvmApi
+- [x] Usage in browsers via a script tag
 
 Coming up:
 
 - [ ] Connect to an Evm network with other connectors
-- [ ] Usage in browsers via a script tag
 - [ ] Support for NodeJs
 - [ ] Support for react-native
 - [ ] Solana support
@@ -89,31 +89,59 @@ Install the package via `npm`:
 npm install moralis
 ```
 
-or `yarn`
+or `yarn`:
 
 ```shell
 yarn add moralis
+```
+
+Import Moralis:
+
+```js
+import Moralis from 'moralis';
 ```
 
 #### Browser (UMD)
 
 If you want to use a pre-compiled file from unpkg:
 
-TODO
+```html
+<script src="https://unpkg.com/moralis/dist/index.umd.js"></script>
+<script src="https://unpkg.com/@moralisweb3/evm-wallet-connect-connector/dist/index.umd.js"></script>
+```
 
 #### Browser (ESM)
 
 Or if you prefer the more modern EsModule build:
 
-TODO
+```html
+<script type="importmap">
+{
+  "imports": {
+    "@moralisweb3/core": "https://unpkg.com/@moralisweb3/core/dist/index.esm.js",
+    "@moralisweb3/evm": "https://unpkg.com/@moralisweb3/evm/dist/index.esm.js",
+    "@moralisweb3/evm-api": "https://unpkg.com/@moralisweb3/evm-api/dist/index.esm.js",
+    "@moralisweb3/server": "https://unpkg.com/@moralisweb3/server/dist/index.esm.js",
+    "@moralisweb3/evm-connector-utils": "https://unpkg.com/@moralisweb3/evm-connector-utils/dist/index.esm.js",
+    "@moralisweb3/evm-metamask-connector": "https://unpkg.com/@moralisweb3/evm-metamask-connector/dist/index.esm.js",
+    "@moralisweb3/evm-wallet-connect-connector": "https://unpkg.com/@moralisweb3/evm-wallet-connect-connector/dist/index.esm.js",
+    "moralis": "https://unpkg.com/moralis/dist/index.esm.js"
+  }
+}
+</script>
+<script type="module">
+  import Moralis from 'moralis';
+  // ...
+</script>
+```
+
+⚠ Import maps are [not well supported](https://caniuse.com/import-maps) by modern browsers yet. We don't recommend using it for a production.
 
 #### 2. Initialise Moralis
 
 After your dependency is added, you simply need to initialize moralis via the `start` method:
 
 ```javascript
-import { Moralis } from 'moralis';
-
 Moralis.start({
   serverUrl: '<YOUR_SERVER_URL>',
   appId: '<YOUR_APP_ID>',

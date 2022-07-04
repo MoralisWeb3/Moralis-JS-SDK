@@ -8,7 +8,7 @@ import {
 } from '@moralisweb3/core';
 import core from '@moralisweb3/core';
 import { EvmAbstractConnector, getMoralisRpcs } from '@moralisweb3/evm-connector-utils';
-import WalletConnectProvider from '@walletconnect/web3-provider';
+import { WalletConnectProviderWrapper } from '@moralisweb3/wallet-connect-wrapper';
 import { IWalletConnectProviderOptions } from '@walletconnect/types';
 
 const WALLET_CONNECT_RPC_KEY = 'WalletConnect';
@@ -30,9 +30,9 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
   }
 
   // Internal provider, is typed as WalletConnectProvider and has more options than our "basic" EvmProvider typed
-  _provider: WalletConnectProvider | null = null;
+  _provider: WalletConnectProviderWrapper | null = null;
 
-  private getProvider(options: EvmWalletConnectConnectorOptions): WalletConnectProvider {
+  private getProvider(options: EvmWalletConnectConnectorOptions): WalletConnectProviderWrapper {
     if (this._provider) {
       return this._provider;
     }
@@ -48,7 +48,7 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
       },
     };
 
-    const provider = new WalletConnectProvider(config);
+    const provider = new WalletConnectProviderWrapper(config);
 
     // Should not happen but in theory, but lets be safe
     if (!provider) {

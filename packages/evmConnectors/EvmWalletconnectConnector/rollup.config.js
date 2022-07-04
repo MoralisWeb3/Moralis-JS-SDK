@@ -1,37 +1,13 @@
-import nodePolyfills from 'rollup-plugin-node-polyfills';
-import typescript from 'rollup-plugin-typescript2';
 import packageJson from './package.json';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import cleaner from 'rollup-plugin-cleaner';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import globals from 'rollup-plugin-node-globals';
+import { commonJs, esm, umd } from '../../../rollup.config';
 
-export default {
-  input: 'src/index.ts',
-  output: [
-    {
-      file: packageJson.main,
-      format: 'cjs',
-      sourcemap: true,
-    },
-    {
-      file: packageJson.module,
-      format: 'es',
-      sourcemap: true,
-    },
-  ],
-  plugins: [
-    nodePolyfills(),
-    cleaner({
-      targets: ['./lib'],
-    }),
-    peerDepsExternal(),
-    json(),
-    resolve(),
-    commonjs(),
-    typescript({ useTsconfigDeclarationDir: true }),
-    globals(),
-  ],
+const umdExternalMap = {
+  '@moralisweb3/core': 'Moralis.CoreLib',
+  '@moralisweb3/evm-connector-utils': 'Moralis.EvmConnectorUtilsLib',
 };
+
+export default [
+  commonJs(packageJson),
+  esm(packageJson, ['@moralisweb3/wallet-connect-wrapper']),
+  umd('WalletConnectConnector', packageJson, umdExternalMap),
+];
