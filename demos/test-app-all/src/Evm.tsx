@@ -14,7 +14,7 @@ export const Evm = () => {
     <div>
       <h2>EVM</h2>
       <button onClick={() => Moralis.Evm.connect('metamask', { silent: false })}>Connect via metamask</button>
-      <button onClick={() => Moralis.Evm.connect('magic-link', { email: 'shalom@moralis.io', apiKey: 'pk_live_D058327F385D65BB', chainId: 3, newSession: true })}>Connect via magiclink</button>
+      <button onClick={() => Moralis.Evm.connect('magic-link', { email: 'example@email.com', apiKey: process.env.REACT_APP_MAGIC_LINK_KEY, chainId: 3, newSession: true })}>Connect via magiclink</button>
       <button onClick={() => Moralis.Evm.connect('wallet-connect', { newSession: true })}>
         Connect via walletconnect
       </button>
