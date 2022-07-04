@@ -10,6 +10,10 @@ import core from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import { EthNetworkConfiguration, Magic } from 'magic-sdk';
 
+const DEFAULT_OPTIONS = {
+  chainId: '0x1',
+};
+
 /**
  * Connector for WalletConnect v1
  */
@@ -40,10 +44,7 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
   }
 
   async connect(_options: EvmMagicLinkConnectorOptions): Promise<EvmConnectResponse> {
-    const options = { ..._options };
-    if (!options.chainId) {
-      options.chainId = 1;
-    }
+    const options = { ...DEFAULT_OPTIONS, ..._options };
 
     this.logger.verbose('Connecting', { providedOptions: _options, options });
 
@@ -53,22 +54,20 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
 
     // Log out of any previous sessions
     if (options.newSession) {
-      this.cleanup(magic);
+      await this.cleanup(magic);
     }
 
     const provider = this.getProvider(magic);
 
-    console.log('provider', provider);
-
-    const [accounts, chainId] = await Promise.all([
-      provider.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
-      provider.request({ method: 'eth_chainId' }) as Promise<string>,
-    ]);
-    this._provider = provider;
-
     await magic.auth.loginWithMagicLink({
       email: options.email,
     });
+
+    const [accounts, chainId] = await Promise.all([
+      provider.request({ method: 'eth_accounts' }) as Promise<string[]>,
+      provider.request({ method: 'eth_chainId' }) as Promise<string>,
+    ]);
+    this._provider = provider;
 
     this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
     this.chain = new EvmChain(chainId);

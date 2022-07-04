@@ -13,6 +13,7 @@ export type SolBaseConnectOptions = Record<string, unknown>;
 export type EvmConnect = {
   (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
   (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
+  (connector: 'magiclink', options?: EvmMagicLinkConnectorOptions): Promise<EvmConnectData>;
   (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
 };
 
