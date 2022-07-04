@@ -21,6 +21,7 @@
     "start": "craco start",
     "dev": "craco start",
     "build": "craco build",
+    "build:dev": "craco build",
     "eject": "craco eject",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
     "format:check": "prettier . '**/*.+(js|ts|json)' --check"
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8.4.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "eslint-config-react-app": "^6.0.0"
   }
 }
