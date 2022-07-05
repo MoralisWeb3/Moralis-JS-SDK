@@ -23,7 +23,6 @@ describe('Evm connect', () => {
 
     expect(response.result.hash).toEqual('0x0000000000000000000000000000000000000000000000000000000000000042');
     const receipt = await response.wait();
-    console.log(receipt);
     expect(receipt.result.confirmations).toEqual(1);
   });
 });
