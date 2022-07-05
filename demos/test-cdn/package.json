@@ -4,7 +4,8 @@
   "scripts": {
     "serve": "http-server ../../ -c-1 -p 10101",
     "cypress": "cypress run --config video=false",
-    "e2e": "start-server-and-test serve http://localhost:10101 cypress",
+    "test": "start-server-and-test serve http://localhost:10101 cypress",
+    "test:c1": "yarn run test",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
     "format:check": "prettier . '**/*.+(js|ts|json)' --check"
   },
