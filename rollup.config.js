@@ -9,7 +9,7 @@ import globals from 'rollup-plugin-node-globals';
 import babel from '@rollup/plugin-babel';
 import { uglify } from 'rollup-plugin-uglify';
 
-const isDev = (process.env.dev === 'true');
+const isDev = process.env.dev === 'true';
 
 function uglifyIfProd() {
   return isDev ? undefined : uglify();
@@ -44,7 +44,8 @@ export function esm(packageJson, internal) {
     input: 'src/index.ts',
     output: [
       {
-        file: 'dist/index.esm.js',
+        // file: 'dist/index.esm.js',
+        dir: 'dist/index.esm.js',
         format: 'esm',
         sourcemap: true,
       },
@@ -72,7 +73,7 @@ export function esm(packageJson, internal) {
 }
 
 export function umd(outputName, packageJson, externanMap) {
-  const external = Object.keys(packageJson.dependencies).filter(d => externanMap[d]);
+  const external = Object.keys(packageJson.dependencies).filter((d) => externanMap[d]);
   const outputGlobals = external.reduce((v, d) => {
     v[d] = externanMap[d];
     return v;

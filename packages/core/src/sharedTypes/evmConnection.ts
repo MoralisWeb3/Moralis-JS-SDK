@@ -44,9 +44,8 @@ export interface EvmWeb3authConnectOptions extends EvmBaseConnectOptions {
   theme?: 'light' | 'dark';
   // Prefered chainId, if supported by the connector
   chainId?: InputChainId;
-  // Weather to reuse the same session (if available), or to force a new session
+  // Whether to reuse the same session (if available), or to force a new session
   newSession?: boolean;
-  chainNamespace?: ChainNamespaceType;
 }
 
 const CHAIN_NAMESPACES = {

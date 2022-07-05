@@ -164,7 +164,9 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
 
     connectWallet(this.connectors, connector, options ?? {})
       .then((data) => this.transition({ type: 'CONNECT_SUCCESS', data }))
-      .catch((error: Error) => this.transition({ type: 'CONNECT_ERROR', data: error }));
+      .catch((error: Error) => {
+        this.transition({ type: 'CONNECT_ERROR', data: error });
+      });
   };
 
   private handleConnected = (context: StateContext, event: StateEvent) => {

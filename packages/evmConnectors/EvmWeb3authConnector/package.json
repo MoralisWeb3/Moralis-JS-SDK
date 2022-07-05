@@ -12,17 +12,17 @@
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
   },
   "devDependencies": {
-    "eslint": "^8.7.0",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.1",
     "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1",
-    "@web3auth/web3auth": "0.5.1"
+    "@web3auth/web3auth": "0.5.1",
+    "@toruslabs/eccrypto": "1.1.8"
   }
 }

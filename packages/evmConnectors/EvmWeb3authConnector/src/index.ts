@@ -1,3 +1,3 @@
-import EvmWalletConnectConnector from './EvmWeb3authConnector';
+import EvmWeb3authConnector from './EvmWeb3authConnector';
 
-export default EvmWalletConnectConnector;
+export default EvmWeb3authConnector;
