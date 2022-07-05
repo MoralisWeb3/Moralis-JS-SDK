@@ -28,7 +28,7 @@ export interface EvmTransactionReceiptInput {
   /** The status of a transaction is 1 is successful or 0 if it was reverted. Only transactions included in blocks post-Byzantium Hard Fork have this property */
   status?: null | number;
   /** The number of confirmed blocks */
-  confirmations: number;
+  confirmations?: number;
 }
 
 export interface EvmTransactionReceiptData {
@@ -56,7 +56,7 @@ export interface EvmTransactionReceiptData {
   /** The status of a transaction is 1 is successful or 0 if it was reverted. Only transactions included in blocks post-Byzantium Hard Fork have this property */
   status?: number;
   /** The number of confirmed blocks */
-  confirmations: number;
+  confirmations?: number;
 
   /** Reference to the transactionResponse of the receipt */
   transaction: EvmTransactionResponse;
