@@ -1,4 +1,4 @@
-import { AnyConnector, EvmAddress, EvmChain, EvmConnectData } from '@moralisweb3/core';
+import { AnyConnector, EvmAddress, EvmChain, EvmConnectionData } from '@moralisweb3/core';
 import { ethers } from 'ethers';
 
 /**
@@ -17,7 +17,7 @@ export enum EvmNetworkEvent {
 
 export type EvmNetworkEventMap = {
   [EvmNetworkEvent.CONNECTING]: () => void;
-  [EvmNetworkEvent.CONNECTED]: (data: EvmConnectData<AnyConnector>) => void;
+  [EvmNetworkEvent.CONNECTED]: (data: EvmConnectionData<AnyConnector>) => void;
   [EvmNetworkEvent.DISCONNECTED]: () => void;
   [EvmNetworkEvent.CONNECTING_ERROR]: (error: Error) => void;
   [EvmNetworkEvent.ACCOUNT_CHANGED]: (data: { account: EvmAddress }) => void;
