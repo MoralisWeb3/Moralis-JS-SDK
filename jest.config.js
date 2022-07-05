@@ -8,12 +8,7 @@ module.exports = {
     '^@moralisweb3/core': '<rootDir>/../core/src',
     '^@moralisweb3/(.*)$': '<rootDir>/../$1/src',
   },
-  preset: 'ts-jest/presets/js-with-ts-esm',
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
-  },
+  preset: 'ts-jest/presets/default',
   collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
   coverageThreshold: null,
 };
