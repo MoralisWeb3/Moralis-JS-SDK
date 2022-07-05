@@ -1,5 +1,5 @@
-const path = require('path');
-const { getLoader, loaderByName } = require('@craco/craco');
+const path = require('path'); // eslint-disable-line
+const { getLoader, loaderByName } = require('@craco/craco'); // eslint-disable-line
 
 const packages = [
   path.join(__dirname, '../../packages/moralis'),

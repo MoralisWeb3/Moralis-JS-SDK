@@ -6,17 +6,29 @@ import Evm from '@moralisweb3/evm';
 
 export const Core = () => {
   const removeModule = (module: string) => {
-    if (module === 'Evm') Moralis.Core.modules.remove('evm');
-    if (module === 'Server') Moralis.Core.modules.remove('server');
+    if (module === 'Evm') {
+      Moralis.Core.modules.remove('evm');
+    }
+    if (module === 'Server') {
+      Moralis.Core.modules.remove('server');
+    }
     const list = Moralis.Core.modules.list();
-    if (module === 'EmvApi') Moralis.Core.modules.remove('emvApi');
+    if (module === 'EmvApi') {
+      Moralis.Core.modules.remove('emvApi');
+    }
     console.log('after removing:', typeof list);
   };
 
   const registerModule = (module: string) => {
-    if (module === 'Evm') MoralisCore.registerModules([Evm]);
-    if (module === 'Server') MoralisCore.registerModules([Server]);
-    if (module === 'EvmApi') MoralisCore.registerModules([EvmApi]);
+    if (module === 'Evm') {
+      MoralisCore.registerModules([Evm]);
+    }
+    if (module === 'Server') {
+      MoralisCore.registerModules([Server]);
+    }
+    if (module === 'EvmApi') {
+      MoralisCore.registerModules([EvmApi]);
+    }
     const list = Moralis.Core.modules.list();
     console.log('after registering:', list);
   };
@@ -27,7 +39,7 @@ export const Core = () => {
   };
 
   const readConfig = (key: any) => {
-    let key1 = Moralis.Core.config.get(key);
+    const key1 = Moralis.Core.config.get(key);
     console.log('read config:', key1);
   };
 

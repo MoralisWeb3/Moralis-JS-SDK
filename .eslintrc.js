@@ -1,8 +1,8 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'jest'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  ignorePatterns: ['**/__tests__/**/*', '**/lib/**/*', '**/lib.esm/**/*', '**/*.test.ts', '**/dist/**/*'],
+  ignorePatterns: ['**/lib/**/*', '**/*.test.ts', '**/dist/**/*', '**/build/**/*'],
   env: {
     browser: true,
     es6: true,
@@ -13,11 +13,11 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    curly: 'error',
+    'curly': 'error',
     'no-fallthrough': 'off',
     'no-constant-condition': 'off',
     'getter-return': 'off',
-    'no-console': 'error',
+    'no-console': 'off',
     'no-var': 'error',
     'no-undef': 'off',
     'no-else-return': 'error',
