@@ -12,7 +12,7 @@ on:
       - alpha
 jobs:
   setup:
-    name: Build dependencies
+    name: Setup
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -90,3 +90,27 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
       - name: Prettier
         run: yarn format:check
+
+  build:
+    name: Build
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    needs: setup
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Use cache dependencies
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}s
+      - name: Build
+        run: yarn build
