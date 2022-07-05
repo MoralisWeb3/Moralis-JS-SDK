@@ -147,7 +147,7 @@ export class MockEip1193Provider extends EventEmitter implements EIP1193Provider
    * Resolve all rpc requests
    */
   request(args: RequestArguments) {
-    this.logger.info(`MockEip1193Provider: request(): ${args.method}`, { method: args.method, params: args.params });
+    this.logger.verbose(`MockEip1193Provider: request(): ${args.method}`, { method: args.method, params: args.params });
 
     switch (args.method) {
       case 'eth_requestAccounts':
