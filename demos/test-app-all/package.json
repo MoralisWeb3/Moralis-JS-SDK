@@ -19,7 +19,7 @@
   "scripts": {
     "start": "craco start",
     "dev": "craco start",
-    "build": "SKIP_PREFLIGHT_CHECK=false && craco build",
+    "build": "craco build",
     "build:dev": "craco build",
     "eject": "craco eject",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
