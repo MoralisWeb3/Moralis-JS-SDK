@@ -105,9 +105,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
 
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
     const result = await RequestController.get<ApiResult, ApiParams>(url, searchParams, {
-      headers: {
-        'x-api-key': core.config.get('apiKey') ?? undefined,
-      },
+      headers: this.createHeaders(),
     });
 
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
@@ -125,9 +123,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       searchParams,
       bodyParams,
       {
-        headers: {
-          'x-api-key': core.config.get('apiKey') ?? undefined,
-        },
+        headers: this.createHeaders(),
       },
     );
 
@@ -146,9 +142,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       searchParams,
       bodyParams,
       {
-        headers: {
-          'x-api-key': core.config.get('apiKey') ?? undefined,
-        },
+        headers: this.createHeaders(),
       },
     );
 
@@ -179,6 +173,15 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       });
     }
     return `${serverUrl}/functions/${this.name}`;
+  }
+
+  private createHeaders(): { [key: string]: string } {
+    const apiKey = core.config.get('apiKey');
+    const headers: { [key: string]: string } = {};
+    if (apiKey) {
+      headers['x-api-key'] = apiKey;
+    }
+    return headers;
   }
 
   fetch = (params: Params) => {

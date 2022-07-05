@@ -20,7 +20,6 @@
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "eslint": "^8.7.0",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },
