@@ -1,3 +1,4 @@
+import { AbstractProvider } from 'web3-core/types';
 import {
   EvmAddress,
   EvmChain,
@@ -26,9 +27,9 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
   }
 
   // TODO: Implement with proper typings
-  private getProvider(magic: Magic): any {
+  private getProvider(magic: Magic): AbstractProvider {
     if (this._provider) {
-      return this._provider;
+      return this._provider as AbstractProvider;
     }
 
     const provider = magic.rpcProvider;
@@ -64,8 +65,8 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
     });
 
     const [accounts, chainId] = await Promise.all([
-      provider.request({ method: 'eth_accounts' }) as Promise<string[]>,
-      provider.request({ method: 'eth_chainId' }) as Promise<string>,
+      provider.request!({ method: 'eth_accounts' }) as Promise<string[]>,
+      provider.request!({ method: 'eth_chainId' }) as Promise<string>,
     ]);
     this._provider = provider;
 
@@ -86,7 +87,7 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
       try {
         await magic.user.logout();
       } catch (error) {
-        // Do nothing
+        this.logger.verbose('Failed to logout', { error });
       }
     }
   }
