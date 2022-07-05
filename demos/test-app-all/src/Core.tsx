@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-explicit-any: off */
+
 import Moralis from 'moralis';
 import MoralisCore from '@moralisweb3/core';
 import Server from '@moralisweb3/server';
@@ -33,7 +35,7 @@ export const Core = () => {
     console.log('after registering:', list);
   };
 
-  const setConfig = (key: any, value: string) => {
+  const setConfig = (key: any, value: any) => {
     Moralis.Core.config.set(key, value);
     console.log('value is set');
   };
