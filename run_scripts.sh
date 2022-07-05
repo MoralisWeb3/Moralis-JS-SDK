@@ -16,7 +16,5 @@ yarn --cwd packages/evmApi $1
 yarn --cwd packages/server $1
 yarn --cwd packages/moralis $1
 
-export SKIP_PREFLIGHT_CHECK=true
 yarn --cwd demos/test-app-all $1
-
 yarn --cwd demos/test-node $1

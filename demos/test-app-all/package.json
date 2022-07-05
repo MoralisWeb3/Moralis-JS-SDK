@@ -17,10 +17,9 @@
     "typescript": "^4.6.3"
   },
   "scripts": {
-    "start": "craco start",
-    "dev": "craco start",
-    "build": "craco build",
-    "build:dev": "craco build",
+    "start": "SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco start",
+    "build": "SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco build",
+    "build:dev": "yarn run build",
     "eject": "craco eject",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
