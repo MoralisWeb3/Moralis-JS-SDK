@@ -9,7 +9,7 @@ import { commonJs, esm, umd } from '../../../rollup.config';
 const umdExternalMap = {
   '@moralisweb3/core': 'Moralis.CoreLib',
   '@moralisweb3/evm-connector-utils': 'Moralis.EvmConnectorUtilsLib',
-  '@toruslabs/eccrypto': 'Eccrypto',
+  '@toruslabs/eccrypto': 'eccrypto',
 };
 
 export default [

@@ -66,8 +66,8 @@ export function esm(packageJson, internal, customExternal) {
       resolve({
         preferBuiltins: false,
       }),
-      json(),
       commonjs(),
+      json(),
       typescript({ useTsconfigDeclarationDir: true }),
       babel({
         babelHelpers: 'bundled',
