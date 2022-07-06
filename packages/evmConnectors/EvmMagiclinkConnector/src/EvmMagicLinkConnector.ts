@@ -1,4 +1,3 @@
-import { AbstractProvider } from 'web3-core/types';
 import {
   EvmAddress,
   EvmChain,
