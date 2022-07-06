@@ -2,7 +2,7 @@
 
 function initMoralis() {
   Moralis.Evm.connectors.register(WalletConnectConnector);
-  Moralis.Evm.connectors.register(EvmMagiclinkConnector);
+  Moralis.Evm.connectors.register(MagiclinkConnector);
 
   Moralis.start({
     serverUrl: MORALIS_SERVER_URL,

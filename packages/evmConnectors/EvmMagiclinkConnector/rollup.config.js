@@ -6,4 +6,4 @@ const umdExternalMap = {
   '@moralisweb3/evm-connector-utils': 'Moralis.EvmConnectorUtilsLib',
 };
 
-export default [commonJs(packageJson), esm(packageJson), umd('EvmMagiclinkConnector', packageJson, umdExternalMap)];
+export default [commonJs(packageJson), esm(packageJson), umd('MagiclinkConnector', packageJson, umdExternalMap)];
