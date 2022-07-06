@@ -93,7 +93,7 @@ export function umd(outputName, packageJson, externanMap) {
         name: outputName,
         format: 'umd',
         sourcemap: true,
-        inlineDynamicImports: true,
+        // inlineDynamicImports: true,
         globals: outputGlobals,
       },
     ],
