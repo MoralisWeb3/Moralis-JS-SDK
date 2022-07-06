@@ -99,6 +99,13 @@ export class EvmAbstractConnector extends EventEmitter {
     });
   }
 
+  async cancelRequest(): Promise<void> {
+    throw new MoralisNetworkConnectorError({
+      code: NetworkConnectorErrorCode.NOT_IMPLEMENTED,
+      message: 'cancelRequest() is not implemented',
+    });
+  }
+
   /**
    * Updates account and emit event, on EIP-1193 accountsChanged events
    */

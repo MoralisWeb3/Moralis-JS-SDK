@@ -13,4 +13,8 @@ export class WalletConnectProviderWrapper {
   enable() {
     return this.provider.enable();
   }
+
+  disconnect() {
+    return this.provider.disconnect();
+  }
 }
