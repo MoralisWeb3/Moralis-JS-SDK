@@ -252,18 +252,19 @@ describe('Moralis EvmApi', () => {
       abi: ABI,
     });
 
-    console.log('check ==>', result);
     expect(result).toBeDefined();
-    expect(result).toBe('247689');
+    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.raw).toStrictEqual({ data: '1000000000000000000000000' });
   });
 
-  it('should not run when a contract address is invalid', async () => {
-    await expect(EvmApi.native
-      .runContractFunction({
+  it('should not run when a contract when an address is invalid', async () => {
+    await expect(
+      EvmApi.native.runContractFunction({
         address: '0x123456', // this address is invalid
         functionName: 'totalSupply',
         chain: 'rinkeby',
         abi: ABI,
-      })).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+      }),
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
   });
 });
