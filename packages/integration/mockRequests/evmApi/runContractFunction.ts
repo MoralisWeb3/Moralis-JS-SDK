@@ -6,8 +6,7 @@ export const mockRunContractFunctions: Record<string, string> = {
   '0xecc7f044aa1ce2ad9d2453b01b8732a051213ecf': '1000000000000000000000000',
 };
 
-export const mockRunContractFunction = rest.get(`${EVM_API_ROOT}/:address/function`, (req, res, ctx) => {
-  console.log('starboy ==>');
+export const mockRunContractFunction = rest.post(`${EVM_API_ROOT}/:address/function`, (req, res, ctx) => {
   const address = req.params.address as string;
   const apiKey = req.headers.get('x-api-key');
 
