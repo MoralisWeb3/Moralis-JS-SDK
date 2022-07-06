@@ -31,8 +31,10 @@ import { mockGetNFTTransfersFromToBlock } from './evmApi/getNFTTransfersFromToBl
 import { mockGetDateToBlock } from './evmApi/getDateToBlock';
 import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
+import { mockRunContractFunction } from './evmApi/runContractFunction';
 
 const handlers = [
+  mockRunContractFunction,
   mockGetNFTTransfersFromToBlock,
   mockGetDateToBlock,
   mockResolveDomain,
