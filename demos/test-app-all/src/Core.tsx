@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-explicit-any: off */
+
 import Moralis from 'moralis';
 import MoralisCore from '@moralisweb3/core';
 import Server from '@moralisweb3/server';
@@ -6,28 +8,40 @@ import Evm from '@moralisweb3/evm';
 
 export const Core = () => {
   const removeModule = (module: string) => {
-    if (module === 'Evm') Moralis.Core.modules.remove('evm');
-    if (module === 'Server') Moralis.Core.modules.remove('server');
+    if (module === 'Evm') {
+      Moralis.Core.modules.remove('evm');
+    }
+    if (module === 'Server') {
+      Moralis.Core.modules.remove('server');
+    }
     const list = Moralis.Core.modules.list();
-    if (module === 'EmvApi') Moralis.Core.modules.remove('emvApi');
+    if (module === 'EmvApi') {
+      Moralis.Core.modules.remove('emvApi');
+    }
     console.log('after removing:', typeof list);
   };
 
   const registerModule = (module: string) => {
-    if (module === 'Evm') MoralisCore.registerModules([Evm]);
-    if (module === 'Server') MoralisCore.registerModules([Server]);
-    if (module === 'EvmApi') MoralisCore.registerModules([EvmApi]);
+    if (module === 'Evm') {
+      MoralisCore.registerModules([Evm]);
+    }
+    if (module === 'Server') {
+      MoralisCore.registerModules([Server]);
+    }
+    if (module === 'EvmApi') {
+      MoralisCore.registerModules([EvmApi]);
+    }
     const list = Moralis.Core.modules.list();
     console.log('after registering:', list);
   };
 
-  const setConfig = (key: any, value: string) => {
+  const setConfig = (key: any, value: any) => {
     Moralis.Core.config.set(key, value);
     console.log('value is set');
   };
 
   const readConfig = (key: any) => {
-    let key1 = Moralis.Core.config.get(key);
+    const key1 = Moralis.Core.config.get(key);
     console.log('read config:', key1);
   };
 
