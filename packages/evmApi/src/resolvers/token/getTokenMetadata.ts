@@ -36,6 +36,6 @@ export const getTokenMetadataResolver = new EvmResolver({
     providerUrl: params.providerUrl || undefined,
     subdomain: params.subdomain || undefined,
     chain: resolveDefaultChain(params.chain).apiHex,
-    addresses: params.addresses.map((address) => EvmAddress.create(address).format()),
+    addresses: params.addresses.map((address) => EvmAddress.create(address).lowercase),
   }),
 });

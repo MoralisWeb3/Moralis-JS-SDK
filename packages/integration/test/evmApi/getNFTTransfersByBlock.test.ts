@@ -12,9 +12,7 @@ describe('Moralis EvmApi', () => {
       apiKey: MOCK_API_KEY,
     });
 
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    server.listen({});
   });
 
   afterAll(() => {
