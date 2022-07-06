@@ -97,6 +97,11 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
   }
 
   subscribeAuthEvents(web3auth: Web3Auth) {
+    web3auth.on(ADAPTER_EVENTS.ERRORED, (error: any) => {
+      this.logger.verbose('Web3Auth error', { error });
+      web3auth.clearCache();
+    });
+
     web3auth.loginModal.on('MODAL_VISIBILITY', async (visibility: boolean) => {
       if (!visibility) {
         if (web3auth.status !== 'connected') {

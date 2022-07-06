@@ -2,10 +2,11 @@
 
 function initMoralis() {
   Moralis.Evm.connectors.register(WalletConnectConnector);
+  Moralis.Evm.connectors.register(Web3AuthConnector);
 
   Moralis.start({
-    serverUrl: MORALIS_SERVER_URL,
-    appId: MORALIS_APP_ID,
+    serverUrl: 'https://ebjeii2azqho.usemoralis.com:2053/server',
+    appId: 'xNakeM5DuGxNzLWH2igeFQBa8xrHtoeLhFa2kt6C',
   });
 }
 
@@ -31,6 +32,10 @@ function initDemo() {
 
   appendButton('Evm.connect / walletConnect', () => {
     return Moralis.Evm.connect('wallet-connect', {});
+  });
+
+  appendButton('Evm.connect / web3auth', () => {
+    return Moralis.Evm.connect('web3auth', { clientId: WEB3AUTH_CLIENTID });
   });
 
   appendButton('Evm.transferNative', () => {

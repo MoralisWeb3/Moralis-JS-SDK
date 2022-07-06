@@ -1,4 +1,5 @@
 // Create `env.js` by using this example.
 
-window.MORALIS_SERVER_URL = 'https://ebjeii2azqho.usemoralis.com:2053/server';
-window.MORALIS_APP_ID = 'xNakeM5DuGxNzLWH2igeFQBa8xrHtoeLhFa2kt6C';
+window.MORALIS_SERVER_URL = 'replace_me';
+window.MORALIS_APP_ID = 'replace_me';
+window.WEB3AUTH_CLIENTID = 'replace_me';

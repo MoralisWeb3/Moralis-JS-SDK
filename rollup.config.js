@@ -37,8 +37,14 @@ export function commonJs(packageJson) {
   };
 }
 
-export function esm(packageJson, internal) {
-  const external = Object.keys(packageJson.dependencies).filter(d => d.startsWith('@moralisweb3/') && (!internal || !internal.includes(d)));
+export function esm(packageJson, internal, customExternal) {
+  const external = Object.keys(packageJson.dependencies).filter(
+    (d) => d.startsWith('@moralisweb3/') && (!internal || !internal.includes(d)),
+  );
+
+  if (customExternal) {
+    external.push(...customExternal);
+  }
 
   return {
     input: 'src/index.ts',
@@ -87,6 +93,7 @@ export function umd(outputName, packageJson, externanMap) {
         name: outputName,
         format: 'umd',
         sourcemap: true,
+        inlineDynamicImports: true,
         globals: outputGlobals,
       },
     ],
