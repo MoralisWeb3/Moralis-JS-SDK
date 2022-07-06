@@ -92,7 +92,7 @@ jobs:
         run: yarn format:check
 
   build:
-    name: Build
+    name: Build and Test
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -114,3 +114,5 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Build
         run: yarn build
+      - name: Test
+        run: yarn test:ci
