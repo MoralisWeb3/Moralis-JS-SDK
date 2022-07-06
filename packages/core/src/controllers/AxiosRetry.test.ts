@@ -57,8 +57,7 @@ describe('AxiosRetry', () => {
     axiosSpy.mockRestore();
   });
 
-  // TODO: Fix this test
-  it.skip('should throw error when limit is over', async () => {
+  it('should throw error when limit is over', async () => {
     const axiosSpy = spyAxios(999);
     const retryConfig = createRetryConfig(3);
 
@@ -100,8 +99,7 @@ describe('AxiosRetry', () => {
     axiosSpy.mockRestore();
   });
 
-  // TODO: Fix this test
-  it.skip('should retry', async () => {
+  it('should retry', async () => {
     const axiosSpy = spyAxios(3);
     const beforeRetrySpy = jest.fn(() => {});
 
