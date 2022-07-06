@@ -8,6 +8,7 @@ module.exports = {
     '^@moralisweb3/core': '<rootDir>/../core/src',
     '^@moralisweb3/(.*)$': '<rootDir>/../$1/src',
   },
+  modulePaths: ['<rootDir>'],
   preset: 'ts-jest/presets/default',
   collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
   coverageThreshold: null,
