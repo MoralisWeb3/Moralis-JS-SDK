@@ -4,6 +4,7 @@ import {
   EvmChain,
   EvmConnectResponse,
   EvmMagicLinkConnectorOptions,
+  EvmProvider,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
 } from '@moralisweb3/core';
@@ -27,9 +28,9 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
   }
 
   // TODO: Implement with proper typings
-  private getProvider(magic: Magic): AbstractProvider {
+  private getProvider(magic: Magic): EvmProvider {
     if (this._provider) {
-      return this._provider as AbstractProvider;
+      return this._provider as EvmProvider;
     }
 
     const provider = magic.rpcProvider;
@@ -65,8 +66,8 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector {
     });
 
     const [accounts, chainId] = await Promise.all([
-      provider.request!({ method: 'eth_accounts' }) as Promise<string[]>,
-      provider.request!({ method: 'eth_chainId' }) as Promise<string>,
+      provider.request({ method: 'eth_accounts' }) as Promise<string[]>,
+      provider.request({ method: 'eth_chainId' }) as Promise<string>,
     ]);
     this._provider = provider;
 
