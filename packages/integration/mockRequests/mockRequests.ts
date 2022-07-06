@@ -59,10 +59,11 @@ const handlers = [
   mockGetBlock,
   mockGetNFTMetada,
   mockEndpointWeights,
-  mockGetTokenIdMetadata,
   mockGetTokenMetadataBySymbol,
   mockGetTokenIdOwners,
   mockGetNFTOwners,
+  // mockGetTokenIdMetadata should be mocked after mockGetNFTOwners as it takes precedence
+  mockGetTokenIdMetadata,
   mockGetTransaction,
   mockGetTokenAllowance,
   mockGetTokenMetadata,

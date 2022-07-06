@@ -2,6 +2,8 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { AxiosRetry, AxiosRetryConfig } from './AxiosRetry';
 import core from '../MoralisCore';
+import { isTest } from '../environment/isTest';
+import { noop } from '../utils/noop';
 
 export interface RequestOptions {
   headers?: { [name: string]: string };
@@ -35,6 +37,14 @@ export class RequestController {
     };
 
     try {
+      if (isTest()) {
+        /**
+         * Known issue where in Jest, axios.request() will leave open handlers.
+         * See: https://stackoverflow.com/questions/69169492/async-external-function-leaves-open-handles-jest-supertest-express
+         */
+        await process.nextTick(noop);
+      }
+
       const response = await AxiosRetry.request<Data, Response>(retryConfig, {
         ...config,
         timeout: 10000,

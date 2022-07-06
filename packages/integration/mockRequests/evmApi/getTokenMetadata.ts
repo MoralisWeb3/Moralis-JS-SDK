@@ -6,7 +6,7 @@ export const mockGetTokenMetadatas: Record<string, string> = {
 };
 
 export const mockGetTokenMetadata = rest.get(`${EVM_API_ROOT}/erc20/metadata`, (req, res, ctx) => {
-  const addresses = req.url.searchParams.get('addresses') as string;
+  const addresses = req.url.searchParams.get('addresses[]') as string;
   const apiKey = req.headers.get('x-api-key');
 
   if (apiKey !== MOCK_API_KEY) {
