@@ -8,7 +8,7 @@ import {
   EvmTransactionInput,
   EvmTransactionResponse,
 } from '@moralisweb3/core';
-import { assertChain } from '../assert/assertChain';
+import { assertChain, assertChainEquality } from '../assert/assertChain';
 
 export interface TransferNativeOptions {
   to: EvmAddressish;
@@ -21,8 +21,10 @@ export const makeTransferNative =
   async (options: TransferNativeOptions) => {
     const to = EvmAddress.create(options.to);
     const value = EvmNative.create(options.value);
-    // TODO: check if provided chain is same as current chain, otherwise throw error
     const chain = assertChain(_chain, 'Chain is not set on MoralisEvm. Make sure to be properly connected');
+    if (options.chain) {
+      assertChainEquality(options.chain, chain);
+    }
 
     const transaction = await sendTransaction({
       to: to.checksum,

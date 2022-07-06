@@ -1,4 +1,4 @@
-# @morlaisweb3/test-app-all
+# @moralisweb3/test-app-all
 
 ## 2.0.0-alpha.1
 
