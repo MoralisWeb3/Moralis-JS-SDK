@@ -1,4 +1,9 @@
 import packageJson from './package.json';
-import { commonJs, esm } from '../../../rollup.config';
+import { commonJs, esm, umd } from '../../../rollup.config';
 
-export default [commonJs(packageJson), esm(packageJson)];
+const umdExternalMap = {
+  '@moralisweb3/core': 'Moralis.CoreLib',
+  '@moralisweb3/evm-connector-utils': 'Moralis.EvmConnectorUtilsLib',
+};
+
+export default [commonJs(packageJson), esm(packageJson), umd('EvmMagiclinkConnector', packageJson, umdExternalMap)];

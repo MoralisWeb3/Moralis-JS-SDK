@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo - Moralis Test CDN</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demo - Moralis Test CDN</title>
+    <script src="../../../packages/moralis/dist/index.umd.js"></script>
+    <script src="../../../packages/evmConnectors/EvmWalletconnectConnector/dist/index.umd.js"></script>
+    <script src="../../../packages/evmConnectors/EvmMagiclinkConnector/dist/index.umd.js"></script>
+    <script src="./env.js"></script>
+    <script src="./demo.js"></script>
 
-  <script src="../../../packages/moralis/dist/index.umd.js"></script>
-  <script src="../../../packages/evmConnectors/EvmWalletconnectConnector/dist/index.umd.js"></script>
-  <script src="./env.js"></script>
-  <script src="./demo.js"></script>
+    <style>
+      body {
+        font: 14px/1.4em Arial, Verdana, Serif;
+      }
+      button {
+        margin: 5px;
+      }
+    </style>
+  </head>
 
-  <style>
-    body {font: 14px/1.4em Arial, Verdana, Serif;}
-    button {margin: 5px;}
-  </style>
-</head>
+  <body>
+    <h1>Demo UMD - Moralis CDN</h1>
 
-<body>
-  <h1>Demo UMD - Moralis CDN</h1>
-
-  <div id="demo"></div>
-</body>
-
+    <div id="demo"></div>
+  </body>
 </html>
