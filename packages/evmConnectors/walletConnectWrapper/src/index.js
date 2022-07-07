@@ -17,4 +17,8 @@ export class WalletConnectProviderWrapper {
   disconnect() {
     return this.provider.disconnect();
   }
+
+  wc() {
+    return this.provider.wc;
+  }
 }

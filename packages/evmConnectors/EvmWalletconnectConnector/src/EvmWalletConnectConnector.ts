@@ -91,7 +91,7 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
 
   async cancelRequest() {
     if (this._provider) {
-      await this._provider.disconnect();
+      await this._provider.wc.killSession();
     }
     throw new MoralisNetworkConnectorError({
       code: NetworkConnectorErrorCode.GENERIC_NETWORK_CONNECTOR_ERROR,
