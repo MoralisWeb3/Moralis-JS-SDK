@@ -4,7 +4,7 @@ import {
   EvmAddress,
   EvmChain,
   EvmConnect,
-  EvmConnectData,
+  EvmConnectionData,
   EvmProvider,
   Logger,
   MoralisNetworkError,
@@ -239,7 +239,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     });
 
     return new Promise((resolve, reject) => {
-      const handleResolve = (data: EvmConnectData<unknown>) => {
+      const handleResolve = (data: EvmConnectionData<unknown>) => {
         resolve(data);
         this._emitter.off(EvmNetworkEvent.CONNECTED, handleResolve);
         this._emitter.off(EvmNetworkEvent.CONNECTING_ERROR, handleReject);

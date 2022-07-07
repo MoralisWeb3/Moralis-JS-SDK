@@ -11,15 +11,15 @@ export type EvmBaseConnectOptions = Record<string, unknown>;
 export type SolBaseConnectOptions = Record<string, unknown>;
 
 export type EvmConnect = {
-  (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectData>;
-  (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectData>;
-  (connector: 'web3auth', options?: EvmWeb3authConnectOptions): Promise<EvmConnectData>;
-  (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
+  (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectionData>;
+  (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectionData>;
+  (connector: 'web3auth', options?: EvmWeb3authConnectOptions): Promise<EvmConnectionData>;
+  (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectionData>;
 };
 
 export type SolConnect = {
-  (connector: 'phantom', options?: SolPhantomConnectorConnectOptions): Promise<EvmConnectData>;
-  (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectData>;
+  (connector: 'phantom', options?: SolPhantomConnectorConnectOptions): Promise<EvmConnectionData>;
+  (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectionData>;
 };
 
 export interface SolPhantomConnectorConnectOptions extends SolBaseConnectOptions {
@@ -66,12 +66,12 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyConnector = any;
 
-export interface EvmConnectResponse {
+export interface EvmConnection {
   provider: EvmProvider;
   chain: EvmChain | null;
   account: EvmAddress | null;
 }
 
-export interface EvmConnectData<Connector extends AnyConnector = AnyConnector> extends EvmConnectResponse {
+export interface EvmConnectionData<Connector extends AnyConnector = AnyConnector> extends EvmConnection {
   connector: Connector;
 }

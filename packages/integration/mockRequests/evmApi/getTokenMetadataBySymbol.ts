@@ -7,7 +7,7 @@ export const mockGetTokenMetadataBySymbols: Record<string, string> = {
 };
 
 export const mockGetTokenMetadataBySymbol = rest.get(`${EVM_API_ROOT}/erc20/metadata/symbols`, (req, res, ctx) => {
-  const symbols = req.url.searchParams.get('symbols') as string;
+  const symbols = req.url.searchParams.get('symbols[]') as string;
   const apiKey = req.headers.get('x-api-key');
 
   if (apiKey !== MOCK_API_KEY) {
