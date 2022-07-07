@@ -72,10 +72,6 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
       this.logger.error('Failed to subscribe to auth events', { error });
     }
 
-    // throw new MoralisNetworkConnectorError({
-    //   code: NetworkConnectorErrorCode.GENERIC_NETWORK_CONNECTOR_ERROR,
-    //   message: 'Web3Auth: User closed login modal.',
-    // });
     const provider = await this.getProvider(web3auth);
 
     const [chainId, accounts] = await Promise.all([
@@ -97,16 +93,12 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
   }
 
   subscribeAuthEvents(web3auth: Web3Auth) {
-    web3auth.on(ADAPTER_EVENTS.ERRORED, (error: any) => {
-      this.logger.verbose('Web3Auth error', { error });
-      web3auth.clearCache();
-    });
-
     web3auth.loginModal.on('MODAL_VISIBILITY', async (visibility: boolean) => {
       if (!visibility) {
         if (web3auth.status !== 'connected') {
           this.logger.verbose('Modal closed, canceling connection request');
           web3auth.emit(ADAPTER_EVENTS.ERRORED, { name: 'Web3Auth', message: 'User closed login modal' });
+          web3auth.loginModal.closeModal();
         }
       }
     });

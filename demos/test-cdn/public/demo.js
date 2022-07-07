@@ -35,7 +35,7 @@ function initDemo() {
   });
 
   appendButton('Evm.connect / web3auth', () => {
-    return Moralis.Evm.connect('web3auth', { clientId: WEB3AUTH_CLIENTID });
+    return Moralis.Evm.connect('web3auth', { clientId: WEB3AUTH_CLIENTID, newSession: true });
   });
 
   appendButton('Evm.transferNative', () => {
