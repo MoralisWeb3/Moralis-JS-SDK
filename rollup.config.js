@@ -46,10 +46,10 @@ export function esm(packageJson, internal) {
     input: 'src/index.ts',
     output: [
       {
-        // file: 'dist/index.esm.js',
-        dir: 'dist/index.esm.js',
+        file: 'dist/index.esm.js',
         format: 'esm',
         sourcemap: true,
+        inlineDynamicImports: true,
       },
     ],
     external,
