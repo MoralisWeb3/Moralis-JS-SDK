@@ -13,7 +13,6 @@ run packages/core
 
 run packages/evmConnectors/walletConnectWrapper
 run packages/evmConnectors/EvmConnectorUtils
-run packages/evmConnectors/EvmMetamaskConnector
 run packages/evmConnectors/EvmWalletconnectConnector
 run packages/evmConnectors/EvmMetamaskConnector
 run packages/evmConnectors/EvmWeb3authConnector
