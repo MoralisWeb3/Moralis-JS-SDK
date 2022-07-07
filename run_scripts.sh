@@ -1,21 +1,27 @@
 #!/bin/bash
 set -e
 
-echo "Script: $1"
+SCRIPT=$1
 
-yarn --cwd packages/core build:dev
+function run() {
+  echo "* Package: $1"
+  echo "* Script: $SCRIPT"
+  yarn --cwd $1 $SCRIPT
+}
 
-yarn --cwd packages/evmConnectors/walletConnectWrapper $1
-yarn --cwd packages/evmConnectors/EvmConnectorUtils $1
-yarn --cwd packages/evmConnectors/EvmMetamaskConnector $1
-yarn --cwd packages/evmConnectors/EvmWalletconnectConnector $1
-yarn --cwd packages/evmConnectors/EvmMetamaskConnector $1
-yarn --cwd packages/evmConnectors/EvmWeb3authConnector $1
+run packages/core
 
-yarn --cwd packages/evm $1
-yarn --cwd packages/evmApi $1
-yarn --cwd packages/server $1
-yarn --cwd packages/moralis $1
+run packages/evmConnectors/walletConnectWrapper
+run packages/evmConnectors/EvmConnectorUtils
+run packages/evmConnectors/EvmMetamaskConnector
+run packages/evmConnectors/EvmWalletconnectConnector
+run packages/evmConnectors/EvmMetamaskConnector
+run packages/evmConnectors/EvmWeb3authConnector
 
-yarn --cwd demos/test-app-all $1
-yarn --cwd demos/test-node $1
+run packages/evm
+run packages/evmApi
+run packages/server
+run packages/moralis
+
+run demos/test-app-all
+run demos/test-node

@@ -37,14 +37,10 @@ export function commonJs(packageJson) {
   };
 }
 
-export function esm(packageJson, internal, customExternal) {
+export function esm(packageJson, internal) {
   const external = Object.keys(packageJson.dependencies).filter(
     (d) => d.startsWith('@moralisweb3/') && (!internal || !internal.includes(d)),
   );
-
-  if (customExternal) {
-    external.push(...customExternal);
-  }
 
   return {
     input: 'src/index.ts',
@@ -64,6 +60,7 @@ export function esm(packageJson, internal, customExternal) {
       }),
       peerDepsExternal(),
       resolve({
+        browser: true,
         preferBuiltins: false,
       }),
       commonjs(),
@@ -105,6 +102,7 @@ export function umd(outputName, packageJson, externanMap) {
       }),
       peerDepsExternal(),
       resolve({
+        browser: true,
         preferBuiltins: false,
       }),
       json(),
