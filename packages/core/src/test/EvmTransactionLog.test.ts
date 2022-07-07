@@ -1,5 +1,4 @@
 import { EvmTransactionLog } from '../dataTypes/EvmTransactionLog';
-import core from '../MoralisCore';
 
 // Set variables
 
@@ -7,7 +6,6 @@ const LOG_INDEX = 12;
 const TRANSACTION_HASH = '0x9a05a830919012da906d76c18b30e64b45df2c914988d2553f78362d4b5d8b0e';
 const BLOCK_HASH = '0x0b564475b29d046aca77b2a1ad40e0bda7fd78d8c6950b3a72812af96af21f53';
 const BLOCK_NUMBER = 15095188;
-// const BLOCK_TIMESTAMP = 1559098982;
 const BLOCK_TIMESTAMP = '2022-07-07T11:26:49.000Z';
 const TRANSACTION_INDEX = 0;
 const ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
@@ -15,15 +13,6 @@ const INVALID_ADDRESS = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000';
 const DATA =
   '0x00000000000000000000000000000000000000000000213ba4fc56e2e24648b200000000000000000000000000000000000000000000002e9e527eb8ff21faf7';
 const TOPIC = ['0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1'];
-// logIndex?: number;
-//   transactionHash: string;
-//   transactionIndex?: number;
-//   address: EvmAddressish;
-//   data: string;
-//   topics: string[];
-//   blockHash: string;
-//   blockNumber: number;
-//   blockTimestamp?: string;
 
 const inputWithAllData = {
   logIndex: LOG_INDEX,
@@ -59,9 +48,6 @@ const inputWithInvalidData = {
 };
 
 describe('EvmTransactionLog', () => {
-  beforeEach(() => {
-    core.config.reset();
-  });
 
   /**
    * Creation
@@ -93,7 +79,7 @@ describe('EvmTransactionLog', () => {
   });
 
   /**
-   * Formatting
+   * Utils
    */
   it('should confirm equality of 2 EvmTransactionLog', () => {
     const transactionLogA = EvmTransactionLog.create(inputWithAllData);
