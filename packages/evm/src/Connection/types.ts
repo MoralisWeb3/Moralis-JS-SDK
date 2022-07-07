@@ -1,4 +1,4 @@
-import { EvmConnectData, InitEvent } from '@moralisweb3/core';
+import { EvmConnectionData, InitEvent } from '@moralisweb3/core';
 
 export interface ConnectEventOptions {
   connector: string;
@@ -16,7 +16,7 @@ export interface ConnectEvent {
 }
 export interface ConnectSuccessEvent {
   type: 'CONNECT_SUCCESS';
-  data: EvmConnectData;
+  data: EvmConnectionData;
 }
 export interface ConnectErrorEvent {
   type: 'CONNECT_ERROR';

@@ -9,9 +9,8 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules yarn jest --runInBand --detectOpenHandles --forceExit",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --no-cache",
     "test:ci": "yarn test --ci",
-    "test:old": "yarn jest",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
@@ -20,7 +19,6 @@
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "eslint": "^8.7.0",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },
@@ -28,6 +26,8 @@
     "@moralisweb3/core": "^2.0.0-alpha.1",
     "@moralisweb3/server": "^2.0.0-alpha.1",
     "@moralisweb3/evm": "^2.0.0-alpha.1",
-    "@moralisweb3/evm-api": "^2.0.0-alpha.1"
+    "@moralisweb3/evm-api": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1",
+    "eventemitter3": "^4.0.7"
   }
 }

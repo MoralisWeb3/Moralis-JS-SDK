@@ -32,8 +32,8 @@ const isSupportedChainName = (value: string): value is ChainName => {
 
 const chainNameToChainIdMap = {
   eth: '0x1',
-  ropsten: '0x2',
-  rinkeby: '0x3',
+  ropsten: '0x3',
+  rinkeby: '0x4',
   goerli: '0x5',
   kovan: '0x2a',
   polygon: '0x89',
@@ -70,16 +70,18 @@ export class EvmChain implements MoralisData {
     return new EvmChain(chain);
   }
 
-  static validate(chain: InputChainId) {
+  /**
+   * Parse the input to a value that is compatible with the internal _value
+   */
+  static parse(chain: InputChainId) {
     if (typeof chain === 'string') {
       if (isSupportedChainName(chain)) {
-        return true;
+        return chainNameToChainIdMap[chain];
       }
 
       if (chain.startsWith('0x') && chain !== '0x' && chain !== '0x0') {
-        return true;
+        return chain;
       }
-
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message:
@@ -93,24 +95,8 @@ export class EvmChain implements MoralisData {
             "Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'",
         });
       }
+      return `0x${chain.toString(16)}`;
     }
-
-    return true;
-  }
-
-  /**
-   * Parse the input to a value that is compatible with the internal _value
-   */
-  static parse(chain: InputChainId) {
-    EvmChain.validate(chain);
-    if (typeof chain === 'string') {
-      if (isSupportedChainName(chain)) {
-        return chainNameToChainIdMap[chain];
-      }
-
-      return chain;
-    }
-    return `0x${chain.toString(16)}`;
   }
 
   /**

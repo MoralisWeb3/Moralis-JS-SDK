@@ -10,7 +10,6 @@ describe('Moralis EvmApi', () => {
     Core.registerModules([EvmApi]);
     Core.start({
       apiKey: MOCK_API_KEY,
-      logLevel: 'verbose',
     });
 
     server.listen();

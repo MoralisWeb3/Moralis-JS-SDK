@@ -1,18 +1,20 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'jest'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
-  ignorePatterns: ['**/__tests__/**/*', '**/lib/**/*', '**/lib.esm/**/*', '**/*.test.ts'],
+  ignorePatterns: ['**/lib/**/*', '**/*.test.ts', '**/dist/**/*', '**/build/**/*'],
   env: {
     browser: true,
     es6: true,
     node: true,
   },
+  root: true,
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
   },
   rules: {
+    curly: 'error',
     'no-fallthrough': 'off',
     'no-constant-condition': 'off',
     'getter-return': 'off',

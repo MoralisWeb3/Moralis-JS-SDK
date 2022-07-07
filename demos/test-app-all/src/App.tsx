@@ -15,6 +15,8 @@ Moralis.start({
   defaultEvmApiChain: 'eth',
 });
 
+console.log('Moralis started', Moralis.Core.config.get('serverUrl'));
+
 function App() {
   return (
     <div>

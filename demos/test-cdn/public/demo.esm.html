@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo - Moralis Test CDN</title>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "@moralisweb3/core": "../../../packages/core/dist/index.esm.js",
+        "@moralisweb3/evm": "../../../packages/evm/dist/index.esm.js",
+        "@moralisweb3/evm-api": "../../../packages/evmApi/dist/index.esm.js",
+        "@moralisweb3/server": "../../../packages/server/dist/index.esm.js",
+        "@moralisweb3/evm-connector-utils": "../../../packages/evmConnectors/EvmConnectorUtils/dist/index.esm.js",
+        "@moralisweb3/evm-metamask-connector": "../../../packages/evmConnectors/EvmMetamaskConnector/dist/index.esm.js",
+        "@moralisweb3/evm-wallet-connect-connector": "../../../packages/evmConnectors/EvmWalletconnectConnector/dist/index.esm.js",
+        "moralis": "../../../packages/moralis/dist/index.esm.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import Moralis from 'moralis';
+    import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
+    window.Moralis = Moralis;
+    window.WalletConnectConnector = WalletConnectConnector;
+  </script>
+  <script src="./env.js"></script>
+  <script src="./demo.js"></script>
+
+  <style>
+    body {font: 14px/1.4em Arial, Verdana, Serif;}
+    button {margin: 5px;}
+    .warn {color: red;}
+  </style>
+</head>
+
+<body>
+  <h1>Demo ESM - Moralis CDN</h1>
+
+  <p class="warn">Warning: this demo uses <code>&lt;script type="importmap"&gt;</script></code> which is supported only by <a href="https://caniuse.com/import-maps">modern browsers</a>.</p>
+
+  <div id="demo"></div>
+</body>
+
+</html>

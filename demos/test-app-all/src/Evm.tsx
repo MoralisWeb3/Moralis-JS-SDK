@@ -1,4 +1,4 @@
-import { Moralis } from 'moralis';
+import Moralis from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
 import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
 import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
@@ -27,8 +27,9 @@ export const Evm = () => {
         onClick={async () => {
           console.log('Transfer native');
           const txResponse = await Moralis.Evm.transferNative({
-            to: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
-            value: EvmNative.create('0.0001'),
+            to: '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7',
+            value: EvmNative.create('0.00001'),
+            chain: '0x4'
           });
 
           console.log('TX', txResponse);

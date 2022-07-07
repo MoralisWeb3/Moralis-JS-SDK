@@ -27,22 +27,16 @@ export class EvmAddress implements MoralisData {
     return new EvmAddress(address);
   }
 
-  static validate(address: InputEvmAddress) {
+  /**
+   * Parse the input to a value that is compatible with the internal _value
+   */
+  static parse(address: InputEvmAddress) {
     if (!isAddress(address)) {
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: 'Invalid address provided',
       });
     }
-
-    return true;
-  }
-
-  /**
-   * Parse the input to a value that is compatible with the internal _value
-   */
-  static parse(address: InputEvmAddress) {
-    EvmAddress.validate(address);
     return getAddress(address);
   }
 

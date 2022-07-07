@@ -4,9 +4,10 @@ import core, {
   EvmAddress,
   EvmChain,
   EvmChainish,
-  EvmConnectResponse,
+  EvmConnection,
   EvmMetamaskConnectorConnectOptions,
   EvmProvider,
+  MoralisCore,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
 } from '@moralisweb3/core';
@@ -17,19 +18,20 @@ const DEFAULT_OPTIONS: EvmMetamaskConnectorConnectOptions = {
 };
 
 export type MetamaskProvider = EvmProvider & { isMetaMask?: boolean; providers?: MetamaskProvider[] };
-export class EvmMetamaskConnector extends EvmAbstractConnector {
-  constructor() {
+
+export interface EvmMetamaskConnectorConfig {
+  core: MoralisCore;
+}
+
+export class EvmMetamaskConnector extends EvmAbstractConnector<MetamaskProvider, EvmMetamaskConnectorConnectOptions> {
+  public constructor(config: EvmMetamaskConnectorConfig) {
     super({
       name: 'metamask',
-      core,
+      core: config.core,
     });
   }
 
-  private async getProvider(options?: EvmMetamaskConnectorConnectOptions): Promise<MetamaskProvider> {
-    if (this._provider) {
-      return this._provider as MetamaskProvider;
-    }
-
+  protected async createProvider(options?: EvmMetamaskConnectorConnectOptions): Promise<MetamaskProvider> {
     let provider: MetamaskProvider | null = (await detectEthereumProvider({
       silent: options?.silent,
       timeout: options?.timeout,
@@ -48,34 +50,30 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
           "No injected provider found at 'window.ethereum', make sure to have Metamask or any other injected wallet installed.",
       });
     }
-
     return provider;
   }
 
-  async connect(_options?: Partial<EvmMetamaskConnectorConnectOptions>): Promise<EvmConnectResponse> {
-    const options = { ...DEFAULT_OPTIONS, _options };
-    this.logger.verbose('Connecting', { providedOptions: _options, options });
-    const provider = await this.getProvider(options);
-    this._provider = provider;
+  protected async createConnection(options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnection> {
+    const finalOptions = { ...DEFAULT_OPTIONS, options };
+    this.logger.verbose('Connecting', { providedOptions: options, options: finalOptions });
+    const provider = await this.getProvider(finalOptions);
 
     const [accounts, chainId] = await Promise.all([
       provider.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
       provider.request({ method: 'eth_chainId' }) as Promise<string>,
     ]);
 
-    this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
-    this.chain = new EvmChain(chainId);
-
-    this.subscribeToEvents(provider);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return { provider: this.provider!, chain: this.chain, account: this.account };
+    return {
+      provider,
+      chain: new EvmChain(chainId),
+      account: accounts[0] ? new EvmAddress(accounts[0]) : null,
+    };
   }
 
-  async switchNetwork(providedChain: EvmChainish) {
-    const provider = await this.getProvider();
-
+  public async switchNetwork(providedChain: EvmChainish): Promise<void> {
     const chain = EvmChain.create(providedChain);
+
+    const provider = await this.getProvider();
 
     const currentNetwork = this.chain;
     if (currentNetwork && currentNetwork.equals(chain)) {
@@ -88,7 +86,7 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
     });
   }
 
-  async addNetwork(providedChain: EvmChainish) {
+  public async addNetwork(providedChain: EvmChainish): Promise<void> {
     const chain = EvmChain.create(providedChain);
 
     const provider = await this.getProvider();
@@ -115,5 +113,5 @@ export class EvmMetamaskConnector extends EvmAbstractConnector {
   }
 }
 
-const evmMetamaskConnector = new EvmMetamaskConnector();
+const evmMetamaskConnector = new EvmMetamaskConnector({ core });
 export default evmMetamaskConnector;
