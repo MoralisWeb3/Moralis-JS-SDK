@@ -32,11 +32,13 @@ import { mockGetDateToBlock } from './evmApi/getDateToBlock';
 import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 import { mockRunContractFunction } from './evmApi/runContractFunction';
+import { mockUploadFolder } from './evmApi/uploadFolder';
 
 const handlers = [
   mockRunContractFunction,
   mockGetNFTTransfersFromToBlock,
   mockGetDateToBlock,
+  mockUploadFolder,
   mockResolveDomain,
   mockResolveAddress,
   mockGetNativeBalance,
