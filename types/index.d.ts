@@ -372,6 +372,11 @@ export namespace Moralis {
     theme?: string;
     appLogo?: string;
     loginMethodsOrder?: string[];
+    rpcTarget?: string;
+    displayName?: string;
+    blockExplorer?: string;
+    ticker?: string;
+    tickerName?: string;
   }
 
   interface Web3InjectedConnectorEnableOptions extends CommonEnableOptions {}
