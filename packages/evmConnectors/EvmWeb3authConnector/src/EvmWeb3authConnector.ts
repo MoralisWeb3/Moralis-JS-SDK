@@ -66,11 +66,7 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
 
     await web3auth.initModal();
 
-    try {
-      this.subscribeAuthEvents(web3auth);
-    } catch (error) {
-      this.logger.error('Failed to subscribe to auth events', { error });
-    }
+    this.subscribeAuthEvents(web3auth);
 
     const provider = await this.getProvider(web3auth);
 
