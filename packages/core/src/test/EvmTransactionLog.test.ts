@@ -48,7 +48,6 @@ const inputWithInvalidData = {
 };
 
 describe('EvmTransactionLog', () => {
-
   /**
    * Creation
    */
