@@ -1,5 +1,5 @@
 {
-  "name": "@moralisweb3/evm-metamask-connector",
+  "name": "@moralisweb3/react",
   "author": "Moralis",
   "version": "2.0.0-alpha.1",
   "license": "MIT",
@@ -13,6 +13,9 @@
     "dist"
   ],
   "scripts": {
+    "test": "echo 'not implemented'",
+    "test:coverage": "yarn run test --coverage",
+    "test:watch": "yarn run test --watch",
     "format": "prettier . '**/*.+(js|ts|json)' --write",
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
@@ -22,12 +25,11 @@
     "dev": "rollup -c --watch"
   },
   "devDependencies": {
+    "jest": "^28.0.3",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@metamask/detect-provider": "^1.2.0",
-    "@moralisweb3/core": "^2.0.0-alpha.1",
-    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1"
+    "moralis": "^2.0.0-alpha.1"
   }
 }
