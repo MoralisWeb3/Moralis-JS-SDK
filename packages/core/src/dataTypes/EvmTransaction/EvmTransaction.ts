@@ -63,11 +63,11 @@ export class EvmTransaction implements MoralisDataObject {
     const transactionA = EvmTransaction.create(providedTransactionA);
     const transactionB = EvmTransaction.create(providedTransactionB);
 
-    if (transactionA.toJSON() === transactionB.toJSON()) {
-      return false;
+    if (JSON.stringify(transactionA.toJSON()) === JSON.stringify(transactionB.toJSON())) {
+      return true;
     }
 
-    return true;
+    return false;
   }
 
   equals(value: EvmTransactionish): boolean {
