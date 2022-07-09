@@ -1,5 +1,5 @@
 ---
-'@morlaisweb3/test-app-all': major
+'@moralisweb3/test-app-all': major
 '@moralisweb3/core': major
 '@moralisweb3/evm': major
 '@moralisweb3/evm-api': major

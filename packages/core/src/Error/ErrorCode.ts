@@ -50,6 +50,7 @@ export enum NetworkErrorCode {
   CONTRACT_NOT_SET = 'N0007',
   NO_CHAIN_SET = 'N0008',
   CANNOT_CANCEL = 'N0009',
+  CHAIN_MISMATCH = 'N0010',
 
   NOT_IMPLEMENTED = 'N9000',
 }

@@ -1,5 +1,5 @@
-const path = require('path');
-const { getLoader, loaderByName } = require('@craco/craco');
+const path = require('path'); // eslint-disable-line
+const { getLoader, loaderByName } = require('@craco/craco'); // eslint-disable-line
 
 const packages = [
   path.join(__dirname, '../../packages/moralis'),
@@ -14,7 +14,7 @@ const packages = [
 
 module.exports = {
   webpack: {
-    configure: (webpackConfig, arg) => {
+    configure: webpackConfig => {
       const { isFound, match } = getLoader(webpackConfig, loaderByName('babel-loader'));
       if (isFound) {
         const include = Array.isArray(match.loader.include) ? match.loader.include : [match.loader.include];
