@@ -1,9 +1,10 @@
-import { EvmChainIdFormat } from '../Config/configOptions';
 import { assertUnreachable } from '../Assert/assertUnreachable';
 import { chainList, EvmChainListDataEntry } from '../data/chaindata';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
-import core from '../MoralisCore';
+import { MoralisCore } from '../MoralisCore';
 import { MoralisData } from './abstract';
+import { MoralisCoreProvider } from '../MoralisCoreProvider';
+import { Config, CoreConfig, EvmChainIdFormat } from '../config';
 
 // Chain names, that are accepted by the evm api
 export type ChainName =
@@ -51,29 +52,30 @@ const chainNameToChainIdMap = {
  * hex-string ("0x1"), or any suppored ChainName
  */
 export class EvmChain implements MoralisData {
+  /**
+   * Accepts a {@link EvmChainish} value and returns a new EvmChain or an already existing EvmChain
+   */
+  public static create(chain: EvmChainish, core?: MoralisCore) {
+    if (chain instanceof EvmChain) {
+      return chain;
+    }
+    const c = core || MoralisCoreProvider.getDefault();
+    return new EvmChain(chain, c.config);
+  }
+
   // hex-string chainId
   private _value: InternalEvmChain;
   private _chainlistData: EvmChainListDataEntry | null;
 
-  constructor(value: InputChainId) {
+  private constructor(value: InputChainId, private readonly config: Config) {
     this._value = EvmChain.parse(value);
     this._chainlistData = chainList.find((chainData) => chainData.chainId === this.decimal) ?? null;
   }
 
   /**
-   * Accepts a {@link EvmChainish} value and returns a new EvmChain or an already existing EvmChain
-   */
-  static create(chain: EvmChainish) {
-    if (chain instanceof EvmChain) {
-      return chain;
-    }
-    return new EvmChain(chain);
-  }
-
-  /**
    * Parse the input to a value that is compatible with the internal _value
    */
-  static parse(chain: InputChainId) {
+  static parse(chain: InputChainId): string {
     if (typeof chain === 'string') {
       if (isSupportedChainName(chain)) {
         return chainNameToChainIdMap[chain];
@@ -164,7 +166,7 @@ export class EvmChain implements MoralisData {
    * The default formatting can be set in MoralisConfig
    */
   format(_formatStyle?: EvmChainIdFormat) {
-    const formatStyle = _formatStyle ?? core.config.get('formatEvmChainId');
+    const formatStyle = _formatStyle ?? this.config.get(CoreConfig.formatEvmChainId);
 
     if (formatStyle === 'decimal') {
       return this.decimal;

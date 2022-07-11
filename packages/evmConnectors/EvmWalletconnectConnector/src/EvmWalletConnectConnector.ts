@@ -1,4 +1,4 @@
-import core, {
+import {
   EvmAddress,
   EvmChain,
   EvmConnection,
@@ -6,16 +6,13 @@ import core, {
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
   MoralisCore,
+  MoralisCoreProvider,
 } from '@moralisweb3/core';
 import { EvmAbstractConnector, getMoralisRpcs } from '@moralisweb3/evm-connector-utils';
 import { WalletConnectProviderWrapper } from '@moralisweb3/wallet-connect-wrapper';
 import { IWalletConnectProviderOptions } from '@walletconnect/types';
 
 const WALLET_CONNECT_RPC_KEY = 'WalletConnect';
-
-export interface EvmWalletConnectConnectorConfig {
-  core: MoralisCore;
-}
 
 const defaultOptions: EvmWalletConnectConnectorOptions = {
   chainId: 1,
@@ -29,16 +26,17 @@ export class EvmWalletConnectConnector extends EvmAbstractConnector<
   WalletConnectProviderWrapper,
   EvmWalletConnectConnectorOptions
 > {
-  constructor(config: EvmWalletConnectConnectorConfig) {
-    super({
-      name: 'wallet-connect',
-      core: config.core,
-    });
+  public static create(core?: MoralisCore): EvmWalletConnectConnector {
+    return new EvmWalletConnectConnector(core || MoralisCoreProvider.getDefault());
+  }
+
+  constructor(core: MoralisCore) {
+    super('wallet-connect', core);
   }
 
   protected async createProvider(options?: EvmWalletConnectConnectorOptions): Promise<WalletConnectProviderWrapper> {
     const rpc = getMoralisRpcs(WALLET_CONNECT_RPC_KEY);
-    const chainId = options?.chainId ? new EvmChain(options.chainId) : undefined;
+    const chainId = options?.chainId ? EvmChain.create(options.chainId, this.core) : undefined;
 
     const config: IWalletConnectProviderOptions = {
       rpc,
@@ -73,8 +71,8 @@ export class EvmWalletConnectConnector extends EvmAbstractConnector<
     const accounts = await provider.enable();
     return {
       provider: provider,
-      chain: new EvmChain(provider.chainId),
-      account: accounts[0] ? new EvmAddress(accounts[0]) : null,
+      chain: EvmChain.create(provider.chainId, this.core),
+      account: accounts[0] ? EvmAddress.create(accounts[0], this.core) : null,
     };
   }
 
@@ -104,6 +102,3 @@ export class EvmWalletConnectConnector extends EvmAbstractConnector<
   //   this.account = null;
   // }
 }
-
-const evmWalletConnectConnector = new EvmWalletConnectConnector({ core });
-export default evmWalletConnectConnector;

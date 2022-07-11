@@ -1,6 +1,6 @@
 import type Parse from 'parse';
 import TypedEmitter from 'typed-emitter';
-import core, { Logger, MoralisServerError, MoralisState, ServerErrorCode } from '@moralisweb3/core';
+import { LoggerController, MoralisServerError, MoralisState, ServerErrorCode, Config } from '@moralisweb3/core';
 import { State, StateContext, StateEvent } from './types';
 import { handleAuth } from '../AuthMethods/handleAuth';
 import { Authenticate, AuthenticateData, AuthMethod } from '../AuthMethods/types';
@@ -9,16 +9,17 @@ import { assertInstance } from '../assert/assertInstance';
 import { handleLogout } from '../AuthMethods/handleLogout';
 import { handleSignUp, SignUpOptions } from '../AuthMethods/handleSignUp';
 import { handleSignIn, SignInOptions } from '../AuthMethods/handleSignIn';
+import { ServerConfig } from '../config/ServerConfig';
 
 export class Authentication extends MoralisState<StateContext, StateEvent, State> {
-  private _server: typeof Parse | null = null;
-  private _logger;
-  private _emitter;
+  private server: typeof Parse | null = null;
 
-  constructor(logger: Logger, emitter: TypedEmitter<ServerEventMap>) {
+  constructor(
+    private readonly logger: LoggerController,
+    private readonly config: Config,
+    private readonly emitter: TypedEmitter<ServerEventMap>,
+  ) {
     super('Authentication');
-    this._logger = logger;
-    this._emitter = emitter;
 
     this.start({
       initial: 'Unauthenticated',
@@ -61,11 +62,11 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
   }
 
   setServer(parse: typeof Parse) {
-    this._server = parse;
+    this.server = parse;
   }
 
   setAuthenticationMessage(message: string) {
-    core.config.set('authenticationMessage', message);
+    this.config.set(ServerConfig.authenticationMessage, message);
   }
 
   /**
@@ -78,13 +79,13 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
       return;
     }
 
-    this._logger.verbose('Logged out', { context, event });
-    this._emitter.emit(ServerEvent.LOGGED_OUT);
+    this.logger.verbose('Logged out', { context, event });
+    this.emitter.emit(ServerEvent.LOGGED_OUT);
 
     if (event.type === 'AUTHENTICATE_ERROR') {
       const error = event.data;
 
-      this._emitter.emit(ServerEvent.AUTHENTICATING_ERROR, error);
+      this.emitter.emit(ServerEvent.AUTHENTICATING_ERROR, error);
 
       throw new MoralisServerError({
         code: ServerErrorCode.AUTHENTICATION_FAILED,
@@ -95,24 +96,29 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
   };
 
   private handleAuthenticating = (context: StateContext, event: StateEvent) => {
-    this._logger.verbose('Authenticating', { context, event });
+    this.logger.verbose('Authenticating', { context, event });
 
     if (event.type === 'NETWORK_AUTHENTICATE') {
       const { method, options } = event.data;
-      const server = assertInstance(this._server);
+      const server = assertInstance(this.server);
 
-      this._emitter.emit(ServerEvent.AUTHENTICATING);
+      this.emitter.emit(ServerEvent.AUTHENTICATING);
 
-      return handleAuth({ message: core.config.get('authenticationMessage'), method, server: server, options })
+      return handleAuth({
+        message: this.config.get(ServerConfig.authenticationMessage),
+        method,
+        server: server,
+        options,
+      })
         .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
         .catch((error) => this.transition({ type: 'AUTHENTICATE_ERROR', data: error }));
     }
 
     if (event.type === 'SIGN_UP') {
       const { username, password, fields } = event.data.options;
-      const server = assertInstance(this._server);
+      const server = assertInstance(this.server);
 
-      this._emitter.emit(ServerEvent.AUTHENTICATING);
+      this.emitter.emit(ServerEvent.AUTHENTICATING);
 
       return handleSignUp({ server, username, password, fields })
         .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
@@ -121,9 +127,9 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
 
     if (event.type === 'SIGN_IN') {
       const { username, password } = event.data.options;
-      const server = assertInstance(this._server);
+      const server = assertInstance(this.server);
 
-      this._emitter.emit(ServerEvent.AUTHENTICATING);
+      this.emitter.emit(ServerEvent.AUTHENTICATING);
 
       return handleSignIn({ server, username, password })
         .then((data) => this.transition({ type: 'AUTHENTICATE_SUCCESS', data }))
@@ -137,7 +143,7 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
   };
 
   private handleAuthenticated = (context: StateContext, event: StateEvent) => {
-    this._logger.verbose('Authenticated', { context, event });
+    this.logger.verbose('Authenticated', { context, event });
 
     // Code should not be able to get to here without the AUTHENTICATE_SUCCESS event.
     // Jsut to be sure, and for type safety, we do an error check
@@ -148,7 +154,7 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
       });
     }
 
-    this._emitter.emit(ServerEvent.AUTHENTICATED, event.data);
+    this.emitter.emit(ServerEvent.AUTHENTICATED, event.data);
   };
 
   /**
@@ -208,17 +214,17 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
     return new Promise((resolve, reject) => {
       const handleResolve = (data: AuthenticateData) => {
         resolve(data);
-        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
-        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+        this.emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this.emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
       };
       const handleReject = (error: Error) => {
         reject(error);
-        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
-        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+        this.emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this.emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
       };
 
-      this._emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
-      this._emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      this.emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
+      this.emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
     });
   };
 
@@ -252,17 +258,17 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
     return new Promise((resolve, reject) => {
       const handleResolve = (data: AuthenticateData) => {
         resolve(data);
-        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
-        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+        this.emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this.emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
       };
       const handleReject = (error: Error) => {
         reject(error);
-        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
-        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+        this.emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this.emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
       };
 
-      this._emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
-      this._emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      this.emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
+      this.emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
     });
   };
 
@@ -296,17 +302,17 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
     return new Promise((resolve, reject) => {
       const handleResolve = (data: AuthenticateData) => {
         resolve(data);
-        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
-        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+        this.emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this.emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
       };
       const handleReject = (error: Error) => {
         reject(error);
-        this._emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
-        this._emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+        this.emitter.off(ServerEvent.AUTHENTICATED, handleResolve);
+        this.emitter.off(ServerEvent.AUTHENTICATING_ERROR, handleReject);
       };
 
-      this._emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
-      this._emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
+      this.emitter.on(ServerEvent.AUTHENTICATED, handleResolve);
+      this.emitter.on(ServerEvent.AUTHENTICATING_ERROR, handleReject);
     });
   };
 
@@ -318,8 +324,8 @@ export class Authentication extends MoralisState<StateContext, StateEvent, State
       });
     }
 
-    const server = assertInstance(this._server);
-    await handleLogout({ server, logger: this._logger });
+    const server = assertInstance(this.server);
+    await handleLogout({ server, logger: this.logger });
 
     this.transition({ type: 'LOGOUT' });
   };

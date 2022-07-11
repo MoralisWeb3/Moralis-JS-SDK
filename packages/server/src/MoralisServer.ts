@@ -1,4 +1,13 @@
-import core, { BaseModule, EvmAddress, EvmAddressish, MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
+import {
+  BaseModule,
+  CoreConfig,
+  EvmAddress,
+  EvmAddressish,
+  MoralisCore,
+  MoralisCoreProvider,
+  MoralisServerError,
+  ServerErrorCode,
+} from '@moralisweb3/core';
 import type Parse from 'parse';
 import { initializeParse } from './initializeParse';
 import { ServerEvent, ServerEventMap } from './events/ServerEvents';
@@ -9,25 +18,31 @@ import { getIPFS } from './utils/ipfs';
 import { createSigningData } from './AuthMethods/utils/createSigningData';
 import { SignUpOptions } from './AuthMethods/handleSignUp';
 import { SignInOptions } from './AuthMethods/handleSignIn';
+import { ServerConfigSetup } from './config/ServerConfigSetup';
 
 export class MoralisServer extends BaseModule<ServerEventMap> {
+  public static create(core?: MoralisCore): MoralisServer {
+    return new MoralisServer(core || MoralisCoreProvider.getDefault());
+  }
+
   private _parse: typeof Parse | null = null;
 
-  authentication: Authentication = new Authentication(this.logger, this.emitter);
+  private authentication: Authentication = new Authentication(this.logger, this.core.config, this.emitter);
 
-  constructor() {
-    super({
-      core,
-      name: 'server',
-    });
+  private constructor(core: MoralisCore) {
+    super('server', core);
+  }
+
+  public setup() {
+    ServerConfigSetup.register(this.core.config);
   }
 
   start = async () => {
     this.logger.verbose('Initializing Parse server');
     this._parse = await initializeParse({
-      appId: this.core.config.get('appId'),
-      serverUrl: this.core.config.get('serverUrl'),
-      environment: this.core.config.get('buidEnvironment'),
+      appId: this.core.config.get(CoreConfig.appId),
+      serverUrl: this.core.config.get(CoreConfig.serverUrl),
+      environment: this.core.config.get(CoreConfig.buidEnvironment),
     });
     this.authentication.setServer(this._parse);
 
@@ -110,7 +125,7 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     const query = new this.Query(ethAddress);
     const ethAddressRecord = await query.get(address).catch(() => null);
     if (!ethAddressRecord) {
-      const network = core.modules.getNetwork('evm');
+      const network = this.core.modules.getNetwork('evm');
       const data = await createSigningData({
         message: options?.message ?? 'Moralis: Link users',
         server: this.instance(),
@@ -238,6 +253,3 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
     return this.instance().LiveQueryClient;
   }
 }
-
-const moralisServer = new MoralisServer();
-export default moralisServer;

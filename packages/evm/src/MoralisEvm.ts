@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import core, { EvmTransactionInput } from '@moralisweb3/core';
+import { EvmTransactionInput, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { NetworkModule, EvmConnect } from '@moralisweb3/core';
 import { MODULE_NAME } from './config';
 import { EvmNetworkEvent, EvmNetworkEventMap } from './events/EvmNetworkEvent';
@@ -13,13 +13,15 @@ import { makeTransferErc1155, TransferErc1155Options } from './chainMethods/tran
 import { EcecuteFunctionOptions, makeExecutefunction } from './chainMethods/executeFunction';
 
 export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
-  connection: Connection = new Connection(this.logger, this.emitter);
+  public static create(core?: MoralisCore): MoralisEvm {
+    const c = core || MoralisCoreProvider.getDefault();
+    return new MoralisEvm(c);
+  }
 
-  constructor() {
-    super({
-      name: MODULE_NAME,
-      core,
-    });
+  private connection: Connection = new Connection(this.logger, this.emitter);
+
+  public constructor(core: MoralisCore) {
+    super(MODULE_NAME, core);
   }
 
   /**
@@ -91,6 +93,14 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
     return this.connection.isConnecting;
   }
 
+  public setup() {
+    // Nothing
+  }
+
+  public start(): void | Promise<void> {
+    // Nothing
+  }
+
   /**
    * Connection methods
    */
@@ -116,6 +126,3 @@ export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
     makeTransferErc1155(this.provider, this.account, this.chain)(data);
   executeFunction = (data: EcecuteFunctionOptions) => makeExecutefunction(this.provider)(data);
 }
-
-const moralisEvm = new MoralisEvm();
-export default moralisEvm;

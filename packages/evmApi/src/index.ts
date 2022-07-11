@@ -1,3 +1,6 @@
-import EvmApi from './EvmApi';
+import { MoralisEvmApi } from './EvmApi';
 
-export default EvmApi;
+export * from './EvmApi';
+
+const defaultEvmApi = MoralisEvmApi.create();
+export default defaultEvmApi;

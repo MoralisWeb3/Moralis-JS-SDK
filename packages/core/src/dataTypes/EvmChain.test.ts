@@ -1,16 +1,20 @@
-import core from '../MoralisCore';
+import { MoralisCore } from '../MoralisCore';
+import { MoralisCoreProvider } from '../MoralisCoreProvider';
 import { EvmChain } from './EvmChain';
 
 describe('EvmChain', () => {
-  beforeEach(() => {
-    core.config.reset();
+  let core: MoralisCore;
+
+  beforeAll(() => {
+    core = MoralisCore.create();
+    MoralisCoreProvider.setDefault(core);
   });
 
   /**
    * Creation
    */
   it('should create a new EvmChain based on a number', () => {
-    const chain = EvmChain.create(45);
+    const chain = EvmChain.create(45, core);
 
     expect(chain.format()).toBe('0x2d');
     expect(chain.decimal).toBe(45);
@@ -97,6 +101,7 @@ describe('EvmChain', () => {
 
   it('should format in decimals by default if specified in the config', () => {
     core.config.set('formatEvmChainId', 'decimal');
+
     const chain = EvmChain.create('0x1');
     const value = chain.format();
 

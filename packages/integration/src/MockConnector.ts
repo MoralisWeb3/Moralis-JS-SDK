@@ -1,15 +1,16 @@
-import core, {
+import {
   EvmAddress,
   EvmAddressish,
   EvmChain,
   EvmChainish,
   EvmConnection,
   RequestArguments,
-  Logger,
+  LoggerController,
   EvmBaseConnectOptions,
   EvmProvider,
   ProviderAccounts,
   MoralisCore,
+  MoralisCoreProvider,
 } from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import EventEmitter from 'eventemitter3';
@@ -113,7 +114,7 @@ interface EvmMockConnectorOptions {
 }
 
 export class MockEip1193Provider extends EventEmitter implements EvmProvider {
-  logger: Logger;
+  logger: LoggerController;
   account: EvmAddress;
   chain: EvmChain;
   blockNumber: number;
@@ -130,7 +131,7 @@ export class MockEip1193Provider extends EventEmitter implements EvmProvider {
     tx,
     receipt,
   }: EvmMockConnectorOptions & {
-    logger: Logger;
+    logger: LoggerController;
   }) {
     super();
     this.logger = logger;
@@ -186,12 +187,13 @@ export class MockEip1193Provider extends EventEmitter implements EvmProvider {
   }
 }
 
-class MockEvmConnector extends EvmAbstractConnector {
-  public constructor(config: { core: MoralisCore }) {
-    super({
-      name: 'mock',
-      core: config.core,
-    });
+export class MockEvmConnector extends EvmAbstractConnector {
+  public static create(): MockEvmConnector {
+    return new MockEvmConnector(MoralisCoreProvider.getDefault());
+  }
+
+  public constructor(core: MoralisCore) {
+    super('mock', core);
   }
 
   protected async createProvider(options?: EvmBaseConnectOptions | undefined): Promise<EvmProvider> {
@@ -209,12 +211,9 @@ class MockEvmConnector extends EvmAbstractConnector {
       provider.request({ method: 'eth_chainId' }) as Promise<string>,
     ]);
 
-    const account = accounts[0] ? new EvmAddress(accounts[0]) : null;
-    const chain = new EvmChain(chainId);
+    const account = accounts[0] ? EvmAddress.create(accounts[0]) : null;
+    const chain = EvmChain.create(chainId);
 
     return { provider, account, chain };
   }
 }
-
-const mockConnector = new MockEvmConnector({ core });
-export default mockConnector;

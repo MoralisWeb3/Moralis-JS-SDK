@@ -29,22 +29,14 @@ import {
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import { MyProvider } from 'my-provider';
 
-export interface MyConnectorConfig {
-  core: MoralisCore;
-  // ...
-}
-
 export interface MyConnectorConnectOptions extends EvmBaseConnectOptions {
   myParam: number;
   // ...
 }
 
 export class MyConnector extends EvmAbstractConnector<MyProvider, MyConnectorConnectOptions> {
-  public constructor(config: MyConnectorConfig) {
-    super({
-      name: 'connectors-name',
-      core: config.core,
-    });
+  public constructor(core: MoralisCore) {
+    super('connector-name', core);
   }
 
   protected async createProvider(options?: MyConnectorConnectOptions): Promise<MyProvider> {
@@ -73,14 +65,14 @@ Now you can register your connector:
 ```ts
 import core from '@moralisweb3/core';
 
-const myConnector = new MyConnector({ core });
+const myConnector = new MyConnector(core);
 Moralis.Evm.connectors.register(myConnector);
 ```
 
 And use it:
 
 ```ts
-Moralis.Evm.connect('connectors-name', {
+Moralis.Evm.connect('connector-name', {
   myParam: 0x0,
   /* ... */
 });

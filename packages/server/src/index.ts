@@ -1,3 +1,7 @@
-import MoralisServer from './MoralisServer';
+import { MoralisServer } from './MoralisServer';
+
 export * from './AuthMethods/types';
-export default MoralisServer;
+export * from './MoralisServer';
+
+const defaultServer = MoralisServer.create();
+export default defaultServer;

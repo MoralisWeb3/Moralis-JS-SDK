@@ -1,44 +1,67 @@
 import { CoreModuleType } from './CoreModuleType';
+import { MoralisCore } from '../MoralisCore';
 import { BaseModule } from './BaseModule';
-import { makeMockMoralisCore } from '../test/makeMockMoralisCore';
 
 describe('BaseModule', () => {
-  const core = makeMockMoralisCore();
-  const name = 'testModule';
+  const MODULE_NAME = 'testModule';
 
-  class SimpleMoralisClass extends BaseModule {}
-  const instance = new SimpleMoralisClass({
-    name,
-    core,
-  });
+  class TestBaseModule extends BaseModule {
+    public setup(): void {
+      // Nothing
+    }
+    public start(): void | Promise<void> {
+      // Nothing
+    }
+    public getListenerCount(eventName: string): number {
+      return this.emitter.listenerCount(eventName);
+    }
+    public emit(eventName: string, value: any) {
+      this.emitter.emit(eventName, value);
+    }
+  }
+
+  let core: MoralisCore;
+  let module: TestBaseModule;
 
   beforeAll(() => {
-    core.modules.register(instance);
+    core = MoralisCore.create();
+    module = new TestBaseModule(MODULE_NAME, core);
+    core.modules.register(module);
   });
 
   it('should extend correctly', () => {
-    expect(instance.name).toBe(name);
-    expect(instance.type).toBe(CoreModuleType.DEFAULT);
+    expect(module.name).toBe(MODULE_NAME);
+    expect(module.type).toBe(CoreModuleType.DEFAULT);
   });
 
-  it('should be able to call start', async () => {
-    await instance.start();
+  it('should be able to call start', () => {
+    module.start();
   });
 
-  it('should listen to events', (done) => {
-    const EVENT = 'TestEvent';
-    const cleanup = instance.listen(EVENT, (value: string) => {
+  it('should listen to events', () => {
+    const EVENT_NAME = 'TestEvent';
+    let called = 0;
+
+    const cleanup = module.listen(EVENT_NAME, (value: string) => {
       expect(value).toBe('success');
-      cleanup();
-      expect(instance.emitter.listenerCount(EVENT)).toBe(0);
-      done();
+      called++;
     });
-    instance.emitter.emit(EVENT, 'success');
+
+    expect(module.getListenerCount(EVENT_NAME)).toEqual(1);
+    expect(called).toEqual(0);
+
+    module.emit(EVENT_NAME, 'success');
+
+    expect(called).toEqual(1);
+
+    cleanup();
+
+    expect(module.getListenerCount(EVENT_NAME)).toEqual(0);
   });
 
   it('should cleanup the class correctly', () => {
-    expect(core.modules.listNames().length).toBe(2);
-    instance.cleanUp();
     expect(core.modules.listNames().length).toBe(1);
+    module.cleanUp();
+    expect(core.modules.listNames().length).toBe(0);
   });
 });

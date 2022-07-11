@@ -1,3 +1,4 @@
-import EvmWalletConnectConnector from './EvmWalletConnectConnector';
+import { EvmWalletConnectConnector } from './EvmWalletConnectConnector';
 
-export default EvmWalletConnectConnector;
+const defaultEvmWalletConnectConnector = EvmWalletConnectConnector.create();
+export default defaultEvmWalletConnectConnector;

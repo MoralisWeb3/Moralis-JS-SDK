@@ -6,7 +6,7 @@ import {
   EvmConnect,
   EvmConnectionData,
   EvmProvider,
-  Logger,
+  LoggerController,
   MoralisNetworkError,
   NetworkErrorCode,
   MoralisState,
@@ -30,7 +30,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
   // Used connector for the currect connection
   connector: EvmAbstractConnector | null = null;
 
-  constructor(logger: Logger, emitter: TypedEmitter<EvmNetworkEventMap>) {
+  constructor(logger: LoggerController, emitter: TypedEmitter<EvmNetworkEventMap>) {
     super('Connection');
 
     this.connectors = new Connectors();

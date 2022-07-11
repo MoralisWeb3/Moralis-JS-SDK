@@ -1,8 +1,9 @@
 import { BaseModule } from './Modules/BaseModule';
-import { ConfigValues } from './Config/configOptions';
-import { MoralisConfig } from './Config/MoralisConfig';
 import { MoralisModules } from './Modules/MoralisModules';
-import { Logger } from './controllers/LoggerController';
+import { LoggerController } from './controllers/LoggerController';
+import { Config } from './config/Config';
+import { MoralisConfigValues } from './config/MoralisConfig';
+import { CoreConfigSetup } from './config/CoreConfigSetup';
 
 /**
  * MoralisCore is used in all Moralis applications
@@ -13,23 +14,29 @@ import { Logger } from './controllers/LoggerController';
  * - accessing and changing the config
  */
 export class MoralisCore {
-  name = 'core';
-  modules: MoralisModules;
-  config: MoralisConfig;
-  logger: Logger;
-
-  constructor() {
-    this.modules = new MoralisModules();
-    this.config = new MoralisConfig(this.modules);
-    this.logger = new Logger(this, this.name);
+  public static create(): MoralisCore {
+    const modules = new MoralisModules();
+    const config = new Config();
+    const logger = new LoggerController(config, 'core');
+    const core = new MoralisCore(modules, config, logger);
+    CoreConfigSetup.register(config, core);
+    return core;
   }
+
+  public constructor(
+    public readonly modules: MoralisModules,
+    public readonly config: Config,
+    public readonly logger: LoggerController,
+  ) {}
 
   /**
    * Register all specified modules and configurations
    * @params array of all modules (any module that is extended from BaseModule) that you want to include
    */
-  registerModules = (modules: BaseModule[]) => {
-    modules.forEach(this.modules.register);
+  public registerModules = (modules: BaseModule[]) => {
+    modules.forEach((module) => {
+      this.modules.register(module);
+    });
 
     this.logger.verbose('Modules registered', { allModules: this.modules.listNames() });
   };
@@ -37,7 +44,7 @@ export class MoralisCore {
   /**
    * Register a new module
    */
-  registerModule = (module: BaseModule) => {
+  public registerModule = (module: BaseModule) => {
     this.modules.register(module);
 
     this.logger.verbose('Module registered', { module: module.name });
@@ -49,12 +56,12 @@ export class MoralisCore {
    *
    * This will call `start()` on every registered module
    */
-  start = async (providedConfig?: Partial<ConfigValues>) => {
+  public start = async (providedConfig?: Partial<MoralisConfigValues>) => {
+    const allModules = this.modules.list();
+
     if (providedConfig) {
       this.config.merge(providedConfig);
     }
-
-    const allModules = this.modules.list();
 
     this.logger.verbose('Starting all registered modules', {
       moduleNames: this.modules.listNames(),
@@ -67,6 +74,3 @@ export class MoralisCore {
     });
   };
 }
-
-const moralisCore = new MoralisCore();
-export default moralisCore;

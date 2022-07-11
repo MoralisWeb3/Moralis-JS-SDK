@@ -11,14 +11,9 @@ import {
   ProviderChainId,
   ProviderInfo,
   ProviderRpcError,
-  Logger,
+  LoggerController,
   MoralisCore,
 } from '@moralisweb3/core';
-
-export interface EvmAbstractConnectorConfig {
-  name: string;
-  core: MoralisCore;
-}
 
 /**
  * Abstract connector to connect EIP-1193 providers to Moralis
@@ -33,9 +28,8 @@ export abstract class EvmAbstractConnector<
   Provider extends EvmProvider = EvmProvider,
   Options extends EvmBaseConnectOptions = EvmBaseConnectOptions,
 > extends EventEmitter {
-  public readonly name: string;
   public readonly network = 'evm';
-  protected readonly logger: Logger;
+  protected readonly logger: LoggerController;
 
   private _provider: Provider | null = null;
   public get provider(): Provider | null {
@@ -52,10 +46,10 @@ export abstract class EvmAbstractConnector<
     return this._account;
   }
 
-  public constructor({ name, core }: EvmAbstractConnectorConfig) {
+  public constructor(public readonly name: string, protected readonly core: MoralisCore) {
     super();
     this.name = name;
-    this.logger = new Logger(core, `evmConnector: ${this.name}`);
+    this.logger = new LoggerController(this.core.config, `evmConnector: ${this.name}`);
 
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
     this.handleChainChanged = this.handleChainChanged.bind(this);
@@ -114,7 +108,7 @@ export abstract class EvmAbstractConnector<
       return;
     }
 
-    this._account = new EvmAddress(accounts[0]);
+    this._account = EvmAddress.create(accounts[0]);
     this.emit(EvmConnectorEvent.ACCOUNT_CHANGED, this.account);
   }
 
@@ -122,7 +116,7 @@ export abstract class EvmAbstractConnector<
    * Updates chainId and emit event, on EIP-1193 accountsChanged events
    */
   private handleChainChanged(chain: ProviderChainId) {
-    const newChain = new EvmChain(chain);
+    const newChain = EvmChain.create(chain);
     this._chain = newChain;
     this.emit(EvmConnectorEvent.CHAIN_CHANGED, newChain);
   }

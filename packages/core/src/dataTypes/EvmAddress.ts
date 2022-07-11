@@ -1,9 +1,10 @@
 import { CoreErrorCode } from '../Error/ErrorCode';
 import { MoralisCoreError } from '../Error/MoralisError';
 import { getAddress, isAddress } from '@ethersproject/address';
-import { EvmAddressFormat } from '../Config/configOptions';
-import core from '../MoralisCore';
 import { MoralisData } from './abstract';
+import { MoralisCore } from '../MoralisCore';
+import { MoralisCoreProvider } from '../MoralisCoreProvider';
+import { Config, CoreConfig, EvmAddressFormat } from '../config';
 
 export type InputEvmAddress = string;
 export type EvmAddressish = EvmAddress | InputEvmAddress;
@@ -13,18 +14,19 @@ export type EvmAddressish = EvmAddress | InputEvmAddress;
  * A new instance can be created via `EvmAddress.create(address)`, where the provided chain can be a valid address (in lowercase or checksum)
  */
 export class EvmAddress implements MoralisData {
-  // Checksum address
-  private _value: string;
-
-  constructor(address: InputEvmAddress) {
-    this._value = EvmAddress.parse(address);
-  }
-
-  static create(address: EvmAddressish) {
+  public static create(address: EvmAddressish, core?: MoralisCore) {
     if (address instanceof EvmAddress) {
       return address;
     }
-    return new EvmAddress(address);
+    const c = core || MoralisCoreProvider.getDefault();
+    return new EvmAddress(address, c.config);
+  }
+
+  // Checksum address
+  private _value: string;
+
+  public constructor(address: InputEvmAddress, private readonly config: Config) {
+    this._value = EvmAddress.parse(address);
   }
 
   /**
@@ -57,7 +59,7 @@ export class EvmAddress implements MoralisData {
   }
 
   format(_formatStyle?: EvmAddressFormat) {
-    const formatStyle = _formatStyle ?? core.config.get('formatEvmAddress');
+    const formatStyle = _formatStyle ?? this.config.get(CoreConfig.formatEvmAddress);
 
     if (formatStyle === 'checksum') {
       return this.checksum;

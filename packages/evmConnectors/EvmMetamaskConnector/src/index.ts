@@ -1,3 +1,4 @@
-import EvmMetamaskConnector from './EvmMetamaskConnector';
+import { EvmMetamaskConnector } from './EvmMetamaskConnector';
 
-export default EvmMetamaskConnector;
+const defaultEvmMetamaskConnector = EvmMetamaskConnector.create();
+export default defaultEvmMetamaskConnector;

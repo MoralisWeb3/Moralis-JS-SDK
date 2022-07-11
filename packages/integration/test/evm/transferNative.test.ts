@@ -1,6 +1,6 @@
 import Core, { EvmNative } from '@moralisweb3/core';
 import Evm from '@moralisweb3/evm';
-import MockEvmConnector from '../../src/MockConnector';
+import MockEvmConnector from '../../src';
 
 describe('Evm connect', () => {
   beforeAll(async () => {
