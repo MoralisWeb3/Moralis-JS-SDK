@@ -1,6 +1,15 @@
-import { EvmConnectData } from '@moralisweb3/core';
+import {
+  EvmBaseConnectOptions,
+  EvmConnectData,
+  EvmMetamaskConnectorConnectOptions,
+  EvmWalletConnectConnectorOptions,
+} from '@moralisweb3/core';
 import { IStandardCallbacks } from '../../types';
-
-export interface IEVMConnect extends IStandardCallbacks {
+export interface IEVMConnectCallbacks extends IStandardCallbacks {
   onSuccess?: (web3: EvmConnectData) => void;
+}
+export interface IEvmConnect {
+  (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions & IEVMConnectCallbacks): Promise<void>;
+  (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions & IEVMConnectCallbacks): Promise<void>;
+  (connector: string, options?: EvmBaseConnectOptions & IEVMConnectCallbacks): Promise<void>;
 }
