@@ -8,7 +8,6 @@ import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
 import babel from '@rollup/plugin-babel';
 import { uglify } from 'rollup-plugin-uglify';
-import alias from '@rollup/plugin-alias';
 
 const isDev = process.env.dev === 'true';
 
@@ -32,9 +31,6 @@ export function commonJs(packageJson) {
     plugins: [
       cleaner({
         targets: ['lib'],
-      }),
-      alias({
-        entries: [{ find: 'magic-sdk', replacement: 'node_modules/magic-sdk/dist/cjs/index.js' }],
       }),
       typescript({ useTsconfigDeclarationDir: true }),
     ],

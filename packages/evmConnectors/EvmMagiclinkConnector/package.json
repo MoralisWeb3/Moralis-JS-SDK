@@ -23,6 +23,6 @@
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.1",
     "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1",
-    "magic-sdk": "8.1.1"
+    "magic-sdk": "7.0.0"
   }
 }
