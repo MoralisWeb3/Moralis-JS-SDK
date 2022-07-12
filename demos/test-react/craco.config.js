@@ -3,6 +3,7 @@ const { getLoader, loaderByName } = require('@craco/craco'); // eslint-disable-l
 
 const packages = [
   path.join(__dirname, '../../packages/moralis'),
+  path.join(__dirname, '../../packages/react'),
   path.join(__dirname, '../../packages/core'),
   path.join(__dirname, '../../packages/server'),
   path.join(__dirname, '../../packages/evm'),
@@ -14,7 +15,7 @@ const packages = [
 
 module.exports = {
   webpack: {
-    configure: webpackConfig => {
+    configure: (webpackConfig) => {
       const { isFound, match } = getLoader(webpackConfig, loaderByName('babel-loader'));
       if (isFound) {
         const include = Array.isArray(match.loader.include) ? match.loader.include : [match.loader.include];

@@ -1,10 +1,14 @@
-import { useEVM } from '@moralisweb3/react';
+import { useMoralisCore, useMoralisEvm } from '@moralisweb3/react';
+import Header from './Header';
 const App = () => {
-  const { connect, isConnecting, web3 } = useEVM();
-  console.log('web3: ', web3);
+  const { connect, chain, Evm } = useMoralisEvm();
+  const { Core, isStarting, isStarted } = useMoralisCore();
+  console.log('isStarting: ', isStarting);
+  console.log('isStarted: ', isStarted);
   return (
     <div>
       <h1>Demo React App</h1>
+      <Header />
       <button
         onClick={() =>
           connect('metamask', {
@@ -16,6 +20,7 @@ const App = () => {
       >
         Connect
       </button>
+      <div>Chain: {chain?.name}</div>
     </div>
   );
 };

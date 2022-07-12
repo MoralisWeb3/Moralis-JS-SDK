@@ -1,29 +1,22 @@
-import { MoralisContext } from '../MoralisContext';
+import { _useMoralisEvm } from 'hooks/Evm/useMoralisEvm/_useMoralisEvm';
 import { IMoralisProviderProps } from './types';
+import { MoralisContext } from '../MoralisContext';
+import CoreProvider from 'context/Core/CoreProvider/CoreProvider';
+import Evm from '@moralisweb3/evm';
 
-const MoralisProvider = ({
-  children,
-  appId,
-  serverUrl,
-}: //
-//
-//   jsKey,
-//   dangerouslyUseOfMasterKey,
-//   plugins,
-//   environment,
-//   getMoralis,
-//   options: { onAccountChanged } = {},
-//   initializeOnMount = true,
-IMoralisProviderProps) => {
+const MoralisProvider = ({ children, ...coreConfig }: IMoralisProviderProps) => {
+  const moralisEVM = _useMoralisEvm();
   return (
-    <MoralisContext.Provider
-      value={{
-        appId,
-        serverUrl,
-      }}
-    >
-      {children}
-    </MoralisContext.Provider>
+    <CoreProvider {...coreConfig}>
+      <MoralisContext.Provider
+        value={{
+          ...moralisEVM,
+          Evm,
+        }}
+      >
+        {children}
+      </MoralisContext.Provider>
+    </CoreProvider>
   );
 };
 export default MoralisProvider;

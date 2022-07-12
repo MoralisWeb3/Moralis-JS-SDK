@@ -1,4 +1,4 @@
-export interface IStandardCallbacks {
+export interface IDefaultCallbacks {
   onError?: (error: Error) => void;
   onComplete?: () => void;
   throwOnError?: boolean;

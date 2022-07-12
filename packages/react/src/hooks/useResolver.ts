@@ -1,6 +1,6 @@
-import { IStandardCallbacks } from './types';
+import { IDefaultCallbacks } from './types';
 
-export interface IResolver extends IStandardCallbacks {
+export interface IResolver extends IDefaultCallbacks {
   onSuccess?: any;
 }
 
