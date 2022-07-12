@@ -34,7 +34,7 @@ export function commonJs(packageJson) {
         targets: ['lib'],
       }),
       alias({
-        entries: [{ find: 'magic-sdk', replacement: 'magic-sdk/dist/cjs/index' }],
+        entries: [{ find: 'magic-sdk', replacement: 'node_modules/magic-sdk/dist/cjs/index.js' }],
       }),
       typescript({ useTsconfigDeclarationDir: true }),
     ],
@@ -64,9 +64,6 @@ export function esm(packageJson, internal) {
       peerDepsExternal(),
       resolve({
         preferBuiltins: false,
-      }),
-      alias({
-        entries: [{ find: 'magic-sdk', replacement: 'magic-sdk/dist/cjs/index' }],
       }),
       json(),
       commonjs(),
@@ -107,9 +104,6 @@ export function umd(outputName, packageJson, externanMap) {
       peerDepsExternal(),
       resolve({
         preferBuiltins: false,
-      }),
-      alias({
-        entries: [{ find: 'magic-sdk', replacement: 'magic-sdk/dist/cjs/index' }],
       }),
       json(),
       commonjs({}),
