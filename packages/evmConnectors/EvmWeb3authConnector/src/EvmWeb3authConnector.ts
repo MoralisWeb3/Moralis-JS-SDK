@@ -1,12 +1,13 @@
-import {
+import core, {
   EvmAddress,
+  MoralisCore,
   EvmChain,
-  EvmConnectResponse,
   MoralisNetworkConnectorError,
   EvmWeb3authConnectOptions,
   NetworkConnectorErrorCode,
+  EvmProvider,
+  EvmConnection,
 } from '@moralisweb3/core';
-import core from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import { Web3Auth, Web3AuthOptions } from '@web3auth/web3auth';
 import { SafeEventEmitterProvider, ADAPTER_EVENTS } from '@web3auth/base';
@@ -16,33 +17,21 @@ const DEFAULT_OPTIONS: Omit<EvmWeb3authConnectOptions, 'clientId'> = {
   appLogo: 'https://moralis.io/wp-content/uploads/2021/05/moralisWhiteLogo.svg',
   chainId: '0x1',
 };
-export class EvmWeb3authConnector extends EvmAbstractConnector {
-  constructor() {
+
+export type Web3AuthProvider = EvmProvider & SafeEventEmitterProvider;
+
+export interface EvmWeb3authConnectorConfig {
+  core: MoralisCore;
+}
+export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider, EvmWeb3authConnectOptions> {
+  constructor(config: EvmWeb3authConnectorConfig) {
     super({
       name: 'web3auth',
-      core,
+      core: config.core,
     });
   }
 
-  private async getProvider(web3auth: Web3Auth): Promise<SafeEventEmitterProvider> {
-    if (this._provider) {
-      return this._provider as any;
-    }
-
-    const provider = await web3auth.connect();
-
-    if (!provider) {
-      throw new MoralisNetworkConnectorError({
-        code: NetworkConnectorErrorCode.NO_PROVIDER,
-        message: 'Failed to create a provider',
-      });
-    }
-
-    return provider;
-  }
-
-  async connect(_options: EvmWeb3authConnectOptions): Promise<EvmConnectResponse> {
-    const params = { ...DEFAULT_OPTIONS, ..._options };
+  protected async createProvider(params: EvmWeb3authConnectOptions): Promise<Web3AuthProvider> {
     const options: Web3AuthOptions = {
       chainConfig: {
         chainId: EvmChain.create(params.chainId!).apiHex,
@@ -55,9 +44,6 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
       },
       clientId: params.clientId,
     };
-
-    this.logger.verbose('Connecting', { providedOptions: _options, params });
-
     const web3auth = new Web3Auth(options);
 
     if (params.newSession) {
@@ -68,23 +54,34 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
 
     this.subscribeAuthEvents(web3auth);
 
-    const provider = await this.getProvider(web3auth);
+    const provider = await web3auth.connect();
+
+    if (!provider) {
+      throw new MoralisNetworkConnectorError({
+        code: NetworkConnectorErrorCode.NO_PROVIDER,
+        message: 'Failed to create a provider',
+      });
+    }
+
+    return provider as Web3AuthProvider;
+  }
+
+  protected async createConnection(_options: EvmWeb3authConnectOptions): Promise<EvmConnection> {
+    const params = { ...DEFAULT_OPTIONS, ..._options };
+
+    this.logger.verbose('Connecting', { providedOptions: _options, params });
+
+    const provider = await this.getProvider(params);
 
     const [chainId, accounts] = await Promise.all([
       provider?.request({ method: 'eth_chainId' }) as Promise<string>,
       provider?.request({ method: 'eth_accounts' }) as Promise<string[]>,
     ]);
 
-    this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
-    this.chain = new EvmChain(chainId!);
-    this._provider = web3auth.provider;
-
-    this.subscribeToEvents(this.provider!);
-
     return {
-      provider: this.provider!,
-      chain: this.chain,
-      account: this.account,
+      provider: provider,
+      chain: new EvmChain(chainId),
+      account: accounts[0] ? new EvmAddress(accounts[0]) : null,
     };
   }
 
@@ -101,5 +98,5 @@ export class EvmWeb3authConnector extends EvmAbstractConnector {
   }
 }
 
-const evmWeb3authConnector = new EvmWeb3authConnector();
+const evmWeb3authConnector = new EvmWeb3authConnector({ core });
 export default evmWeb3authConnector;
