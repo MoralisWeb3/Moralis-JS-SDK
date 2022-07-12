@@ -1,4 +1,4 @@
-import { Config } from '../config';
+import { Config } from '../Config/Config';
 import { LoggerController } from '../controllers/LoggerController';
 import { EvmChain, EvmAddress } from '../dataTypes';
 import { MoralisCore } from '../MoralisCore';

@@ -1,4 +1,4 @@
-import { CoreConfig } from '../config';
+import { CoreConfig } from '../Config/CoreConfig';
 import { Config } from '../config/Config';
 import { CoreErrorCode, MoralisError } from '../Error';
 import { LoggerController } from './LoggerController';
