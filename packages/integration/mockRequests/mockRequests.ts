@@ -1,5 +1,6 @@
 import { setupServer } from 'msw/node';
 import { mockResolveDomain } from './evmApi/resolveDomain';
+import { mockSyncNFTContract } from './evmApi/syncNFTContract';
 import { mockResolveAddress } from './evmApi/resolveAddress';
 import { mockGetLogsByAddress } from './evmApi/getLogsByAddress';
 import { mockGetPairReserves } from './evmApi/getPairReserves';
@@ -36,6 +37,7 @@ import { mockUploadFolder } from './evmApi/uploadFolder';
 
 const handlers = [
   mockRunContractFunction,
+  mockSyncNFTContract,
   mockGetNFTTransfersFromToBlock,
   mockGetDateToBlock,
   mockUploadFolder,
