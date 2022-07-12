@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { isMoralisError } from '../Error/isMoralisError';
-import { CoreConfig, LogLevel } from '../config/CoreConfig';
-import { Config } from '../config/Config';
+import { CoreConfig, LogLevel } from '../Config/CoreConfig';
+import { Config } from '../Config';
 
 type Details = Record<string, unknown>;
 

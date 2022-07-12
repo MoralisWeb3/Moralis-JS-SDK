@@ -4,7 +4,7 @@ export * from './MoralisCore';
 export * from './MoralisCoreProvider';
 export * from './Modules';
 export * from './Error';
-export * from './config';
+export * from './Config';
 export * from './Assert';
 export * from './State';
 export * from './sharedTypes/index';

@@ -1,9 +1,9 @@
 import { Module, ModuleFactory } from './Modules/Module';
 import { Modules } from './Modules/Modules';
 import { LoggerController } from './controllers/LoggerController';
-import { Config } from './config/Config';
-import { MoralisConfigValues } from './config/MoralisConfig';
-import { CoreConfigSetup } from './config/CoreConfigSetup';
+import { Config } from './Config/Config';
+import { CoreConfigSetup } from './Config/CoreConfigSetup';
+import { MoralisConfigValues } from './Config';
 
 /**
  * MoralisCore is used in all Moralis applications

@@ -3,9 +3,10 @@ import { chainList, EvmChainListDataEntry } from '../data/chaindata';
 import { MoralisCore } from '../MoralisCore';
 import { MoralisData } from './abstract';
 import { MoralisCoreProvider } from '../MoralisCoreProvider';
-import { Config, CoreConfig, EvmChainIdFormat } from '../config';
 import { EvmChainParser } from './EvmChainParser';
 import { EvmChainish, InputChainId } from './EvmChainish';
+import { Config } from '../Config/Config';
+import { CoreConfig, EvmChainIdFormat } from '../Config/CoreConfig';
 
 type InternalEvmChain = string;
 

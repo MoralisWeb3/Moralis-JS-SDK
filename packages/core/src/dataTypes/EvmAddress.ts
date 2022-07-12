@@ -4,7 +4,8 @@ import { getAddress, isAddress } from '@ethersproject/address';
 import { MoralisData } from './abstract';
 import { MoralisCore } from '../MoralisCore';
 import { MoralisCoreProvider } from '../MoralisCoreProvider';
-import { Config, CoreConfig, EvmAddressFormat } from '../config';
+import { Config } from '../Config/Config';
+import { CoreConfig, EvmAddressFormat } from '../Config/CoreConfig';
 
 export type InputEvmAddress = string;
 export type EvmAddressish = EvmAddress | InputEvmAddress;
