@@ -8,8 +8,9 @@ import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
 import babel from '@rollup/plugin-babel';
 import { uglify } from 'rollup-plugin-uglify';
+import alias from '@rollup/plugin-alias';
 
-const isDev = (process.env.dev === 'true');
+const isDev = process.env.dev === 'true';
 
 function uglifyIfProd() {
   return isDev ? undefined : uglify();
@@ -32,13 +33,18 @@ export function commonJs(packageJson) {
       cleaner({
         targets: ['lib'],
       }),
+      alias({
+        entries: [{ find: 'magic-sdk', replacement: 'magic-sdk/dist/cjs/index' }],
+      }),
       typescript({ useTsconfigDeclarationDir: true }),
     ],
   };
 }
 
 export function esm(packageJson, internal) {
-  const external = Object.keys(packageJson.dependencies).filter(d => d.startsWith('@moralisweb3/') && (!internal || !internal.includes(d)));
+  const external = Object.keys(packageJson.dependencies).filter(
+    (d) => d.startsWith('@moralisweb3/') && (!internal || !internal.includes(d)),
+  );
 
   return {
     input: 'src/index.ts',
@@ -59,6 +65,9 @@ export function esm(packageJson, internal) {
       resolve({
         preferBuiltins: false,
       }),
+      alias({
+        entries: [{ find: 'magic-sdk', replacement: 'magic-sdk/dist/cjs/index' }],
+      }),
       json(),
       commonjs(),
       typescript({ useTsconfigDeclarationDir: true }),
@@ -72,7 +81,7 @@ export function esm(packageJson, internal) {
 }
 
 export function umd(outputName, packageJson, externanMap) {
-  const external = Object.keys(packageJson.dependencies).filter(d => externanMap[d]);
+  const external = Object.keys(packageJson.dependencies).filter((d) => externanMap[d]);
   const outputGlobals = external.reduce((v, d) => {
     v[d] = externanMap[d];
     return v;
@@ -98,6 +107,9 @@ export function umd(outputName, packageJson, externanMap) {
       peerDepsExternal(),
       resolve({
         preferBuiltins: false,
+      }),
+      alias({
+        entries: [{ find: 'magic-sdk', replacement: 'magic-sdk/dist/cjs/index' }],
       }),
       json(),
       commonjs({}),
