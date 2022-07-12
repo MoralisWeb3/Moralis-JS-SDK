@@ -39,7 +39,6 @@ export const getTokenIdMetadataResolver = new EvmResolver({
       symbol: data.symbol,
       tokenHash: data.token_hash,
     }),
-    syncedAt: data.synced_at ? new Date(data.synced_at) : undefined,
     amount: data.amount,
     ownerOf: EvmAddress.create(data.owner_of),
     blockNumberMinted: data.block_number_minted,
@@ -49,7 +48,6 @@ export const getTokenIdMetadataResolver = new EvmResolver({
   }),
   resultToJson: (data) => ({
     ...data,
-    syncedAt: data.syncedAt?.toLocaleDateString(),
     token: data.token.toJSON(),
     lastMetadataSync: data.lastMetadataSync?.toLocaleDateString(),
     lastTokenUriSync: data.lastTokenUriSync?.toLocaleDateString(),

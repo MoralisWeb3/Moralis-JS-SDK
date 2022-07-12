@@ -1,17 +1,21 @@
-import {
+import core, {
   EvmAddress,
   EvmChain,
-  EvmConnectResponse,
+  EvmConnection,
   EvmWalletConnectConnectorOptions,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
+  MoralisCore,
 } from '@moralisweb3/core';
-import core from '@moralisweb3/core';
 import { EvmAbstractConnector, getMoralisRpcs } from '@moralisweb3/evm-connector-utils';
 import { WalletConnectProviderWrapper } from '@moralisweb3/wallet-connect-wrapper';
 import { IWalletConnectProviderOptions } from '@walletconnect/types';
 
 const WALLET_CONNECT_RPC_KEY = 'WalletConnect';
+
+export interface EvmWalletConnectConnectorConfig {
+  core: MoralisCore;
+}
 
 const defaultOptions: EvmWalletConnectConnectorOptions = {
   chainId: 1,
@@ -21,30 +25,26 @@ const defaultOptions: EvmWalletConnectConnectorOptions = {
 /**
  * Connector for WalletConnect v1
  */
-export class EvmWalletconnectConnector extends EvmAbstractConnector {
-  constructor() {
+export class EvmWalletConnectConnector extends EvmAbstractConnector<
+  WalletConnectProviderWrapper,
+  EvmWalletConnectConnectorOptions
+> {
+  constructor(config: EvmWalletConnectConnectorConfig) {
     super({
       name: 'wallet-connect',
-      core,
+      core: config.core,
     });
   }
 
-  // Internal provider, is typed as WalletConnectProvider and has more options than our "basic" EvmProvider typed
-  _provider: WalletConnectProviderWrapper | null = null;
-
-  private getProvider(options: EvmWalletConnectConnectorOptions): WalletConnectProviderWrapper {
-    if (this._provider) {
-      return this._provider;
-    }
-
+  protected async createProvider(options?: EvmWalletConnectConnectorOptions): Promise<WalletConnectProviderWrapper> {
     const rpc = getMoralisRpcs(WALLET_CONNECT_RPC_KEY);
-    const chainId = options.chainId ? new EvmChain(options.chainId) : undefined;
+    const chainId = options?.chainId ? new EvmChain(options.chainId) : undefined;
 
     const config: IWalletConnectProviderOptions = {
       rpc,
       chainId: chainId?.decimal,
       qrcodeModalOptions: {
-        mobileLinks: options.mobileLinks,
+        mobileLinks: options?.mobileLinks,
       },
     };
 
@@ -57,39 +57,28 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
         message: 'Failed to create a WalletConnect provider',
       });
     }
-
     return provider;
   }
 
-  async connect(_options?: Partial<EvmWalletConnectConnectorOptions>): Promise<EvmConnectResponse> {
-    const options = { ...defaultOptions, _options };
-
-    this.logger.verbose('Connecting', { providedOptions: _options, options });
+  protected async createConnection(options?: EvmWalletConnectConnectorOptions): Promise<EvmConnection> {
+    const finalOptions = { ...defaultOptions, options };
+    this.logger.verbose('Connecting', { providedOptions: options, options: finalOptions });
 
     // Log out of any previous sessions
-    if (options.newSession) {
+    if (finalOptions.newSession) {
       this.cleanup();
     }
 
-    const provider = this.getProvider(options);
-    this._provider = provider;
-
+    const provider = await this.getProvider(options);
     const accounts = await provider.enable();
-    this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
-    this.chain = new EvmChain(provider.chainId);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.subscribeToEvents(this.provider!);
-
     return {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      provider: this.provider!,
-      chain: this.chain,
-      account: this.account,
+      provider: provider,
+      chain: new EvmChain(provider.chainId),
+      account: accounts[0] ? new EvmAddress(accounts[0]) : null,
     };
   }
 
-  cleanup() {
+  public cleanup() {
     try {
       if (window) {
         window.localStorage.removeItem('walletconnect');
@@ -116,5 +105,5 @@ export class EvmWalletconnectConnector extends EvmAbstractConnector {
   // }
 }
 
-const evmWalletConnectConnector = new EvmWalletconnectConnector();
+const evmWalletConnectConnector = new EvmWalletConnectConnector({ core });
 export default evmWalletConnectConnector;
