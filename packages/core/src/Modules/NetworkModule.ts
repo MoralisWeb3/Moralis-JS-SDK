@@ -1,7 +1,7 @@
 import { EvmAddress, EvmChain } from './../dataTypes';
 import { EventMap } from 'typed-emitter';
-import { CoreModuleType } from './CoreModuleType';
-import { BaseModule } from './BaseModule';
+import { ModuleType } from './ModuleType';
+import { Module } from './Module';
 import { EvmConnection } from '../sharedTypes';
 import { MoralisCore } from '../MoralisCore';
 
@@ -11,11 +11,11 @@ import { MoralisCore } from '../MoralisCore';
  * - `name`: name of the module (should be unique)
  * - `core`: the MoralisCore instance
  */
-export abstract class NetworkModule<Events extends EventMap = any> extends BaseModule<Events> {
-  public readonly type: CoreModuleType.NETWORK = CoreModuleType.NETWORK;
+export abstract class NetworkModule<Events extends EventMap = any> extends Module<Events> {
+  public readonly type: ModuleType.NETWORK = ModuleType.NETWORK;
 
   constructor(name: string, core: MoralisCore) {
-    super(name, core, CoreModuleType.NETWORK);
+    super(name, core, ModuleType.NETWORK);
   }
 
   /**

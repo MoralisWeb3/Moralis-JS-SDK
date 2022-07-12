@@ -40,12 +40,27 @@ describe('Config', () => {
     expect(config.get(numberKey)).toEqual(123);
   });
 
+  it('returns known keys', () => {
+    config.registerKey(numberKey);
+    const keys = config.getKeys();
+    expect(keys).toContain(numberKey.name);
+  });
+
   it('throws an error when a string key does not exist', () => {
     expect(() => config.get('number')).toThrowError('[C0013] Key "number" is unregistered');
   });
 
   it('throws an error when a key does not exist', () => {
     expect(() => config.get(numberKey)).toThrowError('[C0013] Key "number" is unregistered');
+  });
+
+  it('merges correctly', () => {
+    config.registerKey(numberKey);
+    const values = {
+      number: 999,
+    };
+    config.merge(values);
+    expect(config.get('number')).toEqual(999);
   });
 
   it('can reset to the defaults', () => {

@@ -26,12 +26,14 @@ export class EvmWalletConnectConnector extends EvmAbstractConnector<
   WalletConnectProviderWrapper,
   EvmWalletConnectConnectorOptions
 > {
+  public static readonly connectorName = 'wallet-connect';
+
   public static create(core?: MoralisCore): EvmWalletConnectConnector {
     return new EvmWalletConnectConnector(core || MoralisCoreProvider.getDefault());
   }
 
   constructor(core: MoralisCore) {
-    super('wallet-connect', core);
+    super(EvmWalletConnectConnector.connectorName, core);
   }
 
   protected async createProvider(options?: EvmWalletConnectConnectorOptions): Promise<WalletConnectProviderWrapper> {

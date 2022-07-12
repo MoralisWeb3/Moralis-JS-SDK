@@ -1,4 +1,4 @@
-import { BaseModule } from './BaseModule';
+import { Module } from './Module';
 import { NetworkModule } from './NetworkModule';
 import { isApiModule, isNetworkModule } from './utils';
 import { AnyBaseClass } from './types';
@@ -15,24 +15,24 @@ import { ApiModule } from './ApiModule';
  * - removing modules (in theory possible for exotic usecases, but might break the app if done after initialisation)
  * - getting individual modules by name, type or everything
  */
-export class MoralisModules {
-  private readonly modules = new Map<string, BaseModule>();
+export class Modules {
+  private readonly modules = new Map<string, Module>();
 
   /**
    * Register a new module by providing a module that is extended from BaseClass.
    * This will throw an error if the name is not unique
-   * @param moralisModule the module that needs to be registered
+   * @param module the module that needs to be registered
    */
-  public register(moralisModule: AnyBaseClass) {
-    if (this.modules.has(moralisModule.name)) {
+  public register(module: AnyBaseClass) {
+    if (this.modules.has(module.name)) {
       throw new MoralisCoreError({
         code: CoreErrorCode.DUPLICATE_MODULE,
-        message: `The module "${moralisModule.name}" has already been registered.`,
+        message: `The module "${module.name}" has already been registered.`,
       });
     }
 
-    this.modules.set(moralisModule.name, moralisModule);
-    moralisModule.setup();
+    this.modules.set(module.name, module);
+    module.setup();
   }
 
   /**
@@ -42,12 +42,12 @@ export class MoralisModules {
    * @returns a valid BaseModule
    * @throws a MoralisCoreError if no module with the given name has been registered
    */
-  public get(name: string): BaseModule {
+  public get<M extends Module = Module>(name: string): M {
     const module = this.modules.get(name);
     if (!module) {
       throw new MoralisCoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
     }
-    return module;
+    return module as M;
   }
 
   /**
@@ -55,7 +55,7 @@ export class MoralisModules {
    * @param name the module name
    * @returns a valid BaseModule or null
    */
-  public tryGet(name: string): BaseModule | null {
+  public tryGet(name: string): Module | null {
     return this.modules.get(name) || null;
   }
 
@@ -123,7 +123,7 @@ export class MoralisModules {
    * List all the registered modules
    * @returns an array of BaseModule that have been registered
    */
-  public list(): BaseModule[] {
+  public list(): Module[] {
     return Array.from(this.modules.values());
   }
 

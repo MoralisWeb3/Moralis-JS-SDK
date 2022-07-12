@@ -1,26 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEnvApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({ onUnhandledRequest: 'warn' });
+    evmApi = setupEnvApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get the NFTs Transfers of an account address', async () => {
-    const result = await EvmApi.account.getNFTTransfers({
+    const result = await evmApi.account.getNFTTransfers({
       address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
     });
 
@@ -30,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the NFTs Transfers and return an error code for an invalid address', () => {
-    const failedResult = EvmApi.account
+    const failedResult = evmApi.account
       .getNFTTransfers({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
       })
@@ -41,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.account.getNFTTransfers({
+      evmApi.account.getNFTTransfers({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

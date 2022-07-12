@@ -1,7 +1,6 @@
 import { ethers } from 'ethers';
 import { EvmTransactionInput, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { NetworkModule, EvmConnect } from '@moralisweb3/core';
-import { MODULE_NAME } from './config';
 import { EvmNetworkEvent, EvmNetworkEventMap } from './events/EvmNetworkEvent';
 import { makeSendTransaction } from './chainMethods/sendTransaction';
 import { makeSignMessage } from './chainMethods/signMessage';
@@ -13,15 +12,16 @@ import { makeTransferErc1155, TransferErc1155Options } from './chainMethods/tran
 import { EcecuteFunctionOptions, makeExecutefunction } from './chainMethods/executeFunction';
 
 export class MoralisEvm extends NetworkModule<EvmNetworkEventMap> {
+  public static readonly moduleName = 'evm';
+
   public static create(core?: MoralisCore): MoralisEvm {
-    const c = core || MoralisCoreProvider.getDefault();
-    return new MoralisEvm(c);
+    return new MoralisEvm(core || MoralisCoreProvider.getDefault());
   }
 
   private connection: Connection = new Connection(this.logger, this.emitter);
 
   public constructor(core: MoralisCore) {
-    super(MODULE_NAME, core);
+    super(MoralisEvm.moduleName, core);
   }
 
   /**

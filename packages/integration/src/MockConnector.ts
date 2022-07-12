@@ -10,7 +10,6 @@ import {
   EvmProvider,
   ProviderAccounts,
   MoralisCore,
-  MoralisCoreProvider,
 } from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import EventEmitter from 'eventemitter3';
@@ -188,8 +187,8 @@ export class MockEip1193Provider extends EventEmitter implements EvmProvider {
 }
 
 export class MockEvmConnector extends EvmAbstractConnector {
-  public static create(): MockEvmConnector {
-    return new MockEvmConnector(MoralisCoreProvider.getDefault());
+  public static create(core: MoralisCore): MockEvmConnector {
+    return new MockEvmConnector(core);
   }
 
   public constructor(core: MoralisCore) {

@@ -1,5 +1,5 @@
-import { CoreModuleType } from './CoreModuleType';
-import { BaseModule } from './BaseModule';
+import { ModuleType } from './ModuleType';
+import { Module } from './Module';
 import { EventMap } from 'typed-emitter';
 import { MoralisCore } from '../MoralisCore';
 
@@ -11,8 +11,8 @@ import { MoralisCore } from '../MoralisCore';
  * - `baseUrl`: the base url where of the api
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class ApiModule<Events extends EventMap = any> extends BaseModule<Events> {
+export abstract class ApiModule<Events extends EventMap = any> extends Module<Events> {
   public constructor(name: string, core: MoralisCore, protected readonly baseUrl: string) {
-    super(name, core, CoreModuleType.API);
+    super(name, core, ModuleType.API);
   }
 }

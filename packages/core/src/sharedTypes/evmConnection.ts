@@ -3,7 +3,8 @@
  */
 
 import { EvmAddress } from '../dataTypes/EvmAddress';
-import { InputChainId, EvmChain } from '../dataTypes/EvmChain';
+import { EvmChain } from '../dataTypes/EvmChain';
+import { InputChainId } from '../dataTypes/EvmChainish';
 import { EvmProvider } from './EvmProvider';
 
 // Evm connections

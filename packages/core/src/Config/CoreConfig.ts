@@ -1,4 +1,4 @@
-import { EvmChainish } from '../dataTypes';
+import { EvmChainish } from '../dataTypes/EvmChainish';
 import { ConfigKey } from './Config';
 
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'off';
@@ -43,10 +43,6 @@ export const CoreConfig = {
 
   moralisSecret: {
     name: 'moralisSecret',
-    defaultValue: null,
-  } as ConfigKey<string | null>,
-  javascriptKey: {
-    name: 'javascriptKey',
     defaultValue: null,
   } as ConfigKey<string | null>,
   masterKey: {

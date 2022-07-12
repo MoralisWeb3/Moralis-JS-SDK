@@ -1,26 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEnvApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({ onUnhandledRequest: 'warn' });
+    evmApi = setupEnvApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get the NFTs of an account address', async () => {
-    const result = await EvmApi.account.getNFTsForContract({
+    const result = await evmApi.account.getNFTsForContract({
       address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
       format: 'decimal',
       chain: 'polygon',
@@ -33,7 +26,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the NFTs and return an error code for an invalid address', () => {
-    const failedResult = EvmApi.account
+    const failedResult = evmApi.account
       .getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
         format: 'decimal',
@@ -47,7 +40,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.account.getNFTsForContract({
+      evmApi.account.getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
         format: 'decimal',
         chain: 'polygon',
@@ -57,7 +50,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the NFTs and return an error code for an invalid chain', () => {
-    const failedResult = EvmApi.account
+    const failedResult = evmApi.account
       .getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         format: 'decimal',
@@ -71,7 +64,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.account.getNFTsForContract({
+      evmApi.account.getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         format: 'decimal',
         chain: 'polygo',
@@ -83,7 +76,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the NFTs and return an error code for an invalid token address', () => {
-    const failedResult = EvmApi.account
+    const failedResult = evmApi.account
       .getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         format: 'decimal',
@@ -97,7 +90,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.account.getNFTsForContract({
+      evmApi.account.getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         format: 'decimal',
         chain: 'polygon',

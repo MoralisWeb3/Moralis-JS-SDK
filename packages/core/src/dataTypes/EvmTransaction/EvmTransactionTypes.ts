@@ -1,6 +1,7 @@
 import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
-import { EvmChainish, EvmChain } from '../EvmChain';
+import { EvmChain } from '../EvmChain';
+import { EvmChainish } from '../EvmChainish';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 import { BytesLike, AccessListish, AccessList } from '../types';
 

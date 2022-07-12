@@ -21,12 +21,14 @@ const DEFAULT_OPTIONS: EvmMetamaskConnectorConnectOptions = {
 export type MetamaskProvider = EvmProvider & { isMetaMask?: boolean; providers?: MetamaskProvider[] };
 
 export class EvmMetamaskConnector extends EvmAbstractConnector<MetamaskProvider, EvmMetamaskConnectorConnectOptions> {
+  public static readonly connectorName = 'metamask';
+
   public static create(core?: MoralisCore): EvmMetamaskConnector {
     return new EvmMetamaskConnector(core || MoralisCoreProvider.getDefault());
   }
 
   public constructor(core: MoralisCore) {
-    super('metamask', core);
+    super(EvmMetamaskConnector.connectorName, core);
   }
 
   protected async createProvider(options?: EvmMetamaskConnectorConnectOptions): Promise<MetamaskProvider> {

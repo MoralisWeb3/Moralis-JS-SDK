@@ -1,5 +1,5 @@
-import { BaseModule } from './Modules/BaseModule';
-import { MoralisModules } from './Modules/MoralisModules';
+import { Module, ModuleFactory } from './Modules/Module';
+import { Modules } from './Modules/Modules';
 import { LoggerController } from './controllers/LoggerController';
 import { Config } from './config/Config';
 import { MoralisConfigValues } from './config/MoralisConfig';
@@ -14,17 +14,21 @@ import { CoreConfigSetup } from './config/CoreConfigSetup';
  * - accessing and changing the config
  */
 export class MoralisCore {
+  public static readonly moduleName = 'core';
+
   public static create(): MoralisCore {
-    const modules = new MoralisModules();
+    const modules = new Modules();
     const config = new Config();
-    const logger = new LoggerController(config, 'core');
+    const logger = new LoggerController(config, MoralisCore.moduleName);
     const core = new MoralisCore(modules, config, logger);
-    CoreConfigSetup.register(config, core);
+    CoreConfigSetup.register(config, modules);
     return core;
   }
 
+  public readonly name = MoralisCore.moduleName;
+
   public constructor(
-    public readonly modules: MoralisModules,
+    public readonly modules: Modules,
     public readonly config: Config,
     public readonly logger: LoggerController,
   ) {}
@@ -33,21 +37,24 @@ export class MoralisCore {
    * Register all specified modules and configurations
    * @params array of all modules (any module that is extended from BaseModule) that you want to include
    */
-  public registerModules = (modules: BaseModule[]) => {
-    modules.forEach((module) => {
-      this.modules.register(module);
-    });
-
-    this.logger.verbose('Modules registered', { allModules: this.modules.listNames() });
+  public registerModules = (modules: (Module | ModuleFactory)[]) => {
+    modules.forEach(this.registerModule);
   };
 
   /**
    * Register a new module
    */
-  public registerModule = (module: BaseModule) => {
+  public registerModule = (module: Module | ModuleFactory) => {
+    if ('create' in module) {
+      module = module.create(this);
+    }
     this.modules.register(module);
 
     this.logger.verbose('Module registered', { module: module.name });
+  };
+
+  public getModule = <M extends Module = Module>(name: string): M => {
+    return this.modules.get<M>(name);
   };
 
   /**

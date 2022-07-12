@@ -6,8 +6,7 @@ describe('EvmChain', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
-    core = MoralisCore.create();
-    MoralisCoreProvider.setDefault(core);
+    core = MoralisCoreProvider.getDefault();
   });
 
   /**

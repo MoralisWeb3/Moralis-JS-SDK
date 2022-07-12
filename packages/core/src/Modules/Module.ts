@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
 import { MoralisCore } from '../MoralisCore';
 import { LoggerController } from '../controllers/LoggerController';
-import { CoreModuleType } from './CoreModuleType';
+import { ModuleType } from './ModuleType';
 import TypedEmitter, { EventMap } from 'typed-emitter';
 
 /**
@@ -14,14 +14,14 @@ import TypedEmitter, { EventMap } from 'typed-emitter';
  * When creating an api, or network module, you should use the ApiModule or NetworkModule
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class BaseModule<Events extends EventMap = any> {
+export abstract class Module<Events extends EventMap = any> {
   protected readonly logger: LoggerController;
   protected readonly emitter = new EventEmitter<Events>() as unknown as TypedEmitter<Events>;
 
   public constructor(
     public readonly name: string,
     protected readonly core: MoralisCore,
-    public readonly type: CoreModuleType = CoreModuleType.DEFAULT,
+    public readonly type: ModuleType = ModuleType.DEFAULT,
   ) {
     this.logger = new LoggerController(core.config, this.name);
   }
@@ -49,4 +49,8 @@ export abstract class BaseModule<Events extends EventMap = any> {
     this.emitter.on(eventName, listener);
     return () => this.emitter.removeListener(eventName, listener);
   }
+}
+
+export interface ModuleFactory {
+  create(core: MoralisCore): Module;
 }

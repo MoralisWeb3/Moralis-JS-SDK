@@ -5,9 +5,10 @@ import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 
 // Register connector connect connector
 Moralis.Evm.connectors.register(WalletConnectConnector);
-// Moralis.Evm.connectors.remove('wallet-connect');
 
 export const Evm = () => {
+  const metaMask = Moralis.Evm.connectors.get<MetamaskConnector>(MetamaskConnector.connectorName);
+
   return (
     <div>
       <h2>EVM</h2>
@@ -114,7 +115,7 @@ export const Evm = () => {
       </button>
       <button
         onClick={() => {
-          MetamaskConnector.addNetwork('kovan');
+          metaMask.addNetwork('kovan');
         }}
       >
         Add kovan network

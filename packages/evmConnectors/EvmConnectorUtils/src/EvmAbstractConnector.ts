@@ -142,3 +142,7 @@ export abstract class EvmAbstractConnector<
   //   this._provider = null;
   // }
 }
+
+export interface ConnectorFactory {
+  create(core: MoralisCore): EvmAbstractConnector;
+}

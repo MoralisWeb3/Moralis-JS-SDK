@@ -1,4 +1,5 @@
 export * from './EvmChain';
+export * from './EvmChainish';
 export * from './EvmAddress';
 export * from './EvmNative';
 export * from './EvmTransaction';

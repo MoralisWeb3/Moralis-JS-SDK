@@ -4,15 +4,15 @@ import { EvmChain, EvmAddress } from '../dataTypes';
 import { MoralisCore } from '../MoralisCore';
 import { EvmConnection } from '../sharedTypes';
 import { ApiModule } from './ApiModule';
-import { BaseModule } from './BaseModule';
-import { MoralisModules } from './MoralisModules';
+import { Module } from './Module';
+import { Modules } from './Modules';
 import { NetworkModule } from './NetworkModule';
 
 const TEST_MODULE_NAME = 'test';
-const TEST_NETWORK_MODULE_NAME = 'testNetwork';
-const TEST_API_MODULE_NAME = 'apiNetwork';
+const TEST_NETWORK_MODULE_NAME = 'testNetworkModule';
+const TEST_API_MODULE_NAME = 'testApiModule';
 
-class TestModule extends BaseModule {
+class TestModule extends Module {
   public constructor(core: MoralisCore) {
     super(TEST_MODULE_NAME, core);
   }
@@ -66,9 +66,9 @@ class TestApiModule extends ApiModule {
   }
 }
 
-describe('MoralisModules', () => {
+describe('Modules', () => {
   let core: MoralisCore;
-  let modules: MoralisModules;
+  let modules: Modules;
 
   function createTestModule(): TestModule {
     return new TestModule(core);
@@ -83,7 +83,7 @@ describe('MoralisModules', () => {
   }
 
   beforeEach(() => {
-    modules = new MoralisModules();
+    modules = new Modules();
     const config = new Config();
     core = new MoralisCore(modules, config, new LoggerController(config, TEST_MODULE_NAME));
   });

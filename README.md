@@ -199,36 +199,37 @@ It's possible to install all functionalities of Moralis by installing `moralis` 
 Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
 
 ```shell
-yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-walletconnect-connector
+yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
 ```
 
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
 import MoralisCore from '@moralisweb3/core';
-import Server from '@moralisweb3/server';
-import EvmApi from '@moralisweb3/evm-api';
-import Evm from '@moralisweb3/evm';
-import WalletConnectConnector from '@moralisweb3/evm-walletconnect-connector';
+import MoralisEvm from '@moralisweb3/evm';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import MoralisServer from '@moralisweb3/server';
+import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
 
+const core = MoralisCore.create();
 // Register all imported modules to the @moralisweb3/core module
-MoralisCore.registerModules({
+core.registerModules([
   // Add any network modules
-  networks: [Evm],
+  MoralisEvm,
   // Add any api modules
-  networks: [EvmApi],
+  MoralisEvmApi,
   // Add any other modules
-  modules: [Server],
-});
-
+  MoralisServer,
+]);
+const evm = core.getModule<MoralisEvm>(MoralisEvm.moduleName);
 // Add any additional connectors for the Evm network
-Evm.wallet.register(WalletConnectConnector);
+evm.connectors.register(WalletConnectConnector);
 ```
 
 Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configation that is required by the packages. So if you don't include the server package, then you might not need to include the serverUrl and appId.
 
 ```javascript
-MoralisCore.start({
+core.start({
   serverUrl: '<YOUR_SERVER_URL>',
   appId: '<YOUR_APP_ID>',
   // ...and any other configuration
@@ -237,10 +238,11 @@ MoralisCore.start({
 
 Now you can use any functionality from the installed modules. The only difference is that you need to call in your code:
 
-```javascript
-import Evm from '@moralisweb3/evm';
+```ts
+import MoralisEvm from '@moralisweb3/evm';
 
-Evm.connect();
+const evm = core.getModule<MoralisEvm>(MoralisEvm.moduleName);
+evm.connect();
 ```
 
 Instead of
@@ -255,12 +257,18 @@ Of course you are free to combine the modules in a single object, and use that i
 
 ```javascript
 // moralis.ts
+import { MoralisCore } from '@moralisweb3/core';
 import Evm from '@moralisweb3/evm';
 import Server from '@moralisweb3/server';
 
+const core = MoralisCore.create();
+const evm = Evm.create(core);
+const server = Server.create(core);
+core.registerModules([evm, server]);
+
 export const Moralis = {
-  Evm,
-  Server,
+  Evm: evm,
+  Server: server
 };
 
 // app.ts

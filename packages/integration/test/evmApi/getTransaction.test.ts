@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEnvApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEnvApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get the transaction of an account', async () => {
-    const result = await EvmApi.native.getTransaction({
+    const result = await evmApi.native.getTransaction({
       transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5',
     });
 
@@ -32,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the transaction of an invalid hash and throw an error ', async () => {
-    const failedResult = await EvmApi.native
+    const failedResult = await evmApi.native
       .getTransaction({
         transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd',
       })
@@ -43,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.native.getTransaction({
+      evmApi.native.getTransaction({
         transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

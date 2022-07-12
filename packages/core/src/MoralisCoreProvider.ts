@@ -5,15 +5,12 @@ export class MoralisCoreProvider {
 
   public static getDefault(): MoralisCore {
     if (!this.core) {
-      throw new Error('The default MoralisCore instance is not set');
+      this.core = MoralisCore.create();
     }
     return this.core;
   }
 
-  public static setDefault(core: MoralisCore) {
-    if (this.core) {
-      throw new Error('The default MoralisCore instance is already exist');
-    }
-    this.core = core;
+  public static hasDefault(): boolean {
+    return !!this.core;
   }
 }

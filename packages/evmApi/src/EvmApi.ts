@@ -46,12 +46,14 @@ import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
 export class MoralisEvmApi extends ApiModule {
+  public static readonly moduleName = 'evmApi';
+
   public static create(core?: MoralisCore): MoralisEvmApi {
-    return new MoralisEvmApi(core || MoralisCoreProvider.getDefault());
+    return new MoralisEvmApi(core ?? MoralisCoreProvider.getDefault());
   }
 
   private constructor(core: MoralisCore) {
-    super('evmApi', core, BASE_URL);
+    super(MoralisEvmApi.moduleName, core, BASE_URL);
   }
 
   get native() {

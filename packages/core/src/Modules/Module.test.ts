@@ -1,11 +1,11 @@
-import { CoreModuleType } from './CoreModuleType';
+import { ModuleType } from './ModuleType';
 import { MoralisCore } from '../MoralisCore';
-import { BaseModule } from './BaseModule';
+import { Module } from './Module';
 
-describe('BaseModule', () => {
+describe('Module', () => {
   const MODULE_NAME = 'testModule';
 
-  class TestBaseModule extends BaseModule {
+  class TestModule extends Module {
     public setup(): void {
       // Nothing
     }
@@ -21,17 +21,17 @@ describe('BaseModule', () => {
   }
 
   let core: MoralisCore;
-  let module: TestBaseModule;
+  let module: TestModule;
 
   beforeAll(() => {
     core = MoralisCore.create();
-    module = new TestBaseModule(MODULE_NAME, core);
+    module = new TestModule(MODULE_NAME, core);
     core.modules.register(module);
   });
 
   it('should extend correctly', () => {
     expect(module.name).toBe(MODULE_NAME);
-    expect(module.type).toBe(CoreModuleType.DEFAULT);
+    expect(module.type).toBe(ModuleType.DEFAULT);
   });
 
   it('should be able to call start', () => {

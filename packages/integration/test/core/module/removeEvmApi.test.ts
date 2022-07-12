@@ -1,5 +1,5 @@
 import { MoralisCore } from '@moralisweb3/core';
-import { MoralisEvmApi } from '@moralisweb3/evm-api';
+import MoralisEvmApi from '@moralisweb3/evm-api';
 
 describe('Moralis Core', () => {
   test('should remove evm-api module', () => {
@@ -8,12 +8,11 @@ describe('Moralis Core', () => {
 
     core.registerModules([evmApi]);
     core.modules.remove('evmApi');
+
     let listModule = core.modules.list();
     expect(listModule).not.toContain(evmApi);
     expect(listModule.length).toBe(0);
     expect(listModule).not.toBeUndefined();
-    expect(() => core.modules.remove('evm-api')).toThrowErrorMatchingInlineSnapshot(
-      `"[C0003] Module \\"evm-api\\" does not exist."`,
-    );
+    expect(() => core.modules.remove('evm-api')).toThrowError('[C0003] Module "evm-api" does not exist');
   });
 });

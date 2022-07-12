@@ -12,8 +12,6 @@ describe('Moralis Core', () => {
     expect(listModule.length).toBe(1);
     expect(listModule).not.toBeUndefined();
     expect(listModule).toEqual(expect.arrayContaining([expect.objectContaining({})]));
-    expect(() => core.registerModules([evm])).toThrowErrorMatchingInlineSnapshot(
-      `"[C0002] The module evm has already been registered."`,
-    );
+    expect(() => core.registerModules([evm])).toThrowError(`[C0002] The module "evm" has already been registered`);
   });
 });

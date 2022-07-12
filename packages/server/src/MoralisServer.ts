@@ -1,5 +1,5 @@
 import {
-  BaseModule,
+  Module,
   CoreConfig,
   EvmAddress,
   EvmAddressish,
@@ -20,7 +20,9 @@ import { SignUpOptions } from './AuthMethods/handleSignUp';
 import { SignInOptions } from './AuthMethods/handleSignIn';
 import { ServerConfigSetup } from './config/ServerConfigSetup';
 
-export class MoralisServer extends BaseModule<ServerEventMap> {
+export class MoralisServer extends Module<ServerEventMap> {
+  public static readonly moduleName = 'server';
+
   public static create(core?: MoralisCore): MoralisServer {
     return new MoralisServer(core || MoralisCoreProvider.getDefault());
   }
@@ -30,7 +32,7 @@ export class MoralisServer extends BaseModule<ServerEventMap> {
   private authentication: Authentication = new Authentication(this.logger, this.core.config, this.emitter);
 
   private constructor(core: MoralisCore) {
-    super('server', core);
+    super(MoralisServer.moduleName, core);
   }
 
   public setup() {

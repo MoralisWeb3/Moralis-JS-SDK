@@ -12,8 +12,6 @@ describe('Moralis Core', () => {
     expect(listModule).not.toContain(evm);
     expect(listModule.length).toBe(0);
     expect(listModule).not.toBeUndefined();
-    expect(() => core.modules.remove('evm')).toThrowErrorMatchingInlineSnapshot(
-      `"[C0003] Module \\"evm\\" does not exist."`,
-    );
+    expect(() => core.modules.remove('evm')).toThrowError('[C0003] Module "evm" does not exist');
   });
 });

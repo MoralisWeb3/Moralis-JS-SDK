@@ -1,14 +1,13 @@
 import { BuildEnvironment } from './CoreConfig';
-import { EvmChain, EvmChainish } from '../dataTypes';
 import { ModuleName } from '../Modules/ModuleName';
-import { MoralisCore } from '../MoralisCore';
 import { Config } from './Config';
-import { MoralisModules } from '../Modules';
+import { Modules } from '../Modules';
+import { EvmChainParser } from '../dataTypes/EvmChainParser';
+import { EvmChainish } from '../dataTypes/EvmChainish';
 
 export class CoreConfigValidator {
-  public static requireServerModule(modules: MoralisModules) {
-    const serverModule = modules.has(ModuleName.SERVER);
-    if (!serverModule) {
+  public static requireServerModule(modules: Modules) {
+    if (!modules.has(ModuleName.SERVER)) {
       return 'Value is required when using the MoralisServer. ';
     }
     return null;
@@ -21,20 +20,25 @@ export class CoreConfigValidator {
     return null;
   }
 
-  public static requireRegisteredConnector(value: string, modules: MoralisModules) {
+  public static requireRegisteredEvmConnector(value: string, modules: Modules) {
     const evmModule = modules.tryGetNetwork(ModuleName.EVM);
-    if (evmModule && evmModule.hasConnector(value)) {
+    if (!evmModule) {
+      return 'Cannot find an evm module.';
+    }
+    if (!evmModule.hasConnector(value)) {
       return 'Invalid value. The connector is not registered as a connector to Evm. Make sure to register it via Evm.connectors.register(connector).';
     }
     return null;
   }
 
-  public static requireValidChain(value: EvmChainish, core: MoralisCore) {
+  public static requireValidChain(value: EvmChainish) {
     // TODO: validate if chain is valid api chain
-    try {
-      EvmChain.create(value, core);
-    } catch (error) {
-      return error.message;
+    if (typeof value === 'string' || typeof value === 'number') {
+      try {
+        EvmChainParser.parse(value);
+      } catch (error) {
+        return error.message;
+      }
     }
     return null;
   }

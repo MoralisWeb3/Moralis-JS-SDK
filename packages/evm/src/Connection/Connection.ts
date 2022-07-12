@@ -33,7 +33,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
   constructor(logger: LoggerController, emitter: TypedEmitter<EvmNetworkEventMap>) {
     super('Connection');
 
-    this.connectors = new Connectors();
+    this.connectors = Connectors.create();
     this._logger = logger;
     this._emitter = emitter;
 

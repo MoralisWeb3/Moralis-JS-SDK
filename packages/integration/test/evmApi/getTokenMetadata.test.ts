@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEnvApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEnvApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get the token metadata of an account', async () => {
-    const result = await EvmApi.token.getTokenMetadata({
+    const result = await evmApi.token.getTokenMetadata({
       chain: 'eth',
       addresses: ['0xdAC17F958D2ee523a2206206994597C13D831ec7'],
     });
@@ -33,7 +24,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the token metadata of an invalid account and throw an error ', async () => {
-    const failedResult = await EvmApi.token
+    const failedResult = await evmApi.token
       .getTokenMetadata({
         chain: 'eth',
         addresses: ['0xdAC17F958D2ee523a2206206994597C13D831ec'],
@@ -45,7 +36,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.getTokenMetadata({
+      evmApi.token.getTokenMetadata({
         chain: 'eth',
         addresses: ['0xdAC17F958D2ee523a2206206994597C13D831ec'],
       }),

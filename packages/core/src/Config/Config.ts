@@ -11,6 +11,10 @@ export class Config {
     this.items.set(key.name, { key, value: key.defaultValue, validator });
   }
 
+  public getKeys(): string[] {
+    return Array.from(this.items.keys());
+  }
+
   public get<Value>(keyOrName: ConfigKey<Value> | string): Value {
     return this.getItem(keyOrName).value;
   }

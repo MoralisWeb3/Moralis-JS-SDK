@@ -2,6 +2,7 @@ import { checkObjEqual } from './../utils/checkObjEqual';
 import { EvmResolver, EvmResolverOptions, ServerResponse } from './Resolver';
 import { getNextParams } from '../utils/getNextParams';
 import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
+import { EvmApiConfig } from '../config/EvmApiConfig';
 
 export interface PaginatedResponse<Data> {
   total: number;
@@ -48,7 +49,7 @@ export class EvmPaginatedResolver<
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
     const result = await this.requestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
       headers: {
-        'x-api-key': this.config.get('apiKey') ?? undefined,
+        'x-api-key': this.config.get(EvmApiConfig.apiKey),
       },
     });
 
@@ -68,7 +69,7 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const apiKey = this.config.get('apiKey');
+    const apiKey = this.config.get(EvmApiConfig.apiKey);
     const headers: { [key: string]: string } = {};
     if (apiKey) {
       headers['x-api-key'] = apiKey;

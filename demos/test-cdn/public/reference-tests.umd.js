@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   test('Moralis.EvmApi.name');
 
   test('WalletConnectConnector');
-  test('WalletConnectConnector.name');
+  test('WalletConnectConnector.create');
 
   result.value = passed ? 'Passed' : 'Error';
 });

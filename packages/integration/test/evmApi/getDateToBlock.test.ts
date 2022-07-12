@@ -1,26 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEnvApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen();
+    evmApi = setupEnvApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get the closest block of the provided date ', async () => {
-    const result = await EvmApi.native.getDateToBlock({
+    const result = await evmApi.native.getDateToBlock({
       date: '2021-09-29T13:09:15+00:00',
     });
 
@@ -30,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get get the closest block of the provided date', async () => {
-    const failedResult = await EvmApi.native
+    const failedResult = await evmApi.native
       .getDateToBlock({
         date: '2021-09-29T13:09:15+00:00',
       })
