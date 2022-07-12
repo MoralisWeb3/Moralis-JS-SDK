@@ -36,6 +36,11 @@ export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider,
       chainConfig: {
         chainId: EvmChain.create(params.chainId!).apiHex,
         chainNamespace: 'eip155',
+        blockExplorer: params.blockExplorer,
+        displayName: params.displayName,
+        rpcTarget: params.rpcTarget,
+        ticker: params.ticker,
+        tickerName: params.tickerName,
       },
       uiConfig: {
         appLogo: params.appLogo,

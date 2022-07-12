@@ -46,6 +46,16 @@ export interface EvmWeb3authConnectOptions extends EvmBaseConnectOptions {
   chainId?: InputChainId;
   // Whether to reuse the same session (if available), or to force a new session
   newSession?: boolean;
+  // RPC target Url for the chain
+  rpcTarget?: string;
+  // Display Name for the chain
+  displayName?: string;
+  // Url of the block explorer
+  blockExplorer?: string;
+  // Default currency ticker of the network (e.g: ETH)
+  ticker?: string;
+  //  Name for currency ticker (e.g: `Ethereum`)
+  tickerName?: string;
 }
 
 const CHAIN_NAMESPACES = {
