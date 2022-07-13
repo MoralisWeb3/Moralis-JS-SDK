@@ -78,13 +78,23 @@ export class EvmWalletConnectConnector extends EvmAbstractConnector<
     };
   }
 
+  async cancelRequest() {
+    if (this.provider) {
+      await this.provider.wc.killSession();
+    }
+    throw new MoralisNetworkConnectorError({
+      code: NetworkConnectorErrorCode.GENERIC_NETWORK_CONNECTOR_ERROR,
+      message: 'No pending request to cancel',
+    });
+  }
+
   public cleanup() {
     try {
       if (window) {
         window.localStorage.removeItem('walletconnect');
       }
     } catch (error) {
-      // Do nothing
+      this.logger.verbose('Failed to cleanup', { error });
     }
   }
 
