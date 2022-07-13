@@ -9,7 +9,7 @@ export const useEvmSignMessage = () => {
   const [data, setData] = useState<null | string>(null);
   const [error, setError] = useState<null | Error>(null);
 
-  const sign = useCallback<ISignParams>((message, { onComplete, onError, onSuccess, throwOnError = true }) => {
+  const sign = useCallback<ISignParams>((message, { onComplete, onError, onSuccess, throwOnError = true } = {}) => {
     return resolver(
       () => {
         setIsLoading(true);

@@ -1,15 +1,16 @@
-import { useEvmContract, useMoralisCore, useMoralisEvm, useEvmSignMessage } from '@moralisweb3/react';
+import { useEvmContract, useMoralisCore, useMoralisEvm, useEvmSignMessage, useEvmChain } from '@moralisweb3/react';
 import { Erc20__factory } from '@moralisweb3/evm/src/Contract/generated/factories';
 import Header from './Header';
 
 const App = () => {
   const { connect, chain } = useMoralisEvm();
   const { isStarting, isStarted } = useMoralisCore();
+  const { switchChain } = useEvmChain();
   const { data, execute, error } = useEvmContract({
     abi: Erc20__factory.abi,
     address: '0x01BE23585060835E02B77ef475b0Cc51aA1e0709',
   });
-  const { action } = useEvmSignMessage();
+  const { sign } = useEvmSignMessage();
   console.log('isStarting: ', isStarting);
   console.log('contractData: ', data);
   console.log('isStarted: ', isStarted);
@@ -39,11 +40,19 @@ const App = () => {
       </button>
       <button
         onClick={async () => {
-          const data = await action();
+          const data = sign('My Message');
           console.log('dataFromCallBack: ', data);
         }}
       >
-        action
+        Sign Message
+      </button>
+      <button
+        onClick={async () => {
+          const data = await switchChain('0x1');
+          console.log('dataFromSwitch: ', data);
+        }}
+      >
+        Switch Chain
       </button>
       <div>Chain: {chain?.name}</div>
     </div>

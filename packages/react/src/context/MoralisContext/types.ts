@@ -1,7 +1,7 @@
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import { EvmAddress, EvmChain, EvmProvider } from '@moralisweb3/core';
 import { IEvmConnect, IEVMConnectCallbacks } from '../../hooks/Evm/useMoralisEvm/types';
-import MoralisEvm from '@moralisweb3/evm';
+import { MoralisEvm } from '@moralisweb3/evm';
 
 export interface IMoralisContext {
   account: EvmAddress | null;
@@ -9,7 +9,7 @@ export interface IMoralisContext {
   connect: IEvmConnect;
   connector: EvmAbstractConnector;
   disconnect: ({ onComplete, onError, onSuccess, throwOnError = true }?: IEVMConnectCallbacks) => void;
-  Evm: typeof MoralisEvm;
+  Evm: MoralisEvm;
   isConnected: boolean;
   isConnecting: boolean;
   isDisconnecting: boolean;

@@ -5,6 +5,8 @@ import { IAction } from './types';
 export const {{ name }} = () => {
   const resolver = useResolver();
   const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<null | string>(null);
+  const [error, setError] = useState<null | Error>(null);
 
   const action = useCallback(({ onComplete, onError, onSuccess, throwOnError = true }: IAction = {}) => {
     return resolver(
@@ -14,8 +16,8 @@ export const {{ name }} = () => {
       },
       {
         _onComplete: () => setIsLoading(false),
-        // _onError,
-        // _onSuccess: () => setIsConnected(true),
+        _onError: (error)  => setError(error),
+        _onSuccess: (data) => setData(data),
         onComplete,
         onError,
         onSuccess,
@@ -24,5 +26,5 @@ export const {{ name }} = () => {
     );
   }, []);
 
-  return { action, isLoading };
+  return { action, isLoading, data, error };
 };

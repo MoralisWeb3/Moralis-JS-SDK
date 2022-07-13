@@ -6,6 +6,8 @@ import Evm from '@moralisweb3/evm';
 export const useEvmTransaction = () => {
   const resolver = useResolver();
   const [isLoading, setIsLoading] = useState(false);
+  // const [data, setData] = useState<null | string>(null);
+  const [error, setError] = useState<null | Error>(null);
 
   const send = useCallback(({ onComplete, onError, onSuccess, throwOnError = true, chain, ...data }: IAction) => {
     return resolver(
@@ -18,7 +20,7 @@ export const useEvmTransaction = () => {
       },
       {
         _onComplete: () => setIsLoading(false),
-        // _onError,
+        _onError: setError,
         // _onSuccess: () => setIsConnected(true),
         onComplete,
         onError,
@@ -28,5 +30,5 @@ export const useEvmTransaction = () => {
     );
   }, []);
 
-  return { send, isLoading };
+  return { send, isLoading, error };
 };
