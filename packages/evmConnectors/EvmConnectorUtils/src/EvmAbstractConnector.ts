@@ -4,11 +4,9 @@ import {
   EvmAddress,
   EvmBaseConnectOptions,
   EvmChain,
-  EvmConnectResponse,
+  EvmConnection,
   EvmProvider,
   EvmProviderEvent,
-  MoralisNetworkConnectorError,
-  NetworkConnectorErrorCode,
   ProviderAccounts,
   ProviderChainId,
   ProviderInfo,
@@ -17,7 +15,7 @@ import {
   MoralisCore,
 } from '@moralisweb3/core';
 
-interface AbstractConnectorConfig {
+export interface EvmAbstractConnectorConfig {
   name: string;
   core: MoralisCore;
 }
@@ -26,38 +24,37 @@ interface AbstractConnectorConfig {
  * Abstract connector to connect EIP-1193 providers to Moralis
  *
  * It should implement at least:
- * - connect()
- * - Emit ConnectorEvent.CHAIN_CHANGED when the chain has changed (if possible)
- * - Emit ConnectorEvent.ACCOUNT_CHANGED when the account has changed (if possible)
+ * - createProvider()
+ * - createConnection()
  * - name: a name to identify
  * - network: the network type that is used (eg. 'evm')
  */
-export class EvmAbstractConnector extends EventEmitter {
-  name: string;
-  core: MoralisCore;
-  logger: Logger;
-  network = 'evm';
+export abstract class EvmAbstractConnector<
+  Provider extends EvmProvider = EvmProvider,
+  Options extends EvmBaseConnectOptions = EvmBaseConnectOptions,
+> extends EventEmitter {
+  public readonly name: string;
+  public readonly network = 'evm';
+  protected readonly logger: Logger;
 
-  account: EvmAddress | null = null;
-  chain: EvmChain | null = null;
-
-  isSubscribedToEvents = false;
-  // Provider can be a different type (provided by the library, than the basic EvmProvider that we use)
-  // To get the EvmProvider, use the `provider` getter
-  _provider: unknown | null = null;
-
-  // Returns a EvmProvider
-  get provider(): EvmProvider | null {
-    if (!this._provider) {
-      return null;
-    }
-    return this._provider as unknown as EvmProvider;
+  private _provider: Provider | null = null;
+  public get provider(): Provider | null {
+    return this._provider;
   }
 
-  constructor({ name, core }: AbstractConnectorConfig) {
+  private _chain: EvmChain | null = null;
+  public get chain(): EvmChain | null {
+    return this._chain;
+  }
+
+  private _account: EvmAddress | null = null;
+  public get account(): EvmAddress | null {
+    return this._account;
+  }
+
+  public constructor({ name, core }: EvmAbstractConnectorConfig) {
     super();
     this.name = name;
-    this.core = core;
     this.logger = new Logger(core, `evmConnector: ${this.name}`);
 
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
@@ -66,15 +63,40 @@ export class EvmAbstractConnector extends EventEmitter {
     this.handleDisconnect = this.handleDisconnect.bind(this);
   }
 
-  subscribeToEvents(provider: EvmProvider) {
-    if (this.isSubscribedToEvents) {
-      return;
+  public async connect(options?: Options): Promise<EvmConnection> {
+    const connection = await this.createConnection(options);
+    this._account = connection.account;
+    this._chain = connection.chain;
+    return connection;
+  }
+
+  /**
+   * Creates a valid EIP-1193 provider.
+   */
+  protected abstract createProvider(options?: Options): Promise<Provider>;
+
+  /**
+   * Connects the provider.
+   * Should returns an object with:
+   * - provider: A valid EIP-1193 provider
+   * - chainId(optional): the chainId that has been connected to
+   * - account(optional): the address that is connected to the provider
+   */
+  protected abstract createConnection(options?: Options): Promise<EvmConnection>;
+
+  protected async getProvider(options?: Options): Promise<Provider> {
+    if (!this._provider) {
+      this._provider = await this.createProvider(options);
+      this.subscribeToEvents(this._provider);
     }
+    return this._provider;
+  }
+
+  private subscribeToEvents(provider: Provider) {
     provider.on(EvmProviderEvent.CHAIN_CHANGED, this.handleChainChanged);
     provider.on(EvmProviderEvent.ACCOUNTS_CHANGED, this.handleAccountsChanged);
     provider.on(EvmProviderEvent.CONNECT, this.handleConnect);
     provider.on(EvmProviderEvent.DISCONNECT, this.handleDisconnect);
-    this.isSubscribedToEvents = true;
   }
 
   // unsubscribeToEvents(provider: EvmProvider) {
@@ -85,46 +107,31 @@ export class EvmAbstractConnector extends EventEmitter {
   // }
 
   /**
-   * Connects the provider.
-   * Should returns an object with:
-   * - provider: A valid EIP-1193 provider
-   * - chainId(optional): the chainId that has been connected to (in hex format)
-   * - account(optional): the address that is connected to the provider
-   */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async connect(options?: EvmBaseConnectOptions): Promise<EvmConnectResponse> {
-    throw new MoralisNetworkConnectorError({
-      code: NetworkConnectorErrorCode.NOT_IMPLEMENTED,
-      message: 'connect() is not implemented',
-    });
-  }
-
-  /**
    * Updates account and emit event, on EIP-1193 accountsChanged events
    */
-  handleAccountsChanged(accounts: ProviderAccounts) {
+  private handleAccountsChanged(accounts: ProviderAccounts) {
     if (accounts.length === 0) {
       return;
     }
 
-    this.account = new EvmAddress(accounts[0]);
+    this._account = new EvmAddress(accounts[0]);
     this.emit(EvmConnectorEvent.ACCOUNT_CHANGED, this.account);
   }
 
   /**
    * Updates chainId and emit event, on EIP-1193 accountsChanged events
    */
-  handleChainChanged(chain: ProviderChainId) {
+  private handleChainChanged(chain: ProviderChainId) {
     const newChain = new EvmChain(chain);
-    this.chain = newChain;
+    this._chain = newChain;
     this.emit(EvmConnectorEvent.CHAIN_CHANGED, newChain);
   }
 
-  handleConnect(providerInfo: ProviderInfo) {
+  private handleConnect(providerInfo: ProviderInfo) {
     this.emit(EvmConnectorEvent.CONNECT, providerInfo);
   }
 
-  handleDisconnect(error: ProviderRpcError) {
+  private handleDisconnect(error: ProviderRpcError) {
     this.emit(EvmConnectorEvent.DISCONNECT, error);
   }
 

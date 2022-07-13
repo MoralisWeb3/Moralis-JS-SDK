@@ -23,7 +23,7 @@
     "eslint": "^8.19.0",
     "eslint-plugin-jest": "^26.5.3",
     "jest": "28",
-    "msw": "^0.41.0",
+    "msw": "^0.43.0",
     "nx": "14.1.7",
     "rollup": "^2.75.3",
     "rollup-plugin-cleaner": "^1.0.0",

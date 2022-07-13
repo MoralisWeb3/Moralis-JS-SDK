@@ -110,7 +110,7 @@ export interface paths {
   "/nft/{address}": {
     /**
      * Gets data, including metadata (where available), for all token ids for the given contract address.
-     * * Results are limited to 500 per page by default
+     * * Results are limited to 100 per page by default
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getAllTokenIds"];
@@ -137,8 +137,8 @@ export interface paths {
   "/nft/{address}/{token_id}/metadata/resync": {
     /**
      * ReSync the metadata for an NFT
-     * * The metadata(default) flag will request a the NFT's metadata from the already existing token_uri
-     * * The uri flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
+     * * The metadata flag will request a the NFT's metadata from the already existing token_uri
+     * * The uri(default) flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
      * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
      * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
      */
@@ -774,8 +774,6 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
-      /** @description When the metadata was last updated */
-      synced_at?: string;
       /** @description When the token_uri was last updated */
       last_token_uri_sync?: string;
       /** @description When the metadata was last updated */
@@ -826,12 +824,6 @@ export interface components {
       /** @example 0 */
       resyncing: number;
       /**
-       * Format: date-time
-       * @description when the metadata was last updated
-       * @example 2022-05-19T03:47:10.693Z
-       */
-      synced_at: string;
-      /**
        * @description The type of NFT contract standard
        * @example ERC721
        */
@@ -859,12 +851,12 @@ export interface components {
        * @description When the token_uri was last updated
        * @example 2021-02-24T00:47:26.647Z
        */
-      last_token_uri_sync?: string;
+      last_token_uri_sync: string;
       /**
        * @description When the metadata was last updated
        * @example 2021-02-24T00:47:26.647Z
        */
-      last_metadata_sync?: string;
+      last_metadata_sync: string;
       /**
        * Format: date-time
        * @example 2022-02-24T00:47:26.647Z
@@ -949,8 +941,6 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
-      /** @description When the metadata was last updated */
-      synced_at?: string;
       /**
        * @description The number of this item the user owns (used by ERC1155)
        * @example 1
@@ -1578,8 +1568,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -1748,8 +1736,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** The cursor returned in the last response (for getting the next page) */
         cursor?: unknown;
         /** limit */
@@ -1853,8 +1839,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2246,6 +2230,8 @@ export interface operations {
         to_date?: string;
         /** The addresses to get metadata for */
         addresses?: string[];
+        /** token_address */
+        token_address?: string;
         /** cursor */
         cursor?: string;
         /** limit */
@@ -2310,7 +2296,7 @@ export interface operations {
   };
   /**
    * Gets data, including metadata (where available), for all token ids for the given contract address.
-   * * Results are limited to 500 per page by default
+   * * Results are limited to 100 per page by default
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getAllTokenIds: {
@@ -2423,8 +2409,8 @@ export interface operations {
   };
   /**
    * ReSync the metadata for an NFT
-   * * The metadata(default) flag will request a the NFT's metadata from the already existing token_uri
-   * * The uri flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
+   * * The metadata flag will request a the NFT's metadata from the already existing token_uri
+   * * The uri(default) flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
    * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
    * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
    */

@@ -1,12 +1,15 @@
 import core, {
   EvmAddress,
   EvmAddressish,
-  EIP1193Provider,
   EvmChain,
   EvmChainish,
-  EvmConnectResponse,
+  EvmConnection,
   RequestArguments,
   Logger,
+  EvmBaseConnectOptions,
+  EvmProvider,
+  ProviderAccounts,
+  MoralisCore,
 } from '@moralisweb3/core';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import EventEmitter from 'eventemitter3';
@@ -109,7 +112,7 @@ interface EvmMockConnectorOptions {
   receipt?: Partial<Receipt>;
 }
 
-export class MockEip1193Provider extends EventEmitter implements EIP1193Provider {
+export class MockEip1193Provider extends EventEmitter implements EvmProvider {
   logger: Logger;
   account: EvmAddress;
   chain: EvmChain;
@@ -139,14 +142,18 @@ export class MockEip1193Provider extends EventEmitter implements EIP1193Provider
     this.receipt = { ...DEFAULT_RECEIPT, ...receipt };
   }
 
-  setTx(tx: Partial<Tx>) {
+  public async enable(): Promise<ProviderAccounts> {
+    return [this.account.lowercase];
+  }
+
+  public setTx(tx: Partial<Tx>) {
     this.tx = { ...this.tx, ...tx };
   }
 
   /**
    * Resolve all rpc requests
    */
-  request(args: RequestArguments) {
+  public request(args: RequestArguments) {
     this.logger.verbose(`MockEip1193Provider: request(): ${args.method}`, { method: args.method, params: args.params });
 
     switch (args.method) {
@@ -173,41 +180,41 @@ export class MockEip1193Provider extends EventEmitter implements EIP1193Provider
   /**
    * Manually change the chainId
    */
-  triggerChainChange(chain: string) {
+  public triggerChainChange(chain: string) {
     this.chain = EvmChain.create(chain);
     this.emit('chainChanged', this.chain.hex);
   }
 }
 
 class MockEvmConnector extends EvmAbstractConnector {
-  constructor() {
+  public constructor(config: { core: MoralisCore }) {
     super({
       name: 'mock',
-      core,
+      core: config.core,
     });
   }
 
-  async connect(options?: EvmMockConnectorOptions): Promise<EvmConnectResponse> {
-    this._provider = new MockEip1193Provider({
+  protected async createProvider(options?: EvmBaseConnectOptions | undefined): Promise<EvmProvider> {
+    return new MockEip1193Provider({
       logger: this.logger,
       ...options,
     });
+  }
+
+  protected async createConnection(options?: EvmBaseConnectOptions | undefined): Promise<EvmConnection> {
+    const provider = await this.getProvider(options);
 
     const [accounts, chainId] = await Promise.all([
-      this.provider!.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
-      this.provider!.request({ method: 'eth_chainId' }) as Promise<string>,
+      provider.request({ method: 'eth_requestAccounts' }) as Promise<string[]>,
+      provider.request({ method: 'eth_chainId' }) as Promise<string>,
     ]);
 
-    this.account = accounts[0] ? new EvmAddress(accounts[0]) : null;
-    this.chain = new EvmChain(chainId);
+    const account = accounts[0] ? new EvmAddress(accounts[0]) : null;
+    const chain = new EvmChain(chainId);
 
-    return Promise.resolve({
-      provider: this.provider!,
-      account: this.account,
-      chain: this.chain,
-    });
+    return { provider, account, chain };
   }
 }
 
-const mockConnector = new MockEvmConnector();
+const mockConnector = new MockEvmConnector({ core });
 export default mockConnector;
