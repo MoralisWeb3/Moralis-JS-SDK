@@ -19,7 +19,7 @@ export const useEvmSignMessage = () => {
       {
         _onComplete: () => setIsLoading(false),
         _onError: (error: MoralisNetworkConnectorError) => setError(error),
-        _onSuccess: (data: string) => setData(data),
+        _onSuccess: (data) => setData(data),
         onComplete,
         onError,
         onSuccess,
