@@ -15,7 +15,7 @@ describe('Evm connect', () => {
     });
   });
 
-  it('can transfer native currency succesfully', async () => {
+  it('should transfer Erc1155 succesfully', async () => {
     const response = await Evm.transferErc1155({
       contractAddress: '0x0011000000000000000000000000000000000000',
       to: '0x0000000000000000000000000000000000000000',
