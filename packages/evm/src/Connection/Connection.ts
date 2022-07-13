@@ -13,7 +13,7 @@ import {
 } from '@moralisweb3/core';
 import { EvmAbstractConnector, EvmConnectorEvent } from '@moralisweb3/evm-connector-utils';
 import { EvmNetworkEvent, EvmNetworkEventMap } from '../events/EvmNetworkEvent';
-import { connectWallet } from './connectWallet';
+import { connectWallet, cancelWalletRequest } from './walletConnection';
 import { Connectors } from './Connectors';
 import { StateContext, State, StateEvent } from './types';
 
@@ -271,6 +271,31 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     }
 
     this.transition({ type: 'DISCONNECT' });
+  };
+
+  cancelRequest = async () => {
+    if (!this.isConnecting) {
+      throw new MoralisNetworkError({
+        code: NetworkErrorCode.CANNOT_CANCEL,
+        message: 'Cannot cancel request, as no connection attempt is pending',
+      });
+    }
+    cancelWalletRequest(this.connector!)
+      .then(() => {
+        this.transition({
+          type: 'CONNECT_ERROR',
+          data: new MoralisNetworkError({
+            code: NetworkErrorCode.CANNOT_CONNECT,
+            message: 'Request cancelled',
+          }),
+        });
+      })
+      .catch(() => {
+        throw new MoralisNetworkError({
+          code: NetworkErrorCode.CANNOT_CANCEL,
+          message: 'Cannot cancel request',
+        });
+      });
   };
 
   /**

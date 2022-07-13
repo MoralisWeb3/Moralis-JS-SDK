@@ -16,6 +16,7 @@ run packages/evmConnectors/EvmConnectorUtils
 run packages/evmConnectors/EvmWalletconnectConnector
 run packages/evmConnectors/EvmMetamaskConnector
 run packages/evmConnectors/EvmWeb3authConnector
+run packages/evmConnectors/EvmMagiclinkConnector
 
 run packages/evm
 run packages/evmApi
