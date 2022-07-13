@@ -15,4 +15,4 @@ export const connectWallet = async <Options extends EvmBaseConnectOptions>(
 
 export const cancelWalletRequest = async (connector: EvmAbstractConnector) => {
   await connector.cancelRequest();
-}
+};
