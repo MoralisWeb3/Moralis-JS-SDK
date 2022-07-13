@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.8.1...v1.9.0) (2022-07-13)
+
+
+### Features
+
+* support web3Auth chain config ([14289d9](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/14289d955789cf1272549f94a8869683d7f69666))
+
 ## [1.8.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.8.0...v1.8.1) (2022-06-28)
 
 
