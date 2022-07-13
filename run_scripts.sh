@@ -24,3 +24,4 @@ run packages/moralis
 
 run demos/test-app-all
 run demos/test-node
+
