@@ -3075,7 +3075,7 @@
     socket.io-client "^4.5.0"
     unload "^2.3.1"
 
-"@toruslabs/eccrypto@1.1.8", "@toruslabs/eccrypto@^1.1.8":
+"@toruslabs/eccrypto@^1.1.8":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@toruslabs/eccrypto/-/eccrypto-1.1.8.tgz#ce1eac9c3964a091cdc74956a62036b5719a41eb"
   integrity sha512-5dIrO2KVqvnAPOPfJ2m6bnjp9vav9GIcCZXiXRW/bJuIDRLVxJhVvRlleF4oaEZPq5yX5piHq5jVHagNNS0jOQ==

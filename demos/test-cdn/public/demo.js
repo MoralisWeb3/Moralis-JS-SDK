@@ -5,8 +5,8 @@ function initMoralis() {
   Moralis.Evm.connectors.register(Web3AuthConnector);
 
   Moralis.start({
-    serverUrl: 'https://ebjeii2azqho.usemoralis.com:2053/server',
-    appId: 'xNakeM5DuGxNzLWH2igeFQBa8xrHtoeLhFa2kt6C',
+    serverUrl: MORALIS_SERVER_URL,
+    appId: MORALIS_APP_ID,
   });
 }
 

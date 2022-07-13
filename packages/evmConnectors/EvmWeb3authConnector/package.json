@@ -22,7 +22,6 @@
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.1",
     "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.1",
-    "@web3auth/web3auth": "0.5.1",
-    "@toruslabs/eccrypto": "1.1.8"
+    "@web3auth/web3auth": "0.5.1"
   }
 }

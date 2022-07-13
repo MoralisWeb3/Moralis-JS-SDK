@@ -24,6 +24,7 @@ export interface EvmWeb3authConnectorConfig {
   core: MoralisCore;
 }
 export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider, EvmWeb3authConnectOptions> {
+  listnerCount = 0;
   constructor(config: EvmWeb3authConnectorConfig) {
     super({
       name: 'web3auth',
@@ -36,11 +37,10 @@ export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider,
       chainConfig: {
         chainId: EvmChain.create(params.chainId!).apiHex,
         chainNamespace: 'eip155',
-        blockExplorer: params.blockExplorer,
-        displayName: params.displayName,
-        rpcTarget: params.rpcTarget,
-        ticker: params.ticker,
-        tickerName: params.tickerName,
+        ...(params.displayName && { displayName: params.displayName }),
+        ...(params.rpcTarget && { rpcTarget: params.rpcTarget }),
+        ...(params.ticker && { ticker: params.ticker }),
+        ...(params.tickerName && { tickerName: params.tickerName }),
       },
       uiConfig: {
         appLogo: params.appLogo,
@@ -55,9 +55,9 @@ export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider,
       web3auth.clearCache();
     }
 
-    await web3auth.initModal();
-
     this.subscribeAuthEvents(web3auth);
+
+    await web3auth.initModal();
 
     const provider = await web3auth.connect();
 
@@ -91,12 +91,16 @@ export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider,
   }
 
   subscribeAuthEvents(web3auth: Web3Auth) {
-    web3auth.loginModal.on('MODAL_VISIBILITY', async (visibility: boolean) => {
+    web3auth.on('MODAL_VISIBILITY', async (visibility: boolean) => {
       if (!visibility) {
-        if (web3auth.status !== 'connected') {
+        if (web3auth.status !== 'connected' && this.listnerCount === 0) {
+          this.listnerCount++;
           this.logger.verbose('Modal closed, canceling connection request');
           web3auth.emit(ADAPTER_EVENTS.ERRORED, { name: 'Web3Auth', message: 'User closed login modal' });
           web3auth.loginModal.closeModal();
+          web3auth.off('MODAL_VISIBILITY', () => {
+            this.logger.verbose('Connection cancelled');
+          });
         }
       }
     });
