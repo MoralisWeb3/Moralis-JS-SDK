@@ -9,7 +9,12 @@ function run() {
   yarn --cwd $1 $SCRIPT
 }
 
-run packages/core
+yarn --cwd packages/evmConnectors/walletConnectWrapper $1
+yarn --cwd packages/evmConnectors/EvmConnectorUtils $1
+yarn --cwd packages/evmConnectors/EvmMetamaskConnector $1
+yarn --cwd packages/evmConnectors/EvmWalletconnectConnector $1
+yarn --cwd packages/evmConnectors/EvmMetamaskConnector $1
+yarn --cwd packages/evmConnectors/EvmMagiclinkConnector $1
 
 run packages/evmConnectors/walletConnectWrapper
 run packages/evmConnectors/EvmConnectorUtils

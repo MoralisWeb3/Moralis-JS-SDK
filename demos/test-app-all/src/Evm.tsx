@@ -2,10 +2,12 @@ import Moralis from 'moralis';
 import { Erc20Value, EvmNative } from '@moralisweb3/core';
 import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
 import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
+import MagiclinkConnector from '@moralisweb3/evm-magic-link-connector';
 import Web3AuthConnector from '@moralisweb3/evm-web3auth-connector';
 
 // Register connector connect connector
 Moralis.Evm.connectors.register(WalletConnectConnector);
+Moralis.Evm.connectors.register(MagiclinkConnector);
 Moralis.Evm.connectors.register(Web3AuthConnector);
 // Moralis.Evm.connectors.remove('wallet-connect');
 
@@ -14,6 +16,7 @@ export const Evm = () => {
     <div>
       <h2>EVM</h2>
       <button onClick={() => Moralis.Evm.connect('metamask', { silent: false })}>Connect via metamask</button>
+      <button onClick={() => Moralis.Evm.connect('magic-link', { email: 'example@email.com', apiKey: process.env.REACT_APP_MAGIC_LINK_KEY, chainId: 3, newSession: true })}>Connect via magiclink</button>
       <button onClick={() => Moralis.Evm.connect('wallet-connect', { newSession: true })}>
         Connect via walletconnect
       </button>
@@ -21,6 +24,7 @@ export const Evm = () => {
         Connect via web3auth
       </button>
       <button onClick={() => Moralis.Evm.disconnect()}>Disconnect</button>
+      <button onClick={() => Moralis.Evm.cancelRequest()}>Cancel request</button>
       <button onClick={() => console.log(Moralis.Evm.connector)}>get connector</button>
       <button onClick={() => console.log(Moralis.Evm.account)}>get account</button>
       <button onClick={() => console.log(Moralis.Evm.chain)}>get chainId</button>

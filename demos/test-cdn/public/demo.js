@@ -3,6 +3,7 @@
 function initMoralis() {
   Moralis.Evm.connectors.register(WalletConnectConnector);
   Moralis.Evm.connectors.register(Web3AuthConnector);
+  Moralis.Evm.connectors.register(MagiclinkConnector);
 
   Moralis.start({
     serverUrl: MORALIS_SERVER_URL,
@@ -36,6 +37,9 @@ function initDemo() {
 
   appendButton('Evm.connect / web3auth', () => {
     return Moralis.Evm.connect('web3auth', { clientId: WEB3AUTH_CLIENTID, newSession: true });
+  });
+  appendButton('Evm.connect / Magiclink', () => {
+    return Moralis.Evm.connect('magic-link', { email: 'example@email.io', apiKey: MAGIC_LINK_KEY, chainId: 3 });
   });
 
   appendButton('Evm.transferNative', () => {
