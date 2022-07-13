@@ -12,7 +12,7 @@ export interface ExecuteFunctionOverrides {
   gasPrice?: BigNumberish;
   nonce?: BigNumberish;
 }
-export interface EcecuteFunctionOptions {
+export interface ExecuteFunctionOptions {
   contractAddress: EvmAddressish;
   abi: JsonFragment[];
   functionName: string;
@@ -36,7 +36,7 @@ const getPossibleTopics = (functionDataArray: JsonFragment[]) => {
   return functionDataArray.map((data) => `${data.name}(${data.inputs?.map((input) => input.type).join(',')})`);
 };
 
-const getOverloadedFunctionData = (overloadedFunctionMatch: RegExpMatchArray, abi: EcecuteFunctionOptions['abi']) => {
+const getOverloadedFunctionData = (overloadedFunctionMatch: RegExpMatchArray, abi: ExecuteFunctionOptions['abi']) => {
   const nameWithoutTopics = overloadedFunctionMatch[1];
   const topics = overloadedFunctionMatch[2]
     .split(',')
@@ -83,7 +83,7 @@ const getOverloadedFunctionData = (overloadedFunctionMatch: RegExpMatchArray, ab
   return functionData;
 };
 
-const getFunctionData = (functionName: EcecuteFunctionOptions['functionName'], abi: EcecuteFunctionOptions['abi']) => {
+const getFunctionData = (functionName: ExecuteFunctionOptions['functionName'], abi: ExecuteFunctionOptions['abi']) => {
   // Check if function is an overloaded function definition. ex "getMessage(string)", or "getMessage()"
   const overloadedFunctionMatch = functionName.match(/^(.+)\((.*)\)$/);
 
@@ -162,7 +162,7 @@ const parseOverrides = (overrides: ExecuteFunctionOverrides = {}) => ({
 // TODO: split up in read and write call (and wrap write call in EvmTransactionReceipt)
 export const makeExecutefunction =
   (_provider: null | ethers.providers.JsonRpcSigner) =>
-  async <Result>(options: EcecuteFunctionOptions) => {
+  async <Result>(options: ExecuteFunctionOptions) => {
     const provider = assertProvider(_provider);
 
     const contractAddress = EvmAddress.create(options.contractAddress);

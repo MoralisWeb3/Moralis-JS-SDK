@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useState, useCallback } from 'react';
 import { ConfigValues } from '@moralisweb3/core';
 import Core from '@moralisweb3/core';
@@ -15,8 +14,7 @@ export const _useMoralisCore = ({ startOnMount = true, ...startConfig }: IUseMor
   const [isStarting, setIsStarting] = useState(false);
 
   const start = useCallback(
-    ({ onComplete, onError, onSuccess, throwOnError }: ICoreStart = {}) => {
-      console.log('fck');
+    ({ onComplete, onError, onSuccess, throwOnError = true }: ICoreStart = {}) => {
       return resolver(
         () => {
           setIsStarting(true);

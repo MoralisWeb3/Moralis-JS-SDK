@@ -1,0 +1,28 @@
+import { useState, useCallback } from 'react';
+import { useResolver } from '../../useResolver';
+import { IAction } from './types';
+
+export const {{ name }} = () => {
+  const resolver = useResolver();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const action = useCallback(({ onComplete, onError, onSuccess, throwOnError = true }: IAction = {}) => {
+    return resolver(
+      () => {
+        setIsLoading(true);
+        // return Evm.connect(connector, rest);
+      },
+      {
+        _onComplete: () => setIsLoading(false),
+        // _onError,
+        // _onSuccess: () => setIsConnected(true),
+        onComplete,
+        onError,
+        onSuccess,
+        throwOnError,
+      },
+    );
+  }, []);
+
+  return { action, isLoading };
+};

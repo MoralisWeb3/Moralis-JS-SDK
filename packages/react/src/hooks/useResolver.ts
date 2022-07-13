@@ -11,9 +11,10 @@ export interface IUseResolverParams extends IResolver {
   _throwOnError?: boolean;
 }
 
-export const useResolver = <T>() => {
+export const useResolver = () => {
   const resolver = async (
-    func: () => Promise<T>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    func: () => Promise<unknown> | Promise<any>,
     {
       _onComplete,
       _onError,
@@ -33,6 +34,7 @@ export const useResolver = <T>() => {
       if (onSuccess) {
         onSuccess(successData);
       }
+      return successData;
     } catch (error) {
       if (_throwOnError) {
         throw error;

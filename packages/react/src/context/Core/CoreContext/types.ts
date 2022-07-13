@@ -5,5 +5,5 @@ export interface ICoreContext extends Partial<ConfigValues> {
   Core: typeof Core;
   isStarted: boolean;
   isStarting: boolean;
-  start: ({ onComplete, onError, onSuccess, throwOnError }?: ICoreStart) => Promise<void>;
+  start: ({ onComplete, onError, onSuccess, throwOnError = true }?: ICoreStart) => Promise<void>;
 }

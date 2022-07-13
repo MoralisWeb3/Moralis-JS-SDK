@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { AnyConnector, EvmAddress, EvmChain, EvmConnectData, EvmProvider } from '@moralisweb3/core';
-import Evm from '@moralisweb3/evm';
-import { useState, useCallback, useEffect } from 'react';
-import { useResolver } from '../../useResolver';
 import { IEvmConnect, IEVMConnectCallbacks } from './types';
+import { useResolver } from '../../useResolver';
+import { useState, useCallback, useEffect } from 'react';
+import Evm from '@moralisweb3/evm';
 
 export const _useMoralisEvm = () => {
   const resolver = useResolver();
@@ -49,7 +49,7 @@ export const _useMoralisEvm = () => {
   }, [Evm]);
 
   const connect = useCallback<IEvmConnect>(
-    (connector, { onComplete, onError, onSuccess, throwOnError, ...rest } = {}) => {
+    (connector, { onComplete, onError, onSuccess, throwOnError = true, ...rest } = {}) => {
       return resolver(
         () => {
           setIsConnecting(true);
@@ -70,7 +70,7 @@ export const _useMoralisEvm = () => {
   );
 
   const disconnect = useCallback(
-    async ({ onComplete, onError, onSuccess, throwOnError }: IEVMConnectCallbacks = {}) => {
+    async ({ onComplete, onError, onSuccess, throwOnError = true }: IEVMConnectCallbacks = {}) => {
       return resolver(
         () => {
           setIsDisconnecting(true);
