@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demo - Moralis Test CDN</title>
+  <title>🔴 ESM Demo - Moralis Test CDN</title>
 
   <script type="importmap">
     {
@@ -17,6 +17,7 @@
         "@moralisweb3/evm-metamask-connector": "../../../packages/evmConnectors/EvmMetamaskConnector/dist/index.esm.js",
         "@moralisweb3/evm-wallet-connect-connector": "../../../packages/evmConnectors/EvmWalletconnectConnector/dist/index.esm.js",
         "@moralisweb3/evm-web3auth-connector": "../../../packages/evmConnectors/EvmWeb3authConnector/dist/index.esm.js",
+        "@moralisweb3/evm-magic-link-connector": "../../../packages/evmConnectors/EvmMagiclinkConnector/dist/index.esm.js",
         "moralis": "../../../packages/moralis/dist/index.esm.js"
       }
     }
@@ -25,8 +26,10 @@
     import Moralis from 'moralis';
     import WalletConnectConnector from '@moralisweb3/evm-wallet-connect-connector';
     import Web3AuthConnector from '@moralisweb3/evm-web3auth-connector';
+    import MagiclinkConnector from '@moralisweb3/evm-magic-link-connector';
     window.Moralis = Moralis;
     window.WalletConnectConnector = WalletConnectConnector;
+    window.MagiclinkConnector = MagiclinkConnector;
     window.Web3AuthConnector = Web3AuthConnector;
   </script>
   <script src="./env.js"></script>

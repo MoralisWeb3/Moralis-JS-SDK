@@ -12,6 +12,7 @@
     "@moralisweb3/server": "^2.0.0-alpha.1",
     "@moralisweb3/evm-wallet-connect-connector": "^2.0.0-alpha.1",
     "@moralisweb3/evm-web3auth-connector": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-magic-link-connector": "^2.0.0-alpha.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "^4",
