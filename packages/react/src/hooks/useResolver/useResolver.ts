@@ -1,30 +1,9 @@
-import { IDefaultCallbacks } from './types';
-
-export interface IResolver extends IDefaultCallbacks {
-  onSuccess?: any;
-}
-
-export interface IUseResolverParams extends IResolver {
-  _onComplete?: () => void;
-  _onError?: (error: Error) => void;
-  _onSuccess?: any;
-  _throwOnError?: boolean;
-}
+import { IResolverParams } from './types';
 
 export const useResolver = () => {
-  const resolver = async (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    func: () => Promise<unknown> | Promise<any>,
-    {
-      _onComplete,
-      _onError,
-      _onSuccess,
-      _throwOnError,
-      onComplete,
-      onError,
-      onSuccess,
-      throwOnError,
-    }: IUseResolverParams = {},
+  const resolver: IResolverParams = async (
+    func,
+    { _onComplete, _onError, _onSuccess, _throwOnError, onComplete, onError, onSuccess, throwOnError } = {},
   ) => {
     try {
       const successData = await func();

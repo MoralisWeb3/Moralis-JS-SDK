@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { AnyConnector, EvmAddress, EvmChain, EvmConnectData, EvmProvider } from '@moralisweb3/core';
+import { AnyConnector, EvmAddress, EvmChain, EvmConnectionData, EvmProvider } from '@moralisweb3/core';
 import { IEvmConnect, IEVMConnectCallbacks } from './types';
 import { useResolver } from '../../useResolver';
 import { useState, useCallback, useEffect } from 'react';
@@ -16,7 +15,7 @@ export const _useMoralisEvm = () => {
   const [provider, setProvider] = useState<null | EvmProvider>(null);
 
   useEffect(() => {
-    const handleConnect = ({ chain, account, connector, provider }: EvmConnectData) => {
+    const handleConnect = ({ chain, account, connector, provider }: EvmConnectionData) => {
       setChain(chain);
       setAccount(account);
       setConnector(connector);

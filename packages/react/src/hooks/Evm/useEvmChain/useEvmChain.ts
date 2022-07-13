@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import { useResolver } from '../../useResolver';
 import { IAddChainParams, ISwitchChainParams } from './types';
-import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 import { useMoralisEvm } from '../useMoralisEvm';
+import { useResolver } from '../../useResolver';
+import { useState, useCallback } from 'react';
+import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 
 export const useEvmChain = () => {
   const resolver = useResolver();
@@ -13,7 +13,7 @@ export const useEvmChain = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const switchChain = useCallback<ISwitchChainParams>(
-    (providedChain, { onComplete, onError, onSuccess, throwOnError = false } = {}) => {
+    (providedChain, { onComplete, onError, onSuccess, throwOnError = false, resolveUnrecognized = true } = {}) => {
       resolver(
         async () => {
           setIsChainPending(true);
@@ -21,7 +21,13 @@ export const useEvmChain = () => {
         },
         {
           _onComplete: () => setIsChainPending(false),
-          _onError: setError,
+          _onError: (error) => {
+            setError(error);
+            if (resolveUnrecognized) {
+              // eslint-disable-next-line no-console
+              console.log('error.code: ', error.code);
+            }
+          },
           onComplete,
           onError,
           onSuccess,

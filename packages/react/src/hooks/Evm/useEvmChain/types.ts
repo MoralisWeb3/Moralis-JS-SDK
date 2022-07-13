@@ -6,7 +6,7 @@ export interface IChainCallbacks extends IDefaultCallbacks {
 }
 
 export interface IAddChainIfNone {
-  addChainIfNone?: () => void;
+  resolveUnrecognized?: () => void;
 }
 
 export interface ISwitchChainParams<

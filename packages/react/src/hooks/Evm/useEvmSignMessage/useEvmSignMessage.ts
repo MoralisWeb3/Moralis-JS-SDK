@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react';
-import { useResolver } from '../../useResolver';
 import { ISignParams } from './types';
+import { MoralisNetworkConnectorError } from '@moralisweb3/core';
+import { useResolver } from '../../useResolver';
+import { useState, useCallback } from 'react';
 import Evm from '@moralisweb3/evm';
 
 export const useEvmSignMessage = () => {
@@ -17,7 +18,7 @@ export const useEvmSignMessage = () => {
       },
       {
         _onComplete: () => setIsLoading(false),
-        _onError: (error) => setError(error),
+        _onError: (error: MoralisNetworkConnectorError) => setError(error),
         _onSuccess: (data: string) => setData(data),
         onComplete,
         onError,

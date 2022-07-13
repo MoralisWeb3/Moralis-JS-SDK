@@ -5,5 +5,5 @@ export interface ISignCallbacks extends IDefaultCallbacks {
 }
 
 export interface ISignParams {
-  (message: string, params?: ISignCallbacks): void;
+  (message: string, params?: ISignCallbacks): Promise<string>;
 }

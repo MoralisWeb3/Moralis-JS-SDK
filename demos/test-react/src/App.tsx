@@ -1,11 +1,11 @@
 import { useEvmContract, useMoralisCore, useMoralisEvm, useEvmSignMessage, useEvmChain } from '@moralisweb3/react';
-import { Erc20__factory } from '@moralisweb3/evm/src/Contract/generated/factories';
+import { Erc20__factory } from '@moralisweb3/evm';
 import Header from './Header';
 
 const App = () => {
   const { connect, chain } = useMoralisEvm();
   const { isStarting, isStarted } = useMoralisCore();
-  const { switchChain } = useEvmChain();
+  const { switchChain, addChainToWallet } = useEvmChain();
   const { data, execute, error } = useEvmContract({
     abi: Erc20__factory.abi,
     address: '0x01BE23585060835E02B77ef475b0Cc51aA1e0709',
@@ -40,20 +40,14 @@ const App = () => {
       </button>
       <button
         onClick={async () => {
-          const data = sign('My Message');
+          const data = await sign('My Message');
           console.log('dataFromCallBack: ', data);
         }}
       >
         Sign Message
       </button>
-      <button
-        onClick={async () => {
-          const data = await switchChain('0x1');
-          console.log('dataFromSwitch: ', data);
-        }}
-      >
-        Switch Chain
-      </button>
+      <button onClick={() => switchChain('0x61')}>Switch to 0x61 Chain</button>
+      <button onClick={() => addChainToWallet('0x61')}>Add 0x61 Chain To Wallet(</button>
       <div>Chain: {chain?.name}</div>
     </div>
   );
