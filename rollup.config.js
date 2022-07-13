@@ -59,6 +59,7 @@ export function esm(packageJson, internal) {
       }),
       peerDepsExternal(),
       resolve({
+        browser: true,
         preferBuiltins: false,
       }),
       json(),
@@ -99,6 +100,7 @@ export function umd(outputName, packageJson, externanMap) {
       }),
       peerDepsExternal(),
       resolve({
+        browser: true,
         preferBuiltins: false,
       }),
       json(),
