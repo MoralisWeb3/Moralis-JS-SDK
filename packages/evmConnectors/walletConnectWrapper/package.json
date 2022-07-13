@@ -11,8 +11,8 @@
     "lib"
   ],
   "scripts": {
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
+    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "build": "webpack",
     "build:dev": "webpack"
   },
