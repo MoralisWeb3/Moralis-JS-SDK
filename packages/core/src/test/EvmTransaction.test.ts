@@ -107,8 +107,8 @@ describe('EvmTransaction', () => {
 
   it('should call the send function', async () => {
     const callSpy = jest.fn(async (transaction) =>
-    EvmTransactionResponse.create({ ...inputWithAllData, hash: '0x123', from: transaction.result.from }),
-);
+      EvmTransactionResponse.create({ ...inputWithAllData, hash: '0x123', from: transaction.result.from }),
+    );
     const transactionWithSendCall = EvmTransaction.create(inputWithAllData, callSpy);
     const response = await transactionWithSendCall.send();
 
