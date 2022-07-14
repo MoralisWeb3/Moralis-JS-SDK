@@ -67,7 +67,7 @@ static getNextOptions(result, options) {
   const nextOptions = {...options};
   if (!result || !result.page_size || !result.total || result.page === undefined) return options
   if (result.cursor) {
-    if(result.total > (result.page_size * (result.page + 1))) nextOptions.cursor = result.cursor;
+     if(result.cursor !== "") nextOptions.cursor = result.cursor;
   } else {
     if (result.total > (result.page_size * (result.page + 1))) {
       nextOptions.offset = (result.page + 1) * (nextOptions.limit || 500);
