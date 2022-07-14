@@ -59,6 +59,15 @@ function initDemo() {
     return Moralis.Server.authenticate('evm', { connector: 'metamask', silent: false });
   });
 
+  appendButton('Server.authenticate magic', () => {
+    return Moralis.Server.authenticate(AuthMethod.EVM, {
+      connector: 'magic-link',
+      email: 'email@example.io',
+      apiKey: MAGIC_LINK_KEY,
+      chainId: 3,
+    });
+  });
+
   appendButton('Server.fetchIPFS', () => {
     return Moralis.Server.fetchIPFS('QmUfpsyqc4hwozotRo4woyi5fJqvfcej5GcFvKiWoY6xr6');
   });
