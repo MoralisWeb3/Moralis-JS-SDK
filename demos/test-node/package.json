@@ -7,8 +7,8 @@
     "build": "tsc",
     "build:dev": "tsc",
     "start": "node build/main.js",
-    "format": "prettier . 'src/**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . 'src/**/*.+(js|ts|json)' --check"
+    "format": "prettier . \"src/**/*.+(js|ts|json)\" --write",
+    "format:check": "prettier . \"src/**/*.+(js|ts|json)\" --check"
   },
   "dependencies": {
     "moralis": "^2.0.0-alpha.1",

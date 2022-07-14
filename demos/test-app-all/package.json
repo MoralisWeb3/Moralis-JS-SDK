@@ -22,8 +22,8 @@
     "build": "SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco build",
     "build:dev": "yarn run build",
     "eject": "craco eject",
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
+    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx"
   },
   "eslintConfig": {

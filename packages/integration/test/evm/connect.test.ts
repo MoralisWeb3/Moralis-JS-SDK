@@ -1,6 +1,7 @@
 import { MoralisCore } from '@moralisweb3/core';
 import { MoralisEvm } from '@moralisweb3/evm';
 import { MockEvmConnector } from '../../src/MockConnector';
+import { setupEvm } from './setup';
 
 describe('Evm connect', () => {
   let core: MoralisCore;
@@ -8,12 +9,10 @@ describe('Evm connect', () => {
   let evm: MoralisEvm;
 
   beforeAll(() => {
-    core = MoralisCore.create();
-    connector = MockEvmConnector.create(core);
-    evm = MoralisEvm.create(core);
-    evm.connectors.register(connector);
-    core.registerModule(evm);
-    core.start();
+    const setup = setupEvm();
+    core = setup.core;
+    connector = setup.connector;
+    evm = setup.evm;
   });
 
   it('can connect with a mock connector', async () => {
