@@ -13,6 +13,8 @@ import {
   ProviderRpcError,
   Logger,
   MoralisCore,
+  MoralisNetworkConnectorError,
+  NetworkConnectorErrorCode,
 } from '@moralisweb3/core';
 
 export interface EvmAbstractConnectorConfig {
@@ -133,6 +135,13 @@ export abstract class EvmAbstractConnector<
 
   private handleDisconnect(error: ProviderRpcError) {
     this.emit(EvmConnectorEvent.DISCONNECT, error);
+  }
+
+  async cancelRequest(): Promise<void> {
+    throw new MoralisNetworkConnectorError({
+      code: NetworkConnectorErrorCode.NOT_IMPLEMENTED,
+      message: 'cancelRequest() is not implemented',
+    });
   }
 
   // /**

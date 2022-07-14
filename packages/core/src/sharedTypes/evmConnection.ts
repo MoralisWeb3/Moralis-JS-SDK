@@ -13,6 +13,7 @@ export type SolBaseConnectOptions = Record<string, unknown>;
 export type EvmConnect = {
   (connector: 'metamask', options?: EvmMetamaskConnectorConnectOptions): Promise<EvmConnectionData>;
   (connector: 'walletconnect', options?: EvmWalletConnectConnectorOptions): Promise<EvmConnectionData>;
+  (connector: 'magiclink', options?: EvmMagicLinkConnectorOptions): Promise<EvmConnectionData>;
   (connector: string, options?: EvmBaseConnectOptions): Promise<EvmConnectionData>;
 };
 
@@ -37,6 +38,17 @@ export interface EvmWalletConnectConnectorOptions extends EvmBaseConnectOptions 
   chainId?: InputChainId;
   // List of mobile links
   mobileLinks?: string[];
+  // Weather to reuse the same session (if available), or to force a new session
+  newSession?: boolean;
+}
+
+export interface EvmMagicLinkConnectorOptions extends EvmBaseConnectOptions {
+  // Prefered chainId, if supported by the connector
+  chainId?: InputChainId;
+  // the publishable api-key that you can get in your Magic dashboard
+  apiKey: string;
+  // Email to sign in with
+  email: string;
   // Weather to reuse the same session (if available), or to force a new session
   newSession?: boolean;
 }
