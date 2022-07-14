@@ -13,8 +13,8 @@
     "test:ci": "yarn test --ci",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
+    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint .",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
   },
