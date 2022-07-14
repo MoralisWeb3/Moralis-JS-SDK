@@ -2,9 +2,7 @@
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-export const mockSyncNFTContractAddresses = [
-  '0x7de3085b3190b3a787822ee16f23be010f5f8686'
-];
+export const mockSyncNFTContractAddresses = ['0x7de3085b3190b3a787822ee16f23be010f5f8686'];
 
 export const mockSyncNFTContract = rest.put(`${EVM_API_ROOT}/nft/:address/sync`, (req, res, ctx) => {
   const address = req.params.address as string;
@@ -21,7 +19,7 @@ export const mockSyncNFTContract = rest.put(`${EVM_API_ROOT}/nft/:address/sync`,
   return res(
     ctx.status(200),
     ctx.json({
-      success: true, // TODO: check the correctness of this response
+      success: true,
     }),
   );
 });
