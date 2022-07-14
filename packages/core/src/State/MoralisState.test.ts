@@ -87,7 +87,7 @@ describe('MoralisState', () => {
     expect(() => state.start(config)).toThrowError('[C0011] State machine "test" already started');
   });
 
-  describe('not started', () => {
+  describe('throws an error if not started', () => {
     const expectedError = '[C0012] State machine "test" not started';
 
     it('state', () => {
