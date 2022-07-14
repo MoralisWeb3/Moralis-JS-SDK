@@ -2,7 +2,7 @@ import Core from '@moralisweb3/core';
 import Evm from '@moralisweb3/evm';
 import MockEvmConnector from '../../src/MockConnector';
 
-describe('Evm connect', () => {
+describe('transferErc721', () => {
   beforeAll(async () => {
     Core.registerModules([Evm]);
     Evm.connectors.register(MockEvmConnector);
