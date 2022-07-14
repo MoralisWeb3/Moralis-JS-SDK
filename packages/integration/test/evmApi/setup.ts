@@ -5,7 +5,7 @@ import { mockServer } from '../../mockRequests/mockRequests';
 
 export function setupEvmApi(): MoralisEvmApi {
   const core = MoralisCoreProvider.getDefault();
-  const envApi = MoralisEvmApi.create();
+  const envApi = MoralisEvmApi.create(core);
   core.registerModule(envApi);
   core.start({
     apiKey: MOCK_API_KEY,

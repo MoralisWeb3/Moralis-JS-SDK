@@ -1,18 +1,11 @@
-import { MoralisCore } from '@moralisweb3/core';
 import { MoralisEvm } from '@moralisweb3/evm';
-import { MockEvmConnector } from '../../src/MockConnector';
 import { setupEvm } from './setup';
 
 describe('Evm connect', () => {
-  let core: MoralisCore;
-  let connector: MockEvmConnector;
   let evm: MoralisEvm;
 
   beforeAll(async () => {
-    const setup = setupEvm();
-    core = setup.core;
-    connector = setup.connector;
-    evm = setup.evm;
+    evm = setupEvm();
     await evm.connect('mock', {
       tx: {
         hash: '0x0000000000000000000000000000000000000000000000000000000000000042',
