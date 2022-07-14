@@ -106,14 +106,15 @@ describe('EvmTransaction', () => {
   });
 
   it('should call the send function', async () => {
-    const transactionWithSendCall = EvmTransaction.create(inputWithAllData, async (transaction) =>
-      EvmTransactionResponse.create({ ...inputWithAllData, hash: '0x123', from: transaction.result.from }),
-    );
-    const response = jest.fn(async () => await transactionWithSendCall.send());
+    const callSpy = jest.fn(async (transaction) =>
+    EvmTransactionResponse.create({ ...inputWithAllData, hash: '0x123', from: transaction.result.from }),
+);
+    const transactionWithSendCall = EvmTransaction.create(inputWithAllData, callSpy);
+    const response = await transactionWithSendCall.send();
 
-    response();
-
-    expect(response).toBeCalledTimes(1);
+    expect(response.result.hash).toBe('0x123');
+    expect(response.result.chain?.decimal).toBe(inputWithAllData.chain);
+    expect(callSpy).toBeCalledTimes(1);
   });
 
   it('should throw an error when trying to send with no call method', () => {
