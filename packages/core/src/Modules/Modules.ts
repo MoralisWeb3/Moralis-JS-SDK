@@ -19,7 +19,7 @@ export class Modules {
   private readonly modules = new Map<string, Module>();
 
   /**
-   * Register a new module by providing a module that is extended from BaseClass.
+   * Register and setup a new module by providing a module that is extended from BaseClass.
    * This will throw an error if the name is not unique
    * @param module the module that needs to be registered
    */

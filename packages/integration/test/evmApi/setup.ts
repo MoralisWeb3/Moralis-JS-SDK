@@ -3,7 +3,7 @@ import MoralisEvmApi from '@moralisweb3/evm-api';
 import { MOCK_API_KEY } from '../../mockRequests/config';
 import { mockServer } from '../../mockRequests/mockRequests';
 
-export function setupEnvApi(): MoralisEvmApi {
+export function setupEvmApi(): MoralisEvmApi {
   const core = MoralisCoreProvider.getDefault();
   const envApi = MoralisEvmApi.create();
   core.registerModule(envApi);

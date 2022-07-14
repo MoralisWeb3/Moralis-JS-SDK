@@ -10,7 +10,7 @@ Moralis.Evm.connectors.register(MagiclinkConnector);
 // Moralis.Evm.connectors.remove('wallet-connect');
 
 export const Evm = () => {
-  const evm = Moralis.Evm.connectors.get<MetamaskConnector>(MetamaskConnector.connectorName);
+  const metamask = Moralis.Evm.connectors.get<MetamaskConnector>(MetamaskConnector.connectorName);
 
   return (
     <div>
@@ -120,7 +120,7 @@ export const Evm = () => {
       </button>
       <button
         onClick={() => {
-          evm.addNetwork('kovan');
+          metamask.addNetwork('kovan');
         }}
       >
         Add kovan network

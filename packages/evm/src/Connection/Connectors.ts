@@ -8,7 +8,7 @@ export class Connectors {
   private _connectors = new Map<string, EvmAbstractConnector>();
 
   public static create(): Connectors {
-    const core = MoralisCoreProvider.getDefault(); // TODO
+    const core = MoralisCoreProvider.getDefault(); // TODO: we should get the core instance from a parent class.
     const connectors = new Connectors(core);
     DEFAULT_CONNECTORS.forEach((connector) => connectors.register(connector));
     return connectors;

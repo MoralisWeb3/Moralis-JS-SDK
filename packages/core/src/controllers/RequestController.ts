@@ -17,8 +17,8 @@ export interface RequestOptions {
  */
 export class RequestController {
   public static create(core?: MoralisCore): RequestController {
-    const c = core || MoralisCoreProvider.getDefault();
-    return new RequestController(c.logger);
+    const finalCore = core || MoralisCoreProvider.getDefault();
+    return new RequestController(finalCore.logger);
   }
 
   public constructor(private readonly logger: LoggerController) {}

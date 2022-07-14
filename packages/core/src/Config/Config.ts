@@ -1,14 +1,16 @@
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 
 export class Config {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private readonly items = new Map<string, ConfigItem<any>>();
+  private readonly items = new Map<string, ConfigItem<unknown>>();
 
   public registerKey<Value>(key: ConfigKey<Value>, validator?: ConfigKeyValidator<Value>) {
     if (this.items.has(key.name)) {
-      throw new Error(`Key "${key.name}" is already registered`);
+      throw new MoralisCoreError({
+        code: CoreErrorCode.CONFIG_KEY_ALREADY_EXIST,
+        message: `Key "${key.name}" is already registered`,
+      });
     }
-    this.items.set(key.name, { key, value: key.defaultValue, validator });
+    this.items.set(key.name, { key, value: key.defaultValue, validator: validator as ConfigKeyValidator<unknown> });
   }
 
   public getKeys(): string[] {
@@ -24,7 +26,7 @@ export class Config {
     const error = item.validator ? item.validator(value) : null;
     if (error) {
       throw new MoralisCoreError({
-        code: CoreErrorCode.CONFIG_NOT_VALID,
+        code: CoreErrorCode.CONFIG_INVALID_VALUE,
         message: `Cannot set this config. Invalid value for "${item.key.name}". ${error}`,
       });
     }
@@ -48,20 +50,20 @@ export class Config {
       const item = this.items.get(keyOrName);
       if (!item) {
         throw new MoralisCoreError({
-          code: CoreErrorCode.CONFIG_NOT_EXIST,
-          message: `Key "${keyOrName}" is unregistered. Did you forget to register some module?`,
+          code: CoreErrorCode.CONFIG_KEY_NOT_EXIST,
+          message: `Key "${keyOrName}" is unregistered. Have you registered all required modules?`,
         });
       }
-      return item;
+      return item as ConfigItem<Value>;
     }
     const item = this.items.get(keyOrName.name);
     if (!item) {
       throw new MoralisCoreError({
-        code: CoreErrorCode.CONFIG_NOT_EXIST,
-        message: `Key "${keyOrName.name}" is unregistered. Did you forget to register some module?`,
+        code: CoreErrorCode.CONFIG_KEY_NOT_EXIST,
+        message: `Key "${keyOrName.name}" is unregistered. Have you registered all required modules?`,
       });
     }
-    return item;
+    return item as ConfigItem<Value>;
   }
 }
 

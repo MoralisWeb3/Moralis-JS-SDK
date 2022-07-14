@@ -19,8 +19,8 @@ export class EvmAddress implements MoralisData {
     if (address instanceof EvmAddress) {
       return address;
     }
-    const c = core || MoralisCoreProvider.getDefault();
-    return new EvmAddress(address, c.config);
+    const finalCore = core || MoralisCoreProvider.getDefault();
+    return new EvmAddress(address, finalCore.config);
   }
 
   // Checksum address

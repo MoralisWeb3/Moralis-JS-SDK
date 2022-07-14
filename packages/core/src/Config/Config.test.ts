@@ -14,7 +14,7 @@ describe('Config', () => {
 
   it('cannot register the same key more then one time', () => {
     config.registerKey(numberKey);
-    expect(() => config.registerKey(numberKey)).toThrowError('Key "number" is already registered');
+    expect(() => config.registerKey(numberKey)).toThrowError('[C0015] Key "number" is already registered');
   });
 
   it('can set', () => {

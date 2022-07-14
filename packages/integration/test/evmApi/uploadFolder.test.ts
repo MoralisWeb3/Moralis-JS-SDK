@@ -1,5 +1,5 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
-import { cleanEnvApi, setupEnvApi } from './setup';
+import { cleanEnvApi, setupEvmApi } from './setup';
 
 const ABI = [
   {
@@ -12,7 +12,7 @@ describe('Moralis EvmApi', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEnvApi();
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
