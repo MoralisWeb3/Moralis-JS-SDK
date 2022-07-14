@@ -1,5 +1,3 @@
-// Set variables
-
 import { EvmTransaction, EvmTransactionInput, EvmTransactionResponse } from '../dataTypes';
 
 const DATA =
@@ -111,11 +109,11 @@ describe('EvmTransaction', () => {
     const transactionWithSendCall = EvmTransaction.create(inputWithAllData, async (transaction) =>
       EvmTransactionResponse.create({ ...inputWithAllData, hash: '0x123', from: transaction.result.from }),
     );
+    const response = jest.fn(async () => await transactionWithSendCall.send());
 
-    const response = await transactionWithSendCall.send();
+    response();
 
-    expect(response.result.hash).toBe('0x123');
-    expect(response.result.chain?.decimal).toBe(inputWithAllData.chain);
+    expect(response).toBeCalledTimes(1);
   });
 
   it('should throw an error when trying to send with no call method', () => {
@@ -126,10 +124,21 @@ describe('EvmTransaction', () => {
     );
   });
 
+  it('should convert EvmTransaction to JSON', () => {
+    const transaction = EvmTransaction.create(inputWithAllData);
+    const request = transaction.toJSON();
+
+    expect(request.to).toBe(inputWithAllData.to);
+    expect(request.from).toBe(inputWithAllData.from);
+    expect(request.value).toBe(inputWithAllData.value?.toString());
+  });
+
   it('should format EvmTransaction', () => {
     const transaction = EvmTransaction.create(inputWithAllData);
     const request = transaction.format();
 
     expect(request.to).toBe(inputWithAllData.to);
+    expect(request.from).toBe(inputWithAllData.from);
+    expect(request.value).toBe(inputWithAllData.value?.toString());
   });
 });
