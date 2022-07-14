@@ -33,8 +33,10 @@ import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 import { mockRunContractFunction } from './evmApi/runContractFunction';
 import { mockUploadFolder } from './evmApi/uploadFolder';
+import { mockGetContractEvents } from './evmApi/getContractEvents';
 
 const handlers = [
+  mockGetContractEvents,
   mockRunContractFunction,
   mockGetNFTTransfersFromToBlock,
   mockGetDateToBlock,
