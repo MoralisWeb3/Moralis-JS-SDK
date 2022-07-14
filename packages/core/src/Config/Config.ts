@@ -46,21 +46,12 @@ export class Config {
   }
 
   private getItem<Value>(keyOrName: ConfigKey<Value> | string): ConfigItem<Value> {
-    if (typeof keyOrName === 'string') {
-      const item = this.items.get(keyOrName);
-      if (!item) {
-        throw new MoralisCoreError({
-          code: CoreErrorCode.CONFIG_KEY_NOT_EXIST,
-          message: `Key "${keyOrName}" is unregistered. Have you registered all required modules?`,
-        });
-      }
-      return item as ConfigItem<Value>;
-    }
-    const item = this.items.get(keyOrName.name);
+    const keyName = typeof keyOrName === 'string' ? keyOrName : keyOrName.name;
+    const item = this.items.get(keyName);
     if (!item) {
       throw new MoralisCoreError({
         code: CoreErrorCode.CONFIG_KEY_NOT_EXIST,
-        message: `Key "${keyOrName.name}" is unregistered. Have you registered all required modules?`,
+        message: `Key "${keyName}" is unregistered. Have you registered all required modules?`,
       });
     }
     return item as ConfigItem<Value>;
