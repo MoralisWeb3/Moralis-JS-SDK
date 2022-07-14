@@ -60,7 +60,7 @@ function initDemo() {
   });
 
   appendButton('Server.authenticate magic', () => {
-    return Moralis.Server.authenticate(AuthMethod.EVM, {
+    return Moralis.Server.authenticate('evm', {
       connector: 'magic-link',
       email: 'email@example.io',
       apiKey: MAGIC_LINK_KEY,
