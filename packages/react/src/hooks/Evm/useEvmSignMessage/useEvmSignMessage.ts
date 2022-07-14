@@ -3,7 +3,7 @@ import { MoralisError } from '@moralisweb3/core';
 import { useResolver } from '../../useResolver';
 import { useState } from 'react';
 import Evm from '@moralisweb3/evm';
-import { IDefaultCallbacks } from 'hooks/types';
+import { IDefaultCallbacks } from '../../../hooks/types';
 
 export const useEvmSignMessage = () => {
   const resolver = useResolver();
