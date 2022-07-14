@@ -5,37 +5,28 @@ export type InitEvent = {
   type: 'xstate.init';
 };
 
-export type MoralisStateConfig<
-  StateContext extends object,
-  StateEvent extends EventObject,
-  State extends Typestate<StateContext>,
-> = StateMachine.Config<StateContext, StateEvent, State>;
-
 export class MoralisState<
   StateContext extends object,
   StateEvent extends EventObject,
   State extends Typestate<StateContext>,
 > {
-  name;
-  private _value: {
+  private value: {
     config: StateMachine.Config<StateContext, StateEvent, State>;
     machine: StateMachine.Machine<StateContext, StateEvent, State>;
     service: StateMachine.Service<StateContext, StateEvent, State>;
   } | null = null;
 
-  constructor(name: string) {
-    this.name = name;
-  }
+  public constructor(public readonly name: string) {}
 
   private get isStarted() {
-    if (!this._value) {
+    if (!this.value) {
       return false;
     }
     return true;
   }
 
   private assertStarted() {
-    const value = this._value;
+    const value = this.value;
 
     if (!value || !this.isStarted) {
       throw new MoralisCoreError({
@@ -47,7 +38,7 @@ export class MoralisState<
     return value;
   }
 
-  start(_config: StateMachine.Config<StateContext, StateEvent, State>) {
+  public start(_config: StateMachine.Config<StateContext, StateEvent, State>) {
     if (this.isStarted) {
       throw new MoralisCoreError({
         code: CoreErrorCode.STATE_MACHINE_STARTED,
@@ -62,31 +53,30 @@ export class MoralisState<
     const machine = createMachine(config);
     const service = interpret(machine).start();
 
-    this._value = {
+    this.value = {
       config,
       machine,
       service,
     };
-
-    return this._value;
+    return this.value;
   }
 
-  get state() {
+  public get state() {
     const value = this.assertStarted();
     return value.service.state;
   }
 
-  get machine() {
+  public get machine() {
     const value = this.assertStarted();
     return value.machine;
   }
 
-  get service() {
+  public get service() {
     const value = this.assertStarted();
     return value.service;
   }
 
-  match(value: State['value']) {
+  public match(value: State['value']) {
     this.assertStarted();
     return this.state.matches(value);
   }
@@ -94,20 +84,16 @@ export class MoralisState<
   // Optimistic check if state can change
   // Note: this takes no guards into account at all, it only checks the config definition
   // to see if there is an event of the type defined
-  can(event: StateEvent['type']) {
+  public can(event: StateEvent['type']) {
     const state = this.state.value;
 
     const stateConfig = this.machine.config.states[state];
     const ons = stateConfig.on;
 
-    if (!ons) {
-      return false;
-    }
-
-    return Object.keys(ons).includes(event);
+    return ons && Object.keys(ons).includes(event);
   }
 
-  transition(event: StateEvent) {
+  public transition(event: StateEvent) {
     const value = this.assertStarted();
     return value.service.send(event);
   }

@@ -34,6 +34,7 @@ import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
 import { mockRunContractFunction } from './evmApi/runContractFunction';
 import { mockUploadFolder } from './evmApi/uploadFolder';
 import { mockGetContractEvents } from './evmApi/getContractEvents';
+import { mockGetPairAddress } from './evmApi/getPairAddress';
 
 const handlers = [
   mockGetContractEvents,
@@ -43,6 +44,7 @@ const handlers = [
   mockUploadFolder,
   mockResolveDomain,
   mockResolveAddress,
+  mockGetPairAddress,
   mockGetNativeBalance,
   mockGetTokenPrice,
   mockGetPairReserves,
