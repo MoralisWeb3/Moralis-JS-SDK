@@ -17,7 +17,7 @@ import { connectWallet, cancelWalletRequest } from './walletConnection';
 import { Connectors } from './Connectors';
 import { StateContext, State, StateEvent } from './types';
 
-export class Connection extends MoralisState<StateContext, StateEvent, State> {
+export class Connection {
   private _logger;
   private _emitter;
 
@@ -30,14 +30,14 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
   // Used connector for the currect connection
   connector: EvmAbstractConnector | null = null;
 
-  constructor(logger: Logger, emitter: TypedEmitter<EvmNetworkEventMap>) {
-    super('Connection');
+  private readonly state = new MoralisState<StateContext, StateEvent, State>('Connection');
 
+  constructor(logger: Logger, emitter: TypedEmitter<EvmNetworkEventMap>) {
     this.connectors = new Connectors();
     this._logger = logger;
     this._emitter = emitter;
 
-    this.start({
+    this.state.start({
       initial: 'Disconnected',
       states: {
         Disconnected: {
@@ -163,8 +163,8 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     this._emitter.emit(EvmNetworkEvent.CONNECTING);
 
     connectWallet(this.connectors, connector, options ?? {})
-      .then((data) => this.transition({ type: 'CONNECT_SUCCESS', data }))
-      .catch((error: Error) => this.transition({ type: 'CONNECT_ERROR', data: error }));
+      .then((data) => this.state.transition({ type: 'CONNECT_SUCCESS', data }))
+      .catch((error: Error) => this.state.transition({ type: 'CONNECT_ERROR', data: error }));
   };
 
   private handleConnected = (context: StateContext, event: StateEvent) => {
@@ -194,11 +194,11 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
    */
 
   get isConnected() {
-    return this.match('Connected');
+    return this.state.match('Connected');
   }
 
   get isConnecting() {
-    return this.match('Connecting');
+    return this.state.match('Connecting');
   }
 
   get canConnect() {
@@ -221,14 +221,14 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
       await this.disconnect();
     }
 
-    if (!this.can('CONNECT')) {
+    if (!this.state.can('CONNECT')) {
       throw new MoralisNetworkError({
         code: NetworkErrorCode.CANNOT_CONNECT,
         message: 'Cannot connect.',
       });
     }
 
-    this.transition({
+    this.state.transition({
       type: 'CONNECT',
       data: {
         connector,
@@ -261,14 +261,14 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
       });
     }
 
-    if (!this.can('DISCONNECT')) {
+    if (!this.state.can('DISCONNECT')) {
       throw new MoralisNetworkError({
         code: NetworkErrorCode.CANNOT_CONNECT,
         message: 'Cannot disconnect',
       });
     }
 
-    this.transition({ type: 'DISCONNECT' });
+    this.state.transition({ type: 'DISCONNECT' });
   };
 
   cancelRequest = async () => {
@@ -280,7 +280,7 @@ export class Connection extends MoralisState<StateContext, StateEvent, State> {
     }
     cancelWalletRequest(this.connector!)
       .then(() => {
-        this.transition({
+        this.state.transition({
           type: 'CONNECT_ERROR',
           data: new MoralisNetworkError({
             code: NetworkErrorCode.CANNOT_CONNECT,
