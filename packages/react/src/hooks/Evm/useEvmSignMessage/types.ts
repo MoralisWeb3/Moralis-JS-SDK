@@ -1,9 +1,6 @@
 import { IDefaultCallbacks } from 'hooks/types';
 
-export interface ISignCallbacks extends IDefaultCallbacks {
-  onSuccess?: () => void;
-}
-
-export interface ISignParams {
-  (message: string, params?: ISignCallbacks): Promise<string>;
-}
+// export type TMessage = string;
+// export interface ISignParams<TMessageHash = string> {
+//   (message: TMessage, params?: IDefaultCallbacks<TMessageHash>): Promise<TMessageHash | null>;
+// }

@@ -1,16 +1,17 @@
-import { ISignParams } from './types';
-import { MoralisNetworkConnectorError } from '@moralisweb3/core';
+// import { ISignParams } from './types';
+import { MoralisError } from '@moralisweb3/core';
 import { useResolver } from '../../useResolver';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import Evm from '@moralisweb3/evm';
+import { IDefaultCallbacks } from 'hooks/types';
 
 export const useEvmSignMessage = () => {
   const resolver = useResolver();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<null | string>(null);
-  const [error, setError] = useState<null | Error>(null);
+  const [error, setError] = useState<undefined | MoralisError>(undefined);
 
-  const sign = useCallback<ISignParams>((message, { onComplete, onError, onSuccess, throwOnError = true } = {}) => {
+  const sign = (message: string, defaultCallbacks: IDefaultCallbacks<string>) => {
     return resolver(
       () => {
         setIsLoading(true);
@@ -18,15 +19,13 @@ export const useEvmSignMessage = () => {
       },
       {
         _onComplete: () => setIsLoading(false),
-        _onError: (error: MoralisNetworkConnectorError) => setError(error),
+        _onError: (error) => setError(error),
         _onSuccess: (data) => setData(data),
-        onComplete,
-        onError,
-        onSuccess,
-        throwOnError,
+        ...defaultCallbacks,
+        // throwOnError,
       },
     );
-  }, []);
-
+  };
+  // sign('m,esss', { on });
   return { sign, isLoading, data, error };
 };

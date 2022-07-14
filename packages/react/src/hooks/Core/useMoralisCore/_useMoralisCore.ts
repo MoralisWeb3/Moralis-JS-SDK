@@ -1,8 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
 import { ConfigValues } from '@moralisweb3/core';
-import Core from '@moralisweb3/core';
+import { IDefaultCallbacks } from 'hooks/types';
+import { useEffect, useState, useCallback } from 'react';
 import { useResolver } from 'hooks/useResolver';
-import { ICoreStart } from './types';
+import Core from '@moralisweb3/core';
 
 export interface IUseMoralisCore extends Partial<ConfigValues> {
   startOnMount?: boolean;
@@ -14,7 +14,7 @@ export const _useMoralisCore = ({ startOnMount = true, ...startConfig }: IUseMor
   const [isStarting, setIsStarting] = useState(false);
 
   const start = useCallback(
-    ({ onComplete, onError, onSuccess, throwOnError = true }: ICoreStart = {}) => {
+    ({ onComplete, onError, onSuccess, throwOnError = true }: IDefaultCallbacks<void> = {}) => {
       return resolver(
         () => {
           setIsStarting(true);

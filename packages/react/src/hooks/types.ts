@@ -1,6 +1,7 @@
-export interface IDefaultCallbacks<TOnSuccessData> {
-  onError?: (error: Error) => void;
+import { MoralisError } from '@moralisweb3/core';
+export interface IDefaultCallbacks<TResponse> {
+  onError?: (error?: MoralisError) => void;
   onComplete?: () => void;
   throwOnError?: boolean;
-  onSuccess?: (data?: TOnSuccessData) => void;
+  onSuccess?: (data: TResponse) => void;
 }

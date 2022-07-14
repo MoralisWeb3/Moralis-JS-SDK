@@ -5,3 +5,4 @@ export * from './Evm/useEvmSignMessage';
 export * from './Evm/useEvmContract';
 export * from './Evm/useMoralisEvm';
 export * from './Core/useMoralisCore';
+export * from './types';

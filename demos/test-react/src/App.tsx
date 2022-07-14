@@ -1,16 +1,16 @@
-import { useEvmContract, useMoralisCore, useMoralisEvm, useEvmSignMessage, useEvmChain } from '@moralisweb3/react';
+import { useEvmContract, useMoralisCore, useMoralisEvm, useEvmChain, useEvmSignMessage } from '@moralisweb3/react';
 import { Erc20__factory } from '@moralisweb3/evm';
 import Header from './Header';
 
 const App = () => {
   const { connect, chain } = useMoralisEvm();
+  const { sign } = useEvmSignMessage();
   const { isStarting, isStarted } = useMoralisCore();
   const { switchChain, addChainToWallet } = useEvmChain();
   const { data, execute, error } = useEvmContract({
     abi: Erc20__factory.abi,
-    address: '0x01BE23585060835E02B77ef475b0Cc51aA1e0709',
+    contractAddress: '0x01BE23585060835E02B77ef475b0Cc51aA1e0709',
   });
-  const { sign } = useEvmSignMessage();
   console.log('isStarting: ', isStarting);
   console.log('contractData: ', data);
   console.log('isStarted: ', isStarted);
@@ -19,20 +19,11 @@ const App = () => {
     <div>
       <h1>Demo React App</h1>
       <Header />
-      <button
-        onClick={() =>
-          connect('metamask', {
-            onComplete() {
-              alert('yess');
-            },
-          })
-        }
-      >
-        Connect
-      </button>
+      <button onClick={() => connect('metamask', {})}>Connect</button>
       <button
         onClick={async () => {
-          const data = await execute({ functionName: 'name' });
+          // const data = await execute({ functionName: 'name' });
+          const data = await execute({});
           console.log('dataFromCallBack: ', data);
         }}
       >
@@ -40,8 +31,9 @@ const App = () => {
       </button>
       <button
         onClick={async () => {
-          const data = await sign('My Message');
-          console.log('dataFromCallBack: ', data);
+          // const data = await sign('message', { throwOnError: true });
+          await sign('message', { x: 'xxx' });
+          // console.log('dataFromCallBack: ', data);
         }}
       >
         Sign Message

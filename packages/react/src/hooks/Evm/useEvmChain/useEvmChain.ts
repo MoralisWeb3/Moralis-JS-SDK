@@ -1,4 +1,5 @@
-import { IAddChainParams, ISwitchChainParams } from './types';
+import { IUseEvmChain } from './types';
+import { MoralisError } from '@moralisweb3/core';
 import { useMoralisEvm } from '../useMoralisEvm';
 import { useResolver } from '../../useResolver';
 import { useState, useCallback } from 'react';
@@ -10,24 +11,18 @@ export const useEvmChain = () => {
 
   const [isChainPending, setIsChainPending] = useState(false);
   const [isChainAdding, setIsChainAdding] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<MoralisError | undefined>(undefined);
 
-  const switchChain = useCallback<ISwitchChainParams>(
-    (providedChain, { onComplete, onError, onSuccess, throwOnError = false, resolveUnrecognized = true } = {}) => {
-      resolver(
-        async () => {
-          setIsChainPending(true);
-          return await MetamaskConnector.switchNetwork(providedChain);
+  const addChainToWallet = useCallback<IUseEvmChain>(
+    (providedChain, { onComplete, onError, onSuccess, throwOnError = true } = {}) => {
+      return resolver(
+        () => {
+          setIsChainAdding(true);
+          return MetamaskConnector.addNetwork(providedChain);
         },
         {
-          _onComplete: () => setIsChainPending(false),
-          _onError: (error) => {
-            setError(error);
-            if (resolveUnrecognized) {
-              // eslint-disable-next-line no-console
-              console.log('error.code: ', error.code);
-            }
-          },
+          _onComplete: () => setIsChainAdding(false),
+          _onError: setError,
           onComplete,
           onError,
           onSuccess,
@@ -38,16 +33,21 @@ export const useEvmChain = () => {
     [],
   );
 
-  const addChainToWallet = useCallback<IAddChainParams>(
-    (providedChain, { onComplete, onError, onSuccess, throwOnError = true } = {}) => {
-      resolver(
-        () => {
-          setIsChainAdding(true);
-          return MetamaskConnector.addNetwork(providedChain);
+  const switchChain = useCallback<IUseEvmChain<{ resolveUnrecognized?: boolean }>>(
+    (providedChain, { onComplete, onError, onSuccess, throwOnError = false, resolveUnrecognized = true } = {}) => {
+      return resolver(
+        async () => {
+          setIsChainPending(true);
+          return await MetamaskConnector.switchNetwork(providedChain);
         },
         {
-          _onComplete: () => setIsChainAdding(false),
-          _onError: setError,
+          _onComplete: () => setIsChainPending(false),
+          _onError: (error) => {
+            setError(error);
+            if (resolveUnrecognized && (error as unknown as { code?: number })?.code === 4902) {
+              return addChainToWallet(providedChain);
+            }
+          },
           onComplete,
           onError,
           onSuccess,
