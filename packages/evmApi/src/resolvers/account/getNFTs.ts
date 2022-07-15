@@ -32,7 +32,6 @@ export const getNFTsResolver = new EvmPaginatedResolver({
         name: nft.name,
         symbol: nft.symbol,
       }),
-      syncedAt: nft.synced_at ? new Date(nft.synced_at) : undefined,
       blockNumberMinted: nft.block_number_minted,
       blockNumber: nft.block_number,
       ownerOf: EvmAddress.create(nft.owner_of),
@@ -43,7 +42,6 @@ export const getNFTsResolver = new EvmPaginatedResolver({
   resultToJson: (data) =>
     data?.map((nft) => ({
       ...nft,
-      syncedAt: nft.syncedAt?.toLocaleDateString(),
       token: nft.token.toJSON(),
       lastMetadataSync: nft.lastMetadataSync.toLocaleDateString(),
       lastTokenUriSync: nft.lastTokenUriSync.toLocaleDateString(),
