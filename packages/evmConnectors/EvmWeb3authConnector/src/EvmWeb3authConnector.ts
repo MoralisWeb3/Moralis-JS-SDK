@@ -55,20 +55,38 @@ export class EvmWeb3authConnector extends EvmAbstractConnector<Web3AuthProvider,
       web3auth.clearCache();
     }
 
-    this.subscribeAuthEvents(web3auth);
+    // this.subscribeAuthEvents(web3auth);
 
     await web3auth.initModal();
 
-    const provider = await web3auth.connect();
-
-    if (!provider) {
-      throw new MoralisNetworkConnectorError({
-        code: NetworkConnectorErrorCode.NO_PROVIDER,
-        message: 'Failed to create a provider',
+    return new Promise((resolve, reject) => {
+      web3auth.on('MODAL_VISIBILITY', async (visibility: boolean) => {
+        if (!visibility) {
+          if (web3auth.status !== 'connected') {
+            this.logger.verbose('Modal closed, canceling connection request');
+            web3auth.emit(ADAPTER_EVENTS.ERRORED, { name: 'Web3Auth', message: 'User closed login modal' });
+            // web3auth.loginModal.closeModal();
+            reject(
+              new MoralisNetworkConnectorError({
+                code: NetworkConnectorErrorCode.GENERIC_NETWORK_CONNECTOR_ERROR,
+                message: 'Modal closed, canceling connection request',
+              }),
+            );
+          }
+        }
       });
-    }
+      const provider = web3auth.connect();
 
-    return provider as Web3AuthProvider;
+      if (!provider) {
+        throw new MoralisNetworkConnectorError({
+          code: NetworkConnectorErrorCode.NO_PROVIDER,
+          message: 'Failed to create a provider',
+        });
+      }
+      resolve(provider as Promise<Web3AuthProvider>);
+    });
+
+    // return provider as Web3AuthProvider;
   }
 
   protected async createConnection(_options: EvmWeb3authConnectOptions): Promise<EvmConnection> {
