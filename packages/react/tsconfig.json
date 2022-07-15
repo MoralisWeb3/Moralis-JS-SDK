@@ -5,7 +5,9 @@
     "jsx": "react-jsx",
     "outDir": "./lib/",
     "rootDir": "./src",
-    "baseUrl": "./src"
   },
-  "include": ["src/**/*", "types/**/*"]
+  "include": [
+    "src/**/*",
+    "types/**/*"
+  ]
 }

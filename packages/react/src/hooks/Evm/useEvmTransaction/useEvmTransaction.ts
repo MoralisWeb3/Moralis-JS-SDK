@@ -1,15 +1,14 @@
-import { useState, useCallback } from 'react';
-import { useResolver } from '../../useResolver';
 import { EvmTransactionInput, EvmTransactionResponse, MoralisError } from '@moralisweb3/core';
-
+import { IDefaultCallbacks } from '../../types';
+import { useResolver } from '../../useResolver';
+import { useState, useCallback } from 'react';
 import Evm from '@moralisweb3/evm';
-import { IDefaultCallbacks } from 'hooks/types';
 
 export const useEvmTransaction = () => {
   const resolver = useResolver();
-  const [isLoading, setIsLoading] = useState(false);
-  // const [data, setData] = useState<null | string>(null);
+  const [data, setData] = useState<null | EvmTransactionResponse>(null);
   const [error, setError] = useState<MoralisError | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
 
   const send = useCallback(
     ({
@@ -31,7 +30,7 @@ export const useEvmTransaction = () => {
         {
           _onComplete: () => setIsLoading(false),
           _onError: setError,
-          // _onSuccess: () => setIsConnected(true),
+          _onSuccess: setData,
           onComplete,
           onError,
           onSuccess,
@@ -42,5 +41,5 @@ export const useEvmTransaction = () => {
     [],
   );
 
-  return { send, isLoading, error };
+  return { send, isLoading, error, data };
 };

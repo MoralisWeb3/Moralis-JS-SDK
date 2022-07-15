@@ -8,7 +8,6 @@ import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 export const useEvmChain = () => {
   const resolver = useResolver();
   const { chain } = useMoralisEvm();
-
   const [isChainPending, setIsChainPending] = useState(false);
   const [isChainAdding, setIsChainAdding] = useState(false);
   const [error, setError] = useState<MoralisError | undefined>(undefined);
@@ -45,7 +44,7 @@ export const useEvmChain = () => {
           _onError: (error) => {
             setError(error);
             if (resolveUnrecognized && (error as unknown as { code?: number })?.code === 4902) {
-              return addChainToWallet(providedChain);
+              return addChainToWallet(providedChain, { onComplete, onError, onSuccess, throwOnError });
             }
           },
           onComplete,

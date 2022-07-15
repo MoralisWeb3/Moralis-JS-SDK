@@ -19,8 +19,8 @@ export const useEvmSignMessage = () => {
       },
       {
         _onComplete: () => setIsLoading(false),
-        _onError: (error) => setError(error),
-        _onSuccess: (data) => setData(data),
+        _onError: setError,
+        _onSuccess: setData,
         ...defaultCallbacks,
         // throwOnError,
       },

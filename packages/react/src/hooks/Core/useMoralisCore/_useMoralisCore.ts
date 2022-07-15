@@ -1,7 +1,7 @@
 import { ConfigValues } from '@moralisweb3/core';
-import { IDefaultCallbacks } from 'hooks/types';
+import { IDefaultCallbacks } from '../../types';
 import { useEffect, useState, useCallback } from 'react';
-import { useResolver } from 'hooks/useResolver';
+import { useResolver } from '../../useResolver';
 import Core from '@moralisweb3/core';
 
 export interface IUseMoralisCore extends Partial<ConfigValues> {

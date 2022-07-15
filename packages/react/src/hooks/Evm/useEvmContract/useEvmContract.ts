@@ -19,8 +19,8 @@ export const useEvmContract = ({ contractAddress, abi }: IUseEvmContract) => {
         },
         {
           _onComplete: () => setIsLoading(false),
-          _onError: (error) => setError(error),
-          _onSuccess: (executeData) => setData(executeData),
+          _onError: setError,
+          _onSuccess: setData,
           onComplete,
           onError,
           onSuccess,

@@ -1,4 +1,4 @@
 import packageJson from './package.json';
-import { commonJs, esm } from '../../rollup.config';
+import { commonJs } from '../../rollup.config';
 
-export default [commonJs(packageJson), esm(packageJson)];
+export default [commonJs(packageJson)];

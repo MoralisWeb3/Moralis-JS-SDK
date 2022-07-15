@@ -1,4 +1,4 @@
-import { CoreContext } from 'context/Core/CoreContext';
+import { CoreContext } from '../../../context/Core/CoreContext';
 import { useContext } from 'react';
 
 export const useMoralisCore = () => {

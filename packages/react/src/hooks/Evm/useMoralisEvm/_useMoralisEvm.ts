@@ -1,20 +1,22 @@
-import { AnyConnector, EvmAddress, EvmChain, EvmConnectionData, EvmProvider } from '@moralisweb3/core';
+import { AnyConnector, EvmAddress, EvmChain, EvmConnectionData, EvmProvider, MoralisError } from '@moralisweb3/core';
 import { IConnectParams } from './types';
-import { IDefaultCallbacks } from 'hooks/types';
+import { IDefaultCallbacks } from '../../types';
 import { useResolver } from '../../useResolver';
 import { useState, useCallback, useEffect } from 'react';
 import Evm from '@moralisweb3/evm';
 
 export const _useMoralisEvm = () => {
   const resolver = useResolver();
+  const [account, setAccount] = useState<null | EvmAddress>(null);
+  const [chain, setChain] = useState<null | EvmChain>(null);
+  const [connector, setConnector] = useState<null | AnyConnector>(null);
+  const [error, setError] = useState<MoralisError | undefined>(undefined);
+  const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isDisconnecting, setIsDisconnecting] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [chain, setChain] = useState<null | EvmChain>(null);
-  const [account, setAccount] = useState<null | EvmAddress>(null);
-  const [connector, setConnector] = useState<null | AnyConnector>(null);
   const [provider, setProvider] = useState<null | EvmProvider>(null);
-
+  // eslint-disable-next-line no-console
+  console.log('isConnectedisConnected: ', isConnected);
   useEffect(() => {
     const handleConnect = ({ chain, account, connector, provider }: EvmConnectionData) => {
       setChain(chain);
@@ -57,7 +59,7 @@ export const _useMoralisEvm = () => {
         },
         {
           _onComplete: () => setIsConnecting(false),
-          // _onError,
+          _onError: setError,
           _onSuccess: () => setIsConnected(true),
           onComplete,
           onError,
@@ -78,7 +80,7 @@ export const _useMoralisEvm = () => {
         },
         {
           _onComplete: () => setIsDisconnecting(false),
-          // _onError,
+          _onError: setError,
           _onSuccess: () => setIsConnected(false),
           onComplete,
           onError,
@@ -90,5 +92,16 @@ export const _useMoralisEvm = () => {
     [],
   );
 
-  return { isConnecting, isConnected, isDisconnecting, chain, connect, disconnect, account, connector, provider };
+  return {
+    isConnecting,
+    isConnected,
+    isDisconnecting,
+    chain,
+    connect,
+    disconnect,
+    account,
+    connector,
+    provider,
+    error,
+  };
 };

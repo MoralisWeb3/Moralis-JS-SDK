@@ -1,4 +1,4 @@
-import { IDefaultCallbacks } from 'hooks/types';
+import { IDefaultCallbacks } from '../../types';
 
 // export type TMessage = string;
 // export interface ISignParams<TMessageHash = string> {

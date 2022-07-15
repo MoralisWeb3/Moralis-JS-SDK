@@ -1,5 +1,5 @@
 import { ConfigValues, MoralisCore } from '@moralisweb3/core';
-import { IDefaultCallbacks } from 'hooks/types';
+import { IDefaultCallbacks } from '../../../hooks/types';
 
 export interface ICoreContext extends Partial<ConfigValues> {
   Core: MoralisCore;

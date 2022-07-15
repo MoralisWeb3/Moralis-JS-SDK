@@ -1,4 +1,5 @@
 /* PLOP_INJECT_EXPORT */
+export * from './Evm/useEvmAccount';
 export * from './Evm/useEvmChain';
 export * from './Evm/useEvmTransaction';
 export * from './Evm/useEvmSignMessage';

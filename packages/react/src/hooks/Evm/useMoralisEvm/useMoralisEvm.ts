@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { MoralisContext } from 'context/MoralisContext';
+import { MoralisContext } from '../../../context/MoralisContext';
 
 export const useMoralisEvm = () => {
   const moralisContext = useContext(MoralisContext);

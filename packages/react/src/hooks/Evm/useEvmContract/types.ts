@@ -1,5 +1,5 @@
-import { ExecuteFunctionOptions } from '@moralisweb3/evm/src/chainMethods/executeFunction';
-import { IDefaultCallbacks } from 'hooks/types';
+import { ExecuteFunctionOptions } from '@moralisweb3/evm/lib/chainMethods/executeFunction';
+import { IDefaultCallbacks } from '../../types';
 
 export interface IUseEvmContract extends Pick<ExecuteFunctionOptions, 'abi' | 'contractAddress'> {}
 
