@@ -19,7 +19,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'token0_addre
 
 export const getPairAddressResolver = new EvmResolver({
   name: 'getPairAddress',
-  getPath: (params: Params) => `${params.token0Address}/${params.token1Address}/reserves`,
+  getPath: (params: Params) => `${params.token0Address}/${params.token1Address}/pairAddress`,
   apiToResult: (data: ApiResult, params: Params) => ({
     //   ApiResult types generated all come as undefined which should not be the case TODO:
     token0: {

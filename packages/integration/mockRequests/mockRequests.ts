@@ -1,5 +1,6 @@
 import { setupServer } from 'msw/node';
 import { mockResolveDomain } from './evmApi/resolveDomain';
+import { mockSyncNFTContract } from './evmApi/syncNFTContract';
 import { mockResolveAddress } from './evmApi/resolveAddress';
 import { mockGetLogsByAddress } from './evmApi/getLogsByAddress';
 import { mockGetPairReserves } from './evmApi/getPairReserves';
@@ -31,12 +32,21 @@ import { mockGetNFTTransfersFromToBlock } from './evmApi/getNFTTransfersFromToBl
 import { mockGetDateToBlock } from './evmApi/getDateToBlock';
 import { mockGetTokenAllowance } from './evmApi/getTokenAllowance';
 import { mockGetTokenMetadata } from './evmApi/getTokenMetadata';
+import { mockRunContractFunction } from './evmApi/runContractFunction';
+import { mockUploadFolder } from './evmApi/uploadFolder';
+import { mockGetContractEvents } from './evmApi/getContractEvents';
+import { mockGetPairAddress } from './evmApi/getPairAddress';
 
 const handlers = [
+  mockGetContractEvents,
+  mockRunContractFunction,
+  mockSyncNFTContract,
   mockGetNFTTransfersFromToBlock,
   mockGetDateToBlock,
+  mockUploadFolder,
   mockResolveDomain,
   mockResolveAddress,
+  mockGetPairAddress,
   mockGetNativeBalance,
   mockGetTokenPrice,
   mockGetPairReserves,

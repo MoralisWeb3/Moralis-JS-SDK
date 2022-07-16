@@ -11,6 +11,7 @@
     "moralis": "^2.0.0-alpha.1",
     "@moralisweb3/server": "^2.0.0-alpha.1",
     "@moralisweb3/evm-wallet-connect-connector": "^2.0.0-alpha.1",
+    "@moralisweb3/evm-magic-link-connector": "^2.0.0-alpha.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "^4",
@@ -21,8 +22,8 @@
     "build": "SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true craco build",
     "build:dev": "yarn run build",
     "eject": "craco eject",
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
+    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx"
   },
   "eslintConfig": {

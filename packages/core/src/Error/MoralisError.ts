@@ -10,7 +10,7 @@ import {
 
 export type MoralisErrorDetails = Record<string, unknown>;
 
-export interface NewMoralisOptions<ErrorCode extends MoralisErrorCode> {
+export interface MoralisErrorOptions<ErrorCode extends MoralisErrorCode> {
   message: string;
   code: ErrorCode;
   details?: MoralisErrorDetails;
@@ -18,22 +18,21 @@ export interface NewMoralisOptions<ErrorCode extends MoralisErrorCode> {
 }
 
 export class MoralisError extends Error {
-  name: string;
-  code: MoralisErrorCode;
-  details?: MoralisErrorDetails;
-  cause?: Error | MoralisError;
-  isMoralisError = true;
+  public readonly name: string = 'Moralis SDK Error';
+  public readonly code: MoralisErrorCode;
+  public readonly details?: MoralisErrorDetails;
+  public readonly cause?: Error | MoralisError;
+  public readonly isMoralisError = true;
 
-  static makeMessage = (message: string, code: MoralisErrorCode) => `[${code}] ${message}`;
+  private static makeMessage = (message: string, code: MoralisErrorCode) => `[${code}] ${message}`;
 
-  constructor({ message, code, details, cause }: NewMoralisOptions<MoralisErrorCode>) {
+  public constructor({ message, code, details, cause }: MoralisErrorOptions<MoralisErrorCode>) {
     // @ts-ignore Typescript does not recognise 'cause' ? OR we have wrong TS version
     super(MoralisError.makeMessage(message, code), { cause });
 
     // Set prototype manually, as required since Typescript 2.2: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#example
     Object.setPrototypeOf(this, MoralisError.prototype);
 
-    this.name = 'Moralis SDK Error';
     this.code = code;
     this.details = details;
 
@@ -52,11 +51,10 @@ export class MoralisError extends Error {
 }
 
 export class MoralisCoreError extends MoralisError {
-  constructor(options: NewMoralisOptions<CoreErrorCode>) {
+  public readonly name: string = 'Moralis SDK Core Error';
+
+  public constructor(options: MoralisErrorOptions<CoreErrorCode>) {
     super(options);
-
-    this.name = 'Moralis SDK Core Error';
-
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisCoreError);
     }
@@ -64,10 +62,10 @@ export class MoralisCoreError extends MoralisError {
 }
 
 export class MoralisServerError extends MoralisError {
-  constructor(options: NewMoralisOptions<ServerErrorCode>) {
-    super(options);
+  public readonly name: string = 'Moralis SDK Server Error';
 
-    this.name = 'Moralis SDK Server Error';
+  public constructor(options: MoralisErrorOptions<ServerErrorCode>) {
+    super(options);
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisServerError);
     }
@@ -75,11 +73,11 @@ export class MoralisServerError extends MoralisError {
 }
 
 export class MoralisNetworkError extends MoralisError {
-  constructor(options: NewMoralisOptions<NetworkErrorCode>) {
+  public readonly name: string = 'Moralis SDK Network Error';
+
+  public constructor(options: MoralisErrorOptions<NetworkErrorCode>) {
     super(options);
     Object.setPrototypeOf(this, MoralisNetworkError.prototype);
-
-    this.name = 'Moralis SDK Network Error';
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisNetworkError);
     }
@@ -87,10 +85,10 @@ export class MoralisNetworkError extends MoralisError {
 }
 
 export class MoralisNetworkConnectorError extends MoralisError {
-  constructor(options: NewMoralisOptions<NetworkConnectorErrorCode>) {
-    super(options);
+  public readonly name: string = 'Moralis SDK NetworkConnector Error';
 
-    this.name = 'Moralis SDK NetworkConnector Error';
+  public constructor(options: MoralisErrorOptions<NetworkConnectorErrorCode>) {
+    super(options);
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisNetworkConnectorError);
     }
@@ -98,10 +96,10 @@ export class MoralisNetworkConnectorError extends MoralisError {
 }
 
 export class MoralisApiError extends MoralisError {
-  constructor(options: NewMoralisOptions<ApiErrorCode>) {
-    super(options);
+  public readonly name: string = 'Moralis SDK API Error';
 
-    this.name = 'Moralis SDK API Error';
+  public constructor(options: MoralisErrorOptions<ApiErrorCode>) {
+    super(options);
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisApiError);
     }
@@ -109,10 +107,10 @@ export class MoralisApiError extends MoralisError {
 }
 
 export class MoralisUtilsError extends MoralisError {
-  constructor(options: NewMoralisOptions<UtilsErrorCode>) {
-    super(options);
+  public readonly name: string = 'Moralis SDK Utils Error';
 
-    this.name = 'MoralisUtilsError';
+  public constructor(options: MoralisErrorOptions<UtilsErrorCode>) {
+    super(options);
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisUtilsError);
     }

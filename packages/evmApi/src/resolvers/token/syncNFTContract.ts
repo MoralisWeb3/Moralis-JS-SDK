@@ -21,8 +21,12 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 export const syncNFTContractResolver = new EvmResolver({
   name: 'syncNFTContract',
   getPath: (params: Params) => `nft/${params.address}/sync`,
-  apiToResult: (data: ApiResult) => ({}),
-  resultToJson: (data) => ({}),
+  apiToResult: (data: ApiResult) => ({
+    success: true,
+  }),
+  resultToJson: (data) => ({
+    success: true,
+  }),
   parseParams: (params: Params): ApiParams => ({
     chain: resolveDefaultChain(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,

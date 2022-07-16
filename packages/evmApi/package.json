@@ -13,9 +13,9 @@
     "dist"
   ],
   "scripts": {
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
+    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
+    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "rollup -c rollup.config.js",
     "build:dev": "dev=true rollup -c",

@@ -28,7 +28,6 @@ export const searchNFTsResolver = new EvmPaginatedResolver({
         metadata: nft.metadata,
         tokenHash: nft.token_hash as string,
       }),
-      syncedAt: new Date(nft.synced_at),
       tokenHash: nft.token_hash,
       blockNumberMinted: nft.block_number_minted,
       lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
@@ -46,7 +45,6 @@ export const searchNFTsResolver = new EvmPaginatedResolver({
   resultToJson: (data) =>
     data?.map((nft) => ({
       ...nft,
-      syncedAt: nft.syncedAt.toLocaleDateString(),
       token: nft.token.toJSON(),
       lastMetadataSync: nft.lastMetadataSync?.toLocaleDateString(),
       lastTokenUriSync: nft.lastTokenUriSync?.toLocaleDateString(),
