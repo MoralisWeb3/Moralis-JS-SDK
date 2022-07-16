@@ -1,6 +1,4 @@
-// Set variables
-
-import { EvmTransactionResponse, EvmTransactionResponseInput } from '../dataTypes';
+import { EvmTransactionReceipt, EvmTransactionResponse, EvmTransactionResponseInput } from '../dataTypes';
 
 const DATA =
   '0x00000000000000000000000000000000000000000000213ba4fc56e2e24648b200000000000000000000000000000000000000000000002e9e527eb8ff21faf7';
@@ -38,6 +36,15 @@ const requiredParamsOnly: EvmTransactionResponseInput = {
   hash: HASH,
 };
 
+const transactionInput = {
+  transactionIndex: 222,
+  cumulativeGasUsed: 2100,
+  gasPrice: 21000,
+  gasUsed: 21000,
+  logs: [],
+  status: 1,
+};
+
 describe('EvmTransactionResponse', () => {
   /**
    * Creation
@@ -49,6 +56,16 @@ describe('EvmTransactionResponse', () => {
     expect(transactionResponse.result.to?.format()).toBe(inputWithAllData.to);
     expect(transactionResponse.result.chain?.decimal).toBe(inputWithAllData.chain);
     expect(transactionResponse.result.confirmations?.toString()).toBe(inputWithAllData.confirmations?.toString());
+  });
+
+  it('should create a new EvmTransactionResponse with resolveCall option', () => {
+    const transactionWithresolveCall = EvmTransactionResponse.create(inputWithAllData, async (response, value) =>
+      EvmTransactionReceipt.create(transactionInput),
+    );
+
+    expect(transactionWithresolveCall.result.from?.format()).toBe(inputWithAllData.from);
+    expect(transactionWithresolveCall.result.to?.format()).toBe(inputWithAllData.to);
+    expect(transactionWithresolveCall.result.chain?.decimal).toBe(inputWithAllData.chain);
   });
 
   it('should create a new EvmTransactionResponse with valid input data with constructor', () => {
@@ -101,16 +118,71 @@ describe('EvmTransactionResponse', () => {
     expect(equality).toBe(false);
   });
 
+  it('should confirm inequality of 2 EvmTransactionResponses with different chains', () => {
+    const transactionResponseA = EvmTransactionResponse.create(inputWithAllData);
+    const transactionResponseB = EvmTransactionResponse.create({ ...inputWithAllData, chain: 3 });
+    const equality = transactionResponseA.equals(transactionResponseB);
+
+    expect(equality).toBe(false);
+  });
+
+  it('should confirm inequality of 2 EvmTransactionResponses with different block numbers', () => {
+    const transactionResponseA = EvmTransactionResponse.create(inputWithAllData);
+    const transactionResponseB = EvmTransactionResponse.create({ ...inputWithAllData, blockNumber: BLOCK_NUMBER + 1 });
+    const equality = transactionResponseA.equals(transactionResponseB);
+
+    expect(equality).toBe(false);
+  });
+
+  it('should confirm inequality of 2 EvmTransactionResponses with different hash', () => {
+    const transactionResponseA = EvmTransactionResponse.create(inputWithAllData);
+    const transactionResponseB = EvmTransactionResponse.create({
+      ...inputWithAllData,
+      hash: '0x4997378331e5274344f36c34e5a6a74e39b195e29fc7ca08ef8d2c48d6870667',
+    });
+    const equality = transactionResponseA.equals(transactionResponseB);
+
+    expect(equality).toBe(false);
+  });
+
   it('should convert EvmTransactionResponse to JSON', () => {
     const transactionResponse = EvmTransactionResponse.create(inputWithAllData);
     const result = transactionResponse.toJSON();
 
     expect(result.to).toBe(inputWithAllData.to);
+    expect(result.from).toBe(inputWithAllData.from);
   });
 
   it('should return chain explorer url', () => {
     const transactionResponse = EvmTransactionResponse.create(inputWithAllData);
 
     expect(transactionResponse.exporerUrl).toBe(`https://etherscan.io/tx/${inputWithAllData.hash}`);
+  });
+
+  it('should call format cunction and return transaction hash', () => {
+    const transactionResponse = EvmTransactionResponse.create(inputWithAllData);
+
+    expect(transactionResponse.format()).toBe(inputWithAllData.hash);
+  });
+
+  it('should call the wait function', async () => {
+    const transactionResponse = EvmTransactionResponse.create(requiredParamsOnly);
+    const callSpy = jest.fn(async (tx, confirmations) =>
+      EvmTransactionReceipt.create(transactionInput, transactionResponse),
+    );
+    const transactionWithresolveCall = EvmTransactionResponse.create(inputWithAllData, callSpy);
+    const receipt = await transactionWithresolveCall.wait();
+
+    expect(receipt.result.logs?.length).toBe(0);
+    expect(receipt.result.status).toBe(1);
+    expect(callSpy).toBeCalledTimes(1);
+  });
+
+  it('should throw error when calling the wait function without resolveCall option', async () => {
+    const transactionWithresolveCall = EvmTransactionResponse.create(inputWithAllData);
+
+    expect(transactionWithresolveCall.wait()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"[C0010] Cannot send transaction, no supported call method provided"`,
+    );
   });
 });
