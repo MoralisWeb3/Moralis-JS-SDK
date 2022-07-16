@@ -55,7 +55,6 @@ export class EvmTransactionReceipt implements MoralisDataObject {
   }
 
   static equals(transactionReceiptA: EvmTransactionReceipt, transactionReceiptB: EvmTransactionReceipt): boolean {
-
     if (!transactionReceiptA._value.transaction.equals(transactionReceiptB._value.transaction)) {
       return false;
     }
