@@ -10,8 +10,7 @@ async function test(key: string, getValue: () => Promise<unknown>) {
   try {
     const value = await getValue();
     console.log(`✅ ${key} = ${JSON.stringify(value)}`);
-  } catch (e: any) {
-    console.log(e.message);
+  } catch (e) {
     console.error(`❌ ${key} = ${e}`);
   }
 }
@@ -25,7 +24,7 @@ async function main() {
     appId: env['MORALIS_APP_ID'],
   });
 
-  await test('Api version', async () => {
+  await test('Api version', () => {
     return Moralis.EvmApi.info.web3ApiVersion();
   });
 
