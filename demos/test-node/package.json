@@ -1,8 +1,8 @@
 {
   "name": "@moralisweb3/test-node",
   "author": "Moralis",
+  "private": true,
   "version": "2.0.0-alpha.1",
-  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "build:dev": "tsc",

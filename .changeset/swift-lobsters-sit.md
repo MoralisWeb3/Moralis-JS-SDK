@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/evm-magic-link-connector': major
+'@moralisweb3/evm-magic-link-connector': minor
 ---
 
-This package gives the ability to connect to EVM using magic link
+Add magic-link connector for EVM.
