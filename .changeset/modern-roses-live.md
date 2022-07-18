@@ -1,14 +1,14 @@
 ---
-'@moralisweb3/core': patch
-'@moralisweb3/evm': patch
-'@moralisweb3/evm-api': patch
-'@moralisweb3/evm-connector-utils': patch
-'@moralisweb3/evm-metamask-connector': patch
-'@moralisweb3/evm-wallet-connect-connector': patch
-'@moralisweb3/wallet-connect-wrapper': patch
-'@moralisweb3/integration': patch
-'moralis': patch
-'@moralisweb3/server': patch
+'@moralisweb3/core': minor
+'@moralisweb3/evm': minor
+'@moralisweb3/evm-api': minor
+'@moralisweb3/evm-connector-utils': minor
+'@moralisweb3/evm-metamask-connector': minor
+'@moralisweb3/evm-wallet-connect-connector': minor
+'@moralisweb3/wallet-connect-wrapper': minor
+'@moralisweb3/integration': minor
+'moralis': minor
+'@moralisweb3/server': minor
 ---
 
-CommonJS/UMD/ESM builds.
+Add CommonJS/UMD/ESM builds.
