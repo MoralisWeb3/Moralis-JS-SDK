@@ -5,5 +5,5 @@ export interface ICoreContext extends Partial<ConfigValues> {
   Core: MoralisCore;
   isStarted: boolean;
   isStarting: boolean;
-  start: ({ onComplete, onError, onSuccess, throwOnError = true }?: IDefaultCallbacks<void>) => Promise<void | null>;
+  start: ({ onComplete, onError, onSuccess, throwOnError = false }?: IDefaultCallbacks<void>) => Promise<void | null>;
 }

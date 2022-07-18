@@ -29,7 +29,7 @@ export const useResolver = () => {
       }
     } finally {
       if (_onComplete) {
-        _onComplete();
+        _onComplete(successData);
       }
       if (onComplete) {
         onComplete();

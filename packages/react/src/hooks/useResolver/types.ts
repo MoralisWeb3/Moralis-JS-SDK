@@ -1,8 +1,8 @@
 import { MoralisError } from '@moralisweb3/core';
 import { IDefaultCallbacks } from '../types';
 export interface IResolverCallbacks<TResponse> extends IDefaultCallbacks<TResponse> {
-  _onComplete?: () => void;
-  _onError?: (error?: MoralisError) => void;
+  _onComplete?: (response: TResponse | null) => void;
+  _onError?: (error: MoralisError | null) => void;
   _onSuccess?: (response: TResponse) => void;
   _throwOnError?: boolean;
 }

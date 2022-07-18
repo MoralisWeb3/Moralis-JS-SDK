@@ -1,7 +1,23 @@
-import { useEvmContract, useEvmChain, useEvmSignMessage, useEvmAccount, useMoralisEvm } from '@moralisweb3/react';
+import {
+  useEvmContract,
+  useEvmChain,
+  useEvmSignMessage,
+  useEvmAccount,
+  useMoralisEvm,
+  useEvmNative,
+} from '@moralisweb3/react';
 import { Erc20__factory } from '@moralisweb3/evm';
 
 const App = () => {
+  const {
+    receipt,
+    transfer,
+    transaction,
+    error: txError,
+  } = useEvmNative({
+    to: '0x3D7258055be449b11AfFF0A5eAddbd6e278C1916',
+    value: '0.1',
+  });
   const { chain } = useEvmChain();
   const { account, connect } = useEvmAccount();
   const { isConnected } = useMoralisEvm();
@@ -12,7 +28,10 @@ const App = () => {
     abi: Erc20__factory.abi,
     contractAddress: '0x01BE23585060835E02B77ef475b0Cc51aA1e0709',
   });
-  console.log('isConnected: ', isConnected);
+
+  console.log('receipt: ', receipt);
+  console.log('transaction: ', transaction);
+  console.log('txError: ', txError);
   return (
     <div>
       <h1>Demo React App</h1>
@@ -29,17 +48,10 @@ const App = () => {
       >
         execute Link Contract
       </button>
-      <button
-        onClick={async () => {
-          // const data = await sign('message', { throwOnError: true });
-          await sign('message', {});
-          // console.log('dataFromCallBack: ', data);
-        }}
-      >
-        Sign Message
-      </button>
+      <button onClick={() => sign('message', {})}>Sign Message</button>
       <button onClick={() => switchChain('0x61', { onSuccess: () => console.log('kek') })}>Switch to 0x61 Chain</button>
       <button onClick={() => addChainToWallet('0x61')}>Add 0x61 Chain To Wallet(</button>
+      <button onClick={() => transfer({ onError: (err) => console.log('errFck: ', err) })}>Transfer Native</button>
     </div>
   );
 };

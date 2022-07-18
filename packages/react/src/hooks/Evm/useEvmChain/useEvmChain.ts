@@ -10,10 +10,10 @@ export const useEvmChain = () => {
   const { chain } = useMoralisEvm();
   const [isChainPending, setIsChainPending] = useState(false);
   const [isChainAdding, setIsChainAdding] = useState(false);
-  const [error, setError] = useState<MoralisError | undefined>(undefined);
+  const [error, setError] = useState<MoralisError | null>(null);
 
   const addChainToWallet = useCallback<IUseEvmChain>(
-    (providedChain, { onComplete, onError, onSuccess, throwOnError = true } = {}) => {
+    (providedChain, { onComplete, onError, onSuccess, throwOnError = false } = {}) => {
       return resolver(
         () => {
           setIsChainAdding(true);

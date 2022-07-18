@@ -8,10 +8,10 @@ export const useEvmContract = ({ contractAddress, abi }: IUseEvmContract) => {
   const resolver = useResolver();
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<unknown | null>(null);
-  const [error, setError] = useState<MoralisError | undefined>(undefined);
+  const [error, setError] = useState<MoralisError | null>(null);
 
   const execute = useCallback(
-    ({ onComplete, onError, onSuccess, throwOnError = true, ...executeParams }: TExecuteParams) => {
+    ({ onComplete, onError, onSuccess, throwOnError = false, ...executeParams }: TExecuteParams) => {
       return resolver(
         () => {
           setIsLoading(true);

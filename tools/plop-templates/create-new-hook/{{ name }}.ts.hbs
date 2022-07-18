@@ -6,10 +6,10 @@ import { useState, useCallback } from 'react';
 export const {{ name }} = () => {
   const resolver = useResolver();
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<null | string>(null);
-  const [error, setError] = useState<undefined | MoralisError>(undefined);
+  const [data, setData] = useState<string | null>(null);
+  const [error, setError] = useState<MoralisError | null>(null);
 
-  const action = useCallback(({ onComplete, onError, onSuccess, throwOnError = true }: IDefaultCallbacks<string> = {}) => {
+  const action = useCallback(({ onComplete, onError, onSuccess, throwOnError = false }: IDefaultCallbacks<string> = {}) => {
     return resolver(
       () => {
         setIsLoading(true);

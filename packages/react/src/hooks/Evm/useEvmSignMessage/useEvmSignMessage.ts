@@ -8,8 +8,8 @@ import { IDefaultCallbacks } from '../../../hooks/types';
 export const useEvmSignMessage = () => {
   const resolver = useResolver();
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<null | string>(null);
-  const [error, setError] = useState<undefined | MoralisError>(undefined);
+  const [data, setData] = useState<string | null>(null);
+  const [error, setError] = useState<MoralisError | null>(null);
 
   const sign = (message: string, defaultCallbacks: IDefaultCallbacks<string>) => {
     return resolver(
@@ -22,10 +22,9 @@ export const useEvmSignMessage = () => {
         _onError: setError,
         _onSuccess: setData,
         ...defaultCallbacks,
-        // throwOnError,
       },
     );
   };
-  // sign('m,esss', { on });
+
   return { sign, isLoading, data, error };
 };

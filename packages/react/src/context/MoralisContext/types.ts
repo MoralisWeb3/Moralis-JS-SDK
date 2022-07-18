@@ -9,8 +9,8 @@ export interface IMoralisContext {
   chain: EvmChain | null;
   connect: IConnectParams;
   connector: EvmAbstractConnector;
-  disconnect: ({ onComplete, onError, onSuccess, throwOnError = true }: IDefaultCallbacks<void>) => void;
-  error?: MoralisError;
+  disconnect: ({ onComplete, onError, onSuccess, throwOnError = false }: IDefaultCallbacks<void>) => void;
+  error: MoralisError | null;
   Evm: MoralisEvm;
   isConnected: boolean;
   isConnecting: boolean;

@@ -14,7 +14,7 @@ export const _useMoralisCore = ({ startOnMount = true, ...startConfig }: IUseMor
   const [isStarting, setIsStarting] = useState(false);
 
   const start = useCallback(
-    ({ onComplete, onError, onSuccess, throwOnError = true }: IDefaultCallbacks<void> = {}) => {
+    ({ onComplete, onError, onSuccess, throwOnError = false }: IDefaultCallbacks<void> = {}) => {
       return resolver(
         () => {
           setIsStarting(true);

@@ -6,8 +6,8 @@ import Evm from '@moralisweb3/evm';
 
 export const useEvmTransaction = () => {
   const resolver = useResolver();
-  const [data, setData] = useState<null | EvmTransactionResponse>(null);
-  const [error, setError] = useState<MoralisError | undefined>(undefined);
+  const [data, setData] = useState<EvmTransactionResponse | null>(null);
+  const [error, setError] = useState<MoralisError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const send = useCallback(
@@ -15,7 +15,7 @@ export const useEvmTransaction = () => {
       onComplete,
       onError,
       onSuccess,
-      throwOnError = true,
+      throwOnError = false,
       chain,
       ...data
     }: IDefaultCallbacks<EvmTransactionResponse> & EvmTransactionInput) => {
