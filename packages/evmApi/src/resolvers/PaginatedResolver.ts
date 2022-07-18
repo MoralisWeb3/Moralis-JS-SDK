@@ -1,8 +1,9 @@
 import { checkObjEqual } from './../utils/checkObjEqual';
-import { EvmResolver, EvmResolverOptions, ServerResponse } from './Resolver';
+import { EvmResolver, EvmResolverOptions } from './Resolver';
 import { getNextParams } from '../utils/getNextParams';
 import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
 import { EvmApiConfig } from '../config/EvmApiConfig';
+import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core/lib';
 
 export interface PaginatedResponse<Data> {
   total: number;
@@ -92,27 +93,6 @@ export class EvmPaginatedResolver<
     );
   };
 
-  protected _serverRequest = async (params: Params) => {
-    const url = this.getServerUrl();
-    const apiParams = this.parseParams(params);
-
-    const { result } = await this.requestController.post<
-      ServerResponse<PaginatedResponse<ApiResult>>,
-      Record<string, string>,
-      //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      ApiParams
-      // Requests to the server are always a post request with bodyparams, no need to supply searchparams
-    >(url, {}, apiParams);
-
-    return new EvmApiPaginatedResultAdapter(
-      result,
-      this.apiToResult,
-      this.resultToJson,
-      params,
-      this.resolveNextCall(params, result),
-    );
-  };
-
   private resolveNextCall = (params: Params, result: Awaited<PaginatedResponse<ApiResult>>) => {
     const nextParams = getNextParams(params, result);
     return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
@@ -123,9 +103,15 @@ export class EvmPaginatedResolver<
   ): Promise<
     EvmApiPaginatedResultAdapter<Awaited<PaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
   > => {
-    if (this.config.get('apiKey')) {
-      return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    const apiKey = this.config.get(EvmApiConfig.apiKey);
+
+    if (!apiKey) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.API_KEY_NOT_SET,
+        message: 'apiKey is not set',
+      });
     }
-    return this._serverRequest(params);
+
+    return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }

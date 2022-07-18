@@ -2,7 +2,7 @@ import { EvmChainish, EvmAddressish, EvmAddress, Camelize, toCamelCase } from '@
 import { operations } from '../../generated/types';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 import { BigNumber } from 'ethers';
-import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenTransfers';
 
@@ -11,7 +11,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -40,7 +40,7 @@ export const getTokenTransfersResolver = new EvmPaginatedResolver({
   parseParams: (params: Params): ApiParams => ({
     ...params,
     chain: resolveDefaultChain(params.chain).apiHex,
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

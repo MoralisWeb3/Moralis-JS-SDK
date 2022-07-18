@@ -1,5 +1,5 @@
-import { resolveDefaultAddress, resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
+import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
+import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish, Camelize, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { EvmResolver } from '../Resolver';
 
@@ -13,7 +13,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 export const getTokenBalancesResolver = new EvmResolver({
@@ -37,6 +37,6 @@ export const getTokenBalancesResolver = new EvmResolver({
     to_block: params.toBlock,
     token_addresses: params.tokenAddresses,
     chain: resolveDefaultChain(params.chain).apiHex,
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
   }),
 });

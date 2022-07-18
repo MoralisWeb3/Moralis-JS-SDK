@@ -1,6 +1,6 @@
-import { EvmAddressish, EvmChainish, EvmNative, Camelize } from '@moralisweb3/core';
+import { EvmAddressish, EvmChainish, EvmNative, Camelize, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain, resolveDefaultAddress } from '../../utils/resolveDefaultParams';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { EvmResolver } from '../Resolver';
 
 type operation = 'getNativeBalance';
@@ -13,7 +13,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 export const getNativeBalanceResolver = new EvmResolver({
@@ -27,7 +27,7 @@ export const getNativeBalanceResolver = new EvmResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     chain: resolveDefaultChain(params.chain).apiHex,
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     providerUrl: params.providerUrl,
   }),
