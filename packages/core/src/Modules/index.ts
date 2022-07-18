@@ -1,8 +1,7 @@
-export * from './BaseModule';
+export * from './Module';
 export * from './NetworkModule';
 export * from './ApiModule';
-export * from './CoreModuleType';
-export * from './MoralisModules';
+export * from './ModuleType';
+export * from './Modules';
 export * from './utils';
 export * from './types';
-export default {};

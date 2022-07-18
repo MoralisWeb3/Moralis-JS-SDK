@@ -19,7 +19,7 @@ const apiToResult = (apiData: ApiResult, params: Params) => {
 
   return {
     ...data,
-    miner: new EvmAddress(data.miner),
+    miner: EvmAddress.create(data.miner),
     transactions: data.transactions.map((transaction) =>
       EvmTransactionReceipt.create(
         {

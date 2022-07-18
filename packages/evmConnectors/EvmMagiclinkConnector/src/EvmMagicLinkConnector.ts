@@ -1,10 +1,11 @@
-import core, {
+import {
   EvmAddress,
   EvmChain,
   EvmConnection,
   EvmMagicLinkConnectorOptions,
   EvmProvider,
   MoralisCore,
+  MoralisCoreProvider,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
 } from '@moralisweb3/core';
@@ -15,19 +16,18 @@ const DEFAULT_OPTIONS = {
   chainId: '0x1',
 };
 
-export interface EvmMagiclinkConnectorConfig {
-  core: MoralisCore;
-}
-
 /**
- * Connector for WalletConnect v1
+ * Connector for Magiclink
  */
 export class EvmMagiclinkConnector extends EvmAbstractConnector<EvmProvider, EvmMagicLinkConnectorOptions> {
-  constructor(config: EvmMagiclinkConnectorConfig) {
-    super({
-      name: 'magic-link',
-      core: config.core,
-    });
+  public static readonly connectorName = 'magic-link';
+
+  public static create(core?: MoralisCore): EvmMagiclinkConnector {
+    return new EvmMagiclinkConnector(core || MoralisCoreProvider.getDefault());
+  }
+
+  constructor(core: MoralisCore) {
+    super(EvmMagiclinkConnector.connectorName, core);
   }
 
   protected async createProvider(options: EvmMagicLinkConnectorOptions): Promise<EvmProvider> {
@@ -70,8 +70,8 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector<EvmProvider, Evm
 
     return {
       provider: provider,
-      chain: new EvmChain(chainId),
-      account: accounts[0] ? new EvmAddress(accounts[0]) : null,
+      chain: EvmChain.create(chainId),
+      account: accounts.length > 0 ? EvmAddress.create(accounts[0]) : null,
     };
   }
 
@@ -85,6 +85,3 @@ export class EvmMagiclinkConnector extends EvmAbstractConnector<EvmProvider, Evm
     }
   }
 }
-
-const evmMagicLinkConnector = new EvmMagiclinkConnector({ core });
-export default evmMagicLinkConnector;

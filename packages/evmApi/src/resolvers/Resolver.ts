@@ -1,4 +1,12 @@
-import core, { ApiErrorCode, MoralisApiError, RequestController } from '@moralisweb3/core';
+import {
+  ApiErrorCode,
+  Config,
+  MoralisCoreProvider,
+  MoralisApiError,
+  RequestController,
+  CoreConfig,
+} from '@moralisweb3/core';
+import { EvmApiConfig } from '../config/EvmApiConfig';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
 
@@ -32,6 +40,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected bodyParams?: readonly (keyof Params)[];
   protected bodyType?: BodyType;
   protected name: string;
+  protected readonly config: Config;
+  protected readonly requestController: RequestController;
 
   constructor({
     getPath,
@@ -51,6 +61,9 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.bodyParams = bodyParams;
     this.bodyType = bodyType ?? BodyType.PROPERTY;
     this.name = name;
+    const core = MoralisCoreProvider.getDefault();
+    this.config = core.config;
+    this.requestController = RequestController.create(core);
   }
 
   protected getUrl = (params: Params) => {
@@ -104,7 +117,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     const searchParams = this.getSearchParams(apiParams);
 
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
-    const result = await RequestController.get<ApiResult, ApiParams>(url, searchParams, {
+    const result = await this.requestController.get<ApiResult, ApiParams>(url, searchParams, {
       headers: this.createHeaders(),
     });
 
@@ -118,7 +131,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const result = await RequestController.post<ApiResult, Record<string, string>, Record<string, string>>(
+    const result = await this.requestController.post<ApiResult, Record<string, string>, Record<string, string>>(
       url,
       searchParams,
       bodyParams,
@@ -137,7 +150,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const result = await RequestController.put<ApiResult, Record<string, string>, Record<string, string>>(
+    const result = await this.requestController.put<ApiResult, Record<string, string>, Record<string, string>>(
       url,
       searchParams,
       bodyParams,
@@ -153,7 +166,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     const url = this.getServerUrl();
     const apiParams = this.parseParams(params);
 
-    const { result } = await RequestController.post<
+    const { result } = await this.requestController.post<
       ServerResponse<ApiResult>,
       Record<string, string>,
       //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
@@ -165,7 +178,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   };
 
   protected getServerUrl() {
-    const serverUrl = core.config.get('serverUrl');
+    const serverUrl = this.config.get(CoreConfig.serverUrl);
     if (!serverUrl) {
       throw new MoralisApiError({
         code: ApiErrorCode.GENERIC_API_ERROR,
@@ -176,7 +189,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   }
 
   private createHeaders(): { [key: string]: string } {
-    const apiKey = core.config.get('apiKey');
+    const apiKey = this.config.get(EvmApiConfig.apiKey);
     const headers: { [key: string]: string } = {};
     if (apiKey) {
       headers['x-api-key'] = apiKey;
@@ -185,7 +198,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   }
 
   fetch = (params: Params) => {
-    if (core.config.get('apiKey')) {
+    if (this.config.get(EvmApiConfig.apiKey)) {
       switch (this.method) {
         case 'post':
           return this._apiPost(params);

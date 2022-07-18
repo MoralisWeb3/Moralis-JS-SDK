@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get price, native price for an address', async () => {
-    const result = await EvmApi.token.getTokenPrice({
+    const result = await evmApi.token.getTokenPrice({
       address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
     });
 
@@ -31,7 +22,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get price for an invalid address and return an error code', async () => {
-    const failedResult = await EvmApi.token
+    const failedResult = await evmApi.token
       .getTokenPrice({
         address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
       })
@@ -42,7 +33,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.getTokenPrice({
+      evmApi.token.getTokenPrice({
         address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5d5',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

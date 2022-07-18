@@ -1,5 +1,5 @@
 import { ApiModule } from './ApiModule';
-import { BaseModule } from './BaseModule';
+import { Module } from './Module';
 import { NetworkModule } from './NetworkModule';
 
-export type AnyBaseClass = BaseModule | NetworkModule | ApiModule;
+export type AnyBaseClass = Module | NetworkModule | ApiModule;

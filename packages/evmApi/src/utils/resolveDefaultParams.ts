@@ -1,16 +1,19 @@
-import core, {
+import {
   ApiErrorCode,
+  CoreConfig,
   EvmAddress,
   EvmAddressish,
   EvmChain,
   EvmChainish,
   MoralisApiError,
+  MoralisCoreProvider,
 } from '@moralisweb3/core';
 
 export const resolveDefaultAddress = (address?: EvmAddressish): EvmAddress => {
   if (address) {
     return EvmAddress.create(address);
   }
+  const core = MoralisCoreProvider.getDefault();
   try {
     const evm = core.modules.getNetwork('evm');
     if (!evm || !evm.account) {
@@ -29,6 +32,7 @@ export const resolveDefaultChain = (chain?: EvmChainish): EvmChain => {
   if (chain) {
     return EvmChain.create(chain);
   }
+  const core = MoralisCoreProvider.getDefault();
   try {
     const evm = core.modules.getNetwork('evm');
     if (!evm || !evm.chain) {
@@ -36,7 +40,7 @@ export const resolveDefaultChain = (chain?: EvmChainish): EvmChain => {
     }
     return evm.chain;
   } catch (error) {
-    const defaultEvmChain = core.config.get('defaultEvmApiChain');
+    const defaultEvmChain = core.config.get(CoreConfig.defaultEvmApiChain);
     return EvmChain.create(defaultEvmChain);
   }
 };

@@ -1,5 +1,5 @@
 import type Parse from 'parse';
-import core from '@moralisweb3/core';
+import { CoreConfig, MoralisCoreProvider } from '@moralisweb3/core';
 
 /**
  * Creates the data for the authentication message by extending the message
@@ -8,7 +8,7 @@ import core from '@moralisweb3/core';
 export const createSigningData = async ({ message, server }: { message: string; server: typeof Parse }) => {
   const { dateTime } = await server.Cloud.run('getServerTime');
 
-  const appId = core.config.get('appId');
+  const appId = MoralisCoreProvider.getDefault().config.get(CoreConfig.appId);
 
   const data = `${message}\n\nId: ${appId}:${dateTime}`;
 

@@ -1,4 +1,4 @@
-import core, { ApiModule } from '@moralisweb3/core';
+import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import {
   getTokenAllowanceResolver,
   getTokenPriceResolver,
@@ -41,15 +41,19 @@ import {
 } from './resolvers/native';
 import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
 import { uploadFolderResolver } from './resolvers/storage';
+import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
+
 export class MoralisEvmApi extends ApiModule {
-  constructor() {
-    super({
-      name: 'evmApi',
-      core,
-      baseUrl: BASE_URL,
-    });
+  public static readonly moduleName = 'evmApi';
+
+  public static create(core?: MoralisCore): MoralisEvmApi {
+    return new MoralisEvmApi(core ?? MoralisCoreProvider.getDefault());
+  }
+
+  private constructor(core: MoralisCore) {
+    super(MoralisEvmApi.moduleName, core, BASE_URL);
   }
 
   get native() {
@@ -119,7 +123,12 @@ export class MoralisEvmApi extends ApiModule {
       uploadFolder: uploadFolderResolver.fetch,
     };
   }
-}
 
-const moralisEvmApi = new MoralisEvmApi();
-export default moralisEvmApi;
+  public setup() {
+    EvmApiConfigSetup.register(this.core.config);
+  }
+
+  public start(): void | Promise<void> {
+    // Nothing...
+  }
+}

@@ -1,14 +1,12 @@
-import Core from '@moralisweb3/core';
-import Evm from '@moralisweb3/evm';
-import MockEvmConnector from '../../src/MockConnector';
+import { MoralisEvm } from '@moralisweb3/evm';
+import { setupEvm } from './setup';
 
-describe('transferErc1155', () => {
+describe('Evm connect', () => {
+  let evm: MoralisEvm;
+
   beforeAll(async () => {
-    Core.registerModules([Evm]);
-    Evm.connectors.register(MockEvmConnector);
-    Core.start({});
-
-    await Evm.connect('mock', {
+    evm = setupEvm();
+    await evm.connect('mock', {
       tx: {
         hash: '0x0000000000000000000000000000000000000000000000000000000000000042',
       },
@@ -16,7 +14,7 @@ describe('transferErc1155', () => {
   });
 
   it('should transfer Erc1155 succesfully', async () => {
-    const response = await Evm.transferErc1155({
+    const response = await evm.transferErc1155({
       contractAddress: '0x0011000000000000000000000000000000000000',
       to: '0x0000000000000000000000000000000000000000',
       tokenId: '1',

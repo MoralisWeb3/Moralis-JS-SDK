@@ -1,9 +1,9 @@
-import { Logger } from '@moralisweb3/core';
+import { LoggerController } from '@moralisweb3/core';
 import type Parse from 'parse';
 
 interface HandleLogoutOptions {
   server: typeof Parse;
-  logger: Logger;
+  logger: LoggerController;
 }
 
 export const handleLogout = async ({ server, logger }: HandleLogoutOptions) => {

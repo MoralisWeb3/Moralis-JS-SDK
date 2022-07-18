@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get the liquidity reserves for a given pair address ', async () => {
-    const result = await EvmApi.defi.getPairReserves({
+    const result = await evmApi.defi.getPairReserves({
       pairAddress: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
     });
 
@@ -32,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the liquidity reserves for a given pair address ', async () => {
-    const failedResult = await EvmApi.defi
+    const failedResult = await evmApi.defi
       .getPairReserves({
         pairAddress: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
       })
@@ -43,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.resolve.resolveAddress({
+      evmApi.resolve.resolveAddress({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 400"`);

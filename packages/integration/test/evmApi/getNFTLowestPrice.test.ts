@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get NFT lowest price', async () => {
-    const result = await EvmApi.token.getNFTLowestPrice({
+    const result = await evmApi.token.getNFTLowestPrice({
       address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
       days: 3,
     });
@@ -33,7 +24,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get NFT lowest price of an invalid account and throw an error ', async () => {
-    const failedResult = await EvmApi.token
+    const failedResult = await evmApi.token
       .getNFTLowestPrice({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         days: 3,
@@ -45,7 +36,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.getNFTLowestPrice({
+      evmApi.token.getNFTLowestPrice({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         days: 3,
       }),

@@ -1,6 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
-import core, {
+import {
   EvmAddress,
   EvmChain,
   EvmChainish,
@@ -8,6 +8,7 @@ import core, {
   EvmMetamaskConnectorConnectOptions,
   EvmProvider,
   MoralisCore,
+  MoralisCoreProvider,
   MoralisNetworkConnectorError,
   NetworkConnectorErrorCode,
 } from '@moralisweb3/core';
@@ -19,16 +20,15 @@ const DEFAULT_OPTIONS: EvmMetamaskConnectorConnectOptions = {
 
 export type MetamaskProvider = EvmProvider & { isMetaMask?: boolean; providers?: MetamaskProvider[] };
 
-export interface EvmMetamaskConnectorConfig {
-  core: MoralisCore;
-}
-
 export class EvmMetamaskConnector extends EvmAbstractConnector<MetamaskProvider, EvmMetamaskConnectorConnectOptions> {
-  public constructor(config: EvmMetamaskConnectorConfig) {
-    super({
-      name: 'metamask',
-      core: config.core,
-    });
+  public static readonly connectorName = 'metamask';
+
+  public static create(core?: MoralisCore): EvmMetamaskConnector {
+    return new EvmMetamaskConnector(core || MoralisCoreProvider.getDefault());
+  }
+
+  public constructor(core: MoralisCore) {
+    super(EvmMetamaskConnector.connectorName, core);
   }
 
   protected async createProvider(options?: EvmMetamaskConnectorConnectOptions): Promise<MetamaskProvider> {
@@ -65,8 +65,8 @@ export class EvmMetamaskConnector extends EvmAbstractConnector<MetamaskProvider,
 
     return {
       provider,
-      chain: new EvmChain(chainId),
-      account: accounts[0] ? new EvmAddress(accounts[0]) : null,
+      chain: EvmChain.create(chainId),
+      account: accounts[0] ? EvmAddress.create(accounts[0]) : null,
     };
   }
 
@@ -112,6 +112,3 @@ export class EvmMetamaskConnector extends EvmAbstractConnector<MetamaskProvider,
     });
   }
 }
-
-const evmMetamaskConnector = new EvmMetamaskConnector({ core });
-export default evmMetamaskConnector;

@@ -2,7 +2,8 @@ import { MoralisDataObject, MoralisDataObjectValue } from '../abstract';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
 import { maybe } from '../utils';
-import { EvmChain, EvmChainish } from '../EvmChain';
+import { EvmChain } from '../EvmChain';
+import { EvmChainish } from '../EvmChainish';
 
 export enum ContractType {
   ERC721 = 'ERC721',

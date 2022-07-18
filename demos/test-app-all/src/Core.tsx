@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-explicit-any: off */
 
 import Moralis from 'moralis';
-import MoralisCore from '@moralisweb3/core';
 import Server from '@moralisweb3/server';
 import EvmApi from '@moralisweb3/evm-api';
 import Evm from '@moralisweb3/evm';
@@ -23,13 +22,13 @@ export const Core = () => {
 
   const registerModule = (module: string) => {
     if (module === 'Evm') {
-      MoralisCore.registerModules([Evm]);
+      Moralis.Core.registerModules([Evm]);
     }
     if (module === 'Server') {
-      MoralisCore.registerModules([Server]);
+      Moralis.Core.registerModules([Server]);
     }
     if (module === 'EvmApi') {
-      MoralisCore.registerModules([EvmApi]);
+      Moralis.Core.registerModules([EvmApi]);
     }
     const list = Moralis.Core.modules.list();
     console.log('after registering:', list);

@@ -1,8 +1,8 @@
 import { checkObjEqual } from './../utils/checkObjEqual';
 import { EvmResolver, EvmResolverOptions, ServerResponse } from './Resolver';
-import core, { RequestController } from '@moralisweb3/core';
 import { getNextParams } from '../utils/getNextParams';
 import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
+import { EvmApiConfig } from '../config/EvmApiConfig';
 
 export interface PaginatedResponse<Data> {
   total: number;
@@ -47,9 +47,9 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
 
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
-    const result = await RequestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
+    const result = await this.requestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
       headers: {
-        'x-api-key': core.config.get('apiKey') ?? undefined,
+        'x-api-key': this.config.get(EvmApiConfig.apiKey),
       },
     });
 
@@ -69,13 +69,13 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const apiKey = core.config.get('apiKey');
+    const apiKey = this.config.get(EvmApiConfig.apiKey);
     const headers: { [key: string]: string } = {};
     if (apiKey) {
       headers['x-api-key'] = apiKey;
     }
 
-    const result = await RequestController.post<
+    const result = await this.requestController.post<
       PaginatedResponse<ApiResult>,
       Record<string, string>,
       Record<string, string>
@@ -96,7 +96,7 @@ export class EvmPaginatedResolver<
     const url = this.getServerUrl();
     const apiParams = this.parseParams(params);
 
-    const { result } = await RequestController.post<
+    const { result } = await this.requestController.post<
       ServerResponse<PaginatedResponse<ApiResult>>,
       Record<string, string>,
       //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
@@ -123,7 +123,7 @@ export class EvmPaginatedResolver<
   ): Promise<
     EvmApiPaginatedResultAdapter<Awaited<PaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
   > => {
-    if (core.config.get('apiKey')) {
+    if (this.config.get('apiKey')) {
       return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
     }
     return this._serverRequest(params);

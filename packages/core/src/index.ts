@@ -1,5 +1,7 @@
-import MoralisCore from './MoralisCore';
+import { MoralisCore } from './MoralisCore';
+
 export * from './MoralisCore';
+export * from './MoralisCoreProvider';
 export * from './Modules';
 export * from './Error';
 export * from './Config';

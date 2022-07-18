@@ -1,4 +1,4 @@
-import { BaseModule } from './BaseModule';
+import { Module } from './Module';
 import { NetworkModule } from './NetworkModule';
 import { isApiModule, isNetworkModule } from './utils';
 import { AnyBaseClass } from './types';
@@ -15,24 +15,25 @@ import { ApiModule } from './ApiModule';
  * - removing modules (in theory possible for exotic usecases, but might break the app if done after initialisation)
  * - getting individual modules by name, type or everything
  */
-export class MoralisModules {
-  private _modules = new Map<string, BaseModule>();
+export class Modules {
+  private readonly modules = new Map<string, Module>();
 
   /**
-   * Register a new module by providing a module that is extended from BaseClass.
+   * Register and setup a new module by providing a module that is extended from BaseClass.
    * This will throw an error if the name is not unique
-   * @param moralisModule the module that needs to be registered
+   * @param module the module that needs to be registered
    */
-  register = (moralisModule: AnyBaseClass) => {
-    if (this._modules.has(moralisModule.name)) {
+  public register(module: AnyBaseClass) {
+    if (this.modules.has(module.name)) {
       throw new MoralisCoreError({
         code: CoreErrorCode.DUPLICATE_MODULE,
-        message: `The module ${moralisModule.name} has already been registered.`,
+        message: `The module "${module.name}" has already been registered.`,
       });
     }
 
-    this._modules.set(moralisModule.name, moralisModule);
-  };
+    this.modules.set(module.name, module);
+    module.setup();
+  }
 
   /**
    * Returns the module with the given name.
@@ -41,15 +42,31 @@ export class MoralisModules {
    * @returns a valid BaseModule
    * @throws a MoralisCoreError if no module with the given name has been registered
    */
-  get = (name: string): BaseModule => {
-    const module = this._modules.get(name);
-
+  public get<M extends Module = Module>(name: string): M {
+    const module = this.modules.get(name);
     if (!module) {
       throw new MoralisCoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
     }
+    return module as M;
+  }
 
-    return module;
-  };
+  /**
+   * Tries to return the module with the given name if exist. Otherwise returns null.
+   * @param name the module name
+   * @returns a valid BaseModule or null
+   */
+  public tryGet(name: string): Module | null {
+    return this.modules.get(name) || null;
+  }
+
+  public has(name: string): boolean {
+    return this.modules.has(name);
+  }
+
+  public tryGetNetwork(name: string): NetworkModule | null {
+    const module = this.modules.get(name);
+    return module && isNetworkModule(module) ? module : null;
+  }
 
   /**
    * Returns the network module with the provided name.
@@ -57,10 +74,10 @@ export class MoralisModules {
    * @returns a valid NetworkModule
    * @throws a MoralisCoreError if no network module with the given name has been registered
    */
-  getNetwork = (name: string): NetworkModule => {
-    const module = this.get(name);
+  public getNetwork(name: string): NetworkModule {
+    const module = this.tryGetNetwork(name);
 
-    if (!isNetworkModule(module)) {
+    if (!module) {
       throw new MoralisCoreError({
         code: CoreErrorCode.MODULE_NOT_FOUND,
         message: `No NetworkModule found with the name "${name}"`,
@@ -68,7 +85,7 @@ export class MoralisModules {
     }
 
     return module;
-  };
+  }
 
   /**
    * Returns the network module with the provided name.
@@ -76,10 +93,10 @@ export class MoralisModules {
    * @returns a valid ApiModule
    * @throws a MoralisCoreError if no network module with the given name has been registered
    */
-  getApi = (name: string): ApiModule => {
-    const module = this.get(name);
+  public getApi(name: string): ApiModule {
+    const module = this.modules.get(name);
 
-    if (!isApiModule(module)) {
+    if (!module || !isApiModule(module)) {
       throw new MoralisCoreError({
         code: CoreErrorCode.MODULE_NOT_FOUND,
         message: `No ApiModule found with the name "${name}"`,
@@ -87,47 +104,47 @@ export class MoralisModules {
     }
 
     return module;
-  };
+  }
 
   /**
    * Remove the module with the provided name, if it has been registered,
    * @param name the module name
    * @throws a MoralisCoreError if the module cannot be found.
    */
-  remove = (name: string) => {
-    const isRemoved = this._modules.delete(name);
+  public remove(name: string) {
+    const isRemoved = this.modules.delete(name);
 
     if (!isRemoved) {
       throw new MoralisCoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
     }
-  };
+  }
 
   /**
    * List all the registered modules
    * @returns an array of BaseModule that have been registered
    */
-  list = () => {
-    return Array.from(this._modules.values());
-  };
+  public list(): Module[] {
+    return Array.from(this.modules.values());
+  }
 
   /**
    * Returns the names of all registered modules
    */
-  listNames = () => {
+  public listNames(): string[] {
     return this.list().map((module) => module.name);
-  };
+  }
 
   /**
    * List all the registered network modules (eg. modules with the type CoreModuleType.NETWORK)
    */
-  listNetworks = (): NetworkModule[] => {
-    return Array.from(this._modules.values()).filter(isNetworkModule);
-  };
+  public listNetworks(): NetworkModule[] {
+    return this.list().filter(isNetworkModule);
+  }
 
   /**
    * List all the registered api modules (eg. modules with the type CoreModuleType.API)
    */
-  listApis = (): ApiModule[] => {
-    return Array.from(this._modules.values()).filter(isApiModule);
-  };
+  public listApis(): ApiModule[] {
+    return this.list().filter(isApiModule);
+  }
 }

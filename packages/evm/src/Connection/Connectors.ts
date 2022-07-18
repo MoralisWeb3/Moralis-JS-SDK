@@ -1,20 +1,28 @@
-import { MoralisNetworkError, NetworkErrorCode } from '@moralisweb3/core';
-import { EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
+import { MoralisCore, MoralisCoreProvider, MoralisNetworkError, NetworkErrorCode } from '@moralisweb3/core';
+import { ConnectorFactory, EvmAbstractConnector } from '@moralisweb3/evm-connector-utils';
 import MetamaskConnector from '@moralisweb3/evm-metamask-connector';
 
-const DEFAULT_CONNECTORS: EvmAbstractConnector[] = [MetamaskConnector];
+const DEFAULT_CONNECTORS: ConnectorFactory[] = [MetamaskConnector];
 
 export class Connectors {
   private _connectors = new Map<string, EvmAbstractConnector>();
 
-  constructor() {
-    DEFAULT_CONNECTORS.forEach((connector) => this.register(connector));
+  public static create(): Connectors {
+    const core = MoralisCoreProvider.getDefault(); // TODO: we should get the core instance from a parent class.
+    const connectors = new Connectors(core);
+    DEFAULT_CONNECTORS.forEach((connector) => connectors.register(connector));
+    return connectors;
   }
+
+  public constructor(private readonly core: MoralisCore) {}
 
   /**
    * Register a new connector based on a EvmAbstractConnector
    */
-  register = (connector: EvmAbstractConnector) => {
+  public register = (connector: EvmAbstractConnector | ConnectorFactory) => {
+    if ('create' in connector) {
+      connector = connector.create(this.core);
+    }
     if (this._connectors.has(connector.name)) {
       throw new MoralisNetworkError({
         code: NetworkErrorCode.DUPLICATE_WALLET,
@@ -30,7 +38,7 @@ export class Connectors {
    * This connector should have been registered with `register`
    * Throws an error if no connector with the given name has been registered.
    */
-  get = (name: string): EvmAbstractConnector => {
+  get = <Connector extends EvmAbstractConnector = EvmAbstractConnector>(name: string): Connector => {
     const module = this._connectors.get(name);
 
     if (!module) {
@@ -40,7 +48,7 @@ export class Connectors {
       });
     }
 
-    return module;
+    return module as Connector;
   };
 
   /**

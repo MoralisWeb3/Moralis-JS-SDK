@@ -1,6 +1,6 @@
 import { ApiModule } from './ApiModule';
-import { CoreModuleType } from './CoreModuleType';
-import { BaseModule } from './BaseModule';
+import { ModuleType } from './ModuleType';
+import { Module } from './Module';
 import { NetworkModule } from './NetworkModule';
 
 /**
@@ -14,8 +14,8 @@ import { NetworkModule } from './NetworkModule';
  * }
  * ```
  */
-export const isNetworkModule = (moralisClass: BaseModule): moralisClass is NetworkModule => {
-  if (moralisClass.type === CoreModuleType.NETWORK) {
+export const isNetworkModule = (moralisClass: Module): moralisClass is NetworkModule => {
+  if (moralisClass.type === ModuleType.NETWORK) {
     return true;
   }
 
@@ -33,8 +33,8 @@ export const isNetworkModule = (moralisClass: BaseModule): moralisClass is Netwo
  * }
  * ```
  */
-export const isApiModule = (moralisClass: BaseModule): moralisClass is ApiModule => {
-  if (moralisClass.type === CoreModuleType.API) {
+export const isApiModule = (moralisClass: Module): moralisClass is ApiModule => {
+  if (moralisClass.type === ModuleType.API) {
     return true;
   }
 

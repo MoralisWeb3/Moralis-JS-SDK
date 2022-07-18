@@ -1,5 +1,5 @@
 import type Parse from 'parse';
-import core, { MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
+import { MoralisCoreProvider, MoralisServerError, ServerErrorCode } from '@moralisweb3/core';
 import { evmAuth } from './evm/evm';
 import { AuthMethod } from './types';
 
@@ -21,7 +21,7 @@ export const handleAuth = async ({ message, method, server, options }: HandleAut
       });
     }
 
-    const network = core.modules.getNetwork('evm');
+    const network = MoralisCoreProvider.getDefault().modules.getNetwork('evm');
 
     const data = await evmAuth({ message, connector, options, network, server });
 
