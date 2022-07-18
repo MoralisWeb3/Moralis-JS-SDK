@@ -1,7 +1,7 @@
 import Moralis from 'moralis';
 // Note: do not import Parse dependency. see https://github.com/parse-community/parse-server/issues/6467
 
-export function validateAuthData(authData, options) {
+function validateAuthData(authData, options) {
   const { message, signature, network, id, authId } = authData;
 
   return Moralis.Auth.verify({
@@ -13,9 +13,8 @@ export function validateAuthData(authData, options) {
       const data = result.toJSON();
 
       if (id === data.profileId && authId === data.id) {
-        authData.chainId = data.chainId;
-        authData.nonce = data.nonce;
-        authData.address = data.address;
+        (authData.chainId = result.result.chain.decimal), (authData.nonce = data.nonce);
+        authData.address = result.result.address.checksum;
         authData.version = data.version;
         authData.domain = data.domain;
         authData.expirationTime = data.expirationTime;
@@ -33,7 +32,7 @@ export function validateAuthData(authData, options) {
     });
 }
 
-export function validateAppId(appIds, authData, options) {
+function validateAppId(appIds, authData, options) {
   return Promise.resolve();
 }
 

@@ -9,6 +9,7 @@ export interface SignMessageEvmOptions {
 
 export type SignMessageOptions = SignMessageEvmOptions;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const makeEvmVerify = ({ network, ...options }: SignMessageEvmOptions) => {
   return AuthApi.verify({
     message: options.message,

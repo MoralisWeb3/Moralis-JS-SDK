@@ -1,6 +1,6 @@
 import { requestMessage, verifyMessage } from './authService';
 
-async function request(req, res, next) {
+export async function request(req, res, next) {
   try {
     const { address, chain, network } = req.body;
 
@@ -16,7 +16,7 @@ async function request(req, res, next) {
   }
 }
 
-async function verify(req, res, next) {
+export async function verify(req, res, next) {
   try {
     const { network, message, signature } = req.body;
 
@@ -31,8 +31,3 @@ async function verify(req, res, next) {
     next(err);
   }
 }
-
-export default {
-  request,
-  verify,
-};

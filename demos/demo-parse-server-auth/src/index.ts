@@ -27,6 +27,9 @@ app.use('/dashboard', parseDashboard);
 app.use('/api', apiRouter);
 app.use(errorHandler);
 
+app.use(express.static('public'));
+
 app.listen(config.PORT, function () {
+  // eslint-disable-next-line no-console
   console.log(`parse-server running on port ${config.PORT}`);
 });

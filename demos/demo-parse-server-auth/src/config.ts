@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
+import { cleanEnv, num, str, bool } from 'envalid';
 
 dotenv.config();
-import { cleanEnv, num, str, bool } from 'envalid';
 
 export default cleanEnv(process.env, {
   PORT: num(),

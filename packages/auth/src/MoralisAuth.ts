@@ -1,4 +1,4 @@
-import core, { BaseModule } from '@moralisweb3/core/lib';
+import core, { BaseModule } from '@moralisweb3/core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import { makeVerify, SignMessageOptions } from './methods/verify';
 

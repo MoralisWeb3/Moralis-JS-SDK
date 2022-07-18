@@ -24,6 +24,7 @@ export interface RequestMessageEvmOptions {
 
 export type RequestMessageOptions = RequestMessageEvmOptions;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const makeEvmRequestMessage = ({ chain, address, network, ...options }: RequestMessageEvmOptions) => {
   return AuthApi.requestMessage({
     chainId: EvmChain.create(chain).decimal,
