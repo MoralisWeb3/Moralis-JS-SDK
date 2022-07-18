@@ -3,7 +3,6 @@ import { EvmChainish, EvmAddressish, EvmAddress, Erc20Value, Camelize, toCamelCa
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 
-
 type operation = 'getTokenAddressTransfers';
 
 type QueryParams = operations[operation]['parameters']['query'];

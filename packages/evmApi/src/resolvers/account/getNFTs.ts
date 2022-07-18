@@ -1,4 +1,9 @@
-import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultAddress, resolveDefaultChain } from '@moralisweb3/api-utils';
+import {
+  ApiPaginatedOptions,
+  ApiPaginatedResolver,
+  resolveDefaultAddress,
+  resolveDefaultChain,
+} from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
@@ -9,7 +14,9 @@ type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'token_addresses'>>, ApiPaginatedOptions {
+export interface Params
+  extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'token_addresses'>>,
+    ApiPaginatedOptions {
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address?: EvmAddressish;

@@ -1,7 +1,12 @@
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, Camelize, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../EvmApi';
-import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain, resolveDefaultAddress } from '@moralisweb3/api-utils';
+import {
+  ApiPaginatedOptions,
+  ApiPaginatedResolver,
+  resolveDefaultChain,
+  resolveDefaultAddress,
+} from '@moralisweb3/api-utils';
 
 type operation = 'getNFTTransfers';
 

@@ -1,4 +1,9 @@
-import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultAddress, resolveDefaultChain } from '@moralisweb3/api-utils';
+import {
+  ApiPaginatedOptions,
+  ApiPaginatedResolver,
+  resolveDefaultAddress,
+  resolveDefaultChain,
+} from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
