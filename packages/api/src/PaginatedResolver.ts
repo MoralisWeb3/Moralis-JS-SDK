@@ -23,7 +23,7 @@ export class ApiPaginatedResolver<
   Params extends ApiPaginatedOptions,
   ApiResult,
   AdaptedResult,
-  JSONResult,
+  JSONResult
 > extends ApiResolver<ApiParams, Params, ApiPaginatedResponse<ApiResult>, AdaptedResult, JSONResult> {
   constructor({
     getUrl,

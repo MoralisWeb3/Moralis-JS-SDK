@@ -6,7 +6,7 @@ export class ApiPaginatedResultAdapter<
   Data extends ApiPaginatedResponse<unknown>,
   AdaptedData,
   JSONData,
-  Params,
+  Params
 > extends ApiResultAdapter<Data, AdaptedData, JSONData, Params> {
   private _nextCall?: () => Promise<ApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>;
 
