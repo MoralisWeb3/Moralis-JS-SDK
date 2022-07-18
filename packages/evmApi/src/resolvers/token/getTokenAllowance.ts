@@ -1,7 +1,7 @@
 import { BigNumber } from 'ethers';
 import { operations } from '../../generated/types';
 import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api-utils';
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
 import { BASE_URL } from '../../EvmApi';
 
 type operation = 'getTokenAllowance';

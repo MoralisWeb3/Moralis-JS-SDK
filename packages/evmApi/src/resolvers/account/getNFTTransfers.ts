@@ -6,7 +6,7 @@ import {
   ApiPaginatedResolver,
   resolveDefaultChain,
   resolveDefaultAddress,
-} from '@moralisweb3/api-utils';
+} from '@moralisweb3/api';
 
 type operation = 'getNFTTransfers';
 

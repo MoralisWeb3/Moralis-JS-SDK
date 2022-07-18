@@ -4,7 +4,7 @@ set -e
 echo "Script: $1"
 
 yarn --cwd packages/core build:dev
-yarn --cwd packages/apiUtils $1
+yarn --cwd packages/api $1
 
 yarn --cwd packages/evmConnectors/walletConnectWrapper $1
 yarn --cwd packages/evmConnectors/EvmConnectorUtils $1

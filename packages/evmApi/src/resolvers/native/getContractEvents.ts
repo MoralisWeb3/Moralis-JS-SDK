@@ -4,7 +4,7 @@ import {
   resolveDefaultChain,
   BodyType,
   ApiPaginatedResponse,
-} from '@moralisweb3/api-utils';
+} from '@moralisweb3/api';
 import { EvmChainish, EvmAddress, EvmAddressish, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';

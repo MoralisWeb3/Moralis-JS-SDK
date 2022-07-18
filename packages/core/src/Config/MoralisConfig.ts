@@ -2,7 +2,7 @@ import { CoreConfig } from './CoreConfig';
 
 type CoreConfigType = typeof CoreConfig;
 
-// @moralisweb3/api-utils
+// @moralisweb3/api
 interface ApiConfig {
   apiKey: string;
 }
