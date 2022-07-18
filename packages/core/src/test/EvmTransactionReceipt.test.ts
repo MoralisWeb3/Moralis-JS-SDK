@@ -85,6 +85,8 @@ const transactionResponseData: EvmTransactionResponseInput = {
   hash: HASH,
 };
 
+const expectedTotalGas = BigNumber.from(inputWithAllData.cumulativeGasUsed).mul(inputWithAllData.gasPrice).toString();
+
 describe('EvmTransactionReceipt', () => {
   /**
    * Creation
@@ -192,10 +194,8 @@ describe('EvmTransactionReceipt', () => {
 
   it('should return EvmTransactionReceipt total cost', () => {
     const transactionReceipt = EvmTransactionReceipt.create(inputWithAllData, transactionResponseData);
-    const result = transactionReceipt.totalGasCost;
+    const totalGasCostString = transactionReceipt.totalGasCost;
 
-    expect(result.format()).toBe(
-      BigNumber.from(inputWithAllData.cumulativeGasUsed).mul(inputWithAllData.gasPrice).toString(),
-    );
+    expect(totalGasCostString.format()).toBe(expectedTotalGas);
   });
 });
