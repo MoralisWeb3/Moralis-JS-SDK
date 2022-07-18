@@ -15,6 +15,8 @@ packages/**/lib.esm
 packages/**/coverage
 coverage/
 
+logs/
+
 
 # Typescript
 packages/**/tsconfig.tsbuildinfo

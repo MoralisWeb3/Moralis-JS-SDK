@@ -75,7 +75,7 @@ export class RequestController {
         details: {
           status: axiosError.response?.status,
           request: axiosError.request,
-          response: axiosError.request,
+          response: axiosError.response,
         },
       });
     }

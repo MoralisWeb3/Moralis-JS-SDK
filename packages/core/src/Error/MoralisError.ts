@@ -6,6 +6,7 @@ import {
   NetworkConnectorErrorCode,
   ApiErrorCode,
   UtilsErrorCode,
+  AuthErrorCode,
 } from './ErrorCode';
 
 export type MoralisErrorDetails = Record<string, unknown>;
@@ -115,6 +116,17 @@ export class MoralisUtilsError extends MoralisError {
     this.name = 'MoralisUtilsError';
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisUtilsError);
+    }
+  }
+}
+
+export class MoralisAuthError extends MoralisError {
+  constructor(options: NewMoralisOptions<AuthErrorCode>) {
+    super(options);
+
+    this.name = 'MoralisAuthError';
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, MoralisAuthError);
     }
   }
 }

@@ -54,6 +54,7 @@
     "packages": [
       "packages/*",
       "demos/*",
+      "demos/demo-parse-server-auth/*",
       "packages/evmConnectors/*",
       "packages/solConnectors/*"
     ]

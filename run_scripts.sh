@@ -15,6 +15,7 @@ yarn --cwd packages/evmConnectors/EvmMagiclinkConnector $1
 yarn --cwd packages/evm $1
 yarn --cwd packages/evmApi $1
 yarn --cwd packages/server $1
+yarn --cwd packages/auth $1
 yarn --cwd packages/moralis $1
 
 yarn --cwd demos/test-app-all $1

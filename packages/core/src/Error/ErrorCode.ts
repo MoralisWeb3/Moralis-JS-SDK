@@ -78,10 +78,19 @@ export enum UtilsErrorCode {
   NOT_IMPLEMENTED = 'U9000',
 }
 
+export enum AuthErrorCode {
+  GENERIC_AUTH_ERROR = 'U0001',
+  INCORRECT_NETWORK = 'U0002',
+  INCORRECT_PARAMETER = 'U0003',
+
+  NOT_IMPLEMENTED = 'U9000',
+}
+
 export type MoralisErrorCode =
   | CoreErrorCode
   | ServerErrorCode
   | NetworkErrorCode
   | NetworkConnectorErrorCode
   | ApiErrorCode
-  | UtilsErrorCode;
+  | UtilsErrorCode
+  | AuthErrorCode;
