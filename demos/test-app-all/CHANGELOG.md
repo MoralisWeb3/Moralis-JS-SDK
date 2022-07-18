@@ -1,5 +1,21 @@
 # @moralisweb3/test-app-all
 
+## 2.0.0-alpha.2
+
+### Minor Changes
+
+- [#464](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/464) [`d4a752e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d4a752ef1b9b279a6500d9618093912093eca08b) Thanks [@sogunshola](https://github.com/sogunshola)! - Allow to cancel an Evm connect request
+
+* [#453](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/453) [`ba6fd72`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ba6fd72e891a14aa7635e6dfe34addb039d8a4b1) Thanks [@sogunshola](https://github.com/sogunshola)! - Add optional chain validation for chain interactions
+
+### Patch Changes
+
+- Updated dependencies [[`d4a752e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d4a752ef1b9b279a6500d9618093912093eca08b), [`f466f90`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f466f902983ac887743eceec03c7fade42aab0ce), [`f466f90`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f466f902983ac887743eceec03c7fade42aab0ce), [`9e67989`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9e67989c33f965bccb5dede53785a55fb1933316), [`108a8db`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/108a8db081b098832fd4e398694ed5355ecde67d), [`ed400c9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ed400c9c99746ed346462565e558b6761ea6d4ba)]:
+  - @moralisweb3/evm-wallet-connect-connector@2.0.0-alpha.2
+  - moralis@2.0.0-alpha.2
+  - @moralisweb3/server@2.0.0-alpha.2
+  - @moralisweb3/evm-magic-link-connector@2.0.0-alpha.2
+
 ## 2.0.0-alpha.1
 
 ### Major Changes
