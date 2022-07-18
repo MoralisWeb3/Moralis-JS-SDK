@@ -1,0 +1,35 @@
+{
+  "name": "@moralisweb3/api-utils",
+  "author": "Moralis",
+  "version": "2.0.0-alpha.1",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib/index.*",
+    "lib/**/*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit",
+    "test:ci": "yarn test --ci",
+    "test:coverage": "yarn run test --coverage",
+    "test:watch": "yarn run test --watch",
+    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
+    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
+    "build": "rollup -c rollup.config.js",
+    "build:dev": "dev=true rollup -c",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@moralisweb3/core": "^2.0.0-alpha.1"
+  }
+}

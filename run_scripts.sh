@@ -12,6 +12,7 @@ yarn --cwd packages/evmConnectors/EvmWalletconnectConnector $1
 yarn --cwd packages/evmConnectors/EvmMagiclinkConnector $1
 
 yarn --cwd packages/evm $1
+yarn --cwd packages/apiUtils $1
 yarn --cwd packages/evmApi $1
 yarn --cwd packages/server $1
 yarn --cwd packages/moralis $1
