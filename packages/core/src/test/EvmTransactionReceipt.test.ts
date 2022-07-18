@@ -194,8 +194,8 @@ describe('EvmTransactionReceipt', () => {
 
   it('should return EvmTransactionReceipt total cost', () => {
     const transactionReceipt = EvmTransactionReceipt.create(inputWithAllData, transactionResponseData);
-    const totalGasCostString = transactionReceipt.totalGasCost;
+    const totalGasCostString = transactionReceipt.totalGasCost.format();
 
-    expect(totalGasCostString.format()).toBe(expectedTotalGas);
+    expect(totalGasCostString).toBe(expectedTotalGas);
   });
 });
