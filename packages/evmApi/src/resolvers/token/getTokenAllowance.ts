@@ -1,8 +1,8 @@
 import { BigNumber } from 'ethers';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
 import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api-utils';
+import { BASE_URL } from '../../EvmApi';
 
 type operation = 'getTokenAllowance';
 
@@ -19,9 +19,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'owner_addres
   spenderAddress: EvmAddressish;
 }
 
-export const getTokenAllowanceResolver = new EvmResolver({
+export const getTokenAllowanceResolver = new ApiResolver({
   name: 'getTokenAllowance',
-  getPath: (params: Params) => `erc20/${params.address}/allowance`,
+  getUrl: (params: Params) => `${BASE_URL}/erc20/${params.address}/allowance`,
   apiToResult: (data: ApiResult) => ({
     allowance: BigNumber.from(data.allowance),
   }),

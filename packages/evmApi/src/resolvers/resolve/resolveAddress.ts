@@ -1,6 +1,7 @@
+import { ApiResolver } from '@moralisweb3/api-utils';
 import { EvmAddress, EvmAddressish, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
 
 type operation = 'resolveAddress';
 
@@ -13,9 +14,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'address'>> {
   address?: EvmAddressish;
 }
 
-export const resolveAddressResolver = new EvmResolver({
+export const resolveAddressResolver = new ApiResolver({
   name: 'resolveAddress',
-  getPath: (params: Params) => `resolve/${params.address}/reverse`,
+  getUrl: (params: Params) => `${BASE_URL}/resolve/${params.address}/reverse`,
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,
   parseParams: (params: Params) => ({

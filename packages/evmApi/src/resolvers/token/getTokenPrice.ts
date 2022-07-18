@@ -1,7 +1,6 @@
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api-utils';
 import { EvmNative, EvmAddress, EvmChainish, EvmAddressish, Camelize, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenPrice';
 
@@ -16,9 +15,9 @@ interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   address: EvmAddressish;
 }
 
-export const getTokenPriceResolver = new EvmResolver({
+export const getTokenPriceResolver = new ApiResolver({
   name: 'getTokenPrice',
-  getPath: (params: ApiParams) => `erc20/${params.address}/price`,
+  getUrl: (params: ApiParams) => `erc20/${params.address}/price`,
   apiToResult: (data: ApiResult) => ({
     ...toCamelCase(data),
     nativePrice: data.nativePrice?.value ? EvmNative.create(data.nativePrice?.value, data.nativePrice?.decimals) : null,

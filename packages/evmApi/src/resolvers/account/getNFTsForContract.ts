@@ -1,7 +1,7 @@
+import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultAddress, resolveDefaultChain } from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getNFTsForContract';
 
@@ -9,7 +9,7 @@ type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'token_address'>>, PaginatedOptions {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'token_address'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
   address?: EvmAddressish;
   tokenAddress: EvmAddressish;
@@ -17,9 +17,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | '
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getNFTsForContractResolver = new EvmPaginatedResolver({
+export const getNFTsForContractResolver = new ApiPaginatedResolver({
   name: 'getNFTsForContract',
-  getPath: (params: Params) => `${params.address}/nft/${params.tokenAddress}`,
+  getUrl: (params: Params) => `${BASE_URL}/${params.address}/nft/${params.tokenAddress}`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((nft) => ({
       token: new EvmNFT({

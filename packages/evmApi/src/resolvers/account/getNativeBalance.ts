@@ -1,7 +1,7 @@
+import { resolveDefaultAddress, resolveDefaultChain, ApiResolver } from '@moralisweb3/api-utils';
 import { EvmAddressish, EvmChainish, EvmNative, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain, resolveDefaultAddress } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
 
 type operation = 'getNativeBalance';
 
@@ -16,9 +16,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   address?: EvmAddressish;
 }
 
-export const getNativeBalanceResolver = new EvmResolver({
+export const getNativeBalanceResolver = new ApiResolver({
   name: 'getNativeBalance',
-  getPath: (params: Params) => `${params.address}/balance`,
+  getUrl: (params: Params) => `${BASE_URL}/${params.address}/balance`,
   apiToResult: (data: ApiResult) => ({
     balance: EvmNative.create(data.balance, 'wei'),
   }),

@@ -1,7 +1,7 @@
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddressish, EvmAddress, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
 
 const method = 'put';
 
@@ -18,9 +18,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   address: EvmAddressish;
 }
 
-export const syncNFTContractResolver = new EvmResolver({
+export const syncNFTContractResolver = new ApiResolver({
   name: 'syncNFTContract',
-  getPath: (params: Params) => `nft/${params.address}/sync`,
+  getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/sync`,
   apiToResult: (data: ApiResult) => ({
     success: true,
   }),

@@ -1,23 +1,23 @@
-import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
+import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain } from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog, Camelize, toCamelCase } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getLogsByAddress';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
   address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getLogsByAddressResolver = new EvmPaginatedResolver({
+export const getLogsByAddressResolver = new ApiPaginatedResolver({
   name: 'getLogsByAddress',
-  getPath: (params: Params) => `${params.address}/logs`,
+  getUrl: (params: Params) => `${BASE_URL}/${params.address}/logs`,
   apiToResult: (data: ApiResult) =>
     data.result?.map(
       (log) =>

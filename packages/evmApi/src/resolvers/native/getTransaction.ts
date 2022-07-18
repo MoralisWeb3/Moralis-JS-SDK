@@ -1,7 +1,7 @@
-import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api-utils';
 import { EvmChainish, EvmTransactionReceipt, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
 
 type operation = 'getTransaction';
 
@@ -15,9 +15,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
   chain?: EvmChainish;
 }
 
-export const getTransactionResolver = new EvmResolver({
+export const getTransactionResolver = new ApiResolver({
   name: 'getTransaction',
-  getPath: (params: Params) => `transaction/${params.transactionHash}`,
+  getUrl: (params: Params) => `${BASE_URL}/transaction/${params.transactionHash}`,
   apiToResult: (data: ApiResult, params: Params) => {
     const transactionReciept = EvmTransactionReceipt.create(
       {
