@@ -9,7 +9,6 @@ import {
   getNFTTradesResolver,
   getTokenAddressTransfersResolver,
   getNftTransfersFromToBlockResolver,
-  getTokenMetadataResolver,
   getAllTokenIdsResolver,
   searchNFTsResolver,
   getNFTOwnersResolver,
@@ -42,6 +41,7 @@ import {
 import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
 import { uploadFolderResolver } from './resolvers/storage';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
+import { getTokenMetadataResolver } from './resolvers/token/getTokenMetadata';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
