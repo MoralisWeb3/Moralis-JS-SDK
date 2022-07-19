@@ -1,6 +1,6 @@
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
+import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
 
 type operation = 'getNFTs';
@@ -12,7 +12,7 @@ type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'token_addresses'>>, PaginatedOptions {
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -50,6 +50,6 @@ export const getNFTsResolver = new EvmPaginatedResolver({
     ...params,
     chain: resolveDefaultChain(params.chain).apiHex,
     token_addresses: params.tokenAddresses?.map((address) => EvmAddress.create(address).lowercase),
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
   }),
 });

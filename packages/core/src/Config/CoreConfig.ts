@@ -23,32 +23,10 @@ export const CoreConfig = {
     name: 'defaultNetwork',
     defaultValue: 'Evm',
   } as ConfigKey<Network>,
-  defaultEvmConnector: {
-    name: 'defaultEvmConnector',
-    defaultValue: 'metamask',
-  } as ConfigKey<string>,
   defaultEvmApiChain: {
     name: 'defaultEvmApiChain',
     defaultValue: '0x1',
   } as ConfigKey<EvmChainish>,
-
-  appId: {
-    name: 'appId',
-    defaultValue: null,
-  } as ConfigKey<string | null>,
-  serverUrl: {
-    name: 'serverUrl',
-    defaultValue: null,
-  } as ConfigKey<string | null>,
-
-  moralisSecret: {
-    name: 'moralisSecret',
-    defaultValue: null,
-  } as ConfigKey<string | null>,
-  masterKey: {
-    name: 'masterKey',
-    defaultValue: null,
-  } as ConfigKey<string | null>,
 
   formatEvmChainId: {
     name: 'formatEvmChainId',

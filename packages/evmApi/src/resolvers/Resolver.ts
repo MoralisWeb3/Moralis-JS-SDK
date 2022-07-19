@@ -1,11 +1,4 @@
-import {
-  ApiErrorCode,
-  Config,
-  MoralisCoreProvider,
-  MoralisApiError,
-  RequestController,
-  CoreConfig,
-} from '@moralisweb3/core';
+import { ApiErrorCode, Config, MoralisCoreProvider, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { EvmApiConfig } from '../config/EvmApiConfig';
 import { BASE_URL } from '../EvmApi';
 import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
@@ -15,11 +8,6 @@ export enum BodyType {
   PROPERTY = 'property',
   BODY = 'body',
 }
-
-export interface ServerResponse<ApiResult> {
-  result: ApiResult;
-}
-
 export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   getPath: (params: Params) => string;
   apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
@@ -162,32 +150,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
-  protected _serverRequest = async (params: Params) => {
-    const url = this.getServerUrl();
-    const apiParams = this.parseParams(params);
-
-    const { result } = await this.requestController.post<
-      ServerResponse<ApiResult>,
-      Record<string, string>,
-      //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      ApiParams
-      // Requests to the server are always a post request with bodyparams, no need to supply searchparams
-    >(url, {}, apiParams);
-
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
-  };
-
-  protected getServerUrl() {
-    const serverUrl = this.config.get(CoreConfig.serverUrl);
-    if (!serverUrl) {
-      throw new MoralisApiError({
-        code: ApiErrorCode.GENERIC_API_ERROR,
-        message: 'EvmApi failed: start with apiKey or serverUrl',
-      });
-    }
-    return `${serverUrl}/functions/${this.name}`;
-  }
-
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(EvmApiConfig.apiKey);
     const headers: { [key: string]: string } = {};
@@ -198,16 +160,22 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   }
 
   fetch = (params: Params) => {
-    if (this.config.get(EvmApiConfig.apiKey)) {
-      switch (this.method) {
-        case 'post':
-          return this._apiPost(params);
-        case 'put':
-          return this._apiPut(params);
-        default:
-          return this._apiGet(params);
-      }
+    const apiKey = this.config.get(EvmApiConfig.apiKey);
+
+    if (!apiKey) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.API_KEY_NOT_SET,
+        message: 'apiKey is not set',
+      });
     }
-    return this._serverRequest(params);
+
+    switch (this.method) {
+      case 'post':
+        return this._apiPost(params);
+      case 'put':
+        return this._apiPut(params);
+      default:
+        return this._apiGet(params);
+    }
   };
 }

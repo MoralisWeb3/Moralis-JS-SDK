@@ -1,9 +1,0 @@
-CHANGELOG.md
-
-# Output folders
-lib/**/*
-build
-dist
-coverage/
-lib.esm
-node_modules
