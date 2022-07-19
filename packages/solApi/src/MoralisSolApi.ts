@@ -21,22 +21,19 @@ export class MoralisSolApi extends ApiModule {
   public setup() {
     // Nothing
   }
+
   public start() {
     // Nothing
   }
 
-  public get account() {
-    return {
-      getBalance: getBalanceResolver.fetch,
-      getNFTs: getNFTsResolver.fetch,
-      getPortfolio: getPortfolioResolver.fetch,
-      getSPL: getSPLResolver.fetch,
-    };
-  }
+  public readonly account = {
+    getBalance: getBalanceResolver.fetch,
+    getNFTs: getNFTsResolver.fetch,
+    getPortfolio: getPortfolioResolver.fetch,
+    getSPL: getSPLResolver.fetch,
+  };
 
-  public get nft() {
-    return {
-      getNFTMetadata: getNFTMetadataResolver.fetch,
-    };
-  }
+  public readonly nft = {
+    getNFTMetadata: getNFTMetadataResolver.fetch,
+  };
 }

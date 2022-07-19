@@ -1,14 +1,41 @@
-import Moralis from "moralis";
-import { smoketest } from "./Smoketest";
+import Moralis from 'moralis';
+import { smokeTest } from './Tester';
 
-export async function testEvm() {
-  await smoketest('(Evm) Api version', () => {
-    return Moralis.EvmApi.info.web3ApiVersion();
-  });
+export function testEvmInfo(): Promise<unknown> {
+  const groupName = 'Evm/info';
 
-  await smoketest('(Evm) Resolve address', () => {
-    return Moralis.EvmApi.resolve.resolveAddress({
-      address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-    });
-  });
+  return Promise.all([
+    smokeTest(groupName, 'web3ApiVersion', () => {
+      return Moralis.EvmApi.info.web3ApiVersion();
+    }),
+  ]);
+}
+
+export function testEvmAccount(): Promise<unknown> {
+  const groupName = 'Evm/account';
+
+  return Promise.all([
+    smokeTest(groupName, 'getNativeBalance', () => {
+      return Moralis.EvmApi.account.getNativeBalance({
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+      });
+    }),
+    smokeTest(groupName, 'getNativeBalance', () => {
+      return Moralis.EvmApi.account.getNFTs({
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+      });
+    }),
+  ]);
+}
+
+export function testEvmResolve(): Promise<unknown> {
+  const groupName = 'Evm/resolve';
+
+  return Promise.all([
+    smokeTest(groupName, 'resolveAddress', () => {
+      return Moralis.EvmApi.resolve.resolveAddress({
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+      });
+    }),
+  ]);
 }

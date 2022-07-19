@@ -2,9 +2,9 @@
 
 import Moralis from 'moralis';
 import dotenv from 'dotenv';
+import { getTestStats } from './Tester';
 import { testSolanaAccount, testSolanaNft } from './SolApi';
-import { testEvm } from './EvmApi';
-import { getSmoketestStats } from './Smoketest';
+import { testEvmAccount, testEvmInfo, testEvmResolve } from './EvmApi';
 
 function readEnv(): { [key: string]: string } {
   return dotenv.config().parsed as { [key: string]: string };
@@ -18,14 +18,13 @@ async function main() {
     apiKey: env['MORALIS_API_KEY'],
   });
 
-  await testSolanaAccount();
-  await testSolanaNft();
+  await Promise.all([testSolanaAccount(), testSolanaNft(), testEvmInfo(), testEvmAccount(), testEvmResolve()]);
 
-  await testEvm();
-
-  const stats = getSmoketestStats();
+  const stats = getTestStats();
   console.log(`⏩ successCount = ${stats.successCount}`);
   console.log(`⏩ errorCount = ${stats.errorCount}`);
+
+  process.exitCode = Math.min(1, stats.errorCount);
 }
 
 main();

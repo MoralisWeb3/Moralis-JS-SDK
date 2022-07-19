@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.2",
+    "@moralisweb3/api": "^2.0.0-alpha.2",
     "@moralisweb3/evm-api": "^2.0.0-alpha.2",
     "@moralisweb3/sol-api": "^2.0.0-alpha.2"
   }

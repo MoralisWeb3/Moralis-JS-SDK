@@ -1,4 +1,5 @@
 import { ApiResolver } from '@moralisweb3/api';
+import { Camelize, SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../MoralisSolApi';
 
@@ -9,18 +10,32 @@ type PathParams = operations[Operation]['parameters']['path'];
 type ApiParams = PathParams;
 type ApiResult = operations[Operation]['responses']['200']['content']['application/json'];
 
-export interface Params {
-  network: 'devnet' | 'mainnet';
-  address: string;
+export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>> {
+  network: SolNetworkish;
+  address: SolAddressish;
 }
 
 export const getNFTsResolver = new ApiResolver({
   name: 'getNFTs',
   getUrl: (params: Params) => `${BASE_URL}/account/${params.network}/${params.address}/nft`,
-  apiToResult: (data: ApiResult) => data,
-  resultToJson: (data) => data,
+  apiToResult: (data: ApiResult) => {
+    return data.map((nft) => {
+      return {
+        associatedTokenAddress: SolAddress.create(nft.associatedTokenAddress),
+        mint: SolAddress.create(nft.mint),
+      };
+    });
+  },
+  resultToJson: (data) => {
+    return data.map((nft) => {
+      return {
+        associatedTokenAddress: nft.associatedTokenAddress.toJSON(),
+        mint: nft.mint.toJSON(),
+      };
+    });
+  },
   parseParams: (params: Params): ApiParams => ({
-    address: params.address,
-    network: params.network,
+    network: SolNetwork.create(params.network).network,
+    address: SolAddress.create(params.address).address,
   }),
 });
