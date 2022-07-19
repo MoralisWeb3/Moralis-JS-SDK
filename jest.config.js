@@ -6,7 +6,6 @@ module.exports = {
     '^@moralisweb3/evm-walletconnect-connector$': '<rootDir>/../evmConnectors/EvmWalletconnectConnector/src',
     '^@moralisweb3/evm-api': '<rootDir>/../evmApi/src',
     '^@moralisweb3/core': '<rootDir>/../core/src',
-    '^@moralisweb3/api': '<rootDir>/../api/src',
     '^@moralisweb3/(.*)$': '<rootDir>/../$1/src',
   },
   modulePaths: ['<rootDir>'],
