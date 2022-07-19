@@ -1,21 +1,21 @@
 import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
-import { EvmApiResultAdapter } from './EvmApiResultAdapter';
-import { PaginatedResponse } from './resolvers/PaginatedResolver';
+import { ApiResultAdapter } from './ApiResultAdapter';
+import { ApiPaginatedResponse } from './PaginatedResolver';
 
-export class EvmApiPaginatedResultAdapter<
-  Data extends PaginatedResponse<unknown>,
+export class ApiPaginatedResultAdapter<
+  Data extends ApiPaginatedResponse<unknown>,
   AdaptedData,
   JSONData,
   Params,
-> extends EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
-  private _nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>;
+> extends ApiResultAdapter<Data, AdaptedData, JSONData, Params> {
+  private _nextCall?: () => Promise<ApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>;
 
   constructor(
     data: Data,
     adapter: (data: Data, params: Params) => AdaptedData,
     jsonAdapter: (data: AdaptedData) => JSONData,
     params: Params,
-    nextCall?: () => Promise<EvmApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>,
+    nextCall?: () => Promise<ApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>,
   ) {
     super(data, adapter, jsonAdapter, params);
     this._nextCall = nextCall;

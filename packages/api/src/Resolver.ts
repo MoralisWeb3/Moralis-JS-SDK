@@ -1,15 +1,15 @@
 import { ApiErrorCode, Config, MoralisCoreProvider, MoralisApiError, RequestController } from '@moralisweb3/core';
-import { EvmApiConfig } from '../config/EvmApiConfig';
-import { BASE_URL } from '../EvmApi';
-import { EvmApiResultAdapter } from '../EvmApiResultAdapter';
+import { ApiConfig } from './config/ApiConfig';
+import { ApiResultAdapter } from './ApiResultAdapter';
 
 type Method = 'get' | 'post' | 'put';
 export enum BodyType {
   PROPERTY = 'property',
   BODY = 'body',
 }
-export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
-  getPath: (params: Params) => string;
+
+export interface ApiResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
+  getUrl: (params: Params) => string;
   apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
@@ -19,8 +19,8 @@ export interface EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult,
   name: string;
 }
 
-export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
-  protected getPath: (params: Params) => string;
+export class ApiResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
+  protected getUrl: (params: Params) => string;
   protected apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   protected resultToJson: (result: AdaptedResult) => JSONResult;
   protected parseParams: (params: Params) => ApiParams;
@@ -32,7 +32,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   protected readonly requestController: RequestController;
 
   constructor({
-    getPath,
+    getUrl,
     apiToResult,
     resultToJson,
     parseParams,
@@ -40,8 +40,8 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     bodyParams,
     bodyType,
     name,
-  }: EvmResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
-    this.getPath = getPath;
+  }: ApiResolverOptions<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>) {
+    this.getUrl = getUrl;
     this.apiToResult = apiToResult;
     this.resultToJson = resultToJson;
     this.parseParams = parseParams;
@@ -53,10 +53,6 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
     this.config = core.config;
     this.requestController = RequestController.create(core);
   }
-
-  protected getUrl = (params: Params) => {
-    return `${BASE_URL}/${this.getPath(params)}`;
-  };
 
   protected isBodyParam = (param: string) => {
     if (this.method === 'get') {
@@ -109,7 +105,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       headers: this.createHeaders(),
     });
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
+    return new ApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected _apiPost = async (params: Params) => {
@@ -128,7 +124,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     );
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
+    return new ApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   protected _apiPut = async (params: Params) => {
@@ -147,11 +143,11 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
       },
     );
 
-    return new EvmApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
+    return new ApiResultAdapter(result, this.apiToResult, this.resultToJson, params);
   };
 
   private createHeaders(): { [key: string]: string } {
-    const apiKey = this.config.get(EvmApiConfig.apiKey);
+    const apiKey = this.config.get(ApiConfig.apiKey);
     const headers: { [key: string]: string } = {};
     if (apiKey) {
       headers['x-api-key'] = apiKey;
@@ -160,7 +156,7 @@ export class EvmResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult
   }
 
   fetch = (params: Params) => {
-    const apiKey = this.config.get(EvmApiConfig.apiKey);
+    const apiKey = this.config.get(ApiConfig.apiKey);
 
     if (!apiKey) {
       throw new MoralisApiError({

@@ -1,6 +1,6 @@
 import { ConfigKey } from '@moralisweb3/core';
 
-export const EvmApiConfig = {
+export const ApiConfig = {
   apiKey: {
     name: 'apiKey',
     defaultValue: null,

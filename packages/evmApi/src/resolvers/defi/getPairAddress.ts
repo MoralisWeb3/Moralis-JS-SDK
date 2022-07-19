@@ -1,7 +1,7 @@
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
 import { Erc20Token, EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
 
 type operation = 'getPairAddress';
 
@@ -17,9 +17,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'token0_addre
   token1Address: EvmAddressish;
 }
 
-export const getPairAddressResolver = new EvmResolver({
+export const getPairAddressResolver = new ApiResolver({
   name: 'getPairAddress',
-  getPath: (params: Params) => `${params.token0Address}/${params.token1Address}/pairAddress`,
+  getUrl: (params: Params) => `${BASE_URL}/${params.token0Address}/${params.token1Address}/pairAddress`,
   apiToResult: (data: ApiResult, params: Params) => ({
     //   ApiResult types generated all come as undefined which should not be the case TODO:
     token0: {

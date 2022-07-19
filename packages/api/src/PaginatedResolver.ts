@@ -1,11 +1,11 @@
-import { checkObjEqual } from './../utils/checkObjEqual';
-import { EvmResolver, EvmResolverOptions } from './Resolver';
-import { getNextParams } from '../utils/getNextParams';
-import { EvmApiPaginatedResultAdapter } from '../EvmApiPaginatedResultAdapter';
-import { EvmApiConfig } from '../config/EvmApiConfig';
-import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core/lib';
+import { checkObjEqual } from './utils/checkObjEqual';
+import { ApiResolver, ApiResolverOptions } from './Resolver';
+import { getNextParams } from './utils/getNextParams';
+import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
+import { ApiConfig } from './config/ApiConfig';
+import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
 
-export interface PaginatedResponse<Data> {
+export interface ApiPaginatedResponse<Data> {
   total: number;
   page: number;
   page_size: number;
@@ -13,21 +13,21 @@ export interface PaginatedResponse<Data> {
   result: Data;
 }
 
-export interface PaginatedOptions extends Record<string, unknown> {
+export interface ApiPaginatedOptions extends Record<string, unknown> {
   offset?: number;
   limit?: number;
   cursor?: string;
 }
 
-export class EvmPaginatedResolver<
+export class ApiPaginatedResolver<
   ApiParams,
-  Params extends PaginatedOptions,
+  Params extends ApiPaginatedOptions,
   ApiResult,
   AdaptedResult,
   JSONResult,
-> extends EvmResolver<ApiParams, Params, PaginatedResponse<ApiResult>, AdaptedResult, JSONResult> {
+> extends ApiResolver<ApiParams, Params, ApiPaginatedResponse<ApiResult>, AdaptedResult, JSONResult> {
   constructor({
-    getPath,
+    getUrl,
     apiToResult,
     resultToJson,
     parseParams,
@@ -35,8 +35,8 @@ export class EvmPaginatedResolver<
     bodyParams,
     bodyType,
     name,
-  }: EvmResolverOptions<ApiParams, Params, PaginatedResponse<ApiResult>, AdaptedResult, JSONResult>) {
-    super({ getPath, apiToResult, resultToJson, parseParams, method, bodyParams, bodyType, name });
+  }: ApiResolverOptions<ApiParams, Params, ApiPaginatedResponse<ApiResult>, AdaptedResult, JSONResult>) {
+    super({ getUrl, apiToResult, resultToJson, parseParams, method, bodyParams, bodyType, name });
   }
 
   // TODO: error handler to ApiError
@@ -50,11 +50,11 @@ export class EvmPaginatedResolver<
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
     const result = await this.requestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
       headers: {
-        'x-api-key': this.config.get(EvmApiConfig.apiKey),
+        'x-api-key': this.config.get(ApiConfig.apiKey),
       },
     });
 
-    return new EvmApiPaginatedResultAdapter(
+    return new ApiPaginatedResultAdapter(
       result,
       this.apiToResult,
       this.resultToJson,
@@ -70,21 +70,21 @@ export class EvmPaginatedResolver<
     const searchParams = this.getSearchParams(apiParams);
     const bodyParams = this.getBodyParams(apiParams);
 
-    const apiKey = this.config.get(EvmApiConfig.apiKey);
+    const apiKey = this.config.get(ApiConfig.apiKey);
     const headers: { [key: string]: string } = {};
     if (apiKey) {
       headers['x-api-key'] = apiKey;
     }
 
     const result = await this.requestController.post<
-      PaginatedResponse<ApiResult>,
+      ApiPaginatedResponse<ApiResult>,
       Record<string, string>,
       Record<string, string>
     >(url, searchParams, bodyParams, {
       headers,
     });
 
-    return new EvmApiPaginatedResultAdapter(
+    return new ApiPaginatedResultAdapter(
       result,
       this.apiToResult,
       this.resultToJson,
@@ -93,7 +93,7 @@ export class EvmPaginatedResolver<
     );
   };
 
-  private resolveNextCall = (params: Params, result: Awaited<PaginatedResponse<ApiResult>>) => {
+  private resolveNextCall = (params: Params, result: Awaited<ApiPaginatedResponse<ApiResult>>) => {
     const nextParams = getNextParams(params, result);
     return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
   };
@@ -101,9 +101,9 @@ export class EvmPaginatedResolver<
   fetch = (
     params: Params,
   ): Promise<
-    EvmApiPaginatedResultAdapter<Awaited<PaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
+    ApiPaginatedResultAdapter<Awaited<ApiPaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
   > => {
-    const apiKey = this.config.get(EvmApiConfig.apiKey);
+    const apiKey = this.config.get(ApiConfig.apiKey);
 
     if (!apiKey) {
       throw new MoralisApiError({

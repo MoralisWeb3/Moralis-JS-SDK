@@ -2,7 +2,7 @@ import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralisweb
 import { MoralisDataObject } from '@moralisweb3/core';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
-enum EvmApiFormatType {
+enum ApiFormatType {
   // Return the data directly, as is provided by the API
   RAW = 'raw',
   // Return the formatted result of all moralis DataTypes
@@ -37,7 +37,7 @@ export type JSONApiResult<Value extends object = object> =
     }
   | JSONApiResult[];
 
-export class EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
+export class ApiResultAdapter<Data, AdaptedData, JSONData, Params> {
   protected _data: Data;
   protected _adapter: (data: Data, params: Params) => AdaptedData;
   protected _jsonAdapter: (data: AdaptedData) => JSONData;
@@ -68,20 +68,20 @@ export class EvmApiResultAdapter<Data, AdaptedData, JSONData, Params> {
     return this._jsonAdapter(this.result);
   }
 
-  format(formatType: EvmApiFormatType.RAW): Data;
+  format(formatType: ApiFormatType.RAW): Data;
   // WIP: add type
-  format(formatType: EvmApiFormatType.JSON): unknown;
-  format(formatType: EvmApiFormatType.NORMAL): AdaptedData;
-  format(formatType: EvmApiFormatType) {
-    if (formatType === EvmApiFormatType.RAW) {
+  format(formatType: ApiFormatType.JSON): unknown;
+  format(formatType: ApiFormatType.NORMAL): AdaptedData;
+  format(formatType: ApiFormatType) {
+    if (formatType === ApiFormatType.RAW) {
       return this.raw;
     }
 
-    if (formatType === EvmApiFormatType.JSON) {
+    if (formatType === ApiFormatType.JSON) {
       return this.toJSON();
     }
 
-    if (formatType === EvmApiFormatType.NORMAL) {
+    if (formatType === ApiFormatType.NORMAL) {
       return this.result;
     }
 

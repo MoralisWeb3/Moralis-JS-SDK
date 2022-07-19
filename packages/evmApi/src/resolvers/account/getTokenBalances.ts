@@ -1,7 +1,7 @@
-import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
 import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish, Camelize, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
+import { BASE_URL } from '../../EvmApi';
+import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
 
 type operation = 'getTokenBalances';
 
@@ -16,9 +16,9 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   address: EvmAddressish;
 }
 
-export const getTokenBalancesResolver = new EvmResolver({
+export const getTokenBalancesResolver = new ApiResolver({
   name: 'getTokenBalances',
-  getPath: (params: ApiParams) => `${params.address}/erc20`,
+  getUrl: (params: ApiParams) => `${BASE_URL}/${params.address}/erc20`,
   apiToResult: (data: ApiResult, params: ApiParams) =>
     data.map((token) => ({
       token: new Erc20Token({

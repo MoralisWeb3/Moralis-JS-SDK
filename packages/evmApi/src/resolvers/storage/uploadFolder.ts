@@ -1,5 +1,6 @@
+import { ApiResolver, BodyType } from '@moralisweb3/api';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { BodyType, EvmResolver } from '../Resolver';
 
 type operation = 'uploadFolder';
 const method = 'post';
@@ -14,9 +15,9 @@ export interface Params {
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const uploadFolderResolver = new EvmResolver({
+export const uploadFolderResolver = new ApiResolver({
   name: 'uploadFolder',
-  getPath: () => `ipfs/uploadFolder`,
+  getUrl: () => `${BASE_URL}/ipfs/uploadFolder`,
   apiToResult: (data: ApiResult) => {
     return data;
   },
