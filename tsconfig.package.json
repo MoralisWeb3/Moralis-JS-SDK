@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "module": "esnext",
+    "module": "commonjs",
     "allowJs": true,
     "moduleResolution": "node",
     "noEmitOnError": true,

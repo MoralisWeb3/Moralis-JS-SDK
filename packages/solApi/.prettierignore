@@ -1,0 +1,9 @@
+CHANGELOG.md
+
+# Output folders
+lib/**/*
+dist
+coverage/
+node_modules
+
+src/generated

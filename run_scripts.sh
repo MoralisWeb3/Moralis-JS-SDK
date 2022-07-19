@@ -1,12 +1,20 @@
 #!/bin/bash
 set -e
 
-echo "Script: $1"
+SCRIPT=$1
 
-yarn --cwd packages/core  $1
+echo "* script: $1"
 
-yarn --cwd packages/api $1
-yarn --cwd packages/evmApi $1
-yarn --cwd packages/moralis $1
+run () {
+  echo "* package: $1"
+   yarn --cwd $1 $SCRIPT
+}
 
-yarn --cwd demos/test-node $1
+run packages/core
+
+run packages/api
+run packages/evmApi
+run packages/solApi
+run packages/moralis
+
+run demos/test-node
