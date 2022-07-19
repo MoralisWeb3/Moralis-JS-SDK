@@ -1,1 +1,1 @@
-export * from './MockConnector';
+export default {};

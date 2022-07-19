@@ -1,4 +1,3 @@
 export enum ModuleName {
-  SERVER = 'server',
-  EVM = 'evm',
+  EVM_API = 'evmApi',
 }

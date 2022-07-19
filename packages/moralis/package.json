@@ -17,15 +17,11 @@
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "rollup -c",
-    "build:dev": "dev=true rollup -c",
-    "dev": "rollup -c --watch"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@moralisweb3/core": "^2.0.0-alpha.2",
-    "@moralisweb3/server": "^2.0.0-alpha.2",
-    "@moralisweb3/evm-api": "^2.0.0-alpha.2",
-    "@moralisweb3/evm": "^2.0.0-alpha.2",
-    "@moralisweb3/evm-connector-utils": "^2.0.0-alpha.2"
+    "@moralisweb3/evm-api": "^2.0.0-alpha.2"
   }
 }

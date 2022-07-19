@@ -1,12 +1,4 @@
-import {
-  MoralisErrorCode,
-  CoreErrorCode,
-  ServerErrorCode,
-  NetworkErrorCode,
-  NetworkConnectorErrorCode,
-  ApiErrorCode,
-  UtilsErrorCode,
-} from './ErrorCode';
+import { MoralisErrorCode, CoreErrorCode, ApiErrorCode } from './ErrorCode';
 
 export type MoralisErrorDetails = Record<string, unknown>;
 
@@ -61,40 +53,6 @@ export class MoralisCoreError extends MoralisError {
   }
 }
 
-export class MoralisServerError extends MoralisError {
-  public readonly name: string = 'Moralis SDK Server Error';
-
-  public constructor(options: MoralisErrorOptions<ServerErrorCode>) {
-    super(options);
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MoralisServerError);
-    }
-  }
-}
-
-export class MoralisNetworkError extends MoralisError {
-  public readonly name: string = 'Moralis SDK Network Error';
-
-  public constructor(options: MoralisErrorOptions<NetworkErrorCode>) {
-    super(options);
-    Object.setPrototypeOf(this, MoralisNetworkError.prototype);
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MoralisNetworkError);
-    }
-  }
-}
-
-export class MoralisNetworkConnectorError extends MoralisError {
-  public readonly name: string = 'Moralis SDK NetworkConnector Error';
-
-  public constructor(options: MoralisErrorOptions<NetworkConnectorErrorCode>) {
-    super(options);
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MoralisNetworkConnectorError);
-    }
-  }
-}
-
 export class MoralisApiError extends MoralisError {
   public readonly name: string = 'Moralis SDK API Error';
 
@@ -102,17 +60,6 @@ export class MoralisApiError extends MoralisError {
     super(options);
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisApiError);
-    }
-  }
-}
-
-export class MoralisUtilsError extends MoralisError {
-  public readonly name: string = 'Moralis SDK Utils Error';
-
-  public constructor(options: MoralisErrorOptions<UtilsErrorCode>) {
-    super(options);
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MoralisUtilsError);
     }
   }
 }

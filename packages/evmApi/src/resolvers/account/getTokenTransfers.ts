@@ -1,12 +1,7 @@
 import { EvmChainish, EvmAddressish, EvmAddress, Camelize, toCamelCase } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { BigNumber } from 'ethers';
-import {
-  ApiPaginatedOptions,
-  ApiPaginatedResolver,
-  resolveDefaultChain,
-  resolveDefaultAddress,
-} from '@moralisweb3/api';
+import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain } from '@moralisweb3/api';
 import { BASE_URL } from '../../EvmApi';
 
 type operation = 'getTokenTransfers';
@@ -16,7 +11,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -45,7 +40,7 @@ export const getTokenTransfersResolver = new ApiPaginatedResolver({
   parseParams: (params: Params): ApiParams => ({
     ...params,
     chain: resolveDefaultChain(params.chain).apiHex,
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

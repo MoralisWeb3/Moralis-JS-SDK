@@ -17,9 +17,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "rollup -c rollup.config.js",
-    "build:dev": "dev=true rollup -c",
     "gen:types": "openapi-typescript https://deep-index.moralis.io/api-docs/v2/swagger.json --output src/generated/types.ts",
+    "build": "tsc",
     "dev": "tsc --watch"
   },
   "devDependencies": {

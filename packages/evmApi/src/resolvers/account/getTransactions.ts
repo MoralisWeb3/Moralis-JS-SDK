@@ -1,12 +1,7 @@
 import { BigNumber } from 'ethers';
-import { EvmChainish, EvmAddressish, EvmTransactionReceipt, Camelize } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmTransactionReceipt, Camelize, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import {
-  ApiPaginatedOptions,
-  ApiPaginatedResolver,
-  resolveDefaultChain,
-  resolveDefaultAddress,
-} from '@moralisweb3/api';
+import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain } from '@moralisweb3/api';
 import { BASE_URL } from '../../EvmApi';
 
 type operation = 'getTransactions';
@@ -16,7 +11,7 @@ type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
 export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'cursor'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
@@ -63,7 +58,7 @@ export const getTransactionsResolver = new ApiPaginatedResolver({
   parseParams: (params: Params): ApiParams => ({
     ...params,
     chain: resolveDefaultChain(params.chain).apiHex,
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

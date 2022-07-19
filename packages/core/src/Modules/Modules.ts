@@ -1,6 +1,5 @@
 import { Module } from './Module';
-import { NetworkModule } from './NetworkModule';
-import { isApiModule, isNetworkModule } from './utils';
+import { isApiModule } from './utils';
 import { AnyBaseClass } from './types';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { ApiModule } from './ApiModule';
@@ -63,30 +62,6 @@ export class Modules {
     return this.modules.has(name);
   }
 
-  public tryGetNetwork(name: string): NetworkModule | null {
-    const module = this.modules.get(name);
-    return module && isNetworkModule(module) ? module : null;
-  }
-
-  /**
-   * Returns the network module with the provided name.
-   * @param name the module name
-   * @returns a valid NetworkModule
-   * @throws a MoralisCoreError if no network module with the given name has been registered
-   */
-  public getNetwork(name: string): NetworkModule {
-    const module = this.tryGetNetwork(name);
-
-    if (!module) {
-      throw new MoralisCoreError({
-        code: CoreErrorCode.MODULE_NOT_FOUND,
-        message: `No NetworkModule found with the name "${name}"`,
-      });
-    }
-
-    return module;
-  }
-
   /**
    * Returns the network module with the provided name.
    * @param name the module name
@@ -132,13 +107,6 @@ export class Modules {
    */
   public listNames(): string[] {
     return this.list().map((module) => module.name);
-  }
-
-  /**
-   * List all the registered network modules (eg. modules with the type CoreModuleType.NETWORK)
-   */
-  public listNetworks(): NetworkModule[] {
-    return this.list().filter(isNetworkModule);
   }
 
   /**

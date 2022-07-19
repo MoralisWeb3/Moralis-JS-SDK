@@ -20,8 +20,7 @@ async function main() {
   console.info('🔥 test-node');
 
   Moralis.start({
-    serverUrl: env['MORALIS_SERVER_URL'],
-    appId: env['MORALIS_APP_ID'],
+    apiKey: env['MORALIS_API_KEY'],
   });
 
   await test('Api version', () => {
@@ -32,10 +31,6 @@ async function main() {
     return Moralis.EvmApi.resolve.resolveAddress({
       address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     });
-  });
-
-  await test('IPFS file', () => {
-    return Moralis.Server.fetchIPFS('QmUfpsyqc4hwozotRo4woyi5fJqvfcej5GcFvKiWoY6xr6');
   });
 }
 

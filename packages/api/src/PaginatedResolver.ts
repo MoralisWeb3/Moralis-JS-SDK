@@ -1,8 +1,9 @@
 import { checkObjEqual } from './utils/checkObjEqual';
-import { ApiResolver, ApiResolverOptions, ServerApiResponse } from './Resolver';
+import { ApiResolver, ApiResolverOptions } from './Resolver';
 import { getNextParams } from './utils/getNextParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
 import { ApiConfig } from './config/ApiConfig';
+import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
 
 export interface ApiPaginatedResponse<Data> {
   total: number;
@@ -23,7 +24,7 @@ export class ApiPaginatedResolver<
   Params extends ApiPaginatedOptions,
   ApiResult,
   AdaptedResult,
-  JSONResult
+  JSONResult,
 > extends ApiResolver<ApiParams, Params, ApiPaginatedResponse<ApiResult>, AdaptedResult, JSONResult> {
   constructor({
     getUrl,
@@ -92,27 +93,6 @@ export class ApiPaginatedResolver<
     );
   };
 
-  protected _serverRequest = async (params: Params) => {
-    const url = this.getServerUrl();
-    const apiParams = this.parseParams(params);
-
-    const { result } = await this.requestController.post<
-      ServerApiResponse<ApiPaginatedResponse<ApiResult>>,
-      Record<string, string>,
-      //@ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      ApiParams
-      // Requests to the server are always a post request with bodyparams, no need to supply searchparams
-    >(url, {}, apiParams);
-
-    return new ApiPaginatedResultAdapter(
-      result,
-      this.apiToResult,
-      this.resultToJson,
-      params,
-      this.resolveNextCall(params, result),
-    );
-  };
-
   private resolveNextCall = (params: Params, result: Awaited<ApiPaginatedResponse<ApiResult>>) => {
     const nextParams = getNextParams(params, result);
     return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
@@ -123,9 +103,15 @@ export class ApiPaginatedResolver<
   ): Promise<
     ApiPaginatedResultAdapter<Awaited<ApiPaginatedResponse<ApiResult>>, AdaptedResult, JSONResult, Params>
   > => {
-    if (this.config.get('apiKey')) {
-      return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
+    const apiKey = this.config.get(ApiConfig.apiKey);
+
+    if (!apiKey) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.API_KEY_NOT_SET,
+        message: 'apiKey is not set',
+      });
     }
-    return this._serverRequest(params);
+
+    return this.method === 'post' ? this._apiPost(params) : this._apiGet(params);
   };
 }
