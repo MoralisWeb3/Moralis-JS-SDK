@@ -1,4 +1,4 @@
-import { MoralisErrorCode, CoreErrorCode, ApiErrorCode } from './ErrorCode';
+import { MoralisErrorCode, CoreErrorCode, ApiErrorCode, AuthErrorCode } from './ErrorCode';
 
 export type MoralisErrorDetails = Record<string, unknown>;
 
@@ -60,6 +60,17 @@ export class MoralisApiError extends MoralisError {
     super(options);
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, MoralisApiError);
+    }
+  }
+}
+
+export class MoralisAuthError extends MoralisError {
+  public readonly name: string = 'Moralis Auth Error';
+
+  public constructor(options: MoralisErrorOptions<AuthErrorCode>) {
+    super(options);
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, MoralisAuthError);
     }
   }
 }

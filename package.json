@@ -41,9 +41,7 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "demos/*",
-      "packages/evmConnectors/*",
-      "packages/solConnectors/*"
+      "demos/*"
     ]
   },
   "dependencies": {}

@@ -4,7 +4,7 @@ import { EvmAddress } from '../EvmAddress';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';
 import { EvmTransactionResponse, EvmTransactionResponseish } from './EvmTransactionResponse';
-import { maybe } from '../utils';
+import { maybe } from '../../utils/maybe';
 import { EvmTransactionReceiptData, EvmTransactionReceiptInput } from './EvmTransactionReceiptTypes';
 
 export type EvmTransactionReceiptish = EvmTransactionReceiptInput | EvmTransactionReceipt;

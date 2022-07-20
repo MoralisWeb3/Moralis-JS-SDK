@@ -2,7 +2,7 @@ import { MoralisDataObject } from '../abstract';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmChainish } from '../EvmChainish';
-import { maybe } from '../utils';
+import { maybe } from '../../utils/maybe';
 
 export interface Erc20Input {
   decimals: number | string;

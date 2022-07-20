@@ -1,6 +1,6 @@
 import { MoralisDataObject } from './abstract';
 import { EvmAddress, EvmAddressish } from './EvmAddress';
-import { maybe } from './utils';
+import { maybe } from '../utils/maybe';
 
 export interface EvmTransactionLogInput {
   logIndex?: number;

@@ -13,6 +13,7 @@ run () {
 run packages/core
 
 run packages/api
+run packages/auth
 run packages/evmApi
 run packages/solApi
 run packages/moralis

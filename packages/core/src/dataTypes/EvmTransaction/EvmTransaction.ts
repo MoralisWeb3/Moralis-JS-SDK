@@ -5,7 +5,7 @@ import { MoralisDataObject } from '../abstract';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransactionResponse } from './EvmTransactionResponse';
-import { maybe } from '../utils';
+import { maybe } from '../../utils/maybe';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionInput, EvmTransactionData, EthersJsTransactionRequest } from './EvmTransactionTypes';
 
