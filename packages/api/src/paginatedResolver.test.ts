@@ -1,11 +1,12 @@
-import { MOCK_API_KEY } from './../../../integration/mockRequests/config';
-import { ApiConfig } from './../config/ApiConfig';
+import { ApiConfig } from './config/ApiConfig';
 import axios from 'axios';
-import { API_ROOT } from './config';
 import { EvmAddress, EvmAddressish, EvmChainish, MoralisCoreProvider } from '@moralisweb3/core';
-import { BodyType } from '../Resolver';
-import { ApiPaginatedOptions, ApiPaginatedResolver, ApiPaginatedResponse } from '../PaginatedResolver';
-import { resolveDefaultChain } from '../utils';
+import { BodyType } from './Resolver';
+import { ApiPaginatedOptions, ApiPaginatedResolver, ApiPaginatedResponse } from './PaginatedResolver';
+import { resolveDefaultChain } from './utils';
+
+const MOCK_API_KEY = 'test-api-key';
+const API_ROOT = 'https://deep-index.moralis.io/api/v2';
 
 const eventRawResult = {
   total: 10,
