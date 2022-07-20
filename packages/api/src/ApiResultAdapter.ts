@@ -2,7 +2,7 @@ import { ApiErrorCode, EvmAddress, EvmChain, MoralisApiError } from '@moralisweb
 import { MoralisDataObject } from '@moralisweb3/core';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
-enum ApiFormatType {
+export enum ApiFormatType {
   // Return the data directly, as is provided by the API
   RAW = 'raw',
   // Return the formatted result of all moralis DataTypes
