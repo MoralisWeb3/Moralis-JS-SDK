@@ -1,10 +1,7 @@
 import { MoralisApi } from './../MoralisApi';
 import { ApiModule, EvmAddress, EvmAddressish, EvmChainish, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
-import { setupServer } from 'msw/node';
 import { ApiResolver, BodyType } from '../Resolver';
 import { API_ROOT, MOCK_API_KEY } from './config';
-import { mockEndpointWeights } from './mockRequests/endpointWeights';
-import { mockGetContractEvents } from './mockRequests/getContractEvents';
 import { BASE_URL } from '@moralisweb3/evm-api';
 import { resolveDefaultChain } from '../utils';
 import { ApiPaginatedOptions, ApiPaginatedResolver, ApiPaginatedResponse } from '../PaginatedResolver';
@@ -101,7 +98,6 @@ export class MockApi extends ApiModule {
   }
 }
 
-const mockServer = setupServer(mockEndpointWeights, mockGetContractEvents);
 export function setupApi() {
   const core = MoralisCoreProvider.getDefault();
   const api = MoralisApi.create(core);
@@ -110,13 +106,6 @@ export function setupApi() {
   core.start({
     apiKey: MOCK_API_KEY,
   });
-  mockServer.listen({
-    onUnhandledRequest: 'warn',
-  });
 
   return mockApi;
-}
-
-export function cleanApi() {
-  mockServer.close();
 }

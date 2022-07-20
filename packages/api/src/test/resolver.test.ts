@@ -1,5 +1,7 @@
 import { ApiFormatType } from '../ApiResultAdapter';
-import { setupApi, cleanApi, MockApi } from './setup';
+import { setupApi, MockApi } from './setup';
+import axios from 'axios';
+import { API_ROOT } from './config';
 
 const endpointWeightsRawResult = {
   endpoint: 'getBlock',
@@ -11,20 +13,26 @@ const endpointWeightsTransformedResult = {
   weight: 8,
 };
 
-const eventRawResult = [
-  {
-    transaction_hash: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09',
-    address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-    block_timestamp: '2021-04-02T10:07:54.000Z',
-    block_number: '12526958',
-    block_hash: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86',
-    data: {
-      from: '0x54ff6974c715956a5049a123408bff91fbe29f01',
-      to: '0x74de5d4fcbf63e00296fd95d33236b9794016631',
-      value: '260103496340000000000',
+const eventRawResult = {
+  total: 10,
+  page: 0,
+  page_size: 2,
+  cursor: 'cursor_string',
+  result: [
+    {
+      transaction_hash: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09',
+      address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+      block_timestamp: '2021-04-02T10:07:54.000Z',
+      block_number: '12526958',
+      block_hash: '0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86',
+      data: {
+        from: '0x54ff6974c715956a5049a123408bff91fbe29f01',
+        to: '0x74de5d4fcbf63e00296fd95d33236b9794016631',
+        value: '260103496340000000000',
+      },
     },
-  },
-];
+  ],
+};
 
 const expectedAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
 
@@ -43,13 +51,28 @@ describe('ApiResolver', () => {
   let api: MockApi;
   beforeAll(() => {
     api = setupApi();
+    const mockGet = jest.spyOn(axios, 'request');
+    mockGet.mockImplementation((options) => {
+      if (options.url === `${API_ROOT}/info/endpointWeights` && options.method === 'GET') {
+        return Promise.resolve({
+          data: endpointWeightsRawResult,
+        });
+      } else if (
+        options.url === `${API_ROOT}/0xdAC17F958D2ee523a2206206994597C13D831ec7/events` &&
+        options.method === 'POST'
+      ) {
+        return Promise.resolve({
+          data: eventRawResult,
+        });
+      } else {
+        return Promise.reject('Invalid url');
+      }
+    });
   });
 
-  afterAll(() => {
-    cleanApi();
-  });
   it('should test api resolver functions with get request', async () => {
     const resolver = await api.endpoints.endpointWeights();
+
     expect(resolver.raw).toStrictEqual(endpointWeightsRawResult);
     expect(resolver.toJSON()).toStrictEqual(endpointWeightsRawResult);
     expect(resolver.result).toStrictEqual(endpointWeightsTransformedResult);
@@ -68,9 +91,10 @@ describe('ApiResolver', () => {
       limit: 2,
       abi: ABI,
     });
+
     expect(resolver.raw.total).toStrictEqual(10);
     expect(resolver.raw.page_size).toStrictEqual(2);
-    expect(resolver.raw.result).toStrictEqual(eventRawResult);
+    expect(resolver.raw.result).toStrictEqual(eventRawResult.result);
     expect(resolver.result[0].address.format()).toBe(expectedAddress.toLowerCase());
   });
 
@@ -82,10 +106,11 @@ describe('ApiResolver', () => {
       limit: 3,
       abi: ABI,
     });
+
     const callSpy = jest.fn(async () => await resolver.next());
     const result = await callSpy();
     expect(result.raw.total).toStrictEqual(10);
-    expect(result.raw.result).toStrictEqual(eventRawResult);
+    expect(result.raw.result).toStrictEqual(eventRawResult.result);
     expect(callSpy).toBeCalledTimes(1);
   });
 });
