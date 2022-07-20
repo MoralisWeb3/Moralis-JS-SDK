@@ -51,8 +51,8 @@ describe('ApiResolver', () => {
   let api: MockApi;
   beforeAll(() => {
     api = setupApi();
-    const mockGet = jest.spyOn(axios, 'request');
-    mockGet.mockImplementation((options) => {
+    const mockRequest = jest.spyOn(axios, 'request');
+    mockRequest.mockImplementation((options) => {
       if (options.url === `${API_ROOT}/info/endpointWeights` && options.method === 'GET') {
         return Promise.resolve({
           data: endpointWeightsRawResult,
