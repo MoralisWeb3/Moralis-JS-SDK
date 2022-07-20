@@ -1,11 +1,10 @@
-import { MoralisApi } from '@moralisweb3/api';
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import { makeVerify, VerifyOptions } from './methods/verify';
 
 export const BASE_URL = 'https://auth-api.do-prod-1.moralis.io';
 
-export class MoralisAuth extends MoralisApi {
+export class MoralisAuth extends ApiModule {
   public static readonly moduleName = 'auth';
 
   public static create(core?: MoralisCore): MoralisAuth {
@@ -18,4 +17,12 @@ export class MoralisAuth extends MoralisApi {
 
   requestMessage = (options: RequestMessageOptions) => makeRequestMessage()(options);
   verify = (options: VerifyOptions) => makeVerify()(options);
+
+  public setup() {
+    // Nothing...
+  }
+
+  public start(): void | Promise<void> {
+    // Nothing...
+  }
 }
