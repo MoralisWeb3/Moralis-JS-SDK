@@ -3,6 +3,8 @@ import { ApiConfig } from './ApiConfig';
 
 export class ApiConfigSetup {
   public static register(config: Config) {
-    config.registerKey(ApiConfig.apiKey);
+    if (!config.hasKey(ApiConfig.apiKey)) {
+      config.registerKey(ApiConfig.apiKey);
+    }
   }
 }
