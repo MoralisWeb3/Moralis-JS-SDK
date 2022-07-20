@@ -1,7 +1,8 @@
 import { ApiResolver } from '@moralisweb3/api';
-import { Camelize, SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '@moralisweb3/core';
+import { Camelize, SolAddress, SolAddressish, SolNative, SolNetworkish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../MoralisSolApi';
+import { SolNetworkResolver } from '../SolNetworkResolver';
 
 type Operation = 'getSPL';
 
@@ -11,13 +12,16 @@ type ApiParams = PathParams;
 type ApiResult = operations[Operation]['responses']['200']['content']['application/json'];
 
 export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>> {
-  network: SolNetworkish;
+  network?: SolNetworkish;
   address: SolAddressish;
 }
 
 export const getSPLResolver = new ApiResolver({
   name: 'getSPL',
-  getUrl: (params: Params) => `${BASE_URL}/account/${params.network}/${params.address}/tokens`,
+  getUrl: (params: Params) => {
+    const network = SolNetworkResolver.resolve(params.network);
+    return `${BASE_URL}/account/${network}/${params.address}/tokens`;
+  },
   apiToResult: (data: ApiResult) => {
     return data.map((token) => {
       return {
@@ -37,7 +41,7 @@ export const getSPLResolver = new ApiResolver({
     });
   },
   parseParams: (params: Params): ApiParams => ({
-    network: SolNetwork.create(params.network).network,
+    network: SolNetworkResolver.resolve(params.network),
     address: SolAddress.create(params.address).address,
   }),
 });

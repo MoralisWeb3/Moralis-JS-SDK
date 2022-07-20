@@ -1,11 +1,9 @@
 import { EvmChainish } from '../dataTypes';
-import { Modules } from '../Modules';
 import { Config, ConfigKey } from './Config';
 import { BuildEnvironment, CoreConfig, EvmAddressFormat, EvmChainIdFormat, LogLevel, Network } from './CoreConfig';
 import { CoreConfigSetup } from './CoreConfigSetup';
 
 describe('CoreConfig', () => {
-  let modules: Modules;
   let config: Config;
 
   function testSetAndGet<T>(key: ConfigKey<T>, value: T) {
@@ -17,9 +15,8 @@ describe('CoreConfig', () => {
   }
 
   beforeEach(() => {
-    modules = new Modules();
     config = new Config();
-    CoreConfigSetup.register(config, modules);
+    CoreConfigSetup.register(config);
   });
 
   testSetAndGet<LogLevel>(CoreConfig.logLevel, 'off');

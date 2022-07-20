@@ -1,9 +1,10 @@
+import { SolNetworkName } from '@moralisweb3/core';
 import Moralis from 'moralis';
 import { smokeTest } from './Tester';
 
 export function testSolanaAccount(): Promise<unknown> {
   const groupName = 'Solana/account';
-  const network = 'mainnet';
+  const network: SolNetworkName | undefined = 'mainnet';
   const address = '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp';
 
   return Promise.all([

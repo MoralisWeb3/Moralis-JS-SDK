@@ -1,7 +1,8 @@
 import { ApiResolver } from '@moralisweb3/api';
-import { Camelize, SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '@moralisweb3/core';
+import { Camelize, SolAddress, SolAddressish, SolNetworkish } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../MoralisSolApi';
+import { SolNetworkResolver } from '../SolNetworkResolver';
 
 type Operation = 'getNFTMetadata';
 
@@ -11,7 +12,7 @@ type ApiParams = PathParams;
 type ApiResult = operations[Operation]['responses']['200']['content']['application/json'];
 
 export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>> {
-  network: SolNetworkish;
+  network?: SolNetworkish;
   address: SolAddressish;
 }
 
@@ -51,7 +52,7 @@ export const getNFTMetadataResolver = new ApiResolver({
     };
   },
   parseParams: (params: Params): ApiParams => ({
-    network: SolNetwork.create(params.network).network,
+    network: SolNetworkResolver.resolve(params.network),
     address: SolAddress.create(params.address).address,
   }),
 });

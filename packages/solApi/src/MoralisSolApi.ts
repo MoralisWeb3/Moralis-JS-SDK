@@ -1,4 +1,5 @@
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { SolApiConfigSetup } from './config/SolApiConfigSetup';
 import { getBalanceResolver } from './resolvers/account/getBalance';
 import { getNFTsResolver } from './resolvers/account/getNFTs';
 import { getPortfolioResolver } from './resolvers/account/getPortfolio';
@@ -19,7 +20,7 @@ export class MoralisSolApi extends ApiModule {
   }
 
   public setup() {
-    // Nothing
+    SolApiConfigSetup.register(this.core.config);
   }
 
   public start() {
