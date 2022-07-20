@@ -7,4 +7,4 @@ coverage/
 lib.esm
 node_modules
 
-src/Contract/generated
+src/generated
