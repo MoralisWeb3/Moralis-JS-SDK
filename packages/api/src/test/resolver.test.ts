@@ -1,7 +1,9 @@
+import { ApiConfig } from './../config/ApiConfig';
 import { ApiFormatType } from '../ApiResultAdapter';
-import { setupApi, MockApi } from './setup';
 import axios from 'axios';
 import { API_ROOT } from './config';
+import { MoralisCoreProvider } from '@moralisweb3/core';
+import { ApiResolver } from '../Resolver';
 
 const endpointWeightsRawResult = {
   endpoint: 'getBlock',
@@ -34,23 +36,24 @@ const eventRawResult = {
   ],
 };
 
-const expectedAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
-
-const ABI = {
-  anonymous: false,
-  inputs: [
-    { indexed: true, name: 'from', type: 'address' },
-    { indexed: true, name: 'to', type: 'address' },
-    { indexed: false, name: 'value', type: 'uint256' },
-  ],
-  name: 'Transfer',
-  type: 'event',
-};
+interface EndpointWeight {
+  endpoint: string;
+  weight: string;
+}
 
 describe('ApiResolver', () => {
-  let api: MockApi;
+  let resolver: ApiResolver<
+    unknown,
+    unknown,
+    EndpointWeight,
+    { endpoint: string; weight: number },
+    { endpoint: string; weight: string }
+  >;
+
   beforeAll(() => {
-    api = setupApi();
+    const core = MoralisCoreProvider.getDefault();
+    core.config.registerKey(ApiConfig.apiKey);
+    core.config.set(ApiConfig.apiKey, 'X-api-key');
     const mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
       if (options.url === `${API_ROOT}/info/endpointWeights` && options.method === 'GET') {
@@ -70,47 +73,32 @@ describe('ApiResolver', () => {
     });
   });
 
-  it('should test api resolver functions with get request', async () => {
-    const resolver = await api.endpoints.endpointWeights();
+  beforeEach(() => {
+    resolver = new ApiResolver({
+      name: 'endpointWeights',
+      getUrl: () => `${API_ROOT}/info/endpointWeights`,
+      apiToResult: (data: EndpointWeight) => ({
+        endpoint: data.endpoint,
+        weight: parseInt(data.weight),
+      }),
+      resultToJson: (data) => ({
+        endpoint: data.endpoint,
+        weight: data.weight.toString(),
+      }),
+      parseParams: (params) => params,
+    });
+  });
 
-    expect(resolver.raw).toStrictEqual(endpointWeightsRawResult);
-    expect(resolver.toJSON()).toStrictEqual(endpointWeightsRawResult);
-    expect(resolver.result).toStrictEqual(endpointWeightsTransformedResult);
-    expect(resolver.format(ApiFormatType.NORMAL)).toStrictEqual(endpointWeightsTransformedResult);
-    expect(resolver.format(ApiFormatType.RAW)).toStrictEqual(endpointWeightsRawResult);
-    expect(() => resolver.format('legacy' as any)).toThrowErrorMatchingInlineSnapshot(
+  it('should test api resolver functions with get request', async () => {
+    const response = await resolver.fetch({});
+
+    expect(response.raw).toStrictEqual(endpointWeightsRawResult);
+    expect(response.toJSON()).toStrictEqual(endpointWeightsRawResult);
+    expect(response.result).toStrictEqual(endpointWeightsTransformedResult);
+    expect(response.format(ApiFormatType.NORMAL)).toStrictEqual(endpointWeightsTransformedResult);
+    expect(response.format(ApiFormatType.RAW)).toStrictEqual(endpointWeightsRawResult);
+    expect(() => response.format('legacy' as any)).toThrowErrorMatchingInlineSnapshot(
       `"[A0001] provided formatType not supported"`,
     );
-  });
-
-  it('should test api resolver functions with post request and pagination', async () => {
-    const resolver = await api.endpoints.getContractEvents({
-      chain: 'eth',
-      address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
-      limit: 2,
-      abi: ABI,
-    });
-
-    expect(resolver.raw.total).toStrictEqual(10);
-    expect(resolver.raw.page_size).toStrictEqual(2);
-    expect(resolver.raw.result).toStrictEqual(eventRawResult.result);
-    expect(resolver.result[0].address.format()).toBe(expectedAddress.toLowerCase());
-  });
-
-  it('should test next call', async () => {
-    const resolver = await api.endpoints.getContractEvents({
-      chain: 'eth',
-      address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
-      limit: 3,
-      abi: ABI,
-    });
-
-    const callSpy = jest.fn(async () => await resolver.next());
-    const result = await callSpy();
-    expect(result.raw.total).toStrictEqual(10);
-    expect(result.raw.result).toStrictEqual(eventRawResult.result);
-    expect(callSpy).toBeCalledTimes(1);
   });
 });
