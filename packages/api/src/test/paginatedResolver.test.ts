@@ -1,3 +1,4 @@
+import { MOCK_API_KEY } from './../../../integration/mockRequests/config';
 import { ApiConfig } from './../config/ApiConfig';
 import axios from 'axios';
 import { API_ROOT } from './config';
@@ -77,7 +78,7 @@ describe('ApiResolver', () => {
   beforeAll(() => {
     const core = MoralisCoreProvider.getDefault();
     core.config.registerKey(ApiConfig.apiKey);
-    core.config.set(ApiConfig.apiKey, 'X-api-key');
+    core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
     const mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
       if (
