@@ -30,16 +30,7 @@ const eventRawResult = {
 
 const expectedAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
 
-const ABI = {
-  anonymous: false,
-  inputs: [
-    { indexed: true, name: 'from', type: 'address' },
-    { indexed: true, name: 'to', type: 'address' },
-    { indexed: false, name: 'value', type: 'uint256' },
-  ],
-  name: 'Transfer',
-  type: 'event',
-};
+const ABI = {};
 
 interface Params extends ApiPaginatedOptions {
   chain?: EvmChainish;
