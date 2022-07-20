@@ -30,4 +30,12 @@ export enum ApiErrorCode {
   NOT_IMPLEMENTED = 'A9000',
 }
 
-export type MoralisErrorCode = CoreErrorCode | ApiErrorCode;
+export enum AuthErrorCode {
+  GENERIC_AUTH_ERROR = 'U0001',
+  INCORRECT_NETWORK = 'U0002',
+  INCORRECT_PARAMETER = 'U0003',
+
+  NOT_IMPLEMENTED = 'U9000',
+}
+
+export type MoralisErrorCode = CoreErrorCode | ApiErrorCode | AuthErrorCode;

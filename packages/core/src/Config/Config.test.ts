@@ -46,6 +46,17 @@ describe('Config', () => {
     expect(keys).toContain(numberKey.name);
   });
 
+  it('checks if a key is registered', () => {
+    config.registerKey(numberKey);
+    const check = config.hasKey(numberKey);
+    expect(check).toEqual(true);
+  });
+
+  it('checks if a key is not registered', () => {
+    const check = config.hasKey(numberKey);
+    expect(check).toEqual(false);
+  });
+
   it('throws an error when a string key does not exist', () => {
     expect(() => config.get('number')).toThrowError('[C0013] Key "number" is unregistered');
   });

@@ -1,7 +1,7 @@
 import { MoralisDataObject, MoralisDataObjectValue } from '../abstract';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
-import { maybe } from '../utils';
+import { maybe } from '../../utils/maybe';
 import { EvmChain } from '../EvmChain';
 import { EvmChainish } from '../EvmChainish';
 
