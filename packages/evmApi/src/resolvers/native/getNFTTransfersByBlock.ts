@@ -1,7 +1,8 @@
-import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiPaginatedOptions, ApiPaginatedResolver } from '@moralisweb3/api';
 import { EvmChainish, EvmAddress, EvmNative, Camelize, EvmNFT } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getNFTTransfersByBlock';
 
@@ -20,7 +21,7 @@ export const getNFTTransfersByBlockResolver = new ApiPaginatedResolver({
   apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((transfer) => ({
       token: new EvmNFT({
-        chain: resolveDefaultChain(params.chain),
+        chain: EvmChainResolver.resolve(params.chain),
         contractType: transfer.contract_type,
         tokenAddress: transfer.token_address,
         tokenId: transfer.token_id,
@@ -48,7 +49,7 @@ export const getNFTTransfersByBlockResolver = new ApiPaginatedResolver({
     })),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     block_number_or_hash: params.blockNumberOrHash,
   }),
 });
