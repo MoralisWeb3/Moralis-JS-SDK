@@ -23,14 +23,6 @@ export class MoralisAuth extends ApiModule {
     // Nothing
   }
 
-  requestMessage = (options: RequestMessageOptions) => makeRequestMessage()(options);
-  verify = (options: VerifyOptions) => makeVerify()(options);
-
-  public setup() {
-    // Nothing...
-  }
-
-  public start(): void | Promise<void> {
-    // Nothing...
-  }
+  public requestMessage = (options: RequestMessageOptions) => makeRequestMessage()(options);
+  public verify = (options: VerifyOptions) => makeVerify()(options);
 }

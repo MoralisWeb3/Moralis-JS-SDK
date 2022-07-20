@@ -1,9 +1,8 @@
 import { ApiConfig } from './config/ApiConfig';
 import axios from 'axios';
-import { EvmAddress, EvmAddressish, EvmChainish, MoralisCoreProvider } from '@moralisweb3/core';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, MoralisCoreProvider } from '@moralisweb3/core';
 import { BodyType } from './Resolver';
 import { ApiPaginatedOptions, ApiPaginatedResolver, ApiPaginatedResponse } from './PaginatedResolver';
-import { resolveDefaultChain } from './utils';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -98,7 +97,7 @@ describe('ApiResolver', () => {
         })),
       resultToJson: (data) => data,
       parseParams: (params: Params) => ({
-        chain: resolveDefaultChain(params.chain).apiHex,
+        chain: EvmChain.create(params.chain || '0x1').apiHex,
         from_block: params.fromBlock,
         to_block: params.toBlock,
         from_date: params.toDate,

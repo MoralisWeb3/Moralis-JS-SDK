@@ -130,12 +130,4 @@ export class MoralisEvmApi extends ApiModule {
       uploadFolder: uploadFolderResolver.fetch,
     };
   }
-
-  public setup() {
-    // Nothing...
-  }
-
-  public start(): void | Promise<void> {
-    // Nothing...
-  }
 }
