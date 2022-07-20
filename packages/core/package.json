@@ -13,14 +13,13 @@
     "dist"
   ],
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit",
-    "test:ci": "yarn test --ci",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch"
   },

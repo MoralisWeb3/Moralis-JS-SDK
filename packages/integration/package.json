@@ -9,14 +9,13 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --no-cache",
-    "test:ci": "yarn test --ci",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --no-cache --ci",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint .",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo"
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
