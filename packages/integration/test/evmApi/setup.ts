@@ -1,3 +1,4 @@
+import { MoralisApi } from '@moralisweb3/api';
 import { MoralisCoreProvider } from '@moralisweb3/core';
 import { MoralisApi } from '@moralisweb3/api';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
