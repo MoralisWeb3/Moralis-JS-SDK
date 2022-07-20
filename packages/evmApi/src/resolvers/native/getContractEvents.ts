@@ -1,8 +1,13 @@
-import { EvmPaginatedResolver, PaginatedOptions, PaginatedResponse } from './../PaginatedResolver';
+import {
+  ApiPaginatedOptions,
+  ApiPaginatedResolver,
+  resolveDefaultChain,
+  BodyType,
+  ApiPaginatedResponse,
+} from '@moralisweb3/api';
 import { EvmChainish, EvmAddress, EvmAddressish, Camelize } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { BodyType } from '../Resolver';
 
 type operation = 'getContractEvents';
 const method = 'post';
@@ -11,18 +16,18 @@ const bodyParams = ['abi'] as const;
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
   address: EvmAddressish;
   abi: unknown;
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getContractEventsResolver = new EvmPaginatedResolver({
+export const getContractEventsResolver = new ApiPaginatedResolver({
   name: 'getContractEvents',
-  getPath: (params: Params) => `${params.address}/events`,
+  getUrl: (params: Params) => `${BASE_URL}/${params.address}/events`,
   //   TODO: remove PaginatedResponse when api squad make swagger update
-  apiToResult: (data: PaginatedResponse<ApiResult>) =>
+  apiToResult: (data: ApiPaginatedResponse<ApiResult>) =>
     data.result.map((event) => ({
       ...event,
       address: EvmAddress.create(event.address),

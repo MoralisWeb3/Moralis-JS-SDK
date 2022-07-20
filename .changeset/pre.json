@@ -2,7 +2,6 @@
   "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
-    "@moralisweb3/test-app-all": "0.1.0",
     "@moralisweb3/core": "1.7.0",
     "@moralisweb3/evm": "1.7.0",
     "@moralisweb3/evm-api": "1.7.0",
@@ -12,7 +11,25 @@
     "@moralisweb3/integration": "1.7.0",
     "moralis": "1.7.0",
     "@moralisweb3/server": "1.7.0",
-    "@moralisweb3/test-app-all": "2.0.0-alpha.0"
+    "@moralisweb3/test-app-all": "2.0.0-alpha.0",
+    "@moralisweb3/test-cdn": "2.0.0-alpha.1",
+    "@moralisweb3/test-node": "2.0.0-alpha.1",
+    "@moralisweb3/evm-magic-link-connector": "2.0.0-alpha.1",
+    "@moralisweb3/wallet-connect-wrapper": "2.0.0-alpha.1"
   },
-  "changesets": ["brave-paws-rescue", "gorgeous-cars-notice"]
+  "changesets": [
+    "afraid-pans-kiss",
+    "brave-paws-rescue",
+    "curly-boats-stare",
+    "itchy-feet-float",
+    "metal-teachers-run",
+    "modern-roses-live",
+    "odd-zebras-draw",
+    "purple-lemons-wink",
+    "shaggy-apes-invite",
+    "shaggy-ways-fry",
+    "strange-cherries-develop",
+    "swift-lobsters-sit",
+    "tiny-flowers-press"
+  ]
 }

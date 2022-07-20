@@ -3,7 +3,7 @@ import { formatUnits, parseUnits } from '@ethersproject/units';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { MoralisData } from './abstract';
 
-type EvmNativeUnit = 'ether' | 'finney' | 'szabo' | 'gwei' | 'mwei' | 'kwei' | 'wei';
+export type EvmNativeUnit = 'ether' | 'finney' | 'szabo' | 'gwei' | 'mwei' | 'kwei' | 'wei';
 
 const unitToDecimals: Record<EvmNativeUnit, number> = {
   ether: 18,
@@ -24,20 +24,20 @@ export type EvmNativeish = InputEvmNative | EvmNative;
  * The EvmNative class is a MoralisData that references to a the value of a native currency (like ETH, BNB etc.)
  */
 export class EvmNative implements MoralisData {
-  private _value: BigNumber;
+  private readonly rawValue: BigNumber;
 
-  constructor(native: InputEvmNative, unit: UnitOrDecimals = 'ether') {
-    this._value = EvmNative.parse(native, unit);
+  private constructor(native: InputEvmNative, unit: UnitOrDecimals = 'ether') {
+    this.rawValue = EvmNative.parse(native, unit);
   }
 
-  static create(native: EvmNativeish, unit?: UnitOrDecimals) {
+  public static create(native: EvmNativeish, unit?: UnitOrDecimals) {
     if (native instanceof EvmNative) {
       return native;
     }
     return new EvmNative(native, unit);
   }
 
-  static parse(native: InputEvmNative, unit: UnitOrDecimals) {
+  private static parse(native: InputEvmNative, unit: UnitOrDecimals): BigNumber {
     let decimals: number;
     if (typeof unit === 'number') {
       decimals = unit;
@@ -56,38 +56,38 @@ export class EvmNative implements MoralisData {
     return value;
   }
 
-  static equals(valueA: EvmNativeish, valueB: EvmNativeish) {
+  public static equals(valueA: EvmNativeish, valueB: EvmNativeish) {
     const evmNativeA = EvmNative.create(valueA);
     const evmNativeB = EvmNative.create(valueB);
 
-    return evmNativeA._value.eq(evmNativeB._value);
+    return evmNativeA.rawValue.eq(evmNativeB.rawValue);
   }
 
-  equals(value: EvmNative) {
+  public equals(value: EvmNative) {
     return EvmNative.equals(this, value);
   }
 
-  get value() {
-    return this._value;
+  public get value() {
+    return this.rawValue;
   }
 
-  get wei() {
+  public get wei() {
     return this.value.toString();
   }
 
-  get gwei() {
-    return formatUnits(this._value, 'gwei');
+  public get gwei() {
+    return formatUnits(this.rawValue, 'gwei');
   }
 
-  get ether() {
-    return formatUnits(this._value, 'ether');
+  public get ether() {
+    return formatUnits(this.rawValue, 'ether');
   }
 
-  toString() {
+  public toString() {
     return this.wei;
   }
 
-  format() {
+  public format() {
     return this.toString();
   }
 }

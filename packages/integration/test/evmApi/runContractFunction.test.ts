@@ -1,7 +1,5 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEvmApi } from './setup';
 
 const ABI = [
   {
@@ -227,25 +225,18 @@ const ABI = [
 ];
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should run a contract and return readonly data', async () => {
-    const result = await EvmApi.native.runContractFunction({
+    const result = await evmApi.native.runContractFunction({
       address: '0xecc7f044aa1ce2ad9d2453b01b8732a051213ecf',
       functionName: 'totalSupply',
       chain: 'rinkeby',
@@ -259,7 +250,7 @@ describe('Moralis EvmApi', () => {
 
   it('should not run when a contract when an address is invalid', async () => {
     await expect(
-      EvmApi.native.runContractFunction({
+      evmApi.native.runContractFunction({
         address: '0x123456', // this address is invalid
         functionName: 'totalSupply',
         chain: 'rinkeby',

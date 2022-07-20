@@ -1,7 +1,7 @@
+import { resolveDefaultChain, ApiResolver } from '@moralisweb3/api';
 import { Camelize, EvmAddress, EvmChainish, EvmTransactionReceipt, toCamelCase } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
 
 type operation = 'getBlock';
 
@@ -19,7 +19,7 @@ const apiToResult = (apiData: ApiResult, params: Params) => {
 
   return {
     ...data,
-    miner: new EvmAddress(data.miner),
+    miner: EvmAddress.create(data.miner),
     transactions: data.transactions.map((transaction) =>
       EvmTransactionReceipt.create(
         {
@@ -70,9 +70,9 @@ const apiToResult = (apiData: ApiResult, params: Params) => {
   };
 };
 
-export const getBlockResolver = new EvmResolver({
+export const getBlockResolver = new ApiResolver({
   name: 'getBlock',
-  getPath: (params: Params) => `block/${params.blockNumberOrHash}`,
+  getUrl: (params: Params) => `${BASE_URL}/block/${params.blockNumberOrHash}`,
   apiToResult: apiToResult,
   resultToJson: (data) => ({
     ...data,

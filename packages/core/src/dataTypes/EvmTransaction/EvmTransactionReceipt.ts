@@ -1,5 +1,4 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { CoreErrorCode, MoralisCoreError } from '../../Error';
 import { MoralisDataObject } from '../abstract';
 import { EvmAddress } from '../EvmAddress';
 import { EvmNative } from '../EvmNative';
@@ -23,16 +22,9 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     this._value = EvmTransactionReceipt.parse(value, transaction);
   }
 
-  static create(value: EvmTransactionReceiptish, transaction?: EvmTransactionResponseish): EvmTransactionReceipt {
+  static create(value: EvmTransactionReceiptish, transaction: EvmTransactionResponseish): EvmTransactionReceipt {
     if (value instanceof EvmTransactionReceipt) {
       return value;
-    }
-
-    if (!transaction) {
-      throw new MoralisCoreError({
-        code: CoreErrorCode.INVALID_ARGUMENT,
-        message: 'Can only create EvmTransactionReceipt with a valid EvmTransactionResponse as second argument',
-      });
     }
 
     return new EvmTransactionReceipt(value, EvmTransactionResponse.create(transaction));
@@ -62,10 +54,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     return EvmNative.create(this._value.cumulativeGasUsed.mul(this._value.gasPrice), 'wei');
   }
 
-  static equals(valueA: EvmTransactionReceiptish, valueB: EvmTransactionReceiptish): boolean {
-    const transactionReceiptA = EvmTransactionReceipt.create(valueA);
-    const transactionReceiptB = EvmTransactionReceipt.create(valueB);
-
+  static equals(transactionReceiptA: EvmTransactionReceipt, transactionReceiptB: EvmTransactionReceipt): boolean {
     if (!transactionReceiptA._value.transaction.equals(transactionReceiptB._value.transaction)) {
       return false;
     }
@@ -77,7 +66,7 @@ export class EvmTransactionReceipt implements MoralisDataObject {
     return true;
   }
 
-  equals(value: EvmTransactionReceiptish): boolean {
+  equals(value: EvmTransactionReceipt): boolean {
     return EvmTransactionReceipt.equals(this, value);
   }
 

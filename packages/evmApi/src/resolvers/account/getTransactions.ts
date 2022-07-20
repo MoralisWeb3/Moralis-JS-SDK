@@ -1,24 +1,24 @@
 import { BigNumber } from 'ethers';
-import { EvmChainish, EvmAddressish, EvmTransactionReceipt, Camelize } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmTransactionReceipt, Camelize, EvmAddress } from '@moralisweb3/core';
 import { operations } from '../../generated/types';
-import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
-import { resolveDefaultAddress, resolveDefaultChain } from '../../utils/resolveDefaultParams';
+import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { BASE_URL } from '../../EvmApi';
 
 type operation = 'getTransactions';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'cursor'>>, PaginatedOptions {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'cursor'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
-  address?: EvmAddressish;
+  address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getTransactionsResolver = new EvmPaginatedResolver({
+export const getTransactionsResolver = new ApiPaginatedResolver({
   name: 'getTransactions',
-  getPath: (params: Params) => `${params.address}`,
+  getUrl: (params: Params) => `${BASE_URL}/${params.address}`,
   apiToResult: (data: ApiResult, params: Params) =>
     data.result?.map((transaction) =>
       EvmTransactionReceipt.create(
@@ -58,7 +58,7 @@ export const getTransactionsResolver = new EvmPaginatedResolver({
   parseParams: (params: Params): ApiParams => ({
     ...params,
     chain: resolveDefaultChain(params.chain).apiHex,
-    address: resolveDefaultAddress(params.address).lowercase,
+    address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     from_block: params.fromBlock,
     from_date: params.fromDate,

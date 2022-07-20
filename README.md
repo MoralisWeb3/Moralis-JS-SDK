@@ -34,37 +34,20 @@
 
 Current Features in this alpha build:
 
-- [x] Install via a package manager as npm/yarn
-- [x] Connect to an Evm network with Metamask
-- [x] Connect to an Evm network with Walletconnect
-- [x] Authenticate to the server via Evm
-- [x] Authenticate to the server via password
-- [x] Evm transfer, and executeFunction utilities
+- [x] Support for NodeJs
 - [x] EvmApi
-- [x] Usage in browsers via a script tag
 
 Coming up:
 
-- [ ] Connect to an Evm network with other connectors
-- [ ] Support for NodeJs
-- [ ] Support for react-native
-- [ ] Solana support
-- [ ] Support for authentication via other networks as Polkadot and Elrond
-- [ ] Plugins
-
-### Known issue in this Alpha version
-
-- Walletconnect will not work in combination with Webpack-5 (create-react-app v5), without polyfilling dependencies. We will manually polyfill this in a next alpha update.
+- [ ] Solana Api support
+- [ ] Authentication
+- [ ] Sync
 
 ---
 
 **Features**:
 
-- **Connect to EVM** via MetaMask, WalletConnect, MagicLink and many more connectors (or create your own connetor)
-- **Connect to Moralis** via other networks as Solana, Polkadot, Elrond and more
-- **Authenticate** to Moralis via connection methods specified above
 - **Evm Utilities** for transfers, contract interactions and other on-chain methods for the supported networks (and support for other networks as Solana, Polkadot, Elrond and more)
-- Interaction with the **Moralis server** like: database queries, handling user sessions, calling cloud-functions etc.
 - Make **Evm api** and **Solana api** calls
 - **Modular** package: include only what you need
 - Fully **Typescript** ready out-of-the box
@@ -78,8 +61,6 @@ If you're new to Moralis, check the [quickstart guide in the official docs](http
 If you're already familiar with Moralis and have your server set up. Then follow along to connect your SDK:
 
 #### 1. Install Moralis
-
-#### Package manager
 
 The easiest way to integrate the Moralis SDK into your JavaScript project is through the npm module.
 
@@ -101,50 +82,13 @@ Import Moralis:
 import Moralis from 'moralis';
 ```
 
-#### Browser (UMD)
-
-If you want to use a pre-compiled file from unpkg:
-
-```html
-<script src="https://unpkg.com/moralis/dist/index.umd.js"></script>
-<script src="https://unpkg.com/@moralisweb3/evm-wallet-connect-connector/dist/index.umd.js"></script>
-```
-
-#### Browser (ESM)
-
-Or if you prefer the more modern EsModule build:
-
-```html
-<script type="importmap">
-{
-  "imports": {
-    "@moralisweb3/core": "https://unpkg.com/@moralisweb3/core/dist/index.esm.js",
-    "@moralisweb3/evm": "https://unpkg.com/@moralisweb3/evm/dist/index.esm.js",
-    "@moralisweb3/evm-api": "https://unpkg.com/@moralisweb3/evm-api/dist/index.esm.js",
-    "@moralisweb3/server": "https://unpkg.com/@moralisweb3/server/dist/index.esm.js",
-    "@moralisweb3/evm-connector-utils": "https://unpkg.com/@moralisweb3/evm-connector-utils/dist/index.esm.js",
-    "@moralisweb3/evm-metamask-connector": "https://unpkg.com/@moralisweb3/evm-metamask-connector/dist/index.esm.js",
-    "@moralisweb3/evm-wallet-connect-connector": "https://unpkg.com/@moralisweb3/evm-wallet-connect-connector/dist/index.esm.js",
-    "moralis": "https://unpkg.com/moralis/dist/index.esm.js"
-  }
-}
-</script>
-<script type="module">
-  import Moralis from 'moralis';
-  // ...
-</script>
-```
-
-⚠ Import maps are [not well supported](https://caniuse.com/import-maps) by modern browsers yet. We don't recommend using it for a production.
-
 #### 2. Initialise Moralis
 
 After your dependency is added, you simply need to initialize moralis via the `start` method:
 
 ```javascript
 Moralis.start({
-  serverUrl: '<YOUR_SERVER_URL>',
-  appId: '<YOUR_APP_ID>',
+  apiKey: '<YOUR_API_KEY>',
 });
 ```
 
@@ -160,35 +104,23 @@ If you need help with setting up the boilerplate or have other questions - don't
 
 # 🧭 Table of Contents
 
-- [🚀 Quick start](#-quick-start)
+- [� Alpha version](#-alpha-version)
+- [🚀 Quick start](#-quick-start) - [1. Install Moralis](#1-install-moralis) - [2. Initialise Moralis](#2-initialise-moralis)
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
 - [⚙️ Configuration](#️-configuration)
-- [🥷 Support for NodeJs (backend) server](#-support-for-nodejs-backend-server)
-- [⚛️ Support for react-native](#️-support-for-react-native)
 - [👩‍🔬 Advanced setup](#-advanced-setup)
 - [📦 Packages](#-packages)
   - [Umbrella package](#umbrella-package)
   - [Core module](#core-module)
-  - [Main modules](#main-modules)
   - [API modules](#api-modules)
-  - [Network modules](#network-modules)
-  - [Connectors](#connectors)
   - [Other](#other)
 - [🧙‍♂️ Community](#️-community)
 
 # ⚙️ Configuration
 
 When calling `Moralis.start`, you can include a configuration object.
-
-# 🥷 Support for NodeJs (backend) server
-
-TODO
-
-# ⚛️ Support for react-native
-
-TODO
 
 # 👩‍🔬 Advanced setup
 
@@ -199,48 +131,36 @@ It's possible to install all functionalities of Moralis by installing `moralis` 
 Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
 
 ```shell
-yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-walletconnect-connector
+yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
 ```
 
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
 import MoralisCore from '@moralisweb3/core';
-import Server from '@moralisweb3/server';
-import EvmApi from '@moralisweb3/evm-api';
-import Evm from '@moralisweb3/evm';
-import WalletConnectConnector from '@moralisweb3/evm-walletconnect-connector';
+import MoralisEvmApi from '@moralisweb3/evm-api';
 
+const core = MoralisCore.create();
 // Register all imported modules to the @moralisweb3/core module
-MoralisCore.registerModules({
-  // Add any network modules
-  networks: [Evm],
-  // Add any api modules
-  networks: [EvmApi],
-  // Add any other modules
-  modules: [Server],
-});
-
-// Add any additional connectors for the Evm network
-Evm.wallet.register(WalletConnectConnector);
+core.registerModules([MoralisEvmApi]);
 ```
 
-Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configation that is required by the packages. So if you don't include the server package, then you might not need to include the serverUrl and appId.
+Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configation that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
 
 ```javascript
-MoralisCore.start({
-  serverUrl: '<YOUR_SERVER_URL>',
-  appId: '<YOUR_APP_ID>',
+core.start({
+  apiKey: '<YOUR_API_KEY>',
   // ...and any other configuration
 });
 ```
 
 Now you can use any functionality from the installed modules. The only difference is that you need to call in your code:
 
-```javascript
-import Evm from '@moralisweb3/evm';
+```ts
+import MoralisEvmApi from '@moralisweb3/evm-api';
 
-Evm.connect();
+const evmApi = core.getModule<MoralisEvmApi>(MoralisEvmApi.moduleName);
+evmApi.native.getBlock();
 ```
 
 Instead of
@@ -248,25 +168,28 @@ Instead of
 ```javascript
 import Moralis from 'moralis';
 
-Moralis.Evm.connect();
+Moralis.EvmApi.native.getBlock();
 ```
 
 Of course you are free to combine the modules in a single object, and use that in your dapp.
 
 ```javascript
 // moralis.ts
-import Evm from '@moralisweb3/evm';
-import Server from '@moralisweb3/server';
+import { MoralisCore } from '@moralisweb3/core';
+import EvmApi from '@moralisweb3/evm-api';
+
+const core = MoralisCore.create();
+const evmApi = EvmApi.create(core);
+core.registerModules([evmApi]);
 
 export const Moralis = {
-  Evm,
-  Server,
+  EvmApi: evmApi,
 };
 
 // app.ts
 import { Moralis } from './moralis/';
 
-Moralis.Evm.connect();
+Moralis.EvmApi.native.getBlock();
 ```
 
 # 📦 Packages
@@ -285,13 +208,6 @@ The core module is required in all applications. It will handle global dependenc
 | ---------------------------------------------- | ------- | --------- | ------------------------------------------------------------------------------------ |
 | [@moralisweb3/core](./packages/core/README.md) | TODO    | TODO      | Core logic, responsible for core logic and sharing state and events between packages |
 
-## Main modules
-
-| package                                              | Version | Changelog | Description                                                         |
-| ---------------------------------------------------- | ------- | --------- | ------------------------------------------------------------------- |
-| [@moralisweb3/server](./packages/server/README.md)   | TODO    | TODO      | Connecting and interaction with your moralis server instance server |
-| [@moralisweb3/plugins](./packages/plugins/README.md) | TODO    | TODO      |                                                                     |
-
 ## API modules
 
 These are packages that wrap around the Moralis apis for easy use. You can call to any endpoint with a single function call. These modules will also wrap the returned data in Moralis datatypes, to ensure consistent data accross all modules.
@@ -300,24 +216,6 @@ These are packages that wrap around the Moralis apis for easy use. You can call 
 | ---------------------------------------------------- | ------- | --------- | ----------- |
 | [@moralisweb3/evm-api](./packages/evm-api/README.md) | TODO    | TODO      |             |
 | [@moralisweb3/sol-api](./packages/sol-api/README.md) | TODO    | TODO      |             |
-
-## Network modules
-
-| package                                      | Version | Changelog | Description                                       |
-| -------------------------------------------- | ------- | --------- | ------------------------------------------------- |
-| [@moralisweb3/evm](./packages/evm/README.md) | TODO    | TODO      | All logic regarding connecting to EVM networks    |
-| [@moralisweb3/sol](./packages/sol/README.md) | TODO    | TODO      | All logic regarding connecting to Solana networks |
-
-## Connectors
-
-Connectors are modules that allow access to on-chain activities. These are required to establish a connection with any network package.
-
-| package                                                                                                   | Version | Changelog | Description                                              |
-| --------------------------------------------------------------------------------------------------------- | ------- | --------- | -------------------------------------------------------- |
-| [@moralisweb3/evm-connector-utils](./packages/evmConnectors/EvmConnectorUtils/README.md)                  | TODO    | TODO      | Utilities for EVM connectors                             |
-| [@moralisweb3/evm-metamask-connector](./packages/evmConnectors/EvmMetamaskConnector/README.md)            | TODO    | TODO      | Connector to connect to an EVM network via Metamask      |
-| [@moralisweb3/evm-wallet-connect-connector](./packages/evmConnectors/EvmWalletconnectConnector/README.md) | TODO    | TODO      | Connector to connect to an EVM network via Walletconnect |
-| @moralisweb3/sol-phantom                                                                                  | TODO    | TODO      | TODO                                                     |
 
 ## Other
 

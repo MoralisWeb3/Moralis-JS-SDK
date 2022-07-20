@@ -1,26 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEnvApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({ onUnhandledRequest: 'warn' });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEnvApi();
   });
 
   it('should get logs for an address', async () => {
-    const result = await EvmApi.native.getLogsByAddress({
+    const result = await evmApi.native.getLogsByAddress({
       address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
     });
 
@@ -30,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get logs for an invalid address and return an error code', async () => {
-    const failedResult = await EvmApi.native
+    const failedResult = await evmApi.native
       .getLogsByAddress({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
       })
@@ -41,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.native.getLogsByAddress({
+      evmApi.native.getLogsByAddress({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b989',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

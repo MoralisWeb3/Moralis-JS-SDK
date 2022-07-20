@@ -1,6 +1,7 @@
 import { MoralisDataObject } from '../abstract';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
-import { EvmChain, EvmChainish } from '../EvmChain';
+import { EvmChain } from '../EvmChain';
+import { EvmChainish } from '../EvmChainish';
 import { maybe } from '../utils';
 
 export interface Erc20Input {

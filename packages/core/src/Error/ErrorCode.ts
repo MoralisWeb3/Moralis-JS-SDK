@@ -15,67 +15,19 @@ export enum CoreErrorCode {
   METHOD_FAILED = 'C0010',
   STATE_MACHINE_STARTED = 'C0011',
   STATE_MACHINE_NOT_STARTED = 'C0012',
-  CONFIG_NOT_EXIST = 'C0013',
-  CONFIG_NOT_VALID = 'C0014',
+  CONFIG_KEY_NOT_EXIST = 'C0013',
+  CONFIG_INVALID_VALUE = 'C0014',
+  CONFIG_KEY_ALREADY_EXIST = 'C0015',
 
   NOT_IMPLEMENTED = 'C9000',
-}
-
-export enum ServerErrorCode {
-  GENERIC_SERVER_ERROR = 'S0001',
-  UNDEFINED_CONNECTOR = 'S0002',
-  INVALID_SERVER_URL = 'S0003',
-  INVALID_APPID = 'S0004',
-  INVALID_PARSE_ENVIRONMENT = 'S0005',
-  NOT_INITIALIZED = 'S0006',
-  AUTHENTICATION_FAILED = 'S0007',
-  AUTHENTICATION_METHOD_NOT_SUPPORTED = 'S0008',
-  LOGOUT_FAILED = 'S0009',
-  DATA_NOT_SIGNED = 'S00010',
-  NO_AUTHENTICATION = 'S00011',
-  SIGNUP_FAILED = 'S0012',
-  VALIDATION_ERROR = 'S0013',
-  CONTRACT_EXECUTION_FAILED = 'S0014',
-
-  NOT_IMPLEMENTED = 'S9000',
-}
-
-export enum NetworkErrorCode {
-  GENERIC_NETWORK_ERROR = 'N0001',
-  CANNOT_CONNECT = 'N0002',
-  NO_PROVIDER = 'N0003',
-  NO_ACCOUNT = 'N0004',
-  DUPLICATE_WALLET = 'N0005',
-  WALLET_NOT_FOUND = 'N0006',
-  CONTRACT_NOT_SET = 'N0007',
-  NO_CHAIN_SET = 'N0008',
-  CANNOT_CANCEL = 'N0009',
-  CHAIN_MISMATCH = 'N0010',
-
-  NOT_IMPLEMENTED = 'N9000',
-}
-
-export enum NetworkConnectorErrorCode {
-  GENERIC_NETWORK_CONNECTOR_ERROR = 'NC0001',
-  NO_PROVIDER = 'NC0002',
-  MISSING_ARGUMENT = 'NC0003',
-  INVALID_ARGUMENT = 'NC0004',
-  INVALID_CONNECTOR = 'NC0005',
-
-  NOT_IMPLEMENTED = 'NC9000',
 }
 
 export enum ApiErrorCode {
   GENERIC_API_ERROR = 'A0001',
   PAGE_LIMIT_EXCEEDED = 'A0002',
+  API_KEY_NOT_SET = 'A0003',
 
   NOT_IMPLEMENTED = 'A9000',
-}
-
-export enum UtilsErrorCode {
-  GENERIC_Util_ERROR = 'U0001',
-
-  NOT_IMPLEMENTED = 'U9000',
 }
 
 export enum AuthErrorCode {
@@ -86,11 +38,4 @@ export enum AuthErrorCode {
   NOT_IMPLEMENTED = 'U9000',
 }
 
-export type MoralisErrorCode =
-  | CoreErrorCode
-  | ServerErrorCode
-  | NetworkErrorCode
-  | NetworkConnectorErrorCode
-  | ApiErrorCode
-  | UtilsErrorCode
-  | AuthErrorCode;
+export type MoralisErrorCode = CoreErrorCode | ApiErrorCode | AuthErrorCode;

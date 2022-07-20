@@ -10,7 +10,7 @@
     "declarationDir": "/lib",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ESNext", "dom"],
+    "lib": ["ESNext"],
     "module": "esnext",
     "allowJs": true,
     "moduleResolution": "node",

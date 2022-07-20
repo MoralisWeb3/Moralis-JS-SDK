@@ -1,23 +1,23 @@
+import { ApiPaginatedOptions, ApiPaginatedResolver, resolveDefaultChain } from '@moralisweb3/api';
 import { EvmChainish, EvmAddressish, EvmAddress, Erc20Value, Camelize, toCamelCase } from '@moralisweb3/core';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { EvmPaginatedResolver, PaginatedOptions } from '../PaginatedResolver';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
 
 type operation = 'getTokenAddressTransfers';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
 type ApiParams = QueryParams & PathParams;
-export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, PaginatedOptions {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>>, ApiPaginatedOptions {
   chain?: EvmChainish;
   address: EvmAddressish;
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getTokenAddressTransfersResolver = new EvmPaginatedResolver({
+export const getTokenAddressTransfersResolver = new ApiPaginatedResolver({
   name: 'getTokenAddressTransfers',
-  getPath: (params: Params) => `erc20/${params.address}/transfers`,
+  getUrl: (params: Params) => `${BASE_URL}/erc20/${params.address}/transfers`,
   apiToResult: (data: ApiResult) =>
     data.result?.map((transfer) => ({
       ...toCamelCase(transfer),

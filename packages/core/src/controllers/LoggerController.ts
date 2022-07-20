@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { isMoralisError } from '../Error/isMoralisError';
-import { LogLevel } from '../Config/configOptions';
-import { MoralisCore } from '../MoralisCore';
+import { CoreConfig, LogLevel } from '../Config/CoreConfig';
+import { Config } from '../Config';
 
 type Details = Record<string, unknown>;
 
@@ -20,17 +20,11 @@ const logLevelMap: Record<LogLevel, number> = {
  * It will then prefix any logs with that module-name for easy debugging
  * It will show only logs up to the specified `logLevel` in the MoralisConfig
  */
-export class Logger {
-  private moduleName: string;
-  private core: MoralisCore;
+export class LoggerController {
+  public constructor(private readonly config: Config, private readonly moduleName: string) {}
 
-  constructor(core: MoralisCore, moduleName: string) {
-    this.moduleName = moduleName;
-    this.core = core;
-  }
-
-  get level() {
-    return this.core.config.get('logLevel');
+  get level(): LogLevel {
+    return this.config.get(CoreConfig.logLevel);
   }
 
   private _transport(level: 'error' | 'warn' | 'log', message: string, details?: Details) {

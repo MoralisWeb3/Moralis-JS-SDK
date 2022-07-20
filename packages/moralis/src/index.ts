@@ -1,29 +1,21 @@
-// Import all Moralis modules
-import Server from '@moralisweb3/server';
-import EvmApi from '@moralisweb3/evm-api';
-import Evm from '@moralisweb3/evm';
-import Auth from '@moralisweb3/auth';
-import * as EvmConnectorUtilsLib from '@moralisweb3/evm-connector-utils';
+import { MoralisEvmApi } from '@moralisweb3/evm-api';
+import { MoralisAuth } from '@moralisweb3/auth';
 import * as CoreLib from '@moralisweb3/core';
 
-const Core = CoreLib.default;
+const core = CoreLib.MoralisCoreProvider.getDefault();
+
+const auth = MoralisAuth.create(core);
+const evmApi = MoralisEvmApi.create(core);
 
 // register all Moralis modules to MoralisCore
-Core.registerModules([Evm, Server, EvmApi]);
-
-const start = Core.start;
+core.registerModules([auth, evmApi]);
 
 const Moralis = {
-  Core,
-  Server,
-  Evm,
-  EvmApi,
-  Auth,
-  start,
+  Core: core,
+  Auth: auth,
+  EvmApi: evmApi,
 
-  // for UMD bundles
-  CoreLib,
-  EvmConnectorUtilsLib,
+  start: core.start,
 };
 
 export default Moralis;
