@@ -1,3 +1,4 @@
+// @ts-ignore
 import { ParseServer } from 'parse-server';
 import config from './config';
 import MoralisAuthAdapter from './auth/MoralisAuthAdapter';

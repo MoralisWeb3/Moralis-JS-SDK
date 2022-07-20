@@ -1,3 +1,4 @@
+// @ts-ignore
 import ParseDashboard from 'parse-dashboard';
 import config from './config';
 

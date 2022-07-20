@@ -15,11 +15,17 @@ packages/**/lib.esm
 packages/**/coverage
 coverage/
 
+demos/**/lib
+demos/**/build
+demos/**/dist
+
+
 logs/
 
 
 # Typescript
 packages/**/tsconfig.tsbuildinfo
+demos/**/tsconfig.tsbuildinfo
 
 # Test coverage
 packages/**/coverage

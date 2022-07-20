@@ -1,7 +1,7 @@
-import Moralis from 'moralis';
 // Note: do not import Parse dependency. see https://github.com/parse-community/parse-server/issues/6467
+import Moralis from 'moralis';
 
-function validateAuthData(authData, options) {
+function validateAuthData(authData: any) {
   const { message, signature, network, id, authId } = authData;
 
   return Moralis.Auth.verify({
@@ -25,14 +25,16 @@ function validateAuthData(authData, options) {
         return;
       }
 
+      // @ts-ignore (see note at top of file)
       throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Moralis auth failed, invalid data');
     })
     .catch(() => {
+      // @ts-ignore (see note at top of file)
       throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Moralis auth failed, invalid data');
     });
 }
 
-function validateAppId(appIds, authData, options) {
+function validateAppId() {
   return Promise.resolve();
 }
 

@@ -1,23 +1,23 @@
 import { assertUnreachable } from '@moralisweb3/core';
-import { AuthApi } from '../AuthApi/AuthApi';
+import { completeChallengeResolver } from '../resolvers/completeChallenge';
 
-export interface SignMessageEvmOptions {
+export interface VerifyEvmOptions {
   message: string;
   signature: string;
   network: 'evm';
 }
 
-export type SignMessageOptions = SignMessageEvmOptions;
+export type VerifyOptions = VerifyEvmOptions;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const makeEvmVerify = ({ network, ...options }: SignMessageEvmOptions) => {
-  return AuthApi.verify({
+const makeEvmVerify = ({ network, ...options }: VerifyEvmOptions) => {
+  return completeChallengeResolver.fetch({
     message: options.message,
     signature: options.signature,
   });
 };
 
-export const makeVerify = () => (options: SignMessageOptions) => {
+export const makeVerify = () => (options: VerifyOptions) => {
   switch (options.network) {
     case 'evm':
       return makeEvmVerify(options);

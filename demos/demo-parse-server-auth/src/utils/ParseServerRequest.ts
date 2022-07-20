@@ -1,13 +1,20 @@
-import { RequestController } from '@moralisweb3/core';
+import { MoralisCoreProvider, RequestController } from '@moralisweb3/core';
 import config from '../config';
 
 export class ParseServerRequest {
-  static getHeaders = (useMasterKey: boolean) => ({
+  protected readonly requestController: RequestController;
+
+  constructor() {
+    const core = MoralisCoreProvider.getDefault();
+    this.requestController = RequestController.create(core);
+  }
+
+  getHeaders = (useMasterKey: boolean) => ({
     ...(useMasterKey && { 'X-Parse-Master-Key': config.MASTER_KEY }),
     'X-Parse-Application-Id': config.APPLICATION_ID,
   });
 
-  static post = <Result>({
+  post = <Result>({
     endpoint,
     params,
     useMasterKey,
@@ -16,11 +23,11 @@ export class ParseServerRequest {
     params: Record<string, unknown>;
     useMasterKey: boolean;
   }) =>
-    RequestController.post(`${config.SERVER_URL}/${endpoint}`, null, params, {
+    this.requestController.post(`${config.SERVER_URL}/${endpoint}`, undefined, params, {
       headers: this.getHeaders(useMasterKey),
     }) as Promise<Result>;
 
-  static put = <Result>({
+  put = <Result>({
     endpoint,
     params,
     useMasterKey,
@@ -29,12 +36,12 @@ export class ParseServerRequest {
     params: Record<string, unknown>;
     useMasterKey: boolean;
   }) =>
-    RequestController.put(`${config.SERVER_URL}/${endpoint}`, null, params, {
+    this.requestController.put(`${config.SERVER_URL}/${endpoint}`, undefined, params, {
       headers: this.getHeaders(useMasterKey),
     }) as Promise<Result>;
 
-  static get = <Result>({ endpoint, useMasterKey }: { endpoint: string; useMasterKey: boolean }) =>
-    RequestController.get(`${config.SERVER_URL}/${endpoint}`, null, {
+  get = <Result>({ endpoint, useMasterKey }: { endpoint: string; useMasterKey: boolean }) =>
+    this.requestController.get(`${config.SERVER_URL}/${endpoint}`, undefined, {
       headers: this.getHeaders(useMasterKey),
     }) as Promise<Result>;
 }

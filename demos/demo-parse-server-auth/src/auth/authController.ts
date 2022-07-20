@@ -1,6 +1,7 @@
 import { requestMessage, verifyMessage } from './authService';
+import { NextFunction, Request, Response } from 'express';
 
-export async function request(req, res, next) {
+export async function request(req: Request, res: Response, next: NextFunction) {
   try {
     const { address, chain, network } = req.body;
 
@@ -16,7 +17,7 @@ export async function request(req, res, next) {
   }
 }
 
-export async function verify(req, res, next) {
+export async function verify(req: Request, res: Response, next: NextFunction) {
   try {
     const { network, message, signature } = req.body;
 

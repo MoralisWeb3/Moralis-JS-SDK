@@ -1,3 +1,5 @@
-import MoralisAuth from './MoralisAuth';
+import { MoralisAuth } from './MoralisAuth';
+
+export * from './MoralisAuth';
 
 export default MoralisAuth;

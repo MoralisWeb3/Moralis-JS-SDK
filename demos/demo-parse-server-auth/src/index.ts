@@ -11,10 +11,6 @@ const app = express();
 
 Moralis.start({
   apiKey: config.MORALIS_API_KEY,
-  // TODO: remove this requirement form Moralis
-  serverUrl: config.SERVER_URL,
-  appId: config.APPLICATION_ID,
-  logLevel: 'verbose',
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -31,5 +27,5 @@ app.use(express.static('public'));
 
 app.listen(config.PORT, function () {
   // eslint-disable-next-line no-console
-  console.log(`parse-server running on port ${config.PORT}`);
+  console.log(`${config.APP_NAME} is running on port ${config.PORT}`);
 });

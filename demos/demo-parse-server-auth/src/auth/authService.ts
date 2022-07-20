@@ -1,6 +1,8 @@
 import Moralis from 'moralis';
 import { authRequests } from '../store';
-import { ParseServerRequest } from '../utils/parseServerRequest';
+import { ParseServerRequest } from '../utils/ParseServerRequest';
+
+const serverRequest = new ParseServerRequest();
 
 interface ParseUser {
   objectId: string;
@@ -18,7 +20,7 @@ const URI = 'https://rugpull.finance';
 const EXPIRATION_TIME = '2023-01-01T00:00:00.000Z';
 const TIMEOUT = 15;
 
-export async function requestMessage({ address, chain, network }) {
+export async function requestMessage({ address, chain, network }: { address: string; chain: string; network: 'evm' }) {
   const result = await Moralis.Auth.requestMessage({
     address,
     chain,
@@ -60,7 +62,7 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
   };
 
   // Authenticate
-  const user = await ParseServerRequest.post<ParseUser>({
+  const user = await serverRequest.post<ParseUser>({
     endpoint: `/users`,
     params: {
       authData: {
@@ -71,7 +73,7 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
   });
 
   // Update user moralisProfile column
-  await ParseServerRequest.put({
+  await serverRequest.put({
     endpoint: `/users/${user.objectId}`,
     params: {
       moralisProfileId: storedProfileId,
@@ -80,7 +82,7 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
   });
 
   // Get authenticated user
-  const updatedUser = await ParseServerRequest.get({
+  const updatedUser = await serverRequest.get({
     endpoint: `/users/${user.objectId}`,
     useMasterKey: true,
   });

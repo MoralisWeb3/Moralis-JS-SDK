@@ -4,14 +4,14 @@
  */
 
 export interface paths {
-  '/challenge': {
-    post: operations['initializeChallenge'];
+  "/challenge": {
+    post: operations["initializeChallenge"];
   };
-  '/challenge/complete': {
-    post: operations['completeChallenge'];
+  "/challenge/complete": {
+    post: operations["completeChallenge"];
   };
-  '/health': {
-    get: operations['HealthController_check'];
+  "/health": {
+    get: operations["HealthController_check"];
   };
 }
 
@@ -95,6 +95,10 @@ export interface components {
        * - https://docs.moralis.io/
        */
       message: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
       profileId: string;
     };
     CompleteChallengeRequestDto: {
@@ -113,7 +117,6 @@ export interface components {
        * @description RFC 4501 dns authority that is requesting the signing.
        * @example rugpull.finance
        */
-      profileId: string;
       domain: string;
       /**
        * @description EIP-155 Chain ID to which the session is bound, and the network where Contract Accounts must be resolved.
@@ -162,6 +165,11 @@ export interface components {
       version: string;
       /** @example 0x1234567890abcdef0123456789abcdef1234567890abcdef */
       nonce: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
     };
   };
 }
@@ -173,13 +181,13 @@ export interface operations {
       /** The back channel challenge containing the id to store on the api and the message to be signed by the user */
       201: {
         content: {
-          'application/json': components['schemas']['ChallengeResponseDto'];
+          "application/json": components["schemas"]["ChallengeResponseDto"];
         };
       };
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['ChallengeRequestDto'];
+        "application/json": components["schemas"]["ChallengeRequestDto"];
       };
     };
   };
@@ -189,13 +197,13 @@ export interface operations {
       /** The token to be used to call the third party API from the client */
       201: {
         content: {
-          'application/json': components['schemas']['CompleteChallengeResponseDto'];
+          "application/json": components["schemas"]["CompleteChallengeResponseDto"];
         };
       };
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['CompleteChallengeRequestDto'];
+        "application/json": components["schemas"]["CompleteChallengeRequestDto"];
       };
     };
   };
@@ -205,7 +213,7 @@ export interface operations {
       /** The Health Check is successful */
       200: {
         content: {
-          'application/json': {
+          "application/json": {
             /** @example ok */
             status?: string;
             /** @example [object Object] */
@@ -232,7 +240,7 @@ export interface operations {
       /** The Health Check is not successful */
       503: {
         content: {
-          'application/json': {
+          "application/json": {
             /** @example error */
             status?: string;
             /** @example [object Object] */

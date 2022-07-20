@@ -1,6 +1,7 @@
+import { ApiResolver } from '@moralisweb3/api';
 import { toCamelCase } from '@moralisweb3/core';
-import { operations } from '../../generated/types';
-import { AuthApiResolver } from './AuthApiResolver';
+import { operations } from '../generated/types';
+import { BASE_URL } from '../MoralisAuth';
 
 type name = 'initializeChallenge';
 type BodyParams = operations[name]['requestBody']['content']['application/json'];
@@ -17,10 +18,11 @@ const bodyParams = [
   'resources',
   'timeout',
 ] as const;
+type Params = ApiParams;
 
 type ApiResult = operations[name]['responses']['201']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult, params: ApiParams) => {
+const apiToResult = (apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
 
   return {
@@ -28,14 +30,14 @@ const apiToResult = (apiData: ApiResult, params: ApiParams) => {
   };
 };
 
-export const initializeChallenge = new AuthApiResolver({
+export const initializeChallengeResolver = new ApiResolver({
   name: 'initializeChallenge',
-  getPath: () => `challenge/`,
+  getUrl: (params: Params) => `${BASE_URL}/challenge/`,
   apiToResult: apiToResult,
   resultToJson: (data) => ({
     ...data,
   }),
-  parseParams: (params: ApiParams): ApiParams => params,
+  parseParams: (params: Params): ApiParams => params,
   method,
   bodyParams,
 });

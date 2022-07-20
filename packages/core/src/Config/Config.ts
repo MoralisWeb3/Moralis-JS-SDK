@@ -17,6 +17,10 @@ export class Config {
     return Array.from(this.items.keys());
   }
 
+  public hasKey<Value>(key: ConfigKey<Value>): boolean {
+    return this.items.has(key.name);
+  }
+
   public get<Value>(keyOrName: ConfigKey<Value> | string): Value {
     return this.getItem(keyOrName).value;
   }

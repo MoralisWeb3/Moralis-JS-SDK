@@ -1,5 +1,5 @@
 import { AuthErrorCode, EvmAddress, EvmAddressish, EvmChain, EvmChainish, MoralisAuthError } from '@moralisweb3/core';
-import { AuthApi } from '../AuthApi/AuthApi';
+import { initializeChallengeResolver } from '../resolvers/initializeChallenge';
 
 export enum AuthNetwork {
   EVM = 'evm',
@@ -26,7 +26,7 @@ export type RequestMessageOptions = RequestMessageEvmOptions;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const makeEvmRequestMessage = ({ chain, address, network, ...options }: RequestMessageEvmOptions) => {
-  return AuthApi.requestMessage({
+  return initializeChallengeResolver.fetch({
     chainId: EvmChain.create(chain).decimal,
     address: EvmAddress.create(address).checksum,
     ...options,
