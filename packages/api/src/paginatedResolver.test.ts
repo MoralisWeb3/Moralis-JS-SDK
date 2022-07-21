@@ -1,8 +1,9 @@
 import { ApiConfig } from './config/ApiConfig';
 import axios from 'axios';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, MoralisCoreProvider } from '@moralisweb3/core';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 import { BodyType } from './Resolver';
 import { ApiPaginatedOptions, ApiPaginatedResolver, ApiPaginatedResponse } from './PaginatedResolver';
+import { setupApi } from './test/setup';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -67,9 +68,9 @@ describe('ApiResolver', () => {
     unknown
   >;
   beforeAll(() => {
-    const core = MoralisCoreProvider.getDefault();
-    core.config.registerKey(ApiConfig.apiKey);
+    const core = setupApi();
     core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
+
     const mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
       if (

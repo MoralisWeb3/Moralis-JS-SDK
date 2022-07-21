@@ -1,4 +1,5 @@
-import { EvmAddress, EvmChain, maybe, toCamelCase } from '@moralisweb3/core';
+import { maybe, toCamelCase } from '@moralisweb3/core';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { ApiResolver } from '@moralisweb3/api';
 import { operations } from '../generated/types';
 import { BASE_URL } from '../MoralisAuth';

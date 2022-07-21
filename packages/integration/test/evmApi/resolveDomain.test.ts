@@ -1,4 +1,4 @@
-import { EvmAddress } from '@moralisweb3/core';
+import { EvmAddress } from '@moralisweb3/evm-utils';
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEnvApi, setupEvmApi } from './setup';
 

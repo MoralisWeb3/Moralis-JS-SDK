@@ -1,4 +1,5 @@
-import { AuthErrorCode, EvmAddress, EvmAddressish, EvmChain, EvmChainish, MoralisAuthError } from '@moralisweb3/core';
+import { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core/lib';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 import { initializeChallengeResolver } from '../resolvers/initializeChallenge';
 
 export enum AuthNetwork {
