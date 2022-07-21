@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.9.0...v1.9.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* remove page check when using cursor pagination ([#502](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/502)) ([d062682](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d0626828f339ffa4dcc9bae6ae2f5fe376c9e20c))
+
 # [1.9.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.8.1...v1.9.0) (2022-07-13)
 
 
