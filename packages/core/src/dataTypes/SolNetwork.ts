@@ -1,6 +1,9 @@
+import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { MoralisData, MoralisDataFormatted } from './abstract';
 
-export type SolNetworkName = 'mainnet' | 'devnet';
+const solNetworkNames = ['mainnet', 'devnet'] as const;
+
+export type SolNetworkName = typeof solNetworkNames[number];
 export type SolNetworkNameish = SolNetworkName | string;
 
 export type SolNetworkish = SolNetwork | SolNetworkNameish;
@@ -11,7 +14,14 @@ export class SolNetwork implements MoralisData {
   }
 
   private static parse(network: SolNetworkNameish): SolNetworkName {
-    // TODO: add network validation
+    if (typeof network === 'string') {
+      if (!solNetworkNames.includes(network as SolNetworkName)) {
+        throw new MoralisCoreError({
+          code: CoreErrorCode.INVALID_ARGUMENT,
+          message: `Solana network is not supported: ${network}`,
+        });
+      }
+    }
     return network as SolNetworkName;
   }
 
