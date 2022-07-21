@@ -5,7 +5,7 @@
   "fixed": [
     [
       "@moralisweb3/core",
-      "@moralisweb3/evm-auth",
+      "@moralisweb3/auth",
       "@moralisweb3/api",
       "@moralisweb3/evm-utils",
       "@moralisweb3/evm-api",
