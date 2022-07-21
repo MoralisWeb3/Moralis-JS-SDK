@@ -1,6 +1,6 @@
 import { EvmAddress } from '@moralisweb3/evm-utils';
 import MoralisEvmApi from '@moralisweb3/evm-api';
-import { cleanEnvApi, setupEvmApi } from './setup';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
   let evmApi: MoralisEvmApi;
@@ -10,7 +10,7 @@ describe('Moralis EvmApi', () => {
   });
 
   afterAll(() => {
-    cleanEnvApi();
+    cleanEvmApi();
   });
 
   it('should resolve a domain and rerurn an address', async () => {

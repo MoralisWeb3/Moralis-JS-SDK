@@ -9,9 +9,9 @@ export function setupEvmApi(): MoralisEvmApi {
   const core = MoralisCoreProvider.getDefault();
   const api = MoralisApi.create(core);
   const evmUtils = MoralisEvmUtils.create(core);
-  const envApi = MoralisEvmApi.create(core);
+  const evmApi = MoralisEvmApi.create(core);
 
-  core.registerModules([api, evmUtils, envApi]);
+  core.registerModules([api, evmUtils, evmApi]);
   core.start({
     apiKey: MOCK_API_KEY,
   });
@@ -20,9 +20,9 @@ export function setupEvmApi(): MoralisEvmApi {
     onUnhandledRequest: 'warn',
   });
 
-  return envApi;
+  return evmApi;
 }
 
-export function cleanEnvApi() {
+export function cleanEvmApi() {
   mockServer.close();
 }

@@ -1,5 +1,5 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
-import { cleanEnvApi, setupEvmApi } from './setup';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 const ABI = {
   anonymous: false,
@@ -20,7 +20,7 @@ describe('Moralis EvmApi', () => {
   });
 
   afterAll(() => {
-    cleanEnvApi();
+    cleanEvmApi();
   });
 
   it('should get the events of an account address', async () => {
