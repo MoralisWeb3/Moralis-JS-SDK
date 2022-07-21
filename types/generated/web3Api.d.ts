@@ -752,7 +752,9 @@ export interface components {
       | "fantom"
       | "0xfa"
       | "cronos"
-      | "0x19";
+      | "0x19"
+      | "cronos testnet"
+      | "0x152";
     nft: {
       /**
        * @description The address of the contract of the NFT
@@ -1902,6 +1904,14 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The transfer direction */
         direction?: "both" | "to" | "from";
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_block?: number;
+        /** To get the reserves at this block number */
+        to_block?: string;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
