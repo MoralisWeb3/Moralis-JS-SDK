@@ -1,6 +1,6 @@
 import { MoralisApi } from '@moralisweb3/api';
 import { MoralisAuth } from '@moralisweb3/auth';
-import { EvmChain, MoralisEvmUtils } from '@moralisweb3/evm-utils';
+import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
 import { MoralisSolApi } from '@moralisweb3/sol-api';
 import { MoralisCoreProvider } from '@moralisweb3/core';
@@ -31,7 +31,3 @@ const Moralis = {
 };
 
 export default Moralis;
-
-Moralis.start({
-  defaultEvmApiChain: EvmChain.create('1'),
-});
