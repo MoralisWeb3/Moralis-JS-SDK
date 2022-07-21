@@ -12,10 +12,6 @@ export class SolAddress implements MoralisData {
     return address;
   }
 
-  public get lowercase() {
-    return this.address.toLowerCase();
-  }
-
   public constructor(public readonly address: string) {}
 
   public format(): MoralisDataFormatted {
@@ -24,7 +20,7 @@ export class SolAddress implements MoralisData {
   }
 
   public equals(address: SolAddress): boolean {
-    return this.lowercase === address.lowercase;
+    return this.address === address.address;
   }
 
   public toString(): string {

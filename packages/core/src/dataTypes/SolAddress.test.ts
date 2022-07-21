@@ -9,7 +9,6 @@ describe('SolAddress', () => {
     expect(address.address).toEqual(ADDRESS);
     expect(address.toJSON()).toEqual(ADDRESS);
     expect(address.toString()).toEqual(ADDRESS);
-    expect(address.lowercase).toEqual(ADDRESS.toLowerCase());
     expect(address.format()).toEqual(ADDRESS);
   });
 
