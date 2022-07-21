@@ -15,21 +15,31 @@
     "@moralisweb3/test-cdn": "2.0.0-alpha.1",
     "@moralisweb3/test-node": "2.0.0-alpha.1",
     "@moralisweb3/evm-magic-link-connector": "2.0.0-alpha.1",
-    "@moralisweb3/wallet-connect-wrapper": "2.0.0-alpha.1"
+    "@moralisweb3/wallet-connect-wrapper": "2.0.0-alpha.1",
+    "demo-parse-server-auth-server": "2.0.0-alpha.2",
+    "@moralisweb3/api": "2.0.0-alpha.2",
+    "@moralisweb3/auth": "2.0.0-alpha.2",
+    "@moralisweb3/sol-api": "2.0.0-alpha.2"
   },
   "changesets": [
     "afraid-pans-kiss",
+    "brave-bats-destroy",
     "brave-paws-rescue",
     "curly-boats-stare",
+    "forty-yaks-tie",
+    "green-avocados-hear",
     "itchy-feet-float",
     "metal-teachers-run",
     "modern-roses-live",
     "odd-zebras-draw",
+    "old-cherries-jam",
     "purple-lemons-wink",
     "shaggy-apes-invite",
     "shaggy-ways-fry",
+    "short-baboons-study",
     "strange-cherries-develop",
     "swift-lobsters-sit",
+    "thick-birds-remain",
     "tiny-flowers-press"
   ]
 }
