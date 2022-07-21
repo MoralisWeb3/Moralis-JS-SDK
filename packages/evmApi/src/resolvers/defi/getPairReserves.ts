@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getPairReserves';
 
@@ -27,7 +28,7 @@ export const getPairReservesResolver = new ApiResolver({
   apiToResult: (data: ApiResult) => data,
   resultToJson: (data) => data,
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     pair_address: EvmAddress.create(params.pairAddress).lowercase,
     provider_url: params.providerUrl,
     to_block: params.toBlock,

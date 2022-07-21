@@ -15,14 +15,14 @@ export class MoralisAuth extends ApiModule {
     super(MoralisAuth.moduleName, core, BASE_URL);
   }
 
-  requestMessage = (options: RequestMessageOptions) => makeRequestMessage()(options);
-  verify = (options: VerifyOptions) => makeVerify()(options);
-
   public setup() {
-    // Nothing...
+    // Nothing
   }
 
-  public start(): void | Promise<void> {
-    // Nothing...
+  public start() {
+    // Nothing
   }
+
+  public requestMessage = (options: RequestMessageOptions) => makeRequestMessage()(options);
+  public verify = (options: VerifyOptions) => makeVerify()(options);
 }

@@ -21,7 +21,7 @@ export class MoralisCore {
     const config = new Config();
     const logger = new LoggerController(config, MoralisCore.moduleName);
     const core = new MoralisCore(modules, config, logger);
-    CoreConfigSetup.register(config, modules);
+    CoreConfigSetup.register(config);
     return core;
   }
 

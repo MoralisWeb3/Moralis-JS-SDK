@@ -23,6 +23,7 @@ describe('EvmNative', () => {
   it('creates 1 of default unit', () => {
     const value = EvmNative.create(1);
     expect(value.ether).toEqual('1.0');
+    expect(value.wei).toEqual('1000000000000000000');
   });
 
   it('creates 1 of 15 decimals unit', () => {

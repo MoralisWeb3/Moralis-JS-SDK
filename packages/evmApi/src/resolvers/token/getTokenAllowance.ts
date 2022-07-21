@@ -1,8 +1,9 @@
 import { BigNumber } from 'ethers';
 import { operations } from '../../generated/types';
 import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { BASE_URL } from '../../EvmApi';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenAllowance';
 
@@ -30,7 +31,7 @@ export const getTokenAllowanceResolver = new ApiResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     owner_address: EvmAddress.create(params.ownerAddress).lowercase,
     spender_address: EvmAddress.create(params.spenderAddress).lowercase,

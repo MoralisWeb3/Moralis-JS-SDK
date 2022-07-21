@@ -1,13 +1,8 @@
-import {
-  ApiPaginatedOptions,
-  ApiPaginatedResolver,
-  resolveDefaultChain,
-  BodyType,
-  ApiPaginatedResponse,
-} from '@moralisweb3/api';
+import { ApiPaginatedOptions, ApiPaginatedResolver, BodyType, ApiPaginatedResponse } from '@moralisweb3/api';
 import { EvmChainish, EvmAddress, EvmAddressish, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getContractEvents';
 const method = 'post';
@@ -34,7 +29,7 @@ export const getContractEventsResolver = new ApiPaginatedResolver({
     })),
   resultToJson: (data) => data,
   parseParams: (params: Params) => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     from_block: params.fromBlock,
     to_block: params.toBlock,
     from_date: params.toDate,

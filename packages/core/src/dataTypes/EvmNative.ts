@@ -56,38 +56,38 @@ export class EvmNative implements MoralisData {
     return value;
   }
 
-  public static equals(valueA: EvmNativeish, valueB: EvmNativeish) {
+  public static equals(valueA: EvmNativeish, valueB: EvmNativeish): boolean {
     const evmNativeA = EvmNative.create(valueA);
     const evmNativeB = EvmNative.create(valueB);
 
     return evmNativeA.rawValue.eq(evmNativeB.rawValue);
   }
 
-  public equals(value: EvmNative) {
+  public equals(value: EvmNative): boolean {
     return EvmNative.equals(this, value);
   }
 
-  public get value() {
+  public get value(): BigNumber {
     return this.rawValue;
   }
 
-  public get wei() {
+  public get wei(): string {
     return this.value.toString();
   }
 
-  public get gwei() {
+  public get gwei(): string {
     return formatUnits(this.rawValue, 'gwei');
   }
 
-  public get ether() {
+  public get ether(): string {
     return formatUnits(this.rawValue, 'ether');
   }
 
-  public toString() {
+  public toString(): string {
     return this.wei;
   }
 
-  public format() {
+  public format(): string {
     return this.toString();
   }
 }

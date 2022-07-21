@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'runContractFunction';
 const method = 'post';
@@ -31,7 +32,7 @@ export const runContractFunctionResolver = new ApiResolver({
   },
   resultToJson: (data) => data,
   parseParams: (params: Params) => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     function_name: params.functionName,
     address: EvmAddress.create(params.address).lowercase,
     abi: params.abi,
