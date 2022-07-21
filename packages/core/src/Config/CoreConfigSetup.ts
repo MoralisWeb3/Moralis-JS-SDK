@@ -1,10 +1,9 @@
-import { Modules } from '../Modules';
 import { Config } from './Config';
 import { CoreConfig } from './CoreConfig';
 import { CoreConfigValidator } from './CoreConfigValidator';
 
 export class CoreConfigSetup {
-  public static register(config: Config, modules: Modules) {
+  public static register(config: Config) {
     config.registerKey(CoreConfig.logLevel);
     config.registerKey(CoreConfig.buidEnvironment);
 

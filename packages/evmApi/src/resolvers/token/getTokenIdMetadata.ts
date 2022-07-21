@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenIdMetadata';
 
@@ -29,7 +30,7 @@ export const getTokenIdMetadataResolver = new ApiResolver({
   getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}`,
   apiToResult: (data: ApiResult, params: Params) => ({
     token: new EvmNFT({
-      chain: resolveDefaultChain(params.chain),
+      chain: EvmChainResolver.resolve(params.chain),
       contractType: data.contract_type,
       tokenAddress: data.token_address,
       tokenId: data.token_id,
@@ -53,7 +54,7 @@ export const getTokenIdMetadataResolver = new ApiResolver({
     lastTokenUriSync: data.lastTokenUriSync?.toLocaleDateString(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     token_id: params.tokenId,
     format: params.format,

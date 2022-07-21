@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { Erc20Token, EvmChainish, EvmAddressish, EvmAddress, Camelize, toCamelCase } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenMetadata';
 
@@ -23,7 +24,7 @@ export const getTokenMetadataResolver = new ApiResolver({
       const tokenType = new Erc20Token({
         ...toCamelCase(token),
         contractAddress: token.address,
-        chain: resolveDefaultChain(params.chain),
+        chain: EvmChainResolver.resolve(params.chain),
       });
       return {
         token: tokenType,
@@ -35,7 +36,7 @@ export const getTokenMetadataResolver = new ApiResolver({
   parseParams: (params: Params): ApiParams => ({
     providerUrl: params.providerUrl || undefined,
     subdomain: params.subdomain || undefined,
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     addresses: params.addresses.map((address) => EvmAddress.create(address).lowercase),
   }),
 });

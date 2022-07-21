@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { Erc20Token, EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getPairAddress';
 
@@ -30,7 +31,7 @@ export const getPairAddressResolver = new ApiResolver({
         symbol: data.token0?.symbol ?? '',
         logo: data.token0?.logo,
         thumbnail: data.token0?.thumbnail,
-        chain: resolveDefaultChain(params.chain),
+        chain: EvmChainResolver.resolve(params.chain),
       }),
       blockNumber: data.token0?.block_number,
       validated: data.token0?.validated,
@@ -44,7 +45,7 @@ export const getPairAddressResolver = new ApiResolver({
         symbol: data.token1?.symbol ?? '',
         logo: data.token1?.logo,
         thumbnail: data.token1?.thumbnail,
-        chain: resolveDefaultChain(params.chain),
+        chain: EvmChainResolver.resolve(params.chain),
       }),
       blockNumber: data.token1?.block_number,
       validated: data.token1?.validated,
@@ -54,7 +55,7 @@ export const getPairAddressResolver = new ApiResolver({
   }),
   resultToJson: (data) => data,
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     token0_address: EvmAddress.create(params.token0Address).lowercase,
     token1_address: EvmAddress.create(params.token1Address).lowercase,
     exchange: params.exchange,

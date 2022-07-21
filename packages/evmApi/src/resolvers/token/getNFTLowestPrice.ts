@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, toCamelCase, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getNFTLowestPrice';
 
@@ -37,7 +38,7 @@ export const getNFTLowestPriceResolver = new ApiResolver({
   }),
   parseParams: (params: Params): ApiParams => ({
     ...params,
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     provider_url: params.providerUrl,
   }),

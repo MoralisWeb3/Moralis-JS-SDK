@@ -4,5 +4,8 @@ export * from './EvmAddress';
 export * from './EvmNative';
 export * from './EvmTransaction';
 export * from './EvmTransactionLog';
+export * from './SolNetwork';
+export * from './SolAddress';
+export * from './SolNative';
 export * from './tokens';
 export * from './abstract';

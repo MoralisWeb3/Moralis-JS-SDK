@@ -1,13 +1,22 @@
+import { SolNetworkish } from '../dataTypes';
 import { CoreConfig } from './CoreConfig';
 
+// @moralisweb3/core
 type CoreConfigType = typeof CoreConfig;
+type CoreConfigValues = { [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] };
 
 // @moralisweb3/api
-interface ApiConfig {
+interface ApiConfigValues {
   apiKey: string;
 }
 
+// @moralisweb3/sol-api
+interface SolApiConfigValues {
+  defaultSolNetwork: SolNetworkish;
+}
+
 export type MoralisConfigValues =
-  | { [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] }
-  | ApiConfig
+  | CoreConfigValues
+  | ApiConfigValues
+  | SolApiConfigValues
   | { [key: string]: string | number }; // Other, not strong typed values.

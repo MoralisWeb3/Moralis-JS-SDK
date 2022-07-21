@@ -1,7 +1,8 @@
-import { resolveDefaultChain, ApiResolver } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmAddressish, EvmChainish, EvmNative, Camelize, EvmAddress } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getNativeBalance';
 
@@ -26,7 +27,7 @@ export const getNativeBalanceResolver = new ApiResolver({
     balance: data.balance.format(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     to_block: params.toBlock,
     providerUrl: params.providerUrl,

@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmChainish } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getDateToBlock';
 
@@ -27,7 +28,7 @@ export const getDateToBlockResolver = new ApiResolver({
     date: data.date.toLocaleDateString(),
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     date: params.date,
   }),
 });

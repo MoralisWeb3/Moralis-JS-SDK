@@ -55,6 +55,14 @@ export class MoralisEvmApi extends ApiModule {
     super(MoralisEvmApi.moduleName, core, BASE_URL);
   }
 
+  public setup() {
+    // Nothing
+  }
+
+  public start() {
+    // Nothing
+  }
+
   get native() {
     return {
       runContractFunction: runContractFunctionResolver.fetch,
@@ -121,13 +129,5 @@ export class MoralisEvmApi extends ApiModule {
     return {
       uploadFolder: uploadFolderResolver.fetch,
     };
-  }
-
-  public setup() {
-    // Nothing...
-  }
-
-  public start(): void | Promise<void> {
-    // Nothing...
   }
 }

@@ -1,7 +1,8 @@
-import { ApiResolver, resolveDefaultChain } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api';
 import { EvmNative, EvmAddress, EvmChainish, EvmAddressish, Camelize, toCamelCase } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenPrice';
 
@@ -30,7 +31,7 @@ export const getTokenPriceResolver = new ApiResolver({
     nativePrice: data.nativePrice ? data.nativePrice.format() : null,
   }),
   parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
+    chain: EvmChainResolver.resolve(params.chain).apiHex,
     address: EvmAddress.create(params.address).lowercase,
     exchange: params.exchange,
     to_block: params.toBlock,
