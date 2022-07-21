@@ -15,11 +15,12 @@
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch"
   },
   "dependencies": {
+    "@moralisweb3/auth": "^2.0.0-alpha.2",
     "@moralisweb3/core": "^2.0.0-alpha.2",
     "@moralisweb3/api": "^2.0.0-alpha.2",
     "@moralisweb3/evm-api": "^2.0.0-alpha.2",
