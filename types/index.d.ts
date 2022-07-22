@@ -364,6 +364,16 @@ export namespace Moralis {
     apiKey: string;
     network: string;
     newSession?: string;
+
+    // Optional options passed to loginWithMagicLink
+    showUI?: boolean;
+    redirectURI?: string;
+
+    // Optional options passed to new Magic creation
+    locale?: string;
+    extensions?: any;
+    testMode?: boolean;
+    endpoint?: string;
   }
 
   interface Web3AuthWeb3ConnectorEnableOptions extends CommonEnableOptions {
