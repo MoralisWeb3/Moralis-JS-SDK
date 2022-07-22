@@ -104,7 +104,7 @@ class InternalWeb3Provider extends EventEmitter {
 
   async deactivate() {
     this.account = null;
-    this.chianId = null;
+    this.chainId = null;
     this.web3 = null;
     this.provider = null;
     this.privateKey = null;
