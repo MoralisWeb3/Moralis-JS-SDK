@@ -400,13 +400,13 @@ export namespace Moralis {
   type GoerliChain = 'goerli' | '0x5';
   type KovanChain = 'kovan' | '0x2a';
   type BscChain = 'bsc' | 'binance' | 'binance smart chain' | '0x38';
-  type BscTestChain = 'bsc testnet' | 'binance testnet' | 'binance smart chain testnet' | ' 0x61';
+  type BscTestChain = 'bsc testnet' | 'binance testnet' | 'binance smart chain testnet' | '0x61';
   type PolygonChain = 'matic' | 'polygon' | '0x89';
   type MumbaiChain = 'mumbai' | 'matic testnet' | 'polygon testnet' | '0x13881';
   type FantomChain = 'fantom' | 'ftm' | '0xfa';
   type AvalancheChain = 'avalanche' | 'avax' | '0xa86a';
   type AvalancheTestChain = 'avalanche testnet' | 'avax testnet' | '0xa869' | 'fuji';
-  type ChronosChain = 'cro' | 'chronos' | 'chronos mainnet' | '0x19';
+  type ChronosChain = 'cro' | 'cronos' | 'cronos mainnet' | '0x19';
   type LocalDevChain = 'ganache' | 'hardhat' | 'localdevchain' | 'local devchain' | 'dev' | '0x539';
   type Chain =
     | EthChain
