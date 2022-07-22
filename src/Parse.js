@@ -36,7 +36,15 @@ class Moralis extends MoralisWeb3 {
    * @static
    */
   static async start(options) {
-    const { appId, serverUrl, plugins, javascriptKey, masterKey, moralisSecret } = options;
+    const {
+      appId,
+      serverUrl,
+      plugins,
+      javascriptKey,
+      masterKey,
+      moralisSecret,
+      disableVersionCheck,
+    } = options;
     let apiKey;
     let trackOptions;
 

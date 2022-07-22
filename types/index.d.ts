@@ -115,6 +115,7 @@ export namespace Moralis {
     plugins?: PluginSpecs[];
     javascriptKey?: string;
     masterKey?: string;
+    disableVersionCheck?: boolean;
   }
 
   let start: (options: StartOptions) => Promise<void>;
