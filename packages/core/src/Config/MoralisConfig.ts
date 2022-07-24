@@ -1,5 +1,5 @@
-import { SolNetworkish } from '../dataTypes';
 import { CoreConfig } from './CoreConfig';
+import { SolNetworkish } from './interfaces';
 
 // @moralisweb3/core
 type CoreConfigType = typeof CoreConfig;

@@ -1,4 +1,5 @@
-import { MoralisCoreProvider, SolNetwork, SolNetworkish, SolNetworkName } from '@moralisweb3/core';
+import { MoralisCoreProvider } from '@moralisweb3/core';
+import { SolNetwork, SolNetworkish, SolNetworkName } from '@moralisweb3/sol-utils';
 import { SolApiConfig } from '../config/SolApiConfig';
 
 export class SolNetworkResolver {
