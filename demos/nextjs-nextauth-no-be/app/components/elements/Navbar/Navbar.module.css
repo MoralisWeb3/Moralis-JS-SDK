@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  gap: 38px;
+}
+
+.tab {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 17px;
+  text-decoration: none;
+}
+
+.active {
+  color: #2e7daf;
+}
