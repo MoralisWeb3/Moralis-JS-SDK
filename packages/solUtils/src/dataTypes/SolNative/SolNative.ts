@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish, parseFixed } from '@ethersproject/bignumber';
 import { formatUnits } from '@ethersproject/units';
-import { MoralisData, MoralisDataFormatted, CoreErrorCode, MoralisCoreError  } from "@moralisweb3/core";
+import { MoralisData, MoralisDataFormatted, CoreErrorCode, MoralisCoreError } from '@moralisweb3/core';
 
 export type SolNativeUnit = 'solana' | 'lamports' | number;
 

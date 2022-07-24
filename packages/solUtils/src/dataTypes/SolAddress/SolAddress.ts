@@ -1,4 +1,4 @@
-import { MoralisData, MoralisDataFormatted } from "@moralisweb3/core";
+import { MoralisData, MoralisDataFormatted } from '@moralisweb3/core';
 
 export type SolAddressish = SolAddress | string;
 
