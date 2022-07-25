@@ -1,5 +1,4 @@
-import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { MoralisData, MoralisDataFormatted } from './abstract';
+import { MoralisData, MoralisDataFormatted, CoreErrorCode, MoralisCoreError } from '@moralisweb3/core';
 
 const solNetworkNames = ['mainnet', 'devnet'] as const;
 

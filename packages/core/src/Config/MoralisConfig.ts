@@ -1,4 +1,4 @@
-import { SolNetworkish } from '../dataTypes';
+import { SolNetworkish } from './interfaces';
 import { CoreConfig, EvmAddressFormat, EvmChainIdFormat } from './CoreConfig';
 import { EvmChainish } from './interfaces/EvmChainish';
 
