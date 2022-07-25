@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { SolAddress, SolAddressish, SolNative, SolNetworkish } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
