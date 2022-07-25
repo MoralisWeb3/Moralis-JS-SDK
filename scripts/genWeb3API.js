@@ -142,11 +142,11 @@ static async fetchFromApi(endpoint, params) {
 
   try {
     const parameterizedUrl = this.getParameterizedUrl(url, params);
-    const body = this.getBody(params, bodyParams);
+    const data = this.getBody(params, bodyParams);
     const response = await axios(this.baseURL + parameterizedUrl, {
       params,
       method,
-      body,
+      data,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
