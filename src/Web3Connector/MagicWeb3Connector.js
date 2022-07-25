@@ -4,7 +4,22 @@ import AbstractWeb3Connector from './AbstractWeb3Connector';
 
 export default class MagicWeb3Connector extends AbstractWeb3Connector {
   type = 'MagicLink';
-  async activate({ email, apiKey, network, newSession } = {}) {
+  async activate({
+    apiKey,
+    newSession,
+
+    // Options passed to loginWithMagicLink
+    email,
+    showUI,
+    redirectURI,
+
+    // Options passed to new Magic creation
+    network,
+    locale,
+    extensions,
+    testMode,
+    endpoint,
+  } = {}) {
     let magic = null;
     let ether = null;
 
@@ -36,6 +51,10 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
     try {
       magic = new Magic(apiKey, {
         network: network,
+        ...(locale && { locale }),
+        ...(extensions && { extensions }),
+        ...(testMode && { testMode }),
+        ...(endpoint && { endpoint }),
       });
 
       if (newSession) {
@@ -51,6 +70,8 @@ export default class MagicWeb3Connector extends AbstractWeb3Connector {
       ether = new ethers.providers.Web3Provider(magic.rpcProvider);
       await magic.auth.loginWithMagicLink({
         email: email,
+        ...(showUI && { showUI }),
+        ...(redirectURI && { redirectURI }),
       });
     } catch (err) {
       throw new Error('Error during enable via MagicLink, please double check network and apikey');
