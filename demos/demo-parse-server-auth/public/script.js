@@ -1,5 +1,9 @@
 const AUTH_API_URL = 'http://localhost:1337/api/auth';
 
+const elError = document.getElementById('error');
+const elUser = document.getElementById('user');
+const elBtnMetamask = document.getElementById('auth-metamask');
+
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
     headers: {
@@ -57,12 +61,16 @@ const handleAuth = async () => {
 };
 
 const renderUser = (user) => {
-  document.getElementById('user').innerHTML = user ? JSON.stringify(user, null, 2) : '';
+  elUser.innerHTML = user ? JSON.stringify(user, null, 2) : '';
+};
+
+const renderError = (error) => {
+  elError.innerHTML = error ? JSON.stringify(error.message, null, 2) : '';
 };
 
 function init() {
-  document.getElementById('auth-metamask').addEventListener('click', async () => {
-    handleAuth();
+  elBtnMetamask.addEventListener('click', async () => {
+    handleAuth().catch((error) => renderError(error));
   });
 }
 

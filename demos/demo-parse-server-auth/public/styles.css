@@ -29,3 +29,10 @@ h1 {
   font-size: 1rem;
   color: rgb(4, 24, 54);
 }
+
+#error {
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-size: 1rem;
+  color: rgb(200, 31, 31);
+}
