@@ -1,4 +1,4 @@
-import { MoralisApi } from '@moralisweb3/api';
+import { MoralisApiUtils } from '@moralisweb3/api-utils';
 import { MoralisAuth } from '@moralisweb3/auth';
 import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
@@ -10,7 +10,7 @@ const core = MoralisCoreProvider.getDefault();
 
 // Utility modules
 const evmUtils = MoralisEvmUtils.create();
-const api = MoralisApi.create(core);
+const apiUtils = MoralisApiUtils.create(core);
 
 // Feature modules
 const auth = MoralisAuth.create(core);
@@ -18,7 +18,7 @@ const evmApi = MoralisEvmApi.create(core);
 const solApi = MoralisSolApi.create(core);
 
 // Register all Moralis modules to MoralisCore
-core.registerModules([evmUtils, auth, api, evmApi, solApi]);
+core.registerModules([evmUtils, auth, apiUtils, evmApi, solApi]);
 
 const Moralis = {
   Core: core,
