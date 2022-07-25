@@ -1,15 +1,15 @@
 import { Module, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { ApiConfigSetup } from './config/ApiConfigSetup';
 
-export class MoralisApi extends Module {
+export class MoralisApiUtils extends Module {
   public static readonly moduleName = 'api';
 
-  public static create(core?: MoralisCore): MoralisApi {
-    return new MoralisApi(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: MoralisCore): MoralisApiUtils {
+    return new MoralisApiUtils(core ?? MoralisCoreProvider.getDefault());
   }
 
   public constructor(core: MoralisCore) {
-    super(MoralisApi.moduleName, core);
+    super(MoralisApiUtils.moduleName, core);
   }
 
   public setup() {

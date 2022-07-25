@@ -1,13 +1,13 @@
 import { MoralisCoreProvider } from '@moralisweb3/core';
 import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
-import { MoralisApi } from '@moralisweb3/api';
+import { MoralisApiUtils } from '@moralisweb3/api-utils';
 
 export const setupApi = () => {
   const core = MoralisCoreProvider.getDefault();
-  const api = MoralisApi.create();
+  const apiUtils = MoralisApiUtils.create();
   const evmUtils = MoralisEvmUtils.create();
 
-  core.registerModules([api, evmUtils]);
+  core.registerModules([apiUtils, evmUtils]);
 
   return core;
 };
