@@ -3,7 +3,7 @@ module.exports = {
   moduleNameMapper: {
     '^@moralisweb3/evm-api': '<rootDir>/../evmApi/src',
     '^@moralisweb3/evm-utils': '<rootDir>/../evmUtils/src',
-    '^@moralisweb3/api': '<rootDir>/../api/src',
+    '^@moralisweb3/api-utils': '<rootDir>/../apiUtils/src',
     '^@moralisweb3/core': '<rootDir>/../core/src',
     '^@moralisweb3/(.*)$': '<rootDir>/../$1/src',
   },

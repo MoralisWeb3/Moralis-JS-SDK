@@ -2,7 +2,7 @@ import { Camelize } from '@moralisweb3/core';
 import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish, EvmAddress } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../EvmApi';
-import { ApiResolver } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenBalances';
