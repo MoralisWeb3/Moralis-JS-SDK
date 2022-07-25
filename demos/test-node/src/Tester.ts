@@ -13,6 +13,7 @@ export async function smokeTest(groupName: string, name: string, getValue: () =>
     console.log(`✅ (${groupName}) ${name} = ${trim(JSON.stringify(value), 32)}`);
     successCount++;
   } catch (e) {
+    console.log(e);
     console.error(`❌ ${name} = ${e}`);
     // console.error(e);
     errorCount++;

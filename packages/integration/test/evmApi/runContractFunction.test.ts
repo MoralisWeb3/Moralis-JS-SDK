@@ -1,5 +1,5 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
-import { cleanEnvApi, setupEvmApi } from './setup';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 const ABI = [
   {
@@ -232,7 +232,7 @@ describe('Moralis EvmApi', () => {
   });
 
   afterAll(() => {
-    cleanEnvApi();
+    cleanEvmApi();
   });
 
   it('should run a contract and return readonly data', async () => {

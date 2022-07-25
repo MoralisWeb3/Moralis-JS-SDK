@@ -1,5 +1,6 @@
 import { ApiResolver } from '@moralisweb3/api';
-import { EvmChainish, EvmTransactionReceipt, Camelize } from '@moralisweb3/core';
+import { Camelize } from '@moralisweb3/core';
+import { EvmChainish, EvmTransactionReceipt } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';

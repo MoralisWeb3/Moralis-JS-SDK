@@ -2,7 +2,16 @@
   "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "MoralisWeb3/Moralis-JS-SDK" }],
   "commit": false,
-  "fixed": [["@moralisweb3/core", "@moralisweb3/evm-api"]],
+  "fixed": [
+    [
+      "@moralisweb3/core",
+      "@moralisweb3/auth",
+      "@moralisweb3/api",
+      "@moralisweb3/evm-utils",
+      "@moralisweb3/evm-api",
+      "@moralisweb3/sol-api"
+    ]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "alpha",
