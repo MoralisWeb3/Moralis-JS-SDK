@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { setupEvm } from '../../test/setup';
+import { setupEvmUtils } from '../../test/setup';
 import { EvmTransactionLogInput } from '../EvmTransactionLog';
 import { EvmTransactionResponse, EvmTransactionResponseInput } from '../EvmTransactionResponse';
 import { EvmTransactionReceipt } from './EvmTransactionReceipt';
@@ -87,7 +87,7 @@ const expectedTotalGas = BigNumber.from(inputWithAllData.cumulativeGasUsed).mul(
 
 describe('EvmTransactionReceipt', () => {
   beforeAll(() => {
-    setupEvm();
+    setupEvmUtils();
   });
 
   /**

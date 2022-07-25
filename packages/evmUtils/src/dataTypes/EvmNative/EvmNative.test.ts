@@ -1,9 +1,9 @@
-import { setupEvm } from '../../test/setup';
+import { setupEvmUtils } from '../../test/setup';
 import { EvmNative, EvmNativeUnit } from './EvmNative';
 
 describe('EvmNative', () => {
   beforeAll(() => {
-    setupEvm();
+    setupEvmUtils();
   });
 
   function testUnit(unit: EvmNativeUnit, wei: string, gwei: string, ether: string) {

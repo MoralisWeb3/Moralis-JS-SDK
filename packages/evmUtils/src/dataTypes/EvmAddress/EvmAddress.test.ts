@@ -1,6 +1,6 @@
 import { MoralisCore } from '@moralisweb3/core';
 import { EvmAddress } from './EvmAddress';
-import { setupEvm } from '../../test/setup';
+import { setupEvmUtils } from '../../test/setup';
 
 const TEST_ADDRESS_CHECKSUM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const TEST_ADDRESS_CHECKSUM2 = '0x766fd99F7D249E275b4CF9baE422D50cC3223869';
@@ -11,7 +11,7 @@ describe('EvmAddress', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
-    core = setupEvm();
+    core = setupEvmUtils();
   });
 
   beforeEach(() => {
