@@ -1,7 +1,7 @@
 import { EvmTransaction } from './EvmTransaction';
 import { EvmTransactionInput } from './EvmTransactionTypes';
 import { EvmTransactionResponse } from '../EvmTransactionResponse';
-import { setupEvm } from '../../test/setup';
+import { setupEvmUtils } from '../../test/setup';
 
 const DATA =
   '0x00000000000000000000000000000000000000000000213ba4fc56e2e24648b200000000000000000000000000000000000000000000002e9e527eb8ff21faf7';
@@ -25,7 +25,7 @@ const inputWithAllData: EvmTransactionInput = {
 
 describe('EvmTransaction', () => {
   beforeAll(() => {
-    setupEvm();
+    setupEvmUtils();
   });
 
   /**

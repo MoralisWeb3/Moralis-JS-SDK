@@ -1,12 +1,12 @@
 import { MoralisCore } from '@moralisweb3/core';
-import { setupEvm } from '../../test/setup';
+import { setupEvmUtils } from '../../test/setup';
 import { EvmChain } from './EvmChain';
 
 describe('EvmChain', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
-    core = setupEvm();
+    core = setupEvmUtils();
   });
 
   beforeEach(() => {
