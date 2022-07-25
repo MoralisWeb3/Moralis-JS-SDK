@@ -67,11 +67,11 @@ declare enum ErrorCode {
 }
 
 declare enum EChains {
-  ETH_MAINENT = '0x1',
+  ETH_MAINNET = '0x1',
   ETH_ROPSTEN = '0x3',
   ETH_GOERLI = '0x5',
   ETH_KOVAN = '0x2a',
-  ETH_RINKBEY = '0x4',
+  ETH_RINKEBY = '0x4',
   ETH_LOCALDEVCHAIN = '0x539',
   POLYGON_MAINNET = '0x89',
   POLYGON_MUMBAI = '0x13881',
@@ -1909,11 +1909,11 @@ export namespace Moralis {
   }
 
   interface IChains {
-    ETH_MAINET: EChains.ETH_MAINENT;
+    ETH_MAINNET: EChains.ETH_MAINNET;
     ETH_ROPSTEN: EChains.ETH_ROPSTEN;
     ETH_GOERLI: EChains.ETH_GOERLI;
     ETH_KOVAN: EChains.ETH_KOVAN;
-    ETH_RINKBEY: EChains.ETH_RINKBEY;
+    ETH_RINKEBY: EChains.ETH_RINKEBY;
     ETH_LOCALDEVCHAIN: EChains.ETH_LOCALDEVCHAIN;
     POLYGON_MAINNET: EChains.POLYGON_MAINNET;
     POLYGON_MUMBAI: EChains.POLYGON_MUMBAI;
