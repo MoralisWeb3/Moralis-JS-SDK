@@ -1,5 +1,6 @@
 import { ApiResolver } from '@moralisweb3/api';
-import { Erc20Token, EvmChainish, EvmAddressish, EvmAddress, Camelize, toCamelCase } from '@moralisweb3/core';
+import { Camelize, toCamelCase } from '@moralisweb3/core';
+import { Erc20Token, EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';

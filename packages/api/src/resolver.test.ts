@@ -1,8 +1,8 @@
 import { ApiConfig } from './config/ApiConfig';
 import { ApiFormatType } from './ApiResultAdapter';
 import axios from 'axios';
-import { MoralisCoreProvider } from '@moralisweb3/core';
 import { ApiResolver } from './Resolver';
+import { setupApi } from './test/setup';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -32,9 +32,9 @@ describe('ApiResolver', () => {
   >;
 
   beforeAll(() => {
-    const core = MoralisCoreProvider.getDefault();
-    core.config.registerKey(ApiConfig.apiKey);
+    const core = setupApi();
     core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
+
     const mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
       if (options.url === `${API_ROOT}/info/endpointWeights` && options.method === 'GET') {

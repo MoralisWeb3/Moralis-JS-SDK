@@ -1,4 +1,6 @@
-import { CoreConfig, EvmChain, EvmChainish, MoralisCoreProvider } from '@moralisweb3/core';
+import { MoralisCoreProvider } from '@moralisweb3/core';
+import { EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmApiConfig } from '../config/EvmApiConfig';
 
 export class EvmChainResolver {
   public static resolve(chain?: EvmChainish): EvmChain {
@@ -7,7 +9,7 @@ export class EvmChainResolver {
     }
 
     const core = MoralisCoreProvider.getDefault();
-    const defaultEvmChain = core.config.get(CoreConfig.defaultEvmApiChain);
+    const defaultEvmChain = core.config.get(EvmApiConfig.defaultEvmApiChain);
     return EvmChain.create(defaultEvmChain);
   }
 }
