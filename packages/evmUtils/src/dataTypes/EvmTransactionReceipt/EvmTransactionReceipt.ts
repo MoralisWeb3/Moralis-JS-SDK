@@ -1,5 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { MoralisDataObject, maybe } from '@moralisweb3/core';
+import { MoralisDataObject, maybe, BigNumber } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';

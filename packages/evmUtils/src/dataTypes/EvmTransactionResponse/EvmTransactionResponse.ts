@@ -1,5 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { CoreErrorCode, MoralisCoreError, MoralisDataObject, maybe } from '@moralisweb3/core';
+import { CoreErrorCode, MoralisCoreError, MoralisDataObject, maybe, BigNumber } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -43,7 +42,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
   static parse(value: EvmTransactionResponseInput): EvmTransactionResponseData {
     return {
       hash: value.hash,
-      nonce: BigNumber.from(value.nonce),
+      nonce: BigNumber.from(value.nonce || 0), // TODO: what if nonce is empty? should be zero?
       chain: EvmChain.create(value.chain),
 
       from: EvmAddress.create(value.from),

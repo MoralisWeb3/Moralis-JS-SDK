@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
+import { BigNumber, BigNumberish } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish } from '../EvmAddress';
 import { EvmTransactionLog, EvmTransactionLogInput } from '../EvmTransactionLog';
 import { EvmTransactionResponse } from '../EvmTransactionResponse/EvmTransactionResponse';

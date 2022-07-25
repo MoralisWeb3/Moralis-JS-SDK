@@ -1,10 +1,20 @@
-import { BigNumber, BigNumberish, parseFixed } from '@ethersproject/bignumber';
-import { formatUnits } from '@ethersproject/units';
-import { MoralisData, MoralisDataFormatted, CoreErrorCode, MoralisCoreError } from '@moralisweb3/core';
+import {
+  MoralisData,
+  MoralisDataFormatted,
+  CoreErrorCode,
+  MoralisCoreError,
+  BigNumberish,
+  BigNumber,
+} from '@moralisweb3/core';
 
 export type SolNativeUnit = 'solana' | 'lamports' | number;
 
 export type SolNativeish = SolNative | BigNumberish;
+
+const unitToDecimals: Record<SolNativeUnit, number> = {
+  solana: 9,
+  lamports: 0,
+};
 
 export class SolNative implements MoralisData {
   public static create(value: SolNativeish, unit?: SolNativeUnit): SolNative {
@@ -18,17 +28,15 @@ export class SolNative implements MoralisData {
     let decimal: number;
     if (typeof unit === 'number') {
       decimal = unit;
-    } else if (unit === 'lamports') {
-      decimal = 0;
-    } else if (unit === 'solana') {
-      decimal = 9;
+    } else if (unitToDecimals[unit] !== undefined) {
+      decimal = unitToDecimals[unit];
     } else {
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: `Not supported Solana unit: ${unit}`,
       });
     }
-    return parseFixed(value.toString(), decimal);
+    return BigNumber.from(value.toString(), decimal);
   }
 
   // TODO: we cannot share an internal instance of BigNumber, because BigNumber is located in @ethersproject.
@@ -42,7 +50,7 @@ export class SolNative implements MoralisData {
   }
 
   public get solana(): string {
-    return formatUnits(this.rawValue, 9);
+    return this.rawValue.toDecimal(unitToDecimals['solana']);
   }
 
   public get lamports(): string {

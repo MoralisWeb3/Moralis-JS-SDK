@@ -1,7 +1,6 @@
-import { Camelize, toCamelCase } from '@moralisweb3/core';
+import { BigNumber, Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { BigNumber } from 'ethers';
 import { ApiPaginatedOptions, ApiPaginatedResolver } from '@moralisweb3/api-utils';
 import { BASE_URL } from '../../EvmApi';
 import { EvmChainResolver } from '../EvmChainResolver';

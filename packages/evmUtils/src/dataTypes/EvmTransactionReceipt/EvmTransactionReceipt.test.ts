@@ -1,4 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber } from '@moralisweb3/core';
 import { setupEvmUtils } from '../../test/setup';
 import { EvmTransactionLogInput } from '../EvmTransactionLog';
 import { EvmTransactionResponse, EvmTransactionResponseInput } from '../EvmTransactionResponse';

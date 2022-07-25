@@ -1,6 +1,5 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { accessListify } from '@ethersproject/transactions';
-import { MoralisDataObject, maybe, MoralisCoreError, CoreErrorCode } from '@moralisweb3/core';
+import { MoralisDataObject, maybe, MoralisCoreError, CoreErrorCode, BigNumber } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransactionResponse } from '../EvmTransactionResponse/EvmTransactionResponse';

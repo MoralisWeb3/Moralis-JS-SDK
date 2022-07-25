@@ -1,5 +1,4 @@
-import { BigNumber } from 'ethers';
-import { Camelize } from '@moralisweb3/core';
+import { BigNumber, Camelize } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
 import { ApiResolver } from '@moralisweb3/api-utils';
 import { operations } from '../../generated/types';
