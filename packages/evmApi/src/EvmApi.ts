@@ -41,6 +41,7 @@ import {
 } from './resolvers/native';
 import { web3ApiVersionResolver, endpointWeightsResolver } from './resolvers/info';
 import { uploadFolderResolver } from './resolvers/storage';
+import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
@@ -56,7 +57,7 @@ export class MoralisEvmApi extends ApiModule {
   }
 
   public setup() {
-    // Nothing
+    EvmApiConfigSetup.register(this.core.config);
   }
 
   public start() {

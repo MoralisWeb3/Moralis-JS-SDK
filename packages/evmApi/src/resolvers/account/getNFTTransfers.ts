@@ -1,4 +1,5 @@
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, Camelize, toCamelCase } from '@moralisweb3/core';
+import { Camelize, toCamelCase } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../EvmApi';
 import { ApiPaginatedOptions, ApiPaginatedResolver } from '@moralisweb3/api-utils';

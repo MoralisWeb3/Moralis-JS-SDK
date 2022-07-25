@@ -1,4 +1,3 @@
-import { EvmChainish } from '../dataTypes/EvmChainish';
 import { ConfigKey } from './Config';
 
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'off';
@@ -23,17 +22,4 @@ export const CoreConfig = {
     name: 'defaultNetwork',
     defaultValue: 'Evm',
   } as ConfigKey<Network>,
-  defaultEvmApiChain: {
-    name: 'defaultEvmApiChain',
-    defaultValue: '0x1',
-  } as ConfigKey<EvmChainish>,
-
-  formatEvmChainId: {
-    name: 'formatEvmChainId',
-    defaultValue: 'hex',
-  } as ConfigKey<EvmChainIdFormat>,
-  formatEvmAddress: {
-    name: 'formatEvmAddress',
-    defaultValue: 'lowercase',
-  } as ConfigKey<EvmAddressFormat>,
 };

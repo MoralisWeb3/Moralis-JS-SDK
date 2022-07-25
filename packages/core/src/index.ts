@@ -10,5 +10,6 @@ export * from './State';
 export * from './dataTypes';
 export * from './controllers';
 export * from './utils';
+export * from './Assert';
 
 export default MoralisCore;
