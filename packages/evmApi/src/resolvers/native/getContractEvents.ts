@@ -1,4 +1,4 @@
-import { ApiPaginatedOptions, ApiPaginatedResolver, BodyType, ApiPaginatedResponse } from '@moralisweb3/api';
+import { ApiPaginatedOptions, ApiPaginatedResolver, BodyType, ApiPaginatedResponse } from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddress, EvmAddressish, Camelize } from '@moralisweb3/core';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';

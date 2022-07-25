@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 
