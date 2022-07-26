@@ -6,15 +6,11 @@ import styles from './Navbar.module.css';
 const pages = [
   {
     href: '/',
-    name: 'Home',
-  },
-  {
-    href: '/user',
     name: 'User',
   },
   {
-    href: '/apis',
-    name: 'APIs',
+    href: '/private',
+    name: 'Private Page',
   },
 ];
 

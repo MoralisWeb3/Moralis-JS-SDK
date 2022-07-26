@@ -17,12 +17,19 @@
   align-items: center;
 }
 
-.connected {
+.status {
   width: 14px;
   height: 14px;
   border-radius: 28px;
-  background: #7ad9c0;
+}
+
+.active {
+  background-color: #7ad9c0;
   border: 2px solid #58a792;
+}
+.nonActive {
+  background-color: #d57a7a;
+  border: 2px solid #ea4b4b;
 }
 
 .disconnectButton {
@@ -37,7 +44,8 @@
   font-size: 12px;
 }
 
-.disconnectButton:hover {
+.disconnectButton:hover,
+.authenticate:hover {
   text-decoration: underline;
   color: #2e7daf;
 }

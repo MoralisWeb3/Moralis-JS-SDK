@@ -14,9 +14,10 @@
 .footer {
   display: flex;
   flex: 1;
-  padding: 2rem 0;
+  padding: 1rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -27,7 +28,14 @@
   flex-grow: 1;
 }
 
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.links {
+  font-size: 12px;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #2e7daf;
 }

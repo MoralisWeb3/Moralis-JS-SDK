@@ -1,6 +1,7 @@
 .nav {
   display: flex;
   gap: 38px;
+  margin-right: auto;
 }
 
 .tab {
@@ -10,6 +11,7 @@
   text-decoration: none;
 }
 
+.tab:hover,
 .active {
   color: #2e7daf;
 }

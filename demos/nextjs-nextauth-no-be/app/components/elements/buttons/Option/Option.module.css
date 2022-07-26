@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.disabled {
+  opacity: 0.4;
+}
+
 .option:hover {
   background: #ebeff9;
 }
