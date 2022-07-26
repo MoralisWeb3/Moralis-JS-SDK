@@ -20,6 +20,11 @@ describe('BigNumber', () => {
     expect(value.toDecimal(5)).toEqual('11000000000000.0');
   });
 
+  it('fromDecimal() assumes decimals=0 if not provided', () => {
+    const value = BigNumber.fromDecimal(100);
+    expect(value.toString()).toEqual('100');
+  });
+
   it('does not create a new instance if BigNumber instance passed', () => {
     const value = BigNumber.from(0x1);
     expect(BigNumber.from(value) === value).toBe(true);
