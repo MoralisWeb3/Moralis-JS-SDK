@@ -1,6 +1,4 @@
-import { BigNumberish } from '@ethersproject/bignumber';
-import { parseUnits } from '@ethersproject/units';
-import { MoralisData } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, MoralisData } from '@moralisweb3/core';
 
 const EVM_ERC20_DEFAULT_DECIMALS = 18;
 
@@ -60,7 +58,7 @@ export class Erc20Value implements MoralisData {
   }
 
   get value() {
-    return parseUnits(this._value.amount.toString(), this._value.decimals);
+    return BigNumber.fromDecimal(this._value.amount.toString(), this._value.decimals);
   }
 
   toString() {

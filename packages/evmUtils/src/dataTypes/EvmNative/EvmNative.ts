@@ -48,8 +48,7 @@ export class EvmNative implements MoralisData {
       decimals = unitToDecimals[unit];
     }
 
-    const value = BigNumber.from(native, decimals);
-    return value;
+    return BigNumber.fromDecimal(native.toString(), decimals);
   }
 
   public static equals(valueA: EvmNativeish, valueB: EvmNativeish): boolean {

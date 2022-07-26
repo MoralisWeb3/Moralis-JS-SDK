@@ -36,17 +36,11 @@ export class SolNative implements MoralisData {
         message: `Not supported Solana unit: ${unit}`,
       });
     }
-    return BigNumber.from(value.toString(), decimal);
+    return BigNumber.fromDecimal(value.toString(), decimal);
   }
 
-  // TODO: we cannot share an internal instance of BigNumber, because BigNumber is located in @ethersproject.
-  // We should use some class from Solana JS stack. For example @solana/web3.js uses BN.js.
-  // Temporary we use BigNumber internally.
-  public get value(): unknown {
-    throw new MoralisCoreError({
-      code: CoreErrorCode.NOT_IMPLEMENTED,
-      message: 'Not implemented',
-    });
+  public get value(): BigNumber {
+    return this.rawValue;
   }
 
   public get solana(): string {

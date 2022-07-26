@@ -1,3 +1,4 @@
+import { BigNumber } from '@moralisweb3/core';
 import { SolNative, SolNativeish, SolNativeUnit } from './SolNative';
 
 describe('SolNative', () => {
@@ -47,7 +48,7 @@ describe('SolNative', () => {
     expect(v10b.equals(v20)).toBe(false);
   });
 
-  it('value() is not implemented :-)', () => {
-    expect(() => SolNative.create(1).value).toThrowError('Not implemented');
+  it('value is instance of BigNumber', () => {
+    expect(SolNative.create(1).value).toBeInstanceOf(BigNumber);
   });
 });
