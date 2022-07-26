@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-nextauth-no-be",
+  "name": "nextjs-nextauth-web3react-no-be",
   "version": "2.0.0-alpha.2",
   "private": true,
   "scripts": {
@@ -15,7 +15,11 @@
     "moralis": "^2.0.0-alpha.2",
     "wagmi": "^0.5.11",
     "next-auth": "4.10.2",
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "@web3-react/core": "6.1.9",
+    "@web3-react/injected-connector": "6.0.7",
+    "@web3-react/walletconnect-connector": "6.2.13",
+    "ethers": "5.6.9"
   },
   "devDependencies": {
     "@types/node": "18.0.6",

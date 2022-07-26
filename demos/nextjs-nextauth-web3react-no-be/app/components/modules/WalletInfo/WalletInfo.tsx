@@ -1,18 +1,17 @@
 import { getEllipsisTxt } from '../../../utils/format';
 import { signOut, useSession } from 'next-auth/react';
-import { useDisconnect, useNetwork } from 'wagmi';
+import { useWeb3React } from '@web3-react/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './WalletInfo.module.css';
 
 const WalletInfo = () => {
   const { data, status } = useSession();
-  const { disconnectAsync } = useDisconnect();
-  const { chain } = useNetwork();
+  const { chainId, deactivate } = useWeb3React();
 
   const handleDisconnect = async () => {
-    await disconnectAsync();
-    signOut({ callbackUrl: '/signin' });
+    deactivate();
+    await signOut({ callbackUrl: '/signin' });
   };
 
   return (
@@ -22,7 +21,7 @@ const WalletInfo = () => {
           <div className={styles.wallet}>
             <div className={styles.walletInfo}>
               <div>
-                <span>{chain?.name || 'no network'}</span>
+                <span>{chainId || 'no network'}</span>
               </div>
               <div className={`${styles.status} ${status == 'authenticated' ? styles.active : styles.nonActive}`} />
               <span>{getEllipsisTxt(data?.user.address)}</span>
