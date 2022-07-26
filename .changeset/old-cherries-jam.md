@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/api': major
+'@moralisweb3/api-utils': major
 ---
 
 Generic logic for api modules
