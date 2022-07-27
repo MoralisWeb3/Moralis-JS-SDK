@@ -1,5 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { MoralisDataObject, maybe } from '@moralisweb3/core';
+import { MoralisDataObject, maybe, BigNumber } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';
@@ -36,9 +35,9 @@ export class EvmTransactionReceipt implements MoralisDataObject {
 
       contractAddress: maybe(value.contractAddress, EvmAddress.create),
 
-      gasUsed: BigNumber.from(value.gasUsed),
-      cumulativeGasUsed: BigNumber.from(value.cumulativeGasUsed),
-      gasPrice: BigNumber.from(value.gasPrice),
+      gasUsed: BigNumber.create(value.gasUsed),
+      cumulativeGasUsed: BigNumber.create(value.cumulativeGasUsed),
+      gasPrice: BigNumber.create(value.gasPrice),
 
       logs: value.logs?.map((log) => EvmTransactionLog.create(log)),
 

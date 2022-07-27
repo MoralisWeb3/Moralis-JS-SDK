@@ -12,8 +12,8 @@ interface EvmUtilsConfigValues {
   formatEvmChainId: EvmChainIdFormat;
 }
 
-// @moralisweb3/api
-interface ApiConfigValues {
+// @moralisweb3/api-utils
+interface ApiUtilsConfigValues {
   apiKey: string;
 }
 
@@ -30,7 +30,7 @@ interface SolApiConfigValues {
 export type MoralisConfigValues =
   | CoreConfigValues
   | EvmUtilsConfigValues
-  | ApiConfigValues
+  | ApiUtilsConfigValues
   | EvmApiConfigValues
   | SolApiConfigValues
   | { [key: string]: string | number }; // Other, not strong typed values.

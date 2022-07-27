@@ -1,6 +1,4 @@
-import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
-import { formatUnits, parseUnits } from '@ethersproject/units';
-import { CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/core';
 
 export type EvmNativeUnit = 'ether' | 'finney' | 'szabo' | 'gwei' | 'mwei' | 'kwei' | 'wei';
 
@@ -50,16 +48,14 @@ export class EvmNative implements MoralisData {
       decimals = unitToDecimals[unit];
     }
 
-    const value = parseUnits(native.toString(), decimals);
-
-    return value;
+    return BigNumber.fromDecimal(native.toString(), decimals);
   }
 
   public static equals(valueA: EvmNativeish, valueB: EvmNativeish): boolean {
     const evmNativeA = EvmNative.create(valueA);
     const evmNativeB = EvmNative.create(valueB);
 
-    return evmNativeA.rawValue.eq(evmNativeB.rawValue);
+    return evmNativeA.rawValue.equals(evmNativeB.rawValue);
   }
 
   public equals(value: EvmNative): boolean {
@@ -75,11 +71,11 @@ export class EvmNative implements MoralisData {
   }
 
   public get gwei(): string {
-    return formatUnits(this.rawValue, 'gwei');
+    return this.rawValue.toDecimal(unitToDecimals['gwei']);
   }
 
   public get ether(): string {
-    return formatUnits(this.rawValue, 'ether');
+    return this.rawValue.toDecimal(unitToDecimals['ether']);
   }
 
   public toString(): string {

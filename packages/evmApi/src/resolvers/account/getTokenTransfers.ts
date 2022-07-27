@@ -1,7 +1,6 @@
-import { Camelize, toCamelCase } from '@moralisweb3/core';
+import { BigNumber, Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { BigNumber } from 'ethers';
 import { ApiPaginatedOptions, ApiPaginatedResolver } from '@moralisweb3/api-utils';
 import { BASE_URL } from '../../EvmApi';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -27,7 +26,7 @@ export const getTokenTransfersResolver = new ApiPaginatedResolver({
       address: EvmAddress.create(transfer.address),
       toAddress: EvmAddress.create(transfer.to_address),
       fromAddress: EvmAddress.create(transfer.from_address),
-      value: BigNumber.from(transfer.value),
+      value: BigNumber.create(transfer.value),
       blockTimestamp: new Date(transfer.block_timestamp),
     })),
   resultToJson: (data) =>

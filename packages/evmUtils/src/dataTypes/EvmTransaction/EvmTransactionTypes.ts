@@ -1,4 +1,4 @@
-import { BigNumberish, BigNumber } from '@ethersproject/bignumber';
+import { BigNumber, BigNumberish } from '@moralisweb3/core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmChainish } from '../EvmChain';

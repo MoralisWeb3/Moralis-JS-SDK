@@ -1,4 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber } from '@moralisweb3/core';
 import { setupEvmUtils } from '../../test/setup';
 import { EvmTransactionLogInput } from '../EvmTransactionLog';
 import { EvmTransactionResponse, EvmTransactionResponseInput } from '../EvmTransactionResponse';
@@ -83,7 +83,7 @@ const transactionResponseData: EvmTransactionResponseInput = {
   hash: HASH,
 };
 
-const expectedTotalGas = BigNumber.from(inputWithAllData.cumulativeGasUsed).mul(inputWithAllData.gasPrice).toString();
+const expectedTotalGas = BigNumber.create(inputWithAllData.cumulativeGasUsed).mul(inputWithAllData.gasPrice).toString();
 
 describe('EvmTransactionReceipt', () => {
   beforeAll(() => {

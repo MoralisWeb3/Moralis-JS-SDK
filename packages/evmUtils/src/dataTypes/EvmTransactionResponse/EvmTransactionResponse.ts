@@ -1,5 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { CoreErrorCode, MoralisCoreError, MoralisDataObject, maybe } from '@moralisweb3/core';
+import { CoreErrorCode, MoralisCoreError, MoralisDataObject, maybe, BigNumber } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -43,7 +42,7 @@ export class EvmTransactionResponse implements MoralisDataObject {
   static parse(value: EvmTransactionResponseInput): EvmTransactionResponseData {
     return {
       hash: value.hash,
-      nonce: BigNumber.from(value.nonce),
+      nonce: BigNumber.create(value.nonce || 0), // TODO: what if nonce is empty? should be zero?
       chain: EvmChain.create(value.chain),
 
       from: EvmAddress.create(value.from),
@@ -55,15 +54,15 @@ export class EvmTransactionResponse implements MoralisDataObject {
       blockHash: maybe(value.blockHash),
       blockTimestamp: maybe(value.blockTimestamp, (value) => (value instanceof Date ? value : new Date(value))),
 
-      gasLimit: maybe(value.gasLimit, BigNumber.from),
-      gasPrice: maybe(value.gasPrice, BigNumber.from),
+      gasLimit: maybe(value.gasLimit, BigNumber.create),
+      gasPrice: maybe(value.gasPrice, BigNumber.create),
 
       data: maybe(value.data),
 
       type: maybe(value.type),
 
-      maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.from),
-      maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.from),
+      maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.create),
+      maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.create),
     };
   }
 
