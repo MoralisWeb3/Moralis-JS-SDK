@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.10.0...v1.10.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* Add missing ipfs() and hash() methods to Moralis.File type ([#346](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/346)) ([83ad897](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/83ad89709c9962e4376e448b2975c82dc94d0dc8)), closes [#345](https://github.com/MoralisWeb3/Moralis-JS-SDK/issues/345)
+
 # [1.10.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.9.1...v1.10.0) (2022-07-25)
 
 
