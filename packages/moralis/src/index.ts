@@ -10,13 +10,13 @@ import { MoralisCoreProvider } from '@moralisweb3/core';
 const core = MoralisCoreProvider.getDefault();
 
 // Utility modules
-const evmUtils = MoralisEvmUtils.create();
+const evmUtils = MoralisEvmUtils.create(core);
+const solUtils = MoralisSolUtils.create(core);
 const apiUtils = MoralisApiUtils.create(core);
 
 // Feature modules
 const auth = MoralisAuth.create(core);
 const evmApi = MoralisEvmApi.create(core);
-const solUtils = MoralisSolUtils.create(core);
 const solApi = MoralisSolApi.create(core);
 
 // Register all Moralis modules to MoralisCore
