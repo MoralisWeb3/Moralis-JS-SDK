@@ -83,7 +83,7 @@ const transactionResponseData: EvmTransactionResponseInput = {
   hash: HASH,
 };
 
-const expectedTotalGas = BigNumber.from(inputWithAllData.cumulativeGasUsed).mul(inputWithAllData.gasPrice).toString();
+const expectedTotalGas = BigNumber.create(inputWithAllData.cumulativeGasUsed).mul(inputWithAllData.gasPrice).toString();
 
 describe('EvmTransactionReceipt', () => {
   beforeAll(() => {

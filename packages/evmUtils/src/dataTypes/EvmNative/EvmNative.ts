@@ -55,7 +55,7 @@ export class EvmNative implements MoralisData {
     const evmNativeA = EvmNative.create(valueA);
     const evmNativeB = EvmNative.create(valueB);
 
-    return evmNativeA.rawValue.eq(evmNativeB.rawValue);
+    return evmNativeA.rawValue.equals(evmNativeB.rawValue);
   }
 
   public equals(value: EvmNative): boolean {

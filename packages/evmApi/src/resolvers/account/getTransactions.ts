@@ -44,7 +44,7 @@ export const getTransactionsResolver = new ApiPaginatedResolver({
           blockNumber: +transaction.block_number,
           blockTimestamp: new Date(transaction.block_timestamp),
           gasPrice: transaction.gas_price,
-          gasLimit: BigNumber.from(transaction.gas),
+          gasLimit: BigNumber.create(transaction.gas),
           to: transaction.to_address,
           // Not specified in Api response
           accessList: undefined,

@@ -1,8 +1,8 @@
 import { BigNumber } from './BigNumber';
 
 describe('BigNumber', () => {
-  it('from() returns integer', () => {
-    const value = BigNumber.from('1000000000000000000');
+  it('create() returns integer', () => {
+    const value = BigNumber.create('1000000000000000000');
     expect(value.toString()).toEqual('1000000000000000000');
     expect(value.toJSON()).toEqual('0x0de0b6b3a7640000');
     expect(value.toDecimal(0)).toEqual('1000000000000000000');
@@ -26,12 +26,12 @@ describe('BigNumber', () => {
   });
 
   it('does not create a new instance if BigNumber instance passed', () => {
-    const value = BigNumber.from(0x1);
-    expect(BigNumber.from(value) === value).toBe(true);
+    const value = BigNumber.create(0x1);
+    expect(BigNumber.create(value) === value).toBe(true);
   });
 
   describe('math', () => {
-    const from = (value: number) => BigNumber.from(value);
+    const from = (value: number) => BigNumber.create(value);
 
     it('add() multiplies correctly', () => {
       expect(from(2).add(from(3)).toString()).toEqual('5');
@@ -49,9 +49,9 @@ describe('BigNumber', () => {
       expect(from(15).div(from(5)).toString()).toEqual('3');
     });
 
-    it('eq() returns correct value', () => {
-      expect(from(1).eq(from(1))).toBe(true);
-      expect(from(1).eq(from(-1))).toBe(false);
+    it('equals() returns correct value', () => {
+      expect(from(1).equals(from(1))).toBe(true);
+      expect(from(1).equals(from(-1))).toBe(false);
     });
   });
 });

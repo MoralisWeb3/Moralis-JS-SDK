@@ -35,9 +35,9 @@ export class EvmTransactionReceipt implements MoralisDataObject {
 
       contractAddress: maybe(value.contractAddress, EvmAddress.create),
 
-      gasUsed: BigNumber.from(value.gasUsed),
-      cumulativeGasUsed: BigNumber.from(value.cumulativeGasUsed),
-      gasPrice: BigNumber.from(value.gasPrice),
+      gasUsed: BigNumber.create(value.gasUsed),
+      cumulativeGasUsed: BigNumber.create(value.cumulativeGasUsed),
+      gasPrice: BigNumber.create(value.gasPrice),
 
       logs: value.logs?.map((log) => EvmTransactionLog.create(log)),
 

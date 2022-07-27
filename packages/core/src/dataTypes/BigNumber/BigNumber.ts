@@ -4,7 +4,7 @@ import { BigNumberParser, BigNumberPrimitive } from './BigNumberParser';
 export type BigNumberish = BigNumber | BigNumberPrimitive;
 
 export class BigNumber {
-  public static from(value: BigNumberish): BigNumber {
+  public static create(value: BigNumberish): BigNumber {
     if (value instanceof BigNumber) {
       return value;
     }
@@ -37,7 +37,7 @@ export class BigNumber {
     return new BigNumber(this.value / asBigInt(value));
   }
 
-  public eq(value: BigNumber): boolean {
+  public equals(value: BigNumber): boolean {
     return this.value === value.toBigInt();
   }
 
@@ -59,5 +59,5 @@ export class BigNumber {
 }
 
 function asBigInt(value: BigNumberish): bigint {
-  return BigNumber.from(value).toBigInt();
+  return BigNumber.create(value).toBigInt();
 }

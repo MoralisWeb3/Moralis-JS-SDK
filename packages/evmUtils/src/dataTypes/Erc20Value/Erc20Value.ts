@@ -42,7 +42,7 @@ export class Erc20Value implements MoralisData {
     const erc20ValueA = Erc20Value.create(valueA);
     const erc20ValueB = Erc20Value.create(valueB);
 
-    return erc20ValueA.value.eq(erc20ValueB.value);
+    return erc20ValueA.value.equals(erc20ValueB.value);
   }
 
   equals(value: Erc20Valueish): boolean {

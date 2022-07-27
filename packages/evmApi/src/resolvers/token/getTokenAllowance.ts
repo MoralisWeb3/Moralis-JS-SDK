@@ -24,7 +24,7 @@ export const getTokenAllowanceResolver = new ApiResolver({
   name: 'getTokenAllowance',
   getUrl: (params: Params) => `${BASE_URL}/erc20/${params.address}/allowance`,
   apiToResult: (data: ApiResult) => ({
-    allowance: BigNumber.from(data.allowance),
+    allowance: BigNumber.create(data.allowance),
   }),
   resultToJson: (data) => ({
     allowance: data.allowance.toString(),
