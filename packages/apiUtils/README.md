@@ -1,1 +1,1 @@
-# @moralisweb3/api
+# @moralisweb3/api-utils
