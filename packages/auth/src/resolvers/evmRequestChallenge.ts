@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api';
+import { ApiResolver } from '@moralisweb3/api-utils';
 import { toCamelCase } from '@moralisweb3/core';
 import { operations } from '../generated/types';
 import { BASE_URL } from '../MoralisAuth';

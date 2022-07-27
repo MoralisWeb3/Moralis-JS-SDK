@@ -1,4 +1,5 @@
-import { ConfigKey, SolNetworkish } from '@moralisweb3/core/lib';
+import { SolNetworkish } from '@moralisweb3/sol-utils';
+import { ConfigKey } from '@moralisweb3/core';
 
 export const SolApiConfig = {
   defaultSolNetwork: {
