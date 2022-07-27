@@ -4,7 +4,7 @@ import { ApiResolver } from '@moralisweb3/api-utils';
 import { operations } from '../generated/types';
 import { BASE_URL } from '../MoralisAuth';
 
-type name = 'completeChallenge';
+type name = 'Verify Challenge (EVM)';
 type BodyParams = operations[name]['requestBody']['content']['application/json'];
 type ApiParams = BodyParams;
 type Params = ApiParams;
@@ -14,8 +14,8 @@ const bodyParams = ['message', 'signature'] as const;
 type ApiResult = operations[name]['responses']['201']['content']['application/json'];
 
 export const completeChallengeResolver = new ApiResolver({
-  name: 'completeChallenge',
-  getUrl: (params: Params) => `${BASE_URL}/challenge/complete`,
+  name: 'Verify Challenge (EVM)',
+  getUrl: (params: Params) => `${BASE_URL}/challenge/verify/evm`,
   apiToResult: ({ chainId, ...data }: ApiResult) => ({
     ...data,
     // TODO: revisit EVM logic once we know how authentication in other networks work
