@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/api-utils': major
+'@moralisweb3/api-utils': minor
 ---
 
-Generic logic for api modules
+Create api-utils to have a use consistent api logic among out packages.

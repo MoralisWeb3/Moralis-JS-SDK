@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/api': major
+'@moralisweb3/api': minor
 ---
 
-rename package from apiUtils to api
+Rename package from apiUtils to api

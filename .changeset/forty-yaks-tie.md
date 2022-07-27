@@ -1,6 +1,6 @@
 ---
-'@moralisweb3/core': major
-'@moralisweb3/evm-api': major
+'@moralisweb3/core': minor
+'@moralisweb3/evm-api': minor
 ---
 
 Refactor evmApi package to use apiUtils
