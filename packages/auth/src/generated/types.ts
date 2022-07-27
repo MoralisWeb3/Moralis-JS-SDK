@@ -4,11 +4,11 @@
  */
 
 export interface paths {
-  "/challenge": {
-    post: operations["initializeChallenge"];
+  "/challenge/request/evm": {
+    post: operations["Request Challenge (EVM)"];
   };
-  "/challenge/complete": {
-    post: operations["completeChallenge"];
+  "/challenge/verify/evm": {
+    post: operations["Verify Challenge (EVM)"];
   };
   "/health": {
     get: operations["HealthController_check"];
@@ -175,7 +175,7 @@ export interface components {
 }
 
 export interface operations {
-  initializeChallenge: {
+  "Request Challenge (EVM)": {
     parameters: {};
     responses: {
       /** The back channel challenge containing the id to store on the api and the message to be signed by the user */
@@ -191,7 +191,7 @@ export interface operations {
       };
     };
   };
-  completeChallenge: {
+  "Verify Challenge (EVM)": {
     parameters: {};
     responses: {
       /** The token to be used to call the third party API from the client */

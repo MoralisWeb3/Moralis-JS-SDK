@@ -1,5 +1,5 @@
 import { assertUnreachable } from '@moralisweb3/core';
-import { completeChallengeResolver } from '../resolvers/completeChallenge';
+import { completeChallengeResolver } from '../resolvers/evmVerifyChallenge';
 
 export interface VerifyEvmOptions {
   message: string;
