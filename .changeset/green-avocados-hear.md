@@ -1,6 +1,6 @@
 ---
 'demo-parse-server-auth-server': minor
-'@moralisweb3/test-node': minor
+'test-node': minor
 '@moralisweb3/auth': minor
 '@moralisweb3/core': minor
 'moralis': minor

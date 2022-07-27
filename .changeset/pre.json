@@ -13,7 +13,8 @@
     "@moralisweb3/server": "1.7.0",
     "@moralisweb3/test-app-all": "2.0.0-alpha.0",
     "@moralisweb3/test-cdn": "2.0.0-alpha.1",
-    "@moralisweb3/test-node": "2.0.0-alpha.1",
+    "test-node": "2.0.0-alpha.1",
+    "demo-parse-server-auth-server": "2.0.0-alpha.2",
     "@moralisweb3/evm-magic-link-connector": "2.0.0-alpha.1",
     "@moralisweb3/wallet-connect-wrapper": "2.0.0-alpha.1"
   },

@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/test-node': minor
+'test-node': minor
 '@moralisweb3/core': minor
 '@moralisweb3/evm-api': minor
 '@moralisweb3/integration': minor
