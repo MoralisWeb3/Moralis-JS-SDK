@@ -1,7 +1,7 @@
 ---
-'@moralisweb3/core': major
-'@moralisweb3/sol-api': major
-'@moralisweb3/sol-utils': major
+'@moralisweb3/core': minor
+'@moralisweb3/sol-api': minor
+'@moralisweb3/sol-utils': minor
 ---
 
-Adding solUtils package to codebase.
+Adding sol-utils package to codebase.
