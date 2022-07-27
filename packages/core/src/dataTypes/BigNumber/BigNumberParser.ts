@@ -4,7 +4,13 @@ export type BigNumberPrimitive = number | string | bigint;
 
 export class BigNumberParser {
   public static parseInt(value: BigNumberPrimitive): bigint {
+    assertNotEmpty(value);
+
     if (typeof value === 'string') {
+      if (value.length === 0) {
+        throw createError('Value is empty');
+      }
+
       const isNegativeHex = value.startsWith('-0x');
       if (isNegativeHex) {
         value = value.substring(1);
@@ -15,10 +21,13 @@ export class BigNumberParser {
       }
       return result;
     }
+
     return BigInt(value);
   }
 
   public static parseDecimal(value: BigNumberPrimitive, decimals: number): bigint {
+    assertNotEmpty(value);
+
     const multiplier = getMultiplier(decimals);
 
     if (typeof value === 'number') {
@@ -62,6 +71,15 @@ export class BigNumberParser {
       result *= BigInt(-1);
     }
     return result;
+  }
+}
+
+function assertNotEmpty(value: BigNumberPrimitive) {
+  if (value === null) {
+    throw createError('Value is null');
+  }
+  if (value === undefined) {
+    throw createError('Value is undefined');
   }
 }
 

@@ -23,6 +23,9 @@ describe('BigNumberParser', () => {
 
     it('throws an error when NaN passed', () => {
       expect(() => parseInt(NaN)).toThrowError('The number NaN cannot be converted to a BigInt');
+      expect(() => parseInt(null as any)).toThrowError('Value is null');
+      expect(() => parseInt(undefined as any)).toThrowError('Value is undefined');
+      expect(() => parseInt('')).toThrowError('Value is empty');
     });
   });
 
@@ -59,20 +62,26 @@ describe('BigNumberParser', () => {
     });
 
     it('throws an error when invalid string passed', () => {
-      function test(input: string, expectedError: string = 'Cannot convert') {
+      const cannotConvertExpectedError = 'Cannot convert';
+      const emptyFragmentsExpectedError = 'Value has empty fragments';
+
+      function test(input: string, expectedError: string) {
         expect(() => parseDecimal(input, 0)).toThrowError(expectedError);
       }
 
-      test('lorem ipsum');
-      test('-x');
-      test('x');
-      test('##');
-      test('$$');
-      test('!');
+      test('lorem ipsum', cannotConvertExpectedError);
+      test('-x', cannotConvertExpectedError);
+      test('x', cannotConvertExpectedError);
+      test('##', cannotConvertExpectedError);
+      test('$$', cannotConvertExpectedError);
+      test('!', cannotConvertExpectedError);
+      test('.', emptyFragmentsExpectedError);
+      test('', emptyFragmentsExpectedError);
+      test('-', emptyFragmentsExpectedError);
+      test('', emptyFragmentsExpectedError);
       test('..', 'Value has more than one dot');
-      test('.', 'Value has empty fragments');
-      test('', 'Value has empty fragments');
-      test('-', 'Value has empty fragments');
+      test(null as any, 'Value is null');
+      test(undefined as any, 'Value is undefined');
     });
 
     it('throws an error when fractional part is wrong', () => {
