@@ -767,6 +767,26 @@ export interface components {
        */
       token_id: string;
       /**
+       * @description The owner wallet address of the NFT
+       * @example 0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b
+       */
+      owner_of?: string;
+      /**
+       * @description The token hash
+       * @example 502cee781b0fb40ea02508b21d319ced
+       */
+      token_hash?: string;
+      /**
+       * @description The block number when the amount or owner changed
+       * @example 88256
+       */
+      block_number?: string;
+      /**
+       * @description The block number when the NFT was minted
+       * @example 88256
+       */
+      block_number_minted?: string;
+      /**
        * @description The type of NFT contract standard
        * @example ERC721
        */
