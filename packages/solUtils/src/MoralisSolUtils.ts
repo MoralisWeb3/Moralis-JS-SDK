@@ -1,7 +1,7 @@
 import MoralisCore, { Module, MoralisCoreProvider } from '@moralisweb3/core';
 
 export class MoralisSolUtils extends Module {
-  public static readonly moduleName = 'evmUtils';
+  public static readonly moduleName = 'solUtils';
 
   public static create(core?: MoralisCore): MoralisSolUtils {
     return new MoralisSolUtils(core ?? MoralisCoreProvider.getDefault());
