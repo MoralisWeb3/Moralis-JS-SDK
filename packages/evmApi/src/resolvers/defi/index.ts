@@ -1,2 +1,2 @@
-export { getPairReservesResolver } from './getPairReserves';
-export { getPairAddressResolver } from './getPairAddress';
+export { getPairReserves } from './getPairReserves';
+export { getPairAddress } from './getPairAddress';

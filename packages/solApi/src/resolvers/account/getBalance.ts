@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api-utils';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { SolAddress, SolAddressish, SolNetworkish, SolNative } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
@@ -17,20 +17,22 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
   address: SolAddressish;
 }
 
-export const getBalanceResolver = new ApiResolver({
-  name: 'getBalance',
-  getUrl: (params: Params) => {
-    const network = SolNetworkResolver.resolve(params.network);
-    return `${BASE_URL}/account/${network}/${params.address}/balance`;
-  },
-  apiToResult: (data: ApiResult) => {
-    return SolNative.create(data.lamports, 'lamports');
-  },
-  resultToJson: (data) => {
-    return data.toJSON();
-  },
-  parseParams: (params: Params): ApiParams => ({
-    network: SolNetworkResolver.resolve(params.network),
-    address: SolAddress.create(params.address).address,
+export const getBalance = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getBalance',
+    getUrl: (params: Params) => {
+      const network = SolNetworkResolver.resolve(params.network, core);
+      return `${BASE_URL}/account/${network}/${params.address}/balance`;
+    },
+    apiToResult: (data: ApiResult) => {
+      return SolNative.create(data.lamports, 'lamports');
+    },
+    resultToJson: (data) => {
+      return data.toJSON();
+    },
+    parseParams: (params: Params): ApiParams => ({
+      network: SolNetworkResolver.resolve(params.network, core),
+      address: SolAddress.create(params.address).address,
+    }),
   }),
-});
+);

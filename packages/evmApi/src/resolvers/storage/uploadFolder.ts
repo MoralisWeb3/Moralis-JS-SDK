@@ -1,4 +1,4 @@
-import { ApiResolver, BodyType } from '@moralisweb3/api-utils';
+import { createEndpoint, createEndpointFactory, EndpointBodyType } from '@moralisweb3/api-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 
@@ -15,17 +15,19 @@ export interface Params {
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const uploadFolderResolver = new ApiResolver({
-  name: 'uploadFolder',
-  getUrl: () => `${BASE_URL}/ipfs/uploadFolder`,
-  apiToResult: (data: ApiResult) => {
-    return data;
-  },
-  resultToJson: (data) => data,
-  parseParams: (params: Params) => ({
-    ...params,
+export const uploadFolder = createEndpointFactory(() =>
+  createEndpoint({
+    name: 'uploadFolder',
+    getUrl: () => `${BASE_URL}/ipfs/uploadFolder`,
+    apiToResult: (data: ApiResult) => {
+      return data;
+    },
+    resultToJson: (data) => data,
+    parseParams: (params: Params) => ({
+      ...params,
+    }),
+    method,
+    bodyParams,
+    bodyType: EndpointBodyType.BODY,
   }),
-  method,
-  bodyParams,
-  bodyType: BodyType.BODY,
-});
+);

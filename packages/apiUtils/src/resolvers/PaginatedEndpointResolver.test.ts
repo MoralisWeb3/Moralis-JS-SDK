@@ -1,9 +1,16 @@
-import { ApiConfig } from './config/ApiConfig';
+import { ApiConfig } from '../config/ApiConfig';
 import axios from 'axios';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
-import { BodyType } from './Resolver';
-import { ApiPaginatedOptions, ApiPaginatedResolver, ApiPaginatedResponse } from './PaginatedResolver';
-import { setupApi } from './test/setup';
+import { EndpointBodyType } from './Endpoint';
+import {
+  createPaginatedEndpointFactory,
+  createPaginatedEndpoint,
+  PaginatedParams,
+  PaginatedResult,
+} from './PaginatedEndpoint';
+import { setupApi } from '../test/setup';
+import { PaginatedEndpointResolver } from './PaginatedEndpointResolver';
+import { MoralisCore } from '@moralisweb3/core';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -33,7 +40,7 @@ const expectedAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
 
 const ABI = {};
 
-interface Params extends ApiPaginatedOptions {
+interface Params extends PaginatedParams {
   chain?: EvmChainish;
   address: EvmAddressish;
   abi: unknown;
@@ -52,8 +59,9 @@ type ApiResult = {
   };
 }[];
 
-describe('ApiResolver', () => {
-  let resolver: ApiPaginatedResolver<
+describe('PaginatedEndpointResolver', () => {
+  let core: MoralisCore;
+  let resolver: PaginatedEndpointResolver<
     Params,
     Params,
     ApiResult,
@@ -68,7 +76,7 @@ describe('ApiResolver', () => {
     unknown
   >;
   beforeAll(() => {
-    const core = setupApi();
+    core = setupApi();
     core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
 
     const mockRequest = jest.spyOn(axios, 'request');
@@ -87,34 +95,39 @@ describe('ApiResolver', () => {
   });
 
   beforeEach(() => {
-    resolver = new ApiPaginatedResolver({
-      name: 'getContractEvents',
-      getUrl: (params: Params) => `${API_ROOT}/${params.address}/events`,
-      //   TODO: remove PaginatedResponse when api squad make swagger update
-      apiToResult: (data: ApiPaginatedResponse<ApiResult>) =>
-        data.result.map((event) => ({
-          ...event,
-          address: EvmAddress.create(event.address),
-        })),
-      resultToJson: (data) => data,
-      parseParams: (params: Params) => ({
-        chain: EvmChain.create(params.chain || '0x1').apiHex,
-        from_block: params.fromBlock,
-        to_block: params.toBlock,
-        from_date: params.toDate,
-        to_date: params.toDate,
-        providerUrl: params.providerUrl,
-        topic: params.topic,
-        limit: params.limit,
-        offset: params.offset,
-        subdomain: params.subdomain,
-        address: EvmAddress.create(params.address).lowercase,
-        abi: params.abi,
-      }),
-      method: 'post',
-      bodyParams: ['abi'],
-      bodyType: BodyType.BODY,
-    });
+    resolver = PaginatedEndpointResolver.create(
+      core,
+      createPaginatedEndpointFactory(() =>
+        createPaginatedEndpoint({
+          name: 'getContractEvents',
+          getUrl: (params: Params) => `${API_ROOT}/${params.address}/events`,
+          //   TODO: remove PaginatedResponse when api squad make swagger update
+          apiToResult: (data: PaginatedResult<ApiResult>) =>
+            data.result.map((event) => ({
+              ...event,
+              address: EvmAddress.create(event.address, core),
+            })),
+          resultToJson: (data) => data,
+          parseParams: (params: Params) => ({
+            chain: EvmChain.create(params.chain || '0x1', core).apiHex,
+            from_block: params.fromBlock,
+            to_block: params.toBlock,
+            from_date: params.toDate,
+            to_date: params.toDate,
+            providerUrl: params.providerUrl,
+            topic: params.topic,
+            limit: params.limit,
+            offset: params.offset,
+            subdomain: params.subdomain,
+            address: EvmAddress.create(params.address, core).lowercase,
+            abi: params.abi,
+          }),
+          method: 'post',
+          bodyParams: ['abi'],
+          bodyType: EndpointBodyType.BODY,
+        }),
+      ),
+    );
   });
 
   it('should test api resolver functions with post request and pagination', async () => {

@@ -4,10 +4,11 @@ import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
 import { MoralisSolUtils } from '@moralisweb3/sol-utils';
 import { MoralisSolApi } from '@moralisweb3/sol-api';
-import { MoralisCoreProvider } from '@moralisweb3/core';
+import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 
 // Core
-const core = MoralisCoreProvider.getDefault();
+const core = MoralisCore.create();
+MoralisCoreProvider.setDefault(core);
 
 // Utility modules
 const evmUtils = MoralisEvmUtils.create(core);

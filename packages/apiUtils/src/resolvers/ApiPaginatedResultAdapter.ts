@@ -1,9 +1,9 @@
 import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
 import { ApiResultAdapter } from './ApiResultAdapter';
-import { ApiPaginatedResponse } from './PaginatedResolver';
+import { PaginatedResult } from './PaginatedEndpoint';
 
 export class ApiPaginatedResultAdapter<
-  Data extends ApiPaginatedResponse<unknown>,
+  Data extends PaginatedResult<unknown>,
   AdaptedData,
   JSONData,
   Params,
