@@ -12,7 +12,7 @@ describe('Moralis SolApi', () => {
     cleanSolApi();
   });
 
-  it('should get the SPL of an account ', async () => {
+  it('should get the portfolio of an account ', async () => {
     const result = await SolApi.account.getPortfolio({
       network: 'mainnet',
       address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
@@ -23,7 +23,7 @@ describe('Moralis SolApi', () => {
     expect(result.raw).toStrictEqual({ nativeBalance: '16136665083' });
   });
 
-  it('should not get the SPL of an account', async () => {
+  it('should not get the portfolio of an account', async () => {
     const failedResult = await SolApi.account
       .getPortfolio({
         network: 'mainnet',
