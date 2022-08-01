@@ -7,7 +7,7 @@ export class MoralisCoreProvider {
   public static getDefault(): MoralisCore {
     if (!this.core) {
       throw new MoralisCoreError({
-        code: CoreErrorCode.GENERIC_CORE_ERROR,
+        code: CoreErrorCode.NOT_INITIALIZED,
         message: 'Default instance of MoralisCore is not set',
       });
     }
@@ -17,7 +17,7 @@ export class MoralisCoreProvider {
   public static setDefault(core: MoralisCore) {
     if (this.core) {
       throw new MoralisCoreError({
-        code: CoreErrorCode.GENERIC_CORE_ERROR,
+        code: CoreErrorCode.ALREADY_INITIALIZED,
         message: 'Default instance of MoralisCore is already set',
       });
     }

@@ -46,9 +46,7 @@ export class PaginatedEndpointResolver<
 
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
     const result = await this.requestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
-      headers: {
-        'x-api-key': this.config.get(ApiConfig.apiKey),
-      },
+      headers: this.createHeaders(),
     });
 
     return new ApiPaginatedResultAdapter(
@@ -67,18 +65,12 @@ export class PaginatedEndpointResolver<
     const searchParams = this.paramsReader.getSearchParams(apiParams);
     const bodyParams = this.paramsReader.getBodyParams(apiParams);
 
-    const apiKey = this.config.get(ApiConfig.apiKey);
-    const headers: { [key: string]: string } = {};
-    if (apiKey) {
-      headers['x-api-key'] = apiKey;
-    }
-
     const result = await this.requestController.post<
       PaginatedResult<ApiResult>,
       Record<string, string>,
       Record<string, string>
     >(url, searchParams, bodyParams, {
-      headers,
+      headers: this.createHeaders(),
     });
 
     return new ApiPaginatedResultAdapter(
@@ -95,18 +87,29 @@ export class PaginatedEndpointResolver<
     return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
   };
 
-  public fetch = (
-    params: Params,
-  ): Promise<ApiPaginatedResultAdapter<Awaited<PaginatedResult<ApiResult>>, AdaptedResult, JSONResult, Params>> => {
+  private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);
-
     if (!apiKey) {
       throw new MoralisApiError({
         code: ApiErrorCode.API_KEY_NOT_SET,
         message: 'apiKey is not set',
       });
     }
+    const headers: { [key: string]: string } = {};
+    if (apiKey) {
+      headers['x-api-key'] = apiKey;
+    }
+    return headers;
+  }
 
-    return this.endpoint.method === 'post' ? this.post(params) : this.get(params);
+  public fetch = (
+    params: Params,
+  ): Promise<ApiPaginatedResultAdapter<Awaited<PaginatedResult<ApiResult>>, AdaptedResult, JSONResult, Params>> => {
+    switch (this.endpoint.method) {
+      case 'post':
+        return this.post(params);
+      default:
+        return this.get(params);
+    }
   };
 }

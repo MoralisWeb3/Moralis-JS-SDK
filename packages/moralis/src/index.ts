@@ -8,7 +8,6 @@ import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 
 // Core
 const core = MoralisCore.create();
-MoralisCoreProvider.setDefault(core);
 
 // Utility modules
 const evmUtils = MoralisEvmUtils.create(core);
@@ -22,6 +21,8 @@ const solApi = MoralisSolApi.create(core);
 
 // Register all Moralis modules to MoralisCore
 core.registerModules([evmUtils, solUtils, auth, apiUtils, evmApi, solApi]);
+
+MoralisCoreProvider.setDefault(core);
 
 const Moralis = {
   Core: core,

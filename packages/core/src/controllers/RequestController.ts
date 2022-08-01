@@ -5,7 +5,6 @@ import { isTest } from '../environment/isTest';
 import { noop } from '../utils/noop';
 import { MoralisCore } from '../MoralisCore';
 import { LoggerController } from './LoggerController';
-import { MoralisCoreProvider } from '../MoralisCoreProvider';
 
 export interface RequestOptions {
   headers?: { [name: string]: string };
@@ -16,12 +15,11 @@ export interface RequestOptions {
  * compatible with browser, nodejJs and react-native
  */
 export class RequestController {
-  public static create(core?: MoralisCore): RequestController {
-    const finalCore = core || MoralisCoreProvider.getDefault();
-    return new RequestController(finalCore.logger);
+  public static create(core: MoralisCore): RequestController {
+    return new RequestController(core.logger);
   }
 
-  public constructor(private readonly logger: LoggerController) {}
+  private constructor(private readonly logger: LoggerController) {}
 
   public async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
     this.logger.verbose('[RequestController] request started', {

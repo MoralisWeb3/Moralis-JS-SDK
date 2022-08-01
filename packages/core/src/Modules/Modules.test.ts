@@ -47,7 +47,7 @@ describe('Modules', () => {
   beforeEach(() => {
     modules = new Modules();
     const config = new Config();
-    core = new MoralisCore(modules, config, new LoggerController(config, TEST_MODULE_NAME));
+    core = new MoralisCore(modules, config, new LoggerController(TEST_MODULE_NAME, config));
   });
 
   describe('register()', () => {

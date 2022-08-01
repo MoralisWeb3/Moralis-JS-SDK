@@ -75,6 +75,12 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);
+    if (!apiKey) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.API_KEY_NOT_SET,
+        message: 'apiKey is not set',
+      });
+    }
     const headers: { [key: string]: string } = {};
     if (apiKey) {
       headers['x-api-key'] = apiKey;
@@ -82,16 +88,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     return headers;
   }
 
-  public fetch = (params: Params) => {
-    const apiKey = this.config.get(ApiConfig.apiKey);
-
-    if (!apiKey) {
-      throw new MoralisApiError({
-        code: ApiErrorCode.API_KEY_NOT_SET,
-        message: 'apiKey is not set',
-      });
-    }
-
+  public fetch = (params: Params): Promise<ApiResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult, Params>> => {
     switch (this.endpoint.method) {
       case 'post':
         return this.post(params);
