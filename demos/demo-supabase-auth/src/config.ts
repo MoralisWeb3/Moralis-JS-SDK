@@ -1,0 +1,16 @@
+import * as dotenv from 'dotenv';
+import { cleanEnv, num, str } from 'envalid';
+
+dotenv.config();
+
+export default cleanEnv(process.env, {
+  PORT: num(),
+
+  SUPABASE_PUBLIC_ANON: str(),
+
+  SUPABASE_URL: str(),
+
+  APP_NAME: str(),
+
+  MORALIS_API_KEY: str(),
+});
