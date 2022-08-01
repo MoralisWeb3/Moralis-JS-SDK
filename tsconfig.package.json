@@ -24,14 +24,6 @@
     "pretty": false,
     "sourceMap": true,
     "target": "es5",
-    "paths": {
-      "@moralisweb3/*": ["./packages/*"],
-      "@moralisweb3/api-utils": ["./packages/apiUtils"],
-      "@moralisweb3/evm-api": ["./packages/evmApi"],
-      "@moralisweb3/evm-utils": ["./packages/evmUtils"],
-      "@moralisweb3/sol-api": ["./packages/solApi"],
-      "@moralisweb3/sol-utils": ["./packages/solUtils"]
-    },
     "useUnknownInCatchVariables": false
   },
   "exclude": [
