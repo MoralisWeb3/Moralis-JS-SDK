@@ -1,4 +1,4 @@
-import { requestMessage, verifyMessage } from './authService';
+import { loginUser, requestMessage, verifyMessage } from './authService';
 import { NextFunction, Request, Response } from 'express';
 
 export async function request(req: Request, res: Response, next: NextFunction) {
@@ -28,6 +28,16 @@ export async function verify(req: Request, res: Response, next: NextFunction) {
     });
 
     res.status(200).json({ user });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    const response = await loginUser();
+
+    res.status(200).json(response);
   } catch (err) {
     next(err);
   }

@@ -3,6 +3,7 @@ const AUTH_API_URL = 'http://localhost:3000/api/auth';
 const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
+const elBtnLogin = document.getElementById('login');
 
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
@@ -27,6 +28,11 @@ const verifyMessage = (message, signature) =>
     signature,
     network: 'evm',
   });
+
+const login = async () => {
+  const session = await handleApiPost('login');
+  renderUser(session);
+};
 
 const connectToMetamask = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
@@ -71,6 +77,9 @@ const renderError = (error) => {
 function init() {
   elBtnMetamask.addEventListener('click', async () => {
     handleAuth().catch((error) => renderError(error));
+  });
+  elBtnLogin.addEventListener('click', async () => {
+    login().catch((error) => renderError(error.message));
   });
 }
 
