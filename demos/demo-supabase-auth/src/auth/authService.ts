@@ -83,7 +83,7 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
 // Login user after email verification
 export async function loginUser() {
   const { error, session } = await supabase.auth.signIn({
-    email: 'shalom@moralis.io',
+    email: 'email@example.org',
     password: 'password',
   });
 

@@ -79,7 +79,7 @@ function init() {
     handleAuth().catch((error) => renderError(error));
   });
   elBtnLogin.addEventListener('click', async () => {
-    login().catch((error) => renderError(error.message));
+    login().catch((error) => renderError(error));
   });
 }
 
