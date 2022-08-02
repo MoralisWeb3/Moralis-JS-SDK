@@ -11,13 +11,14 @@ class SolanaApi {
     setBody: 'set body',
     property: 'property',
   };
-  static initialize({apiKey, serverUrl, Moralis = null}) {
+  static initialize({apiKey, serverUrl, Moralis = null, headers = {}}) {
     if (!serverUrl && !apiKey) {
       throw new Error('SolanaApi.initialize failed: initialize with apiKey or serverUrl');
     }
     if(apiKey) this.apiKey = apiKey;
     if(serverUrl) this.serverUrl = serverUrl;
     this.Moralis = Moralis;
+    this.headers = headers;
   }
 
     static getBody(params, bodyParams) {
@@ -120,6 +121,7 @@ static async fetchFromApi(endpoint, params) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-api-key': this.apiKey,
+        ...this.headers,
       },
     });
     // Perform type regularization before return depending on response type option
@@ -155,7 +157,7 @@ static async fetchFromServer(name, options) {
       }
       
       const response =  await http.post(`/functions/sol-${name}`, options, {
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', ...this.headers },
       });
       return response.data.result
     } catch (error) {
@@ -176,6 +178,10 @@ getPortfolio: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET
 
   static nft = {
 getNFTMetadata: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"nft","name":"getNFTMetadata","url":"/nft/:network/:address/metadata"}, params: options }),
+  }
+
+  static token = {
+getTokenPrice: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenPrice","url":"/token/:network/:address/price"}, params: options }),
   }
 }
 

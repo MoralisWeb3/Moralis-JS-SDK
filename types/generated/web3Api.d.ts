@@ -267,7 +267,7 @@ export interface components {
       transaction_hash: string;
       /**
        * @description The address of the contract
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0x18F97EF6B2cbac5CA85b375b7093C4A207340d06
        */
       address: string;
       /**
@@ -758,7 +758,7 @@ export interface components {
     nft: {
       /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
        */
       token_address: string;
       /**
@@ -930,7 +930,7 @@ export interface components {
     nftOwner: {
       /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
        */
       token_address: string;
       /**
@@ -1681,7 +1681,24 @@ export interface operations {
       /** Returns a collection of events by topic */
       200: {
         content: {
-          "application/json": components["schemas"]["logEvent"][];
+          "application/json": {
+            /**
+             * @description The total number of matches for this query
+             * @example 2000
+             */
+            total?: number;
+            /**
+             * @description The page of the current result
+             * @example 2
+             */
+            page?: number;
+            /**
+             * @description The number of results per page
+             * @example 100
+             */
+            page_size?: number;
+            result?: components["schemas"]["logEvent"][];
+          };
         };
       };
     };
@@ -2660,7 +2677,12 @@ export interface operations {
       /** Returns the pair reserves */
       200: {
         content: {
-          "application/json": components["schemas"]["reservesCollection"];
+          "application/json": {
+            /** @example 220969226548536862025877 */
+            reserve0?: string;
+            /** @example 844810441191293211036 */
+            reserve1?: string;
+          };
         };
       };
     };
@@ -2791,10 +2813,13 @@ export default class Web3Api {
     getNFTOwners: (options: operations["getNFTOwners"]["parameters"]["query"] & operations["getNFTOwners"]["parameters"]["path"]) => Promise<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"] & defaultResponse<operations["getNFTOwners"]["responses"]["200"]["content"]["application/json"]>>;
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["query"] & operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"] & defaultResponse<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>>;
     reSyncMetadata: (options: operations["reSyncMetadata"]["parameters"]["query"] & operations["reSyncMetadata"]["parameters"]["path"]) => Promise<operations["reSyncMetadata"]["responses"]["200"]["content"]["application/json"] & defaultResponse<operations["reSyncMetadata"]["responses"]["200"]["content"]["application/json"]>>;
-    syncNFTContract: (options: operations["syncNFTContract"]["parameters"]["query"] & operations["syncNFTContract"]["parameters"]["path"]) => Promise<unknown & defaultResponse<unknown>>;
     getTokenIdMetadata: (options: operations["getTokenIdMetadata"]["parameters"]["query"] & operations["getTokenIdMetadata"]["parameters"]["path"]) => Promise<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"] & defaultResponse<operations["getTokenIdMetadata"]["responses"]["200"]["content"]["application/json"]>>;
     getTokenIdOwners: (options: operations["getTokenIdOwners"]["parameters"]["query"] & operations["getTokenIdOwners"]["parameters"]["path"]) => Promise<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"] & defaultResponse<operations["getTokenIdOwners"]["responses"]["200"]["content"]["application/json"]>>;
     getWalletTokenIdTransfers: (options: operations["getWalletTokenIdTransfers"]["parameters"]["query"] & operations["getWalletTokenIdTransfers"]["parameters"]["path"]) => Promise<operations["getWalletTokenIdTransfers"]["responses"]["200"]["content"]["application/json"] & defaultResponse<operations["getWalletTokenIdTransfers"]["responses"]["200"]["content"]["application/json"]>>;
+  }
+
+  static contract: {
+    syncNFTContract: (options: operations["syncNFTContract"]["parameters"]["query"] & operations["syncNFTContract"]["parameters"]["path"]) => Promise<unknown & defaultResponse<unknown>>;
   }
 
   static resolve: {
