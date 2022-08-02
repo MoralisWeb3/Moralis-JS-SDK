@@ -28,7 +28,7 @@ export class MoralisCore {
 
   public readonly name = MoralisCore.moduleName;
 
-  public readonly libVersion = LIB_VERSION
+  public readonly libVersion = LIB_VERSION;
 
   public constructor(
     public readonly modules: Modules,
