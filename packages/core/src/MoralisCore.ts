@@ -4,6 +4,7 @@ import { LoggerController } from './controllers/LoggerController';
 import { Config } from './Config/Config';
 import { CoreConfigSetup } from './Config/CoreConfigSetup';
 import { MoralisConfigValues } from './Config';
+import { LIB_VERSION } from './version';
 
 /**
  * MoralisCore is used in all Moralis applications
@@ -26,6 +27,8 @@ export class MoralisCore {
   }
 
   public readonly name = MoralisCore.moduleName;
+
+  public readonly libVersion = LIB_VERSION
 
   public constructor(
     public readonly modules: Modules,
