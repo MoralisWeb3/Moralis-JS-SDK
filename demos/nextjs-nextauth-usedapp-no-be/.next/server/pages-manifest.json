@@ -1,0 +1,11 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/api/auth/request-message": "pages/api/auth/request-message.js",
+  "/": "pages/index.js",
+  "/signin": "pages/signin.js",
+  "/private": "pages/private.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
