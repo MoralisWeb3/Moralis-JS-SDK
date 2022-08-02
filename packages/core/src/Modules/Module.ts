@@ -15,16 +15,14 @@ import TypedEmitter, { EventMap } from 'typed-emitter';
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class Module<Events extends EventMap = any> {
-  protected readonly logger: LoggerController;
+  protected readonly logger = LoggerController.create(this.name, this.core);
   protected readonly emitter = new EventEmitter<Events>() as unknown as TypedEmitter<Events>;
 
   public constructor(
     public readonly name: string,
     protected readonly core: MoralisCore,
     public readonly type: ModuleType = ModuleType.DEFAULT,
-  ) {
-    this.logger = new LoggerController(core.config, this.name);
-  }
+  ) {}
 
   public abstract setup(): void;
 

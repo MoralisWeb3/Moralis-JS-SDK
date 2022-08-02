@@ -1,5 +1,6 @@
-import { assertUnreachable } from '@moralisweb3/core';
-import { completeChallengeResolver } from '../resolvers/evmVerifyChallenge';
+import { EndpointResolver } from '@moralisweb3/api-utils';
+import MoralisCore, { assertUnreachable } from '@moralisweb3/core';
+import { completeChallenge } from '../resolvers/evmVerifyChallenge';
 
 export interface VerifyEvmOptions {
   message: string;
@@ -10,17 +11,17 @@ export interface VerifyEvmOptions {
 export type VerifyOptions = VerifyEvmOptions;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const makeEvmVerify = ({ network, ...options }: VerifyEvmOptions) => {
-  return completeChallengeResolver.fetch({
+const makeEvmVerify = (core: MoralisCore, { network, ...options }: VerifyEvmOptions) => {
+  return EndpointResolver.create(core, completeChallenge).fetch({
     message: options.message,
     signature: options.signature,
   });
 };
 
-export const makeVerify = () => (options: VerifyOptions) => {
+export const makeVerify = (core: MoralisCore) => (options: VerifyOptions) => {
   switch (options.network) {
     case 'evm':
-      return makeEvmVerify(options);
+      return makeEvmVerify(core, options);
     default:
       return assertUnreachable(options.network);
   }

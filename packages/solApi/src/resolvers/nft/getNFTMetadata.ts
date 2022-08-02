@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api-utils';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { SolAddress, SolAddressish, SolNetworkish } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
@@ -17,43 +17,45 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
   address: SolAddressish;
 }
 
-export const getNFTMetadataResolver = new ApiResolver({
-  name: 'getNFTMetadata',
-  getUrl: (params: Params) => `${BASE_URL}/nft/${params.network}/${params.address}/metadata`,
-  apiToResult: (data: ApiResult) => {
-    return {
-      mint: SolAddress.create(data.mint),
-      standard: data.standard,
-      name: data.name,
-      symbol: data.symbol,
-      metaplex: {
-        metadataUri: data.metaplex.metadataUri,
-        updateAuthority: SolAddress.create(data.metaplex.updateAuthority),
-        sellerFeeBasisPoints: data.metaplex.sellerFeeBasisPoints,
-        primarySaleHappened: data.metaplex.primarySaleHappened,
-        isMutable: data.metaplex.isMutable,
-        masterEdition: data.metaplex.masterEdition,
-      },
-    };
-  },
-  resultToJson: (data) => {
-    return {
-      mint: data.mint.toJSON(),
-      standard: data.standard,
-      name: data.name,
-      symbol: data.symbol,
-      metaplex: {
-        metadataUri: data.metaplex.metadataUri,
-        updateAuthority: data.metaplex.updateAuthority.toJSON(),
-        sellerFeeBasisPoints: data.metaplex.sellerFeeBasisPoints,
-        primarySaleHappened: data.metaplex.primarySaleHappened,
-        isMutable: data.metaplex.isMutable,
-        masterEdition: data.metaplex.masterEdition,
-      },
-    };
-  },
-  parseParams: (params: Params): ApiParams => ({
-    network: SolNetworkResolver.resolve(params.network),
-    address: SolAddress.create(params.address).address,
+export const getNFTMetadata = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getNFTMetadata',
+    getUrl: (params: Params) => `${BASE_URL}/nft/${params.network}/${params.address}/metadata`,
+    apiToResult: (data: ApiResult) => {
+      return {
+        mint: SolAddress.create(data.mint),
+        standard: data.standard,
+        name: data.name,
+        symbol: data.symbol,
+        metaplex: {
+          metadataUri: data.metaplex.metadataUri,
+          updateAuthority: SolAddress.create(data.metaplex.updateAuthority),
+          sellerFeeBasisPoints: data.metaplex.sellerFeeBasisPoints,
+          primarySaleHappened: data.metaplex.primarySaleHappened,
+          isMutable: data.metaplex.isMutable,
+          masterEdition: data.metaplex.masterEdition,
+        },
+      };
+    },
+    resultToJson: (data) => {
+      return {
+        mint: data.mint.toJSON(),
+        standard: data.standard,
+        name: data.name,
+        symbol: data.symbol,
+        metaplex: {
+          metadataUri: data.metaplex.metadataUri,
+          updateAuthority: data.metaplex.updateAuthority.toJSON(),
+          sellerFeeBasisPoints: data.metaplex.sellerFeeBasisPoints,
+          primarySaleHappened: data.metaplex.primarySaleHappened,
+          isMutable: data.metaplex.isMutable,
+          masterEdition: data.metaplex.masterEdition,
+        },
+      };
+    },
+    parseParams: (params: Params): ApiParams => ({
+      network: SolNetworkResolver.resolve(params.network, core),
+      address: SolAddress.create(params.address).address,
+    }),
   }),
-});
+);

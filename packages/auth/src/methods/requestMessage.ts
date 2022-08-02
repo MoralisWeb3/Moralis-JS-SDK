@@ -1,6 +1,7 @@
-import { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
+import { EndpointResolver } from '@moralisweb3/api-utils';
+import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
-import { initializeChallengeResolver } from '../resolvers/evmRequestChallenge';
+import { initializeChallenge } from '../resolvers/evmRequestChallenge';
 
 export enum AuthNetwork {
   EVM = 'evm',
@@ -26,18 +27,21 @@ export interface RequestMessageEvmOptions {
 export type RequestMessageOptions = RequestMessageEvmOptions;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const makeEvmRequestMessage = ({ chain, address, network, ...options }: RequestMessageEvmOptions) => {
-  return initializeChallengeResolver.fetch({
+const makeEvmRequestMessage = (
+  core: MoralisCore,
+  { chain, address, network, ...options }: RequestMessageEvmOptions,
+) => {
+  return EndpointResolver.create(core, initializeChallenge).fetch({
     chainId: EvmChain.create(chain).decimal,
     address: EvmAddress.create(address).checksum,
     ...options,
   });
 };
 
-export const makeRequestMessage = () => (options: RequestMessageOptions) => {
+export const makeRequestMessage = (core: MoralisCore) => (options: RequestMessageOptions) => {
   switch (options.network) {
     case 'evm':
-      return makeEvmRequestMessage(options);
+      return makeEvmRequestMessage(core, options);
     default:
       throw new MoralisAuthError({
         code: AuthErrorCode.INCORRECT_NETWORK,

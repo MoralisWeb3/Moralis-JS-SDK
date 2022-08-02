@@ -1,8 +1,10 @@
-import { ApiConfig } from './config/ApiConfig';
+import { ApiConfig } from '../config/ApiConfig';
 import { ApiFormatType } from './ApiResultAdapter';
 import axios from 'axios';
-import { ApiResolver } from './Resolver';
-import { setupApi } from './test/setup';
+import { EndpointResolver } from './EndpointResolver';
+import { setupApi } from '../test/setup';
+import { MoralisCore } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from './Endpoint';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -23,7 +25,8 @@ interface EndpointWeight {
 }
 
 describe('ApiResolver', () => {
-  let resolver: ApiResolver<
+  let core: MoralisCore;
+  let resolver: EndpointResolver<
     unknown,
     unknown,
     EndpointWeight,
@@ -32,7 +35,7 @@ describe('ApiResolver', () => {
   >;
 
   beforeAll(() => {
-    const core = setupApi();
+    core = setupApi();
     core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
 
     const mockRequest = jest.spyOn(axios, 'request');
@@ -48,19 +51,24 @@ describe('ApiResolver', () => {
   });
 
   beforeEach(() => {
-    resolver = new ApiResolver({
-      name: 'endpointWeights',
-      getUrl: () => `${API_ROOT}/info/endpointWeights`,
-      apiToResult: (data: EndpointWeight) => ({
-        endpoint: data.endpoint,
-        weight: parseInt(data.weight),
-      }),
-      resultToJson: (data) => ({
-        endpoint: data.endpoint,
-        weight: data.weight.toString(),
-      }),
-      parseParams: (params) => params,
-    });
+    resolver = EndpointResolver.create(
+      core,
+      createEndpointFactory(() =>
+        createEndpoint({
+          name: 'endpointWeights',
+          getUrl: () => `${API_ROOT}/info/endpointWeights`,
+          apiToResult: (data: EndpointWeight) => ({
+            endpoint: data.endpoint,
+            weight: parseInt(data.weight),
+          }),
+          resultToJson: (data) => ({
+            endpoint: data.endpoint,
+            weight: data.weight.toString(),
+          }),
+          parseParams: (params) => params,
+        }),
+      ),
+    );
   });
 
   it('should test api resolver functions with get request', async () => {

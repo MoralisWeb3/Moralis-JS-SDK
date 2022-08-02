@@ -1,10 +1,11 @@
+import { EndpointFactory, EndpointResolver } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { SolApiConfigSetup } from './config/SolApiConfigSetup';
-import { getBalanceResolver } from './resolvers/account/getBalance';
-import { getNFTsResolver } from './resolvers/account/getNFTs';
-import { getPortfolioResolver } from './resolvers/account/getPortfolio';
-import { getSPLResolver } from './resolvers/account/getSPL';
-import { getNFTMetadataResolver } from './resolvers/nft/getNFTMetadata';
+import { getBalance } from './resolvers/account/getBalance';
+import { getNFTs } from './resolvers/account/getNFTs';
+import { getPortfolio } from './resolvers/account/getPortfolio';
+import { getSPL } from './resolvers/account/getSPL';
+import { getNFTMetadata } from './resolvers/nft/getNFTMetadata';
 
 export const BASE_URL = 'https://solana-gateway.moralis.io';
 
@@ -28,13 +29,17 @@ export class MoralisSolApi extends ApiModule {
   }
 
   public readonly account = {
-    getBalance: getBalanceResolver.fetch,
-    getNFTs: getNFTsResolver.fetch,
-    getPortfolio: getPortfolioResolver.fetch,
-    getSPL: getSPLResolver.fetch,
+    getBalance: this.createFetcher(getBalance),
+    getNFTs: this.createFetcher(getNFTs),
+    getPortfolio: this.createFetcher(getPortfolio),
+    getSPL: this.createFetcher(getSPL),
   };
 
   public readonly nft = {
-    getNFTMetadata: getNFTMetadataResolver.fetch,
+    getNFTMetadata: this.createFetcher(getNFTMetadata),
   };
+
+  private createFetcher<AP, P, AR, ADR, JR>(factory: EndpointFactory<AP, P, AR, ADR, JR>) {
+    return EndpointResolver.create(this.core, factory).fetch;
+  }
 }

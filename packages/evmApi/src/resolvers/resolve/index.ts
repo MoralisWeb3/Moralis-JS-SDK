@@ -1,2 +1,2 @@
-export { resolveAddressResolver } from './resolveAddress';
-export { resolveDomainResolver } from './resolveDomain';
+export { resolveAddress } from './resolveAddress';
+export { resolveDomain } from './resolveDomain';
