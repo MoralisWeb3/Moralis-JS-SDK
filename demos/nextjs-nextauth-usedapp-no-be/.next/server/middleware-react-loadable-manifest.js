@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST={"..\\app\\components\\modules\\Header\\Header.tsx -> ../WalletInfo/WalletInfo":{id:534,files:["static/css/aabed381d36b5962.css","static/chunks/534.d99fed562599b2bf.js"]}}
