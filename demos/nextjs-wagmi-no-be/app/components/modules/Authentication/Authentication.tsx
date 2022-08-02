@@ -1,4 +1,3 @@
-// import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { Connector, useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -19,7 +18,6 @@ const wallets = [
     name: 'Coinbase Wallet',
     logoPath: '/assets/wallets/coinbase.svg',
     disabled: true,
-    // connector: new CoinbaseWalletConnector(),
   },
   {
     name: 'WalletConnect',
