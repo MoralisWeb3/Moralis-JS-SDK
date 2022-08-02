@@ -177,6 +177,10 @@ getPortfolio: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET
   static nft = {
 getNFTMetadata: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"nft","name":"getNFTMetadata","url":"/nft/:network/:address/metadata"}, params: options }),
   }
+
+  static token = {
+getTokenPrice: async (options = {}) => SolanaApi.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenPrice","url":"/token/:network/:address/price"}, params: options }),
+  }
 }
 
 export default SolanaApi;
