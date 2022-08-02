@@ -10,13 +10,14 @@ class Web3Api {
     setBody: 'set body',
     property: 'property',
   };
-  static initialize({apiKey, serverUrl, Moralis = null}) {
+  static initialize({apiKey, serverUrl, Moralis = null, headers = {}}) {
     if (!serverUrl && !apiKey) {
       throw new Error('Web3Api.initialize failed: initialize with apiKey or serverUrl');
     }
     if(apiKey) this.apiKey = apiKey;
     if(serverUrl) this.serverUrl = serverUrl;
     this.Moralis = Moralis;
+    this.headers = headers;
   }
 
     static getBody(params, bodyParams) {
@@ -135,6 +136,7 @@ static async fetchFromApi(endpoint, params) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-api-key': this.apiKey,
+        ...this.headers,
       },
     });
     const result = response.data;
@@ -172,7 +174,7 @@ static async fetchFromServer(name, options) {
       }
       
       const response =  await http.post(`/functions/${name}`, options, {
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json', ...this.headers },
       });
       const {result} = response.data;
       const nextOptions = this.getNextOptions(result, options)
@@ -222,10 +224,13 @@ getContractNFTTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"met
 getNFTOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTOwners","url":"/nft/:address/owners"}, params: options }),
 getNFTMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getNFTMetadata","url":"/nft/:address/metadata"}, params: options }),
 reSyncMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"reSyncMetadata","url":"/nft/:address/:token_id/metadata/resync"}, params: options }),
-syncNFTContract: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"PUT","group":"token","name":"syncNFTContract","url":"/nft/:address/sync"}, params: options }),
 getTokenIdMetadata: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdMetadata","url":"/nft/:address/:token_id"}, params: options }),
 getTokenIdOwners: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getTokenIdOwners","url":"/nft/:address/:token_id/owners"}, params: options }),
 getWalletTokenIdTransfers: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"GET","group":"token","name":"getWalletTokenIdTransfers","url":"/nft/:address/:token_id/transfers"}, params: options }),
+  }
+
+  static contract = {
+syncNFTContract: async (options = {}) => Web3Api.fetch({ endpoint: {"method":"PUT","group":"contract","name":"syncNFTContract","url":"/nft/:address/sync"}, params: options }),
   }
 
   static resolve = {
