@@ -13,9 +13,9 @@ export class PaginatedEndpointResolver<
   AdaptedResult,
   JSONResult,
 > {
-  public static create<AP, P extends PaginatedParams, AR, ADR, JR>(
+  public static create<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
     core: MoralisCore,
-    endpointFactory: PaginatedEndpointFactory<AP, P, AR, ADR, JR>,
+    endpointFactory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);

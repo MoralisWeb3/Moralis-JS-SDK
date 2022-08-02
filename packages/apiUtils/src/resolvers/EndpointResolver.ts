@@ -5,7 +5,10 @@ import { Endpoint, EndpointFactory } from './Endpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
 
 export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
-  public static create<AP, P, AR, ADR, JR>(core: MoralisCore, endpointFactory: EndpointFactory<AP, P, AR, ADR, JR>) {
+  public static create<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
+    core: MoralisCore,
+    endpointFactory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
+  ) {
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);
     const paramsReader = new EndpointParamsReader(endpoint);
