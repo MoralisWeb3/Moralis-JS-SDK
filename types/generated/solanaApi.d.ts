@@ -24,6 +24,10 @@ export interface paths {
     /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
     get: operations["getNFTMetadata"];
   };
+  "/token/{network}/{address}/price": {
+    /** Gets the token price (usd and native) for a given contract address and network */
+    get: operations["getTokenPrice"];
+  };
 }
 
 export interface components {
@@ -62,6 +66,18 @@ export interface components {
       name: string;
       symbol: string;
       metaplex: components["schemas"]["MetaplexNFT"];
+    };
+    SPLNativePrice: {
+      value: string;
+      decimals: number;
+      name: string;
+      symbol: string;
+    };
+    SPLTokenPrice: {
+      nativePrice: components["schemas"]["SPLNativePrice"];
+      usdPrice: number;
+      exchangeAddress: string;
+      exchangeName: string;
     };
   };
 }
@@ -172,6 +188,27 @@ export interface operations {
       };
     };
   };
+  /** Gets the token price (usd and native) for a given contract address and network */
+  getTokenPrice: {
+    parameters: {
+      path: {
+        address: string;
+        network: "mainnet";
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SPLTokenPrice"];
+        };
+      };
+      400: {
+        content: {
+          "application/json": string;
+        };
+      };
+    };
+  };
 }
 
 export interface external {}
@@ -188,6 +225,10 @@ export default class SolanaApi {
 
   static nft: {
     getNFTMetadata: (options: operations["getNFTMetadata"]["parameters"]["path"]) => Promise<operations["getNFTMetadata"]["responses"]["200"]["content"]["application/json"]>;
+  }
+
+  static token: {
+    getTokenPrice: (options: operations["getTokenPrice"]["parameters"]["path"]) => Promise<operations["getTokenPrice"]["responses"]["200"]["content"]["application/json"]>;
   }
 
 }
