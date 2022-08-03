@@ -1,5 +1,21 @@
 # moralis
 
+## 2.0.0-alpha.4
+
+### Patch Changes
+
+- [#552](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/552) [`81effa1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/81effa1a4f9afc4a7e8a3c39eaa4ff2d9103b60a) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix Typescript reference between the packages in production builds
+
+* [#539](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/539) [`70e6227`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/70e62273da34dc0227d47842d06247ed771ba085) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Multi-tenancy support.
+
+* Updated dependencies [[`81effa1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/81effa1a4f9afc4a7e8a3c39eaa4ff2d9103b60a), [`81effa1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/81effa1a4f9afc4a7e8a3c39eaa4ff2d9103b60a), [`70e6227`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/70e62273da34dc0227d47842d06247ed771ba085)]:
+  - @moralisweb3/api-utils@2.0.0-alpha.4
+  - @moralisweb3/core@2.0.0-alpha.4
+  - @moralisweb3/auth@2.0.0-alpha.4
+  - @moralisweb3/evm-api@2.0.0-alpha.4
+  - @moralisweb3/evm-utils@2.0.0-alpha.4
+  - @moralisweb3/sol-api@2.0.0-alpha.4
+
 ## 2.0.0-alpha.3
 
 ### Major Changes
