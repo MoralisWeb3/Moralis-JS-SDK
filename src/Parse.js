@@ -74,9 +74,9 @@ class Moralis extends MoralisWeb3 {
     this.initialize(appId, javascriptKey, masterKey);
     this.serverURL = serverUrl;
     const apiHeaders = {
-      'X-moralis-platform': 'JS SDK',
-      'X-moralis-platform-version': process.env.NEXT_VERSION,
-      'X-moralis-build-target': process.env.PARSE_BUILD,
+      'x-moralis-platform': 'JS SDK',
+      'x-moralis-platform-version': process.env.NEXT_VERSION,
+      'x-moralis-build-target': process.env.PARSE_BUILD,
     };
 
     this.Web3API.initialize({ serverUrl, apiKey, Moralis, headers: apiHeaders });
