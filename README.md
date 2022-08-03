@@ -35,20 +35,21 @@
 Current Features in this alpha build:
 
 - [x] Support for NodeJs
-- [x] EvmApi
+- [x] Evm Api
+- [x] Solana Api
+- [x] Authentication
 
 Coming up:
 
-- [ ] Solana Api support
-- [ ] Authentication
 - [ ] Sync
 
 ---
 
 **Features**:
 
-- **Evm Utilities** for transfers, contract interactions and other on-chain methods for the supported networks (and support for other networks as Solana, Polkadot, Elrond and more)
+- Web3 authentication
 - Make **Evm api** and **Solana api** calls
+- Consistent data types and utilities
 - **Modular** package: include only what you need
 - Fully **Typescript** ready out-of-the box
 
