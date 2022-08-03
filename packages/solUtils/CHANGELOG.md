@@ -1,5 +1,16 @@
 # @moralisweb3/sol-utils
 
+## 2.0.0-beta.5
+
+### Major Changes
+
+- [`2948339`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/29483391b453a9e9b9d26c7d973d7aa5b3f96d07) Thanks [@ErnoW](https://github.com/ErnoW)! - Beta release
+
+### Patch Changes
+
+- Updated dependencies [[`2948339`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/29483391b453a9e9b9d26c7d973d7aa5b3f96d07)]:
+  - @moralisweb3/core@2.0.0-beta.5
+
 ## 2.0.0-alpha.4
 
 ### Patch Changes
