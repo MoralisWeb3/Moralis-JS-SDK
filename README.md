@@ -26,24 +26,12 @@
 
 ---
 
-# 🚨 Alpha version
+# 🚨 Beta version
 
-> **Important: Do not use this alpha version in production**
+> **Important: Do not use this beta version in production**
 >
-> This version is an **alpha** release and is under active development. Expect breaking changes until it is out of alpha.
+> This version is an **beta** release and is under active development. For questions or feedback, post an issue or post in our [forum](http://forum.moralis.io)
 
-Current Features in this alpha build:
-
-- [x] Support for NodeJs
-- [x] Evm Api
-- [x] Solana Api
-- [x] Authentication
-
-Coming up:
-
-- [ ] Sync
-
----
 
 **Features**:
 
@@ -61,7 +49,7 @@ If you're new to Moralis, check the [quickstart guide in the official docs](http
 
 If you're already familiar with Moralis and have your server set up. Then follow along to connect your SDK:
 
-#### 1. Install Moralis
+## 1. Install Moralis
 
 The easiest way to integrate the Moralis SDK into your JavaScript project is through the npm module.
 
@@ -83,7 +71,7 @@ Import Moralis:
 import Moralis from 'moralis';
 ```
 
-#### 2. Initialise Moralis
+## 2. Initialise Moralis
 
 After your dependency is added, you simply need to initialize moralis via the `start` method:
 
@@ -105,13 +93,16 @@ If you need help with setting up the boilerplate or have other questions - don't
 
 # 🧭 Table of Contents
 
-- [� Alpha version](#-alpha-version)
-- [🚀 Quick start](#-quick-start) - [1. Install Moralis](#1-install-moralis) - [2. Initialise Moralis](#2-initialise-moralis)
+- [🚨 Beta version](#-beta-version)
+- [🚀 Quick start](#-quick-start)
+  - [1. Install Moralis](#1-install-moralis)
+  - [2. Initialise Moralis](#2-initialise-moralis)
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
 - [⚙️ Configuration](#️-configuration)
 - [👩‍🔬 Advanced setup](#-advanced-setup)
+  - [1. Install the dependencies](#1-install-the-dependencies)
 - [📦 Packages](#-packages)
   - [Umbrella package](#umbrella-package)
   - [Core module](#core-module)
@@ -127,7 +118,7 @@ When calling `Moralis.start`, you can include a configuration object.
 
 It's possible to install all functionalities of Moralis by installing `moralis` as a dependency. But, you may choose to only install certain modules (as listed below).
 
-#### 1. Install the dependencies
+## 1. Install the dependencies
 
 Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
 

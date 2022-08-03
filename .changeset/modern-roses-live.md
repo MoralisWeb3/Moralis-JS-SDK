@@ -6,7 +6,6 @@
 '@moralisweb3/evm-metamask-connector': minor
 '@moralisweb3/evm-wallet-connect-connector': minor
 '@moralisweb3/wallet-connect-wrapper': minor
-'@moralisweb3/integration': minor
 'moralis': minor
 '@moralisweb3/server': minor
 ---
