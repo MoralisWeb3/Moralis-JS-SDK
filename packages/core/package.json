@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/core",
   "author": "Moralis",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-alpha.4",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -20,6 +20,7 @@
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build": "tsc",
     "dev": "tsc --watch"
   },

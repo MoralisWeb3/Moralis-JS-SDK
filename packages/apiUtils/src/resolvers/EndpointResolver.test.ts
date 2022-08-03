@@ -33,12 +33,13 @@ describe('ApiResolver', () => {
     { endpoint: string; weight: number },
     { endpoint: string; weight: string }
   >;
+  let mockRequest: jest.SpyInstance;
 
   beforeAll(() => {
     core = setupApi();
     core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
 
-    const mockRequest = jest.spyOn(axios, 'request');
+    mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
       if (options.url === `${API_ROOT}/info/endpointWeights` && options.method === 'GET') {
         return Promise.resolve({
@@ -69,6 +70,8 @@ describe('ApiResolver', () => {
         }),
       ),
     );
+
+    jest.clearAllMocks();
   });
 
   it('should test api resolver functions with get request', async () => {
@@ -82,5 +85,21 @@ describe('ApiResolver', () => {
     expect(() => response.format('legacy' as any)).toThrowErrorMatchingInlineSnapshot(
       `"[A0001] provided formatType not supported"`,
     );
+  });
+
+  it('should set required api headers correctly', async () => {
+    const response = await resolver.fetch({});
+
+    expect(mockRequest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          'x-api-key': MOCK_API_KEY,
+          'x-moralis-build-target': expect.any(String),
+          'x-moralis-platform': expect.any(String),
+          'x-moralis-platform-version': MoralisCore.libVersion,
+        }),
+      }),
+    );
+    expect(response).toBeDefined();
   });
 });
