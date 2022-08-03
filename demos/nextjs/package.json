@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-wagmi-no-be",
-  "version": "2.0.0-alpha.3",
+  "name": "demo-nextjs",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,7 +15,7 @@
     "moralis": "^2.0.0-alpha.3",
     "wagmi": "^0.5.11",
     "next-auth": "4.10.2",
-    "axios": "^0.27.2", 
+    "axios": "^0.27.2",
     "ethers": "5.6.9"
   },
   "devDependencies": {
