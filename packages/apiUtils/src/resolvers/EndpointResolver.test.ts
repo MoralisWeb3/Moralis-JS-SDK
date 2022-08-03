@@ -33,12 +33,13 @@ describe('ApiResolver', () => {
     { endpoint: string; weight: number },
     { endpoint: string; weight: string }
   >;
+  let mockRequest: jest.SpyInstance;
 
   beforeAll(() => {
     core = setupApi();
     core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
 
-    const mockRequest = jest.spyOn(axios, 'request');
+    mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
       if (options.url === `${API_ROOT}/info/endpointWeights` && options.method === 'GET') {
         return Promise.resolve({
@@ -82,5 +83,33 @@ describe('ApiResolver', () => {
     expect(() => response.format('legacy' as any)).toThrowErrorMatchingInlineSnapshot(
       `"[A0001] provided formatType not supported"`,
     );
+  });
+
+  it('should set required api headers correctly', async () => {
+    mockRequest.mockImplementationOnce((options) => {
+      console.log(options.headers);
+
+      if (!options.headers['x-moralis-platform']) {
+        throw new Error('x-moralis-platform is not set');
+      }
+
+      if (options.headers['x-moralis-platform-version'] !== MoralisCore.libVersion) {
+        throw new Error('x-moralis-platform-version is not set to the correct');
+      }
+
+      if (!options.headers['x-moralis-build-target']) {
+        throw new Error('x-moralis-build-target is not set');
+      }
+
+      if (options.headers['x-api-key'] !== MOCK_API_KEY) {
+        throw new Error('x-api-key is not set to the correct');
+      }
+
+      return {};
+    });
+
+    const response = await resolver.fetch({});
+
+    expect(response).toBeDefined();
   });
 });
