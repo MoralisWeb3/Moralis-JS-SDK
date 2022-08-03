@@ -1,7 +1,9 @@
-import { Camelize, EvmAddress, EvmChainish, EvmTransactionReceipt, toCamelCase } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import MoralisCore, { Camelize, toCamelCase } from '@moralisweb3/core';
+import { EvmAddress, EvmChainish, EvmTransactionReceipt } from '@moralisweb3/evm-utils';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getBlock';
 
@@ -14,12 +16,12 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult, params: Params) => {
+const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
 
   return {
     ...data,
-    miner: new EvmAddress(data.miner),
+    miner: EvmAddress.create(data.miner, core),
     transactions: data.transactions.map((transaction) =>
       EvmTransactionReceipt.create(
         {
@@ -46,7 +48,7 @@ const apiToResult = (apiData: ApiResult, params: Params) => {
         },
         {
           // Transaction Response data
-          chain: resolveDefaultChain(params.chain),
+          chain: EvmChainResolver.resolve(params.chain, core),
           data: transaction.input,
           from: transaction.fromAddress,
           hash: transaction.hash,
@@ -70,18 +72,22 @@ const apiToResult = (apiData: ApiResult, params: Params) => {
   };
 };
 
-export const getBlockResolver = new EvmResolver({
-  name: 'getBlock',
-  getPath: (params: Params) => `block/${params.blockNumberOrHash}`,
-  apiToResult: apiToResult,
-  resultToJson: (data) => ({
-    ...data,
-    transactions: data.transactions.map((transaction) => transaction.toJSON()),
-    miner: data.miner.format(),
+export const getBlock = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getBlock',
+    getUrl: (params: Params) => `${BASE_URL}/block/${params.blockNumberOrHash}`,
+    apiToResult: (result: ApiResult, params: Params) => {
+      return apiToResult(core, result, params);
+    },
+    resultToJson: (data) => ({
+      ...data,
+      transactions: data.transactions.map((transaction) => transaction.toJSON()),
+      miner: data.miner.format(),
+    }),
+    parseParams: (params: Params): ApiParams => ({
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      block_number_or_hash: params.blockNumberOrHash,
+      subdomain: params.subdomain,
+    }),
   }),
-  parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
-    block_number_or_hash: params.blockNumberOrHash,
-    subdomain: params.subdomain,
-  }),
-});
+);

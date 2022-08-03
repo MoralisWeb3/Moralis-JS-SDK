@@ -1,0 +1,28 @@
+.option {
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+  width: 100%;
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+.option:hover {
+  background: #ebeff9;
+}
+
+.info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.name {
+  color: #68738d;
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -1,7 +1,8 @@
-import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { EvmChainish } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import { EvmChainish } from '@moralisweb3/evm-utils';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getDateToBlock';
 
@@ -15,19 +16,21 @@ export interface Params extends Omit<ApiParams, 'chain'> {
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getDateToBlockResolver = new EvmResolver({
-  name: 'getDateToBlock',
-  getPath: () => `dateToBlock`,
-  apiToResult: (data: ApiResult) => ({
-    ...data,
-    date: new Date(data.date),
+export const getDateToBlock = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getDateToBlock',
+    getUrl: () => `${BASE_URL}/dateToBlock`,
+    apiToResult: (data: ApiResult) => ({
+      ...data,
+      date: new Date(data.date),
+    }),
+    resultToJson: (data) => ({
+      ...data,
+      date: data.date.toLocaleDateString(),
+    }),
+    parseParams: (params: Params): ApiParams => ({
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      date: params.date,
+    }),
   }),
-  resultToJson: (data) => ({
-    ...data,
-    date: data.date.toLocaleDateString(),
-  }),
-  parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
-    date: params.date,
-  }),
-});
+);

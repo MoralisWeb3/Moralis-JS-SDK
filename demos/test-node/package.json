@@ -1,17 +1,17 @@
 {
-  "name": "@moralisweb3/test-node",
+  "name": "test-node",
   "author": "Moralis",
-  "version": "2.0.0-alpha.1",
-  "license": "MIT",
+  "private": true,
+  "version": "2.0.0-alpha.3",
   "scripts": {
     "build": "tsc",
-    "build:dev": "tsc",
+    "build-start": "yarn build && yarn start",
     "start": "node build/main.js",
     "format": "prettier . \"src/**/*.+(js|ts|json)\" --write",
     "format:check": "prettier . \"src/**/*.+(js|ts|json)\" --check"
   },
   "dependencies": {
-    "moralis": "^2.0.0-alpha.1",
+    "moralis": "^2.0.0-alpha.3",
     "dotenv": "^16.0.1"
   }
 }

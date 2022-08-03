@@ -10,8 +10,8 @@
     "declarationDir": "/lib",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ESNext", "dom"],
-    "module": "esnext",
+    "lib": ["ESNext"],
+    "module": "CommonJS",
     "allowJs": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -24,9 +24,6 @@
     "pretty": false,
     "sourceMap": true,
     "target": "es5",
-    "paths": {
-      "@moralisweb3/*": ["./packages/*"]
-    },
     "useUnknownInCatchVariables": false
   },
   "exclude": [

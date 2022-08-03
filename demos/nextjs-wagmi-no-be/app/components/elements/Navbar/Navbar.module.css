@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  gap: 38px;
+  margin-right: auto;
+}
+
+.tab {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 17px;
+  text-decoration: none;
+}
+
+.tab:hover,
+.active {
+  color: #2e7daf;
+}

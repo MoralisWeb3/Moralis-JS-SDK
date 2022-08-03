@@ -1,1 +1,1 @@
-export { uploadFolderResolver } from './uploadFolder';
+export { uploadFolder } from './uploadFolder';

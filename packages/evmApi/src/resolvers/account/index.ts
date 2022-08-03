@@ -1,7 +1,7 @@
-export { getTokenBalancesResolver } from './getTokenBalances';
-export { getNativeBalanceResolver } from './getNativeBalance';
-export { getNFTTransfersResolver } from './getNFTTransfers';
-export { getTokenTransfersResolver } from './getTokenTransfers';
-export { getTransactionsResolver } from './getTransactions';
-export { getNFTsResolver } from './getNFTs';
-export { getNFTsForContractResolver } from './getNFTsForContract';
+export { getTokenBalances } from './getTokenBalances';
+export { getNativeBalance } from './getNativeBalance';
+export { getNFTTransfers } from './getNFTTransfers';
+export { getTokenTransfers } from './getTokenTransfers';
+export { getTransactions } from './getTransactions';
+export { getNFTs } from './getNFTs';
+export { getNFTsForContract } from './getNFTsForContract';

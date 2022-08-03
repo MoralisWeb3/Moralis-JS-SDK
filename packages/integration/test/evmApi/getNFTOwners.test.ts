@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should get NFT owners', async () => {
-    const result = await EvmApi.token.getNFTOwners({
+    const result = await evmApi.token.getNFTOwners({
       address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
       format: 'decimal',
     });
@@ -33,7 +24,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get NFT owners of an invalid address and throw an error ', async () => {
-    const failedResult = await EvmApi.token
+    const failedResult = await evmApi.token
       .getNFTOwners({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         format: 'decimal',
@@ -45,7 +36,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.getNFTOwners({
+      evmApi.token.getNFTOwners({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         format: 'decimal',
       }),

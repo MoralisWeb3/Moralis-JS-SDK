@@ -1,5 +1,47 @@
 # @moralisweb3/core
 
+## 2.0.0-alpha.3
+
+### Major Changes
+
+- [#512](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/512) [`d450294`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d450294f52e23aacd590c40fd4e332bda22f4438) Thanks [@ErnoW](https://github.com/ErnoW)! - Remove Evm and Server logic. This is SDK will focus mainly on NodeJs backend implementations.
+
+### Minor Changes
+
+- [#523](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/523) [`ed75131`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ed75131d7b98bb11789a5e51c113fa222222ad74) Thanks [@sogunshola](https://github.com/sogunshola)! - Adding sol-utils package to codebase.
+
+* [#511](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/511) [`30b7f4b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/30b7f4b9dd81a67ee6f6ceb006a0b7eec0cb825d) Thanks [@sogunshola](https://github.com/sogunshola)! - Refactor evmApi package to use apiUtils
+
+- [#510](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/510) [`7f0fc3f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7f0fc3f21e60494e4bed2798ca931ce10cb45146) Thanks [@ErnoW](https://github.com/ErnoW)! - Add Moralis.Auth package to handle authentication via the Moralis Authentication Api. And add a demo project for parse-server
+
+### Patch Changes
+
+- [#521](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/521) [`61b8759`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/61b8759fcc80185a51758606ce2c4c5e9868a22d) Thanks [@ErnoW](https://github.com/ErnoW)! - Moved all Evm logic to @moralisweb3/evm-utils
+
+* [#535](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/535) [`279507c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/279507c33c3ae172aa0257663cfcfdedd790f829) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Replaced BigNumber from @ethersproject by own implementation.
+
+## 2.0.0-alpha.2
+
+### Minor Changes
+
+- [#464](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/464) [`d4a752e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d4a752ef1b9b279a6500d9618093912093eca08b) Thanks [@sogunshola](https://github.com/sogunshola)! - Allow to cancel an Evm connect request
+
+* [#469](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/469) [`9e67989`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9e67989c33f965bccb5dede53785a55fb1933316) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Add CommonJS/UMD/ESM builds.
+
+- [#453](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/453) [`ba6fd72`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ba6fd72e891a14aa7635e6dfe34addb039d8a4b1) Thanks [@sogunshola](https://github.com/sogunshola)! - Add optional chain validation for chain interactions
+
+### Patch Changes
+
+- [#488](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/488) [`f466f90`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f466f902983ac887743eceec03c7fade42aab0ce) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Deleted the default module instances from packages, except the umbrella package (`moralis`).
+
+* [#488](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/488) [`f466f90`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f466f902983ac887743eceec03c7fade42aab0ce) Thanks [@b4rtaz](https://github.com/b4rtaz)! - `MoralisConfig` was replaced by the generic config.
+
+- [#454](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/454) [`d525351`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d525351da98b8b1dec6a7559c953c5b921d7b913) Thanks [@sogunshola](https://github.com/sogunshola)! - Fix resolving Ropsten and Rinkeby to the correct chainId when a new EvmChain is created by name.
+
+* [#469](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/469) [`9e67989`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9e67989c33f965bccb5dede53785a55fb1933316) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Replaced HTTP client `ky` by `axios`.
+
+- [#485](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/485) [`55f54e1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/55f54e191d719db3813182a1aa5db4d1ec7cfc62) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Parse fixed for UMD/ESM builds.
+
 ## 2.0.0-alpha.1
 
 ### Major Changes

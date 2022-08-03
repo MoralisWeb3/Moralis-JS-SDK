@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/core",
   "author": "Moralis",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.3",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -13,17 +13,15 @@
     "dist"
   ],
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit",
-    "test:ci": "yarn test --ci",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "rollup -c",
-    "build:dev": "dev=true rollup -c",
-    "dev": "rollup -c --watch"
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
@@ -31,10 +29,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@ethersproject/address": "^5.6.0",
-    "@ethersproject/bignumber": "^5.6.0",
-    "@ethersproject/units": "^5.6.0",
-    "@ethersproject/transactions": "^5.6.0",
     "@xstate/fsm": "^2.0.0",
     "eventemitter3": "^4.0.7",
     "axios": "^0.27.2"

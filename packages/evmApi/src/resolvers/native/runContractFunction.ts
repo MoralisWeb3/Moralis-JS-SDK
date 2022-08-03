@@ -1,7 +1,8 @@
-import { resolveDefaultChain } from './../../utils/resolveDefaultParams';
-import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
+import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'runContractFunction';
 const method = 'post';
@@ -23,20 +24,22 @@ export interface Params {
 }
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const runContractFunctionResolver = new EvmResolver({
-  name: 'runContractFunction',
-  getPath: (params: Params) => `${params.address}/function`,
-  apiToResult: (data: ApiResult) => {
-    return data;
-  },
-  resultToJson: (data) => data,
-  parseParams: (params: Params) => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
-    function_name: params.functionName,
-    address: EvmAddress.create(params.address).lowercase,
-    abi: params.abi,
-    params: params.params,
+export const runContractFunction = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'runContractFunction',
+    getUrl: (params: Params) => `${BASE_URL}/${params.address}/function`,
+    apiToResult: (data: ApiResult) => {
+      return data;
+    },
+    resultToJson: (data) => data,
+    parseParams: (params: Params) => ({
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      function_name: params.functionName,
+      address: EvmAddress.create(params.address, core).lowercase,
+      abi: params.abi,
+      params: params.params,
+    }),
+    method,
+    bodyParams,
   }),
-  method,
-  bodyParams,
-});
+);

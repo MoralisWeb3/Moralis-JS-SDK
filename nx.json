@@ -4,38 +4,28 @@
     "appsDir": "demos",
     "libsDir": "packages"
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ],
-    "test": [
-      {
-        "target": "build",
-        "projects": "self"
-      }
-    ],
-    "prepare": [
-      {
-        "target": "prepare",
-        "projects": "dependencies"
-      }
-    ],
-    "package": [
-      {
-        "target": "package",
-        "projects": "dependencies"
-      }
-    ]
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["build", "^build"]
+    },
+    "prepare": {
+      "dependsOn": ["^prepare"]
+    },
+    "package": {
+      "dependsOn": ["^package"]
+    }
   },
   "affected": {
     "defaultBase": "main"
   },
-  "pluginsConfig": {
-    "@nrwl/js": {
-      "analyzeSourceFiles": false
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "cacheableOperations": ["build", "format", "lint", "test"]
+      }
     }
   }
 }

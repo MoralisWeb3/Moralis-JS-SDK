@@ -1,7 +1,5 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 const ABI = {
   anonymous: false,
@@ -15,23 +13,18 @@ const ABI = {
 };
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({ onUnhandledRequest: 'warn' });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should get the events of an account address', async () => {
-    const result = await EvmApi.native.getContractEvents({
+    const result = await evmApi.native.getContractEvents({
       chain: 'eth',
       address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
       topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
@@ -46,7 +39,7 @@ describe('Moralis EvmApi', () => {
 
   it('should not get the events and return an error code for an invalid address', () => {
     expect(
-      EvmApi.native.getContractEvents({
+      evmApi.native.getContractEvents({
         chain: 'eth',
         address: '0xdAC17F958D',
         topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',

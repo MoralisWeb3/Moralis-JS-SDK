@@ -41,33 +41,22 @@ _Example when using Moralis with the evm network, evm api and server_
 
 ```js
 import * as Core from '@moralisweb3/core';
-import Server from '@moralisweb3/server';
 import EvmApi from '@moralisweb3/evm-api';
-import Evm from '@moralisweb3/evm';
 
-Core.registerModules({
-  networks: [Evm],
-  modules: [Server, EvmApi],
-});
+Core.registerModules([EvmApi]);
 ```
-
-| Option  | Description                         |
-| ------- | ----------------------------------- |
-| network | (optional) Array of network modules |
-| modules | (optional) Array of other modules   |
 
 ## Start all modules with `start()`
 
 You can start every package separately via a `start()` function. But easier is to call the `start()` function in the core package. This will start (initialise) all registered modules.
 
-You can provide a configuration object (see [Config](#config)). Some config options are required, depending on what packages you have registered (for example you will need a `serverUrl` and `appId` to use the server package).
+You can provide a configuration object (see [Config](#config)). Some config options are required, depending on what packages you have registered (for example you will need a `apiKey` for any api package).
 
 ```js
 import * as Core from '@moralisweb3/core';
 
 Core.start({
-  serverUrl: '<YOUR_SERVER_URL>',
-  appId: '<YOUR_APP_ID>',
+  apiKey: '<YOUR_API_KEY>',
 });
 ```
 
@@ -139,11 +128,7 @@ Accepts the same options as `get()`, with the addition of `body`, which is an (J
 Errors within Moralis are an instance of `MoralisError`. These are extended into a few different classes:
 
 - `MoralisCoreError`
-- `MoralisServerError`
-- `MoralisNetworkError`
-- `MoralisNetworkConnectorError`
 - `MoralisApiError`
-- `MoralisUtilsError`
 
 Which are used in there respective packages. Creating a new error must accept the following 2 params:
 

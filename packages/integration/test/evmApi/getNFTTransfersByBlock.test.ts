@@ -1,26 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({});
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should get the NFT transfers by block of a hash', async () => {
-    const result = await EvmApi.native.getNFTTransfersByBlock({
+    const result = await evmApi.native.getNFTTransfersByBlock({
       blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
     });
 
@@ -30,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the NFT transfers by block of an invalid block number and throw an error ', async () => {
-    const failedResult = await EvmApi.native
+    const failedResult = await evmApi.native
       .getNFTTransfersByBlock({
         blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b917',
       })
@@ -41,12 +34,12 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.native.getNFTTransfersByBlock({
+      evmApi.native.getNFTTransfersByBlock({
         blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b917',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid block number provided"`);
     expect(
-      EvmApi.native.getNFTTransfersByBlock({
+      evmApi.native.getNFTTransfersByBlock({
         blockNumberOrHash: '',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 404"`);

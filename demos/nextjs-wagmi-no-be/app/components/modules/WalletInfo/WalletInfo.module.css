@@ -1,0 +1,51 @@
+.walletInfo__wrapper {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 0.9rem;
+  gap: 10px;
+}
+
+.wallet {
+  text-align: right;
+}
+
+.walletInfo {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.status {
+  width: 14px;
+  height: 14px;
+  border-radius: 28px;
+}
+
+.active {
+  background-color: #7ad9c0;
+  border: 2px solid #58a792;
+}
+.nonActive {
+  background-color: #d57a7a;
+  border: 2px solid #ea4b4b;
+}
+
+.disconnectButton {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.disconnectButton:hover,
+.authenticate:hover {
+  text-decoration: underline;
+  color: #2e7daf;
+}

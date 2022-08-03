@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should get the token Id owners', async () => {
-    const result = await EvmApi.token.getTokenIdOwners({
+    const result = await evmApi.token.getTokenIdOwners({
       address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
       format: 'decimal',
       tokenId: '1',
@@ -34,7 +25,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the token Id owners and throw an error ', async () => {
-    const failedResult = await EvmApi.token
+    const failedResult = await evmApi.token
       .getTokenIdOwners({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         format: 'decimal',
@@ -47,7 +38,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.getTokenIdOwners({
+      evmApi.token.getTokenIdOwners({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         format: 'decimal',
         tokenId: '1',

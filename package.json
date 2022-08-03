@@ -9,11 +9,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-replace": "^4.0.0",
     "@types/estree": "^0.0.51",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
@@ -24,28 +19,21 @@
     "eslint-plugin-jest": "^26.5.3",
     "jest": "28",
     "msw": "^0.43.0",
-    "nx": "14.1.7",
-    "rollup": "^2.75.3",
-    "rollup-plugin-cleaner": "^1.0.0",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-node-polyfills": "^0.2.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.31.2",
-    "rollup-plugin-uglify": "^6.0.4",
+    "nx": "^14.4.3",
+    "prettier": "^2.7.1",
     "ts-jest": "^28.0.3",
     "typescript": "^4.5.5",
     "yarn": "^1.22.17"
   },
   "scripts": {
-    "build": "bash run_scripts.sh build",
-    "build:dev": "bash run_scripts.sh build:dev",
+    "build": "yarn nx run-many --target=build --all",
+    "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",
     "lint": "yarn nx run-many --target=lint --all",
     "clean": "yarn nx run-many --target=clean --all",
     "test": "yarn nx run-many --target=test --all",
     "test:watch": "yarn nx run-many --target=test:watch --all",
-    "test:coverage": "yarn turbo run test:coverage --parallel",
-    "test:ci": "yarn nx run-many --target=test:ci --all",
+    "test:coverage": "yarn nx run-many test:coverage --parallel",
     "format": "yarn nx run-many --target=format --all",
     "format:check": "yarn nx run-many --target=format:check --all",
     "release": "yarn build && changeset publish"
@@ -53,9 +41,7 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "demos/*",
-      "packages/evmConnectors/*",
-      "packages/solConnectors/*"
+      "demos/*"
     ]
   },
   "dependencies": {}

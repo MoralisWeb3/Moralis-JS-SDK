@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 describe('Moralis EvmApi', () => {
-  const server = mockServer;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should Gets NFTs that match a given metadata search', async () => {
-    const result = await EvmApi.token.searchNFTs({
+    const result = await evmApi.token.searchNFTs({
       q: 'Pancake',
     });
 
@@ -32,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get NFTs that match a given metadata search and returns an error of empty metadata', async () => {
-    const failedResult = await EvmApi.token
+    const failedResult = await evmApi.token
       .searchNFTs({
         q: '',
       })
@@ -43,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.searchNFTs({
+      evmApi.token.searchNFTs({
         q: '',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 404"`);
