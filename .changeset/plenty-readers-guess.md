@@ -1,5 +1,4 @@
 ---
-'demo-parse-server-auth-server': minor
 '@moralisweb3/auth': minor
 ---
 
