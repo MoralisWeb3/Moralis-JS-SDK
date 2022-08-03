@@ -16,5 +16,5 @@
   "access": "public",
   "baseBranch": "alpha",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": ["test-integration", "test-node", "demo-nextjs", "demo-parse-server"]
 }
