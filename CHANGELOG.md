@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.10.1...v1.11.0) (2022-08-03)
+
+
+### Bug Fixes
+
+* casing for tracking keys ([e97e9b3](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e97e9b3f545e2857be692182a22a000d88faba9e))
+
+
+### Features
+
+* add cronos testnet chainid ([1af9726](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/1af97262ac6219fc6cba01352f963df183d6dfe9))
+* **api:** sending sending headers to apis to track activity ([0b60aac](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0b60aacd9f074d500c7f470b02a5844e2a52181d))
+
 ## [1.10.1](https://github.com/MoralisWeb3/Moralis-JS-SDK/compare/v1.10.0...v1.10.1) (2022-07-27)
 
 
