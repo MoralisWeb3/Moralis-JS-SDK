@@ -6,7 +6,6 @@
 '@moralisweb3/sol-utils': patch
 '@moralisweb3/api-utils': patch
 '@moralisweb3/auth': patch
-'@moralisweb3/integration': patch
 'moralis': patch
 ---
 
