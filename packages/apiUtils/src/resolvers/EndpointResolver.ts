@@ -3,6 +3,7 @@ import { ApiConfig } from '../config/ApiConfig';
 import { ApiResultAdapter } from './ApiResultAdapter';
 import { Endpoint, EndpointFactory } from './Endpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
+import { getCommonHeaders } from './getCommonHeaders';
 
 export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   public static create<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
@@ -78,16 +79,20 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);
+
     if (!apiKey) {
       throw new MoralisApiError({
         code: ApiErrorCode.API_KEY_NOT_SET,
         message: 'apiKey is not set',
       });
     }
-    const headers: { [key: string]: string } = {};
+
+    const headers = getCommonHeaders();
+
     if (apiKey) {
       headers['x-api-key'] = apiKey;
     }
+
     return headers;
   }
 
