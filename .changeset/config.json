@@ -4,10 +4,12 @@
   "commit": false,
   "fixed": [
     [
+      "moralis",
       "@moralisweb3/core",
       "@moralisweb3/auth",
       "@moralisweb3/api-utils",
       "@moralisweb3/evm-utils",
+      "@moralisweb3/sol-utils",
       "@moralisweb3/evm-api",
       "@moralisweb3/sol-api"
     ]
