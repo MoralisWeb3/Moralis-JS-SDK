@@ -1,16 +1,14 @@
 {
   "name": "@moralisweb3/sol-api",
   "author": "Moralis",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-beta.6",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts",
-    "dist"
+    "lib/*"
   ],
   "scripts": {
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
@@ -27,8 +25,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.0.0-alpha.3",
-    "@moralisweb3/core": "^2.0.0-alpha.3",
-    "@moralisweb3/sol-utils": "^2.0.0-alpha.3"
+    "@moralisweb3/api-utils": "^2.0.0-beta.6",
+    "@moralisweb3/core": "^2.0.0-beta.6",
+    "@moralisweb3/sol-utils": "^2.0.0-beta.6"
   }
 }

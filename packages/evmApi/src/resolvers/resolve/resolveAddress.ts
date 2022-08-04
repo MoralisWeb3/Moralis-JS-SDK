@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api-utils';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
@@ -15,12 +15,14 @@ export interface Params extends Camelize<Omit<ApiParams, 'address'>> {
   address?: EvmAddressish;
 }
 
-export const resolveAddressResolver = new ApiResolver({
-  name: 'resolveAddress',
-  getUrl: (params: Params) => `${BASE_URL}/resolve/${params.address}/reverse`,
-  apiToResult: (data: ApiResult) => data,
-  resultToJson: (data) => data,
-  parseParams: (params: Params) => ({
-    address: params.address ? EvmAddress.create(params.address).lowercase : undefined,
+export const resolveAddress = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'resolveAddress',
+    getUrl: (params: Params) => `${BASE_URL}/resolve/${params.address}/reverse`,
+    apiToResult: (data: ApiResult) => data,
+    resultToJson: (data) => data,
+    parseParams: (params: Params) => ({
+      address: params.address ? EvmAddress.create(params.address, core).lowercase : undefined,
+    }),
   }),
-});
+);

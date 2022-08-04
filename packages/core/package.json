@@ -1,16 +1,14 @@
 {
   "name": "@moralisweb3/core",
   "author": "Moralis",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-beta.6",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts",
-    "dist"
+    "lib/*"
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
@@ -20,17 +18,18 @@
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build": "tsc",
     "dev": "tsc --watch"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
-    "typed-emitter": "^2.1.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
     "@xstate/fsm": "^2.0.0",
+    "axios": "^0.27.2",
     "eventemitter3": "^4.0.7",
-    "axios": "^0.27.2"
+    "typed-emitter": "^2.1.0"
   }
 }

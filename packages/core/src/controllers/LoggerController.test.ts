@@ -16,7 +16,7 @@ describe('Logger', () => {
   beforeAll(() => {
     config = new Config();
     config.registerKey(CoreConfig.logLevel);
-    logger = new LoggerController(config, NAME);
+    logger = new LoggerController(NAME, config);
   });
 
   beforeEach(() => {

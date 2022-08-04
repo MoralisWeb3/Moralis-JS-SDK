@@ -1,16 +1,14 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-beta.6",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts",
-    "dist"
+    "lib/*"
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
@@ -32,6 +30,6 @@
   "dependencies": {
     "@ethersproject/address": "^5.6.0",
     "@ethersproject/transactions": "^5.6.0",
-    "@moralisweb3/core": "^2.0.0-alpha.3"
+    "@moralisweb3/core": "^2.0.0-beta.6"
   }
 }

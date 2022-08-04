@@ -1,4 +1,4 @@
-import { ApiResolver } from '@moralisweb3/api-utils';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { SolAddress, SolAddressish, SolNetworkish } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
@@ -17,30 +17,32 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
   address: SolAddressish;
 }
 
-export const getNFTsResolver = new ApiResolver({
-  name: 'getNFTs',
-  getUrl: (params: Params) => {
-    const network = SolNetworkResolver.resolve(params.network);
-    return `${BASE_URL}/account/${network}/${params.address}/nft`;
-  },
-  apiToResult: (data: ApiResult) => {
-    return data.map((nft) => {
-      return {
-        associatedTokenAddress: SolAddress.create(nft.associatedTokenAddress),
-        mint: SolAddress.create(nft.mint),
-      };
-    });
-  },
-  resultToJson: (data) => {
-    return data.map((nft) => {
-      return {
-        associatedTokenAddress: nft.associatedTokenAddress.toJSON(),
-        mint: nft.mint.toJSON(),
-      };
-    });
-  },
-  parseParams: (params: Params): ApiParams => ({
-    network: SolNetworkResolver.resolve(params.network),
-    address: SolAddress.create(params.address).address,
+export const getNFTs = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getNFTs',
+    getUrl: (params: Params) => {
+      const network = SolNetworkResolver.resolve(params.network, core);
+      return `${BASE_URL}/account/${network}/${params.address}/nft`;
+    },
+    apiToResult: (data: ApiResult) => {
+      return data.map((nft) => {
+        return {
+          associatedTokenAddress: SolAddress.create(nft.associatedTokenAddress),
+          mint: SolAddress.create(nft.mint),
+        };
+      });
+    },
+    resultToJson: (data) => {
+      return data.map((nft) => {
+        return {
+          associatedTokenAddress: nft.associatedTokenAddress.toJSON(),
+          mint: nft.mint.toJSON(),
+        };
+      });
+    },
+    parseParams: (params: Params): ApiParams => ({
+      network: SolNetworkResolver.resolve(params.network, core),
+      address: SolAddress.create(params.address).address,
+    }),
   }),
-});
+);

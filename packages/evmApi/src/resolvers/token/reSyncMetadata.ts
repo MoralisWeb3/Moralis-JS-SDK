@@ -1,4 +1,5 @@
-import { ApiResolver } from '@moralisweb3/api-utils';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+
 import { Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
@@ -18,18 +19,20 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
   address: EvmAddressish;
 }
 
-export const reSyncMetadataResolver = new ApiResolver({
-  name: 'reSyncMetadata',
-  getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}/metadata/resync`,
-  apiToResult: (data: ApiResult) => ({
-    ...data,
+export const reSyncMetadata = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'reSyncMetadata',
+    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}/metadata/resync`,
+    apiToResult: (data: ApiResult) => ({
+      ...data,
+    }),
+    resultToJson: (data) => data,
+    parseParams: (params: Params): ApiParams => ({
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      address: EvmAddress.create(params.address, core).lowercase,
+      token_id: params.tokenId,
+      flag: params.flag,
+      mode: params.mode,
+    }),
   }),
-  resultToJson: (data) => data,
-  parseParams: (params: Params): ApiParams => ({
-    chain: EvmChainResolver.resolve(params.chain).apiHex,
-    address: EvmAddress.create(params.address).lowercase,
-    token_id: params.tokenId,
-    flag: params.flag,
-    mode: params.mode,
-  }),
-});
+);

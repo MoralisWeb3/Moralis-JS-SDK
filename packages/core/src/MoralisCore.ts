@@ -4,6 +4,7 @@ import { LoggerController } from './controllers/LoggerController';
 import { Config } from './Config/Config';
 import { CoreConfigSetup } from './Config/CoreConfigSetup';
 import { MoralisConfigValues } from './Config';
+import { LIB_VERSION } from './version';
 
 /**
  * MoralisCore is used in all Moralis applications
@@ -19,13 +20,15 @@ export class MoralisCore {
   public static create(): MoralisCore {
     const modules = new Modules();
     const config = new Config();
-    const logger = new LoggerController(config, MoralisCore.moduleName);
+    const logger = new LoggerController(MoralisCore.moduleName, config);
     const core = new MoralisCore(modules, config, logger);
     CoreConfigSetup.register(config);
     return core;
   }
 
   public readonly name = MoralisCore.moduleName;
+
+  public static readonly libVersion = LIB_VERSION;
 
   public constructor(
     public readonly modules: Modules,

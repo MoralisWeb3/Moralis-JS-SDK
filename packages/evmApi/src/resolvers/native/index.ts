@@ -1,7 +1,7 @@
-export { getBlockResolver } from './getBlock';
-export { getDateToBlockResolver } from './getDateToBlock';
-export { runContractFunctionResolver } from './runContractFunction';
-export { getTransactionResolver } from './getTransaction';
-export { getLogsByAddressResolver } from './getLogsByAddress';
-export { getNFTTransfersByBlockResolver } from './getNFTTransfersByBlock';
-export { getContractEventsResolver } from './getContractEvents';
+export { getBlock } from './getBlock';
+export { getDateToBlock } from './getDateToBlock';
+export { runContractFunction } from './runContractFunction';
+export { getTransaction } from './getTransaction';
+export { getLogsByAddress } from './getLogsByAddress';
+export { getNFTTransfersByBlock } from './getNFTTransfersByBlock';
+export { getContractEvents } from './getContractEvents';
