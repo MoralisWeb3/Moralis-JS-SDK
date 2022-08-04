@@ -1,5 +1,18 @@
 # @moralisweb3/auth
 
+## 2.0.0-beta.6
+
+### Minor Changes
+
+- [#555](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/555) [`3f511ed`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3f511edbf70f2f167c5b53c6d95e2cb19d8884d0) Thanks [@ErnoW](https://github.com/ErnoW)! - Include all files from `/lib` in npm builds. This fixes a bug where only the index.js file and .d.ts files were included in builds.
+
+### Patch Changes
+
+- Updated dependencies [[`36dd9a9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/36dd9a99e4be82350ae8df947d41d06f889b1421), [`3f511ed`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3f511edbf70f2f167c5b53c6d95e2cb19d8884d0)]:
+  - @moralisweb3/core@2.0.0-beta.6
+  - @moralisweb3/api-utils@2.0.0-beta.6
+  - @moralisweb3/evm-utils@2.0.0-beta.6
+
 ## 2.0.0-beta.5
 
 ### Major Changes
