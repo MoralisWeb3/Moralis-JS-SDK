@@ -8,8 +8,7 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts"
+    "lib/*"
   ],
   "scripts": {
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
