@@ -8,9 +8,7 @@
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts",
-    "dist"
+    "lib/*"
   ],
   "scripts": {
     "test": "echo 'not implemented'",
