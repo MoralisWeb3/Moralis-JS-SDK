@@ -1,5 +1,14 @@
 # @moralisweb3/api-utils
 
+## 2.0.0-beta.7
+
+### Patch Changes
+
+- [#558](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/558) [`0c47bae`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0c47baed6a4ef1b7d17f27888c458806cb9affce) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Deleted redundant search parameters in API URLs.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.0-beta.7
+
 ## 2.0.0-beta.6
 
 ### Minor Changes
