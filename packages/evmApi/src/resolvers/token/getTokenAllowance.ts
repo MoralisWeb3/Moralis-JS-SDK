@@ -23,6 +23,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'owner_addres
 export const getTokenAllowance = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenAllowance',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/erc20/${params.address}/allowance`,
     apiToResult: (data: ApiResult) => ({
       allowance: BigNumber.create(data.allowance),

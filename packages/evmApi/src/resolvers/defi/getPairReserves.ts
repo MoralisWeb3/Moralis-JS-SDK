@@ -26,6 +26,7 @@ type ApiResult = {
 export const getPairReserves = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairReserves',
+    urlParams: ['pairAddress'],
     getUrl: (params: Params) => `${BASE_URL}/${params.pairAddress}/reserves`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,

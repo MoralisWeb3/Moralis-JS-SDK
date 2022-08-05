@@ -21,6 +21,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 export const getNativeBalance = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNativeBalance',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/balance`,
     apiToResult: (data: ApiResult) => ({
       balance: EvmNative.create(data.balance, 'wei'),

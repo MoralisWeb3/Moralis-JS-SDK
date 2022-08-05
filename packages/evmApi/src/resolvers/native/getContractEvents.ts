@@ -28,6 +28,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getContractEvents = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getContractEvents',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/events`,
     //   TODO: remove PaginatedResponse when api squad make swagger update
     apiToResult: (data: PaginatedResult<ApiResult>) =>

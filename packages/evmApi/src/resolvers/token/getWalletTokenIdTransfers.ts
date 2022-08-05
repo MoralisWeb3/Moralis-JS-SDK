@@ -21,6 +21,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getWalletTokenIdTransfers = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getWalletTokenIdTransfers',
+    urlParams: ['address', 'tokenId'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}/transfers`,
     apiToResult: (data: ApiResult) =>
       data.result?.map((transfer) => ({

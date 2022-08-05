@@ -13,6 +13,7 @@ export interface Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResul
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
   method?: EndpointMethod;
+  urlParams?: readonly (keyof Params)[];
   bodyParams?: readonly (keyof Params)[];
   bodyType?: EndpointBodyType;
   name: string;

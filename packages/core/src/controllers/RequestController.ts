@@ -21,7 +21,7 @@ export class RequestController {
 
   private constructor(private readonly logger: LoggerController) {}
 
-  public async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
+  private async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
     this.logger.verbose('[RequestController] request started', {
       url: config.url,
       method: config.method,
@@ -72,7 +72,7 @@ export class RequestController {
     }
   }
 
-  public makeError(error: unknown): MoralisCoreError {
+  private makeError(error: unknown): MoralisCoreError {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       return new MoralisCoreError({
@@ -95,50 +95,50 @@ export class RequestController {
     });
   }
 
-  public post<Response, Params extends Record<string, string>, Body extends Record<string, unknown>>(
+  public post<Response, SearchParams extends Record<string, string>, Body extends Record<string, unknown>>(
     url: string,
-    params?: Params,
+    searchParams?: SearchParams,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
     return this.request<Body, Response>({
       url,
+      params: searchParams,
       method: 'POST',
       data: body,
-      params,
       headers: options?.headers,
       signal: abortSignal,
     });
   }
 
-  public put<Response, Params extends Record<string, string>, Body extends Record<string, unknown>>(
+  public put<Response, SearchParams extends Record<string, string>, Body extends Record<string, unknown>>(
     url: string,
-    params?: Params,
+    searchParams?: SearchParams,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
     return this.request<Body, Response>({
       url,
+      params: searchParams,
       method: 'PUT',
       data: body,
-      params,
       headers: options?.headers,
       signal: abortSignal,
     });
   }
 
-  public async get<Response, Params extends Record<string, string>>(
+  public async get<Response, SearchParams extends Record<string, string>>(
     url: string,
-    params?: Params,
+    searchParams?: SearchParams,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
     return this.request<unknown, Response>({
       url,
+      params: searchParams,
       method: 'GET',
-      params,
       headers: options?.headers,
       signal: abortSignal,
     });

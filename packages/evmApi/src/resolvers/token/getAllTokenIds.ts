@@ -40,6 +40,7 @@ interface ApiResult extends Omit<GeneratedApiResult, 'result'> {
 export const getAllTokenIds = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getAllTokenIds',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}`,
     apiToResult: (data: ApiResult, params: Params) =>
       data.result?.map((nft) => ({

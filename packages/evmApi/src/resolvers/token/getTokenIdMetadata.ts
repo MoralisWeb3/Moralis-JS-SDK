@@ -29,6 +29,7 @@ export interface ApiResult extends GeneratedApiResult {
 export const getTokenIdMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenIdMetadata',
+    urlParams: ['address', 'tokenId'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}`,
     apiToResult: (data: ApiResult, params: Params) => ({
       token: new EvmNFT({
