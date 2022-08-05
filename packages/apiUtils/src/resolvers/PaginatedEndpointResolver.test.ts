@@ -89,7 +89,7 @@ describe('PaginatedEndpointResolver', () => {
           data: eventRawResult,
         });
       } else {
-        return Promise.reject('Invalid url');
+        return Promise.reject(`Invalid url: ${options.url}`);
       }
     });
   });

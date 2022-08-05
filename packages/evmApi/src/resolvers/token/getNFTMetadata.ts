@@ -20,6 +20,7 @@ export interface Params {
 export const getNFTMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTMetadata',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/metadata`,
     apiToResult: (data: ApiResult) => ({
       ...toCamelCase(data),

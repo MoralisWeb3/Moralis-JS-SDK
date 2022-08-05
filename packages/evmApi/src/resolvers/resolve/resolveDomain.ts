@@ -14,6 +14,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const resolveDomain = createEndpointFactory((core) =>
   createEndpoint({
     name: 'resolveDomain',
+    urlParams: ['domain'],
     getUrl: (params: ApiParams) => `${BASE_URL}/resolve/${params.domain}`,
     apiToResult: (data: ApiResult) => ({
       address: EvmAddress.create(data.address, core),

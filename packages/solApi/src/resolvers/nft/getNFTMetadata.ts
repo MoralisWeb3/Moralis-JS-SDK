@@ -20,6 +20,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
 export const getNFTMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTMetadata',
+    urlParams: ['network', 'address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.network}/${params.address}/metadata`,
     apiToResult: (data: ApiResult) => {
       return {

@@ -22,6 +22,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 export const reSyncMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'reSyncMetadata',
+    urlParams: ['address', 'tokenId'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}/metadata/resync`,
     apiToResult: (data: ApiResult) => ({
       ...data,
