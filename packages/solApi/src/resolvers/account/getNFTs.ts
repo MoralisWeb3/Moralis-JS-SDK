@@ -20,6 +20,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
 export const getNFTs = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTs',
+    urlParams: ['network', 'address'],
     getUrl: (params: Params) => {
       const network = SolNetworkResolver.resolve(params.network, core);
       return `${BASE_URL}/account/${network}/${params.address}/nft`;

@@ -20,6 +20,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 export const getTransaction = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTransaction',
+    urlParams: ['transactionHash'],
     getUrl: (params: Params) => `${BASE_URL}/transaction/${params.transactionHash}`,
     apiToResult: (data: ApiResult, params: Params) => {
       const transactionReciept = EvmTransactionReceipt.create(

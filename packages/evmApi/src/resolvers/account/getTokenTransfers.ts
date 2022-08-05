@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getTokenTransfers = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getTokenTransfers',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/erc20/transfers`,
     apiToResult: (data: ApiResult) =>
       data.result?.map((transfer) => ({

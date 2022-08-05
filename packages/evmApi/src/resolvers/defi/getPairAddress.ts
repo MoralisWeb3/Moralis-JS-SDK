@@ -22,6 +22,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'token0_addre
 export const getPairAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairAddress',
+    urlParams: ['token0Address', 'token1Address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.token0Address}/${params.token1Address}/pairAddress`,
     apiToResult: (data: ApiResult, params: Params) => ({
       //   ApiResult types generated all come as undefined which should not be the case TODO:

@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getLogsByAddress = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getLogsByAddress',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/logs`,
     apiToResult: (data: ApiResult) =>
       data.result?.map(
