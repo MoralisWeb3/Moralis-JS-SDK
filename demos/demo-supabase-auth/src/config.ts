@@ -13,4 +13,8 @@ export default cleanEnv(process.env, {
   APP_NAME: str(),
 
   MORALIS_API_KEY: str(),
+
+  SUPABASE_JWT: str(),
+
+  SUPABASE_SERVICE_KEY: str(),
 });

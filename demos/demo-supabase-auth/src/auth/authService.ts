@@ -2,8 +2,10 @@ import Moralis from 'moralis';
 import { authRequests } from '../store';
 import { createClient } from '@supabase/supabase-js';
 import config from '../config';
+import jwt from 'jsonwebtoken';
 
-const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_PUBLIC_ANON);
+const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_SERVICE_KEY);
+const supabaseClient = createClient(config.SUPABASE_URL, config.SUPABASE_PUBLIC_ANON);
 
 export interface RequestMessage {
   address: string;
@@ -58,38 +60,30 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
     network,
   };
 
-  // signup user
-  const { user, error } = await supabase.auth.signUp(
-    {
-      email: 'email@example.org',
-      password: 'password',
-    },
-    {
-      data: {
-        authData: {
-          moralis: authData,
-        },
-      },
-    },
-  );
+  let { data: user } = await supabase.from('users').select('*').eq('moralis_provider_id', authData.id).single();
 
-  if (error) {
-    throw error;
+  if (!user) {
+    const response = await supabase.from('users').insert({ moralis_provider_id: authData.id });
+    user = response.data;
   }
 
-  return user;
+  const token = jwt.sign(
+    {
+      ...user,
+      aud: 'authenticated',
+      role: 'authenticated',
+      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
+    },
+    config.SUPABASE_JWT,
+  );
+
+  return { user, token };
 }
 
 // Login user after email verification
-export async function loginUser() {
-  const { error, session } = await supabase.auth.signIn({
-    email: 'email@example.org',
-    password: 'password',
-  });
+export async function loginUser(token: string) {
+  supabaseClient.auth.setAuth(token);
+  const { data } = await supabaseClient.from('users').select('*');
 
-  if (error) {
-    throw error;
-  }
-
-  return session;
+  return data;
 }

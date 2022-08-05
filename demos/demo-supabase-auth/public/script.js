@@ -15,6 +15,8 @@ const handleApiPost = async (endpoint, params) => {
   return result.data;
 };
 
+let token;
+
 const requestMessage = (account, chain) =>
   handleApiPost('request-message', {
     address: account,
@@ -29,9 +31,11 @@ const verifyMessage = (message, signature) =>
     network: 'evm',
   });
 
-const login = async () => {
-  const session = await handleApiPost('login');
-  renderUser(session);
+const login = async (token) => {
+  const data = await handleApiPost('login', {
+    token,
+  });
+  renderUser(data);
 };
 
 const connectToMetamask = async () => {
@@ -63,6 +67,8 @@ const handleAuth = async () => {
 
   const { user } = await verifyMessage(message, signature);
 
+  token = user.token;
+
   renderUser(user);
 };
 
@@ -79,7 +85,7 @@ function init() {
     handleAuth().catch((error) => renderError(error));
   });
   elBtnLogin.addEventListener('click', async () => {
-    login().catch((error) => renderError(error));
+    login(token).catch((error) => renderError(error));
   });
 }
 
