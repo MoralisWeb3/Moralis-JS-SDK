@@ -62,7 +62,10 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
   let { data: user } = await supabase.from('users').select('*').eq('moralis_provider_id', authData.id).single();
 
   if (!user) {
-    const response = await supabase.from('users').insert({ moralis_provider_id: authData.id }).single();
+    const response = await supabase
+      .from('users')
+      .insert({ moralis_provider_id: authData.id, metadata: authData })
+      .single();
     user = response.data;
   }
 

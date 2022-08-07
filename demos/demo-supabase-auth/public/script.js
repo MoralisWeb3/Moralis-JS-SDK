@@ -1,13 +1,12 @@
 const AUTH_API_URL = 'http://localhost:3000/api/auth';
+const SUPABASE_URL = 'replace_me';
+const SUPABASE_PUBLIC_ANON = 'replace_me';
 
 const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
 const elBtnGetUser = document.getElementById('getUser');
-const _supabase = supabase.createClient(
-  'https://hiwyamcfnlxxabcdjeqc.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhpd3lhbWNmbmx4eGFiY2RqZXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTkzMzI5NzIsImV4cCI6MTk3NDkwODk3Mn0.WuQuAFeg_KStVv89iw6Oeb2rTivSbCqfAtw9PSdPFRo',
-);
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON);
 
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
