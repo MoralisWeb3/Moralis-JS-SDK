@@ -5,7 +5,6 @@ import config from '../config';
 import jwt from 'jsonwebtoken';
 
 const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_SERVICE_KEY);
-const supabaseClient = createClient(config.SUPABASE_URL, config.SUPABASE_PUBLIC_ANON);
 
 export interface RequestMessage {
   address: string;
@@ -63,7 +62,7 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
   let { data: user } = await supabase.from('users').select('*').eq('moralis_provider_id', authData.id).single();
 
   if (!user) {
-    const response = await supabase.from('users').insert({ moralis_provider_id: authData.id });
+    const response = await supabase.from('users').insert({ moralis_provider_id: authData.id }).single();
     user = response.data;
   }
 
@@ -78,12 +77,4 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
   );
 
   return { user, token };
-}
-
-// Login user after email verification
-export async function loginUser(token: string) {
-  supabaseClient.auth.setAuth(token);
-  const { data } = await supabaseClient.from('users').select('*');
-
-  return data;
 }

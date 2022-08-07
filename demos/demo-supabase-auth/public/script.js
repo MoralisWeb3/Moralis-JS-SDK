@@ -3,7 +3,11 @@ const AUTH_API_URL = 'http://localhost:3000/api/auth';
 const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
-const elBtnLogin = document.getElementById('login');
+const elBtnGetUser = document.getElementById('getUser');
+const _supabase = supabase.createClient(
+  'https://hiwyamcfnlxxabcdjeqc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhpd3lhbWNmbmx4eGFiY2RqZXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTkzMzI5NzIsImV4cCI6MTk3NDkwODk3Mn0.WuQuAFeg_KStVv89iw6Oeb2rTivSbCqfAtw9PSdPFRo',
+);
 
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
@@ -31,10 +35,9 @@ const verifyMessage = (message, signature) =>
     network: 'evm',
   });
 
-const login = async (token) => {
-  const data = await handleApiPost('login', {
-    token,
-  });
+const getUser = async (token) => {
+  _supabase.auth.setAuth(token);
+  const { data } = await _supabase.from('users').select('*');
   renderUser(data);
 };
 
@@ -84,8 +87,8 @@ function init() {
   elBtnMetamask.addEventListener('click', async () => {
     handleAuth().catch((error) => renderError(error));
   });
-  elBtnLogin.addEventListener('click', async () => {
-    login(token).catch((error) => renderError(error));
+  elBtnGetUser.addEventListener('click', async () => {
+    getUser(token).catch((error) => renderError(error));
   });
 }
 
