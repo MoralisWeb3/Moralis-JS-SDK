@@ -71,6 +71,38 @@ export class Erc20Token implements MoralisDataObject {
     return true;
   }
 
+  get decimals() {
+    return this._value.decimals;
+  }
+
+  get name() {
+    return this._value.name;
+  }
+
+  get symbol() {
+    return this._value.symbol;
+  }
+
+  get contractAddress() {
+    return this._value.contractAddress;
+  }
+
+  get chain() {
+    return this._value.chain;
+  }
+
+  get logo() {
+    return this._value.logo;
+  }
+
+  get logoHash() {
+    return this._value.logoHash;
+  }
+
+  get thumbnail() {
+    return this._value.thumbnail;
+  }
+
   equals(value: Erc20Tokenish): boolean {
     return Erc20Token.equals(this, value);
   }

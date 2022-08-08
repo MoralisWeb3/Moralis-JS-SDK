@@ -1,5 +1,5 @@
 import { Camelize } from '@moralisweb3/core';
-import { Erc20Token, Erc20Value, EvmAddressish, EvmChainish, EvmAddress } from '@moralisweb3/evm-utils';
+import { Erc20Value, EvmAddressish, EvmChainish, EvmAddress } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { BASE_URL } from '../../EvmApi';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
@@ -23,20 +23,24 @@ export const getTokenBalances = createEndpointFactory((core) =>
     name: 'getTokenBalances',
     urlParams: ['address'],
     getUrl: (params: ApiParams) => `${BASE_URL}/${params.address}/erc20`,
-    apiToResult: (data: ApiResult, params: ApiParams) =>
-      data.map((token) => ({
-        token: new Erc20Token({
+    apiToResult: (data: ApiResult, params: ApiParams) => {
+      return data.map((token) => {
+        return new Erc20Value(token.balance, {
           decimals: token.decimals,
-          name: token.name,
-          symbol: token.symbol,
-          contractAddress: token.token_address,
-          logo: token.logo,
-          thumbnail: token.thumbnail,
-          chain: EvmChainResolver.resolve(params.chain, core),
-        }),
-        value: new Erc20Value(token.balance, token.decimals),
-      })),
-    resultToJson: (data) => data.map(({ token, value }) => ({ token: token.toJSON(), value: value.format() })),
+          token: {
+            decimals: token.decimals,
+            name: token.name,
+            symbol: token.symbol,
+            contractAddress: token.token_address,
+            logo: token.logo,
+            thumbnail: token.thumbnail,
+            chain: EvmChainResolver.resolve(params.chain, core),
+          },
+        });
+      });
+    },
+
+    resultToJson: (data) => data.map((tokenValue) => tokenValue.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       to_block: params.toBlock,
       token_addresses: params.tokenAddresses,
