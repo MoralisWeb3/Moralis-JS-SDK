@@ -37,34 +37,26 @@ export async function requestMessage({ address, chain, network }: { address: str
 }
 
 export interface VerifyMessage {
-  network: string;
+  network: 'evm';
   signature: string;
   message: string;
 }
 
 export async function verifyMessage({ network, signature, message }: VerifyMessage) {
-  const storedData = authRequests.get(message);
-
-  if (!storedData) {
-    throw new Error('Invalid message');
-  }
-
-  const { id: storedId, profileId: storedProfileId } = storedData;
-
-  const authData = {
-    id: storedProfileId,
-    authId: storedId,
-    message,
-    signature,
+  const result = await Moralis.Auth.verify({
     network,
-  };
+    signature,
+    message,
+  });
+
+  const authData = result.toJSON();
 
   let { data: user } = await supabase.from('users').select('*').eq('moralis_provider_id', authData.id).single();
 
   if (!user) {
     const response = await supabase
       .from('users')
-      .insert({ moralis_provider_id: authData.id, metadata: authData })
+      .insert({ moralis_provider_id: authData.profileId, metadata: authData })
       .single();
     user = response.data;
   }

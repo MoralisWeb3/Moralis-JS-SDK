@@ -11,12 +11,10 @@ export function errorHandler(error: Error | MoralisError, req: Request, res: Res
     let errorMessage = error.message || 'Unknown error';
 
     if (errorResponseData) {
-      // Handle MoralisError
       if (errorResponseData && errorResponseData?.message) {
         errorMessage = `${errorResponseData?.name ? `${errorResponseData.name}: ` : ''}${errorResponseData.message}`;
-      } else if (errorResponseData.error) {
-        // Handle ParseError
-        errorMessage = errorResponseData.error;
+      } else {
+        errorMessage = 'Unknown error';
       }
     }
 
