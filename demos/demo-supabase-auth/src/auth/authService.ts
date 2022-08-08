@@ -1,5 +1,4 @@
 import Moralis from 'moralis';
-import { authRequests } from '../store';
 import { createClient } from '@supabase/supabase-js';
 import config from '../config';
 import jwt from 'jsonwebtoken';
@@ -30,8 +29,7 @@ export async function requestMessage({ address, chain, network }: { address: str
     timeout: TIMEOUT,
   });
 
-  const { message, id, profileId } = result.toJSON();
-  authRequests.set(message, { id, profileId });
+  const { message } = result.toJSON();
 
   return message;
 }
