@@ -1,5 +1,21 @@
 # @moralisweb3/core
 
+## 2.0.0-beta.8
+
+### Minor Changes
+
+- [#560](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/560) [`d413073`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d4130736a22b5e28da767864d57be8d2abcf5981) Thanks [@ErnoW](https://github.com/ErnoW)! - Improve Erc20Value logic by:
+
+  - geters for Erc20 for: `token.decimals`, `token.name`, `token.symbol`, `token.contractAddress`, `token.chain`, `token.logo`, `token.logoHash` and `token.thumbnail`,
+  - adding an optional token reference for `Erc20Value`. This can be used by calling `Erc20Value.create(amount, { token })`
+  - fixes and additions for output of `Erc20Value`:
+    - `erc20Value.value` now returns the value in a decimal string `"123.567"`
+    - `erc20Value.amount` returns the Bignumber value withtout taking decimals into account
+    - `erc20Value.decimals` returns the decimals
+    - `erc20Value.toNumber()` returns the value in a decimal number (or throws an error if the value is too big): `123.456`
+    - `erc20Value.display()` returns the value in a readable string with the token symbol if available: `"123.456 LINK"` (or `"123.456"`)
+  - `Moralis.EvmApi.getTokenBalances()` now returns an `Erc20Value` object with associated token information.
+
 ## 2.0.0-beta.7
 
 ## 2.0.0-beta.6
