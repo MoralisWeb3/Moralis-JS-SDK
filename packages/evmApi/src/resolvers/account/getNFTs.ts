@@ -36,6 +36,7 @@ export const getNFTs = createPaginatedEndpointFactory((core) =>
           name: nft.name,
           symbol: nft.symbol,
         }),
+        amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
         blockNumberMinted: nft.block_number_minted,
         blockNumber: nft.block_number,
         ownerOf: EvmAddress.create(nft.owner_of, core),
