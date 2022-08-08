@@ -24,11 +24,11 @@ function validateAuthData(authData: any) {
         return;
       }
 
-      // @ts-ignore (see note at top of file)
+      // @ts-ignore
       throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Moralis auth failed, invalid data');
     })
     .catch(() => {
-      // @ts-ignore (see note at top of file)
+      // @ts-ignore
       throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Moralis auth failed, invalid data');
     });
 }

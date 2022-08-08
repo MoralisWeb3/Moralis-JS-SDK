@@ -6,7 +6,7 @@ dotenv.config();
 export default cleanEnv(process.env, {
   PORT: num(),
 
-  SUPABASE_PUBLIC_ANON: str(),
+  SUPABASE_PUBLIC_ANON_KEY: str(),
 
   SUPABASE_URL: str(),
 
