@@ -257,6 +257,7 @@ export interface components {
       topic1: string;
       /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
       topic2: string;
+      /** @example null */
       topic3: string;
     };
     logEvent: {
@@ -267,7 +268,7 @@ export interface components {
       transaction_hash: string;
       /**
        * @description The address of the contract
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0x18F97EF6B2cbac5CA85b375b7093C4A207340d06
        */
       address: string;
       /**
@@ -321,6 +322,7 @@ export interface components {
       topic1?: string;
       /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
       topic2?: string;
+      /** @example null */
       topic3?: string;
       /**
        * @description The timestamp of the block
@@ -379,7 +381,9 @@ export interface components {
       receipt_cumulative_gas_used: string;
       /** @example 21000 */
       receipt_gas_used: string;
+      /** @example null */
       receipt_contract_address?: string;
+      /** @example null */
       receipt_root?: string;
       /** @example 1 */
       receipt_status: string;
@@ -497,12 +501,12 @@ export interface components {
     RunContractDto: {
       /**
        * @description The contract abi
-       * @example
+       * @example []
        */
       abi: { [key: string]: unknown };
       /**
        * @description The params for the given function
-       * @example [object Object]
+       * @example {}
        */
       params?: { [key: string]: unknown };
     };
@@ -663,7 +667,10 @@ export interface components {
       transaction_index: string;
       /**
        * @description The token id(s) traded
-       * @example 15,54
+       * @example [
+       *   "15",
+       *   "54"
+       * ]
        */
       token_ids: unknown[];
       /**
@@ -753,11 +760,13 @@ export interface components {
       | "fantom"
       | "0xfa"
       | "cronos"
-      | "0x19";
+      | "0x19"
+      | "cronos testnet"
+      | "0x152";
     nft: {
       /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
        */
       token_address: string;
       /**
@@ -765,6 +774,26 @@ export interface components {
        * @example 15
        */
       token_id: string;
+      /**
+       * @description The owner wallet address of the NFT
+       * @example 0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b
+       */
+      owner_of?: string;
+      /**
+       * @description The token hash
+       * @example 502cee781b0fb40ea02508b21d319ced
+       */
+      token_hash?: string;
+      /**
+       * @description The block number when the amount or owner changed
+       * @example 88256
+       */
+      block_number?: string;
+      /**
+       * @description The block number when the NFT was minted
+       * @example 88256
+       */
+      block_number_minted?: string;
       /**
        * @description The type of NFT contract standard
        * @example ERC721
@@ -840,12 +869,15 @@ export interface components {
       metadata_attributes: string;
       /** @example 14265936 */
       block_number_minted: string;
+      /** @example null */
       opensea_lookup?: { [key: string]: unknown };
       /** @example 0xdcf086e3f7954b38180daae1405569da86588bfe */
       minter_address: string;
       /** @example 0x2c8d7ec7a8439b0f67b50e93be63242de52e9b5cdfc7dc0aee80c6a2f104c41a */
       transaction_minted: string;
+      /** @example null */
       frozen_log_index?: { [key: string]: unknown };
+      /** @example null */
       imported?: { [key: string]: unknown };
       /**
        * @description When the token_uri was last updated
@@ -909,7 +941,7 @@ export interface components {
     nftOwner: {
       /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
        */
       token_address: string;
       /**
@@ -1371,6 +1403,7 @@ export interface components {
         thumbnail?: string;
         /** @example 14836562 */
         block_number?: string;
+        /** @example 0 */
         validated?: number;
         /** @example 2022-01-20T09:39:55.818Z */
         created_at?: string;
@@ -1442,7 +1475,10 @@ export interface components {
        * @example 1
        */
       rateLimitWeight: string;
-      /** @description The number of hits the requests counts for billing */
+      /**
+       * @description The number of hits the requests counts for billing
+       * @example 0
+       */
       price: string;
     };
   };
@@ -1660,7 +1696,24 @@ export interface operations {
       /** Returns a collection of events by topic */
       200: {
         content: {
-          "application/json": components["schemas"]["logEvent"][];
+          "application/json": {
+            /**
+             * @description The total number of matches for this query
+             * @example 2000
+             */
+            total?: number;
+            /**
+             * @description The page of the current result
+             * @example 2
+             */
+            page?: number;
+            /**
+             * @description The number of results per page
+             * @example 100
+             */
+            page_size?: number;
+            result?: components["schemas"]["logEvent"][];
+          };
         };
       };
     };
@@ -1903,6 +1956,14 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The transfer direction */
         direction?: "both" | "to" | "from";
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_block?: number;
+        /** To get the reserves at this block number */
+        to_block?: string;
         /** limit */
         limit?: number;
         /** The cursor returned in the last response (for getting the next page) */
@@ -2631,7 +2692,12 @@ export interface operations {
       /** Returns the pair reserves */
       200: {
         content: {
-          "application/json": components["schemas"]["reservesCollection"];
+          "application/json": {
+            /** @example 220969226548536862025877 */
+            reserve0?: string;
+            /** @example 844810441191293211036 */
+            reserve1?: string;
+          };
         };
       };
     };
