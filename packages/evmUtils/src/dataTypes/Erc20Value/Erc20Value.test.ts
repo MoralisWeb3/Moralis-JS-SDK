@@ -194,10 +194,4 @@ describe('Erc20Value', () => {
       expect(tokenA.equals(tokenC)).toBe(false);
     });
   });
-
-  // it('should parse the amount to a bignumber', () => {
-  //   const erc20Value = Erc20Value.create(ONE_QUINTILION);
-
-  //   expect(erc20Value.amount.toDecimal(18)).toBe(1000);
-  // });
 });
