@@ -22,14 +22,16 @@ export class Endpoints {
     private readonly baseUrl: string, // TODO: the `baseUrl` argument should be removed.
   ) {}
 
-  public createFetcher<AP, P, AR, ADR, JR>(factory: EndpointFactory<AP, P, AR, ADR, JR>) {
+  public createFetcher<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
+    factory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
+  ) {
     const resolver = EndpointResolver.create(this.core, factory);
     this.endpoints.push(resolver.endpoint);
     return resolver.fetch;
   }
 
-  public createPaginatedFetcher<AP, P extends PaginatedParams, AR, ADR, JR>(
-    factory: PaginatedEndpointFactory<AP, P, AR, ADR, JR>,
+  public createPaginatedFetcher<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
+    factory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
     const resolver = PaginatedEndpointResolver.create(this.core, factory);
     this.endpoints.push(resolver.endpoint);
