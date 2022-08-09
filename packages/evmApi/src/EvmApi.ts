@@ -42,13 +42,7 @@ import {
 import { web3ApiVersion, endpointWeights } from './resolvers/info';
 import { uploadFolder } from './resolvers/storage';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
-import {
-  EndpointFactory,
-  EndpointResolver,
-  PaginatedEndpointFactory,
-  PaginatedEndpointResolver,
-  PaginatedParams,
-} from '@moralisweb3/api-utils';
+import { Endpoints } from '@moralisweb3/api-utils';
 
 export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
@@ -71,73 +65,70 @@ export class MoralisEvmApi extends ApiModule {
     // Nothing
   }
 
+  public readonly endpoints = new Endpoints(this.core, BASE_URL);
+
   public readonly native = {
-    runContractFunction: this.createFetcher(runContractFunction),
-    getBlock: this.createFetcher(getBlock),
-    getDateToBlock: this.createFetcher(getDateToBlock),
-    getTransaction: this.createFetcher(getTransaction),
-    getLogsByAddress: this.createPaginatedFetcher(getLogsByAddress),
-    getNFTTransfersByBlock: this.createPaginatedFetcher(getNFTTransfersByBlock),
-    getContractEvents: this.createPaginatedFetcher(getContractEvents),
+    runContractFunction: this.endpoints.createFetcher(runContractFunction),
+    getBlock: this.endpoints.createFetcher(getBlock),
+    getDateToBlock: this.endpoints.createFetcher(getDateToBlock),
+    getTransaction: this.endpoints.createFetcher(getTransaction),
+    getLogsByAddress: this.endpoints.createPaginatedFetcher(getLogsByAddress),
+    getNFTTransfersByBlock: this.endpoints.createPaginatedFetcher(getNFTTransfersByBlock),
+    getContractEvents: this.endpoints.createPaginatedFetcher(getContractEvents),
   };
 
   public readonly account = {
-    getTokenBalances: this.createFetcher(getTokenBalances),
-    getNativeBalance: this.createFetcher(getNativeBalance),
-    getNFTTransfers: this.createPaginatedFetcher(getNFTTransfers),
-    getTokenTransfers: this.createPaginatedFetcher(getTokenTransfers),
-    getTransactions: this.createPaginatedFetcher(getTransactions),
-    getNFTs: this.createPaginatedFetcher(getNFTs),
-    getNFTsForContract: this.createPaginatedFetcher(getNFTsForContract),
+    getTokenBalances: this.endpoints.createFetcher(getTokenBalances),
+    getNativeBalance: this.endpoints.createFetcher(getNativeBalance),
+    getNFTTransfers: this.endpoints.createPaginatedFetcher(getNFTTransfers),
+    getTokenTransfers: this.endpoints.createPaginatedFetcher(getTokenTransfers),
+    getTransactions: this.endpoints.createPaginatedFetcher(getTransactions),
+    getNFTs: this.endpoints.createPaginatedFetcher(getNFTs),
+    getNFTsForContract: this.endpoints.createPaginatedFetcher(getNFTsForContract),
   };
 
   public readonly resolve = {
-    resolveDomain: this.createFetcher(resolveDomain),
-    resolveAddress: this.createFetcher(resolveAddress),
+    resolveDomain: this.endpoints.createFetcher(resolveDomain),
+    resolveAddress: this.endpoints.createFetcher(resolveAddress),
   };
 
   public readonly defi = {
-    getPairReserves: this.createFetcher(getPairReserves),
-    getPairAddress: this.createFetcher(getPairAddress),
+    getPairReserves: this.endpoints.createFetcher(getPairReserves),
+    getPairAddress: this.endpoints.createFetcher(getPairAddress),
   };
 
   public readonly token = {
-    reSyncMetadata: this.createFetcher(reSyncMetadata),
-    getTokenPrice: this.createFetcher(getTokenPrice),
-    getTokenAllowance: this.createFetcher(getTokenAllowance),
-    getContractNFTTransfers: this.createPaginatedFetcher(getContractNFTTransfers),
-    getNftTransfersFromToBlock: this.createPaginatedFetcher(getNftTransfersFromToBlock),
-    getTokenAddressTransfers: this.createPaginatedFetcher(getTokenAddressTransfers),
-    getNFTTrades: this.createPaginatedFetcher(getNFTTrades),
-    getNFTLowestPrice: this.createFetcher(getNFTLowestPrice),
-    getWalletTokenIdTransfers: this.createPaginatedFetcher(getWalletTokenIdTransfers),
-    getTokenMetadataBySymbol: this.createFetcher(getTokenMetadataBySymbol),
-    getTokenMetadata: this.createFetcher(getTokenMetadata),
-    getAllTokenIds: this.createPaginatedFetcher(getAllTokenIds),
-    searchNFTs: this.createPaginatedFetcher(searchNFTs),
-    getNFTOwners: this.createPaginatedFetcher(getNFTOwners),
-    getTokenIdOwners: this.createPaginatedFetcher(getTokenIdOwners),
-    getTokenIdMetadata: this.createFetcher(getTokenIdMetadata),
-    getNFTMetadata: this.createFetcher(getNFTMetadata),
-    syncNFTContract: this.createFetcher(syncNFTContract),
+    reSyncMetadata: this.endpoints.createFetcher(reSyncMetadata),
+    getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
+    getTokenAllowance: this.endpoints.createFetcher(getTokenAllowance),
+    getContractNFTTransfers: this.endpoints.createPaginatedFetcher(getContractNFTTransfers),
+    getNftTransfersFromToBlock: this.endpoints.createPaginatedFetcher(getNftTransfersFromToBlock),
+    getTokenAddressTransfers: this.endpoints.createPaginatedFetcher(getTokenAddressTransfers),
+    getNFTTrades: this.endpoints.createPaginatedFetcher(getNFTTrades),
+    getNFTLowestPrice: this.endpoints.createFetcher(getNFTLowestPrice),
+    getWalletTokenIdTransfers: this.endpoints.createPaginatedFetcher(getWalletTokenIdTransfers),
+    getTokenMetadataBySymbol: this.endpoints.createFetcher(getTokenMetadataBySymbol),
+    getTokenMetadata: this.endpoints.createFetcher(getTokenMetadata),
+    getAllTokenIds: this.endpoints.createPaginatedFetcher(getAllTokenIds),
+    searchNFTs: this.endpoints.createPaginatedFetcher(searchNFTs),
+    getNFTOwners: this.endpoints.createPaginatedFetcher(getNFTOwners),
+    getTokenIdOwners: this.endpoints.createPaginatedFetcher(getTokenIdOwners),
+    getTokenIdMetadata: this.endpoints.createFetcher(getTokenIdMetadata),
+    getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
+    syncNFTContract: this.endpoints.createFetcher(syncNFTContract),
+  };
+
+  private readonly _info = {
+    web3ApiVersion: this.endpoints.createFetcher(web3ApiVersion),
+    endpointWeights: this.endpoints.createFetcher(endpointWeights),
   };
 
   public readonly info = {
-    web3ApiVersion: () => this.createFetcher(web3ApiVersion)({}),
-    endpointWeights: () => this.createFetcher(endpointWeights)({}),
+    web3ApiVersion: () => this._info.web3ApiVersion({}),
+    endpointWeights: () => this._info.endpointWeights({}),
   };
 
   public readonly storage = {
-    uploadFolder: this.createFetcher(uploadFolder),
+    uploadFolder: this.endpoints.createFetcher(uploadFolder),
   };
-
-  private createFetcher<AP, P, AR, ADR, JR>(factory: EndpointFactory<AP, P, AR, ADR, JR>) {
-    return EndpointResolver.create(this.core, factory).fetch;
-  }
-
-  private createPaginatedFetcher<AP, P extends PaginatedParams, AR, ADR, JR>(
-    factory: PaginatedEndpointFactory<AP, P, AR, ADR, JR>,
-  ) {
-    return PaginatedEndpointResolver.create(this.core, factory).fetch;
-  }
 }
