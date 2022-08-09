@@ -1775,7 +1775,7 @@ export interface operations {
          */
         to_date?: string;
         /** The cursor returned in the last response (for getting the next page) */
-        cursor?: unknown;
+        cursor?: string;
         /** limit */
         limit?: number;
       };
