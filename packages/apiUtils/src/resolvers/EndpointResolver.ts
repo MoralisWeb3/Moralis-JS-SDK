@@ -13,13 +13,13 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);
     const paramsReader = new EndpointParamsReader(endpoint);
-    return new EndpointResolver(core.config, requestController, endpoint, paramsReader);
+    return new EndpointResolver(endpoint, core.config, requestController, paramsReader);
   }
 
   public constructor(
+    public readonly endpoint: Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
     private readonly config: Config,
     private readonly requestController: RequestController,
-    private readonly endpoint: Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
     private readonly paramsReader: EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {}
 

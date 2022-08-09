@@ -20,13 +20,13 @@ export class PaginatedEndpointResolver<
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);
     const paramsReader = new EndpointParamsReader(endpoint);
-    return new PaginatedEndpointResolver(core.config, requestController, endpoint, paramsReader);
+    return new PaginatedEndpointResolver(endpoint, core.config, requestController, paramsReader);
   }
 
   public constructor(
+    public readonly endpoint: PaginatedEndpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
     private readonly config: Config,
     private readonly requestController: RequestController,
-    private readonly endpoint: PaginatedEndpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
     private readonly paramsReader: EndpointParamsReader<
       ApiParams,
       Params,
