@@ -23,7 +23,7 @@ export const getSPL = createEndpointFactory((core) =>
     urlParams: ['network', 'address'],
     getUrl: (params: Params) => {
       // TODO: here should be: const network = SolNetworkResolver.resolve(params.network, core);
-      // but it's not working with Endpoints.getDescriptors(). After changed described in Endpoints
+      // but it's not working with Endpoints.getDescriptors(). After changes described in Endpoints
       // please replace this line.
       const network = params.network ? params.network : SolNetworkResolver.resolve(undefined, core);
       return `${BASE_URL}/account/${network}/${params.address}/tokens`;
