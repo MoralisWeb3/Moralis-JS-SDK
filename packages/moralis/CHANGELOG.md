@@ -1,5 +1,19 @@
 # moralis
 
+## 2.0.0-beta.9
+
+### Patch Changes
+
+- [#562](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/562) [`4683492`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4683492c4152779d8175e37075f8d1168c990188) Thanks [@ErnoW](https://github.com/ErnoW)! - Update type definition and resolvers after changes in the Evm Api
+
+- Updated dependencies [[`4683492`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4683492c4152779d8175e37075f8d1168c990188), [`e818e2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e818e2d0e997196eae4cabf52848a9eaf8095c2e)]:
+  - @moralisweb3/api-utils@2.0.0-beta.9
+  - @moralisweb3/auth@2.0.0-beta.9
+  - @moralisweb3/core@2.0.0-beta.9
+  - @moralisweb3/evm-api@2.0.0-beta.9
+  - @moralisweb3/evm-utils@2.0.0-beta.9
+  - @moralisweb3/sol-api@2.0.0-beta.9
+
 ## 2.0.0-beta.8
 
 ### Minor Changes
