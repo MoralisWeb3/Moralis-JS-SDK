@@ -32,10 +32,10 @@ export const getContractEvents = createPaginatedEndpointFactory((core) =>
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/events`,
     //   TODO: remove PaginatedResponse when api squad make swagger update
     apiToResult: (data: PaginatedResult<ApiResult>) =>
-      data.result.map((event) => ({
+      data.result.result?.map((event) => ({
         ...event,
         address: EvmAddress.create(event.address),
-      })),
+      })) ?? [],
     resultToJson: (data) => data,
     parseParams: (params: Params) => ({
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
