@@ -1,8 +1,11 @@
 const AUTH_API_URL = 'http://localhost:1337/api/auth';
+const EVM_PROXY_URL = 'http://localhost:1337/api/evm-proxy';
 
 const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
+const elBtnEvmVersion = document.getElementById('evm-version');
+const elBtnNativeBalance = document.getElementById('evm-native-balance');
 
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
@@ -10,6 +13,18 @@ const handleApiPost = async (endpoint, params) => {
       'content-type': 'application/json',
     },
   });
+
+  return result.data;
+};
+
+const handleEvmProxyCall = async (endpoint, params) => {
+  const result = await axios.post(`${EVM_PROXY_URL}/${endpoint}`, params, {
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+
+  console.log(result);
 
   return result.data;
 };
@@ -27,6 +42,18 @@ const verifyMessage = (message, signature) =>
     signature,
     network: 'evm',
   });
+
+// proxy calls
+const web3apiVersion = () => {
+  handleEvmProxyCall('web3ApiVersion');
+};
+
+const getNativeBalance = () => {
+  handleEvmProxyCall('getNativeBalance', {
+    address: '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7',
+    chain: '0x4',
+  });
+};
 
 const connectToMetamask = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
@@ -71,6 +98,14 @@ const renderError = (error) => {
 function init() {
   elBtnMetamask.addEventListener('click', async () => {
     handleAuth().catch((error) => renderError(error));
+  });
+
+  elBtnEvmVersion.addEventListener('click', async () => {
+    web3apiVersion().catch((error) => renderError(error));
+  });
+
+  elBtnNativeBalance.addEventListener('click', async () => {
+    getNativeBalance().catch((error) => renderError(error));
   });
 }
 
