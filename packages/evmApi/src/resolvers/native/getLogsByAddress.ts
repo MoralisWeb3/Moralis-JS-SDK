@@ -23,7 +23,7 @@ export const getLogsByAddress = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/logs`,
     apiToResult: (data: ApiResult) =>
-      data.result?.map(
+      (data.result ?? []).map(
         (log) =>
           new EvmTransactionLog({
             ...toCamelCase(log),

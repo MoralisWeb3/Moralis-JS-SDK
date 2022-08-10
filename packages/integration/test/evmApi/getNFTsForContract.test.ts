@@ -16,7 +16,7 @@ describe('Moralis EvmApi', () => {
     const result = await evmApi.account.getNFTsForContract({
       address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
       format: 'decimal',
-      chain: 'polygon',
+      chain: 137,
       tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
     });
 
@@ -30,7 +30,7 @@ describe('Moralis EvmApi', () => {
       .getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
         format: 'decimal',
-        chain: 'polygon',
+        chain: 137,
         tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
       })
       .then()
@@ -43,7 +43,7 @@ describe('Moralis EvmApi', () => {
       evmApi.account.getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
         format: 'decimal',
-        chain: 'polygon',
+        chain: 137,
         tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
@@ -71,7 +71,7 @@ describe('Moralis EvmApi', () => {
         tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"[C0005] Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'"`,
+      `"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`,
     );
   });
 
@@ -80,7 +80,7 @@ describe('Moralis EvmApi', () => {
       .getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         format: 'decimal',
-        chain: 'polygon',
+        chain: 137,
         tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF0599974963',
       })
       .then()
@@ -93,7 +93,7 @@ describe('Moralis EvmApi', () => {
       evmApi.account.getNFTsForContract({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         format: 'decimal',
-        chain: 'polygon',
+        chain: 137,
         tokenAddress: '0x2953399124F0cBB46d2CbACD8A89cF059997496',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

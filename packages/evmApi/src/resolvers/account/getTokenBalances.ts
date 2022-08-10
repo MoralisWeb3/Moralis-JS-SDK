@@ -24,8 +24,8 @@ export const getTokenBalances = createEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: ApiParams) => `${BASE_URL}/${params.address}/erc20`,
     apiToResult: (data: ApiResult, params: ApiParams) => {
-      return data.map((token) => {
-        return new Erc20Value(token.balance, {
+      return data.map((token) =>
+        Erc20Value.create(token.balance, {
           decimals: token.decimals,
           token: {
             decimals: token.decimals,
@@ -36,10 +36,9 @@ export const getTokenBalances = createEndpointFactory((core) =>
             thumbnail: token.thumbnail,
             chain: EvmChainResolver.resolve(params.chain, core),
           },
-        });
-      });
+        }),
+      );
     },
-
     resultToJson: (data) => data.map((tokenValue) => tokenValue.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       to_block: params.toBlock,
