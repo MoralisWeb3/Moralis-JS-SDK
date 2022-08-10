@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {FirebaseFunctionsRateLimiter} from 'firebase-functions-rate-limiter';
+import {CallableContext} from 'firebase-functions/v1/https';
 
 export interface IpRateLimiterConfig {
   maxCalls: number;
@@ -10,23 +11,17 @@ export interface IpRateLimiterConfig {
 export class IpRateLimiter {
   public constructor(private readonly limiter: FirebaseFunctionsRateLimiter) {}
 
-  public readonly wrap = <T>(
-    handler: (request: functions.https.Request, response: functions.Response<T>
-  ) => Promise<void>) => {
+  public readonly wrap = <Data>(
+    handler: (data: Data, context: CallableContext
+  ) => Promise<unknown>) => {
     return async (
-      request: functions.https.Request,
-      response: functions.Response
+      data: Data, context: CallableContext
     ) => {
-      const qualifier = 'ip-' + this.readNormalizedIp(request);
+      const qualifier = 'ip-' + this.readNormalizedIp(context.rawRequest);
 
-      if (await this.limiter.isQuotaExceededOrRecordUsage(qualifier)) {
-        response.status(429).send({
-          error: 'Too many requests!',
-        });
-        return;
-      }
+      await this.limiter.rejectOnQuotaExceededOrRecordUsage(qualifier);
 
-      await handler(request, response);
+      return await handler(data, context);
     };
   };
 
