@@ -22,9 +22,9 @@ export const getTokenBalances = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenBalances',
     urlParams: ['address'],
-    getUrl: (params: ApiParams) => `${BASE_URL}/${params.address}/erc20`,
-    apiToResult: (data: ApiResult, params: ApiParams) => {
-      return data.map((token) =>
+    getUrl: (params: Params) => `${BASE_URL}/${params.address}/erc20`,
+    apiToResult: (data: ApiResult, params: Params) => {
+      return (data ?? []).map((token) =>
         Erc20Value.create(token.balance, {
           decimals: token.decimals,
           token: {

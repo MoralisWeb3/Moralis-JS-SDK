@@ -24,7 +24,7 @@ export const getNFTOwners = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/owners`,
     apiToResult: (data: ApiResult, params: Params) =>
-      (data.result ?? [])?.map((nft) =>
+      (data.result ?? []).map((nft) =>
         EvmNft.create({
           ...toCamelCase(nft),
           chain: EvmChainResolver.resolve(params.chain, core),

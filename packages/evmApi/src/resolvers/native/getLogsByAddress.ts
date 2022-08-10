@@ -32,7 +32,7 @@ export const getLogsByAddress = createPaginatedEndpointFactory((core) =>
             blockNumber: Number(log.block_number),
           }),
       ),
-    resultToJson: (data) => data?.map((log) => log.toJSON()),
+    resultToJson: (data) => data.map((log) => log.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

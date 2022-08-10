@@ -22,7 +22,7 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
   return EvmBlock.create({
     ...data,
     chain: EvmChainResolver.resolve(params.chain, core),
-    transactions: data.transactions.map((transaction) =>
+    transactions: (data.transactions ?? []).map((transaction) =>
       EvmTransaction.create({
         cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
         gasPrice: transaction.gasPrice,
@@ -42,7 +42,7 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
         blockTimestamp: new Date(transaction.blockTimestamp),
         gas: transaction.gas,
         to: transaction.toAddress,
-        logs: transaction.logs.map((log) =>
+        logs: (transaction.logs ?? []).map((log) =>
           EvmTransactionLog.create({
             address: log.address,
             blockHash: log.blockHash,
