@@ -1,73 +1,45 @@
-import { MoralisDataObject, MoralisDataObjectValue, CoreErrorCode, MoralisCoreError, maybe } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish } from '../EvmAddress';
-import { EvmChain, EvmChainish } from '../EvmChain';
+import {
+  MoralisDataObject,
+  MoralisDataObjectValue,
+  CoreErrorCode,
+  MoralisCoreError,
+  maybe,
+  BigNumber,
+  dateInputToDate,
+} from '@moralisweb3/core';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { validateValidEvmContractType } from '../EvmNftContractType';
+import { EvmNftData, EvmNftInput } from './types';
 
-export enum ContractType {
-  ERC721 = 'ERC721',
-  ERC1155 = 'ERC1155',
-}
-
-interface EvmNFTInput {
-  tokenId: number | string;
-  contractType: string;
-  chain: EvmChainish;
-  tokenUri?: string;
-  tokenAddress: EvmAddressish;
-  tokenHash?: string;
-  metadata?: string;
-  name?: string;
-  symbol?: string;
-}
-
-interface EvmNFTData {
-  tokenId: number | string;
-  contractType: ContractType;
-  chain: EvmChain;
-  tokenUri?: string;
-  tokenAddress: EvmAddress;
-  tokenHash?: string;
-  metadata: MoralisDataObjectValue;
-  name?: string;
-  symbol?: string;
-}
-
-export type EvmNFTish = EvmNFTInput | EvmNFT;
+export type EvmNftish = EvmNftInput | EvmNft;
 
 /**
- * The EvmNFT class is a MoralisData that references to a the NFT of the type; Erc721 or Erc1155
+ * The EvmNft class is a MoralisData that references to a the NFT of the type; Erc721 or Erc1155
  */
-export class EvmNFT implements MoralisDataObject {
-  private _value: EvmNFTData;
+export class EvmNft implements MoralisDataObject {
+  private _data: EvmNftData;
 
-  constructor(value: EvmNFTInput) {
-    this._value = EvmNFT.parse(value);
+  constructor(data: EvmNftInput) {
+    this._data = EvmNft.parse(data);
   }
 
-  static parse = (value: EvmNFTInput): EvmNFTData => ({
-    ...value,
-    chain: EvmChain.create(value.chain),
-    contractType: this.validateType(value.contractType),
-    tokenAddress: EvmAddress.create(value.tokenAddress),
-    metadata: maybe(value.metadata, this.validateMetadata),
-    tokenUri: maybe(value.tokenUri),
-    tokenHash: maybe(value.tokenHash),
-    name: maybe(value.name),
-    symbol: maybe(value.symbol),
+  static parse = (data: EvmNftInput): EvmNftData => ({
+    ...data,
+    chain: EvmChain.create(data.chain),
+    contractType: validateValidEvmContractType(data.contractType),
+    tokenAddress: EvmAddress.create(data.tokenAddress),
+    metadata: maybe(data.metadata, this.validateMetadata),
+    tokenUri: maybe(data.tokenUri),
+    tokenHash: maybe(data.tokenHash),
+    name: maybe(data.name),
+    symbol: maybe(data.symbol),
+    ownerOf: maybe(data.ownerOf, EvmAddress.create),
+    blockNumberMinted: maybe(data.blockNumberMinted, BigNumber.create),
+    blockNumber: maybe(data.blockNumber, BigNumber.create),
+    lastMetadataSync: maybe(data.lastMetadataSync, dateInputToDate),
+    lastTokenUriSync: maybe(data.lastTokenUriSync, dateInputToDate),
+    amount: maybe(data.amount, (value) => +value),
   });
-
-  private static validateType(value: string) {
-    switch (value.toUpperCase()) {
-      case ContractType.ERC1155:
-        return ContractType.ERC1155;
-      case ContractType.ERC721:
-        return ContractType.ERC721;
-      default:
-        throw new MoralisCoreError({
-          code: CoreErrorCode.INVALID_ARGUMENT,
-          message: 'Invalid contract type provided',
-        });
-    }
-  }
 
   private static validateMetadata = (value: string): MoralisDataObjectValue => {
     try {
@@ -80,39 +52,52 @@ export class EvmNFT implements MoralisDataObject {
     }
   };
 
-  static create(value: EvmNFTish) {
-    if (value instanceof EvmNFT) {
+  static create(value: EvmNftish) {
+    if (value instanceof EvmNft) {
       return value;
     }
 
-    return new EvmNFT(value);
+    return new EvmNft(value);
   }
 
-  static equals(valueA: EvmNFTish, valueB: EvmNFTish) {
-    const nftA = EvmNFT.create(valueA);
-    const nftB = EvmNFT.create(valueB);
+  static equals(valueA: EvmNftish, valueB: EvmNftish) {
+    const nftA = EvmNft.create(valueA);
+    const nftB = EvmNft.create(valueB);
 
-    if (!nftA._value.chain.equals(nftB._value.chain)) {
+    if (!nftA._data.chain.equals(nftB._data.chain)) {
       return false;
     }
 
-    if (!nftA._value.tokenAddress.equals(nftB._value.tokenAddress)) {
+    if (!nftA._data.tokenAddress.equals(nftB._data.tokenAddress)) {
+      return false;
+    }
+
+    // Owners are different between tokens
+    if (nftA._data.ownerOf && nftB._data.ownerOf && !nftA._data.ownerOf.equals(nftB._data.ownerOf)) {
+      return false;
+    }
+
+    // Owner is defined in only one token
+    if ((nftA._data.ownerOf && !nftB._data.ownerOf) || (!nftA._data.ownerOf && nftB._data.ownerOf)) {
       return false;
     }
 
     return true;
   }
 
-  equals(value: EvmNFTish): boolean {
-    return EvmNFT.equals(this, value);
+  equals(value: EvmNftish): boolean {
+    return EvmNft.equals(this, value);
   }
 
   toJSON() {
-    const value = this._value;
+    const data = this._data;
     return {
-      ...value,
-      tokenAddress: value.tokenAddress.format(),
-      chain: value.chain.format(),
+      ...data,
+      tokenAddress: data.tokenAddress.format(),
+      chain: data.chain.format(),
+      ownerOf: data.ownerOf?.format(),
+      blockNumberMinted: data.blockNumberMinted?.toString(),
+      blockNumber: data.blockNumber?.toString(),
     };
   }
 
@@ -121,6 +106,6 @@ export class EvmNFT implements MoralisDataObject {
   }
 
   get result() {
-    return this._value;
+    return this._data;
   }
 }

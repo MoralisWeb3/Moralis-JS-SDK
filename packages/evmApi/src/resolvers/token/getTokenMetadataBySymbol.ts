@@ -22,13 +22,12 @@ export const getTokenMetadataBySymbol = createEndpointFactory((core) =>
     getUrl: () => `${BASE_URL}/erc20/metadata/symbols`,
     apiToResult: (data: ApiResult, params: Params) =>
       data.map((token) => {
-        const erc20token = new Erc20Token({
-          ...toCamelCase(token),
-          contractAddress: token.address,
-          chain: EvmChainResolver.resolve(params.chain, core),
-        });
         return {
-          token: erc20token,
+          token: Erc20Token.create({
+            ...toCamelCase(token),
+            contractAddress: token.address,
+            chain: EvmChainResolver.resolve(params.chain, core),
+          }),
           blockNumber: token.block_number,
           validated: token.validated,
         };

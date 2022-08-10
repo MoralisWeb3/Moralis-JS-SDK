@@ -29,6 +29,8 @@ export class EvmAddress implements MoralisData {
   // Checksum address
   private _value: string;
 
+  public static ZERO_ADDRESS = EvmAddress.create('0x0000000000000000000000000000000000000000');
+
   public constructor(address: InputEvmAddress, private readonly config: Config) {
     this._value = EvmAddress.parse(address);
   }

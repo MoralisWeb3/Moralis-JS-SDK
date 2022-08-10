@@ -1,6 +1,6 @@
 import { createPaginatedEndpoint, createPaginatedEndpointFactory, PaginatedParams } from '@moralisweb3/api-utils';
-import { Camelize } from '@moralisweb3/core';
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNFT } from '@moralisweb3/evm-utils';
+import { Camelize, dateInputToDate } from '@moralisweb3/core';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNft } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -25,8 +25,8 @@ export const getNFTs = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/nft`,
     apiToResult: (data: ApiResult, params: Params) =>
-      data.result?.map((nft) => ({
-        token: new EvmNFT({
+      (data.result ?? []).map((nft) => ({
+        token: new EvmNft({
           chain: EvmChainResolver.resolve(params.chain, core),
           contractType: nft.contract_type,
           tokenAddress: nft.token_address,
@@ -41,11 +41,11 @@ export const getNFTs = createPaginatedEndpointFactory((core) =>
         blockNumber: nft.block_number,
         ownerOf: EvmAddress.create(nft.owner_of, core),
         tokenHash: nft.token_hash,
-        lastMetadataSync: new Date(nft.last_metadata_sync),
-        lastTokenUriSync: new Date(nft.last_token_uri_sync),
+        lastMetadataSync: dateInputToDate(nft.last_metadata_sync),
+        lastTokenUriSync: dateInputToDate(nft.last_token_uri_sync),
       })),
     resultToJson: (data) =>
-      data?.map((nft) => ({
+      data.map((nft) => ({
         ...nft,
         token: nft.token.toJSON(),
         lastMetadataSync: nft.lastMetadataSync.toLocaleDateString(),

@@ -20,9 +20,6 @@ type InternalEvmChain = string;
  * hex-string ("0x1"), or any suppored ChainName
  */
 export class EvmChain implements MoralisData, EvmChainable {
-  /**
-   * Accepts a {@link EvmChainish} value and returns a new EvmChain or an already existing EvmChain
-   */
   public static create(chain: EvmChainish, core?: MoralisCore): EvmChain {
     if (chain instanceof EvmChain) {
       return chain;
@@ -30,6 +27,21 @@ export class EvmChain implements MoralisData, EvmChainable {
     const c = core || MoralisCoreProvider.getDefault();
     return new EvmChain(chain, c.config);
   }
+
+  public static ETHEREUM = EvmChain.create(1);
+  public static ROPSTEN = EvmChain.create(3);
+  public static RINKEBY = EvmChain.create(5);
+  public static GOERLI = EvmChain.create(5);
+  public static KOVAN = EvmChain.create(42);
+  public static POLYGON = EvmChain.create(137);
+  public static MUMBAI = EvmChain.create(80001);
+  public static BSC = EvmChain.create(56);
+  public static BSC_TESTNET = EvmChain.create(97);
+  public static AVALANCHE = EvmChain.create(43113);
+  public static FUJI = EvmChain.create(43113);
+  public static FANTOM = EvmChain.create(250);
+  public static CRONOS = EvmChain.create(25);
+  public static CRONOS_TESTNET = EvmChain.create(338);
 
   // hex-string chainId
   private _value: InternalEvmChain;
