@@ -9,7 +9,7 @@
   <h1>Firebase Moralis API Proxy Demo</h1>
   <p>This is a demo of the Firebase Moralis API Proxy.</p>
 
-  <button id="testVersionButton">Test version proxy 🚀</button>
+  <button id="testProxyButton">Test proxy 🚀</button>
 
   <script src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
   <script src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
@@ -18,11 +18,13 @@
   <script>
     let functions;
 
-    async function testVersionClicked() {
-      const versionFn = functions.httpsCallable('version');
+    async function testProxyClicked() {
+      const getNFTMetadataFn = functions.httpsCallable('getNFTMetadata');
       try {
-        const version = await versionFn({});
-        alert(JSON.stringify(version));
+        const metadata = await getNFTMetadataFn({
+          address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
+        });
+        alert(JSON.stringify(metadata));
       } catch (e) {
         console.error(e);
         alert(e.message);
@@ -35,7 +37,7 @@
         functions.useFunctionsEmulator('http://localhost:5001');
       }
 
-      document.getElementById('testVersionButton').addEventListener('click', testVersionClicked);
+      document.getElementById('testProxyButton').addEventListener('click', testProxyClicked);
     }
 
     window.addEventListener('load', pageLoaded);

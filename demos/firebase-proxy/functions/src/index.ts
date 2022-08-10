@@ -1,8 +1,8 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import Moralis from 'moralis';
-import {corsMiddleware} from './middlewares/cors';
 import {ipRateLimiterMiddleware} from './middlewares/ip-rate-limiter';
+import {corsMiddleware} from './middlewares/cors';
 
 const app = admin.initializeApp(functions.config().firebase);
 const firestore = admin.firestore(app);
@@ -17,13 +17,21 @@ Moralis.start({
   apiKey: process.env.MORALIS_API_KEY,
 });
 
-export const version = functions.https.onRequest(cors(limiter(
-  async (_, response) => {
-    functions.logger.info('proxy called');
+export const getNFTMetadata = functions.https.onRequest(cors(limiter(
+  async (request, response) => {
+    functions.logger.info('Proxy called');
 
-    const version = await Moralis.EvmApi.info.web3ApiVersion();
+    const address = request.body?.data['address'] as string | undefined;
+    if (!address || typeof address !== 'string') {
+      throw new functions.https.HttpsError(
+        'invalid-argument', 'address is required');
+    }
+
+    const metadata = await Moralis.EvmApi.token.getNFTMetadata({
+      address: address,
+    });
 
     response.send({
-      data: version.toJSON(),
+      data: metadata.toJSON(),
     });
   })));

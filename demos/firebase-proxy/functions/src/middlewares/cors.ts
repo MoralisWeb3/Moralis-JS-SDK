@@ -14,9 +14,10 @@ export function corsMiddleware() {
       request: functions.https.Request,
       response: functions.Response
     ) => {
-      return Promise.resolve(corsHandler(request, response, () => {
-        handler(request, response);
-      }));
+      corsHandler(request, response, () => {
+        // Nothing.
+      });
+      return handler(request, response);
     };
   };
 }
