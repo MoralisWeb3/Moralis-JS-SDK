@@ -113,6 +113,6 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
       - name: Build
-        run: yarn build
+        run: yarn build:clean
       - name: Test
         run: yarn test
