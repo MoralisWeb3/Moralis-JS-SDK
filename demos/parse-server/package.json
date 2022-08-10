@@ -9,8 +9,8 @@
     "express": "^4.18.1",
     "parse-dashboard": "^4.1.4",
     "parse-server": "^5.2.4",
-    "moralis": "^2.0.0-beta.8",
-    "@moralisweb3/core": "^2.0.0-beta.8"
+    "moralis": "^2.0.0-beta.10",
+    "@moralisweb3/core": "^2.0.0-beta.10"
   },
   "devDependencies": {
     "mongodb-runner": "^4.9.0",

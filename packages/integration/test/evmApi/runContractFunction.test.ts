@@ -239,7 +239,7 @@ describe('Moralis EvmApi', () => {
     const result = await evmApi.native.runContractFunction({
       address: '0xecc7f044aa1ce2ad9d2453b01b8732a051213ecf',
       functionName: 'totalSupply',
-      chain: 'rinkeby',
+      chain: 5,
       abi: ABI,
     });
 
@@ -253,7 +253,7 @@ describe('Moralis EvmApi', () => {
       evmApi.native.runContractFunction({
         address: '0x123456', // this address is invalid
         functionName: 'totalSupply',
-        chain: 'rinkeby',
+        chain: 5,
         abi: ABI,
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
