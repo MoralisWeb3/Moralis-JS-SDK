@@ -10,7 +10,7 @@ import {
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { validateValidEvmContractType } from '../EvmNftContractType';
-import { EvmNftData, EvmNftInput } from './typesTEMP';
+import { EvmNftData, EvmNftInput } from './types';
 
 export type EvmNftish = EvmNftInput | EvmNft;
 
