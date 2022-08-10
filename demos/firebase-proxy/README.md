@@ -26,5 +26,5 @@ Required Firebase services:
 ### 🔥 Deploy to Production
 
 1. Activate Firestore.
-1. Deploy: `firebase deploy`
-2. [Allow unauthenticated HTTP function invocation](https://cloud.google.com/functions/docs/securing/managing-access-iam#allowing_unauthenticated_http_function_invocation). If you don't do this step, you will see the `Error: Forbidden` response for all requests to your cloud functions.
+2. Deploy: `firebase deploy`
+3. [Allow unauthenticated HTTP function invocation](https://cloud.google.com/functions/docs/securing/managing-access-iam#allowing_unauthenticated_http_function_invocation). If you don't do this step, you will see the `Error: Forbidden` response for all requests to your cloud functions.

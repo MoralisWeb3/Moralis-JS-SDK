@@ -36,7 +36,7 @@ export class IpRateLimiter {
 }
 
 export function ipRateLimiterMiddleware(
-  database: admin.firestore.Firestore,
+  firestore: admin.firestore.Firestore,
   config: IpRateLimiterConfig
 ) {
   // We use the Firestore, because it's cheaper: https://github.com/Jblew/firebase-functions-rate-limiter/issues/23#issuecomment-1154262264
@@ -46,7 +46,7 @@ export function ipRateLimiterMiddleware(
       maxCalls: config.maxCalls,
       periodSeconds: config.periodSeconds,
     },
-    database,
+    firestore,
   );
   return new IpRateLimiter(limiter).wrap;
 }
