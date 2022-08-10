@@ -27,5 +27,5 @@ export const getNFTMetadata = functions.https.onCall(
     const metadata = await Moralis.EvmApi.token.getNFTMetadata({
       address: data.address,
     });
-    return metadata.toJSON();
+    return metadata.raw;
   }));
