@@ -1,5 +1,7 @@
 import { BigNumber, BigNumberish, DateInput } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, EvmNative, EvmNativeish } from '@moralisweb3/evm-utils';
+import { EvmAddressish, EvmAddress } from '../EvmAddress';
+import { EvmChain, EvmChainish } from '../EvmChain';
+import { EvmNativeish, EvmNative } from '../EvmNative';
 
 export interface EvmNftTransferInput {
   chain: EvmChainish;

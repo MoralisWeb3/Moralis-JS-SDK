@@ -7,7 +7,8 @@ import {
   BigNumber,
   dateInputToDate,
 } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
 import { validateValidEvmContractType } from '../EvmNftContractType';
 import { EvmNftData, EvmNftInput } from './types';
 

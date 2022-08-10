@@ -1,5 +1,7 @@
 import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/core';
-import { EvmAddress, EvmChain, EvmNative } from '@moralisweb3/evm-utils';
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
+import { EvmNative } from '../EvmNative';
 import { EvmNftTransferInput, EvmNftTransferData } from './types';
 
 export type EvmNftTransferish = EvmNftTransferInput | EvmNftTransfer;

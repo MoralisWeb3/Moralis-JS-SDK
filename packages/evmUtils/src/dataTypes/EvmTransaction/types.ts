@@ -1,14 +1,8 @@
 import { BigNumber, BigNumberish, DateInput } from '@moralisweb3/core';
-import {
-  EvmAddress,
-  EvmAddressish,
-  EvmChainish,
-  EvmChain,
-  EvmNative,
-  EvmNativeish,
-  EvmTransactionLogish,
-  EvmTransactionLog,
-} from '@moralisweb3/evm-utils';
+import { EvmAddressish, EvmAddress } from '../EvmAddress';
+import { EvmChain, EvmChainish } from '../EvmChain';
+import { EvmNativeish, EvmNative } from '../EvmNative';
+import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
 
 export interface EvmTransacionInput {
   from: EvmAddressish;

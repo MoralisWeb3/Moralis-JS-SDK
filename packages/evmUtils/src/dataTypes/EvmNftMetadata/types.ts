@@ -1,5 +1,6 @@
 import { DateInput } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmAddressish, EvmAddress } from '../EvmAddress';
+import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNftContractType } from '../EvmNftContractType';
 
 export interface EvmNftMetadataInput {

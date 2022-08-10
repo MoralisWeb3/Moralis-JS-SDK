@@ -1,5 +1,6 @@
 import { MoralisDataObject, maybe, dateInputToDate } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
 import { EvmNftMetadataInput, EvmNftMetadataData } from './types';
 
 export type EvmNftMetadataish = EvmNftMetadataInput | EvmNftMetadata;

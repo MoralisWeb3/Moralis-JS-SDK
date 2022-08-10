@@ -1,5 +1,6 @@
 import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
 import { EvmErc20TransferInput, EvmErc20TransferData } from './types';
 
 export type EvmErc20Transferish = EvmErc20TransferInput | EvmErc20Transfer;

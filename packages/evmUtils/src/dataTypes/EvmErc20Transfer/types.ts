@@ -1,5 +1,6 @@
 import { BigNumber, BigNumberish, DateInput } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmAddressish, EvmAddress } from '../EvmAddress';
+import { EvmChain, EvmChainish } from '../EvmChain';
 
 // TODO: get decimal value from api
 export interface EvmErc20TransferInput {
