@@ -6,7 +6,7 @@ export * from './EvmChain';
 export * from './Erc20Transfer';
 export * from './EvmEvent';
 export * from './EvmNative';
-export * from './EvmNft';
+export * from './EvmNftTEMP/indexTEMP';
 export * from './EvmNftMetadata';
 export * from './EvmNftTrade';
 export * from './EvmNftTransfer';
