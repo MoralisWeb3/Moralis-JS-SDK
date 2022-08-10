@@ -4,6 +4,10 @@ import { BigNumberParser, BigNumberPrimitive } from './BigNumberParser';
 export type BigNumberish = BigNumber | BigNumberPrimitive;
 
 export class BigNumber {
+  public static get ONE() {
+    return BigNumber.create(1);
+  }
+
   public static create(value: BigNumberish): BigNumber {
     if (value instanceof BigNumber) {
       return value;

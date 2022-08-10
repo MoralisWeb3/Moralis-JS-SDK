@@ -3,7 +3,7 @@ import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
 
 // TODO: get decimal value from api
-export interface EvmErc20TransferInput {
+export interface Erc20TransferInput {
   chain: EvmChainish;
   transactionHash: string;
   address: EvmAddressish;
@@ -15,7 +15,7 @@ export interface EvmErc20TransferInput {
   value: BigNumberish;
 }
 
-export interface EvmErc20TransferData {
+export interface Erc20TransferData {
   chain: EvmChain;
   transactionHash: string;
   address: EvmAddress;

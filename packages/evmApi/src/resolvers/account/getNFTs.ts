@@ -25,8 +25,8 @@ export const getNFTs = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/nft`,
     apiToResult: (data: ApiResult, params: Params) =>
-      (data.result ?? []).map((nft) => ({
-        token: new EvmNft({
+      (data.result ?? []).map((nft) =>
+        EvmNft.create({
           chain: EvmChainResolver.resolve(params.chain, core),
           contractType: nft.contract_type,
           tokenAddress: nft.token_address,
@@ -35,22 +35,16 @@ export const getNFTs = createPaginatedEndpointFactory((core) =>
           metadata: nft.metadata,
           name: nft.name,
           symbol: nft.symbol,
+          amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
+          blockNumberMinted: nft.block_number_minted,
+          blockNumber: nft.block_number,
+          ownerOf: EvmAddress.create(nft.owner_of, core),
+          tokenHash: nft.token_hash,
+          lastMetadataSync: dateInputToDate(nft.last_metadata_sync),
+          lastTokenUriSync: dateInputToDate(nft.last_token_uri_sync),
         }),
-        amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-        blockNumberMinted: nft.block_number_minted,
-        blockNumber: nft.block_number,
-        ownerOf: EvmAddress.create(nft.owner_of, core),
-        tokenHash: nft.token_hash,
-        lastMetadataSync: dateInputToDate(nft.last_metadata_sync),
-        lastTokenUriSync: dateInputToDate(nft.last_token_uri_sync),
-      })),
-    resultToJson: (data) =>
-      data.map((nft) => ({
-        ...nft,
-        token: nft.token.toJSON(),
-        lastMetadataSync: nft.lastMetadataSync.toLocaleDateString(),
-        lastTokenUriSync: nft.lastTokenUriSync.toLocaleDateString(),
-      })),
+      ),
+    resultToJson: (data) => data.map((nft) => nft.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
