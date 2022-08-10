@@ -46,7 +46,7 @@ export class Erc20Value implements MoralisData {
     decimals: Erc20ValueInputDecimals;
     token?: Erc20Tokenish;
   }): Erc20ValueData => {
-    if (token && token.decimals !== decimals) {
+    if (token && token.decimals && +token.decimals !== +decimals) {
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_DATA,
         message: 'Decimals do not match',

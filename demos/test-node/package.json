@@ -7,11 +7,15 @@
     "build": "tsc",
     "build-start": "yarn build && yarn start",
     "start": "node build/main.js",
+    "dev": "ts-node src/main.ts",
     "format": "prettier . \"src/**/*.+(js|ts|json)\" --write",
     "format:check": "prettier . \"src/**/*.+(js|ts|json)\" --check"
   },
   "dependencies": {
-    "moralis": "^2.0.0-beta.9",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "moralis": "^2.0.0-beta.11"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
   }
 }
