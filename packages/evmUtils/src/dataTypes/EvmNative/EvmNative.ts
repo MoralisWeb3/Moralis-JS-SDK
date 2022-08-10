@@ -23,10 +23,15 @@ export type EvmNativeish = InputEvmNative | EvmNative;
 export class EvmNative implements MoralisData {
   private readonly rawValue: BigNumber;
 
-  public static ONE_ETH = EvmNative.create(1, 'ether');
-  public static ONE_GWEI = EvmNative.create(1, 'gwei');
-  public static ONE_WEI = EvmNative.create(1, 'wei');
-
+  public static get ONE_ETH() {
+    return EvmNative.create(1, 'ether');
+  }
+  public static get ONE_GWEI() {
+    return EvmNative.create(1, 'gwei');
+  }
+  public static get ONE_WEI() {
+    return EvmNative.create(1, 'wei');
+  }
   private constructor(native: InputEvmNative, unit: UnitOrDecimals = 'ether') {
     this.rawValue = EvmNative.parse(native, unit);
   }
