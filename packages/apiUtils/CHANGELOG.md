@@ -1,5 +1,12 @@
 # @moralisweb3/api-utils
 
+## 2.0.0-beta.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.0-beta.11
+
 ## 2.0.0-beta.10
 
 ### Patch Changes

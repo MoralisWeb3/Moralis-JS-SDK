@@ -1,5 +1,18 @@
 # @moralisweb3/evm-utils
 
+## 2.0.0-beta.11
+
+### Minor Changes
+
+- [#570](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/570) [`fa082b6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fa082b613fd3b317072ee66e8ca1361fd51f34f4) Thanks [@ErnoW](https://github.com/ErnoW)! - Validation check of undefined values on array responses from api
+
+### Patch Changes
+
+- [#570](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/570) [`fa082b6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fa082b613fd3b317072ee66e8ca1361fd51f34f4) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix equality check of decimals in Erc20
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.0-beta.11
+
 ## 2.0.0-beta.10
 
 ### Minor Changes
