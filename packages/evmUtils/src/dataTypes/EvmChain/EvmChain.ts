@@ -35,7 +35,7 @@ export class EvmChain implements MoralisData, EvmChainable {
     return EvmChain.create(3);
   }
   public static get RINKEBY() {
-    return EvmChain.create(5);
+    return EvmChain.create(4);
   }
   public static get GOERLI() {
     return EvmChain.create(5);
