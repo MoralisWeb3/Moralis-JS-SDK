@@ -12,11 +12,9 @@ export class IpRateLimiter {
   public constructor(private readonly limiter: FirebaseFunctionsRateLimiter) {}
 
   public readonly wrap = <Data>(
-    handler: (data: Data, context: CallableContext
-  ) => Promise<unknown>) => {
-    return async (
-      data: Data, context: CallableContext
-    ) => {
+    handler: (data: Data, context: CallableContext) => Promise<unknown>
+  ) => {
+    return async (data: Data, context: CallableContext) => {
       const qualifier = 'ip-' + this.readNormalizedIp(context.rawRequest);
 
       await this.limiter.rejectOnQuotaExceededOrRecordUsage(qualifier);
