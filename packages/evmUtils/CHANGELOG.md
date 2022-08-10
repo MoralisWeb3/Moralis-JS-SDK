@@ -1,5 +1,21 @@
 # @moralisweb3/evm-utils
 
+## 2.0.0-beta.10
+
+### Minor Changes
+
+- [#568](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/568) [`51e0446`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/51e04465b803d89bdc3bc72d749e1152139a8534) Thanks [@ErnoW](https://github.com/ErnoW)! - Improve Evm datatypes and apply them to the EvmApi consistently:
+
+  - Removed unused datatypes (mainly related to EvmTransactions)
+  - Add missing datatypes
+  - Add more properties to the EvmNft and EvmTransaction datatype
+  - Add constant lookups for BigNumberm EvmAddress and EvmChain
+
+### Patch Changes
+
+- Updated dependencies [[`51e0446`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/51e04465b803d89bdc3bc72d749e1152139a8534)]:
+  - @moralisweb3/core@2.0.0-beta.10
+
 ## 2.0.0-beta.9
 
 ### Patch Changes
