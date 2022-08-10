@@ -9,7 +9,7 @@
 ```sh
 git clone https://github.com/MoralisWeb3/Moralis-JS-SDK.git
 cd Moralis-JS-SDK # go into the clone directory
-npm install # install all the node dependencies
+yarn install # install all the node dependencies
 ```
 
 Make sure to have a ESlint and Prettier plugin installed to check for code-smells and auto-formatting.
@@ -22,13 +22,9 @@ The Moralis JS SDK is built for three platforms:
 - nodejs
 - react-native
 
-When developing the SDK you can use `npm run watch` in order to rebuild your changes upon each save.
+When developing the SDK you can use `yarn dev` in order to rebuild your changes upon each save.
 
 By default, the watch command will rebuild the SDK for the browser platform. The following commands will rebuild changes for a specific platform.
-
-- `npm run watch:node`
-- `npm run watch:browser`
-- `npm run watch:react-native`
 
 ### Pull Requests
 

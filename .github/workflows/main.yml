@@ -4,21 +4,25 @@ on:
     branches:
       - main
       - beta
+      - alpha
   push:
     branches:
       - main
       - beta
+      - alpha
 jobs:
   setup:
-    name: Build dependencies
+    name: Setup
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: [16]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies
@@ -26,10 +30,10 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run install:clean
+        run: yarn install
 
   lint:
     name: Eslint
@@ -40,8 +44,10 @@ jobs:
         node: [16]
     needs: setup
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies
@@ -49,9 +55,9 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
       - name: ESLint
-        run: npm run lint:ci
+        run: yarn lint
         continue-on-error: true
       - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@1.2.0
@@ -70,8 +76,10 @@ jobs:
         node: [16]
     needs: setup
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies
@@ -79,12 +87,12 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
       - name: Prettier
-        run: npm run format:check
+        run: yarn format:check
 
-  test:
-    name: Tests
+  build:
+    name: Build and Test
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -92,8 +100,10 @@ jobs:
         node: [16]
     needs: setup
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node 16
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
       - name: Use cache dependencies
@@ -101,6 +111,8 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}s
-      - name: Jest
-        run: npm run test:ci
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
+      - name: Build
+        run: yarn build:clean
+      - name: Test
+        run: yarn test

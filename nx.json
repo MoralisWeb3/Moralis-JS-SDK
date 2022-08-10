@@ -1,0 +1,31 @@
+{
+  "extends": "nx/presets/npm.json",
+  "workspaceLayout": {
+    "appsDir": "demos",
+    "libsDir": "packages"
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["build", "^build"]
+    },
+    "prepare": {
+      "dependsOn": ["^prepare"]
+    },
+    "package": {
+      "dependsOn": ["^package"]
+    }
+  },
+  "affected": {
+    "defaultBase": "main"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "cacheableOperations": ["build", "format", "lint", "test"]
+      }
+    }
+  }
+}

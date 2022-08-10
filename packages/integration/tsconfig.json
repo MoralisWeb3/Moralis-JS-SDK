@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.package.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "isolatedModules": true,
+    "noUnusedLocals": false
+  },
+  "include": ["src/**/*", "test/**/*", "types/**/*"]
+}

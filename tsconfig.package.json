@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "./lib",
+    "baseUrl": ".",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "/lib",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext"],
+    "module": "CommonJS",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "preserveSymlinks": true,
+    "preserveWatchOutput": true,
+    "pretty": false,
+    "sourceMap": true,
+    "target": "es5",
+    "useUnknownInCatchVariables": false
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "**/__mocks__/*",
+    "**/test/*",
+    "**/*.test.ts",
+    "**/*/lib",
+    "**/*/lib.esm",
+    "**/*/dist",
+    "*.d.ts"
+  ]
+}
