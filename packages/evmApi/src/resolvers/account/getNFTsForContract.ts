@@ -44,7 +44,7 @@ export const getNFTsForContract = createPaginatedEndpointFactory((core) =>
           lastTokenUriSync: new Date(nft.last_token_uri_sync),
         }),
       ),
-    resultToJson: (data) => data?.map((nft) => nft.toJSON()),
+    resultToJson: (data) => data.map((nft) => nft.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

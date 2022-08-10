@@ -36,7 +36,7 @@ export const getNFTTrades = createPaginatedEndpointFactory((core) =>
           tokenIds: trade.token_ids as string[],
         }),
       ),
-    resultToJson: (data) => data?.map((trade) => trade.toJSON()),
+    resultToJson: (data) => data.map((trade) => trade.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

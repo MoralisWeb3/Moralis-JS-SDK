@@ -24,7 +24,7 @@ export const getTokenAddressTransfers = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/erc20/${params.address}/transfers`,
     apiToResult: (data: ApiResult, params: Params) =>
-      (data.result ?? [])?.map((transfer) =>
+      (data.result ?? []).map((transfer) =>
         Erc20Transfer.create({
           ...toCamelCase(transfer),
           chain: EvmChainResolver.resolve(params.chain, core),

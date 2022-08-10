@@ -40,7 +40,7 @@ export const getTransaction = createEndpointFactory((core) =>
         gas: data.gas,
         cumulativeGasUsed: data.receipt_cumulative_gas_used,
         contractAddress: data.receipt_contract_address,
-        logs: data.logs.map((log) =>
+        logs: (data.logs ?? []).map((log) =>
           EvmTransactionLog.create({
             address: log.address,
             blockHash: log.block_hash,

@@ -21,7 +21,7 @@ export const getTokenMetadataBySymbol = createEndpointFactory((core) =>
     name: 'getTokenMetadataBySymbol',
     getUrl: () => `${BASE_URL}/erc20/metadata/symbols`,
     apiToResult: (data: ApiResult, params: Params) =>
-      data.map((token) => {
+      (data ?? []).map((token) => {
         return {
           token: Erc20Token.create({
             ...toCamelCase(token),
