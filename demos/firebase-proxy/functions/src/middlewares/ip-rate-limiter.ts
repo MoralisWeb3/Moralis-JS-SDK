@@ -15,13 +15,14 @@ export class IpRateLimiter {
   ) => Promise<void>) => {
     return async (
       request: functions.https.Request,
-      response: functions.Response<T>
+      response: functions.Response
     ) => {
       const qualifier = 'ip-' + this.readNormalizedIp(request);
 
       if (await this.limiter.isQuotaExceededOrRecordUsage(qualifier)) {
-        const r = response as unknown as functions.Response<string>;
-        r.status(429).send('Too many requests!');
+        response.status(429).send({
+          error: 'Too many requests!',
+        });
         return;
       }
 
@@ -34,7 +35,7 @@ export class IpRateLimiter {
   }
 }
 
-export function ipRateLimiter(
+export function ipRateLimiterMiddleware(
   database: admin.firestore.Firestore,
   config: IpRateLimiterConfig
 ) {

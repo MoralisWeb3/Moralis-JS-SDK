@@ -4,6 +4,7 @@ This project contains a simple demo of Moralis API Proxy with the rate-limiting 
 
 Required Firebase services:
 
+- [Hosting](https://firebase.google.com/docs/hosting)
 - [Firestore](https://firebase.google.com/docs/firestore)
 - [Cloud Functions](https://firebase.google.com/docs/functions) (only in the "Pay as you go" billing plan).
 

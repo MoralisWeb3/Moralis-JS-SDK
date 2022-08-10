@@ -1,4 +1,5 @@
 node_modules/
 lib/
+.firebase/
 .env
 *-debug.log

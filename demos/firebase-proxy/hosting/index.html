@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Moralis API Proxy Demo</title>
+</head>
+<body>
+  <h1>Firebase Moralis API Proxy Demo</h1>
+  <p>This is a demo of the Firebase Moralis API Proxy.</p>
+
+  <button id="testVersionButton">Test version proxy 🚀</button>
+
+  <script src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
+  <script src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+  <script>
+    let functions;
+
+    async function testVersionClicked() {
+      const versionFn = functions.httpsCallable('version');
+      try {
+        const version = await versionFn({});
+        alert(JSON.stringify(version));
+      } catch (e) {
+        console.error(e);
+        alert(e.message);
+      }
+    }
+
+    function pageLoaded() {
+      functions = firebase.functions();
+      if (location.hostname === 'localhost') {
+        functions.useFunctionsEmulator('http://localhost:5001');
+      }
+
+      document.getElementById('testVersionButton').addEventListener('click', testVersionClicked);
+    }
+
+    window.addEventListener('load', pageLoaded);
+  </script>
+</body>
+</html>

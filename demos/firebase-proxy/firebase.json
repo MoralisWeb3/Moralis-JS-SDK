@@ -9,5 +9,13 @@
       "yarn --cwd \"$RESOURCE_DIR\" run lint",
       "yarn --cwd \"$RESOURCE_DIR\" run build"
     ]
+  },
+  "hosting": {
+    "public": "./hosting"
+  },
+  "emulators": {
+    "hosting": {
+      "port": 5555
+    }
   }
 }
