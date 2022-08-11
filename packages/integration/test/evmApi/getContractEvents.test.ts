@@ -25,7 +25,7 @@ describe('Moralis EvmApi', () => {
 
   it('should get the events of an account address', async () => {
     const result = await evmApi.native.getContractEvents({
-      chain: 'eth',
+      chain: 1,
       address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
       topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
       limit: 3,
@@ -40,7 +40,7 @@ describe('Moralis EvmApi', () => {
   it('should not get the events and return an error code for an invalid address', () => {
     expect(
       evmApi.native.getContractEvents({
-        chain: 'eth',
+        chain: 1,
         address: '0xdAC17F958D',
         topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
         limit: 3,
