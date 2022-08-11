@@ -1,3 +1,4 @@
+import { RateLimiter } from './../middlewares/rateLimiter';
 import Moralis from 'moralis';
 import express from 'express';
 import axios from 'axios';
@@ -6,13 +7,15 @@ import config from '../config';
 const evmProxyRouter = express.Router();
 
 const descriptors = Moralis.EvmApi.endpoints.getDescriptors();
+const rateLimiter = new RateLimiter(2, 30);
 
 for (const descriptor of descriptors) {
-  evmProxyRouter.route(`/${descriptor.name}`).post(async (req, res) => {
+  const urlPattern = descriptor.urlPattern.replace(/\{/g, ':').replace(/\}/g, '');
+  evmProxyRouter.route(urlPattern)[descriptor.method](async (req, res) => {
     let url = descriptor.urlPattern;
-    for (const param in req.body) {
-      if (Object.prototype.hasOwnProperty.call(req.body, param)) {
-        url = url.replace(`{${param}}`, req.body[param]);
+    for (const param in req.params) {
+      if (Object.prototype.hasOwnProperty.call(req.params, param)) {
+        url = url.replace(`{${param}}`, req.params[param]);
       }
     }
     const body = descriptor.bodyParams || {};
@@ -22,10 +25,13 @@ for (const descriptor of descriptors) {
       }
       return { ...result, [key]: req.body[key] };
     }, {});
-    await axios
+    if (!(await rateLimiter.handleRateLimit(req.ip))) {
+      return res.status(429).send('Too many requests');
+    }
+    return await axios
       .request({
         method: descriptor.method,
-        params,
+        params: { ...params, ...req.query },
         url: `${Moralis.EvmApi.baseUrl}${url}`,
         data: body,
         headers: {

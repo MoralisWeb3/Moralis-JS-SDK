@@ -1,5 +1,5 @@
 const AUTH_API_URL = 'http://localhost:1337/api/auth';
-const EVM_PROXY_URL = 'http://localhost:1337/api/evm-proxy';
+const EVM_PROXY_URL = 'http://localhost:1337/api/evm-api-proxy';
 
 const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
@@ -18,7 +18,7 @@ const handleApiPost = async (endpoint, params) => {
 };
 
 const handleEvmProxyCall = async (endpoint, params) => {
-  const result = await axios.post(`${EVM_PROXY_URL}/${endpoint}`, params, {
+  const result = await axios.get(`${EVM_PROXY_URL}/${endpoint}`, params, {
     headers: {
       'content-type': 'application/json',
     },
@@ -45,7 +45,7 @@ const verifyMessage = (message, signature) =>
 
 // proxy calls
 const web3apiVersion = () => {
-  handleEvmProxyCall('web3ApiVersion');
+  handleEvmProxyCall('web3/version');
 };
 
 const getNativeBalance = () => {
