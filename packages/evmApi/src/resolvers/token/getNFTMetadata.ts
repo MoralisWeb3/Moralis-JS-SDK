@@ -35,8 +35,8 @@ export const getNFTMetadata = createEndpointFactory((core) =>
         ...toCamelCase(data),
         chain: EvmChainResolver.resolve(params.chain, core),
         tokenAddress: EvmAddress.create(data.token_address, core),
-        syncedAt: data.synced_at ? new Date(data.synced_at) : undefined,
-        contractType: validateValidEvmContractType(data.contract_type),
+        syncedAt: data.synced_at ? new Date(data.synced_at) : null,
+        contractType: data.contract_type ? validateValidEvmContractType(data.contract_type) : null,
       }),
     resultToJson: (data) => data.toJSON(),
     parseParams: (params: Params): ApiParams => ({

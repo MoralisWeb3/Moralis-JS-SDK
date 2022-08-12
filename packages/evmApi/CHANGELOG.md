@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.0.1
+
+### Patch Changes
+
+- [#579](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/579) [`30f69c3`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/30f69c3d6aa75641945e0af611d84756ae002edf) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Nullable `contractType` for the getNFTMetadata() method support.
+
+- Updated dependencies [[`30f69c3`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/30f69c3d6aa75641945e0af611d84756ae002edf)]:
+  - @moralisweb3/evm-utils@2.0.1
+  - @moralisweb3/core@2.0.1
+  - @moralisweb3/api-utils@2.0.1
+
 ## 2.0.0
 
 ### Major Changes
