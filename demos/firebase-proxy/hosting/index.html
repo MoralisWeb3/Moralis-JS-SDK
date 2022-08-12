@@ -7,28 +7,103 @@
 </head>
 <body>
   <h1>Firebase Moralis API Proxy Demo</h1>
+
   <p>This is a demo of the Firebase Moralis API Proxy.</p>
 
-  <button id="testProxyButton">Test proxy 🚀</button>
+  <h4>User's Functions</h4>
+
+  <button id="getTimeButton">getTime 💡</button>
+
+  <h4>Evm Proxy</h4>
+
+  <button id="getBlockButton">getBlock 🚀</button>
+  <button id="runContractFunctionButton">runContractFunction 🚀</button>
+  <button id="getNFTMetadataButton">getNFTMetadata 🚀</button>
+  <button id="web3ApiVersionButton">web3ApiVersion 🚀</button>
+
+  <h4>Solana Proxy</h4>
+
+  <button id="getPortfolioButton">getPortfolio 🚀</button>
 
   <script src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
   <script src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
   <script src="/__/firebase/init.js"></script>
 
   <script>
+    const ERC721_MINI_ABI = [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "balance",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ];
+
     let functions;
 
-    async function testProxyClicked() {
-      const getNFTMetadataFn = functions.httpsCallable('getNFTMetadata');
-      try {
-        const metadata = await getNFTMetadataFn({
-          address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB'
-        });
-        alert(JSON.stringify(metadata));
-      } catch (e) {
-        console.error(e);
-        alert(e.message);
-      }
+    function testGetTime() {
+      return functions.httpsCallable('getTime')();
+    }
+
+    function testGetBlock() {
+      return functions.httpsCallable('evmApi-getBlock')({
+        chain: '0x1',
+        blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
+      });
+    }
+
+    function testRunContractFunction() {
+      return functions.httpsCallable('evmApi-runContractFunction')({
+        chain: 'eth',
+        function_name: 'balanceOf',
+        address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+        abi: ERC721_MINI_ABI,
+        params: {
+          owner: '0xdbfd76af2157dc15ee4e57f3f942bb45ba84af24'
+        }
+      });
+    }
+
+    function testGetNFTMetadata() {
+      return functions.httpsCallable('evmApi-getNFTMetadata')({
+        address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
+      });
+    }
+
+    function testVersion() {
+      return functions.httpsCallable('evmApi-web3ApiVersion')({});
+    }
+
+    function testGetPortfolio() {
+      return functions.httpsCallable('solApi-getPortfolio')({
+        network: 'mainnet',
+        address: 'DEjfb5P8kgsdDgqoQ7DGKzLuNLKMEJWiyZV8HVUaR7Ri',
+      });
+    }
+
+    function bindButton(id, handler) {
+      document.getElementById(id).addEventListener('click', async () => {
+        try {
+          const result = await handler();
+          alert(JSON.stringify(result));
+        } catch (e) {
+          console.error(e);
+          alert(e.message);
+        }
+      });
     }
 
     function pageLoaded() {
@@ -37,7 +112,12 @@
         functions.useFunctionsEmulator('http://localhost:5001');
       }
 
-      document.getElementById('testProxyButton').addEventListener('click', testProxyClicked);
+      bindButton('getTimeButton', testGetTime);
+      bindButton('getBlockButton', testGetBlock);
+      bindButton('runContractFunctionButton', testRunContractFunction);
+      bindButton('getNFTMetadataButton', testGetNFTMetadata);
+      bindButton('web3ApiVersionButton', testVersion);
+      bindButton('getPortfolioButton', testGetPortfolio);
     }
 
     window.addEventListener('load', pageLoaded);

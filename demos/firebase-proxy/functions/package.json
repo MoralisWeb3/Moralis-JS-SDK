@@ -17,6 +17,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "moralis": "^2.0.0",
+    "@moralisweb3/firebase": "^2.0.0",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
     "firebase-functions-rate-limiter": "^3.9.1"

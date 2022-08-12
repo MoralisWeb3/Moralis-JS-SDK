@@ -10,6 +10,7 @@ export interface EndpointDescriptor {
   name: string;
   urlPatternParamNames: string[];
   urlPattern: string;
+  bodyParamNames: string[];
   method: EndpointMethod;
 }
 
@@ -59,6 +60,7 @@ export class Endpoints {
         urlPatternParamNames,
         urlPattern,
         method: endpoint.method || 'get',
+        bodyParamNames: endpoint.bodyParams ? endpoint.bodyParams.map(String) : [],
       };
     });
   }

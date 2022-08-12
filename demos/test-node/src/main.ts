@@ -22,7 +22,7 @@ async function main() {
       blockNumberOrHash: '15305775',
       chain: '0x1',
     })
-    .then((result) => console.log(result.result));
+    .then(result => console.log(result.result));
 }
 
 main();
