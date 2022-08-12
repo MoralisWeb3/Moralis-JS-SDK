@@ -9,13 +9,13 @@ export class EndpointProxy {
     const apiKey = this.config.get(ApiConfig.apiKey) as string;
 
     let url = this.baseUrl + descriptor.urlPattern;
-    descriptor.urlPatternParamNames.forEach(name => {
+    descriptor.urlPatternParamNames.forEach((name) => {
       url = url.replace(`{${name}}`, String(data[name]));
     });
 
     const searchParams: Record<string, unknown> = {};
     const bodyParams: Record<string, unknown> = {};
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       if (descriptor.bodyParamNames.includes(key)) {
         bodyParams[key] = data[key];
       } else if (!descriptor.urlPatternParamNames.includes(key)) {

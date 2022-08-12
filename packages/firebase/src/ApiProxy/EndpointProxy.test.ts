@@ -45,7 +45,7 @@ describe('ApiProxy', () => {
       omega: 'cat',
     };
 
-    const requestSpy = mockRequest(data, request => {
+    const requestSpy = mockRequest(data, (request) => {
       expect(request.method).toBe('post');
       expect(request.headers && request.headers['x-api-key']).toEqual(API_KEY);
       expect(request.url).toBe(`${baseUrl}/x/red/blue`);

@@ -17,7 +17,7 @@ export function createEvmApiProxy(
 
   const descriptors = Moralis.EvmApi.endpoints
     .getDescriptors()
-    .filter(descriptor => endpointNames.includes(descriptor.name as EvmApiEndpointName));
+    .filter((descriptor) => endpointNames.includes(descriptor.name as EvmApiEndpointName));
 
   const proxy = new EndpointProxy(baseUrl, finalCore.config);
   return createApiProxy(descriptors, proxy, userMiddleware);

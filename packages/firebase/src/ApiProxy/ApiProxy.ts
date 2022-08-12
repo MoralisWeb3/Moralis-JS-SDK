@@ -25,7 +25,7 @@ export function createApiProxy(
   userMiddleware: OnCallMiddleware | null,
 ): FirebaseFunctions {
   return descriptors.reduce((fn: FirebaseFunctions, descriptor) => {
-    let handler: OnCallHandler = data => proxy.handler(descriptor, data);
+    let handler: OnCallHandler = (data) => proxy.handler(descriptor, data);
     handler = unhandledErrorMiddleware(handler);
     if (userMiddleware) {
       handler = userMiddleware(handler);

@@ -17,7 +17,7 @@ export function createSolApiProxy(
 
   const descriptors = Moralis.SolApi.endpoints
     .getDescriptors()
-    .filter(descriptor => endpointNames.includes(descriptor.name as SolApiEndpointName));
+    .filter((descriptor) => endpointNames.includes(descriptor.name as SolApiEndpointName));
 
   const proxy = new EndpointProxy(baseUrl, finalCore.config);
   return createApiProxy(descriptors, proxy, userMiddleware);
