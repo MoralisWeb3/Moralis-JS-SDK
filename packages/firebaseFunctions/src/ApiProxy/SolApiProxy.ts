@@ -1,7 +1,6 @@
 import { MoralisCore, ApiModule, MoralisCoreProvider } from '@moralisweb3/core';
 import { MoralisSolApi } from '@moralisweb3/sol-api';
 import { EndpointProxy } from './EndpointProxy';
-import Moralis from 'moralis';
 import { createApiProxy, FirebaseFunctions, OnCallMiddleware } from './ApiProxy';
 
 type SolApiDomains = Exclude<keyof MoralisSolApi, keyof ApiModule | 'endpoints'>;
@@ -13,12 +12,12 @@ export function createSolApiProxy(
   core?: MoralisCore,
 ): FirebaseFunctions {
   const finalCore = core ?? MoralisCoreProvider.getDefault();
-  const baseUrl = finalCore.getModule<MoralisSolApi>(MoralisSolApi.moduleName).baseUrl;
+  const solApi = finalCore.getModule<MoralisSolApi>(MoralisSolApi.moduleName);
 
-  const descriptors = Moralis.SolApi.endpoints
+  const descriptors = solApi.endpoints
     .getDescriptors()
     .filter((descriptor) => endpointNames.includes(descriptor.name as SolApiEndpointName));
 
-  const proxy = new EndpointProxy(baseUrl, finalCore.config);
+  const proxy = new EndpointProxy(solApi.baseUrl, finalCore.config);
   return createApiProxy(descriptors, proxy, userMiddleware);
 }

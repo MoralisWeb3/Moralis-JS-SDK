@@ -1,6 +1,5 @@
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
-import Moralis from 'moralis';
 import { EndpointProxy } from './EndpointProxy';
 import { createApiProxy, FirebaseFunctions, OnCallMiddleware } from './ApiProxy';
 
@@ -13,12 +12,12 @@ export function createEvmApiProxy(
   core?: MoralisCore,
 ): FirebaseFunctions {
   const finalCore = core ?? MoralisCoreProvider.getDefault();
-  const baseUrl = finalCore.getModule<MoralisEvmApi>(MoralisEvmApi.moduleName).baseUrl;
+  const evmApi = finalCore.getModule<MoralisEvmApi>(MoralisEvmApi.moduleName);
 
-  const descriptors = Moralis.EvmApi.endpoints
+  const descriptors = evmApi.endpoints
     .getDescriptors()
     .filter((descriptor) => endpointNames.includes(descriptor.name as EvmApiEndpointName));
 
-  const proxy = new EndpointProxy(baseUrl, finalCore.config);
+  const proxy = new EndpointProxy(evmApi.baseUrl, finalCore.config);
   return createApiProxy(descriptors, proxy, userMiddleware);
 }
