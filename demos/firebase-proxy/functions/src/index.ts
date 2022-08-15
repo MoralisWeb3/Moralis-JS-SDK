@@ -34,6 +34,6 @@ export const solApi = createSolApiProxy([
   'getPortfolio',
 ], ipRateLimiter);
 
-export const getTime = functions.https.onCall(() => {
+export const getTime = functions.https.onCall(ipRateLimiter(async () => {
   return Date.now();
-});
+}));
