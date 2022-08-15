@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
-import { EvmChainish, EvmTransactionReceipt } from '@moralisweb3/evm-utils';
+import { EvmChainish, EvmTransaction, EvmTransactionLog } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -20,15 +20,28 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 export const getTransaction = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTransaction',
+    urlParams: ['transactionHash'],
     getUrl: (params: Params) => `${BASE_URL}/transaction/${params.transactionHash}`,
     apiToResult: (data: ApiResult, params: Params) => {
-      const transactionReciept = EvmTransactionReceipt.create(
-        {
-          // Transaction Receipt data
-          cumulativeGasUsed: data.receipt_cumulative_gas_used,
-          gasPrice: data.gas_price,
-          gasUsed: data.receipt_gas_used,
-          logs: data.logs.map((log) => ({
+      return EvmTransaction.create({
+        from: data.from_address,
+        to: data.to_address,
+        value: data.value,
+        gasPrice: data.gas_price,
+        gasUsed: data.receipt_gas_used,
+        data: data.input,
+        nonce: data.nonce,
+        blockHash: data.block_hash,
+        blockNumber: data.block_number,
+        blockTimestamp: data.block_timestamp,
+        index: data.transaction_index,
+        chain: EvmChainResolver.resolve(params.chain, core),
+        hash: data.hash,
+        gas: data.gas,
+        cumulativeGasUsed: data.receipt_cumulative_gas_used,
+        contractAddress: data.receipt_contract_address,
+        logs: (data.logs ?? []).map((log) =>
+          EvmTransactionLog.create({
             address: log.address,
             blockHash: log.block_hash,
             blockNumber: +log.block_number,
@@ -39,36 +52,11 @@ export const getTransaction = createEndpointFactory((core) =>
             blockTimestamp: log.block_timestamp,
             logIndex: +log.log_index,
             transactionIndex: +log.transaction_index,
-          })),
-          transactionIndex: +data.transaction_index,
-          contractAddress: data.receipt_contract_address,
-          root: data.receipt_root,
-          status: +data.receipt_status,
-        },
-        {
-          // Transaction Response data
-          chain: EvmChainResolver.resolve(params.chain, core),
-          data: data.input,
-          from: data.from_address,
-          hash: data.hash,
-          nonce: data.nonce,
-          value: data.value,
-          blockHash: data.block_hash,
-          blockNumber: +data.block_number,
-          blockTimestamp: new Date(data.block_timestamp),
-          gasPrice: data.gas_price,
-          gasLimit: data.gas,
-          to: data.to_address,
-          // Not specified in Api response
-          accessList: undefined,
-          confirmations: undefined,
-          maxFeePerGas: undefined,
-          maxPriorityFeePerGas: undefined,
-          type: undefined,
-        },
-      );
-
-      return transactionReciept;
+          }),
+        ),
+        receiptRoot: data.receipt_root,
+        receiptStatus: data.receipt_status,
+      });
     },
     resultToJson: (data) => data.toJSON(),
     parseParams: (params: Params): ApiParams => ({

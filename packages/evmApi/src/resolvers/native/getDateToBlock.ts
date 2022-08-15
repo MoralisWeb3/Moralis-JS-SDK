@@ -1,4 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import { dateInputToDate } from '@moralisweb3/core';
 import { EvmChainish } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
@@ -26,7 +27,7 @@ export const getDateToBlock = createEndpointFactory((core) =>
     }),
     resultToJson: (data) => ({
       ...data,
-      date: data.date.toLocaleDateString(),
+      date: dateInputToDate(data.date),
     }),
     parseParams: (params: Params): ApiParams => ({
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

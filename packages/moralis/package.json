@@ -1,15 +1,14 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts"
+    "lib/*"
   ],
   "scripts": {
     "format": "prettier . \"**/*.+(js|ts|json)\" --write",
@@ -20,11 +19,11 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@moralisweb3/auth": "^2.0.0-alpha.4",
-    "@moralisweb3/core": "^2.0.0-alpha.4",
-    "@moralisweb3/api-utils": "^2.0.0-alpha.4",
-    "@moralisweb3/evm-api": "^2.0.0-alpha.4",
-    "@moralisweb3/evm-utils": "^2.0.0-alpha.4",
-    "@moralisweb3/sol-api": "^2.0.0-alpha.4"
+    "@moralisweb3/auth": "^2.0.1",
+    "@moralisweb3/core": "^2.0.1",
+    "@moralisweb3/api-utils": "^2.0.1",
+    "@moralisweb3/evm-api": "^2.0.1",
+    "@moralisweb3/evm-utils": "^2.0.1",
+    "@moralisweb3/sol-api": "^2.0.1"
   }
 }

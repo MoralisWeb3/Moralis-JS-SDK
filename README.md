@@ -26,12 +26,24 @@
 
 ---
 
-# 🚨 Beta version
+# 🚨 Alpha version
 
-> **Important: Do not use this beta version in production**
+> **Important: Do not use this alpha version in production**
 >
-> This version is an **beta** release and is under active development. For questions or feedback, post an issue or post in our [forum](http://forum.moralis.io)
+> This version is an **alpha** release and is under active development. Expect breaking changes until it is out of alpha.
 
+Current Features in this alpha build:
+
+- [x] Support for NodeJs
+- [x] Evm Api
+- [x] Solana Api
+- [x] Authentication
+
+Coming up:
+
+- [ ] Sync
+
+---
 
 **Features**:
 

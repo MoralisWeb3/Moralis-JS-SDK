@@ -1,4 +1,4 @@
-import { EndpointFactory, EndpointResolver } from '@moralisweb3/api-utils';
+import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { SolApiConfigSetup } from './config/SolApiConfigSetup';
 import { getBalance } from './resolvers/account/getBalance';
@@ -28,18 +28,16 @@ export class MoralisSolApi extends ApiModule {
     // Nothing
   }
 
+  public readonly endpoints = new Endpoints(this.core, BASE_URL);
+
   public readonly account = {
-    getBalance: this.createFetcher(getBalance),
-    getNFTs: this.createFetcher(getNFTs),
-    getPortfolio: this.createFetcher(getPortfolio),
-    getSPL: this.createFetcher(getSPL),
+    getBalance: this.endpoints.createFetcher(getBalance),
+    getNFTs: this.endpoints.createFetcher(getNFTs),
+    getPortfolio: this.endpoints.createFetcher(getPortfolio),
+    getSPL: this.endpoints.createFetcher(getSPL),
   };
 
   public readonly nft = {
-    getNFTMetadata: this.createFetcher(getNFTMetadata),
+    getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
   };
-
-  private createFetcher<AP, P, AR, ADR, JR>(factory: EndpointFactory<AP, P, AR, ADR, JR>) {
-    return EndpointResolver.create(this.core, factory).fetch;
-  }
 }

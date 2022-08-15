@@ -20,8 +20,12 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
 export const getPortfolio = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPortfolio',
+    urlParams: ['network', 'address'],
     getUrl: (params: Params) => {
-      const network = SolNetworkResolver.resolve(params.network, core);
+      // TODO: here should be: const network = SolNetworkResolver.resolve(params.network, core);
+      // but it's not working with Endpoints.getDescriptors(). After changes described in Endpoints
+      // please replace this line.
+      const network = params.network ? params.network : SolNetworkResolver.resolve(undefined, core);
       return `${BASE_URL}/account/${network}/${params.address}/portfolio`;
     },
     apiToResult: (data: ApiResult) => {

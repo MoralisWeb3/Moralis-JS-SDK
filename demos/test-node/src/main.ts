@@ -2,9 +2,6 @@
 
 import Moralis from 'moralis';
 import dotenv from 'dotenv';
-import { getTestStats } from './Tester';
-import { testSolanaAccount, testSolanaNft } from './SolApi';
-import { testEvmAccount, testEvmInfo, testEvmResolve } from './EvmApi';
 
 function readEnv(): { [key: string]: string } {
   return dotenv.config().parsed as { [key: string]: string };
@@ -18,13 +15,14 @@ async function main() {
     apiKey: env['MORALIS_API_KEY'],
   });
 
-  await Promise.all([testSolanaAccount(), testSolanaNft(), testEvmInfo(), testEvmAccount(), testEvmResolve()]);
+  // console.log(Moralis.EvmApi.endpoints);
 
-  const stats = getTestStats();
-  console.log(`⏩ successCount = ${stats.successCount}`);
-  console.log(`⏩ errorCount = ${stats.errorCount}`);
-
-  process.exitCode = Math.min(1, stats.errorCount);
+  Moralis.EvmApi.native
+    .getBlock({
+      blockNumberOrHash: '15305775',
+      chain: '0x1',
+    })
+    .then((result) => console.log(result.result));
 }
 
 main();

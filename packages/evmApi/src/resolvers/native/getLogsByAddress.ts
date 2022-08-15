@@ -20,9 +20,10 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getLogsByAddress = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getLogsByAddress',
+    urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.address}/logs`,
     apiToResult: (data: ApiResult) =>
-      data.result?.map(
+      (data.result ?? []).map(
         (log) =>
           new EvmTransactionLog({
             ...toCamelCase(log),
@@ -31,7 +32,7 @@ export const getLogsByAddress = createPaginatedEndpointFactory((core) =>
             blockNumber: Number(log.block_number),
           }),
       ),
-    resultToJson: (data) => data?.map((log) => log.toJSON()),
+    resultToJson: (data) => data.map((log) => log.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

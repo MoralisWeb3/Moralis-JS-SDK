@@ -21,6 +21,7 @@ interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 export const getTokenPrice = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenPrice',
+    urlParams: ['address'],
     getUrl: (params: ApiParams) => `${BASE_URL}/erc20/${params.address}/price`,
     apiToResult: (data: ApiResult) => ({
       ...toCamelCase(data),

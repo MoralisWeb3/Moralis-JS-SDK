@@ -1,115 +1,92 @@
-import { accessListify } from '@ethersproject/transactions';
-import { MoralisDataObject, maybe, MoralisCoreError, CoreErrorCode, BigNumber } from '@moralisweb3/core';
+import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
-import { EvmTransactionResponse } from '../EvmTransactionResponse/EvmTransactionResponse';
 import { EvmNative } from '../EvmNative';
-import { EvmTransactionInput, EvmTransactionData, EthersJsTransactionRequest } from './EvmTransactionTypes';
+import { EvmTransactionLog } from '../EvmTransactionLog';
+import { EvmTransacionInput, EvmTransactionData } from './types';
 
-export type EvmTransactionish = EvmTransactionInput | EvmTransaction;
+export type EvmTransactionish = EvmTransacionInput | EvmTransaction;
 
-/**
- * The EvmTransaction class is a MoralisData that references an Evm transaction request,
- * that is meant to be sent to the network.
- *
- * @see EvmTransactionResponse for a published transaction that has been sent to the network
- * @see EvmTransactionReceipt for a confirmed transaction
- */
 export class EvmTransaction implements MoralisDataObject {
-  private _value;
-  private _sendCall;
+  private _data: EvmTransactionData;
 
-  constructor(value: EvmTransactionInput, sendCall?: (value: EvmTransaction) => Promise<EvmTransactionResponse>) {
-    this._value = EvmTransaction.parse(value);
-    this._sendCall = sendCall;
+  constructor(data: EvmTransacionInput) {
+    this._data = EvmTransaction.parse(data);
   }
 
-  static create(
-    transaction: EvmTransactionish,
-    sendCall?: (value: EvmTransaction) => Promise<EvmTransactionResponse>,
-  ): EvmTransaction {
-    if (transaction instanceof EvmTransaction) {
-      return transaction;
+  static parse = (data: EvmTransacionInput): EvmTransactionData => ({
+    from: maybe(data.from, EvmAddress.create),
+    to: maybe(data.to, EvmAddress.create),
+    nonce: maybe(data.nonce, BigNumber.create),
+    data: maybe(data.data),
+    value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
+    hash: data.hash,
+
+    type: maybe(data.type),
+    chain: EvmChain.create(data.chain),
+
+    gas: maybe(data.gas, BigNumber.create),
+    gasPrice: BigNumber.create(data.gasPrice),
+
+    index: +data.index,
+    blockNumber: BigNumber.create(data.blockNumber),
+    blockHash: data.blockHash,
+    blockTimestamp: dateInputToDate(data.blockTimestamp),
+
+    cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
+    gasUsed: BigNumber.create(data.gasUsed),
+
+    contractAddress: maybe(data.contractAddress, EvmAddress.create),
+    receiptRoot: maybe(data.receiptRoot),
+    receiptStatus: maybe(data.receiptStatus, (status) => +status),
+
+    logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
+  });
+
+  static create(data: EvmTransactionish) {
+    if (data instanceof EvmTransaction) {
+      return data;
     }
 
-    return new EvmTransaction(transaction, sendCall);
+    return new EvmTransaction(data);
   }
 
-  static parse(value: EvmTransactionInput): EvmTransactionData {
-    return {
-      to: maybe(value.to, EvmAddress.create),
-      from: maybe(value.from, EvmAddress.create),
-      nonce: maybe(value.nonce, BigNumber.create),
+  static equals(dataA: EvmTransactionish, dataB: EvmTransactionish) {
+    const transactionA = EvmTransaction.create(dataA);
+    const transactionB = EvmTransaction.create(dataB);
 
-      gasLimit: maybe(value.gasLimit, BigNumber.create),
-      gasPrice: maybe(value.gasPrice, BigNumber.create),
-
-      data: maybe(value.data),
-      value: maybe(value.value, (val) => EvmNative.create(val, 'wei')),
-      chain: maybe(value.chain, EvmChain.create),
-
-      type: maybe(value.type),
-      accessList: maybe(value.accessList, accessListify),
-
-      maxPriorityFeePerGas: maybe(value.maxPriorityFeePerGas, BigNumber.create),
-      maxFeePerGas: maybe(value.maxFeePerGas, BigNumber.create),
-    };
-  }
-
-  static equals(providedTransactionA: EvmTransactionish, providedTransactionB: EvmTransactionish) {
-    const transactionA = EvmTransaction.create(providedTransactionA);
-    const transactionB = EvmTransaction.create(providedTransactionB);
-
-    if (JSON.stringify(transactionA.toJSON()) === JSON.stringify(transactionB.toJSON())) {
-      return true;
+    if (!transactionA._data.chain.equals(transactionB._data.chain)) {
+      return false;
     }
 
-    return false;
-  }
-
-  equals(value: EvmTransactionish): boolean {
-    return EvmTransaction.equals(this, value);
-  }
-
-  toEthRequest(): EthersJsTransactionRequest {
-    const { chain, ...value } = this._value;
-
-    return {
-      ...value,
-      to: value.to?.checksum,
-      from: value.from?.checksum,
-      chainId: chain?.decimal,
-      value: value.value?.format(),
-    };
-  }
-
-  send = () => {
-    if (!this._sendCall) {
-      throw new MoralisCoreError({
-        code: CoreErrorCode.GENERIC_CORE_ERROR,
-        message: 'Cannot send transaction, no supported call method provided',
-      });
+    if (transactionA._data.hash !== transactionB._data.hash) {
+      return false;
     }
-    return this._sendCall(this);
-  };
+
+    return true;
+  }
+
+  equals(data: EvmTransactionish): boolean {
+    return EvmTransaction.equals(this, data);
+  }
 
   toJSON() {
-    const value = this._value;
-
-    const out = {
-      ...value,
-      to: value.to?.format(),
-      from: value.from?.format(),
-      nonce: value.nonce?.toString(),
-      gasLimit: value.gasLimit?.toString(),
-      gasPrice: value.gasPrice?.toString(),
-      value: value.value?.toString(),
-      chain: value.chain?.format(),
-      maxPriorityFeePerGas: value.maxPriorityFeePerGas?.toString(),
-      maxFeePerGas: value.maxFeePerGas?.toString(),
+    const data = this._data;
+    return {
+      ...data,
+      to: data.to?.format(),
+      from: data.from?.format(),
+      nonce: data.nonce?.toString(),
+      gas: data.gas?.toString(),
+      gasPrice: data.gasPrice?.toString(),
+      gasUsed: data.gasUsed?.toString(),
+      cumulativeGasUsed: data.cumulativeGasUsed?.toString(),
+      blockNumber: data.blockNumber?.toString(),
+      value: data.value?.toString(),
+      chain: data.chain?.format(),
+      contractAddress: data.contractAddress?.format(),
+      logs: data.logs.map((log) => log.toJSON()),
     };
-
-    return out;
   }
 
   format() {
@@ -117,6 +94,6 @@ export class EvmTransaction implements MoralisDataObject {
   }
 
   get result() {
-    return this._value;
+    return this._data;
   }
 }

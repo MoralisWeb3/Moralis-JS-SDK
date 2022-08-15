@@ -1,28 +1,7 @@
 import { MoralisDataObject, maybe } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish } from '../EvmAddress';
-import { EvmChain, EvmChainish } from '../EvmChain';
-
-export interface Erc20Input {
-  decimals: number | string;
-  name: string;
-  symbol: string;
-  contractAddress: EvmAddressish;
-  chain: EvmChainish;
-  logo?: string | null;
-  logoHash?: string | null;
-  thumbnail?: string | null;
-}
-
-interface Erc20Data {
-  decimals: number;
-  name: string;
-  symbol: string;
-  contractAddress: EvmAddress;
-  chain: EvmChain;
-  logo?: string | null;
-  logoHash?: string | null;
-  thumbnail?: string | null;
-}
+import { EvmAddress } from '../EvmAddress';
+import { EvmChain } from '../EvmChain';
+import { Erc20Input, Erc20Data } from './types';
 
 export type Erc20Tokenish = Erc20Input | Erc20Token;
 
@@ -69,6 +48,38 @@ export class Erc20Token implements MoralisDataObject {
     }
 
     return true;
+  }
+
+  get decimals() {
+    return this._value.decimals;
+  }
+
+  get name() {
+    return this._value.name;
+  }
+
+  get symbol() {
+    return this._value.symbol;
+  }
+
+  get contractAddress() {
+    return this._value.contractAddress;
+  }
+
+  get chain() {
+    return this._value.chain;
+  }
+
+  get logo() {
+    return this._value.logo;
+  }
+
+  get logoHash() {
+    return this._value.logoHash;
+  }
+
+  get thumbnail() {
+    return this._value.thumbnail;
   }
 
   equals(value: Erc20Tokenish): boolean {

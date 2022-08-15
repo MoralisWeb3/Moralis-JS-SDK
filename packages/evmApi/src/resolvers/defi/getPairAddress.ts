@@ -22,11 +22,12 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'token0_addre
 export const getPairAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairAddress',
+    urlParams: ['token0Address', 'token1Address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.token0Address}/${params.token1Address}/pairAddress`,
     apiToResult: (data: ApiResult, params: Params) => ({
       //   ApiResult types generated all come as undefined which should not be the case TODO:
       token0: {
-        token: new Erc20Token({
+        token: Erc20Token.create({
           contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address) : '',
           decimals: data.token0?.decimals ?? 0,
           name: data.token0?.name ?? '',
@@ -37,7 +38,7 @@ export const getPairAddress = createEndpointFactory((core) =>
         }),
         blockNumber: data.token0?.block_number,
         validated: data.token0?.validated,
-        created_at: data.token0?.created_at ? new Date(data.token0?.created_at) : undefined,
+        createdAt: data.token0?.created_at ? new Date(data.token0?.created_at) : undefined,
       },
       token1: {
         token: new Erc20Token({
@@ -51,11 +52,22 @@ export const getPairAddress = createEndpointFactory((core) =>
         }),
         blockNumber: data.token1?.block_number,
         validated: data.token1?.validated,
-        created_at: data.token1?.created_at ? new Date(data.token1?.created_at) : undefined,
+        createdAt: data.token1?.created_at ? new Date(data.token1?.created_at) : undefined,
       },
       pairAddress: data.pairAddress ? EvmAddress.create(data.pairAddress) : undefined,
     }),
-    resultToJson: (data) => data,
+    resultToJson: (data) => ({
+      ...data,
+      token0: {
+        ...data.token0,
+        token: data.token0.token.toJSON(),
+      },
+      token1: {
+        ...data.token1,
+        token: data.token1.token.toJSON(),
+      },
+      pairAddress: data.pairAddress ? data.pairAddress.format() : undefined,
+    }),
     parseParams: (params: Params): ApiParams => ({
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
       token0_address: EvmAddress.create(params.token0Address, core).lowercase,

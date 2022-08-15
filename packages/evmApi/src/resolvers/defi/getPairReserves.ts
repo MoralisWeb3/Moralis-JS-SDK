@@ -16,16 +16,12 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'pair_address
   pairAddress: EvmAddressish;
 }
 
-// TODO: use swagger results when the types have been fixed
-// type GeneratedApiResult = operations[operation]['responses']['200']['content']['application/json'];
-type ApiResult = {
-  reserve0: string;
-  reserve1: string;
-};
+type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
 export const getPairReserves = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairReserves',
+    urlParams: ['pairAddress'],
     getUrl: (params: Params) => `${BASE_URL}/${params.pairAddress}/reserves`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
