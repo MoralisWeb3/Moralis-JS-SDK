@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import Moralis from 'moralis';
-import {createEvmApiProxy, createSolApiProxy} from '@moralisweb3/firebase';
+import {createEvmApiProxy, createSolApiProxy} from '@moralisweb3/firebase-functions';
 import {ipRateLimiterMiddleware} from './middlewares/ip-rate-limiter';
 
 const app = admin.initializeApp(functions.config().firebase);

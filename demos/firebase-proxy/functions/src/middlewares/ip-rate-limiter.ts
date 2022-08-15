@@ -1,4 +1,4 @@
-import {FirebaseFunctionData, OnCallHandler} from '@moralisweb3/firebase';
+import {FirebaseFunctionData, OnCallHandler} from '@moralisweb3/firebase-functions';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {FirebaseFunctionsRateLimiter} from 'firebase-functions-rate-limiter';
