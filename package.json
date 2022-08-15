@@ -42,7 +42,8 @@
     "packages": [
       "packages/*",
       "demos/*",
-      "demos/firebase-proxy/*"
+      "demos/firebase-proxy/*",
+      "demos/firebase-auth/*"
     ]
   },
   "dependencies": {}
