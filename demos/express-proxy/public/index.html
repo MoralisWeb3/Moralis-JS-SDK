@@ -4,19 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo Auth parse-server</title>
+    <title>Demo Express proxy</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
   </head>
   <body>
     <header>
-      <h1>Demo Auth parse-server</h1>
+      <h1>Demo Express proxy</h1>
     </header>
     <main>
       <div id="error"></div>
-      <button class="btn" id="auth-metamask">Authenticate via Metamask</button>
-      <div id="user"></div>
+      <h2>Demo EVM API proxy</h2>
+      <button class="btn" id="evm-endpoint-weights">Endpoint weights</button>
+      <button class="btn" id="evm-version">web3api version</button>
+      <button class="btn" id="evm-native-balance">get evm native balance</button>
+
+      <h2>Demo Solana API proxy</h2>
+      <button class="btn" id="solana-native-balance">get solana native balance</button>
+
+      <div id="result"></div>
     </main>
 
     <!-- Fix for undefined export: https://bobbyhadz.com/blog/typescript-uncaught-referenceerror-exports-is-not-defined -->
