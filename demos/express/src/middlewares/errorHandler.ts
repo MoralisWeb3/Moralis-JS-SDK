@@ -1,9 +1,9 @@
-import { MoralisError } from '@moralisweb3/core';
+import { MoralisError, isMoralisError } from '@moralisweb3/core';
 import { NextFunction, Request, Response } from 'express';
 import { AxiosError } from 'axios';
 
 export function errorHandler(error: Error | MoralisError, req: Request, res: Response, next: NextFunction) {
-  if (error instanceof MoralisError) {
+  if (isMoralisError(error)) {
     const errorResponse = error.details?.response;
     const errorResponseData =
       typeof errorResponse == 'object' ? (error.details?.response as Record<string, any>).data : null;

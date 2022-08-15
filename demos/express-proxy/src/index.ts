@@ -1,7 +1,7 @@
 import Moralis from 'moralis';
 import express from 'express';
 import cors from 'cors';
-import { errorHandler } from './middlewares/errorHandler';
+import { errorHandler } from '@moralisweb3/express';
 import config from './config';
 import { apiRouter } from './apiRouter';
 

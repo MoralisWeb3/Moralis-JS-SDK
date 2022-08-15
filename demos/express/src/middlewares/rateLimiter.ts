@@ -1,17 +1,21 @@
 import { createClient } from 'redis';
-import config from '../config';
 
 const DEFAULT_REDIS_TTL = 30; // 30 seconds
 
 export class RateLimiter {
-  constructor(private maxRequests: number, private ttl: number = DEFAULT_REDIS_TTL) {
+  constructor(
+    private url: string,
+    private maxRequests: number,
+    private ttl: number = DEFAULT_REDIS_TTL,
+    private api: string,
+  ) {
     this.redisClient.connect();
   }
   private redisClient = createClient({
-    url: config.REDIS_URL,
+    url: this.url,
   });
 
-  private getRateLimitKeys = (identifier: string) => `ratelimit_${identifier}`;
+  private getRateLimitKeys = (identifier: string) => `${this.api}_ratelimit_${identifier}`;
 
   private checkStatus = async (identifier: string, requestLimit: number) => {
     const key = this.getRateLimitKeys(identifier);

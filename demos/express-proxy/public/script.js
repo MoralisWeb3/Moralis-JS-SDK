@@ -18,6 +18,16 @@ const handleEvmProxyCall = async (endpoint, params) => {
   renderResult(result.data);
 };
 
+const handleSolanaProxyCall = async (endpoint, params) => {
+  const result = await axios.get(`${SOLANA_PROXY_URL}/${endpoint}`, params, {
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+
+  renderResult(result.data);
+};
+
 // evm api proxy calls
 const web3apiVersion = () => {
   handleEvmProxyCall('web3/version');
@@ -33,7 +43,7 @@ const getEvmNativeBalance = () => {
 
 // solana api proxy calls
 const getSolanaNativeBalance = () => {
-  handleEvmProxyCall('0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7/balance?network=mainnet');
+  handleSolanaProxyCall('account/mainnet/A8rFZ2Y3Kcr2A84A23f3z3rw47BTNp5haxYCUwUE8bCU/balance');
 };
 
 const renderResult = (result) => {
