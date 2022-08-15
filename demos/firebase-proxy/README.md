@@ -21,7 +21,7 @@ Required Firebase services:
 
 1. [Install Java](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html) on your computer. Functions Emulator requires Java.
 2. Run emulators: `firebase emulators:start`
-3. Open `http://localhost:4000/` in your browser.
+3. Open `http://localhost:5555/` in your browser.
 
 ### 🔥 Deploy to Production
 
