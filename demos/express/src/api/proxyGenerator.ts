@@ -65,7 +65,13 @@ export class ProxyGenerator {
             url = url.replace(`{${param}}`, req.params[param]);
           }
         }
-        const body = descriptor.bodyParams || {};
+        const body = Object.keys(req.body).reduce((result, key) => {
+          if (descriptor.bodyParamNames.includes(key)) {
+            return { ...result, [key]: req.body[key] };
+          }
+          return result;
+        }, {});
+        
         const params = Object.keys(req.body).reduce((result, key) => {
           if (!req.body[key] || key in body || descriptor.urlPatternParamNames.includes(key)) {
             return result;
