@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
-    "build": "tsc",
+    "build": "(cp -n src/serviceAccountCert.json.example src/serviceAccountCert.json | true) && tsc",
     "build:watch": "tsc --watch",
     "serve": "yarn run build && firebase emulators:start --only functions",
     "shell": "yarn run build && firebase functions:shell",

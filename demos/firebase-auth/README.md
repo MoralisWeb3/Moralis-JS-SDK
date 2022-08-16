@@ -16,7 +16,7 @@ Required Firebase services:
 4. Get list of your projects: `firebase projects:list`. If this list is empty you should add a new project. You can do it by the Firebase Console.
 5. Set your project ID: `firebase use <PROJECT_ID>`
 6. Copy `functions/.env.example` to `functions/.env` and set your Moralis API key in the file.
-7. Generate a certificate for [Service Account](https://firebase.google.com/support/guides/service-accounts) and copy it to `functions/serviceAccountCert.json`.
+7. Generate a certificate for [Service Account](https://firebase.google.com/support/guides/service-accounts) and copy it to `functions/src/serviceAccountCert.json`.
 
 ### 🔌 Run Locally
 
