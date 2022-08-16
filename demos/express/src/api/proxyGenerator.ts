@@ -71,7 +71,7 @@ export class ProxyGenerator {
           }
           return result;
         }, {});
-        
+
         const params = Object.keys(req.body).reduce((result, key) => {
           if (!req.body[key] || key in body || descriptor.urlPatternParamNames.includes(key)) {
             return result;
