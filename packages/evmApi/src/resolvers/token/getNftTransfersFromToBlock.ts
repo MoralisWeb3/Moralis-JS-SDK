@@ -1,6 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
-import { EvmChainish, EvmAddress, EvmNative } from '@moralisweb3/evm-utils';
+import { EvmChainish, EvmAddress, EvmNative, EvmNftTransfer } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -19,26 +19,20 @@ export const getNftTransfersFromToBlock = createPaginatedEndpointFactory((core) 
   createPaginatedEndpoint({
     name: 'getNftTransfersFromToBlock',
     getUrl: () => `${BASE_URL}/nft/transfers`,
-    apiToResult: (data: ApiResult) =>
-      data.result?.map((transfer) => ({
-        ...toCamelCase(transfer),
-        tokenAddress: EvmAddress.create(transfer.to_address, core),
-        toAddress: EvmAddress.create(transfer.to_address, core),
-        operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
-        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
-        value: transfer.value ? EvmNative.create(transfer.value) : null,
-        blockTimestamp: new Date(transfer.block_timestamp),
-      })),
-    resultToJson: (data) =>
-      data?.map((transfer) => ({
-        ...transfer,
-        tokenAddress: transfer.tokenAddress.format(),
-        toAddress: transfer.toAddress.format(),
-        fromAddress: transfer.fromAddress?.format(),
-        operator: transfer.operator?.format(),
-        blockTimestamp: transfer.blockTimestamp.toLocaleString(),
-        value: transfer.value?.format(),
-      })),
+    apiToResult: (data: ApiResult, params: Params) =>
+      (data.result ?? []).map((transfer) =>
+        EvmNftTransfer.create({
+          ...toCamelCase(transfer),
+          chain: EvmChainResolver.resolve(params.chain, core),
+          tokenAddress: EvmAddress.create(transfer.to_address, core),
+          toAddress: EvmAddress.create(transfer.to_address, core),
+          operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
+          fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
+          value: transfer.value ? EvmNative.create(transfer.value) : null,
+          blockTimestamp: new Date(transfer.block_timestamp),
+        }),
+      ),
+    resultToJson: (data) => data.map((transfer) => transfer.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

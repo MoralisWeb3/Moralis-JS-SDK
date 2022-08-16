@@ -1,6 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNative } from '@moralisweb3/evm-utils';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, EvmNftTrade } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -22,25 +22,21 @@ export const getNFTTrades = createPaginatedEndpointFactory((core) =>
     name: 'getNFTTrades',
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/trades`,
-    apiToResult: (data: ApiResult) =>
-      data.result?.map((trade) => ({
-        ...toCamelCase(trade),
-        sellerAddress: EvmAddress.create(trade.seller_address, core),
-        buyerAddress: EvmAddress.create(trade.buyer_address, core),
-        marketplaceAddress: EvmAddress.create(trade.marketplace_address, core),
-        tokenAddress: EvmAddress.create(trade.token_address as string, core),
-        price: EvmNative.create(trade.price),
-        blockTimestamp: new Date(trade.block_timestamp),
-      })),
-    resultToJson: (data) =>
-      data?.map((trade) => ({
-        ...trade,
-        sellerAddress: trade.sellerAddress.format(),
-        buyerAddress: trade.buyerAddress.format(),
-        marketplaceAddress: trade.marketplaceAddress.format(),
-        blockTimestamp: trade.blockTimestamp.toLocaleString(),
-        price: trade.price.format(),
-      })),
+    apiToResult: (data: ApiResult, params: Params) =>
+      (data.result ?? []).map((trade) =>
+        EvmNftTrade.create({
+          ...toCamelCase(trade),
+          chain: EvmChainResolver.resolve(params.chain, core),
+          sellerAddress: EvmAddress.create(trade.seller_address, core),
+          buyerAddress: EvmAddress.create(trade.buyer_address, core),
+          marketplaceAddress: EvmAddress.create(trade.marketplace_address, core),
+          tokenAddress: EvmAddress.create(trade.token_address as string, core),
+          price: EvmNative.create(trade.price),
+          blockTimestamp: new Date(trade.block_timestamp),
+          tokenIds: trade.token_ids as string[],
+        }),
+      ),
+    resultToJson: (data) => data.map((trade) => trade.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,

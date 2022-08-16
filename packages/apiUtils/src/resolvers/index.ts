@@ -1,4 +1,5 @@
 export * from './Endpoint';
+export * from './Endpoints';
 export * from './EndpointResolver';
 export * from './PaginatedEndpoint';
 export * from './PaginatedEndpointResolver';

@@ -1,8 +1,16 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { toCamelCase } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import {
+  EvmAddress,
+  EvmAddressish,
+  EvmChain,
+  EvmChainish,
+  EvmNftMetadata,
+  validateValidEvmContractType,
+} from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getNFTMetadata';
 
@@ -22,16 +30,15 @@ export const getNFTMetadata = createEndpointFactory((core) =>
     name: 'getNFTMetadata',
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/metadata`,
-    apiToResult: (data: ApiResult) => ({
-      ...toCamelCase(data),
-      tokenAddress: EvmAddress.create(data.token_address, core),
-      syncedAt: data.synced_at ? new Date(data.synced_at) : undefined,
-    }),
-    resultToJson: (data) => ({
-      ...data,
-      tokenAddress: data.tokenAddress.format(),
-      syncedAt: data.syncedAt?.toDateString(),
-    }),
+    apiToResult: (data: ApiResult, params: Params) =>
+      EvmNftMetadata.create({
+        ...toCamelCase(data),
+        chain: EvmChainResolver.resolve(params.chain, core),
+        tokenAddress: EvmAddress.create(data.token_address, core),
+        syncedAt: data.synced_at ? new Date(data.synced_at) : null,
+        contractType: data.contract_type ? validateValidEvmContractType(data.contract_type) : null,
+      }),
+    resultToJson: (data) => data.toJSON(),
     parseParams: (params: Params): ApiParams => ({
       chain: params.chain ? EvmChain.create(params.chain, core).apiHex : undefined,
       address: EvmAddress.create(params.address, core).lowercase,

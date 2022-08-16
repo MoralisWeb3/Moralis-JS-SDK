@@ -132,7 +132,7 @@ describe('PaginatedEndpointResolver', () => {
 
   it('should test api resolver functions with post request and pagination', async () => {
     const response = await resolver.fetch({
-      chain: 'eth',
+      chain: 1,
       address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
       topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
       limit: 2,
@@ -147,7 +147,7 @@ describe('PaginatedEndpointResolver', () => {
 
   it('should test next call', async () => {
     const response = await resolver.fetch({
-      chain: 'eth',
+      chain: 1,
       address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
       topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
       limit: 2,
