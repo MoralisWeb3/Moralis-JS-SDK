@@ -1,19 +1,15 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import * as fs from 'fs';
-import * as path from 'path';
-import {cert} from 'firebase-admin/app';
+import {cert, ServiceAccount} from 'firebase-admin/app';
 import {EvmChain} from '@moralisweb3/evm-utils';
 import {guard} from './middlewares/Guard';
 import {userExists} from './utils/userExists';
+import serviceAccountCert from './serviceAccountCert.json';
 import Moralis from 'moralis';
-
-const serviceAccountCertPath = path.join(__dirname, '../serviceAccountCert.json');
-const serviceAccountCert = JSON.parse(fs.readFileSync(serviceAccountCertPath, 'utf8'));
 
 const app = admin.initializeApp({
   ...functions.config().firebase,
-  credential: cert(serviceAccountCert),
+  credential: cert(serviceAccountCert as ServiceAccount),
 });
 const auth = admin.auth(app);
 
