@@ -41,7 +41,9 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "demos/*"
+      "demos/*",
+      "demos/firebase-proxy/*",
+      "demos/firebase-auth/*"
     ]
   },
   "dependencies": {}

@@ -10,8 +10,8 @@ export interface EndpointDescriptor {
   name: string;
   urlPatternParamNames: string[];
   urlPattern: string;
+  bodyParamNames: string[];
   method: EndpointMethod;
-  bodyParams?: readonly (string | number | symbol)[];
 }
 
 export class Endpoints {
@@ -60,7 +60,7 @@ export class Endpoints {
         urlPatternParamNames,
         urlPattern,
         method: endpoint.method || 'get',
-        bodyParams: endpoint.bodyParams,
+        bodyParamNames: endpoint.bodyParams ? endpoint.bodyParams.map(String) : [],
       };
     });
   }
