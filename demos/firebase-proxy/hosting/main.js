@@ -29,16 +29,16 @@ function testGetTime() {
 }
 
 function testGetBlock() {
-  return functions.httpsCallable('evmApi-getBlock')({
+  return functions.httpsCallable('getBlock')({
     chain: '0x1',
     blockNumberOrHash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
   });
 }
 
 function testRunContractFunction() {
-  return functions.httpsCallable('evmApi-runContractFunction')({
-    chain: 'eth',
-    function_name: 'balanceOf',
+  return functions.httpsCallable('runContractFunction')({
+    chain: '0x1',
+    functionName: 'balanceOf',
     address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     abi: ERC721_MINI_ABI,
     params: {
@@ -48,17 +48,17 @@ function testRunContractFunction() {
 }
 
 function testGetNFTMetadata() {
-  return functions.httpsCallable('evmApi-getNFTMetadata')({
+  return functions.httpsCallable('getNFTMetadata')({
     address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
   });
 }
 
 function testVersion() {
-  return functions.httpsCallable('evmApi-web3ApiVersion')({});
+  return functions.httpsCallable('getWeb3ApiVersion')({});
 }
 
 function testGetPortfolio() {
-  return functions.httpsCallable('solApi-getPortfolio')({
+  return functions.httpsCallable('getPortfolio')({
     network: 'mainnet',
     address: 'DEjfb5P8kgsdDgqoQ7DGKzLuNLKMEJWiyZV8HVUaR7Ri',
   });

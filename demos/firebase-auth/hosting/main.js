@@ -35,10 +35,8 @@ async function authorize() {
   document.getElementById('currentUser').innerText = `${address} (uid: ${uid})`;
 }
 
-async function getNFTMetadata() {
-  const response = await functions.httpsCallable('evmApi-getNFTMetadata')({
-    address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
-  });
+async function getSecretData() {
+  const response = await functions.httpsCallable('getSecretData')({});
   alert(JSON.stringify(response.data));
 }
 
@@ -65,7 +63,7 @@ function pageLoaded() {
   }
 
   bindButton('authorizeButton', authorize);
-  bindButton('getNFTMetadataButton', getNFTMetadata);
+  bindButton('getSecretDataButton', getSecretData);
   bindButton('getTimeButton', getTime);
 }
 

@@ -3,9 +3,8 @@ import * as admin from 'firebase-admin';
 import * as fs from 'fs';
 import * as path from 'path';
 import {cert} from 'firebase-admin/app';
-import {createEvmApiProxy} from '@moralisweb3/firebase-functions';
 import {EvmChain} from '@moralisweb3/evm-utils';
-import {guard} from './middlewares/guard';
+import {guard} from './middlewares/Guard';
 import {userExists} from './utils/userExists';
 import Moralis from 'moralis';
 
@@ -22,7 +21,9 @@ Moralis.start({
   apiKey: process.env.MORALIS_API_KEY,
 });
 
-export interface RequestMessageData {
+// ~/requestMessage
+
+interface RequestMessageData {
   address: string;
   chain: number;
 }
@@ -46,7 +47,9 @@ export const requestMessage = functions.https.onCall(async (data: RequestMessage
   return response.raw;
 });
 
-export interface IssueTokenData {
+// ~/issueToken
+
+interface IssueTokenData {
   message: string;
   signature: string;
 }
@@ -70,10 +73,15 @@ export const issueToken = functions.https.onCall(async (data: IssueTokenData) =>
   return {token};
 });
 
-export const evmApi = createEvmApiProxy([
-  'getNFTMetadata',
-], guard);
+// ~/getSecretData
 
-export const getTime = functions.https.onCall(guard(async () => {
-  return Date.now();
+export const getSecretData = functions.https.onCall(guard(async () => {
+  const secretValue = 'I am a secret';
+  return {secretValue};
 }));
+
+// ~/getTime
+
+export const getTime = functions.https.onCall(async () => {
+  return Date.now();
+});

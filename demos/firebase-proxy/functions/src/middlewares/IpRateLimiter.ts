@@ -1,8 +1,8 @@
-import {FirebaseFunctionData, OnCallHandler} from '@moralisweb3/firebase-functions';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {FirebaseFunctionsRateLimiter} from 'firebase-functions-rate-limiter';
 import {CallableContext} from 'firebase-functions/v1/https';
+import {OnCallHandler} from './OnCallHandler';
 
 export interface IpRateLimiterConfig {
   maxCalls: number;
@@ -12,8 +12,8 @@ export interface IpRateLimiterConfig {
 export class IpRateLimiter {
   public constructor(private readonly limiter: FirebaseFunctionsRateLimiter) {}
 
-  public readonly wrap = (handler: OnCallHandler) => {
-    return async (data: FirebaseFunctionData, context: CallableContext) => {
+  public readonly wrap = <T>(handler: OnCallHandler<T>) => {
+    return async (data: T, context: CallableContext) => {
       const qualifier = 'ip-' + this.readNormalizedIp(context.rawRequest);
 
       await this.limiter.rejectOnQuotaExceededOrRecordUsage(qualifier);
