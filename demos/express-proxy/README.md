@@ -3,7 +3,8 @@
 ## Run locally
 
 1. Copy `.env.example` to `.env` and fill in the values
-2. Run `yarn dev` to run the server locally
+2. Run `yarn install`
+3. Run `yarn dev` to run the server locally
 
 Now your server is running locally with the following endpoints:
 
