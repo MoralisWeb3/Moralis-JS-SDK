@@ -6,6 +6,7 @@ const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
 const elBtnGetUser = document.getElementById('getUser');
+const elBtnGetUserAnon = document.getElementById('getUserAnon');
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON_KEY);
 
 const handleApiPost = async (endpoint, params) => {
@@ -36,6 +37,12 @@ const verifyMessage = (message, signature) =>
 
 const getUser = async (token) => {
   _supabase.auth.setAuth(token);
+  const { data } = await _supabase.from('users').select('*');
+  renderUser(data);
+};
+
+const getUserAnon = async () => {
+  await _supabase.auth.signOut();
   const { data } = await _supabase.from('users').select('*');
   renderUser(data);
 };
@@ -88,6 +95,9 @@ function init() {
   });
   elBtnGetUser.addEventListener('click', async () => {
     getUser(token).catch((error) => renderError(error));
+  });
+  elBtnGetUserAnon.addEventListener('click', async () => {
+    getUserAnon().catch((error) => renderError(error));
   });
 }
 
