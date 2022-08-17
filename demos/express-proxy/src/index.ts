@@ -1,9 +1,9 @@
 import Moralis from 'moralis';
 import express from 'express';
 import cors from 'cors';
-import { errorHandler } from '@moralisweb3/express';
 import config from './config';
 import { apiRouter } from './apiRouter';
+import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
 

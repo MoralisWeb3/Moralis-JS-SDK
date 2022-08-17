@@ -1,19 +1,13 @@
 import express from 'express';
-import { ProxyGenerator } from '@moralisweb3/express';
+import { ProxyGenerator } from './api/proxyGenerator';
 import config from './config';
 
 export const apiRouter = express.Router();
 
 const evmProxyRouter = new ProxyGenerator('evm', {
   apiKey: config.MORALIS_API_KEY,
-  rateLimitOptions: {
-    maxRequests: 4,
-    ttl: 30,
-    redisUrl: config.REDIS_URL,
-  },
 });
 
-// This is not rate limited.
 const solanaProxyRouter = new ProxyGenerator('solana', {
   apiKey: config.MORALIS_API_KEY,
 });

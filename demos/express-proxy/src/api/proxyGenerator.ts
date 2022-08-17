@@ -1,4 +1,3 @@
-import { RateLimiter } from '../middlewares/rateLimiter';
 import Moralis from 'moralis';
 import express from 'express';
 import axios from 'axios';
@@ -6,34 +5,16 @@ import { errorHandler } from '../middlewares/errorHandler';
 
 const proxyRouter = express.Router();
 
-export interface RateLimiterOptions {
-  maxRequests: number;
-  ttl: number;
-  redisUrl: string;
-}
-
 export interface ProxyOptions {
   apiKey: string;
-  rateLimitOptions?: RateLimiterOptions;
 }
 
 export class ProxyGenerator {
-  private rateLimiter?: RateLimiter;
   private options: ProxyOptions;
   private api: string;
   constructor(api: 'evm' | 'solana', options: ProxyOptions) {
     this.options = options;
     this.api = api;
-
-    const { rateLimitOptions } = options;
-    if (rateLimitOptions) {
-      this.rateLimiter = new RateLimiter(
-        rateLimitOptions.redisUrl,
-        rateLimitOptions.maxRequests,
-        rateLimitOptions.ttl,
-        this.api,
-      );
-    }
   }
 
   public getRouter() {
@@ -55,10 +36,6 @@ export class ProxyGenerator {
     for (const descriptor of descriptors) {
       const urlPattern = descriptor.urlPattern.replace(/\{/g, ':').replace(/\}/g, '');
       proxyRouter.route(urlPattern)[descriptor.method](async (req, res, next) => {
-        // Rate limit requests or you can use https://www.npmjs.com/package/express-rate-limit
-        if (this.rateLimiter && !(await this.rateLimiter.handleRateLimit(req.ip))) {
-          return res.status(429).send('Too many requests');
-        }
         let url = descriptor.urlPattern;
         for (const param in req.params) {
           if (Object.prototype.hasOwnProperty.call(req.params, param)) {
