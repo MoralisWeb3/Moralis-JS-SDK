@@ -11,7 +11,6 @@
     "lib/*"
   ],
   "scripts": {
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",

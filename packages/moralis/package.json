@@ -11,8 +11,6 @@
     "lib/*"
   ],
   "scripts": {
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
-    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",

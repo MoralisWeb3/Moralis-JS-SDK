@@ -14,8 +14,6 @@
     "test": "echo 'not implemented'",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "gen:types": "openapi-typescript https://auth-api.do-prod-1.moralis.io/documentation-json --output src/generated/types.ts",

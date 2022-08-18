@@ -2,8 +2,21 @@ CHANGELOG.md
 README.md
 
 # Output folders
-lib/**/*
+packages/**/lib/**/*
 dist
 coverage/
 lib.esm
+
+# Generated files
+packages/**/generated/**/*
+
+
 node_modules
+
+# Demos
+demos/**/.next
+demos/**/lib/**/*
+demos/**/build/**/*
+
+# Docs
+docs/**/*
