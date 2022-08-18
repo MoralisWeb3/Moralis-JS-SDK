@@ -9,7 +9,7 @@ lib.esm
 
 # Generated files
 packages/**/generated/**/*
-
+packages/core/src/version.ts
 
 node_modules
 

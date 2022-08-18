@@ -1,6 +1,6 @@
-import {CallableContext} from 'firebase-functions/v1/https';
+import { CallableContext } from 'firebase-functions/v1/https';
 import * as functions from 'firebase-functions';
-import {OnCallHandler} from './OnCallHandler';
+import { OnCallHandler } from './OnCallHandler';
 
 export function guard<T>(handler: OnCallHandler<T>) {
   return async (data: T, context: CallableContext) => {

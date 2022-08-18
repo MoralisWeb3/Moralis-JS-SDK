@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {FirebaseFunctionsRateLimiter} from 'firebase-functions-rate-limiter';
-import {CallableContext} from 'firebase-functions/v1/https';
-import {OnCallHandler} from './OnCallHandler';
+import { FirebaseFunctionsRateLimiter } from 'firebase-functions-rate-limiter';
+import { CallableContext } from 'firebase-functions/v1/https';
+import { OnCallHandler } from './OnCallHandler';
 
 export interface IpRateLimiterConfig {
   maxCalls: number;
@@ -27,10 +27,7 @@ export class IpRateLimiter {
   }
 }
 
-export function ipRateLimiterMiddleware(
-  firestore: admin.firestore.Firestore,
-  config: IpRateLimiterConfig
-) {
+export function ipRateLimiterMiddleware(firestore: admin.firestore.Firestore, config: IpRateLimiterConfig) {
   // We use the Firestore, because it's cheaper: https://github.com/Jblew/firebase-functions-rate-limiter/issues/23#issuecomment-1154262264
   const limiter = FirebaseFunctionsRateLimiter.withFirestoreBackend(
     {

@@ -2,24 +2,24 @@
 
 const ERC721_MINI_ABI = [
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      }
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
     ],
-    "name": "balanceOf",
-    "outputs": [
+    name: 'balanceOf',
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "balance",
-        "type": "uint256"
-      }
+        internalType: 'uint256',
+        name: 'balance',
+        type: 'uint256',
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
-  }
+    stateMutability: 'view',
+    type: 'function',
+  },
 ];
 
 let functions;
@@ -42,8 +42,8 @@ function testRunContractFunction() {
     address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     abi: ERC721_MINI_ABI,
     params: {
-      owner: '0xdbfd76af2157dc15ee4e57f3f942bb45ba84af24'
-    }
+      owner: '0xdbfd76af2157dc15ee4e57f3f942bb45ba84af24',
+    },
   });
 }
 
