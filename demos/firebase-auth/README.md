@@ -28,3 +28,4 @@ Required Firebase services:
 
 1. Activate Authorization.
 2. Deploy: `firebase deploy`
+3. If you have any problem with the CORS on the production, probably you should allow unauthenticated HTTP function invocation. To allow unauthenticated invocation you must specify this at or after deployment. [Here](https://cloud.google.com/functions/docs/securing/managing-access-iam#allowing_unauthenticated_http_function_invocation) you can read more about it.
