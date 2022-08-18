@@ -29,7 +29,7 @@
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
     "build:docs": "yarn typedoc",
-    "build:types": "yarn nx run-many --target=build:types --all",
+    "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",
     "lint": "yarn nx run-many --target=lint --all",

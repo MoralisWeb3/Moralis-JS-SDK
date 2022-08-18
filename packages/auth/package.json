@@ -18,7 +18,7 @@
     "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build:types": "openapi-typescript https://authapi.moralis.io/api-docs-json --output src/generated/types.ts",
+    "gen:api-typeses": "openapi-typescript https://authapi.moralis.io/api-docs-json --output src/generated/types.ts",
     "build": "tsc",
     "dev": "tsc --watch"
   },
