@@ -7,6 +7,9 @@ lerna-debug.log
 npm-debug.log
 yarn-error.log
 
+# docs
+docs/
+
 # Build
 packages/**/build
 packages/**/dist
