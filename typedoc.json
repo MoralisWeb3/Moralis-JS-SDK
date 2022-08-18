@@ -1,0 +1,31 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "docs",
+  "media": "./assets",
+  "entryPoints": ["packages/*"],
+  "entryPointStrategy": "packages",
+  "logLevel": "Verbose",
+  "intentionallyNotExported": [],
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeNotDocumented": true,
+  "validation": {
+    "notExported": false,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "disableSources": true,
+  "hideGenerator": true,
+  "searchInComments": true,
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": false,
+    "external": false,
+    "@alpha": false,
+    "@beta": false
+  },
+  "sort": ["source-order"],
+  "customCss": "./assets/docs.css"
+}
