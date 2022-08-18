@@ -27,7 +27,7 @@ export const getNFTTransfers = createPaginatedEndpointFactory((core) =>
         EvmNftTransfer.create({
           ...toCamelCase(transfer),
           chain: EvmChainResolver.resolve(params.chain, core),
-          tokenAddress: EvmAddress.create(transfer.to_address),
+          tokenAddress: EvmAddress.create(transfer.token_address),
           toAddress: EvmAddress.create(transfer.to_address),
           operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
           fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
