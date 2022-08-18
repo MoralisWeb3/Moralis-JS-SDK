@@ -1083,7 +1083,7 @@ export interface components {
       /** @description The transaction type */
       transaction_type?: string;
       /** @description The transaction index */
-      transaction_index?: string;
+      transaction_index?: number;
       /** @description The log index */
       log_index: number;
       /**
