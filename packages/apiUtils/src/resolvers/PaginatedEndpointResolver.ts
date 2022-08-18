@@ -45,7 +45,7 @@ export class PaginatedEndpointResolver<
     const searchParams = this.paramsReader.getSearchParams(apiParams);
 
     // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
-    const result = await this.requestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
+    const result = await this.requestController.get<PaginatedResult<ApiResult>, ApiParams>(url, searchParams, {
       headers: this.createHeaders(),
     });
 

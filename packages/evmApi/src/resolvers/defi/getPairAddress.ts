@@ -24,6 +24,8 @@ export const getPairAddress = createEndpointFactory((core) =>
     name: 'getPairAddress',
     urlParams: ['token0Address', 'token1Address'],
     getUrl: (params: Params) => `${BASE_URL}/${params.token0Address}/${params.token1Address}/pairAddress`,
+    // TODO: refactor to reduce complexity
+    // eslint-disable-next-line complexity
     apiToResult: (data: ApiResult, params: Params) => ({
       //   ApiResult types generated all come as undefined which should not be the case TODO:
       token0: {

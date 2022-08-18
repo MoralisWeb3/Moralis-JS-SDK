@@ -25,6 +25,8 @@ export class BigNumberParser {
     return BigInt(value);
   }
 
+  // TODO: refactor to reduce complexity
+  // eslint-disable-next-line complexity
   public static parseDecimal(value: BigNumberPrimitive, decimals: number): bigint {
     assertNotEmpty(value);
 

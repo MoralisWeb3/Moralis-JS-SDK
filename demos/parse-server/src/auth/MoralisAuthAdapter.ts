@@ -1,19 +1,22 @@
 // Note: do not import Parse dependency. see https://github.com/parse-community/parse-server/issues/6467
+/* global Parse */
 import Moralis from 'moralis';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function validateAuthData(authData: any) {
   const { message, signature, network, id, authId } = authData;
 
   return Moralis.Auth.verify({
-    message: message,
-    signature: signature,
-    network: network,
+    message,
+    signature,
+    network,
   })
     .then((result) => {
       const data = result.toJSON();
 
       if (id === data.profileId && authId === data.id) {
-        (authData.chainId = result.result.chain.decimal), (authData.nonce = data.nonce);
+        authData.chainId = result.result.chain.decimal;
+        authData.nonce = data.nonce;
         authData.address = result.result.address.checksum;
         authData.version = data.version;
         authData.domain = data.domain;

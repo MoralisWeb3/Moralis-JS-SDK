@@ -32,7 +32,7 @@ export class MoralisError extends Error {
       this.cause = cause;
 
       if ('stack' in cause) {
-        this.stack = this.stack + '\nCAUSE: ' + cause.stack;
+        this.stack = `${this.stack}\nCAUSE: ${cause.stack}`;
       }
     }
 
