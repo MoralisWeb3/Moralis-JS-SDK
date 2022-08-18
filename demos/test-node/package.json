@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "moralis": "^2.0.2"
+    "moralis": "^2.0.3"
   },
   "devDependencies": {
     "ts-node": "^10.9.1"
