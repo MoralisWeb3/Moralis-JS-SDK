@@ -15,7 +15,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "gen:types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/generated/types.ts",
+    "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/generated/types.ts",
     "build": "tsc",
     "dev": "tsc --watch"
   },

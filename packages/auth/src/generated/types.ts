@@ -4,24 +4,24 @@
  */
 
 export interface paths {
-  "/challenge/request/evm": {
-    post: operations["Request Challenge (EVM)"];
-  };
-  "/challenge/verify/evm": {
-    post: operations["Verify Challenge (EVM)"];
-  };
   "/health": {
     get: operations["HealthController_check"];
+  };
+  "/challenge/request/evm": {
+    post: operations["requestChallengeEvm"];
+  };
+  "/challenge/verify/evm": {
+    post: operations["verifyChallengeEvm"];
   };
 }
 
 export interface components {
   schemas: {
-    ChallengeRequestDto: {
+    EvmChallengeRequestDto: {
       /**
        * Format: hostname
        * @description RFC 4501 dns authority that is requesting the signing.
-       * @example rugpull.finance
+       * @example defi.finance
        */
       domain: string;
       /**
@@ -43,7 +43,7 @@ export interface components {
       /**
        * Format: uri
        * @description RFC 3986 URI referring to the resource that is the subject of the signing (as in the __subject__ of a claim).
-       * @example https://rugpull.finance/
+       * @example https://defi.finance/
        */
       uri: string;
       /**
@@ -61,7 +61,9 @@ export interface components {
       /**
        * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by `
        * - `.
-       * @example https://docs.moralis.io/
+       * @example [
+       *   "https://docs.moralis.io/"
+       * ]
        */
       resources?: string[];
       /**
@@ -71,7 +73,7 @@ export interface components {
        */
       timeout: number;
     };
-    ChallengeResponseDto: {
+    EvmChallengeResponseDto: {
       /**
        * @description Secret Challenge ID used to identify this particular request. Is should be used at the backend of the calling service to identify the completed request.
        * @example fRyt67D3eRss3RrX
@@ -79,12 +81,12 @@ export interface components {
       id: string;
       /**
        * @description Message that needs to be signed by the end user
-       * @example rugpull.finance wants you to sign in with your Ethereum account:
+       * @example defi.finance wants you to sign in with your Ethereum account:
        * 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
        *
        * Please confirm
        *
-       * URI: https://rugpull.finance/
+       * URI: https://defi.finance/
        * Version: 1
        * Chain ID: 1
        * Nonce: DbU1DCTmdzR4lg3wi
@@ -101,12 +103,12 @@ export interface components {
        */
       profileId: string;
     };
-    CompleteChallengeRequestDto: {
+    EvmCompleteChallengeRequestDto: {
       message: string;
       /** @example 0x1234567890abcdef0123456789abcdef1234567890abcdef */
       signature: string;
     };
-    CompleteChallengeResponseDto: {
+    EvmCompleteChallengeResponseDto: {
       /**
        * @description Secret Challenge ID used to identify this particular request. Is should be used at the backend of the calling service to identify the completed request.
        * @example fRyt67D3eRss3RrX
@@ -115,7 +117,7 @@ export interface components {
       /**
        * Format: hostname
        * @description RFC 4501 dns authority that is requesting the signing.
-       * @example rugpull.finance
+       * @example defi.finance
        */
       domain: string;
       /**
@@ -137,7 +139,7 @@ export interface components {
       /**
        * Format: uri
        * @description RFC 3986 URI referring to the resource that is the subject of the signing (as in the __subject__ of a claim).
-       * @example https://rugpull.finance/
+       * @example https://defi.finance/
        */
       uri: string;
       /**
@@ -155,7 +157,9 @@ export interface components {
       /**
        * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by `
        * - `.
-       * @example https://docs.moralis.io/
+       * @example [
+       *   "https://docs.moralis.io/"
+       * ]
        */
       resources?: string[];
       /**
@@ -175,38 +179,6 @@ export interface components {
 }
 
 export interface operations {
-  "Request Challenge (EVM)": {
-    parameters: {};
-    responses: {
-      /** The back channel challenge containing the id to store on the api and the message to be signed by the user */
-      201: {
-        content: {
-          "application/json": components["schemas"]["ChallengeResponseDto"];
-        };
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ChallengeRequestDto"];
-      };
-    };
-  };
-  "Verify Challenge (EVM)": {
-    parameters: {};
-    responses: {
-      /** The token to be used to call the third party API from the client */
-      201: {
-        content: {
-          "application/json": components["schemas"]["CompleteChallengeResponseDto"];
-        };
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CompleteChallengeRequestDto"];
-      };
-    };
-  };
   HealthController_check: {
     parameters: {};
     responses: {
@@ -216,19 +188,31 @@ export interface operations {
           "application/json": {
             /** @example ok */
             status?: string;
-            /** @example [object Object] */
+            /**
+             * @example {
+             *   "database": {
+             *     "status": "up"
+             *   }
+             * }
+             */
             info?: {
               [key: string]: {
                 status?: string;
               } & { [key: string]: string };
             } | null;
-            /** @example [object Object] */
+            /** @example {} */
             error?: {
               [key: string]: {
                 status?: string;
               } & { [key: string]: string };
             } | null;
-            /** @example [object Object] */
+            /**
+             * @example {
+             *   "database": {
+             *     "status": "up"
+             *   }
+             * }
+             */
             details?: {
               [key: string]: {
                 status?: string;
@@ -243,19 +227,42 @@ export interface operations {
           "application/json": {
             /** @example error */
             status?: string;
-            /** @example [object Object] */
+            /**
+             * @example {
+             *   "database": {
+             *     "status": "up"
+             *   }
+             * }
+             */
             info?: {
               [key: string]: {
                 status?: string;
               } & { [key: string]: string };
             } | null;
-            /** @example [object Object] */
+            /**
+             * @example {
+             *   "redis": {
+             *     "status": "down",
+             *     "message": "Could not connect"
+             *   }
+             * }
+             */
             error?: {
               [key: string]: {
                 status?: string;
               } & { [key: string]: string };
             } | null;
-            /** @example [object Object] */
+            /**
+             * @example {
+             *   "database": {
+             *     "status": "up"
+             *   },
+             *   "redis": {
+             *     "status": "down",
+             *     "message": "Could not connect"
+             *   }
+             * }
+             */
             details?: {
               [key: string]: {
                 status?: string;
@@ -263,6 +270,38 @@ export interface operations {
             };
           };
         };
+      };
+    };
+  };
+  requestChallengeEvm: {
+    parameters: {};
+    responses: {
+      /** The back channel challenge containing the id to store on the api and the message to be signed by the user */
+      201: {
+        content: {
+          "application/json": components["schemas"]["EvmChallengeResponseDto"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["EvmChallengeRequestDto"];
+      };
+    };
+  };
+  verifyChallengeEvm: {
+    parameters: {};
+    responses: {
+      /** The token to be used to call the third party API from the client */
+      201: {
+        content: {
+          "application/json": components["schemas"]["EvmCompleteChallengeResponseDto"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["EvmCompleteChallengeRequestDto"];
       };
     };
   };
