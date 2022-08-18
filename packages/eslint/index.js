@@ -22,7 +22,11 @@ module.exports = {
     'no-extra-semi': 'off', // doesn't get along well with prettier
     '@typescript-eslint/ban-ts-comment': 'off', // Not advised to ignore ts rules, but we need to have an explicit way to do so
     '@typescript-eslint/no-empty-interface': 'off', // Allow empty interfaces for design/architecturing purposes
-    'no-unused-vars': 'off', // Typescript is used for that,
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { vars: 'all', args: 'after-used', ignoreRestSiblings: true, argsIgnorePattern: '^_' },
+    ],
     'no-invalid-this': 'error',
     'no-multi-str': 'error',
     'no-throw-literal': 'error',
@@ -211,15 +215,9 @@ module.exports = {
     'no-path-concat': 'error',
     // Variables
     '@typescript-eslint/no-shadow': 'error',
-    // 'no-shadow': 'error',
     'no-shadow-restricted-names': 'error',
     'no-undef': 'error',
     'no-undef-init': 'error',
-    // 'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { vars: 'all', args: 'after-used', ignoreRestSiblings: true, argsIgnorePattern: '^_' },
-    ],
     // TODO: enable with refactor
     'no-use-before-define': ['off', { functions: true, classes: true, variables: true }],
     'no-inline-comments': 'error',
