@@ -4,14 +4,16 @@ import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../generated/types';
 import { BASE_URL } from '../MoralisAuth';
 
-type name = 'Verify Challenge (EVM)';
-type BodyParams = operations[name]['requestBody']['content']['application/json'];
+const name = 'verifyChallengeEvm';
+
+type Name = typeof name;
+type BodyParams = operations[Name]['requestBody']['content']['application/json'];
 type ApiParams = BodyParams;
 type Params = ApiParams;
 const method = 'post';
 const bodyParams = ['message', 'signature'] as const;
 
-type ApiResult = operations[name]['responses']['201']['content']['application/json'];
+type ApiResult = operations[Name]['responses']['201']['content']['application/json'];
 
 export const completeChallenge = createEndpointFactory(() =>
   createEndpoint({
