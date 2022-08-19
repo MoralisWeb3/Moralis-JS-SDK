@@ -4,4 +4,4 @@
 '@moralisweb3/evm-api': patch
 ---
 
-Corrected TypeScript definition of the `maybe()` method. This influences on a few EVM types.
+Corrected TypeScript definition of the `maybe()` method. This affects on a few EVM types.
