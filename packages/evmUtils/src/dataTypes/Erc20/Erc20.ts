@@ -17,7 +17,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   static parse = (value: Erc20Input): Erc20Data => ({
-    decimals: maybe(value.decimals, (decimals) => +decimals),
+    decimals: +value.decimals,
     name: value.name,
     symbol: value.symbol,
     contractAddress: EvmAddress.create(value.contractAddress),
