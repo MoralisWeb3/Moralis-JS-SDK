@@ -1,5 +1,27 @@
 # @moralisweb3/evm-api
 
+## 2.0.3
+
+### Patch Changes
+
+- [#593](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/593) [`dbca06e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dbca06e1d2a00a2b4c827f11d4dd0068f7c2ba26) Thanks [@ErnoW](https://github.com/ErnoW)! - Update types for EvmApi, SolApi and Auth, based on api definitions
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.3
+  - @moralisweb3/api-utils@2.0.3
+  - @moralisweb3/evm-utils@2.0.3
+
+## 2.0.2
+
+### Patch Changes
+
+- [#589](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/589) [`a06bc92`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a06bc92d701615926d70f72afe65da9f28eef96f) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix tokenAddress to use token_address from the api instead of the to_address
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.2
+  - @moralisweb3/api-utils@2.0.2
+  - @moralisweb3/evm-utils@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

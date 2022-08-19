@@ -1,6 +1,6 @@
 <div align="center">
     <a align="center" href="https://moralis.io" target="_blank">
-      <img src="./docs/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
+      <img src="./assets/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
     </a>
     <h1 align="center">Moralis SDK (JavaScript / TypeScript)</h1>
     <a href="https://discord.gg/moralis" target="_blank">

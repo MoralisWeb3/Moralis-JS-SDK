@@ -1,5 +1,25 @@
 # @moralisweb3/auth
 
+## 2.0.3
+
+### Patch Changes
+
+- [#593](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/593) [`dbca06e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dbca06e1d2a00a2b4c827f11d4dd0068f7c2ba26) Thanks [@ErnoW](https://github.com/ErnoW)! - Update types for EvmApi, SolApi and Auth, based on api definitions
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.3
+  - @moralisweb3/api-utils@2.0.3
+  - @moralisweb3/evm-utils@2.0.3
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.0.2
+  - @moralisweb3/api-utils@2.0.2
+  - @moralisweb3/evm-utils@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

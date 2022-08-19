@@ -11,7 +11,8 @@
     "moralis": "^2.0.1",
     "parse-dashboard": "^4.1.4",
     "parse-server": "^5.2.4",
-    "redis": "^4.2.0"
+    "moralis": "^2.0.3",
+    "@moralisweb3/core": "^2.0.3"
   },
   "devDependencies": {
     "mongodb-runner": "^4.9.0",

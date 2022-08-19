@@ -16,7 +16,7 @@
   ],
   "linked": [],
   "access": "public",
-  "baseBranch": "alpha",
+  "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": ["test-integration", "test-node", "demo-nextjs", "demo-parse-server"]
 }

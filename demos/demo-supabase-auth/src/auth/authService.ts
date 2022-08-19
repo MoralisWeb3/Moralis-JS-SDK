@@ -49,7 +49,7 @@ export async function verifyMessage({ network, signature, message }: VerifyMessa
 
   const authData = result.toJSON();
 
-  let { data: user } = await supabase.from('users').select('*').eq('moralis_provider_id', authData.id).single();
+  let { data: user } = await supabase.from('users').select('*').eq('moralis_provider_id', authData.profileId).single();
 
   if (!user) {
     const response = await supabase

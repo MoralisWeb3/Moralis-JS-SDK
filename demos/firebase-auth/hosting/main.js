@@ -12,7 +12,7 @@ async function connectToMetamask() {
   return { signer, chain: chainId, address: accounts[0] };
 }
 
-async function authorize() {
+async function authenticate() {
   const { signer, chain, address } = await connectToMetamask();
 
   const messageResponse = await functions.httpsCallable('requestMessage')({
@@ -62,7 +62,7 @@ function pageLoaded() {
     functions.useFunctionsEmulator('http://localhost:5001');
   }
 
-  bindButton('authorizeButton', authorize);
+  bindButton('authenticateButton', authenticate);
   bindButton('getSecretDataButton', getSecretData);
   bindButton('getTimeButton', getTime);
 }
