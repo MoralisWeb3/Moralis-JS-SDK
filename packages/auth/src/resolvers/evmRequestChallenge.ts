@@ -36,7 +36,7 @@ export const initializeChallenge = createEndpointFactory(() =>
   createEndpoint({
     name,
     getUrl: () => `${BASE_URL}/challenge/request/evm`,
-    apiToResult: apiToResult,
+    apiToResult,
     resultToJson: (data) => ({
       ...data,
     }),
