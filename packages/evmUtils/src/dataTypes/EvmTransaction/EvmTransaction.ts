@@ -15,7 +15,7 @@ export class EvmTransaction implements MoralisDataObject {
   }
 
   static parse = (data: EvmTransacionInput): EvmTransactionData => ({
-    from: maybe(data.from, EvmAddress.create),
+    from: EvmAddress.create(data.from),
     to: maybe(data.to, EvmAddress.create),
     nonce: maybe(data.nonce, BigNumber.create),
     data: maybe(data.data),
