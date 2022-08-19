@@ -16,7 +16,8 @@ export class AxiosRetry {
   ): Promise<AxiosResponse<Response>> {
     for (let attempt = 1; ; attempt++) {
       try {
-        return axios.request(requestConfig);
+        const response = await axios.request(requestConfig);
+        return response;
       } catch (e) {
         if (attempt >= retryConfig.maxAttempts) {
           throw e;
