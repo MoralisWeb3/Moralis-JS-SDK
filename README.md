@@ -26,6 +26,8 @@
 
 ---
 
+> **⚠ WARNING**: This library is dedicated to back-end projects only. You **should NOT** use this library for a front-end project. Keep your API key secret and don't disclose it.
+
 **Features**:
 
 - Web3 authentication
