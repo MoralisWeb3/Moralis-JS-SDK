@@ -13,7 +13,7 @@
     "@types/estree": "^0.0.51",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
-    "@typescript-eslint/parser": "^5.30.0",
+    "@typescript-eslint/parser": "^5.33.1",
     "add": "^2.0.6",
     "cross-env": "^7.0.3",
     "jest": "28",
