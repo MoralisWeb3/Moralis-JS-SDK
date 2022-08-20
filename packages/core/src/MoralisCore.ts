@@ -56,8 +56,8 @@ export class MoralisCore {
     this.logger.verbose('Module registered', { module: module.name });
   };
 
-  public getModule = <M extends Module = Module>(name: string): M => {
-    return this.modules.get<M>(name);
+  public getModule = <CurrentModule extends Module = Module>(name: string): CurrentModule => {
+    return this.modules.get<CurrentModule>(name);
   };
 
   /**

@@ -9,14 +9,13 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
+    "@moralisweb3/eslint-config": "^1.0.0",
     "@types/estree": "^0.0.51",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "add": "^2.0.6",
     "cross-env": "^7.0.3",
-    "eslint": "^8.19.0",
-    "eslint-plugin-jest": "^26.5.3",
     "jest": "28",
     "msw": "^0.43.0",
     "nx": "^14.4.3",
@@ -29,6 +28,7 @@
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
     "build:docs": "yarn typedoc",
+    "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",
     "lint": "yarn nx run-many --target=lint --all",
