@@ -24,13 +24,13 @@ export class BigNumberFormatter {
     const whole = dot === 0 ? '0' : result.substring(0, dot);
     const fraction = result.substring(dot);
 
-    result = whole + '.' + fraction;
+    result = `${whole}.${fraction}`;
 
     while (result[result.length - 1] === '0' && result[result.length - 2] !== '.') {
       result = result.substring(0, result.length - 1);
     }
     if (isNegative) {
-      result = '-' + result;
+      result = `-${result}`;
     }
     return result;
   }
@@ -42,11 +42,11 @@ export class BigNumberFormatter {
       result = result.substring(1);
     }
     if (result.length % 2 !== 0) {
-      result = '0' + result;
+      result = `0${result}`;
     }
-    result = '0x' + result;
+    result = `0x${result}`;
     if (isNegative) {
-      result = '-' + result;
+      result = `-${result}`;
     }
     return result;
   }

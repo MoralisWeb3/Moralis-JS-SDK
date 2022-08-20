@@ -6,19 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint --ext .js,.ts ."
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "ethers": "5.6.9",
+    "moralis": "^2.0.3",
     "next": "12.2.3",
+    "next-auth": "4.10.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "moralis": "^2.0.3",
-    "wagmi": "^0.5.11",
-    "next-auth": "4.10.2",
-    "axios": "^0.27.2",
-    "ethers": "5.6.9"
+    "wagmi": "^0.5.11"
   },
   "devDependencies": {
+    "@moralisweb3/eslint-config": "^1.0.0",
+    "@next/eslint-plugin-next": "^12.2.5",
     "@types/node": "18.0.6",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",

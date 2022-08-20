@@ -61,6 +61,8 @@ export class EvmNft implements MoralisDataObject {
     return new EvmNft(value);
   }
 
+  // TODO: refactor to reduce complexity
+  // eslint-disable-next-line complexity
   static equals(valueA: EvmNftish, valueB: EvmNftish) {
     const nftA = EvmNft.create(valueA);
     const nftB = EvmNft.create(valueB);

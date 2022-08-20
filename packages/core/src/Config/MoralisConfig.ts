@@ -33,4 +33,5 @@ export type MoralisConfigValues =
   | ApiUtilsConfigValues
   | EvmApiConfigValues
   | SolApiConfigValues
-  | { [key: string]: string | number }; // Other, not strong typed values.
+  // Other, not strong typed values.
+  | { [key: string]: string | number };

@@ -69,9 +69,9 @@ export class EvmEvent implements MoralisDataObject {
       address: data.address.format(),
       blockNumber: data.blockNumber.toString(),
       data: {
-        from: data.data.from.format(),
-        to: data.data.to.format(),
-        value: data.data.value.format(),
+        from: data.data.from?.format(),
+        to: data.data.to?.format(),
+        value: data.data.value?.format(),
       },
     };
   }

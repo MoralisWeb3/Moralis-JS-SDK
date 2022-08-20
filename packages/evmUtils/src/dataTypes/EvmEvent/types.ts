@@ -25,8 +25,8 @@ export interface EvmEventData {
   blockNumber: BigNumber;
   blockHash: string;
   data: {
-    from: EvmAddress;
-    to: EvmAddress;
-    value: EvmNative;
+    from?: EvmAddress;
+    to?: EvmAddress;
+    value?: EvmNative;
   };
 }

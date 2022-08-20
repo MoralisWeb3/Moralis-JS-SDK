@@ -8,13 +8,16 @@ export interface AxiosRetryConfig {
 }
 
 export class AxiosRetry {
+  // TODO: refactor to reduce complexity
+  // eslint-disable-next-line complexity
   public static async request<Data, Response>(
     retryConfig: AxiosRetryConfig,
     requestConfig: AxiosRequestConfig<Data>,
   ): Promise<AxiosResponse<Response>> {
     for (let attempt = 1; ; attempt++) {
       try {
-        return await axios.request(requestConfig);
+        const response = await axios.request(requestConfig);
+        return response;
       } catch (e) {
         if (attempt >= retryConfig.maxAttempts) {
           throw e;

@@ -20,6 +20,7 @@
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint --ext .js,.ts src"
   }
 }

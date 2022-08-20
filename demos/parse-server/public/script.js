@@ -1,3 +1,5 @@
+/* global axios ethers */
+
 const AUTH_API_URL = 'http://localhost:1337/api/auth';
 
 const elError = document.getElementById('error');
@@ -17,7 +19,7 @@ const handleApiPost = async (endpoint, params) => {
 const requestMessage = (account, chain) =>
   handleApiPost('request-message', {
     address: account,
-    chain: chain,
+    chain,
     network: 'evm',
   });
 
