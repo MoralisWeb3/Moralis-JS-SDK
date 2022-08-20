@@ -20,7 +20,8 @@ export class Endpoints {
 
   public constructor(
     private readonly core: MoralisCore,
-    private readonly baseUrl: string, // TODO: the `baseUrl` argument should be removed.
+    // TODO: the `baseUrl` argument should be removed.
+    private readonly baseUrl: string,
   ) {}
 
   public createFetcher<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(

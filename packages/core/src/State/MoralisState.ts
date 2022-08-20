@@ -26,7 +26,7 @@ export class MoralisState<
   }
 
   private assertStarted() {
-    const value = this.value;
+    const { value } = this;
 
     if (!value || !this.isStarted) {
       throw new MoralisCoreError({

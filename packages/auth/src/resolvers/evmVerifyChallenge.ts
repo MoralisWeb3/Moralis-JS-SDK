@@ -18,7 +18,7 @@ type ApiResult = operations[Name]['responses']['201']['content']['application/js
 export const completeChallenge = createEndpointFactory(() =>
   createEndpoint({
     name: 'Verify Challenge (EVM)',
-    getUrl: (params: Params) => `${BASE_URL}/challenge/verify/evm`,
+    getUrl: () => `${BASE_URL}/challenge/verify/evm`,
     apiToResult: ({ chainId, ...data }: ApiResult) => ({
       ...data,
       // TODO: revisit EVM logic once we know how authentication in other networks work
@@ -31,7 +31,7 @@ export const completeChallenge = createEndpointFactory(() =>
       chain: result.chain.format(),
       address: result.address.format(),
     }),
-    parseParams: (params: ApiParams): ApiParams => params,
+    parseParams: (params: Params): ApiParams => params,
     method,
     bodyParams,
   }),

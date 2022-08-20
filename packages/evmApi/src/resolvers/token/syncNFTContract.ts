@@ -25,10 +25,10 @@ export const syncNFTContract = createEndpointFactory((core) =>
     name: 'syncNFTContract',
     urlParams: ['address'],
     getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/sync`,
-    apiToResult: (data: ApiResult) => ({
+    apiToResult: (_: ApiResult) => ({
       success: true,
     }),
-    resultToJson: (data) => ({
+    resultToJson: () => ({
       success: true,
     }),
     parseParams: (params: Params): ApiParams => ({
