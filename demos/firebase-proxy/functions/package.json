@@ -22,7 +22,7 @@
     "firebase-functions-rate-limiter": "^3.9.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
     "eslint-config-google": "^0.14.0",
