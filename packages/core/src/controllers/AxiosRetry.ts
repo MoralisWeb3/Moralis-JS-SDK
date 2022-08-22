@@ -16,8 +16,7 @@ export class AxiosRetry {
   ): Promise<AxiosResponse<Response>> {
     for (let attempt = 1; ; attempt++) {
       try {
-        // TODO: refactor to fix this error
-        // eslint-disable-next-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop -- we have sequential and conditional async requests
         const response = await axios.request(requestConfig);
         return response;
       } catch (e) {
