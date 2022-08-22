@@ -10,7 +10,5 @@ export default cleanEnv(process.env, {
 
   APP_NAME: str(),
 
-  REDIS_URL: str(),
-
   ALLOW_INSECURE_HTTP: bool({ default: false }),
 });
