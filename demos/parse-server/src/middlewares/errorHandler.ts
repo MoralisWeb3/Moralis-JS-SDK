@@ -44,6 +44,6 @@ export function errorHandler(error: Error | MoralisError | AxiosError, req: Requ
   }
 }
 
-function isAxiosError<T>(error: Error | AxiosError<T>): error is AxiosError<T> {
+function isAxiosError<Type>(error: Error | AxiosError<Type>): error is AxiosError<Type> {
   return 'isAxiosError' in error && error.isAxiosError;
 }
