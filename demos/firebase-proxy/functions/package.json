@@ -1,5 +1,5 @@
 {
-  "name": "firebase-proxy-functions",
+  "name": "demo-firebase-proxy-functions",
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",

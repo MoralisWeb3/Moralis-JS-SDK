@@ -1,5 +1,5 @@
 {
-  "name": "firebase-auth-functions",
+  "name": "demo-firebase-auth-functions",
   "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
