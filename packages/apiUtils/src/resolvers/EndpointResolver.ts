@@ -33,8 +33,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
 
-    // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
-    const result = await this.requestController.get<ApiResult, ApiParams>(url, searchParams, {
+    const result = await this.requestController.get<ApiResult>(url, searchParams, {
       headers: this.createHeaders(),
     });
 
@@ -48,7 +47,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     const searchParams = this.paramsReader.getSearchParams(apiParams);
     const bodyParams = this.paramsReader.getBodyParams(apiParams);
 
-    const result = await this.requestController.post<ApiResult, Record<string, string>, Record<string, string>>(
+    const result = await this.requestController.post<ApiResult, Record<string, string>>(
       url,
       searchParams,
       bodyParams,
@@ -67,7 +66,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     const searchParams = this.paramsReader.getSearchParams(apiParams);
     const bodyParams = this.paramsReader.getBodyParams(apiParams);
 
-    const result = await this.requestController.put<ApiResult, Record<string, string>, Record<string, string>>(
+    const result = await this.requestController.put<ApiResult, Record<string, string>>(
       url,
       searchParams,
       bodyParams,

@@ -95,9 +95,9 @@ export class RequestController {
     });
   }
 
-  public post<Response, SearchParams extends Record<string, string>, Body extends Record<string, unknown>>(
+  public post<Response, Body extends Record<string, unknown>>(
     url: string,
-    searchParams?: SearchParams,
+    searchParams?: Record<string, string>,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
@@ -112,9 +112,9 @@ export class RequestController {
     });
   }
 
-  public put<Response, SearchParams extends Record<string, string>, Body extends Record<string, unknown>>(
+  public put<Response, Body extends Record<string, unknown>>(
     url: string,
-    searchParams?: SearchParams,
+    searchParams?: Record<string, string>,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
@@ -129,9 +129,9 @@ export class RequestController {
     });
   }
 
-  public async get<Response, SearchParams extends Record<string, string>>(
+  public async get<Response>(
     url: string,
-    searchParams?: SearchParams,
+    searchParams?: Record<string, string>,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
