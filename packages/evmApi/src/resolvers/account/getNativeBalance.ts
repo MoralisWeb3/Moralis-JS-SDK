@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmAddressish, EvmChainish, EvmNative, EvmAddress } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -22,7 +21,7 @@ export const getNativeBalance = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNativeBalance',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/balance`,
+    getUrl: (params: Params) => `/${params.address}/balance`,
     apiToResult: (data: ApiResult) => ({
       balance: EvmNative.create(data.balance, 'wei'),
     }),

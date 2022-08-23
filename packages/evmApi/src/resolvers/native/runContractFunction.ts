@@ -1,6 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -28,7 +27,7 @@ export const runContractFunction = createEndpointFactory((core) =>
   createEndpoint({
     name: 'runContractFunction',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/function`,
+    getUrl: (params: Params) => `/${params.address}/function`,
     apiToResult: (data: ApiResult) => {
       return data;
     },

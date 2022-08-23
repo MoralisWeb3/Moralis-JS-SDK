@@ -7,7 +7,6 @@ import {
 } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmAddress, EvmAddressish, EvmEvent } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -29,7 +28,7 @@ export const getContractEvents = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getContractEvents',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/events`,
+    getUrl: (params: Params) => `/${params.address}/events`,
     //   TODO: remove PaginatedResponse when api squad make swagger update
     apiToResult: (data: PaginatedResult<ApiResult>, params: Params) =>
       (data.result.result ?? [])?.map((event) =>

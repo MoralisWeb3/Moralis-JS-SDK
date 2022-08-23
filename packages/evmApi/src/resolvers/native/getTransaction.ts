@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmTransaction, EvmTransactionLog } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -21,7 +20,7 @@ export const getTransaction = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTransaction',
     urlParams: ['transactionHash'],
-    getUrl: (params: Params) => `${BASE_URL}/transaction/${params.transactionHash}`,
+    getUrl: (params: Params) => `/transaction/${params.transactionHash}`,
     apiToResult: (data: ApiResult, params: Params) => {
       return EvmTransaction.create({
         from: data.from_address,

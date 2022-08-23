@@ -2,7 +2,6 @@ import { BigNumber, Camelize } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../../generated/types';
-import { BASE_URL } from '../../EvmApi';
 import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenAllowance';
@@ -24,7 +23,7 @@ export const getTokenAllowance = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenAllowance',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/erc20/${params.address}/allowance`,
+    getUrl: (params: Params) => `/erc20/${params.address}/allowance`,
     apiToResult: (data: ApiResult) => ({
       allowance: BigNumber.create(data.allowance),
     }),

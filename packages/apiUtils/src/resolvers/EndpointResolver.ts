@@ -8,16 +8,18 @@ import { getCommonHeaders } from './getCommonHeaders';
 export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   public static create<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
     core: MoralisCore,
+    baseUrl: string,
     endpointFactory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);
     const paramsReader = new EndpointParamsReader(endpoint);
-    return new EndpointResolver(endpoint, core.config, requestController, paramsReader);
+    return new EndpointResolver(endpoint, baseUrl, core.config, requestController, paramsReader);
   }
 
   public constructor(
     public readonly endpoint: Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
+    private readonly baseUrl: string,
     private readonly config: Config,
     private readonly requestController: RequestController,
     private readonly paramsReader: EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
@@ -25,7 +27,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
   // TODO: error handler to ApiError
   private get = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
 
     const apiParams = this.endpoint.parseParams(params);
 
@@ -40,7 +42,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
   };
 
   private post = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
@@ -59,7 +61,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
   };
 
   private put = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
@@ -76,6 +78,10 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
     return new ApiResultAdapter(result, this.endpoint.apiToResult, this.endpoint.resultToJson, params);
   };
+
+  private createUrl(params: Params): string {
+    return this.baseUrl + this.endpoint.getUrl(params);
+  }
 
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);

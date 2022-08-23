@@ -1,7 +1,6 @@
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, EvmNftTransfer } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { BASE_URL } from '../../EvmApi';
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -21,7 +20,7 @@ export const getNFTTransfers = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getNFTTransfers',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/nft/transfers`,
+    getUrl: (params: Params) => `/${params.address}/nft/transfers`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((transfer) =>
         EvmNftTransfer.create({

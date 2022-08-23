@@ -7,7 +7,7 @@ import { getPortfolio } from './resolvers/account/getPortfolio';
 import { getSPL } from './resolvers/account/getSPL';
 import { getNFTMetadata } from './resolvers/nft/getNFTMetadata';
 
-export const BASE_URL = 'https://solana-gateway.moralis.io';
+const BASE_URL = 'https://solana-gateway.moralis.io';
 
 export class MoralisSolApi extends ApiModule {
   public static readonly moduleName = 'solApi';

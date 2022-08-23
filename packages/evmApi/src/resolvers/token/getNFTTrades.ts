@@ -1,7 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, EvmNftTrade } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -21,7 +20,7 @@ export const getNFTTrades = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getNFTTrades',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/trades`,
+    getUrl: (params: Params) => `/nft/${params.address}/trades`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((trade) =>
         EvmNftTrade.create({

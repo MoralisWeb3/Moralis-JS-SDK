@@ -15,16 +15,18 @@ export class PaginatedEndpointResolver<
 > {
   public static create<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
     core: MoralisCore,
+    baseUrl: string,
     endpointFactory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);
     const paramsReader = new EndpointParamsReader(endpoint);
-    return new PaginatedEndpointResolver(endpoint, core.config, requestController, paramsReader);
+    return new PaginatedEndpointResolver(endpoint, baseUrl, core.config, requestController, paramsReader);
   }
 
   public constructor(
     public readonly endpoint: PaginatedEndpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
+    private readonly baseUrl: string,
     private readonly config: Config,
     private readonly requestController: RequestController,
     private readonly paramsReader: EndpointParamsReader<
@@ -38,7 +40,7 @@ export class PaginatedEndpointResolver<
 
   // TODO: error handler to ApiError
   private get = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
 
     const apiParams = this.endpoint.parseParams(params);
 
@@ -59,7 +61,7 @@ export class PaginatedEndpointResolver<
   };
 
   private post = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
@@ -86,6 +88,10 @@ export class PaginatedEndpointResolver<
     const nextParams = getNextParams(params, result);
     return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
   };
+
+  private createUrl(params: Params): string {
+    return this.baseUrl + this.endpoint.getUrl(params);
+  }
 
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);

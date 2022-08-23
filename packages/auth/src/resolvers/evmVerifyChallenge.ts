@@ -2,7 +2,6 @@ import { maybe, toCamelCase } from '@moralisweb3/core';
 import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../generated/types';
-import { BASE_URL } from '../MoralisAuth';
 
 const name = 'verifyChallengeEvm';
 
@@ -18,7 +17,7 @@ type ApiResult = operations[Name]['responses']['201']['content']['application/js
 export const completeChallenge = createEndpointFactory(() =>
   createEndpoint({
     name: 'Verify Challenge (EVM)',
-    getUrl: () => `${BASE_URL}/challenge/verify/evm`,
+    getUrl: () => `/challenge/verify/evm`,
     apiToResult: ({ chainId, ...data }: ApiResult) => ({
       ...data,
       // TODO: revisit EVM logic once we know how authentication in other networks work
