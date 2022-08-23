@@ -97,7 +97,7 @@ export class RequestController {
 
   public post<Response, Body extends Record<string, unknown>>(
     url: string,
-    searchParams?: Record<string, string>,
+    searchParams?: Record<string, unknown>,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
@@ -114,7 +114,7 @@ export class RequestController {
 
   public put<Response, Body extends Record<string, unknown>>(
     url: string,
-    searchParams?: Record<string, string>,
+    searchParams?: Record<string, unknown>,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
@@ -131,7 +131,7 @@ export class RequestController {
 
   public async get<Response>(
     url: string,
-    searchParams?: Record<string, string>,
+    searchParams?: Record<string, unknown>,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
