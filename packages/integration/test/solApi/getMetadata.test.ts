@@ -27,7 +27,7 @@ describe('Moralis SolApi', () => {
     const failedResult = await SolApi.nft
       .getNFTMetadata({
         network: 'mainnet',
-        address: 'A8rFZ2Y3Kcr2A',
+        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
       })
       .then()
       .catch((err) => {
@@ -38,7 +38,7 @@ describe('Moralis SolApi', () => {
     expect(
       SolApi.nft.getNFTMetadata({
         network: 'mainnet',
-        address: 'A8rFZ',
+        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 400"`);
   });
