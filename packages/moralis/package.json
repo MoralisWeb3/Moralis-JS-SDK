@@ -24,6 +24,7 @@
     "@moralisweb3/api-utils": "^2.0.3",
     "@moralisweb3/evm-api": "^2.0.3",
     "@moralisweb3/evm-utils": "^2.0.3",
-    "@moralisweb3/sol-api": "^2.0.3"
+    "@moralisweb3/sol-api": "^2.0.3",
+    "@moralisweb3/sol-utils": "^2.0.3"
   }
 }
