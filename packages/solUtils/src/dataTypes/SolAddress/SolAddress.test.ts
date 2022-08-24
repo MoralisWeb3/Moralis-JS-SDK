@@ -12,6 +12,11 @@ describe('SolAddress', () => {
     expect(address.format()).toEqual(ADDRESS);
   });
 
+  it('create() throws an error when a passed address is invalid', () => {
+    expect(() => SolAddress.create('5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5xwp'))
+      .toThrowError('Invalid Solana address provided');
+  });
+
   it('create() does not create a new instance when SolAddress passed', () => {
     const address1 = SolAddress.create(ADDRESS);
     const address2 = SolAddress.create(address1);
@@ -22,11 +27,11 @@ describe('SolAddress', () => {
   it('equals() returns correct value', () => {
     const a = SolAddress.create(ADDRESS);
     const b = SolAddress.create(ADDRESS);
-    const c = SolAddress.create('9xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp');
+    const c = '9xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp';
 
     expect(a.equals(b)).toBe(true);
     expect(b.equals(a)).toBe(true);
-    expect(c.equals(a)).toBe(false);
-    expect(c.equals(b)).toBe(false);
+    expect(a.equals(c)).toBe(false);
+    expect(b.equals(c)).toBe(false);
   });
 });
