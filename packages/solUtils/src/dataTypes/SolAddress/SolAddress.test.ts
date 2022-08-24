@@ -13,8 +13,9 @@ describe('SolAddress', () => {
   });
 
   it('create() throws an error when a passed address is invalid', () => {
-    expect(() => SolAddress.create('5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5xwp'))
-      .toThrowError('Invalid Solana address provided');
+    expect(() => SolAddress.create('5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5xwp')).toThrowError(
+      'Invalid Solana address provided',
+    );
   });
 
   it('create() does not create a new instance when SolAddress passed', () => {
