@@ -1,0 +1,89 @@
+body {
+  color: rgb(104, 115, 141);
+  font-size: 17px;
+  line-height: 24px;
+  font-family: 'Golos', sans-serif, Arial, Helvetica;
+}
+
+header h1 {
+  color: rgb(4, 24, 54);
+  font-weight: 800;
+  font-size: 54px;
+  text-align: center;
+}
+
+header {
+  padding: 30px 10px;
+}
+
+header p {
+  max-width: 650px;
+  text-align: center;
+  font-size: 21px;
+  line-height: 27px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 {
+  color: #68738d;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+}
+
+#examples {
+  padding: 30px 10px 60px;
+  margin: 10px;
+}
+
+.example {
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: radial-gradient(
+    97.23% 220.41% at 0% -0.14%,
+    #ffffff 0%,
+    #ffffff 34.4%,
+    rgba(245, 247, 255, 0.945257) 100%
+  );
+  box-shadow: 4px 6px 70px rgb(44 97 176 / 20%);
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(-105px);
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 650px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.example + .example {
+  margin-top: 1em;
+}
+
+.example h3 {
+  margin: 0;
+}
+
+.icon {
+  height: 1em;
+  width: auto;
+}
+
+.link {
+  transition: color 0.4s;
+  color: rgb(81, 165, 218);
+  text-decoration: none;
+  padding: 0.4em;
+}
+
+.link:hover {
+  color: #069efc;
+  fill: #069efc;
+}
