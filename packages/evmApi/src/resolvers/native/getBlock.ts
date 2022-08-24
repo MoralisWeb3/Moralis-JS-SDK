@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import MoralisCore, { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmTransaction, EvmTransactionLog, EvmBlock } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -65,7 +64,7 @@ export const getBlock = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getBlock',
     urlParams: ['blockNumberOrHash'],
-    getUrl: (params: Params) => `${BASE_URL}/block/${params.blockNumberOrHash}`,
+    getUrl: (params: Params) => `/block/${params.blockNumberOrHash}`,
     apiToResult: (result: ApiResult, params: Params) => {
       return apiToResult(core, result, params);
     },

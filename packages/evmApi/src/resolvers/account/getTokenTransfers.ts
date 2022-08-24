@@ -2,7 +2,6 @@ import { BigNumber, Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, Erc20Transfer } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
-import { BASE_URL } from '../../EvmApi';
 import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenTransfers';
@@ -22,7 +21,7 @@ export const getTokenTransfers = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getTokenTransfers',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/erc20/transfers`,
+    getUrl: (params: Params) => `/${params.address}/erc20/transfers`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((transfer) =>
         Erc20Transfer.create({

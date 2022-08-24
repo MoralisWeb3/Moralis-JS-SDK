@@ -18,16 +18,12 @@ export class Endpoints {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly endpoints: Endpoint<unknown, any, any, any, unknown>[] = [];
 
-  public constructor(
-    private readonly core: MoralisCore,
-    // TODO: the `baseUrl` argument should be removed.
-    private readonly baseUrl: string,
-  ) {}
+  public constructor(private readonly core: MoralisCore, private readonly baseUrl: string) {}
 
   public createFetcher<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
     factory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
-    const resolver = EndpointResolver.create(this.core, factory);
+    const resolver = EndpointResolver.create(this.core, this.baseUrl, factory);
     this.endpoints.push(resolver.endpoint);
     return resolver.fetch;
   }
@@ -35,7 +31,7 @@ export class Endpoints {
   public createPaginatedFetcher<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
     factory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
-    const resolver = PaginatedEndpointResolver.create(this.core, factory);
+    const resolver = PaginatedEndpointResolver.create(this.core, this.baseUrl, factory);
     this.endpoints.push(resolver.endpoint);
     return resolver.fetch;
   }
@@ -50,10 +46,7 @@ export class Endpoints {
         params[paramName] = `{${paramName}}`;
         return params;
       }, {});
-      const urlPattern = endpoint
-        .getUrl(urlParams)
-        // TODO: getUrl() method should NOT return url with baseUrl prefix!
-        .replace(this.baseUrl, '');
+      const urlPattern = endpoint.getUrl(urlParams);
 
       return {
         // DO NOT return baseUrl here!

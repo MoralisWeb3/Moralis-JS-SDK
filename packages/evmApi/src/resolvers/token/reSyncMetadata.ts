@@ -2,7 +2,6 @@ import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 
 import { Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -23,7 +22,7 @@ export const reSyncMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'reSyncMetadata',
     urlParams: ['address', 'tokenId'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}/metadata/resync`,
+    getUrl: (params: Params) => `/nft/${params.address}/${params.tokenId}/metadata/resync`,
     apiToResult: (data: ApiResult) => ({
       ...data,
     }),

@@ -1,5 +1,4 @@
 import { createEndpoint, createEndpointFactory, EndpointBodyType } from '@moralisweb3/api-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 
 type operation = 'uploadFolder';
@@ -18,7 +17,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const uploadFolder = createEndpointFactory(() =>
   createEndpoint({
     name: 'uploadFolder',
-    getUrl: () => `${BASE_URL}/ipfs/uploadFolder`,
+    getUrl: () => `/ipfs/uploadFolder`,
     apiToResult: (data: ApiResult) => {
       return data;
     },

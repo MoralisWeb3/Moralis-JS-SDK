@@ -1,6 +1,7 @@
 import { EndpointResolver } from '@moralisweb3/api-utils';
 import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { BASE_URL } from '../MoralisAuth';
 import { initializeChallenge } from '../resolvers/evmRequestChallenge';
 
 export enum AuthNetwork {
@@ -31,7 +32,7 @@ const makeEvmRequestMessage = (
   core: MoralisCore,
   { chain, address, network, ...options }: RequestMessageEvmOptions,
 ) => {
-  return EndpointResolver.create(core, initializeChallenge).fetch({
+  return EndpointResolver.create(core, BASE_URL, initializeChallenge).fetch({
     chainId: EvmChain.create(chain).decimal,
     address: EvmAddress.create(address).checksum,
     ...options,
