@@ -47,3 +47,4 @@ packages/**/coverage
 .tmp/
 TODO.md
 archive/**/*
+.vscode/
