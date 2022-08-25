@@ -10,6 +10,9 @@ yarn-error.log
 # docs
 docs/
 
+# gh-pages
+pages/
+
 # Build
 packages/**/build
 packages/**/dist

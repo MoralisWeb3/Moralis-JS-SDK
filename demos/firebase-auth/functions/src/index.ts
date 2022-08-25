@@ -1,9 +1,9 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {cert, ServiceAccount} from 'firebase-admin/app';
-import {EvmChain} from '@moralisweb3/evm-utils';
-import {guard} from './middlewares/Guard';
-import {userExists} from './utils/userExists';
+import { cert, ServiceAccount } from 'firebase-admin/app';
+import { EvmChain } from '@moralisweb3/evm-utils';
+import { guard } from './middlewares/Guard';
+import { userExists } from './utils/userExists';
 import serviceAccountCert from './serviceAccountCert.json';
 import Moralis from 'moralis';
 
@@ -58,7 +58,7 @@ export const issueToken = functions.https.onCall(async (data: IssueTokenData) =>
   });
   const uid = response.result.profileId;
 
-  if (!await userExists(auth, uid)) {
+  if (!(await userExists(auth, uid))) {
     await auth.createUser({
       uid,
       displayName: response.result.address.checksum,
@@ -66,15 +66,17 @@ export const issueToken = functions.https.onCall(async (data: IssueTokenData) =>
   }
 
   const token = await auth.createCustomToken(uid);
-  return {token};
+  return { token };
 });
 
 // ~/getSecretData
 
-export const getSecretData = functions.https.onCall(guard(async () => {
-  const secretValue = 'I am a secret';
-  return {secretValue};
-}));
+export const getSecretData = functions.https.onCall(
+  guard(async () => {
+    const secretValue = 'I am a secret';
+    return { secretValue };
+  }),
+);
 
 // ~/getTime
 

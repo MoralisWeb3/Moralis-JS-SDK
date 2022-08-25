@@ -1,5 +1,16 @@
 # @moralisweb3/api-utils
 
+## 2.1.0
+
+### Minor Changes
+
+- [#567](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/567) [`d542326`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d542326171812d992fb9548aa323553fdd1a0fb4) Thanks [@sogunshola](https://github.com/sogunshola)! - body params was added to the `getDescriptors()` method
+
+### Patch Changes
+
+- Updated dependencies [[`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255)]:
+  - @moralisweb3/core@2.1.0
+
 ## 2.0.3
 
 ### Patch Changes

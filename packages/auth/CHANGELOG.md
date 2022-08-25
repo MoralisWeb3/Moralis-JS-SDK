@@ -1,5 +1,14 @@
 # @moralisweb3/auth
 
+## 2.1.0
+
+### Patch Changes
+
+- Updated dependencies [[`a0ece52`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0ece52ecc4f73a2d93af59972b06a1a30f1bc61), [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255), [`d542326`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d542326171812d992fb9548aa323553fdd1a0fb4)]:
+  - @moralisweb3/evm-utils@2.1.0
+  - @moralisweb3/core@2.1.0
+  - @moralisweb3/api-utils@2.1.0
+
 ## 2.0.3
 
 ### Patch Changes
