@@ -36,8 +36,8 @@
     "test": "yarn nx run-many --target=test --all",
     "test:watch": "yarn nx run-many --target=test:watch --all",
     "test:coverage": "yarn nx run-many test:coverage --parallel",
-    "format": "yarn nx run-many --target=format --all",
-    "format:check": "yarn nx run-many --target=format:check --all",
+    "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
+    "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
     "release": "yarn build && changeset publish"
   },
   "workspaces": {

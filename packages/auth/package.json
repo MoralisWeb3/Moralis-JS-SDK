@@ -14,8 +14,6 @@
     "test": "echo 'not implemented'",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
-    "format": "prettier . '**/*.+(js|ts|json)' --write",
-    "format:check": "prettier . '**/*.+(js|ts|json)' --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "gen:api-typeses": "openapi-typescript https://authapi.moralis.io/api-docs-json --output src/generated/types.ts",
