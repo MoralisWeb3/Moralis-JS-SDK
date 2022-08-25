@@ -27,7 +27,7 @@ export class ReadmeTheme extends MarkdownTheme {
 title: "${this.getTitle(page)}"
 category: ${CATEGORY_ID}
 parentDoc: ${PARENT_ID}
-hidden: true
+hidden: false
 ---
 `;
   }

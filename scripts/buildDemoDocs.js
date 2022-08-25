@@ -198,7 +198,7 @@ const makeFrontMatter = (demoData) => {
 title: "${demoData.name}"
 category: ${DOCS_CATEGORY_ID}
 parentDoc: ${DOCS_PARENT_ID}
-hidden: true
+hidden: false
 ---
 `;
 };
