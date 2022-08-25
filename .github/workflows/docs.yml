@@ -32,6 +32,6 @@ jobs:
           branch: gh-pages
           folder: pages
       - name: Deploy Readme docs
-        uses: readmeio/rdme@XX
+        uses: readmeio/rdme@7.5.0
         with:
           rdme: npx rdme docs docs --version=v2.0 --key=README_API_KEY
