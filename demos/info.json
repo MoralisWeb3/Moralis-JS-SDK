@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2022-08-25T09:38:21.297Z",
+  "demos": [
+    {
+      "name": "cli",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/cli",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/cli/cli.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/cli/code"
+    },
+    {
+      "name": "express-proxy",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/express-proxy",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/express-proxy/express-proxy.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/express-proxy/code"
+    },
+    {
+      "name": "firebase-auth",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/firebase-auth",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-auth/firebase-auth.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-auth/code"
+    },
+    {
+      "name": "firebase-proxy",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/firebase-proxy",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-proxy/firebase-proxy.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-proxy/code"
+    },
+    {
+      "name": "nextjs",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/nextjs",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/nextjs/nextjs.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/nextjs/code"
+    },
+    {
+      "name": "parse-server",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/parse-server",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server/parse-server.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server/code"
+    },
+    {
+      "name": "supabase-auth",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/supabase-auth",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/supabase-auth/supabase-auth.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/supabase-auth/code"
+    }
+  ]
+}
