@@ -3,7 +3,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
 
 /**
  * Valid ERC20 token input
- * 
+ *
  * @example
  * ```ts
  * const input = {
