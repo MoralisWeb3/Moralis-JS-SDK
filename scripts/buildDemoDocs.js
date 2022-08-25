@@ -8,7 +8,7 @@ const cheerio = require('cheerio');
 const HOSTED_PAGES = 'https://moralisweb3.github.io/Moralis-JS-SDK';
 
 // reference to https://docs.moralis.io/docs/nodejs-demos
-const DOCS_PARENT_ID = '6306c1e34ab6a100ab077bb8';
+const DOCS_PARENT_ID = '63074bbec5f3ae0a0b565cf6';
 // id for the technical references
 const DOCS_CATEGORY_ID = '630696f4ab47c500b41899b7';
 // Root URL of github demos
