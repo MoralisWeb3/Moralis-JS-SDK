@@ -2,7 +2,6 @@ import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { SolAddress, SolAddressish, SolNetworkish } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
-import { BASE_URL } from '../../MoralisSolApi';
 import { SolNetworkResolver } from '../SolNetworkResolver';
 
 type Operation = 'getNFTMetadata';
@@ -26,7 +25,7 @@ export const getNFTMetadata = createEndpointFactory((core) =>
       // but it's not working with Endpoints.getDescriptors(). After changes described in Endpoints
       // please replace this line.
       const network = params.network ? params.network : SolNetworkResolver.resolve(undefined, core);
-      return `${BASE_URL}/nft/${network}/${params.address}/metadata`;
+      return `/nft/${network}/${params.address}/metadata`;
     },
     apiToResult: (data: ApiResult) => {
       return {

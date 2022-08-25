@@ -54,10 +54,11 @@ describe('ApiResolver', () => {
   beforeEach(() => {
     resolver = EndpointResolver.create(
       core,
+      API_ROOT,
       createEndpointFactory(() =>
         createEndpoint({
           name: 'endpointWeights',
-          getUrl: () => `${API_ROOT}/info/endpointWeights`,
+          getUrl: () => '/info/endpointWeights',
           apiToResult: (data: EndpointWeight) => ({
             endpoint: data.endpoint,
             weight: parseInt(data.weight),

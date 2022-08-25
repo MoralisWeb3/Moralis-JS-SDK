@@ -15,6 +15,7 @@
   "excludePrivate": true,
   "readme": "none",
   "excludeNotDocumented": true,
+  "exclude": ["packages/eslintConfig"],
   "validation": {
     "notExported": false,
     "invalidLink": true,

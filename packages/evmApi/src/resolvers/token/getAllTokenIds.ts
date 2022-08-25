@@ -1,7 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNft } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -21,7 +20,7 @@ export const getAllTokenIds = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getAllTokenIds',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}`,
+    getUrl: (params: Params) => `/nft/${params.address}`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map(
         (nft) =>

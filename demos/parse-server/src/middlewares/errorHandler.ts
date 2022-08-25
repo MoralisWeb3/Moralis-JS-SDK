@@ -24,7 +24,12 @@ const makeMoralisErrorMessage = (error: MoralisError) => {
   return message;
 };
 
-export function errorHandler(error: Error | MoralisError | AxiosError, req: Request, res: Response, _next: NextFunction) {
+export function errorHandler(
+  error: Error | MoralisError | AxiosError,
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
   // eslint-disable-next-line no-console
   console.error('ErrorHandler', error);
 

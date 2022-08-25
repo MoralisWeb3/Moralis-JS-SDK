@@ -2,7 +2,12 @@ import { MoralisError, isMoralisError } from '@moralisweb3/core';
 import { NextFunction, Request, Response } from 'express';
 import { AxiosError } from 'axios';
 
-export function errorHandler(error: Error | MoralisError | AxiosError, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(
+  error: Error | MoralisError | AxiosError,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   if (isMoralisError(error)) {
     const errorResponse = error.details?.response;
     const errorResponseData =

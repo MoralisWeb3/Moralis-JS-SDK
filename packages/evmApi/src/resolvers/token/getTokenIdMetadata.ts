@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNft } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -22,7 +21,7 @@ export const getTokenIdMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenIdMetadata',
     urlParams: ['address', 'tokenId'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/${params.tokenId}`,
+    getUrl: (params: Params) => `/nft/${params.address}/${params.tokenId}`,
     apiToResult: (data: ApiResult, params: Params) =>
       EvmNft.create({
         ...toCamelCase(data),

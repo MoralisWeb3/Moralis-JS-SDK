@@ -44,7 +44,7 @@ import { uploadFolder } from './resolvers/storage';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 import { Endpoints } from '@moralisweb3/api-utils';
 
-export const BASE_URL = 'https://deep-index.moralis.io/api/v2';
+const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
 export class MoralisEvmApi extends ApiModule {
   public static readonly moduleName = 'evmApi';
