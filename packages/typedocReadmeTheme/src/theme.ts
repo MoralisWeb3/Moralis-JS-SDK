@@ -1,6 +1,6 @@
 import { MarkdownTheme } from 'typedoc-plugin-markdown';
 
-import { DeclarationReflection, PageEvent, Reflection, Renderer } from 'typedoc';
+import { DeclarationReflection, PageEvent, Reflection } from 'typedoc';
 import { getPageTitle } from 'typedoc-plugin-markdown/dist/utils/front-matter';
 
 // reference to https://docs.moralis.io/docs/nodejs-technical-references
@@ -9,17 +9,11 @@ const PARENT_ID = '6306b23a7acda000913f9ed7';
 const CATEGORY_ID = '630696f4ab47c500b41899b7';
 
 export class ReadmeTheme extends MarkdownTheme {
-  constructor(renderer: Renderer) {
-    super(renderer);
-  }
-
   formatContents(contents: string): string {
-    return (
-      contents
-        .replace(/[\r\n]{3,}/g, '\n\n')
-        .replace(/!spaces/g, '')
-        .replace(/^\s+|\s+$/g, '') + '\n'
-    );
+    return `${contents
+      .replace(/[\r\n]{3,}/g, '\n\n')
+      .replace(/!spaces/g, '')
+      .replace(/^\s+|\s+$/g, '')}\n`;
   }
 
   makeFrontMatter(page: PageEvent<Reflection>): string {
@@ -46,11 +40,7 @@ hidden: false
   }
 
   toUrl(mapping: any, reflection: DeclarationReflection) {
-    return `${reflection
-      .getFullName()
-      .replace(/[\/\.]/g, '-')
-      .replace('@', '')
-      .toLowerCase()}.md`;
+    return `${reflection.getFullName().replace(/[/.]/g, '-').replace('@', '').toLowerCase()}.md`;
   }
 
   getSlug(page: PageEvent<any>) {
