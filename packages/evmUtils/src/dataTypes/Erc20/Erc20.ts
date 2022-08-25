@@ -104,7 +104,7 @@ export class Erc20Token implements MoralisDataObject {
    * @returns the Erc20Token as a JSON object
    * @example
    * ```ts
-   * token.toJSON();
+   * token.format();
    * ```
    */
   format() {
