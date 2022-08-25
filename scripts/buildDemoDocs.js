@@ -7,11 +7,11 @@ const cheerio = require('cheerio');
 // Url to hosted github  pages
 const HOSTED_PAGES = 'https://moralisweb3.github.io/Moralis-JS-SDK';
 
-// reference to https://docs.moralis.io/docs/nodejs-examples
+// reference to https://docs.moralis.io/docs/nodejs-demos
 const DOCS_PARENT_ID = '6306c1e34ab6a100ab077bb8';
 // id for the technical references
 const DOCS_CATEGORY_ID = '630696f4ab47c500b41899b7';
-// Root URL of github examples
+// Root URL of github demos
 const GITHUB_DEMO_PATH = 'https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos';
 
 // Compression level vor arciving the code to .zip
@@ -25,11 +25,11 @@ const OUT_DIR_CODE = 'pages';
 const OUT_DIR_DOCS = 'docs';
 
 // Reference to the folder names in the output folder
-const EXAMPLES_DIR = 'examples';
+const DEMOS_DIR = 'demos';
 const CODE_DIR = 'code';
 
 const demoFolderPath = path.join(__dirname, '..', DIR_DEMO);
-const outputCodePath = path.join(__dirname, '..', OUT_DIR_CODE, EXAMPLES_DIR);
+const outputCodePath = path.join(__dirname, '..', OUT_DIR_CODE, DEMOS_DIR);
 const outputDocsPath = path.join(__dirname, '..', OUT_DIR_DOCS);
 
 const getAllFilesFromFolder = async (folderName) =>
@@ -114,8 +114,8 @@ const getAllReadmeData = async (demoFolders) => {
 
 const getGithubUrl = (name) => `${GITHUB_DEMO_PATH}/${name}`;
 const getDownloadName = (name) => `${name}.zip`;
-const getDownloadPath = (name) => `${HOSTED_PAGES}/examples/${name}/${getDownloadName(name)}`;
-const getCodePath = (name) => `${HOSTED_PAGES}/examples/${name}/${CODE_DIR}`;
+const getDownloadPath = (name) => `${HOSTED_PAGES}/${DEMOS_DIR}/${name}/${getDownloadName(name)}`;
+const getCodePath = (name) => `${HOSTED_PAGES}/${DEMOS_DIR}/${name}/${CODE_DIR}`;
 
 /**
  * Creates a .zip file for a demo project
@@ -174,28 +174,28 @@ const createInfo = (name) => ({
 });
 
 /**
- * Generates a data object of all examples
+ * Generates a data object of all demos
  */
-const createExamplesData = (names) => {
+const createDemoData = (names) => {
   return names.map(createInfo);
 };
 
 /**
- * Generates a json file with data  of all examples
+ * Generates a json file with data  of all demos
  */
-const createInfoJson = async (examples) => {
+const createInfoJson = async (demos) => {
   const outPath = path.join(outputCodePath, 'info.json');
   const now = new Date();
   const data = {
     generatedAt: now,
-    examples,
+    demos,
   };
   await fse.writeJsonSync(outPath, data, { spaces: 2 });
 };
 
-const makeFrontMatter = (exampleData) => {
+const makeFrontMatter = (demoData) => {
   return `---
-title: "${exampleData.name}"
+title: "${demoData.name}"
 category: ${DOCS_CATEGORY_ID}
 parentDoc: ${DOCS_PARENT_ID}
 hidden: true
@@ -203,20 +203,20 @@ hidden: true
 `;
 };
 
-const makeMarkdownHeader = (exampleData) => {
-  return `[Download](${exampleData.download})
+const makeMarkdownHeader = (demoData) => {
+  return `[Download](${demoData.download})
 
-[View code](${exampleData.github})
+[View code](${demoData.github})
 
 ---
 `;
 };
 
 /**
- * Generate HTML index page for the examples
+ * Generate HTML index page for the demos
  */
-const generateExampleMarkdown = (exampleData, readme) => {
-  let markdown = `${makeFrontMatter(exampleData)}${makeMarkdownHeader(exampleData)}`;
+const generateDemoMarkdown = (demoData, readme) => {
+  let markdown = `${makeFrontMatter(demoData)}${makeMarkdownHeader(demoData)}`;
 
   if (readme) {
     // Remove title header
@@ -231,14 +231,14 @@ const generateExampleMarkdown = (exampleData, readme) => {
 };
 
 /**
- * Create all markdown files for the examples in the docs folder
+ * Create all markdown files for the demos in the docs folder
  */
-createMarkdownFiles = async (examplesData, readmeData) => {
+createMarkdownFiles = async (demosData, readmeData) => {
   await Promise.all(
-    examplesData.map(async (exampleData) => {
-      const markdown = generateExampleMarkdown(exampleData, readmeData[exampleData.name]);
+    demosData.map(async (demoData) => {
+      const markdown = generateDemoMarkdown(demoData, readmeData[demoData.name]);
 
-      const outPath = path.join(outputDocsPath, `nodejs-example-${exampleData.name}.md`);
+      const outPath = path.join(outputDocsPath, `nodejs-demo-${demoData.name}.md`);
       await fs.writeFileSync(outPath, markdown);
     }),
   );
@@ -254,9 +254,9 @@ const run = async () => {
   await copyAllDemosToDocs(demoFolders);
   await createAllAchives(demoFolders);
   const readmeData = await getAllReadmeData(demoFolders);
-  const examplesData = createExamplesData(demoFolders);
-  await createMarkdownFiles(examplesData, readmeData);
-  await createInfoJson(examplesData);
+  const demosData = createDemoData(demoFolders);
+  await createMarkdownFiles(demosData, readmeData);
+  await createInfoJson(demosData);
 };
 
 run();

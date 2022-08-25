@@ -33,8 +33,8 @@
   },
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
-    "build:examples-docs": "node ./scripts/buildExamples.js",
-    "build:docs": "yarn typedoc && yarn build:examples-docs",
+    "build:demo-docs": "node ./scripts/buildDemoDocs.js",
+    "build:docs": "rm -rf docs && yarn typedoc && yarn build:demo-docs",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",
