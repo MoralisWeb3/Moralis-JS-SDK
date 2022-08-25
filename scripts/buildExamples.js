@@ -17,8 +17,8 @@ const GITHUB_DEMO_PATH = 'https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/mai
 // Compression level vor arciving the code to .zip
 const COMPRESSION_LEVEL = 9;
 
-// References to our folder names
-const DEMO_DIR = 'demos';
+// References to input folder names
+const DIR_DEMO = 'demos';
 
 // Reference to the output folders
 const OUT_DIR_CODE = 'pages';
@@ -28,7 +28,7 @@ const OUT_DIR_DOCS = 'docs';
 const EXAMPLES_DIR = 'examples';
 const CODE_DIR = 'code';
 
-const demoFolderPath = path.join(__dirname, '..', DEMO_DIR);
+const demoFolderPath = path.join(__dirname, '..', DIR_DEMO);
 const outputCodePath = path.join(__dirname, '..', OUT_DIR_CODE, EXAMPLES_DIR);
 const outputDocsPath = path.join(__dirname, '..', OUT_DIR_DOCS);
 
