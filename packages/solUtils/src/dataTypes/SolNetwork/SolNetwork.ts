@@ -61,7 +61,7 @@ export class SolNetwork implements MoralisData {
   /**
    * Formats the network to a specific format.
    * Currently returns a string representing the network.
-   * @example "mainnet"
+   * @example network.format(); // "mainnet"
    */
   public format(): MoralisDataFormatted {
     // TODO: add `format` argument
@@ -79,7 +79,7 @@ export class SolNetwork implements MoralisData {
 
   /**
    * @returns a string representing the network.
-   * @example "mainnet"
+   * @example network.toJSON(); // "mainnet"
    */
   public toJSON(): string {
     return this.network;
@@ -87,7 +87,7 @@ export class SolNetwork implements MoralisData {
 
   /**
    * @returns a string representing the network.
-   * @example "mainnet"
+   * @example network.toString(); // "mainnet"
    */
   public toString(): string {
     return this.network;
