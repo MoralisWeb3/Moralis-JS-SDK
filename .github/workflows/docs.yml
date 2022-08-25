@@ -24,10 +24,14 @@ jobs:
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
-      - name: Create the docs directory locally in CI
+      - name: Create the docs and pages directory locally in CI
         run: yarn build && yarn build:docs
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: docs
+          folder: pages
+      - name: Deploy Readme docs
+        uses: readmeio/rdme@XX
+        with:
+          rdme: npx rdme docs docs --version=v2.0 --key=README_API_KEY
