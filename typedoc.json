@@ -10,6 +10,7 @@
   "excludeInternal": true,
   "excludePrivate": true,
   "excludeNotDocumented": true,
+  "exclude": ["packages/eslintConfig"],
   "validation": {
     "notExported": false,
     "invalidLink": true,
