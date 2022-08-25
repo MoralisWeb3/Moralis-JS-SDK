@@ -35,9 +35,6 @@ export class EvmTransaction implements MoralisDataObject {
     return new EvmTransaction(data);
   }
 
-  /**
-   * Internal reference of the transaction.
-   */
   private _data: EvmTransactionData;
 
   constructor(data: EvmTransacionInput) {
@@ -155,7 +152,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction to address
    * @example
    * ```
-   * transaction.to
+   * transaction.to // EvmAddress
    * ```
    */
   get to() {
@@ -166,7 +163,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction from address
    * @example
    * ```
-   * transaction.address
+   * transaction.address // EvmAddress
    * ```
    */
   get from() {
@@ -177,7 +174,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction nonce
    * @example
    * ```
-   * transaction.nonce
+   * transaction.nonce // 326595425
    * ```
    */
   get nonce() {
@@ -188,7 +185,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction gas
    * @example
    * ```
-   * transaction.gas
+   * transaction.gas // 6721975
    * ```
    */
   get gas() {
@@ -199,7 +196,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction gas price
    * @example
    * ```
-   * transaction.gasPrice
+   * transaction.gasPrice // 20000000000
    * ```
    */
   get gasPrice() {
@@ -210,7 +207,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction gas used
    * @example
    * ```
-   * transaction.gasUsed
+   * transaction.gasUsed // 1340925
    * ```
    */
   get gasUsed() {
@@ -221,7 +218,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction cumulative gas used
    * @example
    * ```
-   * transaction.cumulativeGasUsed
+   * transaction.cumulativeGasUsed // 1340925
    * ```
    */
   get cumulativeGasUsed() {
@@ -232,7 +229,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction block number
    * @example
    * ```
-   * transaction.blockNumber
+   * transaction.blockNumber // 12526958
    * ```
    */
   get blockNumber() {
@@ -243,7 +240,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction value
    * @example
    * ```
-   * transaction.value
+   * transaction.value // EvmNative
    * ```
    */
   get value() {
@@ -254,7 +251,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction chain
    * @example
    * ```
-   * transaction.chain
+   * transaction.chain // EvmChain
    * ```
    */
   get chain() {
@@ -265,7 +262,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction contract address
    * @example
    * ```
-   * transaction.contractAddress
+   * transaction.contractAddress // EvmAddress
    * ```
    */
   get contractAddress() {
@@ -276,7 +273,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction logs
    * @example
    * ```
-   * transaction.logs
+   * transaction.logs // EvmTransactionLog[]
    * ```
    */
   get logs() {
@@ -287,7 +284,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction receipt root
    * @example
    * ```
-   * transaction.receiptRoot
+   * transaction.receiptRoot // string
    * ```
    */
   get receiptRoot() {
@@ -298,7 +295,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction receipt status
    * @example
    * ```
-   * transaction.receiptStatus
+   * transaction.receiptStatus // 1
    * ```
    */
   get receiptStatus() {
@@ -309,7 +306,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction data
    * @example
    * ```
-   * transaction.data
+   * transaction.data // 0x000000000000000000000000000000000000000000000000000000000000002
    * ```
    */
   get data() {
@@ -320,7 +317,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction hash
    * @example
    * ```
-   * transaction.hash
+   * transaction.hash // 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
    * ```
    */
   get hash() {
@@ -331,7 +328,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction type
    * @example
    * ```
-   * transaction.type
+   * transaction.type // 1
    * ```
    */
   get type() {
@@ -342,7 +339,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction black hash
    * @example
    * ```
-   * transaction.blockHash
+   * transaction.blockHash // 0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86
    * ```
    */
   get blockHash() {
@@ -353,7 +350,7 @@ export class EvmTransaction implements MoralisDataObject {
    * @returns the transaction block timestamp
    * @example
    * ```
-   * transaction.blockTimestamp
+   * transaction.blockTimestamp // Date
    * ```
    */
   get blockTimestamp() {
