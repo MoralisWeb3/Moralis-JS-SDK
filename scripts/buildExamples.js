@@ -18,21 +18,19 @@ const GITHUB_DEMO_PATH = 'https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/mai
 const COMPRESSION_LEVEL = 9;
 
 // References to our folder names
-const DEMO_FOLDER_DIR = 'demos';
-const ASSETS_FOLDER_DIR = 'assets';
-const OUT_FOLDER_DIR = 'pages';
-const DOCS_FOLDER_DIR = 'docs';
-// Reference to the output example folder inside the docs folder
-const OUT_EXAMPLE_FOLDER_DIR = 'examples';
-// Reference to the code output inside the examples folder
+const DEMO_DIR = 'demos';
+
+// Reference to the output folders
+const OUT_DIR_CODE = 'pages';
+const OUT_DIR_DOCS = 'docs';
+
+// Reference to the folder names in the output folder
+const EXAMPLES_DIR = 'examples';
 const CODE_DIR = 'code';
 
-const demoFolderPath = path.join(__dirname, '..', DEMO_FOLDER_DIR);
-const assetsFolderPath = path.join(__dirname, '..', ASSETS_FOLDER_DIR);
-const assetsExamplesFolderPath = path.join(__dirname, '..', ASSETS_FOLDER_DIR, 'examples');
-const outputPath = path.join(__dirname, '..', OUT_FOLDER_DIR);
-const outputExamplesPath = path.join(__dirname, '..', OUT_FOLDER_DIR, OUT_EXAMPLE_FOLDER_DIR);
-const docsPath = path.join(__dirname, '..', DOCS_FOLDER_DIR);
+const demoFolderPath = path.join(__dirname, '..', DEMO_DIR);
+const outputCodePath = path.join(__dirname, '..', OUT_DIR_CODE, EXAMPLES_DIR);
+const outputDocsPath = path.join(__dirname, '..', OUT_DIR_DOCS);
 
 const getAllFilesFromFolder = async (folderName) =>
   require('glob-fs')({ dotfiles: true }).readdirSync(`demos/${folderName}/**/*`);
@@ -41,7 +39,7 @@ const getAllFilesFromFolder = async (folderName) =>
  * Making sure the output dir is created and empty
  */
 const ensureCleanOutputDir = async (name) => {
-  const dirPath = path.join(outputExamplesPath, name);
+  const dirPath = path.join(outputCodePath, name);
 
   await fse.emptyDirSync(dirPath);
 };
@@ -50,7 +48,7 @@ const ensureCleanOutputDir = async (name) => {
  * Making sure the all output dirs are created and empty, and no old files exists in the output dir
  */
 const ensureAllCleanOutputDir = async (demoFolders) => {
-  await fse.emptyDirSync(outputExamplesPath);
+  await fse.emptyDirSync(outputCodePath);
   await Promise.all(demoFolders.map((name) => ensureCleanOutputDir(name)));
 };
 
@@ -62,7 +60,7 @@ const copyDemoToDocs = async (name, filePath) => {
   const subPath = filePath.substring(outputRootPath.length);
 
   const srcPath = path.join(demoFolderPath, name, subPath);
-  const outPath = path.join(outputExamplesPath, name, CODE_DIR, subPath);
+  const outPath = path.join(outputCodePath, name, CODE_DIR, subPath);
 
   await fse.copySync(srcPath, outPath);
 
@@ -123,7 +121,7 @@ const getCodePath = (name) => `${HOSTED_PAGES}/examples/${name}/${CODE_DIR}`;
  * Creates a .zip file for a demo project
  */
 const createAchive = (folder) => {
-  const output = fs.createWriteStream(path.join(outputExamplesPath, folder, getDownloadName(folder)));
+  const output = fs.createWriteStream(path.join(outputCodePath, folder, getDownloadName(folder)));
   const archive = archiver('zip', {
     zlib: { level: COMPRESSION_LEVEL },
   });
@@ -153,7 +151,7 @@ const createAchive = (folder) => {
 
   archive.pipe(output);
 
-  archive.directory(path.join(outputExamplesPath, folder, CODE_DIR), false);
+  archive.directory(path.join(outputCodePath, folder, CODE_DIR), false);
 
   archive.finalize();
 };
@@ -186,7 +184,7 @@ const createExamplesData = (names) => {
  * Generates a json file with data  of all examples
  */
 const createInfoJson = async (examples) => {
-  const outPath = path.join(outputExamplesPath, 'info.json');
+  const outPath = path.join(outputCodePath, 'info.json');
   const now = new Date();
   const data = {
     generatedAt: now,
@@ -240,7 +238,7 @@ createMarkdownFiles = async (examplesData, readmeData) => {
     examplesData.map(async (exampleData) => {
       const markdown = generateExampleMarkdown(exampleData, readmeData[exampleData.name]);
 
-      const outPath = path.join(docsPath, `nodejs-example-${exampleData.name}.md`);
+      const outPath = path.join(outputDocsPath, `nodejs-example-${exampleData.name}.md`);
       await fs.writeFileSync(outPath, markdown);
     }),
   );
