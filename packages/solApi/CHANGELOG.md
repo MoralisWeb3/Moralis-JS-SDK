@@ -1,5 +1,16 @@
 # @moralisweb3/sol-api
 
+## 2.1.0
+
+### Patch Changes
+
+- [#608](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/608) [`5644d32`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5644d321a86ed14ceaba8bbd4b20f8adb4a2adec) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added a validation of a Solana address.
+
+- Updated dependencies [[`5644d32`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5644d321a86ed14ceaba8bbd4b20f8adb4a2adec), [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255), [`d542326`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d542326171812d992fb9548aa323553fdd1a0fb4)]:
+  - @moralisweb3/sol-utils@2.1.0
+  - @moralisweb3/core@2.1.0
+  - @moralisweb3/api-utils@2.1.0
+
 ## 2.0.3
 
 ### Patch Changes
