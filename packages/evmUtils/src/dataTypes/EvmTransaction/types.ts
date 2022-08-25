@@ -4,6 +4,32 @@ import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
 
+/**
+ * This can be any object with valid transaction data.
+ * @example
+ * ```
+ * const transactionInput = {
+          cumulativeGasUsed: "1340925",
+          gasPrice: "20000000000",
+          gasUsed: "1340925",
+          index: "25",
+          contractAddress: "0x1d6a4cf64b52f6c73f201839aded7379ce58059c",
+          receiptRoot: "string",
+          receiptStatus: "1",
+          chain: "1",
+          data: "0x000000000000000000000000000000000000000000000000000000000000002",
+          from: "0xd4a3BebD824189481FC45363602b83C9c7e9cbDf",
+          hash: "0x057Ec652A4F150f7FF94f089A38008f49a0DF88e",
+          nonce: "326595425",
+          value: "650000000000000000",
+          blockHash: "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86",
+          blockNumber: "12526958",
+          blockTimestamp: new Date("2021-04-02T10:07:54.000Z"),
+          gas: "6721975",
+          to: "0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef",
+        }
+ * ```
+ */
 export interface EvmTransacionInput {
   from: EvmAddressish;
   to?: null | EvmAddressish;
@@ -34,6 +60,9 @@ export interface EvmTransacionInput {
   logs?: EvmTransactionLogish[];
 }
 
+/**
+ * This is the return type of the processed EVM transaction
+ */
 export interface EvmTransactionData {
   from: EvmAddress;
   to?: EvmAddress;
