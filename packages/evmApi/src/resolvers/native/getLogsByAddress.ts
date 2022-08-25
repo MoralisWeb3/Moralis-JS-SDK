@@ -1,7 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -21,7 +20,7 @@ export const getLogsByAddress = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getLogsByAddress',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/logs`,
+    getUrl: (params: Params) => `/${params.address}/logs`,
     apiToResult: (data: ApiResult) =>
       (data.result ?? []).map(
         (log) =>

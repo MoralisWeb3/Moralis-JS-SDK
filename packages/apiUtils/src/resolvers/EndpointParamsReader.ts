@@ -17,7 +17,7 @@ export class EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, J
     return !!this.endpoint.urlParams && this.endpoint.urlParams.includes(param as keyof Params);
   }
 
-  public getSearchParams(params: ApiParams) {
+  public getSearchParams(params: ApiParams): Record<string, unknown> {
     return Object.keys(params).reduce((result, key) => {
       const paramKey = key as keyof ApiParams;
 
@@ -26,7 +26,7 @@ export class EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, J
       }
 
       return { ...result, [key]: params[paramKey] };
-    }, {});
+    }, {} as Record<string, unknown>);
   }
 
   public getBodyParams(params: ApiParams) {

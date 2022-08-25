@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 
 type operation = 'resolveAddress';
@@ -19,7 +18,7 @@ export const resolveAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'resolveAddress',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/resolve/${params.address}/reverse`,
+    getUrl: (params: Params) => `/resolve/${params.address}/reverse`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
     parseParams: (params: Params) => ({

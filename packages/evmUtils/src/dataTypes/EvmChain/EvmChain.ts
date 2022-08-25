@@ -56,7 +56,7 @@ export class EvmChain implements MoralisData, EvmChainable {
     return EvmChain.create(97);
   }
   public static get AVALANCHE() {
-    return EvmChain.create(43113);
+    return EvmChain.create(43114);
   }
   public static get FUJI() {
     return EvmChain.create(43113);

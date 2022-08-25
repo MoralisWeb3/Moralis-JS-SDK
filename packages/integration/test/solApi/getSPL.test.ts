@@ -27,7 +27,7 @@ describe('Moralis SolApi', () => {
     const failedResult = await SolApi.account
       .getSPL({
         network: 'mainnet',
-        address: '5xoBq7f7CDgZwqHrDBd',
+        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
       })
       .then()
       .catch((err) => {
@@ -38,7 +38,7 @@ describe('Moralis SolApi', () => {
     expect(
       SolApi.account.getSPL({
         network: 'mainnet',
-        address: '5xoBq7f7CDgZwqHrDBdRW',
+        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 400"`);
   });

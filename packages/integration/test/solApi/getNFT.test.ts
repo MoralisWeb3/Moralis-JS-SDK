@@ -20,14 +20,14 @@ describe('Moralis SolApi', () => {
 
     expect(result).toBeDefined();
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.raw).toStrictEqual({ associatedTokenAddress: '6zZsdnfhhfnf' });
+    expect(result.raw).toStrictEqual({ associatedTokenAddress: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp' });
   });
 
   it('should not get the NFTs of an account', async () => {
     const failedResult = await SolApi.account
       .getNFTs({
         network: 'mainnet',
-        address: '5xogZq93dyJtoSwp',
+        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
       })
       .then()
       .catch((err) => {
@@ -38,7 +38,7 @@ describe('Moralis SolApi', () => {
     expect(
       SolApi.account.getNFTs({
         network: 'mainnet',
-        address: '5xotoSwp',
+        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 400"`);
   });

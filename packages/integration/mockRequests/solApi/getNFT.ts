@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { SOL_API_ROOT, MOCK_API_KEY } from '../config';
 
 export const mockGetNFTs: Record<string, string> = {
-  '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp': '6zZsdnfhhfnf',
+  '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp': '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
 };
 
 export const mockGetNFT = rest.get(`${SOL_API_ROOT}/account/:network/:address/nft`, (req, res, ctx) => {
