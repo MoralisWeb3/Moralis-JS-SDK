@@ -2,13 +2,18 @@
   "$schema": "https://typedoc.org/schema.json",
   "out": "docs",
   "media": "./assets",
+  "plugin": ["typedoc-plugin-markdown", "@moralisweb3/typedoc-readme-theme"],
+  "theme": "readme",
+  "entryDocument": "nodejs-sdk-references.md",
   "entryPoints": ["packages/*"],
+  "exclude": ["packages/eslintConfig"],
   "entryPointStrategy": "packages",
   "logLevel": "Verbose",
   "intentionallyNotExported": [],
   "excludeExternals": true,
   "excludeInternal": true,
   "excludePrivate": true,
+  "readme": "none",
   "excludeNotDocumented": true,
   "validation": {
     "notExported": false,
@@ -26,6 +31,5 @@
     "@alpha": false,
     "@beta": false
   },
-  "sort": ["source-order"],
-  "customCss": "./assets/docs.css"
+  "sort": ["source-order"]
 }

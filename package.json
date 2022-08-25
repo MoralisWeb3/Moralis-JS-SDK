@@ -10,6 +10,7 @@
     "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
     "@moralisweb3/eslint-config": "^1.0.0",
+    "@moralisweb3/typedoc-readme-theme": "^1.0.0",
     "@types/estree": "^0.0.51",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
@@ -26,13 +27,14 @@
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.3",
     "typedoc": "^0.23.10",
+    "typedoc-plugin-markdown": "^3.13.4",
     "typescript": "^4.5.5",
     "yarn": "^1.22.17"
   },
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
     "build:examples-docs": "node ./scripts/buildExamples.js",
-    "build:docs": "yarn typedoc && yarn build:examples-docs",
+    "build:docs": "yarn typedoc",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",
