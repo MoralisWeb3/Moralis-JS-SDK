@@ -1,4 +1,10 @@
-import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/core';
+import MoralisCore, {
+  MoralisDataObject,
+  maybe,
+  BigNumber,
+  dateInputToDate,
+  MoralisCoreProvider,
+} from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -27,23 +33,23 @@ export class EvmTransaction implements MoralisDataObject {
    * const transaction = EvmTransaction.create(data);
    *```
    */
-  static create(data: EvmTransactionish) {
+  static create(data: EvmTransactionish, core?: MoralisCore) {
     if (data instanceof EvmTransaction) {
       return data;
     }
-
-    return new EvmTransaction(data);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmTransaction(data, finalCore);
   }
 
   private _data: EvmTransactionData;
 
-  constructor(data: EvmTransacionInput) {
-    this._data = EvmTransaction.parse(data);
+  constructor(data: EvmTransacionInput, core: MoralisCore) {
+    this._data = EvmTransaction.parse(data, core);
   }
 
-  static parse = (data: EvmTransacionInput): EvmTransactionData => ({
-    from: EvmAddress.create(data.from),
-    to: maybe(data.to, EvmAddress.create),
+  static parse = (data: EvmTransacionInput, core: MoralisCore): EvmTransactionData => ({
+    from: EvmAddress.create(data.from, core),
+    to: maybe(data.to, (to) => EvmAddress.create(to, core)),
     nonce: maybe(data.nonce, BigNumber.create),
     data: maybe(data.data),
     value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
@@ -63,7 +69,7 @@ export class EvmTransaction implements MoralisDataObject {
     cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
     gasUsed: BigNumber.create(data.gasUsed),
 
-    contractAddress: maybe(data.contractAddress, EvmAddress.create),
+    contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address, core)),
     receiptRoot: maybe(data.receiptRoot),
     receiptStatus: maybe(data.receiptStatus, (status) => +status),
 

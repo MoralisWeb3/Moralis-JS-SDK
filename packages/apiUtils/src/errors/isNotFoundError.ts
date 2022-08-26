@@ -1,4 +1,4 @@
-import { ApiErrorCode, isMoralisError } from "@moralisweb3/core";
+import { ApiErrorCode, isMoralisError } from '@moralisweb3/core';
 
 export function isNotFoundError(e: unknown): boolean {
   if (isMoralisError(e)) {

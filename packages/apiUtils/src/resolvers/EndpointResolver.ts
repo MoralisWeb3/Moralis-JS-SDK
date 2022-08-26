@@ -102,7 +102,9 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     }
   };
 
-  public fetchNullable = async (params: Params): Promise<ApiResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult, Params> | null> => {
+  public fetchNullable = async (
+    params: Params,
+  ): Promise<ApiResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult, Params> | null> => {
     try {
       const result = await this.fetch(params);
 
@@ -110,7 +112,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
       if (!result.raw || (typeof result.raw === 'object' && Object.keys(result.raw).length === 0)) {
         throw new MoralisApiError({
           code: ApiErrorCode.NOT_FOUND,
-          message: 'The resource is not found'
+          message: 'The resource is not found',
         });
       }
 
