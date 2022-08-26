@@ -28,6 +28,14 @@ export class Endpoints {
     return resolver.fetch;
   }
 
+  public createNullableFetcher<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
+    factory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
+  ) {
+    const resolver = EndpointResolver.create(this.core, this.baseUrl, factory);
+    this.endpoints.push(resolver.endpoint);
+    return resolver.fetchNullable;
+  }
+
   public createPaginatedFetcher<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
     factory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {

@@ -1,5 +1,6 @@
 import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { ApiConfig } from '../config/ApiConfig';
+import { isNotFoundError } from '../errors/isNotFoundError';
 import { ApiResultAdapter } from './ApiResultAdapter';
 import { Endpoint, EndpointFactory } from './Endpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
@@ -28,7 +29,6 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
   // TODO: error handler to ApiError
   private get = async (params: Params) => {
     const url = this.createUrl(params);
-
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
@@ -99,6 +99,27 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
         return this.put(params);
       default:
         return this.get(params);
+    }
+  };
+
+  public fetchNullable = async (params: Params): Promise<ApiResultAdapter<Awaited<ApiResult>, AdaptedResult, JSONResult, Params> | null> => {
+    try {
+      const result = await this.fetch(params);
+
+      // TODO: this block should be deleted after the back-end adjustments.
+      if (!result.raw || (typeof result.raw === 'object' && Object.keys(result.raw).length === 0)) {
+        throw new MoralisApiError({
+          code: ApiErrorCode.NOT_FOUND,
+          message: 'The resource is not found'
+        });
+      }
+
+      return result;
+    } catch (e) {
+      if (isNotFoundError(e)) {
+        return null;
+      }
+      throw e;
     }
   };
 }
