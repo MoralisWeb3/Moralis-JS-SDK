@@ -3,4 +3,4 @@
 '@moralisweb3/evm-api': patch
 ---
 
-Fixed building a body of POST requests.
+Fixed creating a body of POST requests.
