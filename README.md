@@ -185,7 +185,7 @@ Moralis.EvmApi.native.getBlock();
 
 | package  | Changelog | Description                                                      |
 | -------  | --------- | ---------------------------------------------------------------- |
-| [moralis](./packages/moralis)     | [CHANGELOG.md](./packages/moralis/README.md)      | Umbrella package that includes all packages and initialises them |
+| [moralis](./packages/moralis)     | [CHANGELOG.md](./packages/moralis/CHANGELOG.md)      | Umbrella package that includes all packages and initialises them |
 
 ## Core module
 
@@ -193,7 +193,7 @@ The core module is required in all applications. It will handle global dependenc
 
 | package                                        |  Changelog | Description                                                                          |
 | ---------------------------------------------- |--------- | ------------------------------------------------------------------------------------ |
-| [@moralisweb3/core](./packages/core) | [CHANGELOG.md](./packages/core/README.md)      | Core logic, responsible for core logic and sharing state and events between packages |
+| [@moralisweb3/core](./packages/core) | [CHANGELOG.md](./packages/core/CHANGELOG.md)      | Core logic, responsible for core logic and sharing state and events between packages |
 
 
 ##  Utilities
