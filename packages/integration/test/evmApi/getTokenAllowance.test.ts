@@ -20,6 +20,6 @@ describe('Moralis EvmApi', () => {
     });
 
     expect(result).toBeDefined();
-    expect(result.result.allowance.toString()).toEqual(0);
+    expect(result.result.allowance.toString()).toEqual('0');
   });
 });
