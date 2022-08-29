@@ -1,5 +1,8 @@
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
 
+/**
+ * Valid input types for a BigNumber. This can be a number, string, or bigint.
+ */
 export type BigNumberPrimitive = number | string | bigint;
 
 export class BigNumberParser {
