@@ -25,11 +25,138 @@ type InternalEvmChain = string;
  */
 export class EvmChain implements MoralisData, EvmChainable {
   /**
+   * Returns ETHEREUM chain
+   *
+   * @example EvmChain.ETHEREUM
+   */
+  public static get ETHEREUM() {
+    return EvmChain.create(1);
+  }
+
+  /**
+   * Returns ROPSTEN chain
+   *
+   * @example EvmChain.ROPSTEN
+   */
+  public static get ROPSTEN() {
+    return EvmChain.create(3);
+  }
+
+  /**
+   * Returns RINKEBY chain
+   *
+   * @example EvmChain.RINKEBY
+   */
+  public static get RINKEBY() {
+    return EvmChain.create(4);
+  }
+
+  /**
+   * Returns GOERLI chain
+   *
+   * @example EvmChain.GOERLI
+   */
+  public static get GOERLI() {
+    return EvmChain.create(5);
+  }
+
+  /**
+   * Returns KOVAN chain
+   *
+   * @example EvmChain.KOVAN
+   */
+  public static get KOVAN() {
+    return EvmChain.create(42);
+  }
+
+  /**
+   * Returns POLYGON chain
+   *
+   * @example EvmChain.POLYGON
+   */
+  public static get POLYGON() {
+    return EvmChain.create(137);
+  }
+
+  /**
+   * Returns MUMBAI chain
+   *
+   * @example EvmChain.MUMBAI
+   */
+  public static get MUMBAI() {
+    return EvmChain.create(80001);
+  }
+
+  /**
+   * Returns BSC chain
+   *
+   * @example EvmChain.BSC
+   */
+  public static get BSC() {
+    return EvmChain.create(56);
+  }
+
+  /**
+   * Returns BSC_TESTNET chain
+   *
+   * @example EvmChain.BSC_TESTNET
+   */
+  public static get BSC_TESTNET() {
+    return EvmChain.create(97);
+  }
+
+  /**
+   * Returns AVALANCHE chain
+   *
+   * @example EvmChain.AVALANCHE
+   */
+  public static get AVALANCHE() {
+    return EvmChain.create(43114);
+  }
+
+  /**
+   * Returns FUJI chain
+   *
+   * @example EvmChain.FUJI
+   */
+  public static get FUJI() {
+    return EvmChain.create(43113);
+  }
+
+  /**
+   * Returns FANTOM chain
+   *
+   * @example EvmChain.FANTOM
+   */
+  public static get FANTOM() {
+    return EvmChain.create(250);
+  }
+
+  /**
+   * Returns CRONOS chain
+   *
+   * @example EvmChain.CRONOS
+   */
+  public static get CRONOS() {
+    return EvmChain.create(25);
+  }
+
+  /**
+   * Returns CRONOS_TESTNET chain
+   *
+   * @example EvmChain.CRONOS_TESTNET
+   */
+  public static get CRONOS_TESTNET() {
+    return EvmChain.create(338);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
    * ```ts
    * const chain = EvmChain.create(1)
+   * const chain = EvmChain.create("0x3")
    * ```
    */
   public static create(chain: EvmChainish, core?: MoralisCore): EvmChain {
@@ -67,7 +194,7 @@ export class EvmChain implements MoralisData, EvmChainable {
    * @returns true if the chains are equal, false otherwise
    * @example
    * ```ts
-   * EvmChain.equals("0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359", "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359")
+   * EvmChain.equals("1", "0x1")
    * ```
    */
   static equals(chainA: EvmChainish, chainB: EvmChainish) {
@@ -112,14 +239,24 @@ export class EvmChain implements MoralisData, EvmChainable {
   }
 
   /**
-   * Displays the chain name or hex-string representation of the chain
+   * Displays the chain hex-string representation of the chain and also the chain name if not null
    *
-   * @example chain.display() // "Ethereum"
+   * @example chain.display() // "Ethereum 0x1" | "0x1"
    */
   display() {
     return this.name ? `${this.name} (${this.hex})` : this.hex;
   }
 
+  /**
+   * This function returns the explorer url of a block, transaction, account or token.
+   *
+   * @param value - An object containing the `block`, `transaction`, `account` or `erc20` to get the explorer url for.
+   *
+   * @example chain.getExplorerUrl({ block: 'block_here' }) // "https://etherscan.io/block/block_here"
+   * @example chain.getExplorerUrl({ transaction: 'some_transaction' }) // "https://etherscan.io/tx/some_transaction"
+   * @example chain.getExplorerUrl({ account: 'accoun_here' }) // "https://etherscan.io/address/accoun_here"
+   * @example chain.getExplorerUrl({ erc20: 'token_here' }) // "https://etherscan.io/token/token_here"
+   */
   getExplorerPath(value: { block: string } | { transaction: string } | { account: string } | { erc20: string }) {
     const { explorer } = this;
 
@@ -197,8 +334,9 @@ export class EvmChain implements MoralisData, EvmChainable {
 
   /**
    * Returns the currency of the chain
+   * @returns The cuurrency of the chain or undefined if not found
    *
-   * @example chain.currency // "ETH"
+   * @example chain.currency // EvmNativeCurrency
    */
   get currency() {
     return this._getChainlistData()?.nativeCurrency;
@@ -226,131 +364,5 @@ export class EvmChain implements MoralisData, EvmChainable {
     }
 
     return explorers[0];
-  }
-
-  /**
-   * Returns ETHEREUM chain
-   *
-   * @example EvmChain.ETHEREUM // EvmChain
-   */
-  public static get ETHEREUM() {
-    return EvmChain.create(1);
-  }
-
-  /**
-   * Returns ROPSTEN chain
-   *
-   * @example EvmChain.ROPSTEN // EvmChain
-   */
-  public static get ROPSTEN() {
-    return EvmChain.create(3);
-  }
-
-  /**
-   * Returns RINKEBY chain
-   *
-   * @example EvmChain.RINKEBY // EvmChain
-   */
-  public static get RINKEBY() {
-    return EvmChain.create(4);
-  }
-
-  /**
-   * Returns GOERLI chain
-   *
-   * @example EvmChain.GOERLI // EvmChain
-   */
-  public static get GOERLI() {
-    return EvmChain.create(5);
-  }
-
-  /**
-   * Returns KOVAN chain
-   *
-   * @example EvmChain.KOVAN // EvmChain
-   */
-  public static get KOVAN() {
-    return EvmChain.create(42);
-  }
-
-  /**
-   * Returns POLYGON chain
-   *
-   * @example EvmChain.POLYGON // EvmChain
-   */
-  public static get POLYGON() {
-    return EvmChain.create(137);
-  }
-
-  /**
-   * Returns MUMBAI chain
-   *
-   * @example EvmChain.MUMBAI // EvmChain
-   */
-  public static get MUMBAI() {
-    return EvmChain.create(80001);
-  }
-
-  /**
-   * Returns BSC chain
-   *
-   * @example EvmChain.BSC // EvmChain
-   */
-  public static get BSC() {
-    return EvmChain.create(56);
-  }
-
-  /**
-   * Returns BSC_TESTNET chain
-   *
-   * @example EvmChain.BSC_TESTNET // EvmChain
-   */
-  public static get BSC_TESTNET() {
-    return EvmChain.create(97);
-  }
-
-  /**
-   * Returns AVALANCHE chain
-   *
-   * @example EvmChain.AVALANCHE // EvmChain
-   */
-  public static get AVALANCHE() {
-    return EvmChain.create(43114);
-  }
-
-  /**
-   * Returns FUJI chain
-   *
-   * @example EvmChain.FUJI // EvmChain
-   */
-  public static get FUJI() {
-    return EvmChain.create(43113);
-  }
-
-  /**
-   * Returns FANTOM chain
-   *
-   * @example EvmChain.FANTOM // EvmChain
-   */
-  public static get FANTOM() {
-    return EvmChain.create(250);
-  }
-
-  /**
-   * Returns CRONOS chain
-   *
-   * @example EvmChain.CRONOS // EvmChain
-   */
-  public static get CRONOS() {
-    return EvmChain.create(25);
-  }
-
-  /**
-   * Returns CRONOS_TESTNET chain
-   *
-   * @example EvmChain.CRONOS_TESTNET // EvmChain
-   */
-  public static get CRONOS_TESTNET() {
-    return EvmChain.create(338);
   }
 }
