@@ -93,9 +93,7 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly defi = {
-    // TODO: the endpoint throws 400 when not found
     getPairAddress: this.endpoints.createFetcher(getPairAddress),
-    // TODO: the endpoint throws 400 when not found
     getPairReserves: this.endpoints.createFetcher(getPairReserves),
   };
 
@@ -108,18 +106,15 @@ export class MoralisEvmApi extends ApiModule {
     getNFTTrades: this.endpoints.createPaginatedFetcher(getNFTTrades),
     getNftTransfersFromToBlock: this.endpoints.createPaginatedFetcher(getNftTransfersFromToBlock),
     getTokenAddressTransfers: this.endpoints.createPaginatedFetcher(getTokenAddressTransfers),
-    // TODO: cannot test it (getTokenAllowance)
     getTokenAllowance: this.endpoints.createFetcher(getTokenAllowance),
     getTokenIdMetadata: this.endpoints.createNullableFetcher(getTokenIdMetadata),
     getTokenIdOwners: this.endpoints.createPaginatedFetcher(getTokenIdOwners),
     getTokenMetadata: this.endpoints.createFetcher(getTokenMetadata),
     getTokenMetadataBySymbol: this.endpoints.createFetcher(getTokenMetadataBySymbol),
-    // TODO: cannot test it (getTokenPrice)
     getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
     getWalletTokenIdTransfers: this.endpoints.createPaginatedFetcher(getWalletTokenIdTransfers),
     reSyncMetadata: this.endpoints.createFetcher(reSyncMetadata),
     searchNFTs: this.endpoints.createPaginatedFetcher(searchNFTs),
-    // TODO: the endpoint throws 400 when not found
     syncNFTContract: this.endpoints.createFetcher(syncNFTContract),
   };
 
