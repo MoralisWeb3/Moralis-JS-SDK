@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.1.1
+
+### Patch Changes
+
+- [#614](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/614) [`7fa4654`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fa4654a39484df09af57ef07674738e5650732d) Thanks [@sogunshola](https://github.com/sogunshola)! - Added technical documentation for EvmTransaction datatype
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.1.1
+
 ## 2.1.0
 
 ### Patch Changes
