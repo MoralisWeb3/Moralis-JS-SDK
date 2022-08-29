@@ -22,15 +22,17 @@ export const getAllTokenIds = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `/nft/${params.address}`,
     apiToResult: (data: ApiResult, params: Params) =>
-      (data.result ?? []).map(
-        (nft) =>
-          new EvmNft({
+      (data.result ?? []).map((nft) =>
+        EvmNft.create(
+          {
             ...toCamelCase(nft),
             chain: EvmChainResolver.resolve(params.chain, core),
             ownerOf: nft.owner_of ? EvmAddress.create(nft.owner_of, core) : undefined,
             lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
             lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
-          }),
+          },
+          core,
+        ),
       ),
     resultToJson: (data) => data.map((nft) => nft.toJSON()),
     parseParams: (params: Params): ApiParams => ({

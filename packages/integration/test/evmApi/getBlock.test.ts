@@ -20,7 +20,7 @@ describe('Moralis EvmApi', () => {
     expect(response).toBeNull();
   });
 
-  it('returns null when API returns false-positive', async () => {
+  it('returns null when API returns false-positive not found', async () => {
     const response = await evmApi.native.getBlock({
       blockNumberOrHash: '200404',
     });
@@ -28,7 +28,7 @@ describe('Moralis EvmApi', () => {
     expect(response).toBeNull();
   });
 
-  it('returns properly block', async () => {
+  it('returns a block', async () => {
     const response = await evmApi.native.getBlock({
       blockNumberOrHash: '15416422',
     });

@@ -12,33 +12,20 @@ describe('Moralis EvmApi', () => {
     cleanEvmApi();
   });
 
-  it('should resolve an address and return a name', async () => {
+  it('returns a name', async () => {
     const result = await evmApi.resolve.resolveAddress({
       address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     });
 
-    expect(result.toJSON().name).toBe('vitalik.eth');
-    expect(result).toBeDefined();
-    expect(result.toJSON().name).toBe('vitalik.eth'.toLowerCase());
-    expect(result.raw.name).toBe('vitalik.eth');
-    expect(result.result.name).toBe('vitalik.eth');
+    expect(result?.result).toBeDefined();
+    expect(result?.result.name).toEqual('vitalik.eth');
   });
 
-  it('should not resolve an address and return an error code', async () => {
-    const failedResult = await evmApi.resolve
-      .resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns HTTP 404', async () => {
+    const result = await evmApi.resolve.resolveAddress({
+      address: '0x4044044044044044044044044044044044044040',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.resolve.resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA9604',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(result).toBeNull();
   });
 });
