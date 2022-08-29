@@ -24,8 +24,6 @@ export type EvmNftish = EvmNftInput | EvmNft;
  * @category DataType
  */
 export class EvmNft implements MoralisDataObject {
-  private _data: EvmNftData;
-
   /**
    * Create a new instance of EvmNft from any valid address input
    *
@@ -43,6 +41,8 @@ export class EvmNft implements MoralisDataObject {
 
     return new EvmNft(data);
   }
+
+  private _data: EvmNftData;
 
   constructor(data: EvmNftInput) {
     this._data = EvmNft.parse(data);
