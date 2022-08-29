@@ -3,6 +3,29 @@ import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNftContractType } from '../EvmNftContractType';
 
+/**
+ * This can be any object with valid transaction data.
+ * @example
+ * ```ts
+ * const nftInput = {
+          chain: 1,
+          contractType: "ERC721",
+          tokenAddress: "0x057Ec652A4F150f7FF94f089A38008f49a0DF88e",
+          tokenId: "15",
+          tokenUri: "string",
+          metadata: "string",
+          name: "CryptoKitties",
+          symbol: "RARI",
+          amount: "1",
+          blockNumberMinted: "88256",
+          blockNumber: "88256",
+          ownerOf: "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359",
+          tokenHash: nft.token_hash,
+          lastMetadataSync: "date_string",
+          lastTokenUriSync: "date_string",
+        }
+ * ```
+ */
 export interface EvmNftInput {
   tokenId: number | string;
   contractType: string;
@@ -23,6 +46,9 @@ export interface EvmNftInput {
   amount?: null | number | string;
 }
 
+/**
+ * This is the return type of the processed EVM NFT
+ */
 export interface EvmNftData {
   tokenId: number | string;
   contractType: EvmNftContractType;
