@@ -50,7 +50,7 @@ export class Erc20Token implements MoralisDataObject {
   });
 
   /**
-   * Compares two Erc20Token instances
+   * Compares two Erc20Token instances. This checks if the chain and contractAddress of both tokens are equal.
    *
    * @param valueA - the first Erc20Token to compare
    * @param valueB - the second Erc20Token to compare
@@ -89,6 +89,15 @@ export class Erc20Token implements MoralisDataObject {
     return Erc20Token.equals(this, value);
   }
 
+  /**
+   * Returns the token as JSON
+   *
+   * @returns the Erc20Token as a JSON object
+   * @example
+   * ```ts
+   * token.toJSON();
+   * ```
+   */
   toJSON() {
     const value = this._value;
     return {
@@ -125,7 +134,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the decimals of the token.
+   * @returns the decimals of the token.
    *
    * @example
    * ```ts
@@ -137,7 +146,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the name of the token.
+   * @returns The name of the token.
    *
    * @example
    * ```ts
@@ -149,7 +158,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the symbol of the token.
+   * @returns The symbol of the token.
    *
    * @example
    * ```ts
@@ -161,7 +170,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the contract address of the token.
+   * @returns The contract address of the token.
    *
    * @example
    * ```ts
@@ -173,7 +182,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the chain of the token.
+   * @returns The chain of the token.
    *
    * @example
    * ```ts
@@ -185,7 +194,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the logo of the token.
+   * @returns The logo of the token.
    *
    * @example
    * ```ts
@@ -197,7 +206,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the logo hash of the token.
+   * @returns The logo hash of the token.
    *
    * @example
    * ```ts
@@ -209,7 +218,7 @@ export class Erc20Token implements MoralisDataObject {
   }
 
   /**
-   * Returns the thumbnail of the token.
+   * @returns The thumbnail of the token.
    *
    * @example
    * ```ts
