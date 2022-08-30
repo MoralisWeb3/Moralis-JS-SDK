@@ -95,11 +95,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the transaction hash of the log.
+   * @returns the transaction hash of the log.
    *
    * @example
    * ```ts
-   * log.transactionHash;
+   * log.transactionHash; // "0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5"
    * ```
    */
   get transactionHash() {
@@ -111,7 +111,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    *
    * @example
    * ```ts
-   * log.address;
+   * log.address; // EvmAddress
    * ```
    */
   get address() {
@@ -119,11 +119,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the log index of the log.
+   * @returns the log index of the log.
    *
    * @example
    * ```ts
-   * log.logIndex;
+   * log.logIndex; // 273
    * ```
    */
   get logIndex() {
@@ -131,11 +131,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the data of the log.
+   * @returns the data of the log.
    *
    * @example
    * ```ts
-   * log.data;
+   * log.data; // "0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443"
    * ```
    */
   get data() {
@@ -143,11 +143,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the topics of the log.
+   * @returns the topics of the log.
    *
    * @example
    * ```ts
-   * log.topics;
+   * log.topics; // ["0x0000000000000000000000000000000000000000000000000000000000000001", "0x0000000000000000000000000000000000000000000000000000000000000002"]
    * ```
    */
   get topics() {
@@ -155,11 +155,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the block hash of the log.
+   * @returns the block hash of the log.
    *
    * @example
    * ```ts
-   * log.blockHash;
+   * log.blockHash; // "0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171"
    * ```
    */
   get blockHash() {
@@ -167,11 +167,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the block number of the log.
+   * @returns the block number of the log.
    *
    * @example
    * ```ts
-   * log.blockNumber;
+   * log.blockNumber; // 12386788
    * ```
    */
   get blockNumber() {
@@ -179,11 +179,11 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Returns the block timestamp of the log.
+   * @returns the block timestamp of the log.
    *
    * @example
    * ```ts
-   * log.blockTimestamp;
+   * log.blockTimestamp; // "2021-05-07T11:08:35.000Z"
    * ```
    */
   get blockTimestamp() {
