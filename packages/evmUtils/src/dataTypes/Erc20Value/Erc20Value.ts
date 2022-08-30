@@ -100,7 +100,7 @@ export class Erc20Value implements MoralisData {
    * @param valueA - The first value to compare
    * @param valueB - The second value to compare
    * @returns True if the values are equal
-   * @example 
+   * @example
    * ```ts
    * const valueA = Erc20Value.create(1000, { decimals: 3 });
    * const valueB = Erc20Value.create(10000, { decimals: 4 });
