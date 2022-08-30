@@ -11,7 +11,7 @@ export interface PaginatedResult<ApiResult> {
   total: number;
   page: number;
   page_size: number;
-  cursor?: string;
+  cursor: string;
   result: ApiResult;
 }
 

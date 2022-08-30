@@ -13,7 +13,7 @@ export class ApiPaginatedResultAdapter<
     adapter: (data: Data, params: Params) => AdaptedData,
     jsonAdapter: (data: AdaptedData) => JSONData,
     params: Params,
-    private readonly nextHandler: (() => Promise<ApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>) | null,
+    private readonly nextHandler?: () => Promise<ApiPaginatedResultAdapter<Data, AdaptedData, JSONData, Params>>,
   ) {
     super(data, adapter, jsonAdapter, params);
   }
@@ -26,7 +26,8 @@ export class ApiPaginatedResultAdapter<
     if (!this.nextHandler) {
       throw new MoralisApiError({
         code: ApiErrorCode.PAGE_LIMIT_EXCEEDED,
-        message: 'Page limit exceeded! Before call this method check an existence of the next page by .hasNext() method.',
+        message:
+          'Page limit exceeded! Before call this method check an existence of the next page by .hasNext() method.',
       });
     }
     return this.nextHandler();

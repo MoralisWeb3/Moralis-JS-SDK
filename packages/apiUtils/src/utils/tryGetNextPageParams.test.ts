@@ -40,6 +40,7 @@ describe('tryGetNextPageParams', () => {
         total,
         page,
         page_size: pageSize,
+        cursor: '',
         result: null,
       };
       return [currentParams, result];

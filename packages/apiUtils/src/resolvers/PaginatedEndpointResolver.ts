@@ -88,7 +88,7 @@ export class PaginatedEndpointResolver<
     if (nextParams) {
       return () => this.fetch(nextParams);
     }
-    return null;
+    return undefined;
   };
 
   private createUrl(params: Params): string {
