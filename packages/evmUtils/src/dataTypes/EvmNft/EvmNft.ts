@@ -1,4 +1,4 @@
-import {
+import MoralisCore, {
   MoralisDataObject,
   MoralisDataObjectValue,
   CoreErrorCode,
@@ -6,6 +6,7 @@ import {
   maybe,
   BigNumber,
   dateInputToDate,
+  MoralisCoreProvider,
 } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
@@ -28,37 +29,38 @@ export class EvmNft implements MoralisDataObject {
    * Create a new instance of EvmNft from any valid address input
    *
    * @param data - the EvmNftish type
+   * @param core - the MoralisCore instance
    * @example
    * ```ts
    * const nft = EvmNft.create(data);
    * ```
    * @returns an instance of EvmNft
    */
-  static create(data: EvmNftish) {
+  static create(data: EvmNftish, core?: MoralisCore) {
     if (data instanceof EvmNft) {
       return data;
     }
-
-    return new EvmNft(data);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmNft(data, finalCore);
   }
 
   private _data: EvmNftData;
 
-  constructor(data: EvmNftInput) {
-    this._data = EvmNft.parse(data);
+  constructor(data: EvmNftInput, core: MoralisCore) {
+    this._data = EvmNft.parse(data, core);
   }
 
-  static parse = (data: EvmNftInput): EvmNftData => ({
+  static parse = (data: EvmNftInput, core: MoralisCore): EvmNftData => ({
     ...data,
-    chain: EvmChain.create(data.chain),
+    chain: EvmChain.create(data.chain, core),
     contractType: validateValidEvmContractType(data.contractType),
-    tokenAddress: EvmAddress.create(data.tokenAddress),
+    tokenAddress: EvmAddress.create(data.tokenAddress, core),
     metadata: maybe(data.metadata, this.validateMetadata),
     tokenUri: maybe(data.tokenUri),
     tokenHash: maybe(data.tokenHash),
     name: maybe(data.name),
     symbol: maybe(data.symbol),
-    ownerOf: maybe(data.ownerOf, EvmAddress.create),
+    ownerOf: maybe(data.ownerOf, (ownerOf) => EvmAddress.create(ownerOf, core)),
     blockNumberMinted: maybe(data.blockNumberMinted, BigNumber.create),
     blockNumber: maybe(data.blockNumber, BigNumber.create),
     lastMetadataSync: maybe(data.lastMetadataSync, dateInputToDate),
@@ -160,14 +162,7 @@ export class EvmNft implements MoralisDataObject {
     return this.toJSON();
   }
 
-  /**
-   * @returns the NFT
-   * @example
-   * ```
-   * nft.result // the nft data object
-   * ```
-   */
-  get result() {
+  get result(): EvmNftData {
     return this._data;
   }
 

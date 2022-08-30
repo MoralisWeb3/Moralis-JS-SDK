@@ -1,5 +1,14 @@
 # @moralisweb3/sol-utils
 
+## 2.2.0
+
+### Patch Changes
+
+- [#636](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/636) [`e56e44d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e56e44dae9a3a11feade953d490e1643970c6ccc) Thanks [@ErnoW](https://github.com/ErnoW)! - Update solana dependency to remove react-native peer-dependency warning upon instalation
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.2.0
+
 ## 2.1.1
 
 ### Patch Changes
