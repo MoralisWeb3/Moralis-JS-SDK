@@ -1,6 +1,6 @@
 {
   "name": "moralis-monorepo",
-  "version": "2.0.0",
+  "version": "0.0.0-monorepo",
   "description": "Moralis SDK",
   "main": "index.js",
   "author": "Moralis",
@@ -57,5 +57,8 @@
       "demos/firebase-proxy/*",
       "demos/firebase-auth/*"
     ]
+  },
+  "resolutions": {
+    "debug": "^3.1.0"
   }
 }
