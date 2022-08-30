@@ -12,37 +12,27 @@ describe('Moralis EvmApi', () => {
     cleanEvmApi();
   });
 
-  it('should get the token metadata of an account', async () => {
-    const result = await evmApi.token.getTokenIdMetadata({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
-      format: 'decimal',
-      tokenId: '1',
+  it('returns a metadata', async () => {
+    const response = await evmApi.token.getTokenIdMetadata({
+      chain: '0x89',
+      address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
+      tokenId: '113461209507512867518933452141320285231135646094834536306130710983923277496520',
     });
+    const result = response?.result.result!;
 
     expect(result).toBeDefined();
-    expect(result.raw.amount).toBe('1');
-    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.name).toEqual('OpenSea Collections');
+    expect(result.contractType).toEqual('ERC1155');
+    expect(result.symbol).toEqual('OPENSTORE');
+    expect(result.ownerOf?.lowercase).toEqual('0x86d2b5f4af69458a22d69a7347b2133854933ba4');
   });
 
-  it('should not get the token metadata of an invalid account and throw an error ', async () => {
-    const failedResult = await evmApi.token
-      .getTokenIdMetadata({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        format: 'decimal',
-        tokenId: '1',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns HTTP 404', async () => {
+    const response = await evmApi.token.getTokenIdMetadata({
+      address: '0x4044044044044044044044044044044044044040',
+      tokenId: '0',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.token.getTokenIdMetadata({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        format: 'decimal',
-        tokenId: '1',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response).toBeNull();
   });
 });
