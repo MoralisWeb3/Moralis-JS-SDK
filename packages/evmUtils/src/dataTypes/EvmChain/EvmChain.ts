@@ -14,7 +14,7 @@ import { EvmUtilsConfig } from '../../config/EvmUtilsConfig';
 
 /**
  * This can be any valid EVM chain in decimal or hex.
- * @example "3"
+ * @example 3
  * @example "0x1"
  */
 type InternalEvmChain = string;
@@ -241,7 +241,7 @@ export class EvmChain implements MoralisData, EvmChainable {
   /**
    * Displays the chain hex-string representation of the chain and also the chain name if not null
    *
-   * @example chain.display() // "Ethereum 0x1" | "0x1"
+   * @example chain.display() // "Ethereum (0x1)" | "0x1"
    */
   display() {
     return this.name ? `${this.name} (${this.hex})` : this.hex;
