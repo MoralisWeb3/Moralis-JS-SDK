@@ -831,13 +831,6 @@
   dependencies:
     "@ethersproject/logger" "^5.6.0"
 
-"@ethersproject/bytes@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@ethersproject/bytes/-/bytes-5.7.0.tgz#a00f6ea8d7e7534d6d87f47188af1148d71f155d"
-  integrity sha512-nsbxwgFXWh9NyYWo+U8atvmMsSdKJprTcICAkvbBffT75qDocbuggBU0SJiVK2MuTrp0q+xvLkTnGMPK1+uA9A==
-  dependencies:
-    "@ethersproject/logger" "^5.7.0"
-
 "@ethersproject/constants@5.6.1", "@ethersproject/constants@^5.6.1":
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/@ethersproject/constants/-/constants-5.6.1.tgz#e2e974cac160dd101cf79fdf879d7d18e8cb1370"
@@ -925,11 +918,6 @@
   resolved "https://registry.yarnpkg.com/@ethersproject/logger/-/logger-5.6.0.tgz#d7db1bfcc22fd2e4ab574cba0bb6ad779a9a3e7a"
   integrity sha512-BiBWllUROH9w+P21RzoxJKzqoqpkyM1pRnEKG69bulE9TSQD8SAIvTQqIMZmmCO8pUNkgLP1wndX1gKghSpBmg==
 
-"@ethersproject/logger@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@ethersproject/logger/-/logger-5.7.0.tgz#6ce9ae168e74fecf287be17062b590852c311892"
-  integrity sha512-0odtFdXu/XHtjQXJYA3u9G0G8btm0ND5Cu8M7i5vhEcE8/HmF4Lbdqanwyv4uQTr2tx6b7fQRmgLrsnpQlmnig==
-
 "@ethersproject/networks@5.6.4", "@ethersproject/networks@^5.6.3":
   version "5.6.4"
   resolved "https://registry.yarnpkg.com/@ethersproject/networks/-/networks-5.6.4.tgz#51296d8fec59e9627554f5a8a9c7791248c8dc07"
@@ -1001,15 +989,6 @@
   dependencies:
     "@ethersproject/bytes" "^5.6.1"
     "@ethersproject/logger" "^5.6.0"
-    hash.js "1.1.7"
-
-"@ethersproject/sha2@^5.5.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@ethersproject/sha2/-/sha2-5.7.0.tgz#9a5f7a7824ef784f7f7680984e593a800480c9fb"
-  integrity sha512-gKlH42riwb3KYp0reLsFTokByAKoJdgFCwI+CCiX/k+Jm2mbNs6oOaCjYQSlI1+XBVejwH2KrmCbMAT/GnRDQw==
-  dependencies:
-    "@ethersproject/bytes" "^5.7.0"
-    "@ethersproject/logger" "^5.7.0"
     hash.js "1.1.7"
 
 "@ethersproject/signing-key@5.6.2", "@ethersproject/signing-key@^5.6.2":
@@ -1883,6 +1862,21 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.2.3.tgz#403e1575a84c31cbd7f3c0ecd51b61bc25b7f808"
   integrity sha512-huSNb98KSG77Kl96CoPgCwom28aamuUsPpRmn/4s9L0RNbbHVSkp9E6HA4yOAykZCEuWcdNsRLbVVuAbt8rtIw==
 
+"@noble/ed25519@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@noble/ed25519/-/ed25519-1.7.0.tgz#583ac38340a479314b9e348d4572101ed9492f9d"
+  integrity sha512-LeAxFK0+181zQOhOUuKE8Jnd3duzYhDNd3iCLxpmzA5K+e4I1FdbrK3Ot0ZHBwZMeRD/6EojyUfTbpHZ+hkQHg==
+
+"@noble/hashes@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.1.2.tgz#e9e035b9b166ca0af657a7848eb2718f0f22f183"
+  integrity sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==
+
+"@noble/secp256k1@^1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@noble/secp256k1/-/secp256k1-1.6.3.tgz#7eed12d9f4404b416999d0c87686836c4c5c9b94"
+  integrity sha512-T04e4iTurVy7I8Sw4+c5OSN9/RkPlo1uKxAomtxQNLq8j1uPAqnsqG1bqvY3Jv7c13gyr6dui0zmh/I3+f/JaQ==
+
 "@node-rs/bcrypt-android-arm64@^1.1.0":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@node-rs/bcrypt-android-arm64/-/bcrypt-android-arm64-1.6.1.tgz#03c7fbe1f0834489ede49c28e79fdb929cc6053a"
@@ -1973,19 +1967,19 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nrwl/cli@14.4.3":
-  version "14.4.3"
-  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-14.4.3.tgz#3d949e0da32e3af9f285ec376ec4f06314339716"
-  integrity sha512-9WzOOXgdf9YJxqte5e8KNkM3NWOuBgM7hz9jEOyw53Ht1Y2H8xLDPVkqDTS9kROgcyMQxHIjIcw80wZNaZL8Mw==
+"@nrwl/cli@14.5.10":
+  version "14.5.10"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-14.5.10.tgz#826c06a9a272523424f0c5690f5d745260ed1ea1"
+  integrity sha512-GpnnKGO3+HwlMmZSStbq1MOyoDJg2I0HN4nBqM3ltaQkfxGZv3erwRMOAT+8mba2MWbJJ2QQgASAYvTscNYjOQ==
   dependencies:
-    nx "14.4.3"
+    nx "14.5.10"
 
-"@nrwl/tao@14.4.3":
-  version "14.4.3"
-  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-14.4.3.tgz#08b86a81cb71574f491e9254104eaea1f7c6c5fd"
-  integrity sha512-sHlnqTlJ/XEc/lv0MIKYI1R643CWFvYL6QyZD7f38FvP1RblZ6eVqvOJcrkpwcvRWcZNEY+GrQpb1Io1ZvMEmQ==
+"@nrwl/tao@14.5.10":
+  version "14.5.10"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-14.5.10.tgz#69c90f8b6e13f2bb521840a5903f7eb4884285ff"
+  integrity sha512-eWORRba0HlTNmOQFUxHqki0Z5yiRIq1Hl0taprmZpz2lgDXuzPIjGfAi5/ETy5+G5gkEyxFnCq7+SiMilPokwA==
   dependencies:
-    nx "14.4.3"
+    nx "14.5.10"
 
 "@open-draft/until@^1.0.3":
   version "1.0.3"
@@ -2241,13 +2235,15 @@
   dependencies:
     buffer "~6.0.3"
 
-"@solana/web3.js@^1.53.0":
-  version "1.53.0"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.53.0.tgz#24a6341e4026fc2b993656141361c54bec917c07"
-  integrity sha512-QyQDA9U5b+AiTo1ANsj9WihWWECeLv6VRpiTE7xPe5hLYANXZYecnlLglNiEzVgRg/jLvR5DrCISXhHx/mAEJw==
+"@solana/web3.js@^1.55.0":
+  version "1.55.0"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.55.0.tgz#9d7ceb7f71a7316b1e5dbd4434ef82f6537de5d9"
+  integrity sha512-hXEc5CtA/5tZMvwEy0Cv6iynBpWoSLk6ud2PmoiGfWrZXZqkrfgTPkgd4yBw+VNZJRBRMKVbs/P7kT1sBwZUrw==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@ethersproject/sha2" "^5.5.0"
+    "@noble/ed25519" "^1.7.0"
+    "@noble/hashes" "^1.1.2"
+    "@noble/secp256k1" "^1.6.3"
     "@solana/buffer-layout" "^4.0.0"
     bigint-buffer "^1.1.5"
     bn.js "^5.0.0"
@@ -2258,11 +2254,8 @@
     jayson "^3.4.4"
     js-sha3 "^0.8.0"
     node-fetch "2"
-    react-native-url-polyfill "^1.3.0"
     rpc-websockets "^7.5.0"
-    secp256k1 "^4.0.2"
     superstruct "^0.14.2"
-    tweetnacl "^1.0.3"
 
 "@supabase/functions-js@^1.3.4":
   version "1.3.4"
@@ -10848,13 +10841,13 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
 
-nx@14.4.3, nx@^14.4.3:
-  version "14.4.3"
-  resolved "https://registry.yarnpkg.com/nx/-/nx-14.4.3.tgz#27a1aea9ffaf143800c20006ed20f9a26f4610a3"
-  integrity sha512-XPaoEAfJI9056qdwTvkutQSwwA3iihqNDwhvk3dmgpT35j8Uzm/y67goACaCUBCjP2dIQqXfNfJVWQIpcG3MTw==
+nx@14.5.10, nx@^14.5.10:
+  version "14.5.10"
+  resolved "https://registry.yarnpkg.com/nx/-/nx-14.5.10.tgz#cc950bcc2d867f0aa4e86a508842a9299650fbb9"
+  integrity sha512-dqiV+zY32k98mfKFTgiQyYd9HYZmB1zoJj6gYniEuqzs6CKp8ZSpeRDaVQRxR6wEMvW9MSTA9kBg8sJ78W/NZg==
   dependencies:
-    "@nrwl/cli" "14.4.3"
-    "@nrwl/tao" "14.4.3"
+    "@nrwl/cli" "14.5.10"
+    "@nrwl/tao" "14.5.10"
     "@parcel/watcher" "2.0.4"
     chalk "4.1.0"
     chokidar "^3.5.1"
@@ -12320,13 +12313,6 @@ react-native-crypto-js@1.0.0:
   resolved "https://registry.yarnpkg.com/react-native-crypto-js/-/react-native-crypto-js-1.0.0.tgz#e677e022e147f41b35614416c92d655f87e2450a"
   integrity sha512-FNbLuG/HAdapQoybeZSoes1PWdOj0w242gb+e1R0hicf3Gyj/Mf8M9NaED2AnXVOX01b2FXomwUiw1xP1K+8sA==
 
-react-native-url-polyfill@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-url-polyfill/-/react-native-url-polyfill-1.3.0.tgz#c1763de0f2a8c22cc3e959b654c8790622b6ef6a"
-  integrity sha512-w9JfSkvpqqlix9UjDvJjm1EjSt652zVQ6iwCIj1cVVkwXf4jQhQgTNXY6EVTwuAmUjg6BC6k9RHCBynoLFo3IQ==
-  dependencies:
-    whatwg-url-without-unicode "8.0.0-3"
-
 react-popper-tooltip@4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-4.3.1.tgz#0bfdd40453395865d7a5678a160640243070528e"
@@ -12969,7 +12955,7 @@ scrypt-js@3.0.1, scrypt-js@^3.0.0:
   resolved "https://registry.yarnpkg.com/scrypt-js/-/scrypt-js-3.0.1.tgz#d314a57c2aef69d1ad98a138a21fe9eafa9ee312"
   integrity sha512-cdwTTnqPu0Hyvf5in5asVdZocVDTNRmR7XEcJuIzMjJeSHybHl7vpB66AzwTaIg6CLSbtjcxc8fqcySfnTkccA==
 
-secp256k1@^4.0.1, secp256k1@^4.0.2:
+secp256k1@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/secp256k1/-/secp256k1-4.0.3.tgz#c4559ecd1b8d3c1827ed2d1b94190d69ce267303"
   integrity sha512-NLZVf+ROMxwtEj3Xa562qgv2BK5e2WNmXPiOdVIPLgs6lyTzMvBq0aWTYMI5XCP9jZMVKOcqZLw/Wc4vDkuxhA==
@@ -14114,11 +14100,6 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==
 
-tweetnacl@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
-  integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
-
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"
@@ -14582,11 +14563,6 @@ webidl-conversions@^3.0.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
   integrity sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==
 
-webidl-conversions@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-5.0.0.tgz#ae59c8a00b121543a2acc65c0434f57b0fc11aff"
-  integrity sha512-VlZwKPCkYKxQgeSbH5EyngOmRp7Ww7I9rQLERETtf5ofd9pGeswWiOtogpEO850jziPRarreGxn5QIiTqpb2wA==
-
 webidl-conversions@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-7.0.0.tgz#256b4e1882be7debbf01d05f0aa2039778ea080a"
@@ -14617,15 +14593,6 @@ websocket@^1.0.34:
     typedarray-to-buffer "^3.1.5"
     utf-8-validate "^5.0.2"
     yaeti "^0.0.6"
-
-whatwg-url-without-unicode@8.0.0-3:
-  version "8.0.0-3"
-  resolved "https://registry.yarnpkg.com/whatwg-url-without-unicode/-/whatwg-url-without-unicode-8.0.0-3.tgz#ab6df4bf6caaa6c85a59f6e82c026151d4bb376b"
-  integrity sha512-HoKuzZrUlgpz35YO27XgD28uh/WJH4B0+3ttFqRo//lmq+9T/mIOJ6kqmINI9HpUpz1imRC/nR/lxKpJiv0uig==
-  dependencies:
-    buffer "^5.4.3"
-    punycode "^2.1.1"
-    webidl-conversions "^5.0.0"
 
 whatwg-url@^11.0.0:
   version "11.0.0"
