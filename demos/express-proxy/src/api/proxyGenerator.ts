@@ -30,7 +30,7 @@ export class ProxyGenerator {
         baseUrl = Moralis.SolApi.baseUrl;
         break;
       default:
-        throw 'invalid api';
+        throw new Error('invalid api');
     }
 
     for (const descriptor of descriptors) {

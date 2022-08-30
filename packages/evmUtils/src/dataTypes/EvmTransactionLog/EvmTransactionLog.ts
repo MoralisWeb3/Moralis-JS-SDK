@@ -1,4 +1,4 @@
-import { maybe, MoralisDataObject } from '@moralisweb3/core';
+import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
 
@@ -13,21 +13,31 @@ export type EvmTransactionLogish = EvmTransactionLogInput | EvmTransactionLog;
  * @category DataType
  */
 export class EvmTransactionLog implements MoralisDataObject {
-  static create(value: EvmTransactionLogish) {
+  /**
+   * Create a new instance of EvmTransactionLog from any valid address input
+   *
+   * @example
+   * ```
+   * const log = EvmTransactionLog.create(value, core);
+   * ```
+   * @param value - A valid EvmTransactionLogish
+   * @param core - The MoralisCore instance
+   */
+  static create(value: EvmTransactionLogish, core?: MoralisCore) {
     if (value instanceof EvmTransactionLog) {
       return value;
     }
-
-    return new EvmTransactionLog(value);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmTransactionLog(value, finalCore);
   }
 
   private _value;
 
-  constructor(value: EvmTransactionLogInput) {
-    this._value = EvmTransactionLog.parse(value);
+  constructor(value: EvmTransactionLogInput, core: MoralisCore) {
+    this._value = EvmTransactionLog.parse(value, core);
   }
 
-  static parse(value: EvmTransactionLogInput): EvmTransactionLogData {
+  static parse(value: EvmTransactionLogInput, core: MoralisCore): EvmTransactionLogData {
     return {
       logIndex: maybe(value.logIndex),
       transactionHash: value.transactionHash,
@@ -37,7 +47,7 @@ export class EvmTransactionLog implements MoralisDataObject {
       blockHash: value.blockHash,
       blockNumber: value.blockNumber,
       blockTimestamp: value.blockTimestamp,
-      address: EvmAddress.create(value.address),
+      address: EvmAddress.create(value.address, core),
     };
   }
 
@@ -59,6 +69,15 @@ export class EvmTransactionLog implements MoralisDataObject {
     );
   }
 
+  /**
+   * Converts the log to a JSON object.
+   *
+   * @returns the EvmTransactionLog as a JSON object
+   * @example
+   * ```ts
+   * log.toJSON();
+   * ```
+   */
   toJSON() {
     const value = this._value;
 
