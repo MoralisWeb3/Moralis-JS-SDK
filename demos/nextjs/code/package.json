@@ -20,6 +20,7 @@
     "wagmi": "^0.5.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.13",
     "@moralisweb3/eslint-config": "^1.0.0",
     "@next/eslint-plugin-next": "^12.2.5",
     "@types/node": "18.0.6",
