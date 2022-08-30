@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import {FirebaseFunctionsRateLimiter} from 'firebase-functions-rate-limiter';
-import {CallableContext} from 'firebase-functions/v1/https';
-import {OnCallHandler} from './OnCallHandler';
+import { FirebaseFunctionsRateLimiter } from 'firebase-functions-rate-limiter';
+import { CallableContext } from 'firebase-functions/v1/https';
+import { OnCallHandler } from './OnCallHandler';
 
 export interface IpRateLimiterConfig {
   maxCalls: number;
@@ -12,13 +12,13 @@ export interface IpRateLimiterConfig {
 export class IpRateLimiter {
   public constructor(private readonly limiter: FirebaseFunctionsRateLimiter) {}
 
-  public readonly wrap = <T>(handler: OnCallHandler<T>) => {
-    return async (data: T, context: CallableContext) => {
-      const qualifier = 'ip-' + this.readNormalizedIp(context.rawRequest);
+  public readonly wrap = <Data>(handler: OnCallHandler<Data>) => {
+    return async (data: Data, context: CallableContext) => {
+      const qualifier = `ip-${this.readNormalizedIp(context.rawRequest)}`;
 
       await this.limiter.rejectOnQuotaExceededOrRecordUsage(qualifier);
 
-      return await handler(data, context);
+      return handler(data, context);
     };
   };
 
@@ -27,10 +27,7 @@ export class IpRateLimiter {
   }
 }
 
-export function ipRateLimiterMiddleware(
-  firestore: admin.firestore.Firestore,
-  config: IpRateLimiterConfig
-) {
+export function ipRateLimiterMiddleware(firestore: admin.firestore.Firestore, config: IpRateLimiterConfig) {
   // We use the Firestore, because it's cheaper: https://github.com/Jblew/firebase-functions-rate-limiter/issues/23#issuecomment-1154262264
   const limiter = FirebaseFunctionsRateLimiter.withFirestoreBackend(
     {

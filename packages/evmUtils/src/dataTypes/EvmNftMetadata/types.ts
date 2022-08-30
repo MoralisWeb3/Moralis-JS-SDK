@@ -18,5 +18,5 @@ export interface EvmNftMetadataData {
   name: string;
   symbol: string;
   contractType: EvmNftContractType | null;
-  syncedAt: DateInput;
+  syncedAt?: DateInput;
 }

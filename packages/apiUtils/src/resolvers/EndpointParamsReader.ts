@@ -17,7 +17,7 @@ export class EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, J
     return !!this.endpoint.urlParams && this.endpoint.urlParams.includes(param as keyof Params);
   }
 
-  public getSearchParams(params: ApiParams) {
+  public getSearchParams(params: ApiParams): Record<string, unknown> {
     return Object.keys(params).reduce((result, key) => {
       const paramKey = key as keyof ApiParams;
 
@@ -26,18 +26,24 @@ export class EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, J
       }
 
       return { ...result, [key]: params[paramKey] };
-    }, {});
+    }, {} as Record<string, unknown>);
   }
 
   public getBodyParams(params: ApiParams) {
+    if (this.endpoint.bodyType === EndpointBodyType.BODY && this.endpoint.bodyParams) {
+      // TODO: delete `as unknown`
+      const paramName = this.endpoint.bodyParams[0] as unknown as keyof ApiParams;
+      return params[paramName];
+    }
+
     return Object.keys(params).reduce((result, key) => {
-      // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-      if (!params[key] || !this.isBodyParam(key)) {
+      // TODO: delete `as unknown`
+      const paramName = key as unknown as keyof ApiParams;
+      if (!params[paramName] || !this.isBodyParam(key)) {
         return result;
       }
       if (this.endpoint.bodyType === EndpointBodyType.PROPERTY) {
-        // @ts-ignore TODO: fix the ApiParams type, as it should extend object/record
-        return { ...result, [key]: params[key] };
+        return { ...result, [key]: params[paramName] };
       }
       return result;
     }, {});

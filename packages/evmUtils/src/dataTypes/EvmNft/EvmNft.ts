@@ -1,4 +1,4 @@
-import {
+import MoralisCore, {
   MoralisDataObject,
   MoralisDataObjectValue,
   CoreErrorCode,
@@ -6,6 +6,7 @@ import {
   maybe,
   BigNumber,
   dateInputToDate,
+  MoralisCoreProvider,
 } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
@@ -20,21 +21,21 @@ export type EvmNftish = EvmNftInput | EvmNft;
 export class EvmNft implements MoralisDataObject {
   private _data: EvmNftData;
 
-  constructor(data: EvmNftInput) {
-    this._data = EvmNft.parse(data);
+  constructor(data: EvmNftInput, core: MoralisCore) {
+    this._data = EvmNft.parse(data, core);
   }
 
-  static parse = (data: EvmNftInput): EvmNftData => ({
+  static parse = (data: EvmNftInput, core: MoralisCore): EvmNftData => ({
     ...data,
-    chain: EvmChain.create(data.chain),
+    chain: EvmChain.create(data.chain, core),
     contractType: validateValidEvmContractType(data.contractType),
-    tokenAddress: EvmAddress.create(data.tokenAddress),
+    tokenAddress: EvmAddress.create(data.tokenAddress, core),
     metadata: maybe(data.metadata, this.validateMetadata),
     tokenUri: maybe(data.tokenUri),
     tokenHash: maybe(data.tokenHash),
     name: maybe(data.name),
     symbol: maybe(data.symbol),
-    ownerOf: maybe(data.ownerOf, EvmAddress.create),
+    ownerOf: maybe(data.ownerOf, (ownerOf) => EvmAddress.create(ownerOf, core)),
     blockNumberMinted: maybe(data.blockNumberMinted, BigNumber.create),
     blockNumber: maybe(data.blockNumber, BigNumber.create),
     lastMetadataSync: maybe(data.lastMetadataSync, dateInputToDate),
@@ -53,14 +54,16 @@ export class EvmNft implements MoralisDataObject {
     }
   };
 
-  static create(value: EvmNftish) {
+  static create(value: EvmNftish, core?: MoralisCore) {
     if (value instanceof EvmNft) {
       return value;
     }
-
-    return new EvmNft(value);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmNft(value, finalCore);
   }
 
+  // TODO: refactor to reduce complexity
+  // eslint-disable-next-line complexity
   static equals(valueA: EvmNftish, valueB: EvmNftish) {
     const nftA = EvmNft.create(valueA);
     const nftB = EvmNft.create(valueB);
@@ -106,7 +109,7 @@ export class EvmNft implements MoralisDataObject {
     return this.toJSON();
   }
 
-  get result() {
+  get result(): EvmNftData {
     return this._data;
   }
 }

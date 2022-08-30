@@ -30,7 +30,7 @@ export interface EvmNftData {
   tokenUri?: string;
   tokenAddress: EvmAddress;
   tokenHash?: string;
-  metadata: MoralisDataObjectValue;
+  metadata?: MoralisDataObjectValue;
   name?: string;
   symbol?: string;
 

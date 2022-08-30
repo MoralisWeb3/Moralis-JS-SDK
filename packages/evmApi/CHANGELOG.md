@@ -1,5 +1,27 @@
 # @moralisweb3/evm-api
 
+## 2.1.1
+
+### Patch Changes
+
+- [#619](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/619) [`5bfb635`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5bfb6356a1f9bed993f7a32b58c6da7d2d51ffe1) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed creating a body of POST requests.
+
+- Updated dependencies [[`5bfb635`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5bfb6356a1f9bed993f7a32b58c6da7d2d51ffe1), [`7fa4654`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fa4654a39484df09af57ef07674738e5650732d)]:
+  - @moralisweb3/api-utils@2.1.1
+  - @moralisweb3/evm-utils@2.1.1
+  - @moralisweb3/core@2.1.1
+
+## 2.1.0
+
+### Patch Changes
+
+- [#597](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/597) [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Corrected TypeScript definition of the `maybe()` method. This affects on a few EVM types.
+
+- Updated dependencies [[`a0ece52`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0ece52ecc4f73a2d93af59972b06a1a30f1bc61), [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255), [`d542326`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d542326171812d992fb9548aa323553fdd1a0fb4)]:
+  - @moralisweb3/evm-utils@2.1.0
+  - @moralisweb3/core@2.1.0
+  - @moralisweb3/api-utils@2.1.0
+
 ## 2.0.3
 
 ### Patch Changes

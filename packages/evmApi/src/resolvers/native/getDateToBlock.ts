@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { dateInputToDate } from '@moralisweb3/core';
 import { EvmChainish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -20,7 +19,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getDateToBlock = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getDateToBlock',
-    getUrl: () => `${BASE_URL}/dateToBlock`,
+    getUrl: () => `/dateToBlock`,
     apiToResult: (data: ApiResult) => ({
       ...data,
       date: new Date(data.date),

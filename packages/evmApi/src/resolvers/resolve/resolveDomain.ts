@@ -1,6 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { EvmAddress } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 
 type operation = 'resolveDomain';
@@ -15,7 +14,7 @@ export const resolveDomain = createEndpointFactory((core) =>
   createEndpoint({
     name: 'resolveDomain',
     urlParams: ['domain'],
-    getUrl: (params: ApiParams) => `${BASE_URL}/resolve/${params.domain}`,
+    getUrl: (params: ApiParams) => `/resolve/${params.domain}`,
     apiToResult: (data: ApiResult) => ({
       address: EvmAddress.create(data.address, core),
     }),

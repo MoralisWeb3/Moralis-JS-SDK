@@ -12,10 +12,8 @@ export const isValidEvmContractType = (value: string): value is EvmNftContractTy
     case EvmNftContractType.ERC721:
       return true;
     default:
-      false;
+      return false;
   }
-
-  return false;
 };
 
 export const validateValidEvmContractType = (value: string) => {

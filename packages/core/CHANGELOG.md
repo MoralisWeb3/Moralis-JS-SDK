@@ -1,5 +1,13 @@
 # @moralisweb3/core
 
+## 2.1.1
+
+## 2.1.0
+
+### Patch Changes
+
+- [#597](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/597) [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Corrected TypeScript definition of the `maybe()` method. This affects on a few EVM types.
+
 ## 2.0.3
 
 ## 2.0.2

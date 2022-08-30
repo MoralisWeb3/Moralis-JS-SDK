@@ -56,7 +56,7 @@ export class EvmChain implements MoralisData, EvmChainable {
     return EvmChain.create(97);
   }
   public static get AVALANCHE() {
-    return EvmChain.create(43113);
+    return EvmChain.create(43114);
   }
   public static get FUJI() {
     return EvmChain.create(43113);
@@ -185,13 +185,13 @@ export class EvmChain implements MoralisData, EvmChainable {
   }
 
   getExplorerPath(value: { block: string } | { transaction: string } | { account: string } | { erc20: string }) {
-    const explorer = this.explorer;
+    const { explorer } = this;
 
     if (!explorer || explorer.standard !== 'EIP3091') {
       return null;
     }
 
-    const url = explorer.url;
+    const { url } = explorer;
 
     // See https://eips.ethereum.org/EIPS/eip-3091 for paths
     if ('block' in value) {

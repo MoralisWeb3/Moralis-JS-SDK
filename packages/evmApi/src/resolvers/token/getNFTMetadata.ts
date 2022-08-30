@@ -8,7 +8,6 @@ import {
   EvmNftMetadata,
   validateValidEvmContractType,
 } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -29,7 +28,7 @@ export const getNFTMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTMetadata',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/metadata`,
+    getUrl: (params: Params) => `/nft/${params.address}/metadata`,
     apiToResult: (data: ApiResult, params: Params) =>
       EvmNftMetadata.create({
         ...toCamelCase(data),

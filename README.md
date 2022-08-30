@@ -26,6 +26,8 @@
 
 ---
 
+> **⚠ WARNING**: This library is dedicated to back-end projects only. You **should NOT** use this library for a front-end project. Keep your API key secret and don't disclose it.
+
 **Features**:
 
 - Web3 authentication
@@ -181,32 +183,41 @@ Moralis.EvmApi.native.getBlock();
 
 ## Umbrella package
 
-| package | Version | Changelog | Description                                                      |
-| ------- | ------- | --------- | ---------------------------------------------------------------- |
-| moralis | TODO    | TODO      | Umbrella package that includes all packages and initialises them |
+| package  | Changelog | Description                                                      |
+| -------  | --------- | ---------------------------------------------------------------- |
+| [moralis](./packages/moralis)     | [CHANGELOG.md](./packages/moralis/CHANGELOG.md)      | Umbrella package that includes all packages and initialises them |
 
 ## Core module
 
 The core module is required in all applications. It will handle global dependencies and communications between other packages.
 
-| package                                        | Version | Changelog | Description                                                                          |
-| ---------------------------------------------- | ------- | --------- | ------------------------------------------------------------------------------------ |
-| [@moralisweb3/core](./packages/core/README.md) | TODO    | TODO      | Core logic, responsible for core logic and sharing state and events between packages |
+| package                                        |  Changelog | Description                                                                          |
+| ---------------------------------------------- |--------- | ------------------------------------------------------------------------------------ |
+| [@moralisweb3/core](./packages/core) | [CHANGELOG.md](./packages/core/CHANGELOG.md)      | Core logic, responsible for core logic and sharing state and events between packages |
 
-## API modules
 
-These are packages that wrap around the Moralis apis for easy use. You can call to any endpoint with a single function call. These modules will also wrap the returned data in Moralis datatypes, to ensure consistent data accross all modules.
+##  Utilities
+| package                                              |  Changelog | Description |
+| ---------------------------------------------------- | --------- | ----------- |
+| [@moralisweb3/evm-utils](./packages/evmUtils) | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Utility functions and datatypes for EVM chains.         |
+| [@moralisweb3/sol-utils](./packages/solUtils) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Utility functions and datatypes for Solana networks.         |
+| [@moralisweb3/api-utils](./packages/apiUtils) | [CHANGELOG.md](./packages/apiUtils/CHANGELOG.md)      |    Generic functions, used in all api logic within the SDK.         |
 
-| package                                              | Version | Changelog | Description |
-| ---------------------------------------------------- | ------- | --------- | ----------- |
-| [@moralisweb3/evm-api](./packages/evm-api/README.md) | TODO    | TODO      |             |
-| [@moralisweb3/sol-api](./packages/sol-api/README.md) | TODO    | TODO      |             |
+
+## Moralis functionalities
+
+| package                                              |  Changelog | Description |
+| ---------------------------------------------------- | --------- | ----------- |
+| [@moralisweb3/evm-api](./packages/evmApi) | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Fetch data from an EVM chain         |
+| [@moralisweb3/sol-api](./packages/solApi) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Fetch data from a Solana network         |
+| [@moralisweb3/auth](./packages/auth) | [CHANGELOG.md](./packages/auth/CHANGELOG.md)      |    Handle authentication         |
 
 ## Other
 
-| package | Version | Changelog | Description |
-| ------- | ------- | --------- | ----------- |
-|         | TODO    | TODO      |             |
+| package                                              |  Changelog | Description |
+| ---------------------------------------------------- | --------- | ----------- |
+| [@moralisweb3/eslint-config](./packages/eslintConfig) | -     |    Eslint configuration that is used within Moralis         |
+
 
 # 🧙‍♂️ Community
 

@@ -1,5 +1,25 @@
 # @moralisweb3/evm-utils
 
+## 2.1.1
+
+### Patch Changes
+
+- [#614](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/614) [`7fa4654`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fa4654a39484df09af57ef07674738e5650732d) Thanks [@sogunshola](https://github.com/sogunshola)! - Added technical documentation for EvmTransaction datatype
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.1.1
+
+## 2.1.0
+
+### Patch Changes
+
+- [#607](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/607) [`a0ece52`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0ece52ecc4f73a2d93af59972b06a1a30f1bc61) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix avalanche chainId from 43113 to 43114 when using `EvmChain.AVALANCHE`
+
+* [#597](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/597) [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Corrected TypeScript definition of the `maybe()` method. This affects on a few EVM types.
+
+* Updated dependencies [[`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255)]:
+  - @moralisweb3/core@2.1.0
+
 ## 2.0.3
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.0.3",
+  "version": "2.1.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -11,19 +11,18 @@
     "lib/*"
   ],
   "scripts": {
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
-    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@moralisweb3/auth": "^2.0.3",
-    "@moralisweb3/core": "^2.0.3",
-    "@moralisweb3/api-utils": "^2.0.3",
-    "@moralisweb3/evm-api": "^2.0.3",
-    "@moralisweb3/evm-utils": "^2.0.3",
-    "@moralisweb3/sol-api": "^2.0.3"
+    "@moralisweb3/auth": "^2.1.1",
+    "@moralisweb3/core": "^2.1.1",
+    "@moralisweb3/api-utils": "^2.1.1",
+    "@moralisweb3/evm-api": "^2.1.1",
+    "@moralisweb3/evm-utils": "^2.1.1",
+    "@moralisweb3/sol-api": "^2.1.1",
+    "@moralisweb3/sol-utils": "^2.1.1"
   }
 }

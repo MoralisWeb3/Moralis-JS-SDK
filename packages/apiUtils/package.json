@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/api-utils",
   "author": "Moralis",
-  "version": "2.0.3",
+  "version": "2.1.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -14,9 +14,7 @@
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch"
@@ -26,6 +24,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.0.3"
+    "@moralisweb3/core": "^2.1.1"
   }
 }

@@ -1,22 +1,55 @@
-import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/core';
+import MoralisCore, {
+  MoralisDataObject,
+  maybe,
+  BigNumber,
+  dateInputToDate,
+  MoralisCoreProvider,
+} from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';
 import { EvmTransacionInput, EvmTransactionData } from './types';
 
+/**
+ * Valid input for a new EvmTransaction instance.
+ * This can be an existing {@link EvmTransaction} or a valid {@link EvmTransacionInput} object
+ */
 export type EvmTransactionish = EvmTransacionInput | EvmTransaction;
 
+/**
+ * The EvmTranaction is a representation of a published transaction.
+ *
+ * Use this class any time you work with a transaction.
+ *
+ * @category DataType
+ */
 export class EvmTransaction implements MoralisDataObject {
-  private _data: EvmTransactionData;
-
-  constructor(data: EvmTransacionInput) {
-    this._data = EvmTransaction.parse(data);
+  /**
+   * Create a new instance of EvmTransaction from any valid transaction input
+   * @param data - the EvmTransactionish type
+   * @example
+   * ```
+   * const transaction = EvmTransaction.create(data);
+   *```
+   */
+  static create(data: EvmTransactionish, core?: MoralisCore) {
+    if (data instanceof EvmTransaction) {
+      return data;
+    }
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmTransaction(data, finalCore);
   }
 
-  static parse = (data: EvmTransacionInput): EvmTransactionData => ({
-    from: maybe(data.from, EvmAddress.create),
-    to: maybe(data.to, EvmAddress.create),
+  private _data: EvmTransactionData;
+
+  constructor(data: EvmTransacionInput, core: MoralisCore) {
+    this._data = EvmTransaction.parse(data, core);
+  }
+
+  static parse = (data: EvmTransacionInput, core: MoralisCore): EvmTransactionData => ({
+    from: EvmAddress.create(data.from, core),
+    to: maybe(data.to, (to) => EvmAddress.create(to, core)),
     nonce: maybe(data.nonce, BigNumber.create),
     data: maybe(data.data),
     value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
@@ -36,21 +69,22 @@ export class EvmTransaction implements MoralisDataObject {
     cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
     gasUsed: BigNumber.create(data.gasUsed),
 
-    contractAddress: maybe(data.contractAddress, EvmAddress.create),
+    contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address, core)),
     receiptRoot: maybe(data.receiptRoot),
     receiptStatus: maybe(data.receiptStatus, (status) => +status),
 
     logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
   });
 
-  static create(data: EvmTransactionish) {
-    if (data instanceof EvmTransaction) {
-      return data;
-    }
-
-    return new EvmTransaction(data);
-  }
-
+  /**
+   * Check the equality between two Evm transactions
+   * @param dataA - The first transaction
+   * @param dataB - The second transaction
+   * @example
+   * ```ts
+   * EvmTransaction.equals(dataA, dataB)
+   * ```
+   */
   static equals(dataA: EvmTransactionish, dataB: EvmTransactionish) {
     const transactionA = EvmTransaction.create(dataA);
     const transactionB = EvmTransaction.create(dataB);
@@ -66,6 +100,14 @@ export class EvmTransaction implements MoralisDataObject {
     return true;
   }
 
+  /**
+   * Checks the equality of the current transaction with another evm transaction
+   * @param data - the transaction to compare with
+   * @example
+   * ```ts
+   * transaction.equals(data)
+   * ```
+   */
   equals(data: EvmTransactionish): boolean {
     return EvmTransaction.equals(this, data);
   }
@@ -86,14 +128,238 @@ export class EvmTransaction implements MoralisDataObject {
       chain: data.chain?.format(),
       contractAddress: data.contractAddress?.format(),
       logs: data.logs.map((log) => log.toJSON()),
+      blockTimestamp: data.blockTimestamp.toString(),
     };
   }
 
+  /**
+   * @returns a JSON represention of the transaction.
+   * @example
+   * ```
+   * transaction.format()
+   * ```
+   */
   format() {
     return this.toJSON();
   }
 
+  /**
+   * @returns the transaction
+   * @example
+   * ```
+   * transaction.result
+   * ```
+   */
   get result() {
     return this._data;
+  }
+
+  /**
+   * @returns the transaction to address
+   * @example
+   * ```
+   * transaction.to // EvmAddress
+   * ```
+   */
+  get to() {
+    return this._data.to;
+  }
+
+  /**
+   * @returns the transaction from address
+   * @example
+   * ```
+   * transaction.address // EvmAddress
+   * ```
+   */
+  get from() {
+    return this._data.from;
+  }
+
+  /**
+   * @returns the transaction nonce
+   * @example
+   * ```
+   * transaction.nonce // 326595425
+   * ```
+   */
+  get nonce() {
+    return this._data.nonce;
+  }
+
+  /**
+   * @returns the transaction gas
+   * @example
+   * ```
+   * transaction.gas // 6721975
+   * ```
+   */
+  get gas() {
+    return this._data.gas;
+  }
+
+  /**
+   * @returns the transaction gas price
+   * @example
+   * ```
+   * transaction.gasPrice // 20000000000
+   * ```
+   */
+  get gasPrice() {
+    return this._data.gasPrice;
+  }
+
+  /**
+   * @returns the transaction gas used
+   * @example
+   * ```
+   * transaction.gasUsed // 1340925
+   * ```
+   */
+  get gasUsed() {
+    return this._data.gasUsed;
+  }
+
+  /**
+   * @returns the transaction cumulative gas used
+   * @example
+   * ```
+   * transaction.cumulativeGasUsed // 1340925
+   * ```
+   */
+  get cumulativeGasUsed() {
+    return this._data.cumulativeGasUsed;
+  }
+
+  /**
+   * @returns the transaction block number
+   * @example
+   * ```
+   * transaction.blockNumber // 12526958
+   * ```
+   */
+  get blockNumber() {
+    return this._data.blockNumber;
+  }
+
+  /**
+   * @returns the transaction value
+   * @example
+   * ```
+   * transaction.value // EvmNative
+   * ```
+   */
+  get value() {
+    return this._data.value;
+  }
+
+  /**
+   * @returns the transaction chain
+   * @example
+   * ```
+   * transaction.chain // EvmChain
+   * ```
+   */
+  get chain() {
+    return this._data.chain;
+  }
+
+  /**
+   * @returns the transaction contract address
+   * @example
+   * ```
+   * transaction.contractAddress // EvmAddress
+   * ```
+   */
+  get contractAddress() {
+    return this._data.contractAddress;
+  }
+
+  /**
+   * @returns the transaction logs
+   * @example
+   * ```
+   * transaction.logs // EvmTransactionLog[]
+   * ```
+   */
+  get logs() {
+    return this._data.logs;
+  }
+
+  /**
+   * @returns the transaction receipt root
+   * @example
+   * ```
+   * transaction.receiptRoot // string
+   * ```
+   */
+  get receiptRoot() {
+    return this._data.receiptRoot;
+  }
+
+  /**
+   * @returns the transaction receipt status
+   * @example
+   * ```
+   * transaction.receiptStatus // 1
+   * ```
+   */
+  get receiptStatus() {
+    return this._data.receiptStatus;
+  }
+
+  /**
+   * @returns the transaction data
+   * @example
+   * ```
+   * transaction.data // 0x000000000000000000000000000000000000000000000000000000000000002
+   * ```
+   */
+  get data() {
+    return this._data.data;
+  }
+
+  /**
+   * @returns the transaction hash
+   * @example
+   * ```
+   * transaction.hash // 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+   * ```
+   */
+  get hash() {
+    return this._data.hash;
+  }
+
+  /**
+   * @returns the transaction type
+   * @example
+   * ```
+   * transaction.type // 1
+   * ```
+   */
+  get type() {
+    return this._data.type;
+  }
+
+  /**
+   * @returns the transaction black hash
+   * @example
+   * ```
+   * transaction.blockHash // 0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86
+   * ```
+   */
+  get blockHash() {
+    return this._data.blockHash;
+  }
+
+  /**
+   * @returns the transaction block timestamp
+   * @example
+   * ```
+   * transaction.blockTimestamp // Date
+   * ```
+   */
+  get blockTimestamp() {
+    return this._data.blockTimestamp;
   }
 }

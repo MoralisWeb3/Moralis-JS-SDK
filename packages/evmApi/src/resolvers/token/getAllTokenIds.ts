@@ -1,7 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNft } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -21,17 +20,19 @@ export const getAllTokenIds = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getAllTokenIds',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}`,
+    getUrl: (params: Params) => `/nft/${params.address}`,
     apiToResult: (data: ApiResult, params: Params) =>
-      (data.result ?? []).map(
-        (nft) =>
-          new EvmNft({
+      (data.result ?? []).map((nft) =>
+        EvmNft.create(
+          {
             ...toCamelCase(nft),
             chain: EvmChainResolver.resolve(params.chain, core),
             ownerOf: nft.owner_of ? EvmAddress.create(nft.owner_of, core) : undefined,
             lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
             lastTokenUriSync: nft.last_token_uri_sync ? new Date(nft.last_token_uri_sync) : undefined,
-          }),
+          },
+          core,
+        ),
       ),
     resultToJson: (data) => data.map((nft) => nft.toJSON()),
     parseParams: (params: Params): ApiParams => ({

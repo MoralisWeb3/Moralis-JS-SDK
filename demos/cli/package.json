@@ -1,0 +1,19 @@
+{
+  "name": "demo-cli",
+  "author": "Moralis",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "build-start": "yarn build && yarn start",
+    "start": "node build/main.js",
+    "dev": "ts-node src/main.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "moralis": "^2.1.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}

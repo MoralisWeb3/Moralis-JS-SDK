@@ -1,7 +1,6 @@
 import { Camelize } from '@moralisweb3/core';
 import { Erc20Value, EvmAddressish, EvmChainish, EvmAddress } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { BASE_URL } from '../../EvmApi';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -22,7 +21,7 @@ export const getTokenBalances = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenBalances',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}/erc20`,
+    getUrl: (params: Params) => `/${params.address}/erc20`,
     apiToResult: (data: ApiResult, params: Params) => {
       return (data ?? []).map((token) =>
         Erc20Value.create(token.balance, {

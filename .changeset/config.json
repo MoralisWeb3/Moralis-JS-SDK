@@ -18,5 +18,13 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["test-integration", "test-node", "demo-nextjs", "demo-parse-server", "demo-subabase-auth"]
+  "ignore": [
+    "test-integration",
+    "demo-cli",
+    "demo-nextjs",
+    "demo-parse-server",
+    "demo-subabase-auth",
+    "demo-firebase-auth-functions",
+    "demo-firebase-proxy-functions"
+  ]
 }

@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -24,11 +23,11 @@ export const syncNFTContract = createEndpointFactory((core) =>
   createEndpoint({
     name: 'syncNFTContract',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/nft/${params.address}/sync`,
-    apiToResult: (data: ApiResult) => ({
+    getUrl: (params: Params) => `/nft/${params.address}/sync`,
+    apiToResult: (_: ApiResult) => ({
       success: true,
     }),
-    resultToJson: (data) => ({
+    resultToJson: () => ({
       success: true,
     }),
     parseParams: (params: Params): ApiParams => ({

@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { Erc20Token, EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -23,7 +22,9 @@ export const getPairAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairAddress',
     urlParams: ['token0Address', 'token1Address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.token0Address}/${params.token1Address}/pairAddress`,
+    getUrl: (params: Params) => `/${params.token0Address}/${params.token1Address}/pairAddress`,
+    // TODO: refactor to reduce complexity
+    // eslint-disable-next-line complexity
     apiToResult: (data: ApiResult, params: Params) => ({
       //   ApiResult types generated all come as undefined which should not be the case TODO:
       token0: {

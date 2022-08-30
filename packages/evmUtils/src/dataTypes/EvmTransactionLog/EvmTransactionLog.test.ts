@@ -63,13 +63,6 @@ describe('EvmTransactionLog', () => {
     expect(transactionLog.result.address.format()).toStrictEqual(inputWithAllData.address);
   });
 
-  it('should create a new EvmTransactionLog with valid input data from constructor', () => {
-    const transactionLog = new EvmTransactionLog(inputWithAllData);
-
-    expect(transactionLog.format()).toStrictEqual(inputWithAllData);
-    expect(transactionLog.result.address.format()).toStrictEqual(inputWithAllData.address);
-  });
-
   it('should create a new EvmTransactionLog with input data without optional params', () => {
     const transactionLog = EvmTransactionLog.create(inputWithoutOptionalData);
 

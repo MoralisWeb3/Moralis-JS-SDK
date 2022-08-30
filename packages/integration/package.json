@@ -12,8 +12,6 @@
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --no-cache --ci",
     "test:watch": "yarn jest --watch",
     "test:coverage": "yarn jest --coverage",
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
-    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint .",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx"
   },
@@ -22,9 +20,9 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.0.3",
-    "@moralisweb3/evm-api": "^2.0.3",
-    "@moralisweb3/evm-utils": "^2.0.3",
+    "@moralisweb3/core": "^2.1.1",
+    "@moralisweb3/evm-api": "^2.1.1",
+    "@moralisweb3/evm-utils": "^2.1.1",
     "eventemitter3": "^4.0.7"
   }
 }

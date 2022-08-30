@@ -2,7 +2,6 @@ import { BigNumber, Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmTransaction } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
-import { BASE_URL } from '../../EvmApi';
 import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTransactions';
@@ -21,7 +20,7 @@ export const getTransactions = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getTransactions',
     urlParams: ['address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.address}`,
+    getUrl: (params: Params) => `/${params.address}`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((transaction) =>
         EvmTransaction.create({

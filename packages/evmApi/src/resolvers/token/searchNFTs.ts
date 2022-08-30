@@ -2,7 +2,6 @@ import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParam
 
 import { Camelize } from '@moralisweb3/core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNft } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -20,18 +19,21 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const searchNFTs = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'searchNFTs',
-    getUrl: () => `${BASE_URL}/nft/search`,
+    getUrl: () => `/nft/search`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((nft) => ({
-        token: new EvmNft({
-          chain: EvmChainResolver.resolve(params.chain, core),
-          contractType: nft.contract_type,
-          tokenAddress: nft.token_address,
-          tokenId: nft.token_id,
-          tokenUri: nft.token_uri,
-          metadata: nft.metadata,
-          tokenHash: nft.token_hash as string,
-        }),
+        token: EvmNft.create(
+          {
+            chain: EvmChainResolver.resolve(params.chain, core),
+            contractType: nft.contract_type,
+            tokenAddress: nft.token_address,
+            tokenId: nft.token_id,
+            tokenUri: nft.token_uri,
+            metadata: nft.metadata,
+            tokenHash: nft.token_hash as string,
+          },
+          core,
+        ),
         tokenHash: nft.token_hash,
         blockNumberMinted: nft.block_number_minted,
         lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,

@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { toCamelCase } from '@moralisweb3/core';
 import { operations } from '../generated/types';
-import { BASE_URL } from '../MoralisAuth';
 
 const name = 'requestChallengeEvm';
 
@@ -24,7 +23,7 @@ type Params = ApiParams;
 
 type ApiResult = operations[Name]['responses']['201']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult, params: Params) => {
+const apiToResult = (apiData: ApiResult) => {
   const data = toCamelCase(apiData);
 
   return {
@@ -35,8 +34,8 @@ const apiToResult = (apiData: ApiResult, params: Params) => {
 export const initializeChallenge = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (params: Params) => `${BASE_URL}/challenge/request/evm`,
-    apiToResult: apiToResult,
+    getUrl: () => `/challenge/request/evm`,
+    apiToResult,
     resultToJson: (data) => ({
       ...data,
     }),
