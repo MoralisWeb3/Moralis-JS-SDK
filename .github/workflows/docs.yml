@@ -34,4 +34,4 @@ jobs:
       - name: Deploy Readme docs
         uses: readmeio/rdme@7.5.0
         with:
-          rdme: yarn rdme docs docs --version=v2.0 --key=README_API_KEY
+          rdme: docs ./docs --version=v2.0 --key=${{ secrets.README_API_KEY }}

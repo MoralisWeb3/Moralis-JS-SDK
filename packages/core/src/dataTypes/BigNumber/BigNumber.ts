@@ -1,6 +1,10 @@
 import { BigNumberFormatter } from './BigNumberFormatter';
 import { BigNumberParser, BigNumberPrimitive } from './BigNumberParser';
 
+/**
+ * Valid input for a new BigNumber instance.
+ * This can be an existing {@link BigNumber} or a valid {@link BigNumberPrimitive} type
+ */
 export type BigNumberish = BigNumber | BigNumberPrimitive;
 
 export class BigNumber {

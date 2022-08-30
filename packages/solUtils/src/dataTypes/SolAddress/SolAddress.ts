@@ -43,7 +43,7 @@ export class SolAddress implements MoralisData {
   /**
    * Formats the address to a specific format.
    * Currently returns a string representing the address.
-   * @example "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+   * @example address.format(); // "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
    */
   public format(): MoralisDataFormatted {
     // TODO: add `format` argument
@@ -61,7 +61,7 @@ export class SolAddress implements MoralisData {
 
   /**
    * @returns a string representing the address.
-   * @example "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+   * @example address.toString(); // "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
    */
   public toString(): string {
     return this.address;
@@ -69,7 +69,7 @@ export class SolAddress implements MoralisData {
 
   /**
    * @returns a string representing the address.
-   * @example "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+   * @example address.toJSON(); // "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
    */
   public toJSON(): string {
     return this.address;
