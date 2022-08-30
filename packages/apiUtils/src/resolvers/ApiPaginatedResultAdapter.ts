@@ -2,6 +2,9 @@ import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
 import { ApiResultAdapter } from './ApiResultAdapter';
 import { PaginatedResult } from './PaginatedEndpoint';
 
+/**
+ * The adapter for a paginated API result.
+ */
 export class ApiPaginatedResultAdapter<
   Data extends PaginatedResult<unknown>,
   AdaptedData,
@@ -18,10 +21,20 @@ export class ApiPaginatedResultAdapter<
     super(data, adapter, jsonAdapter, params);
   }
 
+  /**
+   * Checks an existence of the next page.
+   *
+   * @returns `true` if a next page exists, otherwise `false`.
+   */
   public hasNext = () => {
     return !!this.nextHandler;
   };
 
+  /**
+   * Gets a next page of the paginated result.
+   *
+   * @returns a new instance of a paginated adapter.
+   */
   public next = () => {
     if (!this.nextHandler) {
       throw new MoralisApiError({
@@ -33,12 +46,15 @@ export class ApiPaginatedResultAdapter<
     return this.nextHandler();
   };
 
+  /**
+   * @returns an info about pagination.
+   */
   public get pagination() {
     return {
-      total: this._data.total,
-      page: this._data.page,
-      pageSize: this._data.page_size,
-      cursor: this._data.cursor,
+      total: this.data.total,
+      page: this.data.page,
+      pageSize: this.data.page_size,
+      cursor: this.data.cursor,
     };
   }
 }
