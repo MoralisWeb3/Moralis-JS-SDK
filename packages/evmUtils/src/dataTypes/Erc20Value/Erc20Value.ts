@@ -46,6 +46,7 @@ export class Erc20Value implements MoralisData {
    * Create a new instance of Erc20Value from any valid input
    * @param value - The value to create
    * @param options - The options for the token
+   * @example Erc20Value.create(1000, { decimals: 3 });
    * @returns The created value
    * @throws MoralisCoreError if the value is invalid
    */
@@ -99,7 +100,12 @@ export class Erc20Value implements MoralisData {
    * @param valueA - The first value to compare
    * @param valueB - The second value to compare
    * @returns True if the values are equal
-   * @example Erc20Value.equals(valueA, valueB);
+   * @example 
+   * ```ts
+   * const valueA = Erc20Value.create(1000, { decimals: 3 });
+   * const valueB = Erc20Value.create(10000, { decimals: 4 });
+   * Erc20Value.equals(valueA, valueB); // false
+   * ```
    */
   static equals(valueA: Erc20Valueish, valueB: Erc20Valueish): boolean {
     const erc20ValueA = Erc20Value.create(valueA);
@@ -172,7 +178,7 @@ export class Erc20Value implements MoralisData {
 
   /**
    * @returns the token decimals
-   * @example value.decimals;
+   * @example value.decimals; // 15
    */
   get decimals(): number {
     return this._value.decimals;
@@ -180,7 +186,7 @@ export class Erc20Value implements MoralisData {
 
   /**
    * @returns the token amount
-   * @example value.amount;
+   * @example value.amount; // BigNumber
    */
   get amount(): BigNumber {
     return this._value.amount;
@@ -188,7 +194,7 @@ export class Erc20Value implements MoralisData {
 
   /**
    * @returns the token value
-   * @example value.value;
+   * @example value.value; // "1000"
    */
   get value(): string {
     return this._value.amount.toDecimal(this.decimals);
@@ -196,7 +202,7 @@ export class Erc20Value implements MoralisData {
 
   /**
    * @returns the token
-   * @example value.token;
+   * @example value.token; // Erc20Token
    */
   get token(): Erc20Token | null {
     return this._token ?? null;
