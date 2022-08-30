@@ -3430,11 +3430,6 @@
   resolved "https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.7.5.tgz"
   integrity sha512-V3BIhmY36fXZ1OtVcI9W+FxQqxVLsPKcNjWigIaa81dLC9IolJl5Mt4Cvhmr0flUnjSpTdrbMTSbXqYqV5dT6A==
 
-"@xstate/fsm@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@xstate/fsm/-/fsm-2.0.0.tgz"
-  integrity sha512-p/zcvBMoU2ap5byMefLkR+AM+Eh99CU/SDEQeccgKlmFNOMDwphaRGqdk+emvel/SaGZ7Rf9sDvzAplLzLdEVQ==
-
 JSONStream@^1.3.5:
   version "1.3.5"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.5.tgz"
@@ -3487,11 +3482,6 @@ acorn@^8.4.1, acorn@^8.8.0:
   version "8.8.0"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.8.0.tgz"
   integrity sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==
-
-add@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/add/-/add-2.0.6.tgz"
-  integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
 
 aes-js@3.0.0:
   version "3.0.0"
