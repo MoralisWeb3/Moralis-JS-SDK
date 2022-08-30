@@ -2,7 +2,7 @@
 
 ## Run locally
 
-1. Run a mongo-db via `yarn dev:db-start` or run your a mongo-db in any other way
+1. Run a mongo-db via `yarn dev:db-start` (use this mongo-db ONLY in development, not in production, see https://github.com/mongodb-js/runner), or run your a mongo-db in any other way
 2. Copy `.env.example` to `.env` and fill in the values
 3. Change the `API_URL` in `public/script.js` to the url of the server api
 4. Run `yarn dev` to run the server locally

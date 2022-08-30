@@ -4,7 +4,7 @@ let successCount = 0;
 let errorCount = 0;
 
 function trim(message: string, n: number): string {
-  return message.length > n ? message.substring(0, n) + '...' : message;
+  return message.length > n ? `${message.substring(0, n)}...` : message;
 }
 
 export async function smokeTest(groupName: string, name: string, getValue: () => Promise<unknown>) {
@@ -15,7 +15,6 @@ export async function smokeTest(groupName: string, name: string, getValue: () =>
   } catch (e) {
     console.log(e);
     console.error(`❌ ${name} = ${e}`);
-    // console.error(e);
     errorCount++;
   }
 }

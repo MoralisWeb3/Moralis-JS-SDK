@@ -68,12 +68,12 @@ export class MoralisEvmApi extends ApiModule {
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
   public readonly native = {
-    getBlock: this.endpoints.createFetcher(getBlock),
+    getBlock: this.endpoints.createNullableFetcher(getBlock),
     getContractEvents: this.endpoints.createPaginatedFetcher(getContractEvents),
     getDateToBlock: this.endpoints.createFetcher(getDateToBlock),
     getLogsByAddress: this.endpoints.createPaginatedFetcher(getLogsByAddress),
     getNFTTransfersByBlock: this.endpoints.createPaginatedFetcher(getNFTTransfersByBlock),
-    getTransaction: this.endpoints.createFetcher(getTransaction),
+    getTransaction: this.endpoints.createNullableFetcher(getTransaction),
     runContractFunction: this.endpoints.createFetcher(runContractFunction),
   };
 
@@ -88,8 +88,8 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly resolve = {
-    resolveAddress: this.endpoints.createFetcher(resolveAddress),
-    resolveDomain: this.endpoints.createFetcher(resolveDomain),
+    resolveAddress: this.endpoints.createNullableFetcher(resolveAddress),
+    resolveDomain: this.endpoints.createNullableFetcher(resolveDomain),
   };
 
   public readonly defi = {
@@ -100,14 +100,14 @@ export class MoralisEvmApi extends ApiModule {
   public readonly token = {
     getAllTokenIds: this.endpoints.createPaginatedFetcher(getAllTokenIds),
     getContractNFTTransfers: this.endpoints.createPaginatedFetcher(getContractNFTTransfers),
-    getNFTLowestPrice: this.endpoints.createFetcher(getNFTLowestPrice),
-    getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
+    getNFTLowestPrice: this.endpoints.createNullableFetcher(getNFTLowestPrice),
+    getNFTMetadata: this.endpoints.createNullableFetcher(getNFTMetadata),
     getNFTOwners: this.endpoints.createPaginatedFetcher(getNFTOwners),
     getNFTTrades: this.endpoints.createPaginatedFetcher(getNFTTrades),
     getNftTransfersFromToBlock: this.endpoints.createPaginatedFetcher(getNftTransfersFromToBlock),
     getTokenAddressTransfers: this.endpoints.createPaginatedFetcher(getTokenAddressTransfers),
     getTokenAllowance: this.endpoints.createFetcher(getTokenAllowance),
-    getTokenIdMetadata: this.endpoints.createFetcher(getTokenIdMetadata),
+    getTokenIdMetadata: this.endpoints.createNullableFetcher(getTokenIdMetadata),
     getTokenIdOwners: this.endpoints.createPaginatedFetcher(getTokenIdOwners),
     getTokenMetadata: this.endpoints.createFetcher(getTokenMetadata),
     getTokenMetadataBySymbol: this.endpoints.createFetcher(getTokenMetadataBySymbol),

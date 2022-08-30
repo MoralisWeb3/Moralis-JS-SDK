@@ -28,7 +28,7 @@ export const getBlock = functions.https.onCall(
       chain: data.chain,
       blockNumberOrHash: data.blockNumberOrHash,
     });
-    return response.toJSON();
+    return response?.toJSON();
   }),
 );
 
@@ -66,7 +66,7 @@ export const getNFTMetadata = functions.https.onCall(
     const response = await Moralis.EvmApi.token.getNFTMetadata({
       address: data.address,
     });
-    return response.toJSON();
+    return response?.toJSON();
   }),
 );
 

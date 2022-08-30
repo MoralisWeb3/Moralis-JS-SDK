@@ -28,42 +28,57 @@ export type JSONApiResult<Value extends object = object> =
     }
   | JSONApiResult[];
 
+/**
+ * The adapter for the API result.
+ */
 export class ApiResultAdapter<Data, AdaptedData, JSONData, Params> {
-  protected _data: Data;
-  protected _adapter: (data: Data, params: Params) => AdaptedData;
-  protected _jsonAdapter: (data: AdaptedData) => JSONData;
-  protected _params: Params;
+  public constructor(
+    protected readonly data: Data,
+    protected readonly adapter: (data: Data, params: Params) => AdaptedData,
+    protected readonly jsonAdapter: (data: AdaptedData) => JSONData,
+    protected readonly params: Params,
+  ) {}
 
-  constructor(
-    data: Data,
-    adapter: (data: Data, params: Params) => AdaptedData,
-    jsonAdapter: (data: AdaptedData) => JSONData,
-    params: Params,
-  ) {
-    this._data = data;
-    this._adapter = adapter;
-    this._jsonAdapter = jsonAdapter;
-    this._params = params;
+  /**
+   * @returns a raw data from the API.
+   */
+  public get raw() {
+    return this.data;
   }
 
-  get raw() {
-    return this._data;
+  /**
+   * @returns the result adapted into SDK types.
+   */
+  public get result(): AdaptedData {
+    return this.adapter(this.data, this.params);
   }
 
-  get result(): AdaptedData {
-    return this._adapter(this._data, this._params);
+  /**
+   * @returns the result in the JSON format.
+   */
+  public toJSON(): JSONData {
+    return this.jsonAdapter(this.result);
   }
 
-  // TODO:  Cast all to primitive types
-  toJSON() {
-    return this._jsonAdapter(this.result);
-  }
+  /**
+   * @returns the result in the raw format.
+   */
+  public format(formatType: ApiFormatType.RAW): Data;
 
-  format(formatType: ApiFormatType.RAW): Data;
-  // WIP: add type
-  format(formatType: ApiFormatType.JSON): unknown;
-  format(formatType: ApiFormatType.NORMAL): AdaptedData;
-  format(formatType: ApiFormatType) {
+  /**
+   * @returns athe result in the JSON format.
+   */
+  public format(formatType: ApiFormatType.JSON): unknown;
+
+  /**
+   * @returns the result adapted into SDK types.
+   */
+  public format(formatType: ApiFormatType.NORMAL): AdaptedData;
+
+  /**
+   * Format the result to a specific format.
+   */
+  public format(formatType: ApiFormatType) {
     if (formatType === ApiFormatType.RAW) {
       return this.raw;
     }

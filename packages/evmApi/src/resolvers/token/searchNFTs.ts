@@ -22,15 +22,18 @@ export const searchNFTs = createPaginatedEndpointFactory((core) =>
     getUrl: () => `/nft/search`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((nft) => ({
-        token: new EvmNft({
-          chain: EvmChainResolver.resolve(params.chain, core),
-          contractType: nft.contract_type,
-          tokenAddress: nft.token_address,
-          tokenId: nft.token_id,
-          tokenUri: nft.token_uri,
-          metadata: nft.metadata,
-          tokenHash: nft.token_hash as string,
-        }),
+        token: EvmNft.create(
+          {
+            chain: EvmChainResolver.resolve(params.chain, core),
+            contractType: nft.contract_type,
+            tokenAddress: nft.token_address,
+            tokenId: nft.token_id,
+            tokenUri: nft.token_uri,
+            metadata: nft.metadata,
+            tokenHash: nft.token_hash as string,
+          },
+          core,
+        ),
         tokenHash: nft.token_hash,
         blockNumberMinted: nft.block_number_minted,
         lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
