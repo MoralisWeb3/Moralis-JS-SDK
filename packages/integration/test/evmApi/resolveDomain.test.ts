@@ -12,13 +12,19 @@ describe('Moralis EvmApi', () => {
     cleanEvmApi();
   });
 
-  it('should resolve a domain and rerurn an address', async () => {
+  it('returns an address', async () => {
     const result = await evmApi.resolve.resolveDomain({
       domain: 'brad.crypto',
     });
 
-    expect(result.toJSON().address).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e'.toLowerCase());
-    expect(result.raw.address).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
-    expect(result.result.address.checksum === '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e').toBe(true);
+    expect(result?.result.address.checksum).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+  });
+
+  it('returns null when API returns HTTP 404', async () => {
+    const result = await evmApi.resolve.resolveDomain({
+      domain: 'notfound.crypto',
+    });
+
+    expect(result).toBeNull();
   });
 });

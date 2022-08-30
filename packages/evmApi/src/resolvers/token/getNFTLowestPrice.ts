@@ -30,7 +30,7 @@ export const getNFTLowestPrice = createEndpointFactory((core) =>
         buyerAddress: EvmAddress.create(data.buyer_address, core),
         marketplaceAddress: EvmAddress.create(data.marketplace_address, core),
         tokenAddress: EvmAddress.create(data.token_address as string, core),
-        price: EvmNative.create(data.price),
+        price: EvmNative.create(data.price, 'wei'),
         blockTimestamp: new Date(data.block_timestamp),
         tokenIds: data.token_ids as string[],
       }),

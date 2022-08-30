@@ -18,46 +18,52 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
 
-  return EvmBlock.create({
-    ...data,
-    chain: EvmChainResolver.resolve(params.chain, core),
-    transactions: (data.transactions ?? []).map((transaction) =>
-      EvmTransaction.create({
-        cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
-        gasPrice: transaction.gasPrice,
-        gasUsed: transaction.receiptGasUsed,
-        index: transaction.transactionIndex,
-        contractAddress: transaction.receiptContractAddress,
-        receiptRoot: transaction.receiptRoot,
-        receiptStatus: +transaction.receiptStatus,
-        chain: EvmChainResolver.resolve(params.chain, core),
-        data: transaction.input,
-        from: transaction.fromAddress,
-        hash: transaction.hash,
-        nonce: transaction.nonce,
-        value: transaction.value,
-        blockHash: transaction.blockHash,
-        blockNumber: +transaction.blockNumber,
-        blockTimestamp: new Date(transaction.blockTimestamp),
-        gas: transaction.gas,
-        to: transaction.toAddress,
-        logs: (transaction.logs ?? []).map((log) =>
-          EvmTransactionLog.create({
-            address: log.address,
-            blockHash: log.blockHash,
-            blockNumber: +log.blockNumber,
-            data: log.data,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
-            transactionHash: log.transactionHash,
-            blockTimestamp: log.blockTimestamp,
-            logIndex: +log.logIndex,
-            transactionIndex: +log.transactionIndex,
-          }),
+  return EvmBlock.create(
+    {
+      ...data,
+      chain: EvmChainResolver.resolve(params.chain, core),
+      transactions: (data.transactions ?? []).map((transaction) =>
+        EvmTransaction.create(
+          {
+            cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
+            gasPrice: transaction.gasPrice,
+            gasUsed: transaction.receiptGasUsed,
+            index: transaction.transactionIndex,
+            contractAddress: transaction.receiptContractAddress,
+            receiptRoot: transaction.receiptRoot,
+            receiptStatus: +transaction.receiptStatus,
+            chain: EvmChainResolver.resolve(params.chain, core),
+            data: transaction.input,
+            from: transaction.fromAddress,
+            hash: transaction.hash,
+            nonce: transaction.nonce,
+            value: transaction.value,
+            blockHash: transaction.blockHash,
+            blockNumber: +transaction.blockNumber,
+            blockTimestamp: new Date(transaction.blockTimestamp),
+            gas: transaction.gas,
+            to: transaction.toAddress,
+            logs: (transaction.logs ?? []).map((log) =>
+              EvmTransactionLog.create({
+                address: log.address,
+                blockHash: log.blockHash,
+                blockNumber: +log.blockNumber,
+                data: log.data,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
+                transactionHash: log.transactionHash,
+                blockTimestamp: log.blockTimestamp,
+                logIndex: +log.logIndex,
+                transactionIndex: +log.transactionIndex,
+              }),
+            ),
+          },
+          core,
         ),
-      }),
-    ),
-  });
+      ),
+    },
+    core,
+  );
 };
 
 export const getBlock = createEndpointFactory((core) =>

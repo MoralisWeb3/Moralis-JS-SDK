@@ -12,30 +12,13 @@ describe('Moralis EvmApi', () => {
     cleanEvmApi();
   });
 
-  it('should get price, native price for an address', async () => {
-    const result = await evmApi.token.getTokenPrice({
-      address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
+  it('returns an info', async () => {
+    const response = await evmApi.token.getTokenPrice({
+      address: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
     });
 
-    expect(result.toJSON().usdPrice).toBe(162950.09891837105);
-    expect(result).toBeDefined();
-  });
-
-  it('should not get price for an invalid address and return an error code', async () => {
-    const failedResult = await evmApi.token
-      .getTokenPrice({
-        address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5C5',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
-
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.token.getTokenPrice({
-        address: '0xEA47B64e1BFCCb773A0420247C0aa0a3C1D2E5d5',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response.result.usdPrice).toBe(0.000011961341215674);
+    expect(response.result.exchangeAddress?.lowercase).toBe('0x1f98431c8ad98523631ae4a59f267346ea31f984');
+    expect(response.result.exchangeName).toBe('Uniswap v3');
   });
 });
