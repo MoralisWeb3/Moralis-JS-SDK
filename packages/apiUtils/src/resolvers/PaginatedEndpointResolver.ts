@@ -1,5 +1,4 @@
-import { checkObjEqual } from '../utils/checkObjEqual';
-import { getNextParams } from '../utils/getNextParams';
+import { tryGetNextPageParams } from '../utils/tryGetNextPageParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
 import { ApiConfig } from '../config/ApiConfig';
 import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
@@ -85,8 +84,11 @@ export class PaginatedEndpointResolver<
   };
 
   private resolveNextCall = (params: Params, result: Awaited<PaginatedResult<ApiResult>>) => {
-    const nextParams = getNextParams(params, result);
-    return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
+    const nextParams = tryGetNextPageParams(params, result);
+    if (nextParams) {
+      return () => this.fetch(nextParams);
+    }
+    return null;
   };
 
   private createUrl(params: Params): string {
