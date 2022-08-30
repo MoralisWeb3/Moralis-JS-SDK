@@ -66,6 +66,13 @@ export class EvmNft implements MoralisDataObject {
     amount: maybe(data.amount, (value) => +value),
   });
 
+  /**
+   * This function confirms that the NFT metadata is a valid JSON string.
+   *
+   * @param value - the new value for the NFT metadata
+   * @returns the parsed value of the JSON string
+   * @throws {MoralisCoreError} if the value is not a valid JSON string
+   */
   private static validateMetadata = (value: string): MoralisDataObjectValue => {
     try {
       return JSON.parse(value);
@@ -157,7 +164,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT
    * @example
    * ```
-   * nft.result
+   * nft.result // the nft data object
    * ```
    */
   get result() {
@@ -168,7 +175,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT chain
    * @example
    * ```
-   * nft.chain
+   * nft.chain // EvmChain
    * ```
    */
   get chain() {
@@ -179,7 +186,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT contract type
    * @example
    * ```
-   * nft.contractType
+   * nft.contractType // "ERC721" | "ERC1155"
    * ```
    */
   get contractType() {
@@ -190,7 +197,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT token address
    * @example
    * ```
-   * nft.tokenAddress
+   * nft.tokenAddress // EvmAddress
    * ```
    */
   get tokenAddress() {
@@ -200,8 +207,13 @@ export class EvmNft implements MoralisDataObject {
   /**
    * @returns the NFT metadata
    * @example
-   * ```
+   * ```ts
    * nft.metadata
+   * // {
+   * // name: 'Pancake',
+   * // description: 'The dessert series 1',
+   * // image: 'ipfs://QmNQFXCZ6LGzvpMW9Q5PWbCrEnLknQrPwr2r8pbQAgzQ9A/4863BD6B-6C92-4B96-BF80-8020B2F7C3A5.jpeg',
+   * // }
    * ```
    */
   get metadata() {
@@ -212,7 +224,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT token URI
    * @example
    * ```
-   * nft.tokenUri
+   * nft.tokenUri // "https://gateway.moralisipfs.com/ipfs/QmajSqgxY3cWBgBeRm38vasJAcTit1kp5EwqVHxszJYgUC/728.json"
    * ```
    */
   get tokenUri() {
@@ -223,7 +235,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT token hash
    * @example
    * ```
-   * nft.tokenHash
+   * nft.tokenHash // "QmajSqgxY3cWBgBeRm38vasJAcTit1kp5EwqVHxszJYgUC"
    * ```
    */
   get tokenHash() {
@@ -234,7 +246,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT name
    * @example
    * ```
-   * nft.name
+   * nft.name // "Tether USD"
    * ```
    */
   get name() {
@@ -245,7 +257,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT symbol
    * @example
    * ```
-   * nft.symbol
+   * nft.symbol // "USDT"
    * ```
    */
   get symbol() {
@@ -256,7 +268,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT owner of address
    * @example
    * ```
-   * nft.ownerOf
+   * nft.ownerOf // EvmAddress
    * ```
    */
   get ownerOf() {
@@ -267,7 +279,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT block number minted from
    * @example
    * ```
-   * nft.blockNumberMinted
+   * nft.blockNumberMinted // BigNumber
    * ```
    */
   get blockNumberMinted() {
@@ -278,7 +290,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT block number
    * @example
    * ```
-   * nft.blockNumber
+   * nft.blockNumber // BigNumber
    * ```
    */
   get blockNumber() {
@@ -289,7 +301,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT latest metadata sync date
    * @example
    * ```
-   * nft.latestMetadataSync
+   * nft.latestMetadataSync // Date
    * ```
    */
   get lastMetadataSync() {
@@ -300,7 +312,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT latest token URI sync date
    * @example
    * ```
-   * nft.latestTokenUriSync
+   * nft.latestTokenUriSync // Date
    * ```
    */
   get lastTokenUriSync() {
@@ -311,7 +323,7 @@ export class EvmNft implements MoralisDataObject {
    * @returns the NFT amount
    * @example
    * ```
-   * nft.amount
+   * nft.amount // 2
    * ```
    */
   get amount() {
