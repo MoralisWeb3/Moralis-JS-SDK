@@ -90,7 +90,6 @@ export class SolNative implements MoralisData {
     return SolNative.equals(this, value);
   }
 
-
   /**
    * Converts the SolNative to a string.
    * @returns the value of the SolNative as a string
