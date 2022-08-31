@@ -23,6 +23,7 @@
     "jest": "28",
     "msw": "^0.43.0",
     "nx": "^14.4.3",
+    "plop": "^3.1.1",
     "prettier": "^2.7.1",
     "rdme": "^7.5.0",
     "ts-jest": "^28.0.3",
@@ -33,7 +34,7 @@
   },
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
-    "build:demo-docs": "node ./scripts/buildDemoDocs.js",
+    "build:demo-docs": "node ./tools/scripts/buildDemoDocs.js",
     "build:docs": "rm -rf docs && yarn typedoc && yarn build:demo-docs",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
@@ -55,5 +56,7 @@
       "demos/firebase-auth/*"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "@tanstack/react-query": "^4.2.3"
+  }
 }

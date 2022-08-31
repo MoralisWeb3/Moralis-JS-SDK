@@ -1,4 +1,4 @@
-import { Connector, useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
+import { Connector, useConnect, useDisconnect, useSignMessage } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { Option } from '../../elements';
@@ -35,7 +35,6 @@ const wallets = [
 const Authentication = () => {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
-  const { isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const { push } = useRouter();
 
@@ -45,9 +44,7 @@ const Authentication = () => {
       return;
     }
 
-    if (isConnected) {
-      await disconnectAsync();
-    }
+    await disconnectAsync();
 
     const { account, chain } = await connectAsync({ connector });
 
