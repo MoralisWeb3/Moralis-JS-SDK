@@ -3,10 +3,11 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import styles from './Profile.module.css';
 import { useEvmApiGetTokenBalances } from '@moralisweb3/next';
+import { useNativeBalance } from '../../../../pages/api/moralis/useNativeBalance';
 
 const Profile: FC = () => {
   const { data } = useSession();
-  const { data: balance, error } = useEvmApiGetTokenBalances({ address: '0x3D7258055be449b11AfFF0A5eAddbd6e278C1916' });
+  const { data: balance, error } = useNativeBalance({ address: '0x3D7258055be449b11AfFF0A5eAddbd6e278C1916' });
   console.log({ balance, error });
   return (
     <div className={styles.profile}>
