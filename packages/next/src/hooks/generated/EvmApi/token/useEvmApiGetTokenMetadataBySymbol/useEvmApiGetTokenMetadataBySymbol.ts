@@ -4,10 +4,10 @@ import axios from 'axios'
 import useSWR from 'swr';
 
 export const useEvmApiGetTokenMetadataBySymbol = (params: TGetTokenMetadataBySymbolParams, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string, params: any) => axios.get(`/api${endpoint}`, params).then(res => res.data);
+  const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api${endpoint}`, params).then(res => res.data);
 
   const { data, error, mutate, isValidating } = useSWR<TGetTokenMetadataBySymbolReturn['result']>(
-    [`/moralis/EvmApi/account/getNativeBalance`, params],
+    [`/moralis/EvmApi/token/getTokenMetadataBySymbol`, params],
     axiosFetcher,
     SWRConfig,
   );

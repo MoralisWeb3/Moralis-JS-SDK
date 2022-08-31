@@ -3,17 +3,13 @@ import { TGetTokenBalancesParams, TGetTokenBalancesReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-const axiosFetcher = async (endpoint: string, params: any) => {
-  const result = await axios.get(`/api${endpoint}`, params);
-  return result.data;
-};
-
 export const useEvmApiGetTokenBalances = (params: TGetTokenBalancesParams, SWRConfig?: SWRConfiguration) => {
-  console.log('hookParams2:', params)
+  const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api${endpoint}`, params).then(res => res.data);
+
   const { data, error, mutate, isValidating } = useSWR<TGetTokenBalancesReturn['result']>(
-    [`/moralis/EvmApi/account/getNativeBalance`, params],
+    [`/moralis/EvmApi/account/getTokenBalances`, params],
     axiosFetcher,
-    SWRConfig, 
+    SWRConfig,
   );
 
   return {

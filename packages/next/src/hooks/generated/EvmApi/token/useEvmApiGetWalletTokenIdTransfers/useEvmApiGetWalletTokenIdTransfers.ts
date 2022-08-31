@@ -4,10 +4,10 @@ import axios from 'axios'
 import useSWR from 'swr';
 
 export const useEvmApiGetWalletTokenIdTransfers = (params: TGetWalletTokenIdTransfersParams, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string, params: any) => axios.get(`/api${endpoint}`, params).then(res => res.data);
+  const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api${endpoint}`, params).then(res => res.data);
 
   const { data, error, mutate, isValidating } = useSWR<TGetWalletTokenIdTransfersReturn['result']>(
-    [`/moralis/EvmApi/account/getNativeBalance`, params],
+    [`/moralis/EvmApi/token/getWalletTokenIdTransfers`, params],
     axiosFetcher,
     SWRConfig,
   );
