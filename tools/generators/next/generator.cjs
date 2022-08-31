@@ -1,4 +1,5 @@
-const getSDKPaths = require('./scripts/getSDKPaths.cjs');
+const getSDKPaths = require('./utils/getSDKPaths.cjs');
+const { getHookHame, getDomainFolderNames, getTargetMethod, getSDKCall,formatCapitalize } = require('./utils/namings.cjs');
 
 module.exports = (plop) => {
   const SDKPaths = getSDKPaths();
@@ -8,27 +9,33 @@ module.exports = (plop) => {
       {
         type: 'confirm',
         name: 'name',
-        message: `🧙 : Hooks will be generated for following SDK methods: \n ${JSON.stringify(SDKPaths, null, '\t')}`,
+        message: `🧙 : Hooks will be generated for following SDK methods: \n ${JSON.stringify(SDKPaths, null, 2)}`,
       },
     ],
-    actions: (data) => {
-      // data.name = plop.getHelper('camelCase')(data.name);
-      // data.subDirectory = plop.getHelper('camelCase')(data.subDirectory);
-      const basePath = `tools/plop-templates/create-new-hook`;
-      return [
-        {
+    actions: () => {
+      const basePath = `tools/generators/next/template`;
+
+      const generatedHooks = SDKPaths.map((path) => {
+        const hookName = getHookHame(path);
+        return {
           type: 'addMany',
-          destination: 'packages/react/src/hooks/{{ dir }}/{{ getSubDirectoryPath subDirectory }}/{{ name }}',
+          destination: `packages/next/src/hooks/generated/${getDomainFolderNames(path)}/${hookName}`,
           base: basePath,
           templateFiles: `${basePath}/**`,
-        },
-        {
+          data: { hookName, targetMethod: formatCapitalize(getTargetMethod(path)), SDKCall: getSDKCall(path) },
+        };
+      });
+
+      const injectedExports = SDKPaths.map((path) => {
+        const hookName = getHookHame(path);
+        return {
           type: 'append',
-          path: 'packages/react/src/hooks/index.ts',
+          path: 'packages/next/src/hooks/index.ts',
           pattern: '/* PLOP_INJECT_EXPORT */',
-          template: "export * from '.{{ getSubDirectoryPath subDirectory }}{{ dir }}/{{ name }}';",
-        },
-      ];
+          template: `export * from './generated/${getDomainFolderNames(path)}/${hookName}';`,
+        };
+      });
+      return [...generatedHooks, ...injectedExports];
     },
   });
 };

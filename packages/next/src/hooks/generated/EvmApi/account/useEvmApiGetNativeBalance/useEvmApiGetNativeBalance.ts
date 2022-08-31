@@ -1,13 +1,14 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import apiPost from '../../../app/utils/apiPost';
-import Moralis from 'moralis';
-import useSWR from 'swr';
 import { TGetNativeBalanceParams, TGetNativeBalanceReturn } from './types'
+import axios from 'axios'
+import useSWR from 'swr';
 
-export const useNativeBalance = (params: TGetNativeBalanceParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmApiGetNativeBalance = (params: TGetNativeBalanceParams, SWRConfig?: SWRConfiguration) => {
+  const axiosFetcher = async (endpoint: string, params: any) => axios.get(`/api${endpoint}`, params).then(res => res.data);
+
   const { data, error, mutate, isValidating } = useSWR<TGetNativeBalanceReturn['result']>(
     [`/moralis/EvmApi/account/getNativeBalance`, params],
-    apiPost,
+    axiosFetcher,
     SWRConfig,
   );
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const Moralis = require('moralis').default;
 
 const lvlBlackList = [
@@ -17,7 +16,7 @@ const lvlBlackList = [
 ];
 
 module.exports = function () {
-  const paths = {};
+  const paths = [];
   const getKeys = (obj, domains) => {
     if (typeof obj === 'object') {
       const keys = Object.keys(obj);
@@ -29,7 +28,8 @@ module.exports = function () {
       });
     } else {
       if (domains) {
-        paths[domains.join('/')] = domains;
+        // paths[domains.join('/')] = domains;
+        paths.push(domains);
       }
     }
   };

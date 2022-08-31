@@ -1,2 +1,5 @@
-export type TGetNativeBalanceParams = Parameters<typeof Moralis.EvmApi.account.getNativeBalance>[0];
-export type TGetNativeBalanceReturn = Awaited<ReturnType<typeof Moralis.EvmApi.account.getNativeBalance>>;
+import Moralis from "moralis";
+
+type TSDKCall = typeof {{ SDKCall }};
+export type T{{ targetMethod }}Params = Parameters<TSDKCall>[0];
+export type T{{ targetMethod }}Return = Awaited<ReturnType<TSDKCall>>;

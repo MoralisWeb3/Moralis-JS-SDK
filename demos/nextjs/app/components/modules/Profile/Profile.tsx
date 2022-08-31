@@ -2,22 +2,12 @@ import { FC } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import styles from './Profile.module.css';
-import { useNativeBalance } from '../../../../pages/api/moralis/useNativeBalance';
-// import { useNetwork } from 'wagmi';
+import { useEvmApiGetTokenBalances } from '@moralisweb3/next';
 
 const Profile: FC = () => {
   const { data } = useSession();
-  // // const { chain } = useNetwork();
-  // console.log(chain);
-  const {
-    data: balance,
-    error,
-    isValidating,
-  } = useNativeBalance({
-    address: '0x259DB2fD041d370e803f4D44951bE0E4722b7a45',
-    // chain: chain?.id,
-  });
-  console.log('balance:', balance);
+  const { data: balance, error } = useEvmApiGetTokenBalances({ address: '0x3D7258055be449b11AfFF0A5eAddbd6e278C1916' });
+  console.log({ balance, error });
   return (
     <div className={styles.profile}>
       {/* <button
