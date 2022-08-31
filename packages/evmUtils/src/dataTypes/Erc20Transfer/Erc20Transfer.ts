@@ -66,7 +66,7 @@ export class Erc20Transfer implements MoralisDataObject {
    * Checks the equality of the current trnasfer with another erc20 trnasfer
    * @param data - the trnasfer to compare with
    * @example transfer.equals(data)
-   * @returns true if the transfers are equal, false otherwise 
+   * @returns true if the transfers are equal, false otherwise
    */
   equals(data: Erc20Transferish): boolean {
     return Erc20Transfer.equals(this, data);
@@ -98,7 +98,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns all the data without casting it to JSON. 
+   * @returns all the data without casting it to JSON.
    * @example transfer.result
    */
   get result() {
