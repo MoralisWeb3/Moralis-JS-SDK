@@ -133,6 +133,10 @@ export class EvmNftTrade implements MoralisDataObject {
     return this.toJSON();
   }
 
+  /**
+   * @returns all the data without casting it to JSON.
+   * @example trade.result
+   */
   get result() {
     return this._data;
   }
