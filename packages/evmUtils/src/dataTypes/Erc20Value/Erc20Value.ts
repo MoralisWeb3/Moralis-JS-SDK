@@ -104,7 +104,7 @@ export class Erc20Value implements MoralisData {
    * ```ts
    * const valueA = Erc20Value.create(1000, { decimals: 3 });
    * const valueB = Erc20Value.create(10000, { decimals: 4 });
-   * Erc20Value.equals(valueA, valueB); // false
+   * Erc20Value.equals(valueA, valueB); // true
    * ```
    */
   static equals(valueA: Erc20Valueish, valueB: Erc20Valueish): boolean {
