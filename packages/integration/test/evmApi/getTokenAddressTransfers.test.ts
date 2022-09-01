@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getTokenTransfers', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should get the token address transfers of an account', async () => {
-    const result = await evmApi.token.getTokenAddressTransfers({
+    const result = await evmApi.token.getTokenTransfers({
       address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
     });
 
@@ -24,7 +24,7 @@ describe('Moralis EvmApi', () => {
 
   it('should not get the token address transfers of an invalid account and throw an error ', async () => {
     const failedResult = await evmApi.token
-      .getTokenAddressTransfers({
+      .getTokenTransfers({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
       })
       .then()
@@ -34,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      evmApi.token.getTokenAddressTransfers({
+      evmApi.token.getTokenTransfers({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

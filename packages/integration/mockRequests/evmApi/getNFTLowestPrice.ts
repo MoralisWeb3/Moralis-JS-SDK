@@ -36,5 +36,5 @@ export const mockGetNFTLowestPrice = rest.get(`${EVM_API_ROOT}/nft/:address/lowe
     );
   }
 
-  throw new Error('Not supported scenario');
+  throw new Error('getNFTLowestPrice: Not supported scenario');
 });

@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getNativeBalance', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {

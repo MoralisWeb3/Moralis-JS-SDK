@@ -8,7 +8,7 @@ const ABI = [
   },
 ];
 
-describe('Moralis EvmApi', () => {
+describe('uploadFolder', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {

@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('searchNFTs', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should Gets NFTs that match a given metadata search', async () => {
-    const result = await evmApi.token.searchNFTs({
+    const result = await evmApi.nft.searchNFTs({
       q: 'Pancake',
     });
 
@@ -23,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get NFTs that match a given metadata search and returns an error of empty metadata', async () => {
-    const failedResult = await evmApi.token
+    const failedResult = await evmApi.nft
       .searchNFTs({
         q: '',
       })
@@ -34,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      evmApi.token.searchNFTs({
+      evmApi.nft.searchNFTs({
         q: '',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 404"`);

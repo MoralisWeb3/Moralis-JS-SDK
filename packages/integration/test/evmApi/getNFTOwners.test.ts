@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getNFTOwners', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should get NFT owners', async () => {
-    const result = await evmApi.token.getNFTOwners({
+    const result = await evmApi.nft.getNFTOwners({
       address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
       format: 'decimal',
     });
@@ -24,7 +24,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get NFT owners of an invalid address and throw an error ', async () => {
-    const failedResult = await evmApi.token
+    const failedResult = await evmApi.nft
       .getNFTOwners({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         format: 'decimal',
@@ -36,7 +36,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      evmApi.token.getNFTOwners({
+      evmApi.nft.getNFTOwners({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         format: 'decimal',
       }),
