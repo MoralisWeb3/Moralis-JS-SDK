@@ -1,5 +1,21 @@
 # @moralisweb3/api-utils
 
+## 2.2.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- [#619](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/619) [`5bfb635`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5bfb6356a1f9bed993f7a32b58c6da7d2d51ffe1) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed creating a body of POST requests.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

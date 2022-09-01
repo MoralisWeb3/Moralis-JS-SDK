@@ -1,6 +1,6 @@
 {
   "name": "moralis-monorepo",
-  "version": "2.0.0",
+  "version": "0.0.0-monorepo",
   "description": "Moralis SDK",
   "main": "index.js",
   "author": "Moralis",
@@ -11,19 +11,25 @@
     "@changesets/cli": "^2.22.0",
     "@moralisweb3/eslint-config": "^1.0.0",
     "@moralisweb3/typedoc-readme-theme": "^1.0.0",
-    "@types/estree": "^0.0.51",
+    "@types/estree": "^1.0.0",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
-    "add": "^2.0.6",
     "archiver": "^5.3.1",
     "cross-env": "^7.0.3",
+    "eslint": "^8.23.0",
+    "eslint-plugin-import": "^2.26.0",
     "fs-extra": "^10.1.0",
     "glob-fs": "^0.1.7",
     "jest": "28",
     "msw": "^0.43.0",
+<<<<<<< HEAD
     "nx": "^14.4.3",
     "plop": "^3.1.1",
+=======
+    "nx": "^14.5.10",
+    "openapi-types": "^12.0.0",
+>>>>>>> 4f17668a90fc81984db5dedf7baa30713ba1e4f8
     "prettier": "^2.7.1",
     "rdme": "^7.5.0",
     "ts-jest": "^28.0.3",
@@ -56,7 +62,13 @@
       "demos/firebase-auth/*"
     ]
   },
+<<<<<<< HEAD
   "dependencies": {
     "@tanstack/react-query": "^4.2.3"
+=======
+  "resolutions": {
+    "debug": "^3.1.0",
+    "micromatch": "^4.0.2"
+>>>>>>> 4f17668a90fc81984db5dedf7baa30713ba1e4f8
   }
 }

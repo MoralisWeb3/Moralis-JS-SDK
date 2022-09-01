@@ -20,9 +20,9 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.1.0",
-    "@moralisweb3/evm-api": "^2.1.0",
-    "@moralisweb3/evm-utils": "^2.1.0",
+    "@moralisweb3/core": "^2.2.0",
+    "@moralisweb3/evm-api": "^2.2.0",
+    "@moralisweb3/evm-utils": "^2.2.0",
     "eventemitter3": "^4.0.7"
   }
 }

@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const fse = require('fs-extra');
 const archiver = require('archiver');
-const cheerio = require('cheerio');
 
 // Url to hosted github  pages
 const HOSTED_PAGES = 'https://moralisweb3.github.io/Moralis-JS-SDK';

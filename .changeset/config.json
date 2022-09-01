@@ -22,6 +22,7 @@
     "test-integration",
     "demo-cli",
     "demo-nextjs",
+    "demo-express-proxy",
     "demo-parse-server",
     "demo-subabase-auth",
     "demo-firebase-auth-functions",

@@ -1,5 +1,42 @@
 # @moralisweb3/evm-api
 
+## 2.2.0
+
+### Minor Changes
+
+- [#622](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/622) [`0e07f58`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0e07f58d0732b13125bd8481c73cb4c945818e6f) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Some of EvmApi methods return `null` when a resource (block, transaction, nft, etc.) is not found.
+
+### Patch Changes
+
+- [#628](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/628) [`a6b30fc`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a6b30fcebdb5cff48275b8ca70c9bb2dc7e25935) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed a wrong calculated pagination size. Added the `hasNext()` method to a paginated result. Now you must call it before you call the `next()` method.
+
+  ```ts
+  let response = await Moralis.EvmApi.token.getNFTOwners({
+    /* ... */
+  });
+
+  while (response.hasNext()) {
+    response = await response.next();
+    // ...
+  }
+  ```
+
+- Updated dependencies [[`a6b30fc`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a6b30fcebdb5cff48275b8ca70c9bb2dc7e25935)]:
+  - @moralisweb3/evm-utils@2.2.0
+  - @moralisweb3/core@2.2.0
+  - @moralisweb3/api-utils@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- [#619](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/619) [`5bfb635`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5bfb6356a1f9bed993f7a32b58c6da7d2d51ffe1) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed creating a body of POST requests.
+
+- Updated dependencies [[`5bfb635`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5bfb6356a1f9bed993f7a32b58c6da7d2d51ffe1), [`7fa4654`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fa4654a39484df09af57ef07674738e5650732d)]:
+  - @moralisweb3/api-utils@2.1.1
+  - @moralisweb3/evm-utils@2.1.1
+  - @moralisweb3/core@2.1.1
+
 ## 2.1.0
 
 ### Patch Changes

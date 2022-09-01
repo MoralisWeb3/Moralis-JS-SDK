@@ -1,4 +1,4 @@
-import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/core';
+import MoralisCore, { MoralisDataObject, BigNumber, dateInputToDate, MoralisCoreProvider } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransaction } from '../EvmTransaction';
@@ -9,13 +9,13 @@ export type EvmBlockish = EvmBlockInput | EvmBlock;
 export class EvmBlock implements MoralisDataObject {
   private _data: EvmBlockData;
 
-  constructor(data: EvmBlockInput) {
-    this._data = EvmBlock.parse(data);
+  constructor(data: EvmBlockInput, core: MoralisCore) {
+    this._data = EvmBlock.parse(data, core);
   }
 
-  static parse = (data: EvmBlockInput): EvmBlockData => ({
+  static parse = (data: EvmBlockInput, core: MoralisCore): EvmBlockData => ({
     ...data,
-    miner: EvmAddress.create(data.miner),
+    miner: EvmAddress.create(data.miner, core),
     timestamp: dateInputToDate(data.timestamp),
     number: BigNumber.create(data.number),
     difficulty: BigNumber.create(data.difficulty),
@@ -23,17 +23,17 @@ export class EvmBlock implements MoralisDataObject {
     size: BigNumber.create(data.size),
     gasLimit: BigNumber.create(data.gasLimit),
     gasUsed: BigNumber.create(data.gasUsed),
-    transactions: data.transactions.map(EvmTransaction.create),
-    chain: EvmChain.create(data.chain),
+    transactions: data.transactions.map((transaction) => EvmTransaction.create(transaction, core)),
+    chain: EvmChain.create(data.chain, core),
     transactionCount: +data.transactionCount,
   });
 
-  static create(data: EvmBlockish) {
+  static create(data: EvmBlockish, core?: MoralisCore) {
     if (data instanceof EvmBlock) {
       return data;
     }
-
-    return new EvmBlock(data);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmBlock(data, finalCore);
   }
 
   static equals(dataA: EvmBlockish, dataB: EvmBlockish) {

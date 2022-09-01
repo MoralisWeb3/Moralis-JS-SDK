@@ -1,5 +1,34 @@
 # @moralisweb3/evm-utils
 
+## 2.2.0
+
+### Patch Changes
+
+- [#628](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/628) [`a6b30fc`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a6b30fcebdb5cff48275b8ca70c9bb2dc7e25935) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed a wrong calculated pagination size. Added the `hasNext()` method to a paginated result. Now you must call it before you call the `next()` method.
+
+  ```ts
+  let response = await Moralis.EvmApi.token.getNFTOwners({
+    /* ... */
+  });
+
+  while (response.hasNext()) {
+    response = await response.next();
+    // ...
+  }
+  ```
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.2.0
+
+## 2.1.1
+
+### Patch Changes
+
+- [#614](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/614) [`7fa4654`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fa4654a39484df09af57ef07674738e5650732d) Thanks [@sogunshola](https://github.com/sogunshola)! - Added technical documentation for EvmTransaction datatype
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.1.1
+
 ## 2.1.0
 
 ### Patch Changes
