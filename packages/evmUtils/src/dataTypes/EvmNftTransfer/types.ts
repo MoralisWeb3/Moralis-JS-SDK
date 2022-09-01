@@ -4,7 +4,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 
 /**
- * This can be any object with valid transaction data.
+ * This can be any object with valid transfer data.
  * @example
  * ```
  * const input = {
