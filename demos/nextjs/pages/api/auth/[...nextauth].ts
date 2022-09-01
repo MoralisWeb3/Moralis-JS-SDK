@@ -1,6 +1,5 @@
-import CredentialsProvider from 'next-auth/providers/credentials';
-import Moralis from 'moralis';
 import NextAuth, { ISODateString } from 'next-auth';
+import MoralisNextAuthProvider from './MoralisNextAuthProvider/MoralisNextAuthProvider';
 
 export type TUserData = {
   address: string;
@@ -16,47 +15,7 @@ export interface ISession {
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
-  providers: [
-    CredentialsProvider({
-      name: 'MoralisAuth',
-      credentials: {
-        message: {
-          label: 'Message',
-          type: 'text',
-          placeholder: '0x0',
-        },
-        signature: {
-          label: 'Signature',
-          type: 'text',
-          placeholder: '0x0',
-        },
-      },
-      async authorize(credentials) {
-        try {
-          const { message, signature } = credentials as Record<string, string>;
-
-          await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
-
-          const { address, profileId, expirationTime, uri } = (
-            await Moralis.Auth.verify({ message, signature, network: 'evm' })
-          ).raw;
-          const nextAuthUrl = process.env.NEXTAUTH_URL;
-
-          if (uri !== nextAuthUrl) {
-            return null;
-          }
-
-          const user = { address, profileId, expirationTime, signature };
-
-          return user;
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.error(e);
-          return null;
-        }
-      },
-    }),
-  ],
+  providers: [MoralisNextAuthProvider({})],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -69,11 +28,5 @@ export default NextAuth({
       (session as unknown as ISession).user = (token as unknown as ISession).user;
       return session;
     },
-  },
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/signin',
   },
 });

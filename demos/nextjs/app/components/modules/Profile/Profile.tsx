@@ -2,12 +2,12 @@ import { FC } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import styles from './Profile.module.css';
-import { useEvmApiGetNativeBalance } from '@moralisweb3/next';
+import { useAuthRequestMessage, useEvmApiGetNativeBalance } from '@moralisweb3/next';
 
 const Profile: FC = () => {
   const { data } = useSession();
   const { data: balance, error } = useEvmApiGetNativeBalance({ address: '0x3D7258055be449b11AfFF0A5eAddbd6e278C1916' });
-  console.log({ balance, error });
+  console.log({ data });
   return (
     <div className={styles.profile}>
       {/* <button
