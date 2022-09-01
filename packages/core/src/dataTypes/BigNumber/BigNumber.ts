@@ -52,8 +52,8 @@ export class BigNumber {
    * Adds a BigNumber to current BigNumber instance.
    * @param value - the BigNumberish to add
    * @returns the result of the addition
-   * @example BigNumber.create(12).add(BigNumber.create(7));
-   * @example BigNumber.create(12).add(BigNumber.create("1000000000000000000"));
+   * @example BigNumber.create(12).add(7);
+   * @example BigNumber.create(12).add("1000000000000000000");
    */
   public add(value: BigNumberish): BigNumber {
     return new BigNumber(this.value + asBigInt(value));
@@ -63,8 +63,8 @@ export class BigNumber {
    * Subtracts a BigNumber from current BigNumber instance.
    * @param value - the BigNumberish to subtract
    * @returns the result of the subtraction
-   * @example BigNumber.create(12).sub(BigNumber.create(7));
-   * @example BigNumber.create("1000000000000000000").sub(BigNumber.create(20));
+   * @example BigNumber.create(12).sub(7);
+   * @example BigNumber.create("1000000000000000000").sub(20);
    */
   public sub(value: BigNumberish): BigNumber {
     return new BigNumber(this.value - asBigInt(value));
@@ -74,8 +74,8 @@ export class BigNumber {
    * Multiplies a BigNumber with current BigNumber instance.
    * @param value - the BigNumberish to multiply
    * @returns the result of the multiplication
-   * @example BigNumber.create(12).mul(BigNumber.create(7));
-   * @example BigNumber.create(12).mul(BigNumber.create("1000000000000000000"));
+   * @example BigNumber.create(12).mul(7);
+   * @example BigNumber.create(12).mul("1000000000000000000");
    */
   public mul(value: BigNumberish): BigNumber {
     return new BigNumber(this.value * asBigInt(value));
@@ -85,8 +85,8 @@ export class BigNumber {
    * Divides a BigNumber with current BigNumber instance.
    * @param value - the BigNumberish to divide
    * @returns the result of the division
-   * @example BigNumber.create(12).div(BigNumber.create(7));
-   * @example BigNumber.create(1).div(BigNumber.create("1000000000000000000"));
+   * @example BigNumber.create(12).div(7);
+   * @example BigNumber.create(1).div("1000000000000000000");
    */
   public div(value: BigNumberish): BigNumber {
     return new BigNumber(this.value / asBigInt(value));
