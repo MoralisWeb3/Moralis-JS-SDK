@@ -15,14 +15,12 @@ async function main() {
     apiKey: env['MORALIS_API_KEY'],
   });
 
-  // console.log(Moralis.EvmApi.endpoints);
-
   Moralis.EvmApi.native
     .getBlock({
       blockNumberOrHash: '15305775',
       chain: '0x1',
     })
-    .then((result) => console.log(result.result));
+    .then((result) => console.log(result?.result));
 }
 
 main();

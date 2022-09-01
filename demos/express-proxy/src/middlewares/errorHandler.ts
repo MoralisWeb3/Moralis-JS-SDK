@@ -2,27 +2,40 @@ import { MoralisError, isMoralisError } from '@moralisweb3/core';
 import { NextFunction, Request, Response } from 'express';
 import { AxiosError } from 'axios';
 
+const makeMoralisErrorMessage = (error: MoralisError) => {
+  let message = error.message || 'Unknown error';
+
+  const errorResponse = error.details?.response;
+
+  const errorResponseData =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    typeof errorResponse === 'object' ? (error.details?.response as Record<string, any>).data : null;
+
+  if (errorResponseData) {
+    // Handle MoralisError
+    if (errorResponseData && errorResponseData?.message) {
+      message = `${errorResponseData?.name ? `${errorResponseData.name}: ` : ''}${errorResponseData.message}`;
+    } else if (errorResponseData.error) {
+      // Handle ParseError
+      message = errorResponseData.error;
+    }
+  }
+
+  return message;
+};
+
 export function errorHandler(
   error: Error | MoralisError | AxiosError,
   req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) {
+  // eslint-disable-next-line no-console
+  console.error('ErrorHandler', error);
+
   if (isMoralisError(error)) {
-    const errorResponse = error.details?.response;
-    const errorResponseData =
-      typeof errorResponse == 'object' ? (error.details?.response as Record<string, any>).data : null;
-
     const status = typeof error.details?.status === 'number' ? error.details?.status : 500;
-    let errorMessage = error.message || 'Unknown error';
-
-    if (errorResponseData) {
-      if (errorResponseData && errorResponseData?.message) {
-        errorMessage = `${errorResponseData?.name ? `${errorResponseData.name}: ` : ''}${errorResponseData.message}`;
-      } else {
-        errorMessage = 'Unknown error';
-      }
-    }
+    const errorMessage = makeMoralisErrorMessage(error);
 
     res.status(status).json({ error: errorMessage });
   } else if (isAxiosError(error)) {
@@ -36,6 +49,6 @@ export function errorHandler(
   }
 }
 
-function isAxiosError<T>(error: Error | AxiosError<T>): error is AxiosError<T> {
+function isAxiosError<Type>(error: Error | AxiosError<Type>): error is AxiosError<Type> {
   return 'isAxiosError' in error && error.isAxiosError;
 }

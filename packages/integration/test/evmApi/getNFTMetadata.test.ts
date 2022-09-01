@@ -12,31 +12,23 @@ describe('Moralis EvmApi', () => {
     cleanEvmApi();
   });
 
-  it('should get the NFT metadata of an account', async () => {
-    const result = await evmApi.token.getNFTMetadata({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
+  it('returns a data', async () => {
+    const response = await evmApi.token.getNFTMetadata({
+      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     });
+    const result = response?.result!;
 
     expect(result).toBeDefined();
-    expect(result.raw.symbol).toBe('BAMC');
-    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.result.symbol).toBe('BAYC');
+    expect(result.result.name).toBe('BoredApeYachtClub');
+    expect(result.result.contractType).toBe('ERC721');
   });
 
-  it('should not get the NFT metadata of an invalid account and throw an error ', async () => {
-    const failedResult = await evmApi.token
-      .getNFTMetadata({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns HTTP 404', async () => {
+    const response = await evmApi.token.getNFTMetadata({
+      address: '0x4044044044044044044044044044044044044040',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.token.getNFTMetadata({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response).toBeNull();
   });
 });
