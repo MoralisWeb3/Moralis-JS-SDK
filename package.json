@@ -23,13 +23,9 @@
     "glob-fs": "^0.1.7",
     "jest": "28",
     "msw": "^0.43.0",
-<<<<<<< HEAD
-    "nx": "^14.4.3",
     "plop": "^3.1.1",
-=======
     "nx": "^14.5.10",
     "openapi-types": "^12.0.0",
->>>>>>> 4f17668a90fc81984db5dedf7baa30713ba1e4f8
     "prettier": "^2.7.1",
     "rdme": "^7.5.0",
     "ts-jest": "^28.0.3",
@@ -62,13 +58,8 @@
       "demos/firebase-auth/*"
     ]
   },
-<<<<<<< HEAD
-  "dependencies": {
-    "@tanstack/react-query": "^4.2.3"
-=======
   "resolutions": {
     "debug": "^3.1.0",
     "micromatch": "^4.0.2"
->>>>>>> 4f17668a90fc81984db5dedf7baa30713ba1e4f8
   }
 }
