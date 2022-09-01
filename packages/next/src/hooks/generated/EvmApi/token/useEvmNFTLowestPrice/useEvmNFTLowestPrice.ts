@@ -1,0 +1,21 @@
+import { SWRConfiguration } from 'swr/dist/types';
+import { TGetNFTLowestPriceParams, TGetNFTLowestPriceReturn } from './types'
+import axios from 'axios'
+import useSWR from 'swr';
+
+export const useEvmNFTLowestPrice = (params: TGetNFTLowestPriceParams, SWRConfig?: SWRConfiguration) => {
+  const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api${endpoint}`, params).then(res => res.data);
+
+  const { data, error, mutate, isValidating } = useSWR<TGetNFTLowestPriceReturn['result']>(
+    [`/moralis/EvmApi/token/getNFTLowestPrice`, params],
+    axiosFetcher,
+    SWRConfig,
+  );
+
+  return {
+    data,
+    error,
+    refetch: async () => mutate(),
+    isValidating,
+  };
+};
