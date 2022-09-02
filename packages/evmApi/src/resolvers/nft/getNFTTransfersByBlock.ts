@@ -39,5 +39,6 @@ export const getNFTTransfersByBlock = createPaginatedEndpointFactory((core) =>
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
       block_number_or_hash: params.blockNumberOrHash,
     }),
+    firstPageIndex: 0,
   }),
 );

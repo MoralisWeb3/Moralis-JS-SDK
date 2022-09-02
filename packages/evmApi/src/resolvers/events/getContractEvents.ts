@@ -30,22 +30,28 @@ export const getContractEvents = createPaginatedEndpointFactory((core) =>
     urlParams: ['address'],
     getUrl: (params: Params) => `/${params.address}/events`,
     //   TODO: remove PaginatedResponse when api squad make swagger update
-    apiToResult: (data: PaginatedResult<ApiResult>, params: Params) =>
-      (data.result.result ?? [])?.map((event) =>
-        EvmEvent.create({
-          chain: EvmChainResolver.resolve(params.chain, core),
-          address: params.address,
-          blockHash: event.block_hash,
-          blockNumber: event.block_number,
-          blockTimestamp: event.block_timestamp,
-          transactionHash: event.transaction_hash,
-          data: {
-            to: event.data.to,
-            from: event.data.from,
-            value: event.data.value,
+    apiToResult: (data: PaginatedResult<ApiResult>, params: Params) => {
+      // TODO: swagger returns a wrong definition, we need to fix it.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (data.result as any[] ?? [])?.map((event) =>
+        EvmEvent.create(
+          {
+            chain: EvmChainResolver.resolve(params.chain, core),
+            address: params.address,
+            blockHash: event.block_hash,
+            blockNumber: event.block_number,
+            blockTimestamp: event.block_timestamp,
+            transactionHash: event.transaction_hash,
+            data: {
+              to: event.data.to,
+              from: event.data.from,
+              value: event.data.value,
+            },
           },
-        }),
-      ),
+          core,
+        ),
+      );
+    },
     resultToJson: (data) => data,
     parseParams: (params: Params) => ({
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
@@ -64,5 +70,6 @@ export const getContractEvents = createPaginatedEndpointFactory((core) =>
     method,
     bodyParams,
     bodyType: EndpointBodyType.BODY,
+    firstPageIndex: 0,
   }),
 );

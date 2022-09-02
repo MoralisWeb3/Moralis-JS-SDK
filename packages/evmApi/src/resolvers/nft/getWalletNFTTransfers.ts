@@ -40,5 +40,6 @@ export const getWalletNFTTransfers = createPaginatedEndpointFactory((core) =>
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
       address: EvmAddress.create(params.address, core).lowercase,
     }),
+    firstPageIndex: 0,
   }),
 );

@@ -46,5 +46,6 @@ export const getNFTTrades = createPaginatedEndpointFactory((core) =>
       to_date: params.toDate,
       provider_url: params.providerUrl,
     }),
+    firstPageIndex: 0,
   }),
 );

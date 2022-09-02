@@ -42,5 +42,6 @@ export const getNFTTransfers = createPaginatedEndpointFactory((core) =>
       address: EvmAddress.create(params.address, core).lowercase,
       token_id: params.tokenId,
     }),
+    firstPageIndex: 0,
   }),
 );

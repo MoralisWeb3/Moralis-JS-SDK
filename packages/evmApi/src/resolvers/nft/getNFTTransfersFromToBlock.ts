@@ -40,5 +40,6 @@ export const getNFTTransfersFromToBlock = createPaginatedEndpointFactory((core) 
       from_date: params.fromDate,
       to_date: params.toDate,
     }),
+    firstPageIndex: 0,
   }),
 );

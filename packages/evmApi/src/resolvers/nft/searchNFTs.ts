@@ -61,5 +61,6 @@ export const searchNFTs = createPaginatedEndpointFactory((core) =>
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
       addresses: params.addresses?.map((address) => EvmAddress.create(address, core).lowercase),
     }),
+    firstPageIndex: 0,
   }),
 );

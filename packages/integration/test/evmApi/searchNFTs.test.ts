@@ -12,31 +12,13 @@ describe('searchNFTs', () => {
     cleanEvmApi();
   });
 
-  it('should Gets NFTs that match a given metadata search', async () => {
+  it('returns NFTs', async () => {
     const result = await evmApi.nft.searchNFTs({
       q: 'Pancake',
+      filter: 'name',
     });
 
+    // TODO: need to add the mock responese for above arguments.
     expect(result).toBeDefined();
-    expect(result.raw.total).toBe(5671);
-    expect(result).toEqual(expect.objectContaining({}));
-  });
-
-  it('should not get NFTs that match a given metadata search and returns an error of empty metadata', async () => {
-    const failedResult = await evmApi.nft
-      .searchNFTs({
-        q: '',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
-
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.nft.searchNFTs({
-        q: '',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 404"`);
   });
 });
