@@ -33,7 +33,7 @@ export const getContractEvents = createPaginatedEndpointFactory((core) =>
     apiToResult: (data: PaginatedResult<ApiResult>, params: Params) => {
       // TODO: swagger returns a wrong definition, we need to fix it.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (data.result as any[] ?? [])?.map((event) =>
+      return ((data.result as any[]) ?? [])?.map((event) =>
         EvmEvent.create(
           {
             chain: EvmChainResolver.resolve(params.chain, core),
