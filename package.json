@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
-    "build:demo-docs": "node ./scripts/buildDemoDocs.js",
+    "build:demo-docs": "node ./tools/scripts/buildDemoDocs.js",
     "build:docs": "rm -rf docs && yarn typedoc && yarn build:demo-docs",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
@@ -60,5 +60,8 @@
   "resolutions": {
     "debug": "^3.1.0",
     "micromatch": "^4.0.2"
+  },
+  "dependencies": {
+    "plop": "^3.1.1"
   }
 }
