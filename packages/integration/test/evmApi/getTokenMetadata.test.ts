@@ -12,34 +12,16 @@ describe('getTokenMetadata', () => {
     cleanEvmApi();
   });
 
-  it('should get the token metadata of an account', async () => {
+  it('returns metadata', async () => {
     const result = await evmApi.token.getTokenMetadata({
-      chain: 1,
-      addresses: ['0xdAC17F958D2ee523a2206206994597C13D831ec7'],
+      addresses: ['0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce'],
     });
 
-    expect(result).toBeDefined();
-    expect(result).toEqual(expect.objectContaining({}));
-    expect(result.raw).toStrictEqual({ name: 'Tether USD' });
-  });
-
-  it('should not get the token metadata of an invalid account and throw an error ', async () => {
-    const failedResult = await evmApi.token
-      .getTokenMetadata({
-        chain: 1,
-        addresses: ['0xdAC17F958D2ee523a2206206994597C13D831ec'],
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
-
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.token.getTokenMetadata({
-        chain: 1,
-        addresses: ['0xdAC17F958D2ee523a2206206994597C13D831ec'],
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    const metadata = result.result[0];
+    expect(metadata).toBeDefined();
+    expect(metadata.token.contractAddress.lowercase).toEqual('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce');
+    expect(metadata.token.name).toEqual('SHIBA INU');
+    expect(metadata.token.symbol).toEqual('SHIB');
+    expect(metadata.token.decimals).toEqual(18);
   });
 });
