@@ -42,50 +42,49 @@ yarn add moralis @moralisweb3/next
 
 # Hooks
 
-
-### &#x60;useKek()&#x60; 
+## `useKek()` 
 
 Gets all token balances of a current user or specified address. 
 
-**Options**:
-- &#x60;chain&#x60; (optional): The blockchain to get data from. Valid values are listed on the intro page in the Transactions and Balances section. Default value: current chain.
-- &#x60;address&#x60; (optional): A user address (i.e. 0x1a2b3x...). If specified, the user attached to the query is ignored and the address will be used instead.
-- &#x60;to_block&#x60; (optional): The block number on which the balances should be checked
+### Options:
+- `chain` (optional): The blockchain to get data from. Valid values are listed on the intro page in the Transactions and Balances section. Default value: current chain.
+- `address` (optional): A user address (i.e. 0x1a2b3x...). If specified, the user attached to the query is ignored and the address will be used instead.
+- `to_block` (optional): The block number on which the balances should be checked
 
-**Example**
-&#x60;&#x60;&#x60;jsx
-import { useERC20Balances } from &quot;react-moralis&quot;;
+### Example:
+```jsx
+import { useKek } from "react-moralis";
 
-const { fetchERC20Balances, data, isLoading, isFetching, error } &#x3D; useERC20Balances();
+const { fetchERC20Balances, data, isLoading, isFetching, error } = useKek();
 
-const ERC20Balances &#x3D; () &#x3D;&gt; {
+const ERC20Balances = () => {
   return (
-    &lt;div&gt;
-      {error &amp;&amp; &lt;&gt;{JSON.stringify(error)}&lt;/&gt;}
-      &lt;button onClick&#x3D;{() &#x3D;&gt; fetchERC20Balances({ params: { chain: &quot;0x1&quot; } })}&gt;Refetch&lt;/button&gt;
-      &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt;
-    &lt;/div&gt;
+    <div>
+      {error && <>{JSON.stringify(error)}</>}
+      <button onClick={() => fetchERC20Balances({ params: { chain: "0x1" } })}>Refetch</button>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
   );
 };
 
-&#x60;&#x60;&#x60;
+```
 
-**Example return** (Object)
-&#x60;&#x60;&#x60;json
+### Example return:
+```json
 {
-  &quot;total&quot;: 1,
-  &quot;page&quot;: 0,
-  &quot;page_size&quot;: 500,
-  &quot;result&quot;: [
+  "total": 1,
+  "page": 0,
+  "page_size": 500,
+  "result": [
     {
-      &quot;token_address&quot;: &quot;0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09&quot;,
-      &quot;name&quot;: &quot;Kylin Network&quot;,
-      &quot;symbol&quot;: &quot;KYL&quot;,
-      &quot;logo&quot;: &quot;https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png&quot;,
-      &quot;thumbnail&quot;: &quot;https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png&quot;,
-      &quot;decimals&quot;: &quot;18&quot;,
-      &quot;balance&quot;: &quot;123456789&quot;
+      "token_address": "0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09",
+      "name": "Kylin Network",
+      "symbol": "KYL",
+      "logo": "https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png",
+      "thumbnail": "https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c_thumb.png",
+      "decimals": "18",
+      "balance": "123456789"
     }
   ]
 }
-&#x60;&#x60;&#x60;
+```
