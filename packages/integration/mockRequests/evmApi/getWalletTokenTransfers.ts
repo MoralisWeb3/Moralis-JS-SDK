@@ -55,7 +55,7 @@ export const mockGetWalletTokenTransfers = rest.get(`${EVM_API_ROOT}/:address/er
           total: 12,
           page: 1,
           page_size: 6,
-          cursor: 'limit_6_page_1',
+          cursor: null,
           result: Array(6).fill(transfer),
         }),
       );
