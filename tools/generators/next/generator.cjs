@@ -3,7 +3,7 @@ const getSDKPaths = require('./utils/getSDKPaths.cjs');
 const {
   getHookHame,
   getDomainFolderNames,
-  getTargetMethod,
+  getHookDescription,
   getSDKCall,
   formatCapitalize,
   geAPIEndpoint,
@@ -65,6 +65,7 @@ module.exports = (plop) => {
         type: 'add',
         templateFile: 'tools/generators/next/templates/readme/README.md.hbs',
         path: 'packages/next/README.md',
+        data: { hook: getHookDescription({ name: 'useKek' }) },
         force: true,
       };
 
