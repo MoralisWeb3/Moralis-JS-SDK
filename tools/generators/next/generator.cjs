@@ -61,7 +61,14 @@ module.exports = (plop) => {
         force: true,
       };
 
-      return [...generateHooks, generateIndex, generateConfig, ...injectedExports];
+      const generateReadMe = {
+        type: 'add',
+        templateFile: 'tools/generators/next/templates/readme/README.md.hbs',
+        path: 'packages/next/README.md',
+        force: true,
+      };
+
+      return [...generateHooks, generateIndex, generateConfig, ...injectedExports, generateReadMe];
     },
   });
 };

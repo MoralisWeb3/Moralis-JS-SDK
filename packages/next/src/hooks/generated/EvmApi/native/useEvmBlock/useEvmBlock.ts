@@ -6,14 +6,14 @@ import useSWR from 'swr';
 export const useEvmBlock = (params: TUseEvmBlockParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api${endpoint}`, params).then(res => res.data);
 
-  const { error, mutate, isValidating } = useSWR<TUseEvmBlockReturn>(
+  const { data, error, mutate, isValidating } = useSWR<TUseEvmBlockReturn>(
     [`/moralis/EvmApi/native/getBlock`, params],
     axiosFetcher,
     SWRConfig,
   );
 
   return {
-    data :'kek',
+    data,
     error,
     refetch: async () => mutate(),
     isValidating,
