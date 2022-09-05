@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.package.json",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "declarationDir": "./lib/",
+    "rootDir": "./src",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*",
+    "src/hooks/generated/supportedPaths.json"
+  ]
+}
