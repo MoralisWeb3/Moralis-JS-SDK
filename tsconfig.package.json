@@ -24,7 +24,7 @@
     "pretty": false,
     "sourceMap": true,
     "target": "es5",
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
   },
   "exclude": [
     "node_modules",

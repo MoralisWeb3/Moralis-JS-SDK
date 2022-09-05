@@ -10,9 +10,9 @@ const Profile: FC = () => {
     blockNumberOrHash: '100000',
   });
 
-  const { data: balance } = useEvmTokenBalances({ address: '0x259DB2fD041d370e803f4D44951bE0E4722b7a45' });
-  console.log('block: ');
-  console.log('balance: ', balance && balance[0].token);
+  // const { data: balance } = useEvmTokenBalances({ address: '0x259DB2fD041d370e803f4D44951bE0E4722b7a45' });
+  console.log('block: ', block);
+  // console.log('balance: ', balance && balance[0].token);
 
   return (
     <div className={styles.profile}>
