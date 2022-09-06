@@ -42,6 +42,24 @@ export interface RequestMessageSolOptions {
   timeout: number;
 }
 
+// Temporary solution to allow allow chain id enum generated from swagger
+type ChainID =
+  | '1'
+  | '3'
+  | '4'
+  | '5'
+  | '25'
+  | '42'
+  | '56'
+  | '97'
+  | '137'
+  | '250'
+  | '338'
+  | '1337'
+  | '43113'
+  | '43114'
+  | '80001';
+
 export type RequestMessageOptions = RequestMessageEvmOptions | RequestMessageSolOptions;
 
 const makeEvmRequestMessage = (
@@ -50,7 +68,7 @@ const makeEvmRequestMessage = (
 ) => {
   return EndpointResolver.create(core, BASE_URL, initializeChallengeEvm).fetch({
     // TODO: remove this when the API is fixed
-    chainId: EvmChain.create(chain).decimal as any,
+    chainId: EvmChain.create(chain).decimal.toString() as ChainID,
     address: EvmAddress.create(address).checksum,
     ...options,
   });

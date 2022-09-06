@@ -32,20 +32,18 @@ const makeSolVerify = (core: MoralisCore, { network, ...options }: VerifySolOpti
   });
 };
 
-export const makeVerify =
-  (core: MoralisCore) =>
-  (options: VerifyOptions) => {
-    switch (options.network) {
-      case AuthNetwork.EVM:
-        return makeEvmVerify(core, options);
-      case AuthNetwork.SOLANA:
-        return makeSolVerify(core, options);
-      default:
-        throw new MoralisAuthError({
-          code: AuthErrorCode.INCORRECT_NETWORK,
-          message: `Incorrect network provided. Got "${options.network}", Valid values are: ${Object.values(AuthNetwork)
-            .map((value) => `"${value}"`)
-            .join(', ')}`,
-        });
-    }
-  };
+export const makeVerify = (core: MoralisCore) => (options: VerifyOptions) => {
+  switch (options.network) {
+    case AuthNetwork.EVM:
+      return makeEvmVerify(core, options);
+    case AuthNetwork.SOLANA:
+      return makeSolVerify(core, options);
+    default:
+      throw new MoralisAuthError({
+        code: AuthErrorCode.INCORRECT_NETWORK,
+        message: `Incorrect network provided. Got "${options.network}", Valid values are: ${Object.values(AuthNetwork)
+          .map((value) => `"${value}"`)
+          .join(', ')}`,
+      });
+  }
+};

@@ -36,21 +36,21 @@ export interface components {
        * @enum {string}
        */
       chainId:
-        | "ETH"
-        | "ROPSTEN"
-        | "RINKEBY"
-        | "GOERLI"
-        | "CRONOS"
-        | "KOVAN"
-        | "BSC"
-        | "BSC_TESTNET"
-        | "POLYGON"
-        | "FANTOM"
-        | "CRONOS_TESTNET"
-        | "LOCALDEVCHAIN"
-        | "AVALANCHE_TESTNET"
-        | "AVALANCHE"
-        | "MUMBAI";
+        | "1"
+        | "3"
+        | "4"
+        | "5"
+        | "25"
+        | "42"
+        | "56"
+        | "97"
+        | "137"
+        | "250"
+        | "338"
+        | "1337"
+        | "43113"
+        | "43114"
+        | "80001";
       /**
        * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
        * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
@@ -148,21 +148,21 @@ export interface components {
        * @enum {string}
        */
       chainId:
-        | "ETH"
-        | "ROPSTEN"
-        | "RINKEBY"
-        | "GOERLI"
-        | "CRONOS"
-        | "KOVAN"
-        | "BSC"
-        | "BSC_TESTNET"
-        | "POLYGON"
-        | "FANTOM"
-        | "CRONOS_TESTNET"
-        | "LOCALDEVCHAIN"
-        | "AVALANCHE_TESTNET"
-        | "AVALANCHE"
-        | "MUMBAI";
+        | "1"
+        | "3"
+        | "4"
+        | "5"
+        | "25"
+        | "42"
+        | "56"
+        | "97"
+        | "137"
+        | "250"
+        | "338"
+        | "1337"
+        | "43113"
+        | "43114"
+        | "80001";
       /**
        * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
        * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
