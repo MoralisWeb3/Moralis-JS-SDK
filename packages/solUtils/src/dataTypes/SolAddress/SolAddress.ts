@@ -29,13 +29,16 @@ export class SolAddress implements MoralisData {
   }
 
   private static parse(address: string): string {
-    if (!PublicKey.isOnCurve(address)) {
+    try {
+      const publicKey = new PublicKey(address);
+      return publicKey.toBase58();
+    } catch (e) {
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
-        message: 'Invalid Solana address provided',
+        message: `Invalid Solana address provided: ${address}`,
+        cause: e
       });
     }
-    return address;
   }
 
   public constructor(public readonly address: string) {}
