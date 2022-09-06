@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "@moralisweb3/core": "^2.3.0",
-    "@solana/web3.js": "^1.55.0"
+    "@solana/web3.js": "^1.56.2"
   }
 }
