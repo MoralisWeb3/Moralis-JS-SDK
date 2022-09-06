@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔒 Firebase Moralis Auth Demo</title>
+    <style>
+      body {
+        font: 16px/1.3em Arial, Verdana, Tahoma, serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔒 Firebase Moralis Auth Demo</h1>
+
+    <p>This is a simple demo of Moralis Auth integrated with Firebase Auth.</p>
+
+    <p>User: <strong id="currentUser">⛔ guest</strong></p>
+
+    <h4>Authentication</h4>
+
+    <button id="authenticateButton">Connect with MetaMask 🔒</button>
+
+    <h4>Authorized Users Only</h4>
+
+    <button id="getSecretDataButton">getSecretData 🔥</button>
+
+    <h4>Everyone</h4>
+
+    <button id="getTimeButton">getTime ⏰</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.umd.js"></script>
+    <script src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
+    <script src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
+    <script src="/__/firebase/9.9.1/firebase-auth-compat.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

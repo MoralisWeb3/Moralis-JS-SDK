@@ -1,51 +1,31 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('resolveAddress', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({ onUnhandledRequest: 'warn' });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
-  it('should resolve an address and return a name', async () => {
-    const result = await EvmApi.resolve.resolveAddress({
+  it('returns a name', async () => {
+    const result = await evmApi.resolve.resolveAddress({
       address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     });
 
-    expect(result.toJSON().name).toBe('vitalik.eth');
-    expect(result).toBeDefined();
-    expect(result.toJSON().name).toBe('vitalik.eth'.toLowerCase());
-    expect(result.raw.name).toBe('vitalik.eth');
-    expect(result.result.name).toBe('vitalik.eth');
+    expect(result?.result).toBeDefined();
+    expect(result?.result.name).toEqual('vitalik.eth');
   });
 
-  it('should not resolve an address and return an error code', async () => {
-    const failedResult = await EvmApi.resolve
-      .resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns HTTP 404', async () => {
+    const result = await evmApi.resolve.resolveAddress({
+      address: '0x4044044044044044044044044044044044044040',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      EvmApi.resolve.resolveAddress({
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA9604',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(result).toBeNull();
   });
 });

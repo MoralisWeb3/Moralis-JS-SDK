@@ -1,7 +1,8 @@
-import { Camelize, EvmAddress, EvmChainish, EvmTransactionReceipt, toCamelCase } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import MoralisCore, { Camelize, toCamelCase } from '@moralisweb3/core';
+import { EvmChainish, EvmTransaction, EvmTransactionLog, EvmBlock } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getBlock';
 
@@ -14,74 +15,70 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult, params: Params) => {
+const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
 
-  return {
-    ...data,
-    miner: new EvmAddress(data.miner),
-    transactions: data.transactions.map((transaction) =>
-      EvmTransactionReceipt.create(
-        {
-          // Transaction Receipt data
-          cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
-          gasPrice: transaction.gasPrice,
-          gasUsed: transaction.receiptGasUsed,
-          logs: transaction.logs.map((log) => ({
-            address: log.address,
-            blockHash: log.blockHash,
-            blockNumber: +log.blockNumber,
-            data: log.data,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
-            transactionHash: log.transactionHash,
-            blockTimestamp: log.blockTimestamp,
-            logIndex: +log.logIndex,
-            transactionIndex: +log.transactionIndex,
-          })),
-          transactionIndex: +transaction.transactionIndex,
-          contractAddress: transaction.receiptContractAddress,
-          root: transaction.receiptRoot,
-          status: +transaction.receiptStatus,
-        },
-        {
-          // Transaction Response data
-          chain: resolveDefaultChain(params.chain),
-          data: transaction.input,
-          from: transaction.fromAddress,
-          hash: transaction.hash,
-          nonce: transaction.nonce,
-          value: transaction.value,
-          blockHash: transaction.blockHash,
-          blockNumber: +transaction.blockNumber,
-          blockTimestamp: new Date(transaction.blockTimestamp),
-          gasPrice: transaction.gasPrice,
-          gasLimit: transaction.gas,
-          to: transaction.toAddress,
-          // Not specified in Api response
-          accessList: undefined,
-          confirmations: undefined,
-          maxFeePerGas: undefined,
-          maxPriorityFeePerGas: undefined,
-          type: undefined,
-        },
+  return EvmBlock.create(
+    {
+      ...data,
+      chain: EvmChainResolver.resolve(params.chain, core),
+      transactions: (data.transactions ?? []).map((transaction) =>
+        EvmTransaction.create(
+          {
+            cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
+            gasPrice: transaction.gasPrice,
+            gasUsed: transaction.receiptGasUsed,
+            index: transaction.transactionIndex,
+            contractAddress: transaction.receiptContractAddress,
+            receiptRoot: transaction.receiptRoot,
+            receiptStatus: +transaction.receiptStatus,
+            chain: EvmChainResolver.resolve(params.chain, core),
+            data: transaction.input,
+            from: transaction.fromAddress,
+            hash: transaction.hash,
+            nonce: transaction.nonce,
+            value: transaction.value,
+            blockHash: transaction.blockHash,
+            blockNumber: +transaction.blockNumber,
+            blockTimestamp: new Date(transaction.blockTimestamp),
+            gas: transaction.gas,
+            to: transaction.toAddress,
+            logs: (transaction.logs ?? []).map((log) =>
+              EvmTransactionLog.create({
+                address: log.address,
+                blockHash: log.blockHash,
+                blockNumber: +log.blockNumber,
+                data: log.data,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
+                transactionHash: log.transactionHash,
+                blockTimestamp: log.blockTimestamp,
+                logIndex: +log.logIndex,
+                transactionIndex: +log.transactionIndex,
+              }),
+            ),
+          },
+          core,
+        ),
       ),
-    ),
-  };
+    },
+    core,
+  );
 };
 
-export const getBlockResolver = new EvmResolver({
-  name: 'getBlock',
-  getPath: (params: Params) => `block/${params.blockNumberOrHash}`,
-  apiToResult: apiToResult,
-  resultToJson: (data) => ({
-    ...data,
-    transactions: data.transactions.map((transaction) => transaction.toJSON()),
-    miner: data.miner.format(),
+export const getBlock = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getBlock',
+    urlParams: ['blockNumberOrHash'],
+    getUrl: (params: Params) => `/block/${params.blockNumberOrHash}`,
+    apiToResult: (result: ApiResult, params: Params) => {
+      return apiToResult(core, result, params);
+    },
+    resultToJson: (data) => data.toJSON(),
+    parseParams: (params: Params): ApiParams => ({
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      block_number_or_hash: params.blockNumberOrHash,
+      subdomain: params.subdomain,
+    }),
   }),
-  parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
-    block_number_or_hash: params.blockNumberOrHash,
-    subdomain: params.subdomain,
-  }),
-});
+);

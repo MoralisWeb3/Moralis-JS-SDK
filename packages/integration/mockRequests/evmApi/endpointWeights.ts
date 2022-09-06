@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-export const mockEndpointWeightss = 'getBlock';
+// TODO: we need to fix this test.
+const mockEndpointWeightss = 'getBlock';
 
 export const mockEndpointWeights = rest.get(`${EVM_API_ROOT}/info/endpointWeights`, (req, res, ctx) => {
   const apiKey = req.headers.get('x-api-key');

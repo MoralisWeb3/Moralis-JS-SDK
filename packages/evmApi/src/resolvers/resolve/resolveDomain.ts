@@ -1,6 +1,6 @@
-import { EvmAddress } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import { EvmAddress } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
 
 type operation = 'resolveDomain';
 
@@ -10,14 +10,17 @@ type ApiParams = QueryParams & PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const resolveDomainResolver = new EvmResolver({
-  name: 'resolveDomain',
-  getPath: (params: ApiParams) => `resolve/${params.domain}`,
-  apiToResult: (data: ApiResult) => ({
-    address: EvmAddress.create(data.address),
+export const resolveDomain = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'resolveDomain',
+    urlParams: ['domain'],
+    getUrl: (params: ApiParams) => `/resolve/${params.domain}`,
+    apiToResult: (data: ApiResult) => ({
+      address: EvmAddress.create(data.address, core),
+    }),
+    resultToJson: (data) => ({
+      address: data.address.format(),
+    }),
+    parseParams: (params) => params,
   }),
-  resultToJson: (data) => ({
-    address: data.address.format(),
-  }),
-  parseParams: (params) => params,
-});
+);

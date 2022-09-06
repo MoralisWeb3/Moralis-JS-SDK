@@ -1,7 +1,8 @@
-import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import { Camelize } from '@moralisweb3/core';
+import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
-import { EvmResolver } from '../Resolver';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getPairReserves';
 
@@ -14,23 +15,21 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'pair_address
   pairAddress: EvmAddressish;
 }
 
-// TODO: use swagger results when the types have been fixed
-// type GeneratedApiResult = operations[operation]['responses']['200']['content']['application/json'];
-type ApiResult = {
-  reserve0: string;
-  reserve1: string;
-};
+type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-export const getPairReservesResolver = new EvmResolver({
-  name: 'getPairReserves',
-  getPath: (params: Params) => `${params.pairAddress}/reserves`,
-  apiToResult: (data: ApiResult) => data,
-  resultToJson: (data) => data,
-  parseParams: (params: Params): ApiParams => ({
-    chain: resolveDefaultChain(params.chain).apiHex,
-    pair_address: EvmAddress.create(params.pairAddress).lowercase,
-    provider_url: params.providerUrl,
-    to_block: params.toBlock,
-    to_date: params.toDate,
+export const getPairReserves = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getPairReserves',
+    urlParams: ['pairAddress'],
+    getUrl: (params: Params) => `/${params.pairAddress}/reserves`,
+    apiToResult: (data: ApiResult) => data,
+    resultToJson: (data) => data,
+    parseParams: (params: Params): ApiParams => ({
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      pair_address: EvmAddress.create(params.pairAddress, core).lowercase,
+      provider_url: params.providerUrl,
+      to_block: params.toBlock,
+      to_date: params.toDate,
+    }),
   }),
-});
+);

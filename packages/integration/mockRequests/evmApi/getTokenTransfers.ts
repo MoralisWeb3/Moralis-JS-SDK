@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-export const mockGetTokenTransfers: Record<string, number> = {
-  '0x3d6c0e79a1239df0039ec16Cc80f7A343b6C530e': 44,
+const transfers: Record<string, number> = {
+  '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974': 807091,
 };
 
-export const mockGetTokenTransfer = rest.get(`${EVM_API_ROOT}/:address/erc20/transfers`, (req, res, ctx) => {
+export const mockGetTokenTransfers = rest.get(`${EVM_API_ROOT}/erc20/:address/transfers`, (req, res, ctx) => {
   const address = req.params.address as string;
   const apiKey = req.headers.get('x-api-key');
 
@@ -13,7 +13,7 @@ export const mockGetTokenTransfer = rest.get(`${EVM_API_ROOT}/:address/erc20/tra
     return res(ctx.status(401));
   }
 
-  const value = mockGetTokenTransfers[address];
+  const value = transfers[address];
 
   if (!value) {
     return res(ctx.status(404));

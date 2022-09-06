@@ -1,33 +1,28 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('getTokenMetadataBySymbol', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
-  it('should get the metadata by symbol', async () => {
-    const result = await EvmApi.token.getTokenMetadataBySymbol({
-      symbols: ['LINK'],
+  it('returns metadata', async () => {
+    const result = await evmApi.token.getTokenMetadataBySymbol({
+      symbols: ['SHIBA INU'],
     });
+    const metadata = result.result[0];
 
-    expect(result).toBeDefined();
-    expect(result).toEqual(expect.arrayContaining([]));
-    expect(result.raw).toStrictEqual({ address: '0x514910771af9ca656af840dff83e8264ecf986ca' });
+    expect(metadata).toBeDefined();
+    expect(metadata).toBeDefined();
+    expect(metadata.token.contractAddress.lowercase).toEqual('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce');
+    expect(metadata.token.name).toEqual('SHIBA INU');
+    expect(metadata.token.symbol).toEqual('SHIB');
+    expect(metadata.token.decimals).toEqual(18);
   });
 });
