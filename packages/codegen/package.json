@@ -11,6 +11,7 @@
     "generate": "yarn esmo src/index.ts"
   },
   "devDependencies": {
+    "@moralisweb3/next": "^2.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer-autocomplete-prompt": "^1.3.3",
     "@types/minimist": "^1.2.2",

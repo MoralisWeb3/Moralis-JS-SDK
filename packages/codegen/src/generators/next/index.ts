@@ -6,6 +6,7 @@ import fs from 'fs-extra';
 import getSDKPaths from './utils/getSDKPaths.cjs';
 import path from 'node:path';
 
+//@ts-ignore
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../..');
 

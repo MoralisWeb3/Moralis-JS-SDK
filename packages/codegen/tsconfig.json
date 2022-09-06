@@ -6,11 +6,8 @@
     "rootDir": "./src",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "module": "esnext",
   },
   "include": [
     "src/**/*",
-    "types/**/*",
-    "src/hooks/generated/supportedPaths.json"
   ]
 }
