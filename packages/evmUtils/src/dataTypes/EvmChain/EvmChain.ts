@@ -325,6 +325,30 @@ export class EvmChain implements MoralisData, EvmChainable {
   }
 
   /**
+   * Validate and cast to api compatible id
+   *
+   * @example chain.apiId // 1
+   */
+  get apiId() {
+    return this._value as
+      | '1'
+      | '3'
+      | '4'
+      | '5'
+      | '25'
+      | '42'
+      | '56'
+      | '97'
+      | '137'
+      | '250'
+      | '338'
+      | '1337'
+      | '43113'
+      | '43114'
+      | '80001';
+  }
+
+  /**
    * Returns the name of the chain
    * @example chain.name // "Ethereum"
    */

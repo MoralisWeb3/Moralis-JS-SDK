@@ -22,7 +22,6 @@ export const completeChallengeEvm = createEndpointFactory(() =>
       ...data,
       // TODO: revisit EVM logic once we know how authentication in other networks work
       chain: EvmChain.create(chainId),
-      solNetwork: undefined,
       address: EvmAddress.create(data.address),
       expirationTime: maybe(data.expirationTime, (value) => new Date(value)),
     }),

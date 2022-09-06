@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/auth': major
+'@moralisweb3/auth': minor
 ---
 
 Added solana authentication to auth package

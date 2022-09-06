@@ -1,6 +1,13 @@
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
-import { makeVerify, VerifyOptions } from './methods/verify';
+import {
+  makeVerify,
+  VerifyEvmData,
+  VerifyEvmOptions,
+  VerifyOptions,
+  VerifySolData,
+  VerifySolOptions,
+} from './methods/verify';
 
 export const BASE_URL = 'https://auth-api.do-prod-1.moralis.io';
 
@@ -24,5 +31,11 @@ export class MoralisAuth extends ApiModule {
   }
 
   public requestMessage = (options: RequestMessageOptions) => makeRequestMessage(this.core)(options);
-  public verify = (options: VerifyOptions) => makeVerify(this.core)(options);
+
+  // Function overloading to make typescript happy
+  public verify(options: VerifyEvmOptions): VerifyEvmData;
+  public verify(options: VerifySolOptions): VerifySolData;
+  public verify(options: VerifyOptions) {
+    return makeVerify(this.core)(options);
+  }
 }

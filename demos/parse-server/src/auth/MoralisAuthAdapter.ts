@@ -15,9 +15,9 @@ function validateAuthData(authData: any) {
       const data = result.toJSON();
 
       if (id === data.profileId && authId === data.id) {
-        authData.chainId = result.result.chain?.decimal;
+        authData.chainId = result.result.chain.decimal;
         authData.nonce = data.nonce;
-        authData.address = result.result.address.format();
+        authData.address = result.result.address.checksum;
         authData.version = data.version;
         authData.domain = data.domain;
         authData.expirationTime = data.expirationTime;

@@ -21,7 +21,6 @@ export const completeChallengeSol = createEndpointFactory(() =>
     apiToResult: ({ network, ...data }: ApiResult) => ({
       ...data,
       solNetwork: SolNetwork.create(network),
-      chain: undefined,
       address: SolAddress.create(data.address),
       expirationTime: maybe(data.expirationTime, (value) => new Date(value)),
     }),
