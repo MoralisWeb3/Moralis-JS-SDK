@@ -8,9 +8,10 @@ export { getNFTTokenIdOwners } from './getNFTTokenIdOwners';
 export { getNFTTrades } from './getNFTTrades';
 export { getNFTTransfers } from './getNFTTransfers';
 export { getNFTTransfersByBlock } from './getNFTTransfersByBlock';
+export { getNFTTransfersFromToBlock } from './getNFTTransfersFromToBlock';
+export { getWalletNFTCollections } from './getWalletNFTCollections'
 export { getWalletNFTs } from './getWalletNFTs';
+export { getWalletNFTTransfers } from './getWalletNFTTransfers';
 export { reSyncMetadata } from './reSyncMetadata';
 export { searchNFTs } from './searchNFTs';
 export { syncNFTContract } from './syncNFTContract';
-export { getWalletNFTTransfers } from './getWalletNFTTransfers';
-export { getNFTTransfersFromToBlock } from './getNFTTransfersFromToBlock';

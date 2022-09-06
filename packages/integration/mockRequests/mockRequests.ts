@@ -24,6 +24,7 @@ import { mockGetTokenMetadataBySymbol } from './evmApi/getTokenMetadataBySymbol'
 import { mockGetTokenPrice } from './evmApi/getTokenPrice';
 import { mockGetTokenTransfers } from './evmApi/getTokenTransfers';
 import { mockGetTransaction } from './evmApi/getTransaction';
+import { mockGetWalletNFTCollections } from './evmApi/getWalletNFTCollections';
 import { mockGetWalletNFTs } from './evmApi/getWalletNFTs';
 import { mockGetWalletNFTTransfers } from './evmApi/getWalletNFTTransfers';
 import { mockGetWalletTokenTransfers } from './evmApi/getWalletTokenTransfers';
@@ -73,6 +74,7 @@ const handlers = [
   mockSyncNFTContract,
   mockUploadFolder,
   mockWeb3ApiVersion,
+  mockGetWalletNFTCollections
 ];
 
 export const mockServer = setupServer(...handlers);

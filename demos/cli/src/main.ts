@@ -15,14 +15,12 @@ async function main() {
     apiKey: env['MORALIS_API_KEY'],
   });
 
-  const block = await Moralis.EvmApi.native.getBlock({
-    blockNumberOrHash: '15305775',
+  const collection = await Moralis.EvmApi.nft.getWalletNFTCollections({
+    address: '0xbf48C4f51dD8C1a396386380c80EBfe667b3c1A7',
     chain: '0x1',
   });
-  console.log(block);
+  console.log(collection.raw);
 
-  const weights = await Moralis.EvmApi.info.endpointWeights();
-  console.log(weights.result);
 }
 
 main();
