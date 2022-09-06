@@ -6,7 +6,7 @@ export function testEvmInfo(): Promise<unknown> {
 
   return Promise.all([
     smokeTest(groupName, 'web3ApiVersion', () => {
-      return Moralis.EvmApi.info.web3ApiVersion();
+      return Moralis.EvmApi.utils.web3ApiVersion();
     }),
   ]);
 }
@@ -16,12 +16,12 @@ export function testEvmAccount(): Promise<unknown> {
 
   return Promise.all([
     smokeTest(groupName, 'getNativeBalance', () => {
-      return Moralis.EvmApi.account.getNativeBalance({
+      return Moralis.EvmApi.balance.getNativeBalance({
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
       });
     }),
-    smokeTest(groupName, 'getNativeBalance', () => {
-      return Moralis.EvmApi.account.getNFTs({
+    smokeTest(groupName, 'getWalletNFTs', () => {
+      return Moralis.EvmApi.nft.getWalletNFTs({
         address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
       });
     }),
