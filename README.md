@@ -147,7 +147,7 @@ Now you can use any functionality from the installed modules. The only differenc
 import MoralisEvmApi from '@moralisweb3/evm-api';
 
 const evmApi = core.getModule<MoralisEvmApi>(MoralisEvmApi.moduleName);
-evmApi.native.getBlock();
+evmApi.block.getBlock();
 ```
 
 Instead of
@@ -155,7 +155,7 @@ Instead of
 ```javascript
 import Moralis from 'moralis';
 
-Moralis.EvmApi.native.getBlock();
+Moralis.EvmApi.block.getBlock();
 ```
 
 Of course you are free to combine the modules in a single object, and use that in your dapp.
@@ -176,7 +176,7 @@ export const Moralis = {
 // app.ts
 import { Moralis } from './moralis/';
 
-Moralis.EvmApi.native.getBlock();
+Moralis.EvmApi.block.getBlock();
 ```
 
 # 📦 Packages
