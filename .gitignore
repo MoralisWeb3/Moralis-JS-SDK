@@ -48,3 +48,4 @@ packages/**/coverage
 TODO.md
 archive/**/*
 .vscode/
+dump.rdb

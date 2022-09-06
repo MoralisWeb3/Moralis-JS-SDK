@@ -54,7 +54,8 @@
       "packages/*",
       "demos/*",
       "demos/firebase-proxy/*",
-      "demos/firebase-auth/*"
+      "demos/firebase-auth/*",
+      "demos/parse-server-migration/*"
     ]
   },
   "resolutions": {
