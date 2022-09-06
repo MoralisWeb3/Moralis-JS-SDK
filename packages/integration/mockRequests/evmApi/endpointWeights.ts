@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
-// TODO: what is it?
+// TODO: we need to fix this test.
 const mockEndpointWeightss = 'getBlock';
 
 export const mockEndpointWeights = rest.get(`${EVM_API_ROOT}/info/endpointWeights`, (req, res, ctx) => {

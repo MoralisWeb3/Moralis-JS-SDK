@@ -10,9 +10,8 @@ import {
 } from './resolvers/token';
 import { getPairAddress, getPairReserves } from './resolvers/defi';
 import { resolveAddress, resolveDomain } from './resolvers/resolve';
-import { getNativeBalance } from './resolvers/account';
 import { getBlock, getDateToBlock } from './resolvers/native';
-import { uploadFolder } from './resolvers/storage';
+import { uploadFolder } from './resolvers/ipfs';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { endpointWeights, runContractFunction, web3ApiVersion } from './resolvers/utils';
@@ -36,6 +35,7 @@ import {
 } from './resolvers/nft';
 import { getContractEvents, getContractLogs } from './resolvers/events';
 import { getTransaction, getWalletTransactions } from './resolvers/transaction';
+import { getNativeBalance } from './resolvers/balance';
 
 const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
@@ -95,11 +95,11 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `nft.getContractNFTs()`.
      */
-    getAllTokenIds: warning('token.getAllTokenIds', 'nft.getContractNFTs', this.nft.getContractNFTs),
+    getAllTokenIds: this.deprecationWarning('token.getAllTokenIds', 'nft.getContractNFTs', this.nft.getContractNFTs),
     /**
      * @deprecated Replaced by `nft.getNFTContractTransfers()`.
      */
-    getContractNFTTransfers: warning(
+    getContractNFTTransfers: this.deprecationWarning(
       'token.getContractNFTTransfers',
       'nft.getNFTContractTransfers',
       this.nft.getNFTContractTransfers,
@@ -107,23 +107,31 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `nft.getNFTLowestPrice()`.
      */
-    getNFTLowestPrice: warning('token.getNFTLowestPrice', 'nft.getNFTLowestPrice', this.nft.getNFTLowestPrice),
+    getNFTLowestPrice: this.deprecationWarning(
+      'token.getNFTLowestPrice',
+      'nft.getNFTLowestPrice',
+      this.nft.getNFTLowestPrice,
+    ),
     /**
      * @deprecated Replaced by `nft.getNFTContractMetadata()`.
      */
-    getNFTMetadata: warning('token.getNFTMetadata', 'nft.getNFTContractMetadata', this.nft.getNFTContractMetadata),
+    getNFTMetadata: this.deprecationWarning(
+      'token.getNFTMetadata',
+      'nft.getNFTContractMetadata',
+      this.nft.getNFTContractMetadata,
+    ),
     /**
      * @deprecated Replaced by `nft.getNFTOwners()`.
      */
-    getNFTOwners: warning('token.getNFTOwners', 'nft.getNFTOwners', this.nft.getNFTOwners),
+    getNFTOwners: this.deprecationWarning('token.getNFTOwners', 'nft.getNFTOwners', this.nft.getNFTOwners),
     /**
      * @deprecated Replaced by `nft.getNFTTrades()`.
      */
-    getNFTTrades: warning('token.getNFTTrades', 'nft.getNFTTrades', this.nft.getNFTTrades),
+    getNFTTrades: this.deprecationWarning('token.getNFTTrades', 'nft.getNFTTrades', this.nft.getNFTTrades),
     /**
      * @deprecated Replaced by `nft.getNFTTransfersFromToBlock()`.
      */
-    getNftTransfersFromToBlock: warning(
+    getNftTransfersFromToBlock: this.deprecationWarning(
       'token.getNftTransfersFromToBlock',
       'nft.getNFTTransfersFromToBlock',
       this.nft.getNFTTransfersFromToBlock,
@@ -131,7 +139,7 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `token.getTokenTransfers()`.
      */
-    getTokenAddressTransfers: warning(
+    getTokenAddressTransfers: this.deprecationWarning(
       'token.getTokenAddressTransfers',
       'token.getTokenTransfers',
       this._token.getTokenTransfers,
@@ -139,15 +147,23 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `nft.getNFTMetadata()`.
      */
-    getTokenIdMetadata: warning('token.getTokenIdMetadata', 'nft.getNFTMetadata', this.nft.getNFTMetadata),
+    getTokenIdMetadata: this.deprecationWarning(
+      'token.getTokenIdMetadata',
+      'nft.getNFTMetadata',
+      this.nft.getNFTMetadata,
+    ),
     /**
      * @deprecated Replaced by `nft.getNFTTokenIdOwners()`.
      */
-    getTokenIdOwners: warning('token.getTokenIdOwners', 'nft.getNFTTokenIdOwners', this.nft.getNFTTokenIdOwners),
+    getTokenIdOwners: this.deprecationWarning(
+      'token.getTokenIdOwners',
+      'nft.getNFTTokenIdOwners',
+      this.nft.getNFTTokenIdOwners,
+    ),
     /**
      * @deprecated Replaced by `nft.getNFTTransfers()`.
      */
-    getWalletTokenIdTransfers: warning(
+    getWalletTokenIdTransfers: this.deprecationWarning(
       'token.getWalletTokenIdTransfers',
       'nft.getNFTTransfers',
       this.nft.getNFTTransfers,
@@ -155,15 +171,15 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `nft.reSyncMetadata()`.
      */
-    reSyncMetadata: warning('token.reSyncMetadata', 'nft.reSyncMetadata', this.nft.reSyncMetadata),
+    reSyncMetadata: this.deprecationWarning('token.reSyncMetadata', 'nft.reSyncMetadata', this.nft.reSyncMetadata),
     /**
      * @deprecated Replaced by `nft.searchNFTs()`.
      */
-    searchNFTs: warning('token.searchNFTs', 'nft.searchNFTs', this.nft.searchNFTs),
+    searchNFTs: this.deprecationWarning('token.searchNFTs', 'nft.searchNFTs', this.nft.searchNFTs),
     /**
      * @deprecated Replaced by `nft.syncNFTContract()`.
      */
-    syncNFTContract: warning('token.syncNFTContract', 'nft.syncNFTContract', this.nft.syncNFTContract),
+    syncNFTContract: this.deprecationWarning('token.syncNFTContract', 'nft.syncNFTContract', this.nft.syncNFTContract),
   };
 
   public readonly defi = {
@@ -181,25 +197,46 @@ export class MoralisEvmApi extends ApiModule {
     getWalletTransactions: this.endpoints.createPaginatedFetcher(getWalletTransactions),
   };
 
-  public readonly account = {
+  public readonly balance = {
     getNativeBalance: this.endpoints.createFetcher(getNativeBalance),
+  };
 
+  /**
+   * @deprecated This property will be removed soon.
+   */
+  public readonly account = {
+    /**
+     * @deprecated Replaced by `balance.getNativeBalance()`.
+     */
+    getNativeBalance: this.deprecationWarning(
+      'account.getNativeBalance',
+      'balance.getNativeBalance',
+      this.balance.getNativeBalance,
+    ),
     /**
      * @deprecated Replaced by `nft.getWalletNFTs()`.
      */
-    getNFTs: warning('account.getNFTs', 'nft.getWalletNFTs', this.nft.getWalletNFTs),
+    getNFTs: this.deprecationWarning('account.getNFTs', 'nft.getWalletNFTs', this.nft.getWalletNFTs),
     /**
      * @deprecated Replaced by `nft.getWalletNFTs()`. Same func as `getWalletNFTs()`.
      */
-    getNFTsForContract: warning('account.getNFTsForContract', 'nft.getWalletNFTs', this.nft.getWalletNFTs),
+    getNFTsForContract: this.deprecationWarning(
+      'account.getNFTsForContract',
+      'nft.getWalletNFTs',
+      this.nft.getWalletNFTs,
+    ),
     /**
      * @deprecated Replaced by `nft.getWalletNFTTransfers()`.
      */
-    getNFTTransfers: warning('account.getNFTTransfers', 'nft.getWalletNFTTransfers', this.nft.getWalletNFTTransfers),
+    getNFTTransfers: this.deprecationWarning(
+      'account.getNFTTransfers',
+      'nft.getWalletNFTTransfers',
+      this.nft.getWalletNFTTransfers,
+    ),
     /**
      * @deprecated Replaced by `token.getWalletTokenBalances()`.
      */
-    getTokenBalances: warning(
+    getTokenBalances: this.deprecationWarning(
       'account.getTokenBalances',
       'token.getWalletTokenBalances',
       this.token.getWalletTokenBalances,
@@ -207,7 +244,7 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `token.getWalletTokenTransfers()`.
      */
-    getTokenTransfers: warning(
+    getTokenTransfers: this.deprecationWarning(
       'account.getTokenTransfers',
       'token.getWalletTokenTransfers',
       this.token.getWalletTokenTransfers,
@@ -215,7 +252,7 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `transaction.getWalletTransactions()`.
      */
-    getTransactions: warning(
+    getTransactions: this.deprecationWarning(
       'account.getTransactions',
       'transaction.getWalletTransactions',
       this.transaction.getWalletTransactions,
@@ -232,8 +269,18 @@ export class MoralisEvmApi extends ApiModule {
     resolveDomain: this.endpoints.createNullableFetcher(resolveDomain),
   };
 
-  public readonly storage = {
+  public readonly ipfs = {
     uploadFolder: this.endpoints.createFetcher(uploadFolder),
+  };
+
+  /**
+   * @deprecated This property will be removed soon.
+   */
+  public readonly storage = {
+    /**
+     * @deprecated Replaced by `storage.uploadFolder()`.
+     */
+    uploadFolder: this.deprecationWarning('storage.uploadFolder', 'ipfs.uploadFolder', this.ipfs.uploadFolder),
   };
 
   private readonly _utils = {
@@ -254,23 +301,31 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `block.getDateToBlock()`.
      */
-    getDateToBlock: warning('native.getDateToBlock', 'block.getDateToBlock', this.block.getDateToBlock),
+    getDateToBlock: this.deprecationWarning('native.getDateToBlock', 'block.getDateToBlock', this.block.getDateToBlock),
     /**
      * @deprecated Replaced by `block.getBlock()`.
      */
-    getBlock: warning('native.getBlock', 'block.getBlock', this.block.getBlock),
+    getBlock: this.deprecationWarning('native.getBlock', 'block.getBlock', this.block.getBlock),
     /**
      * @deprecated Replaced by `events.getContractEvents()`.
      */
-    getContractEvents: warning('native.getContractEvents', 'events.getContractEvents', this.events.getContractEvents),
+    getContractEvents: this.deprecationWarning(
+      'native.getContractEvents',
+      'events.getContractEvents',
+      this.events.getContractEvents,
+    ),
     /**
      * @deprecated Replaced by `events.getContractLogs()`.
      */
-    getLogsByAddress: warning('native.getLogsByAddress', 'events.getContractLogs', this.events.getContractLogs),
+    getLogsByAddress: this.deprecationWarning(
+      'native.getLogsByAddress',
+      'events.getContractLogs',
+      this.events.getContractLogs,
+    ),
     /**
      * @deprecated Replaced by `nft.getNFTTransfersByBlock()`.
      */
-    getNFTTransfersByBlock: warning(
+    getNFTTransfersByBlock: this.deprecationWarning(
       'native.getNFTTransfersByBlock',
       'nft.getNFTTransfersByBlock',
       this.nft.getNFTTransfersByBlock,
@@ -278,11 +333,15 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `transaction.getTransaction()`.
      */
-    getTransaction: warning('native.getTransaction', 'transaction.getTransaction', this.transaction.getTransaction),
+    getTransaction: this.deprecationWarning(
+      'native.getTransaction',
+      'transaction.getTransaction',
+      this.transaction.getTransaction,
+    ),
     /**
      * @deprecated Replaced by `utils.runContractFunction()`.
      */
-    runContractFunction: warning(
+    runContractFunction: this.deprecationWarning(
       'native.runContractFunction',
       'utils.runContractFunction',
       this.utils.runContractFunction,
@@ -296,24 +355,25 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `utils.endpointWeights()`.
      */
-    endpointWeights: () => warning('info.endpointWeights', 'utils.endpointWeights', this._utils.endpointWeights)({}),
+    endpointWeights: () =>
+      this.deprecationWarning('info.endpointWeights', 'utils.endpointWeights', this._utils.endpointWeights)({}),
     /**
      * @deprecated Replaced by `utils.web3ApiVersion()`.
      */
-    web3ApiVersion: () => warning('info.web3ApiVersion', 'utils.web3ApiVersion', this._utils.web3ApiVersion)({}),
+    web3ApiVersion: () =>
+      this.deprecationWarning('info.web3ApiVersion', 'utils.web3ApiVersion', this._utils.web3ApiVersion)({}),
   };
+
+  private deprecationWarning<Params, Response>(
+    oldName: string,
+    newName: string,
+    fetcher: Fetcher<Params, Response>,
+  ): Fetcher<Params, Response> {
+    return (params: Params) => {
+      this.core.logger.warn(`${oldName}() is depreciated and will be removed soon. Please use ${newName}()`);
+      return fetcher(params);
+    };
+  }
 }
 
 type Fetcher<Params, Response> = (params: Params) => Promise<Response>;
-
-function warning<Params, Response>(
-  oldName: string,
-  newName: string,
-  fetcher: Fetcher<Params, Response>,
-): Fetcher<Params, Response> {
-  return (params: Params) => {
-    // eslint-disable-next-line no-console
-    console.warn(`[Moralis] ${oldName}() is depreciated and will be removed soon. Please use ${newName}()`);
-    return fetcher(params);
-  };
-}
