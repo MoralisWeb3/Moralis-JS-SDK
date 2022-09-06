@@ -11,7 +11,7 @@ describe('SolAddress', () => {
     '5JQ8Mhdp2wv3HWcfjq9Ts8kwzCAeBADFBDAgBznzRsE4', // program
     'AMM55ShdkoGRB5jVYPjWziwk8m5MpwyDgsMWHaMSQWH6', // program
     '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM', // account
-    '9QgXqrgdbVU8KcpfskqJpAXKzbaYQJecgMAruSWoXDkM' // stake account (not on the curve)
+    '9QgXqrgdbVU8KcpfskqJpAXKzbaYQJecgMAruSWoXDkM', // stake account (not on the curve)
   ];
 
   for (const address of addresses) {
@@ -26,9 +26,7 @@ describe('SolAddress', () => {
   }
 
   it('create() throws an error when a passed address is invalid', () => {
-    expect(() => SolAddress.create('5x')).toThrowError(
-      'Invalid Solana address provided',
-    );
+    expect(() => SolAddress.create('5x')).toThrowError('Invalid Solana address provided');
   });
 
   it('create() does not create a new instance when SolAddress passed', () => {

@@ -36,7 +36,7 @@ export class SolAddress implements MoralisData {
       throw new MoralisCoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: `Invalid Solana address provided: ${address}`,
-        cause: e
+        cause: e,
       });
     }
   }
