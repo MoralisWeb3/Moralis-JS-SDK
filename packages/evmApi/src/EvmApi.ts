@@ -370,7 +370,7 @@ export class MoralisEvmApi extends ApiModule {
     fetcher: Fetcher<Params, Response>,
   ): Fetcher<Params, Response> {
     return (params: Params) => {
-      this.core.logger.warn(`${oldName}() is depreciated and will be removed soon. Please use ${newName}()`);
+      this.logger.warn(`${oldName}() is depreciated and will be removed soon. Please use ${newName}()`);
       return fetcher(params);
     };
   }
