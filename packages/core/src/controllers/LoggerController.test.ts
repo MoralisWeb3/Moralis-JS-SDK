@@ -1,25 +1,33 @@
+import { CoreConfig } from '../Config/CoreConfig';
+import { Config } from '../Config/Config';
 import { CoreErrorCode, MoralisError } from '../Error';
-import { makeMockMoralisCore } from '../test/makeMockMoralisCore';
-import { Logger } from './LoggerController';
+import { LoggerController } from './LoggerController';
 
 const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
 const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
 const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
-describe('LoggerController', () => {
-  const name = 'testLogger';
-  const core = makeMockMoralisCore();
-  const logger = new Logger(core, name);
+describe('Logger', () => {
+  const NAME = 'testLogger';
+
+  let config: Config;
+  let logger: LoggerController;
+
+  beforeAll(() => {
+    config = new Config();
+    config.registerKey(CoreConfig.logLevel);
+    logger = new LoggerController(NAME, config);
+  });
 
   beforeEach(() => {
-    core.config.reset();
+    config.reset();
     consoleLogSpy.mockClear();
     consoleWarnSpy.mockClear();
     consoleErrorSpy.mockClear();
   });
 
   it('should create a new logger with the set logLevel', () => {
-    core.config.set('logLevel', 'info');
+    config.set(CoreConfig.logLevel, 'info');
     expect(logger.level).toBe('info');
   });
 
@@ -28,7 +36,7 @@ describe('LoggerController', () => {
   });
 
   it('should create a normal log for verbose', () => {
-    core.config.set('logLevel', 'verbose');
+    config.set(CoreConfig.logLevel, 'verbose');
     logger.verbose('Verbose test');
 
     expect(consoleLogSpy).toBeCalledTimes(1);
@@ -36,7 +44,7 @@ describe('LoggerController', () => {
   });
 
   it('should create a normal log for debug', () => {
-    core.config.set('logLevel', 'verbose');
+    config.set(CoreConfig.logLevel, 'verbose');
     logger.debug('Debug test');
 
     expect(consoleLogSpy).toBeCalledTimes(1);
@@ -65,7 +73,7 @@ describe('LoggerController', () => {
   });
 
   it('should not log when loglevel is OFF', () => {
-    core.config.set('logLevel', 'off');
+    config.set(CoreConfig.logLevel, 'off');
 
     logger.error('Error test');
     logger.warn('Warning test');
@@ -79,7 +87,7 @@ describe('LoggerController', () => {
   });
 
   it('should only log errors when loglevel is ERROR', () => {
-    core.config.set('logLevel', 'error');
+    config.set(CoreConfig.logLevel, 'error');
 
     logger.error('Error test');
     logger.warn('Warning test');
@@ -93,7 +101,7 @@ describe('LoggerController', () => {
   });
 
   it('should only log up to warnings when loglevel is WARNING', () => {
-    core.config.set('logLevel', 'warning');
+    config.set(CoreConfig.logLevel, 'warning');
 
     logger.error('Error test');
     logger.warn('Warning test');
@@ -107,7 +115,7 @@ describe('LoggerController', () => {
   });
 
   it('should only log up to info when loglevel is INFO', () => {
-    core.config.set('logLevel', 'info');
+    config.set(CoreConfig.logLevel, 'info');
 
     logger.error('Error test');
     logger.warn('Warning test');
@@ -121,7 +129,7 @@ describe('LoggerController', () => {
   });
 
   it('should only log up to debugs when loglevel is DEBUG', () => {
-    core.config.set('logLevel', 'debug');
+    config.set(CoreConfig.logLevel, 'debug');
 
     logger.error('Error test');
     logger.warn('Warning test');
@@ -135,7 +143,7 @@ describe('LoggerController', () => {
   });
 
   it('should log everything when loglevel is VERBOSE', () => {
-    core.config.set('logLevel', 'verbose');
+    config.set(CoreConfig.logLevel, 'verbose');
 
     logger.error('Error test');
     logger.warn('Warning test');

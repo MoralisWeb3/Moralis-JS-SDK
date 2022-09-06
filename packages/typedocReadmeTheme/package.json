@@ -1,0 +1,27 @@
+{
+  "name": "@moralisweb3/typedoc-readme-theme",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "predocs": "tsc",
+    "docs": "typedoc src --plugin dist/index.js",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx"
+  },
+  "peerDependencies": {
+    "typedoc": ">=0.23.0",
+    "typedoc-plugin-markdown": ">=3.13.4"
+  },
+  "devDependencies": {
+    "typedoc-plugin-markdown": "^3.13.4"
+  },
+  "keywords": [
+    "typedoc",
+    "typedoc-theme"
+  ],
+  "engines": {
+    "node": ">= 14"
+  }
+}

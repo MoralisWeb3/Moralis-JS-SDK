@@ -1,54 +1,41 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('getNFTLowestPrice', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
-  it('should get NFT lowest price', async () => {
-    const result = await EvmApi.token.getNFTLowestPrice({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
-      days: 3,
+  it('returns a data', async () => {
+    const response = await evmApi.nft.getNFTLowestPrice({
+      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
     });
+    const result = response?.result!;
 
     expect(result).toBeDefined();
-    expect(result.raw.price).toBe('10000000000000000');
-    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.result.blockNumber.toString()).toBe('15401671');
+    expect(result.result.blockHash).toBe('0x69de52caa13ac1c165d6b408a47f7ed79cef12280d1d26099d9c0d2b63b52626');
+    expect(result.result.price.wei).toBe('66990000000000000000');
   });
 
-  it('should not get NFT lowest price of an invalid account and throw an error ', async () => {
-    const failedResult = await EvmApi.token
-      .getNFTLowestPrice({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        days: 3,
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns HTTP 404', async () => {
+    const response = await evmApi.nft.getNFTLowestPrice({
+      address: '0x4044044044044044044044044044044044044040',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      EvmApi.token.getNFTLowestPrice({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        days: 3,
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response).toBeNull();
+  });
+
+  it('returns null when API returns false-positive not found', async () => {
+    const response = await evmApi.nft.getNFTLowestPrice({
+      address: '0x2000000000000000000404404404404404404404',
+    });
+    expect(response).toBeNull();
   });
 });

@@ -1,28 +1,19 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('getTokenTransfers', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should get the token address transfers of an account', async () => {
-    const result = await EvmApi.token.getTokenAddressTransfers({
+    const result = await evmApi.token.getTokenTransfers({
       address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
     });
 
@@ -32,8 +23,8 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the token address transfers of an invalid account and throw an error ', async () => {
-    const failedResult = await EvmApi.token
-      .getTokenAddressTransfers({
+    const failedResult = await evmApi.token
+      .getTokenTransfers({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
       })
       .then()
@@ -43,7 +34,7 @@ describe('Moralis EvmApi', () => {
 
     expect(failedResult).toBeDefined();
     expect(
-      EvmApi.token.getTokenAddressTransfers({
+      evmApi.token.getTokenTransfers({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);

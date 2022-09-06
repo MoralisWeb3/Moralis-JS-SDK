@@ -1,51 +1,43 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('getTransaction', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
-  it('should get the transaction of an account', async () => {
-    const result = await EvmApi.native.getTransaction({
-      transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5',
+  it('returns null when API returns HTTP 404', async () => {
+    const response = await evmApi.transaction.getTransaction({
+      transactionHash: '0x4044044044044044044044044044044044044044044044044044044044044040',
     });
 
-    expect(result).toBeDefined();
-    expect(result.raw.gas).toBe('247689');
-    expect(result).toEqual(expect.objectContaining({}));
+    expect(response).toBeNull();
   });
 
-  it('should not get the transaction of an invalid hash and throw an error ', async () => {
-    const failedResult = await EvmApi.native
-      .getTransaction({
-        transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns false-positive not found', async () => {
+    const response = await evmApi.transaction.getTransaction({
+      transactionHash: '0x2000000000000000000000000000040440440440440440440440440440440440',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      EvmApi.native.getTransaction({
-        transactionHash: '0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response).toBeNull();
+  });
+
+  it('returns properly transaction', async () => {
+    const response = await evmApi.transaction.getTransaction({
+      transactionHash: '0x2c1150c5c8403d10714f840eb032a75f91f906c539601a4fc45835a1b830400e',
+    });
+    const result = response!.result;
+
+    expect(result).toBeDefined();
+    expect(result.hash).toEqual('0x2c1150c5c8403d10714f840eb032a75f91f906c539601a4fc45835a1b830400e');
+    expect(result.nonce?.toString()).toEqual('4074269');
+    expect(result.gas?.toString()).toEqual('1000000');
+    expect(result.gasPrice?.toString()).toEqual('16772103359');
   });
 });

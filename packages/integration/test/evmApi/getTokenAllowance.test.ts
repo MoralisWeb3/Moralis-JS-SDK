@@ -1,57 +1,25 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('getTokenAllowance', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
-  it('should get the token allowance of an account', async () => {
-    const result = await EvmApi.token.getTokenAllowance({
-      address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      ownerAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      spenderAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+  it('returns a data', async () => {
+    const result = await evmApi.token.getTokenAllowance({
+      address: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+      ownerAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+      spenderAddress: '0xfc0cb34deae994432fe8a11bf54d90bdf54ca8c1',
     });
 
     expect(result).toBeDefined();
-    expect(result.raw.allowance).toBe('10');
-    expect(result).toEqual(expect.objectContaining({}));
-  });
-
-  it('should not get the token allowance of an invalid account and throw an error ', async () => {
-    const failedResult = await EvmApi.token
-      .getTokenAllowance({
-        address: '0xdAC17F958D2ee523a2206206994597C13D831ec',
-        ownerAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        spenderAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
-
-    expect(failedResult).toBeDefined();
-    expect(
-      EvmApi.token.getTokenAllowance({
-        address: '0xdAC17F958D2ee523a2206206994597C13D831ec',
-        ownerAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        spenderAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(result.result.allowance.toString()).toEqual('0');
   });
 });

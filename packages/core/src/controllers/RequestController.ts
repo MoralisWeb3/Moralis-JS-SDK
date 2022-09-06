@@ -1,9 +1,10 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { CoreErrorCode, MoralisCoreError } from '../Error';
 import { AxiosRetry, AxiosRetryConfig } from './AxiosRetry';
-import core from '../MoralisCore';
 import { isTest } from '../environment/isTest';
 import { noop } from '../utils/noop';
+import { MoralisCore } from '../MoralisCore';
+import { LoggerController } from './LoggerController';
 
 export interface RequestOptions {
   headers?: { [name: string]: string };
@@ -14,8 +15,14 @@ export interface RequestOptions {
  * compatible with browser, nodejJs and react-native
  */
 export class RequestController {
-  private static async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
-    core.logger.verbose('[RequestController] request started', {
+  public static create(core: MoralisCore): RequestController {
+    return new RequestController(core.logger);
+  }
+
+  private constructor(private readonly logger: LoggerController) {}
+
+  private async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
+    this.logger.verbose('[RequestController] request started', {
       url: config.url,
       method: config.method,
       body: config.data,
@@ -26,7 +33,7 @@ export class RequestController {
       allowedMethods: ['GET', 'OPTIONS'],
       allowedResponseStatuses: [408, 413, 429, 500, 502, 503, 504],
       beforeRetry: (attempt: number, error: AxiosError) => {
-        core.logger.verbose('[RequestController] request retry', {
+        this.logger.verbose('[RequestController] request retry', {
           url: config.url,
           method: config.method,
           body: config.data,
@@ -53,7 +60,7 @@ export class RequestController {
     } catch (e) {
       const error = this.makeError(e);
 
-      core.logger.verbose('[RequestController] request error', {
+      this.logger.verbose('[RequestController] request error', {
         url: config.url,
         method: config.method,
         body: config.data,
@@ -65,7 +72,7 @@ export class RequestController {
     }
   }
 
-  private static makeError(error: unknown): MoralisCoreError {
+  private makeError(error: unknown): MoralisCoreError {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       return new MoralisCoreError({
@@ -75,7 +82,7 @@ export class RequestController {
         details: {
           status: axiosError.response?.status,
           request: axiosError.request,
-          response: axiosError.request,
+          response: axiosError.response,
         },
       });
     }
@@ -88,50 +95,50 @@ export class RequestController {
     });
   }
 
-  static post<Response, Params extends Record<string, string>, Body extends Record<string, unknown>>(
+  public post<Response, Body extends Record<string, unknown>>(
     url: string,
-    params?: Params,
+    searchParams?: Record<string, unknown>,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
     return this.request<Body, Response>({
       url,
+      params: searchParams,
       method: 'POST',
       data: body,
-      params,
       headers: options?.headers,
       signal: abortSignal,
     });
   }
 
-  static put<Response, Params extends Record<string, string>, Body extends Record<string, unknown>>(
+  public put<Response, Body extends Record<string, unknown>>(
     url: string,
-    params?: Params,
+    searchParams?: Record<string, unknown>,
     body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
     return this.request<Body, Response>({
       url,
+      params: searchParams,
       method: 'PUT',
       data: body,
-      params,
       headers: options?.headers,
       signal: abortSignal,
     });
   }
 
-  static async get<Response, Params extends Record<string, string>>(
+  public async get<Response>(
     url: string,
-    params?: Params,
+    searchParams?: Record<string, unknown>,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
     return this.request<unknown, Response>({
       url,
+      params: searchParams,
       method: 'GET',
-      params,
       headers: options?.headers,
       signal: abortSignal,
     });

@@ -1,51 +1,43 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('getBlock', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
-  it('should get the block of an account', async () => {
-    const result = await EvmApi.native.getBlock({
-      blockNumberOrHash: '1000000',
+  it('returns null when API returns HTTP 404', async () => {
+    const response = await evmApi.block.getBlock({
+      blockNumberOrHash: '404',
     });
 
-    expect(result).toBeDefined();
-    expect(result.raw.hash).toBe('0x8e38b4dbf6b11fcc3b9dee84fb7986e29ca0a02cecd8977c161ff7333329681e');
-    expect(result).toEqual(expect.objectContaining({}));
+    expect(response).toBeNull();
   });
 
-  it('should not get the block of an hash and throw an error ', async () => {
-    const failedResult = await EvmApi.native
-      .getBlock({
-        blockNumberOrHash: '100000',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+  it('returns null when API returns false-positive not found', async () => {
+    const response = await evmApi.block.getBlock({
+      blockNumberOrHash: '200404',
+    });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      EvmApi.native.getBlock({
-        blockNumberOrHash: '100000',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response).toBeNull();
+  });
+
+  it('returns a block', async () => {
+    const response = await evmApi.block.getBlock({
+      blockNumberOrHash: '15416422',
+    });
+    const result = response!.result.result;
+
+    expect(result).toBeDefined();
+    expect(result.number.toString()).toEqual('15416422');
+    expect(result.hash).toEqual('0xea1f77d395510ac0ef2db2aed828caf92d2c7ba4ce5632ab23b5f7078a5d6a49');
+    expect(result.transactionCount).toEqual(303);
+    expect(result.transactions.length).toEqual(1);
   });
 });

@@ -5,69 +5,69 @@
 
 export interface paths {
   "/block/{block_number_or_hash}": {
-    /** Gets the contents of a block by block hash */
+    /** Get the contents of a block by block hash. */
     get: operations["getBlock"];
   };
   "/dateToBlock": {
-    /** Gets the closest block of the provided date */
+    /** Get the closest block of the provided date. */
     get: operations["getDateToBlock"];
   };
   "/{address}/logs": {
-    /** Gets the logs from an address */
+    /** Get the logs for an address. */
     get: operations["getLogsByAddress"];
   };
   "/block/{block_number_or_hash}/nft/transfers": {
-    /** Gets NFT transfers by block number or block hash */
+    /** Get NFT transfers by block number or block hash. */
     get: operations["getNFTTransfersByBlock"];
   };
   "/transaction/{transaction_hash}": {
-    /** Gets the contents of a block transaction by hash */
+    /** Get the contents of a transaction by transaction hash. */
     get: operations["getTransaction"];
   };
   "/{address}/events": {
-    /** Gets events in descending order based on block number */
+    /** Get events for a specific contract ordered by block number in descending order. */
     post: operations["getContractEvents"];
   };
   "/{address}/function": {
-    /** Runs a given function of a contract abi and returns readonly data */
+    /** Run a given function of a contract abi and retrieve readonly data. */
     post: operations["runContractFunction"];
   };
   "/{address}": {
-    /** Gets native transactions in descending order based on block number */
+    /** Get native transactions ordered by block number in descending order. */
     get: operations["getTransactions"];
   };
   "/{address}/balance": {
-    /** Gets native balance for a specific address */
+    /** Get native balance for a specific address. */
     get: operations["getNativeBalance"];
   };
   "/{address}/erc20": {
-    /** Gets token balances for a specific address */
+    /** Get token balances for a specific address. */
     get: operations["getTokenBalances"];
   };
   "/{address}/erc20/transfers": {
-    /** Gets ERC20 token transactions in descending order based on block number */
+    /** Get ERC20 token transactions ordered by block number in descending order. */
     get: operations["getTokenTransfers"];
   };
   "/{address}/nft": {
     /**
-     * Gets NFTs owned by the given address
+     * Get NFTs owned by a given address.
      * * The response will include status [SYNCED/SYNCING] based on the contracts being indexed.
      * * Use the token_address param to get results for a specific contract only
      * * Note results will include all indexed NFTs
-     * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested
+     * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
      */
     get: operations["getNFTs"];
   };
   "/{address}/nft/transfers": {
-    /** Gets the transfers of the tokens matching the given parameters */
+    /** Get the transfers of the tokens matching the given parameters. */
     get: operations["getNFTTransfers"];
   };
   "/{address}/nft/{token_address}": {
     /**
-     * Gets NFTs owned by the given address
+     * Get NFTs owned by the given address for a specific NFT contract address.
      * * Use the token_address param to get results for a specific contract only
      * * Note results will include all indexed NFTs
-     * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested
+     * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
      */
     get: operations["getNFTsForContract"];
   };
@@ -76,60 +76,59 @@ export interface paths {
     get: operations["getTokenMetadata"];
   };
   "/nft/{address}/trades": {
-    /** Get the nft trades for a given contracts and marketplace */
+    /** Get the nft trades for a given contract and marketplace. */
     get: operations["getNFTTrades"];
   };
   "/nft/{address}/lowestprice": {
-    /** Get the lowest price found for a nft token contract for the last x days (only trades paid in ETH) */
+    /** Get the lowest executed price for an NFT token contract for the last x days (only trades paid in ETH). */
     get: operations["getNFTLowestPrice"];
   };
   "/erc20/metadata/symbols": {
-    /** Returns metadata (name, symbol, decimals, logo) for a given token contract address. */
+    /** Get metadata (name, symbol, decimals, logo) for a list of token symbols. */
     get: operations["getTokenMetadataBySymbol"];
   };
   "/erc20/{address}/price": {
-    /** Returns the price nominated in the native token and usd for a given token contract address. */
+    /** Get the token price denominated in the blockchains native token and USD. */
     get: operations["getTokenPrice"];
   };
   "/erc20/{address}/transfers": {
-    /** Gets ERC20 token contract transactions in descending order based on block number */
+    /** Get ERC20 token transactions ordered by block number in descending order. */
     get: operations["getTokenAddressTransfers"];
   };
   "/erc20/{address}/allowance": {
-    /** Gets the amount which the spender is allowed to withdraw from the spender */
+    /** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
     get: operations["getTokenAllowance"];
   };
   "/nft/search": {
-    /** Gets NFTs that match a given metadata search. */
+    /** Get NFTs that match a given metadata search query. */
     get: operations["searchNFTs"];
   };
   "/nft/transfers": {
-    /** Gets the transfers of the tokens from a block number to a block number */
+    /** Gets the transfers of the tokens from a block number to a block number. */
     get: operations["getNftTransfersFromToBlock"];
   };
   "/nft/{address}": {
     /**
-     * Gets data, including metadata (where available), for all token ids for the given contract address.
+     * Get all NFTs, including metadata (where available), for all NFTs for the given contract address.
      * * Results are limited to 100 per page by default
-     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
      */
     get: operations["getAllTokenIds"];
   };
   "/nft/{address}/transfers": {
-    /** Gets the transfers of the tokens matching the given parameters */
+    /** Get the transfers of the tokens matching the given parameters. */
     get: operations["getContractNFTTransfers"];
   };
   "/nft/{address}/owners": {
     /**
-     * Gets all owners of NFT items within a given contract collection
-     * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+     * Get all owners of NFTs within a given contract.
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
      */
     get: operations["getNFTOwners"];
   };
   "/nft/{address}/metadata": {
     /**
-     * Gets the contract level metadata (name, symbol, base token uri) for the given contract
+     * Get the contract level metadata (name, symbol, base token uri) for the given contract
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getNFTMetadata"];
@@ -145,34 +144,33 @@ export interface paths {
     get: operations["reSyncMetadata"];
   };
   "/nft/{address}/sync": {
-    /** Sync a Contract for NFT Index */
+    /** Initiates a metadata refresh for an entire NFT collection. */
     put: operations["syncNFTContract"];
   };
   "/nft/{address}/{token_id}": {
     /**
-     * Gets data, including metadata (where available), for the given token id of the given contract address.
+     * Get NFT data, including metadata (where available), for the given NFT token id of the given contract address.
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getTokenIdMetadata"];
   };
   "/nft/{address}/{token_id}/owners": {
     /**
-     * Gets all owners of NFT items within a given contract collection
-     * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
+     * Get all owners of a specific NFT given the contract address and token ID.
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
     get: operations["getTokenIdOwners"];
   };
   "/nft/{address}/{token_id}/transfers": {
-    /** Gets the transfers of the tokens matching the given parameters */
+    /** Get the transfers of an NFT given a conttract address and token ID. */
     get: operations["getWalletTokenIdTransfers"];
   };
   "/resolve/{domain}": {
-    /** Resolves an Unstoppable domain and returns the address */
+    /** Resolve an Unstoppable domain and get the address. */
     get: operations["resolveDomain"];
   };
   "/resolve/{address}/reverse": {
-    /** Resolves an ETH address and find the ENS name */
+    /** Resolve an ETH address and find the ENS name. */
     get: operations["resolveAddress"];
   };
   "/{pair_address}/reserves": {
@@ -181,13 +179,13 @@ export interface paths {
   };
   "/{token0_address}/{token1_address}/pairAddress": {
     /**
-     * Fetches and returns pair data of the provided token0+token1 combination.
+     * Fetch the pair data of the provided token0+token1 combination.
      * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
      */
     get: operations["getPairAddress"];
   };
   "/ipfs/uploadFolder": {
-    /** Uploads multiple files and place them in a folder directory */
+    /** Upload multiple files to IPFS and place them in a folder directory. */
     post: operations["uploadFolder"];
   };
   "/web3/version": {
@@ -257,6 +255,7 @@ export interface components {
       topic1: string;
       /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
       topic2: string;
+      /** @example null */
       topic3: string;
     };
     logEvent: {
@@ -267,7 +266,7 @@ export interface components {
       transaction_hash: string;
       /**
        * @description The address of the contract
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0x18F97EF6B2cbac5CA85b375b7093C4A207340d06
        */
       address: string;
       /**
@@ -321,6 +320,7 @@ export interface components {
       topic1?: string;
       /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
       topic2?: string;
+      /** @example null */
       topic3?: string;
       /**
        * @description The timestamp of the block
@@ -379,7 +379,9 @@ export interface components {
       receipt_cumulative_gas_used: string;
       /** @example 21000 */
       receipt_gas_used: string;
+      /** @example null */
       receipt_contract_address?: string;
+      /** @example null */
       receipt_root?: string;
       /** @example 1 */
       receipt_status: string;
@@ -497,12 +499,12 @@ export interface components {
     RunContractDto: {
       /**
        * @description The contract abi
-       * @example
+       * @example []
        */
       abi: { [key: string]: unknown };
       /**
        * @description The params for the given function
-       * @example [object Object]
+       * @example {}
        */
       params?: { [key: string]: unknown };
     };
@@ -663,7 +665,10 @@ export interface components {
       transaction_index: string;
       /**
        * @description The token id(s) traded
-       * @example 15,54
+       * @example [
+       *   "15",
+       *   "54"
+       * ]
        */
       token_ids: unknown[];
       /**
@@ -753,11 +758,13 @@ export interface components {
       | "fantom"
       | "0xfa"
       | "cronos"
-      | "0x19";
+      | "0x19"
+      | "cronos testnet"
+      | "0x152";
     nft: {
       /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
        */
       token_address: string;
       /**
@@ -765,6 +772,26 @@ export interface components {
        * @example 15
        */
       token_id: string;
+      /**
+       * @description The owner wallet address of the NFT
+       * @example 0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b
+       */
+      owner_of?: string;
+      /**
+       * @description The token hash
+       * @example 502cee781b0fb40ea02508b21d319ced
+       */
+      token_hash?: string;
+      /**
+       * @description The block number when the amount or owner changed
+       * @example 88256
+       */
+      block_number?: string;
+      /**
+       * @description The block number when the NFT was minted
+       * @example 88256
+       */
+      block_number_minted?: string;
       /**
        * @description The type of NFT contract standard
        * @example ERC721
@@ -840,12 +867,15 @@ export interface components {
       metadata_attributes: string;
       /** @example 14265936 */
       block_number_minted: string;
+      /** @example null */
       opensea_lookup?: { [key: string]: unknown };
       /** @example 0xdcf086e3f7954b38180daae1405569da86588bfe */
       minter_address: string;
       /** @example 0x2c8d7ec7a8439b0f67b50e93be63242de52e9b5cdfc7dc0aee80c6a2f104c41a */
       transaction_minted: string;
+      /** @example null */
       frozen_log_index?: { [key: string]: unknown };
+      /** @example null */
       imported?: { [key: string]: unknown };
       /**
        * @description When the token_uri was last updated
@@ -909,7 +939,7 @@ export interface components {
     nftOwner: {
       /**
        * @description The address of the contract of the NFT
-       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
        */
       token_address: string;
       /**
@@ -1053,7 +1083,7 @@ export interface components {
       /** @description The transaction type */
       transaction_type?: string;
       /** @description The transaction index */
-      transaction_index?: string;
+      transaction_index?: number;
       /** @description The log index */
       log_index: number;
       /**
@@ -1371,6 +1401,7 @@ export interface components {
         thumbnail?: string;
         /** @example 14836562 */
         block_number?: string;
+        /** @example 0 */
         validated?: number;
         /** @example 2022-01-20T09:39:55.818Z */
         created_at?: string;
@@ -1442,14 +1473,17 @@ export interface components {
        * @example 1
        */
       rateLimitWeight: string;
-      /** @description The number of hits the requests counts for billing */
+      /**
+       * @description The number of hits the requests counts for billing
+       * @example 0
+       */
       price: string;
     };
   };
 }
 
 export interface operations {
-  /** Gets the contents of a block by block hash */
+  /** Get the contents of a block by block hash. */
   getBlock: {
     parameters: {
       query: {
@@ -1472,7 +1506,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the closest block of the provided date */
+  /** Get the closest block of the provided date. */
   getDateToBlock: {
     parameters: {
       query: {
@@ -1493,7 +1527,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the logs from an address */
+  /** Get the logs for an address. */
   getLogsByAddress: {
     parameters: {
       query: {
@@ -1541,9 +1575,9 @@ export interface operations {
         topic2?: string;
         /** topic3 */
         topic3?: string;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -1552,7 +1586,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the logs of an address */
+      /** Returns the logs for an address */
       200: {
         content: {
           "application/json": components["schemas"]["logCollection"];
@@ -1560,7 +1594,7 @@ export interface operations {
       };
     };
   };
-  /** Gets NFT transfers by block number or block hash */
+  /** Get NFT transfers by block number or block hash. */
   getNFTTransfersByBlock: {
     parameters: {
       query: {
@@ -1568,9 +1602,9 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The subdomain of the moralis server to use (Only use when selecting local devchain as chain) */
         subdomain?: string;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -1587,7 +1621,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the contents of a block transaction by hash */
+  /** Get the contents of a transaction by transaction hash. */
   getTransaction: {
     parameters: {
       query: {
@@ -1610,7 +1644,7 @@ export interface operations {
       };
     };
   };
-  /** Gets events in descending order based on block number */
+  /** Get events for a specific contract ordered by block number in descending order. */
   getContractEvents: {
     parameters: {
       query: {
@@ -1648,7 +1682,7 @@ export interface operations {
         topic: string;
         /** offset */
         offset?: number;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
       };
       path: {
@@ -1660,7 +1694,24 @@ export interface operations {
       /** Returns a collection of events by topic */
       200: {
         content: {
-          "application/json": components["schemas"]["logEvent"][];
+          "application/json": {
+            /**
+             * @description The total number of matches for this query
+             * @example 2000
+             */
+            total?: number;
+            /**
+             * @description The page of the current result
+             * @example 2
+             */
+            page?: number;
+            /**
+             * @description The number of results per page
+             * @example 100
+             */
+            page_size?: number;
+            result?: components["schemas"]["logEvent"][];
+          };
         };
       };
     };
@@ -1671,7 +1722,7 @@ export interface operations {
       };
     };
   };
-  /** Runs a given function of a contract abi and returns readonly data */
+  /** Run a given function of a contract abi and retrieve readonly data. */
   runContractFunction: {
     parameters: {
       query: {
@@ -1704,7 +1755,7 @@ export interface operations {
       };
     };
   };
-  /** Gets native transactions in descending order based on block number */
+  /** Get native transactions ordered by block number in descending order. */
   getTransactions: {
     parameters: {
       query: {
@@ -1736,9 +1787,9 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** The cursor returned in the last response (for getting the next page) */
-        cursor?: unknown;
-        /** limit */
+        /** The cursor returned in the previous response (used to getting the next page). */
+        cursor?: string;
+        /** The desired page size of the result. */
         limit?: number;
       };
       path: {
@@ -1755,7 +1806,7 @@ export interface operations {
       };
     };
   };
-  /** Gets native balance for a specific address */
+  /** Get native balance for a specific address. */
   getNativeBalance: {
     parameters: {
       query: {
@@ -1780,7 +1831,7 @@ export interface operations {
       };
     };
   };
-  /** Gets token balances for a specific address */
+  /** Get token balances for a specific address. */
   getTokenBalances: {
     parameters: {
       query: {
@@ -1807,7 +1858,7 @@ export interface operations {
       };
     };
   };
-  /** Gets ERC20 token transactions in descending order based on block number */
+  /** Get ERC20 token transactions ordered by block number in descending order. */
   getTokenTransfers: {
     parameters: {
       query: {
@@ -1839,9 +1890,9 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -1859,11 +1910,11 @@ export interface operations {
     };
   };
   /**
-   * Gets NFTs owned by the given address
+   * Get NFTs owned by a given address.
    * * The response will include status [SYNCED/SYNCING] based on the contracts being indexed.
    * * Use the token_address param to get results for a specific contract only
    * * Note results will include all indexed NFTs
-   * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested
+   * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
    */
   getNFTs: {
     parameters: {
@@ -1872,11 +1923,11 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
         /** The addresses to get balances for (Optional) */
         token_addresses?: string[];
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -1893,7 +1944,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the transfers of the tokens matching the given parameters */
+  /** Get the transfers of the tokens matching the given parameters. */
   getNFTTransfers: {
     parameters: {
       query: {
@@ -1903,9 +1954,17 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The transfer direction */
         direction?: "both" | "to" | "from";
-        /** limit */
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_block?: number;
+        /** To get the reserves at this block number */
+        to_block?: string;
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -1914,7 +1973,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns a collection of NFT transfer */
+      /** Returns a collection of NFT transfers */
       200: {
         content: {
           "application/json": components["schemas"]["nftTransferCollection"];
@@ -1923,10 +1982,10 @@ export interface operations {
     };
   };
   /**
-   * Gets NFTs owned by the given address
+   * Get NFTs owned by the given address for a specific NFT contract address.
    * * Use the token_address param to get results for a specific contract only
    * * Note results will include all indexed NFTs
-   * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested
+   * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
    */
   getNFTsForContract: {
     parameters: {
@@ -1935,9 +1994,9 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
       };
       path: {
@@ -1971,7 +2030,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns metadata (name, symbol, decimals, logo) for a given token contract address. */
+      /** Get metadata (name, symbol, decimals, logo) for a given ERC20 token contract address. */
       200: {
         content: {
           "application/json": components["schemas"]["erc20Metadata"][];
@@ -1979,7 +2038,7 @@ export interface operations {
       };
     };
   };
-  /** Get the nft trades for a given contracts and marketplace */
+  /** Get the nft trades for a given contract and marketplace. */
   getNFTTrades: {
     parameters: {
       query: {
@@ -2009,9 +2068,9 @@ export interface operations {
         provider_url?: string;
         /** marketplace from where to get the trades (only opensea is supported at the moment) */
         marketplace?: "opensea";
-        /** cursor */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
       };
       path: {
@@ -2028,7 +2087,7 @@ export interface operations {
       };
     };
   };
-  /** Get the lowest price found for a nft token contract for the last x days (only trades paid in ETH) */
+  /** Get the lowest executed price for an NFT token contract for the last x days (only trades paid in ETH). */
   getNFTLowestPrice: {
     parameters: {
       query: {
@@ -2058,7 +2117,7 @@ export interface operations {
       };
     };
   };
-  /** Returns metadata (name, symbol, decimals, logo) for a given token contract address. */
+  /** Get metadata (name, symbol, decimals, logo) for a list of token symbols. */
   getTokenMetadataBySymbol: {
     parameters: {
       query: {
@@ -2079,7 +2138,7 @@ export interface operations {
       };
     };
   };
-  /** Returns the price nominated in the native token and usd for a given token contract address. */
+  /** Get the token price denominated in the blockchains native token and USD. */
   getTokenPrice: {
     parameters: {
       query: {
@@ -2098,7 +2157,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the price nominated in the native token and usd for a given token contract address */
+      /** Returns the price denominated in the blockchains native token and USD for a given token contract address */
       200: {
         content: {
           "application/json": components["schemas"]["erc20Price"];
@@ -2106,7 +2165,7 @@ export interface operations {
       };
     };
   };
-  /** Gets ERC20 token contract transactions in descending order based on block number */
+  /** Get ERC20 token transactions ordered by block number in descending order. */
   getTokenAddressTransfers: {
     parameters: {
       query: {
@@ -2140,7 +2199,7 @@ export interface operations {
         to_date?: string;
         /** offset */
         offset?: number;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
       };
       path: {
@@ -2157,7 +2216,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the amount which the spender is allowed to withdraw from the spender */
+  /** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
   getTokenAllowance: {
     parameters: {
       query: {
@@ -2176,7 +2235,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the amount which the spender is allowed to withdraw from the owner.. */
+      /** Returns the amount which the spender is allowed to withdraw on behalf of the owner. */
       200: {
         content: {
           "application/json": components["schemas"]["erc20Allowance"];
@@ -2184,7 +2243,7 @@ export interface operations {
       };
     };
   };
-  /** Gets NFTs that match a given metadata search. */
+  /** Get NFTs that match a given metadata search query. */
   searchNFTs: {
     parameters: {
       query: {
@@ -2230,11 +2289,11 @@ export interface operations {
         to_date?: string;
         /** The addresses to get metadata for */
         addresses?: string[];
-        /** token_address */
+        /** The token contract address */
         token_address?: string;
-        /** cursor */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
       };
     };
@@ -2247,7 +2306,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the transfers of the tokens from a block number to a block number */
+  /** Gets the transfers of the tokens from a block number to a block number. */
   getNftTransfersFromToBlock: {
     parameters: {
       query: {
@@ -2279,9 +2338,9 @@ export interface operations {
         to_date?: string;
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (for getting the next page) */
         cursor?: string;
       };
     };
@@ -2295,9 +2354,9 @@ export interface operations {
     };
   };
   /**
-   * Gets data, including metadata (where available), for all token ids for the given contract address.
+   * Get all NFTs, including metadata (where available), for all NFTs for the given contract address.
    * * Results are limited to 100 per page by default
-   * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+   * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
    */
   getAllTokenIds: {
     parameters: {
@@ -2306,9 +2365,13 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The number of subranges to split the results into */
+        totalRanges?: number;
+        /** The desired subrange to query */
+        range?: number;
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -2325,7 +2388,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the transfers of the tokens matching the given parameters */
+  /** Get the transfers of the tokens matching the given parameters. */
   getContractNFTTransfers: {
     parameters: {
       query: {
@@ -2333,9 +2396,9 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -2353,9 +2416,8 @@ export interface operations {
     };
   };
   /**
-   * Gets all owners of NFT items within a given contract collection
-   * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
-   * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+   * Get all owners of NFTs within a given contract.
+   * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
    */
   getNFTOwners: {
     parameters: {
@@ -2364,9 +2426,9 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -2384,7 +2446,7 @@ export interface operations {
     };
   };
   /**
-   * Gets the contract level metadata (name, symbol, base token uri) for the given contract
+   * Get the contract level metadata (name, symbol, base token uri) for the given contract
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getNFTMetadata: {
@@ -2452,7 +2514,7 @@ export interface operations {
       };
     };
   };
-  /** Sync a Contract for NFT Index */
+  /** Initiates a metadata refresh for an entire NFT collection. */
   syncNFTContract: {
     parameters: {
       query: {
@@ -2470,7 +2532,7 @@ export interface operations {
     };
   };
   /**
-   * Gets data, including metadata (where available), for the given token id of the given contract address.
+   * Get NFT data, including metadata (where available), for the given NFT token id of the given contract address.
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getTokenIdMetadata: {
@@ -2489,7 +2551,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the specified NFT */
+      /** Returns the specified NFT. */
       200: {
         content: {
           "application/json": components["schemas"]["nft"];
@@ -2498,8 +2560,7 @@ export interface operations {
     };
   };
   /**
-   * Gets all owners of NFT items within a given contract collection
-   * * Use after /nft/contract/{token_address} to find out who owns each token id in a collection
+   * Get all owners of a specific NFT given the contract address and token ID.
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
   getTokenIdOwners: {
@@ -2509,9 +2570,9 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -2522,7 +2583,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns a collection of NFTs with their respective owners */
+      /** Returns a collection of NFTs with their respective owners. */
       200: {
         content: {
           "application/json": components["schemas"]["nftOwnerCollection"];
@@ -2530,7 +2591,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the transfers of the tokens matching the given parameters */
+  /** Get the transfers of an NFT given a conttract address and token ID. */
   getWalletTokenIdTransfers: {
     parameters: {
       query: {
@@ -2538,11 +2599,11 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token id */
         format?: "decimal" | "hex";
-        /** limit */
+        /** The desired page size of the result. */
         limit?: number;
         /** The field(s) to order on and if it should be ordered in ascending or descending order. Specified by: fieldName1.order,fieldName2.order. Example 1: "block_number", "block_number.ASC", "block_number.DESC", Example 2: "block_number and contract_type", "block_number.ASC,contract_type.DESC" */
         order?: string;
-        /** The cursor returned in the last response (for getting the next page) */
+        /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
       };
       path: {
@@ -2561,7 +2622,7 @@ export interface operations {
       };
     };
   };
-  /** Resolves an Unstoppable domain and returns the address */
+  /** Resolve an Unstoppable domain and get the address. */
   resolveDomain: {
     parameters: {
       query: {
@@ -2588,7 +2649,7 @@ export interface operations {
       };
     };
   };
-  /** Resolves an ETH address and find the ENS name */
+  /** Resolve an ETH address and find the ENS name. */
   resolveAddress: {
     parameters: {
       path: {
@@ -2631,13 +2692,18 @@ export interface operations {
       /** Returns the pair reserves */
       200: {
         content: {
-          "application/json": components["schemas"]["reservesCollection"];
+          "application/json": {
+            /** @example 220969226548536862025877 */
+            reserve0?: string;
+            /** @example 844810441191293211036 */
+            reserve1?: string;
+          };
         };
       };
     };
   };
   /**
-   * Fetches and returns pair data of the provided token0+token1 combination.
+   * Fetch the pair data of the provided token0+token1 combination.
    * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
    */
   getPairAddress: {
@@ -2670,7 +2736,7 @@ export interface operations {
       };
     };
     responses: {
-      /** Returns the pair address of the two tokens */
+      /** Returns the pair address of the two tokens. */
       200: {
         content: {
           "application/json": components["schemas"]["reservesCollection"];
@@ -2678,7 +2744,7 @@ export interface operations {
       };
     };
   };
-  /** Uploads multiple files and place them in a folder directory */
+  /** Upload multiple files to IPFS and place them in a folder directory. */
   uploadFolder: {
     responses: {
       /** Returns the path to the uploaded files */
@@ -2697,7 +2763,7 @@ export interface operations {
   };
   web3ApiVersion: {
     responses: {
-      /** Returns the web3 api version */
+      /** Get the current version of the Moralis Web3 API. */
       200: {
         content: {
           "application/json": components["schemas"]["web3version"];
@@ -2707,7 +2773,7 @@ export interface operations {
   };
   endpointWeights: {
     responses: {
-      /** Returns the endpoint price list for rate limits and costs */
+      /** Get the endpoint price list for rate limits and cost. */
       200: {
         content: {
           "application/json": components["schemas"]["endpointWeights"][];

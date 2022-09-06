@@ -1,7 +1,5 @@
-import Core from '@moralisweb3/core';
-import EvmApi from '@moralisweb3/evm-api';
-import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequests';
+import MoralisEvmApi from '@moralisweb3/evm-api';
+import { cleanEvmApi, setupEvmApi } from './setup';
 
 const ABI = [
   {
@@ -10,26 +8,19 @@ const ABI = [
   },
 ];
 
-describe('Moralis EvmApi', () => {
-  const server = mockServer;
+describe('uploadFolder', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    Core.registerModules([EvmApi]);
-    Core.start({
-      apiKey: MOCK_API_KEY,
-    });
-
-    server.listen({
-      onUnhandledRequest: 'warn',
-    });
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    server.close();
+    cleanEvmApi();
   });
 
   it('should Uploads multiple files and place them in a folder directory', async () => {
-    const result = await EvmApi.storage.uploadFolder({
+    const result = await evmApi.ipfs.uploadFolder({
       abi: ABI,
     });
 
@@ -44,7 +35,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not Uploads multiple files and place them in a folder directory ', async () => {
-    const failedResult = await EvmApi.storage
+    const failedResult = await evmApi.ipfs
       .uploadFolder({
         abi: ABI,
       })

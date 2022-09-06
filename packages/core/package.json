@@ -1,42 +1,35 @@
 {
   "name": "@moralisweb3/core",
   "author": "Moralis",
-  "version": "2.0.0-alpha.1",
+  "version": "2.2.0",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "lib/index.*",
-    "lib/**/*.d.ts",
-    "dist"
+    "lib/*"
   ],
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit",
-    "test:ci": "yarn test --ci",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
-    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
-    "build": "rollup -c",
-    "build:dev": "dev=true rollup -c",
-    "dev": "rollup -c --watch"
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "devDependencies": {
+    "@moralisweb3/eslint-config": "^1.0.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-jest": "^26.8.3",
     "prettier": "^2.5.1",
-    "typed-emitter": "^2.1.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@ethersproject/address": "^5.6.0",
-    "@ethersproject/bignumber": "^5.6.0",
-    "@ethersproject/units": "^5.6.0",
-    "@ethersproject/transactions": "^5.6.0",
-    "@xstate/fsm": "^2.0.0",
+    "axios": "^0.27.2",
     "eventemitter3": "^4.0.7",
-    "axios": "^0.27.2"
+    "typed-emitter": "^2.1.0"
   }
 }

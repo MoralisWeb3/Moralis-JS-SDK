@@ -1,8 +1,8 @@
-import { BigNumber } from 'ethers';
+import { BigNumber, Camelize } from '@moralisweb3/core';
+import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
+import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../../generated/types';
-import { EvmResolver } from '../Resolver';
-import { EvmAddress, EvmAddressish, EvmChainish, Camelize } from '@moralisweb3/core';
-import { resolveDefaultChain } from '../../utils/resolveDefaultParams';
+import { EvmChainResolver } from '../EvmChainResolver';
 
 type operation = 'getTokenAllowance';
 
@@ -19,20 +19,23 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'owner_addres
   spenderAddress: EvmAddressish;
 }
 
-export const getTokenAllowanceResolver = new EvmResolver({
-  name: 'getTokenAllowance',
-  getPath: (params: Params) => `erc20/${params.address}/allowance`,
-  apiToResult: (data: ApiResult) => ({
-    allowance: BigNumber.from(data.allowance),
+export const getTokenAllowance = createEndpointFactory((core) =>
+  createEndpoint({
+    name: 'getTokenAllowance',
+    urlParams: ['address'],
+    getUrl: (params: Params) => `/erc20/${params.address}/allowance`,
+    apiToResult: (data: ApiResult) => ({
+      allowance: BigNumber.create(data.allowance),
+    }),
+    resultToJson: (data) => ({
+      allowance: data.allowance.toString(),
+    }),
+    parseParams: (params: Params): ApiParams => ({
+      ...params,
+      chain: EvmChainResolver.resolve(params.chain, core).apiHex,
+      address: EvmAddress.create(params.address, core).lowercase,
+      owner_address: EvmAddress.create(params.ownerAddress, core).lowercase,
+      spender_address: EvmAddress.create(params.spenderAddress, core).lowercase,
+    }),
   }),
-  resultToJson: (data) => ({
-    allowance: data.allowance.toString(),
-  }),
-  parseParams: (params: Params): ApiParams => ({
-    ...params,
-    chain: resolveDefaultChain(params.chain).apiHex,
-    address: EvmAddress.create(params.address).lowercase,
-    owner_address: EvmAddress.create(params.ownerAddress).lowercase,
-    spender_address: EvmAddress.create(params.spenderAddress).lowercase,
-  }),
-});
+);

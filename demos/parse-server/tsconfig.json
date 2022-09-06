@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "outDir": "build",
+    "declaration": true,
+    "declarationDir": "build",
+    "sourceMap": true,
+    "target": "es2017",
+    "rootDir": "src",
+    "esModuleInterop": true
+  },
+  "include": ["src"]
+}
