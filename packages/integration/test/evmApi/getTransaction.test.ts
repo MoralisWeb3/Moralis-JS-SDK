@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getTransaction', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns HTTP 404', async () => {
-    const response = await evmApi.native.getTransaction({
+    const response = await evmApi.transaction.getTransaction({
       transactionHash: '0x4044044044044044044044044044044044044044044044044044044044044040',
     });
 
@@ -21,7 +21,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns false-positive not found', async () => {
-    const response = await evmApi.native.getTransaction({
+    const response = await evmApi.transaction.getTransaction({
       transactionHash: '0x2000000000000000000000000000040440440440440440440440440440440440',
     });
 
@@ -29,7 +29,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns properly transaction', async () => {
-    const response = await evmApi.native.getTransaction({
+    const response = await evmApi.transaction.getTransaction({
       transactionHash: '0x2c1150c5c8403d10714f840eb032a75f91f906c539601a4fc45835a1b830400e',
     });
     const result = response!.result;

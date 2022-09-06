@@ -17,16 +17,18 @@ describe('tryGetNextPageParams', () => {
       return [currentParams, result];
     }
 
-    it('returns params when next page exists', () => {
-      const [currentParams, result] = createData(950, 9, 100);
-      const nextParams = tryGetNextPageParams(currentParams, result);
-      expect(nextParams?.cursor).toEqual('0x2');
-    });
+    describe('firstPageIndex=1', () => {
+      it('returns params when next page exists', () => {
+        const [currentParams, result] = createData(950, 9, 100);
+        const nextParams = tryGetNextPageParams(1, currentParams, result);
+        expect(nextParams?.cursor).toEqual('0x2');
+      });
 
-    it('returns null when next page does not exist', () => {
-      const [currentParams, result] = createData(950, 10, 100);
-      const nextParams = tryGetNextPageParams(currentParams, result);
-      expect(nextParams).toBeNull();
+      it('returns null when next page does not exist', () => {
+        const [currentParams, result] = createData(950, 10, 100);
+        const nextParams = tryGetNextPageParams(1, currentParams, result);
+        expect(nextParams).toBeNull();
+      });
     });
   });
 
@@ -46,16 +48,18 @@ describe('tryGetNextPageParams', () => {
       return [currentParams, result];
     }
 
-    it('returns params when next page exists', () => {
-      const [currentParams, result] = createData(950, 9, 100);
-      const nextParams = tryGetNextPageParams(currentParams, result);
-      expect(nextParams?.offset).toEqual(1000);
-    });
+    describe('firstPageIndex=1', () => {
+      it('returns params when next page exists', () => {
+        const [currentParams, result] = createData(950, 9, 100);
+        const nextParams = tryGetNextPageParams(1, currentParams, result);
+        expect(nextParams?.offset).toEqual(1000);
+      });
 
-    it('returns null when next page does not exist', () => {
-      const [currentParams, result] = createData(950, 10, 100);
-      const nextParams = tryGetNextPageParams(currentParams, result);
-      expect(nextParams).toBeNull();
+      it('returns null when next page does not exist', () => {
+        const [currentParams, result] = createData(950, 10, 100);
+        const nextParams = tryGetNextPageParams(1, currentParams, result);
+        expect(nextParams).toBeNull();
+      });
     });
   });
 });

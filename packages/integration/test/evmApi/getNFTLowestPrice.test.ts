@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getNFTLowestPrice', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns a data', async () => {
-    const response = await evmApi.token.getNFTLowestPrice({
+    const response = await evmApi.nft.getNFTLowestPrice({
       address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
     });
     const result = response?.result!;
@@ -25,7 +25,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns HTTP 404', async () => {
-    const response = await evmApi.token.getNFTLowestPrice({
+    const response = await evmApi.nft.getNFTLowestPrice({
       address: '0x4044044044044044044044044044044044044040',
     });
 
@@ -33,7 +33,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns false-positive not found', async () => {
-    const response = await evmApi.token.getNFTLowestPrice({
+    const response = await evmApi.nft.getNFTLowestPrice({
       address: '0x2000000000000000000404404404404404404404',
     });
     expect(response).toBeNull();

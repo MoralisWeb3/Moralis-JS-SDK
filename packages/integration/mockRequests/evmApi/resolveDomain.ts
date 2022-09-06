@@ -22,5 +22,5 @@ export const mockResolveDomain = rest.get(`${EVM_API_ROOT}/resolve/:domain`, (re
     return res(ctx.status(404));
   }
 
-  throw new Error('Not supported scenario');
+  throw new Error('resolveDomain: Not supported scenario');
 });
