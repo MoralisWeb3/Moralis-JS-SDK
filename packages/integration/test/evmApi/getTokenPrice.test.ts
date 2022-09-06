@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getTokenPrice', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {

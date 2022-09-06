@@ -22,5 +22,5 @@ export const mockResolveAddress = rest.get(`${EVM_API_ROOT}/resolve/:address/rev
     );
   }
 
-  throw new Error('Not supported scenario');
+  throw new Error('resolveAddress: Not supported scenario');
 });

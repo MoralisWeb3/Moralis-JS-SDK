@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getNFTTransfersFromToBlock', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should get the NFT transfers from to block of a hash', async () => {
-    const result = await evmApi.token.getNftTransfersFromToBlock({
+    const result = await evmApi.nft.getNFTTransfersFromToBlock({
       address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
       fromBlock: 1,
     });
@@ -24,8 +24,8 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get the NFT transfers from to block of an invalid block number and throw an error ', async () => {
-    const failedResult = await evmApi.token
-      .getNftTransfersFromToBlock({
+    const failedResult = await evmApi.nft
+      .getNFTTransfersFromToBlock({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         fromBlock: 1,
       })
@@ -35,7 +35,7 @@ describe('Moralis EvmApi', () => {
       });
     expect(failedResult).toBeDefined();
     expect(
-      evmApi.token.getNftTransfersFromToBlock({
+      evmApi.nft.getNFTTransfersFromToBlock({
         address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         fromBlock: 1,
       }),

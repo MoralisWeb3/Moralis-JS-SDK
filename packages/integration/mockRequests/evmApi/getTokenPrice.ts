@@ -21,5 +21,5 @@ export const mockGetTokenPrice = rest.get(`${EVM_API_ROOT}/erc20/:address/price`
     );
   }
 
-  throw new Error('Not supported scenario');
+  throw new Error('getTokenPrice: Not supported scenario');
 });
