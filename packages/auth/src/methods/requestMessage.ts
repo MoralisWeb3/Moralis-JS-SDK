@@ -1,11 +1,13 @@
+import { SolAddressish, SolNetworkish, SolAddress, SolNetwork } from '@moralisweb3/sol-utils';
 import { EndpointResolver } from '@moralisweb3/api-utils';
 import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../MoralisAuth';
-import { initializeChallenge } from '../resolvers/evmRequestChallenge';
+import { initializeChallengeEvm, initializeChallengeSol } from '../resolvers';
 
 export enum AuthNetwork {
   EVM = 'evm',
+  SOLANA = 'solana',
 }
 
 // Imported from Swagger and adjusted for better types for Evm
@@ -15,34 +17,62 @@ export interface RequestMessageEvmOptions {
   domain: string;
   chain: EvmChainish;
   address: EvmAddressish;
-  statement?: string | undefined;
+  statement?: string;
   uri: string;
   // TODO: allow Also Date input (and dates-string)
   expirationTime?: string;
   // TODO: allow Also Date input (and dates-string)
   notBefore?: string;
-  resources?: string[] | undefined;
+  resources?: string[];
   timeout: number;
 }
 
-export type RequestMessageOptions = RequestMessageEvmOptions;
+export interface RequestMessageSolOptions {
+  network: 'solana';
+  domain: string;
+  solNetwork: SolNetworkish;
+  address: SolAddressish;
+  statement?: string;
+  uri: string;
+  // TODO: allow Also Date input (and dates-string)
+  expirationTime?: string;
+  // TODO: allow Also Date input (and dates-string)
+  notBefore?: string;
+  resources?: string[];
+  timeout: number;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type RequestMessageOptions = RequestMessageEvmOptions | RequestMessageSolOptions;
+
 const makeEvmRequestMessage = (
   core: MoralisCore,
   { chain, address, network, ...options }: RequestMessageEvmOptions,
 ) => {
-  return EndpointResolver.create(core, BASE_URL, initializeChallenge).fetch({
-    chainId: EvmChain.create(chain).decimal,
+  return EndpointResolver.create(core, BASE_URL, initializeChallengeEvm).fetch({
+    // TODO: remove this when the API is fixed
+    chainId: EvmChain.create(chain).decimal as any,
     address: EvmAddress.create(address).checksum,
+    ...options,
+  });
+};
+
+const makeSolRequestMessage = (
+  core: MoralisCore,
+  { address, solNetwork, network, ...options }: RequestMessageSolOptions,
+) => {
+  return EndpointResolver.create(core, BASE_URL, initializeChallengeSol).fetch({
+    network: SolNetwork.create(solNetwork).network,
+    address: SolAddress.create(address).toString(),
     ...options,
   });
 };
 
 export const makeRequestMessage = (core: MoralisCore) => (options: RequestMessageOptions) => {
   switch (options.network) {
-    case 'evm':
+    case AuthNetwork.EVM:
       return makeEvmRequestMessage(core, options);
+    case AuthNetwork.SOLANA:
+      return makeSolRequestMessage(core, options);
     default:
       throw new MoralisAuthError({
         code: AuthErrorCode.INCORRECT_NETWORK,

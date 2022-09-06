@@ -1,9 +1,9 @@
+import { SolNetwork, SolAddress } from '@moralisweb3/sol-utils';
 import { maybe, toCamelCase } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../generated/types';
 
-const name = 'verifyChallengeEvm';
+const name = 'verifyChallengeSolana';
 
 type Name = typeof name;
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
@@ -14,21 +14,20 @@ const bodyParams = ['message', 'signature'] as const;
 
 type ApiResult = operations[Name]['responses']['201']['content']['application/json'];
 
-export const completeChallengeEvm = createEndpointFactory(() =>
+export const completeChallengeSol = createEndpointFactory(() =>
   createEndpoint({
-    name: 'Verify Challenge (EVM)',
-    getUrl: () => `/challenge/verify/evm`,
-    apiToResult: ({ chainId, ...data }: ApiResult) => ({
+    name: 'Verify Challenge (Solana)',
+    getUrl: () => `/challenge/verify/solana`,
+    apiToResult: ({ network, ...data }: ApiResult) => ({
       ...data,
-      // TODO: revisit EVM logic once we know how authentication in other networks work
-      chain: EvmChain.create(chainId),
-      solNetwork: undefined,
-      address: EvmAddress.create(data.address),
+      solNetwork: SolNetwork.create(network),
+      chain: undefined,
+      address: SolAddress.create(data.address),
       expirationTime: maybe(data.expirationTime, (value) => new Date(value)),
     }),
     resultToJson: (result) => ({
       ...toCamelCase(result),
-      chain: result.chain.format(),
+      solNetwork: result.solNetwork.format(),
       address: result.address.format(),
     }),
     parseParams: (params: Params): ApiParams => params,

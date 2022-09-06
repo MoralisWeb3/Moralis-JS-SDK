@@ -2,7 +2,7 @@ import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { toCamelCase } from '@moralisweb3/core';
 import { operations } from '../generated/types';
 
-const name = 'requestChallengeEvm';
+const name = 'requestChallengeSolana';
 
 type Name = typeof name;
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
@@ -10,7 +10,7 @@ type ApiParams = BodyParams;
 const method = 'post';
 const bodyParams = [
   'domain',
-  'chainId',
+  'network',
   'address',
   'statement',
   'uri',
@@ -31,10 +31,10 @@ const apiToResult = (apiData: ApiResult) => {
   };
 };
 
-export const initializeChallengeEvm = createEndpointFactory(() =>
+export const initializeChallengeSol = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: () => `/challenge/request/evm`,
+    getUrl: () => `/challenge/request/solana`,
     apiToResult,
     resultToJson: (data) => ({
       ...data,
