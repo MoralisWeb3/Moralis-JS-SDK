@@ -15,13 +15,13 @@ async function main() {
     apiKey: env['MORALIS_API_KEY'],
   });
 
-  const block = await Moralis.EvmApi.native.getBlock({
+  const block = await Moralis.EvmApi.block.getBlock({
     blockNumberOrHash: '15305775',
     chain: '0x1',
   });
   console.log(block);
 
-  const weights = await Moralis.EvmApi.info.endpointWeights();
+  const weights = await Moralis.EvmApi.utils.endpointWeights();
   console.log(weights.result);
 }
 
