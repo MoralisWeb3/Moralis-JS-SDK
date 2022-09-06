@@ -8,6 +8,7 @@ export enum EndpointBodyType {
 }
 
 export interface Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
+  name: string;
   getUrl: (params: Params) => string;
   apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
@@ -16,7 +17,7 @@ export interface Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResul
   urlParams?: readonly (keyof Params)[];
   bodyParams?: readonly (keyof Params)[];
   bodyType?: EndpointBodyType;
-  name: string;
+  firstPageIndex?: number;
 }
 
 export type EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> = (

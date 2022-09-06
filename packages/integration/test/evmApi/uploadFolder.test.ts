@@ -8,7 +8,7 @@ const ABI = [
   },
 ];
 
-describe('Moralis EvmApi', () => {
+describe('uploadFolder', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -20,7 +20,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should Uploads multiple files and place them in a folder directory', async () => {
-    const result = await evmApi.storage.uploadFolder({
+    const result = await evmApi.ipfs.uploadFolder({
       abi: ABI,
     });
 
@@ -35,7 +35,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not Uploads multiple files and place them in a folder directory ', async () => {
-    const failedResult = await evmApi.storage
+    const failedResult = await evmApi.ipfs
       .uploadFolder({
         abi: ABI,
       })

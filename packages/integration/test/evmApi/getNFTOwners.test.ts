@@ -1,7 +1,8 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
+import { EvmNft } from '@moralisweb3/evm-utils';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getNFTOwners', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -12,34 +13,32 @@ describe('Moralis EvmApi', () => {
     cleanEvmApi();
   });
 
-  it('should get NFT owners', async () => {
-    const result = await evmApi.token.getNFTOwners({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
-      format: 'decimal',
+  function assertOwner(nft: EvmNft) {
+    expect(nft.blockNumber?.toString()).toEqual('15458263');
+    expect(nft.name).toEqual('BoredApeYachtClub');
+    expect(nft.contractType).toEqual('ERC721');
+    expect(nft.symbol).toEqual('BAYC');
+  }
+
+  it('returns owners with pagination', async () => {
+    let response = await evmApi.nft.getNFTOwners({
+      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
     });
 
-    expect(result).toBeDefined();
-    expect(result.raw.total).toBe(10);
-    expect(result).toEqual(expect.objectContaining({}));
-  });
+    expect(response.pagination.total).toEqual(150);
+    expect(response.pagination.page).toEqual(1);
+    expect(response.pagination.pageSize).toEqual(100);
+    expect(response.result.length).toEqual(100);
+    expect(response.hasNext()).toEqual(true);
+    assertOwner(response.result[0]);
 
-  it('should not get NFT owners of an invalid address and throw an error ', async () => {
-    const failedResult = await evmApi.token
-      .getNFTOwners({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        format: 'decimal',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
+    response = await response.next();
 
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.token.getNFTOwners({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        format: 'decimal',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    expect(response.pagination.total).toEqual(150);
+    expect(response.pagination.page).toEqual(2);
+    expect(response.pagination.pageSize).toEqual(100);
+    expect(response.result.length).toEqual(50);
+    expect(response.hasNext()).toEqual(false);
+    assertOwner(response.result[0]);
   });
 });

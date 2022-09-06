@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getNFTMetadata', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns a metadata', async () => {
-    const response = await evmApi.token.getTokenIdMetadata({
+    const response = await evmApi.nft.getNFTMetadata({
       chain: '0x89',
       address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
       tokenId: '113461209507512867518933452141320285231135646094834536306130710983923277496520',
@@ -28,7 +28,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns HTTP 404', async () => {
-    const response = await evmApi.token.getTokenIdMetadata({
+    const response = await evmApi.nft.getNFTMetadata({
       address: '0x4044044044044044044044044044044044044040',
       tokenId: '0',
     });

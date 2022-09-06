@@ -1,10 +1,5 @@
-/* eslint-disable no-console */
 import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
-
-export const mockGetTokenMetadataBySymbols: Record<string, string> = {
-  LINK: '0x514910771af9ca656af840dff83e8264ecf986ca',
-};
 
 export const mockGetTokenMetadataBySymbol = rest.get(`${EVM_API_ROOT}/erc20/metadata/symbols`, (req, res, ctx) => {
   const symbols = req.url.searchParams.get('symbols[]') as string;
@@ -14,16 +9,25 @@ export const mockGetTokenMetadataBySymbol = rest.get(`${EVM_API_ROOT}/erc20/meta
     return res(ctx.status(401));
   }
 
-  const value = mockGetTokenMetadataBySymbols[symbols];
-
-  if (!value) {
-    return res(ctx.status(404));
+  if (symbols === 'SHIBA INU') {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          address: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+          name: 'SHIBA INU',
+          symbol: 'SHIB',
+          decimals: '18',
+          logo: 'https://cdn.moralis.io/eth/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce.png',
+          logo_hash: '0dba9c0d492b42b3a73c5ceee62b205568a8b5c1932cac048ccd71cbbe051690',
+          thumbnail: 'https://cdn.moralis.io/eth/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce_thumb.png',
+          block_number: null,
+          validated: null,
+          created_at: '2022-01-20T10:39:55.818Z',
+        },
+      ]),
+    );
   }
 
-  return res(
-    ctx.status(200),
-    ctx.json({
-      address: value,
-    }),
-  );
+  throw new Error('getTokenMetadataBySymbol: Not supported scenario');
 });
