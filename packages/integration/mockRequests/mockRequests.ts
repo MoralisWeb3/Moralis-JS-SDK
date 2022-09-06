@@ -74,7 +74,7 @@ const handlers = [
   mockSyncNFTContract,
   mockUploadFolder,
   mockWeb3ApiVersion,
-  mockGetWalletNFTCollections
+  mockGetWalletNFTCollections,
 ];
 
 export const mockServer = setupServer(...handlers);

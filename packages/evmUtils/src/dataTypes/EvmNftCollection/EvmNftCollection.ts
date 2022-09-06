@@ -39,7 +39,7 @@ export class EvmNftCollection implements MoralisDataObject {
     ...data,
     tokenAddress: EvmAddress.create(data.tokenAddress, core),
     chain: EvmChain.create(data.chain, core),
-    contractType: validateValidEvmContractType(data.contractType)
+    contractType: validateValidEvmContractType(data.contractType),
   });
 
   /**

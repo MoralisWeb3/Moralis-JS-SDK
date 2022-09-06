@@ -78,7 +78,7 @@ export class MoralisEvmApi extends ApiModule {
     getNFTTransfers: this.endpoints.createPaginatedFetcher(getNFTTransfers),
     syncNFTContract: this.endpoints.createFetcher(syncNFTContract),
     getNFTContractTransfers: this.endpoints.createPaginatedFetcher(getNFTContractTransfers),
-    getWalletNFTCollections: this.endpoints.createPaginatedFetcher(getWalletNFTCollections)
+    getWalletNFTCollections: this.endpoints.createPaginatedFetcher(getWalletNFTCollections),
   };
 
   private readonly _token = {

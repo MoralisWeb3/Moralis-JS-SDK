@@ -7,7 +7,7 @@ const collections: Record<string, any> = {
     page_size: 100,
     page: 1,
     status: 'SYNCED',
-    "cursor": null,
+    cursor: null,
     result: [
       {
         token_address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
@@ -18,7 +18,6 @@ const collections: Record<string, any> = {
     ],
   },
 };
-
 
 export const mockGetWalletNFTCollections = rest.get(`${EVM_API_ROOT}/:address/nft/collections`, (req, res, ctx) => {
   const address = req.params.address as string;
@@ -34,8 +33,5 @@ export const mockGetWalletNFTCollections = rest.get(`${EVM_API_ROOT}/:address/nf
     return res(ctx.status(404));
   }
 
-  return res(
-    ctx.status(200),
-    ctx.json(value),
-  );
+  return res(ctx.status(200), ctx.json(value));
 });

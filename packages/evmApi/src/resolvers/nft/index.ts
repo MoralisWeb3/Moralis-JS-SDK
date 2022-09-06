@@ -9,7 +9,7 @@ export { getNFTTrades } from './getNFTTrades';
 export { getNFTTransfers } from './getNFTTransfers';
 export { getNFTTransfersByBlock } from './getNFTTransfersByBlock';
 export { getNFTTransfersFromToBlock } from './getNFTTransfersFromToBlock';
-export { getWalletNFTCollections } from './getWalletNFTCollections'
+export { getWalletNFTCollections } from './getWalletNFTCollections';
 export { getWalletNFTs } from './getWalletNFTs';
 export { getWalletNFTTransfers } from './getWalletNFTTransfers';
 export { reSyncMetadata } from './reSyncMetadata';

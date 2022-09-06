@@ -36,9 +36,9 @@ describe('EvmNftCollection', () => {
   });
 
   it('should throw an error when creating with an invalid contractType', () => {
-    expect(() => EvmNftCollection.create({ ...exampleInput, contractType: 'ERC100' })).toThrowErrorMatchingInlineSnapshot(
-      `"[C0005] Invalid NFT contract type provided"`,
-    );
+    expect(() =>
+      EvmNftCollection.create({ ...exampleInput, contractType: 'ERC100' }),
+    ).toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid NFT contract type provided"`);
   });
 
   /**
@@ -50,11 +50,11 @@ describe('EvmNftCollection', () => {
     const value = collection.toJSON();
 
     expect(value).toStrictEqual({
-      "chain": "0x1",
-      "contractType": "ERC721",
-      "name": "Test NFT",
-      "symbol": "TEST",
-      "tokenAddress": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+      chain: '0x1',
+      contractType: 'ERC721',
+      name: 'Test NFT',
+      symbol: 'TEST',
+      tokenAddress: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     });
   });
 
@@ -64,7 +64,7 @@ describe('EvmNftCollection', () => {
     const value = collection.result;
 
     expect(value.chain.equals(exampleInput.chain)).toBeTruthy();
-    expect(value.contractType).toBe("ERC721");
+    expect(value.contractType).toBe('ERC721');
     expect(value.name).toBe('Test NFT');
     expect(value.symbol).toBe('TEST');
     expect(value.tokenAddress.equals(exampleInput.tokenAddress)).toBeTruthy();

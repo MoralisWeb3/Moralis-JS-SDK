@@ -1,4 +1,4 @@
-import { EvmAddressish, EvmAddress, } from '../EvmAddress';
+import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNftContractType } from '../EvmNftContractType';
 
@@ -16,7 +16,7 @@ import { EvmNftContractType } from '../EvmNftContractType';
  * ```
  */
 export interface EvmNftCollectionInput {
-  chain: EvmChainish,
+  chain: EvmChainish;
   contractType: string;
   name: string;
   symbol: string;
@@ -27,7 +27,7 @@ export interface EvmNftCollectionInput {
  * This is the return type of the processed EVM transaction
  */
 export interface EvmNftCollectionData {
-  chain: EvmChain,
+  chain: EvmChain;
   contractType: EvmNftContractType;
   name: string;
   symbol: string;
