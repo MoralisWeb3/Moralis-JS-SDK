@@ -1,9 +1,9 @@
 import { Actions } from 'node-plop';
 import { fileURLToPath } from 'node:url';
-import { getHookHame, getDomainFolderNames, getSDKCall, formatCapitalize, geAPIEndpoint } from './utils/namings';
+import { getHookHame, getDomainFolderNames, getSDKCall, formatCapitalize, geAPIEndpoint } from '../../utils/namings';
 import { NodePlopAPI } from 'plop';
 import fs from 'fs-extra';
-import getSDKPaths from './utils/getSDKPaths.cjs';
+import getSDKPaths from '../../utils/getSDKPaths.cjs';
 import path from 'node:path';
 
 //@ts-ignore
