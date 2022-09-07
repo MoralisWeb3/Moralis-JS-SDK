@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-console */
-// import _ from 'lodash';
-import ts from 'typescript';
-import { parseTypesOfTargetProperty } from './utils/utils';
 
-function getDescriptionsFromInterface(filename: string, interfaceName: string): Array<any> {
+// import { writeJsonSync } from 'fs-extra';
+import ts from 'typescript';
+import { getParsedPropsTypes, getTargetPropertyType } from './utils/utils';
+
+function parseGeneratedOpenApiActions(filename: string): Array<any> {
+  const interfaceName = 'operations';
   const program = ts.createProgram([filename], { emitDeclarationOnly: true });
   const sourceFile = program.getSourceFile(filename);
   if (!sourceFile) {
@@ -28,53 +30,30 @@ function getDescriptionsFromInterface(filename: string, interfaceName: string): 
   for (const prop of type.getProperties()) {
     const targetMethodType = typeChecker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!);
 
-    const propObj: any = {
+    const queryType = getTargetPropertyType(targetMethodType, 'query', typeChecker);
+    const pathType = getTargetPropertyType(targetMethodType, 'path', typeChecker);
+    const respType = getTargetPropertyType(targetMethodType, 'application/json', typeChecker);
+
+    const propObj = {
       name: prop.getName(),
       desc: ts.displayPartsToString(prop.getDocumentationComment(typeChecker)),
       parameters: {
-        query: [],
-        path: [],
+        query: queryType && getParsedPropsTypes(queryType, typeChecker),
+        path: pathType && getParsedPropsTypes(pathType, typeChecker),
       },
-      //   response,
+      response: respType && typeChecker.typeToString(respType),
     };
 
-    propObj.parameters.query = parseTypesOfTargetProperty(targetMethodType, 'query', typeChecker);
-    propObj.parameters.path = parseTypesOfTargetProperty(targetMethodType, 'path', typeChecker);
-    propObj.response = parseTypesOfTargetProperty(targetMethodType, 'application/json', typeChecker);
-    // console.log(lelX);
     fields.push(propObj);
-
-    // const parameters = targetMethodType.getProperty('parameters');
-    // if (!parameters) {
-    //   continue;
-    // }
-    // const parametersType = typeChecker.getTypeOfSymbolAtLocation(parameters, parameters.valueDeclaration!);
-
-    // /**
-    //  * Reading "parameters
-    //  */
-    // propObj.parameters.query = parseProperty(parametersType, 'query', typeChecker);
-    // propObj.parameters.path = parseProperty(parametersType, 'path', typeChecker);
-
-    // /**
-    //  * Reading response
-    //  */
-
-    // const responses = targetMethodType.getProperty('responses');
-    // if (!responses) {
-    //   continue;
-    // }
-    // const responsesType = typeChecker.getTypeOfSymbolAtLocation(responses, responses.valueDeclaration!);
-
-    // const wow = parseTypesOfTargetProperty(responsesType, 'application/json', typeChecker);
-    // console.log(!!wow);
-    // fields.push(propObj);
   }
 
   return fields;
 }
 
-const desc = getDescriptionsFromInterface('./packages/evmApi/src/generated/types.ts', 'operations');
-// console.log(desc);
+const desc = parseGeneratedOpenApiActions('./packages/evmApi/src/generated/types.ts');
+
+// writeJsonSync(file, object[, options] [, callback])
+
+console.log(desc);
 // write to file or console log
-console.log('desc: ', JSON.stringify(desc, null, 2));
+// console.log('desc: ', JSON.stringify(desc, null, 2));
