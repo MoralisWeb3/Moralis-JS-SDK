@@ -163,14 +163,14 @@ Parse.Cloud.define("getNFTTransfers", async ({params, user, ip}: any) => {
   }
 })
 
-Parse.Cloud.define("getNFTWalletCollections", async ({params, user, ip}: any) => {
+Parse.Cloud.define("getWalletNFTCollections", async ({params, user, ip}: any) => {
   try {
-    await beforeApiRequest(user, ip, 'getNFTWalletCollections');
+    await beforeApiRequest(user, ip, 'getWalletNFTCollections');
     //@ts-ignore
-    const result = await Moralis.EvmApi.account.getNFTWalletCollections(params);
+    const result = await Moralis.EvmApi.account.getWalletNFTCollections(params);
     return result?.raw;
   } catch (error) {
-    throw new Error(getErrorMessage(error, 'getNFTWalletCollections'));
+    throw new Error(getErrorMessage(error, 'getWalletNFTCollections'));
   }
 })
 
@@ -436,3 +436,4 @@ Parse.Cloud.define("endpointWeights", async ({params, user, ip}: any) => {
     throw new Error(getErrorMessage(error, 'endpointWeights'));
   }
 })
+

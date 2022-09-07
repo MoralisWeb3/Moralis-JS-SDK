@@ -84,14 +84,15 @@ Parse.Cloud.define("sol-getNFTMetadata", async ({params, user, ip}: any) => {
   }
 })
 
-Parse.Cloud.define("sol-getTokenPrice", async ({params, user, ip}: any) => {
-  try {
-    await beforeApiRequest(user, ip, 'getTokenPrice');
-    //@ts-ignore
-    const result = await Moralis.SolApi.token.getTokenPrice(params);
-    return result?.raw;
-  } catch (error) {
-    throw new Error(getErrorMessage(error, 'sol-getTokenPrice'));
-  }
-})
+// TODO: implement in SDK
+// Parse.Cloud.define("sol-getTokenPrice", async ({params, user, ip}: any) => {
+//   try {
+//     await beforeApiRequest(user, ip, 'getTokenPrice');
+    
+//     const result = await Moralis.SolApi.token.getTokenPrice(params);
+//     return result?.raw;
+//   } catch (error) {
+//     throw new Error(getErrorMessage(error, 'sol-getTokenPrice'));
+//   }
+// })
 

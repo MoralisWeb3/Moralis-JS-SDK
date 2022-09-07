@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // @ts-ignore
-import RedisCacheAdapter from 'parse-server';
+import { RedisCacheAdapter } from 'parse-server';
 import config from './config';
 
 const redisClient = new RedisCacheAdapter({ url: process.env.REDIS_CONNECTION_STRING });

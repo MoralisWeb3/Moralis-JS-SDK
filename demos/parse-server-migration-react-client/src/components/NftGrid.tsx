@@ -22,9 +22,8 @@ interface NftProps {
   address: string;
   id: string;
   type: string;
-  symbol?: string;
 }
-const Nft = ({ name, address, id, metadata, type, symbol }: NftProps) => {
+const Nft = ({ name, address, id, metadata, type }: NftProps) => {
   return (
     <Box backgroundColor="gray.100" borderRadius="8px" overflow="hidden">
       {metadata?.image && <Image src={metadata?.image.replace('ipfs://', 'https://ipfs.moralis.io:2053/ipfs/')} />}
@@ -97,7 +96,6 @@ export const NftGrid = ({ address, chain }: NftGridProps) => {
             address={nft.token_address}
             metadata={nft.metadata}
             type={nft.contract_type}
-            symbol={nft.symbol}
           />
         </GridItem>
       ))}

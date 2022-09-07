@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Spacer, HStack, Text, Flex, VStack } from '@chakra-ui/react';
+import { Container, Spacer, HStack, Text, Flex } from '@chakra-ui/react';
 import { Authenticate } from '../components/Authenticate';
 import { Connect } from '../components/Connect';
 import { MoralisLogo } from '../assets/MoralisLogo';

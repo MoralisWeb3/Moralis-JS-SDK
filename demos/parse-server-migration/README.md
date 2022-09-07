@@ -1,4 +1,4 @@
-# parse-server demo (migrating from v1)
+# parse-server migration
 
 This demo project contains a parse-server backend to migrate from a hosted server on Moralis to a self-hosted server, using parse-server.
 
@@ -6,7 +6,7 @@ This also contains a frontend that is using v1 of the Moralis sdk with react-mor
 
 Below is the list of supported features
 
-- [x] Support for SDK v1 on the client (moralis-v1 package)
+- [x] Support for SDK v1 on the client (moralis-v1 package and react-moralis)
 - [x] Self hosted server
 - [x] Express Api
 
@@ -25,27 +25,19 @@ The following Moralis features are supported:
 1. Copy/download this project
 2. Make sure to have `yarn` or `npm` insalled
 3. Setup mongo-db and redis locally (see below)
-
-### Setup client
-
-1. Install all dependencies via `yarn install` or `npm install` inside `/client`
-2. Copy `client/.env.example` to `client/.env` and fill in the values 
-
-### Setup server
-
-1. Install all dependencies via `yarn install` or `npm install` inside `/server`
-2. Copy `server/.env.example` to `server/.env` and fill in the values
+5. Install all dependencies via `yarn install` or `npm install` 
+6. Copy `.env.example` to `.env` and fill in the values
 
 ### Run your dapp
 
-- Run `yarn start` inside `/react-client` to run the client locally
-- Run `yarn dev` inside `/server` to run the server locally
+- Run `yarn dev` to run the server locally
 
 Now your app is running locally with the following endpoints:
 
-- **Client**: `localhost:3000` (or `localhost:1337` or any other port you set in `.env`, which will serve the `client/build` folder)
 - **Parse Server**: `localhost:1337/server` (or any other port/endpoint you set in `.env`)
 - **Express API**: `localhost:1337/api` (or any other port you set in `.env`)
+
+Note: by default the cloud-code is referenced in build/cloud, so make sure to run `yarn build` before running the server. Or change the location of the cloud code.
 
 ## Run mongo-db
 
@@ -70,6 +62,13 @@ For local development you will need to install redis on your local machine, and 
 
 ## Deploy
 
+### Heroku
+- Sync the repo to Heroku
+- Create a MongoDb on mongoDb Atlas and set the connection url in the Heroku config vars UNDER `DATABASE_URI`
+- Sign up for [Redis Enterprise Cloud](https://redis.com/redis-enterprise-cloud/overview/) for an account
+- Fill in the .env variables
+- 
+
 
 
 
@@ -85,12 +84,7 @@ Authentication consists of 4 parts
 
 Step 1. is handled via the `/request-message` endpoint. The client provides the chain and address. Then the server will extend this with additional data (such as the expiration time, timout and message. See this in `/auth/authService.ts`). This endpoint is using the Moralis Auth Api (Moralis.Auth.requestMessage)
 
-Step 2 is handled on the client side, by using the `authenticate` function in the `moralis-v1` SDK. This function will:
-- Connect to a chain via metamask, walletconnect etc.
-- Read the address and chain
-- Retreive the message from step 1
-- Sign the message
-- Authenticate via to the server
+Step 2 is handled on the client side, by using the `authenticate` function in the `moralis-v1` SDK. Note that the authentication method needs to be slightly modified. see the parse-server-migration-react-client demo for example
 
 Step 3 is handeld by the server via the `auth/MoralisEthAdapter.ts`. This adapter is using the Moralis Auth Api (Moralis.Auth.verify).
 

@@ -1,8 +1,10 @@
 import Moralis from 'moralis';
 import express from 'express';
 import cors from 'cors';
-import { parseServer } from './parseServer';
 import config from './config';
+import { parseServer } from './parseServer';
+// @ts-ignore
+import ParseServer from 'parse-server';
 import http from 'http';
 
 export const app = express();
@@ -24,4 +26,4 @@ httpServer.listen(config.PORT, () => {
   console.log(`Moralis Server is running on port ${config.PORT}.`);
 });
 // This will enable the Live Query real-time server
-parseServer.createLiveQueryServer(httpServer);
+ParseServer.createLiveQueryServer(httpServer);

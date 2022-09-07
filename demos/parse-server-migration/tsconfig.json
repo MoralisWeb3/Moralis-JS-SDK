@@ -3,14 +3,15 @@
     "strict": true,
     "module": "commonjs",
     "outDir": "build",
-    "rootDirs": ["src"],
+    "baseUrl": ".",
+    "rootDir": "src",
     "declaration": true,
     "declarationDir": "build",
     "sourceMap": true,
     "target": "es2017",
-    "rootDir": ".",
     "esModuleInterop": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
