@@ -2,7 +2,7 @@
 //@ts-nocheck
 import _ from 'lodash';
 import ts from 'typescript';
-import { getTargetPropertyType } from './utils/utils';
+// import { getTargetPropertyType } from './utils/utils';
 
 function getDescriptionsFromInterface(filename: string, className: string) {
   const program = ts.createProgram([filename], { emitDeclarationOnly: true });
