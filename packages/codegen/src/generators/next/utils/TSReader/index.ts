@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-console */
-import _ from 'lodash';
-import ts, { TypeFormatFlags } from 'typescript';
+// import _ from 'lodash';
+import ts from 'typescript';
+import { parseTypesOfTargetProperty } from './utils/utils';
 
 function getDescriptionsFromInterface(filename: string, interfaceName: string): Array<any> {
   const program = ts.createProgram([filename], { emitDeclarationOnly: true });
@@ -34,47 +35,46 @@ function getDescriptionsFromInterface(filename: string, interfaceName: string): 
         query: [],
         path: [],
       },
+      //   response,
     };
 
-    const parameters = targetMethodType.getProperty('parameters');
-    if (!parameters) {
-      continue;
-    }
-    const parametersType = typeChecker.getTypeOfSymbolAtLocation(parameters, parameters.valueDeclaration!);
-
-    const parseProperty = (propertyName: string) => {
-      const property = parametersType.getProperty(propertyName);
-      if (!property) {
-        return null;
-      }
-
-      const propertyType = typeChecker.getTypeOfSymbolAtLocation(property, property.valueDeclaration!);
-      return propertyType.getProperties().map((childProperty) => {
-        const kek = typeChecker.getTypeOfSymbolAtLocation(childProperty, childProperty.valueDeclaration!);
-        return {
-          name: childProperty.getName(),
-          type: typeChecker.typeToString(kek, undefined, TypeFormatFlags.NoTruncation),
-        };
-      });
-    };
-
-    /**
-     * Reading "parameters"/"query"
-     */
-    propObj.parameters.query = parseProperty('query');
-
-    /**
-     * Reading "parameters"/"path"
-     */
-    propObj.parameters.path = parseProperty('path');
-
+    propObj.parameters.query = parseTypesOfTargetProperty(targetMethodType, 'query', typeChecker);
+    propObj.parameters.path = parseTypesOfTargetProperty(targetMethodType, 'path', typeChecker);
+    propObj.response = parseTypesOfTargetProperty(targetMethodType, 'application/json', typeChecker);
+    // console.log(lelX);
     fields.push(propObj);
+
+    // const parameters = targetMethodType.getProperty('parameters');
+    // if (!parameters) {
+    //   continue;
+    // }
+    // const parametersType = typeChecker.getTypeOfSymbolAtLocation(parameters, parameters.valueDeclaration!);
+
+    // /**
+    //  * Reading "parameters
+    //  */
+    // propObj.parameters.query = parseProperty(parametersType, 'query', typeChecker);
+    // propObj.parameters.path = parseProperty(parametersType, 'path', typeChecker);
+
+    // /**
+    //  * Reading response
+    //  */
+
+    // const responses = targetMethodType.getProperty('responses');
+    // if (!responses) {
+    //   continue;
+    // }
+    // const responsesType = typeChecker.getTypeOfSymbolAtLocation(responses, responses.valueDeclaration!);
+
+    // const wow = parseTypesOfTargetProperty(responsesType, 'application/json', typeChecker);
+    // console.log(!!wow);
+    // fields.push(propObj);
   }
 
   return fields;
 }
 
 const desc = getDescriptionsFromInterface('./packages/evmApi/src/generated/types.ts', 'operations');
-// console.log(!!desc);
+// console.log(desc);
 // write to file or console log
 console.log('desc: ', JSON.stringify(desc, null, 2));
