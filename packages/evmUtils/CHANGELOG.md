@@ -1,5 +1,23 @@
 # @moralisweb3/evm-utils
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.3.1
+
+## 2.3.0
+
+### Minor Changes
+
+- [#652](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/652) [`7e83894`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e83894a8d3953f740c2c9fd110dd8d30eb0b0a8) Thanks [@ErnoW](https://github.com/ErnoW)! - Add Moralis.EvmApi.nft.getWalletNFTCollections() to return all nft collections of a specified address
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.3.0
+
 ## 2.2.0
 
 ### Patch Changes
