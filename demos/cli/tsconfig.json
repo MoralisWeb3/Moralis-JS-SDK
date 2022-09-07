@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "lib": ["es2017"],
     "composite": false,
-    "skipLibCheck":true
+    "skipLibCheck": true
   },
   "include": ["src"]
 }

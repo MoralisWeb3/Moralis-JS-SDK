@@ -59,7 +59,7 @@ const getPathByTag = (swagger: Swagger) => {
   return { pathByTag, pathDetails };
 };
 
-export const fetchEndpoints = async (swaggerUrl:string) => {
+export const fetchEndpoints = async (swaggerUrl: string) => {
   const swagger = await fetchSwaggerJson(swaggerUrl);
   const { pathDetails, pathByTag } = getPathByTag(swagger);
 

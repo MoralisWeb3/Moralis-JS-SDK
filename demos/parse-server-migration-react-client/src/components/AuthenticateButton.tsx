@@ -9,5 +9,9 @@ interface AuthenticateButtonProps {
 export const AuthenticateButton = ({ onClick }: AuthenticateButtonProps) => {
   const { user, isAuthenticated } = useMoralis();
 
-  return <Button  colorScheme={isAuthenticated ? 'green' : 'red'} onClick={onClick}>{user ? user.getUsername() : 'Authenticate'}</Button>;
+  return (
+    <Button colorScheme={isAuthenticated ? 'green' : 'red'} onClick={onClick}>
+      {user ? user.getUsername() : 'Authenticate'}
+    </Button>
+  );
 };

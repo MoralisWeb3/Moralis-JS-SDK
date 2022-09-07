@@ -27,9 +27,9 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
 export const useAppContext = () => {
   const context = useContext(appContext);
-  if(!context) {
+  if (!context) {
     throw new Error('useAppContext must be used within a AppContextProvider');
   }
 
-  return context
-}
+  return context;
+};

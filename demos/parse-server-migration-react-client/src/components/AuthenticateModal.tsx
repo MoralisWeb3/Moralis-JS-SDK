@@ -39,7 +39,7 @@ export const AuthenticateModal = ({ isOpen, onClose }: AuthenticateModalProps) =
 
       // Enable web3 to get user address and chain
       await enableWeb3({ throwOnError: true, provider });
-      const {account, chainId} = Moralis;
+      const { account, chainId } = Moralis;
 
       if (!account) {
         throw new Error('Connecting to chain failed, as no connected account was found');
@@ -49,7 +49,7 @@ export const AuthenticateModal = ({ isOpen, onClose }: AuthenticateModalProps) =
       }
 
       // Get message to sign from the auth api
-      const { message } = await Moralis.Cloud.run("requestMessage",{
+      const { message } = await Moralis.Cloud.run('requestMessage', {
         address: account,
         chain: parseInt(chainId, 16),
         network: 'evm',

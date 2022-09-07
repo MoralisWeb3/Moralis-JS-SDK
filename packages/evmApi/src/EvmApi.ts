@@ -270,7 +270,7 @@ export class MoralisEvmApi extends ApiModule {
       this.transaction.getWalletTransactions,
     ),
 
-        /**
+    /**
      * @deprecated Replaced by `transaction.getWalletTransactions()`.
      */
     getWalletNFTCollections: this.deprecationWarning(

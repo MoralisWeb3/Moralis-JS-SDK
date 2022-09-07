@@ -30,7 +30,7 @@ export class MoralisSolApi extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
-  private readonly getBalance = this.endpoints.createFetcher(getBalance)
+  private readonly getBalance = this.endpoints.createFetcher(getBalance);
 
   public readonly account = {
     getBalance: this.getBalance,

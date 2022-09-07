@@ -11,9 +11,11 @@ const Header = () => {
       <HStack>
         <Flex wrap="nowrap" alignItems={'start'} mr={4} direction="column">
           <MoralisLogo />
-          <Text fontSize={"sm"} fontWeight="800" color="#68738D">{'migration demo (v1 to v2)'}</Text>
+          <Text fontSize={'sm'} fontWeight="800" color="#68738D">
+            {'migration demo (v1 to v2)'}
+          </Text>
         </Flex>
-        <Navigation/>
+        <Navigation />
         <Spacer />
         <Authenticate />
         <Connect />

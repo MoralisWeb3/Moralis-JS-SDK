@@ -33,7 +33,7 @@ export const ConnectModal = ({ isOpen, onClose }: ConnectModalProps) => {
     account,
     chainId,
     connectorType,
-    network
+    network,
   } = useMoralis();
 
   return (
@@ -65,7 +65,10 @@ export const ConnectModal = ({ isOpen, onClose }: ConnectModalProps) => {
             <Button onClick={() => enableWeb3({ provider: 'metamask' }).then(onClose)} disabled={isWeb3EnableLoading}>
               Metamask
             </Button>
-            <Button onClick={() => enableWeb3({ provider: 'walletconnect' }).then(onClose)} disabled={isWeb3EnableLoading}>
+            <Button
+              onClick={() => enableWeb3({ provider: 'walletconnect' }).then(onClose)}
+              disabled={isWeb3EnableLoading}
+            >
               WalletConnect
             </Button>
             <Button onClick={() => enableWeb3({ provider: 'magicLink' }).then(onClose)} disabled={isWeb3EnableLoading}>

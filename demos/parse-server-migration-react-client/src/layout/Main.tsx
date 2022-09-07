@@ -6,7 +6,11 @@ interface MainProps {
 }
 
 const Main = ({ children }: MainProps) => {
-  return <Container maxW="container.lg" pt={8} pb={4}>{children}</Container>;
+  return (
+    <Container maxW="container.lg" pt={8} pb={4}>
+      {children}
+    </Container>
+  );
 };
 
 export default Main;

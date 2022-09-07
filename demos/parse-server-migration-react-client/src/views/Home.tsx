@@ -3,7 +3,7 @@ import { VStack, Heading } from '@chakra-ui/react';
 
 const Home = () => {
   return (
-    <VStack alignItems={"start"}>
+    <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>
     </VStack>
   );
