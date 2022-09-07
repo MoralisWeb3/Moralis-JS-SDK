@@ -1,5 +1,101 @@
 # @moralisweb3/evm-api
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.3.1
+  - @moralisweb3/api-utils@2.3.1
+  - @moralisweb3/evm-utils@2.3.1
+
+## 2.3.0
+
+### Minor Changes
+
+- [#652](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/652) [`7e83894`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e83894a8d3953f740c2c9fd110dd8d30eb0b0a8) Thanks [@ErnoW](https://github.com/ErnoW)! - Add Moralis.EvmApi.nft.getWalletNFTCollections() to return all nft collections of a specified address
+
+### Patch Changes
+
+- [#646](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/646) [`7bf5ec6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7bf5ec6cf3dfe700863932a93c5c251aad474b7f) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Evm api endpoints have been renamed. All methods now are listed under these categories: nft, token, defi, events, transaction, balance, block, resolve, ipfs, utils. Below you can find an overview of all the new methods.
+  The old methods, still work and will be redirected to the new methods. In the next major release, these old methods will be removed.
+
+  ## NFT API
+
+  - native.getNFTTransfersByBlock => nft.getNFTTransfersByBlock
+  - account.getNFTs => **nft.getWalletNFTs**
+  - account.getNFTTransfers => **nft.getWalletNFTTransfers**
+  - account.getNFTsForContract (Will deprecate. Same func as getNFTs)
+  - token.getNFTTrades => nft.getNFTTrades
+  - token.getNFTLowestPrice => nft.getNFTLowestPrice
+  - token.searchNFTs => nft.searchNFTs
+  - token.getNFTTransfersFromToBlock => nft.getNFTTransfersFromToBlock
+  - token.getAllTokenIds => **nft.getContractNFTs**
+  - token.getNFTOwners => nft.getNFTOwners
+  - token.getNFTMetadata => **nft.getNFTContractMetadata**
+  - token.reSyncMetadata => nft.reSyncMetadata
+  - token.getTokenIdMetadata => **nft.getNFTMetadata** (switch name with token.getNFTMetadata)
+  - token.getTokenIdOwners => **nft.getNFTTokenIdOwners**
+  - token.getWalletTokenIdTransfers => **nft.getNFTTransfers**
+  - contract.syncNFTContract => nft.syncNFTContract
+  - token.getContractNFTTransfers => **nft.getNFTContractTransfers**
+
+  ## Token API
+
+  - account.getTokenBalances => **token.getWalletTokenBalances**
+  - account.getTokenTransfers => **token.getWalletTokenTransfers**
+  - token.getTokenMetadata => token.getTokenMetadata
+  - token.getTokenMetadataBySymbol => token.getTokenMetadataBySymbol
+  - token.getTokenPrice => token.getTokenPrice
+  - token.getTokenAddressTransfers => **token.getTokenTransfers** (switch name with account.getTokenTransfers)
+  - token.getTokenAllowance => token.getTokenAllowance
+
+  ## DeFi API
+
+  - defi.getPairReserves => defi.getPairReserves
+  - defi.getPairAddress => defi.getPairAddress
+
+  ## Events API
+
+  - native.getContractEvents => events.getContractEvents
+  - native.getLogsByAddress => **events.getContractLogs**
+
+  ## Transaction API
+
+  - native.getTransaction => transaction.getTransaction
+  - account.getTransactions => **transaction.getWalletTransactions**
+
+  ## Balance API
+
+  - account.getNativeBalance => balance.getNativeBalance
+
+  ## Block API
+
+  - native.getBlock => block.getBlock
+  - native.getDateToBlock => block.getDateToBlock
+
+  ## Domain API
+
+  - resolve.resolveDomain => resolve.resolveDomain
+  - resolve.resolveAddress => resolve.resolveAddress
+
+  ## IPFS API
+
+  - storage.uploadFolder => ipfs.uploadFolder
+
+  ## Utils API
+
+  - native.runContractFunction => utils.runContractFunction
+  - info.web3ApiVersion => utils.web3ApiVersion
+  - info.endpointWeights => utils.endpointWeights
+
+* [#646](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/646) [`7bf5ec6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7bf5ec6cf3dfe700863932a93c5c251aad474b7f) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed a pagination bug for some endpoints.
+
+* Updated dependencies [[`7e83894`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e83894a8d3953f740c2c9fd110dd8d30eb0b0a8)]:
+  - @moralisweb3/evm-utils@2.3.0
+  - @moralisweb3/core@2.3.0
+  - @moralisweb3/api-utils@2.3.0
+
 ## 2.2.0
 
 ### Minor Changes

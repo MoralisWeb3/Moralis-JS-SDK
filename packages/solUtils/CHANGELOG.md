@@ -1,5 +1,21 @@
 # @moralisweb3/sol-utils
 
+## 2.3.1
+
+### Patch Changes
+
+- [#655](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/655) [`a0db370`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0db370b909905ae80e39e942b12245687af4c42) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The validator of a Solana address supports program addresses now.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.3.1
+
+## 2.3.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.3.0
+
 ## 2.2.0
 
 ### Patch Changes
