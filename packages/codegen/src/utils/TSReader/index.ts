@@ -54,6 +54,6 @@ const desc = parseGeneratedOpenApiActions('./packages/evmApi/src/generated/types
 
 // writeJsonSync(file, object[, options] [, callback])
 
-console.log(desc);
+// console.log(desc);
 // write to file or console log
-// console.log('desc: ', JSON.stringify(desc, null, 2));
+console.log('desc: ', JSON.stringify(desc, null, 2));
