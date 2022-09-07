@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getBlock', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns HTTP 404', async () => {
-    const response = await evmApi.native.getBlock({
+    const response = await evmApi.block.getBlock({
       blockNumberOrHash: '404',
     });
 
@@ -21,7 +21,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns null when API returns false-positive not found', async () => {
-    const response = await evmApi.native.getBlock({
+    const response = await evmApi.block.getBlock({
       blockNumberOrHash: '200404',
     });
 
@@ -29,7 +29,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('returns a block', async () => {
-    const response = await evmApi.native.getBlock({
+    const response = await evmApi.block.getBlock({
       blockNumberOrHash: '15416422',
     });
     const result = response!.result.result;

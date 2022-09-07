@@ -224,7 +224,7 @@ const ABI = [
   },
 ];
 
-describe('Moralis EvmApi', () => {
+describe('runContractFunction', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -236,7 +236,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should run a contract and return readonly data', async () => {
-    const result = await evmApi.native.runContractFunction({
+    const result = await evmApi.utils.runContractFunction({
       address: '0xecc7f044aa1ce2ad9d2453b01b8732a051213ecf',
       functionName: 'totalSupply',
       chain: 5,
@@ -250,7 +250,7 @@ describe('Moralis EvmApi', () => {
 
   it('should not run when a contract when an address is invalid', async () => {
     await expect(
-      evmApi.native.runContractFunction({
+      evmApi.utils.runContractFunction({
         address: '0x123456', // this address is invalid
         functionName: 'totalSupply',
         chain: 5,

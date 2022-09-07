@@ -14,5 +14,5 @@ export const mockGetTokenAllowance = rest.get(`${EVM_API_ROOT}/erc20/:address/al
     return res(ctx.status(200), ctx.json({ allowance: '0' }));
   }
 
-  throw new Error('Not supported scenario');
+  throw new Error('getTokenAllowance: Not supported scenario');
 });

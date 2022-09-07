@@ -47,8 +47,8 @@ function testRunContractFunction() {
   });
 }
 
-function testGetNFTMetadata() {
-  return functions.httpsCallable('getNFTMetadata')({
+function testGetNFTContractMetadata() {
+  return functions.httpsCallable('getNFTContractMetadata')({
     address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
   });
 }
@@ -60,7 +60,7 @@ function testVersion() {
 function testGetPortfolio() {
   return functions.httpsCallable('getPortfolio')({
     network: 'mainnet',
-    address: 'DEjfb5P8kgsdDgqoQ7DGKzLuNLKMEJWiyZV8HVUaR7Ri',
+    address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
   });
 }
 
@@ -85,7 +85,7 @@ function pageLoaded() {
   bindButton('getTimeButton', testGetTime);
   bindButton('getBlockButton', testGetBlock);
   bindButton('runContractFunctionButton', testRunContractFunction);
-  bindButton('getNFTMetadataButton', testGetNFTMetadata);
+  bindButton('getNFTContractMetadataButton', testGetNFTContractMetadata);
   bindButton('web3ApiVersionButton', testVersion);
   bindButton('getPortfolioButton', testGetPortfolio);
 }

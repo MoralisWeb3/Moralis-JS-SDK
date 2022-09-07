@@ -24,7 +24,7 @@ interface GetBlockData {
 
 export const getBlock = functions.https.onCall(
   ipRateLimiter(async (data: GetBlockData) => {
-    const response = await Moralis.EvmApi.native.getBlock({
+    const response = await Moralis.EvmApi.block.getBlock({
       chain: data.chain,
       blockNumberOrHash: data.blockNumberOrHash,
     });
@@ -44,7 +44,7 @@ interface RunContractFunctionData {
 
 export const runContractFunction = functions.https.onCall(
   ipRateLimiter(async (data: RunContractFunctionData) => {
-    const response = await Moralis.EvmApi.native.runContractFunction({
+    const response = await Moralis.EvmApi.utils.runContractFunction({
       chain: data.chain,
       functionName: data.functionName,
       address: data.address,
@@ -55,15 +55,15 @@ export const runContractFunction = functions.https.onCall(
   }),
 );
 
-// ~/getNFTMetadata
+// ~/getNFTContractMetadata
 
-interface GetNFTMetadataData {
+interface GetNFTContractMetadata {
   address: string;
 }
 
-export const getNFTMetadata = functions.https.onCall(
-  ipRateLimiter(async (data: GetNFTMetadataData) => {
-    const response = await Moralis.EvmApi.token.getNFTMetadata({
+export const getNFTContractMetadata = functions.https.onCall(
+  ipRateLimiter(async (data: GetNFTContractMetadata) => {
+    const response = await Moralis.EvmApi.nft.getNFTContractMetadata({
       address: data.address,
     });
     return response?.toJSON();
@@ -74,7 +74,7 @@ export const getNFTMetadata = functions.https.onCall(
 
 export const getWeb3ApiVersion = functions.https.onCall(
   ipRateLimiter(async () => {
-    const response = await Moralis.EvmApi.info.web3ApiVersion();
+    const response = await Moralis.EvmApi.utils.web3ApiVersion();
     return response.toJSON();
   }),
 );

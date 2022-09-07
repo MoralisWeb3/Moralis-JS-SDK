@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('getDateToBlock', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should get the closest block of the provided date ', async () => {
-    const result = await evmApi.native.getDateToBlock({
+    const result = await evmApi.block.getDateToBlock({
       date: '2021-09-29T13:09:15+00:00',
     });
 
@@ -23,7 +23,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should not get get the closest block of the provided date', async () => {
-    const failedResult = await evmApi.native
+    const failedResult = await evmApi.block
       .getDateToBlock({
         date: '2021-09-29T13:09:15+00:00',
       })
