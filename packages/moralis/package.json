@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@moralisweb3/auth": "^2.2.0",
+    "@moralisweb3/streams": "^2.2.0",
     "@moralisweb3/core": "^2.2.0",
     "@moralisweb3/api-utils": "^2.2.0",
     "@moralisweb3/evm-api": "^2.2.0",

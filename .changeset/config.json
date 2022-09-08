@@ -7,6 +7,7 @@
       "moralis",
       "@moralisweb3/core",
       "@moralisweb3/auth",
+      "@moralisweb3/streams",
       "@moralisweb3/api-utils",
       "@moralisweb3/evm-utils",
       "@moralisweb3/sol-utils",
