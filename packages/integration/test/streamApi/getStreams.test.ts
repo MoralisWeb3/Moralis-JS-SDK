@@ -20,5 +20,6 @@ describe('Get stream', () => {
     expect(result).toBeDefined();
     expect(result.result).toBeDefined();
     expect(result.pagination.total).toEqual(20);
+    expect(result.result[0].chainId).toEqual('0x3');
   });
 });
