@@ -1,9 +1,12 @@
+import _ from 'lodash';
 import { Actions } from 'node-plop';
+import { apiModuleConfigs } from './utils/constants';
 import { fileURLToPath } from 'node:url';
-import { getHookHame, getDomainFolderNames, getSDKCall, formatCapitalize, geAPIEndpoint } from './utils/namings';
+import { getHookName, getApiUrl, getFolderUrlPathForHook } from './utils/namings';
+import { IParseApiModule } from '../../TSReader/types';
 import { NodePlopAPI } from 'plop';
+import { parseApiModule } from '../../TSReader';
 import fs from 'fs-extra';
-import getSDKPaths from './utils/getSDKPaths.cjs';
 import path from 'node:path';
 
 //@ts-ignore
@@ -13,12 +16,13 @@ const packagesFolder = path.join(__dirname, '../../../..');
 // e.g. useEvmApiGetNFTsForContract => useEvmNFTsForContract
 const removeFromHookName = ['Api', 'Get', 'Resolve', 'Request'];
 
+const parseApiModules = (configs: IParseApiModule[]) => _.flatten(configs.map((config) => parseApiModule(config)));
+
 export default function NextGenerator(plop: NodePlopAPI) {
-  const SDKPaths = getSDKPaths();
-  console.log('SDKPaths: ', SDKPaths);
-
+  // const parsedApiModules = parseApiModules([apiModuleConfigs.Auth, apiModuleConfigs.EvmApi, apiModuleConfigs.SolApi]);
+  const parsedApiModules = parseApiModules([apiModuleConfigs.Auth]);
+  console.log('parsedApiModules: ', parsedApiModules)
   fs.emptydirSync(path.join(packagesFolder, 'next/src/hooks/generated'));
-
   plop.setGenerator('hooks_generator', {
     description: 'hooks for @moralisweb3/next',
     prompts: [],
@@ -29,23 +33,24 @@ export default function NextGenerator(plop: NodePlopAPI) {
        */
       const basePath = 'generators/next/templates/hook';
 
-      const generateHooks: Actions = SDKPaths.map((sdkPath) => {
-        const hookName = getHookHame(sdkPath, removeFromHookName);
-        console.log('getSDKCall(sdkPath: ', getSDKCall(sdkPath));
+      const generateHooks: Actions = parsedApiModules.map((apiModule) => {
+        const hookName = getHookName(apiModule.path, removeFromHookName);
+
         return {
           type: 'addMany',
           destination: path.join(
             packagesFolder,
-            `next/src/hooks/generated/${getDomainFolderNames(sdkPath)}/${hookName}`,
+            `next/src/hooks/generated/${getFolderUrlPathForHook(apiModule.path, hookName)}`,
           ),
           base: basePath,
           templateFiles: `${basePath}/**`,
           data: {
             hookName,
-            targetMethod: formatCapitalize(hookName),
-            SDKCall: getSDKCall(sdkPath),
-            APIEndpoint: geAPIEndpoint(sdkPath),
+            targetMethod: _.capitalize(hookName),
+            sdkPath: apiModule.path,
+            APIEndpoint: getApiUrl(apiModule.path),
           },
+          verbose: false,
         };
       });
 
@@ -56,19 +61,19 @@ export default function NextGenerator(plop: NodePlopAPI) {
         force: true,
       };
 
-      const injectedExports = SDKPaths.map((sdkPath) => {
-        const hookName = getHookHame(sdkPath, removeFromHookName);
+      const injectedExports = parsedApiModules.map((apiModule) => {
+        const hookName = getHookName(apiModule.path, removeFromHookName);
         return {
           type: 'append',
           path: path.join(packagesFolder, 'next/src/hooks/index.ts'),
           pattern: '/* PLOP_INJECT_EXPORT */',
-          template: `export * from './generated/${getDomainFolderNames(sdkPath)}/${hookName}';`,
+          template: `export * from './generated/${getFolderUrlPathForHook(apiModule.path, hookName)}';`,
         };
       });
 
       const generateConfig = {
         type: 'add',
-        template: JSON.stringify(SDKPaths, null, 2),
+        template: JSON.stringify(parsedApiModules, null, 2),
         path: path.join(packagesFolder, 'next/src/hooks/generated/supportedPaths.json'),
         force: true,
       };
