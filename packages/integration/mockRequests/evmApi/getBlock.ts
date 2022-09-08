@@ -67,5 +67,5 @@ export const mockGetBlock = rest.get(`${EVM_API_ROOT}/block/:block_number_or_has
     );
   }
 
-  throw new Error('Not supported scenario');
+  throw new Error('getBlock: Not supported scenario');
 });

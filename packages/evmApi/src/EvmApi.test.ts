@@ -34,12 +34,14 @@ describe('EvmApi', () => {
     const betaApiKey = 'beta-api-key';
     const beta = createEvmApi(betaApiKey);
 
-    const alfaVersion = await alfa.info.web3ApiVersion();
+    const alfaVersion = await alfa.utils.web3ApiVersion();
     expect(alfaVersion.result.version).toEqual(mockedVersion);
     expect(lastApiKey).toEqual(alfaApiKey);
 
-    const betaVersion = await beta.info.web3ApiVersion();
+    const betaVersion = await beta.utils.web3ApiVersion();
     expect(betaVersion.result.version).toEqual(mockedVersion);
     expect(lastApiKey).toEqual(betaApiKey);
+
+    jest.restoreAllMocks();
   });
 });

@@ -84,7 +84,7 @@ export class PaginatedEndpointResolver<
   };
 
   private resolveNextCall = (params: Params, result: Awaited<PaginatedResult<ApiResult>>) => {
-    const nextParams = tryGetNextPageParams(params, result);
+    const nextParams = tryGetNextPageParams(this.endpoint.firstPageIndex ?? 1, params, result);
     if (nextParams) {
       return () => this.fetch(nextParams);
     }

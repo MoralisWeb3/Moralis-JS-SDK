@@ -1,7 +1,7 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
-describe('Moralis EvmApi', () => {
+describe('endpointWeights', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis EvmApi', () => {
   });
 
   it('should get the endpoint weight ', async () => {
-    const result = await evmApi.info.endpointWeights();
+    const result = await evmApi.utils.endpointWeights();
 
     expect(result.toJSON()).toStrictEqual({ endpoint: 'getBlock' });
     expect(result).toBeDefined();

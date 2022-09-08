@@ -62,6 +62,10 @@ export interface paths {
     /** Get the transfers of the tokens matching the given parameters. */
     get: operations["getNFTTransfers"];
   };
+  "/{address}/nft/collections": {
+    /** Get the nft collections owned by an user */
+    get: operations["getWalletNFTCollections"];
+  };
   "/{address}/nft/{token_address}": {
     /**
      * Get NFTs owned by the given address for a specific NFT contract address.
@@ -898,6 +902,31 @@ export interface components {
        */
       updatedAt: string;
     };
+    nftWalletCollections: {
+      /**
+       * @description The syncing status of the address [SYNCING/SYNCED]
+       * @example SYNCING
+       */
+      status?: string;
+      /**
+       * @description The total number of matches for this query
+       * @example 2000
+       */
+      total?: number;
+      /**
+       * @description The page of the current result
+       * @example 2
+       */
+      page?: number;
+      /**
+       * @description The number of results per page
+       * @example 100
+       */
+      page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["nftCollections"][];
+    };
     nftCollection: {
       /**
        * @description The total number of matches for this query
@@ -935,6 +964,28 @@ export interface components {
        */
       page_size?: number;
       result?: components["schemas"]["nftMetadata"][];
+    };
+    nftCollections: {
+      /**
+       * @description The address of the contract of the NFT
+       * @example 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB
+       */
+      token_address: string;
+      /**
+       * @description The type of NFT contract standard
+       * @example ERC721
+       */
+      contract_type: string;
+      /**
+       * @description The name of the Token contract
+       * @example CryptoKitties
+       */
+      name: string;
+      /**
+       * @description The symbol of the NFT contract
+       * @example RARI
+       */
+      symbol: string;
     };
     nftOwner: {
       /**
@@ -1981,6 +2032,31 @@ export interface operations {
       };
     };
   };
+  /** Get the nft collections owned by an user */
+  getWalletNFTCollections: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The desired page size of the result. */
+        limit?: number;
+        /** The cursor returned in the previous response (used to getting the next page). */
+        cursor?: string;
+      };
+      path: {
+        /** The owner wallet address of the NFT collections */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns a collection of NFTs owned by an user */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftWalletCollections"];
+        };
+      };
+    };
+  };
   /**
    * Get NFTs owned by the given address for a specific NFT contract address.
    * * Use the token_address param to get results for a specific contract only
@@ -2289,8 +2365,6 @@ export interface operations {
         to_date?: string;
         /** The addresses to get metadata for */
         addresses?: string[];
-        /** The token contract address */
-        token_address?: string;
         /** The cursor returned in the previous response (used to getting the next page). */
         cursor?: string;
         /** The desired page size of the result. */
