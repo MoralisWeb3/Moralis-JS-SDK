@@ -62,22 +62,67 @@ export class MoralisEvmApi extends ApiModule {
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
   public readonly nft = {
+    /** Get NFT transfers by block number or block hash. */
     getNFTTransfersByBlock: this.endpoints.createPaginatedFetcher(getNFTTransfersByBlock),
+    /**
+     * Get NFTs owned by a given address.
+     * * The response will include status [SYNCED/SYNCING] based on the contracts being indexed.
+     * * Use the token_address param to get results for a specific contract only
+     * * Note results will include all indexed NFTs
+     * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
+     */
     getWalletNFTs: this.endpoints.createPaginatedFetcher(getWalletNFTs),
+    /** Get the transfers of the tokens matching the given parameters. */
     getWalletNFTTransfers: this.endpoints.createPaginatedFetcher(getWalletNFTTransfers),
+    /** Get the nft trades for a given contract and marketplace. */
     getNFTTrades: this.endpoints.createPaginatedFetcher(getNFTTrades),
+    /** Get the lowest executed price for an NFT token contract for the last x days (only trades paid in ETH). */
     getNFTLowestPrice: this.endpoints.createNullableFetcher(getNFTLowestPrice),
+    /** Get NFTs that match a given metadata search query. */
     searchNFTs: this.endpoints.createPaginatedFetcher(searchNFTs),
+    /** Gets the transfers of the tokens from a block number to a block number. */
     getNFTTransfersFromToBlock: this.endpoints.createPaginatedFetcher(getNFTTransfersFromToBlock),
+    /**
+     * Get all NFTs, including metadata (where available), for all NFTs for the given contract address.
+     * * Results are limited to 100 per page by default
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
+     */
     getContractNFTs: this.endpoints.createPaginatedFetcher(getContractNFTs),
+    /**
+     * Get all owners of NFTs within a given contract.
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
+     */
     getNFTOwners: this.endpoints.createPaginatedFetcher(getNFTOwners),
+    /**
+     * Get the contract level metadata (name, symbol, base token uri) for the given contract
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+     */
     getNFTContractMetadata: this.endpoints.createNullableFetcher(getNFTContractMetadata),
+    /**
+     * ReSync the metadata for an NFT
+     * * The metadata flag will request a the NFT's metadata from the already existing token_uri
+     * * The uri(default) flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
+     * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
+     * * The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
+     */
     reSyncMetadata: this.endpoints.createFetcher(reSyncMetadata),
+    /**
+     * Get NFT data, including metadata (where available), for the given NFT token id of the given contract address.
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+     */
     getNFTMetadata: this.endpoints.createNullableFetcher(getNFTMetadata),
+    /**
+     * Get all owners of a specific NFT given the contract address and token ID.
+     * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+     */
     getNFTTokenIdOwners: this.endpoints.createPaginatedFetcher(getNFTTokenIdOwners),
+    /** Get the transfers of an NFT given a conttract address and token ID. */
     getNFTTransfers: this.endpoints.createPaginatedFetcher(getNFTTransfers),
+    /** Initiates a metadata refresh for an entire NFT collection. */
     syncNFTContract: this.endpoints.createFetcher(syncNFTContract),
+    /** Get the transfers of the tokens matching the given parameters. */
     getNFTContractTransfers: this.endpoints.createPaginatedFetcher(getNFTContractTransfers),
+    /** Get the nft collections owned by an user */
     getWalletNFTCollections: this.endpoints.createPaginatedFetcher(getWalletNFTCollections),
   };
 
@@ -86,12 +131,19 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly token = {
+    /** Get token balances for a specific address. */
     getWalletTokenBalances: this.endpoints.createFetcher(getWalletTokenBalances),
+    /** Get ERC20 token transactions ordered by block number in descending order. */
     getWalletTokenTransfers: this.endpoints.createPaginatedFetcher(getWalletTokenTransfers),
+    /** Returns metadata (name, symbol, decimals, logo) for a given token contract address. */
     getTokenMetadata: this.endpoints.createFetcher(getTokenMetadata),
+    /** Get metadata (name, symbol, decimals, logo) for a list of token symbols. */
     getTokenMetadataBySymbol: this.endpoints.createFetcher(getTokenMetadataBySymbol),
+    /** Get the token price denominated in the blockchains native token and USD. */
     getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
+    /** Get ERC20 token transactions ordered by block number in descending order. */
     getTokenTransfers: this._token.getTokenTransfers,
+    /** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
     getTokenAllowance: this.endpoints.createFetcher(getTokenAllowance),
 
     /**
@@ -185,21 +237,31 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly defi = {
+    /**
+     * Fetch the pair data of the provided token0+token1 combination.
+     * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
+     */
     getPairAddress: this.endpoints.createFetcher(getPairAddress),
+    /** Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment. */
     getPairReserves: this.endpoints.createFetcher(getPairReserves),
   };
 
   public readonly events = {
+    /** Get events for a specific contract ordered by block number in descending order. */
     getContractEvents: this.endpoints.createPaginatedFetcher(getContractEvents),
+    /** Get the logs for an address. */
     getContractLogs: this.endpoints.createPaginatedFetcher(getContractLogs),
   };
 
   public readonly transaction = {
+    /** Get the contents of a transaction by transaction hash. */
     getTransaction: this.endpoints.createNullableFetcher(getTransaction),
+    /** Get native transactions ordered by block number in descending order. */
     getWalletTransactions: this.endpoints.createPaginatedFetcher(getWalletTransactions),
   };
 
   public readonly balance = {
+    /** Get native balance for a specific address. */
     getNativeBalance: this.endpoints.createFetcher(getNativeBalance),
   };
 
@@ -262,16 +324,21 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly block = {
+    /** Get the contents of a block by block hash. */
     getBlock: this.endpoints.createNullableFetcher(getBlock),
+    /** Get the closest block of the provided date. */
     getDateToBlock: this.endpoints.createFetcher(getDateToBlock),
   };
 
   public readonly resolve = {
+    /** Resolve an ETH address and find the ENS name. */
     resolveAddress: this.endpoints.createNullableFetcher(resolveAddress),
+    /** Resolve an Unstoppable domain and get the address. */
     resolveDomain: this.endpoints.createNullableFetcher(resolveDomain),
   };
 
   public readonly ipfs = {
+    /** Upload multiple files to IPFS and place them in a folder directory. */
     uploadFolder: this.endpoints.createFetcher(uploadFolder),
   };
 
@@ -291,8 +358,11 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly utils = {
+    /** Run a given function of a contract abi and retrieve readonly data. */
     runContractFunction: this.endpoints.createFetcher(runContractFunction),
+    /** Get the current version of the Moralis Web3 API. */
     web3ApiVersion: () => this._utils.web3ApiVersion({}),
+    /** Get the endpoint price list for rate limits and cost. */
     endpointWeights: () => this._utils.endpointWeights({}),
   };
 

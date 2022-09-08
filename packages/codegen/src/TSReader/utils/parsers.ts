@@ -9,6 +9,7 @@ export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, dom
   const [propSignature] = typeChecker.getSignaturesOfType(propType, ts.SignatureKind.Call);
   const sdkMethod: TSDKMethodParsed = {
     path: [...domainSDKPath, prop.getName()].join('.'),
+    desc: ts.displayPartsToString(prop.getDocumentationComment(typeChecker)),
     return: [],
     params: [],
   };
@@ -23,7 +24,22 @@ export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, dom
   }
 
   const returnedType = propSignature.getReturnType() as ts.TypeReference;
+
   const [extractedPromise] = returnedType.typeArguments! as ts.TypeReference[];
+
+  extractedPromise.getProperties().forEach((xxx) => {
+    if (xxx.getName() === 'raw') {
+      const le = typeChecker.getTypeOfSymbolAtLocation(xxx, xxx.valueDeclaration!);
+      le.getProperties().forEach((ccc) => {
+        // if (ccc.getName() === 'gas') {
+        const isReq = (ccc.getFlags() & ts.SymbolFlags.Optional) === ts.SymbolFlags.Optional;
+
+        if (!isReq) {
+          console.log(ccc.getName());
+        }
+      });
+    }
+  });
 
   sdkMethod.return = parseTypeProps(extractedPromise, typeChecker);
 
