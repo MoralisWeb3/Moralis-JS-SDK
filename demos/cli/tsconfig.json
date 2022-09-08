@@ -10,7 +10,8 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "lib": ["es2017"],
-    "composite": false
+    "composite": false,
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
