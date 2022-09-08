@@ -13,6 +13,7 @@ describe('tryGetNextPageParams', () => {
         page_size: pageSize,
         cursor: '0x2',
         result: null,
+        data: null
       };
       return [currentParams, result];
     }
@@ -44,6 +45,7 @@ describe('tryGetNextPageParams', () => {
         page_size: pageSize,
         cursor: '',
         result: null,
+        data: null
       };
       return [currentParams, result];
     }
