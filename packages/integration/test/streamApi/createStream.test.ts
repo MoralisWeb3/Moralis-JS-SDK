@@ -14,27 +14,27 @@ describe('Create stream', () => {
 
   it('should create a stream ', async () => {
     const result = await StreamApi.add({
-      chainId: '0x3',
+      chains: ['0x3'],
       address: '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7',
       tag: 'test',
       description: 'test',
-      type: 'tx',
+      type: 'wallet',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
     });
 
     expect(result).toBeDefined();
     expect(result).toEqual(expect.objectContaining({}));
-    expect(result.result.chainId).toEqual('0x3');
-    expect(result.result.type).toEqual('tx');
+    expect(result.result.chainIds).toContain('0x3');
+    expect(result.result.type).toEqual('wallet');
   });
 
   it('should not create stream', async () => {
     const failedResult = await StreamApi.add({
-      chainId: 'invalid_chain',
+      chains: ['0x3'],
       address: '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7',
       tag: 'test',
       description: 'test',
-      type: 'tx',
+      type: 'wallet',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
     })
       .then()
@@ -45,11 +45,11 @@ describe('Create stream', () => {
     expect(failedResult).toBeDefined();
     expect(
       StreamApi.add({
-        chainId: 'invalid_chain',
+        chains: ['invalid_chain'],
         address: '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7',
         tag: 'test',
         description: 'test',
-        type: 'tx',
+        type: 'wallet',
         webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(

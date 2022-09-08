@@ -19,7 +19,7 @@ const apiToResult = (apiData: ApiResult) => {
     ...data,
     address: data.address ? EvmAddress.create(data.address) : undefined,
     tokenAddress: data.tokenAddress ? EvmAddress.create(data.tokenAddress) : undefined,
-    chain: EvmChain.create(data.chainId),
+    chains: data.chainIds.map((chainId) => EvmChain.create(chainId)),
   };
 };
 
@@ -32,7 +32,7 @@ export const deleteStream = createEndpointFactory(() =>
       ...data,
       address: data.address ? data.address.format() : undefined,
       tokenAddress: data.tokenAddress ? data.tokenAddress.format() : undefined,
-      chainId: data.chain.format(),
+      chainIds: data.chains.map((chain) => chain.format()),
     }),
     parseParams: (params: ApiParams): ApiParams => params,
     method,

@@ -40,7 +40,7 @@ export interface components {
       type: components["schemas"]["LogType"];
     };
     LogsResponse: {
-      data: components["schemas"]["LogModel"][];
+      result: components["schemas"]["LogModel"][];
       cursor?: string;
     };
     /** @enum {string} */
@@ -62,6 +62,11 @@ export interface components {
      */
     UUID: string;
     /**
+     * @description The abi to parse the log object of the contract
+     * @example {}
+     */
+    StreamsAbi: { [key: string]: unknown };
+    /**
      * @description The filter object, optional and only used if the type : log
      * https://v1docs.moralis.io/moralis-dapp/automatic-transaction-sync/smart-contract-events#event-filters
      * @example {}
@@ -69,11 +74,11 @@ export interface components {
     StreamsFilter: { [key: string]: unknown };
     /**
      * @description The stream type:
-     * [tx] listens to all the native transactions and
-     * [log] listens to all logs produced by contracts
+     * [wallet] listen to all native transactions of the address and all logs where the address is involved in at least one of the topics
+     * [contract] listens to all native transactions of the address and all logs produced by the contract address
      * @enum {string}
      */
-    StreamsType: "tx" | "log";
+    StreamsType: "wallet" | "contract";
     StreamsModel: {
       /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl: string;
@@ -82,14 +87,15 @@ export interface components {
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
       /** @description The token address of the contract, required if the type : log */
-      tokenAddress?: string;
+      tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
       topic0?: string;
-      filter?: components["schemas"]["StreamsFilter"];
+      abi?: components["schemas"]["StreamsAbi"] | null;
+      filter?: components["schemas"]["StreamsFilter"] | null;
       /** @description The wallet address of the user, required if the type : tx */
-      address?: string;
-      /** @description The id of the chain for this stream in hex Ex: 0x1 */
-      chainId: string;
+      address?: string | null;
+      /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
+      chainIds: string[];
       /** @description The type of stream to create log or tx */
       type: components["schemas"]["StreamsType"];
       /** @description The unique uuid of the stream */
@@ -97,7 +103,7 @@ export interface components {
     };
     StreamsResponse: {
       /** @description Array of project Streams */
-      data: components["schemas"]["StreamsModel"][];
+      result: components["schemas"]["StreamsModel"][];
       /** @description Cursor for fetching next page */
       cursor?: string;
       /**
@@ -114,14 +120,15 @@ export interface components {
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
       /** @description The token address of the contract, required if the type : log */
-      tokenAddress?: string;
+      tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
       topic0?: string;
-      filter?: components["schemas"]["StreamsFilter"];
+      abi?: components["schemas"]["StreamsAbi"] | null;
+      filter?: components["schemas"]["StreamsFilter"] | null;
       /** @description The wallet address of the user, required if the type : tx */
-      address?: string;
-      /** @description The id of the chain for this stream in hex Ex: 0x1 */
-      chainId: string;
+      address?: string | null;
+      /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
+      chainIds: string[];
       /** @description The type of stream to create log or tx */
       type: components["schemas"]["StreamsType"];
     };

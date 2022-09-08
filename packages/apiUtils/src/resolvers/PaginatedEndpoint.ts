@@ -13,7 +13,6 @@ export interface PaginatedResult<ApiResult> {
   page_size: number;
   cursor: string;
   result: ApiResult;
-  data: ApiResult;
 }
 
 export interface PaginatedEndpoint<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>
