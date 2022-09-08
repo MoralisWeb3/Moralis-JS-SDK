@@ -143,4 +143,19 @@ export class RequestController {
       signal: abortSignal,
     });
   }
+
+  public async delete<Response>(
+    url: string,
+    searchParams?: Record<string, unknown>,
+    options?: RequestOptions,
+    abortSignal?: AbortController['signal'],
+  ): Promise<Response> {
+    return this.request<unknown, Response>({
+      url,
+      params: searchParams,
+      method: 'DELETE',
+      headers: options?.headers,
+      signal: abortSignal,
+    });
+  }
 }

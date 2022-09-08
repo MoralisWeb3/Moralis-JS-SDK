@@ -1,6 +1,6 @@
 import { MoralisCore } from '@moralisweb3/core';
 
-export type EndpointMethod = 'get' | 'post' | 'put';
+export type EndpointMethod = 'get' | 'post' | 'put' | 'delete';
 
 export enum EndpointBodyType {
   PROPERTY = 'property',
