@@ -38,6 +38,9 @@ export class MoralisSolApi extends ApiModule {
     getPortfolio: this.endpoints.createFetcher(getPortfolio),
     getSPL: this.endpoints.createFetcher(getSPL),
     // Support for old naming
+    /**
+     * @deprecated Replaced by account.getBalance
+     */
     balance: this.getBalance,
   };
 
