@@ -25,17 +25,17 @@ export class MoralisStreams extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
-  public add = this.endpoints.createFetcher(createStream);
+  public readonly add = this.endpoints.createFetcher(createStream);
 
-  public update = this.endpoints.createFetcher(updateStream);
+  public readonly update = this.endpoints.createFetcher(updateStream);
 
-  public getAll = this.endpoints.createPaginatedFetcher(getStreams);
+  public readonly getAll = this.endpoints.createPaginatedFetcher(getStreams);
 
-  public delete = this.endpoints.createFetcher(deleteStream);
+  public readonly delete = this.endpoints.createFetcher(deleteStream);
 
-  public setSettings = this.endpoints.createFetcher(setSettings);
+  public readonly setSettings = this.endpoints.createFetcher(setSettings);
 
-  private _readSettings = this.endpoints.createFetcher(readSettings);
+  private readonly _readSettings = this.endpoints.createFetcher(readSettings);
 
-  public readSettings = () => this._readSettings({});
+  public readonly readSettings = () => this._readSettings({});
 }
