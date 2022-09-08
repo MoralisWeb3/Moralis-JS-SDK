@@ -1,9 +1,9 @@
 import { Actions } from 'node-plop';
 import { fileURLToPath } from 'node:url';
-import { getHookHame, getDomainFolderNames, getSDKCall, formatCapitalize, geAPIEndpoint } from '../../utils/namings';
+import { getHookHame, getDomainFolderNames, getSDKCall, formatCapitalize, geAPIEndpoint } from './utils/namings';
 import { NodePlopAPI } from 'plop';
 import fs from 'fs-extra';
-import getSDKPaths from '../../utils/getSDKPaths.cjs';
+import getSDKPaths from './utils/getSDKPaths.cjs';
 import path from 'node:path';
 
 //@ts-ignore
@@ -15,6 +15,7 @@ const removeFromHookName = ['Api', 'Get', 'Resolve', 'Request'];
 
 export default function NextGenerator(plop: NodePlopAPI) {
   const SDKPaths = getSDKPaths();
+  console.log('SDKPaths: ', SDKPaths);
 
   fs.emptydirSync(path.join(packagesFolder, 'next/src/hooks/generated'));
 
@@ -30,6 +31,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
 
       const generateHooks: Actions = SDKPaths.map((sdkPath) => {
         const hookName = getHookHame(sdkPath, removeFromHookName);
+        console.log('getSDKCall(sdkPath: ', getSDKCall(sdkPath));
         return {
           type: 'addMany',
           destination: path.join(

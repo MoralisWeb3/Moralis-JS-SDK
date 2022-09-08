@@ -42,35 +42,8 @@ export const getParsedPropsTypes = (parentType: ts.Type, typeChecker: ts.TypeChe
     };
   });
 
-// export const stringifyType = (parentType: ts.Type, typeChecker: ts.TypeChecker) => {}
-
-// return {
-//   name: _.camelCase(childProp.getName()),
-//   type: typeChecker.typeToString(childPropType, undefined, ts.TypeFormatFlags.NoTruncation),
-// };
-
-// const targetPropTypeProps = targetPropertyType.getProperties();
-
-// return targetPropTypeProps.map((propChild) => {
-//   const propChildType = typeChecker.getTypeOfSymbolAtLocation(propChild, propChild.valueDeclaration!);
-//   return {
-//     name: _.camelCase(propChild.getName()),
-//     type: typeChecker.typeToString(propChildType, undefined, ts.TypeFormatFlags.NoTruncation),
-//   };
-// });
-
-// export const parseProperty = (parentType: ts.Type, propertyName: string, typeChecker: ts.TypeChecker) => {
-//   const property = parentType.getProperty(propertyName);
-//   if (!property) {
-//     return null;
-//   }
-
-//   const propertyType = typeChecker.getTypeOfSymbolAtLocation(property, property.valueDeclaration!);
-//   return propertyType.getProperties().map((childProperty) => {
-//     const kek = typeChecker.getTypeOfSymbolAtLocation(childProperty, childProperty.valueDeclaration!);
-//     return {
-//       name: _.camelCase(childProperty.getName()),
-//       type: snakeToCamel(typeChecker.typeToString(kek, undefined, ts.TypeFormatFlags.NoTruncation)),
-//     };
-//   });
-// };
+export const isDeprecated = (symbol: ts.Symbol) => {
+  const docsTags = symbol.getJsDocTags();
+  const deprecatedTag = docsTags.find((docsTag) => docsTag.name === 'deprecated');
+  return Boolean(deprecatedTag)
+};

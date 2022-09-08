@@ -5,93 +5,128 @@
   ],
   [
     "EvmApi",
-    "native",
-    "getBlock"
-  ],
-  [
-    "EvmApi",
-    "native",
-    "getContractEvents"
-  ],
-  [
-    "EvmApi",
-    "native",
-    "getDateToBlock"
-  ],
-  [
-    "EvmApi",
-    "native",
-    "getLogsByAddress"
-  ],
-  [
-    "EvmApi",
-    "native",
+    "nft",
     "getNFTTransfersByBlock"
   ],
   [
     "EvmApi",
-    "native",
-    "getTransaction"
+    "nft",
+    "getWalletNFTs"
   ],
   [
     "EvmApi",
-    "native",
-    "runContractFunction"
+    "nft",
+    "getWalletNFTTransfers"
   ],
   [
     "EvmApi",
-    "account",
-    "getNativeBalance"
+    "nft",
+    "getNFTTrades"
   ],
   [
     "EvmApi",
-    "account",
-    "getNFTs"
+    "nft",
+    "getNFTLowestPrice"
   ],
   [
     "EvmApi",
-    "account",
-    "getNFTsForContract"
+    "nft",
+    "searchNFTs"
   ],
   [
     "EvmApi",
-    "account",
+    "nft",
+    "getNFTTransfersFromToBlock"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "getContractNFTs"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "getNFTOwners"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "getNFTContractMetadata"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "reSyncMetadata"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "getNFTMetadata"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "getNFTTokenIdOwners"
+  ],
+  [
+    "EvmApi",
+    "nft",
     "getNFTTransfers"
   ],
   [
     "EvmApi",
-    "account",
-    "getTokenBalances"
+    "nft",
+    "syncNFTContract"
   ],
   [
     "EvmApi",
-    "account",
+    "nft",
+    "getNFTContractTransfers"
+  ],
+  [
+    "EvmApi",
+    "nft",
+    "getWalletNFTCollections"
+  ],
+  [
+    "EvmApi",
+    "_token",
     "getTokenTransfers"
   ],
   [
     "EvmApi",
-    "account",
-    "getTransactions"
+    "token",
+    "getWalletTokenBalances"
   ],
   [
     "EvmApi",
-    "resolve",
-    "resolveAddress"
+    "token",
+    "getWalletTokenTransfers"
   ],
   [
     "EvmApi",
-    "resolve",
-    "resolveDomain"
+    "token",
+    "getTokenMetadata"
   ],
   [
     "EvmApi",
-    "defi",
-    "getPairAddress"
+    "token",
+    "getTokenMetadataBySymbol"
   ],
   [
     "EvmApi",
-    "defi",
-    "getPairReserves"
+    "token",
+    "getTokenPrice"
+  ],
+  [
+    "EvmApi",
+    "token",
+    "getTokenTransfers"
+  ],
+  [
+    "EvmApi",
+    "token",
+    "getTokenAllowance"
   ],
   [
     "EvmApi",
@@ -136,32 +171,12 @@
   [
     "EvmApi",
     "token",
-    "getTokenAllowance"
-  ],
-  [
-    "EvmApi",
-    "token",
     "getTokenIdMetadata"
   ],
   [
     "EvmApi",
     "token",
     "getTokenIdOwners"
-  ],
-  [
-    "EvmApi",
-    "token",
-    "getTokenMetadata"
-  ],
-  [
-    "EvmApi",
-    "token",
-    "getTokenMetadataBySymbol"
-  ],
-  [
-    "EvmApi",
-    "token",
-    "getTokenPrice"
   ],
   [
     "EvmApi",
@@ -185,8 +200,163 @@
   ],
   [
     "EvmApi",
+    "defi",
+    "getPairAddress"
+  ],
+  [
+    "EvmApi",
+    "defi",
+    "getPairReserves"
+  ],
+  [
+    "EvmApi",
+    "events",
+    "getContractEvents"
+  ],
+  [
+    "EvmApi",
+    "events",
+    "getContractLogs"
+  ],
+  [
+    "EvmApi",
+    "transaction",
+    "getTransaction"
+  ],
+  [
+    "EvmApi",
+    "transaction",
+    "getWalletTransactions"
+  ],
+  [
+    "EvmApi",
+    "balance",
+    "getNativeBalance"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getNativeBalance"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getNFTs"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getNFTsForContract"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getNFTTransfers"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getTokenBalances"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getTokenTransfers"
+  ],
+  [
+    "EvmApi",
+    "account",
+    "getTransactions"
+  ],
+  [
+    "EvmApi",
+    "block",
+    "getBlock"
+  ],
+  [
+    "EvmApi",
+    "block",
+    "getDateToBlock"
+  ],
+  [
+    "EvmApi",
+    "resolve",
+    "resolveAddress"
+  ],
+  [
+    "EvmApi",
+    "resolve",
+    "resolveDomain"
+  ],
+  [
+    "EvmApi",
+    "ipfs",
+    "uploadFolder"
+  ],
+  [
+    "EvmApi",
     "storage",
     "uploadFolder"
+  ],
+  [
+    "EvmApi",
+    "_utils",
+    "endpointWeights"
+  ],
+  [
+    "EvmApi",
+    "_utils",
+    "web3ApiVersion"
+  ],
+  [
+    "EvmApi",
+    "utils",
+    "runContractFunction"
+  ],
+  [
+    "EvmApi",
+    "utils",
+    "web3ApiVersion"
+  ],
+  [
+    "EvmApi",
+    "utils",
+    "endpointWeights"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "getDateToBlock"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "getBlock"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "getContractEvents"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "getLogsByAddress"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "getNFTTransfersByBlock"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "getTransaction"
+  ],
+  [
+    "EvmApi",
+    "native",
+    "runContractFunction"
   ],
   [
     "SolApi",
