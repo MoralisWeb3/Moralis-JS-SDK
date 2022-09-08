@@ -1,6 +1,6 @@
-export { createStream } from './createStream';
-export { getStreams } from './getStreams';
-export { deleteStream } from './deleteStream';
+export { createStreamEvm } from './createStreamEvm';
+export { getStreamsEvm } from './getStreamsEvm';
+export { deleteStreamEvm } from './deleteStreamEvm';
 export { setSettings } from './setSettings';
 export { readSettings } from './readSettings';
-export { updateStream } from './updateStream';
+export { updateStreamEvm } from './updateStreamEvm';

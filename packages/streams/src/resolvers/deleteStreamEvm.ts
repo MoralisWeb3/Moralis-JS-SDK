@@ -23,10 +23,10 @@ const apiToResult = (apiData: ApiResult) => {
   };
 };
 
-export const deleteStream = createEndpointFactory(() =>
+export const deleteStreamEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (params: ApiParams) => `/streams/${params.id}`,
+    getUrl: (params: ApiParams) => `/streams/evm/${params.id}`,
     apiToResult,
     resultToJson: (data) => ({
       ...data,

@@ -40,10 +40,10 @@ const apiToResult = (apiData: ApiResult) => {
   };
 };
 
-export const createStream = createEndpointFactory(() =>
+export const createStreamEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: () => `/streams`,
+    getUrl: () => `/streams/evm`,
     apiToResult,
     resultToJson: (data) => ({
       ...data,

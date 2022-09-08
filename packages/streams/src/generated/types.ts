@@ -13,18 +13,18 @@ export interface paths {
     /** Set the settings for the current project based on the project api-key. */
     post: operations["SetSettings"];
   };
-  "/streams": {
-    /** Get all the streams for the current project based on the project api-key. */
+  "/streams/evm": {
+    /** Get all the evm streams for the current project based on the project api-key. */
     get: operations["GetStreams"];
-    /** Creates a new stream. */
+    /** Creates a new evm stream. */
     put: operations["CreateStream"];
   };
-  "/streams/{id}": {
-    /** Get a specific stream. */
+  "/streams/evm/{id}": {
+    /** Get a specific evm stream. */
     get: operations["GetStream"];
-    /** Updates a specific stream. */
+    /** Updates a specific evm stream. */
     post: operations["UpdateStream"];
-    /** Delete a specific stream. */
+    /** Delete a specific evm stream. */
     delete: operations["DeleteStream"];
   };
 }
@@ -165,7 +165,7 @@ export interface operations {
       };
     };
   };
-  /** Get all the streams for the current project based on the project api-key. */
+  /** Get all the evm streams for the current project based on the project api-key. */
   GetStreams: {
     parameters: {
       query: {
@@ -184,7 +184,7 @@ export interface operations {
       };
     };
   };
-  /** Creates a new stream. */
+  /** Creates a new evm stream. */
   CreateStream: {
     parameters: {};
     responses: {
@@ -202,7 +202,7 @@ export interface operations {
       };
     };
   };
-  /** Get a specific stream. */
+  /** Get a specific evm stream. */
   GetStream: {
     parameters: {
       path: {
@@ -219,7 +219,7 @@ export interface operations {
       };
     };
   };
-  /** Updates a specific stream. */
+  /** Updates a specific evm stream. */
   UpdateStream: {
     parameters: {
       path: {
@@ -242,7 +242,7 @@ export interface operations {
       };
     };
   };
-  /** Delete a specific stream. */
+  /** Delete a specific evm stream. */
   DeleteStream: {
     parameters: {
       path: {

@@ -15,6 +15,7 @@ describe('Get stream', () => {
   it('should get all streams', async () => {
     const result = await StreamApi.getAll({
       limit: 20,
+      network: 'evm',
     });
 
     expect(result).toBeDefined();

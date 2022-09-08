@@ -1,6 +1,10 @@
-import { createStream, deleteStream, getStreams, readSettings, setSettings, updateStream } from './resolvers';
+import { readSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { createStream, CreateStreamOptions } from './methods/create';
+import { updateStream, UpdateStreamOptions } from './methods/update';
+import { deleteStream, DeleteStreamOptions } from './methods/delete';
+import { GetStreamsOptions, getStreams } from './methods/getAll';
 
 export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
 
@@ -25,13 +29,13 @@ export class MoralisStreams extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
-  public readonly add = this.endpoints.createFetcher(createStream);
+  public readonly add = (options: CreateStreamOptions) => createStream(this.core)(options);
 
-  public readonly update = this.endpoints.createFetcher(updateStream);
+  public readonly update = (options: UpdateStreamOptions) => updateStream(this.core)(options);
 
-  public readonly getAll = this.endpoints.createPaginatedFetcher(getStreams);
+  public readonly delete = (options: DeleteStreamOptions) => deleteStream(this.core)(options);
 
-  public readonly delete = this.endpoints.createFetcher(deleteStream);
+  public readonly getAll = (options: GetStreamsOptions) => getStreams(this.core)(options);
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
 

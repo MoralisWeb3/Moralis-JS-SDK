@@ -21,7 +21,7 @@ export const mockGetStreamsOutput = {
   total: 20,
 };
 
-export const mockGetStreams = rest.get(`${STREAM_API_ROOT}/streams`, (req, res, ctx) => {
+export const mockGetStreams = rest.get(`${STREAM_API_ROOT}/streams/evm`, (req, res, ctx) => {
   const apiKey = req.headers.get('x-api-key');
 
   if (apiKey !== MOCK_API_KEY) {
