@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import ts from 'typescript';
 import { TSDKMethodParsed } from '../types';
+import { parseTypeProps } from './utils';
 
-const xxx = (symbol: ts.Symbol, typeChecker: ts.TypeChecker) => {
-  const methodType = typeChecker.getTypeOfSymbolAtLocation(method, domain.valueDeclaration!);
+export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, domainSDKPath: string[]) => {
+  const propType = typeChecker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!);
 
-  const [propSignature] = typeChecker.getSignaturesOfType(methodType, ts.SignatureKind.Call);
+  const [propSignature] = typeChecker.getSignaturesOfType(propType, ts.SignatureKind.Call);
   const sdkMethod: TSDKMethodParsed = {
-    path: `${className.replace('Moralis', '')}.${domain.getName()}.${method.getName()}`,
+    path: [...domainSDKPath, prop.getName()].join('.'),
     return: [],
     params: [],
   };
@@ -24,4 +26,6 @@ const xxx = (symbol: ts.Symbol, typeChecker: ts.TypeChecker) => {
   const [extractedPromise] = returnedType.typeArguments! as ts.TypeReference[];
 
   sdkMethod.return = parseTypeProps(extractedPromise, typeChecker);
+
+  return sdkMethod;
 };

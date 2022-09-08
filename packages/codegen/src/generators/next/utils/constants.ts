@@ -6,6 +6,10 @@ import path from 'node:path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../../..');
 
+export const removeFromHookName = ['Api', 'Get', 'Resolve', 'Request'];
+
+export const blacklistedMethods = ['endpointWeights', 'web3ApiVersion'];
+
 export const apiModuleConfigs: Record<'EvmApi' | 'SolApi' | 'Auth', IParseApiModule> = {
   EvmApi: {
     path: path.join(packagesFolder, 'evmApi/src/EvmApi.ts'),

@@ -5,7 +5,7 @@ import _ from 'lodash';
  * @param sdkPath
  * @example SolApi.account.getPortfolio => ['Moralis', 'SolApi', 'account', 'getPortfolio']
  */
-const getSplittedSDKPath = (sdkPath: string) => {
+export const getSplittedSDKPath = (sdkPath: string) => {
   const splitted = sdkPath.split('.');
   if (!splitted?.length) {
     throw new Error('Not correct SDK Path');

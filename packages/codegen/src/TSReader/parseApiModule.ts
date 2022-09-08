@@ -4,9 +4,10 @@
 import _ from 'lodash';
 import ts from 'typescript';
 import type { IParseApiModule, TSDKMethodParsed } from './types';
-import { parseTypeProps, isDeprecated, getPropertiesOfSymbol } from './utils/utils';
+import { parseSDKMethod } from './utils/parsers';
+import { isDeprecated, getPropertiesOfSymbol, isMethodBlacklisted } from './utils/utils';
 
-const parseApiModule = ({ path, whitelist, className }: IParseApiModule) => {
+const parseApiModule = ({ path, whitelist, className }: IParseApiModule, blacklistedMethods?: string[]) => {
   const program = ts.createProgram([path], { emitDeclarationOnly: true });
   const sourceFile = program.getSourceFile(path);
 
@@ -36,42 +37,25 @@ const parseApiModule = ({ path, whitelist, className }: IParseApiModule) => {
     const domainTypeProps = getPropertiesOfSymbol(domain, typeChecker);
 
     if (!domainTypeProps?.length) {
-      console.warn(
-        `'${domain.getName()}' has no readable methods in '${path}', so it'll be used as method itself. Ignore this message if it's expected`,
-      );
-    }
-
-    domainTypeProps.forEach((method) => {
-      if (isDeprecated(method)) {
+      const methodName = domain.getName();
+      if (isDeprecated(domain) || isMethodBlacklisted(methodName, blacklistedMethods)) {
         return;
       }
 
-      const methodType = typeChecker.getTypeOfSymbolAtLocation(method, domain.valueDeclaration!);
+      console.warn(`'${methodName}' has no readable methods in '${path}', so it'll be used as method itself`);
 
-      const [propSignature] = typeChecker.getSignaturesOfType(methodType, ts.SignatureKind.Call);
-      const sdkMethod: TSDKMethodParsed = {
-        path: `${className.replace('Moralis', '')}.${domain.getName()}.${method.getName()}`,
-        return: [],
-        params: [],
-      };
+      sdkMethods.push(parseSDKMethod(domain, typeChecker, [className.replace('Moralis', '')]));
+    }
 
-      const propParams = propSignature.getParameters();
-
-      const paramsSymbol = propParams.find((p) => p.escapedName === 'params');
-      if (paramsSymbol) {
-        const paramsType = typeChecker.getTypeOfSymbolAtLocation(paramsSymbol, paramsSymbol.valueDeclaration!);
-
-        sdkMethod.params = parseTypeProps(paramsType, typeChecker);
+    domainTypeProps.forEach((method) => {
+      if (isDeprecated(method) || isMethodBlacklisted(method.getName(), blacklistedMethods)) {
+        return;
       }
 
-      const returnedType = propSignature.getReturnType() as ts.TypeReference;
-      const [extractedPromise] = returnedType.typeArguments! as ts.TypeReference[];
-
-      sdkMethod.return = parseTypeProps(extractedPromise, typeChecker);
-      sdkMethods.push(sdkMethod);
+      sdkMethods.push(parseSDKMethod(method, typeChecker, [className.replace('Moralis', ''), domain.getName()]));
     });
-    return sdkMethods;
   });
+  return sdkMethods;
 };
 
 export default parseApiModule;

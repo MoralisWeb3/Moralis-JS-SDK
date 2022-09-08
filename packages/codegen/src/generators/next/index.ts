@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { Actions } from 'node-plop';
-import { apiModuleConfigs } from './utils/constants';
+import { apiModuleConfigs, blacklistedMethods, removeFromHookName } from './utils/constants';
 import { fileURLToPath } from 'node:url';
-import { getHookName, getApiUrl, getFolderUrlPathForHook } from './utils/namings';
+import { getHookName, getApiUrl, getFolderUrlPathForHook, getSplittedSDKPath } from './utils/namings';
 import { IParseApiModule } from '../../TSReader/types';
 import { NodePlopAPI } from 'plop';
 import { parseApiModule } from '../../TSReader';
@@ -13,15 +13,12 @@ import path from 'node:path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../..');
 
-// e.g. useEvmApiGetNFTsForContract => useEvmNFTsForContract
-const removeFromHookName = ['Api', 'Get', 'Resolve', 'Request'];
-
-const parseApiModules = (configs: IParseApiModule[]) => _.flatten(configs.map((config) => parseApiModule(config)));
+const parseApiModules = (configs: IParseApiModule[]) =>
+  _.flatten(configs.map((config) => parseApiModule(config, blacklistedMethods)));
 
 export default function NextGenerator(plop: NodePlopAPI) {
-  // const parsedApiModules = parseApiModules([apiModuleConfigs.Auth, apiModuleConfigs.EvmApi, apiModuleConfigs.SolApi]);
-  const parsedApiModules = parseApiModules([apiModuleConfigs.Auth]);
-  console.log('parsedApiModules: ', parsedApiModules)
+  const parsedApiModules = parseApiModules([apiModuleConfigs.Auth, apiModuleConfigs.EvmApi, apiModuleConfigs.SolApi]);
+
   fs.emptydirSync(path.join(packagesFolder, 'next/src/hooks/generated'));
   plop.setGenerator('hooks_generator', {
     description: 'hooks for @moralisweb3/next',
@@ -71,9 +68,13 @@ export default function NextGenerator(plop: NodePlopAPI) {
         };
       });
 
-      const generateConfig = {
+      const generateSupportedPathsJSON = {
         type: 'add',
-        template: JSON.stringify(parsedApiModules, null, 2),
+        template: JSON.stringify(
+          parsedApiModules.map((sdkPath) => getSplittedSDKPath(sdkPath.path)),
+          null,
+          2,
+        ),
         path: path.join(packagesFolder, 'next/src/hooks/generated/supportedPaths.json'),
         force: true,
       };
@@ -96,7 +97,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
       return [
         ...generateHooks,
         generateIndex,
-        generateConfig,
+        generateSupportedPathsJSON,
         ...injectedExports,
         generateReadMe,
         appendHookDescriptions,

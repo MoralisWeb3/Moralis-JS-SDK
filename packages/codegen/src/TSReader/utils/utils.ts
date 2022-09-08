@@ -62,3 +62,5 @@ export const getPropertiesOfSymbol = (symbol: ts.Symbol, typeChecker: ts.TypeChe
   const type = typeChecker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
   return type.getProperties();
 };
+
+export const isMethodBlacklisted = (name: string, blackList?: string[]) => Boolean(blackList?.includes(name));
