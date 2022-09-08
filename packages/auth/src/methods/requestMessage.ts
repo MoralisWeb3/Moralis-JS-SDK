@@ -49,7 +49,6 @@ const makeEvmRequestMessage = (
   { chain, address, network, ...options }: RequestMessageEvmOptions,
 ) => {
   return EndpointResolver.create(core, BASE_URL, initializeChallengeEvm).fetch({
-    // TODO: remove this when the API is fixed
     chainId: EvmChain.create(chain).apiId,
     address: EvmAddress.create(address).checksum,
     ...options,
