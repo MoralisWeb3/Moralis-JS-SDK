@@ -74,7 +74,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { mint: string; standard: string; name: string; symbol: string; metaplex: { metadataUri: string; updateAuthority: string; sellerFeeBasisPoints: number; primarySaleHappened: boolean; isMutable: boolean; masterEdition: boolean; }; }"
+"{ mint: string; standard: string; name: string; symbol: string; metaplex: { metadataUri: string; updateAuthority: string; sellerFeeBasisPoints: number; primarySaleHappened: boolean; isMutable: boolean; masterEdition: boolean; }; }"
 ```
 
 ## `useSolSPL()` 
@@ -109,7 +109,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { associatedTokenAddress: string; mint: string; amount: string; }[]"
+"{ associatedTokenAddress: string; mint: string; amount: string; }[]"
 ```
 
 ## `useSolPortfolio()` 
@@ -144,7 +144,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { nativeBalance: string; nfts: { associatedTokenAddress: string; mint: string; }[]; tokens: { associatedTokenAddress: string; mint: string; amount: string; }[]; }"
+"{ nativeBalance: string; nfts: { associatedTokenAddress: string; mint: string; }[]; tokens: { associatedTokenAddress: string; mint: string; amount: string; }[]; }"
 ```
 
 ## `useSolNFTs()` 
@@ -179,7 +179,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { associatedTokenAddress: string; mint: string; }[]"
+"{ associatedTokenAddress: string; mint: string; }[]"
 ```
 
 ## `useSolBalance()` 
@@ -214,7 +214,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => string"
+"string"
 ```
 
 ## `useEvmRunContractFunction()` 
@@ -254,7 +254,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => string"
+"string"
 ```
 
 ## `useEvmUploadFolder()` 
@@ -288,7 +288,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { path: string; }[]"
+"{ path: string; }[]"
 ```
 
 ## `useEvmDomain()` 
@@ -323,7 +323,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { address: string; }"
+"{ address: string; }"
 ```
 
 ## `useEvmAddress()` 
@@ -357,7 +357,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { name: string; }"
+"{ name: string; }"
 ```
 
 ## `useEvmDateToBlock()` 
@@ -393,7 +393,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { date: Date; block: number; timestamp: number; }"
+"{ date: Date; block: number; timestamp: number; }"
 ```
 
 ## `useEvmBlock()` 
@@ -429,7 +429,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { number: string; difficulty: string; totalDifficulty: string; size: string; gasLimit: string; gasUsed: string; chain: string | number; miner: string; transactions: { to: string; from: string; nonce: string; gas: string; gasPrice: string; gasUsed: string; cumulativeGasUsed: string; blockNumber: string; value: string; chain: string | number; contractAddress: string; logs: { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]; blockTimestamp: string; data?: string; hash: string; type?: number; index: number; blockHash: string; receiptRoot?: string; receiptStatus?: number; }[]; timestamp: Date; hash: string; parentHash: string; nonce: string; sha3Uncles: string; logsBloom: string; transactionsRoot: string; stateRoot: string; receiptsRoot: string; extraData: string; transactionCount: number; }"
+"{ number: string; difficulty: string; totalDifficulty: string; size: string; gasLimit: string; gasUsed: string; chain: string | number; miner: string; transactions: { to: string; from: string; nonce: string; gas: string; gasPrice: string; gasUsed: string; cumulativeGasUsed: string; blockNumber: string; value: string; chain: string | number; contractAddress: string; logs: { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]; blockTimestamp: string; data?: string; hash: string; type?: number; index: number; blockHash: string; receiptRoot?: string; receiptStatus?: number; }[]; timestamp: Date; hash: string; parentHash: string; nonce: string; sha3Uncles: string; logsBloom: string; transactionsRoot: string; stateRoot: string; receiptsRoot: string; extraData: string; transactionCount: number; }"
 ```
 
 ## `useEvmNativeBalance()` 
@@ -466,7 +466,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { balance: string; }"
+"{ balance: string; }"
 ```
 
 ## `useEvmWalletTransactions()` 
@@ -509,7 +509,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { to: string; from: string; nonce: string; gas: string; gasPrice: string; gasUsed: string; cumulativeGasUsed: string; blockNumber: string; value: string; chain: string | number; contractAddress: string; logs: { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]; blockTimestamp: string; data?: string; hash: string; type?: number; index: number; blockHash: string; receiptRoot?: string; receiptStatus?: number; }[]"
+"{ to: string; from: string; nonce: string; gas: string; gasPrice: string; gasUsed: string; cumulativeGasUsed: string; blockNumber: string; value: string; chain: string | number; contractAddress: string; logs: { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]; blockTimestamp: string; data?: string; hash: string; type?: number; index: number; blockHash: string; receiptRoot?: string; receiptStatus?: number; }[]"
 ```
 
 ## `useEvmTransaction()` 
@@ -545,7 +545,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { to: string; from: string; nonce: string; gas: string; gasPrice: string; gasUsed: string; cumulativeGasUsed: string; blockNumber: string; value: string; chain: string | number; contractAddress: string; logs: { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]; blockTimestamp: string; data?: string; hash: string; type?: number; index: number; blockHash: string; receiptRoot?: string; receiptStatus?: number; }"
+"{ to: string; from: string; nonce: string; gas: string; gasPrice: string; gasUsed: string; cumulativeGasUsed: string; blockNumber: string; value: string; chain: string | number; contractAddress: string; logs: { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]; blockTimestamp: string; data?: string; hash: string; type?: number; index: number; blockHash: string; receiptRoot?: string; receiptStatus?: number; }"
 ```
 
 ## `useEvmContractLogs()` 
@@ -593,7 +593,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]"
+"{ address: string; logIndex?: number; transactionHash: string; transactionIndex?: number; data: string; topics: string[]; blockHash: string; blockNumber: number; blockTimestamp?: string; }[]"
 ```
 
 ## `useEvmContractEvents()` 
@@ -639,7 +639,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => EvmEvent[]"
+"EvmEvent[]"
 ```
 
 ## `useEvmPairReserves()` 
@@ -677,7 +677,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { reserve0?: string; reserve1?: string; }"
+"{ reserve0?: string; reserve1?: string; }"
 ```
 
 ## `useEvmPairAddress()` 
@@ -717,7 +717,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { token0: { token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: number; createdAt: Date; }; token1: { token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: number; createdAt: Date; }; pairAddress: string; }"
+"{ token0: { token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: number; createdAt: Date; }; token1: { token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: number; createdAt: Date; }; pairAddress: string; }"
 ```
 
 ## `useEvmTokenAllowance()` 
@@ -755,7 +755,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { allowance: string; }"
+"{ allowance: string; }"
 ```
 
 ## `useEvmTokenTransfers()` 
@@ -798,7 +798,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; address: string; blockNumber: string; toAddress: string; fromAddress: string; value: string; transactionHash: string; blockTimestamp: Date; blockHash: string; }[]"
+"{ chain: string | number; address: string; blockNumber: string; toAddress: string; fromAddress: string; value: string; transactionHash: string; blockTimestamp: Date; blockHash: string; }[]"
 ```
 
 ## `useEvmTokenPrice()` 
@@ -836,7 +836,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { exchangeAddress: string; nativePrice: string; usdPrice: number; exchangeName?: string; symbol: Camelize<unknown>; }"
+"{ exchangeAddress: string; nativePrice: string; usdPrice: number; exchangeName?: string; symbol: Camelize<unknown>; }"
 ```
 
 ## `useEvmTokenMetadataBySymbol()` 
@@ -872,7 +872,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: string; }[]"
+"{ token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: string; }[]"
 ```
 
 ## `useEvmTokenMetadata()` 
@@ -909,7 +909,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: string; }[]"
+"{ token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; blockNumber: string; validated: string; }[]"
 ```
 
 ## `useEvmWalletTokenTransfers()` 
@@ -952,7 +952,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; address: string; blockNumber: string; toAddress: string; fromAddress: string; value: string; transactionHash: string; blockTimestamp: Date; blockHash: string; }[]"
+"{ chain: string | number; address: string; blockNumber: string; toAddress: string; fromAddress: string; value: string; transactionHash: string; blockTimestamp: Date; blockHash: string; }[]"
 ```
 
 ## `useEvmWalletTokenBalances()` 
@@ -990,7 +990,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => ({ value: string; token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; } | { value: string; token?: undefined; })[]"
+"({ value: string; token: { contractAddress: string; chain: string | number; decimals: number; name: string; symbol: string; logo?: string; logoHash?: string; thumbnail?: string; }; } | { value: string; token?: undefined; })[]"
 ```
 
 ## `useEvmWalletNFTCollections()` 
@@ -1028,7 +1028,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; tokenAddress: string; contractType: EvmNftContractType; name: string; symbol: string; }[]"
+"{ chain: string | number; tokenAddress: string; contractType: EvmNftContractType; name: string; symbol: string; }[]"
 ```
 
 ## `useEvmNFTContractTransfers()` 
@@ -1067,7 +1067,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
+"{ chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
 ```
 
 ## `useEvmSyncNFTContract()` 
@@ -1102,7 +1102,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { success: boolean; }"
+"{ success: boolean; }"
 ```
 
 ## `useEvmNFTTransfers()` 
@@ -1143,7 +1143,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
+"{ chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
 ```
 
 ## `useEvmNFTTokenIdOwners()` 
@@ -1184,7 +1184,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { tokenAddress: string; chain: string | number; ownerOf: string; blockNumberMinted: string; blockNumber: string; tokenId: string | number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
+"{ tokenAddress: string; chain: string | number; ownerOf: string; blockNumberMinted: string; blockNumber: string; tokenId: string | number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
 ```
 
 ## `useEvmNFTMetadata()` 
@@ -1222,7 +1222,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }"
+"{ tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }"
 ```
 
 ## `useEvmReSyncMetadata()` 
@@ -1264,7 +1264,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { status: string; }"
+"{ status: string; }"
 ```
 
 ## `useEvmNFTContractMetadata()` 
@@ -1300,7 +1300,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; tokenAddress: string; name: string; symbol: string; contractType: EvmNftContractType; syncedAt?: Date; }"
+"{ chain: string | number; tokenAddress: string; name: string; symbol: string; contractType: EvmNftContractType; syncedAt?: Date; }"
 ```
 
 ## `useEvmNFTOwners()` 
@@ -1340,7 +1340,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
+"{ tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
 ```
 
 ## `useEvmContractNFTs()` 
@@ -1383,7 +1383,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
+"{ tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
 ```
 
 ## `useEvmNFTTransfersFromToBlock()` 
@@ -1425,7 +1425,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
+"{ chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
 ```
 
 ## `useEvmSearchNFTs()` 
@@ -1470,7 +1470,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { token: { tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }; lastMetadataSync: string; lastTokenUriSync: string; updatedAt: string; tokenHash: string; blockNumberMinted: string; batchId: string; frozen: number; frozenLogIndex: { [key: string]: unknown; }; imported: { [key: string]: unknown; }; isValid: number; openseaLookup: { [key: string]: unknown; }; resyncing: number; syncing: number; }[]"
+"{ token: { tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }; lastMetadataSync: string; lastTokenUriSync: string; updatedAt: string; tokenHash: string; blockNumberMinted: string; batchId: string; frozen: number; frozenLogIndex: { [key: string]: unknown; }; imported: { [key: string]: unknown; }; isValid: number; openseaLookup: { [key: string]: unknown; }; resyncing: number; syncing: number; }[]"
 ```
 
 ## `useEvmNFTLowestPrice()` 
@@ -1508,7 +1508,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; sellerAddress: string; buyerAddress: string; marketplaceAddress: string; tokenAddress: string; priceTokenAddress: string; blockNumber: string; price: string; blockTimestamp: string; transactionHash: string; transactionIndex: number; tokenIds: string[]; blockHash: string; }"
+"{ chain: string | number; sellerAddress: string; buyerAddress: string; marketplaceAddress: string; tokenAddress: string; priceTokenAddress: string; blockNumber: string; price: string; blockTimestamp: string; transactionHash: string; transactionIndex: number; tokenIds: string[]; blockHash: string; }"
 ```
 
 ## `useEvmNFTTrades()` 
@@ -1552,7 +1552,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; sellerAddress: string; buyerAddress: string; marketplaceAddress: string; tokenAddress: string; priceTokenAddress: string; blockNumber: string; price: string; blockTimestamp: string; transactionHash: string; transactionIndex: number; tokenIds: string[]; blockHash: string; }[]"
+"{ chain: string | number; sellerAddress: string; buyerAddress: string; marketplaceAddress: string; tokenAddress: string; priceTokenAddress: string; blockNumber: string; price: string; blockTimestamp: string; transactionHash: string; transactionIndex: number; tokenIds: string[]; blockHash: string; }[]"
 ```
 
 ## `useEvmWalletNFTTransfers()` 
@@ -1594,7 +1594,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
+"{ chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
 ```
 
 ## `useEvmWalletNFTs()` 
@@ -1638,7 +1638,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
+"{ tokenAddress: string; chain: string || number; contractType: EvmNftContractType; tokenUri?: string; tokenHash?: string; metadata?: MoralisDataObjectValue; name?: string; symbol?: string; lastMetadataSync?: Date; lastTokenUriSync?: Date; amount?: number; }[]"
 ```
 
 ## `useEvmNFTTransfersByBlock()` 
@@ -1677,7 +1677,7 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
+"{ chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
 ```
 
 ## `useAuthMessage()` 
@@ -1711,5 +1711,5 @@ const ERC20Balances = () => {
 ### Example return:
 
 ```json
-"() => { id: string; message: string; profileId: string; }"
+"{ id: string; message: string; profileId: string; }"
 ```

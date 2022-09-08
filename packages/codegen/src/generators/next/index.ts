@@ -106,8 +106,13 @@ export default function NextGenerator(plop: NodePlopAPI) {
             hookName,
             desc: new Handlebars.SafeString(apiModule.desc || 'Description will be added later 👀'),
             params: formatParsedTypes(apiModule.params),
+            // TO-DO finish this functionality by resolving the type
             return: new Handlebars.SafeString(
-              JSON.stringify(apiModule.return?.find((returnType) => returnType.name === 'toJson')?.type, null, 2),
+              JSON.stringify(
+                apiModule.return?.find((returnType) => returnType.name === 'toJson')?.type,
+                null,
+                2,
+              ).replaceAll('() => ', ''),
             ),
           },
         };

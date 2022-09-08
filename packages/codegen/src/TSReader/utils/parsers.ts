@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import ts from 'typescript';
 import { TSDKMethodParsed } from '../types';
-import { getTypeOfSymbolAndToString, parseTypeProps } from './utils';
+import { parseTypeProps } from './utils';
 
 export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, domainSDKPath: string[]) => {
   const propType = typeChecker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!);
@@ -27,19 +27,6 @@ export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, dom
   const returnedType = propSignature.getReturnType() as ts.TypeReference;
 
   const [extractedPromise] = returnedType.typeArguments! as ts.TypeReference[];
-
-  extractedPromise.getProperties().forEach((xxx) => {
-    if (xxx.getName() === 'result') {
-      const le = typeChecker.getTypeOfSymbolAtLocation(xxx, xxx.valueDeclaration!);
-      le.getProperties().forEach((ccc) => {
-        // if (ccc.getName() === 'gas') {
-        const isReq = (ccc.getFlags() & ts.SymbolFlags.Optional) === ts.SymbolFlags.Optional;
-        console.log(
-          `${_.camelCase(ccc.getName())}${isReq ? ':' : '?:'} ${getTypeOfSymbolAndToString(ccc, typeChecker)}`,
-        );
-      });
-    }
-  });
 
   sdkMethod.return = parseTypeProps(extractedPromise, typeChecker);
 
