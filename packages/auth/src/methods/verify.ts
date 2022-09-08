@@ -1,7 +1,8 @@
 import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { assertUnreachable } from '@moralisweb3/core';
+import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
 import { BASE_URL } from '../MoralisAuth';
-import { completeChallenge } from '../resolvers/evmVerifyChallenge';
+import { completeChallengeEvm, completeChallengeSol } from '../resolvers';
+import { AuthNetwork } from './requestMessage';
 
 export interface VerifyEvmOptions {
   message: string;
@@ -9,11 +10,26 @@ export interface VerifyEvmOptions {
   network: 'evm';
 }
 
-export type VerifyOptions = VerifyEvmOptions;
+export interface VerifySolOptions {
+  message: string;
+  signature: string;
+  network: 'solana';
+}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type VerifyOptions = VerifyEvmOptions | VerifySolOptions;
+
+export type VerifyEvmData = ReturnType<typeof makeEvmVerify>;
+export type VerifySolData = ReturnType<typeof makeSolVerify>;
+
 const makeEvmVerify = (core: MoralisCore, { network, ...options }: VerifyEvmOptions) => {
-  return EndpointResolver.create(core, BASE_URL, completeChallenge).fetch({
+  return EndpointResolver.create(core, BASE_URL, completeChallengeEvm).fetch({
+    message: options.message,
+    signature: options.signature,
+  });
+};
+
+const makeSolVerify = (core: MoralisCore, { network, ...options }: VerifySolOptions) => {
+  return EndpointResolver.create(core, BASE_URL, completeChallengeSol).fetch({
     message: options.message,
     signature: options.signature,
   });
@@ -21,9 +37,16 @@ const makeEvmVerify = (core: MoralisCore, { network, ...options }: VerifyEvmOpti
 
 export const makeVerify = (core: MoralisCore) => (options: VerifyOptions) => {
   switch (options.network) {
-    case 'evm':
+    case AuthNetwork.EVM:
       return makeEvmVerify(core, options);
+    case AuthNetwork.SOLANA:
+      return makeSolVerify(core, options);
     default:
-      return assertUnreachable(options.network);
+      throw new MoralisAuthError({
+        code: AuthErrorCode.INCORRECT_NETWORK,
+        message: `Incorrect network provided. Got "${options.network}", Valid values are: ${Object.values(AuthNetwork)
+          .map((value) => `"${value}"`)
+          .join(', ')}`,
+      });
   }
 };
