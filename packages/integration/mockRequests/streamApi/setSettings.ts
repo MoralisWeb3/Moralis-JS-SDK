@@ -10,11 +10,5 @@ export const mockSetSettings = rest.post(`${STREAM_API_ROOT}/settings`, (req, re
     return res(ctx.status(401));
   }
 
-  const value = mockSetSettingsOutput;
-
-  if (!value) {
-    return res(ctx.status(404));
-  }
-
-  return res(ctx.status(200), ctx.json(value));
+  return res(ctx.status(200), ctx.json(mockSetSettingsOutput));
 });

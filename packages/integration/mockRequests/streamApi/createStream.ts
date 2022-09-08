@@ -21,11 +21,5 @@ export const mockCreateStream = rest.put(`${STREAM_API_ROOT}/streams`, (req, res
     return res(ctx.status(401));
   }
 
-  const value = mockCreateStreamOutput;
-
-  if (!value) {
-    return res(ctx.status(404));
-  }
-
-  return res(ctx.status(200), ctx.json(value));
+  return res(ctx.status(200), ctx.json(mockCreateStreamOutput));
 });
