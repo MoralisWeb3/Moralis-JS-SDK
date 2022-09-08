@@ -8,17 +8,16 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './theme';
 import { MoralisProvider } from 'react-moralis';
 
-import { AppContextProvider } from './context/AppContext';
-
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider theme={theme}>
-        <MoralisProvider serverUrl={process.env.REACT_APP_SERVER_URL!} appId={process.env.REACT_APP_APPLICATION_ID!}>
-          <AppContextProvider>
-            <App />
-          </AppContextProvider>
+        <MoralisProvider
+          serverUrl={process.env.REACT_APP_SERVER_URL ?? ''}
+          appId={process.env.REACT_APP_APPLICATION_ID ?? ''}
+        >
+          <App />
         </MoralisProvider>
       </ChakraProvider>
     </BrowserRouter>

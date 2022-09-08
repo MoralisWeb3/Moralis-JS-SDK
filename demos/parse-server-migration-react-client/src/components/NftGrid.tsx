@@ -18,7 +18,7 @@ import { useNFTBalances } from 'react-moralis';
 
 interface NftProps {
   name: string;
-  metadata?: any;
+  metadata?: { image?: string };
   address: string;
   id: string;
   type: string;
