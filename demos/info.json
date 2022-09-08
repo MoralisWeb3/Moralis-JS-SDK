@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2022-09-06T18:10:28.757Z",
+  "generatedAt": "2022-09-08T10:10:05.129Z",
   "demos": [
     {
       "name": "cli",
@@ -36,6 +36,18 @@
       "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/parse-server",
       "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server/parse-server.zip",
       "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server/code"
+    },
+    {
+      "name": "parse-server-migration",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/parse-server-migration",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration/parse-server-migration.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration/code"
+    },
+    {
+      "name": "parse-server-migration-react-client",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/parse-server-migration-react-client",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration-react-client/parse-server-migration-react-client.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration-react-client/code"
     },
     {
       "name": "supabase-auth",
