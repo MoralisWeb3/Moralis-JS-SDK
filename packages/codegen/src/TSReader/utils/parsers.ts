@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import _ from 'lodash';
 import ts from 'typescript';
 import { TSDKMethodParsed } from '../types';
-import { parseTypeProps } from './utils';
+import { getTypeOfSymbolAndToString, parseTypeProps } from './utils';
 
 export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, domainSDKPath: string[]) => {
   const propType = typeChecker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!);
@@ -28,15 +29,14 @@ export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, dom
   const [extractedPromise] = returnedType.typeArguments! as ts.TypeReference[];
 
   extractedPromise.getProperties().forEach((xxx) => {
-    if (xxx.getName() === 'raw') {
+    if (xxx.getName() === 'result') {
       const le = typeChecker.getTypeOfSymbolAtLocation(xxx, xxx.valueDeclaration!);
       le.getProperties().forEach((ccc) => {
         // if (ccc.getName() === 'gas') {
         const isReq = (ccc.getFlags() & ts.SymbolFlags.Optional) === ts.SymbolFlags.Optional;
-
-        if (!isReq) {
-          console.log(ccc.getName());
-        }
+        console.log(
+          `${_.camelCase(ccc.getName())}${isReq ? ':' : '?:'} ${getTypeOfSymbolAndToString(ccc, typeChecker)}`,
+        );
       });
     }
   });
