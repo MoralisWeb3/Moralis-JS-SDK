@@ -21,3 +21,6 @@ demos/**/build/**/*
 
 # Docs
 docs/**/*
+
+# Plop templates
+**/.hbs
