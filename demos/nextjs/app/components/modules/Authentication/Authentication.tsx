@@ -33,7 +33,7 @@ const wallets = [
   },
 ];
 const Authentication = () => {
-  const { connectAsync } = useConnect();
+  const { connectAsync } = useConnect({connector: new MetaMaskConnector()});
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
   const { getMessage } = useAuthMessage();
