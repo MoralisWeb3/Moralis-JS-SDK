@@ -49,8 +49,8 @@ Description will be added later 👀
 ### Params:
 
 ```json
-- `network :SolNetworkish
-- `address :SolAddressish
+network :SolNetworkish;
+address :SolAddressish;
 ```
 
 ### Example:
@@ -84,8 +84,8 @@ Description will be added later 👀
 ### Params:
 
 ```json
-- `network :SolNetworkish
-- `address :SolAddressish
+network :SolNetworkish;
+address :SolAddressish;
 ```
 
 ### Example:
@@ -119,8 +119,8 @@ Description will be added later 👀
 ### Params:
 
 ```json
-- `network :SolNetworkish
-- `address :SolAddressish
+network :SolNetworkish;
+address :SolAddressish;
 ```
 
 ### Example:
@@ -154,8 +154,8 @@ Description will be added later 👀
 ### Params:
 
 ```json
-- `network :SolNetworkish
-- `address :SolAddressish
+network :SolNetworkish;
+address :SolAddressish;
 ```
 
 ### Example:
@@ -189,8 +189,8 @@ Description will be added later 👀
 ### Params:
 
 ```json
-- `network :SolNetworkish
-- `address :SolAddressish
+network :SolNetworkish;
+address :SolAddressish;
 ```
 
 ### Example:
@@ -224,13 +224,13 @@ Run a given function of a contract abi and retrieve readonly data.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `subdomain :string
-- `providerUrl :string
-- `functionName :string
-- `address :EvmAddressish
-- `abi :unknown
-- `params :{ [key: string]: unknown; }
+chain :EvmChainish;
+subdomain :string;
+providerUrl :string;
+functionName :string;
+address :EvmAddressish;
+abi :unknown;
+params :{ [key: string]: unknown; };
 ```
 
 ### Example:
@@ -264,7 +264,7 @@ Upload multiple files to IPFS and place them in a folder directory.
 ### Params:
 
 ```json
-- `abi :{ path: string; content: string; }[]
+abi :{ path: string; content: string; }[];
 ```
 
 ### Example:
@@ -298,8 +298,8 @@ Resolve an Unstoppable domain and get the address.
 ### Params:
 
 ```json
-- `currency :"eth" | "0x1"
-- `domain :string
+currency :"eth" | "0x1";
+domain :string;
 ```
 
 ### Example:
@@ -333,7 +333,7 @@ Resolve an ETH address and find the ENS name.
 ### Params:
 
 ```json
-- `address :EvmAddressish
+address :EvmAddressish;
 ```
 
 ### Example:
@@ -367,9 +367,9 @@ Get the closest block of the provided date.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `date :string
-- `providerUrl :any
+chain :EvmChainish;
+date :string;
+providerUrl :any;
 ```
 
 ### Example:
@@ -403,9 +403,9 @@ Get the contents of a block by block hash.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `subdomain :any
-- `blockNumberOrHash :any
+chain :EvmChainish;
+subdomain :any;
+blockNumberOrHash :any;
 ```
 
 ### Example:
@@ -439,10 +439,10 @@ Get native balance for a specific address.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `toBlock :any
-- `providerUrl :any
+chain :EvmChainish;
+address :EvmAddressish;
+toBlock :any;
+providerUrl :any;
 ```
 
 ### Example:
@@ -476,16 +476,16 @@ Get native transactions ordered by block number in descending order.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `subdomain :any
-- `limit :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `offset :number
-- `cursor :string
+chain :EvmChainish;
+address :EvmAddressish;
+subdomain :any;
+limit :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+offset :number;
+cursor :string;
 ```
 
 ### Example:
@@ -519,9 +519,9 @@ Get the contents of a transaction by transaction hash.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `subdomain :any
-- `transactionHash :any
+chain :EvmChainish;
+subdomain :any;
+transactionHash :any;
 ```
 
 ### Example:
@@ -555,21 +555,21 @@ Get the logs for an address.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `subdomain :any
-- `limit :any
-- `cursor :any
-- `blockNumber :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `topic0 :any
-- `topic1 :any
-- `topic2 :any
-- `topic3 :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+subdomain :any;
+limit :any;
+cursor :any;
+blockNumber :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+topic0 :any;
+topic1 :any;
+topic2 :any;
+topic3 :any;
+offset :number;
 ```
 
 ### Example:
@@ -603,19 +603,19 @@ Get events for a specific contract ordered by block number in descending order.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `abi :unknown
-- `subdomain :any
-- `limit :any
-- `offset :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `providerUrl :any
-- `topic :any
-- `cursor :string
+chain :EvmChainish;
+address :EvmAddressish;
+abi :unknown;
+subdomain :any;
+limit :any;
+offset :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+providerUrl :any;
+topic :any;
+cursor :string;
 ```
 
 ### Example:
@@ -649,11 +649,11 @@ Get the liquidity reserves for a given pair address. Only Uniswap V2 based excha
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `pairAddress :EvmAddressish
-- `toBlock :any
-- `toDate :any
-- `providerUrl :any
+chain :EvmChainish;
+pairAddress :EvmAddressish;
+toBlock :any;
+toDate :any;
+providerUrl :any;
 ```
 
 ### Example:
@@ -688,12 +688,12 @@ The token0 and token1 options are interchangable (ie. there is no different outc
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `token0Address :EvmAddressish
-- `token1Address :EvmAddressish
-- `toBlock :any
-- `toDate :any
-- `exchange :any
+chain :EvmChainish;
+token0Address :EvmAddressish;
+token1Address :EvmAddressish;
+toBlock :any;
+toDate :any;
+exchange :any;
 ```
 
 ### Example:
@@ -727,11 +727,11 @@ Get the amount which the spender is allowed to withdraw on behalf of the owner.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `ownerAddress :EvmAddressish
-- `spenderAddress :EvmAddressish
-- `providerUrl :any
+chain :EvmChainish;
+address :EvmAddressish;
+ownerAddress :EvmAddressish;
+spenderAddress :EvmAddressish;
+providerUrl :any;
 ```
 
 ### Example:
@@ -765,16 +765,16 @@ Get ERC20 token transactions ordered by block number in descending order.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `subdomain :any
-- `limit :any
-- `offset :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `cursor :string
+chain :EvmChainish;
+address :EvmAddressish;
+subdomain :any;
+limit :any;
+offset :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+cursor :string;
 ```
 
 ### Example:
@@ -808,11 +808,11 @@ Get the token price denominated in the blockchains native token and USD.
 ### Params:
 
 ```json
-- `chain :"eth" | "0x1" | "ropsten" | "0x3" | "rinkeby" | "0x4" | "goerli" | "0x5" | "kovan" | "0x2a" | "polygon" | "0x89" | "mumbai" | "0x13881" | "bsc" | "0x38" | "bsc testnet" | "0x61" | "avalanche" | "0xa86a" | "avalanche testnet" | "0xa869" | "fantom" | "0xfa" | "cronos" | "0x19" | "cronos testnet" | "0x152"
-- `providerUrl :string
-- `exchange :string
-- `toBlock :number
-- `address :string
+chain :"eth" | "0x1" | "ropsten" | "0x3" | "rinkeby" | "0x4" | "goerli" | "0x5" | "kovan" | "0x2a" | "polygon" | "0x89" | "mumbai" | "0x13881" | "bsc" | "0x38" | "bsc testnet" | "0x61" | "avalanche" | "0xa86a" | "avalanche testnet" | "0xa869" | "fantom" | "0xfa" | "cronos" | "0x19" | "cronos testnet" | "0x152";
+providerUrl :string;
+exchange :string;
+toBlock :number;
+address :string;
 ```
 
 ### Example:
@@ -846,9 +846,9 @@ Get metadata (name, symbol, decimals, logo) for a list of token symbols.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `subdomain :any
-- `symbols :any
+chain :EvmChainish;
+subdomain :any;
+symbols :any;
 ```
 
 ### Example:
@@ -882,10 +882,10 @@ Returns metadata (name, symbol, decimals, logo) for a given token contract addre
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `addresses :EvmAddressish[]
-- `subdomain :any
-- `providerUrl :any
+chain :EvmChainish;
+addresses :EvmAddressish[];
+subdomain :any;
+providerUrl :any;
 ```
 
 ### Example:
@@ -919,16 +919,16 @@ Get ERC20 token transactions ordered by block number in descending order.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `subdomain :any
-- `limit :any
-- `cursor :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+subdomain :any;
+limit :any;
+cursor :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+offset :number;
 ```
 
 ### Example:
@@ -962,11 +962,11 @@ Get token balances for a specific address.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `subdomain :any
-- `tokenAddresses :any
-- `toBlock :any
+chain :EvmChainish;
+address :EvmAddressish;
+subdomain :any;
+tokenAddresses :any;
+toBlock :any;
 ```
 
 ### Example:
@@ -1000,11 +1000,11 @@ Get the nft collections owned by an user
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+offset :number;
 ```
 
 ### Example:
@@ -1038,12 +1038,12 @@ Get the transfers of the tokens matching the given parameters.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+offset :number;
 ```
 
 ### Example:
@@ -1077,8 +1077,8 @@ Initiates a metadata refresh for an entire NFT collection.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
+chain :EvmChainish;
+address :EvmAddressish;
 ```
 
 ### Example:
@@ -1112,14 +1112,14 @@ Get the transfers of an NFT given a conttract address and token ID.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `tokenId :any
-- `order :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+tokenId :any;
+order :any;
+offset :number;
 ```
 
 ### Example:
@@ -1154,13 +1154,13 @@ Get all owners of a specific NFT given the contract address and token ID.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `tokenId :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+tokenId :any;
+offset :number;
 ```
 
 ### Example:
@@ -1195,10 +1195,10 @@ Get NFT data, including metadata (where available), for the given NFT token id o
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `format :any
-- `tokenId :any
+chain :EvmChainish;
+address :EvmAddressish;
+format :any;
+tokenId :any;
 ```
 
 ### Example:
@@ -1236,11 +1236,11 @@ ReSync the metadata for an NFT
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `tokenId :any
-- `flag :any
-- `mode :any
+chain :EvmChainish;
+address :EvmAddressish;
+tokenId :any;
+flag :any;
+mode :any;
 ```
 
 ### Example:
@@ -1275,8 +1275,8 @@ Get the contract level metadata (name, symbol, base token uri) for the given con
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
+chain :EvmChainish;
+address :EvmAddressish;
 ```
 
 ### Example:
@@ -1311,12 +1311,12 @@ Get all owners of NFTs within a given contract.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+offset :number;
 ```
 
 ### Example:
@@ -1352,14 +1352,14 @@ Get all NFTs, including metadata (where available), for all NFTs for the given c
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `totalRanges :any
-- `range :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+totalRanges :any;
+range :any;
+offset :number;
 ```
 
 ### Example:
@@ -1393,15 +1393,15 @@ Gets the transfers of the tokens from a block number to a block number.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `limit :any
-- `cursor :any
-- `format :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `offset :number
+chain :EvmChainish;
+limit :any;
+cursor :any;
+format :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+offset :number;
 ```
 
 ### Example:
@@ -1435,18 +1435,18 @@ Get NFTs that match a given metadata search query.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `addresses :EvmAddressish[]
-- `limit :any
-- `cursor :any
-- `format :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `q :any
-- `filter :any
-- `offset :number
+chain :EvmChainish;
+addresses :EvmAddressish[];
+limit :any;
+cursor :any;
+format :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+q :any;
+filter :any;
+offset :number;
 ```
 
 ### Example:
@@ -1480,11 +1480,11 @@ Get the lowest executed price for an NFT token contract for the last x days (onl
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `providerUrl :any
-- `marketplace :any
-- `days :any
+chain :EvmChainish;
+address :EvmAddressish;
+providerUrl :any;
+marketplace :any;
+days :any;
 ```
 
 ### Example:
@@ -1518,17 +1518,17 @@ Get the nft trades for a given contract and marketplace.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `fromBlock :any
-- `toBlock :any
-- `fromDate :any
-- `toDate :any
-- `providerUrl :any
-- `marketplace :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+fromBlock :any;
+toBlock :any;
+fromDate :any;
+toDate :any;
+providerUrl :any;
+marketplace :any;
+offset :number;
 ```
 
 ### Example:
@@ -1562,15 +1562,15 @@ Get the transfers of the tokens matching the given parameters.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `direction :any
-- `fromBlock :any
-- `toBlock :any
-- `offset :number
+chain :EvmChainish;
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+direction :any;
+fromBlock :any;
+toBlock :any;
+offset :number;
 ```
 
 ### Example:
@@ -1608,13 +1608,13 @@ Get NFTs owned by a given address.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `tokenAddresses :EvmAddressish[]
-- `address :EvmAddressish
-- `limit :any
-- `cursor :any
-- `format :any
-- `offset :number
+chain :EvmChainish;
+tokenAddresses :EvmAddressish[];
+address :EvmAddressish;
+limit :any;
+cursor :any;
+format :any;
+offset :number;
 ```
 
 ### Example:
@@ -1648,12 +1648,12 @@ Get NFT transfers by block number or block hash.
 ### Params:
 
 ```json
-- `chain :EvmChainish
-- `subdomain :any
-- `limit :any
-- `cursor :any
-- `blockNumberOrHash :any
-- `offset :number
+chain :EvmChainish;
+subdomain :any;
+limit :any;
+cursor :any;
+blockNumberOrHash :any;
+offset :number;
 ```
 
 ### Example:
