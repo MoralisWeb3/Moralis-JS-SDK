@@ -89,7 +89,9 @@ export interface components {
       /** @description The token address of the contract, required if the type : log */
       tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string;
+      topic0?: string | null;
+      /** @description Include or not native transactions defaults to false */
+      includeNativeTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
       /** @description The wallet address of the user, required if the type : tx */
@@ -122,7 +124,9 @@ export interface components {
       /** @description The token address of the contract, required if the type : log */
       tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string;
+      topic0?: string | null;
+      /** @description Include or not native transactions defaults to false */
+      includeNativeTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
       /** @description The wallet address of the user, required if the type : tx */

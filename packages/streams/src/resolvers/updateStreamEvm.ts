@@ -16,6 +16,7 @@ const bodyParams = [
   'tag',
   'tokenAddress',
   'topic0',
+  'includeNativeTxs',
   'filter',
   'address',
   'type',
