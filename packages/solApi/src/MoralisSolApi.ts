@@ -33,9 +33,13 @@ export class MoralisSolApi extends ApiModule {
   private readonly getBalance = this.endpoints.createFetcher(getBalance);
 
   public readonly account = {
+    /** Gets native balance owned by the given network and address */
     getBalance: this.getBalance,
+    /** Gets NFTs owned by the given network and address */
     getNFTs: this.endpoints.createFetcher(getNFTs),
+    /** Gets the portfolio of the given network and address */
     getPortfolio: this.endpoints.createFetcher(getPortfolio),
+    /** Gets token balances owned by the given network and address */
     getSPL: this.endpoints.createFetcher(getSPL),
     // Support for old naming
     /**
@@ -45,6 +49,7 @@ export class MoralisSolApi extends ApiModule {
   };
 
   public readonly nft = {
+    /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
     getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
   };
 }

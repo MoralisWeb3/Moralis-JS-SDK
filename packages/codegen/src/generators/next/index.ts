@@ -94,7 +94,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
             return null;
           }
 
-          return new Handlebars.SafeString(types.map((type) => `${type.name} :${type.type};`).join('\n'));
+          return new Handlebars.SafeString(types.map((type) => `${type.name}: ${type.type},`).join('\n'));
         };
         const hookName = getHookName(apiModule.path, removeFromHookName);
         return {
