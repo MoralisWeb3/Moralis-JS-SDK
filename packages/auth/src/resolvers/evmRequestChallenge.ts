@@ -31,7 +31,7 @@ const apiToResult = (apiData: ApiResult) => {
   };
 };
 
-export const initializeChallenge = createEndpointFactory(() =>
+export const initializeChallengeEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
     getUrl: () => `/challenge/request/evm`,

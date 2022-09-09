@@ -68,6 +68,19 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     return new ApiResultAdapter(result, this.endpoint.apiToResult, this.endpoint.resultToJson, params);
   };
 
+  private delete = async (params: Params) => {
+    const url = this.createUrl(params);
+    const apiParams = this.endpoint.parseParams(params);
+
+    const searchParams = this.paramsReader.getSearchParams(apiParams);
+
+    const result = await this.requestController.delete<ApiResult>(url, searchParams, {
+      headers: this.createHeaders(),
+    });
+
+    return new ApiResultAdapter(result, this.endpoint.apiToResult, this.endpoint.resultToJson, params);
+  };
+
   private createUrl(params: Params): string {
     return this.baseUrl + this.endpoint.getUrl(params);
   }
@@ -97,6 +110,8 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
         return this.post(params);
       case 'put':
         return this.put(params);
+      case 'delete':
+        return this.delete(params);
       default:
         return this.get(params);
     }

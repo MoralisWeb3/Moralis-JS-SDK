@@ -14,7 +14,7 @@ const bodyParams = ['message', 'signature'] as const;
 
 type ApiResult = operations[Name]['responses']['201']['content']['application/json'];
 
-export const completeChallenge = createEndpointFactory(() =>
+export const completeChallengeEvm = createEndpointFactory(() =>
   createEndpoint({
     name: 'Verify Challenge (EVM)',
     getUrl: () => `/challenge/verify/evm`,

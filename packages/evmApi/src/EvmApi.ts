@@ -236,6 +236,16 @@ export class MoralisEvmApi extends ApiModule {
     syncNFTContract: this.deprecationWarning('token.syncNFTContract', 'nft.syncNFTContract', this.nft.syncNFTContract),
   };
 
+  /**
+   * @deprecated This property will be removed soon.
+   */
+  public readonly contract = {
+    /**
+     * @deprecated Replaced by `nft.syncNFTContract()`.
+     */
+    syncNFTContract: this.deprecationWarning('token.syncNFTContract', 'nft.syncNFTContract', this.nft.syncNFTContract),
+  };
+
   public readonly defi = {
     /**
      * Fetch the pair data of the provided token0+token1 combination.
@@ -320,6 +330,15 @@ export class MoralisEvmApi extends ApiModule {
       'account.getTransactions',
       'transaction.getWalletTransactions',
       this.transaction.getWalletTransactions,
+    ),
+
+    /**
+     * @deprecated Replaced by `transaction.getWalletTransactions()`.
+     */
+    getWalletNFTCollections: this.deprecationWarning(
+      'account.getWalletNFTCollections',
+      'nft.getWalletNFTCollections',
+      this.nft.getWalletNFTCollections,
     ),
   };
 
@@ -427,12 +446,12 @@ export class MoralisEvmApi extends ApiModule {
     /**
      * @deprecated Replaced by `utils.endpointWeights()`.
      */
-    endpointWeights: () =>
+    endpointWeights: (_params?: unknown) =>
       this.deprecationWarning('info.endpointWeights', 'utils.endpointWeights', this._utils.endpointWeights)({}),
     /**
      * @deprecated Replaced by `utils.web3ApiVersion()`.
      */
-    web3ApiVersion: () =>
+    web3ApiVersion: (_params?: unknown) =>
       this.deprecationWarning('info.web3ApiVersion', 'utils.web3ApiVersion', this._utils.web3ApiVersion)({}),
   };
 

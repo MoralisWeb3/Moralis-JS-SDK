@@ -30,11 +30,18 @@ export class MoralisSolApi extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
+  private readonly getBalance = this.endpoints.createFetcher(getBalance);
+
   public readonly account = {
-    getBalance: this.endpoints.createFetcher(getBalance),
+    getBalance: this.getBalance,
     getNFTs: this.endpoints.createFetcher(getNFTs),
     getPortfolio: this.endpoints.createFetcher(getPortfolio),
     getSPL: this.endpoints.createFetcher(getSPL),
+    // Support for old naming
+    /**
+     * @deprecated Replaced by account.getBalance
+     */
+    balance: this.getBalance,
   };
 
   public readonly nft = {
