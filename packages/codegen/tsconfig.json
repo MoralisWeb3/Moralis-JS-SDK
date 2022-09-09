@@ -5,9 +5,7 @@
     "declarationDir": "./lib/",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src/**/*",
-  ]
+  "include": ["src/**/*"]
 }

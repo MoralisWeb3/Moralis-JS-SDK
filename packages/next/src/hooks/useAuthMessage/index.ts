@@ -1,2 +1,2 @@
-export * from './useAuthMessage'
-export * from './types'
+export * from './useAuthMessage';
+export * from './types';

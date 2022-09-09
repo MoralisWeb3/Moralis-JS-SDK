@@ -1,4 +1,4 @@
-import Moralis from "moralis";
+import Moralis from 'moralis';
 
 type TSDKCall = typeof Moralis.Auth.requestMessage;
 export type TUseAuthMessageParams = Parameters<TSDKCall>[0];

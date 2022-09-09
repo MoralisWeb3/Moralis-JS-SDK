@@ -23,4 +23,4 @@ demos/**/build/**/*
 docs/**/*
 
 # Plop templates
-**/.hbs
+*.hbs
