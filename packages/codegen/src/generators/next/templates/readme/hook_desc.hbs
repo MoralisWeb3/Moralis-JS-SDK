@@ -1,30 +1,11 @@
-
 ## `{{ hookName }}()` 
 
 {{ desc }}
 
 ### Params:
 
-```json
+```sh
 {{ params }}
-```
-
-### Example:
-```jsx
-import { {{ hookName }} } from "react-moralis";
-
-const { fetchERC20Balances, data, isLoading, isFetching, error } = {{ hookName }}();
-
-const ERC20Balances = () => {
-  return (
-    <div>
-      {error && <>{JSON.stringify(error)}</>}
-      <button onClick={() => fetchERC20Balances({ params: { chain: "0x1" } })}>Refetch</button>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
-  );
-};
-
 ```
 
 ### Example return:
