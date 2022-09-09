@@ -14,7 +14,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>>, PaginatedPar
 }
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
-// xxx
+
 export const getNFTTransfersByBlock = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getNFTTransfersByBlock',
