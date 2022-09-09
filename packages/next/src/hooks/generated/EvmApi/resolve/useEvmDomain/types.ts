@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
 type TSDKCall = typeof Moralis.EvmApi.resolve.resolveDomain;
-export type TUseevmdomainParams = Parameters<TSDKCall>[0];
-export type TUseevmdomainReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+export type TUseEvmDomainParams = Parameters<TSDKCall>[0];
+export type TUseEvmDomainReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;

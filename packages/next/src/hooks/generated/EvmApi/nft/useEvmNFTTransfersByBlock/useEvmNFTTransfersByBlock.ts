@@ -1,12 +1,12 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseevmnfttransfersbyblockParams, TUseevmnfttransfersbyblockReturn } from './types'
+import { TUseEvmNftTransfersByBlockParams, TUseEvmNftTransfersByBlockReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmNFTTransfersByBlock = (params: TUseevmnfttransfersbyblockParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmNFTTransfersByBlock = (params: TUseEvmNftTransfersByBlockParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api/moralis/${endpoint}`, params).then(res => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseevmnfttransfersbyblockReturn>(
+  const { data, error, mutate, isValidating } = useSWR<TUseEvmNftTransfersByBlockReturn>(
     [`EvmApi/nft/getNFTTransfersByBlock`, params],
     axiosFetcher,
     SWRConfig,

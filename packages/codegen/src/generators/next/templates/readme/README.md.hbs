@@ -40,4 +40,23 @@ yarn add moralis @moralisweb3/next
 
 > Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
 
+# Hook Usage Example
+
+```jsx
+import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+
+const App = () => {
+  const { data: balance, error, refetch, isValidating } = useEvmWalletTokenBalances({ address: '0x...' })
+
+  if (isValidating) return <div>Fetching/Refreshing balance…</div>
+  if (error) return <div>{JSON.stringify(error, null, 2)}</div>
+  return (
+    <>
+      <button onClick={refetch}>Refetch Balance</button>
+      <div>{JSON.stringify(balance, null, 2)}</div>
+    </>
+  )
+}
+```
+
 # Hooks

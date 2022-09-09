@@ -44,7 +44,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
           templateFiles: `${basePath}/**`,
           data: {
             hookName,
-            targetMethod: _.capitalize(hookName),
+            targetMethod: _.upperFirst(_.camelCase(hookName)),
             sdkPath: apiModule.path,
             APIEndpoint: getApiUrl(apiModule.path),
           },

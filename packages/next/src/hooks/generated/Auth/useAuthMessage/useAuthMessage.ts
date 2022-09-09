@@ -1,12 +1,12 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseauthmessageParams, TUseauthmessageReturn } from './types'
+import { TUseAuthMessageParams, TUseAuthMessageReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useAuthMessage = (params: TUseauthmessageParams, SWRConfig?: SWRConfiguration) => {
+export const useAuthMessage = (params: TUseAuthMessageParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api/moralis/${endpoint}`, params).then(res => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseauthmessageReturn>(
+  const { data, error, mutate, isValidating } = useSWR<TUseAuthMessageReturn>(
     [`Auth/requestMessage`, params],
     axiosFetcher,
     SWRConfig,

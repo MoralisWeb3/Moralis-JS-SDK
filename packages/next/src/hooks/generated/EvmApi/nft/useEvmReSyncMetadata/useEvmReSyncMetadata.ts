@@ -1,12 +1,12 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseevmresyncmetadataParams, TUseevmresyncmetadataReturn } from './types'
+import { TUseEvmReSyncMetadataParams, TUseEvmReSyncMetadataReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmReSyncMetadata = (params: TUseevmresyncmetadataParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmReSyncMetadata = (params: TUseEvmReSyncMetadataParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api/moralis/${endpoint}`, params).then(res => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseevmresyncmetadataReturn>(
+  const { data, error, mutate, isValidating } = useSWR<TUseEvmReSyncMetadataReturn>(
     [`EvmApi/nft/reSyncMetadata`, params],
     axiosFetcher,
     SWRConfig,

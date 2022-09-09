@@ -36,11 +36,13 @@ const Authentication = () => {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
+
   const { signMessageAsync } = useSignMessage();
   const { push } = useRouter();
 
   const handleAuth = async (connector?: Connector, disabled?: boolean) => {
     if (disabled) {
+      // eslint-disable-next-line no-alert
       alert('Setup it first in the Authentication.tsx');
       return;
     }
@@ -57,13 +59,10 @@ const Authentication = () => {
 
     const signature = await signMessageAsync({ message });
 
-    try {
-      await signIn('credentials', { message, signature, redirect: false });
+    signIn('credentials', { message, signature, redirect: false }).then(() =>
       // redirects to main page
-      push('/');
-    } catch (e) {
-      return;
-    }
+      push('/'),
+    );
   };
 
   return (

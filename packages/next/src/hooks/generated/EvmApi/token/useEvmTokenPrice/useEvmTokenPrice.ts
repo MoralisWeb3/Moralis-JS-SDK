@@ -1,12 +1,12 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseevmtokenpriceParams, TUseevmtokenpriceReturn } from './types'
+import { TUseEvmTokenPriceParams, TUseEvmTokenPriceReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmTokenPrice = (params: TUseevmtokenpriceParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmTokenPrice = (params: TUseEvmTokenPriceParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, params: any) => axios.post(`/api/moralis/${endpoint}`, params).then(res => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseevmtokenpriceReturn>(
+  const { data, error, mutate, isValidating } = useSWR<TUseEvmTokenPriceReturn>(
     [`EvmApi/token/getTokenPrice`, params],
     axiosFetcher,
     SWRConfig,
