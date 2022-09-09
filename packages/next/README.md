@@ -40,6 +40,105 @@ yarn add moralis @moralisweb3/next
 
 > Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
 
+# Authentication and Session Management with NextAuth
+
+The `@moralisweb3/next` library provides first class tools for web3 authentication. Using the [NextAuth.js](https://next-auth.js.org/) and our custom `MoralisNextAuthProvider()` you can implement web3 authentication you can create web3 authentication for any web3 wallet.
+
+```sh
+yarn add next-auth
+```
+
+Create `pages/api/auth/[...nextauth].ts` file in your NextJS app with following content:
+
+```jsx
+import NextAuth, { ISODateString } from 'next-auth';
+import { MoralisNextAuthProvider } from '@moralisweb3/next';
+
+export type TUserData = {
+  address: string;
+  signature: string;
+  profileId: string;
+  expirationTime: ISODateString;
+};
+
+export interface ISession {
+  user: TUserData;
+}
+
+// For more information on each option (and a full list of options) go to
+// https://next-auth.js.org/configuration/options
+export default NextAuth({
+  providers: [MoralisNextAuthProvider()],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.expires = (token as unknown as ISession).user.expirationTime;
+      (session as unknown as ISession).user = (token as unknown as ISession).user;
+      return session;
+    },
+  },
+});
+```
+
+Add web3 authentication logic to your component:
+
+```jsx
+import { useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useAuthMessage } from '@moralisweb3/next';
+
+const Authentication = () => {
+  const { connectAsync } = useConnect({ connector: new MetaMaskConnector() });
+  const { disconnectAsync } = useDisconnect();
+  const { isConnected } = useAccount();
+  const { getMessage } = useAuthMessage();
+  const { signMessageAsync } = useSignMessage();
+  const { push } = useRouter();
+
+  const handleAuth = async () => {
+    if (isConnected) {
+      await disconnectAsync();
+    }
+
+    const { account, chain } = await connectAsync();
+
+    const message = await getMessage({
+      network: 'evm',
+      domain: 'amazing.finance',
+      chain: chain.id,
+      address: account,
+      uri: window.location.origin,
+      timeout: 120,
+    });
+
+    if (message?.message) {
+      const signature = await signMessageAsync({ message: message.message });
+
+      signIn('credentials', { message, signature, redirect: false }).then(() =>
+        // redirects to main page
+        push('/'),
+      );
+    }
+  };
+
+  return (
+    <div>
+      <h3>Web3 Authentication</h3>
+      <button onClick={handleAuth}> Authenticate with Metamask</button>
+    </div>
+  );
+};
+
+export default Authentication;
+```
+
 # Hook Usage Example
 
 ```jsx

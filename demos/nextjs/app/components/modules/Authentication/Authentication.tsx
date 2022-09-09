@@ -1,4 +1,4 @@
-import { Connector, useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
+import { Connector, useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { Option } from '../../elements';
@@ -6,9 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import styles from './Authentication.module.css';
-import { useAuthMessage, useEvmWalletTokenBalances } from '@moralisweb3/next';
-import { useEffect } from 'react';
-import Moralis from 'moralis';
+import { useAuthMessage } from '@moralisweb3/next';
 
 const wallets = [
   {
@@ -38,31 +36,9 @@ const Authentication = () => {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
-  const { chain } = useNetwork();
   const { getMessage } = useAuthMessage();
   const { signMessageAsync } = useSignMessage();
   const { push } = useRouter();
-  const { data: block } = useEvmWalletTokenBalances({
-    address: '0x259DB2fD041d370e803f4D44951bE0E4722b7a45',
-  });
-
-  useEffect(() => {
-    const xxx = async () => {
-      await Moralis.start({ apiKey: 'IcG2VVd5xU8sse7OOaKlwdtqrxER1uHCxwlXwO0nalTjMjeAEdNY2TNdCx2RkNvn' });
-      const m = await Moralis.Auth.requestMessage({
-        network: 'evm',
-        domain: window.location.host,
-        chain: '0x1',
-        address: '0x259DB2fD041d370e803f4D44951bE0E4722b7a45',
-        uri: window.location.origin,
-        timeout: 0,
-      });
-      console.log(m);
-    };
-    xxx();
-  }, []);
-
-  console.log(JSON.stringify(block, null, 2));
 
   const handleAuth = async (connector?: Connector, disabled?: boolean) => {
     if (disabled) {
@@ -79,11 +55,11 @@ const Authentication = () => {
 
     const message = await getMessage({
       network: 'evm',
-      domain: window.location.host,
+      domain: 'amazing.finance',
       chain: chain.id,
       address: account,
       uri: window.location.origin,
-      timeout: 0,
+      timeout: 120,
     });
 
     if (message?.message) {
