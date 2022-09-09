@@ -5,7 +5,8 @@ import { EvmChainish, EvmAddressish, EvmAddress, EvmNft } from '@moralisweb3/evm
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getTokenIdOwners';
+// Old name: getTokenIdOwners
+type operation = 'getNFTTokenIdOwners';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];

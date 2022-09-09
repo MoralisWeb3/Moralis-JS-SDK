@@ -14,7 +14,7 @@ export interface paths {
   };
   "/{address}/logs": {
     /** Get the logs for an address. */
-    get: operations["getLogsByAddress"];
+    get: operations["getContractLogs"];
   };
   "/block/{block_number_or_hash}/nft/transfers": {
     /** Get NFT transfers by block number or block hash. */
@@ -34,7 +34,7 @@ export interface paths {
   };
   "/{address}": {
     /** Get native transactions ordered by block number in descending order. */
-    get: operations["getTransactions"];
+    get: operations["getWalletTransactions"];
   };
   "/{address}/balance": {
     /** Get native balance for a specific address. */
@@ -42,11 +42,11 @@ export interface paths {
   };
   "/{address}/erc20": {
     /** Get token balances for a specific address. */
-    get: operations["getTokenBalances"];
+    get: operations["getWalletTokenBalances"];
   };
   "/{address}/erc20/transfers": {
     /** Get ERC20 token transactions ordered by block number in descending order. */
-    get: operations["getTokenTransfers"];
+    get: operations["getWalletTokenTransfers"];
   };
   "/{address}/nft": {
     /**
@@ -56,24 +56,15 @@ export interface paths {
      * * Note results will include all indexed NFTs
      * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
      */
-    get: operations["getNFTs"];
+    get: operations["getWalletNFTs"];
   };
   "/{address}/nft/transfers": {
     /** Get the transfers of the tokens matching the given parameters. */
-    get: operations["getNFTTransfers"];
+    get: operations["getWalletNFTTransfers"];
   };
   "/{address}/nft/collections": {
     /** Get the nft collections owned by an user */
     get: operations["getWalletNFTCollections"];
-  };
-  "/{address}/nft/{token_address}": {
-    /**
-     * Get NFTs owned by the given address for a specific NFT contract address.
-     * * Use the token_address param to get results for a specific contract only
-     * * Note results will include all indexed NFTs
-     * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
-     */
-    get: operations["getNFTsForContract"];
   };
   "/erc20/metadata": {
     /** Returns metadata (name, symbol, decimals, logo) for a given token contract address. */
@@ -97,7 +88,7 @@ export interface paths {
   };
   "/erc20/{address}/transfers": {
     /** Get ERC20 token transactions ordered by block number in descending order. */
-    get: operations["getTokenAddressTransfers"];
+    get: operations["getTokenTransfers"];
   };
   "/erc20/{address}/allowance": {
     /** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
@@ -109,7 +100,7 @@ export interface paths {
   };
   "/nft/transfers": {
     /** Gets the transfers of the tokens from a block number to a block number. */
-    get: operations["getNftTransfersFromToBlock"];
+    get: operations["getNFTTransfersFromToBlock"];
   };
   "/nft/{address}": {
     /**
@@ -117,11 +108,11 @@ export interface paths {
      * * Results are limited to 100 per page by default
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
      */
-    get: operations["getAllTokenIds"];
+    get: operations["getContractNFTs"];
   };
   "/nft/{address}/transfers": {
     /** Get the transfers of the tokens matching the given parameters. */
-    get: operations["getContractNFTTransfers"];
+    get: operations["getNFTContractTransfers"];
   };
   "/nft/{address}/owners": {
     /**
@@ -135,7 +126,7 @@ export interface paths {
      * Get the contract level metadata (name, symbol, base token uri) for the given contract
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
-    get: operations["getNFTMetadata"];
+    get: operations["getNFTContractMetadata"];
   };
   "/nft/{address}/{token_id}/metadata/resync": {
     /**
@@ -156,18 +147,18 @@ export interface paths {
      * Get NFT data, including metadata (where available), for the given NFT token id of the given contract address.
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
-    get: operations["getTokenIdMetadata"];
+    get: operations["getNFTMetadata"];
   };
   "/nft/{address}/{token_id}/owners": {
     /**
      * Get all owners of a specific NFT given the contract address and token ID.
      * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
      */
-    get: operations["getTokenIdOwners"];
+    get: operations["getNFTTokenIdOwners"];
   };
   "/nft/{address}/{token_id}/transfers": {
     /** Get the transfers of an NFT given a conttract address and token ID. */
-    get: operations["getWalletTokenIdTransfers"];
+    get: operations["getNFTTransfers"];
   };
   "/resolve/{domain}": {
     /** Resolve an Unstoppable domain and get the address. */
@@ -1579,7 +1570,7 @@ export interface operations {
     };
   };
   /** Get the logs for an address. */
-  getLogsByAddress: {
+  getContractLogs: {
     parameters: {
       query: {
         /** The chain to query */
@@ -1807,7 +1798,7 @@ export interface operations {
     };
   };
   /** Get native transactions ordered by block number in descending order. */
-  getTransactions: {
+  getWalletTransactions: {
     parameters: {
       query: {
         /** The chain to query */
@@ -1883,7 +1874,7 @@ export interface operations {
     };
   };
   /** Get token balances for a specific address. */
-  getTokenBalances: {
+  getWalletTokenBalances: {
     parameters: {
       query: {
         /** The chain to query */
@@ -1910,7 +1901,7 @@ export interface operations {
     };
   };
   /** Get ERC20 token transactions ordered by block number in descending order. */
-  getTokenTransfers: {
+  getWalletTokenTransfers: {
     parameters: {
       query: {
         /** The chain to query */
@@ -1967,7 +1958,7 @@ export interface operations {
    * * Note results will include all indexed NFTs
    * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
    */
-  getNFTs: {
+  getWalletNFTs: {
     parameters: {
       query: {
         /** The chain to query */
@@ -1996,7 +1987,7 @@ export interface operations {
     };
   };
   /** Get the transfers of the tokens matching the given parameters. */
-  getNFTTransfers: {
+  getWalletNFTTransfers: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2053,40 +2044,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["nftWalletCollections"];
-        };
-      };
-    };
-  };
-  /**
-   * Get NFTs owned by the given address for a specific NFT contract address.
-   * * Use the token_address param to get results for a specific contract only
-   * * Note results will include all indexed NFTs
-   * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
-   */
-  getNFTsForContract: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The format of the token id */
-        format?: "decimal" | "hex";
-        /** The cursor returned in the previous response (used to getting the next page). */
-        cursor?: string;
-        /** The desired page size of the result. */
-        limit?: number;
-      };
-      path: {
-        /** The owner of a given token */
-        address: string;
-        /** Address of the contract */
-        token_address: string;
-      };
-    };
-    responses: {
-      /** Returns a collection of nft owners */
-      200: {
-        content: {
-          "application/json": components["schemas"]["nftOwnerCollection"];
         };
       };
     };
@@ -2242,7 +2199,7 @@ export interface operations {
     };
   };
   /** Get ERC20 token transactions ordered by block number in descending order. */
-  getTokenAddressTransfers: {
+  getTokenTransfers: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2381,7 +2338,7 @@ export interface operations {
     };
   };
   /** Gets the transfers of the tokens from a block number to a block number. */
-  getNftTransfersFromToBlock: {
+  getNFTTransfersFromToBlock: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2432,7 +2389,7 @@ export interface operations {
    * * Results are limited to 100 per page by default
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
    */
-  getAllTokenIds: {
+  getContractNFTs: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2463,7 +2420,7 @@ export interface operations {
     };
   };
   /** Get the transfers of the tokens matching the given parameters. */
-  getContractNFTTransfers: {
+  getNFTContractTransfers: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2523,7 +2480,7 @@ export interface operations {
    * Get the contract level metadata (name, symbol, base token uri) for the given contract
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
-  getNFTMetadata: {
+  getNFTContractMetadata: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2609,7 +2566,7 @@ export interface operations {
    * Get NFT data, including metadata (where available), for the given NFT token id of the given contract address.
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
-  getTokenIdMetadata: {
+  getNFTMetadata: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2637,7 +2594,7 @@ export interface operations {
    * Get all owners of a specific NFT given the contract address and token ID.
    * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
    */
-  getTokenIdOwners: {
+  getNFTTokenIdOwners: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2666,7 +2623,7 @@ export interface operations {
     };
   };
   /** Get the transfers of an NFT given a conttract address and token ID. */
-  getWalletTokenIdTransfers: {
+  getNFTTransfers: {
     parameters: {
       query: {
         /** The chain to query */

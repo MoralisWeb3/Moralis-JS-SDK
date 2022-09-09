@@ -11,7 +11,8 @@ import {
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getNFTMetadata';
+// Old name: getNFTMetadata
+type operation = 'getNFTContractMetadata';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];

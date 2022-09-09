@@ -4,7 +4,8 @@ import { EvmChainish, EvmAddressish, EvmAddress, EvmTransactionLog } from '@mora
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getLogsByAddress';
+// old name: getLogsByAddress
+type operation = 'getContractLogs';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
