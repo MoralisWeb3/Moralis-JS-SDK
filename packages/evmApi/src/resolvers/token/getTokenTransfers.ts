@@ -4,7 +4,8 @@ import { EvmChainish, EvmAddressish, EvmAddress, Erc20Transfer } from '@moralisw
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getTokenAddressTransfers';
+// Old name: getTokenAddressTransfers
+type operation = 'getTokenTransfers';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
