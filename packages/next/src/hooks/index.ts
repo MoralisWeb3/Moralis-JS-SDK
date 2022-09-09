@@ -1,3 +1,4 @@
+export * from './useAuthMessage';
 /* PLOP_INJECT_EXPORT */
 export * from './generated/SolApi/nft/useSolNFTMetadata';
 export * from './generated/SolApi/account/useSolSPL';
@@ -41,4 +42,3 @@ export * from './generated/EvmApi/nft/useEvmNFTTrades';
 export * from './generated/EvmApi/nft/useEvmWalletNFTTransfers';
 export * from './generated/EvmApi/nft/useEvmWalletNFTs';
 export * from './generated/EvmApi/nft/useEvmNFTTransfersByBlock';
-export * from './generated/Auth/useAuthMessage';

@@ -8,9 +8,9 @@ const packagesFolder = path.join(__dirname, '../../../../..');
 
 export const removeFromHookName = ['Api', 'Get', 'Resolve', 'Request'];
 
-export const blacklistedMethods = ['endpointWeights', 'web3ApiVersion'];
+export const blacklistedMethods = ['endpointWeights', 'web3ApiVersion', ''];
 
-export const apiModuleConfigs: Record<'EvmApi' | 'SolApi' | 'Auth', IParseApiModule> = {
+export const apiModuleConfigs: Record<'EvmApi' | 'SolApi', IParseApiModule> = {
   EvmApi: {
     path: path.join(packagesFolder, 'evmApi/src/EvmApi.ts'),
     whitelist: ['nft', 'token', 'defi', 'events', 'transaction', 'balance', 'block', 'resolve', 'ipfs', 'utils'],
@@ -20,10 +20,5 @@ export const apiModuleConfigs: Record<'EvmApi' | 'SolApi' | 'Auth', IParseApiMod
     path: path.join(packagesFolder, 'solApi/src/MoralisSolApi.ts'),
     whitelist: ['nft', 'account'],
     className: 'MoralisSolApi',
-  },
-  Auth: {
-    path: path.join(packagesFolder, 'auth/src/MoralisAuth.ts'),
-    whitelist: ['requestMessage'],
-    className: 'MoralisAuth',
   },
 };

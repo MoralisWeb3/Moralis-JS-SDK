@@ -1,9 +1,5 @@
 [
   [
-    "Auth",
-    "requestMessage"
-  ],
-  [
     "EvmApi",
     "nft",
     "getNFTTransfersByBlock"
@@ -212,5 +208,9 @@
     "SolApi",
     "nft",
     "getNFTMetadata"
+  ],
+  [
+    "Auth",
+    "requestMessage"
   ]
 ]

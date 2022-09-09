@@ -1,7 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Moralis from 'moralis';
 
-const MoralisNextAuthProvider = ({ MORALIS_API_KEY }: { MORALIS_API_KEY?: string }) =>
+const MoralisNextAuthProvider = ({ MORALIS_API_KEY }: { MORALIS_API_KEY?: string } = {}) =>
   /**
    * Configuring default CredentialsProvider from 'next-auth'
    * with required steps and data for verifying signed message

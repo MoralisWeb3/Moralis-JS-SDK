@@ -900,18 +900,3 @@ offset :number;
 ```json
 "{ chain: string | number; blockNumber: string; fromAddress: string; toAddress: string; tokenAddress: string; value: string; operator: string; amount?: number; blockHash: string; blockTimestamp: Date; contractType: string; logIndex: number; tokenId: string; transactionHash: string; transactionIndex?: number; transactionType?: string; }[]"
 ```
-## `useAuthMessage()` 
-
-Description will be added later 👀
-
-### Params:
-
-```sh
-
-```
-
-### Example return:
-
-```json
-"{ id: string; message: string; profileId: string; }"
-```

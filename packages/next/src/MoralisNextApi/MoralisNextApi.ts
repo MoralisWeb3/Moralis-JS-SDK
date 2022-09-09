@@ -40,7 +40,7 @@ async function MoralisNextHandler({ req, res, params }: IMoralisNextHandler) {
   }
 }
 
-const MoralisNextApi = (params: TMoralisNextHandlerParams) => {
+const MoralisNextApi = (params?: TMoralisNextHandlerParams) => {
   return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res, params });
 };
 

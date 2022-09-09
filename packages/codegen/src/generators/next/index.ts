@@ -18,7 +18,7 @@ const parseApiModules = (configs: IParseApiModule[]) =>
   _.flatten(configs.map((config) => parseApiModule(config, blacklistedMethods)));
 
 export default function NextGenerator(plop: NodePlopAPI) {
-  const parsedApiModules = parseApiModules([apiModuleConfigs.Auth, apiModuleConfigs.EvmApi, apiModuleConfigs.SolApi]);
+  const parsedApiModules = parseApiModules([apiModuleConfigs.EvmApi, apiModuleConfigs.SolApi]);
 
   fs.emptydirSync(path.join(packagesFolder, 'next/src/hooks/generated'));
   plop.setGenerator('hooks_generator', {
@@ -54,7 +54,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
 
       const generateIndex = {
         type: 'add',
-        template: '/* PLOP_INJECT_EXPORT */',
+        templateFile: path.join(__dirname, 'templates/index/index.ts.hbs'),
         path: path.join(packagesFolder, 'next/src/hooks/index.ts'),
         force: true,
       };
@@ -72,7 +72,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
       const generateSupportedPathsJSON = {
         type: 'add',
         template: JSON.stringify(
-          parsedApiModules.map((sdkPath) => getSplittedSDKPath(sdkPath.path)),
+          [...parsedApiModules.map((sdkPath) => getSplittedSDKPath(sdkPath.path)), ['Auth', 'requestMessage']],
           null,
           2,
         ),
