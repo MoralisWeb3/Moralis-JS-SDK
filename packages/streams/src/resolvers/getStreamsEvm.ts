@@ -11,10 +11,10 @@ type ApiParams = QueryParams;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
-export const getStreams = createPaginatedEndpointFactory(() =>
+export const getStreamsEvm = createPaginatedEndpointFactory(() =>
   createPaginatedEndpoint({
     name,
-    getUrl: () => `/streams`,
+    getUrl: () => `/streams/evm`,
     apiToResult: (data: ApiResult) =>
       (data.result ?? []).map((stream) => ({
         ...stream,

@@ -42,4 +42,12 @@ export enum AuthErrorCode {
   NOT_IMPLEMENTED = 'U9000',
 }
 
-export type MoralisErrorCode = CoreErrorCode | ApiErrorCode | AuthErrorCode;
+export enum StreamErrorCode {
+  GENERIC_STREAM_ERROR = 'S0001',
+  INCORRECT_NETWORK = 'S0002',
+  INCORRECT_PARAMETER = 'S0003',
+
+  NOT_IMPLEMENTED = 'S9000',
+}
+
+export type MoralisErrorCode = CoreErrorCode | ApiErrorCode | AuthErrorCode | StreamErrorCode;

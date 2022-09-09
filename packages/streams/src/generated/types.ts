@@ -13,18 +13,18 @@ export interface paths {
     /** Set the settings for the current project based on the project api-key. */
     post: operations["SetSettings"];
   };
-  "/streams": {
-    /** Get all the streams for the current project based on the project api-key. */
+  "/streams/evm": {
+    /** Get all the evm streams for the current project based on the project api-key. */
     get: operations["GetStreams"];
-    /** Creates a new stream. */
+    /** Creates a new evm stream. */
     put: operations["CreateStream"];
   };
-  "/streams/{id}": {
-    /** Get a specific stream. */
+  "/streams/evm/{id}": {
+    /** Get a specific evm stream. */
     get: operations["GetStream"];
-    /** Updates a specific stream. */
+    /** Updates a specific evm stream. */
     post: operations["UpdateStream"];
-    /** Delete a specific stream. */
+    /** Delete a specific evm stream. */
     delete: operations["DeleteStream"];
   };
 }
@@ -89,7 +89,9 @@ export interface components {
       /** @description The token address of the contract, required if the type : log */
       tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string;
+      topic0?: string | null;
+      /** @description Include or not native transactions defaults to false */
+      includeNativeTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
       /** @description The wallet address of the user, required if the type : tx */
@@ -122,7 +124,9 @@ export interface components {
       /** @description The token address of the contract, required if the type : log */
       tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string;
+      topic0?: string | null;
+      /** @description Include or not native transactions defaults to false */
+      includeNativeTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
       /** @description The wallet address of the user, required if the type : tx */
@@ -165,7 +169,7 @@ export interface operations {
       };
     };
   };
-  /** Get all the streams for the current project based on the project api-key. */
+  /** Get all the evm streams for the current project based on the project api-key. */
   GetStreams: {
     parameters: {
       query: {
@@ -184,7 +188,7 @@ export interface operations {
       };
     };
   };
-  /** Creates a new stream. */
+  /** Creates a new evm stream. */
   CreateStream: {
     parameters: {};
     responses: {
@@ -202,7 +206,7 @@ export interface operations {
       };
     };
   };
-  /** Get a specific stream. */
+  /** Get a specific evm stream. */
   GetStream: {
     parameters: {
       path: {
@@ -219,7 +223,7 @@ export interface operations {
       };
     };
   };
-  /** Updates a specific stream. */
+  /** Updates a specific evm stream. */
   UpdateStream: {
     parameters: {
       path: {
@@ -242,7 +246,7 @@ export interface operations {
       };
     };
   };
-  /** Delete a specific stream. */
+  /** Delete a specific evm stream. */
   DeleteStream: {
     parameters: {
       path: {
