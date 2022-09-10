@@ -14,6 +14,7 @@ const INVALID_ADDRESS = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000';
 const DATA =
   '0x00000000000000000000000000000000000000000000213ba4fc56e2e24648b200000000000000000000000000000000000000000000002e9e527eb8ff21faf7';
 const TOPIC = ['0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1'];
+const CHAINID = '0x1';
 
 const inputWithAllData = {
   logIndex: LOG_INDEX,
@@ -25,6 +26,7 @@ const inputWithAllData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
+  chainId: CHAINID,
 };
 
 const inputWithoutOptionalData = {
@@ -46,6 +48,7 @@ const inputWithInvalidData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
+  chainId: CHAINID,
 };
 
 describe('EvmTransactionLog', () => {

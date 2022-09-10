@@ -48,6 +48,7 @@ export class EvmTransactionLog implements MoralisDataObject {
       blockNumber: value.blockNumber,
       blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address, core),
+      chainId: value.chainId,
     };
   }
 
@@ -65,7 +66,8 @@ export class EvmTransactionLog implements MoralisDataObject {
     return (
       value._value.transactionHash === this._value.transactionHash &&
       value._value.address.equals(this._value.address) &&
-      value._value.logIndex === this._value.logIndex
+      value._value.logIndex === this._value.logIndex &&
+      value._value.chainId === this._value.chainId
     );
   }
 
@@ -207,5 +209,17 @@ export class EvmTransactionLog implements MoralisDataObject {
    */
   get blockTimestamp() {
     return this._value.blockTimestamp;
+  }
+
+  /**
+   * @returns the chainId for the particular log.
+   *
+   * @example
+   * ```ts
+   * log.blockTimestamp; // "0x1"
+   * ```
+   */
+  get chainId() {
+    return this._value.chainId;
   }
 }
