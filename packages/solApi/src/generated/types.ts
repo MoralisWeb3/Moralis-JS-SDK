@@ -193,7 +193,7 @@ export interface operations {
     parameters: {
       path: {
         address: string;
-        network: "mainnet";
+        network: "mainnet" | "devnet";
       };
     };
     responses: {

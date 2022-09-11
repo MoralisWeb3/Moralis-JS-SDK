@@ -5,5 +5,5 @@
     "declarationDir": "./lib/",
     "rootDir": "./src"
   },
-  "include": ["src/**/*", "types/**/*"]
+  "include": ["src/**/*", "types/**/*", "getTokenPrice.ts"]
 }
