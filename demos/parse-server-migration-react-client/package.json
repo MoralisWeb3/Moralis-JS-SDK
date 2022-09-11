@@ -38,8 +38,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-app-rewired start",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-app-rewired build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "react-app-rewired": "^2.2.1"
   }
 }

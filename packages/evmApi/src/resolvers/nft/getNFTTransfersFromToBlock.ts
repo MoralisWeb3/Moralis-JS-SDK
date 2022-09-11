@@ -4,7 +4,8 @@ import { EvmChainish, EvmAddress, EvmNative, EvmNftTransfer } from '@moralisweb3
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getNftTransfersFromToBlock';
+// Old name: getNftTransfersFromToBlock
+type operation = 'getNFTTransfersFromToBlock';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type ApiParams = QueryParams;

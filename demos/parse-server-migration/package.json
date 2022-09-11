@@ -30,11 +30,13 @@
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
+    "start": "node build/index.js",
     "build": "tsc",
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --write 'src/**/*.{js,ts}'",
     "dev:db-start": "mongodb-runner start",
     "dev:db-stop": "mongodb-runner stop",
-    "gen:cloud": "ts-node ./scripts/generateCloudCode.ts"
+    "gen:cloud": "ts-node ./scripts/generateCloudCode.ts",
+    "tsc": "tsc"
   }
 }

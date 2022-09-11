@@ -4,7 +4,8 @@ import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, EvmNftTransfer } fro
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getContractNFTTransfers';
+// Old name: getContractNFTTransfers
+type operation = 'getNFTContractTransfers';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];

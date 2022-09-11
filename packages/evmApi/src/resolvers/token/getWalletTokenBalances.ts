@@ -4,7 +4,8 @@ import { operations } from '../../generated/types';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getTokenBalances';
+// Old name: getTokenBalances
+type operation = 'getWalletTokenBalances';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];
