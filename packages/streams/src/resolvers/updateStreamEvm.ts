@@ -20,6 +20,7 @@ const bodyParams = [
   'filter',
   'address',
   'type',
+  'chainIds',
   'abi',
 ] as const;
 
