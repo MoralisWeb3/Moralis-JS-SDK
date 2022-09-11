@@ -1,4 +1,4 @@
-# Demo Express Proxy
+# Demo Moralis Streams
 
 ## Run locally
 
