@@ -23,13 +23,12 @@ h1 {
 }
 
 .text-input {
-  width:200px;
-  padding:20px;
+  width: 200px;
+  padding: 20px;
   border: 2px solid #eee;
-  padding:10px;
-  border:0;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-
+  padding: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
 }
 
 #result {
