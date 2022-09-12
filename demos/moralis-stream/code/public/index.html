@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Moralis Stream</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Demo Moralis Stream</h1>
+    </header>
+    <main>
+      <div id="error"></div>
+      <input type="url" class="text-input" id="url" placeholder="webhook url" />
+      <input type="text" class="text-input" id="id" placeholder="id" /> <br />
+      <button class="btn" id="add-stream">Add Stream</button>
+      <button class="btn" id="update-stream">Update Stream</button>
+      <button class="btn" id="get-stream">Get Streams</button>
+      <button class="btn" id="delete-stream">Delete Streams</button>
+      <pre id="result"></pre>
+
+      <hr />
+      <hr />
+      <h3>Webhook events</h3>
+      <pre>
+        <code>
+          <span id="events"></span>
+        </code>
+      </pre>
+    </main>
+
+    <!-- Fix for undefined export: https://bobbyhadz.com/blog/typescript-uncaught-referenceerror-exports-is-not-defined -->
+    <script>
+      var exports = {};
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

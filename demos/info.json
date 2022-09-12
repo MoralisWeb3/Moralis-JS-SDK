@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2022-09-09T16:24:42.205Z",
+  "generatedAt": "2022-09-12T12:50:57.027Z",
   "demos": [
     {
       "name": "cli",
@@ -24,6 +24,12 @@
       "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/firebase-proxy",
       "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-proxy/firebase-proxy.zip",
       "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-proxy/code"
+    },
+    {
+      "name": "moralis-stream",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/moralis-stream",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/moralis-stream/moralis-stream.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/moralis-stream/code"
     },
     {
       "name": "nextjs",
