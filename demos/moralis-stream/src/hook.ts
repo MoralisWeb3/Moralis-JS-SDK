@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import express, { NextFunction, Request, Response } from 'express';
-import Web3 from 'web3';
 import config from './config';
 import fs from 'fs';
+import Web3Utils from 'web3-utils';
 
 async function webHook(req: Request, res: Response, next: NextFunction) {
   try {
@@ -42,8 +42,7 @@ function verifySignature(req: Request) {
   if (!providedSignature) {
     throw new Error('No signature provided');
   }
-
-  const generatedSignature = Web3.utils.sha3(JSON.stringify(req.body) + config.STREAM_SECRET);
+  const generatedSignature = Web3Utils.sha3(JSON.stringify(req.body) + config.STREAM_SECRET);
   if (providedSignature !== generatedSignature) {
     throw new Error('Invalid signature');
   }
