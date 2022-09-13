@@ -1,4 +1,5 @@
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
+import { EvmChain,EvmChainish } from '../EvmChain';
 
 /**
  * Valid EvmTransactionLog input.
@@ -29,7 +30,7 @@ export interface EvmTransactionLogInput {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
-  chainId?: string;
+  chainId: EvmChainish;
 }
 
 /**
@@ -45,5 +46,5 @@ export interface EvmTransactionLogData {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
-  chainId?: string;
+  chainId?: EvmChain;
 }
