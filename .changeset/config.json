@@ -27,6 +27,7 @@
     "demo-parse-server",
     "demo-subabase-auth",
     "demo-firebase-auth-functions",
-    "demo-firebase-proxy-functions"
+    "demo-firebase-proxy-functions",
+    "demo-moralis-stream"
   ]
 }

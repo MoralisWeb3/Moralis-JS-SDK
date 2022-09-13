@@ -16,7 +16,7 @@ export interface EndpointDescriptor {
 
 export class Endpoints {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private readonly endpoints: Endpoint<unknown, any, any, any, unknown>[] = [];
+  private readonly endpoints: Endpoint<any, any, any, any, unknown>[] = [];
 
   public constructor(private readonly core: MoralisCore, private readonly baseUrl: string) {}
 

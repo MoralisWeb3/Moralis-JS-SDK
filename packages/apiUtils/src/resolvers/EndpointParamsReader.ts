@@ -10,7 +10,7 @@ export class EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, J
     if (!this.endpoint.bodyParams || this.endpoint.bodyParams.length === 0) {
       return false;
     }
-    return this.endpoint.bodyParams.includes(param as keyof Params);
+    return this.endpoint.bodyParams.includes(param as keyof ApiParams);
   }
 
   private isUrlParam(param: string): boolean {

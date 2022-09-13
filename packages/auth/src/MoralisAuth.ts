@@ -9,7 +9,7 @@ import {
   VerifySolOptions,
 } from './methods/verify';
 
-export const BASE_URL = 'https://auth-api.do-prod-1.moralis.io';
+export const BASE_URL = 'https://authapi.moralis.io';
 
 export class MoralisAuth extends ApiModule {
   public static readonly moduleName = 'auth';
