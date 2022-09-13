@@ -16,7 +16,7 @@ import { EvmChain,EvmChainish } from '../EvmChain';
  *  blockTimestamp: "2021-05-07T11:08:35.000Z",
  *  logIndex: "273",
  *  transactionIndex: "204",
- *  chainId: "0x1"
+ *  chainId: "1"
  * }
  * ```
  */

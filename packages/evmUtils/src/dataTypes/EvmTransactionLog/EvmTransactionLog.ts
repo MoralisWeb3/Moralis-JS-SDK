@@ -1,6 +1,7 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
+import { EvmChain } from '../EvmChain';
 
 /**
  * This can be any valid {@link EvmTransactionLogInput} or {@link EvmTransactionLog}.
@@ -48,7 +49,7 @@ export class EvmTransactionLog implements MoralisDataObject {
       blockNumber: value.blockNumber,
       blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address, core),
-      chainId: value.chainId,
+      chainId: EvmChain.create(value.chainId),
     };
   }
 
