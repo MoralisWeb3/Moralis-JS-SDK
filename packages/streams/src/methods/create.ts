@@ -13,6 +13,7 @@ export interface CreateStreamEvmOptions {
   description: string;
   tag: string;
   tokenAddress?: EvmAddressish;
+  includeNativeTxs?: boolean;
   topic0?: string;
   abi?: {
     [key: string]: unknown;
