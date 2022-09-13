@@ -217,7 +217,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    *
    * @example
    * ```ts
-   * log.blockTimestamp; // "0x1"
+   * log.chainId; // "1"
    * ```
    */
   get chainId() {
