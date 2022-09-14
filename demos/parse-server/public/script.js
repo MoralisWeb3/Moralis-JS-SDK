@@ -83,7 +83,9 @@ const handleAuthSol = async () => {
 
   const { message } = await requestMessage(account, 'solana');
 
-  const signedMessage = await signer.signMessage(new TextEncoder().encode(message));
+  const encodedMessage = new TextEncoder().encode(message);
+
+  const signedMessage = await signer.signMessage(encodedMessage);
 
   const signature = Base58.encode(signedMessage.signature);
 
