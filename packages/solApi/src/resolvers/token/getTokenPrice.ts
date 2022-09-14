@@ -30,7 +30,7 @@ export const getTokenPrice = createEndpointFactory((core) =>
     apiToResult: (data: ApiResult) => {
       return {
         nativePrice: {
-          value: data.nativePrice.value,
+          value: SolNative.create(data.nativePrice.value, 'solana'),
           decimals: data.nativePrice.decimals,
           name: data.nativePrice.name,
           symbol: data.nativePrice.symbol,
@@ -43,7 +43,7 @@ export const getTokenPrice = createEndpointFactory((core) =>
     resultToJson: (data) => {
       return {
         nativePrice: {
-          value: SolNative.create(data.nativePrice.value, 'solana'),
+          value: data.nativePrice.value.toJSON(),
           decimals: data.nativePrice.decimals,
           name: data.nativePrice.name,
           symbol: data.nativePrice.symbol,
