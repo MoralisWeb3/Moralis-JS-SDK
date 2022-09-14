@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
-import { SolAddress,SolNetworkish, SolAddressish } from '@moralisweb3/sol-utils';
+import { SolAddress, SolNetworkish, SolAddressish, SolNative } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
 import { SolNetworkResolver } from '../SolNetworkResolver';
 
@@ -26,8 +26,6 @@ export const getTokenPrice = createEndpointFactory((core) =>
       // please replace this line.
       const network = params.network ? params.network : SolNetworkResolver.resolve(undefined, core);
       return `token/${network}/${params.address}/price`;
-
-      
     },
     apiToResult: (data: ApiResult) => {
       return {
@@ -35,24 +33,24 @@ export const getTokenPrice = createEndpointFactory((core) =>
           value: data.nativePrice.value,
           decimals: data.nativePrice.decimals,
           name: data.nativePrice.name,
-          symbol : data.nativePrice.symbol
+          symbol: data.nativePrice.symbol,
         },
         usdPrice: data.usdPrice,
-        exchangeAddress: data.exchangeAddress,
-        exchangeName: data.exchangeName
+        exchangeAddress: SolAddress.create(data.exchangeAddress),
+        exchangeName: data.exchangeName,
       };
     },
     resultToJson: (data) => {
       return {
         nativePrice: {
-          value: data.nativePrice.value,
+          value: SolNative.create(data.nativePrice.value, 'solana'),
           decimals: data.nativePrice.decimals,
           name: data.nativePrice.name,
-          symbol : data.nativePrice.symbol
+          symbol: data.nativePrice.symbol,
         },
         usdPrice: data.usdPrice,
-        exchangeAddress: data.exchangeAddress,
-        exchangeName: data.exchangeName
+        exchangeAddress: data.exchangeAddress.toJSON(),
+        exchangeName: data.exchangeName,
       };
     },
     parseParams: (params: Params): ApiParams => ({
