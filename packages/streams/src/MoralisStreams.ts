@@ -5,7 +5,7 @@ import { createStream, CreateStreamOptions } from './methods/create';
 import { updateStream, UpdateStreamOptions } from './methods/update';
 import { deleteStream, DeleteStreamOptions } from './methods/delete';
 import { GetStreamsOptions, getStreams } from './methods/getAll';
-import { makeVerifySignature, VerifySignatureOptions } from './methods/utils';
+import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
 
 export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
 
