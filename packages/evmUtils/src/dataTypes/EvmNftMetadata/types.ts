@@ -22,7 +22,7 @@ export interface EvmNftMetadataInput {
   tokenAddress: EvmAddressish;
   name: string;
   symbol: string;
-  contractType: EvmNftContractType | null;
+  contractType?: EvmNftContractType;
   syncedAt: DateInput | null;
 }
 
@@ -34,6 +34,6 @@ export interface EvmNftMetadataData {
   tokenAddress: EvmAddress;
   name: string;
   symbol: string;
-  contractType: EvmNftContractType | null;
+  contractType?: EvmNftContractType;
   syncedAt?: Date;
 }
