@@ -1,4 +1,4 @@
-import { readSettings, setSettings } from './resolvers';
+import { getSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { createStream, CreateStreamOptions } from './methods/create';
@@ -40,7 +40,7 @@ export class MoralisStreams extends ApiModule {
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
 
-  private readonly _readSettings = this.endpoints.createFetcher(readSettings);
+  private readonly _readSettings = this.endpoints.createFetcher(getSettings);
 
   public readonly readSettings = () => this._readSettings({});
 

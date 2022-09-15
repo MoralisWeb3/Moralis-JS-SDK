@@ -6,7 +6,7 @@ const name = 'GetSettings';
 type Name = typeof name;
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
-export const readSettings = createEndpointFactory(() =>
+export const getSettings = createEndpointFactory(() =>
   createEndpoint({
     name,
     getUrl: () => `/settings`,
