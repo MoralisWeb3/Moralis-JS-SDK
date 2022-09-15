@@ -1,10 +1,11 @@
 import { readSettings, setSettings } from './resolvers';
-import { Endpoints } from '@moralisweb3/api-utils';
-import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { ApiConfig, Endpoints } from '@moralisweb3/api-utils';
+import { ApiModule, MoralisCore, MoralisCoreProvider, MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
 import { createStream, CreateStreamOptions } from './methods/create';
 import { updateStream, UpdateStreamOptions } from './methods/update';
 import { deleteStream, DeleteStreamOptions } from './methods/delete';
 import { GetStreamsOptions, getStreams } from './methods/getAll';
+import { verifySignature, VerifySignatureOptions } from './utils/verifySignature';
 
 export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
 
@@ -42,4 +43,16 @@ export class MoralisStreams extends ApiModule {
   private readonly _readSettings = this.endpoints.createFetcher(readSettings);
 
   public readonly readSettings = () => this._readSettings({});
+
+  public readonly verifySignature = (options: VerifySignatureOptions) => {
+    const apiKey = this.core.config.get(ApiConfig.apiKey);
+
+    if (!apiKey) {
+      throw new MoralisStreamError({
+        code: StreamErrorCode.GENERIC_STREAM_ERROR,
+        message: 'unable to verify signature without an api key',
+      });
+    }
+    return verifySignature(options, apiKey);
+  };
 }

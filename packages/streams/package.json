@@ -30,6 +30,7 @@
   "dependencies": {
     "@moralisweb3/api-utils": "^2.4.0",
     "@moralisweb3/core": "^2.4.0",
-    "@moralisweb3/evm-utils": "^2.4.0"
+    "@moralisweb3/evm-utils": "^2.4.0",
+    "web3-utils": "^1.7.5"
   }
 }
