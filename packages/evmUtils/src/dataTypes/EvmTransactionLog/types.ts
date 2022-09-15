@@ -1,5 +1,5 @@
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
-import { EvmChain,EvmChainish } from '../EvmChain';
+import { EvmChain, EvmChainish } from '../EvmChain';
 
 /**
  * Valid EvmTransactionLog input.
