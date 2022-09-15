@@ -10,7 +10,6 @@ const solNetworkNames = ['mainnet', 'devnet'] as const;
  */
 export type SolNetworkName = typeof solNetworkNames[number];
 
-
 /**
  * A name of Solana network.
  *
