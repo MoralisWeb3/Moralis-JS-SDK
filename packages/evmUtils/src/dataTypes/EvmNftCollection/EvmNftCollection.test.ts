@@ -36,9 +36,9 @@ describe('EvmNftCollection', () => {
   });
 
   it('should throw an error when creating with an invalid contractType', () => {
-    expect(() =>
-      EvmNftCollection.create({ ...exampleInput, contractType: 'ERC100' }),
-    ).toThrowError('[C0005] Invalid NFT contract type provided');
+    expect(() => EvmNftCollection.create({ ...exampleInput, contractType: 'ERC100' })).toThrowError(
+      '[C0005] Invalid NFT contract type provided',
+    );
   });
 
   /**
