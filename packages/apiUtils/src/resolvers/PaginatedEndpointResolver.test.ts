@@ -62,7 +62,7 @@ type ApiResult = {
 describe('PaginatedEndpointResolver', () => {
   let core: MoralisCore;
   let resolver: PaginatedEndpointResolver<
-    Params,
+    any,
     Params,
     ApiResult,
     {
