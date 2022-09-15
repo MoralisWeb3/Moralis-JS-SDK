@@ -8,7 +8,7 @@ export interface VerifySignatureOptions {
 
 export const verifySignature = ({ body, signature }: VerifySignatureOptions, apiKey: string): boolean => {
   const generatedSignature = sha3(JSON.stringify(body) + apiKey);
-  if(signature !== generatedSignature) {
+  if (signature !== generatedSignature) {
     throw new MoralisStreamError({
       code: StreamErrorCode.INVALID_SIGNATURE,
       message: 'signature is not valid',
