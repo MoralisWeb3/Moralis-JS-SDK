@@ -1,6 +1,6 @@
 import { ApiConfig } from '@moralisweb3/api-utils';
 import MoralisCore, { MoralisDataFormatted, MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
-import { sha3 } from 'web3-utils';
+import { sha3 } from '../utils';
 
 export interface VerifySignatureOptions {
   body: MoralisDataFormatted;
