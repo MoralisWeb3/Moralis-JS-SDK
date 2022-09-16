@@ -7,7 +7,7 @@ type Name = typeof name;
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
 type ApiParams = BodyParams;
 const method = 'post';
-const bodyParams = ['secretKey', 'region'] as const;
+const bodyParams = ['region'] as const;
 
 export const setSettings = createEndpointFactory(() =>
   createEndpoint({
