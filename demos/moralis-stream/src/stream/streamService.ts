@@ -64,14 +64,11 @@ export async function updateStream(id: string, options: StreamOptions) {
 
 export async function setSettings({
   region,
-  secretKey,
 }: {
-  secretKey: string;
   region: 'us-east-1' | 'us-west-2' | 'eu-central-1' | 'ap-southeast-1';
 }) {
   const result = await Moralis.Streams.setSettings({
     region,
-    secretKey,
   });
 
   return result.raw;

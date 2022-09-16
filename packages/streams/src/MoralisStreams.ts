@@ -1,10 +1,11 @@
-import { readSettings, setSettings } from './resolvers';
+import { getSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { createStream, CreateStreamOptions } from './methods/create';
 import { updateStream, UpdateStreamOptions } from './methods/update';
 import { deleteStream, DeleteStreamOptions } from './methods/delete';
 import { GetStreamsOptions, getStreams } from './methods/getAll';
+import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
 
 export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
 
@@ -39,7 +40,9 @@ export class MoralisStreams extends ApiModule {
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
 
-  private readonly _readSettings = this.endpoints.createFetcher(readSettings);
+  private readonly _readSettings = this.endpoints.createFetcher(getSettings);
 
   public readonly readSettings = () => this._readSettings({});
+
+  public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
 }

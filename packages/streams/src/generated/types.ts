@@ -9,7 +9,7 @@ export interface paths {
   };
   "/settings": {
     /** Get the settings for the current project based on the project api-key. */
-    get: operations["ReadSettings"];
+    get: operations["GetSettings"];
     /** Set the settings for the current project based on the project api-key. */
     post: operations["SetSettings"];
   };
@@ -50,10 +50,8 @@ export interface components {
       | "eu-central-1"
       | "ap-southeast-1";
     SettingsModel: {
-      /** @description A user-provided secret-key, all the webhooks will be signed and include a x-signature header with the following: sha3(JSON.stringify(body)+secretKey) */
-      secretKey: string;
       /** @description The region from where all the webhooks will be posted for this project */
-      region: components["schemas"]["SettingsRegion"];
+      region?: components["schemas"]["SettingsRegion"];
     };
     /**
      * Format: uuid
@@ -61,6 +59,14 @@ export interface components {
      * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
      */
     UUID: string;
+    /**
+     * @description The stream status:
+     * [active] The Stream is healthy and processing blocks
+     * [paused] The Stream is paused and is not processing blocks
+     * [error] The Stream has encountered an error and is not processing blocks
+     * @enum {string}
+     */
+    StreamsStatus: "active" | "paused" | "error";
     /**
      * @description The abi to parse the log object of the contract
      * @example {}
@@ -90,7 +96,7 @@ export interface components {
       tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
       topic0?: string | null;
-      /** @description Include or not native transactions defaults to false */
+      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
       includeNativeTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
@@ -102,6 +108,8 @@ export interface components {
       type: components["schemas"]["StreamsType"];
       /** @description The unique uuid of the stream */
       id?: components["schemas"]["UUID"];
+      /** @description The status of the stream. */
+      status?: components["schemas"]["StreamsStatus"];
     };
     StreamsResponse: {
       /** @description Array of project Streams */
@@ -125,7 +133,7 @@ export interface components {
       tokenAddress?: string | null;
       /** @description The topic0 of the event in hex, required if the type : log */
       topic0?: string | null;
-      /** @description Include or not native transactions defaults to false */
+      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
       includeNativeTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
@@ -158,7 +166,7 @@ export interface operations {
     };
   };
   /** Get the settings for the current project based on the project api-key. */
-  ReadSettings: {
+  GetSettings: {
     parameters: {};
     responses: {
       /** Ok */

@@ -1,12 +1,19 @@
 /* eslint-disable no-console */
 import express, { NextFunction, Request, Response } from 'express';
-import config from './config';
 import fs from 'fs';
-import Web3Utils from 'web3-utils';
+import Moralis from 'moralis';
 
 async function webHook(req: Request, res: Response, next: NextFunction) {
   try {
-    verifySignature(req);
+    // Verify request is from Moralis
+    const providedSignature = req.headers['x-signature'];
+    if (!providedSignature) {
+      throw new Error('No signature provided');
+    }
+    Moralis.Streams.verifySignature({
+      body: req.body,
+      signature: providedSignature as string,
+    });
     // Handle data
     writeTofile(req.body);
 
@@ -35,20 +42,6 @@ function writeTofile(data: any) {
       });
     }
   });
-}
-
-function verifySignature(req: Request) {
-  const providedSignature = req.headers['x-signature'];
-  if (!providedSignature) {
-    throw new Error('No signature provided');
-  }
-  const generatedSignature = Web3Utils.sha3(JSON.stringify(req.body) + config.STREAM_SECRET);
-  if (providedSignature !== generatedSignature) {
-    throw new Error('Invalid signature');
-  }
-
-  // eslint-disable-next-line no-console
-  console.log('Signature verified');
 }
 
 async function getEvents(req: Request, res: Response, next: NextFunction) {
