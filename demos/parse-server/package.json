@@ -14,7 +14,7 @@
     "graphql-ws": "^5.10.1",
     "moralis": "^2.4.0",
     "parse-dashboard": "^4.1.4",
-    "parse-server": "^5.2.4"
+    "parse-server": "^5.2.5"
   },
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.0",

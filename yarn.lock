@@ -13294,12 +13294,12 @@ graphql@15.7.1:
   resolved "https://registry.npmjs.org/graphql/-/graphql-15.7.1.tgz"
   integrity sha512-x34S6gC0/peBZnlK60zCJox/d45A7p6At9oN9EPA3qhoIAlR4LNZmXRLkICBckwwTMJzVdA8cx3QIQZMOl606A==
 
-graphql@16.5.0, graphql@^16.3.0:
+graphql@16.5.0:
   version "16.5.0"
   resolved "https://registry.npmjs.org/graphql/-/graphql-16.5.0.tgz"
   integrity sha512-qbHgh8Ix+j/qY+a/ZcJnFQ+j8ezakqPiHwPiZhV/3PgGlgf96QMBB5/f2rkiC9sgLoy/xvT6TSiaf2nTHJh5iA==
 
-graphql@^16.6.0:
+graphql@^16.3.0, graphql@^16.6.0:
   version "16.6.0"
   resolved "https://registry.npmjs.org/graphql/-/graphql-16.6.0.tgz"
   integrity sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==
@@ -17898,10 +17898,10 @@ parse-passwd@^1.0.0:
   resolved "https://registry.npmjs.org/parse-passwd/-/parse-passwd-1.0.0.tgz"
   integrity sha512-1Y1A//QUXEZK7YKz+rD9WydcE1+EuPr6ZBgKecAB8tmoW6UFv0NREVJe1p+jRxtThkcbbKkfwIbWJe/IeE6m2Q==
 
-parse-server@^5.2.4:
-  version "5.2.4"
-  resolved "https://registry.npmjs.org/parse-server/-/parse-server-5.2.4.tgz"
-  integrity sha512-Toc+7qFFmJVb0vB0V1JOOEzOODeUYDPllQKUOfP0fQYztyVNlBuoKAQEHWUvwFPquGt4qOUgYle7ckHtHurcWg==
+parse-server@^5.2.5:
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/parse-server/-/parse-server-5.2.5.tgz#ea6ed6abe7038a4c89aa1f67c4628e39aadfaf1c"
+  integrity sha512-CfWgMf+B9o8a/qU9HOk3Yxh0WxxekF1CM9oQDGK9IvTYuJKR8FYCWiSwXKC2K5GmWAvjwfKd5jMNhQdgqChMzw==
   dependencies:
     "@apollo/client" "3.5.8"
     "@apollographql/graphql-playground-html" "1.6.29"
