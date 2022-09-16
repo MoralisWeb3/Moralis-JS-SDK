@@ -5,6 +5,7 @@ const AUTH_API_URL = 'http://localhost:1337/api/auth';
 const elError = document.getElementById('error');
 const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
+const elBtnPhantom = document.getElementById('auth-phantom');
 
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
@@ -16,18 +17,18 @@ const handleApiPost = async (endpoint, params) => {
   return result.data;
 };
 
-const requestMessage = (account, chain) =>
+const requestMessage = (account, network, chain) =>
   handleApiPost('request-message', {
     address: account,
     chain,
-    network: 'evm',
+    network,
   });
 
-const verifyMessage = (message, signature) =>
+const verifyMessage = (message, signature, network) =>
   handleApiPost('sign-message', {
     message,
     signature,
-    network: 'evm',
+    network,
   });
 
 const connectToMetamask = async () => {
@@ -53,11 +54,42 @@ const handleAuth = async () => {
     throw new Error('No chain found');
   }
 
-  const { message } = await requestMessage(account, chain);
+  const { message } = await requestMessage(account, 'evm', chain);
 
   const signature = await signer.signMessage(message);
 
-  const { user } = await verifyMessage(message, signature);
+  const { user } = await verifyMessage(message, signature, 'evm');
+
+  renderUser(user);
+};
+
+const connectToPhantom = async () => {
+  const provider = window.solana;
+  if (provider.isPhantom) {
+    await provider.connect();
+    const solAddress = provider.publicKey.toBase58();
+    return { signer: provider, account: solAddress };
+  }
+  throw new Error('Not connected to Phantom');
+};
+
+const handleAuthSol = async () => {
+  // Connect to Phantom
+  const { signer, account } = await connectToPhantom();
+
+  if (!account) {
+    throw new Error('No account found');
+  }
+
+  const { message } = await requestMessage(account, 'solana');
+
+  const encodedMessage = new TextEncoder().encode(message);
+
+  const signedMessage = await signer.signMessage(encodedMessage);
+
+  const signature = Base58.encode(signedMessage.signature);
+
+  const { user } = await verifyMessage(message, signature, 'solana');
 
   renderUser(user);
 };
@@ -73,6 +105,10 @@ const renderError = (error) => {
 function init() {
   elBtnMetamask.addEventListener('click', async () => {
     handleAuth().catch((error) => renderError(error));
+  });
+
+  elBtnPhantom.addEventListener('click', async () => {
+    handleAuthSol().catch((error) => renderError(error));
   });
 }
 
