@@ -12,7 +12,8 @@
       "@moralisweb3/evm-utils",
       "@moralisweb3/sol-utils",
       "@moralisweb3/evm-api",
-      "@moralisweb3/sol-api"
+      "@moralisweb3/sol-api",
+      "@moralisweb3/client-firebase-auth"
     ]
   ],
   "linked": [],
