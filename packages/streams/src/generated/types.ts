@@ -4,8 +4,8 @@
  */
 
 export interface paths {
-  "/logger": {
-    get: operations["SetSettings"];
+  "/history": {
+    get: operations["GetHistory"];
   };
   "/settings": {
     /** Get the settings for the current project based on the project api-key. */
@@ -31,16 +31,103 @@ export interface paths {
 
 export interface components {
   schemas: {
-    /** @enum {string} */
-    LogType: "debug" | "info" | "warn" | "error";
-    LogModel: {
-      date: string;
-      block: string;
-      message: string;
-      type: components["schemas"]["LogType"];
+    ILog: {
+      transaction_hash: string;
+      /** Format: double */
+      transaction_index: number;
+      /** Format: double */
+      log_index: number;
+      tag: string;
+      address: string;
+      topic0: string;
+      topic1: string;
+      topic2: string;
+      topic3: string;
+      data: string;
+      streamId: string;
     };
-    LogsResponse: {
-      result: components["schemas"]["LogModel"][];
+    ITransaction: { [key: string]: string };
+    ITransactionInternal: {
+      from: string;
+      to: string;
+      value: string;
+      gas: string;
+      transaction_hash: string;
+    };
+    IERC20Transfer: {
+      transaction_hash: string;
+      /** Format: double */
+      transaction_index: number;
+      /** Format: double */
+      log_index: number;
+      tag: string;
+      contractAddress: string;
+      from: string;
+      to: string;
+      amount: string;
+      valueWithDecimals: string;
+    };
+    IERC20Approval: {
+      transaction_hash: string;
+      /** Format: double */
+      transaction_index: number;
+      /** Format: double */
+      log_index: number;
+      tag: string;
+      contractAddress: string;
+      owner: string;
+      spender: string;
+      value: string;
+      valueWithDecimals: string;
+    };
+    INFTTransfer: {
+      transaction_hash: string;
+      /** Format: double */
+      transaction_index: number;
+      /** Format: double */
+      log_index: number;
+      tag: string;
+      contractAddress: string;
+      from: string;
+      to: string;
+      tokenId: string;
+    };
+    INFTApproval: {
+      transaction_hash: string;
+      /** Format: double */
+      transaction_index: number;
+      /** Format: double */
+      log_index: number;
+      tag: string;
+      account: string;
+      operator: string;
+      approved: boolean;
+    };
+    "WebhookTypes.IWebhook": {
+      /** Format: double */
+      block: number;
+      chainId: string;
+      logs: components["schemas"]["ILog"][];
+      txs: components["schemas"]["ITransaction"][];
+      txsInternal: components["schemas"]["ITransactionInternal"][];
+      abis: unknown;
+      /** Format: double */
+      retries: number;
+      confirmed: boolean;
+      erc20Transfers?: components["schemas"]["IERC20Transfer"][];
+      erc20Approvals?: components["schemas"]["IERC20Approval"][];
+      nftTransfers?: components["schemas"]["INFTTransfer"][];
+      nftApprovals?: components["schemas"]["INFTApproval"][];
+    };
+    HistoryModel: {
+      id: string;
+      date: string;
+      payload: components["schemas"]["WebhookTypes.IWebhook"];
+      errorMessage: string;
+      webhookUrl: string;
+    };
+    HistoryResponse: {
+      result: components["schemas"]["HistoryModel"][];
       cursor?: string;
     };
     /** @enum {string} */
@@ -152,16 +239,19 @@ export interface components {
 }
 
 export interface operations {
-  /** Set the settings for the current project based on the project api-key. */
-  SetSettings: {
-    parameters: {};
-    responses: {
-      /** No content */
-      204: never;
+  GetHistory: {
+    parameters: {
+      query: {
+        limit: number;
+        cursor?: string;
+      };
     };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SettingsModel"];
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["HistoryResponse"];
+        };
       };
     };
   };
@@ -174,6 +264,19 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["SettingsModel"];
         };
+      };
+    };
+  };
+  /** Set the settings for the current project based on the project api-key. */
+  SetSettings: {
+    parameters: {};
+    responses: {
+      /** No content */
+      204: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SettingsModel"];
       };
     };
   };
@@ -226,7 +329,7 @@ export interface operations {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["StreamsModel"][];
+          "application/json": components["schemas"]["StreamsModel"];
         };
       };
     };
