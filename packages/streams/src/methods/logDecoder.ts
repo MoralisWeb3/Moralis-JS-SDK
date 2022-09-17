@@ -1,3 +1,4 @@
+import { MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
 import AbiUtils from 'web3-eth-abi';
 import {
   isWebhook,
@@ -16,21 +17,33 @@ export interface DecodeLogOptions {
 
 export const decodeLog = <Event>({ webhookData, tag }: DecodeLogOptions) => {
   if (!isWebhook(webhookData)) {
-    throw new Error(`Cannot decode the logs. No logs found in the webhook, or invalid webhook provided.`);
+    throw new MoralisStreamError({
+      code: StreamErrorCode.GENERIC_STREAM_ERROR,
+      message: 'Cannot decode the logs. No logs found in the webhook, or invalid webhook provided.',
+    });
   }
 
   if (!hasAbis(webhookData)) {
-    throw new Error(`Cannot decode the logs. No abis found in the provided webhook.`);
+    throw new MoralisStreamError({
+      code: StreamErrorCode.GENERIC_STREAM_ERROR,
+      message: 'Cannot decode the logs. No abis found in the provided webhook.',
+    });
   }
 
   const streamId = getTagStream(webhookData, tag);
 
   if (!streamId) {
-    throw new Error(`Cannot decode the logs. No stream found for tag ${tag}.`);
+    throw new MoralisStreamError({
+      code: StreamErrorCode.GENERIC_STREAM_ERROR,
+      message: `Cannot decode the logs. No stream found for tag ${tag}.`,
+    });
   }
 
   if (!webhookData.abis[streamId]) {
-    throw new Error(`Cannot decode the logs. No abi found  for ${streamId}.`);
+    throw new MoralisStreamError({
+      code: StreamErrorCode.GENERIC_STREAM_ERROR,
+      message: `Cannot decode the logs. No abi found  for ${streamId}.`,
+    });
   }
 
   const logs = getTagLogs(webhookData, tag);
