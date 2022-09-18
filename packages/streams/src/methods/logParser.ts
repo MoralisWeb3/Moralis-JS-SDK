@@ -54,9 +54,9 @@ export const parseLog = <Event>({ webhookData, tag }: ParseLogOptions) => {
     if (!isContractLog(currentLog, webhookData)) {
       return;
     }
-    const { data, topic0, topic1, topic2, topic3 } = currentLog as ContractLog;
+    const { data, topic0 } = currentLog as ContractLog;
     const abi = webhookData.abis?.[currentLog.streamId];
-    let topics: string[] = [];
+    const topics: string[] = [];
     if (abi.anonymous && isNotEmpty(topic0)) {
       topics.push(topic0);
     }
@@ -67,7 +67,6 @@ export const parseLog = <Event>({ webhookData, tag }: ParseLogOptions) => {
         topics.push(log[`topic${topicIndex}`]);
       }
     });
-    topics = topics.concat([topic1, topic2, topic3].filter(isNotEmpty));
     const decodedLog = AbiUtils.decodeLog(abi.inputs, data, topics) as unknown as Event;
     decodedLogs.push(decodedLog);
   });
