@@ -60,6 +60,13 @@ export const parseLog = <Event>({ webhookData, tag }: ParseLogOptions) => {
     if (abi.anonymous && isNotEmpty(topic0)) {
       topics.push(topic0);
     }
+    abi.inputs.forEach(({ indexed }) => {
+      const topicIndex = abi.anonymous ? topics.length : topics.length + 1;
+      const log = currentLog as never;
+      if (indexed && log[`topic${topicIndex}`]) {
+        topics.push(log[`topic${topicIndex}`]);
+      }
+    });
     topics = topics.concat([topic1, topic2, topic3].filter(isNotEmpty));
     const decodedLog = AbiUtils.decodeLog(abi.inputs, data, topics) as unknown as Event;
     decodedLogs.push(decodedLog);

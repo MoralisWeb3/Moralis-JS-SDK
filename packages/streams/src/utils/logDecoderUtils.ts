@@ -14,8 +14,14 @@ export interface ContractLog extends AnyWebhookLog {
 
 export interface AnyAbi {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  inputs: any[];
+  inputs: AbiInput[];
   anonymous?: boolean;
+}
+
+interface AbiInput {
+  indexed: boolean;
+  name: string;
+  type: string;
 }
 
 export interface AnyWebhookData {
