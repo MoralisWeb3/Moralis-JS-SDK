@@ -87,6 +87,7 @@ export class EvmTransactionLog implements MoralisDataObject {
     return {
       ...value,
       address: value.address.format(),
+      chainId: value.chainId?.format(),
     };
   }
 

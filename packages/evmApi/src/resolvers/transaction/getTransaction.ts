@@ -53,6 +53,7 @@ export const getTransaction = createEndpointFactory((core) =>
                 blockTimestamp: log.block_timestamp,
                 logIndex: +log.log_index,
                 transactionIndex: +log.transaction_index,
+                chainId: log.chainId,
               },
               core,
             ),
