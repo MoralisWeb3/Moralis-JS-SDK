@@ -11,7 +11,7 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "echo 'not implemented'",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",

@@ -6,6 +6,7 @@ export interface AnyWebhookLog {
 
 export interface ContractLog extends AnyWebhookLog {
   data: string;
+  topic0: string | null;
   topic1: string | null;
   topic2: string | null;
   topic3: string | null;
@@ -14,6 +15,7 @@ export interface ContractLog extends AnyWebhookLog {
 export interface AnyAbi {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inputs: any[];
+  anonymous?: boolean;
 }
 
 export interface AnyWebhookData {
