@@ -8,6 +8,8 @@ import { GetStreamsOptions, getStreams } from './methods/getAll';
 import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
 import { parseLog, ParseLogOptions } from './methods/logParser';
 import { getHistory } from './resolvers/getHistory';
+import { replayHistory } from './resolvers/replayHistory';
+import { updateStreamStatus, UpdateStreamStatusOptions } from './methods/updateStatus';
 
 export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
 
@@ -36,8 +38,10 @@ export class MoralisStreams extends ApiModule {
   public readonly update = (options: UpdateStreamOptions) => updateStream(this.core)(options);
   public readonly delete = (options: DeleteStreamOptions) => deleteStream(this.core)(options);
   public readonly getAll = (options: GetStreamsOptions) => getStreams(this.core)(options);
+  public readonly updateStatus = (options: UpdateStreamStatusOptions) => updateStreamStatus(this.core)(options);
 
   public readonly getHistory = this.endpoints.createFetcher(getHistory);
+  public readonly retry = this.endpoints.createFetcher(replayHistory);
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
   private readonly _readSettings = this.endpoints.createFetcher(getSettings);
