@@ -87,6 +87,7 @@ const handleAuthSol = async () => {
 
   const signedMessage = await signer.signMessage(encodedMessage);
 
+  // eslint-disable-next-line no-undef
   const signature = Base58.encode(signedMessage.signature);
 
   const { user } = await verifyMessage(message, signature, 'solana');
