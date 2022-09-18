@@ -10,12 +10,12 @@ import {
   isNotEmpty,
 } from '../utils/logDecoderUtils';
 
-export interface DecodeLogOptions {
+export interface ParseLogOptions {
   webhookData: unknown;
   tag: string;
 }
 
-export const decodeLog = <Event>({ webhookData, tag }: DecodeLogOptions) => {
+export const parseLog = <Event>({ webhookData, tag }: ParseLogOptions) => {
   if (!isWebhook(webhookData)) {
     throw new MoralisStreamError({
       code: StreamErrorCode.GENERIC_STREAM_ERROR,

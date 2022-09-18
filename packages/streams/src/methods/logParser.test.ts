@@ -1,4 +1,4 @@
-import { decodeLog } from './logDecoder';
+import { parseLog } from './logParser';
 
 const simpleWebhookData = {
   abis: {
@@ -161,7 +161,7 @@ const multipleDataWebhookData = {
 
 describe('logDecoder', () => {
   it('should decode logs', () => {
-    const decodedLogs: any = decodeLog({ webhookData: simpleWebhookData, tag: 'testEvent' });
+    const decodedLogs: any = parseLog({ webhookData: simpleWebhookData, tag: 'testEvent' });
 
     expect(decodedLogs[0].from).toEqual('0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7');
     expect(decodedLogs[0].to).toEqual('0x1E0049783F008A0085193E00003D00cd54003c71');
@@ -169,7 +169,7 @@ describe('logDecoder', () => {
   });
 
   it('should decode multiple logs', () => {
-    const decodedLogs: any = decodeLog({ webhookData: multipleDataWebhookData, tag: 'testEvent2' });
+    const decodedLogs: any = parseLog({ webhookData: multipleDataWebhookData, tag: 'testEvent2' });
 
     expect(decodedLogs[0].owner).toEqual('0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7');
     expect(decodedLogs[0].spender).toEqual('0x1E0049783F008A0085193E00003D00cd54003c71');
@@ -180,14 +180,14 @@ describe('logDecoder', () => {
   });
 
   it('should throw no tag error', () => {
-    expect(() => decodeLog({ webhookData: simpleWebhookData, tag: 'wrongTag' })).toThrowErrorMatchingInlineSnapshot(
+    expect(() => parseLog({ webhookData: simpleWebhookData, tag: 'wrongTag' })).toThrowErrorMatchingInlineSnapshot(
       `"[S0001] Cannot decode the logs. No stream found for tag wrongTag."`,
     );
   });
 
   it('should throw no abi error', () => {
     expect(() =>
-      decodeLog({ webhookData: multipleDataWebhookData, tag: 'testEvent3' }),
+      parseLog({ webhookData: multipleDataWebhookData, tag: 'testEvent3' }),
     ).toThrowErrorMatchingInlineSnapshot(
       `"[S0001] Cannot decode the logs. No abi found  for c558a80a-f319-4c10-95d4-4282ef745b4b."`,
     );

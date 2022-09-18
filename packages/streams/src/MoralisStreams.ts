@@ -6,7 +6,7 @@ import { updateStream, UpdateStreamOptions } from './methods/update';
 import { deleteStream, DeleteStreamOptions } from './methods/delete';
 import { GetStreamsOptions, getStreams } from './methods/getAll';
 import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
-import { decodeLog, DecodeLogOptions } from './methods/logDecoder';
+import { parseLog, ParseLogOptions } from './methods/logParser';
 import { getHistory } from './resolvers/getHistory';
 
 export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
@@ -45,5 +45,5 @@ export class MoralisStreams extends ApiModule {
 
   public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
 
-  public readonly getDecodedLogs = (options: DecodeLogOptions) => decodeLog(options);
+  public readonly parsedLogs = (options: ParseLogOptions) => parseLog(options);
 }
