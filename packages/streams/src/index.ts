@@ -1,5 +1,7 @@
 import { MoralisStreams } from './MoralisStreams';
-export * from '@moralisweb3/streams-typings'
+import type * as Types from '@moralisweb3/streams-typings';
+
+export { Types };
 
 export * from './MoralisStreams';
 
