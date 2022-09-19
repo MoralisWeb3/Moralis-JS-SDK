@@ -1,9 +1,10 @@
 import { signInWithCustomToken, UserCredential } from '@firebase/auth';
 import { httpsCallable } from '@firebase/functions';
 import { MoralisAuth } from './getMoralisAuth';
+import { Challenge } from './requestChallenge';
 
 export interface SignInWithMoralisParams {
-  message: string;
+  challenge: Challenge;
   signature: string;
 }
 
@@ -17,7 +18,8 @@ export async function signInWithMoralis(auth: MoralisAuth, params: SignInWithMor
     auth.functions,
     functionName,
   )({
-    message: params.message,
+    networkType: params.challenge.networkType,
+    message: params.challenge.message,
     signature: params.signature,
   });
 

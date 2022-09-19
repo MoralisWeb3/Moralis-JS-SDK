@@ -1,37 +1,41 @@
-import { Web3Provider } from '@ethersproject/providers';
-import { requestMessage, signInWithMoralis } from '@moralisweb3/client-firebase-auth';
+import { Challenge, requestEvmChallenge, requestSolanaChallenge, signInWithMoralis } from '@moralisweb3/client-firebase-auth';
 import { auth, functions, moralisAuth } from './firebase';
 import { httpsCallable } from '@firebase/functions';
 import { User } from '@firebase/auth';
 import { Fragment, useState } from 'react';
+import { connectToMetamask, connectToPhantom } from './connectors';
+import { encode } from 'bs58';
 
 export function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(() => auth.currentUser);
 
-  async function connectToMetamask() {
-    // eslint-disable-next-line no-undef, @typescript-eslint/no-explicit-any
-    const provider = new Web3Provider((window as any)['ethereum'], 'any');
-
-    const [accounts, chainId] = await Promise.all([
-      provider.send('eth_requestAccounts', []),
-      provider.send('eth_chainId', []),
-    ]);
-
-    const signer = provider.getSigner();
-    return { signer, chain: chainId, address: accounts[0] };
-  }
-
-  async function authenticate() {
+  async function authenticateEvm() {
     const { signer, chain, address } = await connectToMetamask();
 
-    const message = await requestMessage(moralisAuth, { address, chain });
+    const challenge = await requestEvmChallenge(moralisAuth, { address, chain });
 
-    const signature = await signer.signMessage(message.message);
+    const signature = await signer.signMessage(challenge.message);
 
-    const user = await signInWithMoralis(moralisAuth, { message: message.message, signature });
+    signIn(challenge, signature);
+  }
+
+  async function authenticateSolana() {
+    const { signer, address } = await connectToPhantom();
+
+    const challenge = await requestSolanaChallenge(moralisAuth, { address, network: 'mainnet' });
+
+    const encodedMessage = new TextEncoder().encode(challenge.message);
+
+    const signature = await signer.signMessage(encodedMessage);
+
+    signIn(challenge, encode(signature.signature));
+  }
+
+  async function signIn(challenge: Challenge, signature: string) {
+    const credentials = await signInWithMoralis(moralisAuth, { challenge, signature });
     // eslint-disable-next-line no-console
-    console.log(user);
-    setCurrentUser(user.user);
+    console.log(credentials);
+    setCurrentUser(credentials.user);
   }
 
   async function signOut() {
@@ -62,7 +66,9 @@ export function App() {
         </strong>
       </p>
 
-      <button onClick={authenticate}>Connect wallet</button>
+      <button onClick={authenticateEvm}>Connect to MetaMask</button>
+
+      <button onClick={authenticateSolana}>Connect to Phantom</button>
 
       <button onClick={signOut}>Sign out</button>
 
