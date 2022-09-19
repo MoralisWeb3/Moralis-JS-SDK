@@ -49,5 +49,5 @@ export class MoralisStreams extends ApiModule {
 
   public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
 
-  public readonly parsedLogs = (options: ParseLogOptions) => parseLog(options);
+  public readonly parsedLogs = <Event>(options: ParseLogOptions) => parseLog<Event>(options);
 }
