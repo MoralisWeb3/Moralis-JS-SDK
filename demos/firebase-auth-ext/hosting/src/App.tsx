@@ -1,4 +1,9 @@
-import { Challenge, requestEvmChallenge, requestSolanaChallenge, signInWithMoralis } from '@moralisweb3/client-firebase-auth';
+import {
+  Challenge,
+  requestEvmChallenge,
+  requestSolanaChallenge,
+  signInWithMoralis,
+} from '@moralisweb3/client-firebase-auth';
 import { auth, functions, moralisAuth } from './firebase';
 import { httpsCallable } from '@firebase/functions';
 import { User } from '@firebase/auth';
