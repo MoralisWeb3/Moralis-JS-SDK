@@ -11,7 +11,7 @@ import { getHistory } from './resolvers/getHistory';
 import { replayHistory } from './resolvers/replayHistory';
 import { updateStreamStatus, UpdateStreamStatusOptions } from './methods/updateStatus';
 
-export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
+export const BASE_URL = 'https://api.moralis-streams.com';
 
 export class MoralisStreams extends ApiModule {
   public static readonly moduleName = 'streams';
