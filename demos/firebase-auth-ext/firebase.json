@@ -1,8 +1,6 @@
 {
   "functions": {
-    "ignore": [
-      "node_modules"
-    ],
+    "ignore": ["node_modules"],
     "source": "functions",
     "predeploy": [
       "yarn --cwd \"$RESOURCE_DIR\" install",
@@ -11,9 +9,7 @@
     ]
   },
   "hosting": {
-    "ignore": [
-      "node_modules"
-    ],
+    "ignore": ["node_modules"],
     "public": "hosting/build",
     "predeploy": [
       "yarn --cwd \"$RESOURCE_DIR\" install",
