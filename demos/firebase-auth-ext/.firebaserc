@@ -4,10 +4,5 @@
   },
   "targets": {},
   "etags": {
-    "moralis-x5": {
-      "extensionInstances": {
-        "moralis-auth": "1ac549a33f51ac8d7fe0cc65d0e02a17ab7079aabc093bec0cf6660a50bf016a"
-      }
-    }
   }
 }
