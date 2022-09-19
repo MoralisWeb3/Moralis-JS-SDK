@@ -1,5 +1,24 @@
 # @moralisweb3/streams
 
+## 2.5.0
+
+### Minor Changes
+
+- [#674](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/674) [`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129) Thanks [@sogunshola](https://github.com/sogunshola)! - Added verifySignature utility function
+
+* [#678](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/678) [`72ad17b7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/72ad17b79dbd9fa375b2d07a28ce1b6929dff38b) Thanks [@sogunshola](https://github.com/sogunshola)! - Added funtion to decode webhook logs
+
+- [#683](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/683) [`cd9a9ce5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cd9a9ce577b40c7b4c65dd94088d3e1e0863b213) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `Moralis.Streams.retry()` to retry failed webhooks, and add `Moralis.Streams.updateStatus()` to update the status of a webhook.
+
+* [#677](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/677) [`b5f3bc77`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b5f3bc77676577af5e5b4351d285b022e78a1e79) Thanks [@ErnoW](https://github.com/ErnoW)! - Add Moralis.Streams.getHistory to get all failed webhooks
+
+### Patch Changes
+
+- Updated dependencies [[`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129)]:
+  - @moralisweb3/core@2.5.0
+  - @moralisweb3/api-utils@2.5.0
+  - @moralisweb3/evm-utils@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes
