@@ -1,6 +1,7 @@
 # node_modules
 node_modules/
 packages/**/node_modules
+demos/**/node_modules
 
 # Error / debug
 lerna-debug.log
