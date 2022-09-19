@@ -1,5 +1,13 @@
 # @moralisweb3/core
 
+## 2.5.1
+
+## 2.5.0
+
+### Minor Changes
+
+- [#674](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/674) [`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129) Thanks [@sogunshola](https://github.com/sogunshola)! - Added verifySignature utility function
+
 ## 2.4.0
 
 ### Minor Changes
