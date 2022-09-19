@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.5.1
+
+### Patch Changes
+
+- [#685](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/685) [`688dc414`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/688dc414bb0e3683a171aea428b8b0685eb11887) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix for providing a custom type to `Moralis.Streams.parsedLogs<MyEvent>()`. This now works as expected, and the returned type is of `MyEvent[]`
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.1
+  - @moralisweb3/api-utils@2.5.1
+  - @moralisweb3/evm-utils@2.5.1
+
 ## 2.5.0
 
 ### Minor Changes
