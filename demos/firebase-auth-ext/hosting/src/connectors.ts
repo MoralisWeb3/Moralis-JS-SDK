@@ -26,6 +26,6 @@ export async function connectToPhantom(): Promise<{
   }
 
   await provider.connect();
-  const solAddress = provider.publicKey.toBase58();
-  return { signer: provider, address: solAddress };
+  const address = provider.publicKey.toBase58();
+  return { signer: provider, address };
 }
