@@ -1,5 +1,15 @@
 # @moralisweb3/auth
 
+## 2.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.3
+  - @moralisweb3/api-utils@2.5.3
+  - @moralisweb3/evm-utils@2.5.3
+  - @moralisweb3/sol-utils@2.5.3
+
 ## 2.5.2
 
 ### Patch Changes
