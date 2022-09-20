@@ -1,5 +1,18 @@
 # @moralisweb3/streams
 
+## 2.5.2
+
+### Patch Changes
+
+- [#687](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/687) [`d6ed8ce0`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d6ed8ce0365c082b0e1ce15eb93be7bd6453bdb6) Thanks [@locothedev](https://github.com/locothedev)! - update base url
+
+* [#689](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/689) [`500ddaf3`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/500ddaf3bf5e4cec77475aa0d9a828e3b457e5b8) Thanks [@ErnoW](https://github.com/ErnoW)! - Export types for returned webhooks
+
+* Updated dependencies []:
+  - @moralisweb3/core@2.5.2
+  - @moralisweb3/api-utils@2.5.2
+  - @moralisweb3/evm-utils@2.5.2
+
 ## 2.5.1
 
 ### Patch Changes
