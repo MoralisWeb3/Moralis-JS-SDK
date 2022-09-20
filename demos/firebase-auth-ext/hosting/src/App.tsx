@@ -76,7 +76,7 @@ export function App() {
         </strong>
       </p>
 
-      <h4>Authenticate</h4>
+      <h4>Authentication</h4>
 
       <button onClick={signInWithMetamask}>Sign in with MetaMask</button>
 
