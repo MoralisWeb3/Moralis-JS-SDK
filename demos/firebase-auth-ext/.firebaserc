@@ -1,8 +1,5 @@
 {
-  "projects": {
-    "default": "moralis-x5"
-  },
+  "projects": {},
   "targets": {},
-  "etags": {
-  }
+  "etags": {}
 }
