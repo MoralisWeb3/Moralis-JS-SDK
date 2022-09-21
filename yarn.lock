@@ -18428,10 +18428,10 @@ parse-passwd@^1.0.0:
   resolved "https://registry.npmjs.org/parse-passwd/-/parse-passwd-1.0.0.tgz"
   integrity sha512-1Y1A//QUXEZK7YKz+rD9WydcE1+EuPr6ZBgKecAB8tmoW6UFv0NREVJe1p+jRxtThkcbbKkfwIbWJe/IeE6m2Q==
 
-parse-server@^5.2.5:
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/parse-server/-/parse-server-5.2.5.tgz#ea6ed6abe7038a4c89aa1f67c4628e39aadfaf1c"
-  integrity sha512-CfWgMf+B9o8a/qU9HOk3Yxh0WxxekF1CM9oQDGK9IvTYuJKR8FYCWiSwXKC2K5GmWAvjwfKd5jMNhQdgqChMzw==
+parse-server@^5.2.7:
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/parse-server/-/parse-server-5.2.7.tgz#a92cfb0c1698b053caf743e238a58f44ece44d96"
+  integrity sha512-iQ+EMIK8M5X1dAnSapmnnbUYA4/SPsGr215DE21d1lxkLvX5y7ZCcEaG7mZWyrU1Kapyf8Uoz4tM+X2BVDwZlw==
   dependencies:
     "@apollo/client" "3.5.8"
     "@apollographql/graphql-playground-html" "1.6.29"
