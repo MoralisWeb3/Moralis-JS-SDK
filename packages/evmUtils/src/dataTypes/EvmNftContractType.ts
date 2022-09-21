@@ -5,11 +5,7 @@ export enum EvmNftContractType {
   ERC1155 = 'ERC1155',
 }
 
-export function noramlizeEvmNftContractType(value: string): EvmNftContractType | undefined {
-  if (!value) {
-    return undefined;
-  }
-
+export function normalizeEvmNftContractType(value: string): EvmNftContractType {
   switch (value.toUpperCase()) {
     case EvmNftContractType.ERC1155:
       return EvmNftContractType.ERC1155;
