@@ -35,7 +35,7 @@ const getApiMessageFromError = (error: AxiosApiError) => {
     return message.join(', ');
   }
 
-  if(typeof message === 'string'){
+  if (typeof message === 'string') {
     return message;
   }
 
