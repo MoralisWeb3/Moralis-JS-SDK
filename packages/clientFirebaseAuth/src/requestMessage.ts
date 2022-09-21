@@ -17,9 +17,10 @@ export interface RequestEvmMessageParams {
 
   /**
    * @description Chain ID.
+   * @example "0x1"
    * @example 0x1
    */
-  chain: number;
+  chain: string | number;
 }
 
 export interface RequestSolanaMessageParams {
