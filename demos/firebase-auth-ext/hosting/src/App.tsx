@@ -1,9 +1,4 @@
-import {
-  Challenge,
-  requestEvmChallenge,
-  requestSolanaChallenge,
-  signInWithMoralis,
-} from '@moralisweb3/client-firebase-auth';
+import { SignInContext, requestMessage, signInWithMoralis } from '@moralisweb3/client-firebase-auth';
 import { auth, functions, moralisAuth } from './firebase';
 import { httpsCallable } from '@firebase/functions';
 import { User } from '@firebase/auth';
@@ -17,27 +12,27 @@ export function App() {
   async function signInWithMetamask() {
     const { signer, chain, address } = await connectToMetamask();
 
-    const challenge = await requestEvmChallenge(moralisAuth, { address, chain });
+    const context = await requestMessage(moralisAuth, { networkType: 'evm', address, chain });
 
-    const signature = await signer.signMessage(challenge.message);
+    const signature = await signer.signMessage(context.message);
 
-    signIn(challenge, signature);
+    signIn(context, signature);
   }
 
   async function signInWithPhantom() {
     const { signer, address } = await connectToPhantom();
 
-    const challenge = await requestSolanaChallenge(moralisAuth, { address, network: 'mainnet' });
+    const context = await requestMessage(moralisAuth, { networkType: 'solana', address, network: 'mainnet' });
 
-    const encodedMessage = new TextEncoder().encode(challenge.message);
+    const encodedMessage = new TextEncoder().encode(context.message);
 
     const signature = await signer.signMessage(encodedMessage);
 
-    signIn(challenge, encode(signature.signature));
+    signIn(context, encode(signature.signature));
   }
 
-  async function signIn(challenge: Challenge, signature: string) {
-    const credentials = await signInWithMoralis(moralisAuth, { challenge, signature });
+  async function signIn(context: SignInContext, signature: string) {
+    const credentials = await signInWithMoralis(moralisAuth, { context, signature });
     // eslint-disable-next-line no-console
     console.log(credentials);
     setCurrentUser(credentials.user);

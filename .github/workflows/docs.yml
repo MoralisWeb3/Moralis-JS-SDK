@@ -20,7 +20,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C5
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C6
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install

@@ -1,14 +1,14 @@
 import { Functions, getFunctions } from '@firebase/functions';
-import { FirebaseApp } from '@firebase/app';
+import { FirebaseApp, getApp } from '@firebase/app';
 import { Auth, getAuth } from '@firebase/auth';
 
 export interface MoralisAuth {
-  functions: Functions;
   auth: Auth;
+  functions: Functions;
   functionNamePrefix: string;
 }
 
-export interface GetMoralisAuthParams {
+export interface MoralisAuthOptions {
   /**
    * @default "ext-moralis-auth-"
    */
@@ -16,10 +16,13 @@ export interface GetMoralisAuthParams {
   functions?: Functions;
 }
 
-export function getMoralisAuth(app: FirebaseApp, params?: GetMoralisAuthParams): MoralisAuth {
+export function getMoralisAuth(app?: FirebaseApp, options?: MoralisAuthOptions): MoralisAuth {
+  if (!app) {
+    app = getApp();
+  }
   return {
-    functionNamePrefix: params?.functionNamePrefix ?? 'ext-moralis-auth-',
+    functionNamePrefix: options?.functionNamePrefix ?? 'ext-moralis-auth-',
     auth: getAuth(app),
-    functions: params?.functions ?? getFunctions(app),
+    functions: options?.functions ?? getFunctions(app),
   };
 }

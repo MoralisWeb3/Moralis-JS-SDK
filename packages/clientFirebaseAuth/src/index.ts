@@ -1,3 +1,3 @@
 export * from './getMoralisAuth';
-export * from './requestChallenge';
+export * from './requestMessage';
 export * from './signInWithMoralis';
