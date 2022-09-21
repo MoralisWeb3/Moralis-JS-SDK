@@ -6,6 +6,8 @@ const TEST_ADDRESS_CHECKSUM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const TEST_ADDRESS_CHECKSUM2 = '0x766fd99F7D249E275b4CF9baE422D50cC3223869';
 const TEST_ADDRESS_LOWERCASE = TEST_ADDRESS_CHECKSUM.toLowerCase();
 const TEST_INVALID_ADDRESS = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000';
+const TEST_NAME = 'vitalik.eth';
+const TEST_CHAINID = 1;
 
 describe('EvmAddress', () => {
   let core: MoralisCore;
@@ -25,6 +27,11 @@ describe('EvmAddress', () => {
     const address = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
 
     expect(address.format()).toBe(TEST_ADDRESS_LOWERCASE);
+  });
+
+  it('should create a new EvmAddress based on a name', async () => {
+    jest.setTimeout(12000);
+    await EvmAddress.createFromENS(TEST_NAME, TEST_CHAINID);
   });
 
   it('should create a new EvmAddress based on a checksum address', () => {
@@ -101,6 +108,7 @@ describe('EvmAddress', () => {
   /**
    * Methods
    */
+
   it('should check equality of 2 addresses of the same value', () => {
     const addressA = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
     const addressB = EvmAddress.create(TEST_ADDRESS_CHECKSUM);

@@ -7,8 +7,11 @@ import {
   MoralisCoreError,
   MoralisData,
 } from '@moralisweb3/core';
+import { InputChainId } from '../EvmChain';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { EvmUtilsConfig } from '../../config/EvmUtilsConfig';
+import { isValidName } from '@ethersproject/hash';
+import { getDefaultProvider } from '@ethersproject/providers';
 
 /**
  * This can be any valid EVM address, formatted as lowercase or checksum.
@@ -56,6 +59,30 @@ export class EvmAddress implements MoralisData {
     }
     const finalCore = core || MoralisCoreProvider.getDefault();
     return new EvmAddress(address, finalCore.config);
+  }
+
+  /**
+   * Create a new instance of EvmAddress from any ens name
+   *
+   * @example
+   * ```
+   * const address = EvmAddress.createFromENS("vitalik.eth")
+   * const address = EvmAddress.createFromENS("bart.eth")
+   *
+   * ```
+   */
+  public static async createFromENS(name: string, network?: InputChainId, core?: MoralisCore) {
+    if (!isValidName(name)) {
+      throw new MoralisCoreError({
+        code: CoreErrorCode.INVALID_ARGUMENT,
+        message: 'Invalid name provided',
+      });
+    }
+
+    const provider = getDefaultProvider(network);
+    const address = await provider.resolveName(name);
+
+    return this.create(address!, core);
   }
 
   /**
