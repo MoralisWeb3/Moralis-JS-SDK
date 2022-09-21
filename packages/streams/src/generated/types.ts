@@ -4,14 +4,22 @@
  */
 
 export interface paths {
-  "/logger": {
-    get: operations["SetSettings"];
+  "/history": {
+    get: operations["GetHistory"];
+  };
+  "/history/replay/{id}": {
+    /** Replay a specific history. */
+    post: operations["ReplayHistory"];
   };
   "/settings": {
     /** Get the settings for the current project based on the project api-key. */
     get: operations["GetSettings"];
     /** Set the settings for the current project based on the project api-key. */
     post: operations["SetSettings"];
+  };
+  "/beta/stats": {
+    /** Get the stats for the current project based on the project api-key (Beta - This endpoint could be replaced or removed). */
+    get: operations["GetStats"];
   };
   "/streams/evm": {
     /** Get all the evm streams for the current project based on the project api-key. */
@@ -27,22 +35,160 @@ export interface paths {
     /** Delete a specific evm stream. */
     delete: operations["DeleteStream"];
   };
+  "/streams/evm/{id}/status": {
+    /** Updates the status of specific evm stream. */
+    post: operations["UpdateStreamStatus"];
+  };
 }
 
 export interface components {
   schemas: {
-    /** @enum {string} */
-    LogType: "debug" | "info" | "warn" | "error";
-    LogModel: {
-      date: string;
-      block: string;
-      message: string;
-      type: components["schemas"]["LogType"];
+    WebhookBlock: {
+      number: string;
+      hash: string;
+      timestamp: string;
     };
-    LogsResponse: {
-      result: components["schemas"]["LogModel"][];
+    Log: {
+      logIndex: string;
+      transactionHash: string;
+      address: string;
+      data: string | null;
+      topic0: string | null;
+      topic1: string | null;
+      topic2: string | null;
+      topic3: string | null;
+    };
+    Transaction: {
+      hash: string;
+      gas: string | null;
+      gasPrice: string | null;
+      nonce: string | null;
+      input: string | null;
+      transactionIndex: string;
+      fromAddress: string;
+      toAddress: string | null;
+      value: string | null;
+      type: string | null;
+      v: string | null;
+      r: string | null;
+      s: string | null;
+      receiptCumulativeGasUsed: string | null;
+      receiptGasUsed: string | null;
+      receiptContractAddress: string | null;
+      receiptRoot: string | null;
+      receiptStatus: string | null;
+    };
+    InternalTransaction: {
+      from: string | null;
+      to: string | null;
+      value: string | null;
+      transactionHash: string;
+      gas: string | null;
+    };
+    AbiInput: {
+      name: string;
+      type: string;
+      indexed?: boolean;
+      components?: components["schemas"]["AbiInput"][];
+      internalType?: string;
+    };
+    AbiOutput: {
+      name: string;
+      type: string;
+      components?: components["schemas"]["AbiOutput"][];
+      internalType?: string;
+    };
+    /** @enum {string} */
+    StateMutabilityType: "pure" | "view" | "nonpayable" | "payable";
+    /** @enum {string} */
+    AbiType: "function" | "constructor" | "event" | "fallback";
+    AbiItem: {
+      anonymous?: boolean;
+      constant?: boolean;
+      inputs?: components["schemas"]["AbiInput"][];
+      name?: string;
+      outputs?: components["schemas"]["AbiOutput"][];
+      payable?: boolean;
+      stateMutability?: components["schemas"]["StateMutabilityType"];
+      type: components["schemas"]["AbiType"];
+      /** Format: double */
+      gas?: number;
+    };
+    IAbi: { [key: string]: components["schemas"]["AbiItem"] };
+    IERC20Transfer: {
+      transactionHash: string;
+      tokenAddress: string;
+      /** Format: double */
+      logIndex: number;
+      tag: string;
+      from: string;
+      to: string;
+      amount: string;
+      valueWithDecimals: string;
+    };
+    IERC20Approval: {
+      transactionHash: string;
+      tokenAddress: string;
+      /** Format: double */
+      logIndex: number;
+      tag: string;
+      owner: string;
+      spender: string;
+      value: string;
+      valueWithDecimals: string;
+    };
+    INFTTransfer: {
+      transactionHash: string;
+      tokenAddress: string;
+      /** Format: double */
+      logIndex: number;
+      tag: string;
+      from: string;
+      to: string;
+      tokenId: string;
+    };
+    INFTApproval: {
+      transactionHash: string;
+      tokenAddress: string;
+      /** Format: double */
+      logIndex: number;
+      tag: string;
+      account: string;
+      operator: string;
+      approved: boolean;
+    };
+    "WebhookTypes.IWebhook": {
+      erc20Transfers: components["schemas"]["IERC20Transfer"][];
+      erc20Approvals: components["schemas"]["IERC20Approval"][];
+      nftTransfers: components["schemas"]["INFTTransfer"][];
+      nftApprovals: components["schemas"]["INFTApproval"][];
+      block: components["schemas"]["WebhookBlock"];
+      chainId: string;
+      logs: components["schemas"]["Log"][];
+      txs: components["schemas"]["Transaction"][];
+      txsInternal: components["schemas"]["InternalTransaction"][];
+      abis: components["schemas"]["IAbi"];
+      /** Format: double */
+      retries: number;
+      confirmed: boolean;
+    };
+    HistoryModel: {
+      id: string;
+      date: string;
+      payload: components["schemas"]["WebhookTypes.IWebhook"];
+      errorMessage: string;
+      webhookUrl: string;
+    };
+    HistoryResponse: {
+      result: components["schemas"]["HistoryModel"][];
       cursor?: string;
     };
+    /**
+     * Format: uuid
+     * @description Stringified UUIDv4.
+     * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
+     */
+    UUID: string;
     /** @enum {string} */
     SettingsRegion:
       | "us-east-1"
@@ -53,12 +199,33 @@ export interface components {
       /** @description The region from where all the webhooks will be posted for this project */
       region?: components["schemas"]["SettingsRegion"];
     };
-    /**
-     * Format: uuid
-     * @description Stringified UUIDv4.
-     * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
-     */
-    UUID: string;
+    StatsModel: {
+      /**
+       * Format: double
+       * @description The total amount of webhooks delivered across all streams
+       */
+      totalWebhooksDelivered: number;
+      /**
+       * Format: double
+       * @description The total amount of failed webhooks across all streams
+       */
+      totalWebhooksFailed: number;
+      /**
+       * Format: double
+       * @description The total amount of logs processed across all streams, this includes failed webhooks
+       */
+      totalLogsProcessed: number;
+      /**
+       * Format: double
+       * @description The total amount of txs processed across all streams, this includes failed webhooks
+       */
+      totalTxsProcessed: number;
+      /**
+       * Format: double
+       * @description The total amount of internal txs processed across all streams, this includes failed webhooks
+       */
+      totalTxsInternalProcessed: number;
+    };
     /**
      * @description The stream status:
      * [active] The Stream is healthy and processing blocks
@@ -144,6 +311,10 @@ export interface components {
       /** @description The type of stream to create log or tx */
       type: components["schemas"]["StreamsType"];
     };
+    StreamsStatusUpdate: {
+      /** @description The status of the stream. */
+      status: components["schemas"]["StreamsStatus"];
+    };
   };
   responses: {};
   parameters: {};
@@ -152,6 +323,51 @@ export interface components {
 }
 
 export interface operations {
+  GetHistory: {
+    parameters: {
+      query: {
+        limit: number;
+        cursor?: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["HistoryResponse"];
+        };
+      };
+    };
+  };
+  /** Replay a specific history. */
+  ReplayHistory: {
+    parameters: {
+      path: {
+        /** The id of the history to replay */
+        id: components["schemas"]["UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["HistoryModel"];
+        };
+      };
+    };
+  };
+  /** Get the settings for the current project based on the project api-key. */
+  GetSettings: {
+    parameters: {};
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SettingsModel"];
+        };
+      };
+    };
+  };
   /** Set the settings for the current project based on the project api-key. */
   SetSettings: {
     parameters: {};
@@ -165,14 +381,14 @@ export interface operations {
       };
     };
   };
-  /** Get the settings for the current project based on the project api-key. */
-  GetSettings: {
+  /** Get the stats for the current project based on the project api-key (Beta - This endpoint could be replaced or removed). */
+  GetStats: {
     parameters: {};
     responses: {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["SettingsModel"];
+          "application/json": components["schemas"]["StatsModel"];
         };
       };
     };
@@ -226,7 +442,7 @@ export interface operations {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["StreamsModel"][];
+          "application/json": components["schemas"]["StreamsModel"];
         };
       };
     };
@@ -268,6 +484,29 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["StreamsModel"];
         };
+      };
+    };
+  };
+  /** Updates the status of specific evm stream. */
+  UpdateStreamStatus: {
+    parameters: {
+      path: {
+        /** The id of the stream to update */
+        id: components["schemas"]["UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["StreamsModel"];
+        };
+      };
+    };
+    /** Provide a Stream Model */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["StreamsStatusUpdate"];
       };
     };
   };

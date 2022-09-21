@@ -5,7 +5,6 @@ import Moralis from 'moralis';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function validateAuthData(authData: any) {
   const { message, signature, network, id, authId } = authData;
-
   return Moralis.Auth.verify({
     message,
     signature,
@@ -15,7 +14,9 @@ function validateAuthData(authData: any) {
       const data = result.toJSON();
 
       if (id === data.profileId && authId === data.id) {
-        authData.chainId = result.result.chain.decimal;
+        if (authData.chainId) {
+          authData.chainId = result.result.chain.decimal;
+        }
         authData.nonce = data.nonce;
         authData.address = result.result.address.checksum;
         authData.version = data.version;

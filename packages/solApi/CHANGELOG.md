@@ -1,5 +1,45 @@
 # @moralisweb3/sol-api
 
+## 2.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.3
+  - @moralisweb3/api-utils@2.5.3
+  - @moralisweb3/sol-utils@2.5.3
+
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.2
+  - @moralisweb3/api-utils@2.5.2
+  - @moralisweb3/sol-utils@2.5.2
+
+## 2.5.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.1
+  - @moralisweb3/api-utils@2.5.1
+  - @moralisweb3/sol-utils@2.5.1
+
+## 2.5.0
+
+### Minor Changes
+
+- [#670](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/670) [`f6696b86`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f6696b864904044a84746b6ad805724b00e6a88d) Thanks [@3scava1i3r](https://github.com/3scava1i3r)! - Added SolApi.token.getTokenPrice
+
+### Patch Changes
+
+- Updated dependencies [[`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129)]:
+  - @moralisweb3/core@2.5.0
+  - @moralisweb3/api-utils@2.5.0
+  - @moralisweb3/sol-utils@2.5.0
+
 ## 2.4.0
 
 ### Patch Changes
