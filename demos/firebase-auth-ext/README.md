@@ -6,7 +6,7 @@ Required Google Cloud services:
 
 - [Firebase Hosting](https://firebase.google.com/docs/hosting)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
-- [Firebase Cloud Functions](https://firebase.google.com/docs/functions) (only in the "Pay as you go" billing plan).
+- [Firebase Cloud Functions](https://firebase.google.com/docs/functions) (only in the Blaze plan, check the [pricing](https://firebase.google.com/pricing)).
 - [Secret Manager](https://cloud.google.com/secret-manager/) (check the [pricing](https://cloud.google.com/secret-manager/pricing))
 
 ## 🚀 How to Start

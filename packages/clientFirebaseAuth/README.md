@@ -1,3 +1,3 @@
 # @moralisweb3/client-firebase-auth
 
-This package contains utilities for the Moralis Auth extension for the Firebase.
+This package contains utilities for the **Authenticate with Moralis Web3** extension for the Firebase.
