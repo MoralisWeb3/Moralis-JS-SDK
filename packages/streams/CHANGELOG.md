@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.5.3
+
+### Patch Changes
+
+- [#692](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/692) [`008de89f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/008de89fc25d1f9688527a01e4f237bb4fecdd37) Thanks [@ErnoW](https://github.com/ErnoW)! - Update typings for streams: update @moralisweb3/streams-typings to v1.0.2
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.3
+  - @moralisweb3/api-utils@2.5.3
+  - @moralisweb3/evm-utils@2.5.3
+
 ## 2.5.2
 
 ### Patch Changes
