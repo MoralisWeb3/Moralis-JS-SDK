@@ -16,7 +16,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "moralis": "^2.5.4",
+    "moralis": "^2.5.5",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0"
   },
