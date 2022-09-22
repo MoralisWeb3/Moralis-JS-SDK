@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.5.5
+
+### Patch Changes
+
+- [#699](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/699) [`d79800ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d79800ade15a715107de2c7e3e28c4be4c1d7cf6) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix parsing of API error messages, now the MoralisError will show the `message` that is returned from the api.
+
+- Updated dependencies [[`d79800ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d79800ade15a715107de2c7e3e28c4be4c1d7cf6)]:
+  - @moralisweb3/core@2.5.5
+  - @moralisweb3/api-utils@2.5.5
+  - @moralisweb3/evm-utils@2.5.5
+
 ## 2.5.4
 
 ### Patch Changes
