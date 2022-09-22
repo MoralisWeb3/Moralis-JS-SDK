@@ -30,7 +30,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C7
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -55,7 +55,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C7
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: ESLint
         run: yarn lint
         continue-on-error: true
@@ -87,7 +87,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C7
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: Prettier
         run: yarn format:check
 
@@ -111,7 +111,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C7
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: Build
         run: yarn build:clean
       - name: Test
