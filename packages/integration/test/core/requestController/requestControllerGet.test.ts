@@ -1,5 +1,5 @@
 import { MoralisCore, RequestController } from '@moralisweb3/core';
-import { setupServer, SetupServerApi } from 'msw/node';
+import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 
 const getJsonMock = rest.get(`http://example.com/getJson`, (req, res, ctx) => {
@@ -80,15 +80,15 @@ const handlers = [
   get400ErrorEmptyMock,
 ];
 
+const mockServer = setupServer(...handlers);
+
 describe('RequestControllerGet', () => {
   let requestController: RequestController;
-  let mockServer: SetupServerApi;
 
   beforeAll(() => {
     const core = MoralisCore.create();
     requestController = RequestController.create(core);
 
-    mockServer = setupServer(...handlers);
     mockServer.listen({
       onUnhandledRequest: 'warn',
     });
@@ -99,6 +99,15 @@ describe('RequestControllerGet', () => {
   });
 
   beforeEach(() => {});
+
+  afterEach(async ()=>{
+    /**
+     * Prevent issue with Jest and MSW when running multiple tests, 
+     * where tests are finished before all requests are resolved
+     * https://github.com/mswjs/msw/issues/474
+     */
+    await new Promise((resolve) => setTimeout(resolve.bind(null), 0));
+  })
 
   it('should get a valid Json response', async () => {
     const result = await requestController.get('http://example.com/getJson');
