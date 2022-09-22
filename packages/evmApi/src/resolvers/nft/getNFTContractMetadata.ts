@@ -1,12 +1,12 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { toCamelCase } from '@moralisweb3/core';
+import { maybe, toCamelCase } from '@moralisweb3/core';
 import {
   EvmAddress,
   EvmAddressish,
   EvmChain,
   EvmChainish,
   EvmNftMetadata,
-  validateValidEvmContractType,
+  normalizeEvmNftContractType,
 } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -36,7 +36,7 @@ export const getNFTContractMetadata = createEndpointFactory((core) =>
         chain: EvmChainResolver.resolve(params.chain, core),
         tokenAddress: EvmAddress.create(data.token_address, core),
         syncedAt: data.synced_at ? new Date(data.synced_at) : null,
-        contractType: data.contract_type ? validateValidEvmContractType(data.contract_type) : null,
+        contractType: maybe(data.contract_type, normalizeEvmNftContractType),
       }),
     resultToJson: (data) => data.toJSON(),
     parseParams: (params: Params): ApiParams => ({

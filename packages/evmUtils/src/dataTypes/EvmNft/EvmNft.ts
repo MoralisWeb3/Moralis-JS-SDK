@@ -10,7 +10,7 @@ import MoralisCore, {
 } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
-import { validateValidEvmContractType } from '../EvmNftContractType';
+import { normalizeEvmNftContractType } from '../EvmNftContractType';
 import { EvmNftData, EvmNftInput } from './types';
 
 /**
@@ -53,7 +53,7 @@ export class EvmNft implements MoralisDataObject {
   static parse = (data: EvmNftInput, core: MoralisCore): EvmNftData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    contractType: validateValidEvmContractType(data.contractType),
+    contractType: maybe(data.contractType, normalizeEvmNftContractType),
     tokenAddress: EvmAddress.create(data.tokenAddress, core),
     metadata: maybe(data.metadata, this.validateMetadata),
     tokenUri: maybe(data.tokenUri),
