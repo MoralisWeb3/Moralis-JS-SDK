@@ -1,44 +1,13 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
-import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { AxiosRetry, AxiosRetryConfig } from './AxiosRetry';
-import { MoralisCore } from '../MoralisCore';
-import { LoggerController } from './LoggerController';
+import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { AxiosRetry, AxiosRetryConfig } from '../AxiosRetry';
+import { MoralisCore } from '../../MoralisCore';
+import { LoggerController } from '../LoggerController';
+import { getMessageFromApiRequestError, isApiRequestError } from './ApiRequestError';
 
 export interface RequestOptions {
   headers?: { [name: string]: string };
 }
-
-type AxiosApiError = AxiosError<{ message?: string | string[] }> & {
-  response: NonNullable<AxiosError<{ message: string | string[] }>['response']>;
-};
-
-const isAxiosApiError = (error: unknown): error is AxiosApiError => {
-  // Check if the error is an axios error
-  if (!(error instanceof AxiosError)) {
-    return false;
-  }
-
-  // Check if the error is a result of a 400 or 500 response
-  if (error.code !== AxiosError.ERR_BAD_REQUEST && error.code !== AxiosError.ERR_BAD_RESPONSE) {
-    return false;
-  }
-
-  return true;
-};
-
-const getApiMessageFromError = (error: AxiosApiError) => {
-  const { message } = error.response.data;
-
-  if (Array.isArray(message)) {
-    return message.join(', ');
-  }
-
-  if (typeof message === 'string') {
-    return message;
-  }
-
-  return 'Unknown error (no error info returned from API)';
-};
 
 /**
  * A controller responsible to handle all requests in Moralis,
@@ -95,9 +64,9 @@ export class RequestController {
   }
 
   private makeError(error: unknown): MoralisCoreError {
-    if (isAxiosApiError(error)) {
+    if (isApiRequestError(error)) {
       const { status, statusText } = error.response;
-      const apiMessage = getApiMessageFromError(error);
+      const apiMessage = getMessageFromApiRequestError(error);
 
       return new MoralisCoreError({
         code: CoreErrorCode.REQUEST_ERROR,
