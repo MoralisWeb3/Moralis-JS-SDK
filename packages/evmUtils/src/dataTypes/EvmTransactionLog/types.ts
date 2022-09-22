@@ -46,5 +46,5 @@ export interface EvmTransactionLogData {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
-  chainId?: EvmChain;
+  chainId: EvmChain;
 }
