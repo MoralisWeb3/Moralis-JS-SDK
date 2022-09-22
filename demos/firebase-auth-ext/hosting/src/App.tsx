@@ -1,41 +1,23 @@
-import { SignInContext, requestMessage, signInWithMoralis } from '@moralisweb3/client-firebase-auth';
-import { auth, functions, moralisAuth } from './firebase';
+import { signInWithMoralis as signInWithMoralisByEvm } from '@moralisweb3/client-firebase-evm-auth';
+import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/client-firebase-solana-auth';
 import { httpsCallable } from '@firebase/functions';
 import { User } from '@firebase/auth';
 import { Fragment, useState } from 'react';
-import { connectToMetamask, connectToPhantom } from './connectors';
-import { encode } from 'bs58';
+import { auth, functions, moralisAuth } from './firebase';
 
 export function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(() => auth.currentUser);
 
   async function signInWithMetamask() {
-    const { signer, chain, address } = await connectToMetamask();
+    const result = await signInWithMoralisByEvm(moralisAuth);
 
-    const context = await requestMessage(moralisAuth, { networkType: 'evm', address, chain });
-
-    const signature = await signer.signMessage(context.message);
-
-    signIn(context, signature);
+    setCurrentUser(result.credentials.user);
   }
 
   async function signInWithPhantom() {
-    const { signer, address } = await connectToPhantom();
+    const result = await signInWithMoralisBySolana(moralisAuth);
 
-    const context = await requestMessage(moralisAuth, { networkType: 'solana', address, network: 'mainnet' });
-
-    const encodedMessage = new TextEncoder().encode(context.message);
-
-    const signature = await signer.signMessage(encodedMessage);
-
-    signIn(context, encode(signature.signature));
-  }
-
-  async function signIn(context: SignInContext, signature: string) {
-    const credentials = await signInWithMoralis(moralisAuth, { context, signature });
-    // eslint-disable-next-line no-console
-    console.log(credentials);
-    setCurrentUser(credentials.user);
+    setCurrentUser(result.credentials.user);
   }
 
   async function signOut() {

@@ -2,7 +2,7 @@ import { httpsCallable } from '@firebase/functions';
 import { MoralisAuth } from './getMoralisAuth';
 import { NetworkType } from './NetworkType';
 
-export interface RequestEvmMessageParams {
+export interface RequestEvmMessageOptions {
   /**
    * @description Network type.
    * @example "evm"
@@ -23,7 +23,9 @@ export interface RequestEvmMessageParams {
   chain: string | number;
 }
 
-export interface RequestSolanaMessageParams {
+export type SolanaNetwork = 'mainnet' | 'devnet';
+
+export interface RequestSolanaMessageOptions {
   /**
    * @description Network type.
    * @example "solana"
@@ -40,7 +42,7 @@ export interface RequestSolanaMessageParams {
    * @description Solana network type.
    * @example "mainnet"
    */
-  network: 'mainnet' | 'devnet';
+  network: SolanaNetwork;
 }
 
 export interface SignInContext {
@@ -70,12 +72,12 @@ interface RequestMessageRawResponse {
 
 export async function requestMessage(
   auth: MoralisAuth,
-  params: RequestEvmMessageParams | RequestSolanaMessageParams,
+  options: RequestEvmMessageOptions | RequestSolanaMessageOptions,
 ): Promise<SignInContext> {
   const functionName = auth.functionNamePrefix.concat('requestMessage');
-  const response = await httpsCallable<unknown, RequestMessageRawResponse>(auth.functions, functionName)(params);
+  const response = await httpsCallable<unknown, RequestMessageRawResponse>(auth.functions, functionName)(options);
   return {
-    networkType: params.networkType,
+    networkType: options.networkType,
     message: response.data.message,
     uid: response.data.profileId,
   };

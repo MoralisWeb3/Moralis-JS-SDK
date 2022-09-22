@@ -1,9 +1,10 @@
 {
-  "extends": "../../tsconfig.package.json",
+  "extends": "../../../tsconfig.package.json",
   "compilerOptions": {
     "outDir": "./lib/",
     "declarationDir": "./lib/",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src/**/*", "types/**/*"]
 }
