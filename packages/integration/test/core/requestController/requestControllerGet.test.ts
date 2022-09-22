@@ -100,14 +100,14 @@ describe('RequestControllerGet', () => {
 
   beforeEach(() => {});
 
-  afterEach(async ()=>{
+  afterEach(async () => {
     /**
-     * Prevent issue with Jest and MSW when running multiple tests, 
+     * Prevent issue with Jest and MSW when running multiple tests,
      * where tests are finished before all requests are resolved
      * https://github.com/mswjs/msw/issues/474
      */
     await new Promise((resolve) => setTimeout(resolve.bind(null), 0));
-  })
+  });
 
   it('should get a valid Json response', async () => {
     const result = await requestController.get('http://example.com/getJson');
