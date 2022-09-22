@@ -1,10 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { CoreErrorCode, MoralisCoreError } from '../Error';
-import { AxiosRetry, AxiosRetryConfig } from './AxiosRetry';
-import { isTest } from '../environment/isTest';
-import { noop } from '../utils/noop';
-import { MoralisCore } from '../MoralisCore';
-import { LoggerController } from './LoggerController';
+import { AxiosError, AxiosRequestConfig } from 'axios';
+import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { AxiosRetry, AxiosRetryConfig } from '../AxiosRetry';
+import { MoralisCore } from '../../MoralisCore';
+import { LoggerController } from '../LoggerController';
+import { getMessageFromApiRequestError, isApiRequestError } from './ApiRequestError';
 
 export interface RequestOptions {
   headers?: { [name: string]: string };
@@ -44,14 +43,6 @@ export class RequestController {
     };
 
     try {
-      if (isTest()) {
-        /**
-         * Known issue where in Jest, axios.request() will leave open handlers.
-         * See: https://stackoverflow.com/questions/69169492/async-external-function-leaves-open-handles-jest-supertest-express
-         */
-        await process.nextTick(noop);
-      }
-
       const response = await AxiosRetry.request<Data, Response>(retryConfig, {
         ...config,
         timeout: 10000,
@@ -73,21 +64,23 @@ export class RequestController {
   }
 
   private makeError(error: unknown): MoralisCoreError {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
+    if (isApiRequestError(error)) {
+      const { status, statusText } = error.response;
+      const apiMessage = getMessageFromApiRequestError(error);
+
       return new MoralisCoreError({
         code: CoreErrorCode.REQUEST_ERROR,
-        message: `Request failed with status ${axiosError.response?.status}: ${axiosError.message}`,
+        message: `Request failed, ${statusText}(${status}): ${apiMessage}`,
         cause: error,
         details: {
-          status: axiosError.response?.status,
-          request: axiosError.request,
-          response: axiosError.response,
+          status,
+          response: error.response,
         },
       });
     }
 
     const err = error instanceof Error ? error : new Error(`${error}`);
+
     return new MoralisCoreError({
       code: CoreErrorCode.REQUEST_ERROR,
       message: `Request failed: ${err.message}`,
