@@ -123,43 +123,43 @@ describe('RequestControllerGet', () => {
 
   it('should throw an error on 400 response', async () => {
     expect(requestController.get('http://example.com/get400Error')).rejects.toThrowError(
-      '[C0006] Request failed with status 400: I am not Batman',
+      '[C0006] Request failed, Bad Request(400): I am not Batman',
     );
   });
 
   it('should throw an error on 404 response', async () => {
     expect(requestController.get('http://example.com/get404Error')).rejects.toThrowError(
-      '[C0006] Request failed with status 404: I am not Batman',
+      '[C0006] Request failed, Not Found(404): I am not Batman',
     );
   });
 
   it('should throw an error on 500 response', async () => {
     expect(requestController.get('http://example.com/get500Error')).rejects.toThrowError(
-      '[C0006] Request failed with status 500: I am not Batman',
+      '[C0006] Request failed, Internal Server Error(500): I am not Batman',
     );
   });
 
   it('should throw an error on 503 response', async () => {
     expect(requestController.get('http://example.com/get503Error')).rejects.toThrowError(
-      '[C0006] Request failed with status 503: I am not Batman',
+      '[C0006] Request failed, Service Unavailable(503): I am not Batman',
     );
   });
 
   it('should handle multiple messages in an error response', async () => {
     expect(requestController.get('http://example.com/get400MultiMessageError')).rejects.toThrowError(
-      '[C0006] Request failed with status 400: I am not Batman, I am not superman',
+      '[C0006] Request failed, Bad Request(400): I am not Batman, I am not superman',
     );
   });
 
   it('should handle empty error response', async () => {
     expect(requestController.get('http://example.com/get400ErrorEmptyJson')).rejects.toThrowError(
-      '[C0006] Request failed with status 400: Unknown error (no error info returned from API)',
+      '[C0006] Request failed, Bad Request(400): Unknown error (no error info returned from API)',
     );
   });
 
   it('should handle empty error response', async () => {
     expect(requestController.get('http://example.com/get400ErrorEmpty')).rejects.toThrowError(
-      '[C0006] Request failed with status 400: Unknown error (no error info returned from API)',
+      '[C0006] Request failed, Bad Request(400): Unknown error (no error info returned from API)',
     );
   });
 });

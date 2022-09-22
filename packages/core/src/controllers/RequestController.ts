@@ -96,12 +96,12 @@ export class RequestController {
 
   private makeError(error: unknown): MoralisCoreError {
     if (isAxiosApiError(error)) {
-      const { status } = error.response;
+      const { status, statusText } = error.response;
       const apiMessage = getApiMessageFromError(error);
 
       return new MoralisCoreError({
         code: CoreErrorCode.REQUEST_ERROR,
-        message: `Request failed with status ${status}: ${apiMessage}`,
+        message: `Request failed, ${statusText}(${status}): ${apiMessage}`,
         cause: error,
         details: {
           status,
