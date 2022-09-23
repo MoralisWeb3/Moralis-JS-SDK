@@ -1,14 +1,7 @@
 import { signInWithCustomToken, UserCredential } from '@firebase/auth';
 import { MoralisAuth, requestMessage, issueToken, SolanaNetwork } from '@moralisweb3/client-firebase-auth-utils';
 import { encode } from 'bs58';
-
-export interface SolanaProvider {
-  connect(): Promise<void>;
-  publicKey: {
-    toBase58(): string;
-  };
-  signMessage(message: Uint8Array): Promise<{ signature: Uint8Array }>;
-}
+import { SolanaProvider } from './SolanaProvider';
 
 export interface SignInWithMoralisOptions {
   provider?: SolanaProvider;
