@@ -7,7 +7,7 @@ export interface SignInWithMoralisOptions {
   /**
    * @description Custom Ethereum provider.
    */
-  provider?: JsonRpcProvider;
+  provider?: JsonRpcProvider | Web3Provider;
 }
 
 export interface SignInWithMoralisResponse {
