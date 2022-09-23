@@ -1,5 +1,5 @@
 import { Functions, getFunctions } from '@firebase/functions';
-import { FirebaseApp, getApp } from '@firebase/app';
+import { FirebaseApp } from '@firebase/app';
 import { Auth, getAuth } from '@firebase/auth';
 
 export interface MoralisAuth {
@@ -8,7 +8,7 @@ export interface MoralisAuth {
   functionNamePrefix: string;
 }
 
-export interface MoralisAuthOptions {
+export interface GetMoralisAuthOptions {
   /**
    * @default "ext-moralis-auth-"
    */
@@ -26,14 +26,11 @@ export interface MoralisAuthOptions {
   functions?: Functions;
 }
 
-export function getMoralisAuth(app?: FirebaseApp, options?: MoralisAuthOptions): MoralisAuth {
+export function getMoralisAuth(app: FirebaseApp, options?: GetMoralisAuthOptions): MoralisAuth {
   if (options?.regionOrCustomDomain && options?.functions) {
     throw new Error('You cannot set "regionOrCustomDomain" and "functions" parameters at the same time');
   }
 
-  if (!app) {
-    app = getApp();
-  }
   return {
     functionNamePrefix: options?.functionNamePrefix ?? 'ext-moralis-auth-',
     auth: getAuth(app),
