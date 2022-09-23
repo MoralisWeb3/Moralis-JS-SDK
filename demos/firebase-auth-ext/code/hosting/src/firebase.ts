@@ -1,7 +1,7 @@
 import { initializeApp } from '@firebase/app';
 import { getAuth, browserSessionPersistence } from '@firebase/auth';
 import { connectFunctionsEmulator, getFunctions } from '@firebase/functions';
-import { getMoralisAuth } from '@moralisweb3/client-firebase-auth';
+import { getMoralisAuth } from '@moralisweb3/client-firebase-auth-utils';
 
 export const app = initializeApp({
   apiKey: String(process.env.REACT_APP_FIREBASE_API_KEY),
