@@ -1,5 +1,7 @@
 # @moralisweb3/client-firebase-auth-utils
 
+## 2.5.7
+
 ## 2.5.6
 
 ### Patch Changes
