@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-firebase-sol-auth",
   "author": "Moralis",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "firebase": "^9.10.0",
-    "@moralisweb3/client-firebase-auth-utils": "^2.5.6",
+    "@moralisweb3/client-firebase-auth-utils": "^2.5.7",
     "bs58": "^5.0.0"
   }
 }

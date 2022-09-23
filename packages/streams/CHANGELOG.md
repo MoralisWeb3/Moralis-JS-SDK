@@ -1,5 +1,14 @@
 # @moralisweb3/streams
 
+## 2.5.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.7
+  - @moralisweb3/api-utils@2.5.7
+  - @moralisweb3/evm-utils@2.5.7
+
 ## 2.5.6
 
 ### Patch Changes
