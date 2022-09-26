@@ -1,15 +1,18 @@
 import { getSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
-import { createStream, CreateStreamOptions } from './methods/create';
-import { updateStream, UpdateStreamOptions } from './methods/update';
-import { deleteStream, DeleteStreamOptions } from './methods/delete';
-import { GetStreamsOptions, getStreams } from './methods/getAll';
+import { makeCreateStream } from './methods/create';
+import { makeUpdateStream } from './methods/update';
+import { makeDeleteStream } from './methods/delete';
+import { makeGetStreams } from './methods/getAll';
 import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
+import { makeAddAddress } from './methods/addAddress';
+import { makeUpdateStreamStatus } from './methods/updateStatus';
 import { parseLog, ParseLogOptions } from './methods/logParser';
-import { getHistory } from './resolvers/getHistory';
-import { replayHistory } from './resolvers/replayHistory';
-import { updateStreamStatus, UpdateStreamStatusOptions } from './methods/updateStatus';
+import { getHistory } from './resolvers/history/getHistory';
+import { replayHistory } from './resolvers/history/replayHistory';
+import { makeGetAddresses } from './methods/getAddresses';
+import { makeDeleteAddress } from './methods/deleteAddress';
 
 export const BASE_URL = 'https://api.moralis-streams.com';
 
@@ -34,11 +37,15 @@ export class MoralisStreams extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
-  public readonly add = (options: CreateStreamOptions) => createStream(this.core)(options);
-  public readonly update = (options: UpdateStreamOptions) => updateStream(this.core)(options);
-  public readonly delete = (options: DeleteStreamOptions) => deleteStream(this.core)(options);
-  public readonly getAll = (options: GetStreamsOptions) => getStreams(this.core)(options);
-  public readonly updateStatus = (options: UpdateStreamStatusOptions) => updateStreamStatus(this.core)(options);
+  public readonly add = makeCreateStream(this.endpoints);
+  public readonly update = makeUpdateStream(this.endpoints);
+  public readonly delete = makeDeleteStream(this.endpoints);
+  public readonly getAll = makeGetStreams(this.endpoints);
+  public readonly updateStatus = makeUpdateStreamStatus(this.endpoints);
+
+  public readonly addAddress = makeAddAddress(this.endpoints);
+  public readonly getAddresses = makeGetAddresses(this.endpoints);
+  public readonly deleteAddress = makeDeleteAddress(this.endpoints);
 
   public readonly getHistory = this.endpoints.createFetcher(getHistory);
   public readonly retry = this.endpoints.createFetcher(replayHistory);

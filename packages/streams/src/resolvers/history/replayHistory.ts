@@ -1,18 +1,18 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { operations } from '../generated/types';
+import { operations } from '../../generated/types';
 
-const name = 'GetHistory';
+const name = 'ReplayHistory';
 
 type Name = typeof name;
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
-type QueryParams = operations[Name]['parameters']['query'];
-type ApiParams = QueryParams;
+type PathParams = operations[Name]['parameters']['path'];
+type ApiParams = PathParams;
 type Params = ApiParams;
 
-export const getHistory = createEndpointFactory(() =>
+export const replayHistory = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: () => `/history`,
+    getUrl: (id: Params) => `/history/replay/${id}`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
     parseParams: (params: Params): ApiParams => params,
