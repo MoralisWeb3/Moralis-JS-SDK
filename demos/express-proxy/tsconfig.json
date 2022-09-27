@@ -1,9 +1,11 @@
 {
-  "extends": "../../tsconfig.package.json",
   "compilerOptions": {
     "outDir": "./lib/",
+    "declaration": true,
     "declarationDir": "./lib/",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
