@@ -21,14 +21,14 @@ export function App() {
 
     const provider = new WalletConnectProvider({
       rpc: {
-        1: 'https://replace_me/'
-      }
+        1: 'https://replace_me/',
+      },
     });
 
     await provider.enable();
 
     const result = await signInWithMoralisByEvm(moralisAuth, {
-      provider: new Web3Provider(provider)
+      provider: new Web3Provider(provider),
     });
 
     setCurrentUser(result.credentials.user);
