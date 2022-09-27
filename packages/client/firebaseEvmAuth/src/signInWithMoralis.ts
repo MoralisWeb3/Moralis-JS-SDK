@@ -21,10 +21,7 @@ export async function signInWithMoralis(
 ): Promise<SignInWithMoralisResponse> {
   const provider = options?.provider ?? (await getDefaultProvider());
 
-  const [accounts, chain] = await Promise.all([
-    provider.send('eth_accounts', []),
-    provider.send('eth_chainId', [])
-  ]);
+  const [accounts, chain] = await Promise.all([provider.send('eth_accounts', []), provider.send('eth_chainId', [])]);
 
   const context = await requestMessage(moralisAuth, {
     networkType: 'evm',
