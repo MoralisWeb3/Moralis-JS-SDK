@@ -1,5 +1,14 @@
 # @moralisweb3/client-firebase-evm-auth
 
+## 2.5.8
+
+### Patch Changes
+
+- [#708](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/708) [`870c790f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/870c790fb9e9807566fda28840b1fe3cb75efc03) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed problem with connection to MetaMask.
+
+- Updated dependencies []:
+  - @moralisweb3/client-firebase-auth-utils@2.5.8
+
 ## 2.5.7
 
 ### Patch Changes
