@@ -31,7 +31,7 @@ do
   echo "---------------------------------------------------"
   echo
 
-  echo "Copying $DIR project..."
+  echo "Copying $PACKAGE_DIR project..."
   rm -rf $TEMP_DIR
   cp -R $PACKAGE_DIR $TEMP_DIR
   cd $TEMP_DIR
