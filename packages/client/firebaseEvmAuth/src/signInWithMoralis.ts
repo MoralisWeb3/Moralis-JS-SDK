@@ -21,15 +21,15 @@ export async function signInWithMoralis(
 ): Promise<SignInWithMoralisResponse> {
   const provider = options?.provider ?? (await getDefaultProvider());
 
-  const signer = provider.getSigner();
-  const [address, chain] = await Promise.all([signer.getAddress(), provider.send('eth_chainId', [])]);
+  const [accounts, chain] = await Promise.all([provider.send('eth_accounts', []), provider.send('eth_chainId', [])]);
 
   const context = await requestMessage(moralisAuth, {
     networkType: 'evm',
-    address,
+    address: accounts[0],
     chain,
   });
 
+  const signer = provider.getSigner();
   const signature = await signer.signMessage(context.message);
 
   const token = await issueToken(moralisAuth, {
@@ -45,10 +45,12 @@ export async function signInWithMoralis(
 }
 
 async function getDefaultProvider(): Promise<JsonRpcProvider> {
-  const provider = await detectEthereumProvider();
-  if (!provider) {
+  const ethereum = await detectEthereumProvider();
+  if (!ethereum) {
     throw new Error('Ethereum provider not found');
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return new Web3Provider(provider as any, 'any');
+  const provider = new Web3Provider(ethereum as any, 'any');
+  await provider.send('eth_requestAccounts', []);
+  return provider;
 }
