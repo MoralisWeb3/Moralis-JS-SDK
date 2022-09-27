@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-undef
 module.exports = {
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: ['@moralisweb3'],
   ignorePatterns: ['**/build/**/*'],
   env: {
     browser: true,
