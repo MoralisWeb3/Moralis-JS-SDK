@@ -1,4 +1,7 @@
 module.exports = {
   extends: ['@moralisweb3'],
-  ignorePatterns: ['**/lib/**/*'],
+  ignorePatterns: ['**/build/**/*'],
+  env: {
+    browser: true,
+  },
 };
