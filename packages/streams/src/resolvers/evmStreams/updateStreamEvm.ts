@@ -1,14 +1,15 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
-import { operations } from '../generated/types';
+import { operations } from '../../generated/types';
 
-const name = 'CreateStream';
+const name = 'UpdateStream';
 
 type Name = typeof name;
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
-type ApiParams = BodyParams;
-const method = 'put';
+type PathParams = operations[Name]['parameters']['path'];
+type ApiParams = BodyParams & PathParams;
+const method = 'post';
 const bodyParams = [
   'webhookUrl',
   'description',
@@ -42,10 +43,10 @@ const apiToResult = (apiData: ApiResult) => {
   };
 };
 
-export const createStreamEvm = createEndpointFactory(() =>
+export const updateStreamEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: () => `/streams/evm`,
+    getUrl: (params: Params) => `/streams/evm/${params.id}`,
     apiToResult,
     resultToJson: (data) => ({
       ...data,

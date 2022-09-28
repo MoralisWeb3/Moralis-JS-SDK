@@ -6,6 +6,9 @@ import { mockGetStreams } from './streamApi/getStreams';
 import { mockUpdateStream } from './streamApi/updateStream';
 import { mockSetSettings } from './streamApi/setSettings';
 import { mockGetSettings } from './streamApi/getSettings';
+import { mockAddAddressEvm } from './streamApi/addAddress';
+import { mockDeleteAddressEvm } from './streamApi/deleteAddress';
+import { mockGetAddressesEvm } from './streamApi/getAddresses';
 
 const handlers = [
   mockCreateStream,
@@ -14,6 +17,9 @@ const handlers = [
   mockDeleteStream,
   mockSetSettings,
   mockGetSettings,
+  mockAddAddressEvm,
+  mockDeleteAddressEvm,
+  mockGetAddressesEvm,
 ];
 
 export const mockServer = setupServer(...handlers);

@@ -1,6 +1,6 @@
 import { createPaginatedEndpoint, createPaginatedEndpointFactory } from '@moralisweb3/api-utils';
 import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
-import { operations } from '../generated/types';
+import { operations } from '../../generated/types';
 
 const name = 'GetStreams';
 
