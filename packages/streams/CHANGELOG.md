@@ -1,5 +1,18 @@
 # @moralisweb3/streams
 
+## 2.6.0
+
+### Minor Changes
+
+- [#707](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/707) [`683b6ce8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/683b6ce8cf7718e4aa90bbcbdd8b0bb7871beb13) Thanks [@ErnoW](https://github.com/ErnoW)! - Add endpoints to attach, delete or get addresses to streams via `Moralis.Streams.addAddress`, `Moralis.Streams.getAddresses`, and `Moralis.Streams.deleteAddress`
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.0
+  - @moralisweb3/api-utils@2.6.0
+  - @moralisweb3/evm-utils@2.6.0
+
 ## 2.5.8
 
 ### Patch Changes
