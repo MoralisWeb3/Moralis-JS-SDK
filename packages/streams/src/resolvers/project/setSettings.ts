@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { operations } from '../generated/types';
+import { operations } from '../../generated/types';
 
 const name = 'SetSettings';
 

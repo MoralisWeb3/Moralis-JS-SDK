@@ -1,10 +1,7 @@
-import { BASE_URL } from '../MoralisStreams';
-import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
-import { updateStreamEvmStatus } from '../resolvers/updateStreamEvmStatus';
-export enum StreamNetwork {
-  EVM = 'evm',
-}
+import { Endpoints } from '@moralisweb3/api-utils';
+import { updateStreamEvmStatus } from '../resolvers/evmStreams/updateStreamEvmStatus';
+import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
+import { StreamNetwork } from '../utils/StreamNetwork';
 
 export interface UpdateStreamEvmStatusOptions {
   network: 'evm';
@@ -14,20 +11,15 @@ export interface UpdateStreamEvmStatusOptions {
 
 export type UpdateStreamStatusOptions = UpdateStreamEvmStatusOptions;
 
-const makeUpdateStreamEvmStatus = (core: MoralisCore, { network, ...options }: UpdateStreamStatusOptions) => {
-  return EndpointResolver.create(core, BASE_URL, updateStreamEvmStatus).fetch(options);
-};
+export const makeUpdateStreamStatus = (endpoints: Endpoints) => {
+  const evmFetcher = endpoints.createFetcher(updateStreamEvmStatus);
 
-export const updateStreamStatus = (core: MoralisCore) => (options: UpdateStreamStatusOptions) => {
-  switch (options.network) {
-    case StreamNetwork.EVM:
-      return makeUpdateStreamEvmStatus(core, options);
-    default:
-      throw new MoralisStreamError({
-        code: StreamErrorCode.INCORRECT_NETWORK,
-        message: `Incorrect network provided. Got "${options.network}", Valid values are: ${Object.values(StreamNetwork)
-          .map((value) => `"${value}"`)
-          .join(', ')}`,
-      });
-  }
+  return ({ network, ...options }: UpdateStreamStatusOptions) => {
+    switch (network) {
+      case StreamNetwork.EVM:
+        return evmFetcher({ ...options });
+      default:
+        throw new IncorrectNetworkError(network);
+    }
+  };
 };
