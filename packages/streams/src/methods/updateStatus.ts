@@ -4,7 +4,7 @@ import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import { StreamNetwork } from '../utils/StreamNetwork';
 
 export interface UpdateStreamEvmStatusOptions {
-  network: 'evm';
+  networkType?: 'evm';
   id: string;
   status: 'active' | 'paused' | 'error';
 }
@@ -14,12 +14,15 @@ export type UpdateStreamStatusOptions = UpdateStreamEvmStatusOptions;
 export const makeUpdateStreamStatus = (endpoints: Endpoints) => {
   const evmFetcher = endpoints.createFetcher(updateStreamEvmStatus);
 
-  return ({ network, ...options }: UpdateStreamStatusOptions) => {
-    switch (network) {
+  return ({ networkType, ...options }: UpdateStreamStatusOptions) => {
+    switch (networkType) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });
       default:
-        throw new IncorrectNetworkError(network);
+        if (networkType === undefined) {
+          return evmFetcher({ ...options });
+        }
+        throw new IncorrectNetworkError(networkType);
     }
   };
 };

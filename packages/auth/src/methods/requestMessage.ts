@@ -4,16 +4,16 @@ import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core'
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 import { BASE_URL } from '../MoralisAuth';
 import { initializeChallengeEvm, initializeChallengeSol } from '../resolvers';
-
-export enum AuthNetwork {
-  EVM = 'evm',
-  SOLANA = 'solana',
-}
+import { AuthNetworkType } from '../utils/AuthNetworkType';
 
 // Imported from Swagger and adjusted for better types for Evm
 // TODO: generalize and extend generated types
 export interface RequestMessageEvmOptions {
-  network: 'evm';
+  networkType?: 'evm';
+  /**
+   * @deprecared use networkType instead
+   */
+  network?: 'evm';
   domain: string;
   chain: EvmChainish;
   address: EvmAddressish;
@@ -26,9 +26,12 @@ export interface RequestMessageEvmOptions {
   resources?: string[];
   timeout: number;
 }
-
 export interface RequestMessageSolOptions {
-  network: 'solana';
+  networkType: 'solana';
+  /**
+   * @deprecared use networkType instead
+   */
+  network?: 'solana';
   domain: string;
   solNetwork: SolNetworkish;
   address: SolAddressish;
@@ -46,7 +49,7 @@ export type RequestMessageOptions = RequestMessageEvmOptions | RequestMessageSol
 
 const makeEvmRequestMessage = (
   core: MoralisCore,
-  { chain, address, network, ...options }: RequestMessageEvmOptions,
+  { chain, address, networkType, network, ...options }: RequestMessageEvmOptions,
 ) => {
   return EndpointResolver.create(core, BASE_URL, initializeChallengeEvm).fetch({
     chainId: EvmChain.create(chain).apiId,
@@ -57,7 +60,7 @@ const makeEvmRequestMessage = (
 
 const makeSolRequestMessage = (
   core: MoralisCore,
-  { address, solNetwork, network, ...options }: RequestMessageSolOptions,
+  { address, solNetwork, networkType, network, ...options }: RequestMessageSolOptions,
 ) => {
   return EndpointResolver.create(core, BASE_URL, initializeChallengeSol).fetch({
     network: SolNetwork.create(solNetwork).network,
@@ -66,16 +69,27 @@ const makeSolRequestMessage = (
   });
 };
 
-export const makeRequestMessage = (core: MoralisCore) => (options: RequestMessageOptions) => {
-  switch (options.network) {
-    case AuthNetwork.EVM:
+export const makeRequestMessage = (core: MoralisCore) => async (options: RequestMessageOptions) => {
+  // Backwards compatibility for the 'network' parameter
+  if (!options.networkType && options.network) {
+    options.networkType = options.network;
+  }
+
+  switch (options.networkType) {
+    case AuthNetworkType.EVM:
       return makeEvmRequestMessage(core, options);
-    case AuthNetwork.SOLANA:
+    case AuthNetworkType.SOLANA:
       return makeSolRequestMessage(core, options);
     default:
+      if (!options.networkType) {
+        return makeEvmRequestMessage(core, options);
+      }
+
       throw new MoralisAuthError({
         code: AuthErrorCode.INCORRECT_NETWORK,
-        message: `Incorrect network provided. Got "${options.network}", Valid values are: ${Object.values(AuthNetwork)
+        message: `Incorrect network provided. Got "${options.networkType}", Valid values are: ${Object.values(
+          AuthNetworkType,
+        )
           .map((value) => `"${value}"`)
           .join(', ')}`,
       });

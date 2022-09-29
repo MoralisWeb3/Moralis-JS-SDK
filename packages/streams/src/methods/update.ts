@@ -5,7 +5,7 @@ import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
 export interface UpdateStreamEvmOptions {
-  network: 'evm';
+  networkType?: 'evm';
   webhookUrl: string;
   description: string;
   tag: string;
@@ -29,12 +29,15 @@ export type UpdateStreamOptions = UpdateStreamEvmOptions;
 export const makeUpdateStream = (endpoints: Endpoints) => {
   const evmFetcher = endpoints.createFetcher(updateStreamEvm);
 
-  return ({ network, ...options }: UpdateStreamOptions) => {
-    switch (network) {
+  return ({ networkType, ...options }: UpdateStreamOptions) => {
+    switch (networkType) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });
       default:
-        throw new IncorrectNetworkError(network);
+        if (networkType === undefined) {
+          return evmFetcher({ ...options });
+        }
+        throw new IncorrectNetworkError(networkType);
     }
   };
 };
