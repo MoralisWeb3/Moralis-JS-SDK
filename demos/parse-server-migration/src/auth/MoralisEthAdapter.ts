@@ -9,7 +9,7 @@ function validateAuthData(authData: any) {
   return Moralis.Auth.verify({
     message: data,
     signature,
-    network: 'evm',
+    networkType: 'evm',
   })
     .then((result) => {
       const authenticated = result.toJSON();

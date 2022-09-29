@@ -6,7 +6,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
     const { webhookUrl } = req.body;
 
     const result = await addStream({
-      network: 'evm',
+      networkType: 'evm',
       webhookUrl,
     });
 
@@ -32,7 +32,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
 
     const message = await updateStream(id, {
-      network: 'evm',
+      networkType: 'evm',
       webhookUrl,
     });
 
