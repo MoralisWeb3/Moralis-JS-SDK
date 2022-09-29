@@ -30,12 +30,11 @@ describe('deleteAddress', () => {
         address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
         id: 'VALID_RESPONSE',
       });
-      
+
       expect(result).toBeDefined();
       expect(result.toJSON().address).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
       expect(result.result.streamId).toEqual('VALID_RESPONSE');
     });
-
 
     it('should throw a 400 Error on invalid address ', async () => {
       expect(

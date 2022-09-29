@@ -56,7 +56,7 @@ describe('verify', () => {
 
       expect(result).toBeDefined();
       expect(result.toJSON().id).toBeDefined();
-      expect(result)
+      expect(result);
     });
 
     it('should throw a 400 Error on invalid signature ', async () => {

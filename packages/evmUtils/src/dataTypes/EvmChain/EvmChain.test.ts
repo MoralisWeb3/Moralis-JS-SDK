@@ -33,7 +33,7 @@ describe('EvmChain', () => {
   });
 
   it('should create a new EvmChain based on a decimal-string', () => {
-    const chain = EvmChain.create("45")
+    const chain = EvmChain.create('45');
 
     expect(chain.format()).toBe('0x2d');
     expect(chain.decimal).toBe(45);

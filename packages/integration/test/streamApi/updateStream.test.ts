@@ -30,7 +30,6 @@ describe('Update stream', () => {
     expect(result.result.type).toEqual('wallet');
   });
 
-
   it('should default to evm networkType', async () => {
     const result = await StreamApi.update({
       chains: ['0x3'],

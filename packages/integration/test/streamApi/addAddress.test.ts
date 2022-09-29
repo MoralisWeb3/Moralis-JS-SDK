@@ -30,7 +30,7 @@ describe('addAddress', () => {
         address: '0x295522b61890c3672d12efbff4358a6411ce996f',
         id: 'VALID_RESPONSE',
       });
-      
+
       expect(result).toBeDefined();
       expect(result.toJSON().address).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
       expect(result.result.streamId).toEqual('VALID_RESPONSE');
