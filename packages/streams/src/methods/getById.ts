@@ -1,16 +1,16 @@
 import { Endpoints } from '@moralisweb3/api-utils';
-import { getStreamsEvm, GetStreamsEvmParams } from '../resolvers';
+import { getStreamEvm, GetStreamEvmParams } from '../resolvers';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface GetStreamsEvmOptions extends GetStreamsEvmParams {
+export interface GetStreamsEvmOptions extends GetStreamEvmParams {
   network: 'evm';
 }
 
 export type GetStreamsOptions = GetStreamsEvmOptions;
 
-export const makeGetStreams = (endpoints: Endpoints) => {
-  const evmFetcher = endpoints.createPaginatedFetcher(getStreamsEvm);
+export const makeGetStreamById = (endpoints: Endpoints) => {
+  const evmFetcher = endpoints.createFetcher(getStreamEvm);
 
   return ({ network, ...options }: GetStreamsOptions) => {
     switch (network) {

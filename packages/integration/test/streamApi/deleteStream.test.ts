@@ -21,6 +21,5 @@ describe('Delete stream', () => {
     expect(result).toBeDefined();
     expect(result).toEqual(expect.objectContaining({}));
     expect(result.result.chainIds).toContain('0x3');
-    expect(result.result.type).toEqual('wallet');
   });
 });
