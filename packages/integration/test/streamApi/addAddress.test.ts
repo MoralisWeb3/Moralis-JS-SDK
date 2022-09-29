@@ -25,6 +25,21 @@ describe('addAddress', () => {
       expect(result.result.streamId).toEqual('VALID_RESPONSE');
     });
 
+    it('should create multiple addresses succesfully ', async () => {
+      const result = await StreamApi.addAddress({
+        network: 'evm',
+        address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
+        id: 'MULTIPLE_ADDRESSES',
+      });
+
+      expect(result).toBeDefined();
+      expect(result.toJSON().address).toStrictEqual([
+        '0x295522b61890c3672d12efbff4358a6411ce996f',
+        '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+      ]);
+      expect(result.result.streamId).toEqual('MULTIPLE_ADDRESSES');
+    });
+
     it('should throw a 400 Error on invalid address ', async () => {
       expect(
         StreamApi.addAddress({

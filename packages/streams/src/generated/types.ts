@@ -403,6 +403,29 @@ export interface components {
      * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
      */
     "streamsTypes.UUID": string;
+    /** @description Make all properties in T optional */
+    "Partial_streamsTypes.StreamsModelCreate_": {
+      /** @description Webhook URL where moralis will send the POST request. */
+      webhookUrl?: string;
+      /** @description A description for this stream */
+      description?: string;
+      /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
+      tag?: string;
+      /** @description The token address of the contract, required if the type : log */
+      tokenAddress?: string | null;
+      /** @description The topic0 of the event in hex, required if the type : log */
+      topic0?: string | null;
+      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
+      includeNativeTxs?: boolean;
+      abi?: components["schemas"]["StreamsAbi"] | null;
+      filter?: components["schemas"]["StreamsFilter"] | null;
+      /** @description The wallet address of the user, required if the type : tx */
+      address?: string | null;
+      /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
+      chainIds?: string[];
+      /** @description The type of stream to create log or tx */
+      type?: components["schemas"]["StreamsType"];
+    };
     "streamsTypes.StreamsStatusUpdate": {
       /** @description The status of the stream. */
       status: components["schemas"]["StreamsStatus"];
@@ -434,10 +457,16 @@ export interface components {
       /** @description The streamId */
       streamId: string;
       /** @description Address */
-      address: string;
+      address: Partial<string> & Partial<string[]>;
     };
     "addressesTypes.AddressesAdd": {
-      /** @description The address to be added to the Stream. */
+      /** @description The address or a list of addresses to be added to the Stream. */
+      address: Partial<string> & Partial<string[]>;
+    };
+    "addressesTypes.DeleteAddressResponse": {
+      /** @description The streamId */
+      streamId: string;
+      /** @description Address */
       address: string;
     };
     "addressesTypes.AddressesRemove": {
@@ -595,7 +624,7 @@ export interface operations {
     /** Provide a Stream Model */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["streamsTypes.StreamsModelCreate"];
+        "application/json": components["schemas"]["Partial_streamsTypes.StreamsModelCreate_"];
       };
     };
   };
@@ -697,7 +726,7 @@ export interface operations {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["addressesTypes.AddressResponse"];
+          "application/json": components["schemas"]["addressesTypes.DeleteAddressResponse"];
         };
       };
     };
