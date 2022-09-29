@@ -2,7 +2,6 @@ import { fileURLToPath } from 'node:url';
 import { IParseApiModule } from 'packages/codegen/src/TSReader/types';
 import path from 'node:path';
 
-//@ts-ignore
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../../..');
 
