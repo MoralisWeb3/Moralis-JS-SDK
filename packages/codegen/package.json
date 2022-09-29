@@ -3,10 +3,11 @@
   "author": "Moralis",
   "version": "2.2.0",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "sideEffects": false,
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
     "generate": "yarn esmo src/index.ts"
   },
   "devDependencies": {

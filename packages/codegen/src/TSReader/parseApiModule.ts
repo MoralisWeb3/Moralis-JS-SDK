@@ -1,7 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-import _ from 'lodash';
 import ts from 'typescript';
 import type { IParseApiModule, TSDKMethodParsed } from './types';
 import { parseSDKMethod } from './utils/parsers';

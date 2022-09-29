@@ -9,8 +9,6 @@ import { parseApiModule } from '../../TSReader';
 import Handlebars from 'handlebars';
 import fs from 'fs-extra';
 import path from 'node:path';
-
-//@ts-ignore
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../..');
 
@@ -88,7 +86,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
       };
 
       const appendHookDescriptions = parsedApiModules.map((apiModule) => {
-        // TODO move of remove
+        // TODO: move or remove
         const formatParsedTypes = (types?: TParsedType[]) => {
           if (!types) {
             return null;
@@ -106,7 +104,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
             hookName,
             desc: new Handlebars.SafeString(apiModule.desc || 'Description will be added later 👀'),
             params: formatParsedTypes(apiModule.params),
-            // TO-DO finish this functionality by resolving the type
+            // TODO: finish this functionality by resolving the type
             return: new Handlebars.SafeString(
               JSON.stringify(
                 apiModule.return?.find((returnType) => returnType.name === 'toJson')?.type,

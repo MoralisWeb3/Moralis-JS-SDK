@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import _ from 'lodash';
 import ts from 'typescript';
 import { TSDKMethodParsed } from '../types';
 import { parseTypeProps } from './utils';
