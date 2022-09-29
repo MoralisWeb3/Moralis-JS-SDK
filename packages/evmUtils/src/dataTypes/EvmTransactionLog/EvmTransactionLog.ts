@@ -1,5 +1,7 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
+import { EvmSimpleBlock } from '../EvmBlock';
+import { EvmChain } from '../EvmChain';
 import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
 
 /**
@@ -39,15 +41,14 @@ export class EvmTransactionLog implements MoralisDataObject {
 
   static parse(value: EvmTransactionLogInput, core: MoralisCore): EvmTransactionLogData {
     return {
+      chain: EvmChain.create(value.chain, core),
       logIndex: maybe(value.logIndex),
       transactionHash: value.transactionHash,
       transactionIndex: maybe(value.transactionIndex),
       data: value.data,
       topics: value.topics,
-      blockHash: value.blockHash,
-      blockNumber: value.blockNumber,
-      blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address, core),
+      block: maybe(value.block, EvmSimpleBlock.create),
     };
   }
 
@@ -84,6 +85,8 @@ export class EvmTransactionLog implements MoralisDataObject {
     return {
       ...value,
       address: value.address.format(),
+      chain: value.chain.format(),
+      block: value.block?.toJSON(),
     };
   }
 
@@ -138,6 +141,18 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
+   * Returns the chain of the log.
+   *
+   * @example
+   * ```ts
+   * log.chain; // EvmChain
+   * ```
+   */
+  get chain() {
+    return this._value.chain;
+  }
+
+  /**
    * @returns the log index of the log.
    *
    * @example
@@ -174,6 +189,18 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
+   * @returns the block of the log.
+   *
+   * @example
+   * ```ts
+   * log.block; // <EvmSimpleBlock>
+   * ```
+   */
+  get block() {
+    return this._value.block;
+  }
+
+  /**
    * @returns the block hash of the log.
    *
    * @example
@@ -182,7 +209,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get blockHash() {
-    return this._value.blockHash;
+    return this.block?.hash;
   }
 
   /**
@@ -194,7 +221,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get blockNumber() {
-    return this._value.blockNumber;
+    return this.block?.number;
   }
 
   /**
@@ -206,6 +233,6 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get blockTimestamp() {
-    return this._value.blockTimestamp;
+    return this.block?.timestamp;
   }
 }

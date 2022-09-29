@@ -17,11 +17,12 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 
 const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
+  const chain = EvmChainResolver.resolve(params.chain, core);
 
   return EvmBlock.create(
     {
       ...data,
-      chain: EvmChainResolver.resolve(params.chain, core),
+      chain,
       transactions: (data.transactions ?? []).map((transaction) =>
         EvmTransaction.create(
           {
@@ -32,7 +33,7 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
             contractAddress: transaction.receiptContractAddress,
             receiptRoot: transaction.receiptRoot,
             receiptStatus: +transaction.receiptStatus,
-            chain: EvmChainResolver.resolve(params.chain, core),
+            chain,
             data: transaction.input,
             from: transaction.fromAddress,
             hash: transaction.hash,
@@ -45,6 +46,7 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
             to: transaction.toAddress,
             logs: (transaction.logs ?? []).map((log) =>
               EvmTransactionLog.create({
+                chain,
                 address: log.address,
                 blockHash: log.blockHash,
                 blockNumber: +log.blockNumber,

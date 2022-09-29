@@ -22,7 +22,7 @@ export const getContractLogs = createPaginatedEndpointFactory((core) =>
     name: 'getContractLogs',
     urlParams: ['address'],
     getUrl: (params: Params) => `/${params.address}/logs`,
-    apiToResult: (data: ApiResult) =>
+    apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((log) =>
         EvmTransactionLog.create(
           {
@@ -30,6 +30,7 @@ export const getContractLogs = createPaginatedEndpointFactory((core) =>
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
             blockNumber: Number(log.block_number),
+            chain: EvmChainResolver.resolve(params.chain, core)
           },
           core,
         ),

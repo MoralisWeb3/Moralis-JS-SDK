@@ -10,6 +10,37 @@ import { EvmTransaction, EvmTransactionish } from '../EvmTransaction';
  * const input = {
  *    chain: 1,
  *    hash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
+ *    number: '12386788',
+ *    timestamp: '2021-05-07T11:08:35.000Z',
+ *  }
+ * ```
+ */
+export interface EvmSimpleBlockInput {
+  timestamp: DateInput;
+  number: BigNumberish;
+  hash: string;
+  chain: EvmChainish;
+}
+
+/**
+ * This is the return type of the processed EVM Block
+ */
+export interface EvmSimpleBlockData {
+  timestamp: Date;
+  number: BigNumber;
+  hash: string;
+  chain: EvmChain;
+}
+
+
+
+/**
+ * This can be any object with valid block data.
+ * @example
+ * ```
+ * const input = {
+ *    chain: 1,
+ *    hash: '0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171',
  *    difficulty: '7253857437305950',
  *    extraData: '0xd883010a01846765746888676f312e31352e31856c696e7578',
  *    gasLimit: '14977947',
@@ -32,10 +63,7 @@ import { EvmTransaction, EvmTransactionish } from '../EvmTransaction';
  *  }
  * ```
  */
-export interface EvmBlockInput {
-  timestamp: DateInput;
-  number: BigNumberish;
-  hash: string;
+export interface EvmBlockInput extends EvmSimpleBlockInput{
   parentHash: string;
   nonce: string;
   sha3Uncles: string;
@@ -52,16 +80,12 @@ export interface EvmBlockInput {
   gasUsed: BigNumberish;
   transactionCount: number | string;
   transactions: EvmTransactionish[];
-  chain: EvmChainish;
 }
 
 /**
  * This is the return type of the processed EVM transaction
  */
-export interface EvmBlockData {
-  timestamp: Date;
-  number: BigNumber;
-  hash: string;
+export interface EvmBlockData extends EvmSimpleBlockData {
   parentHash: string;
   nonce: string;
   sha3Uncles: string;
@@ -78,5 +102,4 @@ export interface EvmBlockData {
   gasUsed: BigNumber;
   transactionCount: number;
   transactions: EvmTransaction[];
-  chain: EvmChain;
 }

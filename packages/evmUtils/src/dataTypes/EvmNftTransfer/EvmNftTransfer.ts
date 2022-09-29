@@ -1,5 +1,6 @@
-import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/core';
+import { MoralisDataObject, maybe } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
+import { EvmSimpleBlock } from '../EvmBlock';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
 import { EvmNftTransferInput, EvmNftTransferData } from './types';
@@ -42,8 +43,6 @@ export class EvmNftTransfer implements MoralisDataObject {
     ...data,
     chain: EvmChain.create(data.chain),
     amount: maybe(data.amount, (amount) => +amount),
-    blockNumber: BigNumber.create(data.blockNumber),
-    blockTimestamp: dateInputToDate(data.blockTimestamp),
     transactionIndex: maybe(data.transactionIndex, (index) => +index),
     transactionType: maybe(data.transactionType),
     fromAddress: maybe(data.fromAddress, EvmAddress.create),
@@ -51,6 +50,7 @@ export class EvmNftTransfer implements MoralisDataObject {
     tokenAddress: EvmAddress.create(data.tokenAddress),
     value: maybe(data.value, EvmNative.create),
     operator: maybe(data.operator, EvmAddress.create),
+    block: maybe(data.block, EvmSimpleBlock.create),
   });
 
   /**
@@ -64,19 +64,19 @@ export class EvmNftTransfer implements MoralisDataObject {
     const transferA = EvmNftTransfer.create(dataA);
     const transferB = EvmNftTransfer.create(dataB);
 
-    if (!transferA._data.chain.equals(transferB._data.chain)) {
+    if (!transferA.chain.equals(transferB.chain)) {
       return false;
     }
 
-    if (transferA._data.blockHash !== transferB._data.blockHash) {
+    if (transferA.blockHash !== transferB.blockHash) {
       return false;
     }
 
-    if (transferA._data.tokenId !== transferB._data.tokenId) {
+    if (transferA.tokenId !== transferB.tokenId) {
       return false;
     }
 
-    if (transferA._data.logIndex !== transferB._data.logIndex) {
+    if (transferA.logIndex !== transferB.logIndex) {
       return false;
     }
 
@@ -105,12 +105,12 @@ export class EvmNftTransfer implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      blockNumber: data.blockNumber.toString(),
       fromAddress: data.fromAddress ? data.fromAddress.format() : undefined,
       toAddress: data.toAddress.format(),
       tokenAddress: data.tokenAddress.format(),
       value: data.value ? data.value.format() : undefined,
       operator: data.operator ? data.operator.format() : undefined,
+      block: data.block?.toJSON(),
     };
   }
 
@@ -142,11 +142,19 @@ export class EvmNftTransfer implements MoralisDataObject {
   }
 
   /**
+   * @returns the block of the transfer.
+   * @example transfer.block // <EvmSimpleBlock>
+   */
+  get block() {
+    return this._data.block;
+  }
+
+  /**
    * @returns the block hash of the transfer.
    * @example transfer.blockHash // "0x057Ec652A4F150f7FF94f089A38008f49a0DF88e"
    */
   get blockHash() {
-    return this._data.blockHash;
+    return this.block?.hash;
   }
 
   /**
@@ -154,7 +162,7 @@ export class EvmNftTransfer implements MoralisDataObject {
    * @example transfer.blockNumber // BigNumber
    */
   get blockNumber() {
-    return this._data.blockNumber;
+    return this.block?.number;
   }
 
   /**
@@ -162,7 +170,7 @@ export class EvmNftTransfer implements MoralisDataObject {
    * @example transfer.blockTimestamp // Date
    */
   get blockTimestamp() {
-    return this._data.blockTimestamp;
+    return this.block?.timestamp;
   }
 
   /**

@@ -2,6 +2,7 @@ import MoralisCore, { MoralisDataObject, BigNumber, dateInputToDate, MoralisCore
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransaction } from '../EvmTransaction';
+import { EvmSimpleBlock, EvmSimpleBlockish } from './EvmSimpleBlock';
 import { EvmBlockInput, EvmBlockData } from './types';
 
 /**
@@ -56,15 +57,15 @@ export class EvmBlock implements MoralisDataObject {
    * @param dataB - The second block to compare
    * @example EvmTransaction.equals(dataA, dataB)
    */
-  static equals(dataA: EvmBlockish, dataB: EvmBlockish) {
-    const blockA = EvmBlock.create(dataA);
-    const blockB = EvmBlock.create(dataB);
+   static equals(dataA: EvmSimpleBlockish | EvmBlockish, dataB: EvmSimpleBlockish | EvmBlockish) {
+    const blockA = EvmSimpleBlock.create(dataA);
+    const blockB = EvmSimpleBlock.create(dataB);
 
-    if (!blockA._data.chain.equals(blockB._data.chain)) {
+    if (!blockA.chain.equals(blockB.chain)) {
       return false;
     }
 
-    if (blockA._data.hash !== blockB._data.hash) {
+    if (blockA.hash !== blockB.hash) {
       return false;
     }
 
