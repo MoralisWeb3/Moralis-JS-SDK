@@ -1,4 +1,4 @@
-import { IMoralisNextHandler, MoralisNextHandlerParams } from './types';
+import { IMoralisNextHandler } from './types';
 import { MoralisError } from '@moralisweb3/core';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -19,7 +19,7 @@ const runMoralisSDKMethodByPath = (path: string[], args: Record<string, string>)
 const getIsPathSupported = (path: string[]) =>
   supportedPaths.map((sdkPath) => sdkPath.join('/')).includes(path.join('/'));
 
-async function MoralisNextHandler({ req, res, params }: IMoralisNextHandler) {
+async function MoralisNextHandler({ req, res }: IMoralisNextHandler) {
   const sdkParams = req.body;
   const { moralis: path } = req.query;
 
@@ -31,7 +31,7 @@ async function MoralisNextHandler({ req, res, params }: IMoralisNextHandler) {
     if (!getIsPathSupported(path)) {
       return res.status(500).json({ error: 'Not supported API path' });
     }
-    const apiKey = params?.MORALIS_API_KEY || process.env.MORALIS_API_KEY;
+    const apiKey = process.env.MORALIS_API_KEY;
     await Moralis.start({ apiKey });
     const response = await runMoralisSDKMethodByPath(path, sdkParams);
     return res.status(200).json(response);
@@ -40,8 +40,8 @@ async function MoralisNextHandler({ req, res, params }: IMoralisNextHandler) {
   }
 }
 
-const MoralisNextApi = (params?: MoralisNextHandlerParams) => {
-  return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res, params });
+const MoralisNextApi = () => {
+  return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res });
 };
 
 export default MoralisNextApi;
