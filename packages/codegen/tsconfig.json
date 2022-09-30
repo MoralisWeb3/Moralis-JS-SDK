@@ -9,7 +9,5 @@
     "module": "es2022",
     "moduleResolution": "Node"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
