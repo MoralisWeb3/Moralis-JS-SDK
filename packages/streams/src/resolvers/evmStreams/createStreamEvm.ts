@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 
 const name = 'CreateStream';
@@ -13,19 +13,17 @@ const bodyParams = [
   'webhookUrl',
   'description',
   'tag',
-  'tokenAddress',
   'topic0',
+  'allAddresses',
   'includeNativeTxs',
+  'includeContractLogs',
+  'includeInternalTxs',
   'filter',
-  'address',
-  'type',
   'chainIds',
   'abi',
 ] as const;
 
-export interface Params extends Camelize<Omit<ApiParams, 'tokenAddress' | 'address' | 'chainIds'>> {
-  tokenAddress?: EvmAddressish;
-  address?: EvmAddressish;
+export interface CreateStreamEvmParams extends Camelize<Omit<ApiParams, 'chainIds'>> {
   chains: EvmChainish[];
 }
 
@@ -36,8 +34,6 @@ const apiToResult = (apiData: ApiResult) => {
 
   return {
     ...data,
-    address: data.address ? EvmAddress.create(data.address) : undefined,
-    tokenAddress: data.tokenAddress ? EvmAddress.create(data.tokenAddress) : undefined,
     chains: data.chainIds.map((chainId) => EvmChain.create(chainId)),
   };
 };
@@ -49,14 +45,10 @@ export const createStreamEvm = createEndpointFactory(() =>
     apiToResult,
     resultToJson: (data) => ({
       ...data,
-      address: data.address ? data.address.format() : undefined,
-      tokenAddress: data.tokenAddress ? data.tokenAddress.format() : undefined,
       chainIds: data.chains.map((chain) => chain.format()),
     }),
-    parseParams: (params: Params): ApiParams => ({
+    parseParams: (params: CreateStreamEvmParams): ApiParams => ({
       ...params,
-      tokenAddress: params.tokenAddress ? EvmAddress.create(params.tokenAddress).checksum : undefined,
-      address: params.address ? EvmAddress.create(params.address).checksum : undefined,
       chainIds: params.chains.map((chain) => EvmChain.create(chain).apiHex),
     }),
     method,

@@ -9,17 +9,17 @@ const method = 'post';
 type PathParams = operations[Name]['parameters']['path'];
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
 type ApiParams = PathParams & BodyParams;
-type Params = ApiParams;
+export type UpdateStreamEvmStatusParams = ApiParams;
 const bodyParams = ['status'] as const;
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
 export const updateStreamEvmStatus = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: ({ id }: Params) => `/streams/evm/${id}/status`,
+    getUrl: ({ id }: UpdateStreamEvmStatusParams) => `/streams/evm/${id}/status`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
-    parseParams: (params: ApiParams) => params,
+    parseParams: (params: UpdateStreamEvmStatusParams): ApiParams => params,
     bodyParams,
     method,
   }),

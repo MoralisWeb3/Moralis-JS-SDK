@@ -22,6 +22,5 @@ describe('Get stream', () => {
     expect(result.result).toBeDefined();
     expect(result.pagination.total).toEqual(20);
     expect(result.result[0].chainIds).toContain('0x3');
-    expect(result.result[0].type).toEqual('wallet');
   });
 });
