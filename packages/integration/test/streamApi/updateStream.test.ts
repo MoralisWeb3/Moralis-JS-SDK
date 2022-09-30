@@ -33,7 +33,7 @@ describe('Update stream', () => {
       tag: 'test',
       description: 'test',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
-      id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      id: 'VALID_REQUEST',
     });
 
     expect(result).toBeDefined();
