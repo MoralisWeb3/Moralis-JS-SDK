@@ -1,11 +1,10 @@
 import { Endpoints } from '@moralisweb3/api-utils';
-import { deleteStreamEvm } from '../resolvers';
+import { deleteStreamEvm, DeleteStreamEvmParams } from '../resolvers';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface DeleteStreamEvmOptions {
+export interface DeleteStreamEvmOptions extends DeleteStreamEvmParams {
   networkType?: 'evm';
-  id: string;
 }
 
 export type DeleteStreamOptions = DeleteStreamEvmOptions;

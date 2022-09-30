@@ -8,7 +8,8 @@ const name = 'AddAddressToStream';
 type Name = typeof name;
 type PathParams = operations[Name]['parameters']['path'];
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
-type ApiParams = PathParams & BodyParams;
+// Overwriting "address: string | string[]" because the generator cannot infer the type correctly from swagger
+type ApiParams = Omit<PathParams & BodyParams, 'address'> & { address: string | string[] };
 export type AddAddressEvmParams = ApiParams;
 const method = 'put';
 const bodyParams = ['address'] as const;
@@ -24,12 +25,20 @@ export const addAddressEvm = createEndpointFactory(() =>
 
       return {
         ...data,
-        address: data.address ? EvmAddress.create(data.address) : undefined,
+        address: data.address
+          ? typeof data.address === 'string'
+            ? EvmAddress.create(data.address)
+            : data.address.map((address) => EvmAddress.create(address))
+          : undefined,
       };
     },
     resultToJson: (data) => ({
       ...data,
-      address: data.address?.format(),
+      address: data.address
+        ? Array.isArray(data.address)
+          ? data.address.map((address) => address.format())
+          : data.address.format()
+        : undefined,
     }),
     parseParams: (params: AddAddressEvmParams): ApiParams => params,
     method,

@@ -9,6 +9,13 @@ const AddAddressResponse: Record<string, { data: any; status: number }> = {
     },
     status: 200,
   },
+  MULTIPLE_ADDRESSES: {
+    data: {
+      streamId: 'MULTIPLE_ADDRESSES',
+      address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
+    },
+    status: 200,
+  },
   INVALID_ADDRESS: {
     data: {
       message: 'Invalid Address: some-address',

@@ -1,11 +1,10 @@
 import { Endpoints } from '@moralisweb3/api-utils';
-import { getStreamsEvm } from '../resolvers';
+import { getStreamsEvm, GetStreamsEvmParams } from '../resolvers';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface GetStreamsEvmOptions {
+export interface GetStreamsEvmOptions extends GetStreamsEvmParams {
   networkType?: 'evm';
-  limit: number;
 }
 
 export type GetStreamsOptions = GetStreamsEvmOptions;

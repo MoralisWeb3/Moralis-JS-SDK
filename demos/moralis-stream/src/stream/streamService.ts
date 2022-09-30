@@ -7,9 +7,7 @@ interface StreamOptions {
 
 const DESCRIPTION = 'some description';
 const TAG = 'transactions';
-const ADDRESS = '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7';
 const CHAINIDS = ['0x3', '0x4'];
-const TYPE = 'wallet';
 
 export async function addStream(options: StreamOptions) {
   const { networkType, webhookUrl } = options;
@@ -18,9 +16,7 @@ export async function addStream(options: StreamOptions) {
     webhookUrl,
     chains: CHAINIDS,
     tag: TAG,
-    type: TYPE,
     description: DESCRIPTION,
-    address: ADDRESS,
     includeNativeTxs: true,
   });
 
@@ -53,9 +49,7 @@ export async function updateStream(id: string, options: StreamOptions) {
     webhookUrl,
     chains: CHAINIDS,
     tag: TAG,
-    type: TYPE,
     description: DESCRIPTION,
-    address: ADDRESS,
     includeNativeTxs: true,
   });
 

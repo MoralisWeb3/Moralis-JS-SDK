@@ -1,27 +1,10 @@
 import { Endpoints } from '@moralisweb3/api-utils';
-import { EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
-import { updateStreamEvm } from '../resolvers';
+import { updateStreamEvm, UpdateStreamEvmParams } from '../resolvers';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface UpdateStreamEvmOptions {
+export interface UpdateStreamEvmOptions extends UpdateStreamEvmParams {
   networkType?: 'evm';
-  webhookUrl: string;
-  description: string;
-  tag: string;
-  tokenAddress?: EvmAddressish;
-  includeNativeTxs?: boolean;
-  topic0?: string;
-  abi?: {
-    [key: string]: unknown;
-  };
-  filter?: {
-    [key: string]: unknown;
-  };
-  address?: EvmAddressish;
-  chains: EvmChainish[];
-  type: 'wallet' | 'contract';
-  id: string;
 }
 
 export type UpdateStreamOptions = UpdateStreamEvmOptions;

@@ -65,7 +65,6 @@ export interface components {
     Log: {
       tag: string;
       streamId: string;
-      streamType: string;
       logIndex: string;
       transactionHash: string;
       address: string;
@@ -78,7 +77,6 @@ export interface components {
     Transaction: {
       tag: string;
       streamId: string;
-      streamType: string;
       hash: string;
       gas: string | null;
       gasPrice: string | null;
@@ -106,7 +104,6 @@ export interface components {
       gas: string | null;
       streamId: string;
       tag: string;
-      streamType: string;
     };
     AbiInput: {
       name: string;
@@ -140,7 +137,7 @@ export interface components {
     IAbi: { [key: string]: components["schemas"]["AbiItem"] };
     IERC20Transfer: {
       transactionHash: string;
-      tokenAddress: string;
+      contract: string;
       logIndex: string;
       tag: string;
       from: string;
@@ -153,7 +150,7 @@ export interface components {
     };
     IERC20Approval: {
       transactionHash: string;
-      tokenAddress: string;
+      contract: string;
       logIndex: string;
       tag: string;
       owner: string;
@@ -166,7 +163,7 @@ export interface components {
     };
     INFTTransfer: {
       transactionHash: string;
-      tokenAddress: string;
+      contract: string;
       logIndex: string;
       tag: string;
       tokenContractType: string;
@@ -180,7 +177,7 @@ export interface components {
     };
     INFTApprovalERC721: {
       transactionHash: string;
-      tokenAddress: string;
+      contract: string;
       logIndex: string;
       tag: string;
       owner: string;
@@ -192,7 +189,7 @@ export interface components {
     };
     INFTApprovalERC1155: {
       transactionHash: string;
-      tokenAddress: string;
+      contract: string;
       logIndex: string;
       tag: string;
       account: string;
@@ -231,6 +228,8 @@ export interface components {
     "historyTypes.HistoryResponse": {
       result: components["schemas"]["HistoryModel"][];
       cursor?: string;
+      /** Format: double */
+      total: number;
     };
     "historyTypes.HistoryModel": {
       id: components["schemas"]["UUID"];
@@ -301,13 +300,6 @@ export interface components {
      * @example {}
      */
     StreamsFilter: { [key: string]: unknown };
-    /**
-     * @description The stream type:
-     * [wallet] listen to all native transactions of the address and all logs where the address is involved in at least one of the topics
-     * [contract] listens to all native transactions of the address and all logs produced by the contract address
-     * @enum {string}
-     */
-    StreamsType: "wallet" | "contract";
     StreamsModel: {
       /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl: string;
@@ -315,20 +307,20 @@ export interface components {
       description: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
-      /** @description The token address of the contract, required if the type : log */
-      tokenAddress?: string | null;
-      /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string | null;
+      /** @description An Array of topic0's in hex, required if the type : log */
+      topic0?: string[] | null;
+      /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
+      allAddresses?: boolean;
       /** @description Include or not native transactions defaults to false (only applied when type:contract) */
       includeNativeTxs?: boolean;
+      /** @description Include or not logs of contract interactions defaults to false */
+      includeContractLogs?: boolean;
+      /** @description Include or not include internal transactions defaults to false */
+      includeInternalTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
-      /** @description The wallet address of the user, required if the type : tx */
-      address?: string | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
-      /** @description The type of stream to create log or tx */
-      type: components["schemas"]["StreamsType"];
       /** @description The unique uuid of the stream */
       id?: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -354,20 +346,20 @@ export interface components {
       description: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
-      /** @description The token address of the contract, required if the type : log */
-      tokenAddress?: string | null;
-      /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string | null;
+      /** @description An Array of topic0's in hex, required if the type : log */
+      topic0?: string[] | null;
+      /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
+      allAddresses?: boolean;
       /** @description Include or not native transactions defaults to false (only applied when type:contract) */
       includeNativeTxs?: boolean;
+      /** @description Include or not logs of contract interactions defaults to false */
+      includeContractLogs?: boolean;
+      /** @description Include or not include internal transactions defaults to false */
+      includeInternalTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
-      /** @description The wallet address of the user, required if the type : tx */
-      address?: string | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
-      /** @description The type of stream to create log or tx */
-      type: components["schemas"]["StreamsType"];
       /** @description The unique uuid of the stream */
       id?: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -382,20 +374,20 @@ export interface components {
       description: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
-      /** @description The token address of the contract, required if the type : log */
-      tokenAddress?: string | null;
-      /** @description The topic0 of the event in hex, required if the type : log */
-      topic0?: string | null;
+      /** @description An Array of topic0's in hex, required if the type : log */
+      topic0?: string[] | null;
+      /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
+      allAddresses?: boolean;
       /** @description Include or not native transactions defaults to false (only applied when type:contract) */
       includeNativeTxs?: boolean;
+      /** @description Include or not logs of contract interactions defaults to false */
+      includeContractLogs?: boolean;
+      /** @description Include or not include internal transactions defaults to false */
+      includeInternalTxs?: boolean;
       abi?: components["schemas"]["StreamsAbi"] | null;
       filter?: components["schemas"]["StreamsFilter"] | null;
-      /** @description The wallet address of the user, required if the type : tx */
-      address?: string | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
-      /** @description The type of stream to create log or tx */
-      type: components["schemas"]["StreamsType"];
     };
     /**
      * Format: uuid
@@ -403,6 +395,29 @@ export interface components {
      * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
      */
     "streamsTypes.UUID": string;
+    /** @description Make all properties in T optional */
+    "Partial_streamsTypes.StreamsModelCreate_": {
+      /** @description Webhook URL where moralis will send the POST request. */
+      webhookUrl?: string;
+      /** @description A description for this stream */
+      description?: string;
+      /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
+      tag?: string;
+      /** @description An Array of topic0's in hex, required if the type : log */
+      topic0?: string[] | null;
+      /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
+      allAddresses?: boolean;
+      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
+      includeNativeTxs?: boolean;
+      /** @description Include or not logs of contract interactions defaults to false */
+      includeContractLogs?: boolean;
+      /** @description Include or not include internal transactions defaults to false */
+      includeInternalTxs?: boolean;
+      abi?: components["schemas"]["StreamsAbi"] | null;
+      filter?: components["schemas"]["StreamsFilter"] | null;
+      /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
+      chainIds?: string[];
+    };
     "streamsTypes.StreamsStatusUpdate": {
       /** @description The status of the stream. */
       status: components["schemas"]["StreamsStatus"];
@@ -434,10 +449,16 @@ export interface components {
       /** @description The streamId */
       streamId: string;
       /** @description Address */
-      address: string;
+      address: Partial<string> & Partial<string[]>;
     };
     "addressesTypes.AddressesAdd": {
-      /** @description The address to be added to the Stream. */
+      /** @description The address or a list of addresses to be added to the Stream. */
+      address: Partial<string> & Partial<string[]>;
+    };
+    "addressesTypes.DeleteAddressResponse": {
+      /** @description The streamId */
+      streamId: string;
+      /** @description Address */
       address: string;
     };
     "addressesTypes.AddressesRemove": {
@@ -595,7 +616,7 @@ export interface operations {
     /** Provide a Stream Model */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["streamsTypes.StreamsModelCreate"];
+        "application/json": components["schemas"]["Partial_streamsTypes.StreamsModelCreate_"];
       };
     };
   };
@@ -697,7 +718,7 @@ export interface operations {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["addressesTypes.AddressResponse"];
+          "application/json": components["schemas"]["addressesTypes.DeleteAddressResponse"];
         };
       };
     };

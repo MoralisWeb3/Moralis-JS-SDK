@@ -13,6 +13,7 @@ import { getHistory } from './resolvers/history/getHistory';
 import { replayHistory } from './resolvers/history/replayHistory';
 import { makeGetAddresses } from './methods/getAddresses';
 import { makeDeleteAddress } from './methods/deleteAddress';
+import { makeGetStreamById } from './methods/getById';
 
 export const BASE_URL = 'https://api.moralis-streams.com';
 
@@ -41,6 +42,7 @@ export class MoralisStreams extends ApiModule {
   public readonly update = makeUpdateStream(this.endpoints);
   public readonly delete = makeDeleteStream(this.endpoints);
   public readonly getAll = makeGetStreams(this.endpoints);
+  public readonly getById = makeGetStreamById(this.endpoints);
   public readonly updateStatus = makeUpdateStreamStatus(this.endpoints);
 
   public readonly addAddress = makeAddAddress(this.endpoints);

@@ -1,12 +1,10 @@
 import { Endpoints } from '@moralisweb3/api-utils';
-import { updateStreamEvmStatus } from '../resolvers/evmStreams/updateStreamEvmStatus';
+import { updateStreamEvmStatus, UpdateStreamEvmStatusParams } from '../resolvers/evmStreams/updateStreamEvmStatus';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import { StreamNetwork } from '../utils/StreamNetwork';
 
-export interface UpdateStreamEvmStatusOptions {
+export interface UpdateStreamEvmStatusOptions extends UpdateStreamEvmStatusParams {
   networkType?: 'evm';
-  id: string;
-  status: 'active' | 'paused' | 'error';
 }
 
 export type UpdateStreamStatusOptions = UpdateStreamEvmStatusOptions;
