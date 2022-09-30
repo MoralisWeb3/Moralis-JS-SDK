@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.defi.getPairAddress;
-export type TUseEvmPairAddressParams = Parameters<TSDKCall>[0];
-export type TUseEvmPairAddressReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.defi.getPairAddress;
+export type UseEvmPairAddressParams = Parameters<SDKCall>[0];
+export type UseEvmPairAddressReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

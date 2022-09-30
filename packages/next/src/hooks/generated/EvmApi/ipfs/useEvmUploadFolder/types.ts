@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.ipfs.uploadFolder;
-export type TUseEvmUploadFolderParams = Parameters<TSDKCall>[0];
-export type TUseEvmUploadFolderReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.ipfs.uploadFolder;
+export type UseEvmUploadFolderParams = Parameters<SDKCall>[0];
+export type UseEvmUploadFolderReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

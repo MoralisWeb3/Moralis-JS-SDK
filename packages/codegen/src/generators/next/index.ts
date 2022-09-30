@@ -3,7 +3,7 @@ import { Actions } from 'node-plop';
 import { apiModuleConfigs, blacklistedMethods, removeFromHookName } from './utils/constants';
 import { fileURLToPath } from 'node:url';
 import { getHookName, getApiUrl, getFolderUrlPathForHook, getSplittedSDKPath } from './utils/namings';
-import { IParseApiModule, TParsedType } from '../../TSReader/types';
+import { IParseApiModule, ParsedType } from '../../TSReader/types';
 import { NodePlopAPI } from 'plop';
 import { parseApiModule } from '../../TSReader';
 import Handlebars from 'handlebars';
@@ -87,7 +87,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
 
       const appendHookDescriptions = parsedApiModules.map((apiModule) => {
         // TODO: move or remove
-        const formatParsedTypes = (types?: TParsedType[]) => {
+        const formaParsedTypes = (types?: ParsedType[]) => {
           if (!types) {
             return null;
           }
@@ -103,7 +103,7 @@ export default function NextGenerator(plop: NodePlopAPI) {
           data: {
             hookName,
             desc: new Handlebars.SafeString(apiModule.desc || 'Description will be added later 👀'),
-            params: formatParsedTypes(apiModule.params),
+            params: formaParsedTypes(apiModule.params),
             // TODO: finish this functionality by resolving the type
             return: new Handlebars.SafeString(
               JSON.stringify(

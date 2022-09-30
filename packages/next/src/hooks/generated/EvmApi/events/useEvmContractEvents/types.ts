@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.events.getContractEvents;
-export type TUseEvmContractEventsParams = Parameters<TSDKCall>[0];
-export type TUseEvmContractEventsReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.events.getContractEvents;
+export type UseEvmContractEventsParams = Parameters<SDKCall>[0];
+export type UseEvmContractEventsReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

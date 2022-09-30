@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.nft.searchNFTs;
-export type TUseEvmSearchNfTsParams = Parameters<TSDKCall>[0];
-export type TUseEvmSearchNfTsReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.nft.searchNFTs;
+export type UseEvmSearchNfTsParams = Parameters<SDKCall>[0];
+export type UseEvmSearchNfTsReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

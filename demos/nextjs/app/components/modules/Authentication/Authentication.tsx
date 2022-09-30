@@ -65,7 +65,7 @@ const Authentication = () => {
     if (message?.message) {
       const signature = await signMessageAsync({ message: message.message });
 
-      signIn('credentials', { message, signature, redirect: false }).then(() =>
+      signIn('credentials', { message: message.message, signature, redirect: false }).then(() =>
         // redirects to main page
         push('/'),
       );

@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.nft.reSyncMetadata;
-export type TUseEvmReSyncMetadataParams = Parameters<TSDKCall>[0];
-export type TUseEvmReSyncMetadataReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.nft.reSyncMetadata;
+export type UseEvmReSyncMetadataParams = Parameters<SDKCall>[0];
+export type UseEvmReSyncMetadataReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

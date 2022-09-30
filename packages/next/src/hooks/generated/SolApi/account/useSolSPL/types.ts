@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.SolApi.account.getSPL;
-export type TUseSolSplParams = Parameters<TSDKCall>[0];
-export type TUseSolSplReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.SolApi.account.getSPL;
+export type UseSolSplParams = Parameters<SDKCall>[0];
+export type UseSolSplReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

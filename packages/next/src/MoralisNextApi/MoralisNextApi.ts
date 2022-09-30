@@ -1,4 +1,4 @@
-import { IMoralisNextHandler, TMoralisNextHandlerParams } from './types';
+import { IMoralisNextHandler, MoralisNextHandlerParams } from './types';
 import { MoralisError } from '@moralisweb3/core';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -40,7 +40,7 @@ async function MoralisNextHandler({ req, res, params }: IMoralisNextHandler) {
   }
 }
 
-const MoralisNextApi = (params?: TMoralisNextHandlerParams) => {
+const MoralisNextApi = (params?: MoralisNextHandlerParams) => {
   return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res, params });
 };
 

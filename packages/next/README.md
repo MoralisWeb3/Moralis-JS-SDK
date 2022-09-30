@@ -18,7 +18,7 @@
 
 > Moralis Hooks for your NextJS project
 
-This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data.
+This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data. It  serves as a proxy, to allow users to access Moralis APIs in client-side.
 
 Please check the [official documentation of Moralis](https://docs.moralis.io/) for all the functionalities of Moralis.
 
@@ -29,13 +29,13 @@ Make sure to have `next`, `react`, `react-dom` and `moralis` installed as depend
 In short:
 
 ```sh
-npm install moralis @moralisweb3/next
+npm install moralis @moralisweb3/next next react react-dom
 ```
 
 or
 
 ```sh
-yarn add moralis @moralisweb3/next
+yarn add moralis @moralisweb3/next next react react-dom
 ```
 
 > Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
@@ -49,8 +49,7 @@ MORALIS_API_KEY= ***
 ```
 
 ### Create API route
-
-To add the `@moralisweb3/next` to a project create a file `pages/api/moralis/[...moralis].ts` with following code:
+To use Moralis APIs in your NextJs project create a file `pages/api/moralis/[...moralis].ts` with following code:
 
 ```js
 import { MoralisNextApi } from "@moralisweb3/next";

@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseSolNfTsParams, TUseSolNfTsReturn } from './types'
+import { UseSolNfTsParams, UseSolNfTsReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useSolNFTs = (params: TUseSolNfTsParams, SWRConfig?: SWRConfiguration) => {
+export const useSolNFTs = (params: UseSolNfTsParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseSolNfTsReturn>(
+  const { data, error, mutate, isValidating } = useSWR<UseSolNfTsReturn>(
     [`SolApi/account/getNFTs`, params],
     axiosFetcher,
     SWRConfig,

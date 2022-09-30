@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseSolSplParams, TUseSolSplReturn } from './types'
+import { UseSolSplParams, UseSolSplReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useSolSPL = (params: TUseSolSplParams, SWRConfig?: SWRConfiguration) => {
+export const useSolSPL = (params: UseSolSplParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseSolSplReturn>(
+  const { data, error, mutate, isValidating } = useSWR<UseSolSplReturn>(
     [`SolApi/account/getSPL`, params],
     axiosFetcher,
     SWRConfig,

@@ -4,11 +4,11 @@ export interface IParseApiModule {
   className: string;
 }
 
-export type TParsedType = { name: string; type: string };
+export type ParsedType = { name: string; type: string };
 
-export type TSDKMethodParsed = {
+export type SDKMethodParsed = {
   path: string;
   desc?: string;
-  return?: TParsedType[];
-  params?: TParsedType[];
+  return?: ParsedType[];
+  params?: ParsedType[];
 };

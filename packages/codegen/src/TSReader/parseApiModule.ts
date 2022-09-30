@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import ts from 'typescript';
-import type { IParseApiModule, TSDKMethodParsed } from './types';
+import type { IParseApiModule, SDKMethodParsed } from './types';
 import { parseSDKMethod } from './utils/parsers';
 import { isDeprecated, getPropertiesOfSymbol, isMethodBlacklisted } from './utils/utils';
 
@@ -28,7 +28,7 @@ const parseApiModule = ({ path, whitelist, className }: IParseApiModule, blackli
     throw new Error(`'${className}' has no readable properties in '${path}'`);
   }
 
-  const sdkMethods: TSDKMethodParsed[] = [];
+  const sdkMethods: SDKMethodParsed[] = [];
 
   apiModuleClassProps.forEach((domain) => {
     const domainTypeProps = getPropertiesOfSymbol(domain, typeChecker);

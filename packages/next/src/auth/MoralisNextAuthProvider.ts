@@ -1,7 +1,9 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Moralis from 'moralis';
+import { LoggerController, Config } from '@moralisweb3/core';
+import { MoralisNextAuthProviderParams } from './types';
 
-const MoralisNextAuthProvider = ({ MORALIS_API_KEY }: { MORALIS_API_KEY?: string } = {}) =>
+const MoralisNextAuthProvider = ({ logLevel = 'info' }: MoralisNextAuthProviderParams = {}) =>
   /**
    * Configuring default CredentialsProvider from 'next-auth'
    * with required steps and data for verifying signed message
@@ -32,7 +34,7 @@ const MoralisNextAuthProvider = ({ MORALIS_API_KEY }: { MORALIS_API_KEY?: string
          */
         const { message, signature } = credentials as Record<string, string>;
 
-        const apiKey = MORALIS_API_KEY || process.env.MORALIS_API_KEY;
+        const apiKey = process.env.MORALIS_API_KEY;
         if (!apiKey) {
           throw new Error('MORALIS_API_KEY missing');
         }
@@ -56,8 +58,10 @@ const MoralisNextAuthProvider = ({ MORALIS_API_KEY }: { MORALIS_API_KEY?: string
         const user = { address, profileId, expirationTime, signature };
         return user;
       } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error(e);
+        const config = new Config();
+        config.set('logLevel', logLevel);
+        const logger = new LoggerController('[MoralisNextAuthProvider]', config);
+        logger.error(e);
         return null;
       }
     },

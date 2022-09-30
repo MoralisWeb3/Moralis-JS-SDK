@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export type TMoralisNextHandlerParams = {
+export type MoralisNextHandlerParams = {
   /**
    * Used for Moralis.SDK
    * * **Default value**: .env.local.MORALIS_API_KEY
@@ -14,5 +14,5 @@ export type TMoralisNextHandlerParams = {
 export interface IMoralisNextHandler {
   req: NextApiRequest;
   res: NextApiResponse;
-  params?: TMoralisNextHandlerParams;
+  params?: MoralisNextHandlerParams;
 }

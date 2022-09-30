@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import ts from 'typescript';
-import { TSDKMethodParsed } from '../types';
+import { SDKMethodParsed } from '../types';
 import { parseTypeProps } from './utils';
 
 export const parseSDKMethod = (prop: ts.Symbol, typeChecker: ts.TypeChecker, domainSDKPath: string[]) => {
   const propType = typeChecker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration!);
 
   const [propSignature] = typeChecker.getSignaturesOfType(propType, ts.SignatureKind.Call);
-  const sdkMethod: TSDKMethodParsed = {
+  const sdkMethod: SDKMethodParsed = {
     path: [...domainSDKPath, prop.getName()].join('.'),
     desc: ts.displayPartsToString(prop.getDocumentationComment(typeChecker)),
     return: [],

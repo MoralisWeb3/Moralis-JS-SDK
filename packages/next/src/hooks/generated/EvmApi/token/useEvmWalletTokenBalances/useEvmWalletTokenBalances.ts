@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseEvmWalletTokenBalancesParams, TUseEvmWalletTokenBalancesReturn } from './types'
+import { UseEvmWalletTokenBalancesParams, UseEvmWalletTokenBalancesReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmWalletTokenBalances = (params: TUseEvmWalletTokenBalancesParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmWalletTokenBalances = (params: UseEvmWalletTokenBalancesParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseEvmWalletTokenBalancesReturn>(
+  const { data, error, mutate, isValidating } = useSWR<UseEvmWalletTokenBalancesReturn>(
     [`EvmApi/token/getWalletTokenBalances`, params],
     axiosFetcher,
     SWRConfig,

@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseEvmTokenTransfersParams, TUseEvmTokenTransfersReturn } from './types'
+import { UseEvmTokenTransfersParams, UseEvmTokenTransfersReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmTokenTransfers = (params: TUseEvmTokenTransfersParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmTokenTransfers = (params: UseEvmTokenTransfersParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseEvmTokenTransfersReturn>(
+  const { data, error, mutate, isValidating } = useSWR<UseEvmTokenTransfersReturn>(
     [`EvmApi/token/getTokenTransfers`, params],
     axiosFetcher,
     SWRConfig,

@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseEvmWalletNfTsParams, TUseEvmWalletNfTsReturn } from './types'
+import { UseEvmWalletNfTsParams, UseEvmWalletNfTsReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmWalletNFTs = (params: TUseEvmWalletNfTsParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmWalletNFTs = (params: UseEvmWalletNfTsParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseEvmWalletNfTsReturn>(
+  const { data, error, mutate, isValidating } = useSWR<UseEvmWalletNfTsReturn>(
     [`EvmApi/nft/getWalletNFTs`, params],
     axiosFetcher,
     SWRConfig,

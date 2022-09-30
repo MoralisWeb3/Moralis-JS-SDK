@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.token.getWalletTokenTransfers;
-export type TUseEvmWalletTokenTransfersParams = Parameters<TSDKCall>[0];
-export type TUseEvmWalletTokenTransfersReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.token.getWalletTokenTransfers;
+export type UseEvmWalletTokenTransfersParams = Parameters<SDKCall>[0];
+export type UseEvmWalletTokenTransfersReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

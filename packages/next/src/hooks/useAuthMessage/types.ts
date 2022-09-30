@@ -1,5 +1,5 @@
 import Moralis from 'moralis';
 
-type TSDKCall = typeof Moralis.Auth.requestMessage;
-export type TUseAuthMessageParams = Parameters<TSDKCall>[0];
-export type TUseAuthMessageReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.Auth.requestMessage;
+export type UseAuthMessageParams = Parameters<SDKCall>[0];
+export type UseAuthMessageReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

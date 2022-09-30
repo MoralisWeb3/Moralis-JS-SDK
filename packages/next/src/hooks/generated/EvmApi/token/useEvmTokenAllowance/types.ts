@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.token.getTokenAllowance;
-export type TUseEvmTokenAllowanceParams = Parameters<TSDKCall>[0];
-export type TUseEvmTokenAllowanceReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.token.getTokenAllowance;
+export type UseEvmTokenAllowanceParams = Parameters<SDKCall>[0];
+export type UseEvmTokenAllowanceReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

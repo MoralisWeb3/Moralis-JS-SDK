@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { TUseEvmRunContractFunctionParams, TUseEvmRunContractFunctionReturn } from './types'
+import { UseEvmRunContractFunctionParams, UseEvmRunContractFunctionReturn } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const useEvmRunContractFunction = (params: TUseEvmRunContractFunctionParams, SWRConfig?: SWRConfiguration) => {
+export const useEvmRunContractFunction = (params: UseEvmRunContractFunctionParams, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<TUseEvmRunContractFunctionReturn>(
+  const { data, error, mutate, isValidating } = useSWR<UseEvmRunContractFunctionReturn>(
     [`EvmApi/utils/runContractFunction`, params],
     axiosFetcher,
     SWRConfig,

@@ -1,13 +1,13 @@
 import { SWRConfiguration } from 'swr/dist/types';
-import { T{{ targetMethod }}Params, T{{ targetMethod }}Return } from './types'
+import { {{ targetMethod }}Params, {{ targetMethod }}Return } from './types'
 import axios from 'axios'
 import useSWR from 'swr';
 
-export const {{ hookName }} = (params: T{{ targetMethod }}Params, SWRConfig?: SWRConfiguration) => {
+export const {{ hookName }} = (params: {{ targetMethod }}Params, SWRConfig?: SWRConfiguration) => {
   const axiosFetcher = async (endpoint: string, fetcherParams: any) =>
     axios.post(`/api/moralis/${endpoint}`, fetcherParams).then((res) => res.data);
 
-  const { data, error, mutate, isValidating } = useSWR<T{{ targetMethod }}Return>(
+  const { data, error, mutate, isValidating } = useSWR<{{ targetMethod }}Return>(
     [`{{ APIEndpoint }}`, params],
     axiosFetcher,
     SWRConfig,

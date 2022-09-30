@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import _ from 'lodash';
 import ts from 'typescript';
-import { TParsedType } from '../types';
+import { ParsedType } from '../types';
 
 const iterateUntilGetTargetSymbol = (
   parentProps: ts.Symbol[],
@@ -34,7 +34,7 @@ export const getTargetPropertyType = (parentType: ts.Type, targetPropertyName: s
   return typeChecker.getTypeOfSymbolAtLocation(targetPropSymbol, targetPropSymbol.valueDeclaration!);
 };
 
-export const parseTypeProps = (parentType: ts.Type, typeChecker: ts.TypeChecker): TParsedType[] =>
+export const parseTypeProps = (parentType: ts.Type, typeChecker: ts.TypeChecker): ParsedType[] =>
   parentType.getProperties().map((childProp) => {
     return {
       name: _.camelCase(childProp.getName()),

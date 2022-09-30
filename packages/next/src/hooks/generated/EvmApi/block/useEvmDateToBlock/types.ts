@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.block.getDateToBlock;
-export type TUseEvmDateToBlockParams = Parameters<TSDKCall>[0];
-export type TUseEvmDateToBlockReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.block.getDateToBlock;
+export type UseEvmDateToBlockParams = Parameters<SDKCall>[0];
+export type UseEvmDateToBlockReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;

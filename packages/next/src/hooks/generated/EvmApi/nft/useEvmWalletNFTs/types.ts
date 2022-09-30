@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type TSDKCall = typeof Moralis.EvmApi.nft.getWalletNFTs;
-export type TUseEvmWalletNfTsParams = Parameters<TSDKCall>[0];
-export type TUseEvmWalletNfTsReturn = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;
+type SDKCall = typeof Moralis.EvmApi.nft.getWalletNFTs;
+export type UseEvmWalletNfTsParams = Parameters<SDKCall>[0];
+export type UseEvmWalletNfTsReturn = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;
