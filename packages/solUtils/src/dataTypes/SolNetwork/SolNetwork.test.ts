@@ -10,6 +10,24 @@ describe('SolNetwork', () => {
     expect(network.format()).toEqual('mainnet');
   });
 
+  it('creates an instance based on MAINNET enum', () => {
+    const network = SolNetwork.MAINNET;
+
+    expect(network.network).toEqual('mainnet');
+    expect(network.toJSON()).toEqual('mainnet');
+    expect(network.toString()).toEqual('mainnet');
+    expect(network.format()).toEqual('mainnet');
+  });
+
+  it('creates an instance based on DEVNET enum', () => {
+    const network = SolNetwork.DEVNET;
+
+    expect(network.network).toEqual('devnet');
+    expect(network.toJSON()).toEqual('devnet');
+    expect(network.toString()).toEqual('devnet');
+    expect(network.format()).toEqual('devnet');
+  });
+
   it('throws an error when a network is not supported', () => {
     expect(() => SolNetwork.create('UNKNOWN')).toThrowError('Solana network is not supported');
   });

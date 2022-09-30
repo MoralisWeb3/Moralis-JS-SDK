@@ -37,6 +37,7 @@ export class EvmChain implements MoralisData, EvmChainable {
    * Returns ROPSTEN chain
    *
    * @example EvmChain.ROPSTEN
+   * @deprecated see https://ethereum.org/en/developers/docs/networks/
    */
   public static get ROPSTEN() {
     return EvmChain.create(3);
@@ -46,6 +47,7 @@ export class EvmChain implements MoralisData, EvmChainable {
    * Returns RINKEBY chain
    *
    * @example EvmChain.RINKEBY
+   * @deprecated see https://ethereum.org/en/developers/docs/networks/
    */
   public static get RINKEBY() {
     return EvmChain.create(4);
@@ -64,9 +66,14 @@ export class EvmChain implements MoralisData, EvmChainable {
    * Returns KOVAN chain
    *
    * @example EvmChain.KOVAN
+   * @deprecated see https://ethereum.org/en/developers/docs/networks/
    */
   public static get KOVAN() {
     return EvmChain.create(42);
+  }
+
+  public static get SEPOLIA() {
+    return EvmChain.create(11155111);
   }
 
   /**
