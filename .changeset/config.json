@@ -29,7 +29,7 @@
     "demo-nextjs",
     "demo-express-proxy",
     "demo-parse-server",
-    "demo-subabase-auth",
+    "demo-supabase-auth",
     "demo-firebase-auth-functions",
     "demo-firebase-proxy-functions",
     "demo-moralis-stream"
