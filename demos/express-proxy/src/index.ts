@@ -23,5 +23,5 @@ app.use(express.static('public'));
 
 app.listen(config.PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`${config.APP_NAME} is running on port ${config.PORT}`);
+  console.log(`'Moralis Demo Express proxy' is running on port ${config.PORT}`);
 });

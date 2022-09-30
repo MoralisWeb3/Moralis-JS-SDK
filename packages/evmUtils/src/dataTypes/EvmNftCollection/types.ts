@@ -28,7 +28,7 @@ export interface EvmNftCollectionInput {
  */
 export interface EvmNftCollectionData {
   chain: EvmChain;
-  contractType: EvmNftContractType;
+  contractType?: EvmNftContractType;
   name: string;
   symbol: string;
   tokenAddress: EvmAddress;

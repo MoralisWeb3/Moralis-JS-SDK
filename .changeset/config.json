@@ -13,6 +13,9 @@
       "@moralisweb3/sol-utils",
       "@moralisweb3/evm-api",
       "@moralisweb3/sol-api",
+      "@moralisweb3/client-firebase-auth-utils",
+      "@moralisweb3/client-firebase-evm-auth",
+      "@moralisweb3/client-firebase-sol-auth",
       "@moralisweb3/next"
     ]
   ],
@@ -28,6 +31,7 @@
     "demo-parse-server",
     "demo-subabase-auth",
     "demo-firebase-auth-functions",
-    "demo-firebase-proxy-functions"
+    "demo-firebase-proxy-functions",
+    "demo-moralis-stream"
   ]
 }

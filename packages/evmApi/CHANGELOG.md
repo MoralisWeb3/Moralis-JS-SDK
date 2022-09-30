@@ -1,5 +1,108 @@
 # @moralisweb3/evm-api
 
+## 2.6.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.0
+  - @moralisweb3/api-utils@2.6.0
+  - @moralisweb3/evm-utils@2.6.0
+
+## 2.5.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.8
+  - @moralisweb3/api-utils@2.5.8
+  - @moralisweb3/evm-utils@2.5.8
+
+## 2.5.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.7
+  - @moralisweb3/api-utils@2.5.7
+  - @moralisweb3/evm-utils@2.5.7
+
+## 2.5.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.6
+  - @moralisweb3/api-utils@2.5.6
+  - @moralisweb3/evm-utils@2.5.6
+
+## 2.5.5
+
+### Patch Changes
+
+- [#699](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/699) [`d79800ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d79800ade15a715107de2c7e3e28c4be4c1d7cf6) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix parsing of API error messages, now the MoralisError will show the `message` that is returned from the api.
+
+- Updated dependencies [[`d79800ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d79800ade15a715107de2c7e3e28c4be4c1d7cf6)]:
+  - @moralisweb3/core@2.5.5
+  - @moralisweb3/api-utils@2.5.5
+  - @moralisweb3/evm-utils@2.5.5
+
+## 2.5.4
+
+### Patch Changes
+
+- [#673](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/673) [`62275677`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6227567750e7ed48c6a3442b31cac08855df0538) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Support not defined `contractType` for NFT types.
+
+- Updated dependencies [[`62275677`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6227567750e7ed48c6a3442b31cac08855df0538)]:
+  - @moralisweb3/evm-utils@2.5.4
+  - @moralisweb3/core@2.5.4
+  - @moralisweb3/api-utils@2.5.4
+
+## 2.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.3
+  - @moralisweb3/api-utils@2.5.3
+  - @moralisweb3/evm-utils@2.5.3
+
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.2
+  - @moralisweb3/api-utils@2.5.2
+  - @moralisweb3/evm-utils@2.5.2
+
+## 2.5.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.1
+  - @moralisweb3/api-utils@2.5.1
+  - @moralisweb3/evm-utils@2.5.1
+
+## 2.5.0
+
+### Patch Changes
+
+- Updated dependencies [[`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129)]:
+  - @moralisweb3/core@2.5.0
+  - @moralisweb3/api-utils@2.5.0
+  - @moralisweb3/evm-utils@2.5.0
+
+## 2.4.0
+
+### Patch Changes
+
+- Updated dependencies [[`7fffd1e4`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fffd1e42cc061375539b431150cdb1fe9f3d1d1)]:
+  - @moralisweb3/api-utils@2.4.0
+  - @moralisweb3/core@2.4.0
+  - @moralisweb3/evm-utils@2.4.0
+
 ## 2.3.1
 
 ### Patch Changes

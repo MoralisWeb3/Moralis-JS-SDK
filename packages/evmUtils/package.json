@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.3.1",
+  "version": "2.6.0",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -27,6 +27,6 @@
   "dependencies": {
     "@ethersproject/address": "^5.6.0",
     "@ethersproject/transactions": "^5.6.0",
-    "@moralisweb3/core": "^2.3.1"
+    "@moralisweb3/core": "^2.6.0"
   }
 }

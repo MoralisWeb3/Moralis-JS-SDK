@@ -51,7 +51,7 @@ export interface EvmNftInput {
  */
 export interface EvmNftData {
   tokenId: number | string;
-  contractType: EvmNftContractType;
+  contractType?: EvmNftContractType;
   chain: EvmChain;
   tokenUri?: string;
   tokenAddress: EvmAddress;

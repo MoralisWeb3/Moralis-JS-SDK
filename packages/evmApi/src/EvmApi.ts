@@ -10,7 +10,7 @@ import {
 } from './resolvers/token';
 import { getPairAddress, getPairReserves } from './resolvers/defi';
 import { resolveAddress, resolveDomain } from './resolvers/resolve';
-import { getBlock, getDateToBlock } from './resolvers/native';
+import { getBlock, getDateToBlock } from './resolvers/block';
 import { uploadFolder } from './resolvers/ipfs';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 import { Endpoints } from '@moralisweb3/api-utils';

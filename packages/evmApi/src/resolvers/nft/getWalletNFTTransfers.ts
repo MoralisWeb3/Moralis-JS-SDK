@@ -4,7 +4,8 @@ import { operations } from '../../generated/types';
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';
 
-type operation = 'getNFTTransfers';
+// Old name: getNFTTransfers
+type operation = 'getWalletNFTTransfers';
 
 type QueryParams = operations[operation]['parameters']['query'];
 type PathParams = operations[operation]['parameters']['path'];

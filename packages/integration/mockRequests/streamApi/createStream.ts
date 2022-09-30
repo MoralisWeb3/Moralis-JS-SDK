@@ -15,7 +15,7 @@ export const mockCreateStreamOutput: Record<string, unknown> = {
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
 };
 
-export const mockCreateStream = rest.put(`${STREAM_API_ROOT}/streams`, (req, res, ctx) => {
+export const mockCreateStream = rest.put(`${STREAM_API_ROOT}/streams/evm`, (req, res, ctx) => {
   const apiKey = req.headers.get('x-api-key');
 
   if (apiKey !== MOCK_API_KEY) {

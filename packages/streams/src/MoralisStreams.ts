@@ -1,8 +1,20 @@
-import { createStream, deleteStream, getStreams, readSettings, setSettings, updateStream } from './resolvers';
+import { getSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { makeCreateStream } from './methods/create';
+import { makeUpdateStream } from './methods/update';
+import { makeDeleteStream } from './methods/delete';
+import { makeGetStreams } from './methods/getAll';
+import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
+import { makeAddAddress } from './methods/addAddress';
+import { makeUpdateStreamStatus } from './methods/updateStatus';
+import { parseLog, ParseLogOptions } from './methods/logParser';
+import { getHistory } from './resolvers/history/getHistory';
+import { replayHistory } from './resolvers/history/replayHistory';
+import { makeGetAddresses } from './methods/getAddresses';
+import { makeDeleteAddress } from './methods/deleteAddress';
 
-export const BASE_URL = 'https://streams-api.aws-prod-streams-master-1.moralis.io';
+export const BASE_URL = 'https://api.moralis-streams.com';
 
 export class MoralisStreams extends ApiModule {
   public static readonly moduleName = 'streams';
@@ -25,17 +37,24 @@ export class MoralisStreams extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
-  public readonly add = this.endpoints.createFetcher(createStream);
+  public readonly add = makeCreateStream(this.endpoints);
+  public readonly update = makeUpdateStream(this.endpoints);
+  public readonly delete = makeDeleteStream(this.endpoints);
+  public readonly getAll = makeGetStreams(this.endpoints);
+  public readonly updateStatus = makeUpdateStreamStatus(this.endpoints);
 
-  public readonly update = this.endpoints.createFetcher(updateStream);
+  public readonly addAddress = makeAddAddress(this.endpoints);
+  public readonly getAddresses = makeGetAddresses(this.endpoints);
+  public readonly deleteAddress = makeDeleteAddress(this.endpoints);
 
-  public readonly getAll = this.endpoints.createPaginatedFetcher(getStreams);
-
-  public readonly delete = this.endpoints.createFetcher(deleteStream);
+  public readonly getHistory = this.endpoints.createFetcher(getHistory);
+  public readonly retry = this.endpoints.createFetcher(replayHistory);
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
-
-  private readonly _readSettings = this.endpoints.createFetcher(readSettings);
-
+  private readonly _readSettings = this.endpoints.createFetcher(getSettings);
   public readonly readSettings = () => this._readSettings({});
+
+  public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
+
+  public readonly parsedLogs = <Event>(options: ParseLogOptions) => parseLog<Event>(options);
 }

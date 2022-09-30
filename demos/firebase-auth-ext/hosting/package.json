@@ -1,0 +1,58 @@
+{
+  "name": "demo-firebase-auth-ext-hosting",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@ethersproject/providers": "^5.7.1",
+    "@moralisweb3/client-firebase-auth-utils": "^2.5.5",
+    "@moralisweb3/client-firebase-evm-auth": "^2.5.5",
+    "@moralisweb3/client-firebase-sol-auth": "^2.5.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.58",
+    "@types/react": "^18.0.19",
+    "@types/react-dom": "^18.0.6",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "firebase": "^9.10.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.8.3",
+    "web-vitals": "^2.1.4",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "util": "^0.12.4",
+    "stream-browserify": "^3.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "react-app-rewired": "^2.2.1",
+    "@moralisweb3/eslint-config": "^1.0.0",
+    "eslint-plugin-etc": "^2.0.2"
+  },
+  "scripts": {
+    "lint": "eslint --ext .js,.ts ./src",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-app-rewired build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

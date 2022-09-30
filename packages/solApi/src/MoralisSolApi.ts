@@ -6,6 +6,7 @@ import { getNFTs } from './resolvers/account/getNFTs';
 import { getPortfolio } from './resolvers/account/getPortfolio';
 import { getSPL } from './resolvers/account/getSPL';
 import { getNFTMetadata } from './resolvers/nft/getNFTMetadata';
+import { getTokenPrice } from './resolvers/token/getTokenPrice';
 
 const BASE_URL = 'https://solana-gateway.moralis.io';
 
@@ -51,5 +52,9 @@ export class MoralisSolApi extends ApiModule {
   public readonly nft = {
     /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
     getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
+  };
+
+  public readonly token = {
+    getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
   };
 }

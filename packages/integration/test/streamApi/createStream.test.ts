@@ -20,6 +20,7 @@ describe('Create stream', () => {
       description: 'test',
       type: 'wallet',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+      network: 'evm',
     });
 
     expect(result).toBeDefined();
@@ -36,6 +37,7 @@ describe('Create stream', () => {
       description: 'test',
       type: 'wallet',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+      network: 'evm',
     })
       .then()
       .catch((err: any) => {
@@ -51,6 +53,7 @@ describe('Create stream', () => {
         description: 'test',
         type: 'wallet',
         webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+        network: 'evm',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`,

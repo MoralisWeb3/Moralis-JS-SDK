@@ -15,7 +15,7 @@ export const mockDeleteStreamOutput: Record<string, unknown> = {
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
 };
 
-export const mockDeleteStream = rest.delete(`${STREAM_API_ROOT}/streams/:id`, (req, res, ctx) => {
+export const mockDeleteStream = rest.delete(`${STREAM_API_ROOT}/streams/evm/:id`, (req, res, ctx) => {
   const id = req.params.id as string;
   const apiKey = req.headers.get('x-api-key');
 

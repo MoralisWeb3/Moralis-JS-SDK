@@ -14,7 +14,6 @@ describe('Set settings', () => {
 
   it('should set stream settings ', async () => {
     const result = await StreamApi.setSettings({
-      secretKey: 'a_top_secret',
       region: 'us-east-1',
     });
 
