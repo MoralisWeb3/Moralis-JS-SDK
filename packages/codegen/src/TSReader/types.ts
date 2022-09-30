@@ -1,4 +1,4 @@
-export interface IParseApiModule {
+export interface ParseApiModuleParams {
   path: string;
   whitelist: string[];
   className: string;

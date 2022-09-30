@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import ts from 'typescript';
-import type { IParseApiModule, SDKMethodParsed } from './types';
+import type { ParseApiModuleParams, SDKMethodParsed } from './types';
 import { parseSDKMethod } from './utils/parsers';
 import { isDeprecated, getPropertiesOfSymbol, isMethodBlacklisted } from './utils/utils';
 
-const parseApiModule = ({ path, whitelist, className }: IParseApiModule, blacklistedMethods?: string[]) => {
+const parseApiModule = ({ path, whitelist, className }: ParseApiModuleParams, blacklistedMethods?: string[]) => {
   const program = ts.createProgram([path], { emitDeclarationOnly: true });
   const sourceFile = program.getSourceFile(path);
 

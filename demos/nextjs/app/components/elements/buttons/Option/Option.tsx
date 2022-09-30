@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import styles from './Option.module.css';
 
 export interface IOption {
   name: string;
   logoPath: string;
-  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onClick: MouseEventHandler<HTMLDivElement>;
   disabled?: boolean;
 }
 

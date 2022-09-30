@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export interface IMoralisNextHandler {
+export interface MoralisNextHandlerParams {
   req: NextApiRequest;
   res: NextApiResponse;
 }

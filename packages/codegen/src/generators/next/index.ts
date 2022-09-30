@@ -3,7 +3,7 @@ import { Actions } from 'node-plop';
 import { apiModuleConfigs, blacklistedMethods, removeFromHookName } from './utils/constants';
 import { fileURLToPath } from 'node:url';
 import { getHookName, getApiUrl, getFolderUrlPathForHook, getSplittedSDKPath } from './utils/namings';
-import { IParseApiModule, ParsedType } from '../../TSReader/types';
+import { ParseApiModuleParams, ParsedType } from '../../TSReader/types';
 import { NodePlopAPI } from 'plop';
 import { parseApiModule } from '../../TSReader';
 import Handlebars from 'handlebars';
@@ -12,7 +12,7 @@ import path from 'node:path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../..');
 
-const parseApiModules = (configs: IParseApiModule[]) =>
+const parseApiModules = (configs: ParseApiModuleParams[]) =>
   _.flatten(configs.map((config) => parseApiModule(config, blacklistedMethods)));
 
 export default function NextGenerator(plop: NodePlopAPI) {
