@@ -15,7 +15,18 @@ describe('addAddress', () => {
   describe('evm', () => {
     it('should create an address succesfully ', async () => {
       const result = await StreamApi.addAddress({
-        network: 'evm',
+        networkType: 'evm',
+        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+        id: 'VALID_RESPONSE',
+      });
+
+      expect(result).toBeDefined();
+      expect(result.toJSON().address).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
+      expect(result.result.streamId).toEqual('VALID_RESPONSE');
+    });
+
+    it('should default to evm networkType', async () => {
+      const result = await StreamApi.addAddress({
         address: '0x295522b61890c3672d12efbff4358a6411ce996f',
         id: 'VALID_RESPONSE',
       });
@@ -27,7 +38,7 @@ describe('addAddress', () => {
 
     it('should create multiple addresses succesfully ', async () => {
       const result = await StreamApi.addAddress({
-        network: 'evm',
+        networkType: 'evm',
         address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
         id: 'MULTIPLE_ADDRESSES',
       });
@@ -43,7 +54,7 @@ describe('addAddress', () => {
     it('should throw a 400 Error on invalid address ', async () => {
       expect(
         StreamApi.addAddress({
-          network: 'evm',
+          networkType: 'evm',
           address: 'some-address',
           id: 'INVALID_ADDRESS',
         }),
@@ -53,7 +64,7 @@ describe('addAddress', () => {
     it('should throw a 404 Error on invalid streamId ', async () => {
       expect(
         StreamApi.addAddress({
-          network: 'evm',
+          networkType: 'evm',
           address: '0x295522b61890c3672d12efbff4358a6411ce996f',
           id: 'STREAM_NOT_FOUND',
         }),

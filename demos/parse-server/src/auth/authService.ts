@@ -23,26 +23,34 @@ const TIMEOUT = 15;
 export async function requestMessage({
   address,
   chain,
-  network,
+  networkType,
 }: {
   address: string;
   chain?: string;
-  network: 'evm' | 'solana';
+  networkType: 'evm' | 'solana';
 }) {
-  if (network === 'evm' && chain) {
-    return requestMessageEvm({ address, chain, network });
+  if (networkType === 'evm' && chain) {
+    return requestMessageEvm({ address, chain, networkType });
   }
-  if (network === 'solana') {
-    return requestMessageSol({ address, network });
+  if (networkType === 'solana') {
+    return requestMessageSol({ address, networkType });
   }
   throw new Error('Invalid network');
 }
 
-async function requestMessageEvm({ address, chain, network }: { address: string; chain: string; network: 'evm' }) {
+async function requestMessageEvm({
+  address,
+  chain,
+  networkType,
+}: {
+  address: string;
+  chain: string;
+  networkType: 'evm';
+}) {
   const result = await Moralis.Auth.requestMessage({
     address,
     chain,
-    network,
+    networkType,
     domain: DOMAIN,
     statement: STATEMENT,
     uri: URI,
@@ -56,10 +64,10 @@ async function requestMessageEvm({ address, chain, network }: { address: string;
   return message;
 }
 
-async function requestMessageSol({ address, network }: { address: string; network: 'solana' }) {
+async function requestMessageSol({ address, networkType }: { address: string; networkType: 'solana' }) {
   const result = await Moralis.Auth.requestMessage({
     address,
-    network,
+    networkType,
     solNetwork: 'devnet',
     domain: DOMAIN,
     statement: STATEMENT,

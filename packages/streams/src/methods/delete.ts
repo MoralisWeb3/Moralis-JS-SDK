@@ -4,7 +4,7 @@ import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
 export interface DeleteStreamEvmOptions extends DeleteStreamEvmParams {
-  network: 'evm';
+  networkType?: 'evm';
 }
 
 export type DeleteStreamOptions = DeleteStreamEvmOptions;
@@ -12,12 +12,15 @@ export type DeleteStreamOptions = DeleteStreamEvmOptions;
 export const makeDeleteStream = (endpoints: Endpoints) => {
   const evmFetcher = endpoints.createFetcher(deleteStreamEvm);
 
-  return ({ network, ...options }: DeleteStreamOptions) => {
-    switch (network) {
+  return ({ networkType, ...options }: DeleteStreamOptions) => {
+    switch (networkType) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });
       default:
-        throw new IncorrectNetworkError(network);
+        if (networkType === undefined) {
+          return evmFetcher({ ...options });
+        }
+        throw new IncorrectNetworkError(networkType);
     }
   };
 };

@@ -32,6 +32,14 @@ describe('EvmChain', () => {
     expect(chain.apiHex).toBe('0x2d');
   });
 
+  it('should create a new EvmChain based on a decimal-string', () => {
+    const chain = EvmChain.create('45');
+
+    expect(chain.format()).toBe('0x2d');
+    expect(chain.decimal).toBe(45);
+    expect(chain.apiHex).toBe('0x2d');
+  });
+
   it('should throw an error when creating a chain with unknown name', () => {
     expect(() => EvmChain.create('bitcoin')).toThrowErrorMatchingInlineSnapshot(
       `"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`,
@@ -51,7 +59,7 @@ describe('EvmChain', () => {
 
   it('should throw an error when creating 0', () => {
     expect(() => EvmChain.create(0)).toThrowErrorMatchingInlineSnapshot(
-      `"[C0005] Invalid provided chain, value must be a positive number, chain-name or a hex-string starting with '0x'"`,
+      `"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`,
     );
   });
 

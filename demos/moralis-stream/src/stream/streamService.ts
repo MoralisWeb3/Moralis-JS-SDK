@@ -1,7 +1,7 @@
 import Moralis from 'moralis';
 
 interface StreamOptions {
-  network: 'evm';
+  networkType: 'evm';
   webhookUrl: string;
 }
 
@@ -10,9 +10,9 @@ const TAG = 'transactions';
 const CHAINIDS = ['0x3', '0x4'];
 
 export async function addStream(options: StreamOptions) {
-  const { network, webhookUrl } = options;
+  const { networkType, webhookUrl } = options;
   const result = await Moralis.Streams.add({
-    network,
+    networkType,
     webhookUrl,
     chains: CHAINIDS,
     tag: TAG,
@@ -26,7 +26,7 @@ export async function addStream(options: StreamOptions) {
 export async function getStreams() {
   const result = await Moralis.Streams.getAll({
     limit: 20,
-    network: 'evm',
+    networkType: 'evm',
   });
 
   return result.raw;
@@ -35,17 +35,17 @@ export async function getStreams() {
 export async function deleteStream(id: string) {
   const result = await Moralis.Streams.delete({
     id,
-    network: 'evm',
+    networkType: 'evm',
   });
 
   return result.raw;
 }
 
 export async function updateStream(id: string, options: StreamOptions) {
-  const { network, webhookUrl } = options;
+  const { networkType, webhookUrl } = options;
   const result = await Moralis.Streams.update({
     id,
-    network,
+    networkType,
     webhookUrl,
     chains: CHAINIDS,
     tag: TAG,
