@@ -11,6 +11,7 @@ These rules are based on community standards and inspired by the airbnb and goog
 ```sh
 npm install @moralisweb3/eslint-config \
             @typescript-eslint/eslint-plugin@^5.13.0 \
+            @eslint-plugin-etc@^2.0.2 \
             @typescript-eslint/parser@^5.0.0 \
             --save-dev
 ```
@@ -19,6 +20,7 @@ or
 ```sh
 yarn add @moralisweb3/eslint-config \
          @typescript-eslint/eslint-plugin@^5.13.0 \
+         @eslint-plugin-etc@^2.0.2 \
          @typescript-eslint/parser@^5.0.0 \
          -D
 ```
