@@ -17,18 +17,18 @@ const handleApiPost = async (endpoint, params) => {
   return result.data;
 };
 
-const requestMessage = (account, network, chain) =>
+const requestMessage = (account, networkType, chain) =>
   handleApiPost('request-message', {
     address: account,
     chain,
-    network,
+    networkType,
   });
 
-const verifyMessage = (message, signature, network) =>
+const verifyMessage = (message, signature, networkType) =>
   handleApiPost('sign-message', {
     message,
     signature,
-    network,
+    networkType,
   });
 
 const connectToMetamask = async () => {

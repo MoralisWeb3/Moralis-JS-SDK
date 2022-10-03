@@ -1,3 +1,4 @@
+/* global document, window, axios, supabase, ethers */
 const AUTH_API_URL = 'http://localhost:3000/api/auth';
 const SUPABASE_URL = 'replace_me';
 const SUPABASE_PUBLIC_ANON_KEY = 'replace_me';
@@ -24,19 +25,19 @@ let token;
 const requestMessage = (account, chain) =>
   handleApiPost('request-message', {
     address: account,
-    chain: chain,
-    network: 'evm',
+    chain,
+    networkType: 'evm',
   });
 
 const verifyMessage = (message, signature) =>
   handleApiPost('sign-message', {
     message,
     signature,
-    network: 'evm',
+    networkType: 'evm',
   });
 
-const getUser = async (token) => {
-  _supabase.auth.setAuth(token);
+const getUser = async (providedToken) => {
+  _supabase.auth.setAuth(providedToken);
   const { data } = await _supabase.from('users').select('*');
   renderUser(data);
 };

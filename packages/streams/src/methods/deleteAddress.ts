@@ -4,7 +4,7 @@ import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
 export interface DeleteAddressEvmOptions extends DeleteAddressEvmParams {
-  network: 'evm';
+  networkType?: 'evm';
 }
 
 export type DeleteAddressOptions = DeleteAddressEvmOptions;
@@ -12,12 +12,15 @@ export type DeleteAddressOptions = DeleteAddressEvmOptions;
 export const makeDeleteAddress = (endpoints: Endpoints) => {
   const evmFetcher = endpoints.createFetcher(deleteAddressEvm);
 
-  return ({ network, ...options }: DeleteAddressOptions) => {
-    switch (network) {
+  return ({ networkType, ...options }: DeleteAddressOptions) => {
+    switch (networkType) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });
       default:
-        throw new IncorrectNetworkError(network);
+        if (networkType === undefined) {
+          return evmFetcher({ ...options });
+        }
+        throw new IncorrectNetworkError(networkType);
     }
   };
 };

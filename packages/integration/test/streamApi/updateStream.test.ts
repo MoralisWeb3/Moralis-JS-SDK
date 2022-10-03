@@ -19,7 +19,21 @@ describe('Update stream', () => {
       description: 'test',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
       id: 'VALID_REQUEST',
-      network: 'evm',
+      networkType: 'evm',
+    });
+
+    expect(result).toBeDefined();
+    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.result.chainIds).toContain('0x3');
+  });
+
+  it('should default to evm networkType', async () => {
+    const result = await StreamApi.update({
+      chains: ['0x3'],
+      tag: 'test',
+      description: 'test',
+      webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+      id: 'VALID_REQUEST',
     });
 
     expect(result).toBeDefined();
@@ -34,7 +48,7 @@ describe('Update stream', () => {
       description: 'test',
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
       id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-      network: 'evm',
+      networkType: 'evm',
     })
       .then()
       .catch((err: any) => {
@@ -49,7 +63,7 @@ describe('Update stream', () => {
         description: 'test',
         webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        network: 'evm',
+        networkType: 'evm',
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`,

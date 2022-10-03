@@ -1,3 +1,4 @@
+/* global document, window, axios*/
 const STREAM_API_URL = 'http://localhost:3000/stream';
 const HOOK_API_URL = 'http://localhost:3000/hooks';
 
@@ -37,11 +38,11 @@ const handleEventsRequest = async (method, endpoint, data, params) => {
 };
 
 const addStream = async (webhookUrl) => {
-  const result = await handleApiRequest('post', 'create', { webhookUrl, network: 'evm' });
+  const result = await handleApiRequest('post', 'create', { webhookUrl });
   renderResult(result);
 };
 const updateStream = async (webhookUrl, id) => {
-  const result = await handleApiRequest('patch', `update/${id}`, { webhookUrl, network: 'evm' });
+  const result = await handleApiRequest('patch', `update/${id}`, { webhookUrl });
   renderResult(result);
 };
 const getStreams = async () => {
