@@ -15,7 +15,18 @@ describe('deleteAddress', () => {
   describe('evm', () => {
     it('should delete an address succesfully ', async () => {
       const result = await StreamApi.deleteAddress({
-        network: 'evm',
+        networkType: 'evm',
+        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
+        id: 'VALID_RESPONSE',
+      });
+
+      expect(result).toBeDefined();
+      expect(result.toJSON().address).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
+      expect(result.result.streamId).toEqual('VALID_RESPONSE');
+    });
+
+    it('should default to evm networkType', async () => {
+      const result = await StreamApi.deleteAddress({
         address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
         id: 'VALID_RESPONSE',
       });
@@ -28,7 +39,7 @@ describe('deleteAddress', () => {
     it('should throw a 400 Error on invalid address ', async () => {
       expect(
         StreamApi.deleteAddress({
-          network: 'evm',
+          networkType: 'evm',
           address: 'some-address',
           id: 'INVALID_ADDRESS',
         }),
@@ -38,7 +49,7 @@ describe('deleteAddress', () => {
     it('should throw a 404 Error on unknown address ', async () => {
       expect(
         StreamApi.deleteAddress({
-          network: 'evm',
+          networkType: 'evm',
           address: 'some-address',
           id: 'ADDRESS_NOT_FOUND',
         }),
@@ -48,7 +59,7 @@ describe('deleteAddress', () => {
     it('should throw a 404 Error on invalid streamId ', async () => {
       expect(
         StreamApi.deleteAddress({
-          network: 'evm',
+          networkType: 'evm',
           address: '0x295522b61890c3672d12efbff4358a6411ce996f',
           id: 'STREAM_NOT_FOUND',
         }),

@@ -4,7 +4,7 @@ import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
 export interface GetAddressesEvmOptions extends GetAddressesEvmParams {
-  network: 'evm';
+  networkType?: 'evm';
 }
 
 export type GetAddressesOptions = GetAddressesEvmOptions;
@@ -12,12 +12,15 @@ export type GetAddressesOptions = GetAddressesEvmOptions;
 export const makeGetAddresses = (endpoints: Endpoints) => {
   const evmFetcher = endpoints.createPaginatedFetcher(getAddressesEvm);
 
-  return ({ network, ...options }: GetAddressesOptions) => {
-    switch (network) {
+  return ({ networkType, ...options }: GetAddressesOptions) => {
+    switch (networkType) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });
       default:
-        throw new IncorrectNetworkError(network);
+        if (networkType === undefined) {
+          return evmFetcher({ ...options });
+        }
+        throw new IncorrectNetworkError(networkType);
     }
   };
 };

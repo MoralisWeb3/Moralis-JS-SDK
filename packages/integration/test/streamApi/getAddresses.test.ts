@@ -15,7 +15,18 @@ describe('getAddresses', () => {
   describe('evm', () => {
     it('should return an array with no results succesfully ', async () => {
       const result = await StreamApi.getAddresses({
-        network: 'evm',
+        networkType: 'evm',
+        id: 'VALID_RESPONSE_0',
+      });
+
+      expect(result.result).toBeDefined();
+      expect(result.pagination.total).toEqual(0);
+      expect(result.result.length).toEqual(0);
+      expect(result.toJSON()).toStrictEqual([]);
+    });
+
+    it('should default to evm networkType', async () => {
+      const result = await StreamApi.getAddresses({
         id: 'VALID_RESPONSE_0',
       });
 
@@ -27,7 +38,7 @@ describe('getAddresses', () => {
 
     it('should return an array with 1 result succesfully ', async () => {
       const result = await StreamApi.getAddresses({
-        network: 'evm',
+        networkType: 'evm',
         id: 'VALID_RESPONSE_1',
       });
 
@@ -43,7 +54,7 @@ describe('getAddresses', () => {
 
     it('should return an array with 2 results succesfully ', async () => {
       const result = await StreamApi.getAddresses({
-        network: 'evm',
+        networkType: 'evm',
         id: 'VALID_RESPONSE_2',
       });
 
@@ -59,7 +70,7 @@ describe('getAddresses', () => {
 
     it('should return a cursor on paginated results ', async () => {
       const result = await StreamApi.getAddresses({
-        network: 'evm',
+        networkType: 'evm',
         id: 'VALID_RESPONSE_CURSOR',
       });
 
@@ -74,7 +85,7 @@ describe('getAddresses', () => {
     it('should throw a 404 Error on invalid streamId ', async () => {
       expect(
         StreamApi.getAddresses({
-          network: 'evm',
+          networkType: 'evm',
           id: 'STREAM_NOT_FOUND',
         }),
       ).rejects.toThrowError('[C0006] Request failed, Not Found(404): Stream not found');

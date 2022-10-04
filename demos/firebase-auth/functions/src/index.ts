@@ -31,7 +31,7 @@ export const requestMessage = functions.https.onCall(async (data: RequestMessage
 
   const response = await Moralis.Auth.requestMessage({
     chain: EvmChain.create(data.chain),
-    network: 'evm',
+    networkType: 'evm',
     timeout: 15,
     domain: 'mydomain.com',
     uri: 'https://mydomain.com/my-uri',
@@ -53,7 +53,7 @@ interface IssueTokenData {
 export const issueToken = functions.https.onCall(async (data: IssueTokenData) => {
   const response = await Moralis.Auth.verify({
     message: data.message,
-    network: 'evm',
+    networkType: 'evm',
     signature: data.signature,
   });
   const uid = response.result.profileId;
