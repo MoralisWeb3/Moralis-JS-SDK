@@ -39,6 +39,33 @@ describe('Create stream', () => {
     expect(result.result.chainIds).toContain('0x3');
   });
 
+  it('should create a stream with advanced options', async () => {
+    const result = await StreamApi.add({
+      chains: ['0x3'],
+      tag: 'test',
+      description: 'test',
+      webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+      networkType: 'evm',
+      advancedOptions: [
+        {
+          topic0: 'SomeEvent(address,uint256)',
+          filter: { eq: ['myCoolTopic', '0x0000000000000000000000000000000000000000'] },
+          includeNativeTxs: true,
+        },
+      ],
+      abi: [],
+      allAddresses: true,
+      includeContractLogs: true,
+      includeInternalTxs: true,
+      includeNativeTxs: true,
+      topic0: ['SomeEvent(address,uint256)'],
+    });
+
+    expect(result).toBeDefined();
+    expect(result).toEqual(expect.objectContaining({}));
+    expect(result.result.chainIds).toContain('0x3');
+  });
+
   it('should not create stream', async () => {
     const failedResult = await StreamApi.add({
       chains: ['0x3'],

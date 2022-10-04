@@ -20,8 +20,8 @@ const bodyParams = [
   'includeContractLogs',
   'includeInternalTxs',
   'abi',
-  'filter',
   'chainIds',
+  'advancedOptions',
 ] as const;
 
 export interface UpdateStreamEvmParams extends Camelize<Omit<ApiParams, 'chainIds'>> {
