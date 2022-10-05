@@ -1,5 +1,14 @@
 # @moralisweb3/evm-api
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.3
+  - @moralisweb3/api-utils@2.6.3
+  - @moralisweb3/evm-utils@2.6.3
+
 ## 2.6.2
 
 ### Patch Changes
