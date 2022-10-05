@@ -122,6 +122,10 @@ export interface components {
     StateMutabilityType: "pure" | "view" | "nonpayable" | "payable";
     /** @enum {string} */
     AbiType: "function" | "constructor" | "event" | "fallback";
+    /**
+     * @description The abi to parse the log object of the contract
+     * @example {}
+     */
     AbiItem: {
       anonymous?: boolean;
       constant?: boolean;
@@ -134,7 +138,7 @@ export interface components {
       /** Format: double */
       gas?: number;
     };
-    IAbi: { [key: string]: components["schemas"]["AbiItem"] };
+    IAbi: { [key: string]: components["schemas"]["AbiItem"][] };
     IERC20Transfer: {
       transactionHash: string;
       contract: string;
@@ -290,16 +294,17 @@ export interface components {
      */
     StreamsStatus: "active" | "paused" | "error";
     /**
-     * @description The abi to parse the log object of the contract
-     * @example {}
-     */
-    StreamsAbi: { [key: string]: unknown };
-    /**
      * @description The filter object, optional and only used if the type : log
      * https://v1docs.moralis.io/moralis-dapp/automatic-transaction-sync/smart-contract-events#event-filters
      * @example {}
      */
     StreamsFilter: { [key: string]: unknown };
+    /** @description Advanced Options for each specific topic */
+    advancedOptions: {
+      topic0: string;
+      filter?: components["schemas"]["StreamsFilter"];
+      includeNativeTxs?: boolean;
+    };
     StreamsModel: {
       /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl: string;
@@ -317,16 +322,16 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description The unique uuid of the stream */
-      id?: components["schemas"]["UUID"];
+      id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
-      status?: components["schemas"]["StreamsStatus"];
+      status: components["schemas"]["StreamsStatus"];
       /** @description Description of current status of stream. */
-      statusMessage?: string;
+      statusMessage: string;
     };
     "streamsTypes.StreamsResponse": {
       /** @description Array of project Streams */
@@ -356,16 +361,16 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description The unique uuid of the stream */
-      id?: components["schemas"]["UUID"];
+      id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
-      status?: components["schemas"]["StreamsStatus"];
+      status: components["schemas"]["StreamsStatus"];
       /** @description Description of current status of stream. */
-      statusMessage?: string;
+      statusMessage: string;
     };
     "streamsTypes.StreamsModelCreate": {
       /** @description Webhook URL where moralis will send the POST request. */
@@ -384,8 +389,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
     };
@@ -413,8 +418,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds?: string[];
     };
@@ -478,6 +483,7 @@ export interface operations {
       query: {
         limit: number;
         cursor?: string;
+        excludePayload?: boolean;
       };
     };
     responses: {

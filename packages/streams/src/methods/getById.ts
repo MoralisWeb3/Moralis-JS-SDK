@@ -3,16 +3,16 @@ import { getStreamEvm, GetStreamEvmParams } from '../resolvers';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface GetStreamsEvmOptions extends GetStreamEvmParams {
+export interface GetStreamEvmOptions extends GetStreamEvmParams {
   network: 'evm';
 }
 
-export type GetStreamsOptions = GetStreamsEvmOptions;
+export type GetStreamOptions = GetStreamEvmOptions;
 
 export const makeGetStreamById = (endpoints: Endpoints) => {
   const evmFetcher = endpoints.createFetcher(getStreamEvm);
 
-  return ({ network, ...options }: GetStreamsOptions) => {
+  return ({ network, ...options }: GetStreamOptions) => {
     switch (network) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });

@@ -6,6 +6,7 @@ const name = 'SetSettings';
 type Name = typeof name;
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
 type ApiParams = BodyParams;
+export type SetSettingsParams = BodyParams;
 const method = 'post';
 const bodyParams = ['region'] as const;
 
@@ -17,7 +18,7 @@ export const setSettings = createEndpointFactory(() =>
       success: true,
     }),
     resultToJson: (data) => data,
-    parseParams: (params: ApiParams): ApiParams => params,
+    parseParams: (params: SetSettingsParams): ApiParams => params,
     method,
     bodyParams,
   }),
