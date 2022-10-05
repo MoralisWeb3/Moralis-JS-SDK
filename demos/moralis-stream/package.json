@@ -4,18 +4,18 @@
   "main": "dist/index.js",
   "private": true,
   "dependencies": {
-    "@moralisweb3/core": "^2.6.0",
+    "@moralisweb3/core": "^2.6.3",
     "dotenv": "^16.0.1",
     "envalid": "7.3.1",
     "express": "^4.18.1",
-    "moralis": "^2.6.0",
+    "moralis": "^2.6.3",
     "ngrok": "^4.3.3",
     "redis": "^4.2.0",
     "web3-utils": "^1.7.5",
     "cors": "^2.8.5"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^1.0.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",

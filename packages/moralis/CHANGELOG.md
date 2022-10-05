@@ -1,5 +1,47 @@
 # moralis
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies [[`cfd23005`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cfd23005bc5a5c199e78660b32decfd25ebd98cb)]:
+  - @moralisweb3/streams@2.6.3
+  - @moralisweb3/core@2.6.3
+  - @moralisweb3/auth@2.6.3
+  - @moralisweb3/api-utils@2.6.3
+  - @moralisweb3/evm-utils@2.6.3
+  - @moralisweb3/sol-utils@2.6.3
+  - @moralisweb3/evm-api@2.6.3
+  - @moralisweb3/sol-api@2.6.3
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies [[`ed6dfb2e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ed6dfb2ef7adc9c58e745f8936b407d07e660be9), [`21ab43be`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/21ab43be6f5159eb02cadb2fbeddd2e47f494597), [`68c8057a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/68c8057a10bec941d3e5dcc4dac376a634554905)]:
+  - @moralisweb3/streams@2.6.2
+  - @moralisweb3/core@2.6.2
+  - @moralisweb3/auth@2.6.2
+  - @moralisweb3/api-utils@2.6.2
+  - @moralisweb3/evm-utils@2.6.2
+  - @moralisweb3/sol-utils@2.6.2
+  - @moralisweb3/evm-api@2.6.2
+  - @moralisweb3/sol-api@2.6.2
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies [[`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502), [`e5fb3d6c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e5fb3d6ce02b865bf9edb7690a912c98ccc382c4), [`f3cd2b5c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3cd2b5c496e8f7b96110741ea8442816ed0dad1), [`42893723`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4289372344cda30f9af57982e4fbcad28308e0f8), [`f3cd2b5c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3cd2b5c496e8f7b96110741ea8442816ed0dad1), [`36a4096d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/36a4096d0751d7faf81f81433050cfcdce447619)]:
+  - @moralisweb3/evm-utils@2.6.1
+  - @moralisweb3/sol-utils@2.6.1
+  - @moralisweb3/evm-api@2.6.1
+  - @moralisweb3/streams@2.6.1
+  - @moralisweb3/auth@2.6.1
+  - @moralisweb3/core@2.6.1
+  - @moralisweb3/api-utils@2.6.1
+  - @moralisweb3/sol-api@2.6.1
+
 ## 2.6.0
 
 ### Patch Changes

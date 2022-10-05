@@ -1,5 +1,32 @@
 # @moralisweb3/sol-api
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.3
+  - @moralisweb3/api-utils@2.6.3
+  - @moralisweb3/sol-utils@2.6.3
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.2
+  - @moralisweb3/api-utils@2.6.2
+  - @moralisweb3/sol-utils@2.6.2
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies [[`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502)]:
+  - @moralisweb3/sol-utils@2.6.1
+  - @moralisweb3/core@2.6.1
+  - @moralisweb3/api-utils@2.6.1
+
 ## 2.6.0
 
 ### Patch Changes

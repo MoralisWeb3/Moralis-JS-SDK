@@ -1,5 +1,28 @@
 # @moralisweb3/sol-utils
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.3
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.2
+
+## 2.6.1
+
+### Patch Changes
+
+- [#716](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/716) [`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502) Thanks [@ErnoW](https://github.com/ErnoW)! - Deprecate old testnets and add enums for SolNetwork
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.1
+
 ## 2.6.0
 
 ### Patch Changes

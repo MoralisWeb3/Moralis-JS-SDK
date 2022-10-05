@@ -1,5 +1,30 @@
 # @moralisweb3/evm-utils
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.3
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.2
+
+## 2.6.1
+
+### Patch Changes
+
+- [#716](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/716) [`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502) Thanks [@ErnoW](https://github.com/ErnoW)! - Deprecate old testnets and add enums for SolNetwork
+
+* [#714](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/714) [`42893723`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4289372344cda30f9af57982e4fbcad28308e0f8) Thanks [@ErnoW](https://github.com/ErnoW)! - Rename `network` param to `networkType` for `Moralis.Streams` and `Moralis.Auth`, to communicate more clearly the purpose of this param. Also make this value optional and default to `"evm"`
+
+* Updated dependencies []:
+  - @moralisweb3/core@2.6.1
+
 ## 2.6.0
 
 ### Patch Changes

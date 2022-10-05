@@ -18,9 +18,9 @@ const bodyParams = [
   'includeNativeTxs',
   'includeContractLogs',
   'includeInternalTxs',
-  'filter',
   'chainIds',
   'abi',
+  'advancedOptions',
 ] as const;
 
 export interface CreateStreamEvmParams extends Camelize<Omit<ApiParams, 'chainIds'>> {

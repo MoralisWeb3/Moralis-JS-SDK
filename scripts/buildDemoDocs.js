@@ -232,7 +232,7 @@ const generateDemoMarkdown = (demoData, readme) => {
 /**
  * Create all markdown files for the demos in the docs folder
  */
-createMarkdownFiles = async (demosData, readmeData) => {
+const createMarkdownFiles = async (demosData, readmeData) => {
   await Promise.all(
     demosData.map(async (demoData) => {
       const markdown = generateDemoMarkdown(demoData, readmeData[demoData.name]);
@@ -244,10 +244,19 @@ createMarkdownFiles = async (demosData, readmeData) => {
 };
 
 /**
+ * Get all demo folders
+ */
+const getAllDemoFolders = async () =>
+  fs
+    .readdirSync(demoFolderPath, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+/**
  * Run all the code
  */
 const run = async () => {
-  const demoFolders = await fs.readdirSync(demoFolderPath);
+  const demoFolders = await getAllDemoFolders();
 
   await ensureAllCleanOutputDir(demoFolders);
   await copyAllDemosToDocs(demoFolders);

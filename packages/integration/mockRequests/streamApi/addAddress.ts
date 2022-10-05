@@ -30,7 +30,7 @@ const AddAddressResponse: Record<string, { data: any; status: number }> = {
   },
 };
 
-export const mockAddAddressEvm = rest.put(`${STREAM_API_ROOT}/streams/evm/:id/address`, (req, res, ctx) => {
+export const mockAddAddressEvm = rest.post(`${STREAM_API_ROOT}/streams/evm/:id/address`, (req, res, ctx) => {
   const apiKey = req.headers.get('x-api-key');
   const id = req.params.id as string;
 

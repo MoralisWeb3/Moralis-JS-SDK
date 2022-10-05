@@ -11,7 +11,7 @@ type BodyParams = operations[Name]['requestBody']['content']['application/json']
 // Overwriting "address: string | string[]" because the generator cannot infer the type correctly from swagger
 type ApiParams = Omit<PathParams & BodyParams, 'address'> & { address: string | string[] };
 export type AddAddressEvmParams = ApiParams;
-const method = 'put';
+const method = 'post';
 const bodyParams = ['address'] as const;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];

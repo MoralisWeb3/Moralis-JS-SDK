@@ -7,14 +7,14 @@ type Name = typeof name;
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 type PathParams = operations[Name]['parameters']['path'];
 type ApiParams = PathParams;
-type Params = ApiParams;
+export type ReplayHistoryParams = ApiParams;
 
 export const replayHistory = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (id: Params) => `/history/replay/${id}`,
+    getUrl: (id: ReplayHistoryParams) => `/history/replay/${id}`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
-    parseParams: (params: Params): ApiParams => params,
+    parseParams: (params: ReplayHistoryParams): ApiParams => params,
   }),
 );
