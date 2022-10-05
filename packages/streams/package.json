@@ -34,7 +34,7 @@
     "@moralisweb3/api-utils": "^2.6.1",
     "@moralisweb3/core": "^2.6.1",
     "@moralisweb3/evm-utils": "^2.6.1",
-    "@moralisweb3/streams-typings": "^1.0.2",
+    "@moralisweb3/streams-typings": "^1.0.3",
     "ethereumjs-util": "^7.1.0",
     "web3-eth-abi": "^1.8.0"
   }
