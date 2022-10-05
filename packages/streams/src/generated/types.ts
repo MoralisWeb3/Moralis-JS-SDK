@@ -122,6 +122,10 @@ export interface components {
     StateMutabilityType: "pure" | "view" | "nonpayable" | "payable";
     /** @enum {string} */
     AbiType: "function" | "constructor" | "event" | "fallback";
+    /**
+     * @description The abi to parse the log object of the contract
+     * @example {}
+     */
     AbiItem: {
       anonymous?: boolean;
       constant?: boolean;
@@ -290,11 +294,6 @@ export interface components {
      */
     StreamsStatus: "active" | "paused" | "error";
     /**
-     * @description The abi to parse the log object of the contract
-     * @example {}
-     */
-    StreamsAbi: { [key: string]: unknown };
-    /**
      * @description The filter object, optional and only used if the type : log
      * https://v1docs.moralis.io/moralis-dapp/automatic-transaction-sync/smart-contract-events#event-filters
      * @example {}
@@ -323,7 +322,7 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"][] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
@@ -362,7 +361,7 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"][] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
@@ -390,7 +389,7 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"][] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
@@ -419,7 +418,7 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"][] | null;
+      abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds?: string[];
