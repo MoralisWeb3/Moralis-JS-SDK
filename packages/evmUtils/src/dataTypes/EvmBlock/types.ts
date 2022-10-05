@@ -32,8 +32,6 @@ export interface EvmSimpleBlockData {
   chain: EvmChain;
 }
 
-
-
 /**
  * This can be any object with valid block data.
  * @example
@@ -63,7 +61,7 @@ export interface EvmSimpleBlockData {
  *  }
  * ```
  */
-export interface EvmBlockInput extends EvmSimpleBlockInput{
+export interface EvmBlockInput extends EvmSimpleBlockInput {
   parentHash: string;
   nonce: string;
   sha3Uncles: string;

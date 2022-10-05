@@ -380,4 +380,27 @@ export class EvmTransaction implements MoralisDataObject {
   get signature() {
     return this._data.signature;
   }
+
+  /**
+   * @returns the index
+   * @example
+   * ```
+   * transaction.index // 1
+   * ```
+   */
+  get index() {
+    return this._data.index;
+  }
+
+  get v() {
+    return this._data.signature?.v;
+  }
+
+  get r() {
+    return this._data.signature?.r;
+  }
+
+  get s() {
+    return this._data.signature?.s;
+  }
 }

@@ -2,15 +2,15 @@ import MoralisCore, { MoralisCoreProvider } from '@moralisweb3/core';
 import { EvmTransactionLog, EvmTransactionLogInput } from '@moralisweb3/evm-utils';
 import { StreamData } from '../StreamData';
 
-type StreamEvmTransactionLogInput = EvmTransactionLogInput & StreamData;
+export type StreamEvmTransactionLogInput = EvmTransactionLogInput & StreamData;
 type StreamEvmTransactionLogish = StreamEvmTransactionLog | StreamEvmTransactionLogInput;
 
 export class StreamEvmTransactionLog extends EvmTransactionLog {
   private _streamData: StreamData;
 
-  constructor({ tag, streamType, streamId, ...data }: StreamEvmTransactionLogInput, core: MoralisCore) {
+  constructor({ tag, streamId, ...data }: StreamEvmTransactionLogInput, core: MoralisCore) {
     super(data, core);
-    this._streamData = { tag, streamType, streamId };
+    this._streamData = { tag, streamId };
   }
 
   static create(data: StreamEvmTransactionLogish, core?: MoralisCore) {
@@ -34,9 +34,5 @@ export class StreamEvmTransactionLog extends EvmTransactionLog {
 
   get streamId() {
     return this._streamData.streamId;
-  }
-
-  get streamType() {
-    return this._streamData.streamType;
   }
 }

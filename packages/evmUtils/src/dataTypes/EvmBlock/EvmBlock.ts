@@ -57,7 +57,7 @@ export class EvmBlock implements MoralisDataObject {
    * @param dataB - The second block to compare
    * @example EvmTransaction.equals(dataA, dataB)
    */
-   static equals(dataA: EvmSimpleBlockish | EvmBlockish, dataB: EvmSimpleBlockish | EvmBlockish) {
+  static equals(dataA: EvmSimpleBlockish | EvmBlockish, dataB: EvmSimpleBlockish | EvmBlockish) {
     const blockA = EvmSimpleBlock.create(dataA);
     const blockB = EvmSimpleBlock.create(dataB);
 

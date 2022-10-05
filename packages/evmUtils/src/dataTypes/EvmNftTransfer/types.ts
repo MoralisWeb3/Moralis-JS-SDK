@@ -32,7 +32,7 @@ export interface EvmNftTransferInput {
   contractType: string;
   fromAddress?: null | EvmAddressish;
   value?: null | EvmNativeish;
-  logIndex: number;
+  logIndex: number | string;
   toAddress: EvmAddressish;
   tokenAddress: EvmAddressish;
   tokenId: string;
@@ -40,7 +40,7 @@ export interface EvmNftTransferInput {
   transactionIndex?: null | string | number;
   transactionType?: null | string;
   operator?: null | EvmAddressish;
-  block?: null | EvmSimpleBlockish
+  block?: null | EvmSimpleBlockish;
 }
 
 /**
@@ -60,5 +60,5 @@ export interface EvmNftTransferData {
   transactionIndex?: number;
   transactionType?: string;
   operator?: EvmAddress;
-  block?: EvmSimpleBlock
+  block?: EvmSimpleBlock;
 }

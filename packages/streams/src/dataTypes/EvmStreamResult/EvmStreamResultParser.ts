@@ -1,3 +1,4 @@
+/* eslint-disable etc/no-commented-out-code */
 import MoralisCore from '@moralisweb3/core';
 import { EvmSimpleBlock, EvmChain } from '@moralisweb3/evm-utils';
 import {
@@ -6,14 +7,15 @@ import {
   IERC20Transfer,
   INFTApproval,
   INFTTransfer,
+  InternalTransaction,
   Log,
   Transaction,
-  InternalTransaction,
 } from '@moralisweb3/streams-typings';
+import { StreamErc1155Approval } from '../StreamErc1155Approval/StreamErc1155Approval';
 import { StreamErc20Approval } from '../StreamErc20Approval/StreamErc20Approval';
 import { StreamErc20Transfer } from '../StreamErc20Transfer/StreamErc20Transfer';
+import { StreamErc721Approval } from '../StreamErc721Approval/StreamErc721Approval';
 import { StreamEvmInternalTransaction } from '../StreamEvmInternalTransaction/StreamEvmInternalTransaction';
-import { StreamEvmNftApproval } from '../StreamEvmNftApproval/StreamEvmNftApproval';
 import { StreamEvmNftTransfer } from '../StreamEvmNftTransfer/StreamEvmNftTransfer';
 import { StreamEvmTransaction } from '../StreamEvmTransaction/StreamEvmTransaction';
 import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTransactionLog';
@@ -33,7 +35,7 @@ export class EvmStreamResultParser {
       logs: this.parseLogs(value.logs, chain),
       txs: this.parseTransactions(value.txs, chain),
       txsInternal: this.parseInternalTransactions(value.txsInternal, chain),
-      abis: null,
+      abis: value.abis,
       retries: value.retries,
       confirmed: value.confirmed,
     };
@@ -44,32 +46,35 @@ export class EvmStreamResultParser {
   }
 
   static parseErc20Transfers(value: IERC20Transfer[], chain: EvmChain) {
-    return value.map((transfer) =>
-      StreamErc20Transfer.create({
+    return value.map((transfer) => {
+      const { tokenDecimals, tokenName, tokenSymbol, contract, ...data } = transfer;
+      return StreamErc20Transfer.create({
+        ...data,
         chain,
-
-        transactionHash: transfer.transactionHash,
-        address: transfer.tokenAddress,
-        fromAddress: transfer.from,
-        toAddress: transfer.to,
-        value: transfer.value,
-
-        logindex: +transfer.logIndex,
-        tag: transfer.tag,
-        tokenDecimals: transfer.tokenDecimals,
-        tokenSymbol: transfer.tokenSymbol,
-        valueWithDecimals: transfer.valueWithDecimals,
-      }),
-    );
+        token: {
+          contractAddress: contract,
+          decimals: +tokenDecimals,
+          name: tokenName,
+          symbol: tokenSymbol,
+        },
+      });
+    });
   }
 
   static parseErc20Approvals(value: IERC20Approval[], chain: EvmChain) {
-    return value.map((approval) =>
-      StreamErc20Approval.create({
-        ...approval,
+    return value.map((approval) => {
+      const { tokenDecimals, tokenName, tokenSymbol, contract, ...data } = approval;
+      return StreamErc20Approval.create({
+        ...data,
         chain,
-      }),
-    );
+        token: {
+          contractAddress: contract,
+          decimals: +tokenDecimals,
+          name: tokenName,
+          symbol: tokenSymbol,
+        },
+      });
+    });
   }
 
   static parseNftTransfers(value: INFTTransfer[], chain: EvmChain) {
@@ -78,8 +83,8 @@ export class EvmStreamResultParser {
         chain,
 
         transactionHash: transfer.transactionHash,
-        tokenAddress: transfer.tokenAddress,
-        logIndex: +transfer.logIndex,
+        tokenAddress: transfer.contract,
+        logIndex: transfer.logIndex,
         contractType: transfer.tokenContractType,
         operator: transfer.operator,
         fromAddress: transfer.from,
@@ -97,13 +102,13 @@ export class EvmStreamResultParser {
   static parseNftApprovals(value: INFTApproval, chain: EvmChain) {
     return {
       ERC721: value.ERC721.map((approval) =>
-        StreamEvmNftApproval.create({
+        StreamErc721Approval.create({
           chain,
           ...approval,
         }),
       ),
       ERC1155: value.ERC1155.map((approval) =>
-        StreamEvmNftApproval.create({
+        StreamErc1155Approval.create({
           chain,
           ...approval,
         }),
@@ -124,14 +129,16 @@ export class EvmStreamResultParser {
         chain,
 
         address: log.address,
-        topics: [log.topic0, log.topic1, log.topic2, log.topic3].filter(isNotEmpty),
+        topic0: log.topic0,
+        topic1: log.topic1,
+        topic2: log.topic2,
+        topic3: log.topic3,
         data: log.data,
         logIndex: +log.logIndex,
         transactionHash: log.transactionHash,
 
         tag: log.tag,
         streamId: log.streamId,
-        streamType: log.streamType,
       }),
     );
   }
@@ -165,7 +172,6 @@ export class EvmStreamResultParser {
 
         tag: transaction.tag,
         streamId: transaction.streamId,
-        streamType: transaction.streamType,
       });
     });
   }
@@ -179,5 +185,3 @@ export class EvmStreamResultParser {
     );
   }
 }
-
-export const isNotEmpty = <Value>(value: Value | null): value is Value => value !== null && value !== undefined;

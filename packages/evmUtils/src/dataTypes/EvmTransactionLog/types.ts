@@ -17,19 +17,22 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *  block: {
  *    number: "12386788",
  *    hash: "0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171",
- *    timestamp: "2021-05-07T11:08:35.000Z", 
+ *    timestamp: "2021-05-07T11:08:35.000Z",
  *   }
  * }
  * ```
  */
 export interface EvmTransactionLogInput {
   chain: EvmChainish;
-  logIndex?: number;
+  logIndex?: string | number;
   transactionHash: string;
   transactionIndex?: number;
   address: EvmAddressish;
   data: string;
-  topics: string[];
+  topic0?: null | string;
+  topic1?: null | string;
+  topic2?: null | string;
+  topic3?: null | string;
   block?: EvmSimpleBlock;
 }
 
@@ -43,6 +46,9 @@ export interface EvmTransactionLogData {
   transactionIndex?: number;
   address: EvmAddress;
   data: string;
-  topics: string[];
+  topic0?: string;
+  topic1?: string;
+  topic2?: string;
+  topic3?: string;
   block?: EvmSimpleBlock;
 }

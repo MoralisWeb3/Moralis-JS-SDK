@@ -42,11 +42,14 @@ export class EvmTransactionLog implements MoralisDataObject {
   static parse(value: EvmTransactionLogInput, core: MoralisCore): EvmTransactionLogData {
     return {
       chain: EvmChain.create(value.chain, core),
-      logIndex: maybe(value.logIndex),
+      logIndex: maybe(value.logIndex, (index) => +index),
       transactionHash: value.transactionHash,
       transactionIndex: maybe(value.transactionIndex),
       data: value.data,
-      topics: value.topics,
+      topic0: maybe(value.topic0),
+      topic1: maybe(value.topic1),
+      topic2: maybe(value.topic2),
+      topic3: maybe(value.topic3),
       address: EvmAddress.create(value.address, core),
       block: maybe(value.block, EvmSimpleBlock.create),
     };
@@ -177,15 +180,63 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
+   * @returns the topic0 of the log.
+   *
+   * @example
+   * ```ts
+   * log.topic0; // "0x0000000000000000000000000000000000000000000000000000000000000001"
+   * ```
+   */
+  get topic0() {
+    return this._value.topic0;
+  }
+
+  /**
+   * @returns the topic0 of the log.
+   *
+   * @example
+   * ```ts
+   * log.topic1; // "0x0000000000000000000000000000000000000000000000000000000000000001"
+   * ```
+   */
+  get topic1() {
+    return this._value.topic1;
+  }
+
+  /**
+   * @returns the topic0 of the log.
+   *
+   * @example
+   * ```ts
+   * log.topic2; // "0x0000000000000000000000000000000000000000000000000000000000000001"
+   * ```
+   */
+  get topic2() {
+    return this._value.topic2;
+  }
+
+  /**
+   * @returns the topic0 of the log.
+   *
+   * @example
+   * ```ts
+   * log.topic3; // "0x0000000000000000000000000000000000000000000000000000000000000001"
+   * ```
+   */
+  get topic3() {
+    return this._value.topic3;
+  }
+
+  /**
    * @returns the topics of the log.
    *
    * @example
    * ```ts
-   * log.topics; // ["0x0000000000000000000000000000000000000000000000000000000000000001", "0x0000000000000000000000000000000000000000000000000000000000000002"]
+   * log.topic0; // ["0x0000000000000000000000000000000000000000000000000000000000000001", "0x0000000000000000000000000000000000000000000000000000000000000002"]
    * ```
    */
   get topics() {
-    return this._value.topics;
+    return [this.topic0, this.topic1, this.topic2, this.topic3].filter((topic) => topic !== undefined);
   }
 
   /**

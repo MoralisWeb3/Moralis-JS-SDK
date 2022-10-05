@@ -10,7 +10,6 @@ export interface StreamEvmInternalTransactionData {
   gas?: BigNumber;
   streamId: string;
   tag: string;
-  streamType: string;
 }
 
 export interface StreamEvmInternalTransactionInput {
@@ -22,5 +21,4 @@ export interface StreamEvmInternalTransactionInput {
   gas?: null | BigNumberish;
   streamId: string;
   tag: string;
-  streamType: string;
 }

@@ -45,7 +45,7 @@ export class Erc20Transfer implements MoralisDataObject {
     toAddress: EvmAddress.create(data.toAddress),
     fromAddress: EvmAddress.create(data.fromAddress),
     value: BigNumber.create(data.value),
-    block: maybe(data.block, EvmSimpleBlock.create)
+    block: maybe(data.block, EvmSimpleBlock.create),
   });
 
   /**

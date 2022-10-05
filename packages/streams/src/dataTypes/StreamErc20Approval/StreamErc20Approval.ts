@@ -1,5 +1,5 @@
-import MoralisCore, { BigNumber, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import { Erc20Token, Erc20Value, EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { StreamErc20ApprovalData, StreamErc20ApprovalInput } from './types';
 
 export type StreamErc20Approvalish = StreamErc20ApprovalInput | StreamErc20Approval;
@@ -35,16 +35,21 @@ export class StreamErc20Approval implements MoralisDataObject {
     this._data = StreamErc20Approval.parse(data, core);
   }
 
-  static parse = (data: StreamErc20ApprovalInput, core: MoralisCore): StreamErc20ApprovalData => ({
-    ...data,
-    chain: EvmChain.create(data.chain, core),
-    spender: EvmAddress.create(data.spender, core),
-    owner: EvmAddress.create(data.spender, core),
-    tokenAddress: EvmAddress.create(data.spender, core),
-    logIndex: +data.logIndex,
-    value: BigNumber.create(data.value),
-    tokenDecimals: +data.tokenDecimals
-  });
+  static parse = (data: StreamErc20ApprovalInput, core: MoralisCore): StreamErc20ApprovalData => {
+    const chain = EvmChain.create(data.chain, core);
+    return {
+      ...data,
+      chain,
+      spender: EvmAddress.create(data.spender, core),
+      owner: EvmAddress.create(data.owner, core),
+      logIndex: +data.logIndex,
+      tokenValue: Erc20Value.create(data.value, {
+        decimals: data.token.decimals,
+        token: { chain, ...data.token },
+      }),
+      token: Erc20Token.create({ chain: data.chain, ...data.token }, core),
+    };
+  };
 
   /**
    * Compares two StreamErc20Approval data. It checks a deep equality check of both values.
@@ -84,14 +89,18 @@ export class StreamErc20Approval implements MoralisDataObject {
    * @example `erc20Approval.toJSON()`
    */
   toJSON() {
-    const data = this._data;
+    const { tokenValue, token, ...data } = this._data;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
       chain: data.chain.format(),
-      tokenAddress: data.tokenAddress.format(),
       owner: data.owner.format(),
       spender: data.spender.format(),
-      value: data.value.toString()
+      valueWithDecimals: tokenValue.format(),
+      tokenDecimals: token.decimals,
+      tokenName: token.name,
+      tokenSymbol: token.symbol,
+      contract: token.contractAddress.format(),
     };
   }
 
@@ -102,5 +111,68 @@ export class StreamErc20Approval implements MoralisDataObject {
    */
   format() {
     return this.toJSON();
+  }
+
+  get chain() {
+    return this._data.chain;
+  }
+
+  get transactionHash() {
+    return this._data.transactionHash;
+  }
+
+  get logIndex() {
+    return this._data.logIndex;
+  }
+
+  get tag() {
+    return this._data.tag;
+  }
+
+  get owner() {
+    return this._data.owner;
+  }
+
+  get spender() {
+    return this._data.spender;
+  }
+
+  get tokenValue() {
+    return this._data.tokenValue;
+  }
+
+  get token() {
+    return this._data.token;
+  }
+
+  get contract() {
+    return this.token.contractAddress;
+  }
+
+  get tokenName() {
+    return this.token.name;
+  }
+
+  get tokenSymbol() {
+    return this.token.symbol;
+  }
+
+  get tokenDecimals() {
+    return this.token.decimals;
+  }
+
+  get amount() {
+    return this.tokenValue.amount;
+  }
+
+  get value() {
+    // note that the 'value' is different thatn the token.value. tokenValue.value will format to decimals, while
+    // this method returns the value as Bignumber string.
+    // This is on purpose to keep in consistent with the streams api return value
+    return this.tokenValue.amount.toString();
+  }
+
+  get valueWithDecimals() {
+    return this.tokenValue.value;
   }
 }

@@ -18,7 +18,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *  block: {
  *    timestamp: "2021-04-02T10:07:54.000Z",
  *    hash: "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86",
- *    number: "12526958", 
+ *    number: "12526958",
  *  }
  * }
  * ```
@@ -30,7 +30,7 @@ export interface Erc20TransferInput {
   toAddress: EvmAddressish;
   fromAddress: EvmAddressish;
   value: BigNumberish;
-  block?: EvmSimpleBlockish
+  block?: EvmSimpleBlockish;
 }
 
 /**
@@ -43,5 +43,5 @@ export interface Erc20TransferData {
   toAddress: EvmAddress;
   fromAddress: EvmAddress;
   value: BigNumber;
-  block?: EvmSimpleBlock
+  block?: EvmSimpleBlock;
 }

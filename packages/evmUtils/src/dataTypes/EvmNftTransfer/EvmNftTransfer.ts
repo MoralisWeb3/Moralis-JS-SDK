@@ -1,4 +1,4 @@
-import { MoralisDataObject, maybe } from '@moralisweb3/core';
+import MoralisCore, { MoralisDataObject, maybe, MoralisCoreProvider } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmSimpleBlock } from '../EvmBlock';
 import { EvmChain } from '../EvmChain';
@@ -25,32 +25,34 @@ export class EvmNftTransfer implements MoralisDataObject {
    * const transfer = EvmNftTransfer.create(data);
    *```
    */
-  static create(data: EvmNftTransferish) {
+  static create(data: EvmNftTransferish, core?: MoralisCore) {
     if (data instanceof EvmNftTransfer) {
       return data;
     }
 
-    return new EvmNftTransfer(data);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmNftTransfer(data, finalCore);
   }
 
-  private _data: EvmNftTransferData;
+  protected _data: EvmNftTransferData;
 
-  constructor(data: EvmNftTransferInput) {
-    this._data = EvmNftTransfer.parse(data);
+  constructor(data: EvmNftTransferInput, core: MoralisCore) {
+    this._data = EvmNftTransfer.parse(data, core);
   }
 
-  static parse = (data: EvmNftTransferInput): EvmNftTransferData => ({
+  static parse = (data: EvmNftTransferInput, core: MoralisCore): EvmNftTransferData => ({
     ...data,
-    chain: EvmChain.create(data.chain),
+    chain: EvmChain.create(data.chain, core),
     amount: maybe(data.amount, (amount) => +amount),
     transactionIndex: maybe(data.transactionIndex, (index) => +index),
     transactionType: maybe(data.transactionType),
-    fromAddress: maybe(data.fromAddress, EvmAddress.create),
-    toAddress: EvmAddress.create(data.toAddress),
-    tokenAddress: EvmAddress.create(data.tokenAddress),
+    fromAddress: maybe(data.fromAddress, (address) => EvmAddress.create(address, core)),
+    toAddress: EvmAddress.create(data.toAddress, core),
+    tokenAddress: EvmAddress.create(data.tokenAddress, core),
     value: maybe(data.value, EvmNative.create),
-    operator: maybe(data.operator, EvmAddress.create),
-    block: maybe(data.block, EvmSimpleBlock.create),
+    operator: maybe(data.operator, (operator) => EvmAddress.create(operator, core)),
+    block: maybe(data.block, (block) => EvmSimpleBlock.create(block, core)),
+    logIndex: +data.logIndex,
   });
 
   /**

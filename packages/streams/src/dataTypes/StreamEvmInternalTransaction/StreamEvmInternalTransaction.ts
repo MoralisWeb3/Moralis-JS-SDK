@@ -101,4 +101,36 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
   format() {
     return this.toJSON();
   }
+
+  get chain() {
+    return this._data.chain;
+  }
+
+  get from() {
+    return this._data.from;
+  }
+
+  get to() {
+    return this._data.to;
+  }
+
+  get value() {
+    return this._data.value;
+  }
+
+  get transactionHash() {
+    return this._data.transactionHash;
+  }
+
+  get gas() {
+    return this._data.gas;
+  }
+
+  get streamId() {
+    return this._data.streamId;
+  }
+
+  get tag() {
+    return this._data.tag;
+  }
 }
