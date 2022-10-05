@@ -134,7 +134,7 @@ export interface components {
       /** Format: double */
       gas?: number;
     };
-    IAbi: { [key: string]: components["schemas"]["AbiItem"] };
+    IAbi: { [key: string]: components["schemas"]["AbiItem"][] };
     IERC20Transfer: {
       transactionHash: string;
       contract: string;
@@ -300,6 +300,12 @@ export interface components {
      * @example {}
      */
     StreamsFilter: { [key: string]: unknown };
+    /** @description Advanced Options for each specific topic */
+    advancedOptions: {
+      topic0: string;
+      filter?: components["schemas"]["StreamsFilter"];
+      includeNativeTxs?: boolean;
+    };
     StreamsModel: {
       /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl: string;
@@ -317,8 +323,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["StreamsAbi"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description The unique uuid of the stream */
@@ -356,8 +362,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["StreamsAbi"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description The unique uuid of the stream */
@@ -384,8 +390,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["StreamsAbi"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
     };
@@ -413,8 +419,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
-      abi?: components["schemas"]["StreamsAbi"] | null;
-      filter?: components["schemas"]["StreamsFilter"] | null;
+      abi?: components["schemas"]["StreamsAbi"][] | null;
+      advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds?: string[];
     };
