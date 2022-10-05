@@ -7098,7 +7098,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/utils@5.33.1", "@typescript-eslint/utils@^5.10.0":
+"@typescript-eslint/utils@5.33.1":
   version "5.33.1"
   resolved "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-5.33.1.tgz"
   integrity sha512-uphZjkMaZ4fE8CR4dU7BquOV6u0doeQAr8n6cQenl/poMaIyJtBu8eys5uk6u5HiDH01Mj5lzbJ5SfeDz7oqMQ==
@@ -7110,7 +7110,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/utils@5.36.1", "@typescript-eslint/utils@^5.13.0":
+"@typescript-eslint/utils@5.36.1":
   version "5.36.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.36.1.tgz#136d5208cc7a3314b11c646957f8f0b5c01e07ad"
   integrity sha512-lNj4FtTiXm5c+u0pUehozaUWhh7UYKnwryku0nxJlYUEWetyG92uw2pr+2Iy4M/u0ONMKzfrx7AsGBTCzORmIg==
@@ -7134,7 +7134,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/utils@5.38.1":
+"@typescript-eslint/utils@5.38.1", "@typescript-eslint/utils@^5.10.0", "@typescript-eslint/utils@^5.13.0":
   version "5.38.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.38.1.tgz#e3ac37d7b33d1362bb5adf4acdbe00372fb813ef"
   integrity sha512-oIuUiVxPBsndrN81oP8tXnFa/+EcZ03qLqPDfSZ5xIJVm7A9V0rlkQwwBOAGtrdN70ZKDlKv+l1BeT4eSFxwXA==
@@ -11779,10 +11779,10 @@ eslint-plugin-jest@^25.3.0:
   dependencies:
     "@typescript-eslint/experimental-utils" "^5.0.0"
 
-eslint-plugin-jest@^26.8.3:
-  version "26.8.3"
-  resolved "https://registry.npmjs.org/eslint-plugin-jest/-/eslint-plugin-jest-26.8.3.tgz"
-  integrity sha512-2roWu1MkEiihQ/qEszPPoaoqVI1x2D8Jtadk5AmoXTdEeNVPMu01Dtz7jIuTOAmdW3L+tSkPZOtEtQroYJDt0A==
+eslint-plugin-jest@^27.1.0:
+  version "27.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-27.1.0.tgz#f6ade75b721aa2b89e3726cb35f42f6623284ff2"
+  integrity sha512-sqojX5GKzQ8+PScF9rJ7dRMtu0NEIWsaDMLwRRvVE28mnWctZe5VAti394Nmut11vPwgxck9XnDmmjx/U9NowQ==
   dependencies:
     "@typescript-eslint/utils" "^5.10.0"
 
