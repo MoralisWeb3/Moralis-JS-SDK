@@ -328,11 +328,11 @@ export interface components {
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description The unique uuid of the stream */
-      id?: components["schemas"]["UUID"];
+      id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
-      status?: components["schemas"]["StreamsStatus"];
+      status: components["schemas"]["StreamsStatus"];
       /** @description Description of current status of stream. */
-      statusMessage?: string;
+      statusMessage: string;
     };
     "streamsTypes.StreamsResponse": {
       /** @description Array of project Streams */
@@ -367,11 +367,11 @@ export interface components {
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description The unique uuid of the stream */
-      id?: components["schemas"]["UUID"];
+      id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
-      status?: components["schemas"]["StreamsStatus"];
+      status: components["schemas"]["StreamsStatus"];
       /** @description Description of current status of stream. */
-      statusMessage?: string;
+      statusMessage: string;
     };
     "streamsTypes.StreamsModelCreate": {
       /** @description Webhook URL where moralis will send the POST request. */
@@ -484,6 +484,7 @@ export interface operations {
       query: {
         limit: number;
         cursor?: string;
+        excludePayload?: boolean;
       };
     };
     responses: {
