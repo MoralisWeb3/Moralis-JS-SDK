@@ -1,5 +1,22 @@
 # @moralisweb3/streams
 
+## 2.6.1
+
+### Patch Changes
+
+- [#715](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/715) [`f3cd2b5c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3cd2b5c496e8f7b96110741ea8442816ed0dad1) Thanks [@ErnoW](https://github.com/ErnoW)! - Update types according to api changes: remove `address` and `tokenAddress`, add includeContractLogs, includeInternalTxs and allAddresses flags, and mape `topic0` an array
+
+* [#714](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/714) [`42893723`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4289372344cda30f9af57982e4fbcad28308e0f8) Thanks [@ErnoW](https://github.com/ErnoW)! - Rename `network` param to `networkType` for `Moralis.Streams` and `Moralis.Auth`, to communicate more clearly the purpose of this param. Also make this value optional and default to `"evm"`
+
+- [#715](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/715) [`f3cd2b5c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3cd2b5c496e8f7b96110741ea8442816ed0dad1) Thanks [@ErnoW](https://github.com/ErnoW)! - Allow multiple addresses for Moralis.Streams.addAddress
+
+* [#722](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/722) [`36a4096d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/36a4096d0751d7faf81f81433050cfcdce447619) Thanks [@ErnoW](https://github.com/ErnoW)! - Add advancedOptions to Morlais.Streams (and remove filter)
+
+* Updated dependencies [[`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502), [`42893723`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4289372344cda30f9af57982e4fbcad28308e0f8)]:
+  - @moralisweb3/evm-utils@2.6.1
+  - @moralisweb3/core@2.6.1
+  - @moralisweb3/api-utils@2.6.1
+
 ## 2.6.0
 
 ### Minor Changes

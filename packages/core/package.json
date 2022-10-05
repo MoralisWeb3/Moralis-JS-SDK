@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/core",
   "author": "Moralis",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -21,7 +21,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^1.0.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "eslint": "^8.22.0",
     "eslint-plugin-jest": "^26.8.3",
     "prettier": "^2.5.1",

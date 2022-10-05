@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.6.1
+
+### Patch Changes
+
+- [#720](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/720) [`e5fb3d6c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e5fb3d6ce02b865bf9edb7690a912c98ccc382c4) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed TypeScript definition for the `getTokenPrice` API method.
+
+- Updated dependencies [[`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502), [`42893723`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4289372344cda30f9af57982e4fbcad28308e0f8)]:
+  - @moralisweb3/evm-utils@2.6.1
+  - @moralisweb3/core@2.6.1
+  - @moralisweb3/api-utils@2.6.1
+
 ## 2.6.0
 
 ### Patch Changes
