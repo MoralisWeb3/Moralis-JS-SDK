@@ -4,12 +4,32 @@ import { httpsCallable } from '@firebase/functions';
 import { User } from '@firebase/auth';
 import { Fragment, useState } from 'react';
 import { auth, functions, moralisAuth } from './firebase';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import { Web3Provider } from '@ethersproject/providers';
 
 export function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(() => auth.currentUser);
 
   async function signInWithMetamask() {
     const result = await signInWithMoralisByEvm(moralisAuth);
+
+    setCurrentUser(result.credentials.user);
+  }
+
+  async function signInWithWalletConnect() {
+    localStorage.removeItem('walletconnect');
+
+    const provider = new WalletConnectProvider({
+      rpc: {
+        1: 'https://replace_me/',
+      },
+    });
+
+    await provider.enable();
+
+    const result = await signInWithMoralisByEvm(moralisAuth, {
+      provider: new Web3Provider(provider),
+    });
 
     setCurrentUser(result.credentials.user);
   }
@@ -56,6 +76,8 @@ export function App() {
       <h4>Authentication</h4>
 
       <button onClick={signInWithMetamask}>Sign in with MetaMask</button>
+
+      <button onClick={signInWithWalletConnect}>Sign in with WalletConnect</button>
 
       <button onClick={signInWithPhantom}>Sign in with Phantom</button>
 

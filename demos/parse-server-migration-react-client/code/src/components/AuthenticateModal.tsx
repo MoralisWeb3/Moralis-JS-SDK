@@ -52,7 +52,7 @@ export const AuthenticateModal = ({ isOpen, onClose }: AuthenticateModalProps) =
       const { message } = await Moralis.Cloud.run('requestMessage', {
         address: account,
         chain: parseInt(chainId, 16),
-        network: 'evm',
+        networkType: 'evm',
       });
 
       // Authenticate and login via parse
