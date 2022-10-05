@@ -1,5 +1,19 @@
 # moralis
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies [[`cfd23005`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cfd23005bc5a5c199e78660b32decfd25ebd98cb)]:
+  - @moralisweb3/streams@2.6.3
+  - @moralisweb3/core@2.6.3
+  - @moralisweb3/auth@2.6.3
+  - @moralisweb3/api-utils@2.6.3
+  - @moralisweb3/evm-utils@2.6.3
+  - @moralisweb3/sol-utils@2.6.3
+  - @moralisweb3/evm-api@2.6.3
+  - @moralisweb3/sol-api@2.6.3
+
 ## 2.6.2
 
 ### Patch Changes

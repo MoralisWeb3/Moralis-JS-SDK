@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.6.3
+
+### Patch Changes
+
+- [#729](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/729) [`cfd23005`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cfd23005bc5a5c199e78660b32decfd25ebd98cb) Thanks [@ErnoW](https://github.com/ErnoW)! - Update types from swagger
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.3
+  - @moralisweb3/api-utils@2.6.3
+  - @moralisweb3/evm-utils@2.6.3
+
 ## 2.6.2
 
 ### Patch Changes
