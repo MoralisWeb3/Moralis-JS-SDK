@@ -1,5 +1,20 @@
 # @moralisweb3/streams
 
+## 2.6.2
+
+### Patch Changes
+
+- [`ed6dfb2e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ed6dfb2ef7adc9c58e745f8936b407d07e660be9) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix put call to post call for Moralis.Streams.addAddress
+
+* [#728](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/728) [`21ab43be`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/21ab43be6f5159eb02cadb2fbeddd2e47f494597) Thanks [@ErnoW](https://github.com/ErnoW)! - Export types for Moralis.Streams methods
+
+- [#727](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/727) [`68c8057a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/68c8057a10bec941d3e5dcc4dac376a634554905) Thanks [@ErnoW](https://github.com/ErnoW)! - Update streams api types
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.2
+  - @moralisweb3/api-utils@2.6.2
+  - @moralisweb3/evm-utils@2.6.2
+
 ## 2.6.1
 
 ### Patch Changes
