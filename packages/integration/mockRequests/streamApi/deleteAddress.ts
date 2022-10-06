@@ -13,9 +13,6 @@ const createErrorResponse = (message: string) => ({
   message,
 });
 
-// message: 'Validation Failed',
-// details: { 'requestBody.address': { message: "'address' is required" } }
-
 const scenarios = [
   {
     condition: {
