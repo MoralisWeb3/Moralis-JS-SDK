@@ -31,6 +31,7 @@
     "demo-supabase-auth",
     "demo-firebase-auth-functions",
     "demo-firebase-proxy-functions",
-    "demo-moralis-stream"
+    "demo-moralis-stream",
+    "@moralisweb3/nestjs"
   ]
 }
