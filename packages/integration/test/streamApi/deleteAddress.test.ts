@@ -65,7 +65,5 @@ describe('deleteAddress', () => {
         }),
       ).rejects.toThrowError('[C0006] Request failed, Not Found(404): Stream not found');
     });
-
-    // it should throw an error on no address
   });
 });
