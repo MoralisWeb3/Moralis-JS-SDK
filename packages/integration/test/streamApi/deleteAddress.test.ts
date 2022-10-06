@@ -50,7 +50,7 @@ describe('deleteAddress', () => {
       expect(
         StreamApi.deleteAddress({
           networkType: 'evm',
-          address: 'some-address',
+          address: '0x295522b61890c3672d12efbff4358a6411ce996f',
           id: 'ADDRESS_NOT_FOUND',
         }),
       ).rejects.toThrowError('[C0006] Request failed, Not Found(404): Address not found');
@@ -60,7 +60,7 @@ describe('deleteAddress', () => {
       expect(
         StreamApi.deleteAddress({
           networkType: 'evm',
-          address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+          address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
           id: 'STREAM_NOT_FOUND',
         }),
       ).rejects.toThrowError('[C0006] Request failed, Not Found(404): Stream not found');
