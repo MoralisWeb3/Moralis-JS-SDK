@@ -312,11 +312,11 @@ export interface components {
       /** @example 0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a */
       topic0: string;
       /** @example 0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391 */
-      topic1?: string;
+      topic1?: string | unknown;
       /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
-      topic2?: string;
+      topic2?: string | unknown;
       /** @example null */
-      topic3?: string;
+      topic3?: string | unknown;
       /**
        * @description The timestamp of the block
        * @example 2021-05-07T11:08:35.000Z
@@ -355,7 +355,7 @@ export interface components {
        * @description The to address
        * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
        */
-      to_address: string;
+      to_address: string | unknown;
       /**
        * @description The value sent
        * @example 115580000000000000
@@ -375,9 +375,9 @@ export interface components {
       /** @example 21000 */
       receipt_gas_used: string;
       /** @example null */
-      receipt_contract_address?: string;
+      receipt_contract_address?: string | unknown;
       /** @example null */
-      receipt_root?: string;
+      receipt_root?: string | unknown;
       /** @example 1 */
       receipt_status: string;
       /**
@@ -396,7 +396,7 @@ export interface components {
        */
       block_hash: string;
       /** @description The logs of the transaction */
-      logs: components["schemas"]["log"][];
+      logs?: components["schemas"]["log"][];
     };
     block: {
       /**
@@ -665,7 +665,7 @@ export interface components {
        *   "54"
        * ]
        */
-      token_ids: unknown[];
+      token_ids: string[];
       /**
        * @description The address that sold the NFT
        * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
@@ -738,6 +738,8 @@ export interface components {
       | "0x5"
       | "kovan"
       | "0x2a"
+      | "sepolia"
+      | "0xaa36a7"
       | "polygon"
       | "0x89"
       | "mumbai"
@@ -1368,8 +1370,6 @@ export interface components {
        * @example Uniswap v3
        */
       exchangeName?: string;
-    } & {
-      symbol: unknown;
     };
     nativeErc20Price: {
       /**

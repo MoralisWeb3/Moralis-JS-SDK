@@ -37,6 +37,11 @@ export const getContractLogs = createPaginatedEndpointFactory((core) =>
     resultToJson: (data) => data.map((log) => log.toJSON()),
     parseParams: (params: Params): ApiParams => ({
       ...params,
+      block_number: params.blockNumber,
+      from_block: params.fromBlock,
+      to_block: params.toBlock,
+      from_date: params.fromDate,
+      to_date: params.toDate,
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
       address: EvmAddress.create(params.address, core).lowercase,
     }),
