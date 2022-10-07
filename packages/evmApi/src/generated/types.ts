@@ -3,7 +3,7 @@
  * Do not make direct changes to the file.
  */
 
-export interface paths {
+ export interface paths {
   "/block/{block_number_or_hash}": {
     /** Get the contents of a block by block hash. */
     get: operations["getBlock"];
@@ -312,11 +312,11 @@ export interface components {
       /** @example 0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a */
       topic0: string;
       /** @example 0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391 */
-      topic1?: string | unknown;
+      topic1?: string;
       /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
-      topic2?: string | unknown;
+      topic2?: string;
       /** @example null */
-      topic3?: string | unknown;
+      topic3?: string;
       /**
        * @description The timestamp of the block
        * @example 2021-05-07T11:08:35.000Z
@@ -355,7 +355,7 @@ export interface components {
        * @description The to address
        * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
        */
-      to_address: string | unknown;
+      to_address: string;
       /**
        * @description The value sent
        * @example 115580000000000000
@@ -375,9 +375,9 @@ export interface components {
       /** @example 21000 */
       receipt_gas_used: string;
       /** @example null */
-      receipt_contract_address?: string | unknown;
+      receipt_contract_address?: string;
       /** @example null */
-      receipt_root?: string | unknown;
+      receipt_root?: string;
       /** @example 1 */
       receipt_status: string;
       /**
@@ -396,7 +396,7 @@ export interface components {
        */
       block_hash: string;
       /** @description The logs of the transaction */
-      logs?: components["schemas"]["log"][];
+      logs: components["schemas"]["log"][];
     };
     block: {
       /**
@@ -665,7 +665,7 @@ export interface components {
        *   "54"
        * ]
        */
-      token_ids: string[];
+      token_ids: unknown[];
       /**
        * @description The address that sold the NFT
        * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
@@ -1370,6 +1370,8 @@ export interface components {
        * @example Uniswap v3
        */
       exchangeName?: string;
+    } & {
+      symbol: unknown;
     };
     nativeErc20Price: {
       /**
