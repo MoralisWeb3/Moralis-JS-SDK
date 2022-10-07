@@ -46,4 +46,4 @@ export const getContractLogs = createPaginatedEndpointFactory((core) =>
       address: EvmAddress.create(params.address, core).lowercase,
     }),
   }),
-);
+); 
