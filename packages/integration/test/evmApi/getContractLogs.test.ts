@@ -37,7 +37,7 @@ describe('getContractLogs', () => {
       .then()
       .catch((err) => {
         return err;
-      }); 
+      });
 
     expect(failedResult).toBeDefined();
     expect(
