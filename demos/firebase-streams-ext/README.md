@@ -1,4 +1,4 @@
-# Listen Blockchain with Moralis Streams Demo
+# Moralis Streams for Firebase Demo
 
 This project contains a simple demo of the Listen Blockchain by Moralis Streams extension for the Firebase.
 
@@ -11,15 +11,15 @@ Required Google Cloud services:
 ## 🚀 How to Start
 
 1. Clone this repo.
-2. [Install Firebase CLI](https://firebase.google.com/docs/cli) globally: `npm install -g firebase-tools`
+2. [Install Firebase CLI](https://firebase.google.com/docs/cli) globally: `yarn global add firebase-tools`
 3. Login to your account: `firebase login`
 4. Get list of your projects: `firebase projects:list`. If this list is empty you should add a new project. You can do it by the Firebase Console.
 5. Set your project ID: `firebase use <PROJECT_ID>`
 6. Install the Listen Blockchain by Moralis Streams extension: `firebase ext:install moralis/moralis-streams`.
 7. Build the functions project:
    * `cd functions`
-   * `npm install`
-   * `npm run build`
+   * `yarn install`
+   * `yarn run build`
 
 ### 🔌 Run Locally
 
@@ -28,7 +28,7 @@ Required Google Cloud services:
 3. Determine the **local webhook URL**. You can find the URL in logs of the Emulator. Open `http://localhost:4000/functions` in your browser. The URL should look like this: `http://localhost:5001/<project_id>/<location>/ext-moralis-streams-webhook`.
 4. Run the ngrok to forward requests from an internet address to your localhost:
    * `cd functions`
-   * `npm run ngrok`
+   * `yarn run ngrok`
 5. Determine the **public webook URL**. The URL has hostname and port from the ngrok, and the path from the local webhook URL. This URL will be needed in the next step.\
    For example: `https://baa0-89-151-39-84.ngrok.io/moralis-x6/us-central1/ext-moralis-streams-webhook`
 6. We need to add some streams to see the demo in action. Open the Moralis admin panel and add below streams.
@@ -38,14 +38,14 @@ Required Google Cloud services:
      Description: USDC Token
      Tag: ERC20 Transfer
      Topic: ✓ Transfer
-     Chain: Ethereum
+     Chain: Ethereum Mainnet
      ```
    * **Wallet Transfers** stream:
      ```
      Address: 0xDFd5293D8e347dFe59E90eFd55b2956a1343963d
      Description: Binance 16 Transactions
      Tag: Transaction
-     Chain: Ethereum
+     Chain: Ethereum Mainnet
      ```
 3. Open `http://localhost:5555/` in your browser.
 

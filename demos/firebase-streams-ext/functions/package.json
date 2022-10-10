@@ -1,5 +1,6 @@
 {
   "name": "demo-firebase-streams-ext-functions",
+  "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",
