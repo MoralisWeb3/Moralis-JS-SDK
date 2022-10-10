@@ -36,12 +36,11 @@ const proxyGenerator = async () => {
   const folderdir = path.join(process.cwd(), './src/proxy');
   await fs.promises.rm(folderdir, { recursive: true, force: true });
   // Install dotenv to read the API key from the .env file
-  await execCommand('yarn add dotenv');
+  // await execCommand('yarn add dotenv');
   await execCommand('nest g module proxy --no-spec');
   await Promise.all([
-    execCommand(`node ${__dirname}/scripts/service.script.js`),
-    execCommand(`node ${__dirname}/scripts/controller.script.js -n ${network}`),
-    execCommand(`node ${__dirname}/scripts/module.script.js -k ${apiKeyVar}`),
+    execCommand(`node ${__dirname}/scripts/controller.script.js -n ${network} -k ${apiKeyVar}`),
+    execCommand(`node ${__dirname}/scripts/module.script.js`),
   ]);
 };
 

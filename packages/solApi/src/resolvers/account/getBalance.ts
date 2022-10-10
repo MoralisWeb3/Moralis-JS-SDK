@@ -19,6 +19,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'network' | 'address'>>
 export const getBalance = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getBalance',
+    group: 'account',
     urlParams: ['network', 'address'],
     getUrl: (params: Params) => {
       // TODO: here should be: const network = SolNetworkResolver.resolve(params.network, core);

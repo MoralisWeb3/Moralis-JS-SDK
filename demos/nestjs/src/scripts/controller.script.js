@@ -7,6 +7,7 @@ const OUTPUT_FILENAME = 'proxy.controller.ts';
 
 const argv = require('minimist')(process.argv.slice(2));
 const network = argv.n;
+const apiKeyVar = argv.k;
 
 let content = '';
 
@@ -16,16 +17,20 @@ content += `/**
  */
 `;
 
-content += `import { Body, Controller, Param, Post, Query, Get, Put, Inject } from '@nestjs/common';\n`;
-content += `import { ProxyService } from './proxy.service';\n`;
+content += `import { Body, Controller, Post, BadRequestException } from '@nestjs/common';\n`;
+content += `import Moralis from 'moralis';\n`;
+content += `import * as dotenv from 'dotenv';\n`;
+content += `dotenv.config();\n`;
 
 content += `
 @Controller('MoralisAPIProxy')
 export class ProxyController {
   constructor(
-    @Inject('EVM') public evmProxyService: ProxyService,
-    @Inject('SOLANA') public solanaProxyService: ProxyService,
-  ) {}
+  ) {
+    Moralis.start({
+      apiKey: process.env['${apiKeyVar}'],
+    })
+  }
   ${
     network === 'evm'
       ? generateFunctions('evm')
