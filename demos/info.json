@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2022-10-10T12:08:24.788Z",
+  "generatedAt": "2022-10-10T12:54:52.443Z",
   "demos": [
     {
       "name": "cli",
@@ -30,6 +30,12 @@
       "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/firebase-proxy",
       "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-proxy/firebase-proxy.zip",
       "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-proxy/code"
+    },
+    {
+      "name": "firebase-streams-ext",
+      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/firebase-streams-ext",
+      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-streams-ext/firebase-streams-ext.zip",
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-streams-ext/code"
     },
     {
       "name": "moralis-stream",
