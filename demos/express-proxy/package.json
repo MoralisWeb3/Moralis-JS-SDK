@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "private": true,
+  "bin": {
+    "gen-proxy-express": "./lib/cli.js"
+  },
   "dependencies": {
     "@moralisweb3/core": "^2.6.4",
     "@types/express-rate-limit": "^6.0.0",
