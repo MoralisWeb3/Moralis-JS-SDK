@@ -79,10 +79,6 @@ export class MockScenarios {
   private mockRequest = (req: RestRequest<Response, Params>, res: ResponseComposition<Response>, ctx: RestContext) => {
     const { name, getParams, beforeScenarios, afterScenarios } = this.options;
 
-    console.log(`Using mock for ${name}: ${req.url.href}[${req.method}]`, {
-      body: req.body,
-    });
-
     const apiKey = req.headers.get('x-api-key');
 
     if (apiKey !== MOCK_API_KEY) {
