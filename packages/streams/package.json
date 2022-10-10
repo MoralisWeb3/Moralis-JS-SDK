@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/streams",
   "author": "Moralis",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -22,7 +22,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "@moralisweb3/streams-typings": "^1.0.1",
+    "@moralisweb3/streams-typings": "^1.0.3",
     "@types/ethereumjs-util": "5.2.0",
     "eslint-plugin-jest": "^26.8.3",
     "jest": "^28.0.3",
@@ -31,10 +31,9 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.6.3",
-    "@moralisweb3/core": "^2.6.3",
-    "@moralisweb3/evm-utils": "^2.6.3",
-    "@moralisweb3/streams-typings": "^1.0.3",
+    "@moralisweb3/api-utils": "^2.6.4",
+    "@moralisweb3/core": "^2.6.4",
+    "@moralisweb3/evm-utils": "^2.6.4",
     "ethereumjs-util": "^7.1.0",
     "web3-eth-abi": "^1.8.0"
   }

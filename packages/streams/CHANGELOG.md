@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.6.4
+
+### Patch Changes
+
+- [`4af4eb8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4af4eb8aab4e290afe9f2f2e2a924511c4613837) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix dependency/dev-dependency issue with streams-typings
+
+- Updated dependencies [[`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4)]:
+  - @moralisweb3/api-utils@2.6.4
+  - @moralisweb3/core@2.6.4
+  - @moralisweb3/evm-utils@2.6.4
+
 ## 2.6.3
 
 ### Patch Changes

@@ -73,10 +73,16 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
+    const bodyParams = this.paramsReader.getBodyParams(apiParams);
 
-    const result = await this.requestController.delete<ApiResult>(url, searchParams, {
-      headers: this.createHeaders(),
-    });
+    const result = await this.requestController.delete<ApiResult, Record<string, string>>(
+      url,
+      searchParams,
+      bodyParams,
+      {
+        headers: this.createHeaders(),
+      },
+    );
 
     return new ApiResultAdapter(result, this.endpoint.apiToResult, this.endpoint.resultToJson, params);
   };

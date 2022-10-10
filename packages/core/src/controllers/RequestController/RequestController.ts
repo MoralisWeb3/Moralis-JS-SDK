@@ -137,9 +137,10 @@ export class RequestController {
     });
   }
 
-  public async delete<Response>(
+  public async delete<Response, Body extends Record<string, unknown>>(
     url: string,
     searchParams?: Record<string, unknown>,
+    body?: Body,
     options?: RequestOptions,
     abortSignal?: AbortController['signal'],
   ): Promise<Response> {
@@ -147,6 +148,7 @@ export class RequestController {
       url,
       params: searchParams,
       method: 'DELETE',
+      data: body,
       headers: options?.headers,
       signal: abortSignal,
     });
