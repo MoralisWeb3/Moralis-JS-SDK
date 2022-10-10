@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getNFTLowestPrice = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTLowestPrice',
+    group: 'nft',
     urlParams: ['address'],
     getUrl: (params: Params) => `/nft/${params.address}/lowestprice`,
     apiToResult: (data: ApiResult, params: Params) =>

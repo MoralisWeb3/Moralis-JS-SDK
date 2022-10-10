@@ -19,6 +19,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getNFTTrades = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getNFTTrades',
+    group: 'nft',
     urlParams: ['address'],
     getUrl: (params: Params) => `/nft/${params.address}/trades`,
     apiToResult: (data: ApiResult, params: Params) =>

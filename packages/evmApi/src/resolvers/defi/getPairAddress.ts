@@ -21,6 +21,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'token0_addre
 export const getPairAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairAddress',
+    group: 'defi',
     urlParams: ['token0Address', 'token1Address'],
     getUrl: (params: Params) => `/${params.token0Address}/${params.token1Address}/pairAddress`,
     // TODO: refactor to reduce complexity

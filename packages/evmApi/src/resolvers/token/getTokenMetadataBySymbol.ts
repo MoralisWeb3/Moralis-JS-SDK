@@ -18,6 +18,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 export const getTokenMetadataBySymbol = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenMetadataBySymbol',
+    group: 'token',
     getUrl: () => `/erc20/metadata/symbols`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data ?? []).map((token) => {

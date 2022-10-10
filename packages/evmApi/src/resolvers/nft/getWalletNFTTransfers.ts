@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getWalletNFTTransfers = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getWalletNFTTransfers',
+    group: 'nft',
     urlParams: ['address'],
     getUrl: (params: Params) => `/${params.address}/nft/transfers`,
     apiToResult: (data: ApiResult, params: Params) =>

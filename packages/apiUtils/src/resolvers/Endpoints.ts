@@ -1,5 +1,5 @@
 import MoralisCore from '@moralisweb3/core';
-import { Endpoint, EndpointFactory, EndpointMethod } from './Endpoint';
+import { Endpoint, EndpointFactory, EndpointGroup, EndpointMethod } from './Endpoint';
 import { EndpointResolver } from './EndpointResolver';
 import { PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';
 import { PaginatedEndpointResolver } from './PaginatedEndpointResolver';
@@ -8,6 +8,7 @@ import { PaginatedEndpointResolver } from './PaginatedEndpointResolver';
 // changes described in this file are not implemented.
 export interface EndpointDescriptor {
   name: string;
+  group?: EndpointGroup;
   urlPatternParamNames: string[];
   urlPattern: string;
   bodyParamNames: string[];
@@ -59,6 +60,7 @@ export class Endpoints {
       return {
         // DO NOT return baseUrl here!
         name: endpoint.name,
+        group: endpoint.group,
         urlPatternParamNames,
         urlPattern,
         method: endpoint.method || 'get',

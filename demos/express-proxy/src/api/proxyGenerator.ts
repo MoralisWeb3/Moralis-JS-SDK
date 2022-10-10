@@ -20,14 +20,17 @@ export class ProxyGenerator {
   public getRouter() {
     let descriptors;
     let baseUrl: string;
+    let api: 'EvmApi' | 'SolApi';
     switch (this.api) {
       case 'evm':
         descriptors = Moralis.EvmApi.endpoints.getDescriptors();
         baseUrl = Moralis.EvmApi.baseUrl;
+        api = 'EvmApi';
         break;
       case 'solana':
         descriptors = Moralis.SolApi.endpoints.getDescriptors();
         baseUrl = Moralis.SolApi.baseUrl;
+        api = 'SolApi';
         break;
       default:
         throw new Error('invalid api');
@@ -55,6 +58,11 @@ export class ProxyGenerator {
           }
           return { ...result, [key]: req.body[key] };
         }, {});
+
+        if(descriptor.group) {
+          await Moralis[api][descriptor.group][descriptor.name]
+        }
+
 
         try {
           const response = await axios.request({

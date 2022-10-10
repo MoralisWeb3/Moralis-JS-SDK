@@ -22,6 +22,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
 export const syncNFTContract = createEndpointFactory((core) =>
   createEndpoint({
     name: 'syncNFTContract',
+    group: 'nft',
     urlParams: ['address'],
     getUrl: (params: Params) => `/nft/${params.address}/sync`,
     apiToResult: (_: ApiResult) => ({
