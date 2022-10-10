@@ -56,6 +56,10 @@ describe('getContractEvents', () => {
       address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
       abi: ERC721_TRANSFER_ABI,
       topic: '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62',
+      fromBlock: 14327217,
+      toBlock: 14327217,
+      fromDate: '2022-03-05T13:45:42.000Z',
+      toDate: '2022-03-05T13:45:42.000Z',
     });
 
     // TODO: need to add the mock responese for above arguments.
