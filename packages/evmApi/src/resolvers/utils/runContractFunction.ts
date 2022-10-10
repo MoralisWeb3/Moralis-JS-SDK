@@ -26,6 +26,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const runContractFunction = createEndpointFactory((core) =>
   createEndpoint({
     name: 'runContractFunction',
+    group: 'utils',
     urlParams: ['address'],
     getUrl: (params: Params) => `/${params.address}/function`,
     apiToResult: (data: ApiResult) => {

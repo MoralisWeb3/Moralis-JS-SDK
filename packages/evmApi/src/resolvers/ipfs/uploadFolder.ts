@@ -17,6 +17,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const uploadFolder = createEndpointFactory(() =>
   createEndpoint({
     name: 'uploadFolder',
+    group: 'ipfs',
     getUrl: () => `/ipfs/uploadFolder`,
     apiToResult: (data: ApiResult) => {
       return data;

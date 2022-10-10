@@ -22,6 +22,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getNFTTokenIdOwners = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getNFTTokenIdOwners',
+    group: 'nft',
     urlParams: ['address', 'tokenId'],
     getUrl: (params: Params) => `/nft/${params.address}/${params.tokenId}/owners`,
     apiToResult: (data: ApiResult, params: Params) =>

@@ -19,6 +19,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const searchNFTs = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'searchNFTs',
+    group: 'nft',
     getUrl: () => `/nft/search`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data.result ?? []).map((nft) => ({

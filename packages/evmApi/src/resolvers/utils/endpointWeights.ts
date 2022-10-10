@@ -9,6 +9,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const endpointWeights = createEndpointFactory(() =>
   createEndpoint({
     name: 'endpointWeights',
+    group: 'utils',
     getUrl: () => `/info/endpointWeights`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,

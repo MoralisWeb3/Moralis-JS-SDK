@@ -7,8 +7,22 @@ export enum EndpointBodyType {
   BODY = 'body',
 }
 
+export type EndpointGroup =
+  | 'block'
+  | 'events'
+  | 'nft'
+  | 'token'
+  | 'transaction'
+  | 'utils'
+  | 'balance'
+  | 'resolve'
+  | 'defi'
+  | 'ipfs'
+  | 'account';
+
 export interface Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   name: string;
+  group?: EndpointGroup;
   getUrl: (params: Params) => string;
   apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;

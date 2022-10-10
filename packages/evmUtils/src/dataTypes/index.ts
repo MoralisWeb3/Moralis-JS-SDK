@@ -6,7 +6,7 @@ export * from './EvmBlock';
 export * from './EvmChain';
 export * from './EvmEvent';
 export * from './EvmNative';
-export * from './EvmNft';
+export * from './EvmNFT';
 export * from './EvmNftCollection';
 export * from './EvmNftContractType';
 export * from './EvmNftMetadata';

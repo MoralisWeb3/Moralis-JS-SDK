@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getWalletTransactions = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getWalletTransactions',
+    group: 'transaction',
     urlParams: ['address'],
     getUrl: (params: Params) => `/${params.address}`,
     apiToResult: (data: ApiResult, params: Params) =>
