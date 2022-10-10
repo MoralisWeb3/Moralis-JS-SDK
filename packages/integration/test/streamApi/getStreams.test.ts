@@ -21,7 +21,8 @@ describe('Get stream', () => {
     expect(result).toBeDefined();
     expect(result.result).toBeDefined();
     expect(result.pagination.total).toEqual(20);
-    expect(result.result[0].chainIds).toContain('0x3');
+    expect(result.result.length).toEqual(20);
+    expect(result.result[0].tag).toEqual('tag-1');
   });
 
   it('should default to evm networkType', async () => {
@@ -32,6 +33,40 @@ describe('Get stream', () => {
     expect(result).toBeDefined();
     expect(result.result).toBeDefined();
     expect(result.pagination.total).toEqual(20);
-    expect(result.result[0].chainIds).toContain('0x3');
+    expect(result.result.length).toEqual(20);
+    expect(result.result[0].tag).toEqual('tag-1');
+  });
+
+  it('should get a cursor', async () => {
+    const result = await StreamApi.getAll({
+      limit: 5,
+      networkType: 'evm',
+    });
+
+    expect(result).toBeDefined();
+    expect(result.result).toBeDefined();
+    expect(result.pagination.total).toEqual(20);
+    expect(result.result.length).toEqual(5);
+    expect(result.result[0].tag).toEqual('tag-2');
+    expect(result.pagination.cursor).toEqual('cursor');
+    expect(result.next).toBeDefined();
+    expect(result.hasNext).toBeTruthy();
+  });
+
+  it('should use a provided cursor', async () => {
+    const result = await StreamApi.getAll({
+      limit: 5,
+      cursor: 'cursor',
+      networkType: 'evm',
+    });
+
+    expect(result).toBeDefined();
+    expect(result.result).toBeDefined();
+    expect(result.pagination.total).toEqual(20);
+    expect(result.result.length).toEqual(5);
+    expect(result.result[0].tag).toEqual('tag-3');
+    expect(result.pagination.cursor).toEqual('cursor-2');
+    expect(result.next).toBeDefined();
+    expect(result.hasNext).toBeTruthy();
   });
 });

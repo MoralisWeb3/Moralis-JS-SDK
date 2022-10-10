@@ -3,7 +3,7 @@ import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
 import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { MoralisStreams } from '@moralisweb3/streams';
 import { MOCK_API_KEY } from '../../mockRequests/config';
-import { mockServer } from '../../mockRequests/mockRequestsStream';
+import { streamServer } from '../../mockRequests/streamServer';
 
 export function setupStreamApi(): MoralisStreams {
   const core = MoralisCore.create();
@@ -18,13 +18,15 @@ export function setupStreamApi(): MoralisStreams {
     apiKey: MOCK_API_KEY,
   });
 
-  mockServer.listen({
+  streamServer.listen({
     onUnhandledRequest: 'warn',
   });
+
+  streamServer.listen();
 
   return streamsApi;
 }
 
 export function cleanStreamsApi() {
-  mockServer.close();
+  streamServer.close();
 }
