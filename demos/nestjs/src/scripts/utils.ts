@@ -1,4 +1,3 @@
-// import { EndpointDescriptor } from '@moralisweb3/api-utils';
 import Moralis from 'moralis';
 
 function generateFunctions(api: 'evm' | 'solana') {
