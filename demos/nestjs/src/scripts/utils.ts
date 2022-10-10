@@ -39,39 +39,6 @@ function generateFunctions(api: 'evm' | 'solana') {
   return content;
 }
 
-// function generateFunctions(api) {
-//   let content = '';
-//   let descriptors;
-//   let service;
-//   switch (api) {
-//     case 'evm':
-//       descriptors = Moralis.default.EvmApi.endpoints.getDescriptors();
-//       service = 'evmProxyService';
-//       break;
-//     case 'solana':
-//       descriptors = Moralis.default.SolApi.endpoints.getDescriptors();
-//       service = 'solanaProxyService';
-//       break;
-//     default:
-//       throw new Error('invalid api');
-//   }
-//   for (const descriptor of descriptors) {
-//     const bodyType = getBodyInterface(descriptor.bodyParamNames);
-//     const paramsType = getParamsInterface(descriptor.urlPatternParamNames);
-//     content += `
-//             ${getMethod(descriptor)}
-//             async ${descriptor.name}${api} (@Body() body: ${
-//       bodyType ? `{${bodyType}}` : 'any'
-//     }, @Query() query: any, ${paramsType}) {
-//               return await this['${service}'].request(${JSON.stringify(
-//       descriptor,
-//     )}, body, query, {${descriptor.urlPatternParamNames.join(',')}});
-//             }
-//           `;
-//   }
-//   return content;
-// }
-
 module.exports = {
   generateFunctions,
 };
