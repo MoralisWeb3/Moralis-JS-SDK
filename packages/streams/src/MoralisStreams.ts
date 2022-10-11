@@ -15,7 +15,7 @@ import { makeGetAddresses } from './methods/getAddresses';
 import { makeDeleteAddress } from './methods/deleteAddress';
 import { makeGetStreamById } from './methods/getById';
 
-export const BASE_URL = 'https://api.moralis-streams.com';
+const BASE_URL = 'https://api.moralis-streams.com';
 
 export class MoralisStreams extends ApiModule {
   public static readonly moduleName = 'streams';

@@ -37,4 +37,9 @@ const Moralis = {
   start: core.start,
 };
 
+export * from '@moralisweb3/api-utils';
+export * from '@moralisweb3/evm-utils';
+export * from '@moralisweb3/sol-utils';
+export * from '@moralisweb3/streams';
+export * from '@moralisweb3/auth';
 export default Moralis;
