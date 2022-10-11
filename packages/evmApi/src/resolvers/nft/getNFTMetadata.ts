@@ -21,6 +21,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getNFTMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTMetadata',
+    group: 'nft',
     urlParams: ['address', 'tokenId'],
     getUrl: (params: Params) => `/nft/${params.address}/${params.tokenId}`,
     apiToResult: (data: ApiResult, params: Params) =>

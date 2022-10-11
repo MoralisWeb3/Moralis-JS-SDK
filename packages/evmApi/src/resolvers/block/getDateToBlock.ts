@@ -19,6 +19,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getDateToBlock = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getDateToBlock',
+    group: 'block',
     getUrl: () => `/dateToBlock`,
     apiToResult: (data: ApiResult) => ({
       ...data,

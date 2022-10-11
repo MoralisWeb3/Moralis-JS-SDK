@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getTokenMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenMetadata',
+    group: 'token',
     getUrl: () => `/erc20/metadata`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data ?? []).map((token) => {

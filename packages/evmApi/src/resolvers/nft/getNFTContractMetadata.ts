@@ -28,6 +28,7 @@ export interface Params {
 export const getNFTContractMetadata = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getNFTContractMetadata',
+    group: 'nft',
     urlParams: ['address'],
     getUrl: (params: Params) => `/nft/${params.address}/metadata`,
     apiToResult: (data: ApiResult, params: Params) =>

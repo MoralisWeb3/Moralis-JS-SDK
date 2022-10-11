@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getPairReserves = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairReserves',
+    group: 'defi',
     urlParams: ['pairAddress'],
     getUrl: (params: Params) => `/${params.pairAddress}/reserves`,
     apiToResult: (data: ApiResult) => data,

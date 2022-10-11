@@ -69,6 +69,7 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
 export const getBlock = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getBlock',
+    group: 'block',
     urlParams: ['blockNumberOrHash'],
     getUrl: (params: Params) => `/block/${params.blockNumberOrHash}`,
     apiToResult: (result: ApiResult, params: Params) => {

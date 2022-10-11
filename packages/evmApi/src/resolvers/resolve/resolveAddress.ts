@@ -17,6 +17,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'address'>> {
 export const resolveAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'resolveAddress',
+    group: 'resolve',
     urlParams: ['address'],
     getUrl: (params: Params) => `/resolve/${params.address}/reverse`,
     apiToResult: (data: ApiResult) => data,

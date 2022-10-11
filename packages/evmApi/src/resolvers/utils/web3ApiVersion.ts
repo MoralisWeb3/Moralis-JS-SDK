@@ -8,6 +8,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const web3ApiVersion = createEndpointFactory(() =>
   createEndpoint({
     name: 'web3ApiVersion',
+    group: 'utils',
     getUrl: () => `/web3/version`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,

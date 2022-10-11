@@ -20,6 +20,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const getContractLogs = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name: 'getContractLogs',
+    group: 'events',
     urlParams: ['address'],
     getUrl: (params: Params) => `/${params.address}/logs`,
     apiToResult: (data: ApiResult) =>

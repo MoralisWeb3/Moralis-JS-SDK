@@ -13,6 +13,7 @@ type ApiResult = operations[operation]['responses']['200']['content']['applicati
 export const resolveDomain = createEndpointFactory((core) =>
   createEndpoint({
     name: 'resolveDomain',
+    group: 'resolve',
     urlParams: ['domain'],
     getUrl: (params: ApiParams) => `/resolve/${params.domain}`,
     apiToResult: (data: ApiResult) => ({
