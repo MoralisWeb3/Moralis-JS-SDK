@@ -4,6 +4,7 @@ import cors from 'cors';
 import config from './config';
 import { apiRouter } from './apiRouter';
 import { errorHandler } from './middlewares/errorHandler';
+import { proxyRouter } from './routes/proxy';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api', apiRouter);
+app.use('/proxy', proxyRouter);
 app.use(errorHandler);
 
 app.use(express.static('public'));

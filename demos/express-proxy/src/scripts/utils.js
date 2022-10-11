@@ -28,7 +28,8 @@ function generateFunctions(api) {
       body ? `TypedRequestBody<${body}>` : 'Request'
     }, res: Response, next: NextFunction) => {
         try {
-            return await Moralis.${service}.${descriptor.group}.${descriptor.name}(${body ? 'req.body' : ''});
+            const response = await Moralis.${service}.${descriptor.group}.${descriptor.name}(${body ? 'req.body' : ''});
+            return res.send(response);
           } catch (error) {
             return next(error);
           }

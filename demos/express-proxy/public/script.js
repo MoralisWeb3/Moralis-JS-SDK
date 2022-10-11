@@ -1,4 +1,5 @@
 const EVM_PROXY_URL = 'http://localhost:4000/api/evm-api-proxy';
+const EVM_GENERATED_PROXY_URL = 'http://localhost:4000/proxy';
 const SOLANA_PROXY_URL = 'http://localhost:4000/api/solana-api-proxy';
 
 const elError = document.getElementById('error');
@@ -14,6 +15,14 @@ const handleEvmProxyCall = async (endpoint, params) => {
       'content-type': 'application/json',
     },
   });
+
+  renderResult(result.data);
+};
+
+const handleEvmProxyCall2 = async (endpoint, data) => {
+  const result = await axios.post(`${EVM_GENERATED_PROXY_URL}/${endpoint}`, data);
+
+  console.log('result', result.data.result);
 
   renderResult(result.data);
 };
@@ -38,7 +47,10 @@ const endpointWeights = () => {
 };
 
 const getEvmNativeBalance = () => {
-  handleEvmProxyCall('0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7/balance?chain=0x4');
+  handleEvmProxyCall2('evm/getNativeBalance', {
+    address: '0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7',
+    chain: 0x3,
+  });
 };
 
 // solana api proxy calls

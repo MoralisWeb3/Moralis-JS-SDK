@@ -28,10 +28,10 @@ const proxyGenerator = async () => {
     console.error('Invalid network specified (must be "evm", "solana" or "all")');
     process.exit(1);
   }
-  const folderdir = path.join(process.cwd(), './src/proxy');
+  const folderdir = path.join(process.cwd(), './proxy');
   await fs.promises.rm(folderdir, { recursive: true, force: true });
   // Install dotenv to read the API key from the .env file
-  await Promise.all([execCommand(`node ${__dirname}/src/scripts/genRoutes.js -n ${network} `)]);
+  await Promise.all([execCommand(`node ${__dirname}/scripts/genRoutes.js -n ${network} `)]);
 };
 
 proxyGenerator();
