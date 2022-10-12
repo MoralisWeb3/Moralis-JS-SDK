@@ -53,7 +53,7 @@ export const getContractEvents = createPaginatedEndpointFactory((core) =>
       chain: EvmChainResolver.resolve(params.chain, core).apiHex,
       from_block: params.fromBlock,
       to_block: params.toBlock,
-      from_date: params.toDate,
+      from_date: params.fromDate,
       to_date: params.toDate,
       providerUrl: params.providerUrl,
       topic: params.topic,
