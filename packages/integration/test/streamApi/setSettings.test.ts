@@ -17,7 +17,7 @@ describe('Set settings', () => {
       region: 'eu-central-1',
     });
 
-    expect(result.result.success).toEqual(true);
+    expect(result.result.region).toEqual('eu-central-1');
   });
 
   it('should throw an error on invalid region ', async () => {
