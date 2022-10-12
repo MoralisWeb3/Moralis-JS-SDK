@@ -1,50 +1,48 @@
-import { rest } from 'msw';
-import { STREAM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '../../MockScenarios';
+import { createErrorResponse } from './response/errorResponse';
+import { createSimpleStreamResponse } from './response/simpleStreamResponse';
 
-const DeleteAddressResponse: Record<string, { data: any; status: number }> = {
-  VALID_RESPONSE: {
-    data: {
-      streamId: 'VALID_RESPONSE',
-      address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
-    },
-    status: 200,
+export const mockDeleteAddressEvm = MockScenarios.create(
+  {
+    method: 'delete',
+    name: 'mockDeleteAddressEvm',
+    url: `/streams/evm/:id/address`,
+    getParams: (req) => ({
+      id: req.params.id,
+      address: req.body.address,
+    }),
   },
-  INVALID_ADDRESS: {
-    data: {
-      message: 'Invalid Address: some-address',
+  [
+    {
+      condition: {
+        id: 'VALID_RESPONSE',
+        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
+      },
+      response: createSimpleStreamResponse('VALID_RESPONSE', '0x992eccc191d6f74e8be187ed6b6ac196b08314f7'),
     },
-    status: 400,
-  },
-  STREAM_NOT_FOUND: {
-    data: {
-      message: 'Stream not found',
+    {
+      condition: {
+        id: 'INVALID_ADDRESS',
+        address: 'some-address',
+      },
+      responseStatus: 400,
+      response: createErrorResponse('Invalid Address: some-address'),
     },
-    status: 404,
-  },
-  ADDRESS_NOT_FOUND: {
-    data: {
-      message: 'Address not found',
+    {
+      condition: {
+        id: 'STREAM_NOT_FOUND',
+        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
+      },
+      responseStatus: 404,
+      response: createErrorResponse('Stream not found'),
     },
-    status: 404,
-  },
-};
-
-export const mockDeleteAddressEvm = rest.delete(`${STREAM_API_ROOT}/streams/evm/:id/address`, (req, res, ctx) => {
-  const apiKey = req.headers.get('x-api-key');
-  const id = req.params.id as string;
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(
-      ctx.status(401),
-      ctx.json({
-        message: 'Api Key Not Present',
-      }),
-    );
-  }
-
-  if (DeleteAddressResponse[id]) {
-    return res(ctx.status(DeleteAddressResponse[id].status), ctx.json(DeleteAddressResponse[id].data));
-  }
-
-  throw new Error('addAddressEvm: Not supported scenario');
-});
+    {
+      condition: {
+        id: 'ADDRESS_NOT_FOUND',
+        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+      },
+      responseStatus: 404,
+      response: createErrorResponse('Address not found'),
+    },
+  ],
+);

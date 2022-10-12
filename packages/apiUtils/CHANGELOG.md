@@ -1,5 +1,14 @@
 # @moralisweb3/api-utils
 
+## 2.6.4
+
+### Patch Changes
+
+- [#733](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/733) [`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4) Thanks [@ErnoW](https://github.com/ErnoW)! - Sent body in delete requests. This fixes issues with Moralis.Streams.deleteAddress
+
+- Updated dependencies [[`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4)]:
+  - @moralisweb3/core@2.6.4
+
 ## 2.6.3
 
 ### Patch Changes

@@ -1,0 +1,273 @@
+{
+  "confirmed": false,
+  "chainId": "0x1",
+  "abis": {
+    "337c055f-6477-4d59-9f4b-2b75c1d777f7": [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "Transfer",
+        "type": "event"
+      }
+    ]
+  },
+  "retries": 0,
+  "block": {
+    "number": "15696564",
+    "hash": "0xe50a0a94aa851c325874d0f24534d8d1376236a8739bb54b0980ae0a02741bc3",
+    "timestamp": "1665149807"
+  },
+  "logs": [
+    {
+      "logIndex": "39",
+      "transactionHash": "0x3ea07c0cebd16da6643dadffa71d44d0f90554643d2939e274803ad45497f775",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000145042bfd9",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000a69babef1ca67a37ffaf7a485dfff3382056e78c",
+      "topic2": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "43",
+      "transactionHash": "0xdd71d00e5291ca38202aa99eeca35c6da7f8d33640d838b34310c2776bf498f9",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000004a817c800",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000ddfc0a12fd323ac34ad149e1473eb6f91155fdd6",
+      "topic2": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "50",
+      "transactionHash": "0x690c1214f7b68c1d005902ceb9ee401709c19e376a67da3e6ea3052f213f4a87",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000119a90bb8",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic2": "0x000000000000000000000000735a26a57a0a0069dfabd41595a970faf5e1ee8b",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "74",
+      "transactionHash": "0x18ac1f6bd3d4683dbd75e072abde76fcc28e26de4e0507416716c618b4e0937c",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000008a48640",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000038385e94cae7cf86acf44a715ee62016587e613",
+      "topic2": "0x000000000000000000000000795a2a0766d18fcde86596c204e12cc04b5b8168",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "84",
+      "transactionHash": "0xb17e1104ee7c1eb1b6d45a5c722bf125183f3bacd657fcf30d7baa6356600849",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000002289ac90",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000f16e9b0d03470827a95cdfd0cb8a8a3b46969b91",
+      "topic2": "0x0000000000000000000000001abbc80d5ab19f7c65f7d8acee0899d8c36a9d38",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "174",
+      "transactionHash": "0x2e483dca4dbb5d25a3a0b93bd4e7ebd6a310b2883365dc64115ca156fb7f17bc",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000005466af09000",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000a0ab8fbfeaf5291bdf27c4c88080b094cd700a71",
+      "topic2": "0x000000000000000000000000ae2d4617c862309a3d75a0ffb358c7a5009c673f",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "206",
+      "transactionHash": "0x712b7d980e33b4bed14a2b1bcc246900c2bddfa55c052f8bbde16e873ac233e2",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000001d1a94a2000",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000007000042970cbbd3c1647f9e095561446d4afc79b",
+      "topic2": "0x00000000000000000000000027d3a2acd15f3d2355781ff42d1cbcaaf021e27a",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "244",
+      "transactionHash": "0x7cf45bd45165cbe41b7ef5813fc8cac2e1912358ff5d37e01ff61c94ac597cd0",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000005f5e1000",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000b4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "topic2": "0x0000000000000000000000009e3cb5a27705a01a26446b47e2f5b3ed9f4d442f",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    },
+    {
+      "logIndex": "421",
+      "transactionHash": "0xafd4e6249fc20ae9c9042f3dc66f4440b15ff6576c37d3d901ef43afffa814f4",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000004d6589a0",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000b8958de0bae41224f01c87ca80e458336fafb7cd",
+      "topic2": "0x0000000000000000000000008329d783f96e48d50f0f1f5a3c7f83b73a5c0218",
+      "topic3": null,
+      "tag": "ERC20 Transfer",
+      "streamId": "337c055f-6477-4d59-9f4b-2b75c1d777f7"
+    }
+  ],
+  "txs": [],
+  "txsInternal": [],
+  "erc20Transfers": [
+    {
+      "transactionHash": "0x3ea07c0cebd16da6643dadffa71d44d0f90554643d2939e274803ad45497f775",
+      "logIndex": "39",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xa69babef1ca67a37ffaf7a485dfff3382056e78c",
+      "to": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "value": "87245897689",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "87245.897689"
+    },
+    {
+      "transactionHash": "0xdd71d00e5291ca38202aa99eeca35c6da7f8d33640d838b34310c2776bf498f9",
+      "logIndex": "43",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xddfc0a12fd323ac34ad149e1473eb6f91155fdd6",
+      "to": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "value": "20000000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "20000"
+    },
+    {
+      "transactionHash": "0x690c1214f7b68c1d005902ceb9ee401709c19e376a67da3e6ea3052f213f4a87",
+      "logIndex": "50",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "to": "0x735a26a57a0a0069dfabd41595a970faf5e1ee8b",
+      "value": "4725476280",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "4725.47628"
+    },
+    {
+      "transactionHash": "0x18ac1f6bd3d4683dbd75e072abde76fcc28e26de4e0507416716c618b4e0937c",
+      "logIndex": "74",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x038385e94cae7cf86acf44a715ee62016587e613",
+      "to": "0x795a2a0766d18fcde86596c204e12cc04b5b8168",
+      "value": "145000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "145"
+    },
+    {
+      "transactionHash": "0xb17e1104ee7c1eb1b6d45a5c722bf125183f3bacd657fcf30d7baa6356600849",
+      "logIndex": "84",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xf16e9b0d03470827a95cdfd0cb8a8a3b46969b91",
+      "to": "0x1abbc80d5ab19f7c65f7d8acee0899d8c36a9d38",
+      "value": "579447952",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "579.447952"
+    },
+    {
+      "transactionHash": "0x2e483dca4dbb5d25a3a0b93bd4e7ebd6a310b2883365dc64115ca156fb7f17bc",
+      "logIndex": "174",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xa0ab8fbfeaf5291bdf27c4c88080b094cd700a71",
+      "to": "0xae2d4617c862309a3d75a0ffb358c7a5009c673f",
+      "value": "5800000000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "5800000"
+    },
+    {
+      "transactionHash": "0x712b7d980e33b4bed14a2b1bcc246900c2bddfa55c052f8bbde16e873ac233e2",
+      "logIndex": "206",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x7000042970cbbd3c1647f9e095561446d4afc79b",
+      "to": "0x27d3a2acd15f3d2355781ff42d1cbcaaf021e27a",
+      "value": "2000000000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "2000000"
+    },
+    {
+      "transactionHash": "0x7cf45bd45165cbe41b7ef5813fc8cac2e1912358ff5d37e01ff61c94ac597cd0",
+      "logIndex": "244",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "to": "0x9e3cb5a27705a01a26446b47e2f5b3ed9f4d442f",
+      "value": "1600000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "1600"
+    },
+    {
+      "transactionHash": "0xafd4e6249fc20ae9c9042f3dc66f4440b15ff6576c37d3d901ef43afffa814f4",
+      "logIndex": "421",
+      "tag": "ERC20 Transfer",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xb8958de0bae41224f01c87ca80e458336fafb7cd",
+      "to": "0x8329d783f96e48d50f0f1f5a3c7f83b73a5c0218",
+      "value": "1298500000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "1298.5"
+    }
+  ],
+  "erc20Approvals": [],
+  "nftApprovals": {
+    "ERC1155": [],
+    "ERC721": []
+  },
+  "nftTransfers": []
+}

@@ -4,7 +4,7 @@ import { mockGetBlock } from './evmApi/getBlock';
 import { mockGetContractEvents } from './evmApi/getContractEvents';
 import { mockGetContractNFTs } from './evmApi/getContractNFTs';
 import { mockGetDateToBlock } from './evmApi/getDateToBlock';
-import { mockGetLogsByAddress } from './evmApi/getLogsByAddress';
+import { mockGetContractLogs } from './evmApi/getContractLogs';
 import { mockGetNativeBalance } from './evmApi/getNativeBalance';
 import { mockGetNFTContractMetadata } from './evmApi/getNFTContractMetadata';
 import { mockGetNFTContractTransfers } from './evmApi/getNFTContractTransfers';
@@ -45,7 +45,7 @@ const handlers = [
   mockGetContractEvents,
   mockGetContractNFTs,
   mockGetDateToBlock,
-  mockGetLogsByAddress,
+  mockGetContractLogs,
   mockGetNativeBalance,
   mockGetNFTContractMetadata,
   mockGetNFTContractTransfers,

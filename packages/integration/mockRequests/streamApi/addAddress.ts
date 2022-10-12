@@ -1,51 +1,51 @@
-import { rest } from 'msw';
-import { STREAM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '../../MockScenarios';
+import { createErrorResponse } from './response/errorResponse';
+import { createSimpleStreamResponse } from './response/simpleStreamResponse';
 
-const AddAddressResponse: Record<string, { data: any; status: number }> = {
-  VALID_RESPONSE: {
-    data: {
-      streamId: 'VALID_RESPONSE',
-      address: '0x295522b61890c3672d12efbff4358a6411ce996f',
-    },
-    status: 200,
+export const mockAddAddressEvm = MockScenarios.create(
+  {
+    method: 'post',
+    name: 'mockAddAddressEvm',
+    url: `/streams/evm/:id/address`,
+    getParams: (req) => ({
+      id: req.params.id,
+      address: req.body.address,
+    }),
   },
-  MULTIPLE_ADDRESSES: {
-    data: {
-      streamId: 'MULTIPLE_ADDRESSES',
-      address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
+  [
+    {
+      condition: {
+        id: 'VALID_RESPONSE',
+        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+      },
+      response: createSimpleStreamResponse('VALID_RESPONSE', '0x295522b61890c3672d12efbff4358a6411ce996f'),
     },
-    status: 200,
-  },
-  INVALID_ADDRESS: {
-    data: {
-      message: 'Invalid Address: some-address',
+
+    {
+      condition: {
+        id: 'MULTIPLE_ADDRESSES',
+        address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
+      },
+      response: createSimpleStreamResponse('MULTIPLE_ADDRESSES', [
+        '0x295522b61890c3672d12efbff4358a6411ce996f',
+        '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+      ]),
     },
-    status: 400,
-  },
-  STREAM_NOT_FOUND: {
-    data: {
-      message: 'Stream not found',
+    {
+      condition: {
+        id: 'INVALID_ADDRESS',
+        address: 'some-address',
+      },
+      responseStatus: 400,
+      response: createErrorResponse('Invalid Address: some-address'),
     },
-    status: 404,
-  },
-};
-
-export const mockAddAddressEvm = rest.post(`${STREAM_API_ROOT}/streams/evm/:id/address`, (req, res, ctx) => {
-  const apiKey = req.headers.get('x-api-key');
-  const id = req.params.id as string;
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(
-      ctx.status(401),
-      ctx.json({
-        message: 'Api Key Not Present',
-      }),
-    );
-  }
-
-  if (AddAddressResponse[id]) {
-    return res(ctx.status(AddAddressResponse[id].status), ctx.json(AddAddressResponse[id].data));
-  }
-
-  throw new Error('addAddressEvm: Not supported scenario');
-});
+    {
+      condition: {
+        id: 'STREAM_NOT_FOUND',
+        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+      },
+      responseStatus: 404,
+      response: createErrorResponse('Stream not found'),
+    },
+  ],
+);
