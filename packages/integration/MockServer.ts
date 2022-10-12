@@ -6,10 +6,10 @@ interface Options {
 }
 export class MockServer {
   private _scenarios: MockScenarios[] = [];
-  server: SetupServerApi | null = null;
-  options: Options;
+  public server: SetupServerApi | null = null;
+  public options: Options;
 
-  constructor(options: Options, scenarios: MockScenarios[]) {
+  private constructor(options: Options, scenarios: MockScenarios[]) {
     this.options = options;
     this.addScenarios(scenarios);
   }

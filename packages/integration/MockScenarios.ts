@@ -46,7 +46,7 @@ export class MockScenarios {
   public scenarios: MockScenario[] = [];
   public options: MockScenariosOptions & Required<Pick<MockScenariosOptions, 'priority'>>;
 
-  constructor(options: MockScenariosOptions, scenarios: MockScenario[]) {
+  private constructor(options: MockScenariosOptions, scenarios: MockScenario[]) {
     this.scenarios = scenarios;
     this.options = { ...options, priority: options.priority ?? DEFAULT_PRIORITY };
   }
@@ -90,12 +90,12 @@ export class MockScenarios {
       );
     }
 
-    const params = omitBy(getParams(req, res, ctx), isNil);
-    const scenario = this.scenarios.find(({ condition }) => isEqual(condition, params));
-
     if (beforeScenarios) {
       beforeScenarios(req, res, ctx);
     }
+
+    const params = omitBy(getParams(req, res, ctx), isNil);
+    const scenario = this.scenarios.find(({ condition }) => isEqual(condition, params));
 
     if (!scenario) {
       throw new Error(`${name} failed, no scenarios with: ${JSON.stringify(params)}`);
