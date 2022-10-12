@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2022-10-12T10:21:47.638Z",
+  "generatedAt": "2022-10-12T10:25:16.017Z",
   "demos": [
     {
       "name": "cli",
@@ -12,12 +12,6 @@
       "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/express-proxy",
       "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/express-proxy/express-proxy.zip",
       "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/express-proxy/code"
-    },
-    {
-      "name": "firebase-auth",
-      "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/firebase-auth",
-      "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-auth/firebase-auth.zip",
-      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/firebase-auth/code"
     },
     {
       "name": "firebase-auth-ext",
