@@ -22,7 +22,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "@moralisweb3/streams-typings": "^1.0.3",
+    "@moralisweb3/streams-typings": "^1.0.5",
     "@types/ethereumjs-util": "5.2.0",
     "eslint-plugin-jest": "^26.8.3",
     "jest": "^28.0.3",
