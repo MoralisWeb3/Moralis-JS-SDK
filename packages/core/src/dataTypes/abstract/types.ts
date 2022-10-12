@@ -1,4 +1,4 @@
-type Primitive = null | undefined | string | number | boolean | Date;
+type Primitive = null | undefined | string | number | boolean | Date
 
 export type MoralisDataObjectValue = {
   [key: string]:
@@ -11,6 +11,6 @@ export type MoralisDataObjectValue = {
     | Record<string, MoralisDataObjectValue>
     | Array<[string, MoralisDataObjectValue]>
     | [string, Primitive[]][];
-};
+} | MoralisDataObjectValue[]
 
 export type MoralisDataFormatted = Primitive | MoralisDataObjectValue;

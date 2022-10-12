@@ -114,7 +114,7 @@ export class EvmSimpleBlock implements MoralisDataObject {
    * @example block.number // BigNumber
    */
   get number() {
-    return this._data.number;
+    return this._data.number.toString();
   }
 
   /**

@@ -1,8 +1,7 @@
-import { MoralisDataObjectValue } from '@moralisweb3/core';
 import { EvmStreamResultData } from './types';
 
 export class EvmStreamResultFormatter {
-  static toJSON(data: EvmStreamResultData): MoralisDataObjectValue {
+  static toJSON(data: EvmStreamResultData) {
     return {
       ...data,
       erc20Transfers: data.erc20Transfers.map((value) => value.toJSON()),
@@ -17,6 +16,7 @@ export class EvmStreamResultFormatter {
       logs: data.logs.map((value) => value.toJSON()),
       txs: data.txs.map((value) => value.toJSON()),
       txsInternal: data.txsInternal.map((value) => value.toJSON()),
+      abis: data.abis,
     };
   }
 }

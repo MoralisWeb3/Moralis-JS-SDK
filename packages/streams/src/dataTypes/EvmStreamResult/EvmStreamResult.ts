@@ -88,4 +88,38 @@ export class EvmStreamResult implements MoralisDataObject {
   format() {
     return this.toJSON();
   }
+
+  get chain() {
+    return this._data.chain;
+  }
+  get block() {
+    return this._data.block;
+  }
+  get retries() {
+    return this._data.retries;
+  }
+  get confirmed() {
+    return this._data.confirmed;
+  }
+  get erc20Approvals() {
+    return this._data.erc20Approvals;
+  }
+  get erc20Transfers() {
+    return this._data.erc20Transfers;
+  }
+  get logs() {
+    return this._data.logs;
+  }
+  get nftApprovals() {
+    return this._data.nftApprovals;
+  }
+  get nftTransfers() {
+    return this._data.nftTransfers;
+  }
+  get txs() {
+    return this._data.txs;
+  }
+  get txsInternal() {
+    return this._data.txsInternal;
+  }
 }

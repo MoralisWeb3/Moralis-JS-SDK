@@ -1,7 +1,7 @@
 /* eslint-disable etc/no-commented-out-code */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { EvmChain, EvmSimpleBlock } from '@moralisweb3/evm-utils';
-import { AbiItem, IWebhook } from '@moralisweb3/streams-typings';
+import { IWebhook } from '@moralisweb3/streams-typings';
 import { StreamErc1155Approval } from '../StreamErc1155Approval/StreamErc1155Approval';
 import { StreamErc20Approval } from '../StreamErc20Approval/StreamErc20Approval';
 import { StreamErc20Transfer } from '../StreamErc20Transfer/StreamErc20Transfer';
@@ -24,7 +24,9 @@ export interface EvmStreamResultData {
   logs: StreamEvmTransactionLog[];
   txs: StreamEvmTransaction[];
   txsInternal: StreamEvmInternalTransaction[];
-  abis: Record<string, AbiItem[]>;
+  // TODO: make Abi type compatible
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  abis: Record<string, any[]>;
   retries: number;
   confirmed: boolean;
 }

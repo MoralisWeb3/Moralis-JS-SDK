@@ -42,7 +42,9 @@ export class EvmStreamResultParser {
   };
 
   static parseChainId(value: string, core: MoralisCore) {
-    return EvmChain.create(value, core);
+    // Use Ethereum as default, since we get an initial response with empty string as chain
+    // TODO: fix this behaviour, this is only needed because of the initial webhook response
+    return value === '' ? EvmChain.ETHEREUM : EvmChain.create(value, core);
   }
 
   static parseErc20Transfers(value: IERC20Transfer[], chain: EvmChain) {
@@ -117,6 +119,15 @@ export class EvmStreamResultParser {
   }
 
   static parseBlock(value: Block, chain: EvmChain) {
+    // TODO: remove this behaviour, this is only needed because of the initial webhook response
+    if (value.number === '') {
+      return EvmSimpleBlock.create({
+        chain,
+        number: 0,
+        hash: '',
+        timestamp: '0',
+      });
+    }
     return EvmSimpleBlock.create({
       chain,
       ...value,
