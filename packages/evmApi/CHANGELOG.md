@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.6.5
+
+### Patch Changes
+
+- [#734](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/734) [`9aada1f8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9aada1f83d71ee1d30c1fdeb2ec4f6161a7ad36c) Thanks [@sogunshola](https://github.com/sogunshola)! - Fixed wrong params definition in `getContractEvents` and `getContractLogs` endpoints
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.5
+  - @moralisweb3/api-utils@2.6.5
+  - @moralisweb3/evm-utils@2.6.5
+
 ## 2.6.4
 
 ### Patch Changes
