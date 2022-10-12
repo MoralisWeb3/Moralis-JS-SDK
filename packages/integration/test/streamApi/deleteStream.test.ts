@@ -14,22 +14,28 @@ describe('Delete stream', () => {
 
   it('should delete a stream ', async () => {
     const result = await StreamApi.delete({
-      id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      id: 'VALID_RESPONSE',
       networkType: 'evm',
     });
 
     expect(result).toBeDefined();
-    expect(result).toEqual(expect.objectContaining({}));
-    expect(result.result.chainIds).toContain('0x3');
+    expect(result.result.tag).toContain('valid-response');
   });
 
   it('should default to evm networkType', async () => {
     const result = await StreamApi.delete({
-      id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      id: 'VALID_RESPONSE',
     });
 
     expect(result).toBeDefined();
-    expect(result).toEqual(expect.objectContaining({}));
-    expect(result.result.chainIds).toContain('0x3');
+    expect(result.result.tag).toContain('valid-response');
+  });
+
+  it('should throw an error on non-found stream', async () => {
+    expect(
+      StreamApi.delete({
+        id: 'STREAM_NOT_FOUND',
+      }),
+    ).rejects.toThrowError('[C0006] Request failed, Not Found(404): Stream not found');
   });
 });
