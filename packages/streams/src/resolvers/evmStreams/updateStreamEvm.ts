@@ -23,6 +23,7 @@ const bodyParams = [
   'chainIds',
   'advancedOptions',
 ] as const;
+const urlParams = ['id'] as const;
 
 export interface UpdateStreamEvmParams extends Camelize<Omit<ApiParams, 'chainIds'>> {
   chains: EvmChainish[];
@@ -42,7 +43,8 @@ const apiToResult = (apiData: ApiResult) => {
 export const updateStreamEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (params: UpdateStreamEvmParams) => `/streams/evm/${params.id}`,
+    getUrl: ({ id }: UpdateStreamEvmParams) => `/streams/evm/${id}`,
+    urlParams,
     apiToResult,
     resultToJson: (data) => ({
       ...data,

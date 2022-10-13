@@ -13,13 +13,15 @@ type ApiParams = Omit<PathParams & BodyParams, 'address'> & { address: string | 
 export type AddAddressEvmParams = ApiParams;
 const method = 'post';
 const bodyParams = ['address'] as const;
+const urlParams = ['id'] as const;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
 export const addAddressEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (params: AddAddressEvmParams) => `/streams/evm/${params.id}/address`,
+    getUrl: ({ id }: AddAddressEvmParams) => `/streams/evm/${id}/address`,
+    urlParams,
     apiToResult: (apiData: ApiResult) => {
       const data = toCamelCase(apiData);
 

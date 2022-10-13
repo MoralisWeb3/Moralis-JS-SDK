@@ -10,6 +10,7 @@ type PathParams = operations[Name]['parameters']['path'];
 type ApiParams = PathParams;
 export type DeleteStreamEvmParams = ApiParams;
 const method = 'delete';
+const urlParams = ['id'] as const;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
@@ -25,7 +26,8 @@ const apiToResult = (apiData: ApiResult) => {
 export const deleteStreamEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (params: DeleteStreamEvmParams) => `/streams/evm/${params.id}`,
+    getUrl: ({ id }: DeleteStreamEvmParams) => `/streams/evm/${id}`,
+    urlParams,
     apiToResult,
     resultToJson: (data) => ({
       ...data,
