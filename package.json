@@ -55,7 +55,6 @@
       "packages/client/*",
       "demos/*",
       "demos/firebase-proxy/*",
-      "demos/firebase-auth/*",
       "demos/firebase-auth-ext/*",
       "demos/firebase-streams-ext/*"
     ]

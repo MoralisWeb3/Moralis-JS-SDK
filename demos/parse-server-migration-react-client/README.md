@@ -1,6 +1,6 @@
 # parse-server migration client (react)
 
-Example app in react, setup to work with a self-hoste parse-server.
+Example app in react, setup to work with a self-hosted parse-server.
 
 ## Getting started locally
 

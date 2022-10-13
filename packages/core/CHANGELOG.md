@@ -1,5 +1,7 @@
 # @moralisweb3/core
 
+## 2.6.5
+
 ## 2.6.4
 
 ### Patch Changes

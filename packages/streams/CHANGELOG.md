@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.6.5
+
+### Patch Changes
+
+- [#744](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/744) [`9953a791`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9953a79100ecc814c1fb12d820bee0f0abc06798) Thanks [@ErnoW](https://github.com/ErnoW)! - Update types and endpoints for Moralis.Streams to reflect the api changes. Some types have changes, `Moralis.Streams.retry` now accepts an id and is fixed. And return types from webhooks have been updated.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.5
+  - @moralisweb3/api-utils@2.6.5
+  - @moralisweb3/evm-utils@2.6.5
+
 ## 2.6.4
 
 ### Patch Changes

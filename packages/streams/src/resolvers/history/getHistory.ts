@@ -13,7 +13,7 @@ export const getHistory = createPaginatedEndpointFactory(() =>
   createPaginatedEndpoint({
     name,
     getUrl: () => `/history`,
-    apiToResult: (data: ApiResult) => data,
+    apiToResult: (data: ApiResult) => data.result,
     resultToJson: (data) => data,
     parseParams: (params: GetHistoryParams): ApiParams => params,
   }),
