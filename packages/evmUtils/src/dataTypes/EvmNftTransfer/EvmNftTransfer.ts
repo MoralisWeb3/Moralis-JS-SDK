@@ -1,6 +1,11 @@
-import MoralisCore, { MoralisDataObject, maybe, MoralisCoreProvider } from '@moralisweb3/core';
+import MoralisCore, {
+  MoralisDataObject,
+  maybe,
+  MoralisCoreProvider,
+  BigNumber,
+  dateInputToDate,
+} from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
-import { EvmSimpleBlock } from '../EvmBlock';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
 import { EvmNftTransferInput, EvmNftTransferData } from './types';
@@ -44,6 +49,8 @@ export class EvmNftTransfer implements MoralisDataObject {
     ...data,
     chain: EvmChain.create(data.chain, core),
     amount: maybe(data.amount, (amount) => +amount),
+    blockNumber: BigNumber.create(data.blockNumber),
+    blockTimestamp: dateInputToDate(data.blockTimestamp),
     transactionIndex: maybe(data.transactionIndex, (index) => +index),
     transactionType: maybe(data.transactionType),
     fromAddress: maybe(data.fromAddress, (address) => EvmAddress.create(address, core)),
@@ -51,7 +58,6 @@ export class EvmNftTransfer implements MoralisDataObject {
     tokenAddress: EvmAddress.create(data.tokenAddress, core),
     value: maybe(data.value, EvmNative.create),
     operator: maybe(data.operator, (operator) => EvmAddress.create(operator, core)),
-    block: maybe(data.block, (block) => EvmSimpleBlock.create(block, core)),
     logIndex: +data.logIndex,
   });
 
@@ -112,7 +118,7 @@ export class EvmNftTransfer implements MoralisDataObject {
       tokenAddress: data.tokenAddress.format(),
       value: data.value ? data.value.format() : undefined,
       operator: data.operator ? data.operator.format() : undefined,
-      block: data.block?.toJSON(),
+      blockNumber: data.blockNumber.toString(),
     };
   }
 
@@ -144,19 +150,11 @@ export class EvmNftTransfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the block of the transfer.
-   * @example transfer.block // <EvmSimpleBlock>
-   */
-  get block() {
-    return this._data.block;
-  }
-
-  /**
    * @returns the block hash of the transfer.
    * @example transfer.blockHash // "0x057Ec652A4F150f7FF94f089A38008f49a0DF88e"
    */
   get blockHash() {
-    return this.block?.hash;
+    return this._data.blockHash;
   }
 
   /**
@@ -164,7 +162,7 @@ export class EvmNftTransfer implements MoralisDataObject {
    * @example transfer.blockNumber // BigNumber
    */
   get blockNumber() {
-    return this.block?.number;
+    return this._data.blockNumber;
   }
 
   /**
@@ -172,7 +170,7 @@ export class EvmNftTransfer implements MoralisDataObject {
    * @example transfer.blockTimestamp // Date
    */
   get blockTimestamp() {
-    return this.block?.timestamp;
+    return this._data.blockTimestamp;
   }
 
   /**

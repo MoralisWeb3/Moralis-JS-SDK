@@ -1,16 +1,15 @@
-import { MoralisDataObject, MoralisDataObjectValue } from '@moralisweb3/core';
-import { splitSignature, joinSignature, Signature as EthersSignature } from '@ethersproject/bytes';
-
-interface EvmSignatureInput {
-  r: string;
-  s: string;
-  v: number;
-}
+import { BigNumber, MoralisDataObject, MoralisDataObjectValue } from '@moralisweb3/core';
+import { splitSignature, joinSignature, Signature as EthersSignature, hexlify } from '@ethersproject/bytes';
+import { EvmSignatureInput } from './types';
 
 type EvmSignatureData = EthersSignature;
 
 export type EvmSignatureish = EvmSignatureInput | EvmSignature;
 
+/**
+ * Represents of a signed EVM signature
+ * Can be created with a valid r,s,v signature or a hex string
+ */
 export class EvmSignature implements MoralisDataObject {
   static create(data: EvmSignatureish) {
     if (data instanceof EvmSignature) {
@@ -19,21 +18,22 @@ export class EvmSignature implements MoralisDataObject {
     return new EvmSignature(data);
   }
 
-  private _data: EvmSignatureInput;
+  private _data: EthersSignature;
 
   constructor(data: EvmSignatureInput) {
     this._data = EvmSignature.parse(data);
   }
 
   static parse = (data: EvmSignatureInput): EvmSignatureData => {
-    return splitSignature({
-      r: data.r,
-      s: data.s,
-      v: data.v,
-    });
+    if (typeof data === 'string') {
+      return splitSignature(data);
+    }
 
-    // ...data,
-    // v: BigNumber.create(data.v),
+    return splitSignature({
+      r: hexlify(BigNumber.create(data.r).toBigInt()),
+      s: hexlify(BigNumber.create(data.s).toBigInt()),
+      v: +data.v,
+    });
   };
 
   static equals(dataA: EvmSignatureish, dataB: EvmSignatureish) {
@@ -78,6 +78,6 @@ export class EvmSignature implements MoralisDataObject {
   }
 
   format() {
-    return this.toJSON();
+    return this.serialized;
   }
 }

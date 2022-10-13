@@ -1,3 +1,4 @@
+// TODO: move to integration tests
 export const initialWebhookResponse = {
   timestamp: '2022-10-12T08:21:25.677Z',
   data: {
@@ -23,7 +24,7 @@ export const initialWebhookResponse = {
   },
 };
 
-export const nativeTx = {
+export const nativeTxWebhookResponse = {
   timestamp: '2022-10-12T08:29:53.469Z',
   data: {
     confirmed: true,

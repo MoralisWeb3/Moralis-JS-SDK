@@ -1,6 +1,5 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
-import { EvmSimpleBlock } from '../EvmBlock';
 import { EvmChain } from '../EvmChain';
 import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
 
@@ -46,12 +45,11 @@ export class EvmTransactionLog implements MoralisDataObject {
       transactionHash: value.transactionHash,
       transactionIndex: maybe(value.transactionIndex),
       data: value.data,
-      topic0: maybe(value.topic0),
-      topic1: maybe(value.topic1),
-      topic2: maybe(value.topic2),
-      topic3: maybe(value.topic3),
+      topics: value.topics,
+      blockHash: value.blockHash,
+      blockNumber: value.blockNumber,
+      blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address, core),
-      block: maybe(value.block, EvmSimpleBlock.create),
     };
   }
 
@@ -89,7 +87,6 @@ export class EvmTransactionLog implements MoralisDataObject {
       ...value,
       address: value.address.format(),
       chain: value.chain.format(),
-      block: value.block?.toJSON(),
     };
   }
 
@@ -180,54 +177,6 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * @returns the topic0 of the log.
-   *
-   * @example
-   * ```ts
-   * log.topic0; // "0x0000000000000000000000000000000000000000000000000000000000000001"
-   * ```
-   */
-  get topic0() {
-    return this._value.topic0;
-  }
-
-  /**
-   * @returns the topic0 of the log.
-   *
-   * @example
-   * ```ts
-   * log.topic1; // "0x0000000000000000000000000000000000000000000000000000000000000001"
-   * ```
-   */
-  get topic1() {
-    return this._value.topic1;
-  }
-
-  /**
-   * @returns the topic0 of the log.
-   *
-   * @example
-   * ```ts
-   * log.topic2; // "0x0000000000000000000000000000000000000000000000000000000000000001"
-   * ```
-   */
-  get topic2() {
-    return this._value.topic2;
-  }
-
-  /**
-   * @returns the topic0 of the log.
-   *
-   * @example
-   * ```ts
-   * log.topic3; // "0x0000000000000000000000000000000000000000000000000000000000000001"
-   * ```
-   */
-  get topic3() {
-    return this._value.topic3;
-  }
-
-  /**
    * @returns the topics of the log.
    *
    * @example
@@ -236,19 +185,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get topics() {
-    return [this.topic0, this.topic1, this.topic2, this.topic3].filter((topic) => topic !== undefined);
-  }
-
-  /**
-   * @returns the block of the log.
-   *
-   * @example
-   * ```ts
-   * log.block; // <EvmSimpleBlock>
-   * ```
-   */
-  get block() {
-    return this._value.block;
+    return this._value.topics;
   }
 
   /**
@@ -260,7 +197,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get blockHash() {
-    return this.block?.hash;
+    return this._value.blockHash;
   }
 
   /**
@@ -272,7 +209,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get blockNumber() {
-    return this.block?.number;
+    return this._value.blockNumber;
   }
 
   /**
@@ -284,6 +221,6 @@ export class EvmTransactionLog implements MoralisDataObject {
    * ```
    */
   get blockTimestamp() {
-    return this.block?.timestamp;
+    return this._value.blockTimestamp;
   }
 }

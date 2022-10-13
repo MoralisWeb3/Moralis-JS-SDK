@@ -1,10 +1,9 @@
-import { BigNumber, BigNumberish } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, DateInput } from '@moralisweb3/core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
-import { EvmSimpleBlock, EvmSimpleBlockish } from '../EvmBlock';
 import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
-import { EvmSignature, EvmSignatureish } from './EvmSignature';
+import { EvmSignature, EvmSignatureish } from '../EvmSignature/EvmSignature';
 
 /**
  * This can be any object with valid transaction data.
@@ -24,17 +23,15 @@ import { EvmSignature, EvmSignatureish } from './EvmSignature';
           hash: "0x057Ec652A4F150f7FF94f089A38008f49a0DF88e",
           nonce: "326595425",
           value: "650000000000000000",
+          blockHash: "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86",
+          blockNumber: "12526958",
+          blockTimestamp: new Date("2021-04-02T10:07:54.000Z"),
           gas: "6721975",
           to: "0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef",
           signature: {
             v: 28,
             r: "0xda4429a9e8e6b54cb101b2df002039f2879ab4ca0e8fae64134942cb81f3e581",
             s: "0x3b90a37dc078a82dfc418695b1d4473661aa4d24dd874ac68678894ff44a6b27",
-          },
-          block: {
-            hash: "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86",
-            number: "12526958",
-            timestamp: new Date("2021-04-02T10:07:54.000Z"),
           }
         }
  * ```
@@ -52,13 +49,16 @@ export interface EvmTransactionInput {
   type?: null | number | string;
 
   gas?: null | BigNumberish;
-  gasPrice?: null | BigNumberish;
+  gasPrice: BigNumberish;
 
   index: number | string;
+  blockNumber: BigNumberish;
+  blockHash: string;
+  blockTimestamp: DateInput;
 
   // After receipt
-  cumulativeGasUsed?: null | BigNumberish;
-  gasUsed?: null | BigNumberish;
+  cumulativeGasUsed: BigNumberish;
+  gasUsed: BigNumberish;
   contractAddress?: null | EvmAddressish;
   receiptRoot?: null | string;
   receiptStatus?: null | string | number;
@@ -66,7 +66,6 @@ export interface EvmTransactionInput {
   logs?: EvmTransactionLogish[];
 
   signature?: EvmSignatureish;
-  block?: EvmSimpleBlockish;
 }
 
 /**
@@ -85,13 +84,16 @@ export interface EvmTransactionData {
   type?: number;
 
   gas?: BigNumber;
-  gasPrice?: BigNumber;
+  gasPrice: BigNumber;
 
-  index: number;
+  index: number | string;
+  blockNumber: BigNumber;
+  blockHash: string;
+  blockTimestamp: Date;
 
   // After receipt
-  cumulativeGasUsed?: BigNumber;
-  gasUsed?: BigNumber;
+  cumulativeGasUsed: BigNumber;
+  gasUsed: BigNumber;
   contractAddress?: EvmAddress;
   receiptRoot?: string;
   receiptStatus?: number;
@@ -99,5 +101,4 @@ export interface EvmTransactionData {
   logs: EvmTransactionLog[];
 
   signature?: EvmSignature;
-  block?: EvmSimpleBlock;
 }

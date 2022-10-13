@@ -1,5 +1,4 @@
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
-import { EvmSimpleBlock } from '../EvmBlock/EvmSimpleBlock';
 import { EvmChain, EvmChainish } from '../EvmChain';
 
 /**
@@ -14,11 +13,10 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *  transactionHash: "0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5",
  *  logIndex: "273",
  *  transactionIndex: "204",\
- *  block: {
- *    number: "12386788",
- *    hash: "0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171",
- *    timestamp: "2021-05-07T11:08:35.000Z",
- *   }
+ *  blockHash: "0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171",
+ *  blockNumber: "12386788",
+ *  blockTimestamp: "2021-05-07T11:08:35.000Z",
+ *  transactionIndex: "204",
  * }
  * ```
  */
@@ -29,11 +27,10 @@ export interface EvmTransactionLogInput {
   transactionIndex?: number;
   address: EvmAddressish;
   data: string;
-  topic0?: null | string;
-  topic1?: null | string;
-  topic2?: null | string;
-  topic3?: null | string;
-  block?: EvmSimpleBlock;
+  topics: string[];
+  blockHash: string;
+  blockNumber: number;
+  blockTimestamp?: string;
 }
 
 /**
@@ -46,9 +43,8 @@ export interface EvmTransactionLogData {
   transactionIndex?: number;
   address: EvmAddress;
   data: string;
-  topic0?: string;
-  topic1?: string;
-  topic2?: string;
-  topic3?: string;
-  block?: EvmSimpleBlock;
+  topics: string[];
+  blockHash: string;
+  blockNumber: number;
+  blockTimestamp?: string;
 }

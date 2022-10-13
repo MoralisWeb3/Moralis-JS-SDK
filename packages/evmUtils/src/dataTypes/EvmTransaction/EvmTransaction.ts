@@ -1,10 +1,15 @@
-import MoralisCore, { MoralisDataObject, maybe, BigNumber, MoralisCoreProvider } from '@moralisweb3/core';
+import MoralisCore, {
+  MoralisDataObject,
+  maybe,
+  BigNumber,
+  MoralisCoreProvider,
+  dateInputToDate,
+} from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
-import { EvmSimpleBlock } from '../EvmBlock';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';
-import { EvmSignature } from './EvmSignature';
+import { EvmSignature } from '../EvmSignature/EvmSignature';
 import { EvmTransactionInput, EvmTransactionData } from './types';
 
 /**
@@ -55,12 +60,15 @@ export class EvmTransaction implements MoralisDataObject {
     chain: EvmChain.create(data.chain),
 
     gas: maybe(data.gas, BigNumber.create),
-    gasPrice: maybe(data.gasPrice, BigNumber.create),
+    gasPrice: BigNumber.create(data.gasPrice),
 
     index: +data.index,
+    blockNumber: BigNumber.create(data.blockNumber),
+    blockHash: data.blockHash,
+    blockTimestamp: dateInputToDate(data.blockTimestamp),
 
-    cumulativeGasUsed: maybe(data.cumulativeGasUsed, BigNumber.create),
-    gasUsed: maybe(data.gasUsed, BigNumber.create),
+    cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
+    gasUsed: BigNumber.create(data.gasUsed),
 
     contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address, core)),
     receiptRoot: maybe(data.receiptRoot),
@@ -69,7 +77,6 @@ export class EvmTransaction implements MoralisDataObject {
     logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
 
     signature: maybe(data.signature, EvmSignature.create),
-    block: maybe(data.block, EvmSimpleBlock.create),
   });
 
   /**
@@ -124,7 +131,8 @@ export class EvmTransaction implements MoralisDataObject {
       contractAddress: data.contractAddress?.format(),
       logs: data.logs.map((log) => log.toJSON()),
       signature: data.signature?.toJSON(),
-      block: data.block?.toJSON(),
+      blockNumber: data.blockNumber?.toString(),
+      blockTimestamp: data.blockTimestamp.toString(),
     };
   }
 
@@ -235,7 +243,7 @@ export class EvmTransaction implements MoralisDataObject {
    * ```
    */
   get blockNumber() {
-    return this._data.block?.number;
+    return this._data.blockNumber;
   }
 
   /**
@@ -338,17 +346,6 @@ export class EvmTransaction implements MoralisDataObject {
   }
 
   /**
-   * @returns the block
-   * @example
-   * ```
-   * transaction.block // <EvmSimpleBlock>
-   * ```
-   */
-  get block() {
-    return this._data.block;
-  }
-
-  /**
    * @returns the transaction black hash
    * @example
    * ```
@@ -356,7 +353,7 @@ export class EvmTransaction implements MoralisDataObject {
    * ```
    */
   get blockHash() {
-    return this._data.block?.hash;
+    return this._data.blockHash;
   }
 
   /**
@@ -367,7 +364,7 @@ export class EvmTransaction implements MoralisDataObject {
    * ```
    */
   get blockTimestamp() {
-    return this._data.block?.timestamp;
+    return this._data.blockTimestamp;
   }
 
   /**
