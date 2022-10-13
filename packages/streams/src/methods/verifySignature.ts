@@ -1,9 +1,10 @@
 import { ApiConfig } from '@moralisweb3/api-utils';
-import MoralisCore, { MoralisDataFormatted, MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
+import { MoralisCore, MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
+import { IWebhook } from '@moralisweb3/streams-typings';
 import { sha3 } from '../utils/sha3';
 
 export interface VerifySignatureOptions {
-  body: MoralisDataFormatted;
+  body: IWebhook;
   signature: string;
 }
 
