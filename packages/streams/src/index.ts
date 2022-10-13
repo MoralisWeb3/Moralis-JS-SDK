@@ -12,4 +12,7 @@ export * from './resolvers/evmStreams/types';
 export * from './resolvers/history/types';
 export * from './resolvers/project/types';
 
+// Export data types
+export * from './dataTypes';
+
 export default MoralisStreams;

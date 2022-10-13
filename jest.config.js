@@ -18,4 +18,5 @@ module.exports = {
       tsConfig: '<rootDir>/../../tsconfig.package.json',
     },
   },
+  verbose: true,
 };

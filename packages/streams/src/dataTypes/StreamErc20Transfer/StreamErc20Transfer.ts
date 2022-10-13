@@ -1,11 +1,26 @@
-import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { Erc20Token, Erc20Value, EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
-import { StreamErc20TransferData, StreamErc20TransferInput } from './types';
+import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { StreamErc20TransferData, StreamErc20TransferInput, StreamErc20TransferJSON } from './types';
 
-type StreamErc20Transferish = StreamErc20Transfer | StreamErc20TransferInput;
+export type StreamErc20Transferish = StreamErc20TransferInput | StreamErc20Transfer;
 
-// TODO: combine with Erc20Transfer class (there are some difference in the input types currently)
+/**
+ * The StreamErc20Transfer class is representation of the webhook data that is returned from the Stream api
+ *
+ * @category DataType
+ */
 export class StreamErc20Transfer implements MoralisDataObject {
+  /**
+   * Create a new instance of StreamErc20Transfer
+   *
+   * @param data - the StreamErc20Transferish type
+   * @param core - the MoralisCore instance
+   * @example
+   * ```ts
+   * const erc20Transfer = StreamErc20Transfer.create(data);
+   * ```
+   * @returns an instance of StreamErc20Transfer
+   */
   static create(data: StreamErc20Transferish, core?: MoralisCore) {
     if (data instanceof StreamErc20Transfer) {
       return data;
@@ -20,18 +35,20 @@ export class StreamErc20Transfer implements MoralisDataObject {
     this._data = StreamErc20Transfer.parse(data, core);
   }
 
-  static parse = (data: StreamErc20TransferInput, core: MoralisCore): StreamErc20TransferData => ({
-    ...data,
-    chain: EvmChain.create(data.chain, core),
-    from: EvmAddress.create(data.from, core),
-    to: EvmAddress.create(data.to, core),
-    logIndex: +data.logIndex,
-    tokenValue: Erc20Value.create(data.value, {
-      decimals: data.token.decimals,
-      token: { chain: data.chain, ...data.token },
-    }),
-    token: Erc20Token.create({ chain: data.chain, ...data.token }, core),
-  });
+  static parse = (data: StreamErc20TransferInput, core: MoralisCore): StreamErc20TransferData => {
+    const chain = EvmChain.create(data.chain, core);
+    return {
+      ...data,
+      chain,
+      from: EvmAddress.create(data.from, core),
+      to: EvmAddress.create(data.to, core),
+      logIndex: +data.logIndex,
+      contract: EvmAddress.create(data.contract, core),
+      value: BigNumber.create(data.value),
+      valueWithDecimals: maybe(data.valueWithDecimals),
+      tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
+    };
+  };
 
   /**
    * Compares two StreamErc20Transfer data. It checks a deep equality check of both values.
@@ -44,12 +61,12 @@ export class StreamErc20Transfer implements MoralisDataObject {
    * ```
    */
   static equals(valueA: StreamErc20Transferish, valueB: StreamErc20Transferish) {
-    const erc20ApprovalA = StreamErc20Transfer.create(valueA);
-    const erc20ApprovalB = StreamErc20Transfer.create(valueB);
+    const erc20TransferA = StreamErc20Transfer.create(valueA);
+    const erc20TransferB = StreamErc20Transfer.create(valueB);
 
     // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
     // deep equality check
-    return JSON.stringify(erc20ApprovalA._data) === JSON.stringify(erc20ApprovalB._data);
+    return JSON.stringify(erc20TransferA._data) === JSON.stringify(erc20TransferB._data);
   }
 
   /**
@@ -58,33 +75,35 @@ export class StreamErc20Transfer implements MoralisDataObject {
    * @returns true if the value is equal to the current instance, false otherwise
    * @example
    * ```ts
-   * erc20Approval.equals(value);
+   * erc20Transfer.equals(value);
    * ```
    */
   equals(value: StreamErc20Transferish): boolean {
     return StreamErc20Transfer.equals(this, value);
   }
 
-  toJSON() {
-    const { tokenValue, token, ...data } = this._data;
+  /**
+   * Converts the StreamErc20Transfer instance to a JSON object.
+   * @returns JSON object of the StreamErc20Transfer instance
+   * @example `erc20Transfer.toJSON()`
+   */
+  toJSON(): StreamErc20TransferJSON {
+    const { chain, from, to, contract, value, ...data } = this._data;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
-      chain: data.chain.format(),
-      from: data.from.format(),
-      to: data.to.format(),
-      valueWithDecimals: tokenValue.format(),
-      tokenDecimals: token.decimals,
-      tokenName: token.name,
-      tokenSymbol: token.symbol,
-      contract: token.contractAddress.format(),
+      chain: chain.format(),
+      from: from.format(),
+      to: to.format(),
+      contract: contract.format(),
+      value: value.toString(),
     };
   }
 
   /**
    * Converts the StreamErc20Transfer instance to a JSON object.
    * @returns JSON object of the StreamErc20Transfer instance
-   * @example `erc20Approval.format()`
+   * @example `erc20Transfer.format()`
    */
   format() {
     return this.toJSON();
@@ -102,10 +121,6 @@ export class StreamErc20Transfer implements MoralisDataObject {
     return this._data.logIndex;
   }
 
-  get tag() {
-    return this._data.tag;
-  }
-
   get from() {
     return this._data.from;
   }
@@ -114,42 +129,27 @@ export class StreamErc20Transfer implements MoralisDataObject {
     return this._data.to;
   }
 
-  get tokenValue() {
-    return this._data.tokenValue;
-  }
-
-  get token() {
-    return this._data.token;
+  get value() {
+    return this._data.value;
   }
 
   get contract() {
-    return this.token.contractAddress;
+    return this._data.contract;
   }
 
   get tokenName() {
-    return this.token.name;
+    return this._data.tokenName;
   }
 
   get tokenSymbol() {
-    return this.token.symbol;
+    return this._data.tokenSymbol;
   }
 
   get tokenDecimals() {
-    return this.token.decimals;
-  }
-
-  get amount() {
-    return this.tokenValue.amount;
-  }
-
-  get value() {
-    // note that the 'value' is different thatn the token.value. tokenValue.value will format to decimals, while
-    // this method returns the value as Bignumber string.
-    // This is on purpose to keep in consistent with the streams api return value
-    return this.tokenValue.amount.toString();
+    return this._data.tokenDecimals;
   }
 
   get valueWithDecimals() {
-    return this.tokenValue.value;
+    return this._data.valueWithDecimals;
   }
 }

@@ -35,7 +35,7 @@ export class EvmStreamResultParser {
       logs: this.parseLogs(value.logs, chain),
       txs: this.parseTransactions(value.txs, chain),
       txsInternal: this.parseInternalTransactions(value.txsInternal, chain),
-      abis: value.abis,
+      abi: value.abi,
       retries: value.retries,
       confirmed: value.confirmed,
     };
@@ -48,33 +48,19 @@ export class EvmStreamResultParser {
   }
 
   static parseErc20Transfers(value: IERC20Transfer[], chain: EvmChain) {
-    return value.map((transfer) => {
-      const { tokenDecimals, tokenName, tokenSymbol, contract, ...data } = transfer;
-      return StreamErc20Transfer.create({
-        ...data,
+    return value.map((transfer) =>
+      StreamErc20Transfer.create({
         chain,
-        token: {
-          contractAddress: contract,
-          decimals: +tokenDecimals,
-          name: tokenName,
-          symbol: tokenSymbol,
-        },
-      });
-    });
+        ...transfer,
+      }),
+    );
   }
 
   static parseErc20Approvals(value: IERC20Approval[], chain: EvmChain) {
     return value.map((approval) => {
-      const { tokenDecimals, tokenName, tokenSymbol, contract, ...data } = approval;
       return StreamErc20Approval.create({
-        ...data,
         chain,
-        token: {
-          contractAddress: contract,
-          decimals: +tokenDecimals,
-          name: tokenName,
-          symbol: tokenSymbol,
-        },
+        ...approval,
       });
     });
   }
@@ -83,20 +69,7 @@ export class EvmStreamResultParser {
     return value.map((transfer) =>
       StreamEvmNftTransfer.create({
         chain,
-
-        transactionHash: transfer.transactionHash,
-        tokenAddress: transfer.contract,
-        logIndex: transfer.logIndex,
-        contractType: transfer.tokenContractType,
-        operator: transfer.operator,
-        fromAddress: transfer.from,
-        toAddress: transfer.to,
-        tokenId: transfer.tokenId,
-        amount: transfer.amount,
-
-        tag: transfer.tag,
-        tokenName: transfer.tokenName,
-        tokenSymbol: transfer.tokenSymbol,
+        ...transfer,
       }),
     );
   }
@@ -138,53 +111,18 @@ export class EvmStreamResultParser {
     return value.map((log) =>
       StreamEvmTransactionLog.create({
         chain,
-
-        address: log.address,
-        topic0: log.topic0,
-        topic1: log.topic1,
-        topic2: log.topic2,
-        topic3: log.topic3,
-        data: log.data,
-        logIndex: +log.logIndex,
-        transactionHash: log.transactionHash,
-
-        tag: log.tag,
-        streamId: log.streamId,
+        ...log,
       }),
     );
   }
 
   static parseTransactions(value: Transaction[], chain: EvmChain) {
-    return value.map((transaction) => {
-      const signature =
-        transaction.v != null && transaction.r != null && transaction.s != null
-          ? { v: +transaction.v, r: transaction.r, s: transaction.s }
-          : undefined;
-
-      return StreamEvmTransaction.create({
+    return value.map((transaction) =>
+      StreamEvmTransaction.create({
         chain,
-
-        hash: transaction.hash,
-        gas: transaction.gas,
-        gasPrice: transaction.gasPrice,
-        nonce: transaction.nonce,
-        data: transaction.input,
-        index: transaction.transactionIndex,
-        from: transaction.fromAddress,
-        to: transaction.toAddress,
-        value: transaction.value,
-        type: transaction.type,
-        cumulativeGasUsed: transaction.receiptCumulativeGasUsed,
-        gasUsed: transaction.receiptGasUsed,
-        contractAddress: transaction.receiptContractAddress,
-        receiptRoot: transaction.receiptRoot,
-        receiptStatus: transaction.receiptStatus,
-        signature,
-
-        tag: transaction.tag,
-        streamId: transaction.streamId,
-      });
-    });
+        ...transaction,
+      }),
+    );
   }
 
   static parseInternalTransactions(value: InternalTransaction[], chain: EvmChain) {

@@ -16,7 +16,7 @@ export class EvmStreamResultFormatter {
       logs: data.logs.map((value) => value.toJSON()),
       txs: data.txs.map((value) => value.toJSON()),
       txsInternal: data.txsInternal.map((value) => value.toJSON()),
-      abis: data.abis,
+      abi: data.abi,
     };
   }
 }

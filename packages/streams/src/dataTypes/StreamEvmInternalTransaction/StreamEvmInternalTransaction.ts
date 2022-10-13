@@ -1,6 +1,10 @@
 import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
-import { StreamEvmInternalTransactionData, StreamEvmInternalTransactionInput } from './types';
+import {
+  StreamEvmInternalTransactionData,
+  StreamEvmInternalTransactionInput,
+  StreamEvmInternalTransactionJSON,
+} from './types';
 
 export type StreamEvmInternalTransactionish = StreamEvmInternalTransactionInput | StreamEvmInternalTransaction;
 
@@ -81,7 +85,7 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
    * @returns JSON object of the StreamEvmInternalTransaction instance
    * @example `evmInternalTransaction.toJSON()`
    */
-  toJSON() {
+  toJSON(): StreamEvmInternalTransactionJSON {
     const data = this._data;
     return {
       ...data,
@@ -124,13 +128,5 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
 
   get gas() {
     return this._data.gas;
-  }
-
-  get streamId() {
-    return this._data.streamId;
-  }
-
-  get tag() {
-    return this._data.tag;
   }
 }

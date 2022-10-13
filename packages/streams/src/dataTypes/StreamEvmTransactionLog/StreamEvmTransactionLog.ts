@@ -1,16 +1,14 @@
-import MoralisCore, { MoralisCoreProvider } from '@moralisweb3/core';
-import { EvmTransactionLog, EvmTransactionLogInput } from '@moralisweb3/evm-utils';
-import { StreamData } from '../StreamData';
+import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { StreamEvmTransactionLogData, StreamEvmTransactionLogInput, StreamEvmTransactionLogJSON } from './types';
 
-export type StreamEvmTransactionLogInput = EvmTransactionLogInput & StreamData;
 type StreamEvmTransactionLogish = StreamEvmTransactionLog | StreamEvmTransactionLogInput;
 
-export class StreamEvmTransactionLog extends EvmTransactionLog {
-  private _streamData: StreamData;
+export class StreamEvmTransactionLog implements MoralisDataObject {
+  private _data: StreamEvmTransactionLogData;
 
-  constructor({ tag, streamId, ...data }: StreamEvmTransactionLogInput, core: MoralisCore) {
-    super(data, core);
-    this._streamData = { tag, streamId };
+  constructor({ ...data }: StreamEvmTransactionLogInput, core: MoralisCore) {
+    this._data = StreamEvmTransactionLog.parse(data, core);
   }
 
   static create(data: StreamEvmTransactionLogish, core?: MoralisCore) {
@@ -21,18 +19,98 @@ export class StreamEvmTransactionLog extends EvmTransactionLog {
     return new StreamEvmTransactionLog(data, finalCore);
   }
 
-  toJSON() {
+  static parse(data: StreamEvmTransactionLogInput, core: MoralisCore): StreamEvmTransactionLogData {
     return {
-      ...super.toJSON(),
-      ...this._streamData,
+      ...data,
+      chain: EvmChain.create(data.chain, core),
+      logIndex: +data.logIndex,
+      address: EvmAddress.create(data.address, core),
+      topic0: maybe(data.topic0),
+      topic1: maybe(data.topic1),
+      topic2: maybe(data.topic2),
+      topic3: maybe(data.topic3),
     };
   }
 
-  get tag() {
-    return this._streamData.tag;
+  toJSON(): StreamEvmTransactionLogJSON {
+    const { chain, address, ...data } = this._data;
+
+    return {
+      ...data,
+      chain: chain.format(),
+      address: address.format(),
+    };
   }
 
-  get streamId() {
-    return this._streamData.streamId;
+  format() {
+    return this.toJSON();
+  }
+
+  /**
+   * Compares two StreamEvmTransactionLog data. It checks a deep equality check of both values.
+   * @param valueA - the first StreamEvmTransactionLogish data to compare
+   * @param valueB - the second StreamEvmTransactionLogish data to compare
+   * @returns true if the values are equal, false otherwise
+   * @example
+   * ```ts
+   *  StreamEvmTransactionLog.equals(valueA, valueB);
+   * ```
+   */
+  static equals(valueA: StreamEvmTransactionLogish, valueB: StreamEvmTransactionLogish) {
+    const transactionLogA = StreamEvmTransactionLog.create(valueA);
+    const transactionLogB = StreamEvmTransactionLog.create(valueB);
+
+    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
+    // deep equality check
+    return JSON.stringify(transactionLogA._data) === JSON.stringify(transactionLogB._data);
+  }
+
+  /**
+   * Compares an StreamEvmTransactionLogish data to this StreamEvmTransactionLog instance.
+   * @param value - the value to compare
+   * @returns true if the value is equal to the current instance, false otherwise
+   * @example
+   * ```ts
+   * transactionLog.equals(value);
+   * ```
+   */
+  equals(value: StreamEvmTransactionLogish): boolean {
+    return StreamEvmTransactionLog.equals(this, value);
+  }
+
+  get chain() {
+    return this._data.chain;
+  }
+
+  get logIndex() {
+    return this._data.logIndex;
+  }
+
+  get transactionHash() {
+    return this._data.transactionHash;
+  }
+
+  get address() {
+    return this._data.address;
+  }
+
+  get data() {
+    return this._data.data;
+  }
+
+  get topic0() {
+    return this._data.topic0;
+  }
+
+  get topic1() {
+    return this._data.topic1;
+  }
+
+  get topic2() {
+    return this._data.topic2;
+  }
+
+  get topic3() {
+    return this._data.topic3;
   }
 }

@@ -1,25 +1,9 @@
 import MoralisCore from '@moralisweb3/core';
 import { setupStreams } from '../../test/setup';
 import { StreamEvmInternalTransaction } from './StreamEvmInternalTransaction';
-import { StreamEvmInternalTransactionInput } from './types';
+import { mockStreamEvmInternalTransaction } from './StreamEvmInternalTransaction.mock';
 
-const fullMockInternalTransaction: StreamEvmInternalTransactionInput = {
-  chain: '0x1',
-  transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
-  streamId: 'test-stream-id',
-  tag: 'test-tag',
-  from: '0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5',
-  to: '0xee010a7476bc5adc88f1befc68c3b58f27f90419',
-  value: '12345',
-  gas: '100',
-};
-
-const partialMockInternalTransaction: StreamEvmInternalTransactionInput = {
-  chain: '0x1',
-  transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
-  streamId: 'test-stream-id',
-  tag: 'test-tag',
-};
+const testsInputs = Object.entries(mockStreamEvmInternalTransaction).map(([name, input]) => ({ name, input }));
 
 describe('StreamEvmInternalTransaction', () => {
   let core: MoralisCore;
@@ -28,32 +12,38 @@ describe('StreamEvmInternalTransaction', () => {
     core = setupStreams();
   });
 
-  describe('Full internal transaction', () => {
-    it('should create a new StreamEvmInternalTransaction succesfully', () => {
-      const internalTransaction = StreamEvmInternalTransaction.create(fullMockInternalTransaction, core);
+  it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
+    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const output = transaction.format();
 
-      // Read values
-      expect(internalTransaction.chain.decimal).toBe(1);
-      expect(internalTransaction.transactionHash).toBe(
-        '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
-      );
-      expect(internalTransaction.tag).toBe('test-tag');
-      expect(internalTransaction.streamId).toBe('test-stream-id');
-      expect(internalTransaction.from?.lowercase).toBe('0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5');
-      expect(internalTransaction.to?.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
-      expect(internalTransaction.value?.toString()).toBe('12345');
-      expect(internalTransaction.gas?.toString()).toBe('100');
+    expect(transaction).toBeDefined();
+    expect(output).toBeDefined();
+  });
+
+  describe('Full internal transaction', () => {
+    const input = mockStreamEvmInternalTransaction.FULL;
+    let transaction: StreamEvmInternalTransaction;
+
+    beforeAll(() => {
+      transaction = StreamEvmInternalTransaction.create(input, core);
+    });
+
+    it('should return correct values for all getters', () => {
+      expect(transaction.chain.hex).toBe('0x1');
+      expect(transaction.transactionHash).toBe('0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7');
+      expect(transaction.from?.lowercase).toBe('0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5');
+      expect(transaction.to?.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
+      expect(transaction.value?.toString()).toBe('12345');
+      expect(transaction.gas?.toString()).toBe('100');
     });
 
     it('should parse the values to JSON correctly', () => {
-      const internalTransaction = StreamEvmInternalTransaction.create(fullMockInternalTransaction, core);
+      const json = transaction.toJSON();
 
-      expect(internalTransaction.toJSON()).toStrictEqual({
+      expect(json).toStrictEqual({
         chain: '0x1',
         from: '0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5',
         gas: '100',
-        streamId: 'test-stream-id',
-        tag: 'test-tag',
         to: '0xee010a7476bc5adc88f1befc68c3b58f27f90419',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
@@ -61,14 +51,12 @@ describe('StreamEvmInternalTransaction', () => {
     });
 
     it('should parse the values to a JSON on format() correctly', () => {
-      const internalTransaction = StreamEvmInternalTransaction.create(fullMockInternalTransaction, core);
+      const json = transaction.format();
 
-      expect(internalTransaction.format()).toStrictEqual({
+      expect(json).toStrictEqual({
         chain: '0x1',
         from: '0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5',
         gas: '100',
-        streamId: 'test-stream-id',
-        tag: 'test-tag',
         to: '0xee010a7476bc5adc88f1befc68c3b58f27f90419',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
@@ -77,31 +65,30 @@ describe('StreamEvmInternalTransaction', () => {
   });
 
   describe('Partial internal transaction', () => {
-    it('should create a new StreamEvmInternalTransaction succesfully', () => {
-      const internalTransaction = StreamEvmInternalTransaction.create(partialMockInternalTransaction, core);
+    const input = mockStreamEvmInternalTransaction.PARTIAL;
+    let transaction: StreamEvmInternalTransaction;
 
+    beforeAll(() => {
+      transaction = StreamEvmInternalTransaction.create(input, core);
+    });
+
+    it('should return correct values for all getters', () => {
       // Read values
-      expect(internalTransaction.chain.decimal).toBe(1);
-      expect(internalTransaction.transactionHash).toBe(
-        '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
-      );
-      expect(internalTransaction.tag).toBe('test-tag');
-      expect(internalTransaction.streamId).toBe('test-stream-id');
-      expect(internalTransaction.from).toBeUndefined();
-      expect(internalTransaction.to).toBeUndefined();
-      expect(internalTransaction.value).toBeUndefined();
-      expect(internalTransaction.gas).toBeUndefined();
+      expect(transaction.chain.decimal).toBe(1);
+      expect(transaction.transactionHash).toBe('0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7');
+      expect(transaction.from).toBeUndefined();
+      expect(transaction.to).toBeUndefined();
+      expect(transaction.value).toBeUndefined();
+      expect(transaction.gas).toBeUndefined();
     });
 
     it('should parse the values to JSON correctly', () => {
-      const internalTransaction = StreamEvmInternalTransaction.create(partialMockInternalTransaction, core);
+      const json = transaction.toJSON();
 
-      expect(internalTransaction.toJSON()).toStrictEqual({
+      expect(json).toStrictEqual({
         chain: '0x1',
         from: undefined,
         gas: undefined,
-        streamId: 'test-stream-id',
-        tag: 'test-tag',
         to: undefined,
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: undefined,
@@ -109,14 +96,12 @@ describe('StreamEvmInternalTransaction', () => {
     });
 
     it('should parse the values to a JSON on format() correctly', () => {
-      const internalTransaction = StreamEvmInternalTransaction.create(partialMockInternalTransaction, core);
+      const json = transaction.format();
 
-      expect(internalTransaction.format()).toStrictEqual({
+      expect(json).toStrictEqual({
         chain: '0x1',
         from: undefined,
         gas: undefined,
-        streamId: 'test-stream-id',
-        tag: 'test-tag',
         to: undefined,
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: undefined,

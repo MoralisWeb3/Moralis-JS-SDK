@@ -1,6 +1,6 @@
-import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { Erc20Token, Erc20Value, EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
-import { StreamErc20ApprovalData, StreamErc20ApprovalInput } from './types';
+import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { StreamErc20ApprovalData, StreamErc20ApprovalInput, StreamErc20ApprovalJSON } from './types';
 
 export type StreamErc20Approvalish = StreamErc20ApprovalInput | StreamErc20Approval;
 
@@ -43,11 +43,10 @@ export class StreamErc20Approval implements MoralisDataObject {
       spender: EvmAddress.create(data.spender, core),
       owner: EvmAddress.create(data.owner, core),
       logIndex: +data.logIndex,
-      tokenValue: Erc20Value.create(data.value, {
-        decimals: data.token.decimals,
-        token: { chain, ...data.token },
-      }),
-      token: Erc20Token.create({ chain: data.chain, ...data.token }, core),
+      contract: EvmAddress.create(data.contract, core),
+      value: BigNumber.create(data.value),
+      valueWithDecimals: maybe(data.valueWithDecimals),
+      tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
     };
   };
 
@@ -88,19 +87,16 @@ export class StreamErc20Approval implements MoralisDataObject {
    * @returns JSON object of the StreamErc20Approval instance
    * @example `erc20Approval.toJSON()`
    */
-  toJSON() {
-    const { tokenValue, token, ...data } = this._data;
+  toJSON(): StreamErc20ApprovalJSON {
+    const { chain, owner, spender, contract, value, ...data } = this._data;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
-      chain: data.chain.format(),
-      owner: data.owner.format(),
-      spender: data.spender.format(),
-      valueWithDecimals: tokenValue.format(),
-      tokenDecimals: token.decimals,
-      tokenName: token.name,
-      tokenSymbol: token.symbol,
-      contract: token.contractAddress.format(),
+      chain: chain.format(),
+      owner: owner.format(),
+      spender: spender.format(),
+      contract: contract.format(),
+      value: value.toString(),
     };
   }
 
@@ -125,10 +121,6 @@ export class StreamErc20Approval implements MoralisDataObject {
     return this._data.logIndex;
   }
 
-  get tag() {
-    return this._data.tag;
-  }
-
   get owner() {
     return this._data.owner;
   }
@@ -137,42 +129,27 @@ export class StreamErc20Approval implements MoralisDataObject {
     return this._data.spender;
   }
 
-  get tokenValue() {
-    return this._data.tokenValue;
-  }
-
-  get token() {
-    return this._data.token;
+  get value() {
+    return this._data.value;
   }
 
   get contract() {
-    return this.token.contractAddress;
+    return this._data.contract;
   }
 
   get tokenName() {
-    return this.token.name;
+    return this._data.tokenName;
   }
 
   get tokenSymbol() {
-    return this.token.symbol;
+    return this._data.tokenSymbol;
   }
 
   get tokenDecimals() {
-    return this.token.decimals;
-  }
-
-  get amount() {
-    return this.tokenValue.amount;
-  }
-
-  get value() {
-    // note that the 'value' is different thatn the token.value. tokenValue.value will format to decimals, while
-    // this method returns the value as Bignumber string.
-    // This is on purpose to keep in consistent with the streams api return value
-    return this.tokenValue.amount.toString();
+    return this._data.tokenDecimals;
   }
 
   get valueWithDecimals() {
-    return this.tokenValue.value;
+    return this._data.valueWithDecimals;
   }
 }

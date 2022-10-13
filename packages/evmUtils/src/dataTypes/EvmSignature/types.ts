@@ -1,10 +1,8 @@
-import { BigNumberish } from '@moralisweb3/core';
-
-type EvmSignatureInputRSV = {
+export type EvmSignatureInputRSV = {
   // The x co-ordinate of r value of the signature
-  r: BigNumberish;
+  r: string;
   // The x co-ordinate of s value of the signature
-  s: BigNumberish;
+  s: string;
   // The parity of the y co-ordinate of r
   v: number | string;
 };
