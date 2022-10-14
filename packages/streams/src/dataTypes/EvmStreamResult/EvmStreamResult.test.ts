@@ -20,36 +20,31 @@ describe('EvmStreamResult', () => {
     expect(output).toBeDefined();
   });
 
-  // it('should create a new EvmStreamResult succesfully based on the initial test webhook', () => {
-  //   const result = EvmStreamResult.create(initialWebhookResponse.data);
+  it('should not decode logs when no Abi is provided', () => {
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.NATIVE_TX, core);
 
-  //   expect(result.chain.hex).toBe('0x1');
+    const logs = streamResult.decodedLogs;
 
-  //   expect(result.block.number).toBe('0');
-  //   expect(result.block.hash).toBe('');
-  //   expect(result.block.timestamp).toEqual(new Date('1999-12-31T23:00:00.000Z'));
+    expect(logs.length).toBe(0);
+  });
 
-  //   // Formatted results
-  //   expect(result.format().confirmed).toBe(true);
-  //   expect(result.format().retries).toBe(0);
+  it('should decode logs', () => {
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
-  //   expect(result.format().block).toStrictEqual({
-  //     chain: '0x1',
-  //     hash: '',
-  //     number: '0',
-  //     timestamp: new Date('1999-12-31T23:00:00.000Z'),
-  //   });
-  //   expect(result.format().chain).toBe('0x1');
-  // });
+    const logs = streamResult.decodedLogs;
 
-  // it('should create a new EvmStreamResult succesfully based on a native transaction webhook', () => {
-  //   const result = EvmStreamResult.create(nativeTxWebhookResponse.data);
-
-  //   expect(result.block.number).toBe('7755624');
-  //   expect(result.chain.hex).toBe('0x5');
-  //   expect(result.confirmed).toBe(true);
-  //   expect(result.retries).toBe(0);
-  //   expect(result.txs[0]).toBeDefined();
-  //   expect(result.txs[0].hash).toBe('0x6076852ed3e7f7c4f5b45552966a7049026b425865ba9ae8ef7f8fc918ea4ba2');
-  // });
+    expect(logs[0]).toMatchObject({
+      args: {
+        src: '0x57C1e0C2ADf6EECDb135BcF9ec5F23b319be2c94',
+        dst: '0xa6Cc3C2531FdaA6Ae1A3CA84c2855806728693e8',
+        wad: expect.objectContaining({
+          _hex: '0xec8d2a63695efe77',
+          _isBigNumber: true,
+        }),
+      },
+      name: 'Transfer',
+      signature: 'Transfer(address,address,uint256)',
+      topic: '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+    });
+  });
 });

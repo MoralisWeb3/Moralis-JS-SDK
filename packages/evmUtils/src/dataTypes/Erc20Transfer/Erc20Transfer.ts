@@ -1,6 +1,5 @@
-import { MoralisDataObject, BigNumber, maybe } from '@moralisweb3/core';
+import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
-import { EvmSimpleBlock } from '../EvmBlock';
 import { EvmChain } from '../EvmChain';
 import { Erc20TransferInput, Erc20TransferData } from './types';
 
@@ -42,10 +41,11 @@ export class Erc20Transfer implements MoralisDataObject {
     ...data,
     chain: EvmChain.create(data.chain),
     address: EvmAddress.create(data.address),
+    blockTimestamp: dateInputToDate(data.blockTimestamp),
+    blockNumber: BigNumber.create(data.blockNumber),
     toAddress: EvmAddress.create(data.toAddress),
     fromAddress: EvmAddress.create(data.fromAddress),
     value: BigNumber.create(data.value),
-    block: maybe(data.block, EvmSimpleBlock.create),
   });
 
   /**
@@ -82,10 +82,10 @@ export class Erc20Transfer implements MoralisDataObject {
       ...data,
       chain: data.chain.format(),
       address: data.address.format(),
+      blockNumber: data.blockNumber.toString(),
       toAddress: data.toAddress.format(),
       fromAddress: data.fromAddress.format(),
       value: data.value.toString(),
-      block: data.block?.toJSON(),
     };
   }
 
@@ -114,19 +114,11 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the block of the tranfer
-   * @example transfer.block // <EvmSimpleBlock>
-   */
-  get block() {
-    return this._data.block;
-  }
-
-  /**
    * @returns the block hash of the tranfer
    * @example transfer.blockHash // "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86"
    */
   get blockHash() {
-    return this.block?.hash;
+    return this._data.blockHash;
   }
 
   /**
@@ -134,7 +126,7 @@ export class Erc20Transfer implements MoralisDataObject {
    * @example transfer.blockNumber // BigNumber
    */
   get blockNumber() {
-    return this.block?.number;
+    return this._data.blockNumber;
   }
 
   /**
@@ -142,7 +134,7 @@ export class Erc20Transfer implements MoralisDataObject {
    * @example transfer.blockTimestamp // Date
    */
   get blockTimestamp() {
-    return this.block?.timestamp;
+    return this._data.blockTimestamp;
   }
 
   /**

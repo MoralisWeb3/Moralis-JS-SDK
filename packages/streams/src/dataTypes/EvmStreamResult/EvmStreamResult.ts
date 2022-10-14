@@ -2,6 +2,7 @@ import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb
 import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
+import { Interface } from '@ethersproject/abi';
 
 export type EvmStreamResultish = EvmStreamResultInput | EvmStreamResult;
 
@@ -89,37 +90,74 @@ export class EvmStreamResult implements MoralisDataObject {
     return this.toJSON();
   }
 
+  get abiInterface() {
+    if (!this.abi || !this.abi.length) {
+      return null;
+    }
+    return new Interface(this.abi);
+  }
+
+  get decodedLogs() {
+    const { abiInterface } = this;
+    if (!abiInterface) {
+      return [];
+    }
+
+    return this.logs.map((log) =>
+      abiInterface.parseLog({
+        data: log.data,
+        topics: [log.topic0, log.topic1, log.topic2, log.topic3].filter(isNotEmpty),
+      }),
+    );
+  }
+
   get chain() {
     return this._data.chain;
   }
+
   get block() {
     return this._data.block;
   }
+
   get retries() {
     return this._data.retries;
   }
+
   get confirmed() {
     return this._data.confirmed;
   }
+
   get erc20Approvals() {
     return this._data.erc20Approvals;
   }
+
   get erc20Transfers() {
     return this._data.erc20Transfers;
   }
+
   get logs() {
     return this._data.logs;
   }
+
   get nftApprovals() {
     return this._data.nftApprovals;
   }
+
   get nftTransfers() {
     return this._data.nftTransfers;
   }
+
   get txs() {
     return this._data.txs;
   }
+
   get txsInternal() {
     return this._data.txsInternal;
   }
+
+  get abi() {
+    return this._data.abi;
+  }
 }
+
+const isNotEmpty = <Value>(value: Value | null | undefined): value is Value => value != null;
