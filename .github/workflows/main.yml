@@ -115,4 +115,12 @@ jobs:
       - name: Build
         run: yarn build:clean
       - name: Test
-        run: yarn test
+        run: yarn test:coverage
+      - name: Test coverage comment
+        uses: MishaKav/jest-coverage-comment@main
+        with:
+          title: Test coverage
+          summary-title: Summary
+          multiple-files: |
+            evm-utils, ./packages/evmUtils/coverage/coverage-summary.json
+            sol-utils, ./packages/solUtils/coverage/coverage-summary.json
