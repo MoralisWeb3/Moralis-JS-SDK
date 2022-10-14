@@ -1525,7 +1525,6 @@ export interface components {
     };
   };
 }
-
 export interface operations {
   /** Get the contents of a block by block hash. */
   getBlock: {
