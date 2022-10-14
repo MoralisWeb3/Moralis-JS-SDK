@@ -23,7 +23,7 @@ export interface MockScenariosOptions {
     req: RestRequest<Response, Params>,
     res: ResponseComposition<Response>,
     ctx: RestContext,
-  ) => Promise<Record<string, unknown>>;
+  ) => Record<string, unknown>;
   // Optional hook to run logic after matching scenarios
   beforeScenarios?: (req: RestRequest<Response, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
   // Optional hook to run logic before matching scenarios
