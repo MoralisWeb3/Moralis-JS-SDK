@@ -123,7 +123,8 @@ jobs:
             api-utils, ./packages/apiUtils/coverage/coverage-summary.json
             auth, ./packages/auth/coverage/coverage-summary.json
             core, ./packages/core/coverage/coverage-summary.json
+            evm-api, ./packages/evmApi/coverage/coverage-summary.json
             evm-utils, ./packages/evmUtils/coverage/coverage-summary.json
+            sol-api, ./packages/solApi/coverage/coverage-summary.json
             sol-utils, ./packages/solUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
-            integration, ./packages/integration/coverage/coverage-summary.json

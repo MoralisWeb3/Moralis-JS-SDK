@@ -11,13 +11,13 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "echo 'not implemented'",
-    "test:coverage": "echo 'not implemented'",
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "gen:api-typeses": "openapi-typescript https://authapi.moralis.io/api-docs-json --output src/generated/types.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
   },
   "devDependencies": {
