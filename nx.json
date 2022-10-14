@@ -11,6 +11,9 @@
     "test": {
       "dependsOn": ["build", "^build"]
     },
+    "test:coverage": {
+      "dependsOn": ["build", "^build"]
+    },
     "prepare": {
       "dependsOn": ["^prepare"]
     },
