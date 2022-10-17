@@ -1,5 +1,5 @@
 import Moralis from "moralis";
 
-type SDKCall = typeof Moralis.{{ sdkPath }};
-export type {{ targetMethod }}Params = Parameters<SDKCall>[0];
-export type {{ targetMethod }}Return = ReturnType<NonNullable<Awaited<ReturnType<SDKCall>>>['toJSON']>;
+type TSDKCall = typeof {{ SDKCall }};
+export type T{{ targetMethod }}Params = Parameters<TSDKCall>[0];
+export type T{{ targetMethod }}Return = ReturnType<NonNullable<Awaited<ReturnType<TSDKCall>>>['toJSON']>;

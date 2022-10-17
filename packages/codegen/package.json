@@ -1,12 +1,13 @@
 {
   "name": "@moralisweb3/codegen",
   "author": "Moralis",
-  "version": "2.6.5",
+  "version": "2.2.0",
   "license": "MIT",
-  "private": true,
+  "private": false,
+  "sideEffects": false,
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "generate": "yarn esmo src/index.ts"
   },
   "devDependencies": {

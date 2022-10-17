@@ -18,7 +18,7 @@
 
 > Moralis Hooks for your NextJS project
 
-This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data. It  serves as a proxy, to allow users to access Moralis APIs in client-side.
+This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data.
 
 Please check the [official documentation of Moralis](https://docs.moralis.io/) for all the functionalities of Moralis.
 
@@ -29,57 +29,15 @@ Make sure to have `next`, `react`, `react-dom` and `moralis` installed as depend
 In short:
 
 ```sh
-npm install moralis @moralisweb3/next next react react-dom
+npm install moralis @moralisweb3/next
 ```
 
 or
 
 ```sh
-yarn add moralis @moralisweb3/next next react react-dom
+yarn add moralis @moralisweb3/next
 ```
 
 > Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
-
-### Create environment variables file
-
-Add a new file `.env.local` in project's root and provide a new variable with [Moralis API key](https://docs.moralis.io/docs/nextjs-dapp#add-moralis-to-your-nextjs-dapp):
-
-```sh
-MORALIS_API_KEY= ***
-```
-
-### Create API route
-To use Moralis APIs in your NextJs project create a file `pages/api/moralis/[...moralis].ts` with following code:
-
-```js
-import { MoralisNextApi } from "@moralisweb3/next";
-
-export default MoralisNextApi()
-```
-
-# Authentication and Session Management with NextAuth
-
-The `@moralisweb3/next` library provides first class tools for web3 authentication. Using the [NextAuth.js](https://next-auth.js.org/) and our custom `MoralisNextAuthProvider()` you can implement web3 authentication you can create web3 authentication for any web3 wallet.
-
-Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-metamask) Tutorial for NextJS.
-
-# Hook Usage Example
-
-```jsx
-import { useEvmWalletTokenBalances } from '@moralisweb3/next'
-
-const App = () => {
-  const { data: balance, error, refetch, isValidating } = useEvmWalletTokenBalances({ address: '0x...' })
-
-  if (isValidating) return <div>Fetching/Refreshing balance…</div>
-  if (error) return <div>{JSON.stringify(error, null, 2)}</div>
-  return (
-    <>
-      <button onClick={refetch}>Refetch Balance</button>
-      <div>{JSON.stringify(balance, null, 2)}</div>
-    </>
-  )
-}
-```
 
 # Hooks
