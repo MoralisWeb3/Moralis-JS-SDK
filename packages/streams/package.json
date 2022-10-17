@@ -25,7 +25,7 @@
     "@moralisweb3/streams-typings": "^1.0.5",
     "@moralisweb3/test-utils": "1.0.0",
     "@types/ethereumjs-util": "5.2.0",
-    "eslint-plugin-jest": "^26.8.3",
+    "eslint-plugin-jest": "^27.1.2",
     "jest": "^28.0.3",
     "openapi-typescript": "^5.2.0",
     "prettier": "^2.5.1",
