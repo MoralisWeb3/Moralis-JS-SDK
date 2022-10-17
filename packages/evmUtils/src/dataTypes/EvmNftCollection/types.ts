@@ -1,6 +1,5 @@
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
-import { EvmNftContractType } from '../EvmNftContractType';
 
 /**
  * This can be any object with valid block data.
@@ -28,7 +27,7 @@ export interface EvmNftCollectionInput {
  */
 export interface EvmNftCollectionData {
   chain: EvmChain;
-  contractType?: EvmNftContractType;
+  contractType?: string;
   name: string;
   symbol: string;
   tokenAddress: EvmAddress;

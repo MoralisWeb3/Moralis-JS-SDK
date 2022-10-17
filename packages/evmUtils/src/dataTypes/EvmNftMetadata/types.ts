@@ -1,7 +1,6 @@
 import { DateInput } from '@moralisweb3/core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
-import { EvmNftContractType } from '../EvmNftContractType';
 
 /**
  * Valid ERC20 token input
@@ -22,7 +21,7 @@ export interface EvmNftMetadataInput {
   tokenAddress: EvmAddressish;
   name: string;
   symbol: string;
-  contractType?: EvmNftContractType;
+  contractType?: string;
   syncedAt: DateInput | null;
 }
 
@@ -34,6 +33,6 @@ export interface EvmNftMetadataData {
   tokenAddress: EvmAddress;
   name: string;
   symbol: string;
-  contractType?: EvmNftContractType;
+  contractType?: string;
   syncedAt?: Date;
 }

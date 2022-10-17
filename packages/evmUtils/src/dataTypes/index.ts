@@ -8,7 +8,6 @@ export * from './EvmEvent';
 export * from './EvmNative';
 export * from './EvmNft';
 export * from './EvmNftCollection';
-export * from './EvmNftContractType';
 export * from './EvmNftMetadata';
 export * from './EvmNftTrade';
 export * from './EvmNftTransfer';
