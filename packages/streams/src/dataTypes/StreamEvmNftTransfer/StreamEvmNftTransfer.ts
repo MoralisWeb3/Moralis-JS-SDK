@@ -1,5 +1,5 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain, normalizeEvmNftContractType } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
 
 type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;
@@ -31,7 +31,6 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       transactionHash: data.transactionHash,
       amount: +data.amount,
       tokenName: data.tokenName,
-      tokenContractType: data.tokenContractType ? normalizeEvmNftContractType(data.tokenContractType) : undefined,
     };
   }
 

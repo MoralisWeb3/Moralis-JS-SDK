@@ -1,4 +1,4 @@
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, EvmNftContractType } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 
 export interface StreamEvmNftTransferInput {
   chain: EvmChainish;
@@ -25,7 +25,7 @@ export interface StreamEvmNftTransferData {
   to: EvmAddress;
   tokenId: string;
   amount: number;
-  tokenContractType?: EvmNftContractType;
+  tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
 }
@@ -40,7 +40,7 @@ export type StreamEvmNftTransferJSON = {
   to: string;
   tokenId: string;
   amount: number;
-  tokenContractType?: EvmNftContractType;
+  tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
 };

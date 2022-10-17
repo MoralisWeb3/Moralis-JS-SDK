@@ -1,5 +1,5 @@
 import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain, normalizeEvmNftContractType } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { StreamErc721ApprovalData, StreamErc721ApprovalInput, StreamErc721ApprovalJSON } from './types';
 
 export type StreamErc721Approvalish = StreamErc721ApprovalInput | StreamErc721Approval;
@@ -43,7 +43,7 @@ export class StreamErc721Approval implements MoralisDataObject {
       logIndex: +data.logIndex,
       owner: EvmAddress.create(data.owner, core),
       contract: EvmAddress.create(data.contract, core),
-      tokenContractType: normalizeEvmNftContractType(data.tokenContractType),
+      tokenContractType: data.tokenContractType,
       approved: EvmAddress.create(data.approved, core),
     };
   };

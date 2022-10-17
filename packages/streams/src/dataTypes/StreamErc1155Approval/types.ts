@@ -1,4 +1,4 @@
-import { EvmAddress, EvmAddressish, EvmChainish, EvmChain, EvmNftContractType } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/evm-utils';
 
 export interface StreamErc1155ApprovalInput {
   chain: EvmChainish;
@@ -20,7 +20,7 @@ export interface StreamErc1155ApprovalData {
   account: EvmAddress;
   operator: EvmAddress;
   approved: boolean;
-  tokenContractType: EvmNftContractType;
+  tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
 }
@@ -33,7 +33,7 @@ export type StreamErc1155ApprovalJSON = {
   account: string;
   operator: string;
   approved: boolean;
-  tokenContractType: EvmNftContractType;
+  tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
 };
