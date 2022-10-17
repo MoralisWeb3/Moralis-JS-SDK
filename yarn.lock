@@ -4878,10 +4878,10 @@
   resolved "https://registry.npmjs.org/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
-"@moralisweb3/streams-typings@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@moralisweb3/streams-typings/-/streams-typings-1.0.3.tgz#25db2e1c76dc40211f48a17779da88378b9080e0"
-  integrity sha512-dcaSXYFEWpjWdVZJFRWJKCX00BUZNS3LKKJXL9e1/0DEpV8sFu06LsKTl/fuKQDv3WxSpoYbh7mPbiNrtxNq8Q==
+"@moralisweb3/streams-typings@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/streams-typings/-/streams-typings-1.0.5.tgz#6115031ce6428f347841d930aad3b0903ed5d8e1"
+  integrity sha512-dbBAxCpj9j7wKTHyJUI45u6ygOM9NOwn6zkUIe72mjra5bSo8cbmSJBriKcoC+alcgftdDkdojuDOsxnaqPldw==
 
 "@motionone/animation@^10.12.0":
   version "10.14.0"

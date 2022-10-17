@@ -7,7 +7,7 @@ export interface paths {
   "/history": {
     get: operations["GetHistory"];
   };
-  "/history/replay/{id}": {
+  "/history/replay/{streamId}/{id}": {
     /** Replay a specific history. */
     post: operations["ReplayHistory"];
   };
@@ -63,8 +63,6 @@ export interface components {
       timestamp: string;
     };
     Log: {
-      tag: string;
-      streamId: string;
       logIndex: string;
       transactionHash: string;
       address: string;
@@ -75,8 +73,6 @@ export interface components {
       topic3: string | null;
     };
     Transaction: {
-      tag: string;
-      streamId: string;
       hash: string;
       gas: string | null;
       gasPrice: string | null;
@@ -102,8 +98,6 @@ export interface components {
       value: string | null;
       transactionHash: string;
       gas: string | null;
-      streamId: string;
-      tag: string;
     };
     AbiInput: {
       name: string;
@@ -118,10 +112,6 @@ export interface components {
       components?: components["schemas"]["AbiOutput"][];
       internalType?: string;
     };
-    /** @enum {string} */
-    StateMutabilityType: "pure" | "view" | "nonpayable" | "payable";
-    /** @enum {string} */
-    AbiType: "function" | "constructor" | "event" | "fallback";
     /**
      * @description The abi to parse the log object of the contract
      * @example {}
@@ -133,101 +123,43 @@ export interface components {
       name?: string;
       outputs?: components["schemas"]["AbiOutput"][];
       payable?: boolean;
-      stateMutability?: components["schemas"]["StateMutabilityType"];
-      type: components["schemas"]["AbiType"];
+      stateMutability?: string;
+      type: string;
       /** Format: double */
       gas?: number;
     };
-    IAbi: { [key: string]: components["schemas"]["AbiItem"][] };
-    IERC20Transfer: {
-      transactionHash: string;
-      contract: string;
-      logIndex: string;
-      tag: string;
-      from: string;
-      to: string;
-      value: string;
-      tokenDecimals: string;
-      tokenName: string;
-      tokenSymbol: string;
-      valueWithDecimals?: string;
-    };
-    IERC20Approval: {
-      transactionHash: string;
-      contract: string;
-      logIndex: string;
-      tag: string;
-      owner: string;
-      spender: string;
-      value: string;
-      tokenDecimals: string;
-      tokenName: string;
-      tokenSymbol: string;
-      valueWithDecimals?: string;
-    };
-    INFTTransfer: {
-      transactionHash: string;
-      contract: string;
-      logIndex: string;
-      tag: string;
-      tokenContractType: string;
-      tokenName: string;
-      tokenSymbol: string;
-      operator: string | null;
-      from: string;
-      to: string;
-      tokenId: string;
-      amount: string;
-    };
-    INFTApprovalERC721: {
-      transactionHash: string;
-      contract: string;
-      logIndex: string;
-      tag: string;
-      owner: string;
-      approved: string;
-      tokenId: string;
-      tokenContractType: string;
-      tokenName: string;
-      tokenSymbol: string;
-    };
-    INFTApprovalERC1155: {
-      transactionHash: string;
-      contract: string;
-      logIndex: string;
-      tag: string;
-      account: string;
-      operator: string;
-      approved: boolean;
-      tokenContractType: string;
-      tokenName: string;
-      tokenSymbol: string;
-    };
-    INFTApproval: {
-      ERC721: components["schemas"]["INFTApprovalERC721"][];
-      ERC1155: components["schemas"]["INFTApprovalERC1155"][];
-    };
-    "webhookTypes.IWebhook": {
-      erc20Transfers: components["schemas"]["IERC20Transfer"][];
-      erc20Approvals: components["schemas"]["IERC20Approval"][];
-      nftTransfers: components["schemas"]["INFTTransfer"][];
-      nftApprovals: components["schemas"]["INFTApproval"];
+    "webhookTypes.IWebhookUnParsed": {
       block: components["schemas"]["Block"];
       chainId: string;
       logs: components["schemas"]["Log"][];
       txs: components["schemas"]["Transaction"][];
       txsInternal: components["schemas"]["InternalTransaction"][];
-      abis: components["schemas"]["IAbi"];
+      abi: components["schemas"]["AbiItem"][];
       /** Format: double */
       retries: number;
       confirmed: boolean;
+      tag: string;
+      streamId: string;
+    };
+    "webhookTypes.ITinyPayload": {
+      chainId: string;
+      confirmed: boolean;
+      block: string;
+      /** Format: double */
+      records: number;
+      /** Format: double */
+      retries: number;
     };
     HistoryModel: {
       id: components["schemas"]["UUID"];
+      /** Format: date-time */
       date: string;
-      payload: components["schemas"]["webhookTypes.IWebhook"];
+      payload?: components["schemas"]["webhookTypes.IWebhookUnParsed"];
+      tinyPayload: components["schemas"]["webhookTypes.ITinyPayload"];
       errorMessage: string;
       webhookUrl: string;
+      streamId: string;
+      tag: string;
     };
     "historyTypes.HistoryResponse": {
       result: components["schemas"]["HistoryModel"][];
@@ -237,11 +169,21 @@ export interface components {
     };
     "historyTypes.HistoryModel": {
       id: components["schemas"]["UUID"];
+      /** Format: date-time */
       date: string;
-      payload: components["schemas"]["webhookTypes.IWebhook"];
+      payload?: components["schemas"]["webhookTypes.IWebhookUnParsed"];
+      tinyPayload: components["schemas"]["webhookTypes.ITinyPayload"];
       errorMessage: string;
       webhookUrl: string;
+      streamId: string;
+      tag: string;
     };
+    /**
+     * Format: uuid
+     * @description Stringified UUIDv4.
+     * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
+     */
+    "streamTypes.UUID": string;
     /**
      * Format: uuid
      * @description Stringified UUIDv4.
@@ -499,6 +441,8 @@ export interface operations {
   ReplayHistory: {
     parameters: {
       path: {
+        /** The id of the stream the history will be replayed */
+        streamId: components["schemas"]["streamTypes.UUID"];
         /** The id of the history to replay */
         id: components["schemas"]["historyTypes.UUID"];
       };
@@ -528,8 +472,12 @@ export interface operations {
   SetSettings: {
     parameters: {};
     responses: {
-      /** No content */
-      204: never;
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["settingsTypes.SettingsModel"];
+        };
+      };
     };
     requestBody: {
       content: {

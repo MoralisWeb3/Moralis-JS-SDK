@@ -49,7 +49,7 @@ export class MoralisStreams extends ApiModule {
   public readonly getAddresses = makeGetAddresses(this.endpoints);
   public readonly deleteAddress = makeDeleteAddress(this.endpoints);
 
-  public readonly getHistory = this.endpoints.createFetcher(getHistory);
+  public readonly getHistory = this.endpoints.createPaginatedFetcher(getHistory);
   public readonly retry = this.endpoints.createFetcher(replayHistory);
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);

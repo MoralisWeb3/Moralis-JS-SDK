@@ -132,7 +132,7 @@ const core = MoralisCore.create();
 core.registerModules([MoralisEvmApi]);
 ```
 
-Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configation that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
+Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configuration that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
 
 ```javascript
 core.start({

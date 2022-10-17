@@ -1,4 +1,4 @@
-import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
+import { createPaginatedEndpoint, createPaginatedEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../../generated/types';
 
 const name = 'GetHistory';
@@ -9,11 +9,11 @@ type QueryParams = operations[Name]['parameters']['query'];
 type ApiParams = QueryParams;
 export type GetHistoryParams = ApiParams;
 
-export const getHistory = createEndpointFactory(() =>
-  createEndpoint({
+export const getHistory = createPaginatedEndpointFactory(() =>
+  createPaginatedEndpoint({
     name,
     getUrl: () => `/history`,
-    apiToResult: (data: ApiResult) => data,
+    apiToResult: (data: ApiResult) => data.result,
     resultToJson: (data) => data,
     parseParams: (params: GetHistoryParams): ApiParams => params,
   }),

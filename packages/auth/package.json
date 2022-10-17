@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/auth",
   "author": "Moralis",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -28,9 +28,9 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.6.4",
-    "@moralisweb3/core": "^2.6.4",
-    "@moralisweb3/evm-utils": "^2.6.4",
-    "@moralisweb3/sol-utils": "^2.6.4"
+    "@moralisweb3/api-utils": "^2.6.5",
+    "@moralisweb3/core": "^2.6.5",
+    "@moralisweb3/evm-utils": "^2.6.5",
+    "@moralisweb3/sol-utils": "^2.6.5"
   }
 }
