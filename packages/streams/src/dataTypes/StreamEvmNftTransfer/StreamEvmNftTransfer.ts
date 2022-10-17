@@ -3,6 +3,12 @@ import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
 
 type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;
+
+/**
+ * The StreamEvmNftTransfer class is a representation of a nft transfer (EREC721 or ERC1155) that is returned by the Moralis Stream API
+ *
+ * @category DataType
+ */
 export class StreamEvmNftTransfer implements MoralisDataObject {
   private _data: StreamEvmNftTransferData;
 
@@ -10,6 +16,17 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     this._data = StreamEvmNftTransfer.parse(data, core);
   }
 
+  /**
+   * Create a new instance of StreamEvmNftTransferish
+   *
+   * @param data - the StreamEvmNftTransferishish type
+   * @param core - the MoralisCore instance
+   * @example
+   * ```ts
+   * const transfer = StreamEvmTransactionish.create(data);
+   * ```
+   * @returns an instance of StreamEvmNftTransfer
+   */
   static create(data: StreamEvmNftTransferish, core?: MoralisCore) {
     if (data instanceof StreamEvmNftTransfer) {
       return data;
@@ -18,7 +35,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     return new StreamEvmNftTransfer(data, finalCore);
   }
 
-  static parse(data: StreamEvmNftTransferInput, core: MoralisCore): StreamEvmNftTransferData {
+  private static parse(data: StreamEvmNftTransferInput, core: MoralisCore): StreamEvmNftTransferData {
     return {
       ...data,
       chain: EvmChain.create(data.chain, core),
@@ -48,9 +65,27 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     const transferA = StreamEvmNftTransfer.create(valueA);
     const transferB = StreamEvmNftTransfer.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(transferA._data) === JSON.stringify(transferB._data);
+    if (!transferA.chain.equals(transferB.chain)) {
+      return false;
+    }
+
+    if (transferA.transactionHash !== transferB.transactionHash) {
+      return false;
+    }
+
+    if (transferA.logIndex !== transferB.logIndex) {
+      return false;
+    }
+
+    if (!transferA.contract.equals(transferB.contract)) {
+      return false;
+    }
+
+    if (transferA.tokenId !== transferB.tokenId) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -66,6 +101,11 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     return StreamEvmNftTransfer.equals(this, value);
   }
 
+  /**
+   * Converts the StreamEvmNftTransfer instance to a JSON object.
+   * @returns JSON object of the StreamEvmNftTransfer instance
+   * @example `transfer.toJSON()`
+   */
   toJSON(): StreamEvmNftTransferJSON {
     const data = this._data;
     return {
@@ -78,6 +118,11 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     };
   }
 
+  /**
+   * Converts the StreamEvmNftTransfer instance to a JSON object.
+   * @returns JSON object of the StreamEvmNftTransfer instance
+   * @example `transfer.toJSON()`
+   */
   format() {
     return this.toJSON();
   }

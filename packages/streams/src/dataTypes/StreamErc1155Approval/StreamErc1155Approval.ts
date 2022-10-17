@@ -5,7 +5,7 @@ import { StreamErc1155ApprovalData, StreamErc1155ApprovalInput, StreamErc1155App
 export type StreamErc1155Approvalish = StreamErc1155ApprovalInput | StreamErc1155Approval;
 
 /**
- * The StreamErc1155Approval class is representation of the webhook data that is returned from the Stream api
+ * The StreamErc1155Approval class is a representation of a nft approval (ERC1155) that is returned by the Moralis Stream API
  *
  * @category DataType
  */
@@ -35,7 +35,7 @@ export class StreamErc1155Approval implements MoralisDataObject {
     this._data = StreamErc1155Approval.parse(data, core);
   }
 
-  static parse = (data: StreamErc1155ApprovalInput, core: MoralisCore): StreamErc1155ApprovalData => {
+  private static parse = (data: StreamErc1155ApprovalInput, core: MoralisCore): StreamErc1155ApprovalData => {
     const chain = EvmChain.create(data.chain, core);
     return {
       ...data,
@@ -62,9 +62,31 @@ export class StreamErc1155Approval implements MoralisDataObject {
     const evmNftApprovalA = StreamErc1155Approval.create(valueA);
     const evmNftApprovalB = StreamErc1155Approval.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(evmNftApprovalA._data) === JSON.stringify(evmNftApprovalB._data);
+    if (!evmNftApprovalA.chain.equals(evmNftApprovalB.chain)) {
+      return false;
+    }
+
+    if (evmNftApprovalA.transactionHash !== evmNftApprovalB.transactionHash) {
+      return false;
+    }
+
+    if (!evmNftApprovalA.account.equals(evmNftApprovalB.account)) {
+      return false;
+    }
+
+    if (!evmNftApprovalA.contract.equals(evmNftApprovalB.contract)) {
+      return false;
+    }
+
+    if (!evmNftApprovalA.operator.equals(evmNftApprovalB.operator)) {
+      return false;
+    }
+
+    if (evmNftApprovalA.approved !== evmNftApprovalB.approved) {
+      return false;
+    }
+
+    return true;
   }
 
   /**

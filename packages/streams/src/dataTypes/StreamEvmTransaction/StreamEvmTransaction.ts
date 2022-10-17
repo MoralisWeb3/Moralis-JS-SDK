@@ -5,6 +5,11 @@ import { StreamEvmTransactionData, StreamEvmTransactionInput, StreamEvmTransacti
 
 type StreamEvmTransactionish = StreamEvmTransaction | StreamEvmTransactionInput;
 
+/**
+ * The StreamEvmTransaction class is a representation of a transaction that is returned by the Moralis Stream API
+ *
+ * @category DataType
+ */
 export class StreamEvmTransaction implements MoralisDataObject {
   private _data: StreamEvmTransactionData;
 
@@ -12,6 +17,17 @@ export class StreamEvmTransaction implements MoralisDataObject {
     this._data = StreamEvmTransaction.parse(data, core);
   }
 
+  /**
+   * Create a new instance of StreamEvmTransactionish
+   *
+   * @param data - the StreamEvmTransactionishish type
+   * @param core - the MoralisCore instance
+   * @example
+   * ```ts
+   * const transaction = StreamEvmTransactionish.create(data);
+   * ```
+   * @returns an instance of StreamEvmTransaction
+   */
   static create(data: StreamEvmTransactionish, core?: MoralisCore) {
     if (data instanceof StreamEvmTransaction) {
       return data;
@@ -20,7 +36,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
     return new StreamEvmTransaction(data, finalCore);
   }
 
-  static parse(data: StreamEvmTransactionInput, core: MoralisCore): StreamEvmTransactionData {
+  private static parse(data: StreamEvmTransactionInput, core: MoralisCore): StreamEvmTransactionData {
     const signature =
       data.r != null && data.s != null && data.v != null
         ? EvmSignature.create({ r: data.r, s: data.s, v: data.v })
@@ -47,6 +63,49 @@ export class StreamEvmTransaction implements MoralisDataObject {
     };
   }
 
+  /**
+   * Compares two StreamEvmTransaction data. It checks a deep equality check of both values.
+   * @param valueA - the first StreamEvmTransactionish data to compare
+   * @param valueB - the second StreamEvmTransactionish data to compare
+   * @returns true if the values are equal, false otherwise
+   * @example
+   * ```ts
+   *  StreamEvmTransaction.equals(valueA, valueB);
+   * ```
+   */
+  static equals(valueA: StreamEvmTransactionish, valueB: StreamEvmTransactionish) {
+    const transactionA = StreamEvmTransaction.create(valueA);
+    const transactionB = StreamEvmTransaction.create(valueB);
+
+    if (!transactionA.chain.equals(transactionB.chain)) {
+      return false;
+    }
+
+    if (transactionA.hash !== transactionB.hash) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Compares an StreamEvmTransactionish data to this StreamEvmTransaction instance.
+   * @param value - the value to compare
+   * @returns true if the value is equal to the current instance, false otherwise
+   * @example
+   * ```ts
+   * transaction.equals(value);
+   * ```
+   */
+  equals(value: StreamEvmTransactionish): boolean {
+    return StreamEvmTransaction.equals(this, value);
+  }
+
+  /**
+   * Converts the StreamEvmTransaction instance to a JSON object.
+   * @returns JSON object of the StreamEvmTransaction instance
+   * @example `transaction.toJSON()`
+   */
   toJSON(): StreamEvmTransactionJSON {
     const {
       chain,
@@ -81,40 +140,13 @@ export class StreamEvmTransaction implements MoralisDataObject {
     };
   }
 
+  /**
+   * Converts the StreamEvmTransaction instance to a JSON object.
+   * @returns JSON object of the StreamEvmTransaction instance
+   * @example `transaction.toJSON()`
+   */
   format() {
     return this.toJSON();
-  }
-
-  /**
-   * Compares two StreamEvmTransaction data. It checks a deep equality check of both values.
-   * @param valueA - the first StreamEvmTransactionish data to compare
-   * @param valueB - the second StreamEvmTransactionish data to compare
-   * @returns true if the values are equal, false otherwise
-   * @example
-   * ```ts
-   *  StreamEvmTransaction.equals(valueA, valueB);
-   * ```
-   */
-  static equals(valueA: StreamEvmTransactionish, valueB: StreamEvmTransactionish) {
-    const transactionA = StreamEvmTransaction.create(valueA);
-    const transactionB = StreamEvmTransaction.create(valueB);
-
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(transactionA._data) === JSON.stringify(transactionB._data);
-  }
-
-  /**
-   * Compares an StreamEvmTransactionish data to this StreamEvmTransaction instance.
-   * @param value - the value to compare
-   * @returns true if the value is equal to the current instance, false otherwise
-   * @example
-   * ```ts
-   * transaction.equals(value);
-   * ```
-   */
-  equals(value: StreamEvmTransactionish): boolean {
-    return StreamEvmTransaction.equals(this, value);
   }
 
   get chain() {

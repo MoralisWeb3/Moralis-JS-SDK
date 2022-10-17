@@ -73,5 +73,67 @@ describe('StreamErc721Approval', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
       });
     });
+
+    it('should return return true for .equals() on equality match', () => {
+      const isEqual = approval.equals({
+        ...input,
+      });
+
+      expect(isEqual).toBe(true);
+    });
+
+    it('should return return false for .equals() on mismatching chain', () => {
+      const isEqual = approval.equals({
+        ...input,
+        chain: '0x2',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching transactionHash', () => {
+      const isEqual = approval.equals({
+        ...input,
+        transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching account', () => {
+      const isEqual = approval.equals({
+        ...input,
+        owner: '0xbb6a28edbbaf0c7542c73212d26cc0b249da47a6',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching contract', () => {
+      const isEqual = approval.equals({
+        ...input,
+        contract: '0xdac17f958d2ee523a2206206994597c13d831ec8',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching operator', () => {
+      const isEqual = approval.equals({
+        ...input,
+        tokenId: '456',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching approved', () => {
+      const isEqual = approval.equals({
+        ...input,
+        approved: '0xee010a7476bc5adc88f1befc68c3b58f27f90410',
+      });
+
+      expect(isEqual).toBe(false);
+    });
   });
 });

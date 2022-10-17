@@ -5,7 +5,7 @@ import { StreamErc20ApprovalData, StreamErc20ApprovalInput, StreamErc20ApprovalJ
 export type StreamErc20Approvalish = StreamErc20ApprovalInput | StreamErc20Approval;
 
 /**
- * The StreamErc20Approval class is representation of the webhook data that is returned from the Stream api
+ * The StreamErc20Transfer class is a representation of a erc20 approval that is returned by the Moralis Stream API
  *
  * @category DataType
  */
@@ -35,7 +35,7 @@ export class StreamErc20Approval implements MoralisDataObject {
     this._data = StreamErc20Approval.parse(data, core);
   }
 
-  static parse = (data: StreamErc20ApprovalInput, core: MoralisCore): StreamErc20ApprovalData => {
+  private static parse = (data: StreamErc20ApprovalInput, core: MoralisCore): StreamErc20ApprovalData => {
     const chain = EvmChain.create(data.chain, core);
     return {
       ...data,
@@ -64,9 +64,19 @@ export class StreamErc20Approval implements MoralisDataObject {
     const erc20ApprovalA = StreamErc20Approval.create(valueA);
     const erc20ApprovalB = StreamErc20Approval.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(erc20ApprovalA._data) === JSON.stringify(erc20ApprovalB._data);
+    if (!erc20ApprovalA.chain.equals(erc20ApprovalB.chain)) {
+      return false;
+    }
+
+    if (erc20ApprovalA.transactionHash !== erc20ApprovalB.transactionHash) {
+      return false;
+    }
+
+    if (erc20ApprovalA.logIndex !== erc20ApprovalB.logIndex) {
+      return false;
+    }
+
+    return true;
   }
 
   /**

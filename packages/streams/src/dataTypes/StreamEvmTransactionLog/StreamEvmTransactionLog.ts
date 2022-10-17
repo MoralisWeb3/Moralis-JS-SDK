@@ -4,6 +4,11 @@ import { StreamEvmTransactionLogData, StreamEvmTransactionLogInput, StreamEvmTra
 
 type StreamEvmTransactionLogish = StreamEvmTransactionLog | StreamEvmTransactionLogInput;
 
+/**
+ * The StreamEvmTransactionLog class is a representation of a transaction log that is returned by the Moralis Stream API
+ *
+ * @category DataType
+ */
 export class StreamEvmTransactionLog implements MoralisDataObject {
   private _data: StreamEvmTransactionLogData;
 
@@ -11,6 +16,17 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
     this._data = StreamEvmTransactionLog.parse(data, core);
   }
 
+  /**
+   * Create a new instance of StreamEvmTransactionLog
+   *
+   * @param data - the StreamEvmTransactionLogish type
+   * @param core - the MoralisCore instance
+   * @example
+   * ```ts
+   * const transactionLog = StreamEvmTransactionLog.create(data);
+   * ```
+   * @returns an instance of StreamEvmTransactionLog
+   */
   static create(data: StreamEvmTransactionLogish, core?: MoralisCore) {
     if (data instanceof StreamEvmTransactionLog) {
       return data;
@@ -19,7 +35,7 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
     return new StreamEvmTransactionLog(data, finalCore);
   }
 
-  static parse(data: StreamEvmTransactionLogInput, core: MoralisCore): StreamEvmTransactionLogData {
+  private static parse(data: StreamEvmTransactionLogInput, core: MoralisCore): StreamEvmTransactionLogData {
     return {
       ...data,
       chain: EvmChain.create(data.chain, core),
@@ -30,20 +46,6 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       topic2: maybe(data.topic2),
       topic3: maybe(data.topic3),
     };
-  }
-
-  toJSON(): StreamEvmTransactionLogJSON {
-    const { chain, address, ...data } = this._data;
-
-    return {
-      ...data,
-      chain: chain.format(),
-      address: address.format(),
-    };
-  }
-
-  format() {
-    return this.toJSON();
   }
 
   /**
@@ -60,9 +62,19 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
     const transactionLogA = StreamEvmTransactionLog.create(valueA);
     const transactionLogB = StreamEvmTransactionLog.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(transactionLogA._data) === JSON.stringify(transactionLogB._data);
+    if (!transactionLogA.chain.equals(transactionLogB.chain)) {
+      return false;
+    }
+
+    if (transactionLogA.transactionHash !== transactionLogB.transactionHash) {
+      return false;
+    }
+
+    if (transactionLogA.logIndex !== transactionLogB.logIndex) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -76,6 +88,30 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
    */
   equals(value: StreamEvmTransactionLogish): boolean {
     return StreamEvmTransactionLog.equals(this, value);
+  }
+
+  /**
+   * Converts the StreamEvmTransactionLog instance to a JSON object.
+   * @returns JSON object of the StreamEvmTransactionLog instance
+   * @example `transactionLog.toJSON()`
+   */
+  toJSON(): StreamEvmTransactionLogJSON {
+    const { chain, address, ...data } = this._data;
+
+    return {
+      ...data,
+      chain: chain.format(),
+      address: address.format(),
+    };
+  }
+
+  /**
+   * Converts the StreamEvmTransactionLog instance to a JSON object.
+   * @returns JSON object of the StreamEvmTransactionLog instance
+   * @example `transactionLog.toJSON()`
+   */
+  format() {
+    return this.toJSON();
   }
 
   get chain() {

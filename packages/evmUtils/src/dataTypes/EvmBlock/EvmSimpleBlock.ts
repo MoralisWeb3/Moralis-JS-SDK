@@ -59,6 +59,10 @@ export class EvmSimpleBlock implements MoralisDataObject {
       return false;
     }
 
+    if (!blockA.number.equals(blockB.number)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -114,7 +118,7 @@ export class EvmSimpleBlock implements MoralisDataObject {
    * @example block.number // BigNumber
    */
   get number() {
-    return this._data.number.toString();
+    return this._data.number;
   }
 
   /**

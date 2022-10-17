@@ -9,19 +9,25 @@ import {
 export type StreamEvmInternalTransactionish = StreamEvmInternalTransactionInput | StreamEvmInternalTransaction;
 
 /**
- * The StreamEvmInternalTransaction class is representation of the webhook data that is returned from the Stream api
+ * The StreamEvmInternalTransaction class is a representation of an internal transaction that is returned by the Moralis Stream API
  *
  * @category DataType
  */
 export class StreamEvmInternalTransaction implements MoralisDataObject {
+  private _data: StreamEvmInternalTransactionData;
+
+  constructor(data: StreamEvmInternalTransactionInput, core: MoralisCore) {
+    this._data = StreamEvmInternalTransaction.parse(data, core);
+  }
+
   /**
-   * Create a new instance of StreamEvmInternalTransaction
+   * Create a new instance of StreamEvmInternalTransactionish
    *
-   * @param data - the StreamEvmInternalTransactionish type
+   * @param data - the StreamEvmInternalTransactionishish type
    * @param core - the MoralisCore instance
    * @example
    * ```ts
-   * const evmInternalTransaction = StreamEvmInternalTransaction.create(data);
+   * const transaction = StreamEvmTransactionish.create(data);
    * ```
    * @returns an instance of StreamEvmInternalTransaction
    */
@@ -33,13 +39,10 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
     return new StreamEvmInternalTransaction(data, finalCore);
   }
 
-  private _data: StreamEvmInternalTransactionData;
-
-  constructor(data: StreamEvmInternalTransactionInput, core: MoralisCore) {
-    this._data = StreamEvmInternalTransaction.parse(data, core);
-  }
-
-  static parse = (data: StreamEvmInternalTransactionInput, core: MoralisCore): StreamEvmInternalTransactionData => ({
+  private static parse = (
+    data: StreamEvmInternalTransactionInput,
+    core: MoralisCore,
+  ): StreamEvmInternalTransactionData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
     from: maybe(data.from, (value) => EvmAddress.create(value, core)),
@@ -62,9 +65,15 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
     const evmInternalTransactionA = StreamEvmInternalTransaction.create(valueA);
     const evmInternalTransactionB = StreamEvmInternalTransaction.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(evmInternalTransactionA._data) === JSON.stringify(evmInternalTransactionB._data);
+    if (!evmInternalTransactionA.chain.equals(evmInternalTransactionB.chain)) {
+      return false;
+    }
+
+    if (evmInternalTransactionA.transactionHash !== evmInternalTransactionB.transactionHash) {
+      return false;
+    }
+
+    return true;
   }
 
   /**

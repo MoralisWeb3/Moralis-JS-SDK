@@ -10,6 +10,10 @@ import { StreamEvmTransaction } from '../StreamEvmTransaction/StreamEvmTransacti
 import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTransactionLog';
 
 export interface EvmStreamResultData {
+  chain: EvmChain;
+  retries: number;
+  confirmed: boolean;
+  block: EvmSimpleBlock;
   erc20Transfers: StreamErc20Transfer[];
   erc20Approvals: StreamErc20Approval[];
   nftTransfers: StreamEvmNftTransfer[];
@@ -17,14 +21,12 @@ export interface EvmStreamResultData {
     ERC721: StreamErc721Approval[];
     ERC1155: StreamErc1155Approval[];
   };
-  block: EvmSimpleBlock;
-  chain: EvmChain;
   logs: StreamEvmTransactionLog[];
   txs: StreamEvmTransaction[];
   txsInternal: StreamEvmInternalTransaction[];
   abi: any[];
-  retries: number;
-  confirmed: boolean;
+  tag: string;
+  streamId: string;
 }
 
 export type EvmStreamResultInput = IWebhook;

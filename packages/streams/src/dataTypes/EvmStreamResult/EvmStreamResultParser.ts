@@ -38,12 +38,13 @@ export class EvmStreamResultParser {
       abi: value.abi,
       retries: value.retries,
       confirmed: value.confirmed,
+      streamId: value.streamId,
+      tag: value.tag,
     };
   };
 
   static parseChainId(value: string, core: MoralisCore) {
-    // Use Ethereum as default, since we get an initial response with empty string as chain
-    // TODO: fix this behaviour, this is only needed because of the initial webhook response
+    // Only needed for the initial test-response where we get an empty string as chain
     return value === '' ? EvmChain.ETHEREUM : EvmChain.create(value, core);
   }
 
@@ -92,7 +93,6 @@ export class EvmStreamResultParser {
   }
 
   static parseBlock(value: Block, chain: EvmChain) {
-    // TODO: remove this behaviour, this is only needed because of the initial webhook response
     if (value.number === '') {
       return EvmSimpleBlock.create({
         chain,

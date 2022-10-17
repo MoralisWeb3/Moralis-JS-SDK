@@ -83,5 +83,58 @@ describe('StreamEvmNftTransfer', () => {
         operator: '0xdac17f958d2ee523a2206206994597c13d831ec8',
       });
     });
+
+    it('should return return true for .equals() on equality match', () => {
+      const isEqual = evmNftTransfer.equals({
+        ...mockStreamEvmNftTransferInput.ERC721,
+      });
+
+      expect(isEqual).toBe(true);
+    });
+
+    it('should return return false for .equals() on mismatching chain', () => {
+      const isEqual = evmNftTransfer.equals({
+        ...mockStreamEvmNftTransferInput.ERC721,
+        chain: '0x2',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching contract', () => {
+      const isEqual = evmNftTransfer.equals({
+        ...mockStreamEvmNftTransferInput.ERC721,
+        contract: '0xdac17f958d2ee523a2206206994597c13d831ec8',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching logIndex', () => {
+      const isEqual = evmNftTransfer.equals({
+        ...mockStreamEvmNftTransferInput.ERC721,
+        logIndex: '1',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching transactionHash', () => {
+      const isEqual = evmNftTransfer.equals({
+        ...mockStreamEvmNftTransferInput.ERC721,
+        transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching tokenId', () => {
+      const isEqual = evmNftTransfer.equals({
+        ...mockStreamEvmNftTransferInput.ERC721,
+        tokenId: '456',
+      });
+
+      expect(isEqual).toBe(false);
+    });
   });
 });

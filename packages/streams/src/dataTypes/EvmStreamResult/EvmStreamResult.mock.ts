@@ -666,7 +666,7 @@ const erc20USDCTransfers: EvmStreamResultInput = {
 };
 
 const wethEvents: EvmStreamResultInput = {
-  confirmed: false,
+  confirmed: true,
   chainId: '0x1',
   abi: [
     {
@@ -2073,6 +2073,295 @@ const wethEvents: EvmStreamResultInput = {
   nftTransfers: [],
 };
 
+const erc721Approval: EvmStreamResultInput = {
+  confirmed: true,
+  chainId: '0x89',
+  abi: [
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+      ],
+      name: 'Transfer',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'owner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'approved',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+      ],
+      name: 'Approval',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'owner',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'operator',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'bool',
+          name: 'approved',
+          type: 'bool',
+        },
+      ],
+      name: 'ApprovalForAll',
+      type: 'event',
+    },
+  ],
+  streamId: '5b49581e-fd8e-4812-96c4-2cbdedd36ecb',
+  tag: 'erc721-approval',
+  retries: 0,
+  block: {
+    number: '34463588',
+    hash: '0xb1a72eee9582813928cb0910a14445f644124e47cee89819c7ea1de4806e1141',
+    timestamp: '1666023779',
+  },
+  logs: [
+    {
+      logIndex: '140',
+      transactionHash: '0x72896000aed4e20786395fe758a84548f0a93e2c2a88bdf91d8c884cc452da43',
+      address: '0xa1d3a75cafae1a4d1ad354dd35951954cb1402a3',
+      data: '0x',
+      topic0: '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925',
+      topic1: '0x0000000000000000000000003d1499a7525abbff656a4c99b83d288bdf04b0d1',
+      topic2: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topic3: '0x00000000000000000000000000000000000000000000000000000000000002c0',
+    },
+  ],
+  txs: [],
+  txsInternal: [],
+  erc20Transfers: [],
+  erc20Approvals: [],
+  nftApprovals: {
+    ERC1155: [],
+    ERC721: [
+      {
+        transactionHash: '0x72896000aed4e20786395fe758a84548f0a93e2c2a88bdf91d8c884cc452da43',
+        logIndex: '140',
+        contract: '0xa1d3a75cafae1a4d1ad354dd35951954cb1402a3',
+        owner: '0x3d1499a7525abbff656a4c99b83d288bdf04b0d1',
+        approved: '0x0000000000000000000000000000000000000000',
+        tokenId: '704',
+        tokenName: 'Komos by Ethlas',
+        tokenSymbol: 'Komo',
+        tokenContractType: 'ERC721',
+      },
+    ],
+  },
+  nftTransfers: [],
+};
+
+const erc1155Approval: EvmStreamResultInput = {
+  confirmed: false,
+  chainId: '0x89',
+  abi: [
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'account',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'operator',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'bool',
+          name: 'approved',
+          type: 'bool',
+        },
+      ],
+      name: 'ApprovalForAll',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'operator',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256[]',
+          name: 'ids',
+          type: 'uint256[]',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256[]',
+          name: 'values',
+          type: 'uint256[]',
+        },
+      ],
+      name: 'TransferBatch',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'operator',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'value',
+          type: 'uint256',
+        },
+      ],
+      name: 'TransferSingle',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: 'string',
+          name: 'value',
+          type: 'string',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
+        },
+      ],
+      name: 'URI',
+      type: 'event',
+    },
+  ],
+  streamId: '5b49581e-fd8e-4812-96c4-2cbdedd36ecb',
+  tag: 'erc1155-approvals',
+  retries: 0,
+  block: {
+    number: '34463973',
+    hash: '0x8d326d6138528ba07ab28d971dbd0dc925f19d7f8e59c3f7c369622c23e36914',
+    timestamp: '1666024579',
+  },
+  logs: [
+    {
+      logIndex: '323',
+      transactionHash: '0x1d743cbbe1f88cffd7c53fcf198f9a7777cc4eff0066858662e6819a2909e609',
+      address: '0xc84ac19ee8856a0f2879a6a1dfcd1225a9057088',
+      data: '0x0000000000000000000000000000000000000000000000000000000000000001',
+      topic0: '0x17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31',
+      topic1: '0x0000000000000000000000006098f7645bdd687257143bcf5066170bf30bb407',
+      topic2: '0x0000000000000000000000001e0049783f008a0085193e00003d00cd54003c71',
+      topic3: null,
+    },
+  ],
+  txs: [],
+  txsInternal: [],
+  erc20Transfers: [],
+  erc20Approvals: [],
+  nftApprovals: {
+    ERC1155: [
+      {
+        transactionHash: '0x1d743cbbe1f88cffd7c53fcf198f9a7777cc4eff0066858662e6819a2909e609',
+        logIndex: '323',
+        contract: '0xc84ac19ee8856a0f2879a6a1dfcd1225a9057088',
+        account: '0x6098f7645bdd687257143bcf5066170bf30bb407',
+        operator: '0x1e0049783f008a0085193e00003d00cd54003c71',
+        approved: true,
+        tokenName: 'CyberYetis',
+        tokenSymbol: 'YETI',
+        tokenContractType: 'ERC721',
+      },
+    ],
+    ERC721: [],
+  },
+  nftTransfers: [],
+};
+
 export const mockEvmStreamResult = {
   INITIAL_TEST: initialTest,
   NATIVE_TX: nativeTransaction,
@@ -2080,5 +2369,7 @@ export const mockEvmStreamResult = {
   ERC20_USDC_TRANSFERS: erc20USDCTransfers,
   ERC1155_SINGLE_TRANSFER: erc1155SingleTransfer,
   ERC721_TRANSFER: erc721Transfer,
+  ERC721_APPROVAL: erc721Approval,
+  ERC1155_APPROVAL: erc1155Approval,
   WETH_EVENTS: wethEvents,
 };

@@ -191,4 +191,36 @@ describe('StreamEvmTransaction', () => {
       });
     });
   });
+
+  it('should return return true for .equals() on equality match', () => {
+    const input = mockStreamEvmTransactionInput.FULL_1;
+    const transaction = StreamEvmTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+    });
+
+    expect(isEqual).toBe(true);
+  });
+
+  it('should return return false for .equals() on mismatching chain', () => {
+    const input = mockStreamEvmTransactionInput.FULL_1;
+    const transaction = StreamEvmTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+      chain: '0x2',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return return false for .equals() on mismatching hash', () => {
+    const input = mockStreamEvmTransactionInput.FULL_1;
+    const transaction = StreamEvmTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+      hash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+    });
+
+    expect(isEqual).toBe(false);
+  });
 });

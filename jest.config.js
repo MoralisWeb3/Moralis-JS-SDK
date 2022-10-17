@@ -20,4 +20,6 @@ module.exports = {
     },
   },
   verbose: true,
+  coverageReporters: ['clover', 'json', 'lcov', 'text', 'json-summary'],
+  coveragePathIgnorePatterns: ['.mock.ts', 'src/index.ts'],
 };

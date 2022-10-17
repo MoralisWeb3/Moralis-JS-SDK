@@ -71,5 +71,40 @@ describe('StreamEvmTransactionLog', () => {
         transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9a',
       });
     });
+
+    it('should return return true for .equals() on equality match', () => {
+      const isEqual = transactionLog.equals({
+        ...input,
+      });
+
+      expect(isEqual).toBe(true);
+    });
+
+    it('should return return false for .equals() on mismatching chain', () => {
+      const isEqual = transactionLog.equals({
+        ...input,
+        chain: '0x2',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching logIndex', () => {
+      const isEqual = transactionLog.equals({
+        ...input,
+        logIndex: 11,
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return return false for .equals() on mismatching transactionHash', () => {
+      const isEqual = transactionLog.equals({
+        ...mockStreamEvmTransactionLogInput.ERC20_TRANSFER,
+        transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9b',
+      });
+
+      expect(isEqual).toBe(false);
+    });
   });
 });

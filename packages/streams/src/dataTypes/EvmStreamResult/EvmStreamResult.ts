@@ -37,7 +37,7 @@ export class EvmStreamResult implements MoralisDataObject {
     this._data = EvmStreamResult.parse(data, core);
   }
 
-  static parse = (data: EvmStreamResultInput, core: MoralisCore): EvmStreamResultData =>
+  private static parse = (data: EvmStreamResultInput, core: MoralisCore): EvmStreamResultData =>
     EvmStreamResultParser.parse(data, core);
 
   /**
@@ -54,9 +54,27 @@ export class EvmStreamResult implements MoralisDataObject {
     const evmStreamResultA = EvmStreamResult.create(valueA);
     const evmStreamResultB = EvmStreamResult.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(evmStreamResultA._data) === JSON.stringify(evmStreamResultB._data);
+    if (!evmStreamResultA.chain.equals(evmStreamResultB.chain)) {
+      return false;
+    }
+
+    if (!evmStreamResultA.block.equals(evmStreamResultB.block)) {
+      return false;
+    }
+
+    if (evmStreamResultA.streamId !== evmStreamResultB.streamId) {
+      return false;
+    }
+
+    if (evmStreamResultA.tag !== evmStreamResultB.tag) {
+      return false;
+    }
+
+    if (evmStreamResultA.confirmed !== evmStreamResultB.confirmed) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -113,6 +131,14 @@ export class EvmStreamResult implements MoralisDataObject {
 
   get chain() {
     return this._data.chain;
+  }
+
+  get streamId() {
+    return this._data.streamId;
+  }
+
+  get tag() {
+    return this._data.tag;
   }
 
   get block() {

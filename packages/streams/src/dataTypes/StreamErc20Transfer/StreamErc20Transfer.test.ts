@@ -13,38 +13,38 @@ describe('StreamErc20Transfer', () => {
   });
 
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const approval = StreamErc20Transfer.create(input, core);
-    const output = approval.format();
+    const transfer = StreamErc20Transfer.create(input, core);
+    const output = transfer.format();
 
-    expect(approval).toBeDefined();
+    expect(transfer).toBeDefined();
     expect(output).toBeDefined();
   });
 
   describe('Full', () => {
     const input = mockStreamErc20Transfer.FULL;
-    let approval: StreamErc20Transfer;
+    let transfer: StreamErc20Transfer;
 
     beforeAll(() => {
-      approval = StreamErc20Transfer.create(input, core);
+      transfer = StreamErc20Transfer.create(input, core);
     });
 
     it('should return correct values for all getters', () => {
       // Read values
-      expect(approval.chain.hex).toBe('0x1');
-      expect(approval.transactionHash).toBe('0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7');
-      expect(approval.contract.lowercase).toBe('0xdac17f958d2ee523a2206206994597c13d831ec7');
-      expect(approval.logIndex).toBe(0);
-      expect(approval.from.lowercase).toBe('0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5');
-      expect(approval.to.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
-      expect(approval.value.toString()).toBe('12345');
-      expect(approval.valueWithDecimals).toBe('0.012345');
-      expect(approval.tokenDecimals).toBe(6);
-      expect(approval.tokenSymbol).toBe('STREAMS');
-      expect(approval.tokenName).toBe('Stream');
+      expect(transfer.chain.hex).toBe('0x1');
+      expect(transfer.transactionHash).toBe('0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7');
+      expect(transfer.contract.lowercase).toBe('0xdac17f958d2ee523a2206206994597c13d831ec7');
+      expect(transfer.logIndex).toBe(0);
+      expect(transfer.from.lowercase).toBe('0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5');
+      expect(transfer.to.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
+      expect(transfer.value.toString()).toBe('12345');
+      expect(transfer.valueWithDecimals).toBe('0.012345');
+      expect(transfer.tokenDecimals).toBe(6);
+      expect(transfer.tokenSymbol).toBe('STREAMS');
+      expect(transfer.tokenName).toBe('Stream');
     });
 
     it('should parse the values to JSON correctly', () => {
-      const json = approval.toJSON();
+      const json = transfer.toJSON();
 
       expect(json).toStrictEqual({
         chain: '0x1',
@@ -62,7 +62,7 @@ describe('StreamErc20Transfer', () => {
     });
 
     it('should parse the values to a JSON on format() correctly', () => {
-      const json = approval.format();
+      const json = transfer.format();
 
       expect(json).toStrictEqual({
         chain: '0x1',
@@ -82,29 +82,29 @@ describe('StreamErc20Transfer', () => {
 
   describe('No metadata', () => {
     const input = mockStreamErc20Transfer.NO_METADATA;
-    let approval: StreamErc20Transfer;
+    let transfer: StreamErc20Transfer;
 
     beforeAll(() => {
-      approval = StreamErc20Transfer.create(input, core);
+      transfer = StreamErc20Transfer.create(input, core);
     });
 
     it('should return correct values for all getters', () => {
       // Read values
-      expect(approval.chain.hex).toBe('0x1');
-      expect(approval.transactionHash).toBe('0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7');
-      expect(approval.contract.lowercase).toBe('0xdac17f958d2ee523a2206206994597c13d831ec7');
-      expect(approval.logIndex).toBe(0);
-      expect(approval.from.lowercase).toBe('0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5');
-      expect(approval.to.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
-      expect(approval.value.toString()).toBe('12345');
-      expect(approval.valueWithDecimals).toBeUndefined();
-      expect(approval.tokenDecimals).toBeUndefined();
-      expect(approval.tokenSymbol).toBe('');
-      expect(approval.tokenName).toBe('');
+      expect(transfer.chain.hex).toBe('0x1');
+      expect(transfer.transactionHash).toBe('0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7');
+      expect(transfer.contract.lowercase).toBe('0xdac17f958d2ee523a2206206994597c13d831ec7');
+      expect(transfer.logIndex).toBe(0);
+      expect(transfer.from.lowercase).toBe('0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5');
+      expect(transfer.to.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
+      expect(transfer.value.toString()).toBe('12345');
+      expect(transfer.valueWithDecimals).toBeUndefined();
+      expect(transfer.tokenDecimals).toBeUndefined();
+      expect(transfer.tokenSymbol).toBe('');
+      expect(transfer.tokenName).toBe('');
     });
 
     it('should parse the values to JSON correctly', () => {
-      const json = approval.toJSON();
+      const json = transfer.toJSON();
 
       expect(json).toStrictEqual({
         chain: '0x1',
@@ -122,7 +122,7 @@ describe('StreamErc20Transfer', () => {
     });
 
     it('should parse the values to a JSON on format() correctly', () => {
-      const json = approval.format();
+      const json = transfer.format();
 
       expect(json).toStrictEqual({
         chain: '0x1',
@@ -138,5 +138,48 @@ describe('StreamErc20Transfer', () => {
         valueWithDecimals: undefined,
       });
     });
+  });
+
+  it('should return return true for .equals() on equality match', () => {
+    const input = mockStreamErc20Transfer.FULL;
+    const transfer = StreamErc20Transfer.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+    });
+
+    expect(isEqual).toBe(true);
+  });
+
+  it('should return return false for .equals() on mismatching chain', () => {
+    const input = mockStreamErc20Transfer.FULL;
+    const transfer = StreamErc20Transfer.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      chain: '0x2',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return return false for .equals() on mismatching logIndex', () => {
+    const input = mockStreamErc20Transfer.FULL;
+    const transfer = StreamErc20Transfer.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      logIndex: '2',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return return false for .equals() on mismatching transactionHash', () => {
+    const input = mockStreamErc20Transfer.FULL;
+    const transfer = StreamErc20Transfer.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+    });
+
+    expect(isEqual).toBe(false);
   });
 });

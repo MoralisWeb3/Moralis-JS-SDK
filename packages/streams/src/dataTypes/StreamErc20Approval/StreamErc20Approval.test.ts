@@ -139,4 +139,47 @@ describe('StreamErc20Approval', () => {
       });
     });
   });
+
+  it('should return return true for .equals() on equality match', () => {
+    const input = mockStreamErc20Approval.FULL;
+    const transfer = StreamErc20Approval.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+    });
+
+    expect(isEqual).toBe(true);
+  });
+
+  it('should return return false for .equals() on mismatching chain', () => {
+    const input = mockStreamErc20Approval.FULL;
+    const transfer = StreamErc20Approval.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      chain: '0x2',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return return false for .equals() on mismatching logIndex', () => {
+    const input = mockStreamErc20Approval.FULL;
+    const transfer = StreamErc20Approval.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      logIndex: '2',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return return false for .equals() on mismatching transactionHash', () => {
+    const input = mockStreamErc20Approval.FULL;
+    const transfer = StreamErc20Approval.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+    });
+
+    expect(isEqual).toBe(false);
+  });
 });

@@ -5,11 +5,17 @@ import { StreamErc20TransferData, StreamErc20TransferInput, StreamErc20TransferJ
 export type StreamErc20Transferish = StreamErc20TransferInput | StreamErc20Transfer;
 
 /**
- * The StreamErc20Transfer class is representation of the webhook data that is returned from the Stream api
+ * The StreamErc20Transfer class is a representation of a erc20 transfer that is returned by the Moralis Stream API
  *
  * @category DataType
  */
 export class StreamErc20Transfer implements MoralisDataObject {
+  private _data: StreamErc20TransferData;
+
+  constructor(data: StreamErc20TransferInput, core: MoralisCore) {
+    this._data = StreamErc20Transfer.parse(data, core);
+  }
+
   /**
    * Create a new instance of StreamErc20Transfer
    *
@@ -29,13 +35,7 @@ export class StreamErc20Transfer implements MoralisDataObject {
     return new StreamErc20Transfer(data, finalCore);
   }
 
-  private _data: StreamErc20TransferData;
-
-  constructor(data: StreamErc20TransferInput, core: MoralisCore) {
-    this._data = StreamErc20Transfer.parse(data, core);
-  }
-
-  static parse = (data: StreamErc20TransferInput, core: MoralisCore): StreamErc20TransferData => {
+  private static parse = (data: StreamErc20TransferInput, core: MoralisCore): StreamErc20TransferData => {
     const chain = EvmChain.create(data.chain, core);
     return {
       ...data,
@@ -64,9 +64,19 @@ export class StreamErc20Transfer implements MoralisDataObject {
     const erc20TransferA = StreamErc20Transfer.create(valueA);
     const erc20TransferB = StreamErc20Transfer.create(valueB);
 
-    // Since we have no specific keys to check comparisons for and the result contains many datapoints, we do a
-    // deep equality check
-    return JSON.stringify(erc20TransferA._data) === JSON.stringify(erc20TransferB._data);
+    if (!erc20TransferA.chain.equals(erc20TransferB.chain)) {
+      return false;
+    }
+
+    if (erc20TransferA.transactionHash !== erc20TransferB.transactionHash) {
+      return false;
+    }
+
+    if (erc20TransferA.logIndex !== erc20TransferB.logIndex) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
