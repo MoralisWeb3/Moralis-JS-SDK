@@ -1,5 +1,12 @@
 # @moralisweb3/sol-utils
 
+## 2.6.6-beta.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.6-beta.0
+
 ## 2.6.5
 
 ### Patch Changes

@@ -30,5 +30,7 @@
     "@moralisweb3/test-utils": "1.0.0",
     "@moralisweb3/typedoc-readme-theme": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "two-sloths-remember"
+  ]
 }
