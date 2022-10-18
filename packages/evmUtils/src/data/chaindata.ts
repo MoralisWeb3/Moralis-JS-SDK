@@ -1,3 +1,8 @@
+/* eslint-disable no-template-curly-in-string */
+
+/**
+ * Moralis representation of a native chain currency.
+ */
 export interface EvmNativeCurrency {
   name: string;
   symbol: string;

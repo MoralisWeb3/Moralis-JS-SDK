@@ -1,15 +1,32 @@
 import { SolAddress } from './SolAddress';
 
 describe('SolAddress', () => {
-  const ADDRESS = '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp';
+  const ADDRESS = '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp'; // account
 
-  it('creates an instance', () => {
-    const address = SolAddress.create(ADDRESS);
+  const addresses = [
+    ADDRESS,
+    'JdbMBJNENmKowddNkM7gKKkRXGbjTCVU1hYtUZquLbE', // token account (not on the curve)
+    'DS2tt4BX7YwCw7yrDNwbAdnYrxjeCPeGJbHmZEYC8RTb', // account
+    'TLPv2tuSVvn3fSk8RgW3yPddkp5oFivzZV3rA9hQxtX', // program
+    '5JQ8Mhdp2wv3HWcfjq9Ts8kwzCAeBADFBDAgBznzRsE4', // program
+    'AMM55ShdkoGRB5jVYPjWziwk8m5MpwyDgsMWHaMSQWH6', // program
+    '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM', // account
+    '9QgXqrgdbVU8KcpfskqJpAXKzbaYQJecgMAruSWoXDkM', // stake account (not on the curve)
+  ];
 
-    expect(address.address).toEqual(ADDRESS);
-    expect(address.toJSON()).toEqual(ADDRESS);
-    expect(address.toString()).toEqual(ADDRESS);
-    expect(address.format()).toEqual(ADDRESS);
+  for (const address of addresses) {
+    it(`creates an instance for ${address}`, () => {
+      const sol = SolAddress.create(address);
+
+      expect(sol.address).toEqual(address);
+      expect(sol.toJSON()).toEqual(address);
+      expect(sol.toString()).toEqual(address);
+      expect(sol.format()).toEqual(address);
+    });
+  }
+
+  it('create() throws an error when a passed address is invalid', () => {
+    expect(() => SolAddress.create('5x')).toThrowError('Invalid Solana address provided');
   });
 
   it('create() does not create a new instance when SolAddress passed', () => {
@@ -22,11 +39,11 @@ describe('SolAddress', () => {
   it('equals() returns correct value', () => {
     const a = SolAddress.create(ADDRESS);
     const b = SolAddress.create(ADDRESS);
-    const c = SolAddress.create('9xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp');
+    const c = '9xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp';
 
     expect(a.equals(b)).toBe(true);
     expect(b.equals(a)).toBe(true);
-    expect(c.equals(a)).toBe(false);
-    expect(c.equals(b)).toBe(false);
+    expect(a.equals(c)).toBe(false);
+    expect(b.equals(c)).toBe(false);
   });
 });

@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-api",
   "author": "Moralis",
-  "version": "2.0.0-beta.11",
+  "version": "2.6.5",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -12,14 +12,12 @@
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
-    "test:coverage": "yarn run test --coverage",
+    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
-    "format": "prettier . \"**/*.+(js|ts|json)\" --write",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "format:check": "prettier . \"**/*.+(js|ts|json)\" --check",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "gen:types": "openapi-typescript https://deep-index.moralis.io/api-docs/v2/swagger.json --output src/generated/types.ts",
-    "build": "tsc",
+    "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json --output src/generated/types.ts",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
   },
   "devDependencies": {
@@ -28,8 +26,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.0.0-beta.11",
-    "@moralisweb3/core": "^2.0.0-beta.11",
-    "@moralisweb3/evm-utils": "^2.0.0-beta.11"
+    "@moralisweb3/api-utils": "^2.6.5",
+    "@moralisweb3/core": "^2.6.5",
+    "@moralisweb3/evm-utils": "^2.6.5"
   }
 }

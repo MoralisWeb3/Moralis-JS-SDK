@@ -1,5 +1,8 @@
 import { CoreErrorCode, MoralisCoreError } from '../../Error';
 
+/**
+ * Valid input types for a BigNumber. This can be a number, string, or bigint.
+ */
 export type BigNumberPrimitive = number | string | bigint;
 
 export class BigNumberParser {
@@ -25,6 +28,8 @@ export class BigNumberParser {
     return BigInt(value);
   }
 
+  // TODO: refactor to reduce complexity
+  // eslint-disable-next-line complexity
   public static parseDecimal(value: BigNumberPrimitive, decimals: number): bigint {
     assertNotEmpty(value);
 

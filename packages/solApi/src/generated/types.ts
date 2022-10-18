@@ -4,29 +4,29 @@
  */
 
 export interface paths {
-  '/account/{network}/{address}/balance': {
+  "/account/{network}/{address}/balance": {
     /** Gets native balance owned by the given network and address */
-    get: operations['balance'];
+    get: operations["balance"];
   };
-  '/account/{network}/{address}/tokens': {
+  "/account/{network}/{address}/tokens": {
     /** Gets token balances owned by the given network and address */
-    get: operations['getSPL'];
+    get: operations["getSPL"];
   };
-  '/account/{network}/{address}/nft': {
+  "/account/{network}/{address}/nft": {
     /** Gets NFTs owned by the given network and address */
-    get: operations['getNFTs'];
+    get: operations["getNFTs"];
   };
-  '/account/{network}/{address}/portfolio': {
+  "/account/{network}/{address}/portfolio": {
     /** Gets the portfolio of the given network and address */
-    get: operations['getPortfolio'];
+    get: operations["getPortfolio"];
   };
-  '/nft/{network}/{address}/metadata': {
+  "/nft/{network}/{address}/metadata": {
     /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
-    get: operations['getNFTMetadata'];
+    get: operations["getNFTMetadata"];
   };
-  '/token/{network}/{address}/price': {
+  "/token/{network}/{address}/price": {
     /** Gets the token price (usd and native) for a given contract address and network */
-    get: operations['getTokenPrice'];
+    get: operations["getTokenPrice"];
   };
 }
 
@@ -48,9 +48,9 @@ export interface components {
       mint: string;
     };
     Portfolio: {
-      nativeBalance: components['schemas']['NativeBalance'];
-      nfts: components['schemas']['SPLNFT'][];
-      tokens: components['schemas']['SPLTokenBalance'][];
+      nativeBalance: components["schemas"]["NativeBalance"];
+      nfts: components["schemas"]["SPLNFT"][];
+      tokens: components["schemas"]["SPLTokenBalance"][];
     };
     MetaplexNFT: {
       metadataUri: string;
@@ -65,7 +65,7 @@ export interface components {
       standard: string;
       name: string;
       symbol: string;
-      metaplex: components['schemas']['MetaplexNFT'];
+      metaplex: components["schemas"]["MetaplexNFT"];
     };
     SPLNativePrice: {
       value: string;
@@ -74,7 +74,7 @@ export interface components {
       symbol: string;
     };
     SPLTokenPrice: {
-      nativePrice: components['schemas']['SPLNativePrice'];
+      nativePrice: components["schemas"]["SPLNativePrice"];
       usdPrice: number;
       exchangeAddress: string;
       exchangeName: string;
@@ -87,19 +87,19 @@ export interface operations {
   balance: {
     parameters: {
       path: {
-        network: 'mainnet' | 'devnet';
+        network: "mainnet" | "devnet";
         address: string;
       };
     };
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['NativeBalance'];
+          "application/json": components["schemas"]["NativeBalance"];
         };
       };
       400: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };
@@ -108,19 +108,19 @@ export interface operations {
   getSPL: {
     parameters: {
       path: {
-        network: 'mainnet' | 'devnet';
+        network: "mainnet" | "devnet";
         address: string;
       };
     };
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['SPLTokenBalance'][];
+          "application/json": components["schemas"]["SPLTokenBalance"][];
         };
       };
       400: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };
@@ -129,19 +129,19 @@ export interface operations {
   getNFTs: {
     parameters: {
       path: {
-        network: 'mainnet' | 'devnet';
+        network: "mainnet" | "devnet";
         address: string;
       };
     };
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['SPLNFT'][];
+          "application/json": components["schemas"]["SPLNFT"][];
         };
       };
       400: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };
@@ -151,18 +151,18 @@ export interface operations {
     parameters: {
       path: {
         address: string;
-        network: 'mainnet' | 'devnet';
+        network: "mainnet" | "devnet";
       };
     };
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Portfolio'];
+          "application/json": components["schemas"]["Portfolio"];
         };
       };
       400: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };
@@ -172,18 +172,18 @@ export interface operations {
     parameters: {
       path: {
         address: string;
-        network: 'mainnet' | 'devnet';
+        network: "mainnet" | "devnet";
       };
     };
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['NFTMetadata'];
+          "application/json": components["schemas"]["NFTMetadata"];
         };
       };
       400: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };
@@ -193,18 +193,18 @@ export interface operations {
     parameters: {
       path: {
         address: string;
-        network: 'mainnet';
+        network: "mainnet" | "devnet";
       };
     };
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['SPLTokenPrice'];
+          "application/json": components["schemas"]["SPLTokenPrice"];
         };
       };
       400: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };

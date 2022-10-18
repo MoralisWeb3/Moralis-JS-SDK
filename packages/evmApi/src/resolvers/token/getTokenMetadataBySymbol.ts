@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { Erc20Token, EvmChainish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -19,15 +18,18 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 export const getTokenMetadataBySymbol = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenMetadataBySymbol',
-    getUrl: () => `${BASE_URL}/erc20/metadata/symbols`,
+    getUrl: () => `/erc20/metadata/symbols`,
     apiToResult: (data: ApiResult, params: Params) =>
       (data ?? []).map((token) => {
         return {
-          token: Erc20Token.create({
-            ...toCamelCase(token),
-            contractAddress: token.address,
-            chain: EvmChainResolver.resolve(params.chain, core),
-          }),
+          token: Erc20Token.create(
+            {
+              ...toCamelCase(token),
+              contractAddress: token.address,
+              chain: EvmChainResolver.resolve(params.chain, core),
+            },
+            core,
+          ),
           blockNumber: token.block_number,
           validated: token.validated,
         };

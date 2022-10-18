@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
 import { EvmNative, EvmAddress, EvmChainish, EvmAddressish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -13,17 +12,18 @@ type ApiParams = QueryParams & PathParams;
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address'>> {
+export interface Params extends Camelize<Omit<ApiParams, 'chain' | 'address' | 'to_block'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  toBlock?: number;
 }
 
 export const getTokenPrice = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getTokenPrice',
     urlParams: ['address'],
-    getUrl: (params: ApiParams) => `${BASE_URL}/erc20/${params.address}/price`,
-    apiToResult: (data: ApiResult) => ({
+    getUrl: (params: Params) => `/erc20/${params.address}/price`,
+    apiToResult: (data: ApiResult, _: Params) => ({
       ...toCamelCase(data),
       nativePrice: data.nativePrice?.value
         ? EvmNative.create(data.nativePrice?.value, data.nativePrice?.decimals)

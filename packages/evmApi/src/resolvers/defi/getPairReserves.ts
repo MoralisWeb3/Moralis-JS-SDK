@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -22,7 +21,7 @@ export const getPairReserves = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairReserves',
     urlParams: ['pairAddress'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.pairAddress}/reserves`,
+    getUrl: (params: Params) => `/${params.pairAddress}/reserves`,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
     parseParams: (params: Params): ApiParams => ({

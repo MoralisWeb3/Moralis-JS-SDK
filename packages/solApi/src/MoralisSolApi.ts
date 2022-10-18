@@ -6,8 +6,9 @@ import { getNFTs } from './resolvers/account/getNFTs';
 import { getPortfolio } from './resolvers/account/getPortfolio';
 import { getSPL } from './resolvers/account/getSPL';
 import { getNFTMetadata } from './resolvers/nft/getNFTMetadata';
+import { getTokenPrice } from './resolvers/token/getTokenPrice';
 
-export const BASE_URL = 'https://solana-gateway.moralis.io';
+const BASE_URL = 'https://solana-gateway.moralis.io';
 
 export class MoralisSolApi extends ApiModule {
   public static readonly moduleName = 'solApi';
@@ -30,14 +31,25 @@ export class MoralisSolApi extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
+  private readonly getBalance = this.endpoints.createFetcher(getBalance);
+
   public readonly account = {
-    getBalance: this.endpoints.createFetcher(getBalance),
+    getBalance: this.getBalance,
     getNFTs: this.endpoints.createFetcher(getNFTs),
     getPortfolio: this.endpoints.createFetcher(getPortfolio),
     getSPL: this.endpoints.createFetcher(getSPL),
+    // Support for old naming
+    /**
+     * @deprecated Replaced by account.getBalance
+     */
+    balance: this.getBalance,
   };
 
   public readonly nft = {
     getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
+  };
+
+  public readonly token = {
+    getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
   };
 }

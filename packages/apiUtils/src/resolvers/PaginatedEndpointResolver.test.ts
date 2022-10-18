@@ -62,7 +62,7 @@ type ApiResult = {
 describe('PaginatedEndpointResolver', () => {
   let core: MoralisCore;
   let resolver: PaginatedEndpointResolver<
-    Params,
+    any,
     Params,
     ApiResult,
     {
@@ -97,10 +97,11 @@ describe('PaginatedEndpointResolver', () => {
   beforeEach(() => {
     resolver = PaginatedEndpointResolver.create(
       core,
+      API_ROOT,
       createPaginatedEndpointFactory(() =>
         createPaginatedEndpoint({
           name: 'getContractEvents',
-          getUrl: (params: Params) => `${API_ROOT}/${params.address}/events`,
+          getUrl: (params: Params) => `/${params.address}/events`,
           //   TODO: remove PaginatedResponse when api squad make swagger update
           apiToResult: (data: PaginatedResult<ApiResult>) =>
             data.result.map((event) => ({

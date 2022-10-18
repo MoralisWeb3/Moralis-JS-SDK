@@ -12,7 +12,7 @@ import { MoralisCore } from '../MoralisCore';
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ApiModule<Events extends EventMap = any> extends Module<Events> {
-  public constructor(name: string, core: MoralisCore, protected readonly baseUrl: string) {
+  public constructor(name: string, core: MoralisCore, public readonly baseUrl: string) {
     super(name, core, ModuleType.API);
   }
 }

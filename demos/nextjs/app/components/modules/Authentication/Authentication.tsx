@@ -41,6 +41,7 @@ const Authentication = () => {
 
   const handleAuth = async (connector?: Connector, disabled?: boolean) => {
     if (disabled) {
+      // eslint-disable-next-line no-alert
       alert('Setup it first in the Authentication.tsx');
       return;
     }
@@ -51,7 +52,7 @@ const Authentication = () => {
 
     const { account, chain } = await connectAsync({ connector });
 
-    const userData = { address: account, chain: chain.id, network: 'evm' };
+    const userData = { address: account, chain: chain.id, networkType: 'evm' };
 
     const { message } = await apiPost('/auth/request-message', userData);
 
@@ -62,7 +63,7 @@ const Authentication = () => {
       // redirects to main page
       push('/');
     } catch (e) {
-      return;
+      // Do nothing
     }
   };
 

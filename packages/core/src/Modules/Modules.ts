@@ -41,12 +41,12 @@ export class Modules {
    * @returns a valid BaseModule
    * @throws a MoralisCoreError if no module with the given name has been registered
    */
-  public get<M extends Module = Module>(name: string): M {
+  public get<CurrentModule extends Module = Module>(name: string): CurrentModule {
     const module = this.modules.get(name);
     if (!module) {
       throw new MoralisCoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
     }
-    return module as M;
+    return module as CurrentModule;
   }
 
   /**

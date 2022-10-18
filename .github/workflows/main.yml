@@ -30,7 +30,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install
@@ -55,7 +55,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: ESLint
         run: yarn lint
         continue-on-error: true
@@ -87,7 +87,7 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: Prettier
         run: yarn format:check
 
@@ -111,8 +111,20 @@ jobs:
         id: cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C3
-      - name: Build
-        run: yarn build:clean
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
       - name: Test
-        run: yarn test
+        run: yarn test:coverage
+      - name: Test coverage comment
+        uses: MishaKav/jest-coverage-comment@main
+        with:
+          title: Test coverage
+          summary-title: Summary
+          multiple-files: |
+            api-utils, ./packages/apiUtils/coverage/coverage-summary.json
+            auth, ./packages/auth/coverage/coverage-summary.json
+            core, ./packages/core/coverage/coverage-summary.json
+            evm-api, ./packages/evmApi/coverage/coverage-summary.json
+            evm-utils, ./packages/evmUtils/coverage/coverage-summary.json
+            sol-api, ./packages/solApi/coverage/coverage-summary.json
+            sol-utils, ./packages/solUtils/coverage/coverage-summary.json
+            streams, ./packages/streams/coverage/coverage-summary.json

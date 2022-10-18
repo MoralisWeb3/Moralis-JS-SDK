@@ -1,7 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
 import { Erc20Token, EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../../EvmApi';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 
@@ -23,33 +22,41 @@ export const getPairAddress = createEndpointFactory((core) =>
   createEndpoint({
     name: 'getPairAddress',
     urlParams: ['token0Address', 'token1Address'],
-    getUrl: (params: Params) => `${BASE_URL}/${params.token0Address}/${params.token1Address}/pairAddress`,
+    getUrl: (params: Params) => `/${params.token0Address}/${params.token1Address}/pairAddress`,
+    // TODO: refactor to reduce complexity
+    // eslint-disable-next-line complexity
     apiToResult: (data: ApiResult, params: Params) => ({
       //   ApiResult types generated all come as undefined which should not be the case TODO:
       token0: {
-        token: Erc20Token.create({
-          contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address) : '',
-          decimals: data.token0?.decimals ?? 0,
-          name: data.token0?.name ?? '',
-          symbol: data.token0?.symbol ?? '',
-          logo: data.token0?.logo,
-          thumbnail: data.token0?.thumbnail,
-          chain: EvmChainResolver.resolve(params.chain, core),
-        }),
+        token: Erc20Token.create(
+          {
+            contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address) : '',
+            decimals: data.token0?.decimals ?? 0,
+            name: data.token0?.name ?? '',
+            symbol: data.token0?.symbol ?? '',
+            logo: data.token0?.logo,
+            thumbnail: data.token0?.thumbnail,
+            chain: EvmChainResolver.resolve(params.chain, core),
+          },
+          core,
+        ),
         blockNumber: data.token0?.block_number,
         validated: data.token0?.validated,
         createdAt: data.token0?.created_at ? new Date(data.token0?.created_at) : undefined,
       },
       token1: {
-        token: new Erc20Token({
-          contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address, core) : '',
-          decimals: data.token1?.decimals ?? 0,
-          name: data.token1?.name ?? '',
-          symbol: data.token1?.symbol ?? '',
-          logo: data.token1?.logo,
-          thumbnail: data.token1?.thumbnail,
-          chain: EvmChainResolver.resolve(params.chain, core),
-        }),
+        token: Erc20Token.create(
+          {
+            contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address, core) : '',
+            decimals: data.token1?.decimals ?? 0,
+            name: data.token1?.name ?? '',
+            symbol: data.token1?.symbol ?? '',
+            logo: data.token1?.logo,
+            thumbnail: data.token1?.thumbnail,
+            chain: EvmChainResolver.resolve(params.chain, core),
+          },
+          core,
+        ),
         blockNumber: data.token1?.block_number,
         validated: data.token1?.validated,
         createdAt: data.token1?.created_at ? new Date(data.token1?.created_at) : undefined,
