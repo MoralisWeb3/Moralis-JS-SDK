@@ -45,6 +45,7 @@ async function main() {
 
   await send(webhookUrl, './batch-usdc-erc20-transfers.json', apiKey);
   await send(webhookUrl, './batch-binance-transactions.json', apiKey);
+  await send(webhookUrl, './batch-uniswap-internal-transactions.json', apiKey);
 }
 
 main();
