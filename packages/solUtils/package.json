@@ -14,6 +14,7 @@
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
+    "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/endpoints/openapi.ts",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",

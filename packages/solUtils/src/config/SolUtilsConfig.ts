@@ -1,7 +1,7 @@
-import { SolNetworkish } from '@moralisweb3/sol-utils';
 import { ConfigKey } from '@moralisweb3/core';
+import { SolNetworkish } from '../dataTypes';
 
-export const SolApiConfig = {
+export const SolUtilsConfig = {
   defaultSolNetwork: {
     name: 'defaultSolNetwork',
     defaultValue: 'mainnet',

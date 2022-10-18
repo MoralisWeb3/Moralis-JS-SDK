@@ -1,12 +1,13 @@
-import { Endpoints } from '@moralisweb3/api-utils';
+import { Operation, OperationResolver } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
-import { SolApiConfigSetup } from './config/SolApiConfigSetup';
-import { getBalance } from './resolvers/account/getBalance';
-import { getNFTs } from './resolvers/account/getNFTs';
-import { getPortfolio } from './resolvers/account/getPortfolio';
-import { getSPL } from './resolvers/account/getSPL';
-import { getNFTMetadata } from './resolvers/nft/getNFTMetadata';
-import { getTokenPrice } from './resolvers/token/getTokenPrice';
+import {
+  getBalanceOperation,
+  getNFTMetadataOperation,
+  getNFTsOperation,
+  getPortfolioOperation,
+  getSPLOperation,
+  getTokenPriceOperation,
+} from '@moralisweb3/sol-utils';
 
 const BASE_URL = 'https://solana-gateway.moralis.io';
 
@@ -22,22 +23,24 @@ export class MoralisSolApi extends ApiModule {
   }
 
   public setup() {
-    SolApiConfigSetup.register(this.core.config);
+    // Nothing
   }
 
   public start() {
     // Nothing
   }
 
-  public readonly endpoints = new Endpoints(this.core, BASE_URL);
+  private createFetcher<Request, Response, JSONResponse>(operation: Operation<Request, Response, JSONResponse>) {
+    return new OperationResolver(operation, BASE_URL, this.core).fetch;
+  }
 
-  private readonly getBalance = this.endpoints.createFetcher(getBalance);
+  private readonly getBalance = this.createFetcher(getBalanceOperation);
 
   public readonly account = {
     getBalance: this.getBalance,
-    getNFTs: this.endpoints.createFetcher(getNFTs),
-    getPortfolio: this.endpoints.createFetcher(getPortfolio),
-    getSPL: this.endpoints.createFetcher(getSPL),
+    getNFTs: this.createFetcher(getNFTsOperation),
+    getPortfolio: this.createFetcher(getPortfolioOperation),
+    getSPL: this.createFetcher(getSPLOperation),
     // Support for old naming
     /**
      * @deprecated Replaced by account.getBalance
@@ -46,10 +49,10 @@ export class MoralisSolApi extends ApiModule {
   };
 
   public readonly nft = {
-    getNFTMetadata: this.endpoints.createFetcher(getNFTMetadata),
+    getNFTMetadata: this.createFetcher(getNFTMetadataOperation),
   };
 
   public readonly token = {
-    getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
+    getTokenPrice: this.createFetcher(getTokenPriceOperation),
   };
 }

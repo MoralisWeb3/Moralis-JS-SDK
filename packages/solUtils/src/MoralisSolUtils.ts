@@ -1,4 +1,5 @@
 import MoralisCore, { Module, MoralisCoreProvider } from '@moralisweb3/core';
+import { SolUtilsConfigSetup } from './config';
 
 export class MoralisSolUtils extends Module {
   public static readonly moduleName = 'solUtils';
@@ -12,7 +13,7 @@ export class MoralisSolUtils extends Module {
   }
 
   public setup() {
-    // Nothing
+    SolUtilsConfigSetup.register(this.core.config);
   }
 
   public start() {

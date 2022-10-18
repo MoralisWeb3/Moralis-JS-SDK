@@ -1,11 +1,11 @@
-import { setupServer } from 'msw/node';
-
-import { mockGetNFT } from './solApi/getNFT';
 import { mockGetBalanceSol } from './solApi/getBalance';
-import { mockGetNFTMetadata } from './solApi/getNFTMetadata';
-import { mockGetSPL } from './solApi/getSPL';
-import { mockGetPortfolio } from './solApi/getPortfolio';
+import { MockServer } from '../MockServer';
+import { SOL_API_ROOT } from './config';
+import { mockGetNFTSol } from './solApi/getNFT';
+import { mockGetSPLSol } from './solApi/getSPL';
+import { mockGetNFTMetadataSol } from './solApi/getNFTMetadata';
+import { mockGetPortfolioSol } from './solApi/getPortfolio';
 
-const handlers = [mockGetNFT, mockGetBalanceSol, mockGetNFTMetadata, mockGetSPL, mockGetPortfolio];
+const handlers = [mockGetBalanceSol, mockGetNFTSol, mockGetSPLSol, mockGetNFTMetadataSol, mockGetPortfolioSol];
 
-export const mockServer = setupServer(...handlers);
+export const mockServer = MockServer.create({ apiRoot: SOL_API_ROOT }, handlers).start();
