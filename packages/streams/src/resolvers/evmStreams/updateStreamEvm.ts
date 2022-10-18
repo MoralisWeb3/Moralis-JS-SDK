@@ -1,6 +1,7 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { Camelize, toCamelCase } from '@moralisweb3/core';
+import { Camelize } from '@moralisweb3/core';
 import { EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmStream } from '../../dataTypes/EvmStream';
 import { operations } from '../../generated/types';
 
 const name = 'UpdateStream';
@@ -31,25 +32,13 @@ export interface UpdateStreamEvmParams extends Camelize<Omit<ApiParams, 'chainId
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult) => {
-  const data = toCamelCase(apiData);
-
-  return {
-    ...data,
-    chains: data.chainIds.map((chainId) => EvmChain.create(chainId)),
-  };
-};
-
-export const updateStreamEvm = createEndpointFactory(() =>
+export const updateStreamEvm = createEndpointFactory((core) =>
   createEndpoint({
     name,
     getUrl: ({ id }: UpdateStreamEvmParams) => `/streams/evm/${id}`,
     urlParams,
-    apiToResult,
-    resultToJson: (data) => ({
-      ...data,
-      chainIds: data.chains.map((chain) => chain.format()),
-    }),
+    apiToResult: (data: ApiResult) => EvmStream.create(data, core),
+    resultToJson: (data) => data.toJSON(),
     parseParams: (params: UpdateStreamEvmParams): ApiParams => ({
       ...params,
       chainIds: params.chains.map((chain) => EvmChain.create(chain).apiHex),

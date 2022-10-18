@@ -1,5 +1,6 @@
 import { EvmChain, EvmSimpleBlock } from '@moralisweb3/evm-utils';
 import { IWebhook } from '@moralisweb3/streams-typings';
+import { EvmAbi } from '../EvmAbi';
 import { StreamErc1155Approval } from '../StreamErc1155Approval/StreamErc1155Approval';
 import { StreamErc20Approval } from '../StreamErc20Approval/StreamErc20Approval';
 import { StreamErc20Transfer } from '../StreamErc20Transfer/StreamErc20Transfer';
@@ -24,7 +25,7 @@ export interface EvmStreamResultData {
   logs: StreamEvmTransactionLog[];
   txs: StreamEvmTransaction[];
   txsInternal: StreamEvmInternalTransaction[];
-  abi: any[];
+  abi: EvmAbi;
   tag: string;
   streamId: string;
 }
