@@ -28,5 +28,5 @@ app.use(express.static('public'));
 app.listen(config.PORT, async () => {
   const url = await ngrok.connect(config.PORT);
   // eslint-disable-next-line no-console
-  console.log(`${config.APP_NAME} is running on port ${config.PORT} and ngrok url ${url}`);
+  console.log(`'Demo Moralis streams' is running on port ${config.PORT} and ngrok url ${url}`);
 });

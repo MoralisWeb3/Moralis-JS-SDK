@@ -1,7 +1,6 @@
 import { BigNumber, BigNumberish, DateInput, MoralisDataObjectValue } from '@moralisweb3/core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
-import { EvmNftContractType } from '../EvmNftContractType';
 
 /**
  * This can be any object with valid transaction data.
@@ -51,7 +50,7 @@ export interface EvmNftInput {
  */
 export interface EvmNftData {
   tokenId: number | string;
-  contractType: EvmNftContractType;
+  contractType?: string;
   chain: EvmChain;
   tokenUri?: string;
   tokenAddress: EvmAddress;

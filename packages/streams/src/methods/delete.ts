@@ -1,32 +1,26 @@
-import { BASE_URL } from '../MoralisStreams';
-import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
-import { deleteStreamEvm } from '../resolvers';
-export enum StreamNetwork {
-  EVM = 'evm',
-}
+import { Endpoints } from '@moralisweb3/api-utils';
+import { deleteStreamEvm, DeleteStreamEvmParams } from '../resolvers';
+import { StreamNetwork } from '../utils/StreamNetwork';
+import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface DeleteStreamEvmOptions {
-  network: 'evm';
-  id: string;
+export interface DeleteStreamEvmOptions extends DeleteStreamEvmParams {
+  networkType?: 'evm';
 }
 
 export type DeleteStreamOptions = DeleteStreamEvmOptions;
 
-const makeDeleteStreamEvm = (core: MoralisCore, { network, ...options }: DeleteStreamEvmOptions) => {
-  return EndpointResolver.create(core, BASE_URL, deleteStreamEvm).fetch(options);
-};
+export const makeDeleteStream = (endpoints: Endpoints) => {
+  const evmFetcher = endpoints.createFetcher(deleteStreamEvm);
 
-export const deleteStream = (core: MoralisCore) => (options: DeleteStreamOptions) => {
-  switch (options.network) {
-    case StreamNetwork.EVM:
-      return makeDeleteStreamEvm(core, options);
-    default:
-      throw new MoralisStreamError({
-        code: StreamErrorCode.INCORRECT_NETWORK,
-        message: `Incorrect network provided. Got "${options.network}", Valid values are: ${Object.values(StreamNetwork)
-          .map((value) => `"${value}"`)
-          .join(', ')}`,
-      });
-  }
+  return ({ networkType, ...options }: DeleteStreamOptions) => {
+    switch (networkType) {
+      case StreamNetwork.EVM:
+        return evmFetcher({ ...options });
+      default:
+        if (networkType === undefined) {
+          return evmFetcher({ ...options });
+        }
+        throw new IncorrectNetworkError(networkType);
+    }
+  };
 };

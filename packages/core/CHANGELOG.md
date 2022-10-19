@@ -1,5 +1,47 @@
 # @moralisweb3/core
 
+## 2.6.5
+
+## 2.6.4
+
+### Patch Changes
+
+- [#733](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/733) [`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4) Thanks [@ErnoW](https://github.com/ErnoW)! - Sent body in delete requests. This fixes issues with Moralis.Streams.deleteAddress
+
+## 2.6.3
+
+## 2.6.2
+
+## 2.6.1
+
+## 2.6.0
+
+## 2.5.8
+
+## 2.5.7
+
+## 2.5.6
+
+## 2.5.5
+
+### Patch Changes
+
+- [#699](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/699) [`d79800ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d79800ade15a715107de2c7e3e28c4be4c1d7cf6) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix parsing of API error messages, now the MoralisError will show the `message` that is returned from the api.
+
+## 2.5.4
+
+## 2.5.3
+
+## 2.5.2
+
+## 2.5.1
+
+## 2.5.0
+
+### Minor Changes
+
+- [#674](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/674) [`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129) Thanks [@sogunshola](https://github.com/sogunshola)! - Added verifySignature utility function
+
 ## 2.4.0
 
 ### Minor Changes

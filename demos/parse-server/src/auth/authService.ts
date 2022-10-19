@@ -20,11 +20,55 @@ const URI = 'https://defi.finance';
 const EXPIRATION_TIME = '2023-01-01T00:00:00.000Z';
 const TIMEOUT = 15;
 
-export async function requestMessage({ address, chain, network }: { address: string; chain: string; network: 'evm' }) {
+export async function requestMessage({
+  address,
+  chain,
+  networkType,
+}: {
+  address: string;
+  chain?: string;
+  networkType: 'evm' | 'solana';
+}) {
+  if (networkType === 'evm' && chain) {
+    return requestMessageEvm({ address, chain, networkType });
+  }
+  if (networkType === 'solana') {
+    return requestMessageSol({ address, networkType });
+  }
+  throw new Error('Invalid network');
+}
+
+async function requestMessageEvm({
+  address,
+  chain,
+  networkType,
+}: {
+  address: string;
+  chain: string;
+  networkType: 'evm';
+}) {
   const result = await Moralis.Auth.requestMessage({
     address,
     chain,
-    network,
+    networkType,
+    domain: DOMAIN,
+    statement: STATEMENT,
+    uri: URI,
+    expirationTime: EXPIRATION_TIME,
+    timeout: TIMEOUT,
+  });
+
+  const { message, id, profileId } = result.toJSON();
+  authRequests.set(message, { id, profileId });
+
+  return message;
+}
+
+async function requestMessageSol({ address, networkType }: { address: string; networkType: 'solana' }) {
+  const result = await Moralis.Auth.requestMessage({
+    address,
+    networkType,
+    solNetwork: 'devnet',
     domain: DOMAIN,
     statement: STATEMENT,
     uri: URI,

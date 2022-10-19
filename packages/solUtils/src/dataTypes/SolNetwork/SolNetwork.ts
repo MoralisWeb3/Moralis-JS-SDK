@@ -35,6 +35,24 @@ export type SolNetworkish = SolNetwork | SolNetworkNameish;
  */
 export class SolNetwork implements MoralisData {
   /**
+   * Returns MAINNET network
+   *
+   * @example SolNetwork.MAINNET
+   */
+  public static get MAINNET() {
+    return SolNetwork.create('mainnet');
+  }
+
+  /**
+   * Returns DEVNET network
+   *
+   * @example SolNetwork.MAINNET
+   */
+  public static get DEVNET() {
+    return SolNetwork.create('devnet');
+  }
+
+  /**
    * Create a new instance of SolNetwork from any valid network input.
    *
    * @example `const network = SolNetwork.create("mainnet")`

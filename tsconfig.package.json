@@ -26,15 +26,5 @@
     "target": "es5",
     "useUnknownInCatchVariables": false
   },
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*",
-    "**/__mocks__/*",
-    "**/test/*",
-    "**/*.test.ts",
-    "**/*/lib",
-    "**/*/lib.esm",
-    "**/*/dist",
-    "*.d.ts"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*", "**/*/lib", "**/*/lib.esm", "**/*/dist", "*.d.ts"]
 }

@@ -1,12 +1,13 @@
 {
   "name": "@moralisweb3/eslint-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
     "eslint": "^8.22.0",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "eslint-plugin-etc": "^2.0.2",
     "eslint-plugin-import": "^2.26.0"
   },
   "devDependencies": {

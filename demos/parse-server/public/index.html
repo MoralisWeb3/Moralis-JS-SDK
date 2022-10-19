@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.browser.cjs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/base-58@0.0.1/Base58.js"></script>
   </head>
   <body>
     <header>
@@ -16,6 +18,7 @@
     <main>
       <div id="error"></div>
       <button class="btn" id="auth-metamask">Authenticate via Metamask</button>
+      <button class="btn" id="auth-phantom">Authenticate via Phantom</button>
       <div id="user"></div>
     </main>
 

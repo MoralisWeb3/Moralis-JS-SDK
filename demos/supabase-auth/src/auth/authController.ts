@@ -3,12 +3,12 @@ import { NextFunction, Request, Response } from 'express';
 
 export async function request(req: Request, res: Response, next: NextFunction) {
   try {
-    const { address, chain, network } = req.body;
+    const { address, chain, networkType } = req.body;
 
     const message = await requestMessage({
       address,
       chain,
-      network,
+      networkType,
     });
 
     res.status(200).json({ message });
@@ -19,10 +19,10 @@ export async function request(req: Request, res: Response, next: NextFunction) {
 
 export async function verify(req: Request, res: Response, next: NextFunction) {
   try {
-    const { network, message, signature } = req.body;
+    const { networkType, message, signature } = req.body;
 
     const user = await verifyMessage({
-      network,
+      networkType,
       message,
       signature,
     });
