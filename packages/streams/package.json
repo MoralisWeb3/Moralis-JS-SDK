@@ -15,7 +15,7 @@
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "gen:api-types": "openapi-typescript https://api.moralis-streams.com/api-docs/swagger.json --output src/generated/types.ts",
     "gen:api-types-beta": "openapi-typescript https://streams-api-stage.aws-prod-streams-master-1.moralis.io/api-docs/swagger.json --output src/generated/types.ts",
     "build": "tsc -p tsconfig.build.json",
