@@ -1,51 +1,56 @@
-import MoralisCore from '@moralisweb3/core';
-import { Operation, OperationBody, OperationPropertiesBody, OperationRawBody } from './Operation';
+import MoralisCore, {
+  ApiErrorCode,
+  MoralisApiError,
+  Operation,
+  OperationRequestBody,
+  OperationRequestPropertiesBody,
+  OperationRequestRawBody,
+} from '@moralisweb3/core';
+import { ApiConfig } from '../config';
+import { getCommonHeaders } from '../resolvers/getCommonHeaders';
 
 export class OperationRequestBuilder<Request> {
   public constructor(
-    private readonly operation: Operation<Request, unknown, unknown>,
+    private readonly operation: Operation<Request, unknown, unknown, unknown>,
     private readonly core: MoralisCore,
   ) {}
 
   public prepareUrl(request: Request) {
-    const urlParams = this.operation.parseUrlParams(request, this.core);
+    const urlParams = this.operation.getRequestUrlParams(request, this.core);
 
     let urlPath = this.operation.urlPathPattern;
-    let urlSearchParamNames = Object.keys(urlParams);
 
     for (const paramName of this.operation.urlPathParamNames) {
       const paramValue = urlParams[paramName as string];
       urlPath = urlPath.replace(`{${paramName as string}}`, paramValue);
     }
 
-    urlSearchParamNames = urlSearchParamNames.filter((name) => {
-      return !(
-        this.operation.urlPathParamNames?.includes(name as keyof Request) ||
-        this.operation.bodyParamNames?.includes(name as keyof Request)
-      );
-    });
-
     const urlSearchParams: Record<string, string> = {};
-    for (const paramName of urlSearchParamNames) {
-      urlSearchParams[paramName] = urlParams[paramName];
+    if (this.operation.urlSearchParamNames) {
+      for (const paramName of this.operation.urlSearchParamNames) {
+        urlSearchParams[paramName as string] = urlParams[paramName as string];
+      }
     }
 
     return { urlPath, urlSearchParams };
   }
 
-  public prepareBody(request: Request): OperationBody | null {
-    if (!this.operation.parseBody) {
+  public prepareBody(request: Request): OperationRequestBody | null {
+    if (!this.operation.bodyType && !this.operation.getRequestBody) {
       return null;
     }
+    if (!this.operation.getRequestBody) {
+      throw new Error(`getRequestBody is not implemented for operation ${this.operation.name}`);
+    }
 
-    const body = this.operation.parseBody(request, this.core);
+    const body = this.operation.getRequestBody(request, this.core);
 
     if (this.operation.bodyType === 'properties') {
       if (!this.operation.bodyParamNames) {
-        throw new Error(`Expected bodyParamsNames for endpoint ${this.operation.name}`);
+        throw new Error(`bodyParamNames are empty for operation ${this.operation.name}`);
       }
 
-      const properties: OperationPropertiesBody = {};
+      const properties: OperationRequestPropertiesBody = {};
       for (const paramName of this.operation.bodyParamNames) {
         properties[paramName as string] = (body as Record<string, unknown>)[paramName as string];
       }
@@ -53,9 +58,24 @@ export class OperationRequestBuilder<Request> {
     }
 
     if (this.operation.bodyType === 'raw') {
-      return body as OperationRawBody;
+      return body as OperationRequestRawBody;
     }
 
     throw new Error(`Not supported body type: ${this.operation.bodyType}`);
+  }
+
+  public prepareHeaders(): Record<string, string> {
+    const apiKey = this.core.config.get(ApiConfig.apiKey);
+
+    if (!apiKey) {
+      throw new MoralisApiError({
+        code: ApiErrorCode.API_KEY_NOT_SET,
+        message: 'apiKey is not set',
+      });
+    }
+
+    const headers = getCommonHeaders();
+    headers['x-api-key'] = apiKey;
+    return headers;
   }
 }

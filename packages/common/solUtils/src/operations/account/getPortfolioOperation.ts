@@ -1,8 +1,7 @@
-import { MoralisCore, Camelize } from '@moralisweb3/core';
-import { SolAddress, SolAddressish, SolNative, SolNetworkish } from '../../dataTypes';
+import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
-import { Operation } from '@moralisweb3/api-utils';
 
 type OperationName = 'getPortfolio';
 type PathParams = operations[OperationName]['parameters']['path'];
@@ -15,31 +14,40 @@ export interface GetPortfolioRequest extends Camelize<Omit<PathParams, 'network'
   address: SolAddressish;
 }
 
+export type GetPortfolioJSONRequest = ReturnType<typeof serializeRequest>;
+
 export interface GetPortfolioJSONResponse extends SuccessResponse {}
 
-export type GetPortfolioResponse = ReturnType<typeof createResponse>;
+export type GetPortfolioResponse = ReturnType<typeof deserializeResponse>;
 
-export const getPortfolioOperation: Operation<GetPortfolioRequest, GetPortfolioResponse, GetPortfolioJSONResponse> = {
+export const getPortfolioOperation: Operation<
+  GetPortfolioRequest,
+  GetPortfolioJSONRequest,
+  GetPortfolioResponse,
+  GetPortfolioJSONResponse
+> = {
   method: 'GET',
   name: 'getPortfolio',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/portfolio',
 
-  parseUrlParams,
-  createResponse,
+  getRequestUrlParams,
+  deserializeResponse,
+  serializeRequest,
+  deserializeRequest,
 };
 
 // Methods
 
-function parseUrlParams(request: GetPortfolioRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetPortfolioRequest, core: MoralisCore) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
   };
 }
 
-function createResponse(jsonResponse: GetPortfolioJSONResponse) {
+function deserializeResponse(jsonResponse: GetPortfolioJSONResponse) {
   return {
     nativeBalance: SolNative.create(jsonResponse.nativeBalance.lamports, 'lamports'),
     nfts: jsonResponse.nfts.map((nft) => {
@@ -55,5 +63,19 @@ function createResponse(jsonResponse: GetPortfolioJSONResponse) {
         amount: SolNative.create(token.amountRaw, 'lamports'),
       };
     }),
+  };
+}
+
+function serializeRequest(request: GetPortfolioRequest, core: MoralisCore) {
+  return {
+    address: request.address.toString(),
+    network: SolNetworkResolver.resolve(request.network, core),
+  };
+}
+
+function deserializeRequest(jsonRequest: GetPortfolioJSONRequest): GetPortfolioRequest {
+  return {
+    network: SolNetwork.create(jsonRequest.network),
+    address: SolAddress.create(jsonRequest.address),
   };
 }

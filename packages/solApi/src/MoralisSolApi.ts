@@ -1,5 +1,5 @@
-import { Operation, OperationResolver } from '@moralisweb3/api-utils';
-import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { OperationResolver } from '@moralisweb3/api-utils';
+import { ApiModule, MoralisCore, MoralisCoreProvider, Operation } from '@moralisweb3/core';
 import {
   getBalanceOperation,
   getNFTMetadataOperation,
@@ -7,7 +7,7 @@ import {
   getPortfolioOperation,
   getSPLOperation,
   getTokenPriceOperation,
-} from '@moralisweb3/sol-utils';
+} from '@moralisweb3/common-sol-utils';
 
 const BASE_URL = 'https://solana-gateway.moralis.io';
 
@@ -30,7 +30,9 @@ export class MoralisSolApi extends ApiModule {
     // Nothing
   }
 
-  private createFetcher<Request, Response, JSONResponse>(operation: Operation<Request, Response, JSONResponse>) {
+  private createFetcher<Request, JSONRequest, Response, JSONResponse>(
+    operation: Operation<Request, JSONRequest, Response, JSONResponse>,
+  ) {
     return new OperationResolver(operation, BASE_URL, this.core).fetch;
   }
 

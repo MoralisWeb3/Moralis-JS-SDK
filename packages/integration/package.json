@@ -24,7 +24,7 @@
   "dependencies": {
     "@moralisweb3/core": "^2.6.5",
     "@moralisweb3/evm-api": "^2.6.5",
-    "@moralisweb3/evm-utils": "^2.6.5",
+    "@moralisweb3/common-evm-utils": "^2.6.5",
     "@moralisweb3/streams": "^2.6.5",
     "eventemitter3": "^4.0.7"
   }

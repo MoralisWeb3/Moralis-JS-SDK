@@ -1,8 +1,7 @@
-import { MoralisCore, Camelize } from '@moralisweb3/core';
-import { SolAddress, SolAddressish, SolNative, SolNetworkish } from '../../dataTypes';
+import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
-import { Operation } from '@moralisweb3/api-utils';
 
 type OperationName = 'getSPL';
 type PathParams = operations[OperationName]['parameters']['path'];
@@ -15,31 +14,35 @@ export interface GetSPLRequest extends Camelize<Omit<PathParams, 'network' | 'ad
   address: SolAddressish;
 }
 
+export type GetSPLJSONRequest = ReturnType<typeof serializeRequest>;
+
 export interface GetSPLJSONResponse extends SuccessResponse {}
 
-export type GetSPLResponse = ReturnType<typeof createResponse>;
+export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
 
-export const getSPLOperation: Operation<GetSPLRequest, GetSPLResponse, GetSPLJSONResponse> = {
+export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',
   name: 'getSPL',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/tokens',
 
-  parseUrlParams,
-  createResponse,
+  getRequestUrlParams,
+  deserializeResponse,
+  serializeRequest,
+  deserializeRequest,
 };
 
 // Methods
 
-function parseUrlParams(request: GetSPLRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetSPLRequest, core: MoralisCore) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
   };
 }
 
-function createResponse(jsonResponse: GetSPLJSONResponse) {
+function deserializeResponse(jsonResponse: GetSPLJSONResponse) {
   return jsonResponse.map((token) => {
     return {
       associatedTokenAddress: SolAddress.create(token.associatedTokenAddress),
@@ -47,4 +50,18 @@ function createResponse(jsonResponse: GetSPLJSONResponse) {
       amount: SolNative.create(token.amountRaw, 'lamports'),
     };
   });
+}
+
+function serializeRequest(request: GetSPLRequest, core: MoralisCore) {
+  return {
+    address: request.address.toString(),
+    network: SolNetworkResolver.resolve(request.network, core),
+  };
+}
+
+function deserializeRequest(jsonRequest: GetSPLJSONRequest): GetSPLRequest {
+  return {
+    network: SolNetwork.create(jsonRequest.network),
+    address: SolAddress.create(jsonRequest.address),
+  };
 }

@@ -1,5 +1,5 @@
 import MoralisEvmApi from '@moralisweb3/evm-api';
-import { EvmNft } from '@moralisweb3/evm-utils';
+import { EvmNft } from '@moralisweb3/common-evm-utils';
 import { cleanEvmApi, setupEvmApi } from './setup';
 
 describe('getNFTOwners', () => {

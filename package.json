@@ -52,6 +52,7 @@
   "workspaces": {
     "packages": [
       "packages/*",
+      "packages/common/*",
       "packages/client/*",
       "demos/*",
       "demos/firebase-proxy/*",

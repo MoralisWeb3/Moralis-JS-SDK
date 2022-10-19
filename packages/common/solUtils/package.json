@@ -1,5 +1,5 @@
 {
-  "name": "@moralisweb3/sol-utils",
+  "name": "@moralisweb3/common-sol-utils",
   "author": "Moralis",
   "version": "2.6.5",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
-    "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/endpoints/openapi.ts",
+    "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/operations/openapi.ts",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf tsconfig.tsbuildinfo",
     "build": "tsc",

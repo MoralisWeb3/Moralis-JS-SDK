@@ -1,7 +1,7 @@
 import { MoralisApiUtils } from '@moralisweb3/api-utils';
 import { MoralisCore } from '@moralisweb3/core';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
-import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
+import { MoralisEvmUtils } from '@moralisweb3/common-evm-utils';
 import { MOCK_API_KEY } from '../../mockRequests/config';
 import { mockServer } from '../../mockRequests/mockRequests';
 

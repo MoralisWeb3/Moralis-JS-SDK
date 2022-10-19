@@ -1,5 +1,5 @@
 {
-  "name": "@moralisweb3/evm-utils",
+  "name": "@moralisweb3/common-evm-utils",
   "author": "Moralis",
   "version": "2.6.5",
   "license": "MIT",
@@ -17,7 +17,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json --output src/operations/openapi.ts"
   },
   "devDependencies": {
     "openapi-typescript": "^5.2.0",

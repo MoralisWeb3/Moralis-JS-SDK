@@ -1,82 +1,62 @@
-import MoralisCore, { ApiErrorCode, MoralisApiError, RequestController } from '@moralisweb3/core';
-import { ApiConfig } from '../config';
-import { getCommonHeaders } from '../resolvers/getCommonHeaders';
-import { Operation, OperationBody } from './Operation';
+import MoralisCore, {
+  ApiErrorCode,
+  MoralisApiError,
+  RequestController,
+  Operation,
+  OperationRequestBody,
+  OperationRequestValidator,
+} from '@moralisweb3/core';
+import { isNotFoundError } from '../errors/isNotFoundError';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 import { ResponseAdapter } from './ResponseAdapter';
 
-export class OperationResolver<Request, Response, JSONResponse> {
-  private readonly requestBuilder = new OperationRequestBuilder<Request>(this.operation, this.core);
+export class OperationResolver<Request, JSONRequest, Response, JSONResponse> {
+  private readonly requestValidator = new OperationRequestValidator(this.operation);
+  private readonly requestBuilder = new OperationRequestBuilder(this.operation, this.core);
   private readonly requestController = RequestController.create(this.core);
 
   public constructor(
-    private readonly operation: Operation<Request, Response, JSONResponse>,
+    private readonly operation: Operation<Request, JSONRequest, Response, JSONResponse>,
     private readonly baseUrl: string,
     private readonly core: MoralisCore,
   ) {}
 
   public readonly fetch = async (request: Request): Promise<ResponseAdapter<Response, JSONResponse>> => {
+    this.requestValidator.validate(request);
+
     const { urlPath, urlSearchParams } = this.requestBuilder.prepareUrl(request);
     const url = `${this.baseUrl}${urlPath}`;
     const body = this.requestBuilder.prepareBody(request);
 
-    let jsonResponse: JSONResponse;
-    switch (this.operation.method) {
-      // TODO: requestController should have the `request` method with the `method` parameter.
-      case 'GET':
-        jsonResponse = await this.requestController.get<JSONResponse>(url, urlSearchParams, {
-          headers: this.getHeaders(),
-        });
-        break;
-      case 'POST':
-        jsonResponse = await this.requestController.post<JSONResponse, OperationBody>(
-          url,
-          urlSearchParams,
-          body as OperationBody,
-          {
-            headers: this.getHeaders(),
-          },
-        );
-        break;
-      case 'PUT':
-        jsonResponse = await this.requestController.put<JSONResponse, OperationBody>(
-          url,
-          urlSearchParams,
-          body as OperationBody,
-          {
-            headers: this.getHeaders(),
-          },
-        );
-        break;
-      case 'DELETE':
-        jsonResponse = await this.requestController.delete<JSONResponse, OperationBody>(
-          url,
-          urlSearchParams,
-          body as OperationBody,
-          {
-            headers: this.getHeaders(),
-          },
-        );
-        break;
-      default:
-        throw new Error(`Method ${this.operation.method} is not supported`);
-    }
+    const jsonResponse: JSONResponse = await this.requestController.request<OperationRequestBody | null, JSONResponse>({
+      method: this.operation.method,
+      url,
+      params: urlSearchParams,
+      headers: this.requestBuilder.prepareHeaders(),
+      data: body,
+    });
 
-    return new ResponseAdapter(jsonResponse, this.operation.createResponse, this.core);
+    return new ResponseAdapter(jsonResponse, this.operation.deserializeResponse, this.core);
   };
 
-  private getHeaders() {
-    const apiKey = this.core.config.get(ApiConfig.apiKey);
+  public readonly fetchNullable = async (request: Request): Promise<ResponseAdapter<Response, JSONResponse> | null> => {
+    try {
+      const result = await this.fetch(request);
 
-    if (!apiKey) {
-      throw new MoralisApiError({
-        code: ApiErrorCode.API_KEY_NOT_SET,
-        message: 'apiKey is not set',
-      });
+      // TODO: this block should be deleted after the back-end adjustments.
+      if (!result.raw || (typeof result.raw === 'object' && Object.keys(result.raw).length === 0)) {
+        throw new MoralisApiError({
+          code: ApiErrorCode.NOT_FOUND,
+          message: 'The resource is not found',
+        });
+      }
+
+      return result;
+    } catch (e) {
+      if (isNotFoundError(e)) {
+        return null;
+      }
+      throw e;
     }
-
-    const headers = getCommonHeaders();
-    headers['x-api-key'] = apiKey;
-    return headers;
-  }
+  };
 }
