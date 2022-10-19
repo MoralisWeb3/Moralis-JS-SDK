@@ -52,6 +52,7 @@
     "packages": [
       "packages/*",
       "packages/client/*",
+      "packages/common/*",
       "demos/*",
       "demos/firebase-proxy/*",
       "demos/firebase-auth-ext/*",

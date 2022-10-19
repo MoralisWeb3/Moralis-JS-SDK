@@ -1,5 +1,5 @@
 import MoralisCore from '@moralisweb3/core';
-import { setupStreams } from '../../test/setup';
+import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc20Approval } from './StreamErc20Approval';
 import { mockStreamErc20Approval } from './StreamErc20Approval.mock';
 
@@ -9,7 +9,7 @@ describe('StreamErc20Approval', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
-    core = setupStreams();
+    core = setupStreamsUtils();
   });
 
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {

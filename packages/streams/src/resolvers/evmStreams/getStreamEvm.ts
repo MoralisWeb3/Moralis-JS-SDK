@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { EvmStream } from '../../dataTypes/EvmStream';
+import { EvmStream } from '@moralisweb3/common-streams-utils'
 import { operations } from '../../generated/types';
 
 const name = 'GetStream';

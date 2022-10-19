@@ -1,5 +1,5 @@
 import MoralisCore from '@moralisweb3/core';
-import { setupStreams } from '../../test/setup';
+import { setupStreamsUtils } from '../../test/setup';
 import { StreamEvmTransactionLog } from './StreamEvmTransactionLog';
 import { mockStreamEvmTransactionLogInput } from './StreamEvmTransactionLog.mock';
 
@@ -9,7 +9,7 @@ describe('StreamEvmTransactionLog', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
-    core = setupStreams();
+    core = setupStreamsUtils();
   });
 
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
