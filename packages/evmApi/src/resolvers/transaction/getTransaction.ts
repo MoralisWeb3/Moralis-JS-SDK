@@ -53,7 +53,7 @@ export const getTransaction = createEndpointFactory((core) =>
                 blockTimestamp: log.block_timestamp,
                 logIndex: +log.log_index,
                 transactionIndex: +log.transaction_index,
-                chain: log.chainId,
+                chain: EvmChainResolver.resolve(log.chainId, core),
               },
               core,
             ),
