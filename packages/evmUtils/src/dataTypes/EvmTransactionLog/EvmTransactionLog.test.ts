@@ -14,7 +14,7 @@ const INVALID_ADDRESS = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000';
 const DATA =
   '0x00000000000000000000000000000000000000000000213ba4fc56e2e24648b200000000000000000000000000000000000000000000002e9e527eb8ff21faf7';
 const TOPIC = ['0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1'];
-const CHAINID = '1';
+const CHAIN = '0x1';
 
 const inputWithAllData = {
   logIndex: LOG_INDEX,
@@ -26,10 +26,11 @@ const inputWithAllData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
-  chainId: CHAINID,
+  chain: CHAIN,
 };
 
 const inputWithoutOptionalData = {
+  chain: CHAIN,
   transactionHash: TRANSACTION_HASH,
   address: ADDRESS,
   data: DATA,
@@ -48,7 +49,7 @@ const inputWithInvalidData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
-  chainId: CHAINID,
+  chain: CHAIN,
 };
 
 describe('EvmTransactionLog', () => {
@@ -89,9 +90,39 @@ describe('EvmTransactionLog', () => {
     expect(equality).toBe(true);
   });
 
-  it('should confirm inequality of 2 EvmTransactionLog', () => {
+  it('should confirm inequality of 2 EvmTransactionLog on transactionHash mismatch', () => {
     const transactionLogA = EvmTransactionLog.create(inputWithAllData);
-    const transactionLogB = EvmTransactionLog.create(inputWithoutOptionalData);
+    const transactionLogB = EvmTransactionLog.create({
+      ...inputWithAllData,
+      transactionHash: '0x9a05a830919012da906d76c18b30e64b45df2c914988d2553f78362d4b5d8b0f',
+    });
+    const equality = transactionLogA.equals(transactionLogB);
+
+    expect(equality).toBe(false);
+  });
+
+  it('should confirm inequality of 2 EvmTransactionLog on address mismatch', () => {
+    const transactionLogA = EvmTransactionLog.create(inputWithAllData);
+    const transactionLogB = EvmTransactionLog.create({
+      ...inputWithAllData,
+      address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96046',
+    });
+    const equality = transactionLogA.equals(transactionLogB);
+
+    expect(equality).toBe(false);
+  });
+
+  it('should confirm inequality of 2 EvmTransactionLog on logIndex mismatch', () => {
+    const transactionLogA = EvmTransactionLog.create(inputWithAllData);
+    const transactionLogB = EvmTransactionLog.create({ ...inputWithAllData, logIndex: 13 });
+    const equality = transactionLogA.equals(transactionLogB);
+
+    expect(equality).toBe(false);
+  });
+
+  it('should confirm inequality of 2 EvmTransactionLog on chain mismatch', () => {
+    const transactionLogA = EvmTransactionLog.create(inputWithAllData);
+    const transactionLogB = EvmTransactionLog.create({ ...inputWithAllData, chain: '0x2' });
     const equality = transactionLogA.equals(transactionLogB);
 
     expect(equality).toBe(false);
