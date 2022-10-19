@@ -1,6 +1,6 @@
-import NextGenerator from './next';
+import ExpressGenerator from './express';
 import { NodePlopAPI } from 'plop';
 
 export default function setGenerators(plop: NodePlopAPI) {
-  NextGenerator(plop);
+  ExpressGenerator(plop);
 }
