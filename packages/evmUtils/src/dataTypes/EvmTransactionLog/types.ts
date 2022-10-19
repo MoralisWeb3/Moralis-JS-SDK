@@ -17,11 +17,11 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *  blockNumber: "12386788",
  *  blockTimestamp: "2021-05-07T11:08:35.000Z",
  *  transactionIndex: "204",
+ *  chain: "1"
  * }
  * ```
  */
 export interface EvmTransactionLogInput {
-  chain: EvmChainish;
   logIndex?: string | number;
   transactionHash: string;
   transactionIndex?: number;
@@ -31,13 +31,13 @@ export interface EvmTransactionLogInput {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
+  chain: EvmChainish;
 }
 
 /**
  * Represents a processed transaction log.
  */
 export interface EvmTransactionLogData {
-  chain: EvmChain;
   logIndex?: number;
   transactionHash: string;
   transactionIndex?: number;
@@ -47,4 +47,5 @@ export interface EvmTransactionLogData {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
+  chain: EvmChain;
 }

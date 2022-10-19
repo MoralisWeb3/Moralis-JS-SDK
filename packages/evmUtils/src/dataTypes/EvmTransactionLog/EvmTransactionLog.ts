@@ -67,7 +67,8 @@ export class EvmTransactionLog implements MoralisDataObject {
     return (
       value._value.transactionHash === this._value.transactionHash &&
       value._value.address.equals(this._value.address) &&
-      value._value.logIndex === this._value.logIndex
+      value._value.logIndex === this._value.logIndex &&
+      value._value.chain.equals(this._value.chain)
     );
   }
 

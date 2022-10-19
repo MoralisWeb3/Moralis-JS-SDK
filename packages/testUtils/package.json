@@ -10,7 +10,7 @@
   "sideEffects": false,
   "scripts": {
     "lint": "eslint .",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc"
   },
   "devDependencies": {
