@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/core",
   "author": "Moralis",
-  "version": "2.6.5",
+  "version": "2.6.6",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -15,7 +15,7 @@
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
