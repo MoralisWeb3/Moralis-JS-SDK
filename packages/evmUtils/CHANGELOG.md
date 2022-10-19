@@ -1,5 +1,16 @@
 # @moralisweb3/evm-utils
 
+## 2.6.6
+
+### Patch Changes
+
+- [#762](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/762) [`11ba50f7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11ba50f7ad4b43dd22eeb227452bc1be6c8888e4) Thanks [@ErnoW](https://github.com/ErnoW)! - Better equality check for EvmTransactionReceipt: chain+hash+address
+
+* [#749](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/749) [`d87f37c5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d87f37c5a56d5db5ca79ede9bb463d6ad20a13ab) Thanks [@ErnoW](https://github.com/ErnoW)! - Due to inconsistencies in the api regarding `contractType` on NFT datatypes, we have removed the tight validation check. This means that the type is not 'ERC721' | 'ERC1155' anymore, but a string. This allows other contractTypes to be parsed without throwing errors
+
+* Updated dependencies []:
+  - @moralisweb3/core@2.6.6
+
 ## 2.6.5
 
 ### Patch Changes
