@@ -35,7 +35,8 @@ jobs:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Install packages
-        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      - name: Install packages
         run: yarn install
 
   lint:
@@ -62,6 +63,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
       - name: ESLint
         run: yarn lint
         continue-on-error: true
@@ -97,6 +100,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
       - name: Prettier
         run: yarn format:check
 
@@ -124,6 +129,8 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
