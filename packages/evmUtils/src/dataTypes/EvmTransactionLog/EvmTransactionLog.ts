@@ -1,6 +1,7 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
+import { EvmChain } from '../EvmChain';
 
 /**
  * This can be any valid {@link EvmTransactionLogInput} or {@link EvmTransactionLog}.
@@ -48,6 +49,7 @@ export class EvmTransactionLog implements MoralisDataObject {
       blockNumber: value.blockNumber,
       blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address, core),
+      chain: EvmChain.create(value.chain, core),
     };
   }
 
@@ -65,7 +67,8 @@ export class EvmTransactionLog implements MoralisDataObject {
     return (
       value._value.transactionHash === this._value.transactionHash &&
       value._value.address.equals(this._value.address) &&
-      value._value.logIndex === this._value.logIndex
+      value._value.logIndex === this._value.logIndex &&
+      value._value.chain.equals(this._value.chain)
     );
   }
 
@@ -84,6 +87,7 @@ export class EvmTransactionLog implements MoralisDataObject {
     return {
       ...value,
       address: value.address.format(),
+      chain: value.chain?.format(),
     };
   }
 
@@ -207,5 +211,17 @@ export class EvmTransactionLog implements MoralisDataObject {
    */
   get blockTimestamp() {
     return this._value.blockTimestamp;
+  }
+
+  /**
+   * @returns the chainId for the particular log.
+   *
+   * @example
+   * ```ts
+   * log.chainId; // "1"
+   * ```
+   */
+  get chain() {
+    return this._value.chain;
   }
 }
