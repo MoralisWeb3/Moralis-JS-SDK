@@ -5,9 +5,13 @@ import Moralis from './getMoralis.cjs';
 import { EndpointDescriptor } from '@moralisweb3/api-utils';
 import { urlPatternToExpressPath } from './utils.js';
 
-export class ExpressGenerator {
-  private __dirname = path.dirname(fileURLToPath(import.meta.url));
-  private packagesFolder = path.join(this.__dirname, '../../../..');
+export class ExpressGeneratorCl {
+  private dirname = path.dirname(fileURLToPath(import.meta.url));
+  private packagesFolder = path.join(this.dirname, '../../../..');
+  private expressSrcDir = path.join(this.packagesFolder, 'express/src');
+
+  private getResolverName = (name: string) => `${name}Resolver`;
+
   //   private options: ProxyOptions;
   //   private api: string;
   //   constructor(api: 'evm' | 'solana', options: ProxyOptions) {
@@ -18,70 +22,83 @@ export class ExpressGenerator {
     return {
       type: 'add',
       template: '// Endpoints export',
-      path: path.join(this.packagesFolder, `express/src/endpoints/index.ts`),
+      path: path.join(this.expressSrcDir, 'endpoints/index.ts'),
       force: true,
     };
   }
 
-  private appendEndpointToRouter(evmApiDescriptor: EndpointDescriptor) {
+  private appendEndpointToRouter = (evmApiDescriptor: EndpointDescriptor) => {
     const { name, urlPattern, method } = evmApiDescriptor;
-    const resolverName = `${name}Resolver`;
     return {
       type: 'append',
-      templateFile: path.join(__dirname, 'templates/endpoint/endpoint.ts.hbs'),
-      path: path.join(this.packagesFolder, `express/src/evmRouter.ts`),
+      templateFile: path.join(this.dirname, 'templates/endpoint/endpoint.ts.hbs'),
+      path: path.join(this.expressSrcDir, 'evmRouter.ts'),
       pattern: '// Routes',
-      data: { resolverName, urlPattern: urlPatternToExpressPath(urlPattern), method },
+      data: { resolverName: this.getResolverName(name), urlPattern: urlPatternToExpressPath(urlPattern), method },
     };
-  }
+  };
 
-  private addResolver(evmApiDescriptor: EndpointDescriptor) {
+  private addResolver = (evmApiDescriptor: EndpointDescriptor) => {
     const { name, urlPattern, method } = evmApiDescriptor;
-    const resolverName = `${name}Resolver`;
-    // `${baseUrl}${url}`
     return {
       type: 'add',
-      templateFile: path.join(__dirname, 'templates/endpoint/resolver.ts.hbs'),
-      path: path.join(this.packagesFolder, `express/src/endpoints/${resolverName}.ts`),
+      templateFile: path.join(this.dirname, 'templates/endpoint/resolver.ts.hbs'),
+      path: path.join(this.expressSrcDir, `endpoints/${this.getResolverName(name)}.ts`),
       force: true,
-      data: { resolverName, urlPattern: urlPatternToExpressPath(urlPattern), method, url: urlPattern },
+      data: {
+        resolverName: this.getResolverName(name),
+        urlPattern: urlPatternToExpressPath(urlPattern),
+        method,
+        url: urlPattern,
+      },
     };
-  }
+  };
 
-  private appendImports(evmApiDescriptor: EndpointDescriptor) {
+  private appendEndpointsIndex = (evmApiDescriptor: EndpointDescriptor) => {
+    return {
+      type: 'append',
+      path: path.join(this.expressSrcDir, 'endpoints/index.ts'),
+      pattern: '// Endpoints export',
+      template: `export * from './${this.getResolverName(evmApiDescriptor.name)}'`,
+      force: true,
+    };
+  };
+
+  private appendImports = (evmApiDescriptor: EndpointDescriptor) => {
     const resolverName = `${evmApiDescriptor.name}Resolver`;
     return {
       type: 'append',
       template: `${resolverName},`,
-      path: path.join(this.packagesFolder, `express/src/evmRouter.ts`),
+      path: path.join(this.expressSrcDir, `evmRouter.ts`),
       pattern: '// Endpoints import',
     };
-  }
+  };
 
-  private appendEndpoints(evmApiDescriptor: EndpointDescriptor) {
-    const { name, urlPattern, method } = evmApiDescriptor;
-    const resolverName = `${name}Resolver`;
+  private addEvmRouter = () => {
     return {
-      type: 'append',
-      templateFile: path.join(__dirname, 'templates/endpoint/endpoint.ts.hbs'),
-      path: path.join(this.packagesFolder, `express/src/evmRouter.ts`),
-      pattern: '// Routes',
-      data: { resolverName, urlPattern: urlPatternToExpressPath(urlPattern), method },
+      type: 'add',
+      templateFile: path.join(this.dirname, 'templates/endpoint/router.ts.hbs'),
+      path: path.join(this.expressSrcDir, `evmRouter.ts`),
+      force: true,
+      data: { name: 'evmRouter' },
     };
-  }
+  };
 
-  public getGenerator() {
+  private getMappedActions = (evmApiDescriptors: EndpointDescriptor[]) =>
+    evmApiDescriptors
+      .map((evmApiDescriptor) => [
+        this.appendEndpointToRouter(evmApiDescriptor),
+        this.addResolver(evmApiDescriptor),
+        this.appendImports(evmApiDescriptor),
+        this.appendEndpointsIndex(evmApiDescriptor),
+      ])
+      .flat(1);
+
+  public getGenerator = () => {
     const evmApiDescriptors = Moralis.EvmApi.endpoints.getDescriptors();
-    // Can I reduce it?
-    const actions = evmApiDescriptors.map((evmApiDescriptor) => [
-      this.appendEndpointToRouter(evmApiDescriptor),
-      this.addResolver(evmApiDescriptor),
-      this.appendImports(evmApiDescriptor),
-      this.appendEndpoints(evmApiDescriptor),
-    ]);
-    // appendEndpointToRouter;
-    return [this.addEndpointsIndex(), ...actions.flat(1)];
-  }
+
+    return [this.addEndpointsIndex(), this.addEvmRouter(), ...this.getMappedActions(evmApiDescriptors)];
+  };
   //   public getRouter() {
   //     let descriptors;
   //     let baseUrl: string;
