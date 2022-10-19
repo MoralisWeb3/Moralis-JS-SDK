@@ -69,7 +69,7 @@ export class ProxyGenerator {
           });
           return res.send(response.data);
         } catch (error) {
-          return errorHandler(error, req, res, next);
+          return errorHandler(error as Error, req, res, next);
         }
       });
     }

@@ -1,6 +1,6 @@
 import { MoralisCore } from '@moralisweb3/core';
 import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
+import { MoralisApiUtils } from '../MoralisApiUtils';
 
 export const setupApi = () => {
   const core = MoralisCore.create();

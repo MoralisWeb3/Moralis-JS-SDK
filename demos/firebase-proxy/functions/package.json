@@ -19,14 +19,15 @@
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
     "firebase-functions-rate-limiter": "^3.9.1",
-    "moralis": "^2.4.0"
+    "moralis": "^2.6.5"
   },
   "devDependencies": {
     "@firebase/app-types": "^0.7.0",
-    "@moralisweb3/eslint-config": "^1.0.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
+    "eslint-plugin-etc": "^2.0.2",
     "eslint-plugin-import": "^2.26.0",
     "firebase-functions-test": "^0.2.0",
     "typescript": "^4.5.4"

@@ -62,6 +62,8 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "react-app-rewired": "^2.2.1"
+    "react-app-rewired": "^2.2.1",
+    "@moralisweb3/eslint-config": "^1.0.0",
+    "eslint-plugin-etc": "^2.0.2"
   }
 }

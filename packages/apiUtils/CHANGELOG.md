@@ -1,5 +1,112 @@
 # @moralisweb3/api-utils
 
+## 2.6.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.5
+
+## 2.6.4
+
+### Patch Changes
+
+- [#733](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/733) [`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4) Thanks [@ErnoW](https://github.com/ErnoW)! - Sent body in delete requests. This fixes issues with Moralis.Streams.deleteAddress
+
+- Updated dependencies [[`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4)]:
+  - @moralisweb3/core@2.6.4
+
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.3
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.2
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.1
+
+## 2.6.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.0
+
+## 2.5.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.8
+
+## 2.5.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.7
+
+## 2.5.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.6
+
+## 2.5.5
+
+### Patch Changes
+
+- Updated dependencies [[`d79800ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d79800ade15a715107de2c7e3e28c4be4c1d7cf6)]:
+  - @moralisweb3/core@2.5.5
+
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.4
+
+## 2.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.3
+
+## 2.5.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.2
+
+## 2.5.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.5.1
+
+## 2.5.0
+
+### Patch Changes
+
+- Updated dependencies [[`c719cc2f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c719cc2fe0b6bb31093bbaa8a6907b6697b7b129)]:
+  - @moralisweb3/core@2.5.0
+
 ## 2.4.0
 
 ### Minor Changes
