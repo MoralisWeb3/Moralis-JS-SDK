@@ -16,7 +16,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *  blockTimestamp: "2021-05-07T11:08:35.000Z",
  *  logIndex: "273",
  *  transactionIndex: "204",
- *  chainId: "1"
+ *  chain: "1"
  * }
  * ```
  */
@@ -30,7 +30,7 @@ export interface EvmTransactionLogInput {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
-  chainId: EvmChainish;
+  chain: EvmChainish;
 }
 
 /**
@@ -46,5 +46,5 @@ export interface EvmTransactionLogData {
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
-  chainId: EvmChain;
+  chain: EvmChain;
 }

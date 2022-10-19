@@ -55,7 +55,7 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
                 blockTimestamp: log.blockTimestamp,
                 logIndex: +log.logIndex,
                 transactionIndex: +log.transactionIndex,
-                chainId: log.chainId,
+                chain: log.chainId,
               }),
             ),
           },

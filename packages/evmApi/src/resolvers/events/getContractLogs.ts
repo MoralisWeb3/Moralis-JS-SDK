@@ -30,7 +30,7 @@ export const getContractLogs = createPaginatedEndpointFactory((core) =>
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
             blockNumber: Number(log.block_number),
-            chainId: log.chainId,
+            chain: log.chainId,
           },
           core,
         ),
