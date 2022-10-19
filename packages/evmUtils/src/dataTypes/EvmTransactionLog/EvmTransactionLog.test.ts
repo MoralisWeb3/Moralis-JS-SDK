@@ -3,7 +3,6 @@ import { EvmTransactionLog } from './EvmTransactionLog';
 
 // Set variables
 
-const CHAIN = '0x1';
 const LOG_INDEX = 12;
 const TRANSACTION_HASH = '0x9a05a830919012da906d76c18b30e64b45df2c914988d2553f78362d4b5d8b0e';
 const BLOCK_HASH = '0x0b564475b29d046aca77b2a1ad40e0bda7fd78d8c6950b3a72812af96af21f53';
@@ -28,7 +27,6 @@ const inputWithAllData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
-  chain: CHAIN,
 };
 
 const inputWithoutOptionalData = {
@@ -52,7 +50,6 @@ const inputWithInvalidData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
-  chain: CHAIN,
 };
 
 describe('EvmTransactionLog', () => {
