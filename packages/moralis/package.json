@@ -17,17 +17,25 @@
     "dev": "tsc --watch"
   },
   "exports": {
-    ".":  "./lib/index.js",
-    "./core":  "./lib/core/index.js",
-    "./common-evm-utils":  "./lib/evmUtils/index.js",
-    "./common-sol-utils":  "./lib/solUtils/index.js"
+    ".": "./lib/index.js",
+    "./core": "./lib/core/index.js",
+    "./common-evm-utils": "./lib/evmUtils/index.js",
+    "./common-sol-utils": "./lib/solUtils/index.js"
   },
   "typesVersions": {
     "*": {
-      ".": ["lib/index.d.ts"],
-      "core": ["lib/core/index.d.ts"],
-      "common-evm-utils": ["lib/evmUtils/index.d.ts"],
-      "common-sol-utils": ["lib/solUtils/index.d.ts"]
+      ".": [
+        "lib/index.d.ts"
+      ],
+      "core": [
+        "lib/core/index.d.ts"
+      ],
+      "common-evm-utils": [
+        "lib/evmUtils/index.d.ts"
+      ],
+      "common-sol-utils": [
+        "lib/solUtils/index.d.ts"
+      ]
     }
   },
   "dependencies": {
