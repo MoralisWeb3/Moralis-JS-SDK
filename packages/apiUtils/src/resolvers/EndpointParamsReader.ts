@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { Endpoint, EndpointBodyType } from './Endpoint';
 
 export class EndpointParamsReader<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {

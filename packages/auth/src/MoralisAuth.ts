@@ -1,3 +1,4 @@
+import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import {
@@ -29,6 +30,8 @@ export class MoralisAuth extends ApiModule {
   public start() {
     // Nothing
   }
+
+  public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
   public requestMessage = (options: RequestMessageOptions) => makeRequestMessage(this.core)(options);
 

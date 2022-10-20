@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { ApiConfig } from '../config/ApiConfig';
 import { isNotFoundError } from '../errors/isNotFoundError';

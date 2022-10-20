@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { tryGetNextPageParams } from '../utils/tryGetNextPageParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
 import { ApiConfig } from '../config/ApiConfig';

@@ -3,8 +3,7 @@ import { NodePlopAPI } from 'plop';
 import { Actions, AddActionConfig, AppendActionConfig } from 'node-plop';
 import path from 'node:path';
 import Moralis from './getMoralis.cjs';
-import { urlPatternToExpressPath } from './utils.js';
-import { ExpressGeneratorCl } from './ExpressGenerator.js';
+import { ExpressGeneratorCl } from './ExpressGenerator';
 
 const gen = new ExpressGeneratorCl();
 //@ts-ignore

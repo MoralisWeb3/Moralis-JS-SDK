@@ -1,4 +1,3 @@
-import { errorHandler } from '../middlewares/errorHandler';
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
@@ -16,6 +15,6 @@ export const {{ resolverName }} = async (req: Request, res: Response, next: Next
     });
     return res.send(response.data);
   } catch (error) {
-    return errorHandler(error as Error, req, res, next);
+    return next(error);
   }
 };
