@@ -23,7 +23,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "test-integration",
     "demo-cli",
     "demo-nextjs",
     "demo-express-proxy",

@@ -76,7 +76,7 @@ Moralis.start({
 });
 ```
 
-After that you can use any Moralis functionalites via, as described in our [extensive docs](https://docs.moralis.io)
+After that you can use any Moralis functionalities via, as described in our [extensive docs](https://docs.moralis.io)
 
 # ⭐️ Star us
 
