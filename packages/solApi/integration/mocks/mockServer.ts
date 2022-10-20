@@ -1,11 +1,11 @@
-import { setupServer } from 'msw/node';
-
-import { mockGetNFT } from './endpoints/getNFT';
 import { mockGetBalanceSol } from './endpoints/getBalance';
-import { mockGetNFTMetadata } from './endpoints/getNFTMetadata';
-import { mockGetSPL } from './endpoints/getSPL';
-import { mockGetPortfolio } from './endpoints/getPortfolio';
+import { MOCK_API_KEY, SOL_API_ROOT } from './config';
+import { mockGetNFTSol } from './endpoints/getNFT';
+import { mockGetSPLSol } from './endpoints/getSPL';
+import { mockGetNFTMetadataSol } from './endpoints/getNFTMetadata';
+import { mockGetPortfolioSol } from './endpoints/getPortfolio';
+import { MockServer } from '@moralisweb3/test-utils';
 
-const handlers = [mockGetNFT, mockGetBalanceSol, mockGetNFTMetadata, mockGetSPL, mockGetPortfolio];
+const handlers = [mockGetBalanceSol, mockGetNFTSol, mockGetSPLSol, mockGetNFTMetadataSol, mockGetPortfolioSol];
 
-export const mockServer = setupServer(...handlers);
+export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: SOL_API_ROOT }, handlers).start();

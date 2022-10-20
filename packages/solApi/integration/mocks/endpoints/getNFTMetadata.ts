@@ -1,4 +1,4 @@
-import { MockScenarios } from '../../MockScenarios';
+import { MockScenarios } from '@moralisweb3/test-utils';
 
 export const mockGetNFTMetadataSol = MockScenarios.create(
   {

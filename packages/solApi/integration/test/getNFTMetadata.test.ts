@@ -1,11 +1,11 @@
-import { MoralisSolApi } from '@moralisweb3/sol-api';
-import { cleanSolApi, setupSolApi } from './setup';
+import { MoralisSolApi } from '../../src/MoralisSolApi';
+import { cleanSolApi, setupSolApi } from '../setup';
 
 describe('Moralis SolApi', () => {
-  let SolApi: MoralisSolApi;
+  let solApi: MoralisSolApi;
 
   beforeAll(() => {
-    SolApi = setupSolApi();
+    solApi = setupSolApi();
   });
 
   afterAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis SolApi', () => {
   });
 
   it('returns metadata', async () => {
-    const result = await SolApi.nft.getNFTMetadata({
+    const result = await solApi.nft.getNFTMetadata({
       network: 'mainnet',
       address: '9MwGzSyuQRqmBHqmYwE6wbP3vzRBj4WWiYxWns3rkR7A',
     });
