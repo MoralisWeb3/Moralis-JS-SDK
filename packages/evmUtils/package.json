@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.6.5",
+  "version": "2.6.6",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -15,8 +15,8 @@
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
   },
   "devDependencies": {
@@ -27,6 +27,6 @@
   "dependencies": {
     "@ethersproject/address": "^5.6.0",
     "@ethersproject/transactions": "^5.6.0",
-    "@moralisweb3/core": "^2.6.5"
+    "@moralisweb3/core": "^2.6.6"
   }
 }

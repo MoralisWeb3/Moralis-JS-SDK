@@ -252,6 +252,11 @@ export interface components {
       topic2: string;
       /** @example null */
       topic3: string;
+      /**
+       * @description Respective Chain Id
+       * @example 1
+       */
+       chainId: string;
     };
     logEvent: {
       /**
@@ -290,6 +295,11 @@ export interface components {
       };
     };
     log: {
+      /**
+       * @description Respective Chain Id
+       * @example 1
+       */
+      chainId: string;
       /** @example 273 */
       log_index: string;
       /**
