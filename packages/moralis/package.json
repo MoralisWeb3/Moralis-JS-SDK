@@ -19,15 +19,15 @@
   "exports": {
     ".":  "./lib/index.js",
     "./core":  "./lib/core/index.js",
-    "./evm-utils":  "./lib/evmUtils/index.js",
-    "./sol-utils":  "./lib/solUtils/index.js"
+    "./common-evm-utils":  "./lib/evmUtils/index.js",
+    "./common-sol-utils":  "./lib/solUtils/index.js"
   },
   "typesVersions": {
     "*": {
       ".": ["lib/index.d.ts"],
       "core": ["lib/core/index.d.ts"],
-      "evm-utils": ["lib/evmUtils/index.d.ts"],
-      "sol-utils": ["lib/solUtils/index.d.ts"]
+      "common-evm-utils": ["lib/evmUtils/index.d.ts"],
+      "common-sol-utils": ["lib/solUtils/index.d.ts"]
     }
   },
   "dependencies": {
