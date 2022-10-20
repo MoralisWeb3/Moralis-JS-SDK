@@ -1,1 +1,1 @@
-# @moralisweb3/sol-utils
+# @moralisweb3/common-sol-utils

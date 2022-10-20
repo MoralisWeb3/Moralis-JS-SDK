@@ -1,4 +1,4 @@
-import { EvmChainish, EvmChainParser } from '@moralisweb3/evm-utils';
+import { EvmChainish, EvmChainParser } from '@moralisweb3/common-evm-utils';
 
 export class EvmApiConfigValidator {
   public static requireValidChain(value: EvmChainish) {

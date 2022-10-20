@@ -5,13 +5,13 @@
 ### Patch Changes
 
 - Updated dependencies [[`11ba50f7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11ba50f7ad4b43dd22eeb227452bc1be6c8888e4), [`d87f37c5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d87f37c5a56d5db5ca79ede9bb463d6ad20a13ab)]:
-  - @moralisweb3/evm-utils@2.6.6
+  - @moralisweb3/common-evm-utils@2.6.6
   - @moralisweb3/evm-api@2.6.6
   - @moralisweb3/core@2.6.6
   - @moralisweb3/auth@2.6.6
   - @moralisweb3/streams@2.6.6
   - @moralisweb3/api-utils@2.6.6
-  - @moralisweb3/sol-utils@2.6.6
+  - @moralisweb3/common-sol-utils@2.6.6
   - @moralisweb3/sol-api@2.6.6
 
 ## 2.6.5
@@ -24,8 +24,8 @@
   - @moralisweb3/core@2.6.5
   - @moralisweb3/auth@2.6.5
   - @moralisweb3/api-utils@2.6.5
-  - @moralisweb3/evm-utils@2.6.5
-  - @moralisweb3/sol-utils@2.6.5
+  - @moralisweb3/common-evm-utils@2.6.5
+  - @moralisweb3/common-sol-utils@2.6.5
   - @moralisweb3/sol-api@2.6.5
 
 ## 2.6.4
@@ -37,8 +37,8 @@
   - @moralisweb3/api-utils@2.6.4
   - @moralisweb3/core@2.6.4
   - @moralisweb3/auth@2.6.4
-  - @moralisweb3/evm-utils@2.6.4
-  - @moralisweb3/sol-utils@2.6.4
+  - @moralisweb3/common-evm-utils@2.6.4
+  - @moralisweb3/common-sol-utils@2.6.4
   - @moralisweb3/evm-api@2.6.4
   - @moralisweb3/sol-api@2.6.4
 
@@ -51,8 +51,8 @@
   - @moralisweb3/core@2.6.3
   - @moralisweb3/auth@2.6.3
   - @moralisweb3/api-utils@2.6.3
-  - @moralisweb3/evm-utils@2.6.3
-  - @moralisweb3/sol-utils@2.6.3
+  - @moralisweb3/common-evm-utils@2.6.3
+  - @moralisweb3/common-sol-utils@2.6.3
   - @moralisweb3/evm-api@2.6.3
   - @moralisweb3/sol-api@2.6.3
 
@@ -65,8 +65,8 @@
   - @moralisweb3/core@2.6.2
   - @moralisweb3/auth@2.6.2
   - @moralisweb3/api-utils@2.6.2
-  - @moralisweb3/evm-utils@2.6.2
-  - @moralisweb3/sol-utils@2.6.2
+  - @moralisweb3/common-evm-utils@2.6.2
+  - @moralisweb3/common-sol-utils@2.6.2
   - @moralisweb3/evm-api@2.6.2
   - @moralisweb3/sol-api@2.6.2
 
@@ -75,8 +75,8 @@
 ### Patch Changes
 
 - Updated dependencies [[`bfea2ba5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bfea2ba51f0616d097aa7d3251af516d632eb502), [`e5fb3d6c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e5fb3d6ce02b865bf9edb7690a912c98ccc382c4), [`f3cd2b5c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3cd2b5c496e8f7b96110741ea8442816ed0dad1), [`42893723`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4289372344cda30f9af57982e4fbcad28308e0f8), [`f3cd2b5c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f3cd2b5c496e8f7b96110741ea8442816ed0dad1), [`36a4096d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/36a4096d0751d7faf81f81433050cfcdce447619)]:
-  - @moralisweb3/evm-utils@2.6.1
-  - @moralisweb3/sol-utils@2.6.1
+  - @moralisweb3/common-evm-utils@2.6.1
+  - @moralisweb3/common-sol-utils@2.6.1
   - @moralisweb3/evm-api@2.6.1
   - @moralisweb3/streams@2.6.1
   - @moralisweb3/auth@2.6.1
@@ -93,8 +93,8 @@
   - @moralisweb3/core@2.6.0
   - @moralisweb3/auth@2.6.0
   - @moralisweb3/api-utils@2.6.0
-  - @moralisweb3/evm-utils@2.6.0
-  - @moralisweb3/sol-utils@2.6.0
+  - @moralisweb3/common-evm-utils@2.6.0
+  - @moralisweb3/common-sol-utils@2.6.0
   - @moralisweb3/evm-api@2.6.0
   - @moralisweb3/sol-api@2.6.0
 
@@ -107,8 +107,8 @@
   - @moralisweb3/auth@2.5.8
   - @moralisweb3/streams@2.5.8
   - @moralisweb3/api-utils@2.5.8
-  - @moralisweb3/evm-utils@2.5.8
-  - @moralisweb3/sol-utils@2.5.8
+  - @moralisweb3/common-evm-utils@2.5.8
+  - @moralisweb3/common-sol-utils@2.5.8
   - @moralisweb3/evm-api@2.5.8
   - @moralisweb3/sol-api@2.5.8
 
@@ -121,8 +121,8 @@
   - @moralisweb3/auth@2.5.7
   - @moralisweb3/streams@2.5.7
   - @moralisweb3/api-utils@2.5.7
-  - @moralisweb3/evm-utils@2.5.7
-  - @moralisweb3/sol-utils@2.5.7
+  - @moralisweb3/common-evm-utils@2.5.7
+  - @moralisweb3/common-sol-utils@2.5.7
   - @moralisweb3/evm-api@2.5.7
   - @moralisweb3/sol-api@2.5.7
 
@@ -135,8 +135,8 @@
   - @moralisweb3/auth@2.5.6
   - @moralisweb3/streams@2.5.6
   - @moralisweb3/api-utils@2.5.6
-  - @moralisweb3/evm-utils@2.5.6
-  - @moralisweb3/sol-utils@2.5.6
+  - @moralisweb3/common-evm-utils@2.5.6
+  - @moralisweb3/common-sol-utils@2.5.6
   - @moralisweb3/evm-api@2.5.6
   - @moralisweb3/sol-api@2.5.6
 
@@ -153,8 +153,8 @@
   - @moralisweb3/sol-api@2.5.5
   - @moralisweb3/streams@2.5.5
   - @moralisweb3/api-utils@2.5.5
-  - @moralisweb3/evm-utils@2.5.5
-  - @moralisweb3/sol-utils@2.5.5
+  - @moralisweb3/common-evm-utils@2.5.5
+  - @moralisweb3/common-sol-utils@2.5.5
 
 ## 2.5.4
 
@@ -162,12 +162,12 @@
 
 - Updated dependencies [[`62275677`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6227567750e7ed48c6a3442b31cac08855df0538)]:
   - @moralisweb3/evm-api@2.5.4
-  - @moralisweb3/evm-utils@2.5.4
+  - @moralisweb3/common-evm-utils@2.5.4
   - @moralisweb3/core@2.5.4
   - @moralisweb3/auth@2.5.4
   - @moralisweb3/streams@2.5.4
   - @moralisweb3/api-utils@2.5.4
-  - @moralisweb3/sol-utils@2.5.4
+  - @moralisweb3/common-sol-utils@2.5.4
   - @moralisweb3/sol-api@2.5.4
 
 ## 2.5.3
@@ -179,8 +179,8 @@
   - @moralisweb3/core@2.5.3
   - @moralisweb3/auth@2.5.3
   - @moralisweb3/api-utils@2.5.3
-  - @moralisweb3/evm-utils@2.5.3
-  - @moralisweb3/sol-utils@2.5.3
+  - @moralisweb3/common-evm-utils@2.5.3
+  - @moralisweb3/common-sol-utils@2.5.3
   - @moralisweb3/evm-api@2.5.3
   - @moralisweb3/sol-api@2.5.3
 
@@ -193,8 +193,8 @@
   - @moralisweb3/core@2.5.2
   - @moralisweb3/auth@2.5.2
   - @moralisweb3/api-utils@2.5.2
-  - @moralisweb3/evm-utils@2.5.2
-  - @moralisweb3/sol-utils@2.5.2
+  - @moralisweb3/common-evm-utils@2.5.2
+  - @moralisweb3/common-sol-utils@2.5.2
   - @moralisweb3/evm-api@2.5.2
   - @moralisweb3/sol-api@2.5.2
 
@@ -207,8 +207,8 @@
   - @moralisweb3/core@2.5.1
   - @moralisweb3/auth@2.5.1
   - @moralisweb3/api-utils@2.5.1
-  - @moralisweb3/evm-utils@2.5.1
-  - @moralisweb3/sol-utils@2.5.1
+  - @moralisweb3/common-evm-utils@2.5.1
+  - @moralisweb3/common-sol-utils@2.5.1
   - @moralisweb3/evm-api@2.5.1
   - @moralisweb3/sol-api@2.5.1
 
@@ -222,8 +222,8 @@
   - @moralisweb3/sol-api@2.5.0
   - @moralisweb3/auth@2.5.0
   - @moralisweb3/api-utils@2.5.0
-  - @moralisweb3/evm-utils@2.5.0
-  - @moralisweb3/sol-utils@2.5.0
+  - @moralisweb3/common-evm-utils@2.5.0
+  - @moralisweb3/common-sol-utils@2.5.0
   - @moralisweb3/evm-api@2.5.0
 
 ## 2.4.0
@@ -239,8 +239,8 @@
   - @moralisweb3/api-utils@2.4.0
   - @moralisweb3/core@2.4.0
   - @moralisweb3/streams@2.4.0
-  - @moralisweb3/evm-utils@2.4.0
-  - @moralisweb3/sol-utils@2.4.0
+  - @moralisweb3/common-evm-utils@2.4.0
+  - @moralisweb3/common-sol-utils@2.4.0
   - @moralisweb3/evm-api@2.4.0
   - @moralisweb3/sol-api@2.4.0
 
@@ -249,11 +249,11 @@
 ### Patch Changes
 
 - Updated dependencies [[`a0db370`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0db370b909905ae80e39e942b12245687af4c42)]:
-  - @moralisweb3/sol-utils@2.3.1
+  - @moralisweb3/common-sol-utils@2.3.1
   - @moralisweb3/core@2.3.1
   - @moralisweb3/auth@2.3.1
   - @moralisweb3/api-utils@2.3.1
-  - @moralisweb3/evm-utils@2.3.1
+  - @moralisweb3/common-evm-utils@2.3.1
   - @moralisweb3/evm-api@2.3.1
   - @moralisweb3/sol-api@2.3.1
 
@@ -263,11 +263,11 @@
 
 - Updated dependencies [[`7bf5ec6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7bf5ec6cf3dfe700863932a93c5c251aad474b7f), [`7bf5ec6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7bf5ec6cf3dfe700863932a93c5c251aad474b7f), [`7e83894`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e83894a8d3953f740c2c9fd110dd8d30eb0b0a8)]:
   - @moralisweb3/evm-api@2.3.0
-  - @moralisweb3/evm-utils@2.3.0
+  - @moralisweb3/common-evm-utils@2.3.0
   - @moralisweb3/core@2.3.0
   - @moralisweb3/auth@2.3.0
   - @moralisweb3/api-utils@2.3.0
-  - @moralisweb3/sol-utils@2.3.0
+  - @moralisweb3/common-sol-utils@2.3.0
   - @moralisweb3/sol-api@2.3.0
 
 ## 2.2.0
@@ -276,8 +276,8 @@
 
 - Updated dependencies [[`0e07f58`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0e07f58d0732b13125bd8481c73cb4c945818e6f), [`e56e44d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e56e44dae9a3a11feade953d490e1643970c6ccc), [`a6b30fc`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a6b30fcebdb5cff48275b8ca70c9bb2dc7e25935)]:
   - @moralisweb3/evm-api@2.2.0
-  - @moralisweb3/sol-utils@2.2.0
-  - @moralisweb3/evm-utils@2.2.0
+  - @moralisweb3/common-sol-utils@2.2.0
+  - @moralisweb3/common-evm-utils@2.2.0
   - @moralisweb3/core@2.2.0
   - @moralisweb3/auth@2.2.0
   - @moralisweb3/api-utils@2.2.0
@@ -290,22 +290,22 @@
 - Updated dependencies [[`5bfb635`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5bfb6356a1f9bed993f7a32b58c6da7d2d51ffe1), [`7fa4654`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7fa4654a39484df09af57ef07674738e5650732d)]:
   - @moralisweb3/api-utils@2.1.1
   - @moralisweb3/evm-api@2.1.1
-  - @moralisweb3/evm-utils@2.1.1
+  - @moralisweb3/common-evm-utils@2.1.1
   - @moralisweb3/core@2.1.1
   - @moralisweb3/auth@2.1.1
-  - @moralisweb3/sol-utils@2.1.1
+  - @moralisweb3/common-sol-utils@2.1.1
   - @moralisweb3/sol-api@2.1.1
 
 ## 2.1.0
 
 ### Patch Changes
 
-- [#609](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/609) [`0a97823`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0a97823cac6c6e297e1039ae4dc1243542850fdb) Thanks [@meseta](https://github.com/meseta)! - Add missing `@moralisweb3/sol-utils` dependency
+- [#609](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/609) [`0a97823`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0a97823cac6c6e297e1039ae4dc1243542850fdb) Thanks [@meseta](https://github.com/meseta)! - Add missing `@moralisweb3/common-sol-utils` dependency
 
 - Updated dependencies [[`5644d32`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5644d321a86ed14ceaba8bbd4b20f8adb4a2adec), [`a0ece52`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a0ece52ecc4f73a2d93af59972b06a1a30f1bc61), [`761d0d7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/761d0d77871a93f0895c700322d1b7ed0af8c255), [`d542326`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d542326171812d992fb9548aa323553fdd1a0fb4)]:
-  - @moralisweb3/sol-utils@2.1.0
+  - @moralisweb3/common-sol-utils@2.1.0
   - @moralisweb3/sol-api@2.1.0
-  - @moralisweb3/evm-utils@2.1.0
+  - @moralisweb3/common-evm-utils@2.1.0
   - @moralisweb3/core@2.1.0
   - @moralisweb3/evm-api@2.1.0
   - @moralisweb3/api-utils@2.1.0
@@ -321,7 +321,7 @@
   - @moralisweb3/sol-api@2.0.3
   - @moralisweb3/core@2.0.3
   - @moralisweb3/api-utils@2.0.3
-  - @moralisweb3/evm-utils@2.0.3
+  - @moralisweb3/common-evm-utils@2.0.3
 
 ## 2.0.2
 
@@ -332,7 +332,7 @@
   - @moralisweb3/core@2.0.2
   - @moralisweb3/auth@2.0.2
   - @moralisweb3/api-utils@2.0.2
-  - @moralisweb3/evm-utils@2.0.2
+  - @moralisweb3/common-evm-utils@2.0.2
   - @moralisweb3/sol-api@2.0.2
 
 ## 2.0.1
@@ -341,7 +341,7 @@
 
 - Updated dependencies [[`30f69c3`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/30f69c3d6aa75641945e0af611d84756ae002edf)]:
   - @moralisweb3/evm-api@2.0.1
-  - @moralisweb3/evm-utils@2.0.1
+  - @moralisweb3/common-evm-utils@2.0.1
   - @moralisweb3/core@2.0.1
   - @moralisweb3/auth@2.0.1
   - @moralisweb3/api-utils@2.0.1
@@ -414,7 +414,7 @@
 
 - [#562](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/562) [`4683492`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4683492c4152779d8175e37075f8d1168c990188) Thanks [@ErnoW](https://github.com/ErnoW)! - Update type definition and resolvers after changes in the Evm Api
 
-* [#521](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/521) [`61b8759`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/61b8759fcc80185a51758606ce2c4c5e9868a22d) Thanks [@ErnoW](https://github.com/ErnoW)! - Moved all Evm logic to @moralisweb3/evm-utils
+* [#521](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/521) [`61b8759`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/61b8759fcc80185a51758606ce2c4c5e9868a22d) Thanks [@ErnoW](https://github.com/ErnoW)! - Moved all Evm logic to @moralisweb3/common-evm-utils
 
 - [#539](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/539) [`70e6227`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/70e62273da34dc0227d47842d06247ed771ba085) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Multi-tenancy support.
 
@@ -426,7 +426,7 @@
   - @moralisweb3/sol-api@2.0.0
   - @moralisweb3/core@2.0.0
   - @moralisweb3/auth@2.0.0
-  - @moralisweb3/evm-utils@2.0.0
+  - @moralisweb3/common-evm-utils@2.0.0
 
 ## 2.0.0-beta.11
 
@@ -434,7 +434,7 @@
 
 - Updated dependencies [[`fa082b6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fa082b613fd3b317072ee66e8ca1361fd51f34f4), [`fa082b6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fa082b613fd3b317072ee66e8ca1361fd51f34f4)]:
   - @moralisweb3/evm-api@2.0.0-beta.11
-  - @moralisweb3/evm-utils@2.0.0-beta.11
+  - @moralisweb3/common-evm-utils@2.0.0-beta.11
   - @moralisweb3/core@2.0.0-beta.11
   - @moralisweb3/auth@2.0.0-beta.11
   - @moralisweb3/api-utils@2.0.0-beta.11
@@ -447,7 +447,7 @@
 - Updated dependencies [[`51e0446`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/51e04465b803d89bdc3bc72d749e1152139a8534)]:
   - @moralisweb3/core@2.0.0-beta.10
   - @moralisweb3/evm-api@2.0.0-beta.10
-  - @moralisweb3/evm-utils@2.0.0-beta.10
+  - @moralisweb3/common-evm-utils@2.0.0-beta.10
   - @moralisweb3/auth@2.0.0-beta.10
   - @moralisweb3/api-utils@2.0.0-beta.10
   - @moralisweb3/sol-api@2.0.0-beta.10
@@ -463,7 +463,7 @@
   - @moralisweb3/auth@2.0.0-beta.9
   - @moralisweb3/core@2.0.0-beta.9
   - @moralisweb3/evm-api@2.0.0-beta.9
-  - @moralisweb3/evm-utils@2.0.0-beta.9
+  - @moralisweb3/common-evm-utils@2.0.0-beta.9
   - @moralisweb3/sol-api@2.0.0-beta.9
 
 ## 2.0.0-beta.8
@@ -489,7 +489,7 @@
   - @moralisweb3/auth@2.0.0-beta.8
   - @moralisweb3/core@2.0.0-beta.8
   - @moralisweb3/evm-api@2.0.0-beta.8
-  - @moralisweb3/evm-utils@2.0.0-beta.8
+  - @moralisweb3/common-evm-utils@2.0.0-beta.8
   - @moralisweb3/sol-api@2.0.0-beta.8
 
 ## 2.0.0-beta.7
@@ -502,7 +502,7 @@
   - @moralisweb3/sol-api@2.0.0-beta.7
   - @moralisweb3/core@2.0.0-beta.7
   - @moralisweb3/auth@2.0.0-beta.7
-  - @moralisweb3/evm-utils@2.0.0-beta.7
+  - @moralisweb3/common-evm-utils@2.0.0-beta.7
 
 ## 2.0.0-beta.6
 
@@ -517,7 +517,7 @@
   - @moralisweb3/api-utils@2.0.0-beta.6
   - @moralisweb3/auth@2.0.0-beta.6
   - @moralisweb3/evm-api@2.0.0-beta.6
-  - @moralisweb3/evm-utils@2.0.0-beta.6
+  - @moralisweb3/common-evm-utils@2.0.0-beta.6
   - @moralisweb3/sol-api@2.0.0-beta.6
 
 ## 2.0.0-beta.5
@@ -533,7 +533,7 @@
   - @moralisweb3/auth@2.0.0-beta.5
   - @moralisweb3/core@2.0.0-beta.5
   - @moralisweb3/evm-api@2.0.0-beta.5
-  - @moralisweb3/evm-utils@2.0.0-beta.5
+  - @moralisweb3/common-evm-utils@2.0.0-beta.5
   - @moralisweb3/sol-api@2.0.0-beta.5
 
 ## 2.0.0-alpha.4
@@ -549,7 +549,7 @@
   - @moralisweb3/core@2.0.0-alpha.4
   - @moralisweb3/auth@2.0.0-alpha.4
   - @moralisweb3/evm-api@2.0.0-alpha.4
-  - @moralisweb3/evm-utils@2.0.0-alpha.4
+  - @moralisweb3/common-evm-utils@2.0.0-alpha.4
   - @moralisweb3/sol-api@2.0.0-alpha.4
 
 ## 2.0.0-alpha.3
@@ -564,7 +564,7 @@
 
 ### Patch Changes
 
-- [#521](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/521) [`61b8759`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/61b8759fcc80185a51758606ce2c4c5e9868a22d) Thanks [@ErnoW](https://github.com/ErnoW)! - Moved all Evm logic to @moralisweb3/evm-utils
+- [#521](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/521) [`61b8759`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/61b8759fcc80185a51758606ce2c4c5e9868a22d) Thanks [@ErnoW](https://github.com/ErnoW)! - Moved all Evm logic to @moralisweb3/common-evm-utils
 
 * [#535](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/535) [`279507c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/279507c33c3ae172aa0257663cfcfdedd790f829) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Replaced BigNumber from @ethersproject by own implementation.
 
@@ -574,7 +574,7 @@
   - @moralisweb3/core@2.0.0-alpha.3
   - @moralisweb3/sol-api@2.0.0-alpha.3
   - @moralisweb3/auth@2.0.0-alpha.3
-  - @moralisweb3/evm-utils@2.0.0-alpha.3
+  - @moralisweb3/common-evm-utils@2.0.0-alpha.3
 
 ## 2.0.0-alpha.2
 

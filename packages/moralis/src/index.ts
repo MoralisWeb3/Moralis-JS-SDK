@@ -1,9 +1,9 @@
 import { MoralisStreams } from '@moralisweb3/streams';
 import { MoralisApiUtils } from '@moralisweb3/api-utils';
 import { MoralisAuth } from '@moralisweb3/auth';
-import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
+import { MoralisEvmUtils } from '@moralisweb3/common-evm-utils';
 import { MoralisEvmApi } from '@moralisweb3/evm-api';
-import { MoralisSolUtils } from '@moralisweb3/sol-utils';
+import { MoralisSolUtils } from '@moralisweb3/common-sol-utils';
 import { MoralisSolApi } from '@moralisweb3/sol-api';
 import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 
@@ -36,34 +36,5 @@ const Moralis = {
 
   start: core.start,
 };
-
-export * from '@moralisweb3/evm-utils';
-export * from '@moralisweb3/sol-utils';
-export { Types as StreamTypes } from '@moralisweb3/streams';
-export {
-  ApiErrorCode,
-  AuthErrorCode,
-  BigNumber,
-  BigNumberPrimitive,
-  BigNumberish,
-  CoreErrorCode,
-  EvmAddressFormat,
-  EvmChainIdFormat,
-  LogLevel,
-  MoralisApiError,
-  MoralisAuthError,
-  MoralisCoreError,
-  MoralisCoreProvider,
-  MoralisError,
-  MoralisErrorCode,
-  MoralisErrorDetails,
-  MoralisErrorOptions,
-  MoralisStreamError,
-  StreamErrorCode,
-  isMoralisError,
-  maybe,
-  solNetworkNames,
-  toCamelCase,
-} from '@moralisweb3/core';
 
 export default Moralis;

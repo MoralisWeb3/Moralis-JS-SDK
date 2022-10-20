@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { toCamelCase } from '@moralisweb3/core';
-import { EvmAddress } from '@moralisweb3/evm-utils';
+import { EvmAddress } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 
 const name = 'DeleteAddressFromStream';
