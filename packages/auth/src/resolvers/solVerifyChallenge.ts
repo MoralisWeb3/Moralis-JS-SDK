@@ -1,4 +1,4 @@
-import { SolNetwork, SolAddress } from '@moralisweb3/sol-utils';
+import { SolNetwork, SolAddress } from '@moralisweb3/common-sol-utils';
 import { maybe, toCamelCase } from '@moralisweb3/core';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../generated/types';

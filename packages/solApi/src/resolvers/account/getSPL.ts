@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
-import { SolAddress, SolAddressish, SolNative, SolNetworkish } from '@moralisweb3/sol-utils';
+import { SolAddress, SolAddressish, SolNative, SolNetworkish } from '@moralisweb3/common-sol-utils';
 import { operations } from '../../generated/types';
 import { SolNetworkResolver } from '../SolNetworkResolver';
 

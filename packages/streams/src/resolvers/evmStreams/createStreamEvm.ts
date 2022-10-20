@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize, toCamelCase } from '@moralisweb3/core';
-import { EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 
 const name = 'CreateStream';

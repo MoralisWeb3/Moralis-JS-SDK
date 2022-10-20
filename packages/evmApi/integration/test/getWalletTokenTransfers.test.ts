@@ -1,5 +1,5 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
-import { Erc20Transfer } from '@moralisweb3/evm-utils';
+import { Erc20Transfer } from '@moralisweb3/common-evm-utils';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getWalletTokenTransfers', () => {

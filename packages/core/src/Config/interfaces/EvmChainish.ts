@@ -1,6 +1,6 @@
 /**
  * Note this is just an interface, used in the core config.
- * The implementations are located in the @moralisweb3/evm-utils package.
+ * The implementations are located in the @moralisweb3/common-evm-utils package.
  */
 
 export interface EvmChainable {

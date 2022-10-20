@@ -1,6 +1,6 @@
 import { ApiConfig } from '../config/ApiConfig';
 import axios from 'axios';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EndpointBodyType } from './Endpoint';
 import {
   createPaginatedEndpointFactory,
