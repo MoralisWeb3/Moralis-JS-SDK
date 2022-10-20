@@ -1,22 +1,23 @@
-import { ApiErrorCode, MoralisApiError, MoralisCore } from '@moralisweb3/core';
+import { ApiErrorCode, MoralisApiError, PaginatedJSONResponse } from '@moralisweb3/core';
+import { Pagination } from './Pagination';
 
 export class PaginatedResponseAdapter<Result, JSONResult> {
   public constructor(
-    private readonly jsonResponse: JSONResult,
-    private readonly deserializeResponse: (jsonResponse: JSONResult, core: MoralisCore) => Result,
-    private readonly core: MoralisCore,
-    private readonly nextHandler?: () => Promise<PaginatedResponseAdapter<Result, JSONResult>>,
+    public readonly pagination: Pagination,
+    private readonly jsonResponse: PaginatedJSONResponse<JSONResult>,
+    private readonly getResult: () => Result,
+    private readonly nextHandler: (() => Promise<PaginatedResponseAdapter<Result, JSONResult>>) | undefined,
   ) {}
 
   public get result(): Result {
-    return this.deserializeResponse(this.jsonResponse, this.core);
+    return this.getResult();
   }
 
-  public get raw(): JSONResult {
+  public get raw(): PaginatedJSONResponse<JSONResult> {
     return this.jsonResponse;
   }
 
-  public toJSON(): JSONResult {
+  public toJSON(): PaginatedJSONResponse<JSONResult> {
     return this.jsonResponse;
   }
 

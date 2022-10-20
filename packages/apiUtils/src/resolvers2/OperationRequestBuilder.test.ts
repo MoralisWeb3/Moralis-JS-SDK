@@ -20,13 +20,14 @@ const operation: Operation<TestRequest, unknown, unknown, unknown> = {
   getRequestUrlParams: (request) => {
     return {
       userId: String(request.userId),
-      traceId: String(request.traceId),
+      trace_id: String(request.traceId),
+      extraSearchParam: '100',
     };
   },
   getRequestBody: (request) => {
     return {
       password: request.password,
-      notDefinedInBodyParamNames: -1,
+      extraBodyParam: 300,
     };
   },
   deserializeResponse: () => {
@@ -54,7 +55,7 @@ describe('OperationRequestBuilder', () => {
   });
 
   describe('prepareUrl()', () => {
-    it('returns properties body', () => {
+    it('returns correct values', () => {
       const { urlPath, urlSearchParams } = builder.prepareUrl({
         userId: 100,
         traceId: 200,
@@ -62,8 +63,9 @@ describe('OperationRequestBuilder', () => {
       });
 
       expect(urlPath).toBe('/api/100');
-      expect(Object.keys(urlSearchParams).length).toBe(1);
-      expect(urlSearchParams['traceId']).toBe('200');
+      expect(Object.keys(urlSearchParams).length).toBe(2);
+      expect(urlSearchParams['trace_id']).toBe('200');
+      expect(urlSearchParams['extraSearchParam']).toBe('100');
     });
   });
 
@@ -75,8 +77,9 @@ describe('OperationRequestBuilder', () => {
         password: 'foo',
       }) as OperationRequestPropertiesBody;
 
-      expect(Object.keys(body).length).toBe(1);
+      expect(Object.keys(body).length).toBe(2);
       expect(body['password']).toBe('foo');
+      expect(body['extraBodyParam']).toBe(300);
     });
   });
 

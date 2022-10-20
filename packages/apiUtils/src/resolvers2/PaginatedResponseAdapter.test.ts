@@ -1,41 +1,51 @@
-import MoralisCore from '@moralisweb3/core';
 import { PaginatedResponseAdapter } from './PaginatedResponseAdapter';
+import { readPagination } from './Pagination';
 
 describe('PaginatedResponseAdapter', () => {
-  const core = {} as any as MoralisCore;
   const response = {
-    alfa: 10,
-    beta: '20',
+    page: 1,
+    pageSize: 10,
+    total: 10,
+    result: {
+      alfa: 10,
+      beta: '20',
+    },
   };
-  function deserializeResponse(jsonResponse: typeof response, localCore: MoralisCore) {
-    expect(localCore).toBe(core);
+  const pagination = readPagination(response);
+
+  function deserializeResponse(jsonResponse: typeof response) {
     return {
-      myAlfa: String(jsonResponse.alfa),
-      myBeta: parseInt(jsonResponse.beta),
+      myAlfa: String(jsonResponse.result.alfa),
+      myBeta: parseInt(jsonResponse.result.beta),
     };
   }
 
-  const adapterWithNoNext = new PaginatedResponseAdapter(response, deserializeResponse, core);
-  const adapterWithNext = new PaginatedResponseAdapter(
+  const adapterWithNoNext = new PaginatedResponseAdapter(
+    pagination,
     response,
-    deserializeResponse,
-    core,
+    () => deserializeResponse(response),
+    undefined,
+  );
+  const adapterWithNext = new PaginatedResponseAdapter(
+    pagination,
+    response,
+    () => deserializeResponse(response),
     async () => adapterWithNoNext,
   );
 
   describe('raw', () => {
     it('returns raw JSON', () => {
       const raw = adapterWithNext.raw;
-      expect(raw.alfa).toBe(10);
-      expect(raw.beta).toBe('20');
+      expect(raw.result.alfa).toBe(10);
+      expect(raw.result.beta).toBe('20');
     });
   });
 
   describe('toJSON()', () => {
     it('returns raw JSON', () => {
       const raw = adapterWithNext.toJSON();
-      expect(raw.alfa).toBe(10);
-      expect(raw.beta).toBe('20');
+      expect(raw.result.alfa).toBe(10);
+      expect(raw.result.beta).toBe('20');
     });
   });
 

@@ -22,41 +22,41 @@ export class OperationRequestBuilder<Request> {
 
     for (const paramName of this.operation.urlPathParamNames) {
       const paramValue = urlParams[paramName as string];
+      if (!paramValue) {
+        throw new Error(`Param ${paramName as string} is required`);
+      }
       urlPath = urlPath.replace(`{${paramName as string}}`, paramValue);
     }
 
     const urlSearchParams: Record<string, string> = {};
-    if (this.operation.urlSearchParamNames) {
-      for (const paramName of this.operation.urlSearchParamNames) {
-        urlSearchParams[paramName as string] = urlParams[paramName as string];
-      }
-    }
+    Object.keys(urlParams)
+      .filter((paramName) => !this.operation.urlPathParamNames.includes(paramName as keyof Request))
+      .forEach((paramName) => {
+        const paramValue = urlParams[paramName];
+        if (paramValue) {
+          urlSearchParams[paramName] = paramValue;
+        }
+      });
 
     return { urlPath, urlSearchParams };
   }
 
-  public prepareBody(request: Request): OperationRequestBody | null {
+  public prepareBody(request: Request): OperationRequestBody | undefined {
     if (!this.operation.bodyType && !this.operation.getRequestBody) {
-      return null;
+      return undefined;
     }
     if (!this.operation.getRequestBody) {
       throw new Error(`getRequestBody is not implemented for operation ${this.operation.name}`);
+    }
+    if (!this.operation.bodyParamNames) {
+      throw new Error(`bodyParamNames are empty for operation ${this.operation.name}`);
     }
 
     const body = this.operation.getRequestBody(request, this.core);
 
     if (this.operation.bodyType === 'properties') {
-      if (!this.operation.bodyParamNames) {
-        throw new Error(`bodyParamNames are empty for operation ${this.operation.name}`);
-      }
-
-      const properties: OperationRequestPropertiesBody = {};
-      for (const paramName of this.operation.bodyParamNames) {
-        properties[paramName as string] = (body as Record<string, unknown>)[paramName as string];
-      }
-      return properties;
+      return body as OperationRequestPropertiesBody;
     }
-
     if (this.operation.bodyType === 'raw') {
       return body as OperationRequestRawBody;
     }

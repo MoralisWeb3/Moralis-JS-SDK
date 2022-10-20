@@ -7,12 +7,12 @@ export interface PaginatedRequest {
 }
 
 export interface PaginatedJSONResponse<JSONResult> {
-  total: number;
-  page: number;
-  page_size: number;
-  cursor: string;
+  total?: number;
+  page?: number;
+  page_size?: number;
+  cursor?: string;
   result: JSONResult;
 }
 
-export interface PaginatedOperation<Request extends PaginatedRequest, JSONRequest, Result, JSONResult>
-  extends Operation<Request, JSONRequest, Result, PaginatedJSONResponse<JSONResult>> {}
+export interface PaginatedOperation<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>
+  extends Operation<Request, JSONRequest, Response, PaginatedJSONResponse<JSONResult>> {}

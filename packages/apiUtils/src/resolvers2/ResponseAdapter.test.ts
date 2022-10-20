@@ -1,21 +1,18 @@
-import MoralisCore from '@moralisweb3/core';
 import { ResponseAdapter } from './ResponseAdapter';
 
 describe('ResponseAdapter', () => {
-  const core = {} as any as MoralisCore;
   const response = {
     alfa: 10,
     beta: '20',
   };
-  function deserializeResponse(jsonResponse: typeof response, localCore: MoralisCore) {
-    expect(localCore).toBe(core);
+  function deserializeResponse(jsonResponse: typeof response) {
     return {
       myAlfa: String(jsonResponse.alfa),
       myBeta: parseInt(jsonResponse.beta),
     };
   }
 
-  const adapter = new ResponseAdapter(response, deserializeResponse, core);
+  const adapter = new ResponseAdapter(response, () => deserializeResponse(response));
 
   describe('raw', () => {
     it('returns raw JSON', () => {

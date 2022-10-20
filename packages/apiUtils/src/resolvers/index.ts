@@ -5,3 +5,4 @@ export * from './PaginatedEndpoint';
 export * from './PaginatedEndpointResolver';
 export * from './ApiResultAdapter';
 export * from './ApiPaginatedResultAdapter';
+export * from './DescriptorConverter';

@@ -1,6 +1,6 @@
 import { Operation } from '@moralisweb3/core';
-import { EndpointMethod } from '../resolvers/Endpoint';
-import { EndpointDescriptor } from '../resolvers/Endpoints';
+import { EndpointMethod } from './Endpoint';
+import { EndpointDescriptor } from './Endpoints';
 
 // TODO: we need to delete this file after refactor.
 

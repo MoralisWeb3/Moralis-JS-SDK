@@ -36,7 +36,9 @@ export class OperationResolver<Request, JSONRequest, Response, JSONResponse> {
       data: body,
     });
 
-    return new ResponseAdapter(jsonResponse, this.operation.deserializeResponse, this.core);
+    return new ResponseAdapter(jsonResponse, () =>
+      this.operation.deserializeResponse(jsonResponse, request, this.core),
+    );
   };
 
   public readonly fetchNullable = async (request: Request): Promise<ResponseAdapter<Response, JSONResponse> | null> => {

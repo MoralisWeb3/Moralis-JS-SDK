@@ -1,14 +1,8 @@
-import { MoralisCore } from '@moralisweb3/core';
-
 export class ResponseAdapter<Response, JSONResponse> {
-  public constructor(
-    private readonly jsonResponse: JSONResponse,
-    private readonly deserializeResponse: (jsonResponse: JSONResponse, core: MoralisCore) => Response,
-    private readonly core: MoralisCore,
-  ) {}
+  public constructor(private readonly jsonResponse: JSONResponse, private readonly getResponse: () => Response) {}
 
   public get result(): Response {
-    return this.deserializeResponse(this.jsonResponse, this.core);
+    return this.getResponse();
   }
 
   public get raw(): JSONResponse {

@@ -13,14 +13,14 @@ export interface Operation<Request, JSONRequest, Response, JSONResponse> {
 
   getRequestUrlParams(request: Request, core: MoralisCore): OperationRequestUrlParams;
   getRequestBody?(request: Request, core: MoralisCore): OperationRequestBody;
-  deserializeResponse(jsonResponse: JSONResponse, core: MoralisCore): Response;
+  deserializeResponse(jsonResponse: JSONResponse, request: Request, core: MoralisCore): Response;
   serializeRequest(request: Request, core: MoralisCore): JSONRequest;
   deserializeRequest(jsonRequest: JSONRequest, core: MoralisCore): Request;
 }
 
 export type OperationRequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export type OperationBodyType = 'properties' | 'raw';
-export type OperationRequestUrlParams = Record<string, string>;
+export type OperationRequestUrlParams = Record<string, string | undefined>;
 export type OperationRequestBody = OperationRequestPropertiesBody | OperationRequestRawBody;
 export type OperationRequestPropertiesBody = Record<string, unknown>;
 export type OperationRequestRawBody = string | number | boolean | object;

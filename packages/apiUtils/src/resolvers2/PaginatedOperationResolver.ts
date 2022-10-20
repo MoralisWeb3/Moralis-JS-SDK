@@ -7,13 +7,9 @@ import MoralisCore, {
 } from '@moralisweb3/core';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 import { PaginatedResponseAdapter } from './PaginatedResponseAdapter';
+import { Pagination, readPagination } from './Pagination';
 
-export class PaginatedOperationResolver<
-  Request extends PaginatedRequest,
-  JSONRequest,
-  Result,
-  JSONResult extends PaginatedJSONResponse<JSONResult>,
-> {
+export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRequest, Result, JSONResult> {
   private readonly requestValidator = new OperationRequestValidator(this.operation);
   private readonly requestBuilder = new OperationRequestBuilder(this.operation, this.core);
   private readonly requestController = RequestController.create(this.core);
@@ -39,31 +35,34 @@ export class PaginatedOperationResolver<
       data: body,
     });
 
-    const nextRequest = this.tryGetNextRequest(request, jsonResponse);
+    const pagination = readPagination(jsonResponse);
+    const nextRequest = this.tryGetNextRequest(request, pagination, jsonResponse.cursor);
 
-    return new PaginatedResponseAdapter(
-      jsonResponse.result,
-      this.operation.deserializeResponse,
-      this.core,
+    return new PaginatedResponseAdapter<Result, JSONResult>(
+      pagination,
+      jsonResponse,
+      () => this.operation.deserializeResponse(jsonResponse, request, this.core),
       nextRequest ? () => this.fetch(nextRequest) : undefined,
     );
   };
 
-  private tryGetNextRequest = (request: Request, jsonResponse: PaginatedJSONResponse<JSONResult>) => {
-    const firstPageIndex = this.operation.firstPageIndex ?? 1;
-
-    const currentPage = firstPageIndex === 1 ? jsonResponse.page : jsonResponse.page + 1;
-    const hasNextPage = jsonResponse.total > jsonResponse.page_size * currentPage;
+  private tryGetNextRequest = (
+    request: Request,
+    pagination: Pagination,
+    cursor: string | undefined,
+  ): Request | null => {
+    const currentPage = this.operation.firstPageIndex === 1 ? pagination.page : pagination.page + 1;
+    const hasNextPage = pagination.total > pagination.pageSize * currentPage;
     if (!hasNextPage) {
       return null;
     }
 
-    const nextRequest = { ...request };
-    if (request.cursor) {
-      nextRequest.cursor = request.cursor;
+    const nextParams = { ...request };
+    if (cursor) {
+      nextParams.cursor = cursor;
     } else {
-      nextRequest.offset = (jsonResponse.page + 1) * (nextRequest.limit || 500);
+      nextParams.offset = (pagination.page + 1) * (nextParams.limit || 500);
     }
-    return nextRequest;
+    return nextParams;
   };
 }
