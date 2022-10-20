@@ -1,1 +1,1 @@
-export { Types as StreamTypes } from '@moralisweb3/streams';
+export * from '@moralisweb3/streams-typings';
