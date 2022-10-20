@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { maybe, toCamelCase } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, EvmNftMetadata } from '@moralisweb3/common-evm-utils';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish, EvmNftMetadata } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 

@@ -34,7 +34,7 @@
   "dependencies": {
     "@moralisweb3/api-utils": "^2.6.6",
     "@moralisweb3/core": "^2.6.6",
-    "@moralisweb3/common-evm-utils": "^2.6.6",
+    "@moralisweb3/evm-utils": "^2.6.6",
     "ethereumjs-util": "^7.1.0",
     "web3-eth-abi": "^1.8.0"
   }

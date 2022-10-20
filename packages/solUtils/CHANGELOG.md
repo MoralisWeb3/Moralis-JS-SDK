@@ -1,4 +1,4 @@
-# @moralisweb3/common-sol-utils
+# @moralisweb3/sol-utils
 
 ## 2.6.6
 

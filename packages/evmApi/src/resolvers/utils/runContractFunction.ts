@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
+import { EvmChainish, EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
 

@@ -1,5 +1,5 @@
 import { ConfigKey } from '@moralisweb3/core';
-import { EvmChainish } from '@moralisweb3/common-evm-utils';
+import { EvmChainish } from '@moralisweb3/evm-utils';
 
 export const EvmApiConfig = {
   defaultEvmApiChain: {

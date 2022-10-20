@@ -1,5 +1,5 @@
 import { MoralisCore } from '@moralisweb3/core';
-import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
+import { EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
 import { EvmApiConfig } from '../config/EvmApiConfig';
 
 export class EvmChainResolver {

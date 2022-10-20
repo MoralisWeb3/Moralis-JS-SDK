@@ -1,5 +1,5 @@
 import { Camelize, toCamelCase } from '@moralisweb3/core';
-import { EvmChainish, EvmAddressish, EvmAddress, EvmNftCollection } from '@moralisweb3/common-evm-utils';
+import { EvmChainish, EvmAddressish, EvmAddress, EvmNftCollection } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';

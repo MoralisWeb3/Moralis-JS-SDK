@@ -1,4 +1,4 @@
-import { SolNetworkName } from '@moralisweb3/common-sol-utils';
+import { SolNetworkName } from '@moralisweb3/sol-utils';
 import Moralis from 'moralis';
 import { smokeTest } from './Tester';
 
