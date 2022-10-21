@@ -13,12 +13,12 @@ export class RouterGenerator {
 
   private actions: ActionType[];
 
-  constructor(name: string, _baseUrl: string, descriptors: EndpointDescriptor[], expressSrcDir: string) {
+  constructor(name: string, baseUrl: string, descriptors: EndpointDescriptor[], expressSrcDir: string) {
     const routerName = `${name}Router`;
     const routerPath = path.join(expressSrcDir, 'routers', routerName);
     this.expressSrcDir = expressSrcDir;
     this.name = routerName;
-    this.actions = descriptors.map((descriptor) => new EndpointGenerator(descriptor, routerName).getActions()).flat(1);
+    this.actions = descriptors.map((descriptor) => new EndpointGenerator(descriptor, routerName, baseUrl).getActions()).flat(1);
     this.routerPath = routerPath;
   }
 

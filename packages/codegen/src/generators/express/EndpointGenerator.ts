@@ -7,18 +7,20 @@ import _ from 'lodash';
 
 export interface EndpointSpecs extends EndpointDescriptor {
   resolverName: string;
+  baseUrl: string;
 }
 
 export class EndpointGenerator {
   private apiDescriptor: EndpointSpecs;
   private routerName: string;
 
-  constructor(apiDescriptor: EndpointDescriptor, routerName: string) {
+  constructor(apiDescriptor: EndpointDescriptor, routerName: string, baseUrl: string) {
     this.routerName = routerName;
     this.apiDescriptor = {
       ...apiDescriptor,
       urlPattern: urlPatternToExpressPath(apiDescriptor.urlPattern),
       resolverName: `${routerName.replace('Router', '').replace('Api', '')}${_.upperFirst(apiDescriptor.name)}Resolver`,
+      baseUrl,
     };
   }
 
@@ -40,14 +42,20 @@ export class EndpointGenerator {
   };
 
   private addResolver = (): AddActionConfig => {
-    const { urlPattern, method, resolverName } = this.apiDescriptor;
+    const { urlPattern, method, resolverName, urlPatternParamNames, baseUrl } = this.apiDescriptor;
+
+    let url = baseUrl + urlPattern;
+    for (const paramName of urlPatternParamNames) {
+      url = url.replace(`:${paramName}`, ['${', `req.params.${paramName}`, '}'].join(''));
+    }
+
     return {
       type: 'add',
       data: {
         resolverName,
         urlPattern,
         method,
-        url: urlPattern,
+        url,
       },
       force: true,
       path: path.join(this.expressSrcDir, 'routers', this.routerName, 'resolvers', `${resolverName}.ts`),
@@ -77,11 +85,10 @@ export class EndpointGenerator {
     };
   };
 
-  public getActions = () =>
-    [
-      this.appendEndpointToRouter(),
-      this.addResolver(),
-      this.appendResolversIndex(),
-      this.appendImports(),
-    ] as ActionType[];
+  public getActions = (): ActionType[] => [
+    this.appendEndpointToRouter(),
+    this.addResolver(),
+    this.appendResolversIndex(),
+    this.appendImports(),
+  ];
 }

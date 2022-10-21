@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const streamsReplayHistoryResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const streamsReplayHistoryResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "post",
       params: req.query,
-      url: "/history/replay/:streamId/:id",
+      url: `https://api.moralis-streams.com/history/replay/${req.params.streamId}/${req.params.id}`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);

@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const evmWeb3ApiVersionResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const evmWeb3ApiVersionResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "get",
       params: req.query,
-      url: "/web3/version",
+      url: `https://deep-index.moralis.io/api/v2/web3/version`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);

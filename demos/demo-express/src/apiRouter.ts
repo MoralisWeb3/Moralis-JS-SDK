@@ -2,6 +2,7 @@ import express from 'express';
 import { ProxyGenerator } from './api/proxyGenerator';
 import config from './config';
 import rateLimit, { MemoryStore } from 'express-rate-limit';
+import { evmApiRouter } from '@moralisweb3/express';
 
 const apiLimiter = rateLimit({
   // 1 minute
@@ -23,5 +24,7 @@ const solanaProxyRouter = new ProxyGenerator('solana', {
   apiKey: config.MORALIS_API_KEY,
 });
 
-apiRouter.use('/evm-api-proxy', apiLimiter, evmProxyRouter.getRouter());
+apiRouter.use('/evm-api-proxy', apiLimiter, new evmApiRouter(process.env.MORALIS_API_KEY || '').getRouter());
+
+// apiRouter.use('/evm-api-proxy', apiLimiter, evmProxyRouter.getRouter());
 apiRouter.use('/solana-api-proxy', apiLimiter, solanaProxyRouter.getRouter());

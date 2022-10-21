@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const evmEndpointWeightsResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const evmEndpointWeightsResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "get",
       params: req.query,
-      url: "/info/endpointWeights",
+      url: `https://deep-index.moralis.io/api/v2/info/endpointWeights`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);

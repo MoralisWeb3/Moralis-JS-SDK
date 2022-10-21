@@ -1,1 +1,1 @@
-{{ routerName }}.{{ method }}("{{ urlPattern }}", {{ resolverName }})
+    router.{{ method }}("{{ urlPattern }}", (req, res, next) =>  {{ resolverName }}(req, res, next, this.apiKey))

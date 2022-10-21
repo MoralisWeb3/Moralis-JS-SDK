@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const evmResolveAddressResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const evmResolveAddressResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "get",
       params: req.query,
-      url: "/resolve/:address/reverse",
+      url: `https://deep-index.moralis.io/api/v2/resolve/${req.params.address}/reverse`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);

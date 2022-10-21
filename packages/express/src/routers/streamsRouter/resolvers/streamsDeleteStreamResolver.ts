@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const streamsDeleteStreamResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const streamsDeleteStreamResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "delete",
       params: req.query,
-      url: "/streams/evm/undefined",
+      url: `https://api.moralis-streams.com/streams/evm/undefined`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);

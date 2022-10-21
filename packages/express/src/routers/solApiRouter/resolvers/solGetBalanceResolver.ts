@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const solGetBalanceResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const solGetBalanceResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "get",
       params: req.query,
-      url: "/account/:network/:address/balance",
+      url: `https://solana-gateway.moralis.io/account/${req.params.network}/${req.params.address}/balance`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);

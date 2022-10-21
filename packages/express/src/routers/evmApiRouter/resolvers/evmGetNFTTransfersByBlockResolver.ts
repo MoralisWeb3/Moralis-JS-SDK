@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextFunction, Response, Request } from 'express';
 
-export const evmGetNFTTransfersByBlockResolver = async (req: Request, res: Response, next: NextFunction) => {
+export const evmGetNFTTransfersByBlockResolver = async (req: Request, res: Response, next: NextFunction, apiKey: string) => {
   try {
     const response = await axios.request({
       method: "get",
       params: req.query,
-      url: "/block/:blockNumberOrHash/nft/transfers",
+      url: `https://deep-index.moralis.io/api/v2/block/${req.params.blockNumberOrHash}/nft/transfers`,
       data: req.body,
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'apikey',
+        'x-api-key': apiKey,
       },
     });
     return res.send(response.data);
