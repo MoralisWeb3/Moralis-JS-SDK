@@ -19,7 +19,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./core": "./lib/core/index.js",
-    "./stream-typings": "./lib/streamsTypings/index.js",
+    "./streams-typings": "./lib/streamsTypings/index.js",
     "./common-evm-utils": "./lib/commonEvmUtils/index.js",
     "./common-sol-utils": "./lib/commonSolUtils/index.js"
   },
@@ -37,7 +37,7 @@
       "common-sol-utils": [
         "lib/commonSolUtils/index.d.ts"
       ],
-      "stream-typings": [
+      "streams-typings": [
         "lib/streamsTypings/index.d.ts"
       ]
     }
