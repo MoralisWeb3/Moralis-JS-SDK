@@ -13,7 +13,6 @@ type SuccessResponse = operations[OperationName]['responses']['200']['content'][
 export interface GetWalletTokenTransfersRequest extends Camelize<Omit<PathParams & QueryParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-  offset?: number;
 }
 
 export type GetWalletTokenTransfersJSONRequest = ReturnType<typeof serializeRequest>;
@@ -32,17 +31,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
   name: 'getWalletTokenTransfers',
   groupName: 'token',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: [
-    'chain',
-    'cursor',
-    'fromBlock',
-    'fromDate',
-    'limit',
-    'offset',
-    'subdomain',
-    'toBlock',
-    'toDate',
-  ],
+  urlSearchParamNames: ['chain', 'cursor', 'fromBlock', 'fromDate', 'limit', 'subdomain', 'toBlock', 'toDate'],
   urlPathPattern: '/{address}/erc20/transfers',
 
   getRequestUrlParams,
@@ -59,7 +48,6 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Mora
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
-    offset: maybe(request.offset, String),
     to_block: maybe(request.toBlock, String),
     from_block: maybe(request.fromBlock, String),
     from_date: request.fromDate,

@@ -27,7 +27,7 @@ export const getBalanceOperation: Operation<
   GetBalanceJSONResponse
 > = {
   method: 'GET',
-  name: 'getBalance',
+  name: 'balance',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/balance',
