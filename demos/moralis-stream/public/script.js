@@ -14,7 +14,7 @@ const handleApiRequest = async (method, endpoint, data, params) => {
     url: `${STREAM_API_URL}/${endpoint}`,
     method,
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
     data,
     params,
@@ -28,7 +28,7 @@ const handleEventsRequest = async (method, endpoint, data, params) => {
     url: `${HOOK_API_URL}/${endpoint}`,
     method,
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
     data,
     params,
