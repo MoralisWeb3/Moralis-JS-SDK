@@ -4,9 +4,5 @@ export const ApiConfig = {
   apiKey: {
     name: 'apiKey',
     defaultValue: null,
-  } as ConfigKey<string | null>,
-  sdkIntegration: {
-    name: 'sdkIntegration',
-    defaultValue: undefined,
-  },
+  } as ConfigKey<string | null>
 };
