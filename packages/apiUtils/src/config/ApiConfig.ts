@@ -5,4 +5,8 @@ export const ApiConfig = {
     name: 'apiKey',
     defaultValue: null,
   } as ConfigKey<string | null>,
+  sdkIntegration: {
+    name: 'sdkIntegration',
+    defaultValue: undefined,
+  }
 };

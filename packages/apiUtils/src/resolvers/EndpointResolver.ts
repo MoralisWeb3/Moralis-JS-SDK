@@ -93,6 +93,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);
+    const sdkIntegration = this.config.get(ApiConfig.sdkIntegration);
 
     if (!apiKey) {
       throw new MoralisApiError({
@@ -101,7 +102,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
       });
     }
 
-    const headers = getCommonHeaders();
+    const headers = getCommonHeaders(sdkIntegration);
 
     if (apiKey) {
       headers['x-api-key'] = apiKey;
