@@ -6,5 +6,8 @@ export class ApiConfigSetup {
     if (!config.hasKey(ApiConfig.apiKey)) {
       config.registerKey(ApiConfig.apiKey);
     }
+    if (!config.hasKey(ApiConfig.sdkIntegration)) {
+      config.registerKey(ApiConfig.sdkIntegration);
+    }
   }
 }
