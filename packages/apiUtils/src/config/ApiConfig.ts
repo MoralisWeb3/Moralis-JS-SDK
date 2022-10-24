@@ -8,5 +8,5 @@ export const ApiConfig = {
   sdkIntegration: {
     name: 'sdkIntegration',
     defaultValue: undefined,
-  }
+  },
 };
