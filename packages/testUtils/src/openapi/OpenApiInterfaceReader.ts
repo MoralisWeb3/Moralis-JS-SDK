@@ -77,7 +77,7 @@ export class OpenApiInterfaceReader {
     return this.readPropertyNamesOfInterface('operations', [operationName, 'parameters', 'path']);
   }
 
-  public readOperationQueryParamNames(operationName: string): string[] | null {
+  public readOperationSearchParamNames(operationName: string): string[] | null {
     return this.readPropertyNamesOfInterface('operations', [operationName, 'parameters', 'query']);
   }
 

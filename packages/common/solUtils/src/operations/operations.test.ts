@@ -10,22 +10,13 @@ describe('operations', () => {
 
   for (const operation of operations) {
     it(`${operation.name} defines all supported parameters`, () => {
-      const operationParamNames = [
-        ...operation.urlPathParamNames,
-        ...(operation.urlSearchParamNames || []),
-        ...(operation.bodyParamNames || []),
-      ];
-
       const openApiPathParamNames = reader.readOperationPathParamNames(operation.name);
-      const openApiQueryParamNames = reader.readOperationQueryParamNames(operation.name);
+      const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.name);
       const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.name);
-      const openApiParamNames = [
-        ...(openApiPathParamNames || []),
-        ...(openApiQueryParamNames || []),
-        ...(openApiBodyParamNames || []),
-      ];
 
-      expect(openApiParamNames.sort().join(',')).toEqual(operationParamNames.sort().join(','));
+      expect(operation.urlPathParamNames.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
+      expect(operation.urlSearchParamNames?.sort().join(',')).toBe(openApiSearchParamNames?.sort().join(','));
+      expect(operation.bodyParamNames?.sort().join(',')).toBe(openApiBodyParamNames?.sort().join(','));
     });
   }
 });
