@@ -4,5 +4,5 @@ export const ApiConfig = {
   apiKey: {
     name: 'apiKey',
     defaultValue: null,
-  } as ConfigKey<string | null>
+  } as ConfigKey<string | null>,
 };
