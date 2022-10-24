@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 export async function request(req: Request, res: Response, next: NextFunction) {
   try {
+    console.log('body', req.body);
     const { address, chain, networkType } = req.body;
 
     const message = await requestMessage({
