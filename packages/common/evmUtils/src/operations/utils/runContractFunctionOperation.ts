@@ -58,10 +58,10 @@ function getRequestUrlParams(request: RunContractFunctionRequest, core: MoralisC
   };
 }
 
-function getRequestBody(request: RunContractFunctionRequest, core: MoralisCore) {
+function getRequestBody(request: RunContractFunctionRequest) {
   return {
     abi: request.abi,
-    params: request.params
+    params: request.params,
   };
 }
 
