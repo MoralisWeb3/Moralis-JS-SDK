@@ -22,7 +22,7 @@ export const mockGetWalletTokenTransfers = rest.get(`${EVM_API_ROOT}/:address/er
     return res(ctx.status(401));
   }
 
-  if (address === '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F') {
+  if (address === '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f') {
     if (!limit) {
       return res(
         ctx.status(200),

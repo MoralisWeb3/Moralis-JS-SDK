@@ -44,7 +44,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 
 function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: MoralisCore) {
   return {
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
     limit: maybe(request.limit, String),

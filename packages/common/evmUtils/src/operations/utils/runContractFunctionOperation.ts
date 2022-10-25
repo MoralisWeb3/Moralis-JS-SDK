@@ -50,7 +50,7 @@ export const runContractFunctionOperation: Operation<
 
 function getRequestUrlParams(request: RunContractFunctionRequest, core: MoralisCore) {
   return {
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
     providerUrl: request.providerUrl,

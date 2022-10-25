@@ -68,7 +68,7 @@ function deserializeResponse(jsonResponse: GetPortfolioJSONResponse) {
 
 function serializeRequest(request: GetPortfolioRequest, core: MoralisCore) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }
