@@ -11,9 +11,9 @@
       "@moralisweb3/api-utils",
       "@moralisweb3/common-evm-utils",
       "@moralisweb3/common-sol-utils",
+      "@moralisweb3/common-streams-utils",
       "@moralisweb3/evm-api",
       "@moralisweb3/sol-api",
-      "@moralisweb3/common-streams-utils",
       "@moralisweb3/client-firebase-auth-utils",
       "@moralisweb3/client-firebase-evm-auth",
       "@moralisweb3/client-firebase-sol-auth"
