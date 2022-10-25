@@ -1,4 +1,4 @@
-import { CoreErrorCode, MoralisCoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/core';
+import { CoreErrorCode, MoralisCoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/common-core';
 import { PublicKey } from '@solana/web3.js';
 
 /**

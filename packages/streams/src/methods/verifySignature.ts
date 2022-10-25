@@ -1,5 +1,5 @@
 import { ApiUtilsConfig } from '@moralisweb3/api-utils';
-import { MoralisCore, MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
+import { MoralisCore, MoralisStreamError, StreamErrorCode } from '@moralisweb3/common-core';
 import { IWebhook } from '@moralisweb3/streams-typings';
 import { sha3 } from '../utils/sha3';
 

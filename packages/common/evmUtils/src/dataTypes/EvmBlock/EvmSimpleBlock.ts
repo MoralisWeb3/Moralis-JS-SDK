@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisDataObject, BigNumber, dateInputToDate, MoralisCoreProvider } from '@moralisweb3/core';
+import MoralisCore, { MoralisDataObject, BigNumber, dateInputToDate, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { EvmChain } from '../EvmChain';
 import { EvmBlockish } from './EvmBlock';
 import { EvmSimpleBlockInput, EvmSimpleBlockData } from './types';

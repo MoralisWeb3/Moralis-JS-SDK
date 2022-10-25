@@ -1,5 +1,5 @@
 import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
+import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { BASE_URL } from '../MoralisAuth';
 import { completeChallengeEvm, completeChallengeSol } from '../resolvers';
 import { AuthNetworkType } from '../utils/AuthNetworkType';

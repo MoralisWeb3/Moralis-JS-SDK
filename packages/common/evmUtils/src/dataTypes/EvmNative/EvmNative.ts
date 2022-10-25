@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/common-core';
 
 /**
  * Type containing valid EVM native units

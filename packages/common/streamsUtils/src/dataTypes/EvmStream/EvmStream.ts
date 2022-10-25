@@ -1,4 +1,4 @@
-import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmChain } from '@moralisweb3/common-evm-utils';
 import { EvmStreamData, EvmStreamInput, EvmStreamJSON } from './types';
 

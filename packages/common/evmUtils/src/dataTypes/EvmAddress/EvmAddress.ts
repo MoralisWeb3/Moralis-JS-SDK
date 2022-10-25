@@ -6,7 +6,7 @@ import {
   CoreErrorCode,
   MoralisCoreError,
   MoralisData,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 

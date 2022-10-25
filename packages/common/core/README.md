@@ -1,6 +1,6 @@
-# @moralisweb3/core
+# @moralisweb3/common-core
 
-The `@moralisweb3/core` should be used in _every_ application that uses Moralis. It is already included if you install the unbrella package `moralis`.
+The `@moralisweb3/common-core` should be used in _every_ application that uses Moralis. It is already included if you install the unbrella package `moralis`.
 
 The core responsibilities of this package are
 
@@ -13,7 +13,7 @@ The core responsibilities of this package are
 
 # Table of contents
 
-- [@moralisweb3/core](#moraliscore)
+- [@moralisweb3/common-core](#moraliscore)
 - [Table of contents](#table-of-contents)
 - [Modules](#modules)
   - [Registering modules via `registerModules()`](#registering-modules-via-registermodules)
@@ -40,7 +40,7 @@ You can do this by using the `registerModules()` function. This should be done *
 _Example when using Moralis with the evm network, evm api and server_
 
 ```js
-import * as Core from '@moralisweb3/core';
+import * as Core from '@moralisweb3/common-core';
 import EvmApi from '@moralisweb3/evm-api';
 
 Core.registerModules([EvmApi]);
@@ -53,7 +53,7 @@ You can start every package separately via a `start()` function. But easier is t
 You can provide a configuration object (see [Config](#config)). Some config options are required, depending on what packages you have registered (for example you will need a `apiKey` for any api package).
 
 ```js
-import * as Core from '@moralisweb3/core';
+import * as Core from '@moralisweb3/common-core';
 
 Core.start({
   apiKey: '<YOUR_API_KEY>',

@@ -1,4 +1,4 @@
-import { MoralisCoreProvider, RequestController } from '@moralisweb3/core';
+import { MoralisCoreProvider, RequestController } from '@moralisweb3/common-core';
 import config from '../config';
 
 export class ParseServerRequest {

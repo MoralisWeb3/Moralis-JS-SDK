@@ -1,4 +1,4 @@
-import { BigNumber, MoralisDataObject, MoralisDataObjectValue } from '@moralisweb3/core';
+import { BigNumber, MoralisDataObject, MoralisDataObjectValue } from '@moralisweb3/common-core';
 import { splitSignature, joinSignature, Signature as EthersSignature, hexlify } from '@ethersproject/bytes';
 import { EvmSignatureInput } from './types';
 

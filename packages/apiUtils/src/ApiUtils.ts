@@ -1,4 +1,4 @@
-import { Module, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { Module, MoralisCore, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { ApiUtilsConfigSetup } from './config/ApiUtilsConfigSetup';
 
 export class ApiUtils extends Module {

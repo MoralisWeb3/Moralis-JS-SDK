@@ -1,4 +1,4 @@
-import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import {
   makeVerify,

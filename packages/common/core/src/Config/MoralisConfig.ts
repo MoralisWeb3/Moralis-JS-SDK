@@ -2,7 +2,7 @@ import { SolNetworkish } from './interfaces';
 import { CoreConfig, EvmAddressFormat, EvmChainIdFormat } from './CoreConfig';
 import { EvmChainish } from './interfaces/EvmChainish';
 
-// @moralisweb3/core
+// @moralisweb3/common-core
 type CoreConfigType = typeof CoreConfig;
 type CoreConfigValues = Omit<{ [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] }, 'product'>;
 

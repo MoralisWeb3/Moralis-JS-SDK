@@ -1,4 +1,4 @@
-import { MoralisCore } from '@moralisweb3/core';
+import { MoralisCore } from '@moralisweb3/common-core';
 import { EvmAddress } from './EvmAddress';
 import { setupEvmUtils } from '../../test/setup';
 

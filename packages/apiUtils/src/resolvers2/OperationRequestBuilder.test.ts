@@ -1,4 +1,4 @@
-import MoralisCore, { Operation, OperationRequestPropertiesBody } from '@moralisweb3/core';
+import MoralisCore, { Operation, OperationRequestPropertiesBody } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 

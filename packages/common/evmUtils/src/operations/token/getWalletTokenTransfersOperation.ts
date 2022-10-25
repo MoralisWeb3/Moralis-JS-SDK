@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/core';
+import { MoralisCore, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/common-core';
 import { Erc20Transfer, EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';

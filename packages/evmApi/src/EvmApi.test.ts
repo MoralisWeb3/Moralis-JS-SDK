@@ -1,4 +1,4 @@
-import { MoralisCore, AxiosRetry } from '@moralisweb3/core';
+import { MoralisCore, AxiosRetry } from '@moralisweb3/common-core';
 import { ApiUtils, ApiUtilsConfig } from '@moralisweb3/api-utils';
 import { EvmApi } from './EvmApi';
 

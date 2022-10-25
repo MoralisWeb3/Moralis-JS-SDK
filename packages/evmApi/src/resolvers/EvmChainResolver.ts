@@ -1,4 +1,4 @@
-import { MoralisCore } from '@moralisweb3/core';
+import { MoralisCore } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmChainResolver as CommonEvmChainResolver } from '@moralisweb3/common-evm-utils';
 
 // TODO: we need to remove this class after refactor.

@@ -1,4 +1,4 @@
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { CommonEvmUtils } from '../CommonEvmUtils';
 
 export const setupEvmUtils = () => {

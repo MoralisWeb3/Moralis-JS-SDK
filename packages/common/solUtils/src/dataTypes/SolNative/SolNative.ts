@@ -5,7 +5,7 @@ import {
   MoralisCoreError,
   BigNumberish,
   BigNumber,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 
 /**
  * Type containing valid Solana native units

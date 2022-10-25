@@ -1,7 +1,7 @@
 import { tryGetNextPageParams } from '../utils/tryGetNextPageParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
 import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
-import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
+import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/common-core';
 import { PaginatedResult, PaginatedEndpoint, PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
 

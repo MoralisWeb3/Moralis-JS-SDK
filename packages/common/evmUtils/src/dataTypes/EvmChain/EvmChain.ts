@@ -9,7 +9,7 @@ import {
   assertUnreachable,
   MoralisCore,
   EvmChainable,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
 /**

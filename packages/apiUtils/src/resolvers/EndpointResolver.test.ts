@@ -3,7 +3,7 @@ import { ApiFormatType } from './ApiResultAdapter';
 import axios from 'axios';
 import { EndpointResolver } from './EndpointResolver';
 import { setupApi } from '../test/setup';
-import { MoralisCore } from '@moralisweb3/core';
+import { MoralisCore } from '@moralisweb3/common-core';
 import { createEndpoint, createEndpointFactory } from './Endpoint';
 
 const MOCK_API_KEY = 'test-api-key';

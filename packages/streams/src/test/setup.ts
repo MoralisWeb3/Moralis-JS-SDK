@@ -1,4 +1,4 @@
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { MoralisStreams } from '../MoralisStreams';
 import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
 

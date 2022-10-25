@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { Camelize } from '@moralisweb3/core';
+import { Camelize } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EvmStream } from '@moralisweb3/common-streams-utils';
 import { operations } from '../../generated/types';

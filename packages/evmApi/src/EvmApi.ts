@@ -5,7 +5,7 @@ import {
   Operation,
   PaginatedOperation,
   PaginatedRequest,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import {
   getTokenAllowance,
   getTokenMetadata,

@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import MoralisCore from '@moralisweb3/common-core';
 import { CommonSolUtilsConfig } from './config/CommonSolUtilsConfig';
 import { SolNetwork, SolNetworkish, SolNetworkName } from './dataTypes';
 

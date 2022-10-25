@@ -1,4 +1,4 @@
-import { toCamel } from '@moralisweb3/core';
+import { toCamel } from '@moralisweb3/common-core';
 import { OpenApiInterfaceReader } from '@moralisweb3/test-utils';
 import { operations } from './operations';
 

@@ -1,4 +1,4 @@
-import { CoreErrorCode, MoralisCoreError } from '@moralisweb3/core';
+import { CoreErrorCode, MoralisCoreError } from '@moralisweb3/common-core';
 import { InputChainId } from './EvmChainish';
 
 const INVALID_VALUES = ['0x', '0x0', '0', 0];

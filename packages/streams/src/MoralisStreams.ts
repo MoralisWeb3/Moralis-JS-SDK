@@ -1,6 +1,6 @@
 import { getSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
-import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { makeCreateStream } from './methods/create';
 import { makeUpdateStream } from './methods/update';
 import { makeDeleteStream } from './methods/delete';

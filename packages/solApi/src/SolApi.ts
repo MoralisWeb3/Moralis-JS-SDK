@@ -1,5 +1,5 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { ApiModule, MoralisCore, MoralisCoreProvider, Operation } from '@moralisweb3/core';
+import { ApiModule, MoralisCore, MoralisCoreProvider, Operation } from '@moralisweb3/common-core';
 import {
   getBalanceOperation,
   getNFTMetadataOperation,

@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisDataObject, maybe, MoralisCoreProvider } from '@moralisweb3/core';
+import MoralisCore, { MoralisDataObject, maybe, MoralisCoreProvider } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20Input, Erc20Data } from './types';

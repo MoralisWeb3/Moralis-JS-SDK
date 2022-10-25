@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';

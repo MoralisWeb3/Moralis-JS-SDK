@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import MoralisCore from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc721Approval } from './StreamErc721Approval';
 import { mockStreamErc721Approval } from './StreamErc721Approval.mock';

@@ -4,7 +4,7 @@ import MoralisCore, {
   RequestController,
   PaginatedJSONResponse,
   PaginatedOperation,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 import { PaginatedResponseAdapter } from './PaginatedResponseAdapter';
 import { Pagination, readPagination } from './Pagination';

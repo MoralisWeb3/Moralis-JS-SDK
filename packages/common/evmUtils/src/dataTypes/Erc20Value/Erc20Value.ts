@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/common-core';
 import { Erc20Token, Erc20Tokenish } from '../Erc20/Erc20';
 
 const EVM_ERC20_DEFAULT_DECIMALS = 18;

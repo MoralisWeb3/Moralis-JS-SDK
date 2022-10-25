@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { MoralisCore, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';

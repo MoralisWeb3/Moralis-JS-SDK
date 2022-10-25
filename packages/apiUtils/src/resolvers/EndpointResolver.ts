@@ -1,4 +1,4 @@
-import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController, CoreConfig } from '@moralisweb3/core';
+import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController, CoreConfig } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { ApiResultAdapter } from './ApiResultAdapter';

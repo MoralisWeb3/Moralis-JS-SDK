@@ -5,7 +5,7 @@ import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
 import { EvmApi } from '@moralisweb3/evm-api';
 import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
 import { SolApi } from '@moralisweb3/sol-api';
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/common-core';
 
 // Core
 const core = MoralisCore.create();

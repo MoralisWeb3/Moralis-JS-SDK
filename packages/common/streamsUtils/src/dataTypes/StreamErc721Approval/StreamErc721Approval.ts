@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamErc721ApprovalData, StreamErc721ApprovalInput, StreamErc721ApprovalJSON } from './types';
 

@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core/lib';
+import MoralisCore from '@moralisweb3/common-core';
 import { Endpoint, EndpointBodyType } from './Endpoint';
 
 export interface PaginatedParams extends Record<string, unknown> {

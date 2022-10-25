@@ -1,6 +1,6 @@
 import { SolAddressish, SolNetworkish, SolAddress, SolNetwork } from '@moralisweb3/common-sol-utils';
 import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
+import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { BASE_URL } from '../MoralisAuth';
 import { initializeChallengeEvm, initializeChallengeSol } from '../resolvers';

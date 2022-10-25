@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import MoralisCore from '@moralisweb3/common-core';
 import { Endpoint, EndpointFactory, EndpointMethod } from './Endpoint';
 import { EndpointResolver } from './EndpointResolver';
 import { PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';

@@ -1,5 +1,5 @@
 /* eslint-disable etc/no-commented-out-code */
-import MoralisCore from '@moralisweb3/core';
+import MoralisCore from '@moralisweb3/common-core';
 import { EvmSimpleBlock, EvmChain } from '@moralisweb3/common-evm-utils';
 import {
   Block,

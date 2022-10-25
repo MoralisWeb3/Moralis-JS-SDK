@@ -5,7 +5,7 @@ import MoralisCore, {
   Operation,
   OperationRequestBody,
   OperationRequestValidator,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 import { ResponseAdapter } from './ResponseAdapter';

@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import MoralisCore from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { EvmStreamResult } from './EvmStreamResult';
 import { mockEvmStreamResult } from './EvmStreamResult.mock';

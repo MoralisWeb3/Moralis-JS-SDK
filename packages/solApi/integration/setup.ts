@@ -1,5 +1,5 @@
 import { ApiUtils } from '@moralisweb3/api-utils';
-import { MoralisCore } from '@moralisweb3/core';
+import { MoralisCore } from '@moralisweb3/common-core';
 import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
 import { SolApi } from '../src/SolApi';
 import { MOCK_API_KEY } from './mocks/config';

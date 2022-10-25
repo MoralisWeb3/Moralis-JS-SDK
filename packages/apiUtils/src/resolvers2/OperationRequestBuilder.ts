@@ -5,7 +5,7 @@ import MoralisCore, {
   OperationRequestBody,
   OperationRequestPropertiesBody,
   OperationRequestRawBody,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
 import { getCommonHeaders } from '../resolvers/getCommonHeaders';
 
