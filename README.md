@@ -199,7 +199,7 @@ The core module is required in all applications. It will handle global dependenc
 ##  Utilities
 | package                                              |  Changelog | Description |
 | ---------------------------------------------------- | --------- | ----------- |
-| [@moralisweb3/evm-utils](./packages/evmUtils) | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Utility functions and datatypes for EVM chains.         |
+| [@moralisweb3/common-evm-utils](./packages/common/evmUtils) | [CHANGELOG.md](./packages/common/evmApi/CHANGELOG.md)      |    Utility functions and datatypes for EVM chains.         |
 | [@moralisweb3/sol-utils](./packages/solUtils) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Utility functions and datatypes for Solana networks.         |
 | [@moralisweb3/api-utils](./packages/apiUtils) | [CHANGELOG.md](./packages/apiUtils/CHANGELOG.md)      |    Generic functions, used in all api logic within the SDK.         |
 

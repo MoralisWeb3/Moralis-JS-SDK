@@ -11,12 +11,14 @@ type BodyParams = operations[Name]['requestBody']['content']['application/json']
 type ApiParams = PathParams & BodyParams;
 export type UpdateStreamEvmStatusParams = ApiParams;
 const bodyParams = ['status'] as const;
+const urlParams = ['id'] as const;
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
 export const updateStreamEvmStatus = createEndpointFactory(() =>
   createEndpoint({
     name,
     getUrl: ({ id }: UpdateStreamEvmStatusParams) => `/streams/evm/${id}/status`,
+    urlParams,
     apiToResult: (data: ApiResult) => data,
     resultToJson: (data) => data,
     parseParams: (params: UpdateStreamEvmStatusParams): ApiParams => params,

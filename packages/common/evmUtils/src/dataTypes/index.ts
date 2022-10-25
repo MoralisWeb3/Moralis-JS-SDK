@@ -11,5 +11,6 @@ export * from './EvmNftCollection';
 export * from './EvmNftMetadata';
 export * from './EvmNftTrade';
 export * from './EvmNftTransfer';
+export * from './EvmSignature';
 export * from './EvmTransaction';
 export * from './EvmTransactionLog';

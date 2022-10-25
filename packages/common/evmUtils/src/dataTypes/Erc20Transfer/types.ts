@@ -16,7 +16,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *  blockTimestamp: "2021-04-02T10:07:54.000Z",
  *  blockHash: "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86",
  *  blockNumber: "12526958",
- *  transactionHash: "0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09"
+ *  transactionHash: "0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09",
  * }
  * ```
  */
@@ -39,8 +39,8 @@ export interface Erc20TransferData {
   chain: EvmChain;
   transactionHash: string;
   address: EvmAddress;
-  blockTimestamp: Date;
-  blockNumber: BigNumber;
+  blockTimestamp: DateInput;
+  blockNumber: BigNumberish;
   blockHash: string;
   toAddress: EvmAddress;
   fromAddress: EvmAddress;

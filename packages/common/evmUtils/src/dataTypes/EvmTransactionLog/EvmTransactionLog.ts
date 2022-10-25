@@ -1,7 +1,7 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
-import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
 import { EvmChain } from '../EvmChain';
+import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
 
 /**
  * This can be any valid {@link EvmTransactionLogInput} or {@link EvmTransactionLog}.
@@ -40,7 +40,8 @@ export class EvmTransactionLog implements MoralisDataObject {
 
   static parse(value: EvmTransactionLogInput, core: MoralisCore): EvmTransactionLogData {
     return {
-      logIndex: maybe(value.logIndex),
+      chain: EvmChain.create(value.chain, core),
+      logIndex: maybe(value.logIndex, (index) => +index),
       transactionHash: value.transactionHash,
       transactionIndex: maybe(value.transactionIndex),
       data: value.data,
@@ -49,7 +50,6 @@ export class EvmTransactionLog implements MoralisDataObject {
       blockNumber: value.blockNumber,
       blockTimestamp: value.blockTimestamp,
       address: EvmAddress.create(value.address, core),
-      chain: EvmChain.create(value.chain, core),
     };
   }
 
@@ -87,7 +87,7 @@ export class EvmTransactionLog implements MoralisDataObject {
     return {
       ...value,
       address: value.address.format(),
-      chain: value.chain?.format(),
+      chain: value.chain.format(),
     };
   }
 
@@ -142,6 +142,18 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
+   * Returns the chain of the log.
+   *
+   * @example
+   * ```ts
+   * log.chain; // EvmChain
+   * ```
+   */
+  get chain() {
+    return this._value.chain;
+  }
+
+  /**
    * @returns the log index of the log.
    *
    * @example
@@ -170,7 +182,7 @@ export class EvmTransactionLog implements MoralisDataObject {
    *
    * @example
    * ```ts
-   * log.topics; // ["0x0000000000000000000000000000000000000000000000000000000000000001", "0x0000000000000000000000000000000000000000000000000000000000000002"]
+   * log.topic0; // ["0x0000000000000000000000000000000000000000000000000000000000000001", "0x0000000000000000000000000000000000000000000000000000000000000002"]
    * ```
    */
   get topics() {
@@ -211,17 +223,5 @@ export class EvmTransactionLog implements MoralisDataObject {
    */
   get blockTimestamp() {
     return this._value.blockTimestamp;
-  }
-
-  /**
-   * @returns the chainId for the particular log.
-   *
-   * @example
-   * ```ts
-   * log.chainId; // "1"
-   * ```
-   */
-  get chain() {
-    return this._value.chain;
   }
 }

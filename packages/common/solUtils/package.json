@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
-    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
+    "test:coverage": "yarn run test  --coverage",
     "test:watch": "yarn run test --watch",
     "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/operations/openapi.ts",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",

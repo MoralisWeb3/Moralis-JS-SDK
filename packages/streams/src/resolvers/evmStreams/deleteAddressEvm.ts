@@ -12,6 +12,7 @@ type ApiParams = PathParams & BodyParams;
 export type DeleteAddressEvmParams = ApiParams;
 const method = 'delete';
 const bodyParams = ['address'] as const;
+const urlParams = ['id'] as const;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
@@ -27,7 +28,8 @@ const apiToResult = (apiData: ApiResult) => {
 export const deleteAddressEvm = createEndpointFactory(() =>
   createEndpoint({
     name,
-    getUrl: (params: DeleteAddressEvmParams) => `/streams/evm/${params.id}/address`,
+    getUrl: ({ id }: DeleteAddressEvmParams) => `/streams/evm/${id}/address`,
+    urlParams,
     apiToResult,
     resultToJson: (data) => ({
       ...data,
