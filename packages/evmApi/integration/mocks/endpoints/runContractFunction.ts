@@ -3,7 +3,7 @@ import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
 export const mockRunContractFunctions: Record<string, string> = {
-  '0xecc7f044aa1ce2ad9d2453b01b8732a051213ecf': '1000000000000000000000000',
+  '0xecC7F044aA1CE2aD9d2453b01b8732a051213Ecf': '1000000000000000000000000',
 };
 
 export const mockRunContractFunction = rest.post(`${EVM_API_ROOT}/:address/function`, (req, res, ctx) => {

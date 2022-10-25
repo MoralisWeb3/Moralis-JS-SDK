@@ -1,4 +1,11 @@
-import { ApiModule, MoralisCore, MoralisCoreProvider, PaginatedOperation, PaginatedRequest } from '@moralisweb3/core';
+import {
+  ApiModule,
+  MoralisCore,
+  MoralisCoreProvider,
+  Operation,
+  PaginatedOperation,
+  PaginatedRequest,
+} from '@moralisweb3/core';
 import {
   getTokenAllowance,
   getTokenMetadata,
@@ -13,8 +20,8 @@ import { resolveAddress, resolveDomain } from './resolvers/resolve';
 import { getBlock, getDateToBlock } from './resolvers/block';
 import { uploadFolder } from './resolvers/ipfs';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
-import { Endpoints, PaginatedOperationResolver } from '@moralisweb3/api-utils';
-import { endpointWeights, runContractFunction, web3ApiVersion } from './resolvers/utils';
+import { Endpoints, OperationResolver, PaginatedOperationResolver } from '@moralisweb3/api-utils';
+import { endpointWeights, web3ApiVersion } from './resolvers/utils';
 import {
   getContractNFTs,
   getNFTContractMetadata,
@@ -37,7 +44,7 @@ import {
 import { getContractEvents, getContractLogs } from './resolvers/events';
 import { getTransaction, getWalletTransactions } from './resolvers/transaction';
 import { getNativeBalance } from './resolvers/balance';
-import { getWalletTokenTransfersOperation } from '@moralisweb3/common-evm-utils';
+import { getWalletTokenTransfersOperation, runContractFunctionOperation } from '@moralisweb3/common-evm-utils';
 
 const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
@@ -314,7 +321,7 @@ export class EvmApi extends ApiModule {
   };
 
   public readonly utils = {
-    runContractFunction: this.endpoints.createFetcher(runContractFunction),
+    runContractFunction: this.createFetcher(runContractFunctionOperation),
     web3ApiVersion: () => this._utils.web3ApiVersion({}),
     endpointWeights: () => this._utils.endpointWeights({}),
   };
@@ -388,6 +395,12 @@ export class EvmApi extends ApiModule {
     web3ApiVersion: (_params?: unknown) =>
       this.deprecationWarning('info.web3ApiVersion', 'utils.web3ApiVersion', this._utils.web3ApiVersion)({}),
   };
+
+  private createFetcher<Request, JSONRequest, Response, JSONResponse>(
+    operation: Operation<Request, JSONRequest, Response, JSONResponse>,
+  ) {
+    return new OperationResolver(operation, BASE_URL, this.core).fetch;
+  }
 
   private createPaginatedFetcher<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>(
     operation: PaginatedOperation<Request, JSONRequest, Response, JSONResult>,
