@@ -1,6 +1,6 @@
 import { ConfigKey } from '@moralisweb3/core';
 
-export const ApiConfig = {
+export const ApiUtilsConfig = {
   apiKey: {
     name: 'apiKey',
     defaultValue: null,

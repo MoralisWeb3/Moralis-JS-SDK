@@ -8,7 +8,7 @@ import {
   MoralisData,
 } from '@moralisweb3/core';
 import { getAddress, isAddress } from '@ethersproject/address';
-import { EvmUtilsConfig } from '../../config/EvmUtilsConfig';
+import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
 /**
  * This can be any valid EVM address, formatted as lowercase or checksum.
@@ -99,7 +99,7 @@ export class EvmAddress implements MoralisData {
    * @example `address.format() // "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"`
    */
   format(style?: EvmAddressFormat) {
-    const formatStyle = style ?? this.config.get(EvmUtilsConfig.formatEvmAddress);
+    const formatStyle = style ?? this.config.get(CommonEvmUtilsConfig.formatEvmAddress);
 
     if (formatStyle === 'checksum') {
       return this.checksum;

@@ -1,14 +1,9 @@
 import { MoralisCore } from '@moralisweb3/core';
-import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
-import { EvmApiConfig } from '../config/EvmApiConfig';
+import { EvmChain, EvmChainish, EvmChainResolver as CommonEvmChainResolver } from '@moralisweb3/common-evm-utils';
 
+// TODO: we need to remove this class after refactor.
 export class EvmChainResolver {
   public static resolve(chain: EvmChainish | undefined, core: MoralisCore): EvmChain {
-    if (chain) {
-      return EvmChain.create(chain, core);
-    }
-
-    const defaultEvmChain = core.config.get(EvmApiConfig.defaultEvmApiChain);
-    return EvmChain.create(defaultEvmChain, core);
+    return CommonEvmChainResolver.resolve(chain, core);
   }
 }

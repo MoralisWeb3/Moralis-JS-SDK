@@ -1,9 +1,9 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { Erc20Transfer } from '@moralisweb3/common-evm-utils';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getWalletTokenTransfers', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi();

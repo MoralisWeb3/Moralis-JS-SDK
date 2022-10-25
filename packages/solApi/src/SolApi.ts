@@ -11,15 +11,15 @@ import {
 
 const BASE_URL = 'https://solana-gateway.moralis.io';
 
-export class MoralisSolApi extends ApiModule {
+export class SolApi extends ApiModule {
   public static readonly moduleName = 'solApi';
 
-  public static create(core?: MoralisCore): MoralisSolApi {
-    return new MoralisSolApi(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: MoralisCore): SolApi {
+    return new SolApi(core ?? MoralisCoreProvider.getDefault());
   }
 
   private constructor(core: MoralisCore) {
-    super(MoralisSolApi.moduleName, core, BASE_URL);
+    super(SolApi.moduleName, core, BASE_URL);
   }
 
   public setup() {

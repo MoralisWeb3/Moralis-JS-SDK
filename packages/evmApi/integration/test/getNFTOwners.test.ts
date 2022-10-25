@@ -1,9 +1,9 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { EvmNft } from '@moralisweb3/common-evm-utils';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getNFTOwners', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi();

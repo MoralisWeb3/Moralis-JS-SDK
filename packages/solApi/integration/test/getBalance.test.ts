@@ -1,8 +1,8 @@
-import { MoralisSolApi } from '../../src/MoralisSolApi';
+import { SolApi } from '../../src/SolApi';
 import { cleanSolApi, setupSolApi } from '../setup';
 
 describe('Moralis SolApi', () => {
-  let SolApi: MoralisSolApi;
+  let SolApi: SolApi;
 
   beforeAll(() => {
     SolApi = setupSolApi();

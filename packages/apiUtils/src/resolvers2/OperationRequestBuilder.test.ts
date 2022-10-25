@@ -1,5 +1,5 @@
 import MoralisCore, { Operation, OperationRequestPropertiesBody } from '@moralisweb3/core';
-import { ApiConfig } from '../config';
+import { ApiUtilsConfig } from '../config';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 
 export interface TestRequest {
@@ -49,8 +49,8 @@ describe('OperationRequestBuilder', () => {
 
   beforeEach(() => {
     core = MoralisCore.create();
-    core.config.registerKey(ApiConfig.apiKey);
-    core.config.set(ApiConfig.apiKey, API_KEY);
+    core.config.registerKey(ApiUtilsConfig.apiKey);
+    core.config.set(ApiUtilsConfig.apiKey, API_KEY);
     builder = new OperationRequestBuilder<TestRequest>(operation, core);
   });
 

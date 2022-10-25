@@ -10,7 +10,7 @@ import {
   MoralisCore,
   EvmChainable,
 } from '@moralisweb3/core';
-import { EvmUtilsConfig } from '../../config/EvmUtilsConfig';
+import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
 /**
  * This can be any valid EVM chain in decimal or hex.
@@ -232,7 +232,7 @@ export class EvmChain implements MoralisData, EvmChainable {
    * @returns The formatted chain
    */
   format(_formatStyle?: EvmChainIdFormat) {
-    const formatStyle = _formatStyle ?? this.config.get(EvmUtilsConfig.formatEvmChainId);
+    const formatStyle = _formatStyle ?? this.config.get(CommonEvmUtilsConfig.formatEvmChainId);
 
     if (formatStyle === 'decimal') {
       return this.decimal;

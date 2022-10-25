@@ -41,15 +41,15 @@ import { getWalletTokenTransfersOperation } from '@moralisweb3/common-evm-utils'
 
 const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
-export class MoralisEvmApi extends ApiModule {
+export class EvmApi extends ApiModule {
   public static readonly moduleName = 'evmApi';
 
-  public static create(core?: MoralisCore): MoralisEvmApi {
-    return new MoralisEvmApi(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: MoralisCore): EvmApi {
+    return new EvmApi(core ?? MoralisCoreProvider.getDefault());
   }
 
   private constructor(core: MoralisCore) {
-    super(MoralisEvmApi.moduleName, core, BASE_URL);
+    super(EvmApi.moduleName, core, BASE_URL);
   }
 
   public setup() {

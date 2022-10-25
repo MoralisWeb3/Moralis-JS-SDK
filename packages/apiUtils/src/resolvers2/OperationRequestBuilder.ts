@@ -6,7 +6,7 @@ import MoralisCore, {
   OperationRequestPropertiesBody,
   OperationRequestRawBody,
 } from '@moralisweb3/core';
-import { ApiConfig } from '../config';
+import { ApiUtilsConfig } from '../config';
 import { getCommonHeaders } from '../resolvers/getCommonHeaders';
 
 export class OperationRequestBuilder<Request> {
@@ -65,7 +65,7 @@ export class OperationRequestBuilder<Request> {
   }
 
   public prepareHeaders(): Record<string, string> {
-    const apiKey = this.core.config.get(ApiConfig.apiKey);
+    const apiKey = this.core.config.get(ApiUtilsConfig.apiKey);
 
     if (!apiKey) {
       throw new MoralisApiError({

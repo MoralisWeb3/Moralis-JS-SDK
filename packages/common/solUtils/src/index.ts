@@ -1,4 +1,4 @@
 export * from './dataTypes';
-export * from './MoralisSolUtils';
+export * from './CommonSolUtils';
 export * from './operations';
 export * from './config';

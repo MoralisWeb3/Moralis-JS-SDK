@@ -1,8 +1,8 @@
 import { Config, ConfigKey, EvmAddressFormat, EvmChainIdFormat } from '@moralisweb3/core';
-import { EvmUtilsConfig } from './EvmUtilsConfig';
-import { EvmUtilsConfigSetup } from './EvmUtilsConfigSetup';
+import { CommonEvmUtilsConfig } from './CommonEvmUtilsConfig';
+import { CommonEvmUtilsConfigSetup } from './CommonEvmUtilsConfigSetup';
 
-describe('EvmUtilsConfig', () => {
+describe('CommonEvmUtilsConfigSetup', () => {
   let config: Config;
 
   function testSetAndGet<T>(key: ConfigKey<T>, value: T) {
@@ -15,9 +15,9 @@ describe('EvmUtilsConfig', () => {
 
   beforeEach(() => {
     config = new Config();
-    EvmUtilsConfigSetup.register(config);
+    CommonEvmUtilsConfigSetup.register(config);
   });
 
-  testSetAndGet<EvmChainIdFormat>(EvmUtilsConfig.formatEvmChainId, 'decimal');
-  testSetAndGet<EvmAddressFormat>(EvmUtilsConfig.formatEvmAddress, 'checksum');
+  testSetAndGet<EvmChainIdFormat>(CommonEvmUtilsConfig.formatEvmChainId, 'decimal');
+  testSetAndGet<EvmAddressFormat>(CommonEvmUtilsConfig.formatEvmAddress, 'checksum');
 });

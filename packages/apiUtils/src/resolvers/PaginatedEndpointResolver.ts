@@ -1,6 +1,6 @@
 import { tryGetNextPageParams } from '../utils/tryGetNextPageParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
-import { ApiConfig } from '../config/ApiConfig';
+import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
 import { PaginatedResult, PaginatedEndpoint, PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
@@ -96,7 +96,7 @@ export class PaginatedEndpointResolver<
   }
 
   private createHeaders(): { [key: string]: string } {
-    const apiKey = this.config.get(ApiConfig.apiKey);
+    const apiKey = this.config.get(ApiUtilsConfig.apiKey);
     if (!apiKey) {
       throw new MoralisApiError({
         code: ApiErrorCode.API_KEY_NOT_SET,

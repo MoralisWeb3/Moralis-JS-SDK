@@ -1,19 +1,19 @@
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
+import { ApiUtils } from '@moralisweb3/api-utils';
 import { MoralisCore } from '@moralisweb3/core';
-import { MoralisEvmUtils } from '@moralisweb3/common-evm-utils';
-import { MoralisEvmApi } from '../src/EvmApi';
+import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
+import { EvmApi } from '../src/EvmApi';
 import { MOCK_API_KEY } from './mocks/config';
 import { mockServer } from './mocks/mockServer';
 
-export function setupEvmApi(): MoralisEvmApi {
+export function setupEvmApi(): EvmApi {
   const core = MoralisCore.create();
-  const apiUtils = MoralisApiUtils.create(core);
-  const evmUtils = MoralisEvmUtils.create(core);
-  const evmApi = MoralisEvmApi.create(core);
+  const apiUtils = ApiUtils.create(core);
+  const commonEvmUtils = CommonEvmUtils.create(core);
+  const evmApi = EvmApi.create(core);
 
   // DO NOT SET `MoralisCoreProvider.setDefault(core)` here!
 
-  core.registerModules([apiUtils, evmUtils, evmApi]);
+  core.registerModules([apiUtils, commonEvmUtils, evmApi]);
   core.start({
     apiKey: MOCK_API_KEY,
   });

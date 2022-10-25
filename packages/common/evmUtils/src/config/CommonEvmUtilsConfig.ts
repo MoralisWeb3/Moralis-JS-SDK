@@ -1,7 +1,7 @@
 import { ConfigKey, EvmChainIdFormat, EvmAddressFormat } from '@moralisweb3/core';
 import { EvmChainish } from '../dataTypes';
 
-export const EvmUtilsConfig = {
+export const CommonEvmUtilsConfig = {
   formatEvmChainId: {
     name: 'formatEvmChainId',
     defaultValue: 'hex',

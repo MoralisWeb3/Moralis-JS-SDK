@@ -1,4 +1,4 @@
-import { ApiConfig } from '../config/ApiConfig';
+import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import axios from 'axios';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EndpointBodyType } from './Endpoint';
@@ -77,7 +77,7 @@ describe('PaginatedEndpointResolver', () => {
   >;
   beforeAll(() => {
     core = setupApi();
-    core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
+    core.config.set(ApiUtilsConfig.apiKey, MOCK_API_KEY);
 
     const mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {

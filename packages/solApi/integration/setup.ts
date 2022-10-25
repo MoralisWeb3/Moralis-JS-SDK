@@ -1,19 +1,19 @@
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
+import { ApiUtils } from '@moralisweb3/api-utils';
 import { MoralisCore } from '@moralisweb3/core';
-import { MoralisSolUtils } from '@moralisweb3/common-sol-utils';
-import { MoralisSolApi } from '../src/MoralisSolApi';
+import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
+import { SolApi } from '../src/SolApi';
 import { MOCK_API_KEY } from './mocks/config';
 import { mockServer } from './mocks/mockServer';
 
-export function setupSolApi(): MoralisSolApi {
+export function setupSolApi(): SolApi {
   const core = MoralisCore.create();
-  const apiUtils = MoralisApiUtils.create(core);
-  const solUtils = MoralisSolUtils.create(core);
-  const solApi = MoralisSolApi.create(core);
+  const apiUtils = ApiUtils.create(core);
+  const commonSolUtils = CommonSolUtils.create(core);
+  const solApi = SolApi.create(core);
 
   // DO NOT SET `MoralisCoreProvider.setDefault(core)` here!
 
-  core.registerModules([apiUtils, solUtils, solApi]);
+  core.registerModules([apiUtils, commonSolUtils, solApi]);
   core.start({
     apiKey: MOCK_API_KEY,
   });

@@ -1,2 +1,2 @@
-export * from './SolUtilsConfigSetup';
-export * from './SolUtilsConfig';
+export * from './CommonSolUtilsConfigSetup';
+export * from './CommonSolUtilsConfig';

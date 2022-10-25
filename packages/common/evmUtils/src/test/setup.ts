@@ -1,10 +1,10 @@
 import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
-import { MoralisEvmUtils } from '../MoralisEvmUtils';
+import { CommonEvmUtils } from '../CommonEvmUtils';
 
 export const setupEvmUtils = () => {
   const core = MoralisCore.create();
-  const evmUtils = MoralisEvmUtils.create(core);
-  core.registerModule(evmUtils);
+  const commonEvmUtils = CommonEvmUtils.create(core);
+  core.registerModule(commonEvmUtils);
 
   MoralisCoreProvider.setDefault(core);
   return core;
