@@ -1,4 +1,9 @@
-import MoralisCore, { MoralisDataObject, BigNumber, dateInputToDate, MoralisCoreProvider } from '@moralisweb3/common-core';
+import MoralisCore, {
+  MoralisDataObject,
+  BigNumber,
+  dateInputToDate,
+  MoralisCoreProvider,
+} from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransaction } from '../EvmTransaction';
