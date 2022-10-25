@@ -102,10 +102,14 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
       });
     }
 
-    const headers = getCommonHeaders(product);
+    const headers = getCommonHeaders();
 
     if (apiKey) {
       headers['x-api-key'] = apiKey;
+    }
+
+    if (product) {
+      headers['x-moralis-product'] = product;
     }
 
     return headers;

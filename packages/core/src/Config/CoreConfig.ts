@@ -25,6 +25,6 @@ export const CoreConfig = {
 
   product: {
     name: 'product',
-    defaultValue: 'JS SDK',
-  } as ConfigKey<string>,
+    defaultValue: undefined,
+  } as ConfigKey<string | undefined>,
 };
