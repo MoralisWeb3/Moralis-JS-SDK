@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.6.7
+
+### Patch Changes
+
+- [#768](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/768) [`6701030e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6701030e0a989804e44cbd25de3d33dfdc85fd7b) Thanks [@sogunshola](https://github.com/sogunshola)! - Move streams-typings from dev dependencies to dependencies in streams package and also correct export name in umbrella package
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.7
+  - @moralisweb3/api-utils@2.6.7
+  - @moralisweb3/evm-utils@2.6.7
+
 ## 2.6.6
 
 ### Patch Changes

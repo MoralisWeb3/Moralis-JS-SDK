@@ -22,4 +22,9 @@ export const CoreConfig = {
     name: 'defaultNetwork',
     defaultValue: 'Evm',
   } as ConfigKey<Network>,
+
+  product: {
+    name: 'product',
+    defaultValue: undefined,
+  } as ConfigKey<string | undefined>,
 };
