@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-streams-utils",
   "author": "Moralis",
-  "version": "2.6.6",
+  "version": "2.6.7",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
