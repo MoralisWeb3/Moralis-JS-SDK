@@ -145,6 +145,6 @@ jobs:
             evm-api, ./packages/evmApi/coverage/coverage-summary.json
             common-evm-utils, ./packages/common/evmUtils/coverage/coverage-summary.json
             sol-api, ./packages/solApi/coverage/coverage-summary.json
-            sol-utils, ./packages/solUtils/coverage/coverage-summary.json
+            common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
             common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
