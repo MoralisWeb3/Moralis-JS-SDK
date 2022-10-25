@@ -27,7 +27,7 @@ const operation: Operation<TestRequest, unknown, unknown, unknown> = {
   getRequestBody: (request) => {
     return {
       password: request.password,
-      extraBodyParam: 300,
+      extraBodyParam: 900,
     };
   },
   deserializeResponse: () => {
@@ -79,7 +79,7 @@ describe('OperationRequestBuilder', () => {
 
       expect(Object.keys(body).length).toBe(2);
       expect(body['password']).toBe('foo');
-      expect(body['extraBodyParam']).toBe(300);
+      expect(body['extraBodyParam']).toBe(900);
     });
   });
 

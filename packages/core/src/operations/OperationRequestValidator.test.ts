@@ -30,7 +30,7 @@ describe('OperationRequestValidator', () => {
         someNotSupportedParam: -1,
       } as any);
     }).toThrowError(
-      'Request contains unknown parameter: someNotSupportedParam. This operation supports the fallowing parameters: alfa, beta, gamma',
+      'Request contains unknown parameter: someNotSupportedParam. This operation supports the following parameters: alfa, beta, gamma',
     );
   });
 });

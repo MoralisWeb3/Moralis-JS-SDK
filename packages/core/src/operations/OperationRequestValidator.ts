@@ -17,11 +17,10 @@ export class OperationRequestValidator<Request> {
 
     for (const paramName of requestParamNames) {
       if (!this.allParamNames.includes(paramName as keyof Request)) {
+        const allParamsNames = this.allParamNames.join(', ');
         throw new MoralisError({
           code: CoreErrorCode.INVALID_ARGUMENT,
-          message: `Request contains unknown parameter: ${paramName}. This operation supports the fallowing parameters: ${this.allParamNames.join(
-            ', ',
-          )}`,
+          message: `Request contains unknown parameter: ${paramName}. This operation supports the following parameters: ${allParamsNames}`,
         });
       }
     }
