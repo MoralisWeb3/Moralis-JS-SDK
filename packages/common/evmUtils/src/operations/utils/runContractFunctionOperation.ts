@@ -71,7 +71,7 @@ function deserializeResponse(jsonResponse: RunContractFunctionJSONResponse) {
 
 function serializeRequest(request: RunContractFunctionRequest, core: MoralisCore) {
   return {
-    address: EvmAddress.create(request.address, core).toString(),
+    address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
     providerUrl: request.providerUrl,
