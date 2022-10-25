@@ -1,5 +1,5 @@
-import { MoralisSolApi } from './MoralisSolApi';
+import { SolApi } from './SolApi';
 
-export * from './MoralisSolApi';
+export * from './SolApi';
 
-export default { MoralisSolApi };
+export default { SolApi };

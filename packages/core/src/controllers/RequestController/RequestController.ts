@@ -20,7 +20,7 @@ export class RequestController {
 
   private constructor(private readonly logger: LoggerController) {}
 
-  private async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
+  public async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
     this.logger.verbose('[RequestController] request started', {
       url: config.url,
       method: config.method,
@@ -88,7 +88,7 @@ export class RequestController {
     });
   }
 
-  public post<Response, Body extends Record<string, unknown>>(
+  public post<Response, Body>(
     url: string,
     searchParams?: Record<string, unknown>,
     body?: Body,
@@ -105,7 +105,7 @@ export class RequestController {
     });
   }
 
-  public put<Response, Body extends Record<string, unknown>>(
+  public put<Response, Body>(
     url: string,
     searchParams?: Record<string, unknown>,
     body?: Body,
@@ -137,7 +137,7 @@ export class RequestController {
     });
   }
 
-  public async delete<Response, Body extends Record<string, unknown>>(
+  public async delete<Response, Body>(
     url: string,
     searchParams?: Record<string, unknown>,
     body?: Body,

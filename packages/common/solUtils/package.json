@@ -1,0 +1,32 @@
+{
+  "name": "@moralisweb3/common-sol-utils",
+  "author": "Moralis",
+  "version": "2.6.7",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib/*"
+  ],
+  "scripts": {
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test:coverage": "yarn run test  --coverage",
+    "test:watch": "yarn run test --watch",
+    "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/operations/openapi.ts",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^5.2.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@moralisweb3/core": "^2.6.7",
+    "@solana/web3.js": "^1.56.2"
+  }
+}

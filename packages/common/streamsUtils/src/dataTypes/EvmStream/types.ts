@@ -1,4 +1,4 @@
-import { EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EvmAbi } from '../EvmAbi';
 
 export type EvmStreamAdvancedOptions = {

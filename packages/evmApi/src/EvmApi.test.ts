@@ -1,15 +1,15 @@
 import { MoralisCore, AxiosRetry } from '@moralisweb3/core';
-import { MoralisApiUtils, ApiConfig } from '@moralisweb3/api-utils';
-import { MoralisEvmApi } from './EvmApi';
+import { ApiUtils, ApiUtilsConfig } from '@moralisweb3/api-utils';
+import { EvmApi } from './EvmApi';
 
 describe('EvmApi', () => {
   it('supports multi-tenancy', async () => {
-    function createEvmApi(apiKey: string): MoralisEvmApi {
+    function createEvmApi(apiKey: string): EvmApi {
       const core = MoralisCore.create();
-      const apiUtils = MoralisApiUtils.create(core);
-      const evmApi = MoralisEvmApi.create(core);
+      const apiUtils = ApiUtils.create(core);
+      const evmApi = EvmApi.create(core);
       core.registerModules([apiUtils, evmApi]);
-      core.config.set(ApiConfig.apiKey, apiKey);
+      core.config.set(ApiUtilsConfig.apiKey, apiKey);
       return evmApi;
     }
 

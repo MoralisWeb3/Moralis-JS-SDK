@@ -1,5 +1,5 @@
 import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
 
 type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;

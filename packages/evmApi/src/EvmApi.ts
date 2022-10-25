@@ -1,4 +1,11 @@
-import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import {
+  ApiModule,
+  MoralisCore,
+  MoralisCoreProvider,
+  Operation,
+  PaginatedOperation,
+  PaginatedRequest,
+} from '@moralisweb3/core';
 import {
   getTokenAllowance,
   getTokenMetadata,
@@ -13,8 +20,8 @@ import { resolveAddress, resolveDomain } from './resolvers/resolve';
 import { getBlock, getDateToBlock } from './resolvers/block';
 import { uploadFolder } from './resolvers/ipfs';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
-import { Endpoints } from '@moralisweb3/api-utils';
-import { endpointWeights, runContractFunction, web3ApiVersion } from './resolvers/utils';
+import { Endpoints, OperationResolver, PaginatedOperationResolver } from '@moralisweb3/api-utils';
+import { endpointWeights, web3ApiVersion } from './resolvers/utils';
 import {
   getContractNFTs,
   getNFTContractMetadata,
@@ -37,18 +44,19 @@ import {
 import { getContractEvents, getContractLogs } from './resolvers/events';
 import { getTransaction, getWalletTransactions } from './resolvers/transaction';
 import { getNativeBalance } from './resolvers/balance';
+import { getWalletTokenTransfersOperation, runContractFunctionOperation } from '@moralisweb3/common-evm-utils';
 
 const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 
-export class MoralisEvmApi extends ApiModule {
+export class EvmApi extends ApiModule {
   public static readonly moduleName = 'evmApi';
 
-  public static create(core?: MoralisCore): MoralisEvmApi {
-    return new MoralisEvmApi(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: MoralisCore): EvmApi {
+    return new EvmApi(core ?? MoralisCoreProvider.getDefault());
   }
 
   private constructor(core: MoralisCore) {
-    super(MoralisEvmApi.moduleName, core, BASE_URL);
+    super(EvmApi.moduleName, core, BASE_URL);
   }
 
   public setup() {
@@ -85,9 +93,12 @@ export class MoralisEvmApi extends ApiModule {
     getTokenTransfers: this.endpoints.createPaginatedFetcher(getTokenTransfers),
   };
 
+  // TODO: we need to remove this after refactor. I keep it, to feed the endpoint collection.
+  protected readonly _oldGetWalletTokenTransfer = this.endpoints.createPaginatedFetcher(getWalletTokenTransfers);
+
   public readonly token = {
     getWalletTokenBalances: this.endpoints.createFetcher(getWalletTokenBalances),
-    getWalletTokenTransfers: this.endpoints.createPaginatedFetcher(getWalletTokenTransfers),
+    getWalletTokenTransfers: this.createPaginatedFetcher(getWalletTokenTransfersOperation),
     getTokenMetadata: this.endpoints.createFetcher(getTokenMetadata),
     getTokenMetadataBySymbol: this.endpoints.createFetcher(getTokenMetadataBySymbol),
     getTokenPrice: this.endpoints.createFetcher(getTokenPrice),
@@ -310,7 +321,7 @@ export class MoralisEvmApi extends ApiModule {
   };
 
   public readonly utils = {
-    runContractFunction: this.endpoints.createFetcher(runContractFunction),
+    runContractFunction: this.createFetcher(runContractFunctionOperation),
     web3ApiVersion: () => this._utils.web3ApiVersion({}),
     endpointWeights: () => this._utils.endpointWeights({}),
   };
@@ -384,6 +395,18 @@ export class MoralisEvmApi extends ApiModule {
     web3ApiVersion: (_params?: unknown) =>
       this.deprecationWarning('info.web3ApiVersion', 'utils.web3ApiVersion', this._utils.web3ApiVersion)({}),
   };
+
+  private createFetcher<Request, JSONRequest, Response, JSONResponse>(
+    operation: Operation<Request, JSONRequest, Response, JSONResponse>,
+  ) {
+    return new OperationResolver(operation, BASE_URL, this.core).fetch;
+  }
+
+  private createPaginatedFetcher<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>(
+    operation: PaginatedOperation<Request, JSONRequest, Response, JSONResult>,
+  ) {
+    return new PaginatedOperationResolver(operation, BASE_URL, this.core).fetch;
+  }
 
   private deprecationWarning<Params, Response>(
     oldName: string,

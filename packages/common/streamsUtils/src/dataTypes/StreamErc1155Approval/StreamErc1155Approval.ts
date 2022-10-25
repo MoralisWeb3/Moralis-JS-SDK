@@ -1,5 +1,5 @@
 import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamErc1155ApprovalData, StreamErc1155ApprovalInput, StreamErc1155ApprovalJSON } from './types';
 
 export type StreamErc1155Approvalish = StreamErc1155ApprovalInput | StreamErc1155Approval;

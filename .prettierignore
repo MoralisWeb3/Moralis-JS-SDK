@@ -11,6 +11,7 @@ lib.esm
 packages/**/generated/**/*
 **/generated/**/*
 packages/core/src/version.ts
+**/src/operations/openapi.ts
 
 node_modules
 

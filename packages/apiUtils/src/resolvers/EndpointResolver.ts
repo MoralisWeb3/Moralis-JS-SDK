@@ -1,5 +1,5 @@
 import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController, CoreConfig } from '@moralisweb3/core';
-import { ApiConfig } from '../config/ApiConfig';
+import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { ApiResultAdapter } from './ApiResultAdapter';
 import { Endpoint, EndpointFactory } from './Endpoint';
@@ -92,7 +92,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
   }
 
   private createHeaders(): { [key: string]: string } {
-    const apiKey = this.config.get(ApiConfig.apiKey);
+    const apiKey = this.config.get(ApiUtilsConfig.apiKey);
     const product = this.config.get(CoreConfig.product);
 
     if (!apiKey) {

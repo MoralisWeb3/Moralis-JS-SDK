@@ -1,6 +1,5 @@
 import { BigNumber, BigNumberish } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/evm-utils';
-import { EvmSignature } from '@moralisweb3/evm-utils/lib/dataTypes/EvmSignature/EvmSignature';
+import { EvmAddress, EvmAddressish, EvmChainish, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
 
 export interface StreamEvmTransactionInput {
   chain: EvmChainish;

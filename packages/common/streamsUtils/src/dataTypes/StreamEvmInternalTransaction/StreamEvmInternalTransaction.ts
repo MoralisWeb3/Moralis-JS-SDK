@@ -1,5 +1,5 @@
 import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import {
   StreamEvmInternalTransactionData,
   StreamEvmInternalTransactionInput,

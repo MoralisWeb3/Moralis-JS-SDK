@@ -1,4 +1,4 @@
-import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/common-evm-utils';
 
 export interface StreamErc1155ApprovalInput {
   chain: EvmChainish;

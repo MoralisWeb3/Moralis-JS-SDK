@@ -1,4 +1,4 @@
-import { EvmChain, EvmSimpleBlock } from '@moralisweb3/evm-utils';
+import { EvmChain, EvmSimpleBlock } from '@moralisweb3/common-evm-utils';
 import { IWebhook } from '@moralisweb3/streams-typings';
 import { EvmAbi } from '../EvmAbi';
 import { StreamErc1155Approval } from '../StreamErc1155Approval/StreamErc1155Approval';

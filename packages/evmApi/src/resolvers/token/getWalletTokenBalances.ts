@@ -1,5 +1,5 @@
 import { Camelize } from '@moralisweb3/core';
-import { Erc20Value, EvmAddressish, EvmChainish, EvmAddress } from '@moralisweb3/evm-utils';
+import { Erc20Value, EvmAddressish, EvmChainish, EvmAddress } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { EvmChainResolver } from '../EvmChainResolver';

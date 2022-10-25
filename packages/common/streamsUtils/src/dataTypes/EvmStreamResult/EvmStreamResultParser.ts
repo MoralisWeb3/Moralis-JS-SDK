@@ -1,6 +1,6 @@
 /* eslint-disable etc/no-commented-out-code */
 import MoralisCore from '@moralisweb3/core';
-import { EvmSimpleBlock, EvmChain } from '@moralisweb3/evm-utils';
+import { EvmSimpleBlock, EvmChain } from '@moralisweb3/common-evm-utils';
 import {
   Block,
   IERC20Approval,

@@ -1,6 +1,5 @@
 import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
-import { EvmAddress, EvmChain } from '@moralisweb3/evm-utils';
-import { EvmSignature } from '@moralisweb3/evm-utils/lib/dataTypes/EvmSignature/EvmSignature';
+import { EvmAddress, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
 import { StreamEvmTransactionData, StreamEvmTransactionInput, StreamEvmTransactionJSON } from './types';
 
 type StreamEvmTransactionish = StreamEvmTransaction | StreamEvmTransactionInput;

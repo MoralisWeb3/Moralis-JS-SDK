@@ -1,8 +1,8 @@
-import { MoralisSolApi } from '../../src/MoralisSolApi';
+import { SolApi } from '../../src/SolApi';
 import { cleanSolApi, setupSolApi } from '../setup';
 
 describe('Moralis SolApi', () => {
-  let SolApi: MoralisSolApi;
+  let SolApi: SolApi;
 
   beforeAll(() => {
     SolApi = setupSolApi();
@@ -17,29 +17,10 @@ describe('Moralis SolApi', () => {
       network: 'mainnet',
       address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
     });
+    const nfts = result.result;
 
-    expect(result).toBeDefined();
-    expect(result).toEqual(expect.objectContaining({}));
-    expect(result.raw).toStrictEqual({ associatedTokenAddress: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp' });
-  });
-
-  it('should not get the NFTs of an account', async () => {
-    const failedResult = await SolApi.account
-      .getNFTs({
-        network: 'mainnet',
-        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
-
-    expect(failedResult).toBeDefined();
-    expect(
-      SolApi.account.getNFTs({
-        network: 'mainnet',
-        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 400"`);
+    expect(nfts.length).toBe(2);
+    expect(nfts[0].mint.toString()).toBe('9spQWuJozohLUK1ReyhsWUrkgDfDMS2U8cMwMoxifkxM');
+    expect(nfts[0].associatedTokenAddress.toString()).toBe('DU1MLkMBperU2nmjjZSwhaSDQxxg3Jtu8XPyroM6fkmu');
   });
 });
