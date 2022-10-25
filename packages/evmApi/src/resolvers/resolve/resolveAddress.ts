@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { Camelize } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 
 type operation = 'resolveAddress';

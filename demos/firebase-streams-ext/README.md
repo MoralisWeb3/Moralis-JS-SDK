@@ -29,7 +29,7 @@ Required Google Cloud services:
 4. Run the ngrok to forward requests from an internet address to your localhost:
    * `cd functions`
    * `yarn run ngrok`
-5. Determine the **public webook URL**. The URL has hostname and port from the ngrok, and the path from the local webhook URL. This URL will be needed in the next step.\
+5. Determine the **public webhook URL**. The URL has hostname and port from the ngrok, and the path from the local webhook URL. This URL will be needed in the next step.\
    For example: `https://baa0-89-151-39-84.ngrok.io/moralis-x6/us-central1/ext-moralis-streams-webhook`
 6. We need to add some streams to see the demo in action. Open the Moralis admin panel and add below streams.
    * **ERC20 Transfers** stream:
@@ -63,11 +63,7 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /moralis/events/{name}/{id} {
-      allow read;
-      allow write: if false;
-    }
-    match /moralis/txs/{name}/{id} {
+    match /moralis/{collectionType}/{collectionName}/{id} {
       allow read;
       allow write: if false;
     }

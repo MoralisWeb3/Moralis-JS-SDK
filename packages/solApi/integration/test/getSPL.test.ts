@@ -1,8 +1,8 @@
-import { MoralisSolApi } from '../../src/MoralisSolApi';
+import { SolApi } from '../../src/SolApi';
 import { cleanSolApi, setupSolApi } from '../setup';
 
 describe('Moralis SolApi', () => {
-  let SolApi: MoralisSolApi;
+  let SolApi: SolApi;
 
   beforeAll(() => {
     SolApi = setupSolApi();
@@ -12,34 +12,16 @@ describe('Moralis SolApi', () => {
     cleanSolApi();
   });
 
-  it('should get the SPL of an account ', async () => {
+  it('returns SPL', async () => {
     const result = await SolApi.account.getSPL({
       network: 'mainnet',
       address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
     });
+    const spl = result.result;
 
-    expect(result).toBeDefined();
-    expect(result).toEqual(expect.objectContaining({}));
-    expect(result.raw).toStrictEqual({ associatedTokenAddress: 'A8rFZ2Y3Kcr2A84A23f3z3rw47BTNp5haxYCUwUE8bCU' });
-  });
-
-  it('should not get the SPL of an account', async () => {
-    const failedResult = await SolApi.account
-      .getSPL({
-        network: 'mainnet',
-        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
-      })
-      .then()
-      .catch((err) => {
-        return err;
-      });
-
-    expect(failedResult).toBeDefined();
-    expect(
-      SolApi.account.getSPL({
-        network: 'mainnet',
-        address: '5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x5x',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0006] Request failed with status 400"`);
+    expect(spl.length).toBe(2);
+    expect(spl[0].associatedTokenAddress.toString()).toBe('BBsN4yXTFQkmCqiDDUA9VZfsv2xc4BMTan2uk4V9AVvG');
+    expect(spl[0].mint.toString()).toBe('DRQBDBEWmwWGK13fRTLhSPzjbvMSUavhV6nW4RUH8W6T');
+    expect(spl[0].amount.toString()).toBe('10000000000');
   });
 });

@@ -1,4 +1,5 @@
 export * from './config';
 export * from './utils';
 export * from './resolvers';
-export * from './MoralisApiUtils';
+export * from './resolvers2';
+export * from './ApiUtils';

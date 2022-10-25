@@ -4,7 +4,7 @@ import { EvmChainish } from './interfaces/EvmChainish';
 
 // @moralisweb3/core
 type CoreConfigType = typeof CoreConfig;
-type CoreConfigValues = { [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] };
+type CoreConfigValues = Omit<{ [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] }, 'product'>;
 
 // @moralisweb3/evm-utils
 interface EvmUtilsConfigValues {

@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/sol-api",
   "author": "Moralis",
-  "version": "2.6.6",
+  "version": "2.6.7",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -16,7 +16,6 @@
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "gen:api-types": "openapi-typescript https://solana-gateway.moralis.io/api-json/ --output src/generated/types.ts",
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
   },
@@ -26,8 +25,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.6.6",
-    "@moralisweb3/core": "^2.6.6",
-    "@moralisweb3/sol-utils": "^2.6.6"
+    "@moralisweb3/api-utils": "^2.6.7",
+    "@moralisweb3/core": "^2.6.7",
+    "@moralisweb3/common-sol-utils": "^2.6.7"
   }
 }

@@ -14,7 +14,7 @@ export type Camelize<Data> = {
     : Data[Key];
 };
 
-const toCamel = (value: string) => {
+export const toCamel = (value: string) => {
   return value.replace(/([-_][a-z])/gi, ($1) => {
     return $1.toUpperCase().replace('-', '').replace('_', '');
   });

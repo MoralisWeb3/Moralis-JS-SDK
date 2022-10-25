@@ -35,7 +35,7 @@ export async function requestMessage({
   if (networkType === 'solana') {
     return requestMessageSol({ address, networkType });
   }
-  throw new Error('Invalid network');
+  throw new Error(`Invalid network: ${networkType}`);
 }
 
 async function requestMessageEvm({

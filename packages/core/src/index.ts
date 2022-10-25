@@ -8,6 +8,7 @@ export * from './Config';
 export * from './Assert';
 export * from './dataTypes';
 export * from './controllers';
+export * from './operations';
 export * from './utils';
 export * from './Assert';
 
