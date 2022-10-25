@@ -13,7 +13,7 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON_KEY);
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 
