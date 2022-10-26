@@ -6,6 +6,7 @@ import { parseServer } from './parseServer';
 import { errorHandler } from './middlewares/errorHandler';
 import config from './config';
 import { apiRouter } from './apiRouter';
+import { initializeStreams } from '@moralisweb3/parse-server';
 
 const app = express();
 
@@ -18,7 +19,17 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(`/${config.SERVER_ENDPOINT}`, parseServer);
+initializeStreams(parseServer, app, {
+  apiKey: config.MORALIS_API_KEY,
+  streamConfig: [
+    {
+      tableName: 'MyStream',
+      tag: 'myStream',
+    },
+  ],
+});
+
+app.use(`/${config.SERVER_ENDPOINT}`, parseServer.app);
 app.use('/dashboard', parseDashboard);
 app.use('/api', apiRouter);
 app.use(errorHandler);
