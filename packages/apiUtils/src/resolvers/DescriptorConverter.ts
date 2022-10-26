@@ -1,4 +1,4 @@
-import { Operation } from '@moralisweb3/core';
+import { Operation } from '@moralisweb3/common-core';
 import { EndpointMethod } from './Endpoint';
 import { EndpointDescriptor } from './Endpoints';
 

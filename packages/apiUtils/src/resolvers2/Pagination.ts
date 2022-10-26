@@ -1,4 +1,4 @@
-import { PaginatedJSONResponse } from '@moralisweb3/core';
+import { PaginatedJSONResponse } from '@moralisweb3/common-core';
 
 export interface Pagination {
   total: number;

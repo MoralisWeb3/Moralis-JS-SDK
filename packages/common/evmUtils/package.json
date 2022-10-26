@@ -28,6 +28,6 @@
   "dependencies": {
     "@ethersproject/address": "^5.6.0",
     "@ethersproject/transactions": "^5.6.0",
-    "@moralisweb3/core": "^2.6.7"
+    "@moralisweb3/common-core": "^2.6.7"
   }
 }

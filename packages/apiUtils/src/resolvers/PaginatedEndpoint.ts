@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core/lib';
+import Core from '@moralisweb3/common-core';
 import { Endpoint, EndpointBodyType } from './Endpoint';
 
 export interface PaginatedParams extends Record<string, unknown> {
@@ -24,7 +24,7 @@ export type PaginatedEndpointFactory<
   ApiResult,
   AdaptedResult,
   JSONResult,
-> = (core: MoralisCore) => PaginatedEndpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>;
+> = (core: Core) => PaginatedEndpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>;
 
 export function createPaginatedEndpointFactory<
   ApiParams,

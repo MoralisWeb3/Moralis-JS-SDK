@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -40,7 +40,7 @@ export const getNFTMetadataOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNFTMetadataRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetNFTMetadataRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -64,7 +64,7 @@ function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse) {
   };
 }
 
-function serializeRequest(request: GetNFTMetadataRequest, core: MoralisCore) {
+function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
   return {
     address: request.address.toString(),
     network: SolNetworkResolver.resolve(request.network, core),

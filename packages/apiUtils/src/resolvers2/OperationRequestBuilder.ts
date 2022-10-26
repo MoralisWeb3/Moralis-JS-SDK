@@ -1,18 +1,18 @@
-import MoralisCore, {
+import Core, {
   ApiErrorCode,
   MoralisApiError,
   Operation,
   OperationRequestBody,
   OperationRequestPropertiesBody,
   OperationRequestRawBody,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
 import { getCommonHeaders } from '../resolvers/getCommonHeaders';
 
 export class OperationRequestBuilder<Request> {
   public constructor(
     private readonly operation: Operation<Request, unknown, unknown, unknown>,
-    private readonly core: MoralisCore,
+    private readonly core: Core,
   ) {}
 
   public prepareUrl(request: Request) {

@@ -1,4 +1,4 @@
-import { DateInput } from '@moralisweb3/core';
+import { DateInput } from '@moralisweb3/common-core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
 

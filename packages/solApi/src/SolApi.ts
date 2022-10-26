@@ -1,5 +1,5 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { ApiModule, MoralisCore, MoralisCoreProvider, Operation } from '@moralisweb3/core';
+import { ApiModule, Core, CoreProvider, Operation } from '@moralisweb3/common-core';
 import {
   getBalanceOperation,
   getNFTMetadataOperation,
@@ -14,11 +14,11 @@ const BASE_URL = 'https://solana-gateway.moralis.io';
 export class SolApi extends ApiModule {
   public static readonly moduleName = 'solApi';
 
-  public static create(core?: MoralisCore): SolApi {
-    return new SolApi(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: Core): SolApi {
+    return new SolApi(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: MoralisCore) {
+  private constructor(core: Core) {
     super(SolApi.moduleName, core, BASE_URL);
   }
 

@@ -25,6 +25,6 @@
     "@moralisweb3/common-evm-utils": "^2.6.7"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.6.7"
+    "@moralisweb3/common-core": "^2.6.7"
   }
 }

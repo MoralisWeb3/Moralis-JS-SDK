@@ -1,4 +1,4 @@
-import { maybe, toCamelCase } from '@moralisweb3/core';
+import { maybe, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../generated/types';

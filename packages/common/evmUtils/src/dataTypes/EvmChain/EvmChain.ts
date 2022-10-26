@@ -4,12 +4,12 @@ import { EvmChainish, InputChainId } from './EvmChainish';
 import {
   EvmChainIdFormat,
   Config,
-  MoralisCoreProvider,
+  CoreProvider,
   MoralisData,
   assertUnreachable,
-  MoralisCore,
+  Core,
   EvmChainable,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
 /**
@@ -166,11 +166,11 @@ export class EvmChain implements MoralisData, EvmChainable {
    * const chain = EvmChain.create("0x3")
    * ```
    */
-  public static create(chain: EvmChainish, core?: MoralisCore): EvmChain {
+  public static create(chain: EvmChainish, core?: Core): EvmChain {
     if (chain instanceof EvmChain) {
       return chain;
     }
-    const c = core || MoralisCoreProvider.getDefault();
+    const c = core || CoreProvider.getDefault();
     return new EvmChain(chain, c.config);
   }
 
