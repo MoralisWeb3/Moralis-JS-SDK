@@ -66,7 +66,7 @@ function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse) {
 
 function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }

@@ -54,7 +54,7 @@ function deserializeResponse(jsonResponse: GetSPLJSONResponse) {
 
 function serializeRequest(request: GetSPLRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }
