@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IWebhook } from '@moralisweb3/streams-typings';
 import bodyParser from 'body-parser';
-import {
-  LogsProcessor,
-  TxsProcessor,
-  CollectionNameBuilder,
-  InternalTxsProcessor,
-  Update,
-} from '@moralisweb3/streams';
+import { LogsProcessor, TxsProcessor, CollectionNameBuilder, InternalTxsProcessor, Update } from '@moralisweb3/streams';
 import Moralis from 'moralis';
 import { Express, Request } from 'express';
 import { Upsert } from './upsert';
