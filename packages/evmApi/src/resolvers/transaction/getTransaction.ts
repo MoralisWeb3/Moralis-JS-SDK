@@ -22,6 +22,7 @@ export const getTransaction = createEndpointFactory((core) =>
     urlParams: ['transactionHash'],
     getUrl: (params: Params) => `/transaction/${params.transactionHash}`,
     apiToResult: (data: ApiResult, params: Params) => {
+      const chain = EvmChainResolver.resolve(params.chain, core);
       return EvmTransaction.create(
         {
           from: data.from_address,
@@ -35,7 +36,7 @@ export const getTransaction = createEndpointFactory((core) =>
           blockNumber: data.block_number,
           blockTimestamp: data.block_timestamp,
           index: data.transaction_index,
-          chain: EvmChainResolver.resolve(params.chain, core),
+          chain,
           hash: data.hash,
           gas: data.gas,
           cumulativeGasUsed: data.receipt_cumulative_gas_used,
@@ -43,6 +44,7 @@ export const getTransaction = createEndpointFactory((core) =>
           logs: (data.logs ?? []).map((log) =>
             EvmTransactionLog.create(
               {
+                chain,
                 address: log.address,
                 blockHash: log.block_hash,
                 blockNumber: +log.block_number,
@@ -53,7 +55,6 @@ export const getTransaction = createEndpointFactory((core) =>
                 blockTimestamp: log.block_timestamp,
                 logIndex: +log.log_index,
                 transactionIndex: +log.transaction_index,
-                chain: EvmChainResolver.resolve(log.chainId, core),
               },
               core,
             ),

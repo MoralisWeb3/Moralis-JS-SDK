@@ -17,6 +17,7 @@ const TOPIC = ['0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbba
 const CHAIN = '0x1';
 
 const inputWithAllData = {
+  chain: CHAIN,
   logIndex: LOG_INDEX,
   transactionHash: TRANSACTION_HASH,
   transactionIndex: TRANSACTION_INDEX,
@@ -26,7 +27,6 @@ const inputWithAllData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
-  chain: CHAIN,
 };
 
 const inputWithoutOptionalData = {
@@ -40,6 +40,7 @@ const inputWithoutOptionalData = {
 };
 
 const inputWithInvalidData = {
+  chain: CHAIN,
   logIndex: LOG_INDEX,
   transactionHash: TRANSACTION_HASH,
   transactionIndex: TRANSACTION_INDEX,
@@ -49,7 +50,6 @@ const inputWithInvalidData = {
   blockHash: BLOCK_HASH,
   blockNumber: BLOCK_NUMBER,
   blockTimestamp: BLOCK_TIMESTAMP,
-  chain: CHAIN,
 };
 
 describe('EvmTransactionLog', () => {

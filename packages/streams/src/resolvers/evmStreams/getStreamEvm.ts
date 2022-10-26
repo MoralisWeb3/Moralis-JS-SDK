@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { EvmChain } from '@moralisweb3/common-evm-utils';
+import { EvmStream } from '@moralisweb3/common-streams-utils';
 import { operations } from '../../generated/types';
 
 const name = 'GetStream';
@@ -12,18 +12,13 @@ export type GetStreamEvmParams = ApiParams;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
-export const getStreamEvm = createEndpointFactory(() =>
+export const getStreamEvm = createEndpointFactory((core) =>
   createEndpoint({
     name,
     getUrl: () => `/streams/evm`,
-    apiToResult: (stream: ApiResult) => ({
-      ...stream,
-      chains: stream.chainIds.map((chainId) => EvmChain.create(chainId)),
-    }),
-    resultToJson: (stream) => ({
-      ...stream,
-      chainIds: stream.chains.map((chain) => chain.format()),
-    }),
+    apiToResult: (data: ApiResult) => EvmStream.create(data, core),
+    resultToJson: (data) => data.toJSON(),
+
     parseParams: (params: GetStreamEvmParams): ApiParams => params,
   }),
 );

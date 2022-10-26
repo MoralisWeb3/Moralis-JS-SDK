@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
-    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
+    "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
@@ -34,6 +34,7 @@
     "@moralisweb3/api-utils": "^2.6.7",
     "@moralisweb3/core": "^2.6.7",
     "@moralisweb3/common-evm-utils": "^2.6.7",
+    "@moralisweb3/common-streams-utils": "^2.6.7",
     "@moralisweb3/streams-typings": "^1.0.5",
     "ethereumjs-util": "^7.1.0",
     "web3-eth-abi": "^1.8.0"

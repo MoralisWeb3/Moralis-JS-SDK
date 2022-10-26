@@ -3,6 +3,7 @@ import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
+import { EvmSignature, EvmSignatureish } from '../EvmSignature/EvmSignature';
 
 /**
  * This can be any object with valid transaction data.
@@ -27,10 +28,17 @@ import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
           blockTimestamp: new Date("2021-04-02T10:07:54.000Z"),
           gas: "6721975",
           to: "0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef",
+          signature: {
+            v: 28,
+            r: "0xda4429a9e8e6b54cb101b2df002039f2879ab4ca0e8fae64134942cb81f3e581",
+            s: "0x3b90a37dc078a82dfc418695b1d4473661aa4d24dd874ac68678894ff44a6b27",
+          }
         }
  * ```
  */
-export interface EvmTransacionInput {
+export interface EvmTransactionInput {
+  chain: EvmChainish;
+
   from: EvmAddressish;
   to?: null | EvmAddressish;
   nonce?: null | BigNumberish;
@@ -38,9 +46,7 @@ export interface EvmTransacionInput {
   value?: null | EvmNativeish;
   hash: string;
 
-  type?: null | number;
-
-  chain: EvmChainish;
+  type?: null | number | string;
 
   gas?: null | BigNumberish;
   gasPrice: BigNumberish;
@@ -58,12 +64,16 @@ export interface EvmTransacionInput {
   receiptStatus?: null | string | number;
 
   logs?: EvmTransactionLogish[];
+
+  signature?: EvmSignatureish;
 }
 
 /**
  * This is the return type of the processed EVM transaction
  */
 export interface EvmTransactionData {
+  chain: EvmChain;
+
   from: EvmAddress;
   to?: EvmAddress;
   nonce?: BigNumber;
@@ -73,12 +83,10 @@ export interface EvmTransactionData {
 
   type?: number;
 
-  chain: EvmChain;
-
   gas?: BigNumber;
   gasPrice: BigNumber;
 
-  index: number;
+  index: number | string;
   blockNumber: BigNumber;
   blockHash: string;
   blockTimestamp: Date;
@@ -91,4 +99,6 @@ export interface EvmTransactionData {
   receiptStatus?: number;
 
   logs: EvmTransactionLog[];
+
+  signature?: EvmSignature;
 }

@@ -1,5 +1,5 @@
 import { createPaginatedEndpoint, createPaginatedEndpointFactory } from '@moralisweb3/api-utils';
-import { EvmChain } from '@moralisweb3/common-evm-utils';
+import { EvmStream } from '@moralisweb3/common-streams-utils';
 import { operations } from '../../generated/types';
 
 const name = 'GetStreams';
@@ -12,20 +12,12 @@ export type GetStreamsEvmParams = ApiParams;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
-export const getStreamsEvm = createPaginatedEndpointFactory(() =>
+export const getStreamsEvm = createPaginatedEndpointFactory((core) =>
   createPaginatedEndpoint({
     name,
     getUrl: () => `/streams/evm`,
-    apiToResult: (data: ApiResult) =>
-      (data.result ?? []).map((stream) => ({
-        ...stream,
-        chains: stream.chainIds.map((chainId) => EvmChain.create(chainId)),
-      })),
-    resultToJson: (data) =>
-      data.map((stream) => ({
-        ...stream,
-        chainIds: stream.chains.map((chain) => chain.format()),
-      })),
+    apiToResult: (data: ApiResult) => (data.result ?? []).map((stream) => EvmStream.create(stream, core)),
+    resultToJson: (data) => data.map((stream) => stream.toJSON()),
     parseParams: (params: GetStreamsEvmParams): ApiParams => params,
   }),
 );

@@ -1,4 +1,10 @@
-import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/core';
+import MoralisCore, {
+  MoralisDataObject,
+  maybe,
+  MoralisCoreProvider,
+  BigNumber,
+  dateInputToDate,
+} from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -24,33 +30,35 @@ export class EvmNftTransfer implements MoralisDataObject {
    * const transfer = EvmNftTransfer.create(data);
    *```
    */
-  static create(data: EvmNftTransferish) {
+  static create(data: EvmNftTransferish, core?: MoralisCore) {
     if (data instanceof EvmNftTransfer) {
       return data;
     }
 
-    return new EvmNftTransfer(data);
+    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    return new EvmNftTransfer(data, finalCore);
   }
 
-  private _data: EvmNftTransferData;
+  protected _data: EvmNftTransferData;
 
-  constructor(data: EvmNftTransferInput) {
-    this._data = EvmNftTransfer.parse(data);
+  constructor(data: EvmNftTransferInput, core: MoralisCore) {
+    this._data = EvmNftTransfer.parse(data, core);
   }
 
-  static parse = (data: EvmNftTransferInput): EvmNftTransferData => ({
+  static parse = (data: EvmNftTransferInput, core: MoralisCore): EvmNftTransferData => ({
     ...data,
-    chain: EvmChain.create(data.chain),
+    chain: EvmChain.create(data.chain, core),
     amount: maybe(data.amount, (amount) => +amount),
     blockNumber: BigNumber.create(data.blockNumber),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     transactionIndex: maybe(data.transactionIndex, (index) => +index),
     transactionType: maybe(data.transactionType),
-    fromAddress: maybe(data.fromAddress, EvmAddress.create),
-    toAddress: EvmAddress.create(data.toAddress),
-    tokenAddress: EvmAddress.create(data.tokenAddress),
+    fromAddress: maybe(data.fromAddress, (address) => EvmAddress.create(address, core)),
+    toAddress: EvmAddress.create(data.toAddress, core),
+    tokenAddress: EvmAddress.create(data.tokenAddress, core),
     value: maybe(data.value, EvmNative.create),
-    operator: maybe(data.operator, EvmAddress.create),
+    operator: maybe(data.operator, (operator) => EvmAddress.create(operator, core)),
+    logIndex: +data.logIndex,
   });
 
   /**
@@ -64,19 +72,19 @@ export class EvmNftTransfer implements MoralisDataObject {
     const transferA = EvmNftTransfer.create(dataA);
     const transferB = EvmNftTransfer.create(dataB);
 
-    if (!transferA._data.chain.equals(transferB._data.chain)) {
+    if (!transferA.chain.equals(transferB.chain)) {
       return false;
     }
 
-    if (transferA._data.blockHash !== transferB._data.blockHash) {
+    if (transferA.blockHash !== transferB.blockHash) {
       return false;
     }
 
-    if (transferA._data.tokenId !== transferB._data.tokenId) {
+    if (transferA.tokenId !== transferB.tokenId) {
       return false;
     }
 
-    if (transferA._data.logIndex !== transferB._data.logIndex) {
+    if (transferA.logIndex !== transferB.logIndex) {
       return false;
     }
 
@@ -105,12 +113,12 @@ export class EvmNftTransfer implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      blockNumber: data.blockNumber.toString(),
       fromAddress: data.fromAddress ? data.fromAddress.format() : undefined,
       toAddress: data.toAddress.format(),
       tokenAddress: data.tokenAddress.format(),
       value: data.value ? data.value.format() : undefined,
       operator: data.operator ? data.operator.format() : undefined,
+      blockNumber: data.blockNumber.toString(),
     };
   }
 

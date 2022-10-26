@@ -9,13 +9,15 @@ type PathParams = operations[Name]['parameters']['path'];
 type ApiParams = PathParams;
 export type GetAddressesEvmParams = ApiParams;
 const method = 'get';
+const urlParams = ['id'] as const;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
 export const getAddressesEvm = createPaginatedEndpointFactory(() =>
   createPaginatedEndpoint({
     name,
-    getUrl: (params: GetAddressesEvmParams) => `/streams/evm/${params.id}/address`,
+    getUrl: ({ id }: GetAddressesEvmParams) => `/streams/evm/${id}/address`,
+    urlParams,
     apiToResult: (data: ApiResult) =>
       (data.result ?? []).map((stream) => ({
         ...stream,

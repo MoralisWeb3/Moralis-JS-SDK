@@ -22,4 +22,7 @@ module.exports = {
       tsConfig: path.join(__dirname, 'tsconfig.package.json'),
     },
   },
+  verbose: true,
+  coverageReporters: ['clover', 'json', 'lcov', 'text', 'json-summary'],
+  coveragePathIgnorePatterns: ['.mock.ts', 'src/index.ts'],
 };

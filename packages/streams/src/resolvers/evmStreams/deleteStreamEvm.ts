@@ -1,6 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { toCamelCase } from '@moralisweb3/core';
-import { EvmChain } from '@moralisweb3/common-evm-utils';
+import { EvmStream } from '@moralisweb3/common-streams-utils';
 import { operations } from '../../generated/types';
 
 const name = 'DeleteStream';
@@ -10,27 +9,17 @@ type PathParams = operations[Name]['parameters']['path'];
 type ApiParams = PathParams;
 export type DeleteStreamEvmParams = ApiParams;
 const method = 'delete';
+const urlParams = ['id'] as const;
 
 type ApiResult = operations[Name]['responses']['200']['content']['application/json'];
 
-const apiToResult = (apiData: ApiResult) => {
-  const data = toCamelCase(apiData);
-
-  return {
-    ...data,
-    chains: data.chainIds.map((chainId) => EvmChain.create(chainId)),
-  };
-};
-
-export const deleteStreamEvm = createEndpointFactory(() =>
+export const deleteStreamEvm = createEndpointFactory((core) =>
   createEndpoint({
     name,
-    getUrl: (params: DeleteStreamEvmParams) => `/streams/evm/${params.id}`,
-    apiToResult,
-    resultToJson: (data) => ({
-      ...data,
-      chainIds: data.chains.map((chain) => chain.format()),
-    }),
+    getUrl: ({ id }: DeleteStreamEvmParams) => `/streams/evm/${id}`,
+    urlParams,
+    apiToResult: (data: ApiResult) => EvmStream.create(data, core),
+    resultToJson: (data) => data.toJSON(),
     parseParams: (params: DeleteStreamEvmParams): ApiParams => params,
     method,
   }),

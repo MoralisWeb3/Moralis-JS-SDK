@@ -2,20 +2,21 @@ import MoralisCore, {
   MoralisDataObject,
   maybe,
   BigNumber,
-  dateInputToDate,
   MoralisCoreProvider,
+  dateInputToDate,
 } from '@moralisweb3/core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';
-import { EvmTransacionInput, EvmTransactionData } from './types';
+import { EvmSignature } from '../EvmSignature/EvmSignature';
+import { EvmTransactionInput, EvmTransactionData } from './types';
 
 /**
  * Valid input for a new EvmTransaction instance.
- * This can be an existing {@link EvmTransaction} or a valid {@link EvmTransacionInput} object
+ * This can be an existing {@link EvmTransaction} or a valid {@link EvmTransactionInput} object
  */
-export type EvmTransactionish = EvmTransacionInput | EvmTransaction;
+export type EvmTransactionish = EvmTransactionInput | EvmTransaction;
 
 /**
  * The EvmTranaction is a representation of a published transaction.
@@ -43,11 +44,11 @@ export class EvmTransaction implements MoralisDataObject {
 
   private _data: EvmTransactionData;
 
-  constructor(data: EvmTransacionInput, core: MoralisCore) {
+  constructor(data: EvmTransactionInput, core: MoralisCore) {
     this._data = EvmTransaction.parse(data, core);
   }
 
-  static parse = (data: EvmTransacionInput, core: MoralisCore): EvmTransactionData => ({
+  static parse = (data: EvmTransactionInput, core: MoralisCore): EvmTransactionData => ({
     from: EvmAddress.create(data.from, core),
     to: maybe(data.to, (to) => EvmAddress.create(to, core)),
     nonce: maybe(data.nonce, BigNumber.create),
@@ -55,7 +56,7 @@ export class EvmTransaction implements MoralisDataObject {
     value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
     hash: data.hash,
 
-    type: maybe(data.type),
+    type: maybe(data.type, (value) => +value),
     chain: EvmChain.create(data.chain),
 
     gas: maybe(data.gas, BigNumber.create),
@@ -74,6 +75,8 @@ export class EvmTransaction implements MoralisDataObject {
     receiptStatus: maybe(data.receiptStatus, (status) => +status),
 
     logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
+
+    signature: maybe(data.signature, EvmSignature.create),
   });
 
   /**
@@ -123,11 +126,12 @@ export class EvmTransaction implements MoralisDataObject {
       gasPrice: data.gasPrice?.toString(),
       gasUsed: data.gasUsed?.toString(),
       cumulativeGasUsed: data.cumulativeGasUsed?.toString(),
-      blockNumber: data.blockNumber?.toString(),
       value: data.value?.toString(),
       chain: data.chain?.format(),
       contractAddress: data.contractAddress?.format(),
       logs: data.logs.map((log) => log.toJSON()),
+      signature: data.signature?.toJSON(),
+      blockNumber: data.blockNumber?.toString(),
       blockTimestamp: data.blockTimestamp.toString(),
     };
   }
@@ -361,5 +365,39 @@ export class EvmTransaction implements MoralisDataObject {
    */
   get blockTimestamp() {
     return this._data.blockTimestamp;
+  }
+
+  /**
+   * @returns the signature (if available)
+   * @example
+   * ```
+   * transaction.signature // EvmSignature
+   * ```
+   */
+  get signature() {
+    return this._data.signature;
+  }
+
+  /**
+   * @returns the index
+   * @example
+   * ```
+   * transaction.index // 1
+   * ```
+   */
+  get index() {
+    return this._data.index;
+  }
+
+  get v() {
+    return this._data.signature?.v;
+  }
+
+  get r() {
+    return this._data.signature?.r;
+  }
+
+  get s() {
+    return this._data.signature?.s;
   }
 }
