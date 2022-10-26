@@ -44,7 +44,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 
 function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
-    address: String(request.address),
+    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
@@ -75,13 +75,15 @@ function deserializeResponse(
 
 function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
     toBlock: request.toBlock,
     fromBlock: request.fromBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
+    subdomain: request.subdomain,
+    limit: request.limit,
   };
 }
 
@@ -97,5 +99,7 @@ function deserializeRequest(
     fromBlock: jsonRequest.fromBlock,
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
+    subdomain: jsonRequest.subdomain,
+    limit: jsonRequest.limit,
   };
 }

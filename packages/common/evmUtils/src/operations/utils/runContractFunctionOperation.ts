@@ -50,7 +50,7 @@ export const runContractFunctionOperation: Operation<
 
 function getRequestUrlParams(request: RunContractFunctionRequest, core: Core) {
   return {
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
     providerUrl: request.providerUrl,
@@ -71,7 +71,7 @@ function deserializeResponse(jsonResponse: RunContractFunctionJSONResponse) {
 
 function serializeRequest(request: RunContractFunctionRequest, core: Core) {
   return {
-    address: EvmAddress.create(request.address, core).toString(),
+    address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
     providerUrl: request.providerUrl,

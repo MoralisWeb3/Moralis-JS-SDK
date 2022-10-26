@@ -63,7 +63,7 @@ function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse) {
 
 function serializeRequest(request: GetTokenPriceRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }

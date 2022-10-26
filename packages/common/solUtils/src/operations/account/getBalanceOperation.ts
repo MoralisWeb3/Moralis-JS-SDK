@@ -53,7 +53,7 @@ function deserializeResponse(jsonResponse: GetBalanceJSONResponse) {
 
 function serializeRequest(request: GetBalanceRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }
