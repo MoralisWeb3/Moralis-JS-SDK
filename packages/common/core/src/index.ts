@@ -1,7 +1,7 @@
-import { MoralisCore } from './MoralisCore';
+import { Core } from './Core';
 
-export * from './MoralisCore';
-export * from './MoralisCoreProvider';
+export * from './Core';
+export * from './CoreProvider';
 export * from './Modules';
 export * from './Error';
 export * from './Config';
@@ -12,4 +12,4 @@ export * from './operations';
 export * from './utils';
 export * from './Assert';
 
-export default MoralisCore;
+export default Core;

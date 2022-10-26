@@ -1,11 +1,4 @@
-import {
-  MoralisCore,
-  ApiErrorCode,
-  Config,
-  MoralisApiError,
-  RequestController,
-  CoreConfig,
-} from '@moralisweb3/common-core';
+import { Core, ApiErrorCode, Config, MoralisApiError, RequestController, CoreConfig } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { ApiResultAdapter } from './ApiResultAdapter';
@@ -15,7 +8,7 @@ import { getCommonHeaders } from './getCommonHeaders';
 
 export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
   public static create<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
-    core: MoralisCore,
+    core: Core,
     baseUrl: string,
     endpointFactory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {

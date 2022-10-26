@@ -1,4 +1,4 @@
-import MoralisCore, {
+import Core, {
   ApiErrorCode,
   MoralisApiError,
   RequestController,
@@ -18,7 +18,7 @@ export class OperationResolver<Request, JSONRequest, Response, JSONResponse> {
   public constructor(
     private readonly operation: Operation<Request, JSONRequest, Response, JSONResponse>,
     private readonly baseUrl: string,
-    private readonly core: MoralisCore,
+    private readonly core: Core,
   ) {}
 
   public readonly fetch = async (request: Request): Promise<ResponseAdapter<Response, JSONResponse>> => {

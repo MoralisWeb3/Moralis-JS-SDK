@@ -1,4 +1,4 @@
-import { MoralisCore, RequestController } from '../../src';
+import { Core, RequestController } from '../../src';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 
@@ -120,7 +120,7 @@ describe('RequestControllerDelete', () => {
   let requestController: RequestController;
 
   beforeAll(() => {
-    const core = MoralisCore.create();
+    const core = Core.create();
     requestController = RequestController.create(core);
 
     mockServer.listen({

@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamErc1155ApprovalData, StreamErc1155ApprovalInput, StreamErc1155ApprovalJSON } from './types';
 
@@ -14,28 +14,28 @@ export class StreamErc1155Approval implements MoralisDataObject {
    * Create a new instance of StreamErc1155Approval
    *
    * @param data - the StreamErc1155Approvalish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const evmNftApproval = StreamErc1155Approval.create(data);
    * ```
    * @returns an instance of StreamErc1155Approval
    */
-  static create(data: StreamErc1155Approvalish, core?: MoralisCore) {
+  static create(data: StreamErc1155Approvalish, core?: Core) {
     if (data instanceof StreamErc1155Approval) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new StreamErc1155Approval(data, finalCore);
   }
 
   private _data: StreamErc1155ApprovalData;
 
-  constructor(data: StreamErc1155ApprovalInput, core: MoralisCore) {
+  constructor(data: StreamErc1155ApprovalInput, core: Core) {
     this._data = StreamErc1155Approval.parse(data, core);
   }
 
-  private static parse = (data: StreamErc1155ApprovalInput, core: MoralisCore): StreamErc1155ApprovalData => {
+  private static parse = (data: StreamErc1155ApprovalInput, core: Core): StreamErc1155ApprovalData => {
     const chain = EvmChain.create(data.chain, core);
     return {
       ...data,

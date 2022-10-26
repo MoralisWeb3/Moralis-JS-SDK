@@ -1,7 +1,7 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
-import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { CoreErrorCode, CoreError } from '../../Error';
 import { AxiosRetry, AxiosRetryConfig } from '../AxiosRetry';
-import { MoralisCore } from '../../MoralisCore';
+import { Core } from '../../Core';
 import { LoggerController } from '../LoggerController';
 import { getMessageFromApiRequestError, isApiRequestError } from './ApiRequestError';
 
@@ -14,7 +14,7 @@ export interface RequestOptions {
  * compatible with browser, nodejJs and react-native
  */
 export class RequestController {
-  public static create(core: MoralisCore): RequestController {
+  public static create(core: Core): RequestController {
     return new RequestController(core.logger);
   }
 
@@ -63,12 +63,12 @@ export class RequestController {
     }
   }
 
-  private makeError(error: unknown): MoralisCoreError {
+  private makeError(error: unknown): CoreError {
     if (isApiRequestError(error)) {
       const { status, statusText } = error.response;
       const apiMessage = getMessageFromApiRequestError(error);
 
-      return new MoralisCoreError({
+      return new CoreError({
         code: CoreErrorCode.REQUEST_ERROR,
         message: `Request failed, ${statusText}(${status}): ${apiMessage}`,
         cause: error,
@@ -81,7 +81,7 @@ export class RequestController {
 
     const err = error instanceof Error ? error : new Error(`${error}`);
 
-    return new MoralisCoreError({
+    return new CoreError({
       code: CoreErrorCode.REQUEST_ERROR,
       message: `Request failed: ${err.message}`,
       cause: err,

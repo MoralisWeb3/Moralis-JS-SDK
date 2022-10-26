@@ -1,5 +1,5 @@
 /* eslint-disable etc/no-commented-out-code */
-import MoralisCore from '@moralisweb3/common-core';
+import Core from '@moralisweb3/common-core';
 import { EvmSimpleBlock, EvmChain } from '@moralisweb3/common-evm-utils';
 import {
   Block,
@@ -22,7 +22,7 @@ import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTra
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
 
 export class EvmStreamResultParser {
-  static parse = (value: EvmStreamResultInput, core: MoralisCore): EvmStreamResultData => {
+  static parse = (value: EvmStreamResultInput, core: Core): EvmStreamResultData => {
     const chain = this.parseChainId(value.chainId, core);
 
     return {
@@ -43,7 +43,7 @@ export class EvmStreamResultParser {
     };
   };
 
-  static parseChainId(value: string, core: MoralisCore) {
+  static parseChainId(value: string, core: Core) {
     // Only needed for the initial test-response where we get an empty string as chain
     return value === '' ? EvmChain.ETHEREUM : EvmChain.create(value, core);
   }

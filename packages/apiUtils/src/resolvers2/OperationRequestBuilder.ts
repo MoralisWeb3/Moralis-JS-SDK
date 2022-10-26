@@ -1,4 +1,4 @@
-import MoralisCore, {
+import Core, {
   ApiErrorCode,
   MoralisApiError,
   Operation,
@@ -12,7 +12,7 @@ import { getCommonHeaders } from '../resolvers/getCommonHeaders';
 export class OperationRequestBuilder<Request> {
   public constructor(
     private readonly operation: Operation<Request, unknown, unknown, unknown>,
-    private readonly core: MoralisCore,
+    private readonly core: Core,
   ) {}
 
   public prepareUrl(request: Request) {

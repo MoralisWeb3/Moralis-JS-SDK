@@ -1,11 +1,11 @@
-import { MoralisCoreProvider, RequestController } from '@moralisweb3/common-core';
+import { CoreProvider, RequestController } from '@moralisweb3/common-core';
 import config from '../config';
 
 export class ParseServerRequest {
   protected readonly requestController: RequestController;
 
   constructor() {
-    const core = MoralisCoreProvider.getDefault();
+    const core = CoreProvider.getDefault();
     this.requestController = RequestController.create(core);
   }
 

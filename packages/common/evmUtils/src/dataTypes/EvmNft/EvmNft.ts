@@ -1,12 +1,12 @@
-import MoralisCore, {
+import Core, {
   MoralisDataObject,
   MoralisDataObjectValue,
   CoreErrorCode,
-  MoralisCoreError,
+  CoreError,
   maybe,
   BigNumber,
   dateInputToDate,
-  MoralisCoreProvider,
+  CoreProvider,
 } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
@@ -28,28 +28,28 @@ export class EvmNft implements MoralisDataObject {
    * Create a new instance of EvmNft from any valid address input
    *
    * @param data - the EvmNftish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const nft = EvmNft.create(data);
    * ```
    * @returns an instance of EvmNft
    */
-  static create(data: EvmNftish, core?: MoralisCore) {
+  static create(data: EvmNftish, core?: Core) {
     if (data instanceof EvmNft) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmNft(data, finalCore);
   }
 
   private _data: EvmNftData;
 
-  constructor(data: EvmNftInput, core: MoralisCore) {
+  constructor(data: EvmNftInput, core: Core) {
     this._data = EvmNft.parse(data, core);
   }
 
-  static parse = (data: EvmNftInput, core: MoralisCore): EvmNftData => ({
+  static parse = (data: EvmNftInput, core: Core): EvmNftData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
     contractType: maybe(data.contractType),
@@ -72,13 +72,13 @@ export class EvmNft implements MoralisDataObject {
    *
    * @param value - the new value for the NFT metadata
    * @returns the parsed value of the JSON string
-   * @throws {MoralisCoreError} if the value is not a valid JSON string
+   * @throws {CoreError} if the value is not a valid JSON string
    */
   private static validateMetadata = (value: string): MoralisDataObjectValue => {
     try {
       return JSON.parse(value);
     } catch (error) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: 'Invalid metadata provided, cannot parse the value to JSON',
       });

@@ -1,4 +1,4 @@
-import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import {
   StreamEvmInternalTransactionData,
@@ -16,7 +16,7 @@ export type StreamEvmInternalTransactionish = StreamEvmInternalTransactionInput 
 export class StreamEvmInternalTransaction implements MoralisDataObject {
   private _data: StreamEvmInternalTransactionData;
 
-  constructor(data: StreamEvmInternalTransactionInput, core: MoralisCore) {
+  constructor(data: StreamEvmInternalTransactionInput, core: Core) {
     this._data = StreamEvmInternalTransaction.parse(data, core);
   }
 
@@ -24,25 +24,22 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
    * Create a new instance of StreamEvmInternalTransactionish
    *
    * @param data - the StreamEvmInternalTransactionishish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const transaction = StreamEvmTransactionish.create(data);
    * ```
    * @returns an instance of StreamEvmInternalTransaction
    */
-  static create(data: StreamEvmInternalTransactionish, core?: MoralisCore) {
+  static create(data: StreamEvmInternalTransactionish, core?: Core) {
     if (data instanceof StreamEvmInternalTransaction) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new StreamEvmInternalTransaction(data, finalCore);
   }
 
-  private static parse = (
-    data: StreamEvmInternalTransactionInput,
-    core: MoralisCore,
-  ): StreamEvmInternalTransactionData => ({
+  private static parse = (data: StreamEvmInternalTransactionInput, core: Core): StreamEvmInternalTransactionData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
     from: maybe(data.from, (value) => EvmAddress.create(value, core)),

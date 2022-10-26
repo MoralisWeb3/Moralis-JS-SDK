@@ -42,13 +42,13 @@ export class MoralisError extends Error {
   }
 }
 
-export class MoralisCoreError extends MoralisError {
+export class CoreError extends MoralisError {
   public readonly name: string = 'Moralis SDK Core Error';
 
   public constructor(options: MoralisErrorOptions<CoreErrorCode>) {
     super(options);
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MoralisCoreError);
+      Error.captureStackTrace(this, CoreError);
     }
   }
 }

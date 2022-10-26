@@ -1,4 +1,4 @@
-import { MoralisCore } from '../MoralisCore';
+import { Core } from '../Core';
 
 export interface Operation<Request, JSONRequest, Response, JSONResponse> {
   name: string;
@@ -11,11 +11,11 @@ export interface Operation<Request, JSONRequest, Response, JSONResponse> {
   bodyParamNames?: (keyof Request)[];
   firstPageIndex?: number;
 
-  getRequestUrlParams(request: Request, core: MoralisCore): OperationRequestUrlParams;
-  getRequestBody?(request: Request, core: MoralisCore): OperationRequestBody;
-  deserializeResponse(jsonResponse: JSONResponse, request: Request, core: MoralisCore): Response;
-  serializeRequest(request: Request, core: MoralisCore): JSONRequest;
-  deserializeRequest(jsonRequest: JSONRequest, core: MoralisCore): Request;
+  getRequestUrlParams(request: Request, core: Core): OperationRequestUrlParams;
+  getRequestBody?(request: Request, core: Core): OperationRequestBody;
+  deserializeResponse(jsonResponse: JSONResponse, request: Request, core: Core): Response;
+  serializeRequest(request: Request, core: Core): JSONRequest;
+  deserializeRequest(jsonRequest: JSONRequest, core: Core): Request;
 }
 
 export type OperationRequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

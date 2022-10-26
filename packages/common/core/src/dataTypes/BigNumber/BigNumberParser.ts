@@ -1,4 +1,4 @@
-import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { CoreErrorCode, CoreError } from '../../Error';
 
 /**
  * Valid input types for a BigNumber. This can be a number, string, or bigint.
@@ -105,7 +105,7 @@ function getMultiplier(decimals: number): bigint {
 }
 
 function createError(message: string): Error {
-  return new MoralisCoreError({
+  return new CoreError({
     code: CoreErrorCode.BIG_NUMBER_ERROR,
     message,
   });

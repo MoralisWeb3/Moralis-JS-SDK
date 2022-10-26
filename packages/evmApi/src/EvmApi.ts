@@ -1,7 +1,7 @@
 import {
   ApiModule,
-  MoralisCore,
-  MoralisCoreProvider,
+  Core,
+  CoreProvider,
   Operation,
   PaginatedOperation,
   PaginatedRequest,
@@ -51,11 +51,11 @@ const BASE_URL = 'https://deep-index.moralis.io/api/v2';
 export class EvmApi extends ApiModule {
   public static readonly moduleName = 'evmApi';
 
-  public static create(core?: MoralisCore): EvmApi {
-    return new EvmApi(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: Core): EvmApi {
+    return new EvmApi(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: MoralisCore) {
+  private constructor(core: Core) {
     super(EvmApi.moduleName, core, BASE_URL);
   }
 

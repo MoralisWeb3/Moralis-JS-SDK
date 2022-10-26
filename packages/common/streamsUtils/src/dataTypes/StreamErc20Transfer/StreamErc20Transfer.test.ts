@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/common-core';
+import Core from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc20Transfer } from './StreamErc20Transfer';
 import { mockStreamErc20Transfer } from './StreamErc20Transfer.mock';
@@ -6,7 +6,7 @@ import { mockStreamErc20Transfer } from './StreamErc20Transfer.mock';
 const testsInputs = Object.entries(mockStreamErc20Transfer).map(([name, input]) => ({ name, input }));
 
 describe('StreamErc20Transfer', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupStreamsUtils();

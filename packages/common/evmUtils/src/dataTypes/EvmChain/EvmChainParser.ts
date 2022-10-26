@@ -1,4 +1,4 @@
-import { CoreErrorCode, MoralisCoreError } from '@moralisweb3/common-core';
+import { CoreErrorCode, CoreError } from '@moralisweb3/common-core';
 import { InputChainId } from './EvmChainish';
 
 const INVALID_VALUES = ['0x', '0x0', '0', 0];
@@ -6,7 +6,7 @@ const INVALID_VALUES = ['0x', '0x0', '0', 0];
 export class EvmChainParser {
   public static parse(chain: InputChainId): string {
     if (INVALID_VALUES.includes(chain)) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: "Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'",
       });
@@ -24,7 +24,7 @@ export class EvmChainParser {
         }
         return `0x${parsed.toString(16)}`;
       } catch (error) {
-        throw new MoralisCoreError({
+        throw new CoreError({
           code: CoreErrorCode.INVALID_ARGUMENT,
           message: "Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'",
         });
@@ -32,7 +32,7 @@ export class EvmChainParser {
     }
 
     if (chain <= 0) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: "Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'",
       });

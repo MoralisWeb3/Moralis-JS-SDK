@@ -7,26 +7,26 @@ import { MoralisConfigValues } from './Config';
 import { LIB_VERSION } from './version';
 
 /**
- * MoralisCore is used in all Moralis applications
+ * Core is used in all Moralis applications
  * This class is **required** to be implemented in every app
  *
  * This class is responsible for:
  * - registering, removing and accessing modules
  * - accessing and changing the config
  */
-export class MoralisCore {
+export class Core {
   public static readonly moduleName = 'core';
 
-  public static create(): MoralisCore {
+  public static create(): Core {
     const modules = new Modules();
     const config = new Config();
-    const logger = new LoggerController(MoralisCore.moduleName, config);
-    const core = new MoralisCore(modules, config, logger);
+    const logger = new LoggerController(Core.moduleName, config);
+    const core = new Core(modules, config, logger);
     CoreConfigSetup.register(config);
     return core;
   }
 
-  public readonly name = MoralisCore.moduleName;
+  public readonly name = Core.moduleName;
 
   public static readonly libVersion = LIB_VERSION;
 

@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/common-core';
+import Core from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc1155Approval } from './StreamErc1155Approval';
 import { mockStreamErc1155Approval } from './StreamErc1155Approval.mock';
@@ -6,7 +6,7 @@ import { mockStreamErc1155Approval } from './StreamErc1155Approval.mock';
 const testsInputs = Object.entries(mockStreamErc1155Approval).map(([name, input]) => ({ name, input }));
 
 describe('StreamErc1155Approval', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupStreamsUtils();

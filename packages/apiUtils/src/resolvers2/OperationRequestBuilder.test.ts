@@ -1,4 +1,4 @@
-import MoralisCore, { Operation, OperationRequestPropertiesBody } from '@moralisweb3/common-core';
+import Core, { Operation, OperationRequestPropertiesBody } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 
@@ -44,11 +44,11 @@ const operation: Operation<TestRequest, unknown, unknown, unknown> = {
 describe('OperationRequestBuilder', () => {
   const API_KEY = '0000000000000000000000000000000000000000000000000000000000000123';
 
-  let core: MoralisCore;
+  let core: Core;
   let builder: OperationRequestBuilder<TestRequest>;
 
   beforeEach(() => {
-    core = MoralisCore.create();
+    core = Core.create();
     core.config.registerKey(ApiUtilsConfig.apiKey);
     core.config.set(ApiUtilsConfig.apiKey, API_KEY);
     builder = new OperationRequestBuilder<TestRequest>(operation, core);

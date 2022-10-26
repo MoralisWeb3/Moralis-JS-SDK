@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { MoralisCore } from '../MoralisCore';
+import { Core } from '../Core';
 import { LoggerController } from '../controllers/LoggerController';
 import { ModuleType } from './ModuleType';
 import TypedEmitter, { EventMap } from 'typed-emitter';
@@ -8,7 +8,7 @@ import TypedEmitter, { EventMap } from 'typed-emitter';
  * The base class of every Moralis class that gets registered as a module via MoralisModules
  * It should always be created with:
  * - `name`: name of the module (should be unique)
- * - `core`: the MoralisCore instance
+ * - `core`: the Core instance
  * - `type`: (optional) CoreModuleType, defaults to CoreModuleType.DEFAULT
  *
  * When creating an api, or network module, you should use the ApiModule or NetworkModule
@@ -20,7 +20,7 @@ export abstract class Module<Events extends EventMap = any> {
 
   public constructor(
     public readonly name: string,
-    protected readonly core: MoralisCore,
+    protected readonly core: Core,
     public readonly type: ModuleType = ModuleType.DEFAULT,
   ) {}
 
@@ -50,5 +50,5 @@ export abstract class Module<Events extends EventMap = any> {
 }
 
 export interface ModuleFactory {
-  create(core: MoralisCore): Module;
+  create(core: Core): Module;
 }

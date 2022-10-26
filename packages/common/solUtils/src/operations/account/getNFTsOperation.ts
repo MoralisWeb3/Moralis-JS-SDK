@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -35,7 +35,7 @@ export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, Get
 
 // Methods
 
-function getRequestUrlParams(request: GetNFTsRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetNFTsRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -51,7 +51,7 @@ function deserializeResponse(jsonResponse: GetNFTsJSONResponse) {
   });
 }
 
-function serializeRequest(request: GetNFTsRequest, core: MoralisCore) {
+function serializeRequest(request: GetNFTsRequest, core: Core) {
   return {
     address: request.address.toString(),
     network: SolNetworkResolver.resolve(request.network, core),

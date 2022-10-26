@@ -1,4 +1,4 @@
-import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
 
@@ -12,7 +12,7 @@ type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;
 export class StreamEvmNftTransfer implements MoralisDataObject {
   private _data: StreamEvmNftTransferData;
 
-  constructor(data: StreamEvmNftTransferInput, core: MoralisCore) {
+  constructor(data: StreamEvmNftTransferInput, core: Core) {
     this._data = StreamEvmNftTransfer.parse(data, core);
   }
 
@@ -20,22 +20,22 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
    * Create a new instance of StreamEvmNftTransferish
    *
    * @param data - the StreamEvmNftTransferishish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const transfer = StreamEvmTransactionish.create(data);
    * ```
    * @returns an instance of StreamEvmNftTransfer
    */
-  static create(data: StreamEvmNftTransferish, core?: MoralisCore) {
+  static create(data: StreamEvmNftTransferish, core?: Core) {
     if (data instanceof StreamEvmNftTransfer) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new StreamEvmNftTransfer(data, finalCore);
   }
 
-  private static parse(data: StreamEvmNftTransferInput, core: MoralisCore): StreamEvmNftTransferData {
+  private static parse(data: StreamEvmNftTransferInput, core: Core): StreamEvmNftTransferData {
     return {
       ...data,
       chain: EvmChain.create(data.chain, core),

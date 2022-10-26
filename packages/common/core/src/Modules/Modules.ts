@@ -1,7 +1,7 @@
 import { Module } from './Module';
 import { isApiModule } from './utils';
 import { AnyBaseClass } from './types';
-import { CoreErrorCode, MoralisCoreError } from '../Error';
+import { CoreErrorCode, CoreError } from '../Error';
 import { ApiModule } from './ApiModule';
 
 /**
@@ -24,7 +24,7 @@ export class Modules {
    */
   public register(module: AnyBaseClass) {
     if (this.modules.has(module.name)) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.DUPLICATE_MODULE,
         message: `The module "${module.name}" has already been registered.`,
       });
@@ -39,12 +39,12 @@ export class Modules {
    * This module should have been registered with `register`
    * @param name the module name
    * @returns a valid BaseModule
-   * @throws a MoralisCoreError if no module with the given name has been registered
+   * @throws a CoreError if no module with the given name has been registered
    */
   public get<CurrentModule extends Module = Module>(name: string): CurrentModule {
     const module = this.modules.get(name);
     if (!module) {
-      throw new MoralisCoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
+      throw new CoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
     }
     return module as CurrentModule;
   }
@@ -66,13 +66,13 @@ export class Modules {
    * Returns the network module with the provided name.
    * @param name the module name
    * @returns a valid ApiModule
-   * @throws a MoralisCoreError if no network module with the given name has been registered
+   * @throws a CoreError if no network module with the given name has been registered
    */
   public getApi(name: string): ApiModule {
     const module = this.modules.get(name);
 
     if (!module || !isApiModule(module)) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.MODULE_NOT_FOUND,
         message: `No ApiModule found with the name "${name}"`,
       });
@@ -84,13 +84,13 @@ export class Modules {
   /**
    * Remove the module with the provided name, if it has been registered,
    * @param name the module name
-   * @throws a MoralisCoreError if the module cannot be found.
+   * @throws a CoreError if the module cannot be found.
    */
   public remove(name: string) {
     const isRemoved = this.modules.delete(name);
 
     if (!isRemoved) {
-      throw new MoralisCoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
+      throw new CoreError({ code: CoreErrorCode.MODULE_NOT_FOUND, message: `Module "${name}" does not exist.` });
     }
   }
 

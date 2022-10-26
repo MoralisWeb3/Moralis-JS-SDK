@@ -1,14 +1,14 @@
-import MoralisCore, { Module, MoralisCoreProvider } from '@moralisweb3/common-core';
+import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonSolUtilsConfigSetup } from './config';
 
 export class CommonSolUtils extends Module {
   public static readonly moduleName = 'solUtils';
 
-  public static create(core?: MoralisCore): CommonSolUtils {
-    return new CommonSolUtils(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: Core): CommonSolUtils {
+    return new CommonSolUtils(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: MoralisCore) {
+  private constructor(core: Core) {
     super(CommonSolUtils.moduleName, core);
   }
 

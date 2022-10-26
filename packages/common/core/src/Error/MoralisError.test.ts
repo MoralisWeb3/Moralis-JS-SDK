@@ -1,5 +1,5 @@
 import { ApiErrorCode, CoreErrorCode, MoralisErrorCode } from './ErrorCode';
-import { MoralisApiError, MoralisCoreError, MoralisError, MoralisErrorOptions } from './MoralisError';
+import { MoralisApiError, CoreError, MoralisError, MoralisErrorOptions } from './MoralisError';
 
 function createOptions<T extends MoralisErrorCode>(code: T): MoralisErrorOptions<T> {
   return {
@@ -45,9 +45,9 @@ describe('MoralisError', () => {
   });
 });
 
-describe('MoralisCoreError', () => {
+describe('CoreError', () => {
   it('creates a proper name and a correct message', () => {
-    const error = new MoralisCoreError(createOptions(CoreErrorCode.GENERIC_CORE_ERROR));
+    const error = new CoreError(createOptions(CoreErrorCode.GENERIC_CORE_ERROR));
     expect(error.name).toEqual('Moralis SDK Core Error');
     expect(error.message).toEqual('[C0001] test');
   });

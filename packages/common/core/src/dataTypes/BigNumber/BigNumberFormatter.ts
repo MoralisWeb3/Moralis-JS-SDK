@@ -1,9 +1,9 @@
-import { CoreErrorCode, MoralisCoreError } from '../../Error';
+import { CoreErrorCode, CoreError } from '../../Error';
 
 export class BigNumberFormatter {
   public static toDecimal(value: bigint, decimals: number): string {
     if (decimals < 0) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.BIG_NUMBER_ERROR,
         message: 'Invalid decimals',
       });

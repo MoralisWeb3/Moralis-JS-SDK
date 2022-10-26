@@ -1,11 +1,11 @@
-import { CoreErrorCode, MoralisCoreError } from '../Error';
+import { CoreErrorCode, CoreError } from '../Error';
 
 export class Config {
   private readonly items = new Map<string, ConfigItem<unknown>>();
 
   public registerKey<Value>(key: ConfigKey<Value>, validator?: ConfigKeyValidator<Value>) {
     if (this.items.has(key.name)) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.CONFIG_KEY_ALREADY_EXIST,
         message: `Key "${key.name}" is already registered`,
       });
@@ -29,7 +29,7 @@ export class Config {
     const item = this.getItem<Value>(keyOrName);
     const error = item.validator ? item.validator(value) : null;
     if (error) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.CONFIG_INVALID_VALUE,
         message: `Cannot set this config. Invalid value for "${item.key.name}". ${error}`,
       });
@@ -56,7 +56,7 @@ export class Config {
       // This error occurs when a user tries to set a value for a specific key, but the key is not registered.
       // That situation may occur, when a moralis module is not registered (all keys are registered in the module setup step).
       // If you have this error, you should fix your code. Firstly, you should register all modules, later you can modify the configuration.
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.CONFIG_KEY_NOT_EXIST,
         message: `Key "${keyName}" is unregistered. Have you registered all required modules?`,
       });

@@ -1,4 +1,4 @@
-import { MoralisCore } from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 
 export type EndpointMethod = 'get' | 'post' | 'put' | 'delete';
 
@@ -21,7 +21,7 @@ export interface Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResul
 }
 
 export type EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> = (
-  core: MoralisCore,
+  core: Core,
 ) => Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>;
 
 export function createEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(

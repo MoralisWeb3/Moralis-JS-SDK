@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisDataObject, maybe, MoralisCoreProvider } from '@moralisweb3/common-core';
+import Core, { MoralisDataObject, maybe, CoreProvider } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20Input, Erc20Data } from './types';
@@ -24,21 +24,21 @@ export class Erc20Token implements MoralisDataObject {
    * const token = Erc20Token.create(value);
    * ```
    */
-  public static create(value: Erc20Tokenish, core?: MoralisCore) {
+  public static create(value: Erc20Tokenish, core?: Core) {
     if (value instanceof Erc20Token) {
       return value;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new Erc20Token(value, finalCore);
   }
 
   private readonly _value: Erc20Data;
 
-  private constructor(value: Erc20Input, core: MoralisCore) {
+  private constructor(value: Erc20Input, core: Core) {
     this._value = Erc20Token.parse(value, core);
   }
 
-  static parse = (value: Erc20Input, core: MoralisCore): Erc20Data => ({
+  static parse = (value: Erc20Input, core: Core): Erc20Data => ({
     decimals: +value.decimals,
     name: value.name,
     symbol: value.symbol,

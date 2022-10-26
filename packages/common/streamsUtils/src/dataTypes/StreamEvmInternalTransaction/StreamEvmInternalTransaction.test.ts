@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/common-core';
+import Core from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { StreamEvmInternalTransaction } from './StreamEvmInternalTransaction';
 import { mockStreamEvmInternalTransaction } from './StreamEvmInternalTransaction.mock';
@@ -6,7 +6,7 @@ import { mockStreamEvmInternalTransaction } from './StreamEvmInternalTransaction
 const testsInputs = Object.entries(mockStreamEvmInternalTransaction).map(([name, input]) => ({ name, input }));
 
 describe('StreamEvmInternalTransaction', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupStreamsUtils();

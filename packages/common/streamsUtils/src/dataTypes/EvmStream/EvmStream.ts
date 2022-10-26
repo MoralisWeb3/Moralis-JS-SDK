@@ -1,4 +1,4 @@
-import MoralisCore, { maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmChain } from '@moralisweb3/common-evm-utils';
 import { EvmStreamData, EvmStreamInput, EvmStreamJSON } from './types';
 
@@ -12,7 +12,7 @@ export type EvmStreamish = EvmStreamInput | EvmStream;
 export class EvmStream implements MoralisDataObject {
   private _data: EvmStreamData;
 
-  constructor(data: EvmStreamInput, core: MoralisCore) {
+  constructor(data: EvmStreamInput, core: Core) {
     this._data = EvmStream.parse(data, core);
   }
 
@@ -20,22 +20,22 @@ export class EvmStream implements MoralisDataObject {
    * Create a new instance of EvmStream
    *
    * @param data - the EvmStreamish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const evmStream = EvmStream.create(data);
    * ```
    * @returns an instance of EvmStream
    */
-  static create(data: EvmStreamish, core?: MoralisCore) {
+  static create(data: EvmStreamish, core?: Core) {
     if (data instanceof EvmStream) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmStream(data, finalCore);
   }
 
-  private static parse = (data: EvmStreamInput, core: MoralisCore): EvmStreamData => {
+  private static parse = (data: EvmStreamInput, core: Core): EvmStreamData => {
     return {
       ...data,
       chains: data.chainIds.map((chainId) => EvmChain.create(chainId, core)),

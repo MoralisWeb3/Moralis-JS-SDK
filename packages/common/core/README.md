@@ -127,7 +127,7 @@ Accepts the same options as `get()`, with the addition of `body`, which is an (J
 
 Errors within Moralis are an instance of `MoralisError`. These are extended into a few different classes:
 
-- `MoralisCoreError`
+- `CoreError`
 - `MoralisApiError`
 
 Which are used in there respective packages. Creating a new error must accept the following 2 params:

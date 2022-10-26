@@ -1,10 +1,4 @@
-import MoralisCore, {
-  MoralisDataObject,
-  maybe,
-  BigNumber,
-  MoralisCoreProvider,
-  dateInputToDate,
-} from '@moralisweb3/common-core';
+import Core, { MoralisDataObject, maybe, BigNumber, CoreProvider, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -34,21 +28,21 @@ export class EvmTransaction implements MoralisDataObject {
    * const transaction = EvmTransaction.create(data);
    *```
    */
-  static create(data: EvmTransactionish, core?: MoralisCore) {
+  static create(data: EvmTransactionish, core?: Core) {
     if (data instanceof EvmTransaction) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmTransaction(data, finalCore);
   }
 
   private _data: EvmTransactionData;
 
-  constructor(data: EvmTransactionInput, core: MoralisCore) {
+  constructor(data: EvmTransactionInput, core: Core) {
     this._data = EvmTransaction.parse(data, core);
   }
 
-  static parse = (data: EvmTransactionInput, core: MoralisCore): EvmTransactionData => ({
+  static parse = (data: EvmTransactionInput, core: Core): EvmTransactionData => ({
     from: EvmAddress.create(data.from, core),
     to: maybe(data.to, (to) => EvmAddress.create(to, core)),
     nonce: maybe(data.nonce, BigNumber.create),

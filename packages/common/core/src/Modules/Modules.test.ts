@@ -1,6 +1,6 @@
 import { Config } from '../Config/Config';
 import { LoggerController } from '../controllers/LoggerController';
-import { MoralisCore } from '../MoralisCore';
+import { Core } from '../Core';
 import { ApiModule } from './ApiModule';
 import { Module } from './Module';
 import { Modules } from './Modules';
@@ -9,7 +9,7 @@ const TEST_MODULE_NAME = 'test';
 const TEST_API_MODULE_NAME = 'testApiModule';
 
 class TestModule extends Module {
-  public constructor(core: MoralisCore) {
+  public constructor(core: Core) {
     super(TEST_MODULE_NAME, core);
   }
   public setup() {
@@ -21,7 +21,7 @@ class TestModule extends Module {
 }
 
 class TestApiModule extends ApiModule {
-  public constructor(core: MoralisCore) {
+  public constructor(core: Core) {
     super(TEST_API_MODULE_NAME, core, 'http://foo');
   }
   public setup(): void {
@@ -33,7 +33,7 @@ class TestApiModule extends ApiModule {
 }
 
 describe('Modules', () => {
-  let core: MoralisCore;
+  let core: Core;
   let modules: Modules;
 
   function createTestModule(): TestModule {
@@ -47,7 +47,7 @@ describe('Modules', () => {
   beforeEach(() => {
     modules = new Modules();
     const config = new Config();
-    core = new MoralisCore(modules, config, new LoggerController(TEST_MODULE_NAME, config));
+    core = new Core(modules, config, new LoggerController(TEST_MODULE_NAME, config));
   });
 
   describe('register()', () => {

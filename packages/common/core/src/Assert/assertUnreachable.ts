@@ -1,6 +1,6 @@
-import { CoreErrorCode, MoralisCoreError } from '../Error';
+import { CoreErrorCode, CoreError } from '../Error';
 
-export const UnreachableError = new MoralisCoreError({
+export const UnreachableError = new CoreError({
   code: CoreErrorCode.GENERIC_CORE_ERROR,
   message: `Incorrect type provided, code should not reach here`,
 });

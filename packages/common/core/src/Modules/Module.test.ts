@@ -1,5 +1,5 @@
 import { ModuleType } from './ModuleType';
-import { MoralisCore } from '../MoralisCore';
+import { Core } from '../Core';
 import { Module } from './Module';
 
 describe('Module', () => {
@@ -20,11 +20,11 @@ describe('Module', () => {
     }
   }
 
-  let core: MoralisCore;
+  let core: Core;
   let module: TestModule;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
     module = new TestModule(MODULE_NAME, core);
     core.modules.register(module);
   });

@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import MoralisCore, { Camelize, toCamelCase } from '@moralisweb3/common-core';
+import Core, { Camelize, toCamelCase } from '@moralisweb3/common-core';
 import { EvmChainish, EvmTransaction, EvmTransactionLog, EvmBlock } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';
@@ -15,7 +15,7 @@ export interface Params extends Camelize<Omit<ApiParams, 'chain'>> {
 
 type ApiResult = operations[operation]['responses']['200']['content']['application/json'];
 
-const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
+const apiToResult = (core: Core, apiData: ApiResult, params: Params) => {
   const data = toCamelCase(apiData);
   const chain = EvmChainResolver.resolve(params.chain, core);
 

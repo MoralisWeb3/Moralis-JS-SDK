@@ -2,7 +2,7 @@
 import { isMoralisError } from '../Error/isMoralisError';
 import { CoreConfig, LogLevel } from '../Config/CoreConfig';
 import { Config } from '../Config';
-import { MoralisCore } from '../MoralisCore';
+import { Core } from '../Core';
 
 type Details = Record<string, unknown>;
 
@@ -22,7 +22,7 @@ const logLevelMap: Record<LogLevel, number> = {
  * It will show only logs up to the specified `logLevel` in the MoralisConfig
  */
 export class LoggerController {
-  public static create(moduleName: string, core: MoralisCore): LoggerController {
+  public static create(moduleName: string, core: Core): LoggerController {
     return new LoggerController(moduleName, core.config);
   }
 
