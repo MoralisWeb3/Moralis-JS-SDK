@@ -1,3 +1,2 @@
-# @moralisweb3/client-firebase-sol-auth
+# @moralisweb3/parse-server
 
-Authenticate your user by a Solana wallet using the **Authenticate with Moralis Web3** extension for the Firebase.

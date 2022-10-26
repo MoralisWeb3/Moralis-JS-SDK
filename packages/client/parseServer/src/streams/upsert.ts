@@ -28,7 +28,6 @@ export class Upsert {
       }
     }
 
-
     const results = await query.find({ useMasterKey: true });
 
     if (results.length > 0) {
