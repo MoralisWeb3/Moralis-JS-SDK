@@ -1,6 +1,6 @@
 import { getSettings, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
-import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { ApiModule, Core, CoreProvider } from '@moralisweb3/common-core';
 import { makeCreateStream } from './methods/create';
 import { makeUpdateStream } from './methods/update';
 import { makeDeleteStream } from './methods/delete';
@@ -22,11 +22,11 @@ const BASE_URL = 'https://api.moralis-streams.com';
 export class MoralisStreams extends ApiModule {
   public static readonly moduleName = 'streams';
 
-  public static create(core?: MoralisCore): MoralisStreams {
-    return new MoralisStreams(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: Core): MoralisStreams {
+    return new MoralisStreams(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: MoralisCore) {
+  private constructor(core: Core) {
     super(MoralisStreams.moduleName, core, BASE_URL);
   }
 

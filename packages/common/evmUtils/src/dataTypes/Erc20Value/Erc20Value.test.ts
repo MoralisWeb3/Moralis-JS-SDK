@@ -1,4 +1,4 @@
-import { BigNumber } from '@moralisweb3/core';
+import { BigNumber } from '@moralisweb3/common-core';
 import { setupEvmUtils } from '../../test/setup';
 import { Erc20Token } from '../Erc20/Erc20';
 import { Erc20Value } from './Erc20Value';

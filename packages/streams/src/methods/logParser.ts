@@ -1,4 +1,4 @@
-import { MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
+import { MoralisStreamError, StreamErrorCode } from '@moralisweb3/common-core';
 import AbiUtils from 'web3-eth-abi';
 import {
   isWebhook,

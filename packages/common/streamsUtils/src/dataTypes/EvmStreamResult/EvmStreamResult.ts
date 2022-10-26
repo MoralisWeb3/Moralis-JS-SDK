@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
@@ -16,28 +16,28 @@ export class EvmStreamResult implements MoralisDataObject {
    * Create a new instance of EvmStreamResult
    *
    * @param data - the EvmStreamResultish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const evmStreamResult = EvmStreamResult.create(data);
    * ```
    * @returns an instance of EvmStreamResult
    */
-  static create(data: EvmStreamResultish, core?: MoralisCore) {
+  static create(data: EvmStreamResultish, core?: Core) {
     if (data instanceof EvmStreamResult) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmStreamResult(data, finalCore);
   }
 
   private _data: EvmStreamResultData;
 
-  constructor(data: EvmStreamResultInput, core: MoralisCore) {
+  constructor(data: EvmStreamResultInput, core: Core) {
     this._data = EvmStreamResult.parse(data, core);
   }
 
-  private static parse = (data: EvmStreamResultInput, core: MoralisCore): EvmStreamResultData =>
+  private static parse = (data: EvmStreamResultInput, core: Core): EvmStreamResultData =>
     EvmStreamResultParser.parse(data, core);
 
   /**

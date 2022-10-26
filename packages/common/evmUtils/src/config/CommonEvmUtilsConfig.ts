@@ -1,4 +1,4 @@
-import { ConfigKey, EvmChainIdFormat, EvmAddressFormat } from '@moralisweb3/core';
+import { ConfigKey, EvmChainIdFormat, EvmAddressFormat } from '@moralisweb3/common-core';
 import { EvmChainish } from '../dataTypes';
 
 export const CommonEvmUtilsConfig = {

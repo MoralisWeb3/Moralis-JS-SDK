@@ -5,10 +5,10 @@ import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
 import { EvmApi } from '@moralisweb3/evm-api';
 import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
 import { SolApi } from '@moralisweb3/sol-api';
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { Core, CoreProvider } from '@moralisweb3/common-core';
 
 // Core
-const core = MoralisCore.create();
+const core = Core.create();
 
 // Utility modules
 const commonEvmUtils = CommonEvmUtils.create(core);
@@ -21,10 +21,10 @@ const streams = MoralisStreams.create(core);
 const evmApi = EvmApi.create(core);
 const solApi = SolApi.create(core);
 
-// Register all Moralis modules to MoralisCore
+// Register all Moralis modules to Core
 core.registerModules([commonEvmUtils, commonSolUtils, auth, apiUtils, evmApi, solApi, streams]);
 
-MoralisCoreProvider.setDefault(core);
+CoreProvider.setDefault(core);
 
 const Moralis = {
   Core: core,

@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import Core from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { EvmStreamResult } from './EvmStreamResult';
 import { mockEvmStreamResult } from './EvmStreamResult.mock';
@@ -6,7 +6,7 @@ import { mockEvmStreamResult } from './EvmStreamResult.mock';
 const testsInputs = Object.entries(mockEvmStreamResult).map(([name, input]) => ({ name, input }));
 
 describe('EvmStreamResult', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupStreamsUtils();

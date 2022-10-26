@@ -115,20 +115,20 @@ It's possible to install all functionalities of Moralis by installing `moralis` 
 
 ## 1. Install the dependencies
 
-Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
+Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/common-core` package. For example:
 
 ```shell
-yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
+yarn add @moralisweb3/common-core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
 ```
 
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
-import MoralisCore from '@moralisweb3/core';
+import Core from '@moralisweb3/common-core';
 import MoralisEvmApi from '@moralisweb3/evm-api';
 
-const core = MoralisCore.create();
-// Register all imported modules to the @moralisweb3/core module
+const core = Core.create();
+// Register all imported modules to the @moralisweb3/common-core module
 core.registerModules([MoralisEvmApi]);
 ```
 
@@ -162,10 +162,10 @@ Of course you are free to combine the modules in a single object, and use that i
 
 ```javascript
 // moralis.ts
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import EvmApi from '@moralisweb3/evm-api';
 
-const core = MoralisCore.create();
+const core = Core.create();
 const evmApi = EvmApi.create(core);
 core.registerModules([evmApi]);
 
@@ -193,7 +193,7 @@ The core module is required in all applications. It will handle global dependenc
 
 | package                                        |  Changelog | Description                                                                          |
 | ---------------------------------------------- |--------- | ------------------------------------------------------------------------------------ |
-| [@moralisweb3/core](./packages/core) | [CHANGELOG.md](./packages/core/CHANGELOG.md)      | Core logic, responsible for core logic and sharing state and events between packages |
+| [@moralisweb3/common-core](./packages/common/core) | [CHANGELOG.md](./packages/common/core/CHANGELOG.md)      | Core logic, responsible for core logic and sharing state and events between packages |
 
 
 ##  Utilities

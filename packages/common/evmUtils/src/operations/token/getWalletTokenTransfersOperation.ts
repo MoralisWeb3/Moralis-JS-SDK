@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/core';
+import { Core, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/common-core';
 import { Erc20Transfer, EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -42,7 +42,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
     address: String(request.address),
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
@@ -58,7 +58,7 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Mora
 function deserializeResponse(
   jsonResponse: GetWalletTokenTransfersJSONResponse,
   request: GetWalletTokenTransfersRequest,
-  core: MoralisCore,
+  core: Core,
 ) {
   return (jsonResponse.result || []).map((transfer) => {
     return Erc20Transfer.create({
@@ -73,7 +73,7 @@ function deserializeResponse(
   });
 }
 
-function serializeRequest(request: GetWalletTokenTransfersRequest, core: MoralisCore) {
+function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
     address: request.address.toString(),
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
@@ -87,7 +87,7 @@ function serializeRequest(request: GetWalletTokenTransfersRequest, core: Moralis
 
 function deserializeRequest(
   jsonRequest: GetWalletTokenTransfersJSONRequest,
-  core: MoralisCore,
+  core: Core,
 ): GetWalletTokenTransfersRequest {
   return {
     address: EvmAddress.create(jsonRequest.address, core),

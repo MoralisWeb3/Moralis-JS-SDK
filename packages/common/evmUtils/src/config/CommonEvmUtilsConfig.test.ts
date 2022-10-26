@@ -1,4 +1,4 @@
-import { Config, ConfigKey, EvmAddressFormat, EvmChainIdFormat } from '@moralisweb3/core';
+import { Config, ConfigKey, EvmAddressFormat, EvmChainIdFormat } from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfig } from './CommonEvmUtilsConfig';
 import { CommonEvmUtilsConfigSetup } from './CommonEvmUtilsConfigSetup';
 

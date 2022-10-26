@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { toCamelCase } from '@moralisweb3/core';
+import { toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 

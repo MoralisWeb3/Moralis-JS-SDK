@@ -1,4 +1,4 @@
-import { ApiErrorCode, MoralisApiError, PaginatedJSONResponse } from '@moralisweb3/core';
+import { ApiErrorCode, MoralisApiError, PaginatedJSONResponse } from '@moralisweb3/common-core';
 import { Pagination } from './Pagination';
 
 export class PaginatedResponseAdapter<Result, JSONResult> {

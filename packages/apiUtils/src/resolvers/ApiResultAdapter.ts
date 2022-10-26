@@ -1,4 +1,4 @@
-import { ApiErrorCode, MoralisApiError, MoralisData, MoralisDataObject } from '@moralisweb3/core';
+import { ApiErrorCode, MoralisApiError, MoralisData, MoralisDataObject } from '@moralisweb3/common-core';
 
 // TODO: make part of core config? The challenge in that case is to make sure it is Typed correctly
 export enum ApiFormatType {

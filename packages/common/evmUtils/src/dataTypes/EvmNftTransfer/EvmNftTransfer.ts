@@ -1,10 +1,4 @@
-import MoralisCore, {
-  MoralisDataObject,
-  maybe,
-  MoralisCoreProvider,
-  BigNumber,
-  dateInputToDate,
-} from '@moralisweb3/core';
+import Core, { MoralisDataObject, maybe, CoreProvider, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -30,22 +24,22 @@ export class EvmNftTransfer implements MoralisDataObject {
    * const transfer = EvmNftTransfer.create(data);
    *```
    */
-  static create(data: EvmNftTransferish, core?: MoralisCore) {
+  static create(data: EvmNftTransferish, core?: Core) {
     if (data instanceof EvmNftTransfer) {
       return data;
     }
 
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmNftTransfer(data, finalCore);
   }
 
   protected _data: EvmNftTransferData;
 
-  constructor(data: EvmNftTransferInput, core: MoralisCore) {
+  constructor(data: EvmNftTransferInput, core: Core) {
     this._data = EvmNftTransfer.parse(data, core);
   }
 
-  static parse = (data: EvmNftTransferInput, core: MoralisCore): EvmNftTransferData => ({
+  static parse = (data: EvmNftTransferInput, core: Core): EvmNftTransferData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
     amount: maybe(data.amount, (amount) => +amount),

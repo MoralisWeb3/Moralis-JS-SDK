@@ -1,4 +1,4 @@
-import { BigNumber, Camelize } from '@moralisweb3/core';
+import { BigNumber, Camelize } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { operations } from '../../generated/types';

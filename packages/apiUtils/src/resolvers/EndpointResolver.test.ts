@@ -3,7 +3,7 @@ import { ApiFormatType } from './ApiResultAdapter';
 import axios from 'axios';
 import { EndpointResolver } from './EndpointResolver';
 import { setupApi } from '../test/setup';
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import { createEndpoint, createEndpointFactory } from './Endpoint';
 
 const MOCK_API_KEY = 'test-api-key';
@@ -25,7 +25,7 @@ interface EndpointWeight {
 }
 
 describe('ApiResolver', () => {
-  let core: MoralisCore;
+  let core: Core;
   let resolver: EndpointResolver<
     unknown,
     unknown,
@@ -97,7 +97,7 @@ describe('ApiResolver', () => {
           'x-api-key': MOCK_API_KEY,
           'x-moralis-build-target': expect.any(String),
           'x-moralis-platform': expect.any(String),
-          'x-moralis-platform-version': MoralisCore.libVersion,
+          'x-moralis-platform-version': Core.libVersion,
         }),
       }),
     );

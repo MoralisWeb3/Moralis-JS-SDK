@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@codemirror/language": "^0.20.0",
-    "@moralisweb3/core": "^2.6.7",
+    "@moralisweb3/common-core": "^2.6.7",
     "dotenv": "^16.0.1",
     "envalid": "7.3.1",
     "ngrok": "^4.3.3",
