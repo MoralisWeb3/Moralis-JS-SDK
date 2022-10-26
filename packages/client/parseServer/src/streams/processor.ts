@@ -7,7 +7,7 @@ import {
   CollectionNameBuilder,
   InternalTxsProcessor,
   Update,
-} from '@moralisweb3/common-streams-utils';
+} from '@moralisweb3/streams';
 import Moralis from 'moralis';
 import { Express, Request } from 'express';
 import { Upsert } from './upsert';
