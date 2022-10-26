@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import Core from '@moralisweb3/common-core';
 import { Endpoint, EndpointFactory, EndpointMethod } from './Endpoint';
 import { EndpointResolver } from './EndpointResolver';
 import { PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';
@@ -18,7 +18,7 @@ export class Endpoints {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly endpoints: Endpoint<any, any, any, any, unknown>[] = [];
 
-  public constructor(private readonly core: MoralisCore, private readonly baseUrl: string) {}
+  public constructor(private readonly core: Core, private readonly baseUrl: string) {}
 
   public createFetcher<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
     factory: EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,

@@ -1,4 +1,4 @@
-import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamErc20TransferData, StreamErc20TransferInput, StreamErc20TransferJSON } from './types';
 
@@ -12,7 +12,7 @@ export type StreamErc20Transferish = StreamErc20TransferInput | StreamErc20Trans
 export class StreamErc20Transfer implements MoralisDataObject {
   private _data: StreamErc20TransferData;
 
-  constructor(data: StreamErc20TransferInput, core: MoralisCore) {
+  constructor(data: StreamErc20TransferInput, core: Core) {
     this._data = StreamErc20Transfer.parse(data, core);
   }
 
@@ -20,22 +20,22 @@ export class StreamErc20Transfer implements MoralisDataObject {
    * Create a new instance of StreamErc20Transfer
    *
    * @param data - the StreamErc20Transferish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const erc20Transfer = StreamErc20Transfer.create(data);
    * ```
    * @returns an instance of StreamErc20Transfer
    */
-  static create(data: StreamErc20Transferish, core?: MoralisCore) {
+  static create(data: StreamErc20Transferish, core?: Core) {
     if (data instanceof StreamErc20Transfer) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new StreamErc20Transfer(data, finalCore);
   }
 
-  private static parse = (data: StreamErc20TransferInput, core: MoralisCore): StreamErc20TransferData => {
+  private static parse = (data: StreamErc20TransferInput, core: Core): StreamErc20TransferData => {
     const chain = EvmChain.create(data.chain, core);
     return {
       ...data,

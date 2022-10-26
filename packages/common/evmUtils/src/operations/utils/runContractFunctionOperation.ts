@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -48,7 +48,7 @@ export const runContractFunctionOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: RunContractFunctionRequest, core: MoralisCore) {
+function getRequestUrlParams(request: RunContractFunctionRequest, core: Core) {
   return {
     address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
@@ -69,7 +69,7 @@ function deserializeResponse(jsonResponse: RunContractFunctionJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: RunContractFunctionRequest, core: MoralisCore) {
+function serializeRequest(request: RunContractFunctionRequest, core: Core) {
   return {
     address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
@@ -81,10 +81,7 @@ function serializeRequest(request: RunContractFunctionRequest, core: MoralisCore
   };
 }
 
-function deserializeRequest(
-  jsonRequest: RunContractFunctionJSONRequest,
-  core: MoralisCore,
-): RunContractFunctionRequest {
+function deserializeRequest(jsonRequest: RunContractFunctionJSONRequest, core: Core): RunContractFunctionRequest {
   return {
     address: EvmAddress.create(jsonRequest.address, core),
     chain: EvmChain.create(jsonRequest.chain, core),

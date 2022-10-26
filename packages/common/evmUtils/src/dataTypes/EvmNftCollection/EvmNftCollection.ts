@@ -1,4 +1,4 @@
-import MoralisCore, { MoralisDataObject, MoralisCoreProvider, maybe } from '@moralisweb3/core';
+import Core, { MoralisDataObject, CoreProvider, maybe } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNftCollectionData, EvmNftCollectionInput } from './types';
@@ -20,21 +20,21 @@ export class EvmNftCollection implements MoralisDataObject {
    * @param data - the EvmNftCollectionish type
    * @example const collection = EvmTransaction.create(data);
    */
-  static create(data: EvmNftCollectionish, core?: MoralisCore) {
+  static create(data: EvmNftCollectionish, core?: Core) {
     if (data instanceof EvmNftCollection) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmNftCollection(data, finalCore);
   }
 
   private _data: EvmNftCollectionData;
 
-  constructor(data: EvmNftCollectionInput, core: MoralisCore) {
+  constructor(data: EvmNftCollectionInput, core: Core) {
     this._data = EvmNftCollection.parse(data, core);
   }
 
-  static parse = (data: EvmNftCollectionInput, core: MoralisCore): EvmNftCollectionData => ({
+  static parse = (data: EvmNftCollectionInput, core: Core): EvmNftCollectionData => ({
     ...data,
     tokenAddress: EvmAddress.create(data.tokenAddress, core),
     chain: EvmChain.create(data.chain, core),

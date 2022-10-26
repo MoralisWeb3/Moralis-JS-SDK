@@ -1,11 +1,11 @@
-import MoralisCore, {
+import Core, {
   ApiErrorCode,
   MoralisApiError,
   RequestController,
   Operation,
   OperationRequestBody,
   OperationRequestValidator,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 import { ResponseAdapter } from './ResponseAdapter';
@@ -18,7 +18,7 @@ export class OperationResolver<Request, JSONRequest, Response, JSONResponse> {
   public constructor(
     private readonly operation: Operation<Request, JSONRequest, Response, JSONResponse>,
     private readonly baseUrl: string,
-    private readonly core: MoralisCore,
+    private readonly core: Core,
   ) {}
 
   public readonly fetch = async (request: Request): Promise<ResponseAdapter<Response, JSONResponse>> => {

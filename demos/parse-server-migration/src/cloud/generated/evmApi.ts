@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Moralis from 'moralis'
-import { MoralisError } from '@moralisweb3/core';
+import { MoralisError } from '@moralisweb3/common-core';
 import { handleRateLimit } from '../../rateLimit'
 import { AxiosError } from 'axios'
 declare const Parse: any;

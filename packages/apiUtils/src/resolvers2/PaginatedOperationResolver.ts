@@ -1,10 +1,10 @@
-import MoralisCore, {
+import Core, {
   PaginatedRequest,
   OperationRequestValidator,
   RequestController,
   PaginatedJSONResponse,
   PaginatedOperation,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
 import { PaginatedResponseAdapter } from './PaginatedResponseAdapter';
 import { Pagination, readPagination } from './Pagination';
@@ -17,7 +17,7 @@ export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRe
   public constructor(
     private readonly operation: PaginatedOperation<Request, JSONRequest, Result, JSONResult>,
     private readonly baseUrl: string,
-    private readonly core: MoralisCore,
+    private readonly core: Core,
   ) {}
 
   public readonly fetch = async (request: Request): Promise<PaginatedResponseAdapter<Result, JSONResult>> => {

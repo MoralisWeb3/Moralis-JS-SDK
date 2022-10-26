@@ -10,7 +10,7 @@ module.exports = {
     '^@moralisweb3/api-utils': path.join(__dirname, 'packages/apiUtils/src'),
     '^@moralisweb3/test-utils': path.join(__dirname, 'packages/testUtils/src'),
     '^@moralisweb3/common-streams-utils': path.join(__dirname, 'packages/common/streamsUtils/src'),
-    '^@moralisweb3/core': path.join(__dirname, 'packages/core/src'),
+    '^@moralisweb3/common-core': path.join(__dirname, 'packages/common/core/src'),
     '^@moralisweb3/(.*)$': path.join(__dirname, 'packages/$1/src'),
   },
   modulePaths: ['<rootDir>'],

@@ -1,4 +1,4 @@
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import { EvmNftCollection } from './EvmNftCollection';
 import { setupEvmUtils } from '../../test/setup';
 import { EvmNftCollectionInput } from './types';
@@ -12,7 +12,7 @@ const exampleInput: EvmNftCollectionInput = {
 };
 
 describe('EvmNftCollection', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupEvmUtils();

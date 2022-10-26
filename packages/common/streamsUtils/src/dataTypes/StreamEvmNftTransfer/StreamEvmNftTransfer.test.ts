@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import Core from '@moralisweb3/common-core';
 import { setupStreamsUtils } from '../../test/setup';
 import { StreamEvmNftTransfer } from './StreamEvmNftTransfer';
 import { mockStreamEvmNftTransferInput } from './StreamEvmNftTransfer.mock';
@@ -6,7 +6,7 @@ import { mockStreamEvmNftTransferInput } from './StreamEvmNftTransfer.mock';
 const testsInputs = Object.entries(mockStreamEvmNftTransferInput).map(([name, input]) => ({ name, input }));
 
 describe('StreamEvmNftTransfer', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupStreamsUtils();

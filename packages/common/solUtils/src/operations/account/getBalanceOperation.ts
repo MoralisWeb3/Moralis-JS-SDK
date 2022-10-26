@@ -1,4 +1,4 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -40,7 +40,7 @@ export const getBalanceOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetBalanceRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetBalanceRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -51,7 +51,7 @@ function deserializeResponse(jsonResponse: GetBalanceJSONResponse) {
   return SolNative.create(jsonResponse.lamports);
 }
 
-function serializeRequest(request: GetBalanceRequest, core: MoralisCore) {
+function serializeRequest(request: GetBalanceRequest, core: Core) {
   return {
     address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),

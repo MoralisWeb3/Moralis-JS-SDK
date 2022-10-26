@@ -1,4 +1,4 @@
-import MoralisCore, { BigNumber, maybe, MoralisCoreProvider, MoralisDataObject } from '@moralisweb3/core';
+import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
 import { StreamEvmTransactionData, StreamEvmTransactionInput, StreamEvmTransactionJSON } from './types';
 
@@ -12,7 +12,7 @@ type StreamEvmTransactionish = StreamEvmTransaction | StreamEvmTransactionInput;
 export class StreamEvmTransaction implements MoralisDataObject {
   private _data: StreamEvmTransactionData;
 
-  constructor({ ...data }: StreamEvmTransactionInput, core: MoralisCore) {
+  constructor({ ...data }: StreamEvmTransactionInput, core: Core) {
     this._data = StreamEvmTransaction.parse(data, core);
   }
 
@@ -20,22 +20,22 @@ export class StreamEvmTransaction implements MoralisDataObject {
    * Create a new instance of StreamEvmTransactionish
    *
    * @param data - the StreamEvmTransactionishish type
-   * @param core - the MoralisCore instance
+   * @param core - the Core instance
    * @example
    * ```ts
    * const transaction = StreamEvmTransactionish.create(data);
    * ```
    * @returns an instance of StreamEvmTransaction
    */
-  static create(data: StreamEvmTransactionish, core?: MoralisCore) {
+  static create(data: StreamEvmTransactionish, core?: Core) {
     if (data instanceof StreamEvmTransaction) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new StreamEvmTransaction(data, finalCore);
   }
 
-  private static parse(data: StreamEvmTransactionInput, core: MoralisCore): StreamEvmTransactionData {
+  private static parse(data: StreamEvmTransactionInput, core: Core): StreamEvmTransactionData {
     const signature =
       data.r != null && data.s != null && data.v != null
         ? EvmSignature.create({ r: data.r, s: data.s, v: data.v })

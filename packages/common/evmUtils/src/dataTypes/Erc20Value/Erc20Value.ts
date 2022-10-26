@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, CoreErrorCode, CoreError, MoralisData } from '@moralisweb3/common-core';
 import { Erc20Token, Erc20Tokenish } from '../Erc20/Erc20';
 
 const EVM_ERC20_DEFAULT_DECIMALS = 18;
@@ -48,7 +48,7 @@ export class Erc20Value implements MoralisData {
    * @param options - The options for the token
    * @example Erc20Value.create(1000, { decimals: 3 });
    * @returns The created value
-   * @throws MoralisCoreError if the value is invalid
+   * @throws CoreError if the value is invalid
    */
   static create(value: Erc20Valueish, options?: Erc20Options): Erc20Value {
     if (value instanceof Erc20Value) {
@@ -83,7 +83,7 @@ export class Erc20Value implements MoralisData {
     token?: Erc20Tokenish;
   }): Erc20ValueData => {
     if (token && token.decimals && +token.decimals !== +decimals) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_DATA,
         message: 'Decimals do not match',
       });

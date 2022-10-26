@@ -1,4 +1,4 @@
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import { EvmSignature, EvmSignatureish } from './EvmSignature';
 import { setupEvmUtils } from '../../test/setup';
 
@@ -77,7 +77,7 @@ const validInputs: [EvmSignatureish, string][] = [
 ];
 
 describe('EvmAddress', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
     core = setupEvmUtils();
