@@ -23,7 +23,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "firebase": "^9.10.0",
     "@moralisweb3/common-streams-utils": "^2.6.7",
     "moralis": "^2.6.7",
     "parse": "3.4.4",

@@ -1,6 +1,7 @@
 import Moralis from 'moralis';
 import express from 'express';
 import cors from 'cors';
+import ngrok from 'ngrok';
 import { parseDashboard } from './parseDashboard';
 import { parseServer } from './parseServer';
 import { errorHandler } from './middlewares/errorHandler';
@@ -36,7 +37,8 @@ app.use(errorHandler);
 
 app.use(express.static('public'));
 
-app.listen(config.PORT, () => {
+app.listen(config.PORT, async () => {
+  const url = await ngrok.connect(config.PORT);
   // eslint-disable-next-line no-console
-  console.log(`${config.APP_NAME} is running on port ${config.PORT}`);
+  console.log(`${config.APP_NAME} is running on port ${config.PORT} and ngrok url ${url}`);
 });
