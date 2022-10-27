@@ -1,11 +1,4 @@
-import {
-  MoralisCore,
-  MoralisDataObject,
-  maybe,
-  BigNumber,
-  dateInputToDate,
-  MoralisCoreProvider,
-} from '@moralisweb3/core';
+import { Core, MoralisDataObject, maybe, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -33,17 +26,17 @@ export class EvmEvent implements MoralisDataObject {
    * const event = EvmEventish.create(data);
    *```
    */
-  static create(data: EvmEventish, core?: MoralisCore) {
+  static create(data: EvmEventish, core?: Core) {
     if (data instanceof EvmEvent) {
       return data;
     }
-    const finalCore = core ?? MoralisCoreProvider.getDefault();
+    const finalCore = core ?? CoreProvider.getDefault();
     return new EvmEvent(EvmEvent.parse(data, finalCore));
   }
 
   private constructor(private readonly _data: EvmEventData) {}
 
-  static parse = (data: EvmEventInput, core: MoralisCore): EvmEventData => ({
+  static parse = (data: EvmEventInput, core: Core): EvmEventData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
     address: EvmAddress.create(data.address, core),

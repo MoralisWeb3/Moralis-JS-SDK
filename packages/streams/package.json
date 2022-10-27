@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.6.7",
-    "@moralisweb3/core": "^2.6.7",
+    "@moralisweb3/common-core": "^2.6.7",
     "@moralisweb3/common-evm-utils": "^2.6.7",
     "@moralisweb3/common-streams-utils": "^2.6.7",
     "@moralisweb3/streams-typings": "^1.0.5",

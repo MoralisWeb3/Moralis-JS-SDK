@@ -1,5 +1,5 @@
 import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
+import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { BASE_URL } from '../MoralisAuth';
 import { completeChallengeEvm, completeChallengeSol } from '../resolvers';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
@@ -29,21 +29,21 @@ export type VerifyOptions = VerifyEvmOptions | VerifySolOptions;
 export type VerifyEvmData = ReturnType<typeof makeEvmVerify>;
 export type VerifySolData = ReturnType<typeof makeSolVerify>;
 
-const makeEvmVerify = (core: MoralisCore, { networkType, network, ...options }: VerifyEvmOptions) => {
+const makeEvmVerify = (core: Core, { networkType, network, ...options }: VerifyEvmOptions) => {
   return EndpointResolver.create(core, BASE_URL, completeChallengeEvm).fetch({
     message: options.message,
     signature: options.signature,
   });
 };
 
-const makeSolVerify = (core: MoralisCore, { networkType, network, ...options }: VerifySolOptions) => {
+const makeSolVerify = (core: Core, { networkType, network, ...options }: VerifySolOptions) => {
   return EndpointResolver.create(core, BASE_URL, completeChallengeSol).fetch({
     message: options.message,
     signature: options.signature,
   });
 };
 
-export const makeVerify = (core: MoralisCore) => async (options: VerifyOptions) => {
+export const makeVerify = (core: Core) => async (options: VerifyOptions) => {
   // Backwards compatibility for the 'network' parameter
   if (!options.networkType && options.network) {
     options.networkType = options.network;

@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.6.7",
-    "@moralisweb3/core": "^2.6.7",
+    "@moralisweb3/common-core": "^2.6.7",
     "@moralisweb3/common-sol-utils": "^2.6.7"
   }
 }

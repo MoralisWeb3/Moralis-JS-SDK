@@ -1,4 +1,4 @@
-import { BigNumber } from '@moralisweb3/core';
+import { BigNumber } from '@moralisweb3/common-core';
 import { SolNative, SolNativeish, SolNativeUnit } from './SolNative';
 
 describe('SolNative', () => {

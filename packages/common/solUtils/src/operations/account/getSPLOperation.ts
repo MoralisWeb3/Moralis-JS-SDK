@@ -1,11 +1,11 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getSPL';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getSPL';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -23,6 +23,7 @@ export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
 export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',
   name: 'getSPL',
+  id: 'getSPL',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/tokens',
@@ -35,7 +36,7 @@ export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPL
 
 // Methods
 
-function getRequestUrlParams(request: GetSPLRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetSPLRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -52,9 +53,9 @@ function deserializeResponse(jsonResponse: GetSPLJSONResponse) {
   });
 }
 
-function serializeRequest(request: GetSPLRequest, core: MoralisCore) {
+function serializeRequest(request: GetSPLRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }

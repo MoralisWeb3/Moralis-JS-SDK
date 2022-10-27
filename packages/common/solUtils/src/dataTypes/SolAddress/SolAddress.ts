@@ -1,4 +1,4 @@
-import { CoreErrorCode, MoralisCoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/core';
+import { CoreErrorCode, CoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/common-core';
 import { PublicKey } from '@solana/web3.js';
 
 /**
@@ -33,7 +33,7 @@ export class SolAddress implements MoralisData {
       const publicKey = new PublicKey(address);
       return publicKey.toBase58();
     } catch (e) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: `Invalid Solana address provided: ${address}`,
         cause: e,

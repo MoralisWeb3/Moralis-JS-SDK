@@ -1,4 +1,4 @@
-import { MoralisDataObject, maybe, dateInputToDate } from '@moralisweb3/core';
+import { MoralisDataObject, maybe, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNftMetadataInput, EvmNftMetadataData } from './types';

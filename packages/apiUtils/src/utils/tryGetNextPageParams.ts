@@ -1,4 +1,4 @@
-import { ApiErrorCode, MoralisApiError } from '@moralisweb3/core';
+import { ApiErrorCode, MoralisApiError } from '@moralisweb3/common-core';
 import { PaginatedParams, PaginatedResult } from '../resolvers/PaginatedEndpoint';
 
 export const tryGetNextPageParams = <Params extends PaginatedParams>(

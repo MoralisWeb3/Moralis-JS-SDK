@@ -1,6 +1,6 @@
 import { createPaginatedEndpointFactory, createPaginatedEndpoint, PaginatedParams } from '@moralisweb3/api-utils';
 
-import { Camelize, toCamelCase } from '@moralisweb3/core';
+import { Camelize, toCamelCase } from '@moralisweb3/common-core';
 import { EvmChainish, EvmAddressish, EvmAddress, EvmNative, EvmNftTransfer } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 import { EvmChainResolver } from '../EvmChainResolver';

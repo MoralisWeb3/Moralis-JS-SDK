@@ -10,7 +10,7 @@ import {
 } from './PaginatedEndpoint';
 import { setupApi } from '../test/setup';
 import { PaginatedEndpointResolver } from './PaginatedEndpointResolver';
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -60,7 +60,7 @@ type ApiResult = {
 }[];
 
 describe('PaginatedEndpointResolver', () => {
-  let core: MoralisCore;
+  let core: Core;
   let resolver: PaginatedEndpointResolver<
     any,
     Params,

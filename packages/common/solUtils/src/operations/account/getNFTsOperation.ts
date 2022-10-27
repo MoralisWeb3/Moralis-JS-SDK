@@ -1,11 +1,11 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getNFTs';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getNFTs';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -23,6 +23,7 @@ export type GetNFTsResponse = ReturnType<typeof deserializeResponse>;
 export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, GetNFTsResponse, GetNFTsJSONResponse> = {
   method: 'GET',
   name: 'getNFTs',
+  id: 'getNFTs',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/nft',
@@ -35,7 +36,7 @@ export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, Get
 
 // Methods
 
-function getRequestUrlParams(request: GetNFTsRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetNFTsRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -51,9 +52,9 @@ function deserializeResponse(jsonResponse: GetNFTsJSONResponse) {
   });
 }
 
-function serializeRequest(request: GetNFTsRequest, core: MoralisCore) {
+function serializeRequest(request: GetNFTsRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }

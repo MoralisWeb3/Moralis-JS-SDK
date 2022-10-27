@@ -1,7 +1,7 @@
 import { tryGetNextPageParams } from '../utils/tryGetNextPageParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
 import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
-import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
+import { Core, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/common-core';
 import { PaginatedResult, PaginatedEndpoint, PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
 
@@ -13,7 +13,7 @@ export class PaginatedEndpointResolver<
   JSONResult,
 > {
   public static create<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
-    core: MoralisCore,
+    core: Core,
     baseUrl: string,
     endpointFactory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {

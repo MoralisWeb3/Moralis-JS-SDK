@@ -1,4 +1,4 @@
-import { ConfigKey } from '@moralisweb3/core';
+import { ConfigKey } from '@moralisweb3/common-core';
 
 export const ApiUtilsConfig = {
   apiKey: {

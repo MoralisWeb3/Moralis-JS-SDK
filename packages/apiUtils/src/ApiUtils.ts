@@ -1,14 +1,14 @@
-import { Module, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { Module, Core, CoreProvider } from '@moralisweb3/common-core';
 import { ApiUtilsConfigSetup } from './config/ApiUtilsConfigSetup';
 
 export class ApiUtils extends Module {
   public static readonly moduleName = 'api';
 
-  public static create(core?: MoralisCore): ApiUtils {
-    return new ApiUtils(core ?? MoralisCoreProvider.getDefault());
+  public static create(core?: Core): ApiUtils {
+    return new ApiUtils(core ?? CoreProvider.getDefault());
   }
 
-  public constructor(core: MoralisCore) {
+  public constructor(core: Core) {
     super(ApiUtils.moduleName, core);
   }
 

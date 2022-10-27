@@ -2,10 +2,10 @@ import {
   MoralisData,
   MoralisDataFormatted,
   CoreErrorCode,
-  MoralisCoreError,
+  CoreError,
   BigNumberish,
   BigNumber,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 
 /**
  * Type containing valid Solana native units
@@ -49,7 +49,7 @@ export class SolNative implements MoralisData {
     } else if (unitToDecimals[unit] !== undefined) {
       decimal = unitToDecimals[unit];
     } else {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: `Not supported Solana unit: ${unit}`,
       });

@@ -1,14 +1,14 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'runContractFunction';
-type PathParams = operations[OperationName]['parameters']['path'];
-type QueryParams = operations[OperationName]['parameters']['query'];
-type BodyParams = operations[OperationName]['requestBody']['content']['application/json'];
+type OperationId = 'runContractFunction';
+type PathParams = operations[OperationId]['parameters']['path'];
+type QueryParams = operations[OperationId]['parameters']['query'];
+type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
 type RequestParams = PathParams & QueryParams & BodyParams;
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -32,6 +32,7 @@ export const runContractFunctionOperation: Operation<
 > = {
   method: 'POST',
   name: 'runContractFunction',
+  id: 'runContractFunction',
   groupName: 'token',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'functionName', 'providerUrl', 'subdomain'],
@@ -48,9 +49,9 @@ export const runContractFunctionOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: RunContractFunctionRequest, core: MoralisCore) {
+function getRequestUrlParams(request: RunContractFunctionRequest, core: Core) {
   return {
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
     providerUrl: request.providerUrl,
@@ -69,9 +70,9 @@ function deserializeResponse(jsonResponse: RunContractFunctionJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: RunContractFunctionRequest, core: MoralisCore) {
+function serializeRequest(request: RunContractFunctionRequest, core: Core) {
   return {
-    address: EvmAddress.create(request.address, core).toString(),
+    address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
     providerUrl: request.providerUrl,
@@ -81,10 +82,7 @@ function serializeRequest(request: RunContractFunctionRequest, core: MoralisCore
   };
 }
 
-function deserializeRequest(
-  jsonRequest: RunContractFunctionJSONRequest,
-  core: MoralisCore,
-): RunContractFunctionRequest {
+function deserializeRequest(jsonRequest: RunContractFunctionJSONRequest, core: Core): RunContractFunctionRequest {
   return {
     address: EvmAddress.create(jsonRequest.address, core),
     chain: EvmChain.create(jsonRequest.chain, core),

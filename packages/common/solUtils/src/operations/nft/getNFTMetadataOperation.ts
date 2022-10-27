@@ -1,11 +1,11 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getNFTMetadata';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getNFTMetadata';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -28,6 +28,7 @@ export const getNFTMetadataOperation: Operation<
 > = {
   method: 'GET',
   name: 'getNFTMetadata',
+  id: 'getNFTMetadata',
   groupName: 'nft',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/nft/{network}/{address}/metadata',
@@ -40,7 +41,7 @@ export const getNFTMetadataOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNFTMetadataRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetNFTMetadataRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -64,9 +65,9 @@ function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse) {
   };
 }
 
-function serializeRequest(request: GetNFTMetadataRequest, core: MoralisCore) {
+function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }

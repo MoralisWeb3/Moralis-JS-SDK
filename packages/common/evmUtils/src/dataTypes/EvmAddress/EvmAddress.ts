@@ -1,12 +1,12 @@
 import {
-  MoralisCore,
-  MoralisCoreProvider,
+  Core,
+  CoreProvider,
   EvmAddressFormat,
   Config,
   CoreErrorCode,
-  MoralisCoreError,
+  CoreError,
   MoralisData,
-} from '@moralisweb3/core';
+} from '@moralisweb3/common-core';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
@@ -50,11 +50,11 @@ export class EvmAddress implements MoralisData {
    * const address = EvmAddress.ZERO_ADDRESS
    * ```
    */
-  public static create(address: EvmAddressish, core?: MoralisCore) {
+  public static create(address: EvmAddressish, core?: Core) {
     if (address instanceof EvmAddress) {
       return address;
     }
-    const finalCore = core || MoralisCoreProvider.getDefault();
+    const finalCore = core || CoreProvider.getDefault();
     return new EvmAddress(address, finalCore.config);
   }
 
@@ -69,7 +69,7 @@ export class EvmAddress implements MoralisData {
 
   private static parse(address: EvmAddressInput) {
     if (!isAddress(address)) {
-      throw new MoralisCoreError({
+      throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: 'Invalid address provided',
       });
@@ -109,7 +109,7 @@ export class EvmAddress implements MoralisData {
       return this.lowercase;
     }
 
-    throw new MoralisCoreError({
+    throw new CoreError({
       code: CoreErrorCode.INVALID_ARGUMENT,
       message: 'Cannot format address, invalid config.formatAddress',
     });

@@ -1,12 +1,12 @@
-import { MoralisCore, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/core';
+import { Core, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/common-core';
 import { Erc20Transfer, EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getWalletTokenTransfers';
-type PathParams = operations[OperationName]['parameters']['path'];
-type QueryParams = operations[OperationName]['parameters']['query'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getWalletTokenTransfers';
+type PathParams = operations[OperationId]['parameters']['path'];
+type QueryParams = operations[OperationId]['parameters']['query'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -29,6 +29,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 > = {
   method: 'GET',
   name: 'getWalletTokenTransfers',
+  id: 'getWalletTokenTransfers',
   groupName: 'token',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'cursor', 'fromBlock', 'fromDate', 'limit', 'subdomain', 'toBlock', 'toDate'],
@@ -42,9 +43,9 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
-    address: String(request.address),
+    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
@@ -58,7 +59,7 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Mora
 function deserializeResponse(
   jsonResponse: GetWalletTokenTransfersJSONResponse,
   request: GetWalletTokenTransfersRequest,
-  core: MoralisCore,
+  core: Core,
 ) {
   return (jsonResponse.result || []).map((transfer) => {
     return Erc20Transfer.create({
@@ -73,21 +74,23 @@ function deserializeResponse(
   });
 }
 
-function serializeRequest(request: GetWalletTokenTransfersRequest, core: MoralisCore) {
+function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
     toBlock: request.toBlock,
     fromBlock: request.fromBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
+    subdomain: request.subdomain,
+    limit: request.limit,
   };
 }
 
 function deserializeRequest(
   jsonRequest: GetWalletTokenTransfersJSONRequest,
-  core: MoralisCore,
+  core: Core,
 ): GetWalletTokenTransfersRequest {
   return {
     address: EvmAddress.create(jsonRequest.address, core),
@@ -97,5 +100,7 @@ function deserializeRequest(
     fromBlock: jsonRequest.fromBlock,
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
+    subdomain: jsonRequest.subdomain,
+    limit: jsonRequest.limit,
   };
 }

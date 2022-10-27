@@ -1,11 +1,11 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getTokenPrice';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getTokenPrice';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -28,6 +28,7 @@ export const getTokenPriceOperation: Operation<
 > = {
   method: 'GET',
   name: 'getTokenPrice',
+  id: 'getTokenPrice',
   groupName: 'token',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/token/{network}/{address}/price',
@@ -40,7 +41,7 @@ export const getTokenPriceOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetTokenPriceRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -61,9 +62,9 @@ function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse) {
   };
 }
 
-function serializeRequest(request: GetTokenPriceRequest, core: MoralisCore) {
+function serializeRequest(request: GetTokenPriceRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }

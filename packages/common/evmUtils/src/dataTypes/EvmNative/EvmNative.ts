@@ -1,4 +1,4 @@
-import { BigNumber, BigNumberish, CoreErrorCode, MoralisCoreError, MoralisData } from '@moralisweb3/core';
+import { BigNumber, BigNumberish, CoreErrorCode, CoreError, MoralisData } from '@moralisweb3/common-core';
 
 /**
  * Type containing valid EVM native units
@@ -93,7 +93,7 @@ export class EvmNative implements MoralisData {
       decimals = unit;
     } else {
       if (unitToDecimals[unit] == null) {
-        throw new MoralisCoreError({
+        throw new CoreError({
           code: CoreErrorCode.INVALID_ARGUMENT,
           message: 'Unit should be a decimal number or valid EvmNativeUnit string',
         });

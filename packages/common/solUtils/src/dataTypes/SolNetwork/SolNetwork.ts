@@ -1,4 +1,4 @@
-import { MoralisData, MoralisDataFormatted, CoreErrorCode, MoralisCoreError } from '@moralisweb3/core';
+import { MoralisData, MoralisDataFormatted, CoreErrorCode, CoreError } from '@moralisweb3/common-core';
 
 const solNetworkNames = ['mainnet', 'devnet'] as const;
 
@@ -65,7 +65,7 @@ export class SolNetwork implements MoralisData {
   private static parse(network: SolNetworkNameish): SolNetworkName {
     if (typeof network === 'string') {
       if (!solNetworkNames.includes(network as SolNetworkName)) {
-        throw new MoralisCoreError({
+        throw new CoreError({
           code: CoreErrorCode.INVALID_ARGUMENT,
           message: `Solana network is not supported: ${network}`,
         });

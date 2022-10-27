@@ -1,11 +1,11 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'balance';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'balance';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -27,7 +27,8 @@ export const getBalanceOperation: Operation<
   GetBalanceJSONResponse
 > = {
   method: 'GET',
-  name: 'balance',
+  name: 'getBalance',
+  id: 'balance',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/balance',
@@ -40,7 +41,7 @@ export const getBalanceOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetBalanceRequest, core: MoralisCore) {
+function getRequestUrlParams(request: GetBalanceRequest, core: Core) {
   return {
     network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
@@ -51,9 +52,9 @@ function deserializeResponse(jsonResponse: GetBalanceJSONResponse) {
   return SolNative.create(jsonResponse.lamports);
 }
 
-function serializeRequest(request: GetBalanceRequest, core: MoralisCore) {
+function serializeRequest(request: GetBalanceRequest, core: Core) {
   return {
-    address: request.address.toString(),
+    address: SolAddress.create(request.address).address,
     network: SolNetworkResolver.resolve(request.network, core),
   };
 }
