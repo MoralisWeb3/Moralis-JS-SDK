@@ -49,16 +49,18 @@ import { initializeStreams } from '@moralisweb3/parse-server';
 ```
 
 the initializeStreams function takes the following options:
+- the parse server instance
+- Other options
 
 ```typescript
 interface StreamOptions {
-  parseInstance: any;
-  webhookUrl: string;
+  webhookUrl?: string;
+  apiKey: string;
 }
 ```
 
-- `parseInstance` - the parse server instance
-- `webhookUrl` - the url of choice to receive the stream data
+- `apiKey`: Your Moralis API key
+- `webhookUrl` - the url of choice to receive the stream data (optional). default path is `/streams`
 
 
 ## Putting all together
@@ -67,7 +69,7 @@ interface StreamOptions {
 import Moralis from 'moralis';
 import express from 'express';
 import config from './config';
-import { parseServerStreamsSync } from '@moralisweb3/parse-server';
+import { streamsSync } from '@moralisweb3/parse-server';
 
 const expressApp = express();
 
@@ -81,8 +83,8 @@ expressApp.use(express.json());
 expressApp.use(cors());
 
 expressApp.use(
-  parseServerStreamsSync({
-    parseInstance: parseServer,
+  streamsSync(parseServer, {
+    apiKey: config.MORALIS_API_KEY,
     webhookUrl: '/streams',
   }),
 );
