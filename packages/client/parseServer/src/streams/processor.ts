@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Moralis from 'moralis';
 import { Express } from 'express';
-import { map, webhookRouter } from './webbhook';
+import { tagsMap, webhookRouter } from './webbhook';
 
 interface streamConfig {
   tableName: string;
@@ -32,7 +32,7 @@ const prepareSyncs = async (parseObject: any, syncs: streamConfig[]) => {
       ]),
     );
 
-    map.set(sync.tag, sync);
+    tagsMap.set(sync.tag, sync);
   }
   await Promise.all(results);
 };

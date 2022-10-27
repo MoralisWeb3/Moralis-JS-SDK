@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import Moralis from 'moralis/.';
 import { Upsert } from './upsert';
 
-export const map = new Map();
+export const tagsMap = new Map();
 
 const collectionNameBuilder = new CollectionNameBuilder();
 const logsProcessor = new LogsProcessor(collectionNameBuilder);
@@ -34,7 +34,7 @@ export const webhookRouter = (app: Express, parseObject: any, webhookUrl: string
     try {
       const updates: Record<string, any> = {};
       const batch = req.body as IWebhook;
-      const sync = map.get(batch.tag);
+      const sync = tagsMap.get(batch.tag);
 
       const logUpdates = logsProcessor.process(batch);
       const txUpdates = txsProcessor.process(batch);
