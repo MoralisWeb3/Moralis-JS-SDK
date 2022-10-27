@@ -3,9 +3,9 @@ import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from 
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getSPL';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getSPL';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -23,6 +23,7 @@ export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
 export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',
   name: 'getSPL',
+  id: 'getSPL',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/tokens',

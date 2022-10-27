@@ -3,10 +3,10 @@ import { Erc20Transfer, EvmAddress, EvmAddressish, EvmChain, EvmChainish } from 
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getWalletTokenTransfers';
-type PathParams = operations[OperationName]['parameters']['path'];
-type QueryParams = operations[OperationName]['parameters']['query'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getWalletTokenTransfers';
+type PathParams = operations[OperationId]['parameters']['path'];
+type QueryParams = operations[OperationId]['parameters']['query'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -29,6 +29,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 > = {
   method: 'GET',
   name: 'getWalletTokenTransfers',
+  id: 'getWalletTokenTransfers',
   groupName: 'token',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'cursor', 'fromBlock', 'fromDate', 'limit', 'subdomain', 'toBlock', 'toDate'],

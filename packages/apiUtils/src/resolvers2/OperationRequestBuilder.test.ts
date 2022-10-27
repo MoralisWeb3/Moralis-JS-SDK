@@ -10,6 +10,7 @@ export interface TestRequest {
 
 const operation: Operation<TestRequest, unknown, unknown, unknown> = {
   name: 'test',
+  id: 'test',
   groupName: 'test',
   method: 'POST',
   urlPathParamNames: ['userId'],
