@@ -1,41 +1,7 @@
 import _ from 'lodash';
 import { IndexedAccessTypeNode, PropertySignature, SyntaxKind } from 'ts-morph';
-import { getPropertiesOfPropertySignature, getPropertyByName } from './utils';
+import { getPropertiesOfPropertySignature, getPropertyByName, parseDataType } from './utils';
 
-// export interface Item {
-//   name: string;
-//   type: string;
-//   hasQuestion?: boolean;
-// }
-
-const verify = (name: string, _type: string, _hasQuestion?: boolean) => {
-  if (name.includes('address')) {
-    return {
-      requestType: 'EvmAddressish',
-      serialize: (domain: string) => `${domain}.${name}.toString()`,
-      deSerialize: (domain: string, core: string) => `EvmAddress.create(${domain}.${_.camelCase(name)}, ${core})`,
-    };
-  }
-  if (name.includes('chain')) {
-    return {
-      requestType: 'EvmChainish',
-      serialize: (domain: string) => `EvmChainResolver.resolve(${domain}.${_.camelCase(name)}, core).apiHex`,
-      deSerialize: (domain: string, core: string) => `EvmChain.create(${domain}.${_.camelCase(name)}, ${core})`,
-    };
-  }
-  if (name.includes('abi')) {
-    return {
-      requestType: 'unknown',
-      serialize: (domain: string) => `${domain}.${_.camelCase(name)}`,
-      deSerialize: (domain: string, _core: string) => `${domain}.${_.camelCase(name)}`,
-    };
-  }
-  return {
-    requestType: undefined,
-    serialize: (domain: string) => `${domain}.${_.camelCase(name)}`,
-    deSerialize: (domain: string, _core: string) => `${domain}.${_.camelCase(name)}`,
-  };
-};
 export class TypeItem {
   public name;
   public type;
@@ -46,7 +12,7 @@ export class TypeItem {
     this.name = name;
     this.type = type;
     this.hasQuestion = hasQuestion;
-    this.dataType = verify(name, type, hasQuestion);
+    this.dataType = parseDataType(name, type, hasQuestion);
   }
 }
 
@@ -54,9 +20,13 @@ export type Name = 'query' | 'path';
 export class Operation {
   operation: PropertySignature;
   name: string;
+  path: string;
+  method: string;
 
-  constructor(operation: PropertySignature) {
+  constructor(operation: PropertySignature, method: string, path: string) {
     this.operation = operation;
+    this.path = path;
+    this.method = method;
     this.name = operation.getName();
   }
 
@@ -120,11 +90,6 @@ export class Operation {
 
       if (childNode.isKind(SyntaxKind.ArrayType)) {
         return [];
-        // const xxx = childNode.getFirstChildIfKind(SyntaxKind.IndexedAccessType);
-        // if (!xxx) {
-        //   return undefined;
-        // }
-        // return this.parseIndexedAccessType(xxx);
       }
 
       if (childNode.isKind(SyntaxKind.TypeLiteral)) {
@@ -154,12 +119,4 @@ export class Operation {
     ...(this.getPathParams() || []),
     ...(this.getRequestBodyParams() || []),
   ];
-
-  public read = () => {
-    // console.log(this.getRequestBodyParams());
-    return {
-      name: this.operation.getName(),
-      parameters: this.getParams(),
-    };
-  };
 }

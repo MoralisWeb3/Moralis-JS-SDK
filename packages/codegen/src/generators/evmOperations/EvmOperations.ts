@@ -29,10 +29,16 @@ export class EvmOperations {
 
   private addOperation = (operation: Operation) => {
     const requestUrlParams = operation.getRequestUrlParams();
-    // console.log(requestUrlParams[0]?.dataType);
-    if (operation.name === 'uploadFolder') {
-      console.log('uploadFolder:', operation.getRequestBodyParams());
-    }
+    const requestParamsToOverwrite = requestUrlParams.filter((param) => param.dataType.requestType);
+    const dataTypesToImport = requestParamsToOverwrite
+      .map((param) => {
+        const { dataType } = param.dataType;
+        if (dataType) {
+          return [dataType, param.dataType.requestType];
+        }
+        return undefined;
+      })
+      .flat(1);
     return {
       type: 'add',
       templateFile: path.join(this.dirname, 'templates/Operation.ts.hbs'),
@@ -40,6 +46,8 @@ export class EvmOperations {
       force: true,
       data: {
         name: operation.name,
+        method: operation.method,
+        path: operation.path,
         test: true,
         urlPathParamNames: operation.getPathParamNames(),
         urlSearchParamNames: operation.getQueryParamNames(),
@@ -47,7 +55,10 @@ export class EvmOperations {
         hasBodyParams: Boolean(operation.getRequestBodyParams()),
         requestBodyParams: operation.getRequestBodyParams(),
         requestUrlParams,
-        requestParamsToOverwrite: requestUrlParams.filter((param) => param.dataType.requestType),
+        requestBodyAndParams: [...(operation.getRequestBodyParams() || []), ...requestUrlParams],
+        requestParamsToOverwrite,
+        dataTypesToImport,
+        isEvmChainImported: dataTypesToImport.includes('EvmChain'),
       },
     };
   };

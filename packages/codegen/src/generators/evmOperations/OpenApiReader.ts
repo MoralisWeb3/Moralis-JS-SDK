@@ -1,7 +1,9 @@
 /* eslint-disable etc/no-commented-out-code */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import _ from 'lodash';
 import { Project, PropertySignature, SourceFile, SyntaxKind } from 'ts-morph';
 import { Operation } from './Operation';
+import { getTypeLiteral } from './utils';
 
 export class OpenApiReader {
   private sourceFile: SourceFile;
@@ -20,38 +22,33 @@ export class OpenApiReader {
 
   public getPaths = () => {
     const operationsInterface = this.sourceFile.getInterfaceOrThrow('paths');
-    return operationsInterface.getProperties();
+    return operationsInterface.getProperties().map((op) => {
+      const path = op.getName().replaceAll('"', '');
+      const methodPropertySignature = getTypeLiteral(op).getFirstChildByKind(SyntaxKind.PropertySignature);
+
+      const getOperationName = () => {
+        const index = methodPropertySignature?.getFirstChildByKind(SyntaxKind.IndexedAccessType);
+        return index?.getFirstChildByKind(SyntaxKind.LiteralType)?.getText().replaceAll('"', '');
+      };
+
+      return {
+        path,
+        method: _.upperCase(methodPropertySignature?.getName()),
+        name: getOperationName(),
+      };
+    });
   };
-
-  //   public getPathNames = () => this.getPaths().map((prop) => prop.getName());
-
-  // public getOperations = () => {
-  //   const operationsInterface = this.sourceFile.getInterfaceOrThrow('operations');
-  //   return operationsInterface.getProperties();
-  // };
-
-  // public getOperationNames = () => this.getOperations().map((prop) => prop.getName());
 
   public getOperations = () => {
     const operationsInterface = this.sourceFile.getInterfaceOrThrow('operations');
     const operations = operationsInterface.getProperties();
-    return operations.map((op) => new Operation(op));
+
+    const paths = this.getPaths();
+
+    return operations.map((op) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const { method, path } = paths.find((pathInfo) => pathInfo.name === op.getName())!;
+      return new Operation(op, method, path);
+    });
   };
-
-  // private utils = {
-  //   getPropertiesOfPropertySignature: (propSignature: PropertySignature) => {
-  //     const typeLiteral = propSignature.getFirstChildByKindOrThrow(SyntaxKind.TypeLiteral);
-
-  //     return typeLiteral.getProperties();
-  //   },
-  //   getTypeLiteral: (propSignature: PropertySignature) =>
-  //     propSignature.getFirstChildByKindOrThrow(SyntaxKind.TypeLiteral),
-  //   getPropertyByName: (propSignature: PropertySignature, propName: string) => {
-  //     const typeLiteral = this.utils.getTypeLiteral(propSignature);
-  //     return typeLiteral.getProperty(propName);
-  //   },
-  // };
 }
-
-// const op = new OpenApiReader('src/generators/evmOperations/openapi.ts');
-// console.log(op.getOperationParameters());

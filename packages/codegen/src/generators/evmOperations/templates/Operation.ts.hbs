@@ -1,24 +1,20 @@
-import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
-import { EvmChainResolver } from '../../EvmChainResolver';
+import { {{#if requestUrlParams }}Core, Camelize, {{/if}}Operation } from '@moralisweb3/common-core';
+{{#if dataTypesToImport}}import { {{#each dataTypesToImport}}{{ this }},{{/each}} } from '../../dataTypes';{{/if}}
+{{#if isEvmChainImported}}import { EvmChainResolver } from '../../EvmChainResolver';{{/if}}
 import { operations } from '../openapi';
 
-type OperationName = '{{ name }}';
+type OperationId = '{{ name }}';
 
-{{#if urlPathParamNames}}
-type PathParams = operations[OperationName]['parameters']['path'];
-{{/if}}
-{{#if urlSearchParamNames}}
-type QueryParams = operations[OperationName]['parameters']['query'];
-{{/if}}
-{{#if hasBodyParams}}
-type BodyParams = operations[OperationName]['requestBody']['content']['application/json'];
-{{/if}}
-{{#if test}}
-type RequestParams = {{#if urlPathParamNames}}PathParams{{/if}} {{#if urlSearchParamNames}}& QueryParams{{/if}} {{#if hasBodyParams}}& BodyParams{{/if}};
-{{/if}}
+{{#if urlPathParamNames}}type PathParams = operations[OperationId]['parameters']['path'];{{/if}}
 
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+{{#if urlSearchParamNames}}type QueryParams = operations[OperationId]['parameters']['query'];{{/if}}
+
+{{#if hasBodyParams}}type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];{{/if}}
+
+{{#if requestBodyAndParams }}type RequestParams = {{#if urlPathParamNames}}PathParams{{/if}} {{#if urlSearchParamNames}}& QueryParams{{/if}} {{#if hasBodyParams}}& BodyParams{{/if}};{{/if}}
+
+
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 //RunContractFunctionRequest
 
@@ -26,14 +22,7 @@ type SuccessResponse = operations[OperationName]['responses']['200']['content'][
 
 
 {{! Interface }}
-
-{{#if requestParamsToOverwrite}}
-  {{#each requestParamsToOverwrite}}
-  //{{camelCase this.name}}{{#if this.hasQuestion}}?:{{else}}:{{/if}} {{ this.dataType.requestType }};
-  {{/each}}
-{{/if}}
-
-export interface {{ properCase name }}Request extends Camelize<{{#if requestParamsToOverwrite}}Omit<RequestParams, {{#each requestParamsToOverwrite}} | '{{ this.name }}'{{/each}}>{{else}}RequestParams{{/if}}> {
+export interface {{ properCase name }}Request {{#if requestBodyAndParams }}extends Camelize<{{#if requestParamsToOverwrite}}Omit<RequestParams, {{#each requestParamsToOverwrite}} | '{{ this.name }}'{{/each}}>{{else}}RequestParams{{/if}}>{{/if}} {
   {{#if requestParamsToOverwrite}}
     {{#each requestParamsToOverwrite}}
       {{camelCase this.name}}{{#if this.hasQuestion}}?:{{else}}:{{/if}} {{ this.dataType.requestType }};
@@ -41,7 +30,7 @@ export interface {{ properCase name }}Request extends Camelize<{{#if requestPara
   {{/if}}
 }
 
-export type {{ properCase name }}JSONRequest = ReturnType<typeof serializeRequest>;
+export type {{ properCase name }}JSONRequest = {{#if requestUrlParams }}ReturnType<typeof serializeRequest>{{else}}undefined{{/if}};
 
 export type {{ properCase name }}JSONResponse = SuccessResponse;
 
@@ -53,9 +42,11 @@ export const {{ properCase name }}Operation: Operation<
   {{ properCase name }}Response,
   {{ properCase name }}JSONResponse
 > = {
-  method: 'POST',
+  method: '{{ method }}',
   name: '{{ name }}',
+  id: '{{ name }}',
   groupName: 'token',
+  urlPathPattern: '{{ path }}',
   {{#if urlPathParamNames}}urlPathParamNames: [{{#each urlPathParamNames}}'{{camelCase this}}',{{/each}}],{{/if}}
   {{#if urlSearchParamNames}}urlSearchParamNames: [{{#each urlSearchParamNames}}'{{camelCase this}}',{{/each}}],{{/if}}
   {{#if bodyParamNames}}
@@ -64,26 +55,15 @@ export const {{ properCase name }}Operation: Operation<
   {{/if}}
 
   {{#if bodyParamNames}}getRequestBody,{{/if}}
+  {{#if requestUrlParams }}
   getRequestUrlParams,
-  deserializeResponse,
   serializeRequest,
   deserializeRequest,
+  {{/if}}
+  deserializeResponse,
 };
 
 // Methods
-
-function getRequestUrlParams(request: {{ properCase name }}Request, core: MoralisCore) {
-  return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-    {{#each requestUrlParams}}
-      {{this.name}}: request.{{camelCase this.name}}?.toString(),
-    {{/each}}
-  };
-}
 
 {{#if bodyParamNames}}
 function getRequestBody(request: {{ properCase name }}Request) {
@@ -101,11 +81,22 @@ function getRequestBody(request: {{ properCase name }}Request) {
 }
 {{/if}}
 
-function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse) {
-  return jsonResponse;
+
+{{#if requestUrlParams }} 
+function getRequestUrlParams(request: {{ properCase name }}Request, core: Core) {
+  return {
+    // address: EvmAddress.create(request.address, core).checksum,
+    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+    // functionName: request.functionName,
+    // providerUrl: request.providerUrl,
+    // subdomain: request.subdomain,
+    {{#each requestUrlParams}}
+      {{this.name}}: request.{{camelCase this.name}}?.toString(),
+    {{/each}}
+  };
 }
 
-function serializeRequest(request: {{ properCase name }}Request, core: MoralisCore) {
+function serializeRequest(request: {{ properCase name }}Request, core: Core) {
   return {
     {{#each requestUrlParams}}
       {{ camelCase this.name }}: {{ serialize this.dataType 'request' }},
@@ -115,11 +106,17 @@ function serializeRequest(request: {{ properCase name }}Request, core: MoralisCo
 
 function deserializeRequest(
   jsonRequest: {{ properCase name }}JSONRequest,
-  core: MoralisCore,
+  core: Core,
 ): {{ properCase name }}Request {
   return {
     {{#each requestUrlParams}}
       {{ camelCase this.name }}: {{ deserialize this.dataType 'jsonRequest' 'core' }},
     {{/each}}
   };
+}
+
+{{/if}}
+
+function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse) {
+  return jsonResponse;
 }
