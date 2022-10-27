@@ -3,12 +3,12 @@ import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataType
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'runContractFunction';
-type PathParams = operations[OperationName]['parameters']['path'];
-type QueryParams = operations[OperationName]['parameters']['query'];
-type BodyParams = operations[OperationName]['requestBody']['content']['application/json'];
+type OperationId = 'runContractFunction';
+type PathParams = operations[OperationId]['parameters']['path'];
+type QueryParams = operations[OperationId]['parameters']['query'];
+type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
 type RequestParams = PathParams & QueryParams & BodyParams;
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -32,7 +32,7 @@ export const runContractFunctionOperation: Operation<
 > = {
   method: 'POST',
   name: 'runContractFunction',
-  operationName: 'runContractFunction',
+  id: 'runContractFunction',
   groupName: 'token',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'functionName', 'providerUrl', 'subdomain'],

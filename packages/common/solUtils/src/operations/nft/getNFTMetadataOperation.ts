@@ -3,9 +3,9 @@ import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../data
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getNFTMetadata';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getNFTMetadata';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -28,7 +28,7 @@ export const getNFTMetadataOperation: Operation<
 > = {
   method: 'GET',
   name: 'getNFTMetadata',
-  operationName: 'getNFTMetadata',
+  id: 'getNFTMetadata',
   groupName: 'nft',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/nft/{network}/{address}/metadata',

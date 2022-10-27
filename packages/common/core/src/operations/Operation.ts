@@ -2,7 +2,7 @@ import { Core } from '../Core';
 
 export interface Operation<Request, JSONRequest, Response, JSONResponse> {
   name: string;
-  operationName: string;
+  id: string;
   groupName: string;
   method: OperationRequestMethod;
   urlPathPattern: string;

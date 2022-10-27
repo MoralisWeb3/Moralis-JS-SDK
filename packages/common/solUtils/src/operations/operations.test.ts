@@ -10,9 +10,9 @@ describe('operations', () => {
 
   for (const operation of operations) {
     it(`${operation.name} defines all supported parameters`, () => {
-      const openApiPathParamNames = reader.readOperationPathParamNames(operation.operationName);
-      const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.operationName);
-      const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.operationName);
+      const openApiPathParamNames = reader.readOperationPathParamNames(operation.id);
+      const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.id);
+      const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.id);
 
       expect(operation.urlPathParamNames.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
       expect(operation.urlSearchParamNames?.sort().join(',')).toBe(openApiSearchParamNames?.sort().join(','));

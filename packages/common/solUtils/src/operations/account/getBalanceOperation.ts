@@ -3,9 +3,9 @@ import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from 
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'balance';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'balance';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -28,7 +28,7 @@ export const getBalanceOperation: Operation<
 > = {
   method: 'GET',
   name: 'getBalance',
-  operationName: 'balance',
+  id: 'balance',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/balance',

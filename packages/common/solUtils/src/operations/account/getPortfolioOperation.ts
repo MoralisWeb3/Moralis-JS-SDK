@@ -3,9 +3,9 @@ import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from 
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getPortfolio';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getPortfolio';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -28,7 +28,7 @@ export const getPortfolioOperation: Operation<
 > = {
   method: 'GET',
   name: 'getPortfolio',
-  operationName: 'getPortfolio',
+  id: 'getPortfolio',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/portfolio',

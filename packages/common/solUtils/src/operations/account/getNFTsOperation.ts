@@ -3,9 +3,9 @@ import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../data
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getNFTs';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getNFTs';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -23,7 +23,7 @@ export type GetNFTsResponse = ReturnType<typeof deserializeResponse>;
 export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, GetNFTsResponse, GetNFTsJSONResponse> = {
   method: 'GET',
   name: 'getNFTs',
-  operationName: 'getNFTs',
+  id: 'getNFTs',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/nft',

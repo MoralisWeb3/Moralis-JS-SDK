@@ -3,9 +3,9 @@ import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from 
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
-type OperationName = 'getTokenPrice';
-type PathParams = operations[OperationName]['parameters']['path'];
-type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+type OperationId = 'getTokenPrice';
+type PathParams = operations[OperationId]['parameters']['path'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -28,7 +28,7 @@ export const getTokenPriceOperation: Operation<
 > = {
   method: 'GET',
   name: 'getTokenPrice',
-  operationName: 'getTokenPrice',
+  id: 'getTokenPrice',
   groupName: 'token',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/token/{network}/{address}/price',
