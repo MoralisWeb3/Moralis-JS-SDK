@@ -23,6 +23,7 @@ export type GetNFTsResponse = ReturnType<typeof deserializeResponse>;
 export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, GetNFTsResponse, GetNFTsJSONResponse> = {
   method: 'GET',
   name: 'getNFTs',
+  operationName: 'getNFTs',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/nft',

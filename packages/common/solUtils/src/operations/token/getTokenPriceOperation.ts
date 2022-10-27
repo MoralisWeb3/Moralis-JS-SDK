@@ -28,6 +28,7 @@ export const getTokenPriceOperation: Operation<
 > = {
   method: 'GET',
   name: 'getTokenPrice',
+  operationName: 'getTokenPrice',
   groupName: 'token',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/token/{network}/{address}/price',

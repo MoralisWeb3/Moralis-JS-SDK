@@ -23,6 +23,7 @@ export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
 export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',
   name: 'getSPL',
+  operationName: 'getSPL',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/tokens',

@@ -11,9 +11,9 @@ describe('operations', () => {
 
   for (const operation of operations) {
     it(`${operation.name} defines all supported parameters`, () => {
-      const openApiPathParamNames = reader.readOperationPathParamNames(operation.name);
-      const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.name)?.map(toCamel);
-      const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.name)?.map(toCamel);
+      const openApiPathParamNames = reader.readOperationPathParamNames(operation.operationName);
+      const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.operationName)?.map(toCamel);
+      const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.operationName)?.map(toCamel);
 
       expect(operation.urlPathParamNames.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
       expect(operation.urlSearchParamNames?.sort().join(',')).toBe(openApiSearchParamNames?.sort().join(','));

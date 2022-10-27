@@ -28,6 +28,7 @@ export const getNFTMetadataOperation: Operation<
 > = {
   method: 'GET',
   name: 'getNFTMetadata',
+  operationName: 'getNFTMetadata',
   groupName: 'nft',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/nft/{network}/{address}/metadata',

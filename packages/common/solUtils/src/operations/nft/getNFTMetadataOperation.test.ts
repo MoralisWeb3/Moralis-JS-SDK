@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/core';
+import MoralisCore from '@moralisweb3/common-core';
 import { SolAddress, SolNetwork } from '../../dataTypes';
 import { getNFTMetadataOperation, GetNFTMetadataRequest } from './getNFTMetadataOperation';
 

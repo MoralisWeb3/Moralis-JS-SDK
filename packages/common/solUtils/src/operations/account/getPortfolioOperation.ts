@@ -28,6 +28,7 @@ export const getPortfolioOperation: Operation<
 > = {
   method: 'GET',
   name: 'getPortfolio',
+  operationName: 'getPortfolio',
   groupName: 'account',
   urlPathParamNames: ['network', 'address'],
   urlPathPattern: '/account/{network}/{address}/portfolio',
