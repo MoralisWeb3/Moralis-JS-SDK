@@ -1,7 +1,11 @@
 import { PropertySignature, SyntaxKind } from 'ts-morph';
 
 export const getPropertiesOfPropertySignature = (propSignature: PropertySignature) => {
-  const typeLiteral = propSignature.getFirstChildByKindOrThrow(SyntaxKind.TypeLiteral);
+  const typeLiteral = propSignature.getFirstChildByKind(SyntaxKind.TypeLiteral);
+
+  if (!typeLiteral) {
+    return null;
+  }
 
   return typeLiteral.getProperties();
 };

@@ -1,0 +1,125 @@
+import { MoralisCore, Camelize, Operation } from '@moralisweb3/core';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
+import { EvmChainResolver } from '../../EvmChainResolver';
+import { operations } from '../openapi';
+
+type OperationName = '{{ name }}';
+
+{{#if urlPathParamNames}}
+type PathParams = operations[OperationName]['parameters']['path'];
+{{/if}}
+{{#if urlSearchParamNames}}
+type QueryParams = operations[OperationName]['parameters']['query'];
+{{/if}}
+{{#if hasBodyParams}}
+type BodyParams = operations[OperationName]['requestBody']['content']['application/json'];
+{{/if}}
+{{#if test}}
+type RequestParams = {{#if urlPathParamNames}}PathParams{{/if}} {{#if urlSearchParamNames}}& QueryParams{{/if}} {{#if hasBodyParams}}& BodyParams{{/if}};
+{{/if}}
+
+type SuccessResponse = operations[OperationName]['responses']['200']['content']['application/json'];
+
+//RunContractFunctionRequest
+
+// Exports
+
+
+{{! Interface }}
+
+{{#if requestParamsToOverwrite}}
+  {{#each requestParamsToOverwrite}}
+  //{{camelCase this.name}}{{#if this.hasQuestion}}?:{{else}}:{{/if}} {{ this.dataType.requestType }};
+  {{/each}}
+{{/if}}
+
+export interface {{ properCase name }}Request extends Camelize<{{#if requestParamsToOverwrite}}Omit<RequestParams, {{#each requestParamsToOverwrite}} | '{{ this.name }}'{{/each}}>{{else}}RequestParams{{/if}}> {
+  {{#if requestParamsToOverwrite}}
+    {{#each requestParamsToOverwrite}}
+      {{camelCase this.name}}{{#if this.hasQuestion}}?:{{else}}:{{/if}} {{ this.dataType.requestType }};
+    {{/each}}
+  {{/if}}
+}
+
+export type {{ properCase name }}JSONRequest = ReturnType<typeof serializeRequest>;
+
+export type {{ properCase name }}JSONResponse = SuccessResponse;
+
+export type {{ properCase name }}Response = ReturnType<typeof deserializeResponse>;
+
+export const {{ properCase name }}Operation: Operation<
+  {{ properCase name }}Request,
+  {{ properCase name }}JSONRequest,
+  {{ properCase name }}Response,
+  {{ properCase name }}JSONResponse
+> = {
+  method: 'POST',
+  name: '{{ name }}',
+  groupName: 'token',
+  {{#if urlPathParamNames}}urlPathParamNames: [{{#each urlPathParamNames}}'{{camelCase this}}',{{/each}}],{{/if}}
+  {{#if urlSearchParamNames}}urlSearchParamNames: [{{#each urlSearchParamNames}}'{{camelCase this}}',{{/each}}],{{/if}}
+  {{#if bodyParamNames}}
+    bodyType: 'properties',
+    bodyParamNames: [{{#each bodyParamNames}}'{{camelCase this}}',{{/each}}],
+  {{/if}}
+
+  {{#if bodyParamNames}}getRequestBody,{{/if}}
+  getRequestUrlParams,
+  deserializeResponse,
+  serializeRequest,
+  deserializeRequest,
+};
+
+// Methods
+
+function getRequestUrlParams(request: {{ properCase name }}Request, core: MoralisCore) {
+  return {
+    // address: EvmAddress.create(request.address, core).checksum,
+    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+    // functionName: request.functionName,
+    // providerUrl: request.providerUrl,
+    // subdomain: request.subdomain,
+    {{#each requestUrlParams}}
+      {{this.name}}: request.{{camelCase this.name}}?.toString(),
+    {{/each}}
+  };
+}
+
+{{#if bodyParamNames}}
+function getRequestBody(request: {{ properCase name }}Request) {
+  //return {
+  //  abi: request.abi,
+  //  params: request.params,
+  //
+  //};
+
+  return {
+    {{#each requestBodyParams}}
+      {{ this.name }}: request.{{ camelCase this.name }},
+    {{/each}}
+  };
+}
+{{/if}}
+
+function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse) {
+  return jsonResponse;
+}
+
+function serializeRequest(request: {{ properCase name }}Request, core: MoralisCore) {
+  return {
+    {{#each requestUrlParams}}
+      {{ camelCase this.name }}: {{ serialize this.dataType 'request' }},
+    {{/each}}
+  };
+}
+
+function deserializeRequest(
+  jsonRequest: {{ properCase name }}JSONRequest,
+  core: MoralisCore,
+): {{ properCase name }}Request {
+  return {
+    {{#each requestUrlParams}}
+      {{ camelCase this.name }}: {{ deserialize this.dataType 'jsonRequest' 'core' }},
+    {{/each}}
+  };
+}

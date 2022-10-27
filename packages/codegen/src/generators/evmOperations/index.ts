@@ -7,4 +7,6 @@ export default function EvmOperationsGenerator(plop: NodePlopAPI) {
     prompts: [],
     actions: new EvmOperations().getGenerator(),
   });
+  plop.setHelper('deserialize', (dataType, domain, core) => dataType.deSerialize(domain, core));
+  plop.setHelper('serialize', (dataType, domain) => dataType.serialize(domain));
 }
