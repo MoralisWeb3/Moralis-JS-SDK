@@ -22,6 +22,7 @@ app.use(cors());
 
 initializeStreams(parseServer, app, {
   apiKey: config.MORALIS_API_KEY,
+  webhookUrl: '/streams',
   streamConfig: [
     {
       tableName: 'MyStream',

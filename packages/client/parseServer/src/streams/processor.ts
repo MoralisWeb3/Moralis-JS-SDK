@@ -9,6 +9,7 @@ interface streamConfig {
 }
 interface StreamOptions {
   apiKey: string;
+  webhookUrl: string;
   streamConfig: streamConfig[];
 }
 
@@ -36,7 +37,13 @@ const prepareSyncs = async (parseObject: any, syncs: streamConfig[]) => {
   await Promise.all(results);
 };
 
-const initializeSyncsPlugin = async (parseObject: any, express: Express, apiKey: string, syncs: streamConfig[]) => {
+const initializeSyncsPlugin = async (
+  parseObject: any,
+  express: Express,
+  apiKey: string,
+  webhookUrl: string,
+  syncs: streamConfig[],
+) => {
   if (syncs.length === 0) {
     // We don't want to initialize the plugin if there are no syncs
     return;
@@ -48,8 +55,8 @@ const initializeSyncsPlugin = async (parseObject: any, express: Express, apiKey:
     apiKey,
   });
 
-  webhookRouter(express, parseObject);
+  webhookRouter(express, parseObject, webhookUrl);
 };
 
 export const initializeStreams = (parse: any, express: Express, options: StreamOptions) =>
-  initializeSyncsPlugin(parse, express, options.apiKey, options.streamConfig);
+  initializeSyncsPlugin(parse, express, options.apiKey, options.webhookUrl, options.streamConfig);

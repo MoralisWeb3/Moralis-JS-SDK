@@ -24,8 +24,8 @@ const verifySignature = (req: Request) => {
   });
 };
 
-export const webhookRouter = (app: Express, parseObject: any) => {
-  return app.post('/streams', bodyParser.json({ limit: '50mb' }), async (req, res) => {
+export const webhookRouter = (app: Express, parseObject: any, webhookUrl: string) => {
+  return app.post(webhookUrl, bodyParser.json({ limit: '50mb' }), async (req, res) => {
     try {
       verifySignature(req);
     } catch (e) {
