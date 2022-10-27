@@ -1,3 +1,4 @@
+import { Document, Update } from '@moralisweb3/streams';
 import Parse from 'parse/node';
 
 export class Upsert {
@@ -8,12 +9,12 @@ export class Upsert {
     Parse.masterKey = this.parseObject.config.masterKey;
   }
 
-  async execute(className: string, filter: Record<string, unknown>, update: Record<string, unknown>) {
-    return this.upsert(className, filter, update);
+  async execute(path: string, filter: Record<string, unknown>, update: Update) {
+    return this.upsert(update.collectionName + path, filter, update.document);
   }
 
-  private async upsert(className: string, filter: Record<string, unknown>, update: Record<string, unknown>) {
-    const results = await this.lazyUpsert(className, filter, update);
+  private async upsert(className: string, filter: Record<string, unknown>, update: Document) {
+    const results = await this.lazyUpsert(className, filter, update as any);
     await Parse.Object.saveAll(results, { useMasterKey: true });
   }
 

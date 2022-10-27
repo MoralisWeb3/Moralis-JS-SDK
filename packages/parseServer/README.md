@@ -6,7 +6,7 @@ This Plugin adapts parse-server to support [streams](https://github.com/MoralisW
 
 # Usage
 
-Since parse server is runs on express, this plugin also runs on express. To use it, you need to add it to your express app.
+Since parse server is runs on express, this plugin is a middleware that can be added to the express app.
 
 ## Installations
 
@@ -50,40 +50,16 @@ import { initializeStreams } from '@moralisweb3/parse-server';
 
 the initializeStreams function takes the following options:
 
-- the parse server instance
-- express app instance
-- the parse server streams plugin options (see below)
-
 ```typescript
-interface streamConfig {
-  tableName: string;
-  tag: string;
-}
 interface StreamOptions {
-  apiKey: string;
+  parseInstance: any;
   webhookUrl: string;
-  streamConfig: streamConfig[];
 }
 ```
 
-- `apiKey` - your moralis api key
+- `parseInstance` - the parse server instance
 - `webhookUrl` - the url of choice to receive the stream data
-- `streamConfig` - an array of stream configurations with the following content
 
-Example:
-```json
-[
-  {
-    "tableName": "MyStream",
-    "tag": "myStream"
-  }
-  // ...
-]
-```
-The StreamConfig defines the streams that will be used by the plugin. It is an array of objects with the following properties.:
-
-  - tableName (string): The name of the table that will be used to store the stream data in MongoDB
-  - tag (string): The tag that will be used to identify the stream
 
 ## Putting all together
 
@@ -91,7 +67,7 @@ The StreamConfig defines the streams that will be used by the plugin. It is an a
 import Moralis from 'moralis';
 import express from 'express';
 import config from './config';
-import { initializeStreams } from '@moralisweb3/parse-server';
+import { parseServerStreamsSync } from '@moralisweb3/parse-server';
 
 const expressApp = express();
 
@@ -104,16 +80,12 @@ expressApp.use(express.json());
 
 expressApp.use(cors());
 
-initializeStreams(parseServer, expressApp, {
-  apiKey: config.MORALIS_API_KEY,
-  webhookUrl: '/streams',
-  streamConfig: [
-    {
-      tableName: 'MyStream',
-      tag: 'myStream',
-    },
-  ],
-});
+expressApp.use(
+  parseServerStreamsSync({
+    parseInstance: parseServer,
+    webhookUrl: '/streams',
+  }),
+);
 
 expressApp.use(`/${config.SERVER_ENDPOINT}`, parseServer.app);
 expressApp.use(errorHandler);
@@ -127,6 +99,6 @@ The endpoint to receive webhooks is `YOUR_EXPRESSAPP_URL/SET_WEBHOOKURL`. This i
 
 # Done!
 
-After you have configured the plugin and created a stream you can see the data in the dashboard. Note that the tableName will be concatenated with `Txs` and `Logs` meaning if you have a tableName called "MyTable" you will have two collections in DB called "MyTableTxs" and "MyTableLogs", which will contain the transactions and logs respectively.
+After you have configured the plugin and created a stream you can see the data in the dashboard. Note that the stream tag will be concatenated with `Txs` and `Logs` meaning if you have a tag called "MyStream" you will have two collections in DB called "MyStreamTxs" and "MyStreamLogs", which will contain the transactions and logs respectively.
 
 Full example can be found [here](https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/parse-server-migration)

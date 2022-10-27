@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IWebhook } from '@moralisweb3/streams-typings';
-import { Express, Request } from 'express';
+import express, { Request } from 'express';
 import { LogsProcessor, TxsProcessor, CollectionNameBuilder, InternalTxsProcessor, Update } from '@moralisweb3/streams';
 import bodyParser from 'body-parser';
-import Moralis from 'moralis/.';
+import Moralis from 'moralis';
 import { Upsert } from './upsert';
 
 export const tagsMap = new Map();
@@ -24,8 +24,8 @@ const verifySignature = (req: Request) => {
   });
 };
 
-export const webhookRouter = (app: Express, parseObject: any, webhookUrl: string) => {
-  return app.post(webhookUrl, bodyParser.json({ limit: '50mb' }), async (req, res) => {
+export const webhookRouter = (parseObject: any, webhookUrl: string) => {
+  return express.Router().post(webhookUrl, bodyParser.json({ limit: '50mb' }), async (req, res) => {
     try {
       verifySignature(req);
     } catch (e) {
@@ -34,27 +34,26 @@ export const webhookRouter = (app: Express, parseObject: any, webhookUrl: string
     try {
       const updates: Record<string, any> = {};
       const batch = req.body as IWebhook;
-      const sync = tagsMap.get(batch.tag);
 
       const logUpdates = logsProcessor.process(batch);
       const txUpdates = txsProcessor.process(batch);
       const internalTxUpdates = internalTxProcessor.process(batch);
 
       // Prepare updates
-      if (!updates[sync.tableName.concat('Logs')]) {
-        updates[sync.tableName.concat('Logs')] = [];
+      if (!updates['Logs']) {
+        updates['Logs'] = [];
       }
-      updates[sync.tableName.concat('Logs')].push(prepareUpdate(logUpdates, ['logIndex', 'transactionHash'], true));
+      updates['Logs'].push(prepareUpdate(logUpdates, ['logIndex', 'transactionHash'], true));
 
-      if (!updates[sync.tableName.concat('Txs')]) {
-        updates[sync.tableName.concat('Txs')] = [];
+      if (!updates['Txs']) {
+        updates['Txs'] = [];
       }
-      updates[sync.tableName.concat('Txs')].push(prepareUpdate(txUpdates, ['transactionIndex'], true));
+      updates['Txs'].push(prepareUpdate(txUpdates, ['transactionIndex'], true));
 
-      if (!updates[sync.tableName.concat('TxsInternal')]) {
-        updates[sync.tableName.concat('TxsInternal')] = [];
+      if (!updates['TxsInternal']) {
+        updates['TxsInternal'] = [];
       }
-      updates[sync.tableName.concat('TxsInternal')].push(prepareUpdate(internalTxUpdates, ['hash'], true));
+      updates['TxsInternal'].push(prepareUpdate(internalTxUpdates, ['hash'], true));
 
       const results: unknown[] = [];
       const upsert = new Upsert(parseObject);
@@ -62,8 +61,8 @@ export const webhookRouter = (app: Express, parseObject: any, webhookUrl: string
       for (const tableName in updates) {
         for (let index = 0; index < updates[tableName].length; index++) {
           const data = updates[tableName][index];
-          data.forEach((document: any) => {
-            results.push(upsert.execute(tableName, document.filter, document.update));
+          data.forEach(({ filter, update }: any) => {
+            results.push(upsert.execute(tableName, filter, update));
           });
         }
       }
@@ -87,7 +86,7 @@ const prepareUpdate = (updates: Update[], filters: string[], upsertValue: boolea
         acc[filter] = update.document[filter];
         return acc;
       }, {}),
-      update: update.document,
+      update,
       upsert: upsertValue,
     });
   }
