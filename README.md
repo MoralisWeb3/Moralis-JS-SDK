@@ -40,7 +40,7 @@
 
 # 🚀 Quick start
 
-If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/moralis-dapp/getting-started) on how to get started.
+If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/docs/moralis-sdk-setup) on how to get started.
 
 If you're already familiar with Moralis and have your server set up. Then follow along to connect your SDK:
 
