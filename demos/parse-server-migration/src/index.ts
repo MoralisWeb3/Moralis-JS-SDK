@@ -6,7 +6,7 @@ import { parseServer } from './parseServer';
 // @ts-ignore
 import ParseServer from 'parse-server';
 import http from 'http';
-import { parseServerStreamsSync } from '@moralisweb3/parse-server';
+import { streamsSync } from '@moralisweb3/parse-server';
 
 export const app = express();
 
@@ -20,8 +20,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use(
-  parseServerStreamsSync({
-    parseInstance: parseServer,
+  streamsSync(parseServer, {
+    apiKey: config.MORALIS_API_KEY,
     webhookUrl: '/streams',
   }),
 );

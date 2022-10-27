@@ -14,11 +14,11 @@ export class Upsert {
   }
 
   private async upsert(className: string, filter: Record<string, unknown>, update: Document) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const results = await this.lazyUpsert(className, filter, update as any);
     await Parse.Object.saveAll(results, { useMasterKey: true });
   }
 
-  // eslint-disable-next-line complexity
   private async lazyUpsert(className: string, filter: Record<string, unknown>, update: Record<string, unknown>) {
     delete update.id;
     const query = new Parse.Query(className);
