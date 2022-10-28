@@ -60,7 +60,7 @@ interface StreamOptions {
 ```
 
 - `apiKey`: Your Moralis API key
-- `webhookUrl` - the url of choice to receive the stream data (optional). default path is `/streams`
+- `webhookUrl` - the url of choice to receive the stream data (optional). default path is `/streams-webhook`
 
 
 ## Putting all together
