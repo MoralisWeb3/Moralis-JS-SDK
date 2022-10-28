@@ -48,17 +48,17 @@ export const webhookRouter = (parseObject: any, webhookUrl: string, streams: Mor
       if (!updates['Logs']) {
         updates['Logs'] = [];
       }
-      updates['Logs'].push(prepareUpdate(logUpdates, ['logIndex', 'transactionHash'], true));
+      updates['Logs'].push(prepareUpdate(logUpdates, ['logIndex', 'transactionHash']));
 
       if (!updates['Txs']) {
         updates['Txs'] = [];
       }
-      updates['Txs'].push(prepareUpdate(txUpdates, ['transactionIndex'], true));
+      updates['Txs'].push(prepareUpdate(txUpdates, ['transactionIndex']));
 
       if (!updates['TxsInternal']) {
         updates['TxsInternal'] = [];
       }
-      updates['TxsInternal'].push(prepareUpdate(internalTxUpdates, ['hash'], true));
+      updates['TxsInternal'].push(prepareUpdate(internalTxUpdates, ['hash']));
 
       const results: unknown[] = [];
       const upsert = new Upsert(parseObject);
@@ -82,7 +82,7 @@ export const webhookRouter = (parseObject: any, webhookUrl: string, streams: Mor
   });
 };
 
-const prepareUpdate = (updates: Update[], filters: string[], upsertValue: boolean) => {
+const prepareUpdate = (updates: Update[], filters: string[]) => {
   const results: unknown[] = [];
   for (const update of updates) {
     results.push({
@@ -92,7 +92,7 @@ const prepareUpdate = (updates: Update[], filters: string[], upsertValue: boolea
         return acc;
       }, {}),
       update,
-      upsert: upsertValue,
+      upsert: true,
     });
   }
   return results;

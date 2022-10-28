@@ -15,5 +15,5 @@ export const streamsSync = (parseInstance: any, options: StreamOptions) => {
   const apiUtils = ApiUtils.create(core);
   core.registerModules([streams, apiUtils]);
   core.start({ apiKey: options.apiKey });
-  return webhookRouter(parseInstance, options?.webhookUrl || '/streams', streams);
+  return webhookRouter(parseInstance, options?.webhookUrl || '/streams-webhook', streams);
 };

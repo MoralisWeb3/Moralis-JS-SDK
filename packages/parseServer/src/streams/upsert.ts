@@ -3,10 +3,10 @@ import Parse from 'parse/node';
 
 export class Upsert {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(private parseObject: any) {
-    Parse.initialize(this.parseObject.config.appId);
-    Parse.serverURL = this.parseObject.config.serverURL;
-    Parse.masterKey = this.parseObject.config.masterKey;
+  constructor(private parseServer: any) {
+    Parse.initialize(this.parseServer.config.appId);
+    Parse.serverURL = this.parseServer.config.serverURL;
+    Parse.masterKey = this.parseServer.config.masterKey;
   }
 
   async execute(path: string, filter: Record<string, unknown>, update: Update) {

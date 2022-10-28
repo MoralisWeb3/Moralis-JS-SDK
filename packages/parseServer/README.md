@@ -85,7 +85,7 @@ expressApp.use(cors());
 expressApp.use(
   streamsSync(parseServer, {
     apiKey: config.MORALIS_API_KEY,
-    webhookUrl: '/streams',
+    webhookUrl: '/streams-webhook',
   }),
 );
 
