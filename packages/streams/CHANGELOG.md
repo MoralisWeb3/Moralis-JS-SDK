@@ -1,5 +1,20 @@
 # @moralisweb3/streams
 
+## 2.7.0
+
+### Minor Changes
+
+- [#782](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/782) [`07c8ca69`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/07c8ca6988431d1fdf4a9bce509371ec52174af4) Thanks [@sogunshola](https://github.com/sogunshola)! - Incuded parse server package with streams plugin implementation and added document builder to streams package.
+
+* [#782](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/782) [`07c8ca69`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/07c8ca6988431d1fdf4a9bce509371ec52174af4) Thanks [@sogunshola](https://github.com/sogunshola)! - Included parse server package and added document builder logic to streams package
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.0
+  - @moralisweb3/api-utils@2.7.0
+  - @moralisweb3/evm-utils@2.7.0
+
 ## 2.6.7
 
 ### Patch Changes
