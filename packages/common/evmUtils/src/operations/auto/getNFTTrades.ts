@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetNftTradesRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,21 +56,16 @@ export const GetNftTradesOperation: Operation<
 
 function getRequestUrlParams(request: GetNftTradesRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      from_block: request.fromBlock?.toString(),
-      to_block: request.toBlock?.toString(),
-      from_date: request.fromDate?.toString(),
-      to_date: request.toDate?.toString(),
-      provider_url: request.providerUrl?.toString(),
-      marketplace: request.marketplace?.toString(),
-      cursor: request.cursor?.toString(),
-      limit: request.limit?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      from_block: maybe(request.fromBlock, String),
+      to_block: request.toBlock,
+      from_date: request.fromDate,
+      to_date: request.toDate,
+      provider_url: request.providerUrl,
+      marketplace: request.marketplace,
+      cursor: request.cursor,
+      limit: maybe(request.limit, String),
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -110,7 +102,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetNftTradesJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetNftTradesJSONResponse, request: GetNftTradesRequest, core: Core) {
+   return jsonResponse;
 }

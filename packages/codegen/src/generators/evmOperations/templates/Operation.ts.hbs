@@ -1,5 +1,5 @@
-import { {{#if requestUrlParams }}Core, Camelize, {{/if}}Operation } from '@moralisweb3/common-core';
-{{#if dataTypesToImport}}import { {{#each dataTypesToImport}}{{ this }},{{/each}} } from '../../dataTypes';{{/if}}
+import { {{#if requestUrlParams }}Core, Camelize, {{/if}}Operation, {{#if isMaybeImported }}maybe{{/if}} } from '@moralisweb3/common-core';
+{{#if utilsToImport}}import { {{#each utilsToImport}}{{ this }},{{/each}} } from '../../dataTypes';{{/if}}
 {{#if isEvmChainImported}}import { EvmChainResolver } from '../../EvmChainResolver';{{/if}}
 import { operations } from '../openapi';
 
@@ -16,10 +16,7 @@ type OperationId = '{{ name }}';
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 {{! Interface }}
 export interface {{ properCase name }}Request {{#if requestBodyAndParams }}extends Camelize<{{#if requestParamsToOverwrite}}Omit<RequestParams, {{#each requestParamsToOverwrite}} | '{{ this.name }}'{{/each}}>{{else}}RequestParams{{/if}}>{{/if}} {
@@ -67,12 +64,6 @@ export const {{ properCase name }}Operation: Operation<
 
 {{#if bodyParamNames}}
 function getRequestBody(request: {{ properCase name }}Request) {
-  //return {
-  //  abi: request.abi,
-  //  params: request.params,
-  //
-  //};
-
   return {
     {{#each requestBodyParams}}
       {{ this.name }}: request.{{ camelCase this.name }},
@@ -85,13 +76,8 @@ function getRequestBody(request: {{ properCase name }}Request) {
 {{#if requestUrlParams }} 
 function getRequestUrlParams(request: {{ properCase name }}Request, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
     {{#each requestUrlParams}}
-      {{this.name}}: request.{{camelCase this.name}}?.toString(),
+      {{this.name}}: {{ getRequestUrlParams this.dataType }},
     {{/each}}
   };
 }
@@ -114,9 +100,14 @@ function deserializeRequest(
     {{/each}}
   };
 }
-
 {{/if}}
 
+{{#if isPaginated}}
+function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse, request: {{ properCase name }}Request, core: Core) {
+   return jsonResponse;
+}
+{{else}}
 function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse) {
   return jsonResponse;
 }
+{{/if}}

@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetContractLogsRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,25 +56,20 @@ export const GetContractLogsOperation: Operation<
 
 function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      subdomain: request.subdomain?.toString(),
-      block_number: request.blockNumber?.toString(),
-      from_block: request.fromBlock?.toString(),
-      to_block: request.toBlock?.toString(),
-      from_date: request.fromDate?.toString(),
-      to_date: request.toDate?.toString(),
-      topic0: request.topic0?.toString(),
-      topic1: request.topic1?.toString(),
-      topic2: request.topic2?.toString(),
-      topic3: request.topic3?.toString(),
-      limit: request.limit?.toString(),
-      cursor: request.cursor?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      subdomain: request.subdomain,
+      block_number: request.blockNumber,
+      from_block: request.fromBlock,
+      to_block: request.toBlock,
+      from_date: request.fromDate,
+      to_date: request.toDate,
+      topic0: request.topic0,
+      topic1: request.topic1,
+      topic2: request.topic2,
+      topic3: request.topic3,
+      limit: maybe(request.limit, String),
+      cursor: request.cursor,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -122,7 +114,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetContractLogsJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetContractLogsJSONResponse, request: GetContractLogsRequest, core: Core) {
+   return jsonResponse;
 }

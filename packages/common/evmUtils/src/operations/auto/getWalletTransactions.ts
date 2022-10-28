@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetWalletTransactionsRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,20 +56,15 @@ export const GetWalletTransactionsOperation: Operation<
 
 function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      subdomain: request.subdomain?.toString(),
-      from_block: request.fromBlock?.toString(),
-      to_block: request.toBlock?.toString(),
-      from_date: request.fromDate?.toString(),
-      to_date: request.toDate?.toString(),
-      cursor: request.cursor?.toString(),
-      limit: request.limit?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      subdomain: request.subdomain,
+      from_block: maybe(request.fromBlock, String),
+      to_block: maybe(request.toBlock, String),
+      from_date: request.fromDate,
+      to_date: request.toDate,
+      cursor: request.cursor,
+      limit: maybe(request.limit, String),
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -107,7 +99,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetWalletTransactionsJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetWalletTransactionsJSONResponse, request: GetWalletTransactionsRequest, core: Core) {
+   return jsonResponse;
 }

@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 
 
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface ResolveDomainRequest extends Camelize<RequestParams> {
 }
@@ -57,13 +54,8 @@ export const ResolveDomainOperation: Operation<
 
 function getRequestUrlParams(request: ResolveDomainRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      currency: request.currency?.toString(),
-      domain: request.domain?.toString(),
+      currency: request.currency,
+      domain: request.domain,
   };
 }
 
@@ -83,7 +75,6 @@ function deserializeRequest(
       domain: jsonRequest.domain,
   };
 }
-
 
 function deserializeResponse(jsonResponse: ResolveDomainJSONResponse) {
   return jsonResponse;

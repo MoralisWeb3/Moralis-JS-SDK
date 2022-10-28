@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetNftTokenIdOwnersRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,17 +56,12 @@ export const GetNftTokenIdOwnersOperation: Operation<
 
 function getRequestUrlParams(request: GetNftTokenIdOwnersRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      format: request.format?.toString(),
-      limit: request.limit?.toString(),
-      cursor: request.cursor?.toString(),
-      address: request.address?.toString(),
-      token_id: request.tokenId?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      format: request.format,
+      limit: maybe(request.limit, String),
+      cursor: request.cursor,
+      address: EvmAddress.create(request.address, core).lowercase,
+      token_id: request.tokenId,
   };
 }
 
@@ -98,7 +90,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetNftTokenIdOwnersJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetNftTokenIdOwnersJSONResponse, request: GetNftTokenIdOwnersRequest, core: Core) {
+   return jsonResponse;
 }

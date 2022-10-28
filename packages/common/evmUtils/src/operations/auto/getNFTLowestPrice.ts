@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetNftLowestPriceRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,16 +56,11 @@ export const GetNftLowestPriceOperation: Operation<
 
 function getRequestUrlParams(request: GetNftLowestPriceRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      days: request.days?.toString(),
-      provider_url: request.providerUrl?.toString(),
-      marketplace: request.marketplace?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      days: maybe(request.days, String),
+      provider_url: request.providerUrl,
+      marketplace: request.marketplace,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -94,7 +86,6 @@ function deserializeRequest(
       address: EvmAddress.create(jsonRequest.address, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetNftLowestPriceJSONResponse) {
   return jsonResponse;

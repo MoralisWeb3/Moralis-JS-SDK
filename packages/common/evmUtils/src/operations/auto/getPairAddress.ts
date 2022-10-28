@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetPairAddressRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'token0_address' | 'token1_address'>> {
       chain?: EvmChainish;
@@ -60,17 +57,12 @@ export const GetPairAddressOperation: Operation<
 
 function getRequestUrlParams(request: GetPairAddressRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      to_block: request.toBlock?.toString(),
-      to_date: request.toDate?.toString(),
-      exchange: request.exchange?.toString(),
-      token0_address: request.token0Address?.toString(),
-      token1_address: request.token1Address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      to_block: request.toBlock,
+      to_date: request.toDate,
+      exchange: request.exchange,
+      token0_address: EvmAddress.create(request.token0Address, core).lowercase,
+      token1_address: EvmAddress.create(request.token1Address, core).lowercase,
   };
 }
 
@@ -80,8 +72,8 @@ function serializeRequest(request: GetPairAddressRequest, core: Core) {
       toBlock: request.toBlock,
       toDate: request.toDate,
       exchange: request.exchange,
-      token0Address: request.token0_address.toString(),
-      token1Address: request.token1_address.toString(),
+      token0Address: request.token0Address.toString(),
+      token1Address: request.token1Address.toString(),
   };
 }
 
@@ -98,7 +90,6 @@ function deserializeRequest(
       token1Address: EvmAddress.create(jsonRequest.token1Address, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetPairAddressJSONResponse) {
   return jsonResponse;

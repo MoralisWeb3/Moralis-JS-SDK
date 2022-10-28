@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams =  & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetDateToBlockRequest extends Camelize<Omit<RequestParams,  | 'chain'>> {
       chain?: EvmChainish;
@@ -58,14 +55,9 @@ export const GetDateToBlockOperation: Operation<
 
 function getRequestUrlParams(request: GetDateToBlockRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      providerUrl: request.providerUrl?.toString(),
-      date: request.date?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      providerUrl: request.providerUrl,
+      date: request.date,
   };
 }
 
@@ -87,7 +79,6 @@ function deserializeRequest(
       date: jsonRequest.date,
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetDateToBlockJSONResponse) {
   return jsonResponse;

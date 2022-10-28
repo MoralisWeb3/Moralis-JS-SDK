@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmAddress,EvmAddressish, } from '../../dataTypes';
 
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams  ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface ResolveAddressRequest extends Camelize<Omit<RequestParams,  | 'address'>> {
       address: EvmAddressish;
@@ -58,12 +55,7 @@ export const ResolveAddressOperation: Operation<
 
 function getRequestUrlParams(request: ResolveAddressRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      address: request.address?.toString(),
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -81,7 +73,6 @@ function deserializeRequest(
       address: EvmAddress.create(jsonRequest.address, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: ResolveAddressJSONResponse) {
   return jsonResponse;

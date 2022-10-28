@@ -30,9 +30,10 @@ export class EvmOperations {
   private addOperation = (operation: Operation) => {
     const requestUrlParams = operation.getRequestUrlParams();
     const requestParamsToOverwrite = requestUrlParams.filter((param) => param.dataType.requestType);
-    const dataTypesToImport = requestParamsToOverwrite
+    const utilsToImport = requestParamsToOverwrite
       .map((param) => {
         const { dataType } = param.dataType;
+
         if (dataType) {
           return [dataType, param.dataType.requestType];
         }
@@ -57,8 +58,10 @@ export class EvmOperations {
         requestUrlParams,
         requestBodyAndParams: [...(operation.getRequestBodyParams() || []), ...requestUrlParams],
         requestParamsToOverwrite,
-        dataTypesToImport,
-        isEvmChainImported: dataTypesToImport.includes('EvmChain'),
+        utilsToImport,
+        isEvmChainImported: utilsToImport.includes('EvmChain'),
+        isMaybeImported: Boolean(requestUrlParams.find((param) => param.type === 'number')),
+        isPaginated: Boolean(requestUrlParams.find((param) => param.name === 'limit')),
       },
     };
   };

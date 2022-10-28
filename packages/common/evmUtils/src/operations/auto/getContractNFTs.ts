@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetContractNfTsRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,18 +56,13 @@ export const GetContractNfTsOperation: Operation<
 
 function getRequestUrlParams(request: GetContractNfTsRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      format: request.format?.toString(),
-      limit: request.limit?.toString(),
-      totalRanges: request.totalRanges?.toString(),
-      range: request.range?.toString(),
-      cursor: request.cursor?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      format: request.format,
+      limit: maybe(request.limit, String),
+      totalRanges: maybe(request.totalRanges, String),
+      range: maybe(request.range, String),
+      cursor: request.cursor,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -101,7 +93,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetContractNfTsJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetContractNfTsJSONResponse, request: GetContractNfTsRequest, core: Core) {
+   return jsonResponse;
 }

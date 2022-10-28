@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetWalletNfTsRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'token_addresses' | 'address'>> {
       chain?: EvmChainish;
@@ -60,17 +57,12 @@ export const GetWalletNfTsOperation: Operation<
 
 function getRequestUrlParams(request: GetWalletNfTsRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      format: request.format?.toString(),
-      limit: request.limit?.toString(),
-      token_addresses: request.tokenAddresses?.toString(),
-      cursor: request.cursor?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      format: request.format,
+      limit: maybe(request.limit, String),
+      token_addresses: EvmAddress.create(request.tokenAddresses, core).lowercase,
+      cursor: request.cursor,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -79,7 +71,7 @@ function serializeRequest(request: GetWalletNfTsRequest, core: Core) {
       chain: EvmChainResolver.resolve(request.chain, core).apiHex,
       format: request.format,
       limit: request.limit,
-      tokenAddresses: request.token_addresses.toString(),
+      tokenAddresses: request.tokenAddresses.toString(),
       cursor: request.cursor,
       address: request.address.toString(),
   };
@@ -99,7 +91,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: GetWalletNfTsRequest, core: Core) {
+   return jsonResponse;
 }

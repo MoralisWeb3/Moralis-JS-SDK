@@ -1,4 +1,4 @@
-import { Operation } from '@moralisweb3/common-core';
+import { Operation,  } from '@moralisweb3/common-core';
 
 
 import { operations } from '../openapi';
@@ -9,17 +9,14 @@ type OperationId = 'uploadFolder';
 
 
 
-type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
+
 
 
 
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface UploadFolderRequest  {
 }

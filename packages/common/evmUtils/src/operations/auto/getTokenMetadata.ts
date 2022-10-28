@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams =  & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetTokenMetadataRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'addresses'>> {
       chain?: EvmChainish;
@@ -59,15 +56,10 @@ export const GetTokenMetadataOperation: Operation<
 
 function getRequestUrlParams(request: GetTokenMetadataRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      subdomain: request.subdomain?.toString(),
-      providerUrl: request.providerUrl?.toString(),
-      addresses: request.addresses?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      subdomain: request.subdomain,
+      providerUrl: request.providerUrl,
+      addresses: EvmAddress.create(request.addresses, core).lowercase,
   };
 }
 
@@ -91,7 +83,6 @@ function deserializeRequest(
       addresses: EvmAddress.create(jsonRequest.addresses, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetTokenMetadataJSONResponse) {
   return jsonResponse;

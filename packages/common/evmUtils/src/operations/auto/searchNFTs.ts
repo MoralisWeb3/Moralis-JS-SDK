@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams =  & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface SearchNfTsRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'addresses'>> {
       chain?: EvmChainish;
@@ -59,22 +56,17 @@ export const SearchNfTsOperation: Operation<
 
 function getRequestUrlParams(request: SearchNfTsRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      format: request.format?.toString(),
-      q: request.q?.toString(),
-      filter: request.filter?.toString(),
-      from_block: request.fromBlock?.toString(),
-      to_block: request.toBlock?.toString(),
-      from_date: request.fromDate?.toString(),
-      to_date: request.toDate?.toString(),
-      addresses: request.addresses?.toString(),
-      cursor: request.cursor?.toString(),
-      limit: request.limit?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      format: request.format,
+      q: request.q,
+      filter: request.filter,
+      from_block: maybe(request.fromBlock, String),
+      to_block: maybe(request.toBlock, String),
+      from_date: request.fromDate,
+      to_date: request.toDate,
+      addresses: EvmAddress.create(request.addresses, core).lowercase,
+      cursor: request.cursor,
+      limit: maybe(request.limit, String),
   };
 }
 
@@ -113,7 +105,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: SearchNfTsJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: SearchNfTsJSONResponse, request: SearchNfTsRequest, core: Core) {
+   return jsonResponse;
 }

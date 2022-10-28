@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish,EvmAddress,EvmAddressish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetTokenAllowanceRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'owner_address' | 'spender_address' | 'address'>> {
       chain?: EvmChainish;
@@ -61,16 +58,11 @@ export const GetTokenAllowanceOperation: Operation<
 
 function getRequestUrlParams(request: GetTokenAllowanceRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      providerUrl: request.providerUrl?.toString(),
-      owner_address: request.ownerAddress?.toString(),
-      spender_address: request.spenderAddress?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      providerUrl: request.providerUrl,
+      owner_address: EvmAddress.create(request.ownerAddress, core).lowercase,
+      spender_address: EvmAddress.create(request.spenderAddress, core).lowercase,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -78,8 +70,8 @@ function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
   return {
       chain: EvmChainResolver.resolve(request.chain, core).apiHex,
       providerUrl: request.providerUrl,
-      ownerAddress: request.owner_address.toString(),
-      spenderAddress: request.spender_address.toString(),
+      ownerAddress: request.ownerAddress.toString(),
+      spenderAddress: request.spenderAddress.toString(),
       address: request.address.toString(),
   };
 }
@@ -96,7 +88,6 @@ function deserializeRequest(
       address: EvmAddress.create(jsonRequest.address, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetTokenAllowanceJSONResponse) {
   return jsonResponse;

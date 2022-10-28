@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetNftTransfersByBlockRequest extends Camelize<Omit<RequestParams,  | 'chain'>> {
       chain?: EvmChainish;
@@ -58,16 +55,11 @@ export const GetNftTransfersByBlockOperation: Operation<
 
 function getRequestUrlParams(request: GetNftTransfersByBlockRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      subdomain: request.subdomain?.toString(),
-      limit: request.limit?.toString(),
-      cursor: request.cursor?.toString(),
-      block_number_or_hash: request.blockNumberOrHash?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      subdomain: request.subdomain,
+      limit: maybe(request.limit, String),
+      cursor: request.cursor,
+      block_number_or_hash: request.blockNumberOrHash,
   };
 }
 
@@ -94,7 +86,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetNftTransfersByBlockJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetNftTransfersByBlockJSONResponse, request: GetNftTransfersByBlockRequest, core: Core) {
+   return jsonResponse;
 }

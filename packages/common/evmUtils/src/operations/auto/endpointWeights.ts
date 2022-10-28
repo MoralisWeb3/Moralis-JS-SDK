@@ -1,28 +1,14 @@
 import { Operation } from '@moralisweb3/common-core';
 
-
 import { operations } from '../openapi';
 
 type OperationId = 'endpointWeights';
 
-
-
-
-
-
-
-
-
-
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
-
-//RunContractFunctionRequest
 
 // Exports
 
-
-export interface EndpointWeightsRequest  {
-}
+export interface EndpointWeightsRequest {}
 
 export type EndpointWeightsJSONRequest = undefined;
 
@@ -41,17 +27,11 @@ export const EndpointWeightsOperation: Operation<
   id: 'endpointWeights',
   groupName: 'token',
   urlPathPattern: '/info/endpointWeights',
-  
-  
 
-  
   deserializeResponse,
 };
 
 // Methods
-
-
-
 
 function deserializeResponse(jsonResponse: EndpointWeightsJSONResponse) {
   return jsonResponse;

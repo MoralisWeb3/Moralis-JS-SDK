@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetTransactionRequest extends Camelize<Omit<RequestParams,  | 'chain'>> {
       chain?: EvmChainish;
@@ -58,14 +55,9 @@ export const GetTransactionOperation: Operation<
 
 function getRequestUrlParams(request: GetTransactionRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      subdomain: request.subdomain?.toString(),
-      transaction_hash: request.transactionHash?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      subdomain: request.subdomain,
+      transaction_hash: request.transactionHash,
   };
 }
 
@@ -87,7 +79,6 @@ function deserializeRequest(
       transactionHash: jsonRequest.transactionHash,
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetTransactionJSONResponse) {
   return jsonResponse;

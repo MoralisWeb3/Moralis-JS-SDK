@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetPairReservesRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'pair_address'>> {
       chain?: EvmChainish;
@@ -59,16 +56,11 @@ export const GetPairReservesOperation: Operation<
 
 function getRequestUrlParams(request: GetPairReservesRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      to_block: request.toBlock?.toString(),
-      to_date: request.toDate?.toString(),
-      provider_url: request.providerUrl?.toString(),
-      pair_address: request.pairAddress?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      to_block: request.toBlock,
+      to_date: request.toDate,
+      provider_url: request.providerUrl,
+      pair_address: EvmAddress.create(request.pairAddress, core).lowercase,
   };
 }
 
@@ -78,7 +70,7 @@ function serializeRequest(request: GetPairReservesRequest, core: Core) {
       toBlock: request.toBlock,
       toDate: request.toDate,
       providerUrl: request.providerUrl,
-      pairAddress: request.pair_address.toString(),
+      pairAddress: request.pairAddress.toString(),
   };
 }
 
@@ -94,7 +86,6 @@ function deserializeRequest(
       pairAddress: EvmAddress.create(jsonRequest.pairAddress, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetPairReservesJSONResponse) {
   return jsonResponse;

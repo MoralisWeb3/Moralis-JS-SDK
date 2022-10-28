@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams =  & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetNftTransfersFromToBlockRequest extends Camelize<Omit<RequestParams,  | 'chain'>> {
       chain?: EvmChainish;
@@ -58,19 +55,14 @@ export const GetNftTransfersFromToBlockOperation: Operation<
 
 function getRequestUrlParams(request: GetNftTransfersFromToBlockRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      from_block: request.fromBlock?.toString(),
-      to_block: request.toBlock?.toString(),
-      from_date: request.fromDate?.toString(),
-      to_date: request.toDate?.toString(),
-      format: request.format?.toString(),
-      limit: request.limit?.toString(),
-      cursor: request.cursor?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      from_block: maybe(request.fromBlock, String),
+      to_block: maybe(request.toBlock, String),
+      from_date: request.fromDate,
+      to_date: request.toDate,
+      format: request.format,
+      limit: maybe(request.limit, String),
+      cursor: request.cursor,
   };
 }
 
@@ -103,7 +95,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetNftTransfersFromToBlockJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetNftTransfersFromToBlockJSONResponse, request: GetNftTransfersFromToBlockRequest, core: Core) {
+   return jsonResponse;
 }

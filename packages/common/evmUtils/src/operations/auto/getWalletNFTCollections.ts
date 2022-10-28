@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetWalletNftCollectionsRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,15 +56,10 @@ export const GetWalletNftCollectionsOperation: Operation<
 
 function getRequestUrlParams(request: GetWalletNftCollectionsRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      limit: request.limit?.toString(),
-      cursor: request.cursor?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      limit: maybe(request.limit, String),
+      cursor: request.cursor,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -92,7 +84,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetWalletNftCollectionsJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetWalletNftCollectionsJSONResponse, request: GetWalletNftCollectionsRequest, core: Core) {
+   return jsonResponse;
 }

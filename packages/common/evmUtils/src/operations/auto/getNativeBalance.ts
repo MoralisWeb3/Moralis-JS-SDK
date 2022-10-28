@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetNativeBalanceRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,15 +56,10 @@ export const GetNativeBalanceOperation: Operation<
 
 function getRequestUrlParams(request: GetNativeBalanceRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      providerUrl: request.providerUrl?.toString(),
-      to_block: request.toBlock?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      providerUrl: request.providerUrl,
+      to_block: maybe(request.toBlock, String),
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -91,7 +83,6 @@ function deserializeRequest(
       address: EvmAddress.create(jsonRequest.address, core),
   };
 }
-
 
 function deserializeResponse(jsonResponse: GetNativeBalanceJSONResponse) {
   return jsonResponse;

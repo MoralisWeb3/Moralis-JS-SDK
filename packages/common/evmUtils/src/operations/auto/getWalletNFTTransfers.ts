@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -16,10 +16,7 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-//RunContractFunctionRequest
-
 // Exports
-
 
 export interface GetWalletNftTransfersRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
       chain?: EvmChainish;
@@ -59,19 +56,14 @@ export const GetWalletNftTransfersOperation: Operation<
 
 function getRequestUrlParams(request: GetWalletNftTransfersRequest, core: Core) {
   return {
-    // address: EvmAddress.create(request.address, core).checksum,
-    // chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    // functionName: request.functionName,
-    // providerUrl: request.providerUrl,
-    // subdomain: request.subdomain,
-      chain: request.chain?.toString(),
-      format: request.format?.toString(),
-      direction: request.direction?.toString(),
-      from_block: request.fromBlock?.toString(),
-      to_block: request.toBlock?.toString(),
-      limit: request.limit?.toString(),
-      cursor: request.cursor?.toString(),
-      address: request.address?.toString(),
+      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+      format: request.format,
+      direction: request.direction,
+      from_block: maybe(request.fromBlock, String),
+      to_block: request.toBlock,
+      limit: maybe(request.limit, String),
+      cursor: request.cursor,
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -104,7 +96,6 @@ function deserializeRequest(
   };
 }
 
-
-function deserializeResponse(jsonResponse: GetWalletNftTransfersJSONResponse) {
-  return jsonResponse;
+function deserializeResponse(jsonResponse: GetWalletNftTransfersJSONResponse, request: GetWalletNftTransfersRequest, core: Core) {
+   return jsonResponse;
 }
