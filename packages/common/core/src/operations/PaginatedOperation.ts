@@ -15,4 +15,6 @@ export interface PaginatedJSONResponse<JSONResult> {
 }
 
 export interface PaginatedOperation<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>
-  extends Operation<Request, JSONRequest, Response, PaginatedJSONResponse<JSONResult>> {}
+  extends Operation<Request, JSONRequest, Response, PaginatedJSONResponse<JSONResult>> {
+  firstPageIndex: number;
+}
