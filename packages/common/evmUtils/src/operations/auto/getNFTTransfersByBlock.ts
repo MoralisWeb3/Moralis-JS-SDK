@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -28,11 +28,11 @@ export type GetNftTransfersByBlockJSONResponse = SuccessResponse;
 
 export type GetNftTransfersByBlockResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetNftTransfersByBlockOperation: Operation<
+export const GetNftTransfersByBlockOperation: PaginatedOperation<
   GetNftTransfersByBlockRequest,
   GetNftTransfersByBlockJSONRequest,
   GetNftTransfersByBlockResponse,
-  GetNftTransfersByBlockJSONResponse
+  GetNftTransfersByBlockJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getNFTTransfersByBlock',
@@ -86,6 +86,6 @@ function deserializeRequest(
   };
 }
 
-function deserializeResponse(jsonResponse: GetNftTransfersByBlockJSONResponse, request: GetNftTransfersByBlockRequest, core: Core) {
-   return jsonResponse;
+function deserializeResponse(jsonResponse: GetNftTransfersByBlockJSONResponse) {
+  return jsonResponse.result;
 }

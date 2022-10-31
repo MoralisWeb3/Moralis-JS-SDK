@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -29,11 +29,11 @@ export type GetContractEventsJSONResponse = SuccessResponse;
 
 export type GetContractEventsResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetContractEventsOperation: Operation<
+export const GetContractEventsOperation: PaginatedOperation<
   GetContractEventsRequest,
   GetContractEventsJSONRequest,
   GetContractEventsResponse,
-  GetContractEventsJSONResponse
+  GetContractEventsJSONResponse['result']
 > = {
   method: 'POST',
   name: 'getContractEvents',
@@ -105,6 +105,6 @@ function deserializeRequest(
   };
 }
 
-function deserializeResponse(jsonResponse: GetContractEventsJSONResponse, request: GetContractEventsRequest, core: Core) {
-   return jsonResponse;
+function deserializeResponse(jsonResponse: GetContractEventsJSONResponse) {
+  return jsonResponse.result;
 }

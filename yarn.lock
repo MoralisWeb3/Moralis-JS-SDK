@@ -5241,6 +5241,13 @@
   resolved "https://registry.npmjs.org/@pedrouid/environment/-/environment-1.0.1.tgz"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
+"@phenomnomnominal/tsquery@":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@phenomnomnominal/tsquery/-/tsquery-5.0.0.tgz#5e99f4a073740e10ee6945cebb477ccf9de74482"
+  integrity sha512-1k9H74MJJrlZbUuM6rG0Kwifu/ZoshH+Qs1QXJ2P2RD6MRE/D49uSzXosOXIpIrRQNtij3bnkukexIZhgM/Q8g==
+  dependencies:
+    esquery "^1.4.0"
+
 "@phenomnomnominal/tsquery@^4.0.0":
   version "4.2.0"
   resolved "https://registry.npmjs.org/@phenomnomnominal/tsquery/-/tsquery-4.2.0.tgz"
@@ -15045,6 +15052,11 @@ is-buffer@^1.0.2:
   resolved "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
 
+is-buffer@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.5.tgz#ebc252e400d22ff8d77fa09888821a24a658c191"
+  integrity sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==
+
 is-callable@^1.1.3, is-callable@^1.1.4, is-callable@^1.2.4:
   version "1.2.4"
   resolved "https://registry.npmjs.org/is-callable/-/is-callable-1.2.4.tgz"
@@ -23006,6 +23018,15 @@ terser@^5.0.0, terser@^5.10.0, terser@^5.14.1:
     commander "^2.20.0"
     source-map-support "~0.5.20"
 
+tersify@^3.10.2:
+  version "3.10.5"
+  resolved "https://registry.yarnpkg.com/tersify/-/tersify-3.10.5.tgz#eb2b230e7725481129b7fa349f2ce2683bd8a9ec"
+  integrity sha512-dLgsTbGVH/6Z+KU4d+NqMmsMFRwRmTFNxsl5vKGkUmaSQ0TTAwnv+Hck5S8Pdn5bcZSyjR3aTvvetJ7ZUs+ZYg==
+  dependencies:
+    acorn "^8.8.0"
+    is-buffer "^2.0.5"
+    unpartial "^1.0.0"
+
 test-exclude@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/test-exclude/-/test-exclude-6.0.0.tgz"
@@ -23468,6 +23489,14 @@ type-is@^1.6.16, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
+type-plus@4.15.2:
+  version "4.15.2"
+  resolved "https://registry.yarnpkg.com/type-plus/-/type-plus-4.15.2.tgz#2d97273bde0c921845ae70a0d1cef075a7c0cfc1"
+  integrity sha512-5hEzFXMHOK/p5hVhNmgy7CIxUjTIK9a/NOw0pDbc4tb7LXm9JLwLEH0QdGWU5fGPp5l05rtPZfjdSOPqfAyX9w==
+  dependencies:
+    tersify "^3.10.2"
+    unpartial "^1.0.3"
+
 type@^1.0.1:
   version "1.2.0"
   resolved "https://registry.npmjs.org/type/-/type-1.2.0.tgz"
@@ -23654,6 +23683,11 @@ unload@^2.3.1:
   dependencies:
     "@babel/runtime" "^7.6.2"
     detect-node "2.1.0"
+
+unpartial@^1.0.0, unpartial@^1.0.3:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/unpartial/-/unpartial-1.0.4.tgz#56490ed475105110cee61890a80c5da394741833"
+  integrity sha512-xY8319WOQcRDRVFWvTty2YJXKvM8XRPehqWZUd7k/BatpbuitI4Jd+2xlwjTZbZScSvT75TnUsUmy5uwFa3o0g==
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"

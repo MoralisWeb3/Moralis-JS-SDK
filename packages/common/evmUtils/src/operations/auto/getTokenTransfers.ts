@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -29,11 +29,11 @@ export type GetTokenTransfersJSONResponse = SuccessResponse;
 
 export type GetTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetTokenTransfersOperation: Operation<
+export const GetTokenTransfersOperation: PaginatedOperation<
   GetTokenTransfersRequest,
   GetTokenTransfersJSONRequest,
   GetTokenTransfersResponse,
-  GetTokenTransfersJSONResponse
+  GetTokenTransfersJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getTokenTransfers',
@@ -99,6 +99,6 @@ function deserializeRequest(
   };
 }
 
-function deserializeResponse(jsonResponse: GetTokenTransfersJSONResponse, request: GetTokenTransfersRequest, core: Core) {
-   return jsonResponse;
+function deserializeResponse(jsonResponse: GetTokenTransfersJSONResponse) {
+  return jsonResponse.result;
 }

@@ -61,15 +61,16 @@ function deserializeResponse(
   request: GetWalletTokenTransfersRequest,
   core: Core,
 ) {
-  return (jsonResponse.result || []).map((transfer) => {
+  return (jsonResponse.result || []).map((rawData) => {
+    const data = toCamelCase(rawData);
     return Erc20Transfer.create({
-      ...toCamelCase(transfer),
+      ...data,
       chain: EvmChainResolver.resolve(request.chain, core),
-      address: EvmAddress.create(transfer.address, core),
-      toAddress: EvmAddress.create(transfer.to_address, core),
-      fromAddress: EvmAddress.create(transfer.from_address, core),
-      value: BigNumber.create(transfer.value),
-      blockTimestamp: new Date(transfer.block_timestamp),
+      address: EvmAddress.create(data.address, core),
+      toAddress: EvmAddress.create(data.toAddress, core),
+      fromAddress: EvmAddress.create(data.fromAddress, core),
+      value: BigNumber.create(data.value),
+      blockTimestamp: new Date(data.blockTimestamp),
     });
   });
 }

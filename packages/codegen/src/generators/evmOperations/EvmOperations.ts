@@ -3,6 +3,11 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { OpenApiReader } from './OpenApiReader';
 import { Operation } from './Operation';
+import _ from 'lodash';
+
+// type IsAssignable<Type, Uniun> = [Type] extends [Uniun] ? true : false
+
+// type Test = IsAssignable<>
 
 export class EvmOperations {
   private dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,16 +35,21 @@ export class EvmOperations {
   private addOperation = (operation: Operation) => {
     const requestUrlParams = operation.getRequestUrlParams();
     const requestParamsToOverwrite = requestUrlParams.filter((param) => param.dataType.requestType);
-    const utilsToImport = requestParamsToOverwrite
-      .map((param) => {
-        const { dataType } = param.dataType;
+    const utilsToImport = _.uniq(
+      requestParamsToOverwrite
+        .map((param) => {
+          const { dataType } = param.dataType;
 
-        if (dataType) {
-          return [dataType, param.dataType.requestType];
-        }
-        return undefined;
-      })
-      .flat(1);
+          if (dataType) {
+            return [dataType, param.dataType.requestType];
+          }
+          return undefined;
+        })
+        .flat(1),
+    );
+
+    const response = operation.getResponse();
+
     return {
       type: 'add',
       templateFile: path.join(this.dirname, 'templates/Operation.ts.hbs'),
@@ -61,7 +71,7 @@ export class EvmOperations {
         utilsToImport,
         isEvmChainImported: utilsToImport.includes('EvmChain'),
         isMaybeImported: Boolean(requestUrlParams.find((param) => param.type === 'number')),
-        isPaginated: Boolean(requestUrlParams.find((param) => param.name === 'limit')),
+        isPaginated: response.isPaginated,
       },
     };
   };

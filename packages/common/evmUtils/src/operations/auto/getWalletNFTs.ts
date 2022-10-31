@@ -1,5 +1,5 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
-import { EvmChain,EvmChainish,EvmAddress,EvmAddressish,EvmAddress,EvmAddressish, } from '../../dataTypes';
+import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
+import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -30,11 +30,11 @@ export type GetWalletNfTsJSONResponse = SuccessResponse;
 
 export type GetWalletNfTsResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetWalletNfTsOperation: Operation<
+export const GetWalletNfTsOperation: PaginatedOperation<
   GetWalletNfTsRequest,
   GetWalletNfTsJSONRequest,
   GetWalletNfTsResponse,
-  GetWalletNfTsJSONResponse
+  GetWalletNfTsJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getWalletNFTs',
@@ -91,6 +91,6 @@ function deserializeRequest(
   };
 }
 
-function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: GetWalletNfTsRequest, core: Core) {
-   return jsonResponse;
+function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse) {
+  return jsonResponse.result;
 }

@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -29,11 +29,11 @@ export type GetNftTokenIdOwnersJSONResponse = SuccessResponse;
 
 export type GetNftTokenIdOwnersResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetNftTokenIdOwnersOperation: Operation<
+export const GetNftTokenIdOwnersOperation: PaginatedOperation<
   GetNftTokenIdOwnersRequest,
   GetNftTokenIdOwnersJSONRequest,
   GetNftTokenIdOwnersResponse,
-  GetNftTokenIdOwnersJSONResponse
+  GetNftTokenIdOwnersJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getNFTTokenIdOwners',
@@ -90,6 +90,6 @@ function deserializeRequest(
   };
 }
 
-function deserializeResponse(jsonResponse: GetNftTokenIdOwnersJSONResponse, request: GetNftTokenIdOwnersRequest, core: Core) {
-   return jsonResponse;
+function deserializeResponse(jsonResponse: GetNftTokenIdOwnersJSONResponse) {
+  return jsonResponse.result;
 }

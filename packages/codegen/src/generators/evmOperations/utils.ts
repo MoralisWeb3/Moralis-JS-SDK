@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { PropertySignature, SyntaxKind } from 'ts-morph';
+import { Node, PropertySignature, SyntaxKind, ts } from 'ts-morph';
 
 export const getPropertiesOfPropertySignature = (propSignature: PropertySignature) => {
   const typeLiteral = propSignature.getFirstChildByKind(SyntaxKind.TypeLiteral);
@@ -68,4 +68,8 @@ export const parseDataType = (name: string, type: string, _hasQuestion?: boolean
     deSerialize: (domain: string, _core: string) => `${domain}.${_.camelCase(name)}`,
     getRequestUrlParams: () => `request.${_.camelCase(name)}`,
   };
+};
+
+export const isPaginated = (node: Node) => {
+  return Boolean(node?.getType()?.getProperty('page'));
 };

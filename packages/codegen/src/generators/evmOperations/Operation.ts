@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import { IndexedAccessTypeNode, PropertySignature, SyntaxKind } from 'ts-morph';
-import { getPropertiesOfPropertySignature, getPropertyByName, parseDataType } from './utils';
+import { IndexedAccessTypeNode, PropertySignature, SyntaxKind, ts } from 'ts-morph';
+import { query } from './query';
+import { getPropertiesOfPropertySignature, getPropertyByName, isPaginated, parseDataType } from './utils';
 
 export class TypeItem {
   public name;
@@ -67,6 +68,32 @@ export class Operation {
       .map((symb) => new TypeItem(symb.getName(), symb.getDeclaredType().getText()));
   };
 
+  private getResponseNode = () => {
+    const responsesProp = getPropertyByName(this.operation, 'responses');
+    if (!responsesProp) {
+      return undefined;
+    }
+    const [responseNode] = query(responsesProp, 'PropertySignature[name.text="application/json"]');
+    return responseNode?.getChildren()[2];
+  };
+
+  public getResponse = () => {
+    const responseNode = this.getResponseNode();
+
+    if (responseNode?.isKind(SyntaxKind.IndexedAccessType)) {
+      const literal = responseNode.getFirstChildByKind(SyntaxKind.LiteralType);
+
+      return { schema: literal?.getText(), isPaginated: isPaginated(responseNode) };
+    }
+
+    if (responseNode?.isKind(SyntaxKind.TypeLiteral)) {
+      return {
+        isPaginated: isPaginated(responseNode),
+      };
+    }
+    return { isPaginated: false };
+  };
+
   public getRequestBodyParams = () => {
     const requestBodyProp = getPropertyByName(this.operation, 'requestBody');
     if (!requestBodyProp) {
@@ -114,9 +141,8 @@ export class Operation {
 
   public getPathParamNames = () => this.getPathParams()?.map((param) => param.name);
 
-  public getRequestUrlParams = () => [
-    ...(this.getQueryParams() || []),
-    ...(this.getPathParams() || []),
-    ...(this.getRequestBodyParams() || []),
-  ];
+  public getRequestUrlParams = () => {
+    console.log(`${this.name} :`, this.getResponse());
+    return [...(this.getQueryParams() || []), ...(this.getPathParams() || []), ...(this.getRequestBodyParams() || [])];
+  };
 }

@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
 import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -29,11 +29,11 @@ export type SearchNfTsJSONResponse = SuccessResponse;
 
 export type SearchNfTsResponse = ReturnType<typeof deserializeResponse>;
 
-export const SearchNfTsOperation: Operation<
+export const SearchNfTsOperation: PaginatedOperation<
   SearchNfTsRequest,
   SearchNfTsJSONRequest,
   SearchNfTsResponse,
-  SearchNfTsJSONResponse
+  SearchNfTsJSONResponse['result']
 > = {
   method: 'GET',
   name: 'searchNFTs',
@@ -105,6 +105,6 @@ function deserializeRequest(
   };
 }
 
-function deserializeResponse(jsonResponse: SearchNfTsJSONResponse, request: SearchNfTsRequest, core: Core) {
-   return jsonResponse;
+function deserializeResponse(jsonResponse: SearchNfTsJSONResponse) {
+  return jsonResponse.result;
 }

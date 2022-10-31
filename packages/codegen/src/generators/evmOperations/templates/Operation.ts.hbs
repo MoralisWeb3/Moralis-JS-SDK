@@ -1,4 +1,4 @@
-import { {{#if requestUrlParams }}Core, Camelize, {{/if}}Operation, {{#if isMaybeImported }}maybe{{/if}} } from '@moralisweb3/common-core';
+import { {{#if requestUrlParams }}Core, Camelize, {{/if}}{{#if isPaginated}}PaginatedOperation{{else}}Operation{{/if}}, {{#if isMaybeImported }}maybe{{/if}} } from '@moralisweb3/common-core';
 {{#if utilsToImport}}import { {{#each utilsToImport}}{{ this }},{{/each}} } from '../../dataTypes';{{/if}}
 {{#if isEvmChainImported}}import { EvmChainResolver } from '../../EvmChainResolver';{{/if}}
 import { operations } from '../openapi';
@@ -33,11 +33,11 @@ export type {{ properCase name }}JSONResponse = SuccessResponse;
 
 export type {{ properCase name }}Response = ReturnType<typeof deserializeResponse>;
 
-export const {{ properCase name }}Operation: Operation<
+export const {{ properCase name }}Operation: {{#if isPaginated}}PaginatedOperation{{else}}Operation{{/if}}<
   {{ properCase name }}Request,
   {{ properCase name }}JSONRequest,
   {{ properCase name }}Response,
-  {{ properCase name }}JSONResponse
+  {{ properCase name }}JSONResponse{{#if isPaginated}}['result']{{/if}}
 > = {
   method: '{{ method }}',
   name: '{{ name }}',
@@ -102,12 +102,6 @@ function deserializeRequest(
 }
 {{/if}}
 
-{{#if isPaginated}}
-function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse, request: {{ properCase name }}Request, core: Core) {
-   return jsonResponse;
-}
-{{else}}
 function deserializeResponse(jsonResponse: {{ properCase name }}JSONResponse) {
-  return jsonResponse;
+  return jsonResponse{{#if isPaginated}}.result{{/if}};
 }
-{{/if}}
