@@ -5,10 +5,6 @@ import { OpenApiReader } from './OpenApiReader';
 import { Operation } from './Operation';
 import _ from 'lodash';
 
-// type IsAssignable<Type, Uniun> = [Type] extends [Uniun] ? true : false
-
-// type Test = IsAssignable<>
-
 export class EvmOperations {
   private dirname = path.dirname(fileURLToPath(import.meta.url));
   private packagesFolder = path.join(this.dirname, '../../../..');
