@@ -57,13 +57,13 @@ describe('OperationRequestBuilder', () => {
 
   describe('prepareUrl()', () => {
     it('returns correct values', () => {
-      const { urlPath, urlSearchParams } = builder.prepareUrl({
+      const { url, urlSearchParams } = builder.prepareUrl('https://localhost', {
         userId: 100,
         traceId: 200,
         password: 'foo',
       });
 
-      expect(urlPath).toBe('/api/100');
+      expect(url).toBe('https://localhost/api/100');
       expect(Object.keys(urlSearchParams).length).toBe(2);
       expect(urlSearchParams['trace_id']).toBe('200');
       expect(urlSearchParams['extraSearchParam']).toBe('100');

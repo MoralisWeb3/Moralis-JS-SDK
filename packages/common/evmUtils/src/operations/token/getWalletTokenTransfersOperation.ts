@@ -34,6 +34,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'cursor', 'fromBlock', 'fromDate', 'limit', 'subdomain', 'toBlock', 'toDate'],
   urlPathPattern: '/{address}/erc20/transfers',
+  firstPageIndex: 0,
 
   getRequestUrlParams,
   deserializeResponse,

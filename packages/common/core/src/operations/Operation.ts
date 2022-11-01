@@ -10,6 +10,7 @@ export interface Operation<Request, JSONRequest, Response, JSONResponse> {
   urlSearchParamNames?: (keyof Request)[];
   bodyType?: OperationBodyType;
   bodyParamNames?: (keyof Request)[];
+  isNullable?: boolean;
   firstPageIndex?: number;
 
   getRequestUrlParams(request: Request, core: Core): OperationRequestUrlParams;
