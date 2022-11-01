@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetNFTsRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
+export type GetNFTsRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
   network?: SolNetworkish;
   address: SolAddressish;
-}
+};
 
 export type GetNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 
