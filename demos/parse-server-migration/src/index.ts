@@ -24,7 +24,6 @@ if (config.USE_STREAMS) {
   app.use(
     streamsSync(parseServer, {
       apiKey: config.MORALIS_API_KEY,
-      webhookUrl: '/streams',
     }),
   );
 }
