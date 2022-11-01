@@ -52,4 +52,8 @@ export default cleanEnv(process.env, {
     desc: 'Enable streams sync',
     default: false,
   }),
+  STREAMS_WEBHOOK_URL: str({
+    desc: 'Webhook url for streams sync',
+    default: '/streams-webhook',
+  }),
 });

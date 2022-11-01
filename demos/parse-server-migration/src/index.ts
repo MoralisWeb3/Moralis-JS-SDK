@@ -24,6 +24,7 @@ if (config.USE_STREAMS) {
   app.use(
     streamsSync(parseServer, {
       apiKey: config.MORALIS_API_KEY,
+      webhookUrl: config.STREAMS_WEBHOOK_URL,
     }),
   );
 }
@@ -35,7 +36,9 @@ httpServer.listen(config.PORT, async () => {
   if (config.USE_STREAMS) {
     const url = await ngrok.connect(config.PORT);
     // eslint-disable-next-line no-console
-    console.log(`Moralis Streams is running on port ${config.PORT} and ngrok url ${url}`);
+    console.log(
+      `Moralis Server is running on port ${config.PORT} and stream webhook url ${url}${config.STREAMS_WEBHOOK_URL}`,
+    );
   } else {
     // eslint-disable-next-line no-console
     console.log(`Moralis Server is running on port ${config.PORT}.`);
