@@ -5,6 +5,7 @@ import { Config } from './Config/Config';
 import { CoreConfigSetup } from './Config/CoreConfigSetup';
 import { MoralisConfigValues } from './Config';
 import { LIB_VERSION } from './version';
+import { CoreErrorCode, MoralisError } from './Error';
 
 /**
  * Core is used in all Moralis applications
@@ -27,6 +28,7 @@ export class Core {
   }
 
   public readonly name = Core.moduleName;
+  private isStarted = false;
 
   public static readonly libVersion = LIB_VERSION;
 
@@ -67,6 +69,14 @@ export class Core {
    * This will call `start()` on every registered module
    */
   public start = async (providedConfig?: Partial<MoralisConfigValues>) => {
+    if (this.isStarted) {
+      throw new MoralisError({
+        message: 'Modules are started already. This method should be called only one time.',
+        code: CoreErrorCode.ALREADY_INITIALIZED,
+      });
+    }
+    this.isStarted = true;
+
     const allModules = this.modules.list();
 
     if (providedConfig) {
