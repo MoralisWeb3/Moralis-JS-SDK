@@ -22,7 +22,7 @@ export interface Operation<Request, JSONRequest, Response, JSONResponse> {
 
 export type OperationRequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export type OperationBodyType = 'properties' | 'raw';
-export type OperationRequestUrlParams = Record<string, string | undefined>;
+export type OperationRequestUrlParams = Record<string, string | string[] | undefined>;
 export type OperationRequestBody = OperationRequestPropertiesBody | OperationRequestRawBody;
 export type OperationRequestPropertiesBody = Record<string, unknown>;
 export type OperationRequestRawBody = string | number | boolean | object;

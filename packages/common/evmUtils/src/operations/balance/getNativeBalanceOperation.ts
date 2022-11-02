@@ -66,7 +66,7 @@ function serializeRequest(request: GetNativeBalanceRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     providerUrl: request.providerUrl,
     toBlock: request.toBlock,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

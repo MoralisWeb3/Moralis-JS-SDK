@@ -71,7 +71,7 @@ function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
     providerUrl: request.providerUrl,
     ownerAddress: request.ownerAddress.toString(),
     spenderAddress: request.spenderAddress.toString(),
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

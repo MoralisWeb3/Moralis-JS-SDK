@@ -35,6 +35,7 @@ export const getWalletNfTsOperation: PaginatedOperation<
   name: 'getWalletNFTs',
   id: 'getWalletNFTs',
   groupName: 'nft',
+  firstPageIndex: 1,
   urlPathPattern: '/{address}/nft',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'format', 'limit', 'tokenAddresses', 'cursor'],
@@ -53,8 +54,7 @@ function getRequestUrlParams(request: GetWalletNfTsRequest, core: Core) {
     address: EvmAddress.create(request.address, core).lowercase,
     format: request.format,
     limit: maybe(request.limit, String),
-    // @ts-ignore TODO: check if we need to do a conversion
-    token_addresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).lowercase) as string,
+    token_addresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
   };
 }
@@ -81,17 +81,15 @@ function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: G
   );
 }
 
-// TODO: fix typings of EvmAddress /EvmAddressish in serialize and deserialize
+
 function serializeRequest(request: GetWalletNfTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
     limit: request.limit,
-    // @ts-ignore
-    tokenAddresses: request.tokenAddresses?.map((address) => address.lowercase),
+    tokenAddresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
-    // @ts-ignore
-    address: request.address.lowercase,
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

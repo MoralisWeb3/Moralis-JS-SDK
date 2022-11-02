@@ -59,41 +59,34 @@ function getRequestUrlParams(request: GetPairAddressRequest, core: Core) {
   };
 }
 
-// TODO: refactor to reduce complexity
-// eslint-disable-next-line complexity
+type TokenJSONResponse = GetPairAddressJSONResponse['token0'] | GetPairAddressJSONResponse['token1'];
+
+function createErc20Token(token: TokenJSONResponse, core: Core, chain?: EvmChainish) {
+  return Erc20Token.create(
+    {
+      contractAddress: token?.address ? EvmAddress.create(token?.address) : '',
+      decimals: token?.decimals ?? 0,
+      name: token?.name ?? '',
+      symbol: token?.symbol ?? '',
+      logo: token?.logo,
+      thumbnail: token?.thumbnail,
+      chain: EvmChainResolver.resolve(chain, core),
+    },
+    core,
+  );
+}
+
 function deserializeResponse(jsonResponse: GetPairAddressJSONResponse, request: GetPairAddressRequest, core: Core) {
   return {
     //   ApiResult types generated all come as undefined which should not be the case TODO:
     token0: {
-      token: Erc20Token.create(
-        {
-          contractAddress: jsonResponse.token0?.address ? EvmAddress.create(jsonResponse.token0?.address) : '',
-          decimals: jsonResponse.token0?.decimals ?? 0,
-          name: jsonResponse.token0?.name ?? '',
-          symbol: jsonResponse.token0?.symbol ?? '',
-          logo: jsonResponse.token0?.logo,
-          thumbnail: jsonResponse.token0?.thumbnail,
-          chain: EvmChainResolver.resolve(request.chain, core),
-        },
-        core,
-      ),
+      token: createErc20Token(jsonResponse.token0, core, request.chain),
       blockNumber: jsonResponse.token0?.block_number,
       validated: jsonResponse.token0?.validated,
       createdAt: jsonResponse.token0?.created_at ? new Date(jsonResponse.token0?.created_at) : undefined,
     },
     token1: {
-      token: Erc20Token.create(
-        {
-          contractAddress: jsonResponse.token0?.address ? EvmAddress.create(jsonResponse.token0?.address, core) : '',
-          decimals: jsonResponse.token1?.decimals ?? 0,
-          name: jsonResponse.token1?.name ?? '',
-          symbol: jsonResponse.token1?.symbol ?? '',
-          logo: jsonResponse.token1?.logo,
-          thumbnail: jsonResponse.token1?.thumbnail,
-          chain: EvmChainResolver.resolve(request.chain, core),
-        },
-        core,
-      ),
+      token: createErc20Token(jsonResponse.token1, core, request.chain),
       blockNumber: jsonResponse.token1?.block_number,
       validated: jsonResponse.token1?.validated,
       createdAt: jsonResponse.token1?.created_at ? new Date(jsonResponse.token1?.created_at) : undefined,
@@ -108,8 +101,8 @@ function serializeRequest(request: GetPairAddressRequest, core: Core) {
     toBlock: request.toBlock,
     toDate: request.toDate,
     exchange: request.exchange,
-    token0Address: request.token0Address.toString(),
-    token1Address: request.token1Address.toString(),
+    token0Address: EvmAddress.create(request.token0Address, core).lowercase,
+    token1Address: EvmAddress.create(request.token1Address, core).lowercase,
   };
 }
 

@@ -7,13 +7,6 @@ type OperationId = 'web3ApiVersion';
 
 
 
-
-
-
-
-
-
-
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
@@ -38,16 +31,27 @@ export const Web3ApiVersionOperation: Operation<
   id: 'web3ApiVersion',
   groupName: 'token',
   urlPathPattern: '/web3/version',
+  urlPathParamNames: [],
   
-  
-
-  
+  deserializeRequest,
+  serializeRequest,
+  getRequestUrlParams,
   deserializeResponse,
 };
 
 // Methods
 
+function getRequestUrlParams() {
+  return {};
+}
 
+function serializeRequest() {
+  return undefined;
+}
+
+function deserializeRequest() {
+  return {};
+}
 
 
 function deserializeResponse(jsonResponse: Web3ApiVersionJSONResponse) {

@@ -48,9 +48,7 @@ function getRequestUrlParams(request: GetTokenMetadataBySymbolRequest, core: Cor
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
-    // TODO: validate to work with string array
-    // @ts-ignore
-    symbols: request.symbols as string,
+    symbols: request.symbols,
   };
 }
 

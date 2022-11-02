@@ -82,7 +82,7 @@ function serializeRequest(request: GetNftContractTransfersRequest, core: Core) {
     format: request.format,
     limit: request.limit,
     cursor: request.cursor,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

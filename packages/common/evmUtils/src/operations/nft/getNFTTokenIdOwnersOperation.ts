@@ -37,6 +37,7 @@ export const getNftTokenIdOwnersOperation: PaginatedOperation<
   urlPathPattern: '/nft/{address}/{token_id}/owners',
   urlPathParamNames: ['address', 'tokenId'],
   urlSearchParamNames: ['chain', 'format', 'limit', 'cursor'],
+  firstPageIndex: 1,
 
   getRequestUrlParams,
   serializeRequest,
@@ -79,7 +80,7 @@ function serializeRequest(request: GetNftTokenIdOwnersRequest, core: Core) {
     format: request.format,
     limit: request.limit,
     cursor: request.cursor,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
     tokenId: request.tokenId,
   };
 }

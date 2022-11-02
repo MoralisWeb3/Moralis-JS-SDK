@@ -70,7 +70,7 @@ function deserializeResponse(
 function serializeRequest(request: GetNftContractMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

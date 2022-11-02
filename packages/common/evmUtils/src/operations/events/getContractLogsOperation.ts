@@ -51,6 +51,7 @@ export const getContractLogsOperation: PaginatedOperation<
     'limit',
     'cursor',
   ],
+  firstPageIndex: 0,
 
   getRequestUrlParams,
   serializeRequest,
@@ -94,7 +95,7 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     topic3: request.topic3,
     limit: request.limit,
     cursor: request.cursor,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

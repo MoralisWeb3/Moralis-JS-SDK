@@ -42,6 +42,7 @@ export const GetWalletTransactionsOperation: PaginatedOperation<
   urlPathPattern: '/{address}',
   urlPathParamNames: ['address',],
   urlSearchParamNames: ['chain','subdomain','fromBlock','toBlock','fromDate','toDate','cursor','limit',],
+  firstPageIndex: 0,
 
   
   getRequestUrlParams,
@@ -78,7 +79,7 @@ function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
       toDate: request.toDate,
       cursor: request.cursor,
       limit: request.limit,
-      address: request.address.toString(),
+      address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

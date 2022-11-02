@@ -62,7 +62,7 @@ function serializeRequest(request: GetPairReservesRequest, core: Core) {
     toBlock: request.toBlock,
     toDate: request.toDate,
     providerUrl: request.providerUrl,
-    pairAddress: request.pairAddress.toString(),
+    pairAddress: EvmAddress.create(request.pairAddress, core).lowercase,
   };
 }
 

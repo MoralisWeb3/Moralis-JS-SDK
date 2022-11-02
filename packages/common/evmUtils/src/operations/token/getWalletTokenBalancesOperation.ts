@@ -51,11 +51,9 @@ function getRequestUrlParams(request: GetWalletTokenBalancesRequest, core: Core)
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
     to_block: maybe(request.toBlock, String),
-    // TODO: validate if works with string[] and fix typing
-    // @ts-ignore
     token_addresses: maybe(request.tokenAddresses, (addresses) =>
       addresses.map((address) => EvmAddress.create(address, core).lowercase),
-    ) as string,
+    ),
     address: EvmAddress.create(request.address, core).lowercase,
   };
 }

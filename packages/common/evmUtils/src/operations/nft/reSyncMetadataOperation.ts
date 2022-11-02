@@ -63,7 +63,7 @@ function serializeRequest(request: ReSyncMetadataRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     flag: request.flag,
     mode: request.mode,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
     tokenId: request.tokenId,
   };
 }

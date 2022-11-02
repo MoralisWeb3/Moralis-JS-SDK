@@ -81,7 +81,7 @@ function serializeRequest(request: GetContractNfTsRequest, core: Core) {
     totalRanges: request.totalRanges,
     range: request.range,
     cursor: request.cursor,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

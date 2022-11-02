@@ -16,8 +16,6 @@ type RequestParams = PathParams & QueryParams ;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
-// Exports
-
 export interface GetTransactionRequest extends Camelize<Omit<RequestParams,  | 'chain'>> {
       chain?: EvmChainish;
 }
@@ -48,8 +46,6 @@ export const GetTransactionOperation: Operation<
   deserializeRequest,
   deserializeResponse,
 };
-
-// Methods
 
 
 

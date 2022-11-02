@@ -90,7 +90,7 @@ function serializeRequest(request: GetWalletNftTransfersRequest, core: Core) {
     toBlock: request.toBlock,
     limit: request.limit,
     cursor: request.cursor,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

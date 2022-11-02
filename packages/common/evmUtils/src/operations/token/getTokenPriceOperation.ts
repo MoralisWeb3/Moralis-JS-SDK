@@ -73,7 +73,7 @@ function serializeRequest(request: GetTokenPriceRequest, core: Core) {
     providerUrl: request.providerUrl,
     exchange: request.exchange,
     toBlock: request.toBlock,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

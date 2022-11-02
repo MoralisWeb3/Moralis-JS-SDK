@@ -79,7 +79,7 @@ export interface paths {
     get: operations["getNFTTokenIdOwners"];
   };
   "/nft/{address}/sync": {
-    /** Initiates a metadata refresh for an entire NFT collection. */
+    /** Initiates a sync of a previously non synced Contract. */
     put: operations["syncNFTContract"];
   };
   "/nft/{address}/{token_id}/metadata/resync": {
@@ -794,6 +794,8 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
+      /** @description A normalized metadata version of the NFT's metadata. */
+      normalized_metadata?: components["schemas"]["normalizedMetadata"];
       /**
        * @description The address that minted the NFT
        * @example 0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b
@@ -1016,6 +1018,8 @@ export interface components {
       token_uri?: string;
       /** @description The metadata of the token */
       metadata?: string;
+      /** @description A normalized metadata version of the NFT's metadata. */
+      normalized_metadata?: components["schemas"]["normalizedMetadata"];
       /**
        * @description The number of this item the user owns (used by ERC1155)
        * @example 1
@@ -1046,6 +1050,66 @@ export interface components {
        * @example 2021-02-24T00:47:26.647Z
        */
       last_metadata_sync: string;
+    };
+    normalizedMetadataAttribute: {
+      /**
+       * @description The trait title or descriptor
+       * @example Eye Color
+       */
+      traitType?: string;
+      /**
+       * @description The value of the attribute
+       * @example hazel
+       */
+      value?: string;
+      /**
+       * @description The type the attribute value should be displayed as
+       * @example string
+       */
+      displayType?: string;
+      /**
+       * @description For numeric values, the upper range
+       * @example 100
+       */
+      maxValue?: number;
+      /**
+       * @description The number of possible values for this trait
+       * @example 7
+       */
+      traitCount?: number;
+      /**
+       * @description Order the trait should appear in the attribute list.
+       * @example 1
+       */
+      order?: number;
+    };
+    normalizedMetadata: {
+      /**
+       * @description The name or title of the NFT
+       * @example Moralis Mug
+       */
+      name?: string;
+      /**
+       * @description A detailed description of the NFT
+       * @example Moralis Coffee nug 3D Asset that can be used in 3D worldspaces. This NFT is presented as a flat PNG, a Unity3D Prefab and a standard fbx.
+       */
+      description?: string;
+      /**
+       * @description The URL of the image of the NFT
+       * @example https://arw2wxg84h6b.moralishost.com:2053/server/files/tNJatzsHirx4V2VAep6sc923OYGxvkpBeJttR7Ks/de504bbadadcbe30c86278342fcf2560_moralismug.png
+       */
+      image?: string;
+      /**
+       * @description A link to additional information.
+       * @example https://giphy.com/gifs/loop-recursion-ting-aaODAv1iuQdgI
+       */
+      externalLink?: string;
+      /**
+       * @description An animated version of the NFT's image
+       * @example https://giphy.com/gifs/food-design-donuts-o9ngTPVYW4qo8
+       */
+      animationUrl?: string;
+      attributes?: components["schemas"]["normalizedMetadataAttribute"][];
     };
     nftOwnerCollection: {
       /**
@@ -1953,7 +2017,7 @@ export interface operations {
       };
     };
   };
-  /** Initiates a metadata refresh for an entire NFT collection. */
+  /** Initiates a sync of a previously non synced Contract. */
   syncNFTContract: {
     parameters: {
       query: {

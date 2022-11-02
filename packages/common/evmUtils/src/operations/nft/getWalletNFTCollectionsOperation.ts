@@ -37,6 +37,7 @@ export const getWalletNftCollectionsOperation: PaginatedOperation<
   urlPathPattern: '/{address}/nft/collections',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'limit', 'cursor'],
+  firstPageIndex: 1,
 
   getRequestUrlParams,
   serializeRequest,
@@ -77,7 +78,7 @@ function serializeRequest(request: GetWalletNftCollectionsRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     limit: request.limit,
     cursor: request.cursor,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

@@ -23,6 +23,8 @@ export type GetBlockJSONResponse = SuccessResponse;
 
 export type GetBlockResponse = ReturnType<typeof deserializeResponse>;
 
+type LogTopic = string | null;
+
 export const getBlockOperation: Operation<
   GetBlockRequest,
   GetBlockJSONRequest,
@@ -59,6 +61,7 @@ function deserializeResponse(jsonResponse: GetBlockJSONResponse, request: GetBlo
 
   // TODO: account for changes in api, now we have unknown types for addresses
   // OR fix the types correctly in api
+  // I noticed that the docs comes with a type of "string | unknown" which automatically resolves to "unknown". I think we should fix this in the api, casting for now
   return EvmBlock.create(
     {
       ...data,
@@ -70,10 +73,8 @@ function deserializeResponse(jsonResponse: GetBlockJSONResponse, request: GetBlo
             gasPrice: transaction.gasPrice,
             gasUsed: transaction.receiptGasUsed,
             index: transaction.transactionIndex,
-            // @ts-ignore TODO: fix typing
-            contractAddress: transaction.receiptContractAddress,
-            // @ts-ignore TODO: fix typing
-            receiptRoot: transaction.receiptRoot,
+            contractAddress: transaction.receiptContractAddress as string | undefined,
+            receiptRoot: transaction.receiptRoot as string | undefined,
             receiptStatus: +transaction.receiptStatus,
             chain,
             data: transaction.input,
@@ -85,30 +86,22 @@ function deserializeResponse(jsonResponse: GetBlockJSONResponse, request: GetBlo
             blockNumber: +transaction.blockNumber,
             blockTimestamp: new Date(transaction.blockTimestamp),
             gas: transaction.gas,
-            // @ts-ignore TODO: fix typing
-            to: transaction.toAddress,
-            logs: (transaction.logs ?? []).map((log) =>
-              EvmTransactionLog.create({
+            to: transaction.toAddress as string,
+            logs: (transaction.logs ?? []).map((jsonLog) => {
+              const log = toCamelCase(jsonLog);
+              return EvmTransactionLog.create({
                 chain,
                 address: log.address,
-                // @ts-ignore TODO: fix typing
                 blockHash: log.blockHash,
-                // @ts-ignore TODO: fix typing
                 blockNumber: +log.blockNumber,
                 data: log.data,
-                // @ts-ignore TODO: fix typing
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
-                // @ts-ignore TODO: fix typing
+                topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
                 transactionHash: log.transactionHash,
-                // @ts-ignore TODO: fix typing
                 blockTimestamp: log.blockTimestamp,
-                // @ts-ignore TODO: fix typing
                 logIndex: +log.logIndex,
-                // @ts-ignore TODO: fix typing
                 transactionIndex: +log.transactionIndex,
-              }),
-            ),
+              });
+            }),
           },
           core,
         ),

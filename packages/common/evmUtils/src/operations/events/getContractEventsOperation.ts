@@ -121,7 +121,7 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
     topic: request.topic,
     offset: request.offset,
     limit: request.limit,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
     abi: request.abi,
   };
 }

@@ -87,7 +87,7 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
     toDate: request.toDate,
     offset: request.offset,
     limit: request.limit,
-    address: request.address.toString(),
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

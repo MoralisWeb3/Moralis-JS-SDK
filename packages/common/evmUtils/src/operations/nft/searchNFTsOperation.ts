@@ -69,8 +69,7 @@ function getRequestUrlParams(request: SearchNfTsRequest, core: Core) {
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate,
     to_date: request.toDate,
-    // @ts-ignore TODO: check if we need to do a conversion
-    addresses: request.addresses?.map((address) => EvmAddress.create(address, core).lowercase) as string,
+    addresses: request.addresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
     limit: maybe(request.limit, String),
   };
@@ -106,7 +105,6 @@ function deserializeResponse(jsonResponse: SearchNfTsJSONResponse, request: Sear
   }));
 }
 
-// TODO: fix typings of EvmAddress /EvmAddressish in serialize and deserialize
 function serializeRequest(request: SearchNfTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
@@ -117,8 +115,7 @@ function serializeRequest(request: SearchNfTsRequest, core: Core) {
     toBlock: request.toBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
-    // @ts-ignore
-    addresses: request.addresses?.map((address) => address.lowercase),
+    addresses: request.addresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
     limit: request.limit,
   };
