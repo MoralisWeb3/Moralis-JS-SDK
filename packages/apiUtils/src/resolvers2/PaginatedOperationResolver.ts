@@ -18,13 +18,16 @@ export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRe
     private readonly operation: PaginatedOperation<Request, JSONRequest, Result, JSONResult>,
     private readonly baseUrl: string,
     private readonly core: Core,
-  ) {}
+  ) {
+    if (operation.firstPageIndex !== 0 && operation.firstPageIndex !== 1) {
+      throw new Error(`Operation ${operation.name} has invalid value for firstPageIndex property`);
+    }
+  }
 
   public readonly fetch = async (request: Request): Promise<PaginatedResponseAdapter<Result, JSONResult>> => {
     this.requestValidator.validate(request);
 
-    const { urlPath, urlSearchParams } = this.requestBuilder.prepareUrl(request);
-    const url = `${this.baseUrl}${urlPath}`;
+    const { url, urlSearchParams } = this.requestBuilder.prepareUrl(this.baseUrl, request);
     const body = this.requestBuilder.prepareBody(request);
 
     const jsonResponse: PaginatedJSONResponse<JSONResult> = await this.requestController.request({

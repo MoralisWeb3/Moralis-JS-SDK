@@ -15,7 +15,7 @@ export class OperationRequestBuilder<Request> {
     private readonly core: Core,
   ) {}
 
-  public prepareUrl(request: Request) {
+  public prepareUrl(baseUrl: string, request: Request) {
     const urlParams = this.operation.getRequestUrlParams(request, this.core);
 
     let urlPath = this.operation.urlPathPattern;
@@ -27,6 +27,7 @@ export class OperationRequestBuilder<Request> {
       }
       urlPath = urlPath.replace(`{${paramName as string}}`, paramValue);
     }
+    const url = `${baseUrl}${urlPath}`;
 
     const urlSearchParams: Record<string, string> = {};
     Object.keys(urlParams)
@@ -38,7 +39,7 @@ export class OperationRequestBuilder<Request> {
         }
       });
 
-    return { urlPath, urlSearchParams };
+    return { url, urlSearchParams };
   }
 
   public prepareBody(request: Request): OperationRequestBody | undefined {
