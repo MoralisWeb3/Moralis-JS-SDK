@@ -1,18 +1,14 @@
-import { Operation,  } from '@moralisweb3/common-core';
-
+import { Operation } from '@moralisweb3/common-core';
 
 import { operations } from '../openapi';
 
 type OperationId = 'web3ApiVersion';
 
-
-
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
-export interface Web3ApiVersionRequest  {
-}
+export interface Web3ApiVersionRequest {}
 
 export type Web3ApiVersionJSONRequest = undefined;
 
@@ -32,7 +28,7 @@ export const Web3ApiVersionOperation: Operation<
   groupName: 'token',
   urlPathPattern: '/web3/version',
   urlPathParamNames: [],
-  
+
   deserializeRequest,
   serializeRequest,
   getRequestUrlParams,
@@ -52,7 +48,6 @@ function serializeRequest() {
 function deserializeRequest() {
   return {};
 }
-
 
 function deserializeResponse(jsonResponse: Web3ApiVersionJSONResponse) {
   return jsonResponse;

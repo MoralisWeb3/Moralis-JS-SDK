@@ -81,7 +81,6 @@ function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: G
   );
 }
 
-
 function serializeRequest(request: GetWalletNfTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
