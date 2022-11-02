@@ -1,2 +1,2 @@
-export * from './getPairAddress';
-export * from './getPairReserves';
+export * from './getPairAddressOperation';
+export * from './getPairReservesOperation';

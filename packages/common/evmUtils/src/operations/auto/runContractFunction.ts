@@ -1,26 +1,21 @@
-import { Core, Camelize, Operation,  } from '@moralisweb3/common-core';
-import { EvmChain,EvmChainish,EvmAddress,EvmAddressish, } from '../../dataTypes';
+import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
 type OperationId = 'runContractFunction';
 
 type PathParams = operations[OperationId]['parameters']['path'];
-
 type QueryParams = operations[OperationId]['parameters']['query'];
-
-
-
-type RequestParams = PathParams & QueryParams ;
-
+type RequestParams = PathParams & QueryParams;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
-export interface RunContractFunctionRequest extends Camelize<Omit<RequestParams,  | 'chain' | 'address'>> {
-      chain?: EvmChainish;
-      address: EvmAddressish;
+export interface RunContractFunctionRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+  chain?: EvmChainish;
+  address: EvmAddressish;
 }
 
 export type RunContractFunctionJSONRequest = ReturnType<typeof serializeRequest>;
@@ -40,10 +35,9 @@ export const RunContractFunctionOperation: Operation<
   id: 'runContractFunction',
   groupName: 'token',
   urlPathPattern: '/{address}/function',
-  urlPathParamNames: ['address',],
-  urlSearchParamNames: ['chain','subdomain','providerUrl','functionName',],
+  urlPathParamNames: ['address'],
+  urlSearchParamNames: ['chain', 'subdomain', 'providerUrl', 'functionName'],
 
-  
   getRequestUrlParams,
   serializeRequest,
   deserializeRequest,
@@ -52,38 +46,33 @@ export const RunContractFunctionOperation: Operation<
 
 // Methods
 
-
-
 function getRequestUrlParams(request: RunContractFunctionRequest, core: Core) {
   return {
-      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-      subdomain: request.subdomain,
-      providerUrl: request.providerUrl,
-      function_name: request.functionName,
-      address: EvmAddress.create(request.address, core).lowercase,
+    chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+    subdomain: request.subdomain,
+    providerUrl: request.providerUrl,
+    function_name: request.functionName,
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
 function serializeRequest(request: RunContractFunctionRequest, core: Core) {
   return {
-      chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-      subdomain: request.subdomain,
-      providerUrl: request.providerUrl,
-      functionName: request.functionName,
-      address: request.address.toString(),
+    chain: EvmChainResolver.resolve(request.chain, core).apiHex,
+    subdomain: request.subdomain,
+    providerUrl: request.providerUrl,
+    functionName: request.functionName,
+    address: request.address.toString(),
   };
 }
 
-function deserializeRequest(
-  jsonRequest: RunContractFunctionJSONRequest,
-  core: Core,
-): RunContractFunctionRequest {
+function deserializeRequest(jsonRequest: RunContractFunctionJSONRequest, core: Core): RunContractFunctionRequest {
   return {
-      chain: EvmChain.create(jsonRequest.chain, core),
-      subdomain: jsonRequest.subdomain,
-      providerUrl: jsonRequest.providerUrl,
-      functionName: jsonRequest.functionName,
-      address: EvmAddress.create(jsonRequest.address, core),
+    chain: EvmChain.create(jsonRequest.chain, core),
+    subdomain: jsonRequest.subdomain,
+    providerUrl: jsonRequest.providerUrl,
+    functionName: jsonRequest.functionName,
+    address: EvmAddress.create(jsonRequest.address, core),
   };
 }
 

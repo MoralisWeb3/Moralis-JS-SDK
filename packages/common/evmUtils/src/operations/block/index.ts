@@ -1,2 +1,2 @@
-export * from './getBlock';
-export * from './getDateToBlock';
+export * from './getBlockOperation';
+export * from './getDateToBlockOperation';

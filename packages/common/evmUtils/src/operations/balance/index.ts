@@ -1,1 +1,1 @@
-export * from './getNativeBalance';
+export * from './getNativeBalanceOperation';

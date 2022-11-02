@@ -3,7 +3,7 @@ import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transfer } from 
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
-type OperationId = 'getWalletTokenTransfers';
+type OperationId = 'getTokenTransfers';
 type PathParams = operations[OperationId]['parameters']['path'];
 type QueryParams = operations[OperationId]['parameters']['query'];
 type RequestParams = PathParams & QueryParams;
@@ -11,30 +11,30 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetWalletTokenTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetTokenTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
 }
 
-export type GetWalletTokenTransfersJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetTokenTransfersJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetWalletTokenTransfersJSONResponse = SuccessResponse;
+export type GetTokenTransfersJSONResponse = SuccessResponse;
 
-export type GetWalletTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
+export type GetTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
 
-export const getWalletTokenTransfersOperation: PaginatedOperation<
-  GetWalletTokenTransfersRequest,
-  GetWalletTokenTransfersJSONRequest,
-  GetWalletTokenTransfersResponse,
-  GetWalletTokenTransfersJSONResponse['result']
+export const getTokenTransfersOperation: PaginatedOperation<
+  GetTokenTransfersRequest,
+  GetTokenTransfersJSONRequest,
+  GetTokenTransfersResponse,
+  GetTokenTransfersJSONResponse['result']
 > = {
   method: 'GET',
-  name: 'getWalletTokenTransfers',
-  id: 'getWalletTokenTransfers',
+  name: 'getTokenTransfers',
+  id: 'getTokenTransfers',
   groupName: 'token',
-  urlPathPattern: '/{address}/erc20/transfers',
+  urlPathPattern: '/erc20/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'offset', 'limit'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -45,23 +45,23 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core) {
+function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
     subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate,
     to_date: request.toDate,
+    offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
-    cursor: request.cursor,
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
 function deserializeResponse(
-  jsonResponse: GetWalletTokenTransfersJSONResponse,
-  request: GetWalletTokenTransfersRequest,
+  jsonResponse: GetTokenTransfersJSONResponse,
+  request: GetTokenTransfersRequest,
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
@@ -77,33 +77,30 @@ function deserializeResponse(
   );
 }
 
-function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
+function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
     subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
+    offset: request.offset,
     limit: request.limit,
-    cursor: request.cursor,
+    address: request.address.toString(),
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetWalletTokenTransfersJSONRequest,
-  core: Core,
-): GetWalletTokenTransfersRequest {
+function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Core): GetTokenTransfersRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    address: EvmAddress.create(jsonRequest.address, core),
     subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
+    offset: jsonRequest.offset,
     limit: jsonRequest.limit,
-    cursor: jsonRequest.cursor,
+    address: EvmAddress.create(jsonRequest.address, core),
   };
 }

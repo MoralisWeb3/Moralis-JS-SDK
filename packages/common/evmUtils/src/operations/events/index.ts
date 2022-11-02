@@ -1,2 +1,2 @@
-export * from './getContractEvents';
-export * from './getContractLogs';
+export * from './getContractEventsOperation';
+export * from './getContractLogsOperation';
