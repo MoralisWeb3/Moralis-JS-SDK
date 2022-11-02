@@ -4,10 +4,11 @@ import Core, {
   RequestController,
   PaginatedJSONResponse,
   PaginatedOperation,
+  NextPaginatedRequestResolver,
+  PaginationReader,
+  PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
-import { PaginatedResponseAdapter } from './PaginatedResponseAdapter';
-import { Pagination, readPagination } from './Pagination';
 
 export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRequest, Result, JSONResult> {
   private readonly requestValidator = new OperationRequestValidator(this.operation);
@@ -38,8 +39,8 @@ export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRe
       data: body,
     });
 
-    const pagination = readPagination(jsonResponse);
-    const nextRequest = this.tryGetNextRequest(request, pagination, jsonResponse.cursor);
+    const pagination = PaginationReader.read(jsonResponse);
+    const nextRequest = NextPaginatedRequestResolver.resolve(this.operation, request, pagination);
 
     return new PaginatedResponseAdapter<Result, JSONResult>(
       pagination,
@@ -47,25 +48,5 @@ export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRe
       () => this.operation.deserializeResponse(jsonResponse, request, this.core),
       nextRequest ? () => this.fetch(nextRequest) : undefined,
     );
-  };
-
-  private tryGetNextRequest = (
-    request: Request,
-    pagination: Pagination,
-    cursor: string | undefined,
-  ): Request | null => {
-    const currentPage = this.operation.firstPageIndex === 1 ? pagination.page : pagination.page + 1;
-    const hasNextPage = pagination.total > pagination.pageSize * currentPage;
-    if (!hasNextPage) {
-      return null;
-    }
-
-    const nextParams = { ...request };
-    if (cursor) {
-      nextParams.cursor = cursor;
-    } else {
-      nextParams.offset = (pagination.page + 1) * (nextParams.limit || 500);
-    }
-    return nextParams;
   };
 }

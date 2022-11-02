@@ -1,5 +1,5 @@
 import { PaginatedResponseAdapter } from './PaginatedResponseAdapter';
-import { readPagination } from './Pagination';
+import { PaginationReader } from './PaginationReader';
 
 describe('PaginatedResponseAdapter', () => {
   const response = {
@@ -11,7 +11,7 @@ describe('PaginatedResponseAdapter', () => {
       beta: '20',
     },
   };
-  const pagination = readPagination(response);
+  const pagination = PaginationReader.read(response);
 
   function deserializeResponse(jsonResponse: typeof response) {
     return {
@@ -73,7 +73,7 @@ describe('PaginatedResponseAdapter', () => {
     });
 
     it('throws error when nextHandler is not available', async () => {
-      await expect(async () => await adapterWithNoNext.next()).rejects.toThrowError('[A0002] Page limit exceeded!');
+      await expect(async () => await adapterWithNoNext.next()).rejects.toThrowError('Page limit exceeded!');
     });
   });
 });
