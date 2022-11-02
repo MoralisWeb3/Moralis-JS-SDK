@@ -1,5 +1,16 @@
 # @moralisweb3/streams
 
+## 2.7.1
+
+### Patch Changes
+
+- [#790](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/790) [`2f938764`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f93876446524edefc89af463c27942c8d46c423) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Add missing dependency to the `@moralisweb3/streams` package.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.1
+  - @moralisweb3/api-utils@2.7.1
+  - @moralisweb3/evm-utils@2.7.1
+
 ## 2.7.0
 
 ### Minor Changes

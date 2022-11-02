@@ -1,7 +1,7 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -43,14 +43,14 @@
     }
   },
   "dependencies": {
-    "@moralisweb3/auth": "^2.7.0",
-    "@moralisweb3/core": "^2.7.0",
-    "@moralisweb3/streams": "^2.7.0",
-    "@moralisweb3/api-utils": "^2.7.0",
-    "@moralisweb3/evm-api": "^2.7.0",
-    "@moralisweb3/evm-utils": "^2.7.0",
-    "@moralisweb3/sol-api": "^2.7.0",
-    "@moralisweb3/sol-utils": "^2.7.0",
+    "@moralisweb3/auth": "^2.7.1",
+    "@moralisweb3/core": "^2.7.1",
+    "@moralisweb3/streams": "^2.7.1",
+    "@moralisweb3/api-utils": "^2.7.1",
+    "@moralisweb3/evm-api": "^2.7.1",
+    "@moralisweb3/evm-utils": "^2.7.1",
+    "@moralisweb3/sol-api": "^2.7.1",
+    "@moralisweb3/sol-utils": "^2.7.1",
     "@moralisweb3/streams-typings": "^1.0.5"
   }
 }
