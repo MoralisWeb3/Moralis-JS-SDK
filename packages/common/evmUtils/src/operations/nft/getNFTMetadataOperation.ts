@@ -72,7 +72,7 @@ function serializeRequest(request: GetNftMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
   };
 }

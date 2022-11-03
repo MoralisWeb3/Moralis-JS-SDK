@@ -115,7 +115,7 @@ function serializeRequest(request: SearchNfTsRequest, core: Core) {
     toBlock: request.toBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
-    addresses: request.addresses?.map((address) => EvmAddress.create(address, core).lowercase),
+    addresses: request.addresses?.map((address) => EvmAddress.create(address, core).checksum),
     cursor: request.cursor,
     limit: request.limit,
   };

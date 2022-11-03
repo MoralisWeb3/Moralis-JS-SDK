@@ -80,7 +80,7 @@ function deserializeResponse(
 function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
     subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,

@@ -55,7 +55,7 @@ function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
     to_date: request.toDate,
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 
@@ -87,7 +87,7 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
     toDate: request.toDate,
     offset: request.offset,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

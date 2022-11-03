@@ -60,7 +60,7 @@ function getRequestUrlParams(request: GetWalletNfTsRequest, core: Core) {
 }
 
 function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: GetWalletNfTsRequest, core: Core) {
-  (jsonResponse.result ?? []).map((nft) =>
+  return (jsonResponse.result ?? []).map((nft) =>
     EvmNft.create({
       chain: EvmChainResolver.resolve(request.chain, core),
       contractType: nft.contract_type,
@@ -86,9 +86,9 @@ function serializeRequest(request: GetWalletNfTsRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
     limit: request.limit,
-    tokenAddresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
+    tokenAddresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).checksum),
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

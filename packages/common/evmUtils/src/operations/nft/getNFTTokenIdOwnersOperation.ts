@@ -80,7 +80,7 @@ function serializeRequest(request: GetNftTokenIdOwnersRequest, core: Core) {
     format: request.format,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
   };
 }

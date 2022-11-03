@@ -76,7 +76,7 @@ function serializeRequest(request: GetTokenMetadataRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
     providerUrl: request.providerUrl,
-    addresses: EvmAddress.create(request.addresses, core).lowercase,
+    addresses: EvmAddress.create(request.addresses, core).checksum,
   };
 }
 

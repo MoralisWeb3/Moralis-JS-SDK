@@ -26,7 +26,7 @@ export type GetWalletTransactionsJSONResponse = SuccessResponse;
 
 export type GetWalletTransactionsResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetWalletTransactionsOperation: PaginatedOperation<
+export const getWalletTransactionsOperation: PaginatedOperation<
   GetWalletTransactionsRequest,
   GetWalletTransactionsJSONRequest,
   GetWalletTransactionsResponse,
@@ -59,7 +59,7 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
     to_date: request.toDate,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 
@@ -73,7 +73,7 @@ function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
     toDate: request.toDate,
     cursor: request.cursor,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

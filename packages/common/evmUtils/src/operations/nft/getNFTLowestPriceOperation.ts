@@ -80,7 +80,7 @@ function serializeRequest(request: GetNftLowestPriceRequest, core: Core) {
     days: request.days,
     providerUrl: request.providerUrl,
     marketplace: request.marketplace,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

@@ -78,7 +78,7 @@ function serializeRequest(request: GetNftOwnersRequest, core: Core) {
     format: request.format,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

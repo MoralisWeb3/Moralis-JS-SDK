@@ -81,7 +81,7 @@ function serializeRequest(request: GetNftTransfersRequest, core: Core) {
     limit: request.limit,
     order: request.order,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
   };
 }

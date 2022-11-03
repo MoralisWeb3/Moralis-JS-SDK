@@ -69,9 +69,9 @@ function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     providerUrl: request.providerUrl,
-    ownerAddress: request.ownerAddress.toString(),
-    spenderAddress: request.spenderAddress.toString(),
-    address: EvmAddress.create(request.address, core).lowercase,
+    ownerAddress: EvmAddress.create(request.ownerAddress, core).checksum,
+    spenderAddress: EvmAddress.create(request.spenderAddress, core).checksum,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

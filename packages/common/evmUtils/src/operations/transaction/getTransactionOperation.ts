@@ -23,7 +23,7 @@ export type GetTransactionJSONResponse = SuccessResponse;
 
 export type GetTransactionResponse = ReturnType<typeof deserializeResponse>;
 
-export const GetTransactionOperation: Operation<
+export const getTransactionOperation: Operation<
   GetTransactionRequest,
   GetTransactionJSONRequest,
   GetTransactionResponse,

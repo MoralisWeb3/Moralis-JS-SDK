@@ -99,7 +99,7 @@ function serializeRequest(request: GetNftTradesRequest, core: Core) {
     marketplace: request.marketplace,
     cursor: request.cursor,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

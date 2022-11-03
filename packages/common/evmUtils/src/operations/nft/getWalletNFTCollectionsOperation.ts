@@ -78,7 +78,7 @@ function serializeRequest(request: GetWalletNftCollectionsRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

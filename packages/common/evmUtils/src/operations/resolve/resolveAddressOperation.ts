@@ -55,7 +55,7 @@ function deserializeResponse(jsonResponse: ResolveAddressJSONResponse) {
 
 function serializeRequest(request: ResolveAddressRequest, core: Core) {
   return {
-    address: maybe(request.address, (address) => EvmAddress.create(address, core)),
+    address: maybe(request.address, (address) => EvmAddress.create(address, core).checksum),
   };
 }
 
