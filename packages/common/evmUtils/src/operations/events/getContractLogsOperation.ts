@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -13,9 +13,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetContractLogsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetContractLogsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetContractLogsJSONRequest = ReturnType<typeof serializeRequest>;
@@ -68,8 +70,8 @@ function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
     block_number: request.blockNumber,
     from_block: request.fromBlock,
     to_block: request.toBlock,
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     topic0: request.topic0,
     topic1: request.topic1,
     topic2: request.topic2,
@@ -87,8 +89,8 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     blockNumber: request.blockNumber,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
-    fromDate: request.fromDate,
-    toDate: request.toDate,
+    fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     topic0: request.topic0,
     topic1: request.topic1,
     topic2: request.topic2,
@@ -106,8 +108,8 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core)
     blockNumber: jsonRequest.blockNumber,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
-    fromDate: jsonRequest.fromDate,
-    toDate: jsonRequest.toDate,
+    fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
+    toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     topic0: jsonRequest.topic0,
     topic1: jsonRequest.topic1,
     topic2: jsonRequest.topic2,

@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmEvent } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -13,10 +13,13 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetContractEventsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetContractEventsRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
   abi: unknown;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetContractEventsJSONRequest = ReturnType<typeof serializeRequest>;
@@ -69,8 +72,8 @@ function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
     providerUrl: request.providerUrl,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     topic: request.topic,
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
@@ -116,8 +119,8 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
     providerUrl: request.providerUrl,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
-    fromDate: request.fromDate,
-    toDate: request.toDate,
+    fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     topic: request.topic,
     offset: request.offset,
     limit: request.limit,
@@ -133,8 +136,8 @@ function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Cor
     providerUrl: jsonRequest.providerUrl,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
-    fromDate: jsonRequest.fromDate,
-    toDate: jsonRequest.toDate,
+    fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
+    toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     topic: jsonRequest.topic,
     offset: jsonRequest.offset,
     limit: jsonRequest.limit,
