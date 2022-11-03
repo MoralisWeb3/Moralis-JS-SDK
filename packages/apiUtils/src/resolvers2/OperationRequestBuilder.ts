@@ -25,11 +25,11 @@ export class OperationRequestBuilder<Request> {
       if (!paramValue) {
         throw new Error(`Param ${paramName as string} is required`);
       }
-      urlPath = urlPath.replace(`{${paramName as string}}`, paramValue);
+      urlPath = urlPath.replace(`{${paramName as string}}`, paramValue as string);
     }
     const url = `${baseUrl}${urlPath}`;
 
-    const urlSearchParams: Record<string, string> = {};
+    const urlSearchParams: Record<string, string | string[]> = {};
     Object.keys(urlParams)
       .filter((paramName) => !this.operation.urlPathParamNames.includes(paramName as keyof Request))
       .forEach((paramName) => {
