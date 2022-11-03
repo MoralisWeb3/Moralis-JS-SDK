@@ -50,7 +50,7 @@ function getRequestUrlParams(request: GetDateToBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     providerUrl: request.providerUrl,
-    date: request.date.toString(),
+    date: new Date(request.date).toISOString(),
   };
 }
 
@@ -65,7 +65,7 @@ function serializeRequest(request: GetDateToBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     providerUrl: request.providerUrl,
-    date: request.date,
+    date: new Date(request.date).toISOString(),
   };
 }
 
@@ -73,6 +73,6 @@ function deserializeRequest(jsonRequest: GetDateToBlockJSONRequest, core: Core):
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     providerUrl: jsonRequest.providerUrl,
-    date: jsonRequest.date,
+    date: new Date(jsonRequest.date),
   };
 }

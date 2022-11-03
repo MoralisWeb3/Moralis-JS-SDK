@@ -27,7 +27,7 @@ describe('getBlockOperation', () => {
     const deserializedRequest = getBlockOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(serializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
+    expect(deserializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
+    expect(deserializedRequest.subdomain).toBe(request.subdomain);
   });
 });

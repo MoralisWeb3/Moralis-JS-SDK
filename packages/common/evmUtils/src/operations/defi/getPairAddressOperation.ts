@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Token } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -14,10 +14,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 // Exports
 
 export interface GetPairAddressRequest
-  extends Camelize<Omit<RequestParams, 'chain' | 'token0_address' | 'token1_address'>> {
+  extends Camelize<Omit<RequestParams, 'chain' | 'token0_address' | 'token1_address' | 'to_date'>> {
   chain?: EvmChainish;
   token0Address: EvmAddressish;
   token1Address: EvmAddressish;
+  toDate?: DateInput;
 }
 
 export type GetPairAddressJSONRequest = ReturnType<typeof serializeRequest>;
@@ -52,7 +53,7 @@ function getRequestUrlParams(request: GetPairAddressRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     to_block: request.toBlock,
-    to_date: request.toDate,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     exchange: request.exchange,
     token0_address: EvmAddress.create(request.token0Address, core).lowercase,
     token1_address: EvmAddress.create(request.token1Address, core).lowercase,
@@ -99,7 +100,7 @@ function serializeRequest(request: GetPairAddressRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     toBlock: request.toBlock,
-    toDate: request.toDate,
+    toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     exchange: request.exchange,
     token0Address: EvmAddress.create(request.token0Address, core).lowercase,
     token1Address: EvmAddress.create(request.token1Address, core).lowercase,
@@ -110,7 +111,7 @@ function deserializeRequest(jsonRequest: GetPairAddressJSONRequest, core: Core):
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     toBlock: jsonRequest.toBlock,
-    toDate: jsonRequest.toDate,
+    toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     exchange: jsonRequest.exchange,
     token0Address: EvmAddress.create(jsonRequest.token0Address, core),
     token1Address: EvmAddress.create(jsonRequest.token1Address, core),
