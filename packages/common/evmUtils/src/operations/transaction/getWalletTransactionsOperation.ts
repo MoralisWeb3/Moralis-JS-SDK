@@ -1,5 +1,5 @@
-import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
+import { Core, Camelize, PaginatedOperation, maybe, BigNumber } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransaction } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -91,6 +91,27 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core:
   };
 }
 
-function deserializeResponse(jsonResponse: GetWalletTransactionsJSONResponse) {
-  return jsonResponse.result;
+function deserializeResponse(jsonResponse: GetWalletTransactionsJSONResponse, request: GetWalletTransactionsJSONRequest, core: Core) {
+  return (jsonResponse.result ?? []).map((transfer) =>
+    EvmTransaction.create({
+      cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
+      gasPrice: transfer.gas_price,
+      gasUsed: transfer.receipt_gas_used,
+      index: +transfer.transaction_index,
+      contractAddress: transfer.receipt_contract_address,
+      receiptRoot: transfer.receipt_root,
+      receiptStatus: +transfer.receipt_status,
+      chain: EvmChainResolver.resolve(request.chain, core),
+      data: transfer.input,
+      from: transfer.from_address,
+      hash: transfer.hash,
+      nonce: transfer.nonce,
+      value: transfer.value,
+      blockHash: transfer.block_hash,
+      blockNumber: +transfer.block_number,
+      blockTimestamp: new Date(transfer.block_timestamp),
+      gas: BigNumber.create(transfer.gas),
+      to: transfer.to_address,
+    }),
+  );
 }

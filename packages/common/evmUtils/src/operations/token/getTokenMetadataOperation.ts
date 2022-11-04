@@ -14,7 +14,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 export interface GetTokenMetadataRequest extends Camelize<Omit<RequestParams, 'chain' | 'addresses'>> {
   chain?: EvmChainish;
-  addresses: EvmAddressish;
+  addresses: EvmAddressish[];
 }
 
 export type GetTokenMetadataJSONRequest = ReturnType<typeof serializeRequest>;
@@ -48,7 +48,7 @@ export const getTokenMetadataOperation: Operation<
 function getRequestUrlParams(request: GetTokenMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    addresses: EvmAddress.create(request.addresses, core).lowercase,
+    addresses: request.addresses.map((address) => EvmAddress.create(address, core).lowercase),
     subdomain: request.subdomain,
     providerUrl: request.providerUrl,
   };
@@ -76,7 +76,7 @@ function serializeRequest(request: GetTokenMetadataRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
     providerUrl: request.providerUrl,
-    addresses: EvmAddress.create(request.addresses, core).checksum,
+    addresses: request.addresses.map((address) => EvmAddress.create(address, core).checksum),
   };
 }
 
@@ -85,6 +85,6 @@ function deserializeRequest(jsonRequest: GetTokenMetadataJSONRequest, core: Core
     chain: EvmChain.create(jsonRequest.chain, core),
     subdomain: jsonRequest.subdomain,
     providerUrl: jsonRequest.providerUrl,
-    addresses: EvmAddress.create(jsonRequest.addresses, core),
+    addresses: jsonRequest.addresses.map((address) => EvmAddress.create(address, core)),
   };
 }

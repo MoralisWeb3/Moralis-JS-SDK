@@ -1,5 +1,5 @@
 import { Core, Camelize, Operation, toCamelCase } from '@moralisweb3/common-core';
-import { EvmBlock, EvmChain, EvmChainish, EvmTransaction, EvmTransactionLog } from '../../dataTypes';
+import { EvmBlock, EvmChain, EvmChainish, EvmTransaction, EvmTransactionLog, LogTopic } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -22,8 +22,6 @@ export type GetBlockJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetBlockJSONResponse = SuccessResponse;
 
 export type GetBlockResponse = ReturnType<typeof deserializeResponse>;
-
-type LogTopic = string | null;
 
 export const getBlockOperation: Operation<
   GetBlockRequest,
