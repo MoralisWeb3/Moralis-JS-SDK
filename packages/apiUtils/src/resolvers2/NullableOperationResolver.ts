@@ -5,10 +5,10 @@ import Core, {
   Operation,
   OperationRequestBody,
   OperationRequestValidator,
+  ResponseAdapter,
 } from '@moralisweb3/common-core';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
-import { ResponseAdapter } from './ResponseAdapter';
 
 export class NullableOperationResolver<Request, JSONRequest, Response, JSONResponse> {
   private readonly requestValidator = new OperationRequestValidator(this.operation);
