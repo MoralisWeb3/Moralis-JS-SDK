@@ -1,8 +1,5 @@
 import MoralisCore from '@moralisweb3/common-core';
-import {
-  uploadFolderOperation,
-  UploadFolderRequest,
-} from './uploadFolderOperation';
+import { uploadFolderOperation, UploadFolderRequest } from './uploadFolderOperation';
 
 const ABI = [
   {

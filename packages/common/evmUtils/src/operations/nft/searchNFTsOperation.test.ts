@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  searchNfTsOperation,
-  SearchNfTsRequest,
-} from './searchNFTsOperation';
+import { searchNfTsOperation, SearchNfTsRequest } from './searchNFTsOperation';
 
 describe('searchNfTsOperation', () => {
   let core: MoralisCore;
@@ -18,7 +15,7 @@ describe('searchNfTsOperation', () => {
 
     const request: Required<SearchNfTsRequest> = {
       chain: EvmChain.create(chain, core),
-      addresses: addresses.map(address => EvmAddress.create(address, core)),
+      addresses: addresses.map((address) => EvmAddress.create(address, core)),
       q: 'Pancake',
       filter: 'name',
       format: 'decimal',

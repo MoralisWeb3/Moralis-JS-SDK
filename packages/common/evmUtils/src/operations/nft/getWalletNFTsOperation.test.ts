@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  getWalletNfTsOperation,
-  GetWalletNfTsRequest,
-} from './getWalletNFTsOperation';
+import { getWalletNfTsOperation, GetWalletNfTsRequest } from './getWalletNFTsOperation';
 
 describe('getWalletNfTsOperation', () => {
   let core: MoralisCore;
@@ -22,7 +19,7 @@ describe('getWalletNfTsOperation', () => {
       address: EvmAddress.create(address, core),
       format: 'decimal',
       limit: 100,
-      tokenAddresses: tokenAddresses.map(address => EvmAddress.create(address, core)),
+      tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address, core)),
       cursor: 'CURSOR1',
     };
 

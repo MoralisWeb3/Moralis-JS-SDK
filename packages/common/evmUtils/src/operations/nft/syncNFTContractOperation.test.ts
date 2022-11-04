@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  syncNftContractOperation,
-  SyncNftContractRequest,
-} from './syncNFTContractOperation';
+import { syncNftContractOperation, SyncNftContractRequest } from './syncNFTContractOperation';
 
 describe('syncNFTContractOperation', () => {
   let core: MoralisCore;

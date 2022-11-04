@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  getTokenAllowanceOperation,
-  GetTokenAllowanceRequest,
-} from './getTokenAllowanceOperation';
+import { getTokenAllowanceOperation, GetTokenAllowanceRequest } from './getTokenAllowanceOperation';
 
 describe('getTokenAllowanceOperation', () => {
   let core: MoralisCore;

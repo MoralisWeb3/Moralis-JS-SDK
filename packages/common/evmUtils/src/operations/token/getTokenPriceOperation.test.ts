@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  getTokenPriceOperation,
-  GetTokenPriceRequest,
-} from './getTokenPriceOperation';
+import { getTokenPriceOperation, GetTokenPriceRequest } from './getTokenPriceOperation';
 
 describe('getTokenPriceOperation', () => {
   let core: MoralisCore;

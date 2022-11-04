@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  getNftMetadataOperation,
-  GetNftMetadataRequest,
-} from './getNFTMetadataOperation';
+import { getNftMetadataOperation, GetNftMetadataRequest } from './getNFTMetadataOperation';
 
 describe('getNftMetadataOperation', () => {
   let core: MoralisCore;

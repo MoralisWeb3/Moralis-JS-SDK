@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  reSyncMetadataOperation,
-  ReSyncMetadataRequest,
-} from './reSyncMetadataOperation';
+import { reSyncMetadataOperation, ReSyncMetadataRequest } from './reSyncMetadataOperation';
 
 describe('reSyncMetadataOperation', () => {
   let core: MoralisCore;

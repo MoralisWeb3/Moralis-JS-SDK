@@ -1,8 +1,5 @@
 import MoralisCore from '@moralisweb3/common-core';
-import {
-  resolveDomainOperation,
-  ResolveDomainRequest,
-} from './resolveDomainOperation';
+import { resolveDomainOperation, ResolveDomainRequest } from './resolveDomainOperation';
 
 describe('resolveDomainOperation', () => {
   let core: MoralisCore;

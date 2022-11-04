@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  getWalletNftTransfersOperation,
-  GetWalletNftTransfersRequest,
-} from './getWalletNFTTransfersOperation';
+import { getWalletNftTransfersOperation, GetWalletNftTransfersRequest } from './getWalletNFTTransfersOperation';
 
 describe('getWalletNftTransfersOperation', () => {
   let core: MoralisCore;

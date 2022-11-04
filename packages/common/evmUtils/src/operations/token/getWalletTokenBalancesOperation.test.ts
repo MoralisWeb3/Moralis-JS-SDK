@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import {
-  getWalletTokenBalancesOperation,
-  GetWalletTokenBalancesRequest,
-} from './getWalletTokenBalancesOperation';
+import { getWalletTokenBalancesOperation, GetWalletTokenBalancesRequest } from './getWalletTokenBalancesOperation';
 
 describe('getWalletTokenBalancesOperation', () => {
   let core: MoralisCore;
@@ -20,7 +17,7 @@ describe('getWalletTokenBalancesOperation', () => {
     const request: Required<GetWalletTokenBalancesRequest> = {
       address: EvmAddress.create(address, core),
       chain: EvmChain.create(chain, core),
-      tokenAddresses: tokenAddresses.map(address => EvmAddress.create(address, core)),
+      tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address, core)),
       subdomain: 'test.com',
       toBlock: 20,
     };

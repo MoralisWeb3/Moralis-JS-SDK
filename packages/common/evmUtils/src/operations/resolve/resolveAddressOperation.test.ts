@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress } from '../../dataTypes';
-import {
-  resolveAddressOperation,
-  ResolveAddressRequest,
-} from './resolveAddressOperation';
+import { resolveAddressOperation, ResolveAddressRequest } from './resolveAddressOperation';
 
 describe('resolveAddressOperation', () => {
   let core: MoralisCore;

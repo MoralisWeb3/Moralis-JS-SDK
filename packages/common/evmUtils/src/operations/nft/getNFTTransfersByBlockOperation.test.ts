@@ -1,9 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmChain } from '../../dataTypes';
-import {
-  getNftTransfersByBlockOperation,
-  GetNftTransfersByBlockRequest,
-} from './getNFTTransfersByBlockOperation';
+import { getNftTransfersByBlockOperation, GetNftTransfersByBlockRequest } from './getNFTTransfersByBlockOperation';
 
 describe('getNftTransfersByBlockOperation', () => {
   let core: MoralisCore;
