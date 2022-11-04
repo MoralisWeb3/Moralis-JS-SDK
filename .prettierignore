@@ -12,8 +12,6 @@ packages/**/generated/**/*
 **/generated/**/*
 packages/core/src/version.ts
 **/src/operations/openapi.ts
-packages/client/solApi/src/ClientSolApi.ts
-packages/client/evmApi/src/ClientEvmApi.ts
 
 node_modules
 
