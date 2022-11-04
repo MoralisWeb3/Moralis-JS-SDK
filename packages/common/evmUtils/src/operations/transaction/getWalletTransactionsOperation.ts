@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, maybe, BigNumber } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe, BigNumber, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransaction } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -15,9 +15,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetWalletTransactionsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetWalletTransactionsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetWalletTransactionsJSONRequest = ReturnType<typeof serializeRequest>;
@@ -55,8 +57,8 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
     subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).checksum,

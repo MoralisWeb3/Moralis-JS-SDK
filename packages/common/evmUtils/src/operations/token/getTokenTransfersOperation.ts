@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, maybe, BigNumber, toCamelCase } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe, BigNumber, toCamelCase, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transfer } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -11,9 +11,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetTokenTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetTokenTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetTokenTransfersJSONRequest = ReturnType<typeof serializeRequest>;
@@ -51,8 +53,8 @@ function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
     subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).checksum,

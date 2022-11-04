@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, toCamelCase, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, DateInput, PaginatedOperation, toCamelCase, maybe } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain, EvmChainish, EvmNative, EvmNftTransfer } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -12,8 +12,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftTransfersFromToBlockRequest = Camelize<Omit<RequestParams, 'chain'>> & {
+export type GetNftTransfersFromToBlockRequest = Camelize<Omit<RequestParams, 'chain' | 'from_date' | 'to_date'>> & {
   chain?: EvmChainish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 };
 
 export type GetNftTransfersFromToBlockJSONRequest = ReturnType<typeof serializeRequest>;
@@ -50,8 +52,8 @@ function getRequestUrlParams(request: GetNftTransfersFromToBlockRequest, core: C
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     format: request.format,
     limit: maybe(request.limit, String),
     cursor: request.cursor,

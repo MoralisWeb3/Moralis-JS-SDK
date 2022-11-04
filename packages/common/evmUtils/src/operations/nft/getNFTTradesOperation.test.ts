@@ -12,6 +12,8 @@ describe('getNftTradesOperation', () => {
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
     const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
     const chain = '0x10';
+    const fromDate = '2021-01-01T00:00:00.000Z';
+    const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetNftTradesRequest> = {
       chain: EvmChain.create(chain, core),
@@ -20,8 +22,8 @@ describe('getNftTradesOperation', () => {
       marketplace: 'opensea',
       fromBlock: 10,
       toBlock: '20',
-      fromDate: '2000-12-20',
-      toDate: '2000-12-25',
+      fromDate: new Date(fromDate),
+      toDate: new Date(toDate),
       cursor: 'CURSOR1',
       limit: 333,
     };
