@@ -1,1 +1,1 @@
-export * from './ClientEvmApi';
+export * from './generated';

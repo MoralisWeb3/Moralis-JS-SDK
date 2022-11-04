@@ -15,7 +15,7 @@
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch",
-    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/ClientSolApi.ts @moralisweb3/common-sol-utils"
+    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientSolApi.ts @moralisweb3/common-sol-utils"
   },
   "devDependencies": {
     "prettier": "^2.5.1",

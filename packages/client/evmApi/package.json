@@ -15,7 +15,7 @@
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch",
-    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/ClientEvmApi.ts @moralisweb3/common-evm-utils"
+    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils"
   },
   "devDependencies": {
     "prettier": "^2.5.1",
