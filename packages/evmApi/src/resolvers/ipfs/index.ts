@@ -1,1 +1,0 @@
-export { uploadFolder } from './uploadFolder';
