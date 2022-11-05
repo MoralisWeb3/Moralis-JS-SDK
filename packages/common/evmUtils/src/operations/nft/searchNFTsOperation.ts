@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, maybe, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -13,9 +13,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface SearchNfTsRequest extends Camelize<Omit<RequestParams, 'chain' | 'addresses'>> {
+export interface SearchNfTsRequest extends Camelize<Omit<RequestParams, 'chain' | 'addresses' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   addresses?: EvmAddressish[];
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type SearchNfTsJSONRequest = ReturnType<typeof serializeRequest>;
@@ -67,8 +69,8 @@ function getRequestUrlParams(request: SearchNfTsRequest, core: Core) {
     filter: request.filter,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     addresses: request.addresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
     limit: maybe(request.limit, String),

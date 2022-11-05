@@ -1,4 +1,4 @@
-import { Core, Camelize, PaginatedOperation, toCamelCase, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, PaginatedOperation, toCamelCase, maybe, DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNative, EvmNftTrade } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -13,9 +13,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftTradesRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetNftTradesRequest = Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 };
 
 export type GetNftTradesJSONRequest = ReturnType<typeof serializeRequest>;
@@ -63,8 +65,8 @@ function getRequestUrlParams(request: GetNftTradesRequest, core: Core) {
     address: EvmAddress.create(request.address, core).lowercase,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     provider_url: request.providerUrl,
     marketplace: request.marketplace,
     cursor: request.cursor,

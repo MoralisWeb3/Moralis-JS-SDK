@@ -12,6 +12,8 @@ describe('searchNfTsOperation', () => {
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
     const chain = '0x10';
     const addresses = ['0xfc0cB34deAe994432fe8a11bF54d90BDf54cA8c1'];
+    const fromDate = '2021-01-01T00:00:00.000Z';
+    const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<SearchNfTsRequest> = {
       chain: EvmChain.create(chain, core),
@@ -23,8 +25,8 @@ describe('searchNfTsOperation', () => {
       cursor: 'CURSOR1',
       fromBlock: 10,
       toBlock: 20,
-      fromDate: '2000-12-20',
-      toDate: '2000-12-25',
+      fromDate: new Date(fromDate),
+      toDate: new Date(toDate),
     };
 
     const serializedRequest = searchNfTsOperation.serializeRequest(request, core);

@@ -14,13 +14,15 @@ describe('getNftTransfersFromToBlockOperation', () => {
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
     const chain = '0x10';
+    const fromDate = '2021-01-01T00:00:00.000Z';
+    const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetNftTransfersFromToBlockRequest> = {
       chain: EvmChain.create(chain, core),
       fromBlock: 123,
       toBlock: 123,
-      fromDate: '2021-01-01T00:00:00.000Z',
-      toDate: '2020-01-01T00:00:00.000Z',
+      fromDate: new Date(fromDate),
+      toDate: new Date(toDate),
       format: 'decimal',
       limit: 100,
       cursor: 'CURSOR1',
