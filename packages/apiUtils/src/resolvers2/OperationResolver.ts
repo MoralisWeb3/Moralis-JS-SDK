@@ -3,9 +3,9 @@ import Core, {
   Operation,
   OperationRequestBody,
   OperationRequestValidator,
+  ResponseAdapter,
 } from '@moralisweb3/common-core';
 import { OperationRequestBuilder } from './OperationRequestBuilder';
-import { ResponseAdapter } from './ResponseAdapter';
 
 export class OperationResolver<Request, JSONRequest, Response, JSONResponse> {
   private readonly requestValidator = new OperationRequestValidator(this.operation);

@@ -1,4 +1,6 @@
-import { ApiErrorCode, Camelize, MoralisApiError, PaginatedJSONResponse, toCamelCase } from '@moralisweb3/common-core';
+import { CoreErrorCode, MoralisError } from '../../Error';
+import { Camelize, toCamelCase } from '../../utils';
+import { PaginatedJSONResponse } from '../PaginatedOperation';
 import { Pagination } from './Pagination';
 
 export class PaginatedResponseAdapter<Result, JSONResult> {
@@ -25,8 +27,8 @@ export class PaginatedResponseAdapter<Result, JSONResult> {
 
   public next: () => Promise<PaginatedResponseAdapter<Result, JSONResult>> = () => {
     if (!this.nextHandler) {
-      throw new MoralisApiError({
-        code: ApiErrorCode.PAGE_LIMIT_EXCEEDED,
+      throw new MoralisError({
+        code: CoreErrorCode.NO_DATA_FOUND,
         message:
           'Page limit exceeded! Before call this method check an existence of the next page by .hasNext() method.',
       });
