@@ -1,5 +1,4 @@
-import { Camelize, toCamelCase } from "../../utils";
-
+import { Camelize, toCamelCase } from '../../utils';
 
 export class ResponseAdapter<Response, JSONResponse> {
   public constructor(private readonly jsonResponse: JSONResponse, private readonly getResponse: () => Response) {}

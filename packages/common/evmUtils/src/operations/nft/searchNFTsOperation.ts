@@ -13,7 +13,8 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface SearchNfTsRequest extends Camelize<Omit<RequestParams, 'chain' | 'addresses' | 'from_date' | 'to_date'>> {
+export interface SearchNfTsRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'addresses' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   addresses?: EvmAddressish[];
   fromDate?: DateInput;

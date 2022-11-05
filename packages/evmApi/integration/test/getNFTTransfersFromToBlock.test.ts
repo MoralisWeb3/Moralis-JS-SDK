@@ -37,6 +37,8 @@ describe('getNFTTransfersFromToBlock', () => {
         fromBlock: 1,
         chain: 'invalid_chain',
       }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`,
+    );
   });
 });
