@@ -35,7 +35,7 @@ export const getPairReservesOperation: Operation<
   name: 'getPairReserves',
   id: 'getPairReserves',
   groupName: 'defi',
-  urlPathPattern: '/{pair_address}/reserves',
+  urlPathPattern: '/{pairAddress}/reserves',
   urlPathParamNames: ['pairAddress'],
   urlSearchParamNames: ['chain', 'toBlock', 'toDate', 'providerUrl'],
 
@@ -50,7 +50,7 @@ export const getPairReservesOperation: Operation<
 function getRequestUrlParams(request: GetPairReservesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    pair_address: EvmAddress.create(request.pairAddress, core).lowercase,
+    pairAddress: EvmAddress.create(request.pairAddress, core).lowercase,
     to_block: request.toBlock,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     provider_url: request.providerUrl,

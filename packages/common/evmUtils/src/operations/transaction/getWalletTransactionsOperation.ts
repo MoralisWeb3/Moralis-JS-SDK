@@ -59,7 +59,7 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
     to_date: request.toDate,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 
@@ -91,7 +91,11 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core:
   };
 }
 
-function deserializeResponse(jsonResponse: GetWalletTransactionsJSONResponse, request: GetWalletTransactionsJSONRequest, core: Core) {
+function deserializeResponse(
+  jsonResponse: GetWalletTransactionsJSONResponse,
+  request: GetWalletTransactionsJSONRequest,
+  core: Core,
+) {
   return (jsonResponse.result ?? []).map((transfer) =>
     EvmTransaction.create({
       cumulativeGasUsed: transfer.receipt_cumulative_gas_used,

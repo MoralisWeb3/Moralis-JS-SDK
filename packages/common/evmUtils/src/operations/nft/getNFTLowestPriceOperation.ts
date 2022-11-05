@@ -34,6 +34,7 @@ export const getNftLowestPriceOperation: Operation<
   name: 'getNFTLowestPrice',
   id: 'getNFTLowestPrice',
   groupName: 'nft',
+  isNullable: true,
   urlPathPattern: '/nft/{address}/lowestprice',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'days', 'providerUrl', 'marketplace'],
@@ -49,7 +50,7 @@ export const getNftLowestPriceOperation: Operation<
 function getRequestUrlParams(request: GetNftLowestPriceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
     days: maybe(request.days, String),
     provider_url: request.providerUrl,
     marketplace: request.marketplace,

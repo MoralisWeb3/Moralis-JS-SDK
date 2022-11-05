@@ -50,7 +50,7 @@ export const getNftOwnersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetNftOwnersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
     format: request.format,
     limit: maybe(request.limit, String),
     cursor: request.cursor,

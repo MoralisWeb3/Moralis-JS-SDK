@@ -51,7 +51,7 @@ function getRequestUrlParams(request: GetNativeBalanceRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     providerUrl: request.providerUrl,
     to_block: maybe(request.toBlock, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address, core).checksum,
   };
 }
 

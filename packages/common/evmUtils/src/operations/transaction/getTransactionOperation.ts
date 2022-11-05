@@ -33,7 +33,8 @@ export const getTransactionOperation: Operation<
   name: 'getTransaction',
   id: 'getTransaction',
   groupName: 'token',
-  urlPathPattern: '/transaction/{transaction_hash}',
+  isNullable: true,
+  urlPathPattern: '/transaction/{transactionHash}',
   urlPathParamNames: ['transactionHash'],
   urlSearchParamNames: ['chain', 'subdomain'],
 
@@ -47,7 +48,7 @@ function getRequestUrlParams(request: GetTransactionRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
-    transaction_hash: request.transactionHash,
+    transactionHash: request.transactionHash,
   };
 }
 
@@ -81,7 +82,7 @@ function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: 
       blockNumber: jsonResponse.block_number,
       blockTimestamp: jsonResponse.block_timestamp,
       index: jsonResponse.transaction_index,
-      chain: request.chain,
+      chain: EvmChainResolver.resolve(request.chain, core),
       hash: jsonResponse.hash,
       gas: jsonResponse.gas,
       cumulativeGasUsed: jsonResponse.receipt_cumulative_gas_used,
@@ -99,7 +100,7 @@ function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: 
             blockTimestamp: log.block_timestamp,
             logIndex: +log.log_index,
             transactionIndex: +log.transaction_index,
-            chain: request.chain,
+            chain: EvmChainResolver.resolve(request.chain, core),
           },
           core,
         ),

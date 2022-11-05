@@ -1,4 +1,4 @@
-import { ApiErrorCode, MoralisApiError, PaginatedJSONResponse } from '@moralisweb3/common-core';
+import { ApiErrorCode, Camelize, MoralisApiError, PaginatedJSONResponse, toCamelCase } from '@moralisweb3/common-core';
 import { Pagination } from './Pagination';
 
 export class PaginatedResponseAdapter<Result, JSONResult> {
@@ -17,8 +17,8 @@ export class PaginatedResponseAdapter<Result, JSONResult> {
     return this.jsonResponse;
   }
 
-  public toJSON(): PaginatedJSONResponse<JSONResult> {
-    return this.jsonResponse;
+  public toJSON(): Camelize<PaginatedJSONResponse<JSONResult>> {
+    return toCamelCase(this.jsonResponse);
   }
 
   public readonly hasNext = () => !!this.nextHandler;

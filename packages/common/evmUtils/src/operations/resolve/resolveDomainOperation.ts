@@ -1,4 +1,4 @@
-import { Camelize, Operation } from '@moralisweb3/common-core';
+import Core, { Camelize, Operation } from '@moralisweb3/common-core';
 import { EvmAddress } from '../../dataTypes';
 
 import { operations } from '../openapi';
@@ -31,6 +31,7 @@ export const resolveDomainOperation: Operation<
   name: 'resolveDomain',
   id: 'resolveDomain',
   groupName: 'resolve',
+  isNullable: true,
   urlPathPattern: '/resolve/{domain}',
   urlPathParamNames: ['domain'],
   urlSearchParamNames: ['currency'],
@@ -64,8 +65,8 @@ function deserializeRequest(jsonRequest: ResolveDomainJSONRequest): ResolveDomai
   };
 }
 
-function deserializeResponse(jsonResponse: ResolveDomainJSONResponse) {
+function deserializeResponse(jsonResponse: ResolveDomainJSONResponse, request: ResolveDomainRequest, core: Core) {
   return {
-    address: EvmAddress.create(jsonResponse.address),
+    address: EvmAddress.create(jsonResponse.address, core),
   };
 }

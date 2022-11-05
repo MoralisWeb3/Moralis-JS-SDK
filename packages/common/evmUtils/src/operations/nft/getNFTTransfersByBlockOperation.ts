@@ -33,7 +33,7 @@ export const getNftTransfersByBlockOperation: PaginatedOperation<
   name: 'getNFTTransfersByBlock',
   id: 'getNFTTransfersByBlock',
   groupName: 'nft',
-  urlPathPattern: '/block/{block_number_or_hash}/nft/transfers',
+  urlPathPattern: '/block/{blockNumberOrHash}/nft/transfers',
   urlPathParamNames: ['blockNumberOrHash'],
   urlSearchParamNames: ['chain', 'subdomain', 'limit', 'cursor'],
   firstPageIndex: 0,
@@ -52,7 +52,7 @@ function getRequestUrlParams(request: GetNftTransfersByBlockRequest, core: Core)
     subdomain: request.subdomain,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
-    block_number_or_hash: request.blockNumberOrHash,
+    blockNumberOrHash: request.blockNumberOrHash,
   };
 }
 

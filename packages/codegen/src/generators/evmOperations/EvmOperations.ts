@@ -1,4 +1,3 @@
-import { AddActionConfig, Actions } from 'node-plop';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { OpenApiReader } from './OpenApiReader';
@@ -9,25 +8,6 @@ export class EvmOperations {
   private dirname = path.dirname(fileURLToPath(import.meta.url));
   private packagesFolder = path.join(this.dirname, '../../../..');
   private evmUtilsSrcDir = path.join(this.packagesFolder, 'common/evmUtils/src');
-
-  // private addSrcIndex = (): AddActionConfig => {
-  //   return {
-  //     type: 'add',
-  //     templateFile: path.join(this.dirname, 'templates/endpoint/srcIndex.ts.hbs'),
-  //     path: path.join(this.evmUtilsSrcDir, 'index.ts'),
-  //     force: true,
-  //   };
-  // };
-
-  // private addRoutersIndex = (): AddActionConfig => {
-  //   return {
-  //     type: 'add',
-  //     template: '// Routers export',
-  //     path: path.join(this.evmUtilsSrcDir, 'routers/index.ts'),
-  //     force: true,
-  //   };
-  // };
-
   private addOperation = (operation: Operation) => {
     const requestUrlParams = operation.getRequestUrlParams();
     const requestParamsToOverwrite = requestUrlParams.filter((param) => param.dataType.requestType);

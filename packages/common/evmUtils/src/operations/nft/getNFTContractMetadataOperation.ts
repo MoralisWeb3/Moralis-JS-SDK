@@ -34,6 +34,7 @@ export const getNftContractMetadataOperation: Operation<
   name: 'getNFTContractMetadata',
   id: 'getNFTContractMetadata',
   groupName: 'nft',
+  isNullable: true,
   urlPathPattern: '/nft/{address}/metadata',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain'],

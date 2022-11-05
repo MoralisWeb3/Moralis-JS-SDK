@@ -34,7 +34,8 @@ export const getNftMetadataOperation: Operation<
   name: 'getNFTMetadata',
   id: 'getNFTMetadata',
   groupName: 'nft',
-  urlPathPattern: '/nft/{address}/{token_id}',
+  isNullable: true,
+  urlPathPattern: '/nft/{address}/{tokenId}',
   urlPathParamNames: ['address', 'tokenId'],
   urlSearchParamNames: ['chain', 'format'],
 
@@ -50,7 +51,7 @@ function getRequestUrlParams(request: GetNftMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
-    token_id: request.tokenId,
+    tokenId: request.tokenId,
     format: request.format,
   };
 }

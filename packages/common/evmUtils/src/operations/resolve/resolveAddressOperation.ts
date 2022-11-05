@@ -32,6 +32,7 @@ export const resolveAddressOperation: Operation<
   name: 'resolveAddress',
   id: 'resolveAddress',
   groupName: 'resolve',
+  isNullable: true,
   urlPathPattern: '/resolve/{address}/reverse',
   urlPathParamNames: ['address'],
 
@@ -45,7 +46,7 @@ export const resolveAddressOperation: Operation<
 
 function getRequestUrlParams(request: ResolveAddressRequest, core: Core) {
   return {
-    address: maybe(request.address, (address) => EvmAddress.create(address, core).lowercase),
+    address: maybe(request.address, (address) => EvmAddress.create(address, core).checksum),
   };
 }
 

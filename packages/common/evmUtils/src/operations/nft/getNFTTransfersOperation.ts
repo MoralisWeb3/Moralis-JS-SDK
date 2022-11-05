@@ -55,7 +55,7 @@ function getRequestUrlParams(request: GetNftTransfersRequest, core: Core) {
     limit: maybe(request.limit, String),
     order: request.order,
     cursor: request.cursor,
-    token_id: request.tokenId,
+    tokenId: request.tokenId,
   };
 }
 

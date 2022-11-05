@@ -37,7 +37,7 @@ export const getPairAddressOperation: Operation<
   name: 'getPairAddress',
   id: 'getPairAddress',
   groupName: 'defi',
-  urlPathPattern: '/{token0_address}/{token1_address}/pairAddress',
+  urlPathPattern: '/{token0Address}/{token1Address}/pairAddress',
   urlPathParamNames: ['token0Address', 'token1Address'],
   urlSearchParamNames: ['chain', 'toBlock', 'toDate', 'exchange'],
 
@@ -55,8 +55,8 @@ function getRequestUrlParams(request: GetPairAddressRequest, core: Core) {
     to_block: request.toBlock,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     exchange: request.exchange,
-    token0_address: EvmAddress.create(request.token0Address, core).lowercase,
-    token1_address: EvmAddress.create(request.token1Address, core).lowercase,
+    token0Address: EvmAddress.create(request.token0Address, core).lowercase,
+    token1Address: EvmAddress.create(request.token1Address, core).lowercase,
   };
 }
 

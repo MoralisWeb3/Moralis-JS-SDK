@@ -55,7 +55,7 @@ function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
     to_date: request.toDate,
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
   };
 }
 

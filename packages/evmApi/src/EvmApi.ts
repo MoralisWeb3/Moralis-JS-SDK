@@ -7,7 +7,7 @@ import {
   PaginatedRequest,
 } from '@moralisweb3/common-core';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
-import { OperationResolver, PaginatedOperationResolver } from '@moralisweb3/api-utils';
+import { OperationResolver, PaginatedOperationResolver, NullableOperationResolver } from '@moralisweb3/api-utils';
 import {
   EndpointWeightsOperation,
   getBlockOperation,
@@ -71,20 +71,19 @@ export class EvmApi extends ApiModule {
     // Nothing
   }
 
-
   public readonly nft = {
     getNFTTransfersByBlock: this.createPaginatedFetcher(getNftTransfersByBlockOperation),
     getWalletNFTs: this.createPaginatedFetcher(getWalletNfTsOperation),
     getWalletNFTTransfers: this.createPaginatedFetcher(getWalletNftTransfersOperation),
     getNFTTrades: this.createPaginatedFetcher(getNftTradesOperation),
-    getNFTLowestPrice: this.createFetcher(getNftLowestPriceOperation),
+    getNFTLowestPrice: this.createNullableFetcher(getNftLowestPriceOperation),
     searchNFTs: this.createPaginatedFetcher(searchNfTsOperation),
     getNFTTransfersFromToBlock: this.createPaginatedFetcher(getNftTransfersFromToBlockOperation),
     getContractNFTs: this.createPaginatedFetcher(getContractNfTsOperation),
     getNFTOwners: this.createPaginatedFetcher(getNftOwnersOperation),
-    getNFTContractMetadata: this.createFetcher(getNftContractMetadataOperation),
+    getNFTContractMetadata: this.createNullableFetcher(getNftContractMetadataOperation),
     reSyncMetadata: this.createFetcher(reSyncMetadataOperation),
-    getNFTMetadata: this.createFetcher(getNftMetadataOperation),
+    getNFTMetadata: this.createNullableFetcher(getNftMetadataOperation),
     getNFTTokenIdOwners: this.createPaginatedFetcher(getNftTokenIdOwnersOperation),
     getNFTTransfers: this.createPaginatedFetcher(getNftTransfersOperation),
     syncNFTContract: this.createFetcher(syncNftContractOperation),
@@ -216,7 +215,7 @@ export class EvmApi extends ApiModule {
   };
 
   public readonly transaction = {
-    getTransaction: this.createFetcher(getTransactionOperation),
+    getTransaction: this.createNullableFetcher(getTransactionOperation),
     getWalletTransactions: this.createPaginatedFetcher(getWalletTransactionsOperation),
   };
 
@@ -292,13 +291,13 @@ export class EvmApi extends ApiModule {
   };
 
   public readonly block = {
-    getBlock: this.createFetcher(getBlockOperation),
+    getBlock: this.createNullableFetcher(getBlockOperation),
     getDateToBlock: this.createFetcher(getDateToBlockOperation),
   };
 
   public readonly resolve = {
-    resolveAddress: this.createFetcher(resolveAddressOperation),
-    resolveDomain: this.createFetcher(resolveDomainOperation),
+    resolveAddress: this.createNullableFetcher(resolveAddressOperation),
+    resolveDomain: this.createNullableFetcher(resolveDomainOperation),
   };
 
   public readonly ipfs = {
@@ -400,6 +399,12 @@ export class EvmApi extends ApiModule {
     operation: Operation<Request, JSONRequest, Response, JSONResponse>,
   ) {
     return new OperationResolver(operation, BASE_URL, this.core).fetch;
+  }
+
+  private createNullableFetcher<Request, JSONRequest, Response, JSONResponse>(
+    operation: Operation<Request, JSONRequest, Response, JSONResponse>,
+  ) {
+    return new NullableOperationResolver(operation, BASE_URL, this.core).fetch;
   }
 
   private createPaginatedFetcher<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>(

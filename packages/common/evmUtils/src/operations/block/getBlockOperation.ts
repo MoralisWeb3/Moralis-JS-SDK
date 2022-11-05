@@ -33,7 +33,8 @@ export const getBlockOperation: Operation<
   name: 'getBlock',
   id: 'getBlock',
   groupName: 'block',
-  urlPathPattern: '/block/{block_number_or_hash}',
+  isNullable: true,
+  urlPathPattern: '/block/{blockNumberOrHash}',
   urlPathParamNames: ['blockNumberOrHash'],
   urlSearchParamNames: ['chain', 'subdomain'],
 
@@ -49,7 +50,7 @@ function getRequestUrlParams(request: GetBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
-    block_number_or_hash: request.blockNumberOrHash,
+    blockNumberOrHash: request.blockNumberOrHash,
   };
 }
 

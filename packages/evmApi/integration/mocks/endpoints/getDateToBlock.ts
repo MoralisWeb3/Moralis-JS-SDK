@@ -3,7 +3,7 @@ import { rest } from 'msw';
 import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
 
 export const mockGetDateToBlocks: Record<string, number> = {
-  '2021-09-29T13:09:15+00:00': 13320838,
+  '2021-09-29T13:09:15.000Z': 13320838,
 };
 
 export const mockGetDateToBlock = rest.get(`${EVM_API_ROOT}/dateToBlock`, (req, res, ctx) => {

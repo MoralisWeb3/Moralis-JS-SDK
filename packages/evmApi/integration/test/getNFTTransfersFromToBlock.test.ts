@@ -14,7 +14,6 @@ describe('getNFTTransfersFromToBlock', () => {
 
   it('should get the NFT transfers from to block of a hash', async () => {
     const result = await evmApi.nft.getNFTTransfersFromToBlock({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
       fromBlock: 1,
     });
 
@@ -26,7 +25,6 @@ describe('getNFTTransfersFromToBlock', () => {
   it('should not get the NFT transfers from to block of an invalid block number and throw an error ', async () => {
     const failedResult = await evmApi.nft
       .getNFTTransfersFromToBlock({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         fromBlock: 1,
       })
       .then()
@@ -36,9 +34,9 @@ describe('getNFTTransfersFromToBlock', () => {
     expect(failedResult).toBeDefined();
     expect(
       evmApi.nft.getNFTTransfersFromToBlock({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
         fromBlock: 1,
+        chain: 'invalid_chain',
       }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid provided chain, value must be a positive number, or a hex-string starting with '0x'"`);
   });
 });
