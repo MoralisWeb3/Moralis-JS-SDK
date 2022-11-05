@@ -1,4 +1,5 @@
-import { Camelize, toCamelCase } from '@moralisweb3/common-core';
+import { Camelize, toCamelCase } from "../../utils";
+
 
 export class ResponseAdapter<Response, JSONResponse> {
   public constructor(private readonly jsonResponse: JSONResponse, private readonly getResponse: () => Response) {}
