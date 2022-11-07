@@ -1,5 +1,3 @@
-
-
 export class ResponseAdapter<Response, JSONResponse> {
   public constructor(private readonly jsonResponse: JSONResponse, private readonly getResponse: () => Response) {}
 
@@ -12,6 +10,6 @@ export class ResponseAdapter<Response, JSONResponse> {
   }
 
   public toJSON() {
-    return this.jsonResponse
+    return this.jsonResponse;
   }
 }
