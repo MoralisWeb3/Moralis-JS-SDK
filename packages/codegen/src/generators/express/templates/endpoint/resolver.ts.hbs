@@ -1,6 +1,0 @@
-import axios from 'axios'; import { NextFunction, Response, Request } from 'express'; export const
-{{resolverName}}
-= async (req: Request, res: Response, next: NextFunction, apiKey: string) => { try { const response = await
-axios.request({ method: "{{method}}", params: req.query, url: `{{url}}`, data: req.body, headers: { 'Content-Type':
-'application/json', 'x-api-key': apiKey, }, }); return res.send(response.data); } catch (error) { return next(error); }
-};
