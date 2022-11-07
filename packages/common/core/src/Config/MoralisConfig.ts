@@ -4,33 +4,32 @@ import { EvmChainish } from './interfaces/EvmChainish';
 
 // @moralisweb3/common-core
 type CoreConfigType = typeof CoreConfig;
-type CoreConfigValues = Omit<{ [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] }, 'product'>;
+export type CoreConfigValues = Omit<{ [Key in keyof CoreConfigType]: CoreConfigType[Key]['defaultValue'] }, 'product'>;
 
 // @moralisweb3/common-evm-utils
-interface EvmUtilsConfigValues {
+export interface EvmUtilsConfigValues {
   formatEvmAddress: EvmAddressFormat;
   formatEvmChainId: EvmChainIdFormat;
 }
 
 // @moralisweb3/api-utils
-interface ApiUtilsConfigValues {
+export interface ApiUtilsConfigValues {
   apiKey: string;
 }
 
 // @moralisweb3/evm-api
-interface EvmApiConfigValues {
+export interface EvmApiConfigValues {
   defaultEvmApiChain: EvmChainish;
 }
 
 // @moralisweb3/sol-api
-interface SolApiConfigValues {
+export interface SolApiConfigValues {
   defaultSolNetwork: SolNetworkish;
 }
 
-export type MoralisConfigValues =
+export type MoralisCoreConfigValues =
   | CoreConfigValues
   | EvmUtilsConfigValues
-  | ApiUtilsConfigValues
   | EvmApiConfigValues
   | SolApiConfigValues
   // Other, not strong typed values.
