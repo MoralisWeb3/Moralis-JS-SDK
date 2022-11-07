@@ -22,10 +22,10 @@ describe('getWalletNFTCollections', () => {
     expect(result.pagination.page).toBe(1);
     expect(result.toJSON().result![0]).toEqual(
       expect.objectContaining({
-        contractType: 'ERC721',
+        contract_type: 'ERC721',
         name: 'Test NFT',
         symbol: 'TEST',
-        tokenAddress: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        token_address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
       }),
     );
   });

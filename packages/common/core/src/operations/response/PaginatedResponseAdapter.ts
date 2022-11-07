@@ -1,5 +1,4 @@
 import { CoreErrorCode, MoralisError } from '../../Error';
-import { Camelize, toCamelCase } from '../../utils';
 import { PaginatedJSONResponse } from '../PaginatedOperation';
 import { Pagination } from './Pagination';
 
@@ -19,8 +18,8 @@ export class PaginatedResponseAdapter<Result, JSONResult> {
     return this.jsonResponse;
   }
 
-  public toJSON(): Camelize<PaginatedJSONResponse<JSONResult>> {
-    return toCamelCase(this.jsonResponse);
+  public toJSON() {
+    return this.jsonResponse;
   }
 
   public readonly hasNext = () => !!this.nextHandler;
