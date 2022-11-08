@@ -16,7 +16,7 @@ describe('operations', () => {
         const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.id)?.map(toCamel);
         const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.id)?.map(toCamel);
 
-        expect(operation.urlPathParamNames.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
+        expect(operation.urlPathParamNames?.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
         expect(operation.urlSearchParamNames?.sort().join(',')).toBe(openApiSearchParamNames?.sort().join(','));
         expect(operation.bodyParamNames?.sort().join(',')).toBe(openApiBodyParamNames?.sort().join(','));
       });
