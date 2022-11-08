@@ -16,7 +16,7 @@ export type EndpointWeightsJSONResponse = SuccessResponse;
 
 export type EndpointWeightsResponse = ReturnType<typeof deserializeResponse>;
 
-export const EndpointWeightsOperation: Operation<
+export const endpointWeightsOperation: Operation<
   EndpointWeightsRequest,
   EndpointWeightsJSONRequest,
   EndpointWeightsResponse,

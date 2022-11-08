@@ -16,7 +16,7 @@ export type Web3ApiVersionJSONResponse = SuccessResponse;
 
 export type Web3ApiVersionResponse = ReturnType<typeof deserializeResponse>;
 
-export const Web3ApiVersionOperation: Operation<
+export const web3ApiVersionOperation: Operation<
   Web3ApiVersionRequest,
   Web3ApiVersionJSONRequest,
   Web3ApiVersionResponse,

@@ -18,17 +18,17 @@ export type GetNFTContractMetadataRequest = Camelize<Omit<RequestParams, 'chain'
   address: EvmAddressish;
 };
 
-export type GetNftContractMetadataJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTContractMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftContractMetadataJSONResponse = SuccessResponse;
+export type GetNFTContractMetadataJSONResponse = SuccessResponse;
 
-export type GetNftContractMetadataResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTContractMetadataResponse = ReturnType<typeof deserializeResponse>;
 
 export const getNFTContractMetadataOperation: Operation<
   GetNFTContractMetadataRequest,
-  GetNftContractMetadataJSONRequest,
-  GetNftContractMetadataResponse,
-  GetNftContractMetadataJSONResponse
+  GetNFTContractMetadataJSONRequest,
+  GetNFTContractMetadataResponse,
+  GetNFTContractMetadataJSONResponse
 > = {
   method: 'GET',
   name: 'getNFTContractMetadata',
@@ -55,7 +55,7 @@ function getRequestUrlParams(request: GetNFTContractMetadataRequest, core: Core)
 }
 
 function deserializeResponse(
-  jsonResponse: GetNftContractMetadataJSONResponse,
+  jsonResponse: GetNFTContractMetadataJSONResponse,
   request: GetNFTContractMetadataRequest,
   core: Core,
 ) {
@@ -75,7 +75,7 @@ function serializeRequest(request: GetNFTContractMetadataRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftContractMetadataJSONRequest, core: Core): GetNFTContractMetadataRequest {
+function deserializeRequest(jsonRequest: GetNFTContractMetadataJSONRequest, core: Core): GetNFTContractMetadataRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     address: EvmAddress.create(jsonRequest.address, core),

@@ -9,7 +9,7 @@ import {
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 import { OperationResolver, PaginatedOperationResolver, NullableOperationResolver } from '@moralisweb3/api-utils';
 import {
-  EndpointWeightsOperation,
+  endpointWeightsOperation,
   getBlockOperation,
   getContractEventsOperation,
   getContractLogsOperation,
@@ -47,7 +47,7 @@ import {
   searchNFTsOperation,
   syncNFTContractOperation,
   uploadFolderOperation,
-  Web3ApiVersionOperation,
+  web3ApiVersionOperation,
 } from '@moralisweb3/common-evm-utils';
 
 const BASE_URL = 'https://deep-index.moralis.io/api/v2';
@@ -315,8 +315,8 @@ export class EvmApi extends ApiModule {
   };
 
   private readonly _utils = {
-    endpointWeights: this.createFetcher(EndpointWeightsOperation),
-    web3ApiVersion: this.createFetcher(Web3ApiVersionOperation),
+    endpointWeights: this.createFetcher(endpointWeightsOperation),
+    web3ApiVersion: this.createFetcher(web3ApiVersionOperation),
   };
 
   public readonly utils = {
