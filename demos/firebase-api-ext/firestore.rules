@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /moralisApiRateLimiter {
+      allow read: if false;
+      allow write: if false;
+    }
+  }
+}
