@@ -1,21 +1,14 @@
 import { MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
-import AbiUtils from 'web3-eth-abi';
-import {
-  isWebhook,
-  hasAbis,
-  getTagStream,
-  getTagLogs,
-  isContractLog,
-  ContractLog,
-  isNotEmpty,
-} from '../utils/logDecoderUtils';
+import { IWebhook } from '@moralisweb3/streams-typings';
+import { isWebhook, hasAbis } from '../utils/logDecoderUtils';
+import { LogParser } from '../mapping';
 
 export interface ParseLogOptions {
   webhookData: unknown;
   tag: string;
 }
 
-export const parseLog = <Event>({ webhookData, tag }: ParseLogOptions) => {
+export const parseLog = <Event>(webhookData: IWebhook) => {
   if (!isWebhook(webhookData)) {
     throw new MoralisStreamError({
       code: StreamErrorCode.GENERIC_STREAM_ERROR,
@@ -30,45 +23,21 @@ export const parseLog = <Event>({ webhookData, tag }: ParseLogOptions) => {
     });
   }
 
-  const streamId = getTagStream(webhookData, tag);
-
-  if (!streamId) {
-    throw new MoralisStreamError({
-      code: StreamErrorCode.GENERIC_STREAM_ERROR,
-      message: `Cannot decode the logs. No stream found for tag ${tag}.`,
-    });
-  }
-
-  if (!webhookData.abis[streamId]) {
-    throw new MoralisStreamError({
-      code: StreamErrorCode.GENERIC_STREAM_ERROR,
-      message: `Cannot decode the logs. No abi found  for ${streamId}.`,
-    });
-  }
-
-  const logs = getTagLogs(webhookData, tag);
+  const { logs, abi } = webhookData;
 
   const decodedLogs: Event[] = [];
 
   logs.forEach((currentLog) => {
-    if (!isContractLog(currentLog, webhookData)) {
-      return;
-    }
-    const { data, topic0 } = currentLog as ContractLog;
-    const abi = webhookData.abis?.[currentLog.streamId];
-    const topics: string[] = [];
-    if (abi.anonymous && isNotEmpty(topic0)) {
-      topics.push(topic0);
-    }
-    abi.inputs.forEach(({ indexed }) => {
-      const topicIndex = abi.anonymous ? topics.length : topics.length + 1;
-      const log = currentLog as never;
-      if (indexed && log[`topic${topicIndex}`]) {
-        topics.push(log[`topic${topicIndex}`]);
+    const { params } = new LogParser(abi).read(currentLog);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const decodedLog: any = {};
+    for (const key in params) {
+      if (Object.prototype.hasOwnProperty.call(params, key)) {
+        const element = params[key];
+        decodedLog[key] = element.value;
       }
-    });
-    const decodedLog = AbiUtils.decodeLog(abi.inputs, data, topics) as unknown as Event;
-    decodedLogs.push(decodedLog);
+    }
+    decodedLogs.push(decodedLog as Event);
   });
 
   return decodedLogs;

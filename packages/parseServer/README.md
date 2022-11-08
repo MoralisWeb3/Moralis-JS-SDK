@@ -2,7 +2,7 @@
 
 # Parse Server Moralis Streams
 
-This Plugin adapts parse-server to support [streams](https://github.com/MoralisWeb3/streams-beta)
+This Plugin adapts parse-server to support [streams](https://docs.moralis.io/docs/what-is-streams-api-1)
 
 # Usage
 
@@ -44,7 +44,7 @@ export const parseServer = new ParseServer({
 Then add the plugin to your express app:
 
 ```typescript
-import { initializeStreams } from '@moralisweb3/parse-server';
+import { streamsSync } from '@moralisweb3/parse-server';
 
 ```
 

@@ -8,12 +8,13 @@ import { makeGetStreams } from './methods/getAll';
 import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
 import { makeAddAddress } from './methods/addAddress';
 import { makeUpdateStreamStatus } from './methods/updateStatus';
-import { parseLog, ParseLogOptions } from './methods/logParser';
+import { parseLog } from './methods/logParser';
 import { getHistory } from './resolvers/history/getHistory';
 import { replayHistory } from './resolvers/history/replayHistory';
 import { makeGetAddresses } from './methods/getAddresses';
 import { makeDeleteAddress } from './methods/deleteAddress';
 import { makeGetStreamById } from './methods/getById';
+import { IWebhook } from '@moralisweb3/streams-typings';
 
 const BASE_URL = 'https://api.moralis-streams.com';
 
@@ -58,5 +59,5 @@ export class MoralisStreams extends ApiModule {
 
   public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
 
-  public readonly parsedLogs = <Event>(options: ParseLogOptions) => parseLog<Event>(options);
+  public readonly parsedLogs = <Event>(webhookData: IWebhook) => parseLog<Event>(webhookData);
 }
