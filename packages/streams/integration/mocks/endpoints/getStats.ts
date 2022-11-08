@@ -1,4 +1,3 @@
-
 import { MockScenarios } from '@moralisweb3/test-utils';
 import { statsResponse } from '../response/statsResponse';
 

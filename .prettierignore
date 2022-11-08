@@ -21,3 +21,6 @@ demos/**/build/**/*
 
 # Docs
 docs/**/*
+
+# Templates
+archive/**/templates/**/*.hbs

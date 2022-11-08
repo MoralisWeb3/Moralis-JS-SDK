@@ -27,5 +27,5 @@ export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: STR
   mockReplayHistory,
   mockGetHistory,
   mockGetStats,
-  mockGetStatsById
+  mockGetStatsById,
 ]).start();
