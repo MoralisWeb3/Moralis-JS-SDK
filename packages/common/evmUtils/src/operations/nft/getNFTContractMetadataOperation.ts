@@ -25,7 +25,7 @@ export type GetNftContractMetadataJSONResponse = SuccessResponse;
 export type GetNftContractMetadataResponse = ReturnType<typeof deserializeResponse>;
 
 export const getNFTContractMetadataOperation: Operation<
-GetNFTContractMetadataRequest,
+  GetNFTContractMetadataRequest,
   GetNftContractMetadataJSONRequest,
   GetNftContractMetadataResponse,
   GetNftContractMetadataJSONResponse

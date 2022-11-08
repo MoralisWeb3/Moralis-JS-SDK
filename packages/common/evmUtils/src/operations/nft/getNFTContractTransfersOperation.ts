@@ -63,7 +63,7 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-  EvmNftTransfer.create({
+    EvmNftTransfer.create({
       ...toCamelCase(transfer),
       chain: EvmChainResolver.resolve(request.chain, core),
       tokenAddress: EvmAddress.create(transfer.to_address),
