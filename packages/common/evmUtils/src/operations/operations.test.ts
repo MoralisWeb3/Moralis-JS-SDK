@@ -12,7 +12,7 @@ describe('operations', () => {
   for (const operation of operations) {
     describe(operation.name, () => {
       it('defines all supported parameters', () => {
-        const openApiPathParamNames = reader.readOperationPathParamNames(operation.id);
+        const openApiPathParamNames = reader.readOperationPathParamNames(operation.id)?.map(toCamel);
         const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.id)?.map(toCamel);
         const openApiBodyParamNames = reader.readOperationRequestBodyParamNames(operation.id)?.map(toCamel);
 
@@ -23,16 +23,16 @@ describe('operations', () => {
 
       it(`getRequestUrlParams() function returns all supported property names`, () => {
         const openApiPathParamNames = reader.readOperationPathParamNames(operation.id)?.map(toCamel);
-        const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.id);
+        const openApiSearchParamNames = reader.readOperationSearchParamNames(operation.id); // Must be same as in API
 
         const definitionReader = new OperationDefinitionReader(
           `src/operations/${operation.groupName}/${operation.name}Operation.ts`,
         );
-        const returnPropertyNames = definitionReader.getRequestUrlParamsFunctionReturnPropertyNames().sort();
+        const returnPropertyNames = definitionReader.getRequestUrlParamsFunctionReturnPropertyNames();
 
-        const expectedPropertyNames = [...(openApiPathParamNames || []), ...(openApiSearchParamNames || [])].sort();
+        const expectedPropertyNames = [...(openApiPathParamNames || []), ...(openApiSearchParamNames || [])];
 
-        expect(returnPropertyNames.join(',')).toBe(expectedPropertyNames.join(','));
+        expect(returnPropertyNames.sort().join(',')).toBe(expectedPropertyNames.sort().join(','));
       });
     });
   }
