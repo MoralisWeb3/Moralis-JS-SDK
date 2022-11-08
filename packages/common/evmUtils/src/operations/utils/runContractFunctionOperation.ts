@@ -33,7 +33,7 @@ export const runContractFunctionOperation: Operation<
   method: 'POST',
   name: 'runContractFunction',
   id: 'runContractFunction',
-  groupName: 'token',
+  groupName: 'utils',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'functionName', 'providerUrl', 'subdomain'],
   urlPathPattern: '/{address}/function',

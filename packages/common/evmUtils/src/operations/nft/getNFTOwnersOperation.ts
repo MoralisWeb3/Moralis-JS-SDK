@@ -13,22 +13,22 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftOwnersRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetNFTOwnersRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
 };
 
-export type GetNftOwnersJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTOwnersJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftOwnersJSONResponse = SuccessResponse;
+export type GetNFTOwnersJSONResponse = SuccessResponse;
 
-export type GetNftOwnersResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTOwnersResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftOwnersOperation: PaginatedOperation<
-  GetNftOwnersRequest,
-  GetNftOwnersJSONRequest,
-  GetNftOwnersResponse,
-  GetNftOwnersJSONResponse['result']
+export const getNFTOwnersOperation: PaginatedOperation<
+  GetNFTOwnersRequest,
+  GetNFTOwnersJSONRequest,
+  GetNFTOwnersResponse,
+  GetNFTOwnersJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getNFTOwners',
@@ -47,7 +47,7 @@ export const getNftOwnersOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftOwnersRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTOwnersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).checksum,
@@ -57,7 +57,7 @@ function getRequestUrlParams(request: GetNftOwnersRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetNftOwnersJSONResponse, request: GetNftOwnersRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetNFTOwnersJSONResponse, request: GetNFTOwnersRequest, core: Core) {
   return (jsonResponse.result ?? []).map((nft) =>
     EvmNft.create(
       {
@@ -72,7 +72,7 @@ function deserializeResponse(jsonResponse: GetNftOwnersJSONResponse, request: Ge
   );
 }
 
-function serializeRequest(request: GetNftOwnersRequest, core: Core) {
+function serializeRequest(request: GetNFTOwnersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -82,7 +82,7 @@ function serializeRequest(request: GetNftOwnersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftOwnersJSONRequest, core: Core): GetNftOwnersRequest {
+function deserializeRequest(jsonRequest: GetNFTOwnersJSONRequest, core: Core): GetNFTOwnersRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,

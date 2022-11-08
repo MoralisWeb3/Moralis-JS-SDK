@@ -14,22 +14,22 @@ type RequestParams = PathParams & QueryParams;
 type SuccessResponse = operations[OperationId]['responses']['201'];
 // Exports
 
-export interface SyncNftContractRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface SyncNFTContractRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
 }
 
-export type SyncNftContractJSONRequest = ReturnType<typeof serializeRequest>;
+export type SyncNFTContractJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type SyncNftContractJSONResponse = SuccessResponse;
+export type SyncNFTContractJSONResponse = SuccessResponse;
 
-export type SyncNftContractResponse = ReturnType<typeof deserializeResponse>;
+export type SyncNFTContractResponse = ReturnType<typeof deserializeResponse>;
 
-export const syncNftContractOperation: Operation<
-  SyncNftContractRequest,
-  SyncNftContractJSONRequest,
-  SyncNftContractResponse,
-  SyncNftContractJSONResponse
+export const syncNFTContractOperation: Operation<
+  SyncNFTContractRequest,
+  SyncNFTContractJSONRequest,
+  SyncNFTContractResponse,
+  SyncNFTContractJSONResponse
 > = {
   method: 'PUT',
   name: 'syncNFTContract',
@@ -47,7 +47,7 @@ export const syncNftContractOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: SyncNftContractRequest, core: Core) {
+function getRequestUrlParams(request: SyncNFTContractRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -60,14 +60,14 @@ function deserializeResponse() {
   };
 }
 
-function serializeRequest(request: SyncNftContractRequest, core: Core) {
+function serializeRequest(request: SyncNFTContractRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).checksum,
   };
 }
 
-function deserializeRequest(jsonRequest: SyncNftContractJSONRequest, core: Core): SyncNftContractRequest {
+function deserializeRequest(jsonRequest: SyncNFTContractJSONRequest, core: Core): SyncNFTContractRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     address: EvmAddress.create(jsonRequest.address, core),

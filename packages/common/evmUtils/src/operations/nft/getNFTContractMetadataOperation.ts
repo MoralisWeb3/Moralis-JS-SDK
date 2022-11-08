@@ -13,7 +13,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftContractMetadataRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetNFTContractMetadataRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
 };
@@ -24,8 +24,8 @@ export type GetNftContractMetadataJSONResponse = SuccessResponse;
 
 export type GetNftContractMetadataResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftContractMetadataOperation: Operation<
-  GetNftContractMetadataRequest,
+export const getNFTContractMetadataOperation: Operation<
+GetNFTContractMetadataRequest,
   GetNftContractMetadataJSONRequest,
   GetNftContractMetadataResponse,
   GetNftContractMetadataJSONResponse
@@ -47,7 +47,7 @@ export const getNftContractMetadataOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftContractMetadataRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTContractMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -56,7 +56,7 @@ function getRequestUrlParams(request: GetNftContractMetadataRequest, core: Core)
 
 function deserializeResponse(
   jsonResponse: GetNftContractMetadataJSONResponse,
-  request: GetNftContractMetadataRequest,
+  request: GetNFTContractMetadataRequest,
   core: Core,
 ) {
   return EvmNftMetadata.create({
@@ -68,14 +68,14 @@ function deserializeResponse(
   });
 }
 
-function serializeRequest(request: GetNftContractMetadataRequest, core: Core) {
+function serializeRequest(request: GetNFTContractMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).checksum,
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftContractMetadataJSONRequest, core: Core): GetNftContractMetadataRequest {
+function deserializeRequest(jsonRequest: GetNftContractMetadataJSONRequest, core: Core): GetNFTContractMetadataRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     address: EvmAddress.create(jsonRequest.address, core),

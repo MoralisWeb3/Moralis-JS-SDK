@@ -38,7 +38,7 @@ export const getWalletTransactionsOperation: PaginatedOperation<
   method: 'GET',
   name: 'getWalletTransactions',
   id: 'getWalletTransactions',
-  groupName: 'token',
+  groupName: 'transaction',
   urlPathPattern: '/{address}',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit'],

@@ -1,11 +1,11 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmChain } from '../../dataTypes';
 import {
-  getNftTransfersFromToBlockOperation,
-  GetNftTransfersFromToBlockRequest,
+  getNFTTransfersFromToBlockOperation,
+  GetNFTTransfersFromToBlockRequest,
 } from './getNFTTransfersFromToBlockOperation';
 
-describe('getNftTransfersFromToBlockOperation', () => {
+describe('getNFTTransfersFromToBlockOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -17,7 +17,7 @@ describe('getNftTransfersFromToBlockOperation', () => {
     const fromDate = '2021-01-01T00:00:00.000Z';
     const toDate = '2021-01-01T00:00:00.000Z';
 
-    const request: Required<GetNftTransfersFromToBlockRequest> = {
+    const request: Required<GetNFTTransfersFromToBlockRequest> = {
       chain: EvmChain.create(chain, core),
       fromBlock: 123,
       toBlock: 123,
@@ -28,7 +28,7 @@ describe('getNftTransfersFromToBlockOperation', () => {
       cursor: 'CURSOR1',
     };
 
-    const serializedRequest = getNftTransfersFromToBlockOperation.serializeRequest(request, core);
+    const serializedRequest = getNFTTransfersFromToBlockOperation.serializeRequest(request, core);
 
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
@@ -39,7 +39,7 @@ describe('getNftTransfersFromToBlockOperation', () => {
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
 
-    const deserializedRequest = getNftTransfersFromToBlockOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getNFTTransfersFromToBlockOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);

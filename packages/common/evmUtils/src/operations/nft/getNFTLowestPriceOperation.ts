@@ -13,22 +13,22 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftLowestPriceRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetNFTLowestPriceRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
 };
 
-export type GetNftLowestPriceJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTLowestPriceJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftLowestPriceJSONResponse = SuccessResponse;
+export type GetNFTLowestPriceJSONResponse = SuccessResponse;
 
-export type GetNftLowestPriceResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTLowestPriceResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftLowestPriceOperation: Operation<
-  GetNftLowestPriceRequest,
-  GetNftLowestPriceJSONRequest,
-  GetNftLowestPriceResponse,
-  GetNftLowestPriceJSONResponse
+export const getNFTLowestPriceOperation: Operation<
+  GetNFTLowestPriceRequest,
+  GetNFTLowestPriceJSONRequest,
+  GetNFTLowestPriceResponse,
+  GetNFTLowestPriceJSONResponse
 > = {
   method: 'GET',
   name: 'getNFTLowestPrice',
@@ -47,7 +47,7 @@ export const getNftLowestPriceOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftLowestPriceRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTLowestPriceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).checksum,
@@ -58,8 +58,8 @@ function getRequestUrlParams(request: GetNftLowestPriceRequest, core: Core) {
 }
 
 function deserializeResponse(
-  jsonResponse: GetNftLowestPriceJSONResponse,
-  request: GetNftLowestPriceRequest,
+  jsonResponse: GetNFTLowestPriceJSONResponse,
+  request: GetNFTLowestPriceRequest,
   core: Core,
 ) {
   return EvmNftTrade.create({
@@ -75,7 +75,7 @@ function deserializeResponse(
   });
 }
 
-function serializeRequest(request: GetNftLowestPriceRequest, core: Core) {
+function serializeRequest(request: GetNFTLowestPriceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     days: request.days,
@@ -85,7 +85,7 @@ function serializeRequest(request: GetNftLowestPriceRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftLowestPriceJSONRequest, core: Core): GetNftLowestPriceRequest {
+function deserializeRequest(jsonRequest: GetNFTLowestPriceJSONRequest, core: Core): GetNFTLowestPriceRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     days: jsonRequest.days,

@@ -13,22 +13,22 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftContractTransfersRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetNFTContractTransfersRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
 };
 
-export type GetNftContractTransfersJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTContractTransfersJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftContractTransfersJSONResponse = SuccessResponse;
+export type GetNFTContractTransfersJSONResponse = SuccessResponse;
 
-export type GetNftContractTransfersResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTContractTransfersResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftContractTransfersOperation: PaginatedOperation<
-  GetNftContractTransfersRequest,
-  GetNftContractTransfersJSONRequest,
-  GetNftContractTransfersResponse,
-  GetNftContractTransfersJSONResponse['result']
+export const getNFTContractTransfersOperation: PaginatedOperation<
+  GetNFTContractTransfersRequest,
+  GetNFTContractTransfersJSONRequest,
+  GetNFTContractTransfersResponse,
+  GetNFTContractTransfersJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getNFTContractTransfers',
@@ -47,7 +47,7 @@ export const getNftContractTransfersOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftContractTransfersRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTContractTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -58,12 +58,12 @@ function getRequestUrlParams(request: GetNftContractTransfersRequest, core: Core
 }
 
 function deserializeResponse(
-  jsonResponse: GetNftContractTransfersJSONResponse,
-  request: GetNftContractTransfersRequest,
+  jsonResponse: GetNFTContractTransfersJSONResponse,
+  request: GetNFTContractTransfersRequest,
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    EvmNftTransfer.create({
+  EvmNftTransfer.create({
       ...toCamelCase(transfer),
       chain: EvmChainResolver.resolve(request.chain, core),
       tokenAddress: EvmAddress.create(transfer.to_address),
@@ -76,7 +76,7 @@ function deserializeResponse(
   );
 }
 
-function serializeRequest(request: GetNftContractTransfersRequest, core: Core) {
+function serializeRequest(request: GetNFTContractTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -87,9 +87,9 @@ function serializeRequest(request: GetNftContractTransfersRequest, core: Core) {
 }
 
 function deserializeRequest(
-  jsonRequest: GetNftContractTransfersJSONRequest,
+  jsonRequest: GetNFTContractTransfersJSONRequest,
   core: Core,
-): GetNftContractTransfersRequest {
+): GetNFTContractTransfersRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,

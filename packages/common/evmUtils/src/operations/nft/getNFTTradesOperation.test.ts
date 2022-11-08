@@ -1,8 +1,8 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { getNftTradesOperation, GetNftTradesRequest } from './getNFTTradesOperation';
+import { getNFTTradesOperation, GetNFTTradesRequest } from './getNFTTradesOperation';
 
-describe('getNftTradesOperation', () => {
+describe('getNFTTradesOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -15,7 +15,7 @@ describe('getNftTradesOperation', () => {
     const fromDate = '2021-01-01T00:00:00.000Z';
     const toDate = '2021-01-01T00:00:00.000Z';
 
-    const request: Required<GetNftTradesRequest> = {
+    const request: Required<GetNFTTradesRequest> = {
       chain: EvmChain.create(chain, core),
       providerUrl: 'https://provider.com/url',
       address: EvmAddress.create(address, core),
@@ -28,7 +28,7 @@ describe('getNftTradesOperation', () => {
       limit: 333,
     };
 
-    const serializedRequest = getNftTradesOperation.serializeRequest(request, core);
+    const serializedRequest = getNFTTradesOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
@@ -39,7 +39,7 @@ describe('getNftTradesOperation', () => {
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
 
-    const deserializedRequest = getNftTradesOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getNFTTradesOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);

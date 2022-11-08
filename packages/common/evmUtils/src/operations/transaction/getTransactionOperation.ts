@@ -32,7 +32,7 @@ export const getTransactionOperation: Operation<
   method: 'GET',
   name: 'getTransaction',
   id: 'getTransaction',
-  groupName: 'token',
+  groupName: 'transaction',
   isNullable: true,
   urlPathPattern: '/transaction/{transactionHash}',
   urlPathParamNames: ['transactionHash'],

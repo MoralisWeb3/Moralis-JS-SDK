@@ -13,24 +13,24 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftTradesRequest = Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> & {
+export type GetNFTTradesRequest = Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
 };
 
-export type GetNftTradesJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTTradesJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftTradesJSONResponse = SuccessResponse;
+export type GetNFTTradesJSONResponse = SuccessResponse;
 
-export type GetNftTradesResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTTradesResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftTradesOperation: PaginatedOperation<
-  GetNftTradesRequest,
-  GetNftTradesJSONRequest,
-  GetNftTradesResponse,
-  GetNftTradesJSONResponse['result']
+export const getNFTTradesOperation: PaginatedOperation<
+  GetNFTTradesRequest,
+  GetNFTTradesJSONRequest,
+  GetNFTTradesResponse,
+  GetNFTTradesJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getNFTTrades',
@@ -59,7 +59,7 @@ export const getNftTradesOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftTradesRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -74,7 +74,7 @@ function getRequestUrlParams(request: GetNftTradesRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetNftTradesJSONResponse, request: GetNftTradesRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse, request: GetNFTTradesRequest, core: Core) {
   return (jsonResponse.result ?? []).map((trade) =>
     EvmNftTrade.create({
       ...toCamelCase(trade),
@@ -90,7 +90,7 @@ function deserializeResponse(jsonResponse: GetNftTradesJSONResponse, request: Ge
   );
 }
 
-function serializeRequest(request: GetNftTradesRequest, core: Core) {
+function serializeRequest(request: GetNFTTradesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     fromBlock: request.fromBlock,
@@ -105,7 +105,7 @@ function serializeRequest(request: GetNftTradesRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftTradesJSONRequest, core: Core): GetNftTradesRequest {
+function deserializeRequest(jsonRequest: GetNFTTradesJSONRequest, core: Core): GetNFTTradesRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     fromBlock: jsonRequest.fromBlock,

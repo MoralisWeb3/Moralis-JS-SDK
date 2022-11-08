@@ -13,22 +13,22 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetContractNfTsRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetContractNFTsRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
 };
 
-export type GetContractNfTsJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetContractNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetContractNfTsJSONResponse = SuccessResponse;
+export type GetContractNFTsJSONResponse = SuccessResponse;
 
-export type GetContractNfTsResponse = ReturnType<typeof deserializeResponse>;
+export type GetContractNFTsResponse = ReturnType<typeof deserializeResponse>;
 
-export const getContractNfTsOperation: PaginatedOperation<
-  GetContractNfTsRequest,
-  GetContractNfTsJSONRequest,
-  GetContractNfTsResponse,
-  GetContractNfTsJSONResponse['result']
+export const getContractNFTsOperation: PaginatedOperation<
+  GetContractNFTsRequest,
+  GetContractNFTsJSONRequest,
+  GetContractNFTsResponse,
+  GetContractNFTsJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getContractNFTs',
@@ -46,7 +46,7 @@ export const getContractNfTsOperation: PaginatedOperation<
 };
 
 // Methods
-function getRequestUrlParams(request: GetContractNfTsRequest, core: Core) {
+function getRequestUrlParams(request: GetContractNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -58,7 +58,7 @@ function getRequestUrlParams(request: GetContractNfTsRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetContractNfTsJSONResponse, request: GetContractNfTsRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetContractNFTsJSONResponse, request: GetContractNFTsRequest, core: Core) {
   return (jsonResponse.result ?? []).map((nft) =>
     EvmNft.create(
       {
@@ -73,7 +73,7 @@ function deserializeResponse(jsonResponse: GetContractNfTsJSONResponse, request:
   );
 }
 
-function serializeRequest(request: GetContractNfTsRequest, core: Core) {
+function serializeRequest(request: GetContractNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -85,7 +85,7 @@ function serializeRequest(request: GetContractNfTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetContractNfTsJSONRequest, core: Core): GetContractNfTsRequest {
+function deserializeRequest(jsonRequest: GetContractNFTsJSONRequest, core: Core): GetContractNFTsRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,

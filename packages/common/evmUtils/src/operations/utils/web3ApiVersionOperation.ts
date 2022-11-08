@@ -25,7 +25,7 @@ export const Web3ApiVersionOperation: Operation<
   method: 'GET',
   name: 'web3ApiVersion',
   id: 'web3ApiVersion',
-  groupName: 'token',
+  groupName: 'utils',
   urlPathPattern: '/web3/version',
   urlPathParamNames: [],
 

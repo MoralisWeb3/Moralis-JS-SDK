@@ -1,6 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { getNftLowestPriceOperation, GetNftLowestPriceRequest } from './getNFTLowestPriceOperation';
+import { getNFTLowestPriceOperation, GetNFTLowestPriceRequest } from './getNFTLowestPriceOperation';
 
 describe('getNftLowestPriceOperation', () => {
   let core: MoralisCore;
@@ -13,7 +13,7 @@ describe('getNftLowestPriceOperation', () => {
     const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
     const chain = '0x10';
 
-    const request: Required<GetNftLowestPriceRequest> = {
+    const request: Required<GetNFTLowestPriceRequest> = {
       chain: EvmChain.create(chain, core),
       providerUrl: 'https://provider.com/url',
       address: EvmAddress.create(address, core),
@@ -21,7 +21,7 @@ describe('getNftLowestPriceOperation', () => {
       marketplace: 'opensea',
     };
 
-    const serializedRequest = getNftLowestPriceOperation.serializeRequest(request, core);
+    const serializedRequest = getNFTLowestPriceOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
@@ -29,7 +29,7 @@ describe('getNftLowestPriceOperation', () => {
     expect(serializedRequest.days).toBe(request.days);
     expect(serializedRequest.marketplace).toBe(request.marketplace);
 
-    const deserializedRequest = getNftLowestPriceOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getNFTLowestPriceOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);

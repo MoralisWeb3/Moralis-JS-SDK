@@ -13,23 +13,23 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetWalletNfTsRequest = Camelize<Omit<RequestParams, 'chain' | 'token_addresses' | 'address'>> & {
+export type GetWalletNFTsRequest = Camelize<Omit<RequestParams, 'chain' | 'token_addresses' | 'address'>> & {
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address: EvmAddressish;
 };
 
-export type GetWalletNfTsJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetWalletNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetWalletNfTsJSONResponse = SuccessResponse;
+export type GetWalletNFTsJSONResponse = SuccessResponse;
 
-export type GetWalletNfTsResponse = ReturnType<typeof deserializeResponse>;
+export type GetWalletNFTsResponse = ReturnType<typeof deserializeResponse>;
 
-export const getWalletNfTsOperation: PaginatedOperation<
-  GetWalletNfTsRequest,
-  GetWalletNfTsJSONRequest,
-  GetWalletNfTsResponse,
-  GetWalletNfTsJSONResponse['result']
+export const getWalletNFTsOperation: PaginatedOperation<
+  GetWalletNFTsRequest,
+  GetWalletNFTsJSONRequest,
+  GetWalletNFTsResponse,
+  GetWalletNFTsJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getWalletNFTs',
@@ -48,7 +48,7 @@ export const getWalletNfTsOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetWalletNfTsRequest, core: Core) {
+function getRequestUrlParams(request: GetWalletNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -59,7 +59,7 @@ function getRequestUrlParams(request: GetWalletNfTsRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: GetWalletNfTsRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetWalletNFTsJSONResponse, request: GetWalletNFTsRequest, core: Core) {
   return (jsonResponse.result ?? []).map((nft) =>
     EvmNft.create({
       chain: EvmChainResolver.resolve(request.chain, core),
@@ -81,7 +81,7 @@ function deserializeResponse(jsonResponse: GetWalletNfTsJSONResponse, request: G
   );
 }
 
-function serializeRequest(request: GetWalletNfTsRequest, core: Core) {
+function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -92,7 +92,7 @@ function serializeRequest(request: GetWalletNfTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetWalletNfTsJSONRequest, core: Core): GetWalletNfTsRequest {
+function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest, core: Core): GetWalletNFTsRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,

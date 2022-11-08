@@ -13,22 +13,22 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftMetadataRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export type GetNFTMetadataRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
   chain?: EvmChainish;
   address: EvmAddressish;
 };
 
-export type GetNftMetadataJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftMetadataJSONResponse = SuccessResponse;
+export type GetNFTMetadataJSONResponse = SuccessResponse;
 
-export type GetNftMetadataResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTMetadataResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftMetadataOperation: Operation<
-  GetNftMetadataRequest,
-  GetNftMetadataJSONRequest,
-  GetNftMetadataResponse,
-  GetNftMetadataJSONResponse
+export const getNFTMetadataOperation: Operation<
+  GetNFTMetadataRequest,
+  GetNFTMetadataJSONRequest,
+  GetNFTMetadataResponse,
+  GetNFTMetadataJSONResponse
 > = {
   method: 'GET',
   name: 'getNFTMetadata',
@@ -47,7 +47,7 @@ export const getNftMetadataOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftMetadataRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -56,7 +56,7 @@ function getRequestUrlParams(request: GetNftMetadataRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetNftMetadataJSONResponse, request: GetNftMetadataRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse, request: GetNFTMetadataRequest, core: Core) {
   return EvmNft.create(
     {
       ...toCamelCase(jsonResponse),
@@ -69,7 +69,7 @@ function deserializeResponse(jsonResponse: GetNftMetadataJSONResponse, request: 
   );
 }
 
-function serializeRequest(request: GetNftMetadataRequest, core: Core) {
+function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -78,7 +78,7 @@ function serializeRequest(request: GetNftMetadataRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftMetadataJSONRequest, core: Core): GetNftMetadataRequest {
+function deserializeRequest(jsonRequest: GetNFTMetadataJSONRequest, core: Core): GetNFTMetadataRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,

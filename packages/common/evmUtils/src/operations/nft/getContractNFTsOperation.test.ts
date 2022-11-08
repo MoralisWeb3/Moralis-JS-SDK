@@ -1,6 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { getContractNfTsOperation, GetContractNfTsRequest } from './getContractNFTsOperation';
+import { getContractNFTsOperation, GetContractNFTsRequest } from './getContractNFTsOperation';
 
 describe('getContractNfTsOperation', () => {
   let core: MoralisCore;
@@ -13,7 +13,7 @@ describe('getContractNfTsOperation', () => {
     const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
     const chain = '0x10';
 
-    const request: Required<GetContractNfTsRequest> = {
+    const request: Required<GetContractNFTsRequest> = {
       chain: EvmChain.create(chain, core),
       address: EvmAddress.create(address, core),
       format: 'decimal',
@@ -23,7 +23,7 @@ describe('getContractNfTsOperation', () => {
       totalRanges: 10,
     };
 
-    const serializedRequest = getContractNfTsOperation.serializeRequest(request, core);
+    const serializedRequest = getContractNFTsOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
@@ -33,7 +33,7 @@ describe('getContractNfTsOperation', () => {
     expect(serializedRequest.range).toBe(request.range);
     expect(serializedRequest.totalRanges).toBe(request.totalRanges);
 
-    const deserializedRequest = getContractNfTsOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getContractNFTsOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);

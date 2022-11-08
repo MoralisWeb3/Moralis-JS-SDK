@@ -13,7 +13,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface SearchNfTsRequest
+export interface SearchNFTsRequest
   extends Camelize<Omit<RequestParams, 'chain' | 'addresses' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   addresses?: EvmAddressish[];
@@ -21,17 +21,17 @@ export interface SearchNfTsRequest
   toDate?: DateInput;
 }
 
-export type SearchNfTsJSONRequest = ReturnType<typeof serializeRequest>;
+export type SearchNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type SearchNfTsJSONResponse = SuccessResponse;
+export type SearchNFTsJSONResponse = SuccessResponse;
 
-export type SearchNfTsResponse = ReturnType<typeof deserializeResponse>;
+export type SearchNFTsResponse = ReturnType<typeof deserializeResponse>;
 
-export const searchNfTsOperation: PaginatedOperation<
-  SearchNfTsRequest,
-  SearchNfTsJSONRequest,
-  SearchNfTsResponse,
-  SearchNfTsJSONResponse['result']
+export const searchNFTsOperation: PaginatedOperation<
+  SearchNFTsRequest,
+  SearchNFTsJSONRequest,
+  SearchNFTsResponse,
+  SearchNFTsJSONResponse['result']
 > = {
   method: 'GET',
   name: 'searchNFTs',
@@ -62,7 +62,7 @@ export const searchNfTsOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: SearchNfTsRequest, core: Core) {
+function getRequestUrlParams(request: SearchNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -78,7 +78,7 @@ function getRequestUrlParams(request: SearchNfTsRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: SearchNfTsJSONResponse, request: SearchNfTsRequest, core: Core) {
+function deserializeResponse(jsonResponse: SearchNFTsJSONResponse, request: SearchNFTsRequest, core: Core) {
   return (jsonResponse.result ?? []).map((nft) => ({
     token: EvmNft.create(
       {
@@ -108,7 +108,7 @@ function deserializeResponse(jsonResponse: SearchNfTsJSONResponse, request: Sear
   }));
 }
 
-function serializeRequest(request: SearchNfTsRequest, core: Core) {
+function serializeRequest(request: SearchNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
@@ -124,7 +124,7 @@ function serializeRequest(request: SearchNfTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: SearchNfTsJSONRequest, core: Core): SearchNfTsRequest {
+function deserializeRequest(jsonRequest: SearchNFTsJSONRequest, core: Core): SearchNFTsRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,

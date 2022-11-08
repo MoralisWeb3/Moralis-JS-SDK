@@ -1,6 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { getNftContractMetadataOperation, GetNftContractMetadataRequest } from './getNFTContractMetadataOperation';
+import { getNFTContractMetadataOperation, GetNFTContractMetadataRequest } from './getNFTContractMetadataOperation';
 
 describe('getNftContractMetadataOperation', () => {
   let core: MoralisCore;
@@ -13,17 +13,17 @@ describe('getNftContractMetadataOperation', () => {
     const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
     const chain = '0x10';
 
-    const request: Required<GetNftContractMetadataRequest> = {
+    const request: Required<GetNFTContractMetadataRequest> = {
       chain: EvmChain.create(chain, core),
       address: EvmAddress.create(address, core),
     };
 
-    const serializedRequest = getNftContractMetadataOperation.serializeRequest(request, core);
+    const serializedRequest = getNFTContractMetadataOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
 
-    const deserializedRequest = getNftContractMetadataOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getNFTContractMetadataOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);

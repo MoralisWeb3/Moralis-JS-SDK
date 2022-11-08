@@ -13,21 +13,21 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNftTransfersByBlockRequest = Camelize<Omit<RequestParams, 'chain'>> & {
+export type GetNFTTransfersByBlockRequest = Camelize<Omit<RequestParams, 'chain'>> & {
   chain?: EvmChainish;
 };
 
-export type GetNftTransfersByBlockJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetNFTTransfersByBlockJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetNftTransfersByBlockJSONResponse = SuccessResponse;
+export type GetNFTTransfersByBlockJSONResponse = SuccessResponse;
 
-export type GetNftTransfersByBlockResponse = ReturnType<typeof deserializeResponse>;
+export type GetNFTTransfersByBlockResponse = ReturnType<typeof deserializeResponse>;
 
-export const getNftTransfersByBlockOperation: PaginatedOperation<
-  GetNftTransfersByBlockRequest,
-  GetNftTransfersByBlockJSONRequest,
-  GetNftTransfersByBlockResponse,
-  GetNftTransfersByBlockJSONResponse['result']
+export const getNFTTransfersByBlockOperation: PaginatedOperation<
+  GetNFTTransfersByBlockRequest,
+  GetNFTTransfersByBlockJSONRequest,
+  GetNFTTransfersByBlockResponse,
+  GetNFTTransfersByBlockJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getNFTTransfersByBlock',
@@ -46,7 +46,7 @@ export const getNftTransfersByBlockOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetNftTransfersByBlockRequest, core: Core) {
+function getRequestUrlParams(request: GetNFTTransfersByBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
@@ -57,8 +57,8 @@ function getRequestUrlParams(request: GetNftTransfersByBlockRequest, core: Core)
 }
 
 function deserializeResponse(
-  jsonResponse: GetNftTransfersByBlockJSONResponse,
-  request: GetNftTransfersByBlockRequest,
+  jsonResponse: GetNFTTransfersByBlockJSONResponse,
+  request: GetNFTTransfersByBlockRequest,
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
@@ -75,7 +75,7 @@ function deserializeResponse(
   );
 }
 
-function serializeRequest(request: GetNftTransfersByBlockRequest, core: Core) {
+function serializeRequest(request: GetNFTTransfersByBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
@@ -85,7 +85,7 @@ function serializeRequest(request: GetNftTransfersByBlockRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNftTransfersByBlockJSONRequest, core: Core): GetNftTransfersByBlockRequest {
+function deserializeRequest(jsonRequest: GetNFTTransfersByBlockJSONRequest, core: Core): GetNFTTransfersByBlockRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     subdomain: jsonRequest.subdomain,

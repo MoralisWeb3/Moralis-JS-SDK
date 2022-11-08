@@ -1,8 +1,8 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { getNftOwnersOperation, GetNftOwnersRequest } from './getNFTOwnersOperation';
+import { getNFTOwnersOperation, GetNFTOwnersRequest } from './getNFTOwnersOperation';
 
-describe('getNftOwnersOperation', () => {
+describe('getNFTOwnersOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('getNftOwnersOperation', () => {
     const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
     const chain = '0x10';
 
-    const request: Required<GetNftOwnersRequest> = {
+    const request: Required<GetNFTOwnersRequest> = {
       chain: EvmChain.create(chain, core),
       address: EvmAddress.create(address, core),
       format: 'decimal',
@@ -21,7 +21,7 @@ describe('getNftOwnersOperation', () => {
       cursor: 'CURSOR1',
     };
 
-    const serializedRequest = getNftOwnersOperation.serializeRequest(request, core);
+    const serializedRequest = getNFTOwnersOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
@@ -29,7 +29,7 @@ describe('getNftOwnersOperation', () => {
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
 
-    const deserializedRequest = getNftOwnersOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getNFTOwnersOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);

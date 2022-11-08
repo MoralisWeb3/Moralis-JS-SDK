@@ -25,7 +25,7 @@ export const EndpointWeightsOperation: Operation<
   method: 'GET',
   name: 'endpointWeights',
   id: 'endpointWeights',
-  groupName: 'token',
+  groupName: 'utils',
   urlPathPattern: '/info/endpointWeights',
   urlPathParamNames: [],
 

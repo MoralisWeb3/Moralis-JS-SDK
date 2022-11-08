@@ -1,8 +1,8 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { getWalletNfTsOperation, GetWalletNfTsRequest } from './getWalletNFTsOperation';
+import { getWalletNFTsOperation, GetWalletNFTsRequest } from './getWalletNFTsOperation';
 
-describe('getWalletNfTsOperation', () => {
+describe('getWalletNFTsOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -14,7 +14,7 @@ describe('getWalletNfTsOperation', () => {
     const chain = '0x10';
     const tokenAddresses = ['0xfc0cB34deAe994432fe8a11bF54d90BDf54cA8c1'];
 
-    const request: Required<GetWalletNfTsRequest> = {
+    const request: Required<GetWalletNFTsRequest> = {
       chain: EvmChain.create(chain, core),
       address: EvmAddress.create(address, core),
       format: 'decimal',
@@ -23,7 +23,7 @@ describe('getWalletNfTsOperation', () => {
       cursor: 'CURSOR1',
     };
 
-    const serializedRequest = getWalletNfTsOperation.serializeRequest(request, core);
+    const serializedRequest = getWalletNFTsOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
@@ -35,7 +35,7 @@ describe('getWalletNfTsOperation', () => {
     }
     expect(serializedRequest.cursor).toBe(request.cursor);
 
-    const deserializedRequest = getWalletNfTsOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getWalletNFTsOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);

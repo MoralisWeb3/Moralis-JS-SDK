@@ -1,8 +1,8 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmChain } from '../../dataTypes';
-import { getNftTransfersByBlockOperation, GetNftTransfersByBlockRequest } from './getNFTTransfersByBlockOperation';
+import { getNFTTransfersByBlockOperation, GetNFTTransfersByBlockRequest } from './getNFTTransfersByBlockOperation';
 
-describe('getNftTransfersByBlockOperation', () => {
+describe('getNFTTransfersByBlockOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -12,7 +12,7 @@ describe('getNftTransfersByBlockOperation', () => {
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
     const chain = '0x10';
 
-    const request: Required<GetNftTransfersByBlockRequest> = {
+    const request: Required<GetNFTTransfersByBlockRequest> = {
       chain: EvmChain.create(chain, core),
       blockNumberOrHash: '0x123',
       limit: 100,
@@ -20,7 +20,7 @@ describe('getNftTransfersByBlockOperation', () => {
       subdomain: 'test.com',
     };
 
-    const serializedRequest = getNftTransfersByBlockOperation.serializeRequest(request, core);
+    const serializedRequest = getNFTTransfersByBlockOperation.serializeRequest(request, core);
 
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
@@ -28,7 +28,7 @@ describe('getNftTransfersByBlockOperation', () => {
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.subdomain).toBe(request.subdomain);
 
-    const deserializedRequest = getNftTransfersByBlockOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = getNFTTransfersByBlockOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);

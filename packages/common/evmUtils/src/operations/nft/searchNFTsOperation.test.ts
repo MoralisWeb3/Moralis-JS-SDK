@@ -1,8 +1,8 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
-import { searchNfTsOperation, SearchNfTsRequest } from './searchNFTsOperation';
+import { searchNFTsOperation, SearchNFTsRequest } from './searchNFTsOperation';
 
-describe('searchNfTsOperation', () => {
+describe('searchNFTsOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -15,7 +15,7 @@ describe('searchNfTsOperation', () => {
     const fromDate = '2021-01-01T00:00:00.000Z';
     const toDate = '2021-01-01T00:00:00.000Z';
 
-    const request: Required<SearchNfTsRequest> = {
+    const request: Required<SearchNFTsRequest> = {
       chain: EvmChain.create(chain, core),
       addresses: addresses.map((address) => EvmAddress.create(address, core)),
       q: 'Pancake',
@@ -29,7 +29,7 @@ describe('searchNfTsOperation', () => {
       toDate: new Date(toDate),
     };
 
-    const serializedRequest = searchNfTsOperation.serializeRequest(request, core);
+    const serializedRequest = searchNFTsOperation.serializeRequest(request, core);
 
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.addresses?.length).toBe(request.addresses.length);
@@ -46,7 +46,7 @@ describe('searchNfTsOperation', () => {
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
 
-    const deserializedRequest = searchNfTsOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = searchNFTsOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.addresses?.length).toBe(request.addresses.length);
