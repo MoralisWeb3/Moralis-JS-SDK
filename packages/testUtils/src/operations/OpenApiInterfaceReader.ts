@@ -11,6 +11,7 @@ import {
   PropertySignature,
   SourceFile,
 } from 'typescript';
+import { TsNodeWalker } from './TsNodeWalker';
 
 export class OpenApiInterfaceReader {
   private readonly sourceFile: SourceFile;
@@ -25,7 +26,7 @@ export class OpenApiInterfaceReader {
   }
 
   private getInterfaceNode(name: string): Node {
-    const result = process(this.sourceFile, (child) => {
+    const result = TsNodeWalker.traverse(this.sourceFile, (child) => {
       return isInterfaceDeclaration(child) && child.name.text === name ? child : null;
     });
     if (result.length !== 1) {
@@ -37,7 +38,7 @@ export class OpenApiInterfaceReader {
   private findLastNode(node: Node, path: string[]) {
     function find(parent: Node, pathIndex: number): PropertySignature | null {
       const name = path[pathIndex];
-      const result = process(parent, (child) => {
+      const result = TsNodeWalker.traverse(parent, (child) => {
         if (
           isPropertySignature(child) &&
           (isIdentifier(child.name) || isStringLiteral(child.name)) &&
@@ -63,7 +64,7 @@ export class OpenApiInterfaceReader {
   }
 
   private readPropertyNames(node: Node): string[] {
-    return process(node, (child) => {
+    return TsNodeWalker.traverse(node, (child) => {
       return isPropertySignature(child) && isIdentifier(child.name) ? child.name.text : null;
     });
   }
@@ -100,15 +101,4 @@ export class OpenApiInterfaceReader {
     }
     return null;
   }
-}
-
-function process<Value>(parent: Node, processor: (child: Node) => Value | null): Value[] {
-  const values: Value[] = [];
-  parent.forEachChild((child) => {
-    const value = processor(child);
-    if (value) {
-      values.push(value);
-    }
-  });
-  return values;
 }
