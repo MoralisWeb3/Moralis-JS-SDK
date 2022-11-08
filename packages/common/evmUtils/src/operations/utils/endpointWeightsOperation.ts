@@ -27,7 +27,6 @@ export const endpointWeightsOperation: Operation<
   id: 'endpointWeights',
   groupName: 'utils',
   urlPathPattern: '/info/endpointWeights',
-  urlPathParamNames: [],
 
   getRequestUrlParams,
   deserializeRequest,

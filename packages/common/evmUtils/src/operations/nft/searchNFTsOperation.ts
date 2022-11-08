@@ -38,7 +38,6 @@ export const searchNFTsOperation: PaginatedOperation<
   id: 'searchNFTs',
   groupName: 'nft',
   urlPathPattern: '/nft/search',
-  urlPathParamNames: [],
   urlSearchParamNames: [
     'chain',
     'format',

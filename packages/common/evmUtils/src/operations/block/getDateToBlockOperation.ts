@@ -35,7 +35,6 @@ export const getDateToBlockOperation: Operation<
   id: 'getDateToBlock',
   groupName: 'block',
   urlPathPattern: '/dateToBlock',
-  urlPathParamNames: [],
   urlSearchParamNames: ['chain', 'providerUrl', 'date'],
 
   getRequestUrlParams,

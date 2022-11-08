@@ -33,7 +33,6 @@ export const getTokenMetadataBySymbolOperation: Operation<
   id: 'getTokenMetadataBySymbol',
   groupName: 'token',
   urlPathPattern: '/erc20/metadata/symbols',
-  urlPathParamNames: [],
   urlSearchParamNames: ['chain', 'subdomain', 'symbols'],
 
   getRequestUrlParams,

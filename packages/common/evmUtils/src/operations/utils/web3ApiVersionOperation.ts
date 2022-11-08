@@ -27,7 +27,6 @@ export const web3ApiVersionOperation: Operation<
   id: 'web3ApiVersion',
   groupName: 'utils',
   urlPathPattern: '/web3/version',
-  urlPathParamNames: [],
 
   deserializeRequest,
   serializeRequest,

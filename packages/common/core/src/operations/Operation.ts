@@ -6,7 +6,7 @@ export interface Operation<Request, JSONRequest, Response, JSONResponse> {
   groupName: string;
   method: OperationRequestMethod;
   urlPathPattern: string;
-  urlPathParamNames: (keyof Request)[];
+  urlPathParamNames?: (keyof Request)[];
   urlSearchParamNames?: (keyof Request)[];
   bodyType?: OperationBodyType;
   bodyParamNames?: (keyof Request)[];

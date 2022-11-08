@@ -36,7 +36,7 @@ export const reSyncMetadataOperation: Operation<
   name: 'reSyncMetadata',
   id: 'reSyncMetadata',
   groupName: 'nft',
-  urlPathPattern: '/nft/{address}/{token_id}/metadata/resync',
+  urlPathPattern: '/nft/{address}/{tokenId}/metadata/resync',
   urlPathParamNames: ['address', 'tokenId'],
   urlSearchParamNames: ['chain', 'flag', 'mode'],
 
@@ -54,7 +54,7 @@ function getRequestUrlParams(request: ReSyncMetadataRequest, core: Core) {
     address: EvmAddress.create(request.address, core).lowercase,
     flag: request.flag,
     mode: request.mode,
-    token_id: request.tokenId,
+    tokenId: request.tokenId,
   };
 }
 

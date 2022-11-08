@@ -35,7 +35,6 @@ export const getNFTTransfersFromToBlockOperation: PaginatedOperation<
   id: 'getNFTTransfersFromToBlock',
   groupName: 'nft',
   urlPathPattern: '/nft/transfers',
-  urlPathParamNames: [],
   urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'format', 'limit', 'cursor'],
   firstPageIndex: 0,
 

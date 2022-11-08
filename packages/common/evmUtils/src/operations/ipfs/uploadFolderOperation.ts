@@ -33,7 +33,6 @@ export const uploadFolderOperation: Operation<
   id: 'uploadFolder',
   groupName: 'ipfs',
   urlPathPattern: '/ipfs/uploadFolder',
-  urlPathParamNames: [],
   bodyType: 'raw',
   bodyParamNames: ['abi'],
   getRequestUrlParams,

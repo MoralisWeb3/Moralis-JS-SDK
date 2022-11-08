@@ -34,7 +34,6 @@ export const getTokenMetadataOperation: Operation<
   id: 'getTokenMetadata',
   groupName: 'token',
   urlPathPattern: '/erc20/metadata',
-  urlPathParamNames: [],
   urlSearchParamNames: ['chain', 'subdomain', 'providerUrl', 'addresses'],
 
   getRequestUrlParams,
