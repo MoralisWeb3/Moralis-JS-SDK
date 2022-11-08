@@ -49,6 +49,7 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core
     address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     cursor: request.cursor,
+    subdomain: request.subdomain,
     limit: maybe(request.limit, String),
     to_block: maybe(request.toBlock, String),
     from_block: maybe(request.fromBlock, String),
