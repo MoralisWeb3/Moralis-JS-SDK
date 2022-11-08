@@ -1,5 +1,73 @@
 # @moralisweb3/streams
 
+## 2.7.1
+
+### Patch Changes
+
+- [#790](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/790) [`2f938764`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f93876446524edefc89af463c27942c8d46c423) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Add missing dependency to the `@moralisweb3/streams` package.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.1
+  - @moralisweb3/api-utils@2.7.1
+  - @moralisweb3/evm-utils@2.7.1
+
+## 2.7.0
+
+### Minor Changes
+
+- [#782](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/782) [`07c8ca69`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/07c8ca6988431d1fdf4a9bce509371ec52174af4) Thanks [@sogunshola](https://github.com/sogunshola)! - Incuded parse server package with streams plugin implementation and added document builder to streams package.
+
+* [#782](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/782) [`07c8ca69`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/07c8ca6988431d1fdf4a9bce509371ec52174af4) Thanks [@sogunshola](https://github.com/sogunshola)! - Included parse server package and added document builder logic to streams package
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.0
+  - @moralisweb3/api-utils@2.7.0
+  - @moralisweb3/evm-utils@2.7.0
+
+## 2.6.7
+
+### Patch Changes
+
+- [#768](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/768) [`6701030e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6701030e0a989804e44cbd25de3d33dfdc85fd7b) Thanks [@sogunshola](https://github.com/sogunshola)! - Move streams-typings from dev dependencies to dependencies in streams package and also correct export name in umbrella package
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.7
+  - @moralisweb3/api-utils@2.6.7
+  - @moralisweb3/evm-utils@2.6.7
+
+## 2.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`11ba50f7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11ba50f7ad4b43dd22eeb227452bc1be6c8888e4), [`d87f37c5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d87f37c5a56d5db5ca79ede9bb463d6ad20a13ab)]:
+  - @moralisweb3/evm-utils@2.6.6
+  - @moralisweb3/core@2.6.6
+  - @moralisweb3/api-utils@2.6.6
+
+## 2.6.5
+
+### Patch Changes
+
+- [#744](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/744) [`9953a791`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9953a79100ecc814c1fb12d820bee0f0abc06798) Thanks [@ErnoW](https://github.com/ErnoW)! - Update types and endpoints for Moralis.Streams to reflect the api changes. Some types have changes, `Moralis.Streams.retry` now accepts an id and is fixed. And return types from webhooks have been updated.
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.6.5
+  - @moralisweb3/api-utils@2.6.5
+  - @moralisweb3/evm-utils@2.6.5
+
+## 2.6.4
+
+### Patch Changes
+
+- [`4af4eb8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4af4eb8aab4e290afe9f2f2e2a924511c4613837) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix dependency/dev-dependency issue with streams-typings
+
+- Updated dependencies [[`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4)]:
+  - @moralisweb3/api-utils@2.6.4
+  - @moralisweb3/core@2.6.4
+  - @moralisweb3/evm-utils@2.6.4
+
 ## 2.6.3
 
 ### Patch Changes

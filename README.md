@@ -40,7 +40,7 @@
 
 # 🚀 Quick start
 
-If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/moralis-dapp/getting-started) on how to get started.
+If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/docs/moralis-sdk-setup) on how to get started.
 
 If you're already familiar with Moralis and have your server set up. Then follow along to connect your SDK:
 
@@ -76,7 +76,7 @@ Moralis.start({
 });
 ```
 
-After that you can use any Moralis functionalites via, as described in our [extensive docs](https://docs.moralis.io)
+After that you can use any Moralis functionalities via, as described in our [extensive docs](https://docs.moralis.io)
 
 # ⭐️ Star us
 
@@ -132,7 +132,7 @@ const core = MoralisCore.create();
 core.registerModules([MoralisEvmApi]);
 ```
 
-Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configation that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
+Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configuration that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
 
 ```javascript
 core.start({

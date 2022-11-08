@@ -11,7 +11,7 @@ const elBtnSolanaNativeBalance = document.getElementById('solana-native-balance'
 const handleEvmProxyCall = async (endpoint, params) => {
   const result = await axios.get(`${EVM_PROXY_URL}/${endpoint}`, params, {
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 
@@ -21,7 +21,7 @@ const handleEvmProxyCall = async (endpoint, params) => {
 const handleSolanaProxyCall = async (endpoint, params) => {
   const result = await axios.get(`${SOLANA_PROXY_URL}/${endpoint}`, params, {
     headers: {
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 

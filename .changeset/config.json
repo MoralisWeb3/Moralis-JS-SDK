@@ -24,14 +24,15 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "test-integration",
     "demo-cli",
     "demo-nextjs",
     "demo-express-proxy",
     "demo-parse-server",
     "demo-supabase-auth",
-    "demo-firebase-auth-functions",
     "demo-firebase-proxy-functions",
+    "demo-firebase-auth-ext-functions",
+    "demo-firebase-auth-ext-hosting",
+    "demo-firebase-streams-ext-functions",
     "demo-moralis-stream"
   ]
 }

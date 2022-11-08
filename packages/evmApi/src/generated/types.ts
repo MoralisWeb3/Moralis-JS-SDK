@@ -3,7 +3,7 @@
  * Do not make direct changes to the file.
  */
 
-export interface paths {
+ export interface paths {
   "/block/{block_number_or_hash}": {
     /** Get the contents of a block by block hash. */
     get: operations["getBlock"];
@@ -252,6 +252,11 @@ export interface components {
       topic2: string;
       /** @example null */
       topic3: string;
+      /**
+       * @description Respective Chain Id
+       * @example 1
+       */
+       chainId: string;
     };
     logEvent: {
       /**
@@ -290,6 +295,11 @@ export interface components {
       };
     };
     log: {
+      /**
+       * @description Respective Chain Id
+       * @example 1
+       */
+      chainId: string;
       /** @example 273 */
       log_index: string;
       /**
@@ -738,6 +748,8 @@ export interface components {
       | "0x5"
       | "kovan"
       | "0x2a"
+      | "sepolia"
+      | "0xaa36a7"
       | "polygon"
       | "0x89"
       | "mumbai"

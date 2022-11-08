@@ -1,4 +1,4 @@
-import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
+import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController, CoreConfig } from '@moralisweb3/core';
 import { ApiConfig } from '../config/ApiConfig';
 import { isNotFoundError } from '../errors/isNotFoundError';
 import { ApiResultAdapter } from './ApiResultAdapter';
@@ -73,10 +73,16 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
+    const bodyParams = this.paramsReader.getBodyParams(apiParams);
 
-    const result = await this.requestController.delete<ApiResult>(url, searchParams, {
-      headers: this.createHeaders(),
-    });
+    const result = await this.requestController.delete<ApiResult, Record<string, string>>(
+      url,
+      searchParams,
+      bodyParams,
+      {
+        headers: this.createHeaders(),
+      },
+    );
 
     return new ApiResultAdapter(result, this.endpoint.apiToResult, this.endpoint.resultToJson, params);
   };
@@ -87,6 +93,7 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
   private createHeaders(): { [key: string]: string } {
     const apiKey = this.config.get(ApiConfig.apiKey);
+    const product = this.config.get(CoreConfig.product);
 
     if (!apiKey) {
       throw new MoralisApiError({
@@ -99,6 +106,10 @@ export class EndpointResolver<ApiParams, Params, ApiResult, AdaptedResult, JSONR
 
     if (apiKey) {
       headers['x-api-key'] = apiKey;
+    }
+
+    if (product) {
+      headers['x-moralis-product'] = product;
     }
 
     return headers;

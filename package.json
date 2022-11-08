@@ -22,7 +22,6 @@
     "fs-extra": "^10.1.0",
     "glob-fs": "^0.1.7",
     "jest": "28",
-    "msw": "^0.43.0",
     "nx": "^14.5.10",
     "openapi-types": "^12.0.0",
     "prettier": "^2.7.1",
@@ -44,7 +43,7 @@
     "clean": "yarn nx run-many --target=clean --all",
     "test": "yarn nx run-many --target=test --all",
     "test:watch": "yarn nx run-many --target=test:watch --all",
-    "test:coverage": "yarn nx run-many test:coverage --parallel",
+    "test:coverage": "yarn nx run-many --target=test:coverage --all",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
     "release": "yarn build && changeset publish",
@@ -56,8 +55,8 @@
       "packages/client/*",
       "demos/*",
       "demos/firebase-proxy/*",
-      "demos/firebase-auth/*",
-      "demos/firebase-auth-ext/*"
+      "demos/firebase-auth-ext/*",
+      "demos/firebase-streams-ext/*"
     ]
   },
   "resolutions": {

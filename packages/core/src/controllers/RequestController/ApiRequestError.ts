@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 
 type ApiRequestError = AxiosError<{ message?: string | string[] }> & {
-  response: NonNullable<AxiosError<{ message: string | string[] }>['response']>;
+  response: NonNullable<AxiosError<{ message: string | string[]; details?: Record<string, unknown> }>['response']>;
 };
 
 /**
@@ -29,15 +29,19 @@ export const isApiRequestError = (error: unknown): error is ApiRequestError => {
  * - { }
  */
 export const getMessageFromApiRequestError = (error: ApiRequestError) => {
-  const { message } = error.response.data;
+  const { message, details } = error.response.data;
+
+  let result = 'Unknown error (no error info returned from API)';
 
   if (Array.isArray(message)) {
-    return message.join(', ');
+    result = message.join(', ');
+  } else if (typeof message === 'string') {
+    result = message;
   }
 
-  if (typeof message === 'string') {
-    return message;
+  if (details) {
+    result += ` ${JSON.stringify(details)}`;
   }
 
-  return 'Unknown error (no error info returned from API)';
+  return result;
 };

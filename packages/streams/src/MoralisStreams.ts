@@ -15,7 +15,7 @@ import { makeGetAddresses } from './methods/getAddresses';
 import { makeDeleteAddress } from './methods/deleteAddress';
 import { makeGetStreamById } from './methods/getById';
 
-export const BASE_URL = 'https://api.moralis-streams.com';
+const BASE_URL = 'https://api.moralis-streams.com';
 
 export class MoralisStreams extends ApiModule {
   public static readonly moduleName = 'streams';
@@ -49,7 +49,7 @@ export class MoralisStreams extends ApiModule {
   public readonly getAddresses = makeGetAddresses(this.endpoints);
   public readonly deleteAddress = makeDeleteAddress(this.endpoints);
 
-  public readonly getHistory = this.endpoints.createFetcher(getHistory);
+  public readonly getHistory = this.endpoints.createPaginatedFetcher(getHistory);
   public readonly retry = this.endpoints.createFetcher(replayHistory);
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);

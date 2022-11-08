@@ -1,5 +1,93 @@
 # moralis
 
+## 2.7.1
+
+### Patch Changes
+
+- Updated dependencies [[`2f938764`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f93876446524edefc89af463c27942c8d46c423)]:
+  - @moralisweb3/streams@2.7.1
+  - @moralisweb3/core@2.7.1
+  - @moralisweb3/auth@2.7.1
+  - @moralisweb3/api-utils@2.7.1
+  - @moralisweb3/evm-utils@2.7.1
+  - @moralisweb3/sol-utils@2.7.1
+  - @moralisweb3/evm-api@2.7.1
+  - @moralisweb3/sol-api@2.7.1
+
+## 2.7.0
+
+### Patch Changes
+
+- Updated dependencies [[`07c8ca69`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/07c8ca6988431d1fdf4a9bce509371ec52174af4), [`07c8ca69`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/07c8ca6988431d1fdf4a9bce509371ec52174af4)]:
+  - @moralisweb3/streams@2.7.0
+  - @moralisweb3/core@2.7.0
+  - @moralisweb3/auth@2.7.0
+  - @moralisweb3/api-utils@2.7.0
+  - @moralisweb3/evm-utils@2.7.0
+  - @moralisweb3/sol-utils@2.7.0
+  - @moralisweb3/evm-api@2.7.0
+  - @moralisweb3/sol-api@2.7.0
+
+## 2.6.7
+
+### Patch Changes
+
+- [#768](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/768) [`6701030e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6701030e0a989804e44cbd25de3d33dfdc85fd7b) Thanks [@sogunshola](https://github.com/sogunshola)! - Move streams-typings from dev dependencies to dependencies in streams package and also correct export name in umbrella package
+
+* [#742](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/742) [`cac6a0b9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cac6a0b9a29ee6f256f82ee81fc5d0fcb614d9cb) Thanks [@sogunshola](https://github.com/sogunshola)! - Export all utility functions in Moralis umbrella package
+
+* Updated dependencies [[`6701030e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6701030e0a989804e44cbd25de3d33dfdc85fd7b)]:
+  - @moralisweb3/streams@2.6.7
+  - @moralisweb3/core@2.6.7
+  - @moralisweb3/auth@2.6.7
+  - @moralisweb3/api-utils@2.6.7
+  - @moralisweb3/evm-utils@2.6.7
+  - @moralisweb3/sol-utils@2.6.7
+  - @moralisweb3/evm-api@2.6.7
+  - @moralisweb3/sol-api@2.6.7
+
+## 2.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`11ba50f7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11ba50f7ad4b43dd22eeb227452bc1be6c8888e4), [`d87f37c5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d87f37c5a56d5db5ca79ede9bb463d6ad20a13ab)]:
+  - @moralisweb3/evm-utils@2.6.6
+  - @moralisweb3/evm-api@2.6.6
+  - @moralisweb3/core@2.6.6
+  - @moralisweb3/auth@2.6.6
+  - @moralisweb3/streams@2.6.6
+  - @moralisweb3/api-utils@2.6.6
+  - @moralisweb3/sol-utils@2.6.6
+  - @moralisweb3/sol-api@2.6.6
+
+## 2.6.5
+
+### Patch Changes
+
+- Updated dependencies [[`9953a791`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9953a79100ecc814c1fb12d820bee0f0abc06798), [`9aada1f8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9aada1f83d71ee1d30c1fdeb2ec4f6161a7ad36c)]:
+  - @moralisweb3/streams@2.6.5
+  - @moralisweb3/evm-api@2.6.5
+  - @moralisweb3/core@2.6.5
+  - @moralisweb3/auth@2.6.5
+  - @moralisweb3/api-utils@2.6.5
+  - @moralisweb3/evm-utils@2.6.5
+  - @moralisweb3/sol-utils@2.6.5
+  - @moralisweb3/sol-api@2.6.5
+
+## 2.6.4
+
+### Patch Changes
+
+- Updated dependencies [[`4af4eb8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4af4eb8aab4e290afe9f2f2e2a924511c4613837), [`77eb29bf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77eb29bf7d920e40a74028ed989a5b21f2dc9ec4)]:
+  - @moralisweb3/streams@2.6.4
+  - @moralisweb3/api-utils@2.6.4
+  - @moralisweb3/core@2.6.4
+  - @moralisweb3/auth@2.6.4
+  - @moralisweb3/evm-utils@2.6.4
+  - @moralisweb3/sol-utils@2.6.4
+  - @moralisweb3/evm-api@2.6.4
+  - @moralisweb3/sol-api@2.6.4
+
 ## 2.6.3
 
 ### Patch Changes
