@@ -40,10 +40,10 @@ describe('deleteAddress', () => {
       expect(
         StreamApi.deleteAddress({
           networkType: 'evm',
-          address: 'some-address',
+          address: '0x3622277fec8fF2e6EF42c746F019476Ea321a7D3',
           id: 'INVALID_ADDRESS',
         }),
-      ).rejects.toThrowError('[C0006] Request failed, Bad Request(400): Invalid Address: some-address');
+      ).rejects.toThrowError('[C0006] Request failed, Bad Request(400): Invalid Address provided');
     });
 
     it('should throw a 404 Error on unknown address ', async () => {

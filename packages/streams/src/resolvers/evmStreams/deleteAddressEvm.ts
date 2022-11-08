@@ -1,6 +1,6 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
 import { toCamelCase } from '@moralisweb3/core';
-import { EvmAddress } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish } from '@moralisweb3/evm-utils';
 import { operations } from '../../generated/types';
 
 const name = 'DeleteAddressFromStream';
@@ -8,8 +8,10 @@ const name = 'DeleteAddressFromStream';
 type Name = typeof name;
 type PathParams = operations[Name]['parameters']['path'];
 type BodyParams = operations[Name]['requestBody']['content']['application/json'];
-type ApiParams = PathParams & BodyParams;
-export type DeleteAddressEvmParams = ApiParams;
+type ApiParams = Omit<PathParams & BodyParams, 'address'> & { address: string | string[] };
+export interface DeleteAddressEvmParams extends Omit<ApiParams, 'address'> {
+  address: EvmAddressish | EvmAddressish[];
+}
 const method = 'delete';
 const bodyParams = ['address'] as const;
 
@@ -20,7 +22,11 @@ const apiToResult = (apiData: ApiResult) => {
 
   return {
     ...data,
-    address: data.address ? EvmAddress.create(data.address) : undefined,
+    address: data.address
+      ? typeof data.address === 'string'
+        ? EvmAddress.create(data.address)
+        : data.address.map((address) => EvmAddress.create(address))
+      : undefined,
   };
 };
 
@@ -31,9 +37,18 @@ export const deleteAddressEvm = createEndpointFactory(() =>
     apiToResult,
     resultToJson: (data) => ({
       ...data,
-      address: data.address ? data.address.format() : undefined,
+      address: data.address
+        ? Array.isArray(data.address)
+          ? data.address.map((address) => address.format())
+          : data.address.format()
+        : undefined,
     }),
-    parseParams: (params: DeleteAddressEvmParams): ApiParams => params,
+    parseParams: (params: DeleteAddressEvmParams): ApiParams => ({
+      ...params,
+      address: Array.isArray(params.address)
+        ? params.address.map((address) => EvmAddress.create(address).lowercase)
+        : EvmAddress.create(params.address).lowercase,
+    }),
     method,
     bodyParams,
   }),
