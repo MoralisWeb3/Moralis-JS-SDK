@@ -12,11 +12,6 @@ export interface EvmUtilsConfigValues {
   formatEvmChainId: EvmChainIdFormat;
 }
 
-// @moralisweb3/api-utils
-export interface ApiUtilsConfigValues {
-  apiKey: string;
-}
-
 // @moralisweb3/evm-api
 export interface EvmApiConfigValues {
   defaultEvmApiChain: EvmChainish;

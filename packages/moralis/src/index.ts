@@ -7,7 +7,7 @@ import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
 import { SolApi } from '@moralisweb3/sol-api';
 import { Core, CoreProvider } from '@moralisweb3/common-core';
 
-import { MoralisConfigValues } from './Config/MoralisConfig';
+import { MoralisConfigValues } from './config/MoralisConfig';
 
 // Core
 const core = Core.create();
