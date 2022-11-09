@@ -8,6 +8,7 @@ export interface Operation<Request, JSONRequest, Response, JSONResponse> {
   urlPathPattern: string;
   urlPathParamNames?: (keyof Request)[];
   urlSearchParamNames?: (keyof Request)[];
+  ignoreBodyCheckOperationNames?: boolean;
   bodyType?: OperationBodyType;
   bodyParamNames?: (keyof Request)[];
   isNullable?: boolean;

@@ -18,7 +18,9 @@ describe('operations', () => {
 
         expect(operation.urlPathParamNames?.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
         expect(operation.urlSearchParamNames?.sort().join(',')).toBe(openApiSearchParamNames?.sort().join(','));
-        expect(operation.bodyParamNames?.sort().join(',')).toBe(openApiBodyParamNames?.sort().join(','));
+        if (!operation.ignoreBodyCheckOperationNames) {
+          expect(operation.bodyParamNames?.sort().join(',')).toBe(openApiBodyParamNames?.sort().join(','));
+        }
       });
 
       it(`getRequestUrlParams() function returns all supported property names`, () => {
