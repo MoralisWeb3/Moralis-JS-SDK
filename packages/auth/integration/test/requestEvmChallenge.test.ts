@@ -82,7 +82,7 @@ describe('requestEvmChallenge', () => {
       ).rejects.toThrowError('C0005] Invalid address provided');
     });
 
-    it('should return successfull for depracated network parameters', async () => {
+    it('should return successful for deprecated network parameters', async () => {
       const result = await AuthApi.requestMessage({
         network: 'evm',
         statement: 'VALID_RESPONSE',
