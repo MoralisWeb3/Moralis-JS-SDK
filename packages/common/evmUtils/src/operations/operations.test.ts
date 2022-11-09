@@ -18,7 +18,8 @@ describe('operations', () => {
 
         expect(operation.urlPathParamNames?.sort().join(',')).toBe(openApiPathParamNames?.sort().join(','));
         expect(operation.urlSearchParamNames?.sort().join(',')).toBe(openApiSearchParamNames?.sort().join(','));
-        if (!operation.ignoreBodyCheckOperationNames) {
+        const ignoreBodyCheckOperationNames = ['getContractEvents', 'uploadFolder'];
+        if (!ignoreBodyCheckOperationNames.includes(operation.name)) {
           expect(operation.bodyParamNames?.sort().join(',')).toBe(openApiBodyParamNames?.sort().join(','));
         }
       });

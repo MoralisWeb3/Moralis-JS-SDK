@@ -34,7 +34,6 @@ export const uploadFolderOperation: Operation<
   groupName: 'ipfs',
   urlPathPattern: '/ipfs/uploadFolder',
   bodyType: 'raw',
-  ignoreBodyCheckOperationNames: true,
   bodyParamNames: ['abi'],
   getRequestUrlParams,
   serializeRequest,

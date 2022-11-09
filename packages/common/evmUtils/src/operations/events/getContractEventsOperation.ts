@@ -54,7 +54,6 @@ export const getContractEventsOperation: PaginatedOperation<
   ],
   bodyParamNames: ['abi'],
   bodyType: 'properties',
-  ignoreBodyCheckOperationNames: true,
   firstPageIndex: 0,
 
   getRequestUrlParams,
