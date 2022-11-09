@@ -1,2 +1,2 @@
 export * from './BigNumber';
-export { BigNumberPrimitive } from './BigNumberParser';
+export type { BigNumberPrimitive } from './BigNumberParser';
