@@ -3,11 +3,6 @@ import { IWebhook } from '@moralisweb3/streams-typings';
 import { isWebhook, hasAbis } from '../utils/logDecoderUtils';
 import { LogParser } from '../mapping';
 
-export interface ParseLogOptions {
-  webhookData: unknown;
-  tag: string;
-}
-
 export const parseLog = <Event>(webhookData: IWebhook) => {
   if (!isWebhook(webhookData)) {
     throw new MoralisStreamError({
