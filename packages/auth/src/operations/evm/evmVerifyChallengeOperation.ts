@@ -59,6 +59,7 @@ function deserializeResponse({ chainId, ...jsonResponse }: EvmVerifyChallengeJSO
     chain: EvmChain.create(chainId),
     address: EvmAddress.create(jsonResponse.address),
     expirationTime: maybe(jsonResponse.expirationTime, (value) => new Date(value)),
+    notBefore: maybe(jsonResponse.notBefore, (value) => new Date(value)),
   };
 }
 

@@ -59,6 +59,7 @@ function deserializeResponse({ network, ...jsonResponse }: SolVerifyChallengeJSO
     solNetwork: SolNetwork.create(network),
     address: SolAddress.create(jsonResponse.address),
     expirationTime: maybe(jsonResponse.expirationTime, (value) => new Date(value)),
+    notBefore: maybe(jsonResponse.notBefore, (value) => new Date(value)),
   };
 }
 
