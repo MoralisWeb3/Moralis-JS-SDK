@@ -9,7 +9,7 @@ export class ResponseAdapter<Response, JSONResponse> {
     return this.jsonResponse;
   }
 
-  public toJSON() {
+  public toJSON(): JSONResponse {
     return this.jsonResponse;
   }
 }

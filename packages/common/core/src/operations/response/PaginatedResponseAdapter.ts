@@ -18,7 +18,7 @@ export class PaginatedResponseAdapter<Result, JSONResult> {
     return this.jsonResponse;
   }
 
-  public toJSON() {
+  public toJSON(): PaginatedJSONResponse<JSONResult> {
     return this.jsonResponse;
   }
 
