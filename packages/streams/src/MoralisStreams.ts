@@ -1,4 +1,4 @@
-import { getSettings, setSettings } from './resolvers';
+import { getSettings, getStats, getStatsById, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { makeCreateStream } from './methods/create';
@@ -8,12 +8,13 @@ import { makeGetStreams } from './methods/getAll';
 import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
 import { makeAddAddress } from './methods/addAddress';
 import { makeUpdateStreamStatus } from './methods/updateStatus';
-import { parseLog, ParseLogOptions } from './methods/logParser';
+import { parseLog } from './methods/logParser';
 import { getHistory } from './resolvers/history/getHistory';
 import { replayHistory } from './resolvers/history/replayHistory';
 import { makeGetAddresses } from './methods/getAddresses';
 import { makeDeleteAddress } from './methods/deleteAddress';
 import { makeGetStreamById } from './methods/getById';
+import { IWebhook } from '@moralisweb3/streams-typings';
 
 const BASE_URL = 'https://api.moralis-streams.com';
 
@@ -52,11 +53,15 @@ export class MoralisStreams extends ApiModule {
   public readonly getHistory = this.endpoints.createPaginatedFetcher(getHistory);
   public readonly retry = this.endpoints.createFetcher(replayHistory);
 
+  private readonly _getStats = this.endpoints.createFetcher(getStats);
+  public readonly getStats = () => this._getStats({});
+  public readonly getStatsById = this.endpoints.createFetcher(getStatsById);
+
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
   private readonly _readSettings = this.endpoints.createFetcher(getSettings);
   public readonly readSettings = () => this._readSettings({});
 
   public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
 
-  public readonly parsedLogs = <Event>(options: ParseLogOptions) => parseLog<Event>(options);
+  public readonly parsedLogs = <Event>(webhookData: IWebhook) => parseLog<Event>(webhookData);
 }
