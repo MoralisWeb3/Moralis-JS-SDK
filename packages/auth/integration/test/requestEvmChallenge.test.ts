@@ -13,7 +13,7 @@ describe('requestEvmChallenge', () => {
   });
 
   describe('Request EVM Challenge', () => {
-    it('should request evm succesfully', async () => {
+    it('should request evm challenge successfully', async () => {
       const result = await AuthApi.requestMessage({
         networkType: 'evm',
         statement: 'VALID_RESPONSE',
@@ -82,7 +82,7 @@ describe('requestEvmChallenge', () => {
       ).rejects.toThrowError('C0005] Invalid address provided');
     });
 
-    it('should return successfull for depracated network parameters', async () => {
+    it('should return successful for depracated network parameters', async () => {
       const result = await AuthApi.requestMessage({
         network: 'evm',
         statement: 'VALID_RESPONSE',

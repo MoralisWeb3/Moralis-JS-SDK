@@ -13,7 +13,7 @@ describe('requestSolanaChallenge', () => {
   });
 
   describe('Request Solana Challenge', () => {
-    it('should request solana succesfully', async () => {
+    it('should request solana challenge successfully', async () => {
       const result = await AuthApi.requestMessage({
         domain: 'defi.finance',
         networkType: 'solana',
