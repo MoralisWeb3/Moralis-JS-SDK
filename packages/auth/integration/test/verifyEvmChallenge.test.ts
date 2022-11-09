@@ -13,7 +13,7 @@ describe('verifyEvmChallenge', () => {
   });
 
   describe('Verify EVM Challenge', () => {
-    it('should request evm succesfully', async () => {
+    it('should verify evm challenge successfully, async () => {
       const result = await AuthApi.verify({
         message: 'VALID_RESPONSE',
         signature: '0x1234567890abcdef0123456789abcdef1234567890abcdef',
