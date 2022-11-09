@@ -6,7 +6,7 @@ export class OperationRequestValidator<Request> {
 
   public constructor(operation: Operation<Request, unknown, unknown, unknown>) {
     this.allParamNames = [
-      ...operation.urlPathParamNames,
+      ...(operation.urlPathParamNames || []),
       ...(operation.urlSearchParamNames || []),
       ...(operation.bodyParamNames || []),
     ];

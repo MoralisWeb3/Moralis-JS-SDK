@@ -1,1 +1,0 @@
-export { getNativeBalance } from './getNativeBalance';
