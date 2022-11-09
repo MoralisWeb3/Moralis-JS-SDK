@@ -34,10 +34,10 @@ export const mockAddAddressEvm = MockScenarios.create(
     {
       condition: {
         id: 'INVALID_ADDRESS',
-        address: '0x3622277fec8ff2e6ef42c746f019476ea321a7d3',
+        address: 'some-address',
       },
       responseStatus: 400,
-      response: createErrorResponse('Invalid Address provided'),
+      response: createErrorResponse('Invalid address provided'),
     },
     {
       condition: {
