@@ -18,7 +18,7 @@ describe('evmRequestChallengeOperation', () => {
     const request: Required<EvmRequestChallengeRequest> = {
       address: EvmAddress.create(address, core),
       domain: 'defi.finance',
-      chain: EvmChain.create(chain, core),
+      chainId: EvmChain.create(chain, core),
       statement: 'VALID_RESPONSE',
       uri: 'https://defi.finance/',
       expirationTime: new Date(expirationTime),
@@ -42,7 +42,7 @@ describe('evmRequestChallengeOperation', () => {
     const deserializedRequest = evmRequestChallengeOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
-    expect((deserializedRequest.chain as EvmChain).decimal.toString()).toBe(chain);
+    expect((deserializedRequest.chainId as EvmChain).decimal.toString()).toBe(chain);
     expect(deserializedRequest.domain).toBe(request.domain);
     expect(deserializedRequest.statement).toBe(request.statement);
     expect(deserializedRequest.uri).toBe(request.uri);

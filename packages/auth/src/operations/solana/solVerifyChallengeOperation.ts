@@ -1,5 +1,6 @@
-import { Camelize, Operation } from '@moralisweb3/common-core';
-import { operations } from '../generated/types';
+import { Camelize, maybe, Operation } from '@moralisweb3/common-core';
+import { SolAddress, SolNetwork } from '@moralisweb3/common-sol-utils';
+import { operations } from '../../generated/types';
 
 type OperationId = 'verifyChallengeSolana';
 
@@ -23,12 +24,14 @@ export const solVerifyChallengeOperation: Operation<
   SolVerifyChallengeJSONRequest,
   SolVerifyChallengeResponse,
   SolVerifyChallengeJSONResponse
-  > = {
+> = {
   method: 'POST',
-  name: 'SolVerifyChallenge',
-  id: 'SolVerifyChallenge',
-  groupName: 'auth',
-  urlPathPattern: '/challenge/request/sol',
+  name: 'solVerifyChallenge',
+  id: 'verifyChallengeSolana',
+  groupName: 'solana',
+  urlPathPattern: '/challenge/verify/solana',
+  bodyParamNames: ['message', 'signature'],
+  bodyType: 'properties',
 
   getRequestUrlParams,
   getRequestBody,
@@ -50,8 +53,13 @@ function getRequestBody(request: SolVerifyChallengeRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: SolVerifyChallengeJSONResponse) {
-  return jsonResponse;
+function deserializeResponse({ network, ...jsonResponse }: SolVerifyChallengeJSONResponse) {
+  return {
+    ...jsonResponse,
+    solNetwork: SolNetwork.create(network),
+    address: SolAddress.create(jsonResponse.address),
+    expirationTime: maybe(jsonResponse.expirationTime, (value) => new Date(value)),
+  };
 }
 
 function serializeRequest(request: SolVerifyChallengeRequest) {

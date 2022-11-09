@@ -1,6 +1,6 @@
 import { Camelize, Operation, DateInput } from '@moralisweb3/common-core';
-import { SolAddress, SolAddressish, SolNetwork } from '@moralisweb3/common-sol-utils';
-import { operations } from '../generated/types';
+import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '@moralisweb3/common-sol-utils';
+import { operations } from '../../generated/types';
 
 type OperationId = 'requestChallengeSolana';
 
@@ -11,9 +11,10 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface SolRequestChallengeRequest extends Camelize<Omit<RequestParams, 'address' | 'network' | 'expirationTime' | 'notBefore'>> {
+export interface SolRequestChallengeRequest
+  extends Camelize<Omit<RequestParams, 'address' | 'network' | 'expirationTime' | 'notBefore'>> {
   address: SolAddressish;
-  network: SolNetwork;
+  network: SolNetworkish;
   expirationTime?: DateInput;
   notBefore?: DateInput;
 }
@@ -29,12 +30,24 @@ export const solRequestChallengeOperation: Operation<
   SolRequestChallengeJSONRequest,
   SolRequestChallengeResponse,
   SolRequestChallengeJSONResponse
-  > = {
+> = {
   method: 'POST',
-  name: 'SolRequestChallenge',
-  id: 'SolRequestChallenge',
-  groupName: 'auth',
-  urlPathPattern: '/challenge/request/sol',
+  name: 'solRequestChallenge',
+  id: 'requestChallengeSolana',
+  groupName: 'solana',
+  urlPathPattern: '/challenge/request/solana',
+  bodyParamNames: [
+    'domain',
+    'network',
+    'address',
+    'statement',
+    'uri',
+    'expirationTime',
+    'notBefore',
+    'resources',
+    'timeout',
+  ],
+  bodyType: 'properties',
 
   getRequestUrlParams,
   getRequestBody,

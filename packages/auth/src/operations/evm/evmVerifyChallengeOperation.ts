@@ -1,5 +1,6 @@
-import { Camelize, Operation } from '@moralisweb3/common-core';
-import { operations } from '../generated/types';
+import { Camelize, maybe, Operation } from '@moralisweb3/common-core';
+import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { operations } from '../../generated/types';
 
 type OperationId = 'verifyChallengeEvm';
 
@@ -23,12 +24,14 @@ export const evmVerifyChallengeOperation: Operation<
   EvmVerifyChallengeJSONRequest,
   EvmVerifyChallengeResponse,
   EvmVerifyChallengeJSONResponse
-  > = {
+> = {
   method: 'POST',
-  name: 'EvmVerifyChallenge',
-  id: 'EvmVerifyChallenge',
-  groupName: 'auth',
-  urlPathPattern: '/challenge/request/evm',
+  name: 'evmVerifyChallenge',
+  id: 'verifyChallengeEvm',
+  groupName: 'evm',
+  urlPathPattern: '/challenge/verify/evm',
+  bodyParamNames: ['message', 'signature'],
+  bodyType: 'properties',
 
   getRequestUrlParams,
   getRequestBody,
@@ -50,8 +53,13 @@ function getRequestBody(request: EvmVerifyChallengeRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: EvmVerifyChallengeJSONResponse) {
-  return jsonResponse;
+function deserializeResponse({ chainId, ...jsonResponse }: EvmVerifyChallengeJSONResponse) {
+  return {
+    ...jsonResponse,
+    chain: EvmChain.create(chainId),
+    address: EvmAddress.create(jsonResponse.address),
+    expirationTime: maybe(jsonResponse.expirationTime, (value) => new Date(value)),
+  };
 }
 
 function serializeRequest(request: EvmVerifyChallengeRequest) {

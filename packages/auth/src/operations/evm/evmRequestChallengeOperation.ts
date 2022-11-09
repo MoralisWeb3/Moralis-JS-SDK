@@ -1,6 +1,6 @@
 import { Core, Camelize, Operation, DateInput } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChainResolver } from '@moralisweb3/common-evm-utils';
-import { operations } from '../generated/types';
+import { operations } from '../../generated/types';
 
 type OperationId = 'requestChallengeEvm';
 
@@ -11,9 +11,10 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface EvmRequestChallengeRequest extends Camelize<Omit<RequestParams, 'address' | 'chainId' | 'expirationTime' | 'notBefore'>> {
+export interface EvmRequestChallengeRequest
+  extends Camelize<Omit<RequestParams, 'address' | 'chainId' | 'expirationTime' | 'notBefore'>> {
   address: EvmAddressish;
-  chain: EvmChainish;
+  chainId: EvmChainish;
   expirationTime?: DateInput;
   notBefore?: DateInput;
 }
@@ -29,12 +30,24 @@ export const evmRequestChallengeOperation: Operation<
   EvmRequestChallengeJSONRequest,
   EvmRequestChallengeResponse,
   EvmRequestChallengeJSONResponse
-  > = {
+> = {
   method: 'POST',
-  name: 'EvmRequestChallenge',
-  id: 'EvmRequestChallenge',
-  groupName: 'auth',
+  name: 'evmRequestChallenge',
+  id: 'requestChallengeEvm',
+  groupName: 'evm',
   urlPathPattern: '/challenge/request/evm',
+  bodyParamNames: [
+    'domain',
+    'chainId',
+    'address',
+    'statement',
+    'uri',
+    'expirationTime',
+    'notBefore',
+    'resources',
+    'timeout',
+  ],
+  bodyType: 'properties',
 
   getRequestUrlParams,
   getRequestBody,
@@ -52,7 +65,7 @@ function getRequestUrlParams() {
 function getRequestBody(request: EvmRequestChallengeRequest, core: Core) {
   return {
     domain: request.domain,
-    chainId: EvmChainResolver.resolve(request.chain, core).decimal.toString(),
+    chainId: EvmChainResolver.resolve(request.chainId, core).decimal.toString(),
     address: EvmAddress.create(request.address, core).checksum,
     statement: request.statement,
     uri: request.uri,
@@ -70,7 +83,7 @@ function deserializeResponse(jsonResponse: EvmRequestChallengeJSONResponse) {
 function serializeRequest(request: EvmRequestChallengeRequest, core: Core) {
   return {
     domain: request.domain,
-    chainId: EvmChainResolver.resolve(request.chain, core).decimal.toString(),
+    chainId: EvmChainResolver.resolve(request.chainId, core).decimal.toString(),
     address: EvmAddress.create(request.address, core).checksum,
     statement: request.statement,
     uri: request.uri,
@@ -84,7 +97,7 @@ function serializeRequest(request: EvmRequestChallengeRequest, core: Core) {
 function deserializeRequest(jsonRequest: EvmRequestChallengeJSONRequest, core: Core): EvmRequestChallengeRequest {
   return {
     domain: jsonRequest.domain,
-    chain: EvmChainResolver.resolve(jsonRequest.chainId, core),
+    chainId: EvmChainResolver.resolve(jsonRequest.chainId, core),
     address: EvmAddress.create(jsonRequest.address, core),
     statement: jsonRequest.statement,
     uri: jsonRequest.uri,

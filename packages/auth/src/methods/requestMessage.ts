@@ -1,10 +1,10 @@
 import { SolAddressish, SolNetworkish, SolAddress, SolNetwork } from '@moralisweb3/common-sol-utils';
-import { EndpointResolver } from '@moralisweb3/api-utils';
+import { OperationResolver } from '@moralisweb3/api-utils';
 import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { BASE_URL } from '../MoralisAuth';
-import { initializeChallengeEvm, initializeChallengeSol } from '../resolvers';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
+import { solRequestChallengeOperation, evmRequestChallengeOperation } from '../operations';
 
 // Imported from Swagger and adjusted for better types for Evm
 // TODO: generalize and extend generated types
@@ -51,7 +51,7 @@ const makeEvmRequestMessage = (
   core: Core,
   { chain, address, networkType, network, ...options }: RequestMessageEvmOptions,
 ) => {
-  return EndpointResolver.create(core, BASE_URL, initializeChallengeEvm).fetch({
+  return new OperationResolver(evmRequestChallengeOperation, BASE_URL, core).fetch({
     chainId: EvmChain.create(chain).apiId,
     address: EvmAddress.create(address).checksum,
     ...options,
@@ -62,7 +62,7 @@ const makeSolRequestMessage = (
   core: Core,
   { address, solNetwork, networkType, network, ...options }: RequestMessageSolOptions,
 ) => {
-  return EndpointResolver.create(core, BASE_URL, initializeChallengeSol).fetch({
+  return new OperationResolver(solRequestChallengeOperation, BASE_URL, core).fetch({
     network: SolNetwork.create(solNetwork).network,
     address: SolAddress.create(address).toString(),
     ...options,

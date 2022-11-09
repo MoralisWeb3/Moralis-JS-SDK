@@ -1,7 +1,7 @@
-import { EndpointResolver } from '@moralisweb3/api-utils';
+import { OperationResolver } from '@moralisweb3/api-utils';
 import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { BASE_URL } from '../MoralisAuth';
-import { completeChallengeEvm, completeChallengeSol } from '../resolvers';
+import { solVerifyChallengeOperation, evmVerifyChallengeOperation } from '../operations';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
 
 export interface VerifyEvmOptions {
@@ -30,14 +30,24 @@ export type VerifyEvmData = ReturnType<typeof makeEvmVerify>;
 export type VerifySolData = ReturnType<typeof makeSolVerify>;
 
 const makeEvmVerify = (core: Core, { networkType, network, ...options }: VerifyEvmOptions) => {
-  return EndpointResolver.create(core, BASE_URL, completeChallengeEvm).fetch({
+  // eslint-disable-next-line etc/no-commented-out-code
+  // return EndpointResolver.create(core, BASE_URL, completeChallengeEvm).fetch({
+  //   message: options.message,
+  //   signature: options.signature,
+  // });
+  return new OperationResolver(evmVerifyChallengeOperation, BASE_URL, core).fetch({
     message: options.message,
     signature: options.signature,
   });
 };
 
 const makeSolVerify = (core: Core, { networkType, network, ...options }: VerifySolOptions) => {
-  return EndpointResolver.create(core, BASE_URL, completeChallengeSol).fetch({
+  // eslint-disable-next-line etc/no-commented-out-code
+  // return EndpointResolver.create(core, BASE_URL, completeChallengeSol).fetch({
+  //   message: options.message,
+  //   signature: options.signature,
+  // });
+  return new OperationResolver(solVerifyChallengeOperation, BASE_URL, core).fetch({
     message: options.message,
     signature: options.signature,
   });
