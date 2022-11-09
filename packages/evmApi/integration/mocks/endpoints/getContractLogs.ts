@@ -27,7 +27,6 @@ const scenarios = [
     condition: {
       chain: '0x89',
       address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b989',
-      topic: '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62',
       fromDate: '2022-03-05T13:45:42.000Z',
       toDate: '2022-03-05T13:45:42.000Z',
       subdomain: 'ethereum',
@@ -44,7 +43,7 @@ const scenarios = [
 export const mockGetContractLogs = rest.get(`${EVM_API_ROOT}/:address/logs`, (req, res, ctx) => {
   const address = req.params.address as string;
   const chain = req.url.searchParams.get('chain') as string | null;
-  const topic = req.url.searchParams.get('topic') as string | null;
+  const topic3 = req.url.searchParams.get('topic3') as string | null;
   const fromDate = req.url.searchParams.get('from_date') as string | null;
   const toDate = req.url.searchParams.get('to_date') as string | null;
   const topic0 = req.url.searchParams.get('topic0') as string | null;
@@ -66,7 +65,7 @@ export const mockGetContractLogs = rest.get(`${EVM_API_ROOT}/:address/logs`, (re
       s.condition.chain === chain &&
       s.condition.topic1 === topic1 &&
       s.condition.topic2 === topic2 &&
-      s.condition.topic === topic &&
+      s.condition.topic3 === topic3 &&
       s.condition.fromDate === fromDate &&
       s.condition.toDate === toDate &&
       s.condition.topic0 === topic0,

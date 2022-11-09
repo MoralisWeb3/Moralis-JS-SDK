@@ -49,4 +49,5 @@ packages/**/coverage
 TODO.md
 archive/**/*
 .vscode/
+.idea/
 dump.rdb

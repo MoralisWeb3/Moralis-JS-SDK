@@ -1,23 +1,27 @@
-import { Core, Camelize, PaginatedOperation, toCamelCase, BigNumber, maybe } from '@moralisweb3/common-core';
-import { Erc20Transfer, EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
+import { Core, Camelize, PaginatedOperation, maybe, BigNumber, toCamelCase, DateInput } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transfer } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
 type OperationId = 'getWalletTokenTransfers';
 type PathParams = operations[OperationId]['parameters']['path'];
 type QueryParams = operations[OperationId]['parameters']['query'];
+type RequestParams = PathParams & QueryParams;
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
-export interface GetWalletTokenTransfersRequest extends Camelize<Omit<PathParams & QueryParams, 'chain' | 'address'>> {
+export interface GetWalletTokenTransfersRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetWalletTokenTransfersJSONRequest = ReturnType<typeof serializeRequest>;
 
-export interface GetWalletTokenTransfersJSONResponse extends SuccessResponse {}
+export type GetWalletTokenTransfersJSONResponse = SuccessResponse;
 
 export type GetWalletTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
 
@@ -31,29 +35,30 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
   name: 'getWalletTokenTransfers',
   id: 'getWalletTokenTransfers',
   groupName: 'token',
-  urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'cursor', 'fromBlock', 'fromDate', 'limit', 'subdomain', 'toBlock', 'toDate'],
   urlPathPattern: '/{address}/erc20/transfers',
+  urlPathParamNames: ['address'],
+  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
-  deserializeResponse,
   serializeRequest,
   deserializeRequest,
+  deserializeResponse,
 };
 
 // Methods
 
 function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
-    address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    cursor: request.cursor,
-    limit: maybe(request.limit, String),
-    to_block: maybe(request.toBlock, String),
+    address: EvmAddress.create(request.address, core).lowercase,
+    subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
-    from_date: request.fromDate,
-    to_date: request.toDate,
+    to_block: maybe(request.toBlock, String),
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
+    limit: maybe(request.limit, String),
+    cursor: request.cursor,
   };
 }
 
@@ -62,8 +67,8 @@ function deserializeResponse(
   request: GetWalletTokenTransfersRequest,
   core: Core,
 ) {
-  return (jsonResponse.result || []).map((transfer) => {
-    return Erc20Transfer.create({
+  return (jsonResponse.result ?? []).map((transfer) =>
+    Erc20Transfer.create({
       ...toCamelCase(transfer),
       chain: EvmChainResolver.resolve(request.chain, core),
       address: EvmAddress.create(transfer.address, core),
@@ -71,21 +76,21 @@ function deserializeResponse(
       fromAddress: EvmAddress.create(transfer.from_address, core),
       value: BigNumber.create(transfer.value),
       blockTimestamp: new Date(transfer.block_timestamp),
-    });
-  });
+    }),
+  );
 }
 
 function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
-    address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    cursor: request.cursor,
-    toBlock: request.toBlock,
+    address: EvmAddress.create(request.address, core).checksum,
+    subdomain: request.subdomain,
     fromBlock: request.fromBlock,
+    toBlock: request.toBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
-    subdomain: request.subdomain,
     limit: request.limit,
+    cursor: request.cursor,
   };
 }
 
@@ -94,14 +99,14 @@ function deserializeRequest(
   core: Core,
 ): GetWalletTokenTransfersRequest {
   return {
-    address: EvmAddress.create(jsonRequest.address, core),
     chain: EvmChain.create(jsonRequest.chain, core),
-    cursor: jsonRequest.cursor,
-    toBlock: jsonRequest.toBlock,
+    address: EvmAddress.create(jsonRequest.address, core),
+    subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
+    toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
-    subdomain: jsonRequest.subdomain,
     limit: jsonRequest.limit,
+    cursor: jsonRequest.cursor,
   };
 }

@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetPortfolioRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
+export type GetPortfolioRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
   network?: SolNetworkish;
   address: SolAddressish;
-}
+};
 
 export type GetPortfolioJSONRequest = ReturnType<typeof serializeRequest>;
 

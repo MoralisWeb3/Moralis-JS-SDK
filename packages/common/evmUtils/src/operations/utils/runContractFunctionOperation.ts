@@ -33,7 +33,7 @@ export const runContractFunctionOperation: Operation<
   method: 'POST',
   name: 'runContractFunction',
   id: 'runContractFunction',
-  groupName: 'token',
+  groupName: 'utils',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'functionName', 'providerUrl', 'subdomain'],
   urlPathPattern: '/{address}/function',
@@ -53,7 +53,7 @@ function getRequestUrlParams(request: RunContractFunctionRequest, core: Core) {
   return {
     address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    functionName: request.functionName,
+    function_name: request.functionName,
     providerUrl: request.providerUrl,
     subdomain: request.subdomain,
   };

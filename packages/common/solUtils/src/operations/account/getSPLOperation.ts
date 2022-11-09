@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetSPLRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
+export type GetSPLRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
   network?: SolNetworkish;
   address: SolAddressish;
-}
+};
 
 export type GetSPLJSONRequest = ReturnType<typeof serializeRequest>;
 

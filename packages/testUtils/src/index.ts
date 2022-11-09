@@ -1,3 +1,3 @@
 export * from './MockScenarios';
 export * from './MockServer';
-export * from './openapi';
+export * from './operations';

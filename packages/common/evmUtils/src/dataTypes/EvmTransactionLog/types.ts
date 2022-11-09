@@ -27,7 +27,7 @@ export interface EvmTransactionLogInput {
   transactionIndex?: number;
   address: EvmAddressish;
   data: string;
-  topics: string[];
+  topics: (string | null)[];
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;
@@ -43,7 +43,7 @@ export interface EvmTransactionLogData {
   transactionIndex?: number;
   address: EvmAddress;
   data: string;
-  topics: string[];
+  topics: (string | null)[];
   blockHash: string;
   blockNumber: number;
   blockTimestamp?: string;

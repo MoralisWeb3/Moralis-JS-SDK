@@ -8,6 +8,8 @@ import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
  */
 export type EvmTransactionLogish = EvmTransactionLogInput | EvmTransactionLog;
 
+export type LogTopic = string | null;
+
 /**
  * The EvmTransactionLog class is a MoralisData that references an EVM transaction log.
  *
