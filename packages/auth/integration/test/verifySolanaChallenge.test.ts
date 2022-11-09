@@ -13,7 +13,7 @@ describe('verifySolanaChallenge', () => {
   });
 
   describe('Verify Solana Challenge', () => {
-    it('should request solana challenge successfully', async () => {
+    it('should verify solana challenge successfully', async () => {
       const result = await AuthApi.verify({
         networkType: 'solana',
         message: 'VALID_RESPONSE',
