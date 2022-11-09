@@ -1,4 +1,4 @@
-import { getSettings, setSettings } from './resolvers';
+import { getSettings, getStats, getStatsById, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
 import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { makeCreateStream } from './methods/create';
@@ -52,6 +52,10 @@ export class MoralisStreams extends ApiModule {
 
   public readonly getHistory = this.endpoints.createPaginatedFetcher(getHistory);
   public readonly retry = this.endpoints.createFetcher(replayHistory);
+
+  private readonly _getStats = this.endpoints.createFetcher(getStats);
+  public readonly getStats = () => this._getStats({});
+  public readonly getStatsById = this.endpoints.createFetcher(getStatsById);
 
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
   private readonly _readSettings = this.endpoints.createFetcher(getSettings);
