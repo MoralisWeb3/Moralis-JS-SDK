@@ -13,7 +13,7 @@ describe('requestEvmChallenge', () => {
   });
 
   describe('Request EVM Challenge', () => {
-    it('should request evm succesfully', async () => {
+    it('should request evm challenge successfully', async () => {
       const result = await AuthApi.requestMessage({
         networkType: 'evm',
         statement: 'VALID_RESPONSE',
