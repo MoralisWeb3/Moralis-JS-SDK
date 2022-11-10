@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { webhookRouter } from './webbhook';
-import { Core } from 'moralis/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { MoralisStreams } from '@moralisweb3/streams';
 import { ApiUtils } from '@moralisweb3/api-utils';
 
