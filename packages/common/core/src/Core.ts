@@ -3,7 +3,7 @@ import { Modules } from './Modules/Modules';
 import { LoggerController } from './controllers/LoggerController';
 import { Config } from './Config/Config';
 import { CoreConfigSetup } from './Config/CoreConfigSetup';
-import { MoralisConfigValues } from './Config';
+import { MoralisCoreConfigValues } from './Config';
 import { LIB_VERSION } from './version';
 import { CoreErrorCode, MoralisError } from './Error';
 
@@ -68,7 +68,7 @@ export class Core {
    *
    * This will call `start()` on every registered module
    */
-  public start = async (providedConfig?: Partial<MoralisConfigValues>) => {
+  public start = async (providedConfig?: Partial<MoralisCoreConfigValues>) => {
     if (this.isStarted) {
       throw new MoralisError({
         message: 'Modules are started already. This method should be called only one time.',
