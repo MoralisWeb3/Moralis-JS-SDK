@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.7.1",
-    "@moralisweb3/core": "^2.7.1",
-    "@moralisweb3/evm-utils": "^2.7.1",
+    "@moralisweb3/common-core": "^2.7.1",
+    "@moralisweb3/common-evm-utils": "^2.7.1",
     "@moralisweb3/streams-typings": "^1.0.5",
     "ethereumjs-util": "^7.1.0",
     "web3-eth-abi": "^1.8.0",

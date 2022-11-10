@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-firebase-evm-api",
   "author": "Moralis",
-  "version": "2.6.7",
+  "version": "2.7.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "firebase": "^9.10.0",
-    "@moralisweb3/common-core": "^2.6.7",
-    "@moralisweb3/common-evm-utils": "^2.6.7",
-    "@moralisweb3/client-evm-api": "^2.6.7"
+    "@moralisweb3/common-core": "^2.7.1",
+    "@moralisweb3/common-evm-utils": "^2.7.1",
+    "@moralisweb3/client-evm-api": "^2.7.1"
   }
 }

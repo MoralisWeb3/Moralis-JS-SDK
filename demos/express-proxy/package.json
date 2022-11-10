@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "private": true,
   "dependencies": {
-    "@moralisweb3/core": "^2.7.1",
+    "@moralisweb3/common-core": "^2.7.1",
     "@types/express-rate-limit": "^6.0.0",
     "dotenv": "^16.0.1",
     "envalid": "7.3.1",
