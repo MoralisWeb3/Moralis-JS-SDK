@@ -6,6 +6,8 @@ const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
 
+const IGNORE_DEPENDENCIES = ['parse/node'];
+
 function findPackages(dirPath) {
   const result = [];
   fs.readdirSync(dirPath).forEach((fileName) => {
@@ -61,7 +63,7 @@ function findPackageMissingDependencies(packageDirPath) {
   const imports = readTsFilesExternalImports(tsFilePaths);
 
   const missing = imports.reduce((result, imp) => {
-    if (!packageDependencies.includes(imp)) {
+    if (!packageDependencies.includes(imp) && !IGNORE_DEPENDENCIES.includes(imp)) {
       result.push(imp);
     }
     return result;

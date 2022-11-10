@@ -1,5 +1,5 @@
 import { Document, Update } from '@moralisweb3/streams';
-import Parse from 'parse';
+import Parse from 'parse/node';
 
 export class Upsert {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
