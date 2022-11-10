@@ -148,3 +148,5 @@ jobs:
             common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
             common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
+      - name: Find missing dependencies
+        run: node scripts/findMissingDependencies.js

@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "firebase": "^9.10.0",
+    "@firebase/auth": "^0.20.11",
     "@moralisweb3/client-firebase-auth-utils": "^2.6.7",
     "@ethersproject/providers": "^5.7.1",
     "@metamask/detect-provider": "^1.2.0"
