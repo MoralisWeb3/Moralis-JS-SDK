@@ -22,8 +22,11 @@
   },
   "dependencies": {
     "firebase": "^9.10.0",
+    "@firebase/functions": "^0.8.8",
+    "@firebase/app": "^0.8.3",
     "@moralisweb3/common-core": "^2.6.7",
     "@moralisweb3/common-sol-utils": "^2.6.7",
-    "@moralisweb3/client-sol-api": "^2.6.7"
+    "@moralisweb3/client-sol-api": "^2.6.7",
+    "@moralisweb3/client-firebase-api-utils": "^2.6.7"
   }
 }
