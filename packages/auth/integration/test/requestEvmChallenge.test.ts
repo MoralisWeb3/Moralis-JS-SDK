@@ -27,8 +27,8 @@ describe('requestEvmChallenge', () => {
         timeout: 15,
       });
       expect(result).toBeDefined();
-      expect(result.toJSON().id).toEqual('fRyt67D3eRss3RrXa');
-      expect(result.toJSON().message).toEqual('VALID_RESPONSE');
+      expect(result.result.id).toEqual('fRyt67D3eRss3RrXa');
+      expect(result.result.message).toEqual('VALID_RESPONSE');
       expect(result.result.profileId).toEqual('0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1');
     });
 
@@ -48,6 +48,7 @@ describe('requestEvmChallenge', () => {
         }),
       ).rejects.toThrowError('C0005] Invalid address provided');
     });
+
     it('should default to evm networkType', async () => {
       const result = await AuthApi.requestMessage({
         statement: 'VALID_RESPONSE',
@@ -61,10 +62,11 @@ describe('requestEvmChallenge', () => {
         timeout: 15,
       });
       expect(result).toBeDefined();
-      expect(result.toJSON().id).toEqual('fRyt67D3eRss3RrXa');
-      expect(result.toJSON().message).toEqual('VALID_RESPONSE');
+      expect(result.result.id).toEqual('fRyt67D3eRss3RrXa');
+      expect(result.result.message).toEqual('VALID_RESPONSE');
       expect(result.result.profileId).toEqual('0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1');
     });
+
     it('should throw a 400 Error on multi error', async () => {
       expect(
         AuthApi.requestMessage({
@@ -96,8 +98,8 @@ describe('requestEvmChallenge', () => {
         timeout: 15,
       });
       expect(result).toBeDefined();
-      expect(result.toJSON().id).toEqual('fRyt67D3eRss3RrXa');
-      expect(result.toJSON().message).toEqual('VALID_RESPONSE');
+      expect(result.result.id).toEqual('fRyt67D3eRss3RrXa');
+      expect(result.result.message).toEqual('VALID_RESPONSE');
       expect(result.result.profileId).toEqual('0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1');
     });
   });

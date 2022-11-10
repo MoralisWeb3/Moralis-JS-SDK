@@ -19,9 +19,8 @@ describe('verifyEvmChallenge', () => {
         signature: '0x1234567890abcdef0123456789abcdef1234567890abcdef',
       });
       expect(result).toBeDefined();
-      expect(result).toBeDefined();
-      expect(result.toJSON().id).toBeDefined();
-      expect(result.toJSON().profileId).toBeDefined();
+      expect(result.result.id).toBeDefined();
+      expect(result.result.profileId).toBeDefined();
     });
 
     it('should throw a 400 Error on invalid signature', async () => {

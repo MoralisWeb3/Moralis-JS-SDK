@@ -20,9 +20,8 @@ describe('verifySolanaChallenge', () => {
         signature: '2pH9DqD5rve2qV4yBDshcAjWd2y8TqMx8BPb7f3KoNnuLEhE5JwjruYi4jaFaD4HN6wriLz2Vdr32kRBAJmHcyny',
       });
       expect(result).toBeDefined();
-      expect(result).toBeDefined();
-      expect(result.toJSON().id).toBeDefined();
-      expect(result.toJSON().profileId).toBeDefined();
+      expect(result.result.id).toBeDefined();
+      expect(result.result.profileId).toBeDefined();
     });
 
     it('should throw a 400 Error on invalid signature', async () => {

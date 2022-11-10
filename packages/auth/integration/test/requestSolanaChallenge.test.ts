@@ -27,8 +27,8 @@ describe('requestSolanaChallenge', () => {
         timeout: 15,
       });
       expect(result).toBeDefined();
-      expect(result.toJSON().id).toEqual('fRyt67D3eRss3RrX');
-      expect(result.toJSON().message).toEqual('VALID_RESPONSE');
+      expect(result.result.id).toEqual('fRyt67D3eRss3RrX');
+      expect(result.result.message).toEqual('VALID_RESPONSE');
       expect(result.result.profileId).toEqual('0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1');
     });
 
