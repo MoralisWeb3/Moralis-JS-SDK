@@ -2,9 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
 
-const PACKAGE_DIR_PATHS = ['../packages', '../packages/common', '../packages/client'];
+const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
+
+const IGNORE_DEPENDENCIES = ['parse/node'];
 
 function findPackages(dirPath) {
   const result = [];
@@ -53,34 +55,38 @@ function findPackageMissingDependencies(packageDirPath) {
   const packageJsonPath = path.join(packageDirPath, 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
   if (packageJson.private) {
-    return [];
+    return null;
   }
   const packageDependencies = Object.keys(packageJson.dependencies || {});
 
   const tsFilePaths = findFilesWithExt(packageDirPath, '.ts', '.test.ts', SKIP_DIRECTORIES);
   const imports = readTsFilesExternalImports(tsFilePaths);
 
-  return imports.reduce((result, imp) => {
-    if (!packageDependencies.includes(imp)) {
+  const missing = imports.reduce((result, imp) => {
+    if (!packageDependencies.includes(imp) && !IGNORE_DEPENDENCIES.includes(imp)) {
       result.push(imp);
     }
     return result;
   }, []);
+  return { missing, total: imports.length };
 }
 
-const allPackagePaths = PACKAGE_DIR_PATHS.map((p) => path.join(__dirname, p))
+const repositoryPath = path.resolve(__dirname, '..');
+const allPackagePaths = PACKAGE_DIR_PATHS.map((p) => path.join(repositoryPath, p))
   .map(findPackages)
   .flat();
 let exitCode = 0;
 
 for (const packagePath of allPackagePaths) {
-  const packageName = packagePath;
-  const missingDependencies = findPackageMissingDependencies(packagePath);
-  if (missingDependencies.length > 0) {
-    console.log(`❌ Package ${packageName} has missing dependencies:\n* ${missingDependencies.join('\n* ')}\n`);
+  const packageName = packagePath.replace(repositoryPath, '');
+  const result = findPackageMissingDependencies(packagePath);
+  if (!result) {
+    console.log(`⏩ Package ${packageName} is private`);
+  } else if (result.missing.length > 0) {
+    console.log(`❌ Package ${packageName} has missing dependencies:\n* ${result.missing.join('\n* ')}\n`);
     exitCode = 1;
   } else {
-    console.log(`✅ Package ${packageName} is valid`);
+    console.log(`✅ Package ${packageName} is valid (${result.total} dependencies)`);
   }
 }
 
