@@ -30,11 +30,6 @@ export type VerifyEvmData = ReturnType<typeof makeEvmVerify>;
 export type VerifySolData = ReturnType<typeof makeSolVerify>;
 
 const makeEvmVerify = (core: Core, { networkType, network, ...options }: VerifyEvmOptions) => {
-  // eslint-disable-next-line etc/no-commented-out-code
-  // return EndpointResolver.create(core, BASE_URL, completeChallengeEvm).fetch({
-  //   message: options.message,
-  //   signature: options.signature,
-  // });
   return new OperationResolver(evmVerifyChallengeOperation, BASE_URL, core).fetch({
     message: options.message,
     signature: options.signature,
@@ -42,11 +37,6 @@ const makeEvmVerify = (core: Core, { networkType, network, ...options }: VerifyE
 };
 
 const makeSolVerify = (core: Core, { networkType, network, ...options }: VerifySolOptions) => {
-  // eslint-disable-next-line etc/no-commented-out-code
-  // return EndpointResolver.create(core, BASE_URL, completeChallengeSol).fetch({
-  //   message: options.message,
-  //   signature: options.signature,
-  // });
   return new OperationResolver(solVerifyChallengeOperation, BASE_URL, core).fetch({
     message: options.message,
     signature: options.signature,
