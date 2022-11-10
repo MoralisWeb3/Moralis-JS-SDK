@@ -5,7 +5,6 @@ export { DeleteAddressEvmOptions, DeleteAddressOptions } from './deleteAddress';
 export { GetAddressesEvmOptions, GetAddressesOptions } from './getAddresses';
 export { GetStreamsEvmOptions, GetStreamsOptions } from './getAll';
 export { GetStreamEvmOptions, GetStreamOptions } from './getById';
-export { ParseLogOptions } from './logParser';
 export { UpdateStreamEvmOptions, UpdateStreamOptions } from './update';
 export { UpdateStreamEvmStatusOptions, UpdateStreamStatusOptions } from './updateStatus';
 export { VerifySignatureOptions } from './verifySignature';

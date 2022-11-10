@@ -40,7 +40,7 @@
 
 # 🚀 Quick start
 
-If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/moralis-dapp/getting-started) on how to get started.
+If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/docs/quickstart) on how to get started.
 
 If you're already familiar with Moralis and have your server set up. Then follow along to connect your SDK:
 
@@ -66,17 +66,17 @@ Import Moralis:
 import Moralis from 'moralis';
 ```
 
-## 2. Initialise Moralis
+## 2. Initialize Moralis
 
 After your dependency is added, you simply need to initialize moralis via the `start` method:
 
 ```javascript
 Moralis.start({
-  apiKey: '<YOUR_API_KEY>',
+  apiKey: 'YOUR_API_KEY',
 });
 ```
 
-After that you can use any Moralis functionalities via, as described in our [extensive docs](https://docs.moralis.io)
+After that you can use any Moralis functionalities as described in our [extensive docs](https://docs.moralis.io)
 
 # ⭐️ Star us
 
@@ -88,10 +88,9 @@ If you need help with setting up the boilerplate or have other questions - don't
 
 # 🧭 Table of Contents
 
-- [🚨 Beta version](#-beta-version)
 - [🚀 Quick start](#-quick-start)
   - [1. Install Moralis](#1-install-moralis)
-  - [2. Initialise Moralis](#2-initialise-moralis)
+  - [2. Initialize Moralis](#2-initialize-moralis)
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
@@ -136,7 +135,7 @@ Then, initialize the app the same way as when using the umbrella `moralis` packa
 
 ```javascript
 core.start({
-  apiKey: '<YOUR_API_KEY>',
+  apiKey: 'YOUR_API_KEY',
   // ...and any other configuration
 });
 ```

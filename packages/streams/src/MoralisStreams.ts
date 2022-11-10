@@ -1,6 +1,6 @@
-import { getSettings, setSettings } from './resolvers';
+import { getSettings, getStats, getStatsById, setSettings } from './resolvers';
 import { Endpoints } from '@moralisweb3/api-utils';
-import { ApiModule, Core, CoreProvider } from '@moralisweb3/common-core';
+import { ApiModule, MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
 import { makeCreateStream } from './methods/create';
 import { makeUpdateStream } from './methods/update';
 import { makeDeleteStream } from './methods/delete';
@@ -8,25 +8,24 @@ import { makeGetStreams } from './methods/getAll';
 import { makeVerifySignature, VerifySignatureOptions } from './methods/verifySignature';
 import { makeAddAddress } from './methods/addAddress';
 import { makeUpdateStreamStatus } from './methods/updateStatus';
-import { parseLog, ParseLogOptions } from './methods/logParser';
+import { parseLog } from './methods/logParser';
 import { getHistory } from './resolvers/history/getHistory';
 import { replayHistory } from './resolvers/history/replayHistory';
 import { makeGetAddresses } from './methods/getAddresses';
 import { makeDeleteAddress } from './methods/deleteAddress';
 import { makeGetStreamById } from './methods/getById';
 import { IWebhook } from '@moralisweb3/streams-typings';
-import { parseWebhook } from './methods/parseWebhook';
 
 const BASE_URL = 'https://api.moralis-streams.com';
 
 export class MoralisStreams extends ApiModule {
   public static readonly moduleName = 'streams';
 
-  public static create(core?: Core): MoralisStreams {
-    return new MoralisStreams(core ?? CoreProvider.getDefault());
+  public static create(core?: MoralisCore): MoralisStreams {
+    return new MoralisStreams(core ?? MoralisCoreProvider.getDefault());
   }
 
-  private constructor(core: Core) {
+  private constructor(core: MoralisCore) {
     super(MoralisStreams.moduleName, core, BASE_URL);
   }
 
@@ -54,12 +53,15 @@ export class MoralisStreams extends ApiModule {
   public readonly getHistory = this.endpoints.createPaginatedFetcher(getHistory);
   public readonly retry = this.endpoints.createFetcher(replayHistory);
 
+  private readonly _getStats = this.endpoints.createFetcher(getStats);
+  public readonly getStats = () => this._getStats({});
+  public readonly getStatsById = this.endpoints.createFetcher(getStatsById);
+
   public readonly setSettings = this.endpoints.createFetcher(setSettings);
   private readonly _readSettings = this.endpoints.createFetcher(getSettings);
   public readonly readSettings = () => this._readSettings({});
 
   public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
 
-  public readonly parsedLogs = <Event>(options: ParseLogOptions) => parseLog<Event>(options);
-  public readonly parseWebhook = (webhook: IWebhook) => parseWebhook(webhook);
+  public readonly parsedLogs = <Event>(webhookData: IWebhook) => parseLog<Event>(webhookData);
 }

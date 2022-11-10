@@ -1,9 +1,25 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.6.7",
+  "version": "2.7.1",
   "license": "MIT",
   "private": false,
+  "keywords": [
+    "ethereum",
+    "binance",
+    "avalanche",
+    "fantom",
+    "solana",
+    "nft",
+    "dapps",
+    "blockchain",
+    "crypto",
+    "web3",
+    "evm",
+    "eth",
+    "smart-contracts",
+    "contracts"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
@@ -18,7 +34,7 @@
   },
   "exports": {
     ".": "./lib/index.js",
-    "./common-core": "./lib/commonCore/index.js",
+    "./core": "./lib/core/index.js",
     "./streams-typings": "./lib/streamsTypings/index.js",
     "./common-evm-utils": "./lib/commonEvmUtils/index.js",
     "./common-sol-utils": "./lib/commonSolUtils/index.js"
@@ -28,8 +44,8 @@
       ".": [
         "lib/index.d.ts"
       ],
-      "common-core": [
-        "lib/commonCore/index.d.ts"
+      "core": [
+        "lib/core/index.d.ts"
       ],
       "common-evm-utils": [
         "lib/commonEvmUtils/index.d.ts"
@@ -43,14 +59,14 @@
     }
   },
   "dependencies": {
-    "@moralisweb3/auth": "^2.6.7",
-    "@moralisweb3/common-core": "^2.6.7",
-    "@moralisweb3/streams": "^2.6.7",
-    "@moralisweb3/api-utils": "^2.6.7",
-    "@moralisweb3/evm-api": "^2.6.7",
-    "@moralisweb3/common-evm-utils": "^2.6.7",
-    "@moralisweb3/sol-api": "^2.6.7",
-    "@moralisweb3/common-sol-utils": "^2.6.7",
+    "@moralisweb3/auth": "^2.7.1",
+    "@moralisweb3/core": "^2.7.1",
+    "@moralisweb3/streams": "^2.7.1",
+    "@moralisweb3/api-utils": "^2.7.1",
+    "@moralisweb3/evm-api": "^2.7.1",
+    "@moralisweb3/evm-utils": "^2.7.1",
+    "@moralisweb3/sol-api": "^2.7.1",
+    "@moralisweb3/sol-utils": "^2.7.1",
     "@moralisweb3/streams-typings": "^1.0.5"
   }
 }
