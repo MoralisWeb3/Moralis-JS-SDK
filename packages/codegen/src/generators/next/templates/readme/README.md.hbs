@@ -1,0 +1,85 @@
+<div align="center">
+    <p align="center">
+      <img src="./.readme/MoralisLogo.png" alt="Moralis NextJS" />
+    </p>
+</div>
+
+<div align="center">
+
+![npm](https://img.shields.io/npm/v/@moralisweb3/next)
+![node-current](https://img.shields.io/node/v/@moralisweb3/next)
+![GitHub last commit](https://img.shields.io/github/last-commit/MoralisWeb3/@moralisweb3/next)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moralisweb3/next)
+![npm type definitions](https://img.shields.io/npm/types/@moralisweb3/next)
+
+</div>
+
+# `@moralisweb3/next`
+
+> Moralis Hooks for your NextJS project
+
+This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data. It  serves as a proxy, to allow users to access Moralis APIs in client-side.
+
+Please check the [official documentation of Moralis](https://docs.moralis.io/) for all the functionalities of Moralis.
+
+# ⚙️ Quick start
+
+Make sure to have `next`, `react`, `react-dom` and `moralis` installed as dependencies, then install `@moralisweb3/next`
+
+In short:
+
+```sh
+npm install moralis @moralisweb3/next next react react-dom
+```
+
+or
+
+```sh
+yarn add moralis @moralisweb3/next next react react-dom
+```
+
+> Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
+
+### Create environment variables file
+
+Add a new file `.env.local` in project's root and provide a new variable with [Moralis API key](https://docs.moralis.io/docs/nextjs-dapp#add-moralis-to-your-nextjs-dapp):
+
+```sh
+MORALIS_API_KEY= ***
+```
+
+### Create API route
+To use Moralis APIs in your NextJs project create a file `pages/api/moralis/[...moralis].ts` with following code:
+
+```js
+import { MoralisNextApi } from "@moralisweb3/next";
+
+export default MoralisNextApi()
+```
+
+# Authentication and Session Management with NextAuth
+
+The `@moralisweb3/next` library provides first class tools for web3 authentication. Using the [NextAuth.js](https://next-auth.js.org/) and our custom `MoralisNextAuthProvider()` you can implement web3 authentication you can create web3 authentication for any web3 wallet.
+
+Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-metamask) Tutorial for NextJS.
+
+# Hook Usage Example
+
+```jsx
+import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+
+const App = () => {
+  const { data: balance, error, refetch, isValidating } = useEvmWalletTokenBalances({ address: '0x...' })
+
+  if (isValidating) return <div>Fetching/Refreshing balance…</div>
+  if (error) return <div>{JSON.stringify(error, null, 2)}</div>
+  return (
+    <>
+      <button onClick={refetch}>Refetch Balance</button>
+      <div>{JSON.stringify(balance, null, 2)}</div>
+    </>
+  )
+}
+```
+
+# Hooks
