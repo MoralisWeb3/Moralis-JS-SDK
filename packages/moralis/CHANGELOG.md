@@ -1,5 +1,19 @@
 # moralis
 
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`a1bbd61f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a1bbd61f53b57feeeae1b3341f64d4293fba1497)]:
+  - @moralisweb3/streams@2.7.2
+  - @moralisweb3/core@2.7.2
+  - @moralisweb3/auth@2.7.2
+  - @moralisweb3/api-utils@2.7.2
+  - @moralisweb3/evm-utils@2.7.2
+  - @moralisweb3/sol-utils@2.7.2
+  - @moralisweb3/evm-api@2.7.2
+  - @moralisweb3/sol-api@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes
