@@ -1,6 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Moralis from 'moralis';
-import { LoggerController, Config } from '@moralisweb3/core';
+import { LoggerController, Config } from '@moralisweb3/common-core';
 import { MoralisNextAuthProviderParams } from './types';
 
 const MoralisNextAuthProvider = ({ logLevel = 'info' }: MoralisNextAuthProviderParams = {}) =>
@@ -40,9 +40,7 @@ const MoralisNextAuthProvider = ({ logLevel = 'info' }: MoralisNextAuthProviderP
         }
         await Moralis.start({ apiKey });
 
-        const { address, profileId, expirationTime, uri } = (
-          await Moralis.Auth.verify({ message, signature, network: 'evm' })
-        ).raw;
+        const { address, profileId, uri } = (await Moralis.Auth.verify({ message, signature, network: 'evm' })).raw;
         const nextAuthUrl = process.env.NEXTAUTH_URL;
 
         if (!nextAuthUrl) {
@@ -55,7 +53,7 @@ const MoralisNextAuthProvider = ({ logLevel = 'info' }: MoralisNextAuthProviderP
         /**
          * Defining and returning user profile
          */
-        const user = { address, profileId, expirationTime, signature };
+        const user = { address, id: profileId, signature };
         return user;
       } catch (e) {
         const config = new Config();

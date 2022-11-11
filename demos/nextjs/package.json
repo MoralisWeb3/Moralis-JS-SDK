@@ -17,7 +17,8 @@
     "next-auth": "4.10.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "wagmi": "^0.5.11"
+    "wagmi": "^0.5.11",
+    "@moralisweb3/next": "^2.6.7"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/next",
   "author": "Moralis",
-  "version": "2.3.1",
+  "version": "2.6.7",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -22,13 +22,15 @@
   },
   "devDependencies": {
     "next-auth": "^4.10.3",
-    "moralis": "^2.3.1",
+    "moralis": "^2.6.7",
     "next": "^12.2.5",
     "react-dom": "^18.2.0",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "@moralisweb3/common-evm-utils": "^2.6.7",
+    "@moralisweb3/common-core": "^2.6.7"
   },
   "peerDependencies": {
-    "moralis": ">=2.3.1",
+    "moralis": ">=2.6.7",
     "next": "^12.2.5",
     "next-auth": "^4.10.3",
     "react-dom": ">=17.0.0",

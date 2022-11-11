@@ -1,46 +1,31 @@
+import { ApiUtilsConfigValues } from '@moralisweb3/api-utils';
+import { MoralisCoreConfigValues } from '@moralisweb3/common-core';
 import { MoralisNextHandlerParams } from './types';
-import { MoralisError } from '@moralisweb3/core';
+import { RequestHandlerResolver } from '../RequestHandlerResolver';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import supportedPaths from '../hooks/generated/supportedPaths.json';
 
-const runMoralisSDKMethodByPath = (path: string[], args: Record<string, string>) => {
-  let context = Moralis;
-  const methods = path.map((type) => [type]);
-  const targetMethod = methods.pop();
-  methods.forEach((method) => {
-    // @ts-ignore
-    context = context[method];
-  });
-  // @ts-ignore
-  return context[targetMethod].apply(context, [args]);
-};
-
-const getIsPathSupported = (path: string[]) =>
-  supportedPaths.map((sdkPath) => sdkPath.join('/')).includes(path.join('/'));
+export type MoralisConfigValues = MoralisCoreConfigValues & ApiUtilsConfigValues;
 
 async function MoralisNextHandler({ req, res }: MoralisNextHandlerParams) {
-  const sdkParams = req.body;
-  const { moralis: path } = req.query;
-
-  if (!Array.isArray(path)) {
-    return res.status(500).json({ error: 'API Path is too short' });
-  }
+  const [moduleName, operationName] = req.query.moralis as string[];
 
   try {
-    if (!getIsPathSupported(path)) {
-      return res.status(500).json({ error: 'Not supported API path' });
+    const requestHandler = RequestHandlerResolver.tryResolve(moduleName, operationName, Moralis.Core);
+    if (!requestHandler) {
+      return res.status(500).json({ error: `Operation ${moduleName}/${operationName} is not supported` });
     }
-    const apiKey = process.env.MORALIS_API_KEY;
-    await Moralis.start({ apiKey });
-    const response = await runMoralisSDKMethodByPath(path, sdkParams);
+
+    const response = await requestHandler.handle(req.body);
+
     return res.status(200).json(response);
   } catch (e) {
-    return res.status(500).json({ error: (e as MoralisError).message });
+    return res.status(500).json({ error: (e as Error).message });
   }
 }
 
-const MoralisNextApi = () => {
+const MoralisNextApi = (config: MoralisConfigValues) => {
+  Moralis.start(config);
   return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res });
 };
 

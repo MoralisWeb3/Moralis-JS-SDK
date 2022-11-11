@@ -1,0 +1,21 @@
+import { {{ names.operation }}, {{ names.request }} } from '@moralisweb3/common-evm-utils';
+import { SWRConfiguration } from 'swr/dist/types';
+import axios from 'axios';
+import Moralis from 'moralis';
+import useSWR from 'swr';
+
+export const {{ names.hook }} = (request: {{ names.request }}, SWRConfig?: SWRConfiguration) => {
+  const axiosFetcher = async (endpoint: string, fetcherParams: any) => {
+    const jsonResponse = await axios.{{ method }}(`/api/moralis/${endpoint}`, fetcherParams);
+    return {{ names.operation }}.deserializeResponse(jsonResponse.data, request, Moralis.Core);
+  };
+
+  const { data, error, mutate, isValidating } = useSWR(['{{ url }}', request], axiosFetcher, SWRConfig);
+
+  return {
+    data,
+    error,
+    refetch: async () => mutate(),
+    isValidating,
+  };
+};
