@@ -16,37 +16,37 @@ describe('addAddress', () => {
     it('should create an address succesfully ', async () => {
       const result = await StreamApi.addAddress({
         networkType: 'evm',
-        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+        address: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
         id: 'VALID_RESPONSE',
       });
 
       expect(result).toBeDefined();
-      expect(result.toJSON().address).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
+      expect(result.toJSON().address).toEqual('0x295522b61890c3672D12eFbFf4358a6411CE996F');
       expect(result.result.streamId).toEqual('VALID_RESPONSE');
     });
 
     it('should default to evm networkType', async () => {
       const result = await StreamApi.addAddress({
-        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+        address: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
         id: 'VALID_RESPONSE',
       });
 
       expect(result).toBeDefined();
-      expect(result.toJSON().address).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
+      expect(result.toJSON().address).toEqual('0x295522b61890c3672D12eFbFf4358a6411CE996F');
       expect(result.result.streamId).toEqual('VALID_RESPONSE');
     });
 
     it('should create multiple addresses succesfully ', async () => {
       const result = await StreamApi.addAddress({
         networkType: 'evm',
-        address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
+        address: ['0x295522b61890c3672D12eFbFf4358a6411CE996F', '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'],
         id: 'MULTIPLE_ADDRESSES',
       });
 
       expect(result).toBeDefined();
       expect(result.toJSON().address).toStrictEqual([
-        '0x295522b61890c3672d12efbff4358a6411ce996f',
-        '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+        '0x295522b61890c3672D12eFbFf4358a6411CE996F',
+        '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
       ]);
       expect(result.result.streamId).toEqual('MULTIPLE_ADDRESSES');
     });
@@ -65,7 +65,7 @@ describe('addAddress', () => {
       expect(
         StreamApi.addAddress({
           networkType: 'evm',
-          address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+          address: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
           id: 'STREAM_NOT_FOUND',
         }),
       ).rejects.toThrowError('[C0006] Request failed, Not Found(404): Stream not found');
