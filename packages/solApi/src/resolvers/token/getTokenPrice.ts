@@ -25,7 +25,7 @@ export const getTokenPrice = createEndpointFactory((core) =>
       // but it's not working with Endpoints.getDescriptors(). After changes described in Endpoints
       // please replace this line.
       const network = params.network ? params.network : SolNetworkResolver.resolve(undefined, core);
-      return `token/${network}/${params.address}/price`;
+      return `/token/${network}/${params.address}/price`;
     },
     apiToResult: (data: ApiResult) => {
       return {
