@@ -43,7 +43,7 @@ describe('deleteAddress', () => {
           address: 'some-address',
           id: 'INVALID_ADDRESS',
         }),
-      ).rejects.toThrowError('[C0006] Request failed, Bad Request(400): Invalid Address: some-address');
+      ).rejects.toThrowError('C0005] Invalid address provided');
     });
 
     it('should throw a 404 Error on unknown address ', async () => {

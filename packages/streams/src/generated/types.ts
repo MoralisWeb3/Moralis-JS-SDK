@@ -5,6 +5,7 @@
 
 export interface paths {
   "/history": {
+    /** Get all history */
     get: operations["GetHistory"];
   };
   "/history/replay/{streamId}/{id}": {
@@ -17,9 +18,13 @@ export interface paths {
     /** Set the settings for the current project based on the project api-key. */
     post: operations["SetSettings"];
   };
-  "/beta/stats": {
-    /** Get the stats for the current project based on the project api-key (Beta - This endpoint could be replaced or removed). */
+  "/stats": {
+    /** Get the global stats for the account. */
     get: operations["GetStats"];
+  };
+  "/stats/{streamId}": {
+    /** Get the stats for the streamId specified */
+    get: operations["GetStatsByStreamId"];
   };
   "/streams/evm": {
     /** Get all the evm streams for the current project based on the project api-key. */
@@ -200,7 +205,7 @@ export interface components {
       /** @description The region from where all the webhooks will be posted for this project */
       region?: components["schemas"]["SettingsRegion"];
     };
-    "statsTypes.StatsModel": {
+    "usagestatsTypes.UsageStatsModel": {
       /**
        * Format: double
        * @description The total amount of webhooks delivered across all streams
@@ -226,7 +231,23 @@ export interface components {
        * @description The total amount of internal txs processed across all streams, this includes failed webhooks
        */
       totalTxsInternalProcessed: number;
+      /**
+       * Format: date-time
+       * @description The date since this stats are being counted
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description The date since this stats were last updated
+       */
+      updatedAt?: string;
     };
+    /**
+     * Format: uuid
+     * @description Stringified UUIDv4.
+     * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
+     */
+    "streamsTypes.UUID": string;
     /**
      * @description The stream status:
      * [active] The Stream is healthy and processing blocks
@@ -234,7 +255,7 @@ export interface components {
      * [error] The Stream has encountered an error and is not processing blocks
      * @enum {string}
      */
-    StreamsStatus: "active" | "paused" | "error";
+    StreamsStatus: "active" | "paused" | "error" | "terminated";
     /**
      * @description The filter object, optional and only used if the type : log
      * https://v1docs.moralis.io/moralis-dapp/automatic-transaction-sync/smart-contract-events#event-filters
@@ -336,12 +357,6 @@ export interface components {
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
     };
-    /**
-     * Format: uuid
-     * @description Stringified UUIDv4.
-     * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
-     */
-    "streamsTypes.UUID": string;
     /** @description Make all properties in T optional */
     "Partial_streamsTypes.StreamsModelCreate_": {
       /** @description Webhook URL where moralis will send the POST request. */
@@ -372,8 +387,6 @@ export interface components {
     Addresses: {
       /** @description Address */
       address: string;
-      /** @description Unique id of object */
-      id: components["schemas"]["UUID"];
     };
     "addressesTypes.AddressesResponse": {
       /** @description Array of project Streams */
@@ -406,11 +419,11 @@ export interface components {
       /** @description The streamId */
       streamId: string;
       /** @description Address */
-      address: string;
+      address: Partial<string> & Partial<string[]>;
     };
     "addressesTypes.AddressesRemove": {
-      /** @description The address to be removed from the Stream. */
-      address: string;
+      /** @description The address or a list of addresses to be removed from the Stream. */
+      address: Partial<string> & Partial<string[]>;
     };
   };
   responses: {};
@@ -420,6 +433,7 @@ export interface components {
 }
 
 export interface operations {
+  /** Get all history */
   GetHistory: {
     parameters: {
       query: {
@@ -485,14 +499,31 @@ export interface operations {
       };
     };
   };
-  /** Get the stats for the current project based on the project api-key (Beta - This endpoint could be replaced or removed). */
+  /** Get the global stats for the account. */
   GetStats: {
     parameters: {};
     responses: {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["statsTypes.StatsModel"];
+          "application/json": components["schemas"]["usagestatsTypes.UsageStatsModel"];
+        };
+      };
+    };
+  };
+  /** Get the stats for the streamId specified */
+  GetStatsByStreamId: {
+    parameters: {
+      path: {
+        /** The id of the stream to get the stats */
+        streamId: components["schemas"]["streamsTypes.UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["usagestatsTypes.UsageStatsModel"];
         };
       };
     };
