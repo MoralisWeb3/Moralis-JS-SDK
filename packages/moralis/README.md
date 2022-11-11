@@ -1,6 +1,6 @@
 <div align="center">
     <a align="center" href="https://moralis.io" target="_blank">
-      <img src="./assets/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
+      <img src="https://github.com/MoralisWeb3/Moralis-JS-SDK/raw/main/assets/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
     </a>
     <h1 align="center">Moralis SDK (JavaScript / TypeScript)</h1>
     <a href="https://discord.gg/moralis" target="_blank">
@@ -215,7 +215,7 @@ The core module is required in all applications. It will handle global dependenc
 
 | package                                              |  Changelog | Description |
 | ---------------------------------------------------- | --------- | ----------- |
-| [@moralisweb3/eslint-config](./packages/eslintConfig) | -     |    Eslint configuration that is used within Moralis         |
+| [@moralisweb3/eslint-config](https://www.npmjs.com/package/@moralisweb3/eslint-config) | -     |    Eslint configuration that is used within Moralis         |
 
 
 # 🧙‍♂️ Community

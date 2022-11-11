@@ -4,6 +4,7 @@
   "version": "2.7.2",
   "license": "MIT",
   "private": false,
+  "description": "Moralis SDK for JavaScript and TypeScript",
   "keywords": [
     "ethereum",
     "binance",
