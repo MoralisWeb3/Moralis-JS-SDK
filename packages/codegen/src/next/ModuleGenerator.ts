@@ -15,6 +15,17 @@ export class ModuleGenerator {
     }
   }
 
+  public get utilsName() {
+    switch (this.module) {
+      case 'evmApi':
+        return 'evmUtils';
+      case 'solApi':
+        return 'solUtils';
+      default:
+        throw new Error('Not correct Module');
+    }
+  }
+
   public get operations() {
     switch (this.module) {
       case 'evmApi':
