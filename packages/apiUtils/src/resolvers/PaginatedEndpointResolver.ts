@@ -1,8 +1,7 @@
-import { checkObjEqual } from '../utils/checkObjEqual';
-import { getNextParams } from '../utils/getNextParams';
+import { tryGetNextPageParams } from '../utils/tryGetNextPageParams';
 import { ApiPaginatedResultAdapter } from './ApiPaginatedResultAdapter';
-import { ApiConfig } from '../config/ApiConfig';
-import { MoralisCore, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/core';
+import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
+import { Core, ApiErrorCode, Config, MoralisApiError, RequestController } from '@moralisweb3/common-core';
 import { PaginatedResult, PaginatedEndpoint, PaginatedEndpointFactory, PaginatedParams } from './PaginatedEndpoint';
 import { EndpointParamsReader } from './EndpointParamsReader';
 
@@ -14,17 +13,19 @@ export class PaginatedEndpointResolver<
   JSONResult,
 > {
   public static create<ApiParams, Params extends PaginatedParams, ApiResult, AdaptedResult, JSONResult>(
-    core: MoralisCore,
+    core: Core,
+    baseUrl: string,
     endpointFactory: PaginatedEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
   ) {
     const requestController = RequestController.create(core);
     const endpoint = endpointFactory(core);
     const paramsReader = new EndpointParamsReader(endpoint);
-    return new PaginatedEndpointResolver(endpoint, core.config, requestController, paramsReader);
+    return new PaginatedEndpointResolver(endpoint, baseUrl, core.config, requestController, paramsReader);
   }
 
   public constructor(
     public readonly endpoint: PaginatedEndpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>,
+    private readonly baseUrl: string,
     private readonly config: Config,
     private readonly requestController: RequestController,
     private readonly paramsReader: EndpointParamsReader<
@@ -38,14 +39,13 @@ export class PaginatedEndpointResolver<
 
   // TODO: error handler to ApiError
   private get = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
 
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
 
-    // @ts-ignore TODO: fix the ApiParams type, as it should extend Searchparams
-    const result = await this.requestController.get<PaginatedResponse<ApiResult>, ApiParams>(url, searchParams, {
+    const result = await this.requestController.get<PaginatedResult<ApiResult>>(url, searchParams, {
       headers: this.createHeaders(),
     });
 
@@ -59,19 +59,20 @@ export class PaginatedEndpointResolver<
   };
 
   private post = async (params: Params) => {
-    const url = this.endpoint.getUrl(params);
+    const url = this.createUrl(params);
     const apiParams = this.endpoint.parseParams(params);
 
     const searchParams = this.paramsReader.getSearchParams(apiParams);
     const bodyParams = this.paramsReader.getBodyParams(apiParams);
 
-    const result = await this.requestController.post<
-      PaginatedResult<ApiResult>,
-      Record<string, string>,
-      Record<string, string>
-    >(url, searchParams, bodyParams, {
-      headers: this.createHeaders(),
-    });
+    const result = await this.requestController.post<PaginatedResult<ApiResult>, Record<string, string>>(
+      url,
+      searchParams,
+      bodyParams,
+      {
+        headers: this.createHeaders(),
+      },
+    );
 
     return new ApiPaginatedResultAdapter(
       result,
@@ -83,12 +84,19 @@ export class PaginatedEndpointResolver<
   };
 
   private resolveNextCall = (params: Params, result: Awaited<PaginatedResult<ApiResult>>) => {
-    const nextParams = getNextParams(params, result);
-    return checkObjEqual(params, nextParams) ? undefined : () => this.fetch(nextParams);
+    const nextParams = tryGetNextPageParams(this.endpoint.firstPageIndex ?? 1, params, result);
+    if (nextParams) {
+      return () => this.fetch(nextParams);
+    }
+    return undefined;
   };
 
+  private createUrl(params: Params): string {
+    return this.baseUrl + this.endpoint.getUrl(params);
+  }
+
   private createHeaders(): { [key: string]: string } {
-    const apiKey = this.config.get(ApiConfig.apiKey);
+    const apiKey = this.config.get(ApiUtilsConfig.apiKey);
     if (!apiKey) {
       throw new MoralisApiError({
         code: ApiErrorCode.API_KEY_NOT_SET,

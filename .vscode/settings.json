@@ -1,7 +1,0 @@
-{
-  "editor.formatOnSave": true,
-  "search.exclude": {
-    "**/.git": true,
-    "**/node_modules": true
-  }
-}

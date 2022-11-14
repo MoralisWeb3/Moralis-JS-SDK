@@ -1,9 +1,9 @@
-import { ApiConfig } from '../config/ApiConfig';
+import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import { ApiFormatType } from './ApiResultAdapter';
 import axios from 'axios';
 import { EndpointResolver } from './EndpointResolver';
 import { setupApi } from '../test/setup';
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import { createEndpoint, createEndpointFactory } from './Endpoint';
 
 const MOCK_API_KEY = 'test-api-key';
@@ -25,7 +25,7 @@ interface EndpointWeight {
 }
 
 describe('ApiResolver', () => {
-  let core: MoralisCore;
+  let core: Core;
   let resolver: EndpointResolver<
     unknown,
     unknown,
@@ -37,7 +37,7 @@ describe('ApiResolver', () => {
 
   beforeAll(() => {
     core = setupApi();
-    core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
+    core.config.set(ApiUtilsConfig.apiKey, MOCK_API_KEY);
 
     mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
@@ -54,10 +54,11 @@ describe('ApiResolver', () => {
   beforeEach(() => {
     resolver = EndpointResolver.create(
       core,
+      API_ROOT,
       createEndpointFactory(() =>
         createEndpoint({
           name: 'endpointWeights',
-          getUrl: () => `${API_ROOT}/info/endpointWeights`,
+          getUrl: () => '/info/endpointWeights',
           apiToResult: (data: EndpointWeight) => ({
             endpoint: data.endpoint,
             weight: parseInt(data.weight),
@@ -96,7 +97,7 @@ describe('ApiResolver', () => {
           'x-api-key': MOCK_API_KEY,
           'x-moralis-build-target': expect.any(String),
           'x-moralis-platform': expect.any(String),
-          'x-moralis-platform-version': MoralisCore.libVersion,
+          'x-moralis-platform-version': Core.libVersion,
         }),
       }),
     );

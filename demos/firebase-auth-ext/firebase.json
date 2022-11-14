@@ -1,0 +1,25 @@
+{
+  "functions": {
+    "ignore": ["node_modules"],
+    "source": "functions",
+    "predeploy": [
+      "yarn --cwd \"$RESOURCE_DIR\" install",
+      "yarn --cwd \"$RESOURCE_DIR\" run lint",
+      "yarn --cwd \"$RESOURCE_DIR\" run build"
+    ]
+  },
+  "hosting": {
+    "ignore": ["node_modules"],
+    "public": "hosting/build",
+    "predeploy": [
+      "yarn --cwd \"$RESOURCE_DIR\" install",
+      "yarn --cwd \"$RESOURCE_DIR\" run lint",
+      "yarn --cwd \"$RESOURCE_DIR\" run build"
+    ]
+  },
+  "emulators": {
+    "hosting": {
+      "port": 5555
+    }
+  }
+}

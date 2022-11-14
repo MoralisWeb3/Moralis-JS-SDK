@@ -1,15 +1,15 @@
-import { MoralisCore, AxiosRetry } from '@moralisweb3/core';
-import { MoralisApiUtils, ApiConfig } from '@moralisweb3/api-utils';
-import { MoralisEvmApi } from './EvmApi';
+import { Core, AxiosRetry } from '@moralisweb3/common-core';
+import { ApiUtils, ApiUtilsConfig } from '@moralisweb3/api-utils';
+import { EvmApi } from './EvmApi';
 
 describe('EvmApi', () => {
   it('supports multi-tenancy', async () => {
-    function createEvmApi(apiKey: string): MoralisEvmApi {
-      const core = MoralisCore.create();
-      const apiUtils = MoralisApiUtils.create(core);
-      const evmApi = MoralisEvmApi.create(core);
+    function createEvmApi(apiKey: string): EvmApi {
+      const core = Core.create();
+      const apiUtils = ApiUtils.create(core);
+      const evmApi = EvmApi.create(core);
       core.registerModules([apiUtils, evmApi]);
-      core.config.set(ApiConfig.apiKey, apiKey);
+      core.config.set(ApiUtilsConfig.apiKey, apiKey);
       return evmApi;
     }
 
@@ -34,12 +34,14 @@ describe('EvmApi', () => {
     const betaApiKey = 'beta-api-key';
     const beta = createEvmApi(betaApiKey);
 
-    const alfaVersion = await alfa.info.web3ApiVersion();
+    const alfaVersion = await alfa.utils.web3ApiVersion();
     expect(alfaVersion.result.version).toEqual(mockedVersion);
     expect(lastApiKey).toEqual(alfaApiKey);
 
-    const betaVersion = await beta.info.web3ApiVersion();
+    const betaVersion = await beta.utils.web3ApiVersion();
     expect(betaVersion.result.version).toEqual(mockedVersion);
     expect(lastApiKey).toEqual(betaApiKey);
+
+    jest.restoreAllMocks();
   });
 });

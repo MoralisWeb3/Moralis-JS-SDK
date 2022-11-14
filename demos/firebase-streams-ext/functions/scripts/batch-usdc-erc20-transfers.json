@@ -1,0 +1,532 @@
+{
+  "confirmed": true,
+  "chainId": "0x1",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    }
+  ],
+  "streamId": "5f263741-fcaf-447f-890d-6b1b82eea35c",
+  "tag": "ERC20 Transfer",
+  "retries": 0,
+  "block": {
+    "number": "15732394",
+    "hash": "0x8accad6c3ad657244219984f3bfc00effe11b31f9623702e1ea1bfb5acdfc458",
+    "timestamp": "1665582059"
+  },
+  "logs": [
+    {
+      "logIndex": "0",
+      "transactionHash": "0x9c202f465e14010df3898ca323d0d19bc94e1e25ec84054175ea96102f9cdd11",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000018bf88d0e4",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic2": "0x0000000000000000000000009507c04b10486547584c37bcbd931b2a4fee9a41",
+      "topic3": null
+    },
+    {
+      "logIndex": "15",
+      "transactionHash": "0xe48cdcb4e5f1e73eaa7d6a10b5eddf956ba2a9ec9f9805adfefa352748eb036f",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000812822825",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic2": "0x0000000000000000000000002d722c96f79d149dd21e9ef36f93fc12906ce9f8",
+      "topic3": null
+    },
+    {
+      "logIndex": "95",
+      "transactionHash": "0x105247d1cad5d6e8880c2ff1ae8398ae8a946d0d97f23893d466fc04a00c59f4",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000000eb2957c",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic2": "0x00000000000000000000000068b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "topic3": null
+    },
+    {
+      "logIndex": "99",
+      "transactionHash": "0x105247d1cad5d6e8880c2ff1ae8398ae8a946d0d97f23893d466fc04a00c59f4",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000000eb2957c",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000068b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "topic2": "0x0000000000000000000000007a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "topic3": null
+    },
+    {
+      "logIndex": "130",
+      "transactionHash": "0x7ac975bf789f6bc10cebfd70f1f11d940bbc33da3c8db0790fb7e5ff86ea12bd",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000001fb21b95",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000007a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "topic2": "0x000000000000000000000000cdd7c8590bf12be60f298fd4f194832c055f6414",
+      "topic3": null
+    },
+    {
+      "logIndex": "136",
+      "transactionHash": "0x7ac975bf789f6bc10cebfd70f1f11d940bbc33da3c8db0790fb7e5ff86ea12bd",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000006fc0d74",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000007a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "topic2": "0x000000000000000000000000b4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "topic3": null
+    },
+    {
+      "logIndex": "148",
+      "transactionHash": "0xa0e00ec2d045c277df973b1388bf9be27772bdaf8bbe4f8d9719a6be3912fb0e",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000024f8317c",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000b4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "topic2": "0x000000000000000000000000b88ab5b380b4f39ff3677b051a21dea0757b51d8",
+      "topic3": null
+    },
+    {
+      "logIndex": "212",
+      "transactionHash": "0xc3ec8fb9d46d71301018fa6982510c45ecd06aa421adbfa00236f11ae9a2cb95",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000000010c6443",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000770cbfff3c47134a878d513921ac59a1fd24e514",
+      "topic2": "0x00000000000000000000000015e6091cf0af1f6af6e8764adb602843c1f9969a",
+      "topic3": null
+    },
+    {
+      "logIndex": "217",
+      "transactionHash": "0x7536e5e7b9dbfb58cc9d1cfc265f79617b1be451100e3fdb5913d48bafb42f59",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000013f859232",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000f16e9b0d03470827a95cdfd0cb8a8a3b46969b91",
+      "topic2": "0x000000000000000000000000fe46eafcae814ba96eec7bedb4574b7dcdd7ba3b",
+      "topic3": null
+    },
+    {
+      "logIndex": "220",
+      "transactionHash": "0x08742beb86b00a5579ae4b1bd203e22654e6aa9dda9e9440f49fb007117673b0",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000000d3c67a40",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000f16e9b0d03470827a95cdfd0cb8a8a3b46969b91",
+      "topic2": "0x000000000000000000000000bfb3aa348b242a52ead50ea7fc8337b7cbb224cd",
+      "topic3": null
+    },
+    {
+      "logIndex": "227",
+      "transactionHash": "0x7fbc44fd5bbd8260456204ba75ea713a8aac474a1b60c2879cbef1722b472668",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000574fbde6000",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000001157a2076b9bb22a85cc2c162f20fab3898f4101",
+      "topic2": "0x00000000000000000000000076d8ec5fcfc6b730bf783e45fd1ead191b0d09eb",
+      "topic3": null
+    },
+    {
+      "logIndex": "230",
+      "transactionHash": "0x0149ee9b7f5396368fadedf797f6f4b259d804b87ae3fc19132ac20872a855fb",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000001340d475",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000b4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "topic2": "0x0000000000000000000000007a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "topic3": null
+    },
+    {
+      "logIndex": "247",
+      "transactionHash": "0x9b35a3bf88fbef0d1d10edd0b6acbdaa3376fd7fb4e50a321b582fce788a950f",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000000006acfc0",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000d45e01b73e822c6c5e1ef7e1bf4a15c521e08e2c",
+      "topic2": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic3": null
+    },
+    {
+      "logIndex": "514",
+      "transactionHash": "0xd0443b59b9e89feb16bf3189d531442975e92c0580caafec0486ca8dc813a565",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000001ddbadc4",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000428ab2ba90eba0a4be7af34c9ac451ab061ac010",
+      "topic2": "0x000000000000000000000000708621fea6a3e127f775886f4fcc5a7edc6cc736",
+      "topic3": null
+    },
+    {
+      "logIndex": "535",
+      "transactionHash": "0x4086ed0387006169f12f667039434ecdf1f867e838b5dfcc5332da8e497ae42b",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000000de34c40",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000b0c5744824a692c208bc9f32bb98b1ac44d00418",
+      "topic2": "0x0000000000000000000000007a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "topic3": null
+    },
+    {
+      "logIndex": "569",
+      "transactionHash": "0x0e26cf8934a66cf06dc7b181eb3df653d8abd0d43d7f952fc9ac4df48f6c3e4a",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000000f789c96",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic2": "0x000000000000000000000000e35c1f51f9e16c5d806c52ff1619068d724b0ac6",
+      "topic3": null
+    },
+    {
+      "logIndex": "580",
+      "transactionHash": "0x936d6ce48ac446b8ea0c5784db229c5d31ab35fff1f79a3aac523a2ec6f23c8b",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000000663ab24d",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000d87b0007a047ef64b5e4e3cbbe7d6d66f06d7584",
+      "topic2": "0x0000000000000000000000007f0e3833f6f91cbd78c05e19b0fe4a0b699b93e6",
+      "topic3": null
+    },
+    {
+      "logIndex": "583",
+      "transactionHash": "0xbe7f43ac9e5b9827fd9a9563775d6d4177ed154295b526adad0d485e14cdee62",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000002faf080",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000088e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "topic2": "0x000000000000000000000000b722b5e55bc6df52ae9e1759981d8ced1103102e",
+      "topic3": null
+    },
+    {
+      "logIndex": "628",
+      "transactionHash": "0x286dc579fb3cf55ecc40a19b02a4a549827eb80c1b3acf8295e27a34c973b3bb",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x000000000000000000000000000000000000000000000000000000001340c2df",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000b4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "topic2": "0x0000000000000000000000007a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "topic3": null
+    },
+    {
+      "logIndex": "666",
+      "transactionHash": "0x84cea71413fd11abe85ea1e2f55b8525b1540a2e4a9788dd437209941c15a40f",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000000046279840",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000009865cc544f86fc273cfbe0c1d863014077b919d7",
+      "topic2": "0x000000000000000000000000c11192ba53a1bb8e5a1782351167650576746267",
+      "topic3": null
+    },
+    {
+      "logIndex": "684",
+      "transactionHash": "0x6fbf2ea2ff7705e0afeb0b581b9f2a085d8e8a6808020ed7d7b1e75b78381e00",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x0000000000000000000000000000000000000000000000000000001c73d54140",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "topic2": "0x00000000000000000000000055fe002aeff02f77364de339a1292923a15844b8",
+      "topic3": null
+    },
+    {
+      "logIndex": "685",
+      "transactionHash": "0x6241dd52659cc339099be7b823d326faac2a09638c55314f7efa16c5f7c2099f",
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "data": "0x00000000000000000000000000000000000000000000000000000001a13b8600",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x00000000000000000000000002734ab3a827653862ce3947dc78047f095aceda",
+      "topic2": "0x00000000000000000000000055fe002aeff02f77364de339a1292923a15844b8",
+      "topic3": null
+    }
+  ],
+  "txs": [],
+  "txsInternal": [],
+  "erc20Transfers": [
+    {
+      "transactionHash": "0x9c202f465e14010df3898ca323d0d19bc94e1e25ec84054175ea96102f9cdd11",
+      "logIndex": "0",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "to": "0x9507c04b10486547584c37bcbd931b2a4fee9a41",
+      "value": "106292629732",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "106292.629732"
+    },
+    {
+      "transactionHash": "0xe48cdcb4e5f1e73eaa7d6a10b5eddf956ba2a9ec9f9805adfefa352748eb036f",
+      "logIndex": "15",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "to": "0x2d722c96f79d149dd21e9ef36f93fc12906ce9f8",
+      "value": "34670258213",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "34670.258213"
+    },
+    {
+      "transactionHash": "0x105247d1cad5d6e8880c2ff1ae8398ae8a946d0d97f23893d466fc04a00c59f4",
+      "logIndex": "95",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "to": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "value": "246584700",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "246.5847"
+    },
+    {
+      "transactionHash": "0x105247d1cad5d6e8880c2ff1ae8398ae8a946d0d97f23893d466fc04a00c59f4",
+      "logIndex": "99",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+      "to": "0x7a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "value": "246584700",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "246.5847"
+    },
+    {
+      "transactionHash": "0x7ac975bf789f6bc10cebfd70f1f11d940bbc33da3c8db0790fb7e5ff86ea12bd",
+      "logIndex": "130",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x7a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "to": "0xcdd7c8590bf12be60f298fd4f194832c055f6414",
+      "value": "531766165",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "531.766165"
+    },
+    {
+      "transactionHash": "0x7ac975bf789f6bc10cebfd70f1f11d940bbc33da3c8db0790fb7e5ff86ea12bd",
+      "logIndex": "136",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x7a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "to": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "value": "117181812",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "117.181812"
+    },
+    {
+      "transactionHash": "0xa0e00ec2d045c277df973b1388bf9be27772bdaf8bbe4f8d9719a6be3912fb0e",
+      "logIndex": "148",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "to": "0xb88ab5b380b4f39ff3677b051a21dea0757b51d8",
+      "value": "620245372",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "620.245372"
+    },
+    {
+      "transactionHash": "0xc3ec8fb9d46d71301018fa6982510c45ecd06aa421adbfa00236f11ae9a2cb95",
+      "logIndex": "212",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x770cbfff3c47134a878d513921ac59a1fd24e514",
+      "to": "0x15e6091cf0af1f6af6e8764adb602843c1f9969a",
+      "value": "17589315",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "17.589315"
+    },
+    {
+      "transactionHash": "0x7536e5e7b9dbfb58cc9d1cfc265f79617b1be451100e3fdb5913d48bafb42f59",
+      "logIndex": "217",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xf16e9b0d03470827a95cdfd0cb8a8a3b46969b91",
+      "to": "0xfe46eafcae814ba96eec7bedb4574b7dcdd7ba3b",
+      "value": "5360685618",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "5360.685618"
+    },
+    {
+      "transactionHash": "0x08742beb86b00a5579ae4b1bd203e22654e6aa9dda9e9440f49fb007117673b0",
+      "logIndex": "220",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xf16e9b0d03470827a95cdfd0cb8a8a3b46969b91",
+      "to": "0xbfb3aa348b242a52ead50ea7fc8337b7cbb224cd",
+      "value": "3553000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "3553"
+    },
+    {
+      "transactionHash": "0x7fbc44fd5bbd8260456204ba75ea713a8aac474a1b60c2879cbef1722b472668",
+      "logIndex": "227",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x1157a2076b9bb22a85cc2c162f20fab3898f4101",
+      "to": "0x76d8ec5fcfc6b730bf783e45fd1ead191b0d09eb",
+      "value": "6000000000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "6000000"
+    },
+    {
+      "transactionHash": "0x0149ee9b7f5396368fadedf797f6f4b259d804b87ae3fc19132ac20872a855fb",
+      "logIndex": "230",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "to": "0x7a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "value": "323015797",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "323.015797"
+    },
+    {
+      "transactionHash": "0x9b35a3bf88fbef0d1d10edd0b6acbdaa3376fd7fb4e50a321b582fce788a950f",
+      "logIndex": "247",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xd45e01b73e822c6c5e1ef7e1bf4a15c521e08e2c",
+      "to": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "value": "7000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "7"
+    },
+    {
+      "transactionHash": "0xd0443b59b9e89feb16bf3189d531442975e92c0580caafec0486ca8dc813a565",
+      "logIndex": "514",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x428ab2ba90eba0a4be7af34c9ac451ab061ac010",
+      "to": "0x708621fea6a3e127f775886f4fcc5a7edc6cc736",
+      "value": "500936132",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "500.936132"
+    },
+    {
+      "transactionHash": "0x4086ed0387006169f12f667039434ecdf1f867e838b5dfcc5332da8e497ae42b",
+      "logIndex": "535",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xb0c5744824a692c208bc9f32bb98b1ac44d00418",
+      "to": "0x7a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "value": "233000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "233"
+    },
+    {
+      "transactionHash": "0x0e26cf8934a66cf06dc7b181eb3df653d8abd0d43d7f952fc9ac4df48f6c3e4a",
+      "logIndex": "569",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "to": "0xe35c1f51f9e16c5d806c52ff1619068d724b0ac6",
+      "value": "259562646",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "259.562646"
+    },
+    {
+      "transactionHash": "0x936d6ce48ac446b8ea0c5784db229c5d31ab35fff1f79a3aac523a2ec6f23c8b",
+      "logIndex": "580",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xd87b0007a047ef64b5e4e3cbbe7d6d66f06d7584",
+      "to": "0x7f0e3833f6f91cbd78c05e19b0fe4a0b699b93e6",
+      "value": "1715122765",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "1715.122765"
+    },
+    {
+      "transactionHash": "0xbe7f43ac9e5b9827fd9a9563775d6d4177ed154295b526adad0d485e14cdee62",
+      "logIndex": "583",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640",
+      "to": "0xb722b5e55bc6df52ae9e1759981d8ced1103102e",
+      "value": "50000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "50"
+    },
+    {
+      "transactionHash": "0x286dc579fb3cf55ecc40a19b02a4a549827eb80c1b3acf8295e27a34c973b3bb",
+      "logIndex": "628",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc",
+      "to": "0x7a6be83c1dad58d089b3fe4141822e29f548de6b",
+      "value": "323011295",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "323.011295"
+    },
+    {
+      "transactionHash": "0x84cea71413fd11abe85ea1e2f55b8525b1540a2e4a9788dd437209941c15a40f",
+      "logIndex": "666",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x9865cc544f86fc273cfbe0c1d863014077b919d7",
+      "to": "0xc11192ba53a1bb8e5a1782351167650576746267",
+      "value": "1177000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "1177"
+    },
+    {
+      "transactionHash": "0x6fbf2ea2ff7705e0afeb0b581b9f2a085d8e8a6808020ed7d7b1e75b78381e00",
+      "logIndex": "684",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x0000000000000000000000000000000000000000",
+      "to": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "value": "122202440000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "122202.44"
+    },
+    {
+      "transactionHash": "0x6241dd52659cc339099be7b823d326faac2a09638c55314f7efa16c5f7c2099f",
+      "logIndex": "685",
+      "contract": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "from": "0x02734ab3a827653862ce3947dc78047f095aceda",
+      "to": "0x55fe002aeff02f77364de339a1292923a15844b8",
+      "value": "7000000000",
+      "tokenName": "USD Coin",
+      "tokenSymbol": "USDC",
+      "tokenDecimals": "6",
+      "valueWithDecimals": "7000"
+    }
+  ],
+  "erc20Approvals": [],
+  "nftApprovals": {
+    "ERC1155": [],
+    "ERC721": []
+  },
+  "nftTransfers": []
+}

@@ -1,1 +1,2 @@
-export * from './ApiConfig';
+export * from './ApiUtilsConfig';
+export * from './MoralisConfig';

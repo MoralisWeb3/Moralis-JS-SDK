@@ -1,6 +1,6 @@
 <div align="center">
     <a align="center" href="https://moralis.io" target="_blank">
-      <img src="./docs/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
+      <img src="./assets/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
     </a>
     <h1 align="center">Moralis SDK (JavaScript / TypeScript)</h1>
     <a href="https://discord.gg/moralis" target="_blank">
@@ -26,12 +26,7 @@
 
 ---
 
-# 🚨 Beta version
-
-> **Important: Do not use this beta version in production**
->
-> This version is an **beta** release and is under active development. For questions or feedback, post an issue or post in our [forum](http://forum.moralis.io)
-
+> **⚠ WARNING**: This library is dedicated to back-end projects only. You **should NOT** use this library for a front-end project. Keep your API key secret and don't disclose it.
 
 **Features**:
 
@@ -45,7 +40,7 @@
 
 # 🚀 Quick start
 
-If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/moralis-dapp/getting-started) on how to get started.
+If you're new to Moralis, check the [quickstart guide in the official docs](https://docs.moralis.io/docs/quickstart) on how to get started.
 
 If you're already familiar with Moralis and have your server set up. Then follow along to connect your SDK:
 
@@ -71,17 +66,17 @@ Import Moralis:
 import Moralis from 'moralis';
 ```
 
-## 2. Initialise Moralis
+## 2. Initialize Moralis
 
 After your dependency is added, you simply need to initialize moralis via the `start` method:
 
 ```javascript
 Moralis.start({
-  apiKey: '<YOUR_API_KEY>',
+  apiKey: 'YOUR_API_KEY',
 });
 ```
 
-After that you can use any Moralis functionalites via, as described in our [extensive docs](https://docs.moralis.io)
+After that you can use any Moralis functionalities as described in our [extensive docs](https://docs.moralis.io)
 
 # ⭐️ Star us
 
@@ -93,10 +88,9 @@ If you need help with setting up the boilerplate or have other questions - don't
 
 # 🧭 Table of Contents
 
-- [🚨 Beta version](#-beta-version)
 - [🚀 Quick start](#-quick-start)
   - [1. Install Moralis](#1-install-moralis)
-  - [2. Initialise Moralis](#2-initialise-moralis)
+  - [2. Initialize Moralis](#2-initialize-moralis)
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
@@ -120,28 +114,28 @@ It's possible to install all functionalities of Moralis by installing `moralis` 
 
 ## 1. Install the dependencies
 
-Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
+Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/common-core` package. For example:
 
 ```shell
-yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
+yarn add @moralisweb3/common-core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
 ```
 
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
-import MoralisCore from '@moralisweb3/core';
+import Core from '@moralisweb3/common-core';
 import MoralisEvmApi from '@moralisweb3/evm-api';
 
-const core = MoralisCore.create();
-// Register all imported modules to the @moralisweb3/core module
+const core = Core.create();
+// Register all imported modules to the @moralisweb3/common-core module
 core.registerModules([MoralisEvmApi]);
 ```
 
-Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configation that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
+Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configuration that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
 
 ```javascript
 core.start({
-  apiKey: '<YOUR_API_KEY>',
+  apiKey: 'YOUR_API_KEY',
   // ...and any other configuration
 });
 ```
@@ -152,7 +146,7 @@ Now you can use any functionality from the installed modules. The only differenc
 import MoralisEvmApi from '@moralisweb3/evm-api';
 
 const evmApi = core.getModule<MoralisEvmApi>(MoralisEvmApi.moduleName);
-evmApi.native.getBlock();
+evmApi.block.getBlock();
 ```
 
 Instead of
@@ -160,17 +154,17 @@ Instead of
 ```javascript
 import Moralis from 'moralis';
 
-Moralis.EvmApi.native.getBlock();
+Moralis.EvmApi.block.getBlock();
 ```
 
 Of course you are free to combine the modules in a single object, and use that in your dapp.
 
 ```javascript
 // moralis.ts
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import EvmApi from '@moralisweb3/evm-api';
 
-const core = MoralisCore.create();
+const core = Core.create();
 const evmApi = EvmApi.create(core);
 core.registerModules([evmApi]);
 
@@ -181,39 +175,48 @@ export const Moralis = {
 // app.ts
 import { Moralis } from './moralis/';
 
-Moralis.EvmApi.native.getBlock();
+Moralis.EvmApi.block.getBlock();
 ```
 
 # 📦 Packages
 
 ## Umbrella package
 
-| package | Version | Changelog | Description                                                      |
-| ------- | ------- | --------- | ---------------------------------------------------------------- |
-| moralis | TODO    | TODO      | Umbrella package that includes all packages and initialises them |
+| package  | Changelog | Description                                                      |
+| -------  | --------- | ---------------------------------------------------------------- |
+| [moralis](./packages/moralis)     | [CHANGELOG.md](./packages/moralis/CHANGELOG.md)      | Umbrella package that includes all packages and initialises them |
 
 ## Core module
 
 The core module is required in all applications. It will handle global dependencies and communications between other packages.
 
-| package                                        | Version | Changelog | Description                                                                          |
-| ---------------------------------------------- | ------- | --------- | ------------------------------------------------------------------------------------ |
-| [@moralisweb3/core](./packages/core/README.md) | TODO    | TODO      | Core logic, responsible for core logic and sharing state and events between packages |
+| package                                        |  Changelog | Description                                                                          |
+| ---------------------------------------------- |--------- | ------------------------------------------------------------------------------------ |
+| [@moralisweb3/common-core](./packages/common/core) | [CHANGELOG.md](./packages/common/core/CHANGELOG.md)      | Core logic, responsible for core logic and sharing state and events between packages |
 
-## API modules
 
-These are packages that wrap around the Moralis apis for easy use. You can call to any endpoint with a single function call. These modules will also wrap the returned data in Moralis datatypes, to ensure consistent data accross all modules.
+##  Utilities
+| package                                              |  Changelog | Description |
+| ---------------------------------------------------- | --------- | ----------- |
+| [@moralisweb3/common-evm-utils](./packages/common/evmUtils) | [CHANGELOG.md](./packages/common/evmApi/CHANGELOG.md)      |    Utility functions and datatypes for EVM chains.         |
+| [@moralisweb3/sol-utils](./packages/solUtils) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Utility functions and datatypes for Solana networks.         |
+| [@moralisweb3/api-utils](./packages/apiUtils) | [CHANGELOG.md](./packages/apiUtils/CHANGELOG.md)      |    Generic functions, used in all api logic within the SDK.         |
 
-| package                                              | Version | Changelog | Description |
-| ---------------------------------------------------- | ------- | --------- | ----------- |
-| [@moralisweb3/evm-api](./packages/evm-api/README.md) | TODO    | TODO      |             |
-| [@moralisweb3/sol-api](./packages/sol-api/README.md) | TODO    | TODO      |             |
+
+## Moralis functionalities
+
+| package                                              |  Changelog | Description |
+| ---------------------------------------------------- | --------- | ----------- |
+| [@moralisweb3/evm-api](./packages/evmApi) | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Fetch data from an EVM chain         |
+| [@moralisweb3/sol-api](./packages/solApi) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Fetch data from a Solana network         |
+| [@moralisweb3/auth](./packages/auth) | [CHANGELOG.md](./packages/auth/CHANGELOG.md)      |    Handle authentication         |
 
 ## Other
 
-| package | Version | Changelog | Description |
-| ------- | ------- | --------- | ----------- |
-|         | TODO    | TODO      |             |
+| package                                              |  Changelog | Description |
+| ---------------------------------------------------- | --------- | ----------- |
+| [@moralisweb3/eslint-config](./packages/eslintConfig) | -     |    Eslint configuration that is used within Moralis         |
+
 
 # 🧙‍♂️ Community
 

@@ -1,6 +1,6 @@
-import { ApiConfig } from '../config/ApiConfig';
+import { ApiUtilsConfig } from '../config/ApiUtilsConfig';
 import axios from 'axios';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EndpointBodyType } from './Endpoint';
 import {
   createPaginatedEndpointFactory,
@@ -10,7 +10,7 @@ import {
 } from './PaginatedEndpoint';
 import { setupApi } from '../test/setup';
 import { PaginatedEndpointResolver } from './PaginatedEndpointResolver';
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 
 const MOCK_API_KEY = 'test-api-key';
 const API_ROOT = 'https://deep-index.moralis.io/api/v2';
@@ -60,9 +60,9 @@ type ApiResult = {
 }[];
 
 describe('PaginatedEndpointResolver', () => {
-  let core: MoralisCore;
+  let core: Core;
   let resolver: PaginatedEndpointResolver<
-    Params,
+    any,
     Params,
     ApiResult,
     {
@@ -77,7 +77,7 @@ describe('PaginatedEndpointResolver', () => {
   >;
   beforeAll(() => {
     core = setupApi();
-    core.config.set(ApiConfig.apiKey, MOCK_API_KEY);
+    core.config.set(ApiUtilsConfig.apiKey, MOCK_API_KEY);
 
     const mockRequest = jest.spyOn(axios, 'request');
     mockRequest.mockImplementation((options) => {
@@ -97,10 +97,11 @@ describe('PaginatedEndpointResolver', () => {
   beforeEach(() => {
     resolver = PaginatedEndpointResolver.create(
       core,
+      API_ROOT,
       createPaginatedEndpointFactory(() =>
         createPaginatedEndpoint({
           name: 'getContractEvents',
-          getUrl: (params: Params) => `${API_ROOT}/${params.address}/events`,
+          getUrl: (params: Params) => `/${params.address}/events`,
           //   TODO: remove PaginatedResponse when api squad make swagger update
           apiToResult: (data: PaginatedResult<ApiResult>) =>
             data.result.map((event) => ({

@@ -7,6 +7,12 @@ lerna-debug.log
 npm-debug.log
 yarn-error.log
 
+# docs
+docs/
+
+# gh-pages
+pages/
+
 # Build
 packages/**/build
 packages/**/dist
@@ -26,6 +32,7 @@ logs/
 # Typescript
 packages/**/tsconfig.tsbuildinfo
 demos/**/tsconfig.tsbuildinfo
+packages/**/tsconfig.build.tsbuildinfo
 
 # Test coverage
 packages/**/coverage
@@ -41,3 +48,6 @@ packages/**/coverage
 .tmp/
 TODO.md
 archive/**/*
+.vscode/
+.idea/
+dump.rdb

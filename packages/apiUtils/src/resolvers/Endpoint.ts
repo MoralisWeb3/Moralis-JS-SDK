@@ -1,6 +1,6 @@
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 
-export type EndpointMethod = 'get' | 'post' | 'put';
+export type EndpointMethod = 'get' | 'post' | 'put' | 'delete';
 
 export enum EndpointBodyType {
   PROPERTY = 'property',
@@ -8,19 +8,20 @@ export enum EndpointBodyType {
 }
 
 export interface Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> {
+  name: string;
   getUrl: (params: Params) => string;
   apiToResult: (result: ApiResult, params: Params) => AdaptedResult;
   resultToJson: (result: AdaptedResult) => JSONResult;
   parseParams: (params: Params) => ApiParams;
   method?: EndpointMethod;
   urlParams?: readonly (keyof Params)[];
-  bodyParams?: readonly (keyof Params)[];
+  bodyParams?: readonly (keyof ApiParams)[];
   bodyType?: EndpointBodyType;
-  name: string;
+  firstPageIndex?: number;
 }
 
 export type EndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult> = (
-  core: MoralisCore,
+  core: Core,
 ) => Endpoint<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>;
 
 export function createEndpointFactory<ApiParams, Params, ApiResult, AdaptedResult, JSONResult>(
