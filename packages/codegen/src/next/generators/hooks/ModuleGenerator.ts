@@ -5,7 +5,6 @@ import { getCommonUtilsPackageName, getHookName } from '../../utils/names';
 import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
 import path from 'node:path';
-import { Module } from '../../types';
 
 export class ModuleGenerator {
   constructor(private module: 'evmApi' | 'solApi') {}
@@ -37,6 +36,7 @@ export class ModuleGenerator {
             hook: hookName,
             operation: `${operation.name}Operation`,
             request: `${_.upperFirst(operation.name)}Request`,
+            response: `${_.upperFirst(operation.name)}Response`,
             commonUtils: getCommonUtilsPackageName(this.module),
           },
           relativePath: `${operation.groupName}/${hookName}`,

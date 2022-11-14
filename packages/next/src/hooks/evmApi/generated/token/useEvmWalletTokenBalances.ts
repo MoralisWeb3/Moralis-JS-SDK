@@ -1,16 +1,16 @@
-import { getWalletTokenBalancesOperation, GetWalletTokenBalancesRequest } from '@moralisweb3/common-evm-utils';
+import { getWalletTokenBalancesOperation, GetWalletTokenBalancesRequest, GetWalletTokenBalancesResponse } from '@moralisweb3/common-evm-utils';
 import { SWRConfiguration } from 'swr/dist/types';
 import axios from 'axios';
 import Moralis from 'moralis';
 import useSWR from 'swr';
 
 export const useEvmWalletTokenBalances = (request: GetWalletTokenBalancesRequest, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string, fetcherParams: any) => {
-    const jsonResponse = await axios.post(`/api/moralis/${endpoint}`, fetcherParams);
+  const axiosFetcher = async (endpoint: string) => {
+    const jsonResponse = await axios.post(`/api/moralis/${endpoint}`, getWalletTokenBalancesOperation.serializeRequest(request, Moralis.Core));
     return getWalletTokenBalancesOperation.deserializeResponse(jsonResponse.data, request, Moralis.Core);
   };
 
-  const { data, error, mutate, isValidating } = useSWR(['evmApi/getWalletTokenBalances', getWalletTokenBalancesOperation.serializeRequest(request, Moralis.Core)], axiosFetcher, SWRConfig);
+  const { data, error, mutate, isValidating } = useSWR<GetWalletTokenBalancesResponse>('evmApi/getWalletTokenBalances', axiosFetcher, SWRConfig);
 
   return {
     data,

@@ -1,16 +1,16 @@
-import { getNFTOwnersOperation, GetNFTOwnersRequest } from '@moralisweb3/common-evm-utils';
+import { getNFTOwnersOperation, GetNFTOwnersRequest, GetNFTOwnersResponse } from '@moralisweb3/common-evm-utils';
 import { SWRConfiguration } from 'swr/dist/types';
 import axios from 'axios';
 import Moralis from 'moralis';
 import useSWR from 'swr';
 
 export const useEvmNFTOwners = (request: GetNFTOwnersRequest, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string, fetcherParams: any) => {
-    const jsonResponse = await axios.post(`/api/moralis/${endpoint}`, fetcherParams);
+  const axiosFetcher = async (endpoint: string) => {
+    const jsonResponse = await axios.post(`/api/moralis/${endpoint}`, getNFTOwnersOperation.serializeRequest(request, Moralis.Core));
     return getNFTOwnersOperation.deserializeResponse(jsonResponse.data, request, Moralis.Core);
   };
 
-  const { data, error, mutate, isValidating } = useSWR(['evmApi/getNFTOwners', getNFTOwnersOperation.serializeRequest(request, Moralis.Core)], axiosFetcher, SWRConfig);
+  const { data, error, mutate, isValidating } = useSWR<GetNFTOwnersResponse>('evmApi/getNFTOwners', axiosFetcher, SWRConfig);
 
   return {
     data,
