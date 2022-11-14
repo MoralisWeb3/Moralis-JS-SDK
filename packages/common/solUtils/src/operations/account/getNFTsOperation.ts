@@ -20,6 +20,7 @@ export interface GetNFTsJSONResponse extends SuccessResponse {}
 
 export type GetNFTsResponse = ReturnType<typeof deserializeResponse>;
 
+/** Gets NFTs owned by the given network and address */
 export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, GetNFTsResponse, GetNFTsJSONResponse> = {
   method: 'GET',
   name: 'getNFTs',

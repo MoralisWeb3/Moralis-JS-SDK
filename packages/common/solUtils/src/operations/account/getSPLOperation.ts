@@ -20,6 +20,7 @@ export interface GetSPLJSONResponse extends SuccessResponse {}
 
 export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
 
+/** Gets token balances owned by the given network and address */
 export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',
   name: 'getSPL',

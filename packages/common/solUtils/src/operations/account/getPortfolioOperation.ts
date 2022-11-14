@@ -20,6 +20,7 @@ export interface GetPortfolioJSONResponse extends SuccessResponse {}
 
 export type GetPortfolioResponse = ReturnType<typeof deserializeResponse>;
 
+/** Gets the portfolio of the given network and address */
 export const getPortfolioOperation: Operation<
   GetPortfolioRequest,
   GetPortfolioJSONRequest,

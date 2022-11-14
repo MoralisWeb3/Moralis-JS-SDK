@@ -20,6 +20,7 @@ export interface GetNFTMetadataJSONResponse extends SuccessResponse {}
 
 export type GetNFTMetadataResponse = ReturnType<typeof deserializeResponse>;
 
+/** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
 export const getNFTMetadataOperation: Operation<
   GetNFTMetadataRequest,
   GetNFTMetadataJSONRequest,
