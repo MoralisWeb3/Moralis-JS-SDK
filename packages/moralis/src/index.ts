@@ -1,6 +1,6 @@
 import { MoralisStreams } from '@moralisweb3/streams';
 import { ApiUtils } from '@moralisweb3/api-utils';
-import { MoralisAuth } from '@moralisweb3/auth';
+import { Auth } from '@moralisweb3/auth';
 import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
 import { EvmApi } from '@moralisweb3/evm-api';
 import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
@@ -18,7 +18,7 @@ const commonSolUtils = CommonSolUtils.create(core);
 const apiUtils = ApiUtils.create(core);
 
 // Feature modules
-const auth = MoralisAuth.create(core);
+const auth = Auth.create(core);
 const streams = MoralisStreams.create(core);
 const evmApi = EvmApi.create(core);
 const solApi = SolApi.create(core);
