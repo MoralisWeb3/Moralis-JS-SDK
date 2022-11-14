@@ -1,5 +1,5 @@
 // @ts-ignore
-import { ParseServer } from 'parse-server';
+import ParseServer from 'parse-server';
 import config from './config';
 import MoralisEthAdapter from './auth/MoralisEthAdapter';
 

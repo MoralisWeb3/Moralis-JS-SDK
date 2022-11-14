@@ -26,7 +26,7 @@ export const mockDeleteAddressEvm = MockScenarios.create(
         address: 'some-address',
       },
       responseStatus: 400,
-      response: createErrorResponse('Invalid Address: some-address'),
+      response: createErrorResponse('Invalid address provided'),
     },
     {
       condition: {

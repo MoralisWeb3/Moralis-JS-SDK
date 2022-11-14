@@ -11,5 +11,6 @@ export * from './methods/types';
 export * from './resolvers/evmStreams/types';
 export * from './resolvers/history/types';
 export * from './resolvers/project/types';
+export * from './mapping';
 
 export default MoralisStreams;
