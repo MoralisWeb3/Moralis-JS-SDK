@@ -357,7 +357,7 @@
 
   But you can also opt-in to only install individual packages. To do so:
 
-  1. Make sure to install the core package, this one is always required: `npm install @moralisweb3/core` or `yarn add @moralisweb3/core`
+  1. Make sure to install the core package, this one is always required: `npm install @moralisweb3/common-core` or `yarn add @moralisweb3/common-core`
   2. Install the specific packages that you want. For example `npm install @moralisweb3/evm` or `yarn add @moralisweb3/evm`
   3. Register the installed package to the Core module, at the top of your code, before any interaction with Moralis:
      ```javascript
