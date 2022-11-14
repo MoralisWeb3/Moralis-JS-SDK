@@ -1,31 +1,21 @@
 import _ from 'lodash';
 import { ActionConfig } from 'node-plop';
 import { fileURLToPath } from 'node:url';
-import { getCommonUtilsPackageName, getHookName } from '../../utils/names';
-import { operations as evmOperations } from 'moralis/common-evm-utils';
-import { operations as solOperations } from 'moralis/common-sol-utils';
+import { Module } from '../../types';
+import { ModuleGenerator } from '../../ModuleGenerator';
 import path from 'node:path';
 
-export class ModuleGenerator {
-  constructor(private module: 'evmApi' | 'solApi') {}
+export class HooksGenerator extends ModuleGenerator {
+  public dirname = path.dirname(fileURLToPath(import.meta.url));
+  public packagesFolder = path.join(this.dirname, '../../../../..');
 
-  private dirname = path.dirname(fileURLToPath(import.meta.url));
-  private packagesFolder = path.join(this.dirname, '../../../../..');
-
-  private get operations() {
-    switch (this.module) {
-      case 'evmApi':
-        return evmOperations;
-      case 'solApi':
-        return solOperations;
-      default:
-        throw new Error('Module does not exist');
-    }
-  }
+  private getHookName = (operationName: string, moduleName: Module) => {
+    return `use${_.upperFirst(moduleName.replace('Api', ''))}${_.upperFirst(operationName.replace('get', ''))}`;
+  };
 
   private get addHooks() {
     return this.operations.map((operation) => {
-      const hookName = getHookName(operation.name, this.module);
+      const hookName = this.getHookName(operation.name, this.module);
 
       return {
         type: 'add',
@@ -37,7 +27,7 @@ export class ModuleGenerator {
             operation: `${operation.name}Operation`,
             request: `${_.upperFirst(operation.name)}Request`,
             response: `${_.upperFirst(operation.name)}Response`,
-            commonUtils: getCommonUtilsPackageName(this.module),
+            commonUtils: this.commonUtilsPackageName,
           },
           relativePath: `${operation.groupName}/${hookName}`,
           url: `${this.module}/${operation.name}`,

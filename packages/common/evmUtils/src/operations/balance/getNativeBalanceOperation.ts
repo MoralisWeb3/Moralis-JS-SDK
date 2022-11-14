@@ -24,6 +24,7 @@ export type GetNativeBalanceJSONResponse = SuccessResponse;
 
 export type GetNativeBalanceResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the native balance for a specific wallet address. */
 export const getNativeBalanceOperation: Operation<
   GetNativeBalanceRequest,
   GetNativeBalanceJSONRequest,

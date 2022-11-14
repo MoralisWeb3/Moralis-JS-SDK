@@ -25,6 +25,7 @@ export type GetWalletNFTsJSONResponse = SuccessResponse;
 
 export type GetWalletNFTsResponse = ReturnType<typeof deserializeResponse>;
 
+
 export const getWalletNFTsOperation: PaginatedOperation<
   GetWalletNFTsRequest,
   GetWalletNFTsJSONRequest,
