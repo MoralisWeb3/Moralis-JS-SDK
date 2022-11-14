@@ -1,5 +1,16 @@
 # @moralisweb3/sol-api
 
+## 2.7.3
+
+### Patch Changes
+
+- [#807](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/807) [`91bbd142`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/91bbd1424a22f82557f434ef60a20989331039aa) Thanks [@sogunshola](https://github.com/sogunshola)! - Corrected API to make call to correct url
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.3
+  - @moralisweb3/api-utils@2.7.3
+  - @moralisweb3/sol-utils@2.7.3
+
 ## 2.7.2
 
 ### Patch Changes
