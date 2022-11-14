@@ -25,6 +25,7 @@ export type SyncNFTContractJSONResponse = SuccessResponse;
 
 export type SyncNFTContractResponse = ReturnType<typeof deserializeResponse>;
 
+/** Initiates a sync of a previously non synced Contract. */
 export const syncNFTContractOperation: Operation<
   SyncNFTContractRequest,
   SyncNFTContractJSONRequest,

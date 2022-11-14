@@ -22,6 +22,7 @@ export type UploadFolderJSONResponse = SuccessResponse;
 
 export type UploadFolderResponse = ReturnType<typeof deserializeResponse>;
 
+/** Upload multiple files to IPFS and place them in a folder directory. */
 export const uploadFolderOperation: Operation<
   UploadFolderRequest,
   UploadFolderJSONRequest,

@@ -24,6 +24,7 @@ export type RunContractFunctionJSONResponse = SuccessResponse;
 
 export type RunContractFunctionResponse = ReturnType<typeof deserializeResponse>;
 
+/** Run a given function of a contract ABI and retrieve readonly data. */
 export const runContractFunctionOperation: Operation<
   RunContractFunctionRequest,
   RunContractFunctionJSONRequest,

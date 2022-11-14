@@ -24,6 +24,10 @@ export type GetNFTMetadataJSONResponse = SuccessResponse;
 
 export type GetNFTMetadataResponse = ReturnType<typeof deserializeResponse>;
 
+/**
+ * Get NFT data, including metadata (where available), for the given NFT token ID and contract address.
+ * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+ */
 export const getNFTMetadataOperation: Operation<
   GetNFTMetadataRequest,
   GetNFTMetadataJSONRequest,

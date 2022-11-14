@@ -24,6 +24,7 @@ export type GetDateToBlockJSONResponse = SuccessResponse;
 
 export type GetDateToBlockResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the closest block given the date. */
 export const getDateToBlockOperation: Operation<
   GetDateToBlockRequest,
   GetDateToBlockJSONRequest,

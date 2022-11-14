@@ -23,6 +23,7 @@ export type GetBlockJSONResponse = SuccessResponse;
 
 export type GetBlockResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the contents of a block given the block hash. */
 export const getBlockOperation: Operation<
   GetBlockRequest,
   GetBlockJSONRequest,

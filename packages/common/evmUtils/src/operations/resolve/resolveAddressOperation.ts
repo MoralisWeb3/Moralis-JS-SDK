@@ -22,6 +22,7 @@ export type ResolveAddressJSONResponse = SuccessResponse;
 
 export type ResolveAddressResponse = ReturnType<typeof deserializeResponse>;
 
+/** Resolve an ETH address and find the ENS name. */
 export const resolveAddressOperation: Operation<
   ResolveAddressRequest,
   ResolveAddressJSONRequest,

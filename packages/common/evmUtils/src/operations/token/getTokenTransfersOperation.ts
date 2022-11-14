@@ -25,6 +25,7 @@ export type GetTokenTransfersJSONResponse = SuccessResponse;
 
 export type GetTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get ERC20 token transactions from a contract ordered by block number in descending order. */
 export const getTokenTransfersOperation: PaginatedOperation<
   GetTokenTransfersRequest,
   GetTokenTransfersJSONRequest,

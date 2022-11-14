@@ -24,6 +24,10 @@ export type GetNFTTokenIdOwnersJSONResponse = SuccessResponse;
 
 export type GetNFTTokenIdOwnersResponse = ReturnType<typeof deserializeResponse>;
 
+/**
+ * Get owners of a specific NFT given the contract address and token ID.
+ * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+ */
 export const getNFTTokenIdOwnersOperation: PaginatedOperation<
   GetNFTTokenIdOwnersRequest,
   GetNFTTokenIdOwnersJSONRequest,

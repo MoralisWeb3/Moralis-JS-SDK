@@ -27,6 +27,7 @@ export type SearchNFTsJSONResponse = SuccessResponse;
 
 export type SearchNFTsResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get NFTs that match a given metadata search query. */
 export const searchNFTsOperation: PaginatedOperation<
   SearchNFTsRequest,
   SearchNFTsJSONRequest,

@@ -6,7 +6,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packagesFolder = path.join(__dirname, '../../../..');
 
 export class EvmApiGenerator {
-  
   // generateIndex,
   //     ...generateHooks,
   // generateIndex,

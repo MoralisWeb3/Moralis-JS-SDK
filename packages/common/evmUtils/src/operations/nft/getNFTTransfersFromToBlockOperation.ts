@@ -24,6 +24,7 @@ export type GetNFTTransfersFromToBlockJSONResponse = SuccessResponse;
 
 export type GetNFTTransfersFromToBlockResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get transfers of NFTs from a block number to a block number. */
 export const getNFTTransfersFromToBlockOperation: PaginatedOperation<
   GetNFTTransfersFromToBlockRequest,
   GetNFTTransfersFromToBlockJSONRequest,

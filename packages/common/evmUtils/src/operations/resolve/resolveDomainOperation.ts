@@ -21,6 +21,7 @@ export type ResolveDomainJSONResponse = SuccessResponse;
 
 export type ResolveDomainResponse = ReturnType<typeof deserializeResponse>;
 
+/** Resolve an Unstoppable domain and get the address. */
 export const resolveDomainOperation: Operation<
   ResolveDomainRequest,
   ResolveDomainJSONRequest,

@@ -27,6 +27,7 @@ export type GetContractLogsJSONResponse = SuccessResponse;
 
 export type GetContractLogsResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the logs for a contract. */
 export const getContractLogsOperation: PaginatedOperation<
   GetContractLogsRequest,
   GetContractLogsJSONRequest,

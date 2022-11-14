@@ -22,6 +22,7 @@ export type GetTokenMetadataBySymbolJSONResponse = SuccessResponse;
 
 export type GetTokenMetadataBySymbolResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get metadata for a list of token symbols (name, symbol, decimals, logo). */
 export const getTokenMetadataBySymbolOperation: Operation<
   GetTokenMetadataBySymbolRequest,
   GetTokenMetadataBySymbolJSONRequest,

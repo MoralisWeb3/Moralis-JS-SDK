@@ -29,6 +29,7 @@ export type GetWalletTransactionsJSONResponse = SuccessResponse;
 
 export type GetWalletTransactionsResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get native transactions ordered by block number in descending order. */
 export const getWalletTransactionsOperation: PaginatedOperation<
   GetWalletTransactionsRequest,
   GetWalletTransactionsJSONRequest,

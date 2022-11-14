@@ -23,6 +23,7 @@ export type GetNFTTransfersByBlockJSONResponse = SuccessResponse;
 
 export type GetNFTTransfersByBlockResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get transfers of NFTs given a block number or block hash. */
 export const getNFTTransfersByBlockOperation: PaginatedOperation<
   GetNFTTransfersByBlockRequest,
   GetNFTTransfersByBlockJSONRequest,

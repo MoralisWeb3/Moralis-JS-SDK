@@ -25,7 +25,13 @@ export type GetWalletNFTsJSONResponse = SuccessResponse;
 
 export type GetWalletNFTsResponse = ReturnType<typeof deserializeResponse>;
 
-
+/**
+ * Get NFTs owned by a given address.
+ * * The response will include status [SYNCED/SYNCING] based on the contracts being indexed.
+ * * Use the token_address param to get results for a specific contract only
+ * * Note results will include all indexed NFTs
+ * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
+ */
 export const getWalletNFTsOperation: PaginatedOperation<
   GetWalletNFTsRequest,
   GetWalletNFTsJSONRequest,

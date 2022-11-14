@@ -16,6 +16,7 @@ export type Web3ApiVersionJSONResponse = SuccessResponse;
 
 export type Web3ApiVersionResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the current version of the Moralis Web3 API. */
 export const web3ApiVersionOperation: Operation<
   Web3ApiVersionRequest,
   Web3ApiVersionJSONRequest,

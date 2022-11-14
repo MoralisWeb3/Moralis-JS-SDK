@@ -24,6 +24,7 @@ export type GetNFTLowestPriceJSONResponse = SuccessResponse;
 
 export type GetNFTLowestPriceResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH). */
 export const getNFTLowestPriceOperation: Operation<
   GetNFTLowestPriceRequest,
   GetNFTLowestPriceJSONRequest,

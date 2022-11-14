@@ -24,6 +24,7 @@ export type GetWalletNFTCollectionsJSONResponse = SuccessResponse;
 
 export type GetWalletNFTCollectionsResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get NFT collections owned by a given wallet address. */
 export const getWalletNFTCollectionsOperation: PaginatedOperation<
   GetWalletNFTCollectionsRequest,
   GetWalletNFTCollectionsJSONRequest,

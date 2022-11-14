@@ -26,6 +26,7 @@ export type GetWalletNFTTransfersJSONResponse = SuccessResponse;
 
 export type GetWalletNFTTransfersResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get transfers of NFTs given the wallet and other parameters. */
 export const getWalletNFTTransfersOperation: PaginatedOperation<
   GetWalletNFTTransfersRequest,
   GetWalletNFTTransfersJSONRequest,

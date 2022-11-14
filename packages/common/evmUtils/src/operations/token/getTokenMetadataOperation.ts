@@ -23,6 +23,7 @@ export type GetTokenMetadataJSONResponse = SuccessResponse;
 
 export type GetTokenMetadataResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the metadata for a given token contract address (name, symbol, decimals, logo). */
 export const getTokenMetadataOperation: Operation<
   GetTokenMetadataRequest,
   GetTokenMetadataJSONRequest,

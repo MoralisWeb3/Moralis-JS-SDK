@@ -27,6 +27,7 @@ export type GetTokenAllowanceJSONResponse = SuccessResponse;
 
 export type GetTokenAllowanceResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
 export const getTokenAllowanceOperation: Operation<
   GetTokenAllowanceRequest,
   GetTokenAllowanceJSONRequest,

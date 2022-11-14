@@ -16,6 +16,7 @@ export type EndpointWeightsJSONResponse = SuccessResponse;
 
 export type EndpointWeightsResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the endpoint price list for rate limits and cost. */
 export const endpointWeightsOperation: Operation<
   EndpointWeightsRequest,
   EndpointWeightsJSONRequest,

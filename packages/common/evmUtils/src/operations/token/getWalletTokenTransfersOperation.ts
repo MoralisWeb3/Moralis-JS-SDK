@@ -25,6 +25,7 @@ export type GetWalletTokenTransfersJSONResponse = SuccessResponse;
 
 export type GetWalletTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get ERC20 token transactions ordered by block number in descending order. */
 export const getWalletTokenTransfersOperation: PaginatedOperation<
   GetWalletTokenTransfersRequest,
   GetWalletTokenTransfersJSONRequest,

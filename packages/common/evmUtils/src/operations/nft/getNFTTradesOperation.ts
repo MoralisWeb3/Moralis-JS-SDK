@@ -26,6 +26,7 @@ export type GetNFTTradesJSONResponse = SuccessResponse;
 
 export type GetNFTTradesResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get trades of NFTs for a given contract and marketplace. */
 export const getNFTTradesOperation: PaginatedOperation<
   GetNFTTradesRequest,
   GetNFTTradesJSONRequest,

@@ -24,6 +24,7 @@ export type GetNFTTransfersJSONResponse = SuccessResponse;
 
 export type GetNFTTransfersResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get transfers of an NFT given a contract address and token ID. */
 export const getNFTTransfersOperation: PaginatedOperation<
   GetNFTTransfersRequest,
   GetNFTTransfersJSONRequest,

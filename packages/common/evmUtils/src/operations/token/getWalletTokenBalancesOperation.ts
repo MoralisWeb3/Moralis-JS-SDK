@@ -24,6 +24,7 @@ export type GetWalletTokenBalancesJSONResponse = SuccessResponse;
 
 export type GetWalletTokenBalancesResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get token balances for a specific wallet address. */
 export const getWalletTokenBalancesOperation: Operation<
   GetWalletTokenBalancesRequest,
   GetWalletTokenBalancesJSONRequest,

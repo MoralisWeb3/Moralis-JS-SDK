@@ -25,6 +25,7 @@ export type GetTokenPriceJSONResponse = SuccessResponse;
 
 export type GetTokenPriceResponse = ReturnType<typeof deserializeResponse>;
 
+/** Get the token price denominated in the blockchains native token and USD. */
 export const getTokenPriceOperation: Operation<
   GetTokenPriceRequest,
   GetTokenPriceJSONRequest,
