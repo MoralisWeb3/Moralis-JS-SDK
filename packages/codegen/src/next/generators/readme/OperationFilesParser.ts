@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import { ModuleGenerator } from '../../ModuleGenerator';
-import { Project } from 'ts-morph';
+import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
 import { paths } from './utils/constants';
+import prettier from 'prettier';
 
 export class OperationFilesParser extends ModuleGenerator {
   private get operationsFolder() {
@@ -10,7 +11,11 @@ export class OperationFilesParser extends ModuleGenerator {
   }
 
   private formatType(type: string) {
-    return type.replaceAll(';', ';\n\t').replaceAll('{', '{\n').replaceAll('}', '\n}');
+    if (type.includes('{')) {
+      const mockedType = prettier.format(`type x = ${type} //end`, { parser: 'typescript' });
+      return mockedType.replace('type x = ', '').replace('//end\n', '');
+    }
+    return type;
   }
 
   public get parsedOperations() {
@@ -32,14 +37,16 @@ export class OperationFilesParser extends ModuleGenerator {
       const request = requestInterface?.getProperties().map((p) => p.getText());
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
-      const response = deserializeResponseDeclaration?.getReturnType().getText(deserializeResponseDeclaration);
+      const response = deserializeResponseDeclaration
+        ?.getReturnType()
+        .getText(deserializeResponseDeclaration, TypeFormatFlags.NoTruncation);
 
       const operationStatement = sourceFile.getVariableStatement(name);
 
       return {
         name: name.replace('Operation', ''),
         id,
-        request,
+        request: request ? this.formatType(`{${request.join('')}}`) : undefined,
         response: response ? this.formatType(response) : undefined,
         description: operationStatement?.getJsDocs()[0].getDescription(),
       };

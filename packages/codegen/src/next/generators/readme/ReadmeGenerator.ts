@@ -17,26 +17,21 @@ export class ReadmeGenerator extends OperationFilesParser {
 
   private get appendHookDescriptions() {
     return this.parsedOperations.map((operation) => {
+      const hookName = getHookName(operation.name, this.module);
+      if (hookName === 'useEvmPairAddress') {
+        console.warn('Please add Response for useEvmPairAddress in README manually');
+        console.log(operation.response);
+      }
       return {
         type: 'append',
         templateFile: path.join(paths.templates, 'hook_desc.hbs'),
         path: path.join(paths.packages, 'next/README.md'),
         pattern: '# Hooks',
         data: {
-          hookName: getHookName(operation.name, this.module),
-          request: '',
+          hookName,
+          request: operation.request,
           response: operation.response,
           description: new Handlebars.SafeString(operation.description || 'Description will be added later 👀'),
-          // desc: new Handlebars.SafeString(apiModule.desc || 'Description will be added later 👀'),
-          // params: formaParsedTypes(apiModule.params),
-          // TODO: finish this functionality by resolving the type
-          // return: new Handlebars.SafeString(
-          //   JSON.stringify(
-          //     apiModule.return?.find((returnType) => returnType.name === 'toJson')?.type,
-          //     null,
-          //     2,
-          //   ).replaceAll('() => ', ''),
-          // ),
         },
       };
     });
