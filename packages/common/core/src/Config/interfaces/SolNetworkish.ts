@@ -1,6 +1,6 @@
 /**
  * Note this is just an interface, used in the core config.
- * The implementations are located in the @moralisweb3/sol-utils package.
+ * The implementations are located in the @moralisweb3/common-sol-utils package.
  */
 
 export const solNetworkNames = ['mainnet', 'devnet'] as const;
