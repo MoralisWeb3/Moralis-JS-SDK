@@ -9,7 +9,6 @@ describe('getHistoryOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-
     const request: Required<GetHistoryRequest> = {
       excludePayload: false,
       limit: 100,

@@ -9,7 +9,6 @@ describe('getStatsByIdOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-
     const request: Required<GetStatsByIdRequest> = {
       streamId: '2b3ae945-44ca-4d89-825a-de19d14f2d9d',
     };

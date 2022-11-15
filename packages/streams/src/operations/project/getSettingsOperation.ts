@@ -23,8 +23,8 @@ export const getSettingsOperation: Operation<
 > = {
   method: 'GET',
   name: 'getSettings',
-  id: 'getSettings',
-  groupName: 'streams',
+  id: 'GetSettings',
+  groupName: 'project',
   urlPathPattern: '/settings',
 
   getRequestUrlParams,

@@ -26,8 +26,8 @@ export const getHistoryOperation: PaginatedOperation<
 > = {
   method: 'GET',
   name: 'getHistory',
-  id: 'getHistory',
-  groupName: 'streams',
+  id: 'GetHistory',
+  groupName: 'history',
   urlPathPattern: '/history',
   urlSearchParamNames: ['excludePayload', 'limit', 'cursor'],
   firstPageIndex: 0,
@@ -49,7 +49,7 @@ function getRequestUrlParams(request: GetHistoryRequest) {
 }
 
 function deserializeResponse(jsonResponse: GetHistoryJSONResponse) {
-  return (jsonResponse.result ?? []);
+  return jsonResponse.result ?? [];
 }
 
 function serializeRequest(request: GetHistoryRequest) {

@@ -9,7 +9,6 @@ describe('replayHistoryOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-
     const request: Required<ReplayHistoryRequest> = {
       streamId: 'stream-1',
       id: 'id-1',

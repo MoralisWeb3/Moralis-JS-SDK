@@ -26,9 +26,9 @@ export const getStreamsEvmOperation: PaginatedOperation<
   GetStreamsEvmJSONResponse['result']
 > = {
   method: 'GET',
-  name: 'getStreams',
-  id: 'getStreams',
-  groupName: 'streams',
+  name: 'getStreamsEvm',
+  id: 'GetStreams',
+  groupName: 'evmStreams',
   urlSearchParamNames: ['cursor', 'limit'],
   urlPathPattern: '/streams/evm',
   firstPageIndex: 0,

@@ -26,8 +26,8 @@ export const getStatsByIdOperation: Operation<
 > = {
   method: 'GET',
   name: 'getStatsById',
-  id: 'getStatsById',
-  groupName: 'streams',
+  id: 'GetStatsByStreamId',
+  groupName: 'stats',
   urlPathPattern: '/stats/{streamId}',
   urlPathParamNames: ['streamId'],
 
@@ -40,7 +40,9 @@ export const getStatsByIdOperation: Operation<
 // Methods
 
 function getRequestUrlParams(request: GetStatsByIdRequest) {
-  return request;
+  return {
+    streamId: request.streamId,
+  };
 }
 
 function deserializeResponse(jsonResponse: GetStatsByIdJSONResponse) {

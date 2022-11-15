@@ -9,7 +9,6 @@ describe('getStreamsEvmOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-
     const request: Required<GetStreamsEvmRequest> = {
       cursor: 'CURSOR1',
       limit: 333,

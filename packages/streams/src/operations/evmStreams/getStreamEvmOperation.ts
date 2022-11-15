@@ -26,9 +26,9 @@ export const getStreamEvmOperation: Operation<
   GetStreamEvmJSONResponse
 > = {
   method: 'GET',
-  name: 'getStream',
-  id: 'getStream',
-  groupName: 'streams',
+  name: 'getStreamEvm',
+  id: 'GetStream',
+  groupName: 'evmStreams',
   urlPathPattern: '/streams/evm/{id}',
   urlPathParamNames: ['id'],
 

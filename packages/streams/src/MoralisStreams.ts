@@ -25,7 +25,7 @@ import {
   getStatsByIdOperation,
   getStatsOperation,
   setSettingsOperation,
-  replayHistoryOperation
+  replayHistoryOperation,
 } from './operations/index';
 
 const BASE_URL = 'https://api.moralis-streams.com';
@@ -51,7 +51,7 @@ export class MoralisStreams extends ApiModule {
 
   public readonly endpoints = new Endpoints(this.core, BASE_URL);
 
-  public readonly add = makeCreateStream(this.endpoints);
+  public readonly add = makeCreateStream(this.core, BASE_URL);
   public readonly update = makeUpdateStream(this.endpoints);
   public readonly delete = makeDeleteStream(this.endpoints);
   public readonly getAll = makeGetStreams(this.core, BASE_URL);

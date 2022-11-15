@@ -10,7 +10,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface SetSettingsRequest extends Camelize<RequestParams>  {}
+export interface SetSettingsRequest extends Camelize<RequestParams> {}
 
 export type SetSettingsJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -26,8 +26,8 @@ export const setSettingsOperation: Operation<
 > = {
   method: 'POST',
   name: 'setSettings',
-  id: 'setSettings',
-  groupName: 'streams',
+  id: 'SetSettings',
+  groupName: 'project',
   urlPathPattern: '/settings',
   bodyParamNames: ['region'],
   bodyType: 'properties',

@@ -12,7 +12,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface AddAddressEvmRequest extends Camelize<Omit<RequestParams, 'address'>>  {
+export interface AddAddressEvmRequest extends Camelize<Omit<RequestParams, 'address'>> {
   address: EvmAddressish | EvmAddressish[];
 }
 
@@ -29,9 +29,9 @@ export const addAddressEvmOperation: Operation<
   AddAddressEvmJSONResponse
 > = {
   method: 'POST',
-  name: 'addAddress',
-  id: 'addAddress',
-  groupName: 'streams',
+  name: 'addAddressEvm',
+  id: 'AddAddressToStream',
+  groupName: 'evmStreams',
   urlPathPattern: '/streams/evm/{id}/address',
   bodyParamNames: ['address'],
   urlPathParamNames: ['id'],

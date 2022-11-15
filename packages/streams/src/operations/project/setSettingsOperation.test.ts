@@ -9,7 +9,6 @@ describe('setSettingsOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-
     const request: Required<SetSettingsRequest> = {
       region: 'eu-central-1',
     };

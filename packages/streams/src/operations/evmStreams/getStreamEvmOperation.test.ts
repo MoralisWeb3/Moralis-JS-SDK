@@ -9,7 +9,6 @@ describe('getStreamEvmOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-
     const request: Required<GetStreamEvmRequest> = {
       id: 'stream-1',
     };

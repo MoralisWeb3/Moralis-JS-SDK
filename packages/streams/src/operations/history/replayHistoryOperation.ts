@@ -10,7 +10,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface ReplayHistoryRequest extends Camelize<RequestParams>  {}
+export interface ReplayHistoryRequest extends Camelize<RequestParams> {}
 
 export type ReplayHistoryJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -26,8 +26,8 @@ export const replayHistoryOperation: Operation<
 > = {
   method: 'POST',
   name: 'replayHistory',
-  id: 'replayHistory',
-  groupName: 'streams',
+  id: 'ReplayHistory',
+  groupName: 'history',
   urlPathPattern: '/history/replay/{streamId}/{id}',
   urlPathParamNames: ['streamId', 'id'],
   bodyParamNames: [],
