@@ -1,5 +1,5 @@
-import { Core, Camelize, PaginatedOperation, maybe, DateInput } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
+import { Core, Camelize, PaginatedOperation, maybe, DateInput, toCamelCase } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransactionLog, LogTopic } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -121,6 +121,16 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core)
   };
 }
 
-function deserializeResponse(jsonResponse: GetContractLogsJSONResponse) {
-  return jsonResponse.result;
+function deserializeResponse(jsonResponse: GetContractLogsJSONResponse, request: GetContractLogsRequest, core: Core) {
+  return (jsonResponse.result ?? [])?.map((log) =>
+    EvmTransactionLog.create(
+      {
+        ...toCamelCase(log),
+        topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
+        blockNumber: Number(log.block_number),
+        chain: EvmChainResolver.resolve(request.chain, core),
+      },
+      core,
+    ),
+  );
 }
