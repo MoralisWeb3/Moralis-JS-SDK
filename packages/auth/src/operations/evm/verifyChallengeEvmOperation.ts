@@ -11,22 +11,22 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface EvmVerifyChallengeRequest extends Camelize<RequestParams> {}
+export interface VerifyChallengeEvmRequest extends Camelize<RequestParams> {}
 
-export type EvmVerifyChallengeJSONRequest = ReturnType<typeof serializeRequest>;
+export type VerifyChallengeEvmJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type EvmVerifyChallengeJSONResponse = SuccessResponse;
+export type VerifyChallengeEvmJSONResponse = SuccessResponse;
 
-export type EvmVerifyChallengeResponse = ReturnType<typeof deserializeResponse>;
+export type VerifyChallengeEvmResponse = ReturnType<typeof deserializeResponse>;
 
-export const evmVerifyChallengeOperation: Operation<
-  EvmVerifyChallengeRequest,
-  EvmVerifyChallengeJSONRequest,
-  EvmVerifyChallengeResponse,
-  EvmVerifyChallengeJSONResponse
+export const verifyChallengeEvmOperation: Operation<
+  VerifyChallengeEvmRequest,
+  VerifyChallengeEvmJSONRequest,
+  VerifyChallengeEvmResponse,
+  VerifyChallengeEvmJSONResponse
 > = {
   method: 'POST',
-  name: 'evmVerifyChallenge',
+  name: 'verifyChallengeEvm',
   id: 'verifyChallengeEvm',
   groupName: 'evm',
   urlPathPattern: '/challenge/verify/evm',
@@ -46,14 +46,14 @@ function getRequestUrlParams() {
   return {};
 }
 
-function getRequestBody(request: EvmVerifyChallengeRequest) {
+function getRequestBody(request: VerifyChallengeEvmRequest) {
   return {
     message: request.message,
     signature: request.signature,
   };
 }
 
-function deserializeResponse({ chainId, ...jsonResponse }: EvmVerifyChallengeJSONResponse) {
+function deserializeResponse({ chainId, ...jsonResponse }: VerifyChallengeEvmJSONResponse) {
   return {
     ...jsonResponse,
     chain: EvmChain.create(chainId),
@@ -63,14 +63,14 @@ function deserializeResponse({ chainId, ...jsonResponse }: EvmVerifyChallengeJSO
   };
 }
 
-function serializeRequest(request: EvmVerifyChallengeRequest) {
+function serializeRequest(request: VerifyChallengeEvmRequest) {
   return {
     message: request.message,
     signature: request.signature,
   };
 }
 
-function deserializeRequest(jsonRequest: EvmVerifyChallengeJSONRequest): EvmVerifyChallengeRequest {
+function deserializeRequest(jsonRequest: VerifyChallengeEvmJSONRequest): VerifyChallengeEvmRequest {
   return {
     message: jsonRequest.message,
     signature: jsonRequest.signature,

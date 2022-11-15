@@ -11,7 +11,7 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface EvmRequestChallengeRequest
+export interface RequestChallengeEvmRequest
   extends Camelize<Omit<RequestParams, 'address' | 'chainId' | 'expirationTime' | 'notBefore'>> {
   address: EvmAddressish;
   chainId: EvmChainish;
@@ -19,20 +19,20 @@ export interface EvmRequestChallengeRequest
   notBefore?: DateInput;
 }
 
-export type EvmRequestChallengeJSONRequest = ReturnType<typeof serializeRequest>;
+export type RequestChallengeEvmJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type EvmRequestChallengeJSONResponse = SuccessResponse;
+export type RequestChallengeEvmJSONResponse = SuccessResponse;
 
-export type EvmRequestChallengeResponse = ReturnType<typeof deserializeResponse>;
+export type RequestChallengeEvmResponse = ReturnType<typeof deserializeResponse>;
 
-export const evmRequestChallengeOperation: Operation<
-  EvmRequestChallengeRequest,
-  EvmRequestChallengeJSONRequest,
-  EvmRequestChallengeResponse,
-  EvmRequestChallengeJSONResponse
+export const requestChallengeEvmOperation: Operation<
+  RequestChallengeEvmRequest,
+  RequestChallengeEvmJSONRequest,
+  RequestChallengeEvmResponse,
+  RequestChallengeEvmJSONResponse
 > = {
   method: 'POST',
-  name: 'evmRequestChallenge',
+  name: 'requestChallengeEvm',
   id: 'requestChallengeEvm',
   groupName: 'evm',
   urlPathPattern: '/challenge/request/evm',
@@ -62,7 +62,7 @@ function getRequestUrlParams() {
   return {};
 }
 
-function getRequestBody(request: EvmRequestChallengeRequest, core: Core) {
+function getRequestBody(request: RequestChallengeEvmRequest, core: Core) {
   return {
     domain: request.domain,
     chainId: EvmChainResolver.resolve(request.chainId, core).decimal.toString(),
@@ -76,11 +76,11 @@ function getRequestBody(request: EvmRequestChallengeRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: EvmRequestChallengeJSONResponse) {
+function deserializeResponse(jsonResponse: RequestChallengeEvmJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: EvmRequestChallengeRequest, core: Core) {
+function serializeRequest(request: RequestChallengeEvmRequest, core: Core) {
   return {
     domain: request.domain,
     chainId: EvmChainResolver.resolve(request.chainId, core).decimal.toString(),
@@ -94,7 +94,7 @@ function serializeRequest(request: EvmRequestChallengeRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: EvmRequestChallengeJSONRequest, core: Core): EvmRequestChallengeRequest {
+function deserializeRequest(jsonRequest: RequestChallengeEvmJSONRequest, core: Core): RequestChallengeEvmRequest {
   return {
     domain: jsonRequest.domain,
     chainId: EvmChainResolver.resolve(jsonRequest.chainId, core),

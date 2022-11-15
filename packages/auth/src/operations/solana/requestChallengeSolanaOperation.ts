@@ -11,7 +11,7 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface SolRequestChallengeRequest
+export interface RequestChallengeSolanaRequest
   extends Camelize<Omit<RequestParams, 'address' | 'network' | 'expirationTime' | 'notBefore'>> {
   address: SolAddressish;
   network: SolNetworkish;
@@ -19,20 +19,20 @@ export interface SolRequestChallengeRequest
   notBefore?: DateInput;
 }
 
-export type SolRequestChallengeJSONRequest = ReturnType<typeof serializeRequest>;
+export type RequestChallengeSolanaJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type SolRequestChallengeJSONResponse = SuccessResponse;
+export type RequestChallengeSolanaJSONResponse = SuccessResponse;
 
-export type SolRequestChallengeResponse = ReturnType<typeof deserializeResponse>;
+export type RequestChallengeSolanaResponse = ReturnType<typeof deserializeResponse>;
 
-export const solRequestChallengeOperation: Operation<
-  SolRequestChallengeRequest,
-  SolRequestChallengeJSONRequest,
-  SolRequestChallengeResponse,
-  SolRequestChallengeJSONResponse
+export const requestChallengeSolanaOperation: Operation<
+  RequestChallengeSolanaRequest,
+  RequestChallengeSolanaJSONRequest,
+  RequestChallengeSolanaResponse,
+  RequestChallengeSolanaJSONResponse
 > = {
   method: 'POST',
-  name: 'solRequestChallenge',
+  name: 'requestChallengeSolana',
   id: 'requestChallengeSolana',
   groupName: 'solana',
   urlPathPattern: '/challenge/request/solana',
@@ -62,7 +62,7 @@ function getRequestUrlParams() {
   return {};
 }
 
-function getRequestBody(request: SolRequestChallengeRequest) {
+function getRequestBody(request: RequestChallengeSolanaRequest) {
   return {
     domain: request.domain,
     network: SolNetwork.create(request.network).network,
@@ -76,11 +76,11 @@ function getRequestBody(request: SolRequestChallengeRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: SolRequestChallengeJSONResponse) {
+function deserializeResponse(jsonResponse: RequestChallengeSolanaJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: SolRequestChallengeRequest) {
+function serializeRequest(request: RequestChallengeSolanaRequest) {
   return {
     domain: request.domain,
     network: SolNetwork.create(request.network).network,
@@ -94,7 +94,7 @@ function serializeRequest(request: SolRequestChallengeRequest) {
   };
 }
 
-function deserializeRequest(jsonRequest: SolRequestChallengeJSONRequest): SolRequestChallengeRequest {
+function deserializeRequest(jsonRequest: RequestChallengeSolanaJSONRequest): RequestChallengeSolanaRequest {
   return {
     domain: jsonRequest.domain,
     network: SolNetwork.create(jsonRequest.network),

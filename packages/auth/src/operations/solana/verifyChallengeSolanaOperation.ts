@@ -11,22 +11,22 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface SolVerifyChallengeRequest extends Camelize<RequestParams> {}
+export interface VerifyChallengeSolanaRequest extends Camelize<RequestParams> {}
 
-export type SolVerifyChallengeJSONRequest = ReturnType<typeof serializeRequest>;
+export type VerifyChallengeSolanaJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type SolVerifyChallengeJSONResponse = SuccessResponse;
+export type VerifyChallengeSolanaJSONResponse = SuccessResponse;
 
-export type SolVerifyChallengeResponse = ReturnType<typeof deserializeResponse>;
+export type VerifyChallengeSolanaResponse = ReturnType<typeof deserializeResponse>;
 
-export const solVerifyChallengeOperation: Operation<
-  SolVerifyChallengeRequest,
-  SolVerifyChallengeJSONRequest,
-  SolVerifyChallengeResponse,
-  SolVerifyChallengeJSONResponse
+export const verifyChallengeSolanaOperation: Operation<
+  VerifyChallengeSolanaRequest,
+  VerifyChallengeSolanaJSONRequest,
+  VerifyChallengeSolanaResponse,
+  VerifyChallengeSolanaJSONResponse
 > = {
   method: 'POST',
-  name: 'solVerifyChallenge',
+  name: 'verifyChallengeSolana',
   id: 'verifyChallengeSolana',
   groupName: 'solana',
   urlPathPattern: '/challenge/verify/solana',
@@ -46,14 +46,14 @@ function getRequestUrlParams() {
   return {};
 }
 
-function getRequestBody(request: SolVerifyChallengeRequest) {
+function getRequestBody(request: VerifyChallengeSolanaRequest) {
   return {
     message: request.message,
     signature: request.signature,
   };
 }
 
-function deserializeResponse({ network, ...jsonResponse }: SolVerifyChallengeJSONResponse) {
+function deserializeResponse({ network, ...jsonResponse }: VerifyChallengeSolanaJSONResponse) {
   return {
     ...jsonResponse,
     solNetwork: SolNetwork.create(network),
@@ -63,14 +63,14 @@ function deserializeResponse({ network, ...jsonResponse }: SolVerifyChallengeJSO
   };
 }
 
-function serializeRequest(request: SolVerifyChallengeRequest) {
+function serializeRequest(request: VerifyChallengeSolanaRequest) {
   return {
     message: request.message,
     signature: request.signature,
   };
 }
 
-function deserializeRequest(jsonRequest: SolVerifyChallengeJSONRequest): SolVerifyChallengeRequest {
+function deserializeRequest(jsonRequest: VerifyChallengeSolanaJSONRequest): VerifyChallengeSolanaRequest {
   return {
     message: jsonRequest.message,
     signature: jsonRequest.signature,

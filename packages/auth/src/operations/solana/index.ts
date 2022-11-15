@@ -1,2 +1,2 @@
-export * from './solVerifyChallengeOperation';
-export * from './solRequestChallengeOperation';
+export * from './verifyChallengeSolanaOperation';
+export * from './requestChallengeSolanaOperation';

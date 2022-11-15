@@ -1,9 +1,9 @@
-import { evmRequestChallengeOperation, evmVerifyChallengeOperation } from './evm';
-import { solRequestChallengeOperation, solVerifyChallengeOperation } from './solana';
+import { requestChallengeEvmOperation, verifyChallengeEvmOperation } from './evm';
+import { requestChallengeSolanaOperation, verifyChallengeSolanaOperation } from './solana';
 
 export const operations = [
-  evmRequestChallengeOperation,
-  evmVerifyChallengeOperation,
-  solRequestChallengeOperation,
-  solVerifyChallengeOperation,
+  requestChallengeSolanaOperation,
+  requestChallengeEvmOperation,
+  verifyChallengeSolanaOperation,
+  verifyChallengeEvmOperation,
 ];

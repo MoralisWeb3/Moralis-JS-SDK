@@ -1,2 +1,2 @@
-export * from './evmVerifyChallengeOperation';
-export * from './evmRequestChallengeOperation';
+export * from './verifyChallengeEvmOperation';
+export * from './requestChallengeEvmOperation';

@@ -1,8 +1,8 @@
 import MoralisCore from '@moralisweb3/common-core';
-import { SolAddress, SolNetwork } from '@moralisweb3/common-sol-utils';
-import { solRequestChallengeOperation, SolRequestChallengeRequest } from './solRequestChallengeOperation';
+import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { requestChallengeEvmOperation, RequestChallengeEvmRequest } from './requestChallengeEvmOperation';
 
-describe('solRequestChallengeOperation', () => {
+describe('evmRequestChallengeOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -10,15 +10,15 @@ describe('solRequestChallengeOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-    const address = 'A8rFZ2Y3Kcr2A84A23f3z3rw47BTNp5haxYCUwUE8bCU';
-    const network = 'mainnet';
+    const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
+    const chain = '25';
     const expirationTime = '2021-01-01T00:00:00.000Z';
     const notBefore = '2020-01-01T00:00:00.000Z';
 
-    const request: Required<SolRequestChallengeRequest> = {
-      address: SolAddress.create(address),
+    const request: Required<RequestChallengeEvmRequest> = {
+      address: EvmAddress.create(address, core),
       domain: 'defi.finance',
-      network: SolNetwork.create(network),
+      chainId: EvmChain.create(chain, core),
       statement: 'VALID_RESPONSE',
       uri: 'https://defi.finance/',
       expirationTime: new Date(expirationTime),
@@ -27,10 +27,10 @@ describe('solRequestChallengeOperation', () => {
       timeout: 50,
     };
 
-    const serializedRequest = solRequestChallengeOperation.serializeRequest(request, core);
+    const serializedRequest = requestChallengeEvmOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
-    expect(serializedRequest.network).toBe(network);
+    expect(serializedRequest.chainId).toBe(chain);
     expect(serializedRequest.domain).toBe(request.domain);
     expect(serializedRequest.statement).toBe(request.statement);
     expect(serializedRequest.uri).toBe(request.uri);
@@ -39,10 +39,10 @@ describe('solRequestChallengeOperation', () => {
     expect(serializedRequest.resources).toBe(request.resources);
     expect(serializedRequest.timeout).toBe(request.timeout);
 
-    const deserializedRequest = solRequestChallengeOperation.deserializeRequest(serializedRequest, core);
+    const deserializedRequest = requestChallengeEvmOperation.deserializeRequest(serializedRequest, core);
 
-    expect((deserializedRequest.address as SolAddress).address).toBe(address);
-    expect((deserializedRequest.network as SolNetwork).network).toBe(network);
+    expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
+    expect((deserializedRequest.chainId as EvmChain).decimal.toString()).toBe(chain);
     expect(deserializedRequest.domain).toBe(request.domain);
     expect(deserializedRequest.statement).toBe(request.statement);
     expect(deserializedRequest.uri).toBe(request.uri);

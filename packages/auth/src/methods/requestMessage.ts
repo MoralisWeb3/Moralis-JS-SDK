@@ -4,7 +4,7 @@ import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core'
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { BASE_URL } from '../MoralisAuth';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
-import { solRequestChallengeOperation, evmRequestChallengeOperation } from '../operations';
+import { requestChallengeSolanaOperation, requestChallengeEvmOperation } from '../operations';
 
 // Imported from Swagger and adjusted for better types for Evm
 // TODO: generalize and extend generated types
@@ -51,7 +51,7 @@ const makeEvmRequestMessage = (
   core: Core,
   { chain, address, networkType, network, ...options }: RequestMessageEvmOptions,
 ) => {
-  return new OperationResolver(evmRequestChallengeOperation, BASE_URL, core).fetch({
+  return new OperationResolver(requestChallengeEvmOperation, BASE_URL, core).fetch({
     chainId: EvmChain.create(chain).apiId,
     address: EvmAddress.create(address).checksum,
     ...options,
@@ -62,7 +62,7 @@ const makeSolRequestMessage = (
   core: Core,
   { address, solNetwork, networkType, network, ...options }: RequestMessageSolOptions,
 ) => {
-  return new OperationResolver(solRequestChallengeOperation, BASE_URL, core).fetch({
+  return new OperationResolver(requestChallengeSolanaOperation, BASE_URL, core).fetch({
     network: SolNetwork.create(solNetwork).network,
     address: SolAddress.create(address).toString(),
     ...options,
