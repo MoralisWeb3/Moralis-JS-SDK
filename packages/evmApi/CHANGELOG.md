@@ -1,5 +1,25 @@
 # @moralisweb3/evm-api
 
+## 2.7.3
+
+### Patch Changes
+
+- [#809](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/809) [`d3672e8f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d3672e8fda2de55b7a5aabb3bca54074cd141a0f) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix missing chainId error in getContractLogs call
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.3
+  - @moralisweb3/api-utils@2.7.3
+  - @moralisweb3/evm-utils@2.7.3
+
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.2
+  - @moralisweb3/api-utils@2.7.2
+  - @moralisweb3/evm-utils@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes

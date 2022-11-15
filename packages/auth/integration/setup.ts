@@ -24,6 +24,7 @@ export function setupAuth(): MoralisAuth {
     onUnhandledRequest: 'warn',
   });
 
+  mockServer.listen();
   return auth;
 }
 

@@ -1,9 +1,10 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.7.1",
+  "version": "2.7.3",
   "license": "MIT",
   "private": false,
+  "description": "Moralis SDK for JavaScript and TypeScript",
   "keywords": [
     "ethereum",
     "binance",
@@ -59,14 +60,14 @@
     }
   },
   "dependencies": {
-    "@moralisweb3/auth": "^2.7.1",
-    "@moralisweb3/core": "^2.7.1",
-    "@moralisweb3/streams": "^2.7.1",
-    "@moralisweb3/api-utils": "^2.7.1",
-    "@moralisweb3/evm-api": "^2.7.1",
-    "@moralisweb3/evm-utils": "^2.7.1",
-    "@moralisweb3/sol-api": "^2.7.1",
-    "@moralisweb3/sol-utils": "^2.7.1",
+    "@moralisweb3/auth": "^2.7.3",
+    "@moralisweb3/core": "^2.7.3",
+    "@moralisweb3/streams": "^2.7.3",
+    "@moralisweb3/api-utils": "^2.7.3",
+    "@moralisweb3/evm-api": "^2.7.3",
+    "@moralisweb3/evm-utils": "^2.7.3",
+    "@moralisweb3/sol-api": "^2.7.3",
+    "@moralisweb3/sol-utils": "^2.7.3",
     "@moralisweb3/streams-typings": "^1.0.5"
   }
 }
