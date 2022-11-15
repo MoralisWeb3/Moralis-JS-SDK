@@ -33,8 +33,14 @@ export class OperationFilesParser extends ModuleGenerator {
       const id = sourceFile.getTypeAliasOrThrow('OperationId').getType().getText();
       const name = sourceFile.getBaseNameWithoutExtension();
 
-      const requestInterface = sourceFile.getInterface(`${_.upperFirst(name.replace('Operation', ''))}Request`);
+      const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
+      console.log('interfaceName: ', interfaceName);
+      const requestInterface = sourceFile.getInterface(interfaceName);
       const request = requestInterface?.getProperties().map((p) => p.getText());
+
+      if (interfaceName === 'GetNFTContractTransfersRequest') {
+        console.log('requestInterface: ', requestInterface);
+      }
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
       const response = deserializeResponseDeclaration

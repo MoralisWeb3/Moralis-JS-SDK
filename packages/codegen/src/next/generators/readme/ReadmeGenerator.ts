@@ -22,6 +22,9 @@ export class ReadmeGenerator extends OperationFilesParser {
         console.warn('Please add Response for useEvmPairAddress in README manually');
         console.log(operation.response);
       }
+      if (hookName === 'useEvmNFTContractTransfers') {
+        console.log(operation);
+      }
       return {
         type: 'append',
         templateFile: path.join(paths.templates, 'hook_desc.hbs'),
