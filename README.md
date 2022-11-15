@@ -210,7 +210,7 @@ The core module is required in all applications. It will handle global dependenc
 | [@moralisweb3/evm-api](./packages/evmApi)            | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Fetch data from an EVM chain         |
 | [@moralisweb3/sol-api](./packages/solApi)            | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Fetch data from a Solana network     |
 | [@moralisweb3/auth](./packages/auth)                 | [CHANGELOG.md](./packages/auth/CHANGELOG.md)        |    Handle authentication                |
-| [@moralisweb3/streams](./packages/streams)           | [CHANGELOG.md](./packages/streams/CHANGELOG.md)     |    Listen EVM and Solana blockchains    |
+| [@moralisweb3/streams](./packages/streams)           | [CHANGELOG.md](./packages/streams/CHANGELOG.md)     |    Listen EVM blockchains               |
 
 ## Other
 
