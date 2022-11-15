@@ -1,11 +1,11 @@
-import { MoralisAuth } from '../../src/MoralisAuth';
+import { Auth } from '../../src/Auth';
 import { cleanAuth, setupAuth } from '../setup';
 
 describe('requestMessage', () => {
-  let moralisAuth: MoralisAuth;
+  let auth: Auth;
 
   beforeAll(() => {
-    moralisAuth = setupAuth();
+    auth = setupAuth();
   });
 
   afterAll(() => {
@@ -14,7 +14,7 @@ describe('requestMessage', () => {
 
   it('should throw a an error on in valid networkType ', async () => {
     expect(
-      moralisAuth.requestMessage({
+      auth.requestMessage({
         // @ts-expect-error
         networkType: 'invalid',
         domain: 'defi.finance',
@@ -32,7 +32,7 @@ describe('requestMessage', () => {
 
   describe('evm', () => {
     it('should create an message succesfully ', async () => {
-      const result = await moralisAuth.requestMessage({
+      const result = await auth.requestMessage({
         networkType: 'evm',
         domain: 'defi.finance',
         chain: 1,
@@ -51,7 +51,7 @@ describe('requestMessage', () => {
     });
 
     it('should default to evm networkType ', async () => {
-      const result = await moralisAuth.requestMessage({
+      const result = await auth.requestMessage({
         domain: 'defi.finance',
         chain: 1,
         address: '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
@@ -69,7 +69,7 @@ describe('requestMessage', () => {
     });
 
     it('should accept deprecated network param ', async () => {
-      const result = await moralisAuth.requestMessage({
+      const result = await auth.requestMessage({
         network: 'evm',
         domain: 'defi.finance',
         chain: 1,
@@ -89,7 +89,7 @@ describe('requestMessage', () => {
 
     it('should throw a 400 Error on invalid address ', async () => {
       expect(
-        moralisAuth.requestMessage({
+        auth.requestMessage({
           networkType: 'evm',
           domain: 'defi.finance',
           chain: 1,
@@ -106,7 +106,7 @@ describe('requestMessage', () => {
 
     it('should throw a 400 Error on multiple validation errors ', async () => {
       expect(
-        moralisAuth.requestMessage({
+        auth.requestMessage({
           networkType: 'evm',
           domain: 'defi.finance',
           chain: 1,
@@ -126,7 +126,7 @@ describe('requestMessage', () => {
 
   describe('solana', () => {
     it('should create an message succesfully ', async () => {
-      const result = await moralisAuth.requestMessage({
+      const result = await auth.requestMessage({
         networkType: 'solana',
         domain: 'defi.finance',
         solNetwork: 'mainnet',
@@ -146,7 +146,7 @@ describe('requestMessage', () => {
 
     it('should accept deprecated network param ', async () => {
       // @ts-expect-error
-      const result = await moralisAuth.requestMessage({
+      const result = await auth.requestMessage({
         network: 'solana',
         domain: 'defi.finance',
         solNetwork: 'mainnet',
@@ -166,7 +166,7 @@ describe('requestMessage', () => {
 
     it('should throw a 400 Error on invalid address ', async () => {
       expect(
-        moralisAuth.requestMessage({
+        auth.requestMessage({
           networkType: 'solana',
           domain: 'defi.finance',
           solNetwork: 'mainnet',
@@ -185,7 +185,7 @@ describe('requestMessage', () => {
 
     it('should throw a 400 Error on multiple validation errors ', async () => {
       expect(
-        moralisAuth.requestMessage({
+        auth.requestMessage({
           networkType: 'solana',
           domain: 'defi.finance',
           solNetwork: 'mainnet',
