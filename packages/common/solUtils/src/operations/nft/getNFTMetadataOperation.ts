@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTMetadataRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
+export interface GetNFTMetadataRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
   network?: SolNetworkish;
   address: SolAddressish;
-};
+}
 
 export type GetNFTMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 

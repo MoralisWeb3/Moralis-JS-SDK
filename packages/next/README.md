@@ -87,10 +87,6 @@ const App = () => {
 
 Get the current version of the Moralis Web3 API.
 
-### Params:
-```ts
-{}; 
-```
 
 ### Response:
 ```ts
@@ -115,10 +111,6 @@ string
 
 Get the endpoint price list for rate limits and cost.
 
-### Params:
-```ts
-{}; 
-```
 
 ### Response:
 ```ts
@@ -296,10 +288,6 @@ Get the amount which the spender is allowed to withdraw on behalf of the owner.
 
 Resolve an Unstoppable domain and get the address.
 
-### Params:
-```ts
-{}; 
-```
 
 ### Response:
 ```ts
@@ -412,7 +400,11 @@ Get NFTs owned by a given address.
 
 ### Params:
 ```ts
-
+{
+  chain?: EvmChainish;
+  tokenAddresses?: EvmAddressish[];
+  address: EvmAddressish;
+}; 
 ```
 
 ### Response:
@@ -426,7 +418,7 @@ Get NFT collections owned by a given wallet address.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -440,7 +432,7 @@ Get transfers of an NFT given a contract address and token ID.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -454,7 +446,7 @@ Get transfers of NFTs from a block number to a block number.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; fromDate?: DateInput; toDate?: DateInput }; 
 ```
 
 ### Response:
@@ -468,7 +460,7 @@ Get transfers of NFTs given a block number or block hash.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish }; 
 ```
 
 ### Response:
@@ -482,7 +474,12 @@ Get trades of NFTs for a given contract and marketplace.
 
 ### Params:
 ```ts
-
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
 ```
 
 ### Response:
@@ -498,7 +495,7 @@ Get owners of a specific NFT given the contract address and token ID.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -514,7 +511,7 @@ Get owners of NFTs for a given contract.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -530,7 +527,7 @@ Get NFT data, including metadata (where available), for the given NFT token ID a
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -544,7 +541,7 @@ Get the lowest executed price for an NFT contract for the last x days (only trad
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -558,7 +555,7 @@ Get transfers of NFTs for a given contract and other parameters.
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -574,7 +571,7 @@ Get the collection / contract level metadata for a given contract (name, symbol,
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -591,7 +588,7 @@ Get NFTs for a given contract address, including metadata for all NFTs (where av
 
 ### Params:
 ```ts
-
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
@@ -706,7 +703,9 @@ The token0 and token1 options are interchangable (ie. there is no different outc
     validated: number | undefined;
     createdAt: Date | undefined;
   };
-  pairAddress: EvmAddress |
+  pairAddress: EvmAddress | undefined;
+};
+```
 ## `useEvmDateToBlock()` 
 
 Get the closest block given the date.

@@ -1,9 +1,9 @@
 import { ActionConfig } from 'node-plop';
-import path from 'node:path';
 import { getHookName } from '../../utils/names';
 import { OperationFilesParser } from './OperationFilesParser';
 import { paths } from './utils/constants';
 import Handlebars from 'handlebars';
+import path from 'node:path';
 
 export class ReadmeGenerator extends OperationFilesParser {
   private get addReadMe() {
@@ -22,9 +22,6 @@ export class ReadmeGenerator extends OperationFilesParser {
         console.warn('Please add Response for useEvmPairAddress in README manually');
         console.log(operation.response);
       }
-      if (hookName === 'useEvmNFTContractTransfers') {
-        console.log(operation);
-      }
       return {
         type: 'append',
         templateFile: path.join(paths.templates, 'hook_desc.hbs'),
@@ -41,8 +38,6 @@ export class ReadmeGenerator extends OperationFilesParser {
   }
 
   public get actions(): ActionConfig[] {
-    // console.log(this.parsedOperations);
-    // console.log(paths.templates);
     return [this.addReadMe, ...this.appendHookDescriptions];
   }
 }

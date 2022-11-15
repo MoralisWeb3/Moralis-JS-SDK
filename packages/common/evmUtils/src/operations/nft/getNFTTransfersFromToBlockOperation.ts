@@ -12,11 +12,12 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTTransfersFromToBlockRequest = Camelize<Omit<RequestParams, 'chain' | 'from_date' | 'to_date'>> & {
+export interface GetNFTTransfersFromToBlockRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   fromDate?: DateInput;
   toDate?: DateInput;
-};
+}
 
 export type GetNFTTransfersFromToBlockJSONRequest = ReturnType<typeof serializeRequest>;
 

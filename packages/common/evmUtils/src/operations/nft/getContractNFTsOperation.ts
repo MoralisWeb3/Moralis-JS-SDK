@@ -13,10 +13,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetContractNFTsRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetContractNFTsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetContractNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 

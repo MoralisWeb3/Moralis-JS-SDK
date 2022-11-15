@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetTokenPriceRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
+export interface GetTokenPriceRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
   network?: SolNetworkish;
   address: SolAddressish;
-};
+}
 
 export type GetTokenPriceJSONRequest = ReturnType<typeof serializeRequest>;
 

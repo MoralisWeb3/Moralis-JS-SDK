@@ -13,12 +13,13 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTTradesRequest = Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> & {
+export interface GetNFTTradesRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
-};
+}
 
 export type GetNFTTradesJSONRequest = ReturnType<typeof serializeRequest>;
 

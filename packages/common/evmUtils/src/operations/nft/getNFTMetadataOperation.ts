@@ -13,10 +13,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTMetadataRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetNFTMetadataRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetNFTMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 

@@ -13,10 +13,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTLowestPriceRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetNFTLowestPriceRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetNFTLowestPriceJSONRequest = ReturnType<typeof serializeRequest>;
 

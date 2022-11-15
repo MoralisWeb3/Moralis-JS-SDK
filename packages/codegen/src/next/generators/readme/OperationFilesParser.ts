@@ -34,12 +34,12 @@ export class OperationFilesParser extends ModuleGenerator {
       const name = sourceFile.getBaseNameWithoutExtension();
 
       const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
-      console.log('interfaceName: ', interfaceName);
+
       const requestInterface = sourceFile.getInterface(interfaceName);
       const request = requestInterface?.getProperties().map((p) => p.getText());
 
-      if (interfaceName === 'GetNFTContractTransfersRequest') {
-        console.log('requestInterface: ', requestInterface);
+      if (interfaceName === 'Web3ApiVersionRequest') {
+        console.log('Web3ApiVersionRequest request: ', request);
       }
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
@@ -52,7 +52,7 @@ export class OperationFilesParser extends ModuleGenerator {
       return {
         name: name.replace('Operation', ''),
         id,
-        request: request ? this.formatType(`{${request.join('')}}`) : undefined,
+        request: request?.length ? this.formatType(`{${request.join('')}}`) : undefined,
         response: response ? this.formatType(response) : undefined,
         description: operationStatement?.getJsDocs()[0].getDescription(),
       };
