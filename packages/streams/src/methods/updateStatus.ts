@@ -1,24 +1,25 @@
-import { Endpoints } from '@moralisweb3/api-utils';
-import { updateStreamEvmStatus, UpdateStreamEvmStatusParams } from '../resolvers/evmStreams/updateStreamEvmStatus';
+import { OperationResolver } from '@moralisweb3/api-utils';
+import Core from '@moralisweb3/common-core';
+import { updateStreamStatusEvmOperation, UpdateStreamStatusEvmRequest } from '../operations';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import { StreamNetwork } from '../utils/StreamNetwork';
 
-export interface UpdateStreamEvmStatusOptions extends UpdateStreamEvmStatusParams {
+export interface UpdateStreamEvmStatusOptions extends UpdateStreamStatusEvmRequest {
   networkType?: 'evm';
 }
 
 export type UpdateStreamStatusOptions = UpdateStreamEvmStatusOptions;
 
-export const makeUpdateStreamStatus = (endpoints: Endpoints) => {
-  const evmFetcher = endpoints.createFetcher(updateStreamEvmStatus);
+export const makeUpdateStreamStatus = (core: Core, baseUrl: string) => {
+  const fetcher = new OperationResolver(updateStreamStatusEvmOperation, baseUrl, core).fetch;
 
   return ({ networkType, ...options }: UpdateStreamStatusOptions) => {
     switch (networkType) {
       case StreamNetwork.EVM:
-        return evmFetcher({ ...options });
+        return fetcher({ ...options });
       default:
         if (networkType === undefined) {
-          return evmFetcher({ ...options });
+          return fetcher({ ...options });
         }
         throw new IncorrectNetworkError(networkType);
     }

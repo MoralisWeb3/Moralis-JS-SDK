@@ -1,16 +1,17 @@
-import { Endpoints } from '@moralisweb3/api-utils';
-import { getStreamsEvm, GetStreamsEvmParams } from '../resolvers';
+import Core from '@moralisweb3/common-core';
+import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
+import { getStreamsEvmOperation, GetStreamsEvmRequest } from '../operations';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 
-export interface GetStreamsEvmOptions extends GetStreamsEvmParams {
+export interface GetStreamsEvmOptions extends GetStreamsEvmRequest {
   networkType?: 'evm';
 }
 
 export type GetStreamsOptions = GetStreamsEvmOptions;
 
-export const makeGetStreams = (endpoints: Endpoints) => {
-  const evmFetcher = endpoints.createPaginatedFetcher(getStreamsEvm);
+export const makeGetStreams = (core: Core, baseUrl: string) => {
+  const evmFetcher = new PaginatedOperationResolver(getStreamsEvmOperation, baseUrl, core).fetch;
 
   return ({ networkType, ...options }: GetStreamsOptions) => {
     switch (networkType) {
