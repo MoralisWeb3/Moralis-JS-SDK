@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { cleanEnv, num, str } from 'envalid';
+import { cleanEnv, num, str, bool } from 'envalid';
 
 dotenv.config();
 
@@ -47,5 +47,13 @@ export default cleanEnv(process.env, {
   RATE_LIMIT_ANONYMOUS: num({
     desc: 'Rate limit requests per window for anonymous users',
     default: 20,
+  }),
+  USE_STREAMS: bool({
+    desc: 'Enable streams sync',
+    default: false,
+  }),
+  STREAMS_WEBHOOK_URL: str({
+    desc: 'Webhook url for streams sync',
+    default: '/streams-webhook',
   }),
 });
