@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation } from '@moralisweb3/common-core';
+import { Camelize, Core, Operation, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -53,43 +53,39 @@ function getRequestUrlParams(request: AddAddressEvmRequest) {
 }
 
 function getRequestBody(request: AddAddressEvmRequest, core: Core) {
-  let address;
-  if (Array.isArray(request.address)) {
-    address = request.address.map((a) => EvmAddress.create(a, core).checksum);
-  } else {
-    address = EvmAddress.create(request.address, core).checksum;
-  }
   return {
-    address,
+    address: Array.isArray(request.address)
+      ? request.address.map((a) => EvmAddress.create(a, core).checksum)
+      : EvmAddress.create(request.address, core).checksum,
   };
 }
 
 function deserializeResponse(jsonResponse: AddAddressEvmJSONResponse) {
-  return jsonResponse;
+  const data = toCamelCase(jsonResponse);
+  return {
+    ...data,
+    address: data.address
+      ? typeof data.address === 'string'
+        ? EvmAddress.create(data.address)
+        : data.address.map((address) => EvmAddress.create(address))
+      : undefined,
+  };
 }
 
 function serializeRequest(request: AddAddressEvmRequest, core: Core) {
-  let address;
-  if (Array.isArray(request.address)) {
-    address = request.address.map((a) => EvmAddress.create(a, core).checksum);
-  } else {
-    address = EvmAddress.create(request.address, core).checksum;
-  }
   return {
     id: request.id,
-    address,
+    address: Array.isArray(request.address)
+      ? request.address.map((a) => EvmAddress.create(a, core).checksum)
+      : EvmAddress.create(request.address, core).checksum,
   };
 }
 
 function deserializeRequest(jsonRequest: AddAddressEvmJSONRequest, core: Core) {
-  let address;
-  if (Array.isArray(jsonRequest.address)) {
-    address = jsonRequest.address.map((a) => EvmAddress.create(a, core));
-  } else {
-    address = EvmAddress.create(jsonRequest.address, core);
-  }
   return {
     id: jsonRequest.id,
-    address,
+    address: Array.isArray(jsonRequest.address)
+      ? jsonRequest.address.map((a) => EvmAddress.create(a, core))
+      : EvmAddress.create(jsonRequest.address, core),
   };
 }
