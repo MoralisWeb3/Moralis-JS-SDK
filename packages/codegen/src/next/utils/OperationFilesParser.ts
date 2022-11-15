@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { ModuleGenerator } from '../../ModuleGenerator';
+import { ModuleGenerator } from '../ModuleGenerator';
+import { paths } from '../generators/readme/utils/constants';
 import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
-import { paths } from './utils/constants';
 import prettier from 'prettier';
 
 export class OperationFilesParser extends ModuleGenerator {
@@ -34,13 +34,8 @@ export class OperationFilesParser extends ModuleGenerator {
       const name = sourceFile.getBaseNameWithoutExtension();
 
       const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
-
       const requestInterface = sourceFile.getInterface(interfaceName);
       const request = requestInterface?.getProperties().map((p) => p.getText());
-
-      if (interfaceName === 'Web3ApiVersionRequest') {
-        console.log('Web3ApiVersionRequest request: ', request);
-      }
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
       const response = deserializeResponseDeclaration

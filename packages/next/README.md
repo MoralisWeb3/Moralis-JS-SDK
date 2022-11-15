@@ -703,9 +703,7 @@ The token0 and token1 options are interchangable (ie. there is no different outc
     validated: number | undefined;
     createdAt: Date | undefined;
   };
-  pairAddress: EvmAddress | undefined;
-};
-```
+  pairAddress: EvmAddress |
 ## `useEvmDateToBlock()` 
 
 Get the closest block given the date.

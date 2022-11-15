@@ -1,6 +1,6 @@
 import { ActionConfig } from 'node-plop';
 import { getHookName } from '../../utils/names';
-import { OperationFilesParser } from './OperationFilesParser';
+import { OperationFilesParser } from '../../utils/OperationFilesParser';
 import { paths } from './utils/constants';
 import Handlebars from 'handlebars';
 import path from 'node:path';
@@ -11,7 +11,7 @@ export class ReadmeGenerator extends OperationFilesParser {
       type: 'add',
       templateFile: path.join(paths.templates, 'README.md.hbs'),
       path: path.join(paths.packages, 'next/README.md'),
-      force: true,
+      force: false,
     };
   }
 
