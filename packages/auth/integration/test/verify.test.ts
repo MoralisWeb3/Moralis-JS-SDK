@@ -1,11 +1,11 @@
-import { MoralisAuth } from '../../src/MoralisAuth';
+import { Auth } from '../../src/Auth';
 import { cleanAuth, setupAuth } from '../setup';
 
 describe('verify', () => {
-  let moralisAuth: MoralisAuth;
+  let auth: Auth;
 
   beforeAll(() => {
-    moralisAuth = setupAuth();
+    auth = setupAuth();
   });
 
   afterAll(() => {
@@ -14,7 +14,7 @@ describe('verify', () => {
 
   it('should throw a an error on in valid networkType ', async () => {
     expect(
-      moralisAuth.verify({
+      auth.verify({
         // @ts-expect-error
         networkType: 'invalid',
         message: 'VALID_RESPONSE',
@@ -25,7 +25,7 @@ describe('verify', () => {
 
   describe('evm', () => {
     it('should verify succesfully ', async () => {
-      const result = await moralisAuth.verify({
+      const result = await auth.verify({
         networkType: 'evm',
         message: 'VALID_RESPONSE',
         signature: '0x12345',
@@ -37,7 +37,7 @@ describe('verify', () => {
     });
 
     it('should default to evm networkType ', async () => {
-      const result = await moralisAuth.verify({
+      const result = await auth.verify({
         message: 'VALID_RESPONSE',
         signature: '0x12345',
       });
@@ -48,7 +48,7 @@ describe('verify', () => {
     });
 
     it('should accept deprecated network param ', async () => {
-      const result = await moralisAuth.verify({
+      const result = await auth.verify({
         network: 'evm',
         message: 'VALID_RESPONSE',
         signature: '0x12345',
@@ -61,7 +61,7 @@ describe('verify', () => {
 
     it('should throw a 400 Error on invalid signature ', async () => {
       expect(
-        moralisAuth.verify({
+        auth.verify({
           networkType: 'evm',
           message: 'INVALID_SIGNATURE',
           signature: '0x12345',
@@ -71,7 +71,7 @@ describe('verify', () => {
 
     it('should throw a 400 Error on multiple validation errors ', async () => {
       expect(
-        moralisAuth.verify({
+        auth.verify({
           networkType: 'evm',
           message: 'MULTI_ERROR',
           signature: '0x12345',
@@ -84,7 +84,7 @@ describe('verify', () => {
 
   describe('solana', () => {
     it('should verify succesfully ', async () => {
-      const result = await moralisAuth.verify({
+      const result = await auth.verify({
         networkType: 'solana',
         message: 'VALID_RESPONSE',
         signature: '0x12345',
@@ -97,7 +97,7 @@ describe('verify', () => {
 
     it('should accept deprecated network param ', async () => {
       // @ts-expect-error
-      const result = await moralisAuth.verify({
+      const result = await auth.verify({
         network: 'solana',
         message: 'VALID_RESPONSE',
         signature: '0x12345',
@@ -110,7 +110,7 @@ describe('verify', () => {
 
     it('should throw a 400 Error on invalid signature ', async () => {
       expect(
-        moralisAuth.verify({
+        auth.verify({
           networkType: 'solana',
           message: 'INVALID_SIGNATURE',
           signature: '0x12345',
@@ -120,7 +120,7 @@ describe('verify', () => {
 
     it('should throw a 400 Error on multiple validation errors ', async () => {
       expect(
-        moralisAuth.verify({
+        auth.verify({
           networkType: 'solana',
           message: 'MULTI_ERROR',
           signature: '0x12345',

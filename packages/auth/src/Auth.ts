@@ -11,15 +11,15 @@ import {
 
 export const BASE_URL = 'https://authapi.moralis.io';
 
-export class MoralisAuth extends ApiModule {
+export class Auth extends ApiModule {
   public static readonly moduleName = 'auth';
 
-  public static create(core?: Core): MoralisAuth {
-    return new MoralisAuth(core ?? CoreProvider.getDefault());
+  public static create(core?: Core): Auth {
+    return new Auth(core ?? CoreProvider.getDefault());
   }
 
   private constructor(core: Core) {
-    super(MoralisAuth.moduleName, core, BASE_URL);
+    super(Auth.moduleName, core, BASE_URL);
   }
 
   public setup() {
