@@ -30,15 +30,15 @@ import {
 
 const BASE_URL = 'https://api.moralis-streams.com';
 
-export class MoralisStreams extends ApiModule {
+export class Streams extends ApiModule {
   public static readonly moduleName = 'streams';
 
-  public static create(core?: Core): MoralisStreams {
-    return new MoralisStreams(core ?? CoreProvider.getDefault());
+  public static create(core?: Core): Streams {
+    return new Streams(core ?? CoreProvider.getDefault());
   }
 
   private constructor(core: Core) {
-    super(MoralisStreams.moduleName, core, BASE_URL);
+    super(Streams.moduleName, core, BASE_URL);
   }
 
   public setup() {

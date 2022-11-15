@@ -1,11 +1,10 @@
 import Core from '@moralisweb3/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { AddAddressEvmParams } from '../resolvers/evmStreams/addAddressEvm';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import { addAddressEvmOperation } from '../operations';
+import { addAddressEvmOperation, AddAddressEvmRequest } from '../operations';
 
-export interface AddAddressEvmOptions extends AddAddressEvmParams {
+export interface AddAddressEvmOptions extends AddAddressEvmRequest {
   networkType?: 'evm';
 }
 

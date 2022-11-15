@@ -1,6 +1,6 @@
 import { Camelize, Core, Operation } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'AddAddressToStream';
 

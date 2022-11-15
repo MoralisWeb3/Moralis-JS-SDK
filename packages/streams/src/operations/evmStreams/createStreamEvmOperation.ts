@@ -1,7 +1,7 @@
 import { Camelize, Core, Operation } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EvmStream } from '@moralisweb3/common-streams-utils';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'CreateStream';
 

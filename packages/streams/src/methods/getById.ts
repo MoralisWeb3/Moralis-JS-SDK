@@ -1,11 +1,10 @@
 import Core from '@moralisweb3/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { GetStreamEvmParams } from '../resolvers';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import { getStreamEvmOperation } from '../operations';
+import { getStreamEvmOperation, GetStreamEvmRequest } from '../operations';
 
-export interface GetStreamEvmOptions extends GetStreamEvmParams {
+export interface GetStreamEvmOptions extends GetStreamEvmRequest {
   network: 'evm';
 }
 

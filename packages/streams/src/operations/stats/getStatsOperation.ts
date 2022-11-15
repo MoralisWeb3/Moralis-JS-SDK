@@ -1,5 +1,5 @@
 import { Operation } from '@moralisweb3/common-core';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'GetStats';
 

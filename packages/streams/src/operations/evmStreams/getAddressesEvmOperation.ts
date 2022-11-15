@@ -1,6 +1,6 @@
 import { Camelize, Core, maybe, PaginatedOperation } from '@moralisweb3/common-core';
 import { EvmAddress } from '@moralisweb3/common-evm-utils';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'GetAddresses';
 

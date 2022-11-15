@@ -1,6 +1,6 @@
 import { Camelize, Core, Operation, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'DeleteAddressFromStream';
 type PathParams = operations[OperationId]['parameters']['path'];
