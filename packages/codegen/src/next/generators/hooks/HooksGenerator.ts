@@ -1,21 +1,17 @@
 import _ from 'lodash';
 import { ActionConfig } from 'node-plop';
 import { fileURLToPath } from 'node:url';
-import { Module } from '../../types';
 import { ModuleGenerator } from '../../ModuleGenerator';
 import path from 'node:path';
+import { getHookName } from '../../utils/names';
 
 export class HooksGenerator extends ModuleGenerator {
   public dirname = path.dirname(fileURLToPath(import.meta.url));
   public packagesFolder = path.join(this.dirname, '../../../../..');
 
-  private getHookName = (operationName: string, moduleName: Module) => {
-    return `use${_.upperFirst(moduleName.replace('Api', ''))}${_.upperFirst(operationName.replace('get', ''))}`;
-  };
-
   private get addHooks() {
     return this.operations.map((operation) => {
-      const hookName = this.getHookName(operation.name, this.module);
+      const hookName = getHookName(operation.name, this.module);
 
       return {
         type: 'add',

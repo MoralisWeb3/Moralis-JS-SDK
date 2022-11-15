@@ -37,6 +37,7 @@ export class OperationFilesParser extends ModuleGenerator {
       const operationStatement = sourceFile.getVariableStatement(name);
 
       return {
+        name: name.replace('Operation', ''),
         id,
         request,
         response: response ? this.formatType(response) : undefined,
