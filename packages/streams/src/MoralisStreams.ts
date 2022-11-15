@@ -1,4 +1,4 @@
-import { Endpoints, OperationResolver, PaginatedOperationResolver } from '@moralisweb3/api-utils';
+import { OperationResolver, PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import {
   ApiModule,
   Core,
@@ -49,18 +49,16 @@ export class MoralisStreams extends ApiModule {
     // Nothing
   }
 
-  public readonly endpoints = new Endpoints(this.core, BASE_URL);
-
   public readonly add = makeCreateStream(this.core, BASE_URL);
-  public readonly update = makeUpdateStream(this.endpoints);
-  public readonly delete = makeDeleteStream(this.endpoints);
+  public readonly update = makeUpdateStream(this.core, BASE_URL);
+  public readonly delete = makeDeleteStream(this.core, BASE_URL);
   public readonly getAll = makeGetStreams(this.core, BASE_URL);
   public readonly getById = makeGetStreamById(this.core, BASE_URL);
-  public readonly updateStatus = makeUpdateStreamStatus(this.endpoints);
+  public readonly updateStatus = makeUpdateStreamStatus(this.core, BASE_URL);
 
   public readonly addAddress = makeAddAddress(this.core, BASE_URL);
-  public readonly getAddresses = makeGetAddresses(this.endpoints);
-  public readonly deleteAddress = makeDeleteAddress(this.endpoints);
+  public readonly getAddresses = makeGetAddresses(this.core, BASE_URL);
+  public readonly deleteAddress = makeDeleteAddress(this.core, BASE_URL);
 
   public readonly getHistory = this.createPaginatedFetcher(getHistoryOperation);
   public readonly retry = this.createFetcher(replayHistoryOperation);

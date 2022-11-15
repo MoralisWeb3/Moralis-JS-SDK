@@ -1,7 +1,9 @@
-import { Endpoints } from '@moralisweb3/api-utils';
-import { deleteAddressEvm, DeleteAddressEvmParams } from '../resolvers/evmStreams/deleteAddressEvm';
+import { OperationResolver } from '@moralisweb3/api-utils';
+import { DeleteAddressEvmParams } from '../resolvers/evmStreams/deleteAddressEvm';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
+import Core from '@moralisweb3/common-core';
+import { deleteAddressEvmOperation } from '../operations';
 
 export interface DeleteAddressEvmOptions extends DeleteAddressEvmParams {
   networkType?: 'evm';
@@ -9,16 +11,16 @@ export interface DeleteAddressEvmOptions extends DeleteAddressEvmParams {
 
 export type DeleteAddressOptions = DeleteAddressEvmOptions;
 
-export const makeDeleteAddress = (endpoints: Endpoints) => {
-  const evmFetcher = endpoints.createFetcher(deleteAddressEvm);
+export const makeDeleteAddress = (core: Core, baseUrl: string) => {
+  const fetcher = new OperationResolver(deleteAddressEvmOperation, baseUrl, core).fetch;
 
   return ({ networkType, ...options }: DeleteAddressOptions) => {
     switch (networkType) {
       case StreamNetwork.EVM:
-        return evmFetcher({ ...options });
+        return fetcher({ ...options });
       default:
         if (networkType === undefined) {
-          return evmFetcher({ ...options });
+          return fetcher({ ...options });
         }
         throw new IncorrectNetworkError(networkType);
     }

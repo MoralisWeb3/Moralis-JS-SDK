@@ -2,7 +2,7 @@ import { toCamel } from '@moralisweb3/common-core';
 import { OpenApiInterfaceReader, OperationDefinitionReader } from '@moralisweb3/test-utils';
 import { operations } from './operations';
 
-const ignoreBodyCheckOperationNames = ['createStreamEvm']; // TODO: this should be fixed.
+const ignoreBodyCheckOperationNames = ['createStreamEvm', 'updateStreamEvm']; // TODO: this should be fixed.
 
 describe('operations', () => {
   let reader: OpenApiInterfaceReader;
