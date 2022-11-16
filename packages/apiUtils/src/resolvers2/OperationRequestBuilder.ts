@@ -7,7 +7,7 @@ import Core, {
   OperationRequestRawBody,
 } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
-import { getCommonHeaders } from '../resolvers/getCommonHeaders';
+import { getCommonHeaders } from './getCommonHeaders';
 
 export class OperationRequestBuilder<Request> {
   public constructor(
