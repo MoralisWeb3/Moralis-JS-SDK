@@ -176,4 +176,20 @@ export class Erc20Transfer implements MoralisDataObject {
   get value() {
     return this._data.value;
   }
+
+  /**
+   * @returns the transactionIndex of the tranfer
+   * @example transfer.transactionIndex // 3
+   */
+  get transactionIndex() {
+    return this._data.transactionIndex;
+  }
+
+  /**
+   * @returns the logIndex of the tranfer
+   * @example transfer.logIndex // 2
+   */
+  get logIndex() {
+    return this._data.logIndex;
+  }
 }

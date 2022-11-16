@@ -34,42 +34,12 @@ export class EvmChain implements MoralisData, EvmChainable {
   }
 
   /**
-   * Returns ROPSTEN chain
-   *
-   * @example EvmChain.ROPSTEN
-   * @deprecated see https://ethereum.org/en/developers/docs/networks/
-   */
-  public static get ROPSTEN() {
-    return EvmChain.create(3);
-  }
-
-  /**
-   * Returns RINKEBY chain
-   *
-   * @example EvmChain.RINKEBY
-   * @deprecated see https://ethereum.org/en/developers/docs/networks/
-   */
-  public static get RINKEBY() {
-    return EvmChain.create(4);
-  }
-
-  /**
    * Returns GOERLI chain
    *
    * @example EvmChain.GOERLI
    */
   public static get GOERLI() {
     return EvmChain.create(5);
-  }
-
-  /**
-   * Returns KOVAN chain
-   *
-   * @example EvmChain.KOVAN
-   * @deprecated see https://ethereum.org/en/developers/docs/networks/
-   */
-  public static get KOVAN() {
-    return EvmChain.create(42);
   }
 
   public static get SEPOLIA() {
@@ -316,19 +286,17 @@ export class EvmChain implements MoralisData, EvmChainable {
   get apiHex() {
     return this._value as
       | '0x1'
-      | `0x3`
-      | `0x4`
       | `0x5`
-      | `0x2a`
-      | `0x89`
-      | `0x13881`
-      | `0x38`
-      | `0x61`
-      | `0xa86a`
-      | `0xa869`
-      | `0xfa`
-      | 'cronos'
-      | '0x19';
+      | '0xaa36a7'
+      | '0x89'
+      | '0x13881'
+      | '0x38'
+      | '0x61'
+      | '0xa86a'
+      | '0xa869'
+      | '0xfa'
+      | '0x19'
+      | '0x152';
   }
 
   /**
@@ -339,11 +307,8 @@ export class EvmChain implements MoralisData, EvmChainable {
   get apiId() {
     return this._value as
       | '1'
-      | '3'
-      | '4'
       | '5'
       | '25'
-      | '42'
       | '56'
       | '97'
       | '137'
@@ -352,7 +317,8 @@ export class EvmChain implements MoralisData, EvmChainable {
       | '1337'
       | '43113'
       | '43114'
-      | '80001';
+      | '80001'
+      | '11155111';
   }
 
   /**
