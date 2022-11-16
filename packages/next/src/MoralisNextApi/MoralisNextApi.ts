@@ -15,12 +15,11 @@ async function MoralisNextHandler({ req, res }: MoralisNextHandlerParams) {
     if (!requestHandler) {
       return res.status(500).json({ error: `Operation ${moduleName}/${operationName} is not supported` });
     }
-    console.log('xxx: ', req.body);
+
     const response = await requestHandler.handle(req.body);
 
     return res.status(200).json(response);
   } catch (e) {
-    console.log('er', e);
     return res.status(500).json({ error: (e as Error).message });
   }
 }
