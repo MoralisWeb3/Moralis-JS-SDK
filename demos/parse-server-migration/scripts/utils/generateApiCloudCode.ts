@@ -20,7 +20,7 @@ const generateCloudCode = (module: Module, endpoint: Endpoint) => {
   code += `Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, '${endpoint.name}');
-    const result = await Moralis.${module}.${endpoint.group}.${endpoint.name}(params);
+    const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(params);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, '${name}'));
@@ -53,7 +53,7 @@ const getErrorMessage = (error: Error, name: string) => {
 
   if (error instanceof Error) {
     return error.message;
-  } 
+  }
 
   return \`API error while calling \${name}\`
 }
