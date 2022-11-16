@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { ActionConfig } from 'node-plop';
 import { fileURLToPath } from 'node:url';
-import { ModuleGenerator } from '../../ModuleGenerator';
+import { ModuleGenerator } from '../../../utils/ModuleGenerator';
 import path from 'node:path';
 import { getHookName } from '../../utils/names';
 
@@ -23,7 +23,7 @@ export class HooksGenerator extends ModuleGenerator {
             operation: `${operation.name}Operation`,
             request: `${_.upperFirst(operation.name)}Request`,
             response: `${_.upperFirst(operation.name)}Response`,
-            commonUtils: this.commonUtilsPackageName,
+            commonUtils: this.operationsPackageName,
           },
           relativePath: `${operation.groupName}/${hookName}`,
           url: `${this.module}/${operation.name}`,

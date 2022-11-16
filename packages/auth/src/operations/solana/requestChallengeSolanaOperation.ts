@@ -25,6 +25,7 @@ export type RequestChallengeSolanaJSONResponse = SuccessResponse;
 
 export type RequestChallengeSolanaResponse = ReturnType<typeof deserializeResponse>;
 
+/** The back channel challenge containing the id to store on the api and the message to be signed by the user */
 export const requestChallengeSolanaOperation: Operation<
   RequestChallengeSolanaRequest,
   RequestChallengeSolanaJSONRequest,

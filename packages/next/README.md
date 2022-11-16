@@ -81,8 +81,86 @@ const App = () => {
   )
 }
 ```
+# Authentication Api Hooks
+## `useAuthVerifyChallengeSolana()` 
 
-# Hooks
+Description will be added later 👀
+
+
+### Response:
+```ts
+{
+  solNetwork: SolNetwork;
+  address: SolAddress;
+  expirationTime: Date | undefined;
+  notBefore: Date | undefined;
+  id: string;
+  domain: string;
+  statement?: string | undefined;
+  uri: string;
+  resources?: string[] | undefined;
+  version: string;
+  nonce: string;
+  profileId: string;
+}; 
+```
+
+## `useAuthRequestChallengeSolana()` 
+
+The back channel challenge containing the id to store on the api and the message to be signed by the user
+
+### Params:
+```ts
+{
+  address: SolAddressish;
+  network: SolNetworkish;
+  expirationTime?: DateInput;
+  notBefore?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+{ id: string; message: string; profileId: string }; 
+```
+
+## `useAuthVerifyChallengeEvm()` 
+
+Description will be added later 👀
+
+
+### Response:
+```ts
+{
+  chain: EvmChain;
+  address: EvmAddress;
+  expirationTime: Date || undefined;
+  id: string;
+  domain: string;
+  statement?: string | undefined;
+  uri: string;
+  resources?: string[] |
+## `useAuthRequestChallengeEvm()` 
+
+The back channel challenge containing the id to store on the api and the message to be signed by the user
+
+### Params:
+```ts
+{
+  address: EvmAddressish;
+  chainId: EvmChainish;
+  expirationTime?: DateInput;
+  notBefore?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+{ id: string; message: string; profileId: string }; 
+```
+
+
+# Evm Api Hooks
 ## `useEvmWeb3ApiVersion()` 
 
 Get the current version of the Moralis Web3 API.
@@ -703,7 +781,10 @@ The token0 and token1 options are interchangable (ie. there is no different outc
     validated: number | undefined;
     createdAt: Date | undefined;
   };
-  pairAddress: EvmAddress |
+  pairAddress: EvmAddress | undefined;
+};
+```
+
 ## `useEvmDateToBlock()` 
 
 Get the closest block given the date.
@@ -745,3 +826,125 @@ Get the native balance for a specific wallet address.
 ```ts
 { balance: EvmNative }; 
 ```
+
+
+# Solana Api Hooks
+## `useSolTokenPrice()` 
+
+Gets the token price (usd and native) for a given contract address and network
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{
+  nativePrice: {
+    value: SolNative;
+    decimals: number;
+    name: string;
+    symbol: string;
+  };
+  usdPrice: number;
+  exchangeAddress: SolAddress;
+  exchangeName: string;
+}; 
+```
+
+## `useSolNFTMetadata()` 
+
+Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{
+  mint: SolAddress;
+  standard: string;
+  name: string;
+  symbol: string;
+  metaplex: {
+    metadataUri: string;
+    updateAuthority: SolAddress;
+    sellerFeeBasisPoints: number;
+    primarySaleHappened: boolean;
+    isMutable: boolean;
+    masterEdition: boolean;
+  };
+}; 
+```
+
+## `useSolSPL()` 
+
+Gets token balances owned by the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{
+  associatedTokenAddress: SolAddress;
+  mint: SolAddress;
+  amount: SolNative;
+}[]; 
+```
+
+## `useSolPortfolio()` 
+
+Gets the portfolio of the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{
+  nativeBalance: SolNative;
+  nfts: { associatedTokenAddress: SolAddress; mint: SolAddress }[];
+  tokens: {
+    associatedTokenAddress: SolAddress;
+    mint: SolAddress;
+    amount: SolNative;
+  }[];
+}; 
+```
+
+## `useSolNFTs()` 
+
+Gets NFTs owned by the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{ associatedTokenAddress: SolAddress; mint: SolAddress }[]; 
+```
+
+## `useSolBalance()` 
+
+Gets native balance owned by the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+SolNative
+```
+

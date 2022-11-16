@@ -1,21 +1,26 @@
 import { ActionConfig } from 'node-plop';
 import { getHookName } from '../../utils/names';
-import { OperationFilesParser } from '../../utils/OperationFilesParser';
+import { OperationFilesParser } from '../../../utils/OperationFilesParser';
 import { paths } from './utils/constants';
 import Handlebars from 'handlebars';
 import path from 'node:path';
 
 export class ReadmeGenerator extends OperationFilesParser {
-  private get addReadMe() {
-    return {
-      type: 'add',
-      templateFile: path.join(paths.templates, 'README.md.hbs'),
-      path: path.join(paths.packages, 'next/README.md'),
-      force: false,
-    };
-  }
-
   private get appendHookDescriptions() {
+    let pattern: string;
+    switch (this.module) {
+      case 'auth':
+        pattern = '# Authentication Api Hooks';
+        break;
+      case 'evmApi':
+        pattern = '# Evm Api Hooks';
+        break;
+      case 'solApi':
+        pattern = '# Solana Api Hooks';
+        break;
+      default:
+        throw new Error(`No Pattern for the ${this.module}`);
+    }
     return this.parsedOperations.map((operation) => {
       const hookName = getHookName(operation.name, this.module);
       if (hookName === 'useEvmPairAddress') {
@@ -26,7 +31,7 @@ export class ReadmeGenerator extends OperationFilesParser {
         type: 'append',
         templateFile: path.join(paths.templates, 'hook_desc.hbs'),
         path: path.join(paths.packages, 'next/README.md'),
-        pattern: '# Hooks',
+        pattern,
         data: {
           hookName,
           request: operation.request,
@@ -38,6 +43,6 @@ export class ReadmeGenerator extends OperationFilesParser {
   }
 
   public get actions(): ActionConfig[] {
-    return [this.addReadMe, ...this.appendHookDescriptions];
+    return this.appendHookDescriptions;
   }
 }

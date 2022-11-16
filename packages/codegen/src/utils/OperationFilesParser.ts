@@ -1,15 +1,10 @@
 import _ from 'lodash';
-import { ModuleGenerator } from '../ModuleGenerator';
-import { paths } from '../generators/readme/utils/constants';
+import { ModuleGenerator } from './ModuleGenerator';
 import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
 import prettier from 'prettier';
 
 export class OperationFilesParser extends ModuleGenerator {
-  private get operationsFolder() {
-    return path.join(paths.packages, `common/${this.utilsName}/src/operations`);
-  }
-
   private formatType(type: string) {
     if (type.includes('{')) {
       const mockedType = prettier.format(`type x = ${type} //end`, { parser: 'typescript' });
@@ -24,7 +19,7 @@ export class OperationFilesParser extends ModuleGenerator {
     });
 
     const sourceFiles = project.addSourceFilesAtPaths([
-      path.join(this.operationsFolder, '*/*.ts'),
+      path.join(this.operationsPath, '*/*.ts'),
       '!**/*.test.ts',
       '!**/index.ts',
     ]);
@@ -49,7 +44,7 @@ export class OperationFilesParser extends ModuleGenerator {
         id,
         request: request?.length ? this.formatType(`{${request.join('')}}`) : undefined,
         response: response ? this.formatType(response) : undefined,
-        description: operationStatement?.getJsDocs()[0].getDescription(),
+        description: operationStatement?.getJsDocs()?.[0]?.getDescription(),
       };
     });
   }
