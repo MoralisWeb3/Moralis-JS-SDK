@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "private": true,
   "dependencies": {
-    "@moralisweb3/parse-server": "2.7.3",
+    "@moralisweb3/parse-server": "2.7.4",
     "@codemirror/language": "^0.20.0",
     "@moralisweb3/common-core": "^2.7.0",
     "@types/node": "^18.7.15",

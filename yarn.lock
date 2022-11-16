@@ -5312,7 +5312,7 @@
     eventemitter3 "^4.0.7"
     typed-emitter "^2.1.0"
 
-"@moralisweb3/evm-utils@^2.7.3":
+"@moralisweb3/evm-utils@^2.7.4":
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/@moralisweb3/evm-utils/-/evm-utils-2.7.4.tgz#26d5225684afb1b7769aa311528a62748ef79f3f"
   integrity sha512-u2scxIZBbhH3jqyt7FA7ILRKgdmT8We4h7urvn5LYQAMFyVF3jU497oW+ST9jWOp+2+5qCOQhfBAUEKHhOC9Mg==
@@ -5321,7 +5321,7 @@
     "@ethersproject/transactions" "^5.6.0"
     "@moralisweb3/core" "^2.7.4"
 
-"@moralisweb3/sol-utils@^2.7.3":
+"@moralisweb3/sol-utils@^2.7.4":
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/@moralisweb3/sol-utils/-/sol-utils-2.7.4.tgz#5308935fb182906ba5de654e7b80723986d72053"
   integrity sha512-0G5OBg58Ps7SxxFjT2fNHTm4hKiCHLCQpfJYWe9huDyCr4lAIyioSGzpLBOACTEx9/VZh1AdKadWLRxSsmVxZA==
