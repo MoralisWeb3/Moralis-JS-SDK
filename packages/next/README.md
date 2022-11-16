@@ -84,7 +84,7 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useAuthRequestChallengeSolana](#️-useAuthRequestChallengeSolana)
   - [useAuthRequestChallengeEvm](#-useAuthRequestChallengeEvm)
 - [Evm Api Hooks](#-evm-api-hooks)
-  - [useEvmWeb3ApiVersion](#️-useEvmWeb3ApiVersion)
+  - [useEvmWeb3ApiVersion](#️-useevmweb3apiversion)
   - [useEvmRunContractFunction](#️-useEvmRunContractFunction)
   - [useEvmEndpointWeights](#️-useEvmEndpointWeights)
   - [useEvmWalletTransactions](#️-useEvmWalletTransactions)
