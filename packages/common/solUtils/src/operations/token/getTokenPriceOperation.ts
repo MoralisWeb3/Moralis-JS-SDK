@@ -52,7 +52,7 @@ function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
   }
 
   return {
-    network,
+    network: SolNetworkResolver.resolve(request.network, core),
     address: SolAddress.create(request.address).address,
   };
 }
