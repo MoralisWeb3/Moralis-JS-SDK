@@ -307,11 +307,8 @@ export class EvmChain implements MoralisData, EvmChainable {
   get apiId() {
     return this._value as
       | '1'
-      | '3'
-      | '4'
       | '5'
       | '25'
-      | '42'
       | '56'
       | '97'
       | '137'
@@ -320,7 +317,8 @@ export class EvmChain implements MoralisData, EvmChainable {
       | '1337'
       | '43113'
       | '43114'
-      | '80001';
+      | '80001'
+      | '11155111';
   }
 
   /**
