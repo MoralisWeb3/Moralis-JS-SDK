@@ -55,7 +55,7 @@ export class ReadmeGenerator extends OperationFilesParser {
     return this.parsedOperations.map((operation) => {
       return {
         type: 'append',
-        template: '  - [{{ hookName }}](#️-{{ hookName }})',
+        template: '  - [{{ hookName }}](#️{{ hookName }})',
         path: path.join(paths.packages, 'next/README.md'),
         pattern,
         data: {
