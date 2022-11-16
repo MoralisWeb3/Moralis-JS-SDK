@@ -27,6 +27,7 @@
     "lib/*"
   ],
   "scripts": {
+    "prebuild": "cp -f ../../README.md README.md",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",

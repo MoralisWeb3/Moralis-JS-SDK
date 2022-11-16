@@ -1,16 +1,14 @@
-import { MoralisStreams } from './MoralisStreams';
+import { Streams } from './Streams';
 import type * as Types from '@moralisweb3/streams-typings';
 
 // Export API types
 export { Types };
 
-export * from './MoralisStreams';
+export * from './Streams';
 
 // Export SDK types
 export * from './methods/types';
-export * from './resolvers/evmStreams/types';
-export * from './resolvers/history/types';
-export * from './resolvers/project/types';
 export * from './mapping';
+export * from './operations';
 
-export default MoralisStreams;
+export default Streams;

@@ -1,8 +1,8 @@
-import { MoralisStreams } from '../../src/MoralisStreams';
+import { Streams } from '../../src/Streams';
 import { cleanStreamsApi, setupStreamApi } from '../setup';
 
 describe('getAddresses', () => {
-  let StreamApi: MoralisStreams;
+  let StreamApi: Streams;
 
   beforeAll(() => {
     StreamApi = setupStreamApi();
@@ -22,7 +22,7 @@ describe('getAddresses', () => {
       expect(result.result).toBeDefined();
       expect(result.pagination.total).toEqual(0);
       expect(result.result.length).toEqual(0);
-      expect(result.toJSON()).toStrictEqual([]);
+      expect(result.toJSON().result).toStrictEqual([]);
     });
 
     it('should default to evm networkType', async () => {
@@ -33,7 +33,7 @@ describe('getAddresses', () => {
       expect(result.result).toBeDefined();
       expect(result.pagination.total).toEqual(0);
       expect(result.result.length).toEqual(0);
-      expect(result.toJSON()).toStrictEqual([]);
+      expect(result.toJSON().result).toStrictEqual([]);
     });
 
     it('should return an array with 1 result succesfully ', async () => {
@@ -46,10 +46,6 @@ describe('getAddresses', () => {
       expect(result.pagination.total).toEqual(1);
       expect(result.result.length).toEqual(1);
       expect(result.result[0].address?.format()).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
-      expect(result.toJSON()[0]).toStrictEqual({
-        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
-        id: 'bdf3fa5b-c3e1-485f-a69b-225e57fbc042',
-      });
     });
 
     it('should return an array with 2 results succesfully ', async () => {
@@ -61,11 +57,8 @@ describe('getAddresses', () => {
       expect(result.result).toBeDefined();
       expect(result.pagination.total).toEqual(2);
       expect(result.result.length).toEqual(2);
+      expect(result.result[0].address?.format()).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
       expect(result.result[1].address?.format()).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
-      expect(result.toJSON()[1]).toStrictEqual({
-        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
-        id: 'bdf3fa5b-c3e1-485f-a69b-225e57fbc042',
-      });
     });
 
     it('should return a cursor on paginated results ', async () => {
