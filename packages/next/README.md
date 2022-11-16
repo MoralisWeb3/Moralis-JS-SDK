@@ -82,28 +82,6 @@ const App = () => {
 }
 ```
 # Authentication Api Hooks
-## `useAuthVerifyChallengeSolana()` 
-
-Description will be added later 👀
-
-
-### Response:
-```ts
-{
-  solNetwork: SolNetwork;
-  address: SolAddress;
-  expirationTime: Date | undefined;
-  notBefore: Date | undefined;
-  id: string;
-  domain: string;
-  statement?: string | undefined;
-  uri: string;
-  resources?: string[] | undefined;
-  version: string;
-  nonce: string;
-  profileId: string;
-}; 
-```
 
 ## `useAuthRequestChallengeSolana()` 
 
@@ -124,22 +102,6 @@ The back channel challenge containing the id to store on the api and the message
 { id: string; message: string; profileId: string }; 
 ```
 
-## `useAuthVerifyChallengeEvm()` 
-
-Description will be added later 👀
-
-
-### Response:
-```ts
-{
-  chain: EvmChain;
-  address: EvmAddress;
-  expirationTime: Date || undefined;
-  id: string;
-  domain: string;
-  statement?: string | undefined;
-  uri: string;
-  resources?: string[] |
 ## `useAuthRequestChallengeEvm()` 
 
 The back channel challenge containing the id to store on the api and the message to be signed by the user
@@ -158,7 +120,6 @@ The back channel challenge containing the id to store on the api and the message
 ```ts
 { id: string; message: string; profileId: string }; 
 ```
-
 
 # Evm Api Hooks
 ## `useEvmWeb3ApiVersion()` 

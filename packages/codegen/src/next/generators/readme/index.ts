@@ -15,12 +15,7 @@ export default function NextReadmeGenerator(plop: NodePlopAPI) {
         force: true,
       };
 
-      return [
-        addReadMe,
-        ...new ReadmeGenerator('evmApi').actions,
-        ...new ReadmeGenerator('solApi').actions,
-        ...new ReadmeGenerator('auth').actions,
-      ];
+      return [addReadMe, ...new ReadmeGenerator('evmApi').actions, ...new ReadmeGenerator('solApi').actions];
     },
   });
 }

@@ -83,6 +83,44 @@ const App = () => {
 ```
 # Authentication Api Hooks
 
+## `useAuthRequestChallengeSolana()` 
+
+The back channel challenge containing the id to store on the api and the message to be signed by the user
+
+### Params:
+```ts
+{
+  address: SolAddressish;
+  network: SolNetworkish;
+  expirationTime?: DateInput;
+  notBefore?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+{ id: string; message: string; profileId: string }; 
+```
+
+## `useAuthRequestChallengeEvm()` 
+
+The back channel challenge containing the id to store on the api and the message to be signed by the user
+
+### Params:
+```ts
+{
+  address: EvmAddressish;
+  chainId: EvmChainish;
+  expirationTime?: DateInput;
+  notBefore?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+{ id: string; message: string; profileId: string }; 
+```
+
 # Evm Api Hooks
 
 # Solana Api Hooks

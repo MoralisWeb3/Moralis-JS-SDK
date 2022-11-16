@@ -46,7 +46,8 @@
     "test:coverage": "yarn nx run-many --target=test:coverage --all",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
-    "release": "yarn build && changeset publish"
+    "release": "yarn build && changeset publish",
+    "generate": "nx run @moralisweb3/codegen:generate"
   },
   "workspaces": {
     "packages": [
