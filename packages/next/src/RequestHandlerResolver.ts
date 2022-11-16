@@ -1,6 +1,7 @@
 import { EvmApi } from '@moralisweb3/evm-api';
 import { operations as evmOperations } from '@moralisweb3/common-evm-utils';
 import { operations as solOperations } from '@moralisweb3/common-sol-utils';
+import { operations as authOperations, Auth } from '@moralisweb3/auth';
 import { RequestHandler, UnknownOperation } from '@moralisweb3/api-utils';
 import { SolApi } from '@moralisweb3/sol-api';
 import Moralis from 'moralis';
@@ -22,6 +23,11 @@ const modules: Module[] = [
     name: SolApi.moduleName,
     baseUrl: Moralis.SolApi.baseUrl,
     operations: solOperations as UnknownOperation[],
+  },
+  {
+    name: Auth.moduleName,
+    baseUrl: Moralis.Auth.baseUrl,
+    operations: authOperations as UnknownOperation[],
   },
 ];
 

@@ -14,11 +14,11 @@ export default function NextHooksGenerator(plop: NodePlopAPI) {
       },
     ],
     actions: (answers) => {
-      const blackListAuthOps = ['verifyChallengeSolana', 'verifyChallengeEvm'];
+      // const blackListAuthOps = ['verifyChallengeSolana', 'verifyChallengeEvm'];
       return [
         ...(answers?.modules.includes('evmApi') ? new HooksGenerator('evmApi').actions : []),
         ...(answers?.modules.includes('solApi') ? new HooksGenerator('solApi').actions : []),
-        ...(answers?.modules.includes('auth') ? new HooksGenerator('auth', blackListAuthOps).actions : []),
+        // ...(answers?.modules.includes('auth') ? new HooksGenerator('auth', blackListAuthOps).actions : []),
       ];
     },
   });

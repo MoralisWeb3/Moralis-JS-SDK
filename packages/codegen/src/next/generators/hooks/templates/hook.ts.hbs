@@ -1,7 +1,5 @@
 import { {{ names.operation }}, {{ names.request }}, {{ names.response }} } from '{{ names.commonUtils }}';
 import { SWRConfiguration } from 'swr/dist/types';
-import axios from 'axios';
-import Moralis from 'moralis';
 import useSWR from 'swr';
 
 export const {{ names.hook }} = (request: {{ names.request }}, SWRConfig?: SWRConfiguration) => {
