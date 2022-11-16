@@ -13,9 +13,9 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetNFTTransfersByBlockRequest extends Camelize<Omit<RequestParams, 'chain'>>  {
+export interface GetNFTTransfersByBlockRequest extends Camelize<Omit<RequestParams, 'chain'>> {
   chain?: EvmChainish;
-};
+}
 
 export type GetNFTTransfersByBlockJSONRequest = ReturnType<typeof serializeRequest>;
 
