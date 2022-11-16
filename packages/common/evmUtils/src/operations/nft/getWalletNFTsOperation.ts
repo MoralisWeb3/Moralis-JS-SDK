@@ -45,7 +45,7 @@ export const getWalletNFTsOperation: PaginatedOperation<
   firstPageIndex: 1,
   urlPathPattern: '/{address}/nft',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'tokenAddresses', 'cursor'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'tokenAddresses', 'cursor', 'normalizeMetadata'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -63,6 +63,7 @@ function getRequestUrlParams(request: GetWalletNFTsRequest, core: Core) {
     limit: maybe(request.limit, String),
     token_addresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 

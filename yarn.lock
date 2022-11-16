@@ -5313,6 +5313,32 @@
   resolved "https://registry.npmjs.org/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
+"@moralisweb3/core@^2.7.4":
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/core/-/core-2.7.4.tgz#b4edecf4d72ef06ca52e2ae4a8afc9e7f959a339"
+  integrity sha512-gIR2POQ+sTebJMEPk6vaU+nPlBigHACzAtXmPhmliOeXaaSmVUSA+RqJvm1Cy+tu/8ZCDEBWBVTtC0wPBTbZPQ==
+  dependencies:
+    axios "^0.27.2"
+    eventemitter3 "^4.0.7"
+    typed-emitter "^2.1.0"
+
+"@moralisweb3/evm-utils@^2.7.4":
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/evm-utils/-/evm-utils-2.7.4.tgz#26d5225684afb1b7769aa311528a62748ef79f3f"
+  integrity sha512-u2scxIZBbhH3jqyt7FA7ILRKgdmT8We4h7urvn5LYQAMFyVF3jU497oW+ST9jWOp+2+5qCOQhfBAUEKHhOC9Mg==
+  dependencies:
+    "@ethersproject/address" "^5.6.0"
+    "@ethersproject/transactions" "^5.6.0"
+    "@moralisweb3/core" "^2.7.4"
+
+"@moralisweb3/sol-utils@^2.7.4":
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/sol-utils/-/sol-utils-2.7.4.tgz#5308935fb182906ba5de654e7b80723986d72053"
+  integrity sha512-0G5OBg58Ps7SxxFjT2fNHTm4hKiCHLCQpfJYWe9huDyCr4lAIyioSGzpLBOACTEx9/VZh1AdKadWLRxSsmVxZA==
+  dependencies:
+    "@moralisweb3/core" "^2.7.4"
+    "@solana/web3.js" "^1.56.2"
+
 "@moralisweb3/streams-typings@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@moralisweb3/streams-typings/-/streams-typings-1.0.5.tgz#6115031ce6428f347841d930aad3b0903ed5d8e1"

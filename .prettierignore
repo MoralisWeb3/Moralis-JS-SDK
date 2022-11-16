@@ -25,3 +25,6 @@ docs/**/*
 
 #Template files
 packages/**/src/**/*.hbs
+
+# Templates
+archive/**/templates/**/*.hbs

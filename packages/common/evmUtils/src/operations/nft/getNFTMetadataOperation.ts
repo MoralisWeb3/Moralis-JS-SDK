@@ -41,7 +41,7 @@ export const getNFTMetadataOperation: Operation<
   isNullable: true,
   urlPathPattern: '/nft/{address}/{tokenId}',
   urlPathParamNames: ['address', 'tokenId'],
-  urlSearchParamNames: ['chain', 'format'],
+  urlSearchParamNames: ['chain', 'format', 'normalizeMetadata'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -57,6 +57,7 @@ function getRequestUrlParams(request: GetNFTMetadataRequest, core: Core) {
     address: EvmAddress.create(request.address, core).lowercase,
     tokenId: request.tokenId,
     format: request.format,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 

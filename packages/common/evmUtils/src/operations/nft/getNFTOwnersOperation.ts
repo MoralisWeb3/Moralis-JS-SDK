@@ -40,7 +40,7 @@ export const getNFTOwnersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/owners',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'normalizeMetadata'],
   firstPageIndex: 1,
 
   getRequestUrlParams,
@@ -58,6 +58,7 @@ function getRequestUrlParams(request: GetNFTOwnersRequest, core: Core) {
     format: request.format,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 

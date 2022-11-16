@@ -1,8 +1,7 @@
 import { Operation } from '@moralisweb3/common-core';
-import { EndpointMethod } from './Endpoint';
-import { EndpointDescriptor } from './Endpoints';
+import { EndpointDescriptor, EndpointMethod } from './EndpointDescriptor';
 
-// TODO: we need to delete this file after refactor.
+// TODO: we need to delete this file when this function will be not used.
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function convertOperationToDescriptor(operation: Operation<any, any, any, any>): EndpointDescriptor {

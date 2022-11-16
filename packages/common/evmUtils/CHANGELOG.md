@@ -1,5 +1,30 @@
 # @moralisweb3/evm-utils
 
+## 2.7.4
+
+### Patch Changes
+
+- [#818](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/818) [`a18b46ae`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a18b46aee8a588c9d47be12985d230bbee921284) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types: removing deprecated chains
+
+* [#818](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/818) [`08622cd9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08622cd92e9e6f705784a8727b5f3cea414ec84d) Thanks [@ErnoW](https://github.com/ErnoW)! - Include `transactionIndex` and `logIndex` in `Erc20Transfer` results
+
+* Updated dependencies []:
+  - @moralisweb3/core@2.7.4
+
+## 2.7.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.3
+
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes

@@ -20,6 +20,7 @@ describe('getNFTTokenIdOwnersOperation', () => {
       format: 'decimal',
       cursor: 'CURSOR1',
       limit: 333,
+      normalizeMetadata: false,
     };
 
     const serializedRequest = getNFTTokenIdOwnersOperation.serializeRequest(request, core);

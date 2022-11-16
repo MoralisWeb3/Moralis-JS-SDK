@@ -1,5 +1,36 @@
 # @moralisweb3/evm-api
 
+## 2.7.4
+
+### Patch Changes
+
+- [#818](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/818) [`08622cd9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08622cd92e9e6f705784a8727b5f3cea414ec84d) Thanks [@ErnoW](https://github.com/ErnoW)! - Include `transactionIndex` and `logIndex` in `Erc20Transfer` results
+
+- Updated dependencies [[`a18b46ae`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a18b46aee8a588c9d47be12985d230bbee921284), [`08622cd9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08622cd92e9e6f705784a8727b5f3cea414ec84d)]:
+  - @moralisweb3/evm-utils@2.7.4
+  - @moralisweb3/core@2.7.4
+  - @moralisweb3/api-utils@2.7.4
+
+## 2.7.3
+
+### Patch Changes
+
+- [#809](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/809) [`d3672e8f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d3672e8fda2de55b7a5aabb3bca54074cd141a0f) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix missing chainId error in getContractLogs call
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.3
+  - @moralisweb3/api-utils@2.7.3
+  - @moralisweb3/evm-utils@2.7.3
+
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.2
+  - @moralisweb3/api-utils@2.7.2
+  - @moralisweb3/evm-utils@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes

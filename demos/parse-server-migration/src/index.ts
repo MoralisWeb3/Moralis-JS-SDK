@@ -6,6 +6,7 @@ import { parseServer } from './parseServer';
 // @ts-ignore
 import ParseServer from 'parse-server';
 import http from 'http';
+import ngrok from 'ngrok';
 import { streamsSync } from '@moralisweb3/parse-server';
 
 export const app = express();
@@ -29,9 +30,17 @@ app.use(
 app.use(`/server`, parseServer.app);
 
 const httpServer = http.createServer(app);
-httpServer.listen(config.PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Moralis Server is running on port ${config.PORT}.`);
+httpServer.listen(config.PORT, async () => {
+  if (config.USE_STREAMS) {
+    const url = await ngrok.connect(config.PORT);
+    // eslint-disable-next-line no-console
+    console.log(
+      `Moralis Server is running on port ${config.PORT} and stream webhook url ${url}${config.STREAMS_WEBHOOK_URL}`,
+    );
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`Moralis Server is running on port ${config.PORT}.`);
+  }
 });
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);

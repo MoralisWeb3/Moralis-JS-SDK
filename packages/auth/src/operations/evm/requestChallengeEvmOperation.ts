@@ -66,7 +66,7 @@ function getRequestUrlParams() {
 function getRequestBody(request: RequestChallengeEvmRequest, core: Core) {
   return {
     domain: request.domain,
-    chainId: EvmChainResolver.resolve(request.chainId, core).decimal.toString(),
+    chainId: EvmChainResolver.resolve(request.chainId, core).hex,
     address: EvmAddress.create(request.address, core).checksum,
     statement: request.statement,
     uri: request.uri,

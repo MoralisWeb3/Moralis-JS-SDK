@@ -4,9 +4,6 @@
  */
 
 export interface paths {
-  "/health": {
-    get: operations["HealthController_check"];
-  };
   "/challenge/request/evm": {
     post: operations["requestChallengeEvm"];
   };
@@ -37,11 +34,8 @@ export interface components {
        */
       chainId:
         | "1"
-        | "3"
-        | "4"
         | "5"
         | "25"
-        | "42"
         | "56"
         | "97"
         | "137"
@@ -50,7 +44,8 @@ export interface components {
         | "1337"
         | "43113"
         | "43114"
-        | "80001";
+        | "80001"
+        | "11155111";
       /**
        * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
        * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
@@ -149,11 +144,8 @@ export interface components {
        */
       chainId:
         | "1"
-        | "3"
-        | "4"
         | "5"
         | "25"
-        | "42"
         | "56"
         | "97"
         | "137"
@@ -162,7 +154,8 @@ export interface components {
         | "1337"
         | "43113"
         | "43114"
-        | "80001";
+        | "80001"
+        | "11155111";
       /**
        * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
        * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
@@ -227,7 +220,7 @@ export interface components {
        */
       network: "mainnet" | "testnet" | "devnet";
       /**
-       * @description Solana public key with a length of 44 characters that is used to perform the signing
+       * @description Solana public key with a length of 32 - 44 characters that is used to perform the signing
        * @example 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo
        */
       address: string;
@@ -342,7 +335,7 @@ export interface components {
        */
       network: "mainnet" | "testnet" | "devnet";
       /**
-       * @description Solana public key with a length of 44 characters that is used to perform the signing
+       * @description Solana public key with a length of 32 - 44 characters that is used to perform the signing
        * @example 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo
        */
       address: string;
@@ -395,100 +388,6 @@ export interface components {
 }
 
 export interface operations {
-  HealthController_check: {
-    parameters: {};
-    responses: {
-      /** The Health Check is successful */
-      200: {
-        content: {
-          "application/json": {
-            /** @example ok */
-            status?: string;
-            /**
-             * @example {
-             *   "database": {
-             *     "status": "up"
-             *   }
-             * }
-             */
-            info?: {
-              [key: string]: {
-                status?: string;
-              } & { [key: string]: string };
-            } | null;
-            /** @example {} */
-            error?: {
-              [key: string]: {
-                status?: string;
-              } & { [key: string]: string };
-            } | null;
-            /**
-             * @example {
-             *   "database": {
-             *     "status": "up"
-             *   }
-             * }
-             */
-            details?: {
-              [key: string]: {
-                status?: string;
-              } & { [key: string]: string };
-            };
-          };
-        };
-      };
-      /** The Health Check is not successful */
-      503: {
-        content: {
-          "application/json": {
-            /** @example error */
-            status?: string;
-            /**
-             * @example {
-             *   "database": {
-             *     "status": "up"
-             *   }
-             * }
-             */
-            info?: {
-              [key: string]: {
-                status?: string;
-              } & { [key: string]: string };
-            } | null;
-            /**
-             * @example {
-             *   "redis": {
-             *     "status": "down",
-             *     "message": "Could not connect"
-             *   }
-             * }
-             */
-            error?: {
-              [key: string]: {
-                status?: string;
-              } & { [key: string]: string };
-            } | null;
-            /**
-             * @example {
-             *   "database": {
-             *     "status": "up"
-             *   },
-             *   "redis": {
-             *     "status": "down",
-             *     "message": "Could not connect"
-             *   }
-             * }
-             */
-            details?: {
-              [key: string]: {
-                status?: string;
-              } & { [key: string]: string };
-            };
-          };
-        };
-      };
-    };
-  };
   requestChallengeEvm: {
     parameters: {};
     responses: {
@@ -499,6 +398,7 @@ export interface operations {
         };
       };
     };
+    /** Request EVM challenge message. */
     requestBody: {
       content: {
         "application/json": components["schemas"]["EvmChallengeRequestDto"];
@@ -515,6 +415,7 @@ export interface operations {
         };
       };
     };
+    /** Verify EVM challenge message. */
     requestBody: {
       content: {
         "application/json": components["schemas"]["EvmCompleteChallengeRequestDto"];
@@ -531,6 +432,7 @@ export interface operations {
         };
       };
     };
+    /** Request Solana challenge message. */
     requestBody: {
       content: {
         "application/json": components["schemas"]["SolanaChallengeRequestDto"];
@@ -547,6 +449,7 @@ export interface operations {
         };
       };
     };
+    /** Verify Solana challenge message. */
     requestBody: {
       content: {
         "application/json": components["schemas"]["SolanaCompleteChallengeRequestDto"];

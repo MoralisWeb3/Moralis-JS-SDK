@@ -30,10 +30,15 @@ export class OperationDefinitionReader {
       throw new Error(`Cannot find function ${funcName}`);
     }
     const func = funcs[0];
-    if (func.body?.statements.length !== 1 || !isReturnStatement(func.body.statements[0])) {
+    const returnStatements = func.body?.statements.filter(isReturnStatement);
+
+    if (!returnStatements) {
+      throw new Error(`${funcName} no return statement found`);
+    }
+    if (returnStatements.length !== 1) {
       throw new Error(`${funcName} function must have only one return statement`);
     }
-    const returnStatement = func.body.statements[0];
+    const returnStatement = returnStatements[0];
     if (!returnStatement.expression || !isObjectLiteralExpression(returnStatement.expression)) {
       throw new Error(`${funcName} function must return object literal expression`);
     }
