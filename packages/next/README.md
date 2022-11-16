@@ -22,7 +22,9 @@ This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to 
 
 Please check the [official documentation of Moralis](https://docs.moralis.io/) for all the functionalities of Moralis.
 
-# ⚙️ Quick start
+# 🚀 Quick start
+
+### 1. Install Dependencies
 
 Make sure to have `next`, `react`, `react-dom` and `moralis` installed as dependencies, then install `@moralisweb3/next`
 
@@ -40,7 +42,7 @@ yarn add moralis @moralisweb3/next next react react-dom
 
 > Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
 
-### Create environment variables file
+### 2. Create environment variables file
 
 Add a new file `.env.local` in project's root and provide a new variable with [Moralis API key](https://docs.moralis.io/docs/nextjs-dapp#add-moralis-to-your-nextjs-dapp):
 
@@ -48,22 +50,95 @@ Add a new file `.env.local` in project's root and provide a new variable with [M
 MORALIS_API_KEY= ***
 ```
 
-### Create API route
+### 3. Create API route
 To use Moralis APIs in your NextJs project create a file `pages/api/moralis/[...moralis].ts` with following code:
 
 ```js
 import { MoralisNextApi } from "@moralisweb3/next";
 
-export default MoralisNextApi()
+export default MoralisNextApi({ apiKey: process.env.MORALIS_API_KEY });
 ```
 
-# Authentication and Session Management with NextAuth
+You can provide a configuration object to the `MoralisNextApi`.
+
+# ⭐️ Star us
+
+If this "@moralisweb3/next" library helps you build your dapps faster - please star this project, every star makes us very happy!
+
+# 🤝 Need help
+
+If you need help with setting up the boilerplate or have other questions - don't hesitate to write in our community forum and we will check asap. [Forum link](https://forum.moralis.io). The best thing about this SDK is the super active community ready to help at any time! We help each other.
+
+# 🧭 Table of Contents
+
+- [🚀 Quick start](#-quick-start)
+  - [1. Install Dependencies](#1-install-dependencies)
+  - [2. Create environment variables file](#2-create-environment-variables-file)
+  - [3. Create API route](#2-create-api-route)
+- [⭐️ Star us](#️-star-us)
+- [🤝 Need help](#-need-help)
+- [🧭 Table of Contents](#-table-of-contents)
+- [🔐 Authentication and Session Management with NextAuth](#️-authentication-and-session-management-with-nextauth)
+- [✨ Hook Usage Example](#️-hook-usage-example)
+- [Authentication Api Hooks](#-authentication-api-hooks)
+  - [useAuthRequestChallengeSolana](#️-useAuthRequestChallengeSolana)
+  - [useAuthRequestChallengeEvm](#-useAuthRequestChallengeEvm)
+- [Evm Api Hooks](#-evm-api-hooks)
+  - [useEvmWeb3ApiVersion](#️-useEvmWeb3ApiVersion)
+  - [useEvmRunContractFunction](#️-useEvmRunContractFunction)
+  - [useEvmEndpointWeights](#️-useEvmEndpointWeights)
+  - [useEvmWalletTransactions](#️-useEvmWalletTransactions)
+  - [useEvmTransaction](#️-useEvmTransaction)
+  - [useEvmWalletTokenTransfers](#️-useEvmWalletTokenTransfers)
+  - [useEvmWalletTokenBalances](#️-useEvmWalletTokenBalances)
+  - [useEvmTokenTransfers](#️-useEvmTokenTransfers)
+  - [useEvmTokenPrice](#️-useEvmTokenPrice)
+  - [useEvmTokenMetadata](#️-useEvmTokenMetadata)
+  - [useEvmTokenMetadataBySymbol](#️-useEvmTokenMetadataBySymbol)
+  - [useEvmTokenAllowance](#️-useEvmTokenAllowance)
+  - [useEvmResolveDomain](#️-useEvmResolveDomain)
+  - [useEvmResolveAddress](#️-useEvmResolveAddress)
+  - [useEvmSyncNFTContract](#️-useEvmSyncNFTContract)
+  - [useEvmSearchNFTs](#️-useEvmSearchNFTs)
+  - [useEvmReSyncMetadata](#️-useEvmReSyncMetadata)
+  - [useEvmWalletNFTTransfers](#️-useEvmWalletNFTTransfers)
+  - [useEvmWalletNFTs](#️-useEvmWalletNFTs)
+  - [useEvmWalletNFTCollections](#️-useEvmWalletNFTCollections)
+  - [useEvmNFTTransfers](#️-useEvmNFTTransfers)
+  - [useEvmNFTTransfersFromToBlock](#️-useEvmNFTTransfersFromToBlock)
+  - [useEvmNFTTransfersByBlock](#️-useEvmNFTTransfersByBlock)
+  - [useEvmNFTTrades](#️-useEvmNFTTrades)
+  - [useEvmNFTTokenIdOwners](#️-useEvmNFTTokenIdOwners)
+  - [useEvmNFTOwners](#️-useEvmNFTOwners)
+  - [useEvmNFTMetadata](#️-useEvmNFTMetadata)
+  - [useEvmNFTLowestPrice](#️-useEvmNFTLowestPrice)
+  - [useEvmNFTContractTransfers](#️-useEvmNFTContractTransfers)
+  - [useEvmNFTContractMetadata](#️-useEvmNFTContractMetadata)
+  - [useEvmContractNFTs](#️-useEvmContractNFTs)
+  - [useEvmUploadFolder](#️-useEvmUploadFolder)
+  - [useEvmContractLogs](#️-useEvmContractLogs)
+  - [useEvmContractEvents](#️-useEvmContractEvents)
+  - [useEvmPairReserves](#️-useEvmPairReserves)
+  - [useEvmPairAddress](#️-useEvmPairAddress)
+  - [useEvmDateToBlock](#️-useEvmDateToBlock)
+  - [useEvmBlock](#️-useEvmBlock)
+  - [useEvmNativeBalance](#️-useEvmNativeBalance)
+- [Solana Api Hooks](#-solana-api-hooks)
+  - [useSolTokenPrice](#️-useSolTokenPrice)
+  - [useSolNFTMetadata](#️-useSolNFTMetadata)
+  - [useSolSPL](#️-useSolSPL)
+  - [useSolPortfolio](#️-useSolPortfolio)
+  - [useSolNFTs](#️-useSolNFTs)
+  - [useSolBalance](#️-useSolBalance)
+- [🧙‍♂️ Community](#️-community)
+
+# 🔐 Authentication and Session Management with NextAuth
 
 The `@moralisweb3/next` library provides first class tools for web3 authentication. Using the [NextAuth.js](https://next-auth.js.org/) and our custom `MoralisNextAuthProvider()` you can implement web3 authentication you can create web3 authentication for any web3 wallet.
 
 Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-metamask) Tutorial for NextJS.
 
-# Hook Usage Example
+# ✨ Hook Usage Example
 
 ```jsx
 import { useEvmWalletTokenBalances } from '@moralisweb3/next'

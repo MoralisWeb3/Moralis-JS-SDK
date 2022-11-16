@@ -9,9 +9,6 @@ export class ReadmeGenerator extends OperationFilesParser {
   private get appendHookDescriptions() {
     let pattern: string;
     switch (this.module) {
-      case 'auth':
-        pattern = '# Authentication Api Hooks';
-        break;
       case 'evmApi':
         pattern = '# Evm Api Hooks';
         break;
@@ -42,7 +39,33 @@ export class ReadmeGenerator extends OperationFilesParser {
     });
   }
 
+  private get appendHookToTableOfContents() {
+    let pattern: string;
+    switch (this.module) {
+      case 'evmApi':
+        pattern = '- [Evm Api Hooks](#-evm-api-hooks)';
+        break;
+      case 'solApi':
+        pattern = '- [Solana Api Hooks](#-solana-api-hooks)';
+        break;
+      default:
+        throw new Error(`No Pattern for the ${this.module}`);
+    }
+
+    return this.parsedOperations.map((operation) => {
+      return {
+        type: 'append',
+        template: '  - [{{ hookName }}](#️-{{ hookName }})',
+        path: path.join(paths.packages, 'next/README.md'),
+        pattern,
+        data: {
+          hookName: getHookName(operation.name, this.module),
+        },
+      };
+    });
+  }
+
   public get actions(): ActionConfig[] {
-    return this.appendHookDescriptions;
+    return [...this.appendHookDescriptions, ...this.appendHookToTableOfContents];
   }
 }
