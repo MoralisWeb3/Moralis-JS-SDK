@@ -1,16 +1,18 @@
-import { runContractFunctionOperation, RunContractFunctionRequest, RunContractFunctionResponse } from '@moralisweb3/common-evm-utils';
+import { fetcher } from '../../../../utils/fetcher';
+import { 
+  runContractFunctionOperation as operation, 
+  RunContractFunctionRequest, 
+  RunContractFunctionResponse 
+} from '@moralisweb3/common-evm-utils';
 import { SWRConfiguration } from 'swr/dist/types';
-import axios from 'axios';
-import Moralis from 'moralis';
 import useSWR from 'swr';
 
 export const useEvmRunContractFunction = (request: RunContractFunctionRequest, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string) => {
-    const jsonResponse = await axios.post(`/api/moralis/${endpoint}`, runContractFunctionOperation.serializeRequest(request, Moralis.Core));
-    return runContractFunctionOperation.deserializeResponse(jsonResponse.data, request, Moralis.Core);
-  };
-
-  const { data, error, mutate, isValidating } = useSWR<RunContractFunctionResponse>('evmApi/runContractFunction', axiosFetcher, SWRConfig);
+  const { data, error, mutate, isValidating } = useSWR<RunContractFunctionResponse>(
+    ['evmApi/runContractFunction', {operation, request}], 
+    fetcher, 
+    {revalidateOnFocus: false, ...SWRConfig}
+  );
 
   return {
     data,

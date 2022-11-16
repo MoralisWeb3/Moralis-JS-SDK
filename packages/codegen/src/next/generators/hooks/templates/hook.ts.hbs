@@ -1,14 +1,18 @@
-import { {{ names.operation }}, {{ names.request }}, {{ names.response }} } from '{{ names.commonUtils }}';
+import { fetcher } from '../../../../utils/fetcher';
+import { 
+  {{ names.operation }} as operation, 
+  {{ names.request }}, 
+  {{ names.response }} 
+} from '{{ names.commonUtils }}';
 import { SWRConfiguration } from 'swr/dist/types';
 import useSWR from 'swr';
 
 export const {{ names.hook }} = (request: {{ names.request }}, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string) => {
-    const jsonResponse = await axios.post(`/api/moralis/${endpoint}`, {{ names.operation }}.serializeRequest(request, Moralis.Core));
-    return {{ names.operation }}.deserializeResponse(jsonResponse.data, request, Moralis.Core);
-  };
-
-  const { data, error, mutate, isValidating } = useSWR<{{ names.response }}>('{{ url }}', axiosFetcher, SWRConfig);
+  const { data, error, mutate, isValidating } = useSWR<{{ names.response }}>(
+    ['{{ url }}', {operation, request}], 
+    fetcher, 
+    {revalidateOnFocus: false, ...SWRConfig}
+  );
 
   return {
     data,

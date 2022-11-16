@@ -1,4 +1,4 @@
-import { Connector, useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
+import { Connector, useAccount, useConnect, useDisconnect, useSignMessage } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { Option } from '../../elements';
@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import styles from './Authentication.module.css';
 import { useAuthRequestChallengeEvm } from '@moralisweb3/next';
-import { useEffect } from 'react';
 
 const wallets = [
   {
@@ -40,27 +39,7 @@ const Authentication = () => {
   const { signMessageAsync } = useSignMessage();
   const { push } = useRouter();
 
-  const { challenge, requestChallengeAsync } = useAuthRequestChallengeEvm();
-
-  useEffect(() => console.log('challenge: ', challenge), [challenge]);
-  // useEffect(() => {
-  //   if (!isConnected) {
-  //     return;
-  //   }
-  //   refetch();
-  // }, [isConnected]);
-
-  // useEffect(() => {
-  //   if (!challenge) {
-  //     return;
-  //   }
-  //   async function signMessage(message: string) {
-  //     const signature = await signMessageAsync({ message });
-  //     signIn('credentials', { message, signature, redirect: false });
-  //   }
-
-  //   signMessage(challenge.message);
-  // }, [challenge]);
+  const { requestChallengeAsync } = useAuthRequestChallengeEvm();
 
   const handleAuth = async (connector?: Connector, disabled?: boolean) => {
     if (disabled) {
@@ -75,27 +54,29 @@ const Authentication = () => {
 
     const { account, chain } = await connectAsync({ connector });
 
-    const challengeParams = {
-      address: account,
-      chainId: chain.id,
-      domain: 'amazing.dapp',
-      uri: 'http://localhost:3000',
-      timeout: 120,
-    };
+    try {
+      const challengeParams = {
+        address: account,
+        chainId: chain.id,
+        domain: 'amazing.dapp',
+        uri: 'http://localhost:3000',
+        timeout: 120,
+      };
 
-    const xxx = await requestChallengeAsync(challengeParams);
+      const challenge = await requestChallengeAsync(challengeParams);
 
-    console.log('challenge2: ', xxx);
+      if (!challenge) {
+        throw new Error('No challenge received');
+      }
 
-    // const signature = await signMessageAsync({ message: challenge?.message });
+      const signature = await signMessageAsync({ message: challenge.message });
+      await signIn('credentials', { message: challenge.message, signature, redirect: false });
 
-    // try {
-    //   await signIn('credentials', { message, signature, redirect: false });
-    //   // redirects to main page
-    //   push('/');
-    // } catch (e) {
-    //   // Do nothing
-    // }
+      // redirects to main page
+      push('/');
+    } catch (e) {
+      // Do nothing
+    }
   };
 
   return (

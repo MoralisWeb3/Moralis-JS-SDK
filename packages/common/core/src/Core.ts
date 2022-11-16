@@ -28,7 +28,11 @@ export class Core {
   }
 
   public readonly name = Core.moduleName;
-  private isStarted = false;
+  private _isStarted = false;
+
+  public get isStarted() {
+    return this._isStarted;
+  }
 
   public static readonly libVersion = LIB_VERSION;
 
@@ -69,13 +73,13 @@ export class Core {
    * This will call `start()` on every registered module
    */
   public start = async (providedConfig?: Partial<MoralisCoreConfigValues>) => {
-    if (this.isStarted) {
+    if (this._isStarted) {
       throw new MoralisError({
         message: 'Modules are started already. This method should be called only one time.',
         code: CoreErrorCode.ALREADY_INITIALIZED,
       });
     }
-    this.isStarted = true;
+    this._isStarted = true;
 
     const allModules = this.modules.list();
 

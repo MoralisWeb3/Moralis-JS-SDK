@@ -1,9 +1,10 @@
-import CredentialsProvider from 'next-auth/providers/credentials';
-import Moralis from 'moralis';
-import { LoggerController, Config } from '@moralisweb3/common-core';
+// import { LoggerController, Config } from '@moralisweb3/common-core';
 import { MoralisNextAuthProviderParams } from './types';
+import { VerifyChallengeSolanaJSONResponse, VerifyChallengeEvmJSONResponse } from '@moralisweb3/auth';
+import axios from 'axios';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
-const MoralisNextAuthProvider = ({ logLevel = 'info' }: MoralisNextAuthProviderParams = {}) =>
+const MoralisNextAuthProvider = ({ network = 'Evm' }: MoralisNextAuthProviderParams = {}) =>
   /**
    * Configuring default CredentialsProvider from 'next-auth'
    * with required steps and data for verifying signed message
@@ -34,32 +35,39 @@ const MoralisNextAuthProvider = ({ logLevel = 'info' }: MoralisNextAuthProviderP
          */
         const { message, signature } = credentials as Record<string, string>;
 
-        const apiKey = process.env.MORALIS_API_KEY;
-        if (!apiKey) {
-          throw new Error('MORALIS_API_KEY missing');
+        let operationName;
+        switch (network) {
+          case 'Evm':
+            operationName = 'verifyChallengeEvm';
+            break;
+          case 'Solana':
+            operationName = 'verifyChallengeSolana';
+            break;
         }
-        await Moralis.start({ apiKey });
 
-        const { address, profileId, uri } = (await Moralis.Auth.verify({ message, signature, network: 'evm' })).raw;
+        const { data } = await axios.post<VerifyChallengeSolanaJSONResponse | VerifyChallengeEvmJSONResponse>(
+          `http://localhost:3000/api/moralis/auth/${operationName}`,
+          { message, signature },
+        );
+
+        console.log('data: ', data);
+
         const nextAuthUrl = process.env.NEXTAUTH_URL;
 
         if (!nextAuthUrl) {
           throw new Error('NEXTAUTH_URL missing');
         }
 
-        if (uri !== nextAuthUrl) {
+        if (data.uri !== nextAuthUrl) {
           return null;
         }
         /**
          * Defining and returning user profile
          */
-        const user = { address, id: profileId, signature };
+        const user = { address: data.address, id: data.profileId, signature };
         return user;
       } catch (e) {
-        const config = new Config();
-        config.set('logLevel', logLevel);
-        const logger = new LoggerController('[MoralisNextAuthProvider]', config);
-        logger.error(e);
+        console.error(e);
         return null;
       }
     },

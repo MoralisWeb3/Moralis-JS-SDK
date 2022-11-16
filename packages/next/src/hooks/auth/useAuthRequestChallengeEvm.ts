@@ -1,5 +1,5 @@
 import {
-  requestChallengeEvmOperation,
+  requestChallengeEvmOperation as operation,
   RequestChallengeEvmRequest,
   RequestChallengeEvmResponse,
 } from '@moralisweb3/auth';
@@ -12,16 +12,17 @@ export const useAuthRequestChallengeEvm = (request?: RequestChallengeEvmRequest,
   const endpoint = 'auth/requestChallengeEvm';
 
   const { data, error, isValidating, mutate } = useSWR<RequestChallengeEvmResponse>(
-    [endpoint, { operation: requestChallengeEvmOperation, request }],
+    [endpoint, { operation, request }],
     fetcher,
     {
       revalidateOnMount: request ? true : false,
+      revalidateOnFocus: false,
       ...SWRConfig,
     },
   );
 
   const requestChallengeAsync = useCallback((params: RequestChallengeEvmRequest) => {
-    return mutate(fetcher(endpoint, requestChallengeEvmOperation, params));
+    return mutate(fetcher(endpoint, { operation, request: params }));
   }, []);
 
   return {

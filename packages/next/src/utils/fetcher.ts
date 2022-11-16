@@ -1,13 +1,12 @@
-import { UnknownOperation } from '@moralisweb3/api-utils';
 import axios from 'axios';
 import Moralis from 'moralis';
-
-export interface FetcherParams {
-  operation: any;
-  request: any;
+import { Operation } from '@moralisweb3/common-core';
+export interface FetcherParams<Response> {
+  operation: Pick<Operation<unknown, unknown, Response, unknown>, 'serializeRequest' | 'deserializeResponse'>;
+  request: unknown;
 }
 
-export async function fetcher(endpoint: string, { operation, request }: FetcherParams) {
+export async function fetcher<Response>(endpoint: string, { operation, request }: FetcherParams<Response>) {
   const { serializeRequest, deserializeResponse } = operation;
 
   endpoint = `/api/moralis/${endpoint}`;
