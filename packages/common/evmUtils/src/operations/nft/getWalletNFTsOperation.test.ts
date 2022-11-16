@@ -21,6 +21,7 @@ describe('getWalletNFTsOperation', () => {
       limit: 100,
       tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address, core)),
       cursor: 'CURSOR1',
+      normalizeMetadata: false,
     };
 
     const serializedRequest = getWalletNFTsOperation.serializeRequest(request, core);

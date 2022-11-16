@@ -1,5 +1,36 @@
 # @moralisweb3/streams
 
+## 2.7.4
+
+### Patch Changes
+
+- [#818](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/818) [`bc293674`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bc2936740c0614403655211fc64b72b719acb2be) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types for streams: include types for stream usage
+
+- Updated dependencies [[`a18b46ae`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a18b46aee8a588c9d47be12985d230bbee921284), [`08622cd9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/08622cd92e9e6f705784a8727b5f3cea414ec84d)]:
+  - @moralisweb3/evm-utils@2.7.4
+  - @moralisweb3/core@2.7.4
+  - @moralisweb3/api-utils@2.7.4
+
+## 2.7.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.3
+  - @moralisweb3/api-utils@2.7.3
+  - @moralisweb3/evm-utils@2.7.3
+
+## 2.7.2
+
+### Patch Changes
+
+- [#784](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/784) [`a1bbd61f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a1bbd61f53b57feeeae1b3341f64d4293fba1497) Thanks [@sogunshola](https://github.com/sogunshola)! - Fix errors due to changes in webhook data for log parser function and update parse server streams docs
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.2
+  - @moralisweb3/api-utils@2.7.2
+  - @moralisweb3/evm-utils@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes

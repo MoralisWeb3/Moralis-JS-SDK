@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-streams-utils",
   "author": "Moralis",
-  "version": "2.7.1",
+  "version": "2.7.4",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
-    "@moralisweb3/common-core": "^2.7.1",
-    "@moralisweb3/common-evm-utils": "^2.7.1",
+    "@moralisweb3/common-core": "^2.7.4",
+    "@moralisweb3/common-evm-utils": "^2.7.4",
     "@moralisweb3/streams-typings": "^1.0.5"
   }
 }

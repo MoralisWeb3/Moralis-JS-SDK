@@ -24,6 +24,7 @@ export function setupAuth(): Auth {
     onUnhandledRequest: 'warn',
   });
 
+  mockServer.listen();
   return auth;
 }
 
