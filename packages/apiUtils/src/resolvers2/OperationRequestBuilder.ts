@@ -7,7 +7,7 @@ import Core, {
   OperationRequestRawBody,
 } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
-import { getCommonHeaders } from '../resolvers/getCommonHeaders';
+import { getCommonHeaders } from './getCommonHeaders';
 
 export class OperationRequestBuilder<Request> {
   public constructor(
@@ -29,7 +29,7 @@ export class OperationRequestBuilder<Request> {
     }
     const url = `${baseUrl}${urlPath}`;
 
-    const urlSearchParams: Record<string, string | string[]> = {};
+    const urlSearchParams: Record<string, string | string[] | boolean> = {};
     Object.keys(urlParams)
       .filter((paramName) => !this.operation.urlPathParamNames?.includes(paramName as keyof Request))
       .forEach((paramName) => {

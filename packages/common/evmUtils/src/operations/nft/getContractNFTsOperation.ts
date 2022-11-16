@@ -36,7 +36,7 @@ export const getContractNFTsOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'totalRanges', 'range', 'cursor'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'totalRanges', 'range', 'cursor', 'normalizeMetadata'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -55,6 +55,7 @@ function getRequestUrlParams(request: GetContractNFTsRequest, core: Core) {
     totalRanges: maybe(request.totalRanges, String),
     range: maybe(request.range, String),
     cursor: request.cursor,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 

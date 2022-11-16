@@ -21,6 +21,7 @@ describe('getContractNfTsOperation', () => {
       cursor: 'CURSOR1',
       range: 20,
       totalRanges: 10,
+      normalizeMetadata: false,
     };
 
     const serializedRequest = getContractNFTsOperation.serializeRequest(request, core);

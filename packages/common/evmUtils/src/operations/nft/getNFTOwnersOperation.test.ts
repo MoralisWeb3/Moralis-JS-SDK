@@ -19,6 +19,7 @@ describe('getNFTOwnersOperation', () => {
       format: 'decimal',
       limit: 100,
       cursor: 'CURSOR1',
+      normalizeMetadata: false,
     };
 
     const serializedRequest = getNFTOwnersOperation.serializeRequest(request, core);

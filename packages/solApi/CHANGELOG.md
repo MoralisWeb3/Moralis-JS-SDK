@@ -1,5 +1,36 @@
 # @moralisweb3/sol-api
 
+## 2.7.4
+
+### Patch Changes
+
+- [#818](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/818) [`9e017ab5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9e017ab5422875e5d540c9269dc13ddfc098e545) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types for solApi: getTokenPrice is only available on mainnet
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.4
+  - @moralisweb3/api-utils@2.7.4
+  - @moralisweb3/sol-utils@2.7.4
+
+## 2.7.3
+
+### Patch Changes
+
+- [#807](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/807) [`91bbd142`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/91bbd1424a22f82557f434ef60a20989331039aa) Thanks [@sogunshola](https://github.com/sogunshola)! - Corrected API to make call to correct url
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.3
+  - @moralisweb3/api-utils@2.7.3
+  - @moralisweb3/sol-utils@2.7.3
+
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/core@2.7.2
+  - @moralisweb3/api-utils@2.7.2
+  - @moralisweb3/sol-utils@2.7.2
+
 ## 2.7.1
 
 ### Patch Changes

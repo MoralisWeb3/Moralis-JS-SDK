@@ -16,6 +16,7 @@
       "@moralisweb3/evm-api",
       "@moralisweb3/sol-api",
       "@moralisweb3/streams",
+      "@moralisweb3/parse-server",
       "moralis"
     ]
   ],

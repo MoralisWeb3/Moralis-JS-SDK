@@ -5,27 +5,27 @@
 
 export interface paths {
   "/account/{network}/{address}/balance": {
-    /** Gets native balance owned by the given network and address */
+    /** Gets the native balance owned by a given network and address. */
     get: operations["balance"];
   };
   "/account/{network}/{address}/tokens": {
-    /** Gets token balances owned by the given network and address */
+    /** Gets the token balances owned by a given network and address. */
     get: operations["getSPL"];
   };
   "/account/{network}/{address}/nft": {
-    /** Gets NFTs owned by the given network and address */
+    /** Gets NFTs owned by a given network and address. */
     get: operations["getNFTs"];
   };
   "/account/{network}/{address}/portfolio": {
-    /** Gets the portfolio of the given network and address */
+    /** Gets the portfolio for a given network and address. */
     get: operations["getPortfolio"];
   };
   "/nft/{network}/{address}/metadata": {
-    /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
+    /** Get the global NFT metadata for a given network and contract (mint, standard, name, symbol, metaplex). */
     get: operations["getNFTMetadata"];
   };
   "/token/{network}/{address}/price": {
-    /** Gets the token price (usd and native) for a given contract address and network */
+    /** Gets the token price (usd and native) for a given contract address and network. */
     get: operations["getTokenPrice"];
   };
 }
@@ -83,7 +83,7 @@ export interface components {
 }
 
 export interface operations {
-  /** Gets native balance owned by the given network and address */
+  /** Gets the native balance owned by a given network and address. */
   balance: {
     parameters: {
       path: {
@@ -104,7 +104,7 @@ export interface operations {
       };
     };
   };
-  /** Gets token balances owned by the given network and address */
+  /** Gets the token balances owned by a given network and address. */
   getSPL: {
     parameters: {
       path: {
@@ -125,7 +125,7 @@ export interface operations {
       };
     };
   };
-  /** Gets NFTs owned by the given network and address */
+  /** Gets NFTs owned by a given network and address. */
   getNFTs: {
     parameters: {
       path: {
@@ -146,7 +146,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the portfolio of the given network and address */
+  /** Gets the portfolio for a given network and address. */
   getPortfolio: {
     parameters: {
       path: {
@@ -167,7 +167,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
+  /** Get the global NFT metadata for a given network and contract (mint, standard, name, symbol, metaplex). */
   getNFTMetadata: {
     parameters: {
       path: {
@@ -188,7 +188,7 @@ export interface operations {
       };
     };
   };
-  /** Gets the token price (usd and native) for a given contract address and network */
+  /** Gets the token price (usd and native) for a given contract address and network. */
   getTokenPrice: {
     parameters: {
       path: {

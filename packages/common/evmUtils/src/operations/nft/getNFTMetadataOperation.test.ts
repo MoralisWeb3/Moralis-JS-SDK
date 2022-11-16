@@ -18,6 +18,7 @@ describe('getNFTMetadataOperation', () => {
       address: EvmAddress.create(address, core),
       tokenId: '123',
       format: 'decimal',
+      normalizeMetadata: false,
     };
 
     const serializedRequest = getNFTMetadataOperation.serializeRequest(request, core);

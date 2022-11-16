@@ -19,7 +19,6 @@ describe('getNFTTransfersOperation', () => {
       format: 'decimal',
       limit: 100,
       cursor: 'CURSOR1',
-      order: 'ASC',
       tokenId: '123',
     };
 
@@ -30,7 +29,6 @@ describe('getNFTTransfersOperation', () => {
     expect(serializedRequest.format).toBe(request.format);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
-    expect(serializedRequest.order).toBe(request.order);
     expect(serializedRequest.tokenId).toBe(request.tokenId);
 
     const deserializedRequest = getNFTTransfersOperation.deserializeRequest(serializedRequest, core);
@@ -40,7 +38,6 @@ describe('getNFTTransfersOperation', () => {
     expect(deserializedRequest.format).toBe(request.format);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
-    expect(deserializedRequest.order).toBe(request.order);
     expect(deserializedRequest.tokenId).toBe(request.tokenId);
   });
 });
