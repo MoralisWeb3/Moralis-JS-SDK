@@ -205,6 +205,35 @@ export interface components {
       /** @description The region from where all the webhooks will be posted for this project */
       region?: components["schemas"]["SettingsRegion"];
     };
+    UsageStatsStreams: {
+      /**
+       * Format: double
+       * @description The total amount of webhooks delivered across all streams
+       */
+      totalWebhooksDelivered: number;
+      /**
+       * Format: double
+       * @description The total amount of failed webhooks across all streams
+       */
+      totalWebhooksFailed: number;
+      /**
+       * Format: double
+       * @description The total amount of logs processed across all streams, this includes failed webhooks
+       */
+      totalLogsProcessed: number;
+      /**
+       * Format: double
+       * @description The total amount of txs processed across all streams, this includes failed webhooks
+       */
+      totalTxsProcessed: number;
+      /**
+       * Format: double
+       * @description The total amount of internal txs processed across all streams, this includes failed webhooks
+       */
+      totalTxsInternalProcessed: number;
+      /** @description The stream id */
+      streamId: string;
+    };
     "usagestatsTypes.UsageStatsModel": {
       /**
        * Format: double
@@ -231,6 +260,8 @@ export interface components {
        * @description The total amount of internal txs processed across all streams, this includes failed webhooks
        */
       totalTxsInternalProcessed: number;
+      /** @description Array of stream stats */
+      streams?: components["schemas"]["UsageStatsStreams"][];
       /**
        * Format: date-time
        * @description The date since this stats are being counted
@@ -413,12 +444,6 @@ export interface components {
     };
     "addressesTypes.AddressesAdd": {
       /** @description The address or a list of addresses to be added to the Stream. */
-      address: Partial<string> & Partial<string[]>;
-    };
-    "addressesTypes.DeleteAddressResponse": {
-      /** @description The streamId */
-      streamId: string;
-      /** @description Address */
       address: Partial<string> & Partial<string[]>;
     };
     "addressesTypes.AddressesRemove": {
@@ -703,7 +728,7 @@ export interface operations {
       /** Ok */
       200: {
         content: {
-          "application/json": components["schemas"]["addressesTypes.DeleteAddressResponse"];
+          "application/json": components["schemas"]["addressesTypes.AddressResponse"];
         };
       };
     };
