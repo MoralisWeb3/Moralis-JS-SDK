@@ -1,11 +1,14 @@
 import { EvmApi } from '@moralisweb3/evm-api';
 import { operations as evmOperations } from '@moralisweb3/common-evm-utils';
 import { operations as solOperations } from '@moralisweb3/common-sol-utils';
+import { Operation } from '@moralisweb3/common-core';
+import { OperationResolver } from '@moralisweb3/api-utils';
 import { operations as authOperations, Auth } from '@moralisweb3/auth';
-import { RequestHandler, UnknownOperation } from '@moralisweb3/api-utils';
 import { SolApi } from '@moralisweb3/sol-api';
 import Moralis from 'moralis';
 import Core from '@moralisweb3/common-core';
+
+type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
 
 interface Module {
   name: string;
@@ -32,7 +35,7 @@ const modules: Module[] = [
 ];
 
 export class RequestHandlerResolver {
-  public static tryResolve(moduleName: string, operationName: string, core: Core): RequestHandler | null {
+  public static tryResolve(moduleName: string, operationName: string, core: Core) {
     const module = modules.find((mod) => mod.name === moduleName);
     if (!module) {
       return null;
@@ -43,6 +46,6 @@ export class RequestHandlerResolver {
       return null;
     }
 
-    return new RequestHandler(operation, module.baseUrl, core);
+    return new OperationResolver(operation, module.baseUrl, core);
   }
 }

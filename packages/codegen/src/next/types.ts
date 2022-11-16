@@ -1,5 +1,6 @@
-import { UnknownOperation } from '@moralisweb3/api-utils';
+import { Operation } from '@moralisweb3/common-core';
 
+export type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
 export type OperationAction = Pick<UnknownOperation, 'name' | 'groupName' | 'method' | 'id'>;
 
 export type Module = 'evmApi' | 'solApi' | 'auth';
