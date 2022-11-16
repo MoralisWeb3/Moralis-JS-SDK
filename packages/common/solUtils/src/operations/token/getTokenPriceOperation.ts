@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, MoralisApiError, ApiErrorCode } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -42,8 +42,17 @@ export const getTokenPriceOperation: Operation<
 // Methods
 
 function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
+  const network = SolNetworkResolver.resolve(request.network, core);
+
+  if (network !== 'mainnet') {
+    throw new MoralisApiError({
+      message: `Incorrct value for 'network', getTokenPrice is only available on mainnet`,
+      code: ApiErrorCode.INVALID_PARAMS,
+    });
+  }
+
   return {
-    network: SolNetworkResolver.resolve(request.network, core),
+    network,
     address: SolAddress.create(request.address).address,
   };
 }

@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-core",
   "author": "Moralis",
-  "version": "2.7.1",
+  "version": "2.7.3",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
