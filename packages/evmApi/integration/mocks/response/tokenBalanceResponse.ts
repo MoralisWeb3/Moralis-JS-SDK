@@ -5,7 +5,7 @@ export const createTokenBalanceResponse = (
   logo: string,
   thumbnail: string,
   decimals: number,
-  balance: string
+  balance: string,
 ) => ({
   token_address: tokenAddress,
   name,

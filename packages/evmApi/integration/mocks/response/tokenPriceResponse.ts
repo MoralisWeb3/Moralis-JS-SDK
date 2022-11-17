@@ -5,4 +5,4 @@ export const createTokenPriceResponse = (exchangeAddress: string) => {
     exchangeAddress,
     exchangeName: 'Uniswap v3',
   };
-}
+};

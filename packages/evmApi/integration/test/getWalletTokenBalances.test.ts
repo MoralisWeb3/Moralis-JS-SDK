@@ -28,7 +28,9 @@ describe('getWalletTokenBalances', () => {
     expect(balance.token!.name).toBe('Wrapped Ether');
     expect(balance.token!.symbol).toBe('WETH');
     expect(balance.token!.logo).toBe('https://cdn.moralis.io/eth/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png');
-    expect(balance.token!.thumbnail).toBe('https://cdn.moralis.io/eth/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2_thumb.png');
+    expect(balance.token!.thumbnail).toBe(
+      'https://cdn.moralis.io/eth/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2_thumb.png',
+    );
     expect(balance.token!.decimals).toBe(balance.decimals);
   });
 });
