@@ -43,9 +43,7 @@ export const handlers = [
   mockGetNFTTransfersFromToBlock,
   mockSearchNFTs,
   mockEndpointWeights,
-  mockGetBlock,
   mockGetContractNFTs,
-  mockGetDateToBlock,
   mockGetNativeBalance,
   mockGetNFTContractMetadata,
   mockGetNFTContractTransfers,
@@ -75,7 +73,14 @@ export const handlers = [
   mockGetWalletNFTCollections,
 ];
 
-const handler2 = [mockGetTransaction, mockGetWalletTransactions, mockGetContractEvents, mockGetContractLogs];
+const handler2 = [
+  mockGetDateToBlock,
+  mockGetTransaction,
+  mockGetWalletTransactions,
+  mockGetContractEvents,
+  mockGetContractLogs,
+  mockGetBlock,
+];
 
 export const mockServer = setupServer(...handlers);
 export const mockServer2 = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: EVM_API_ROOT }, handler2).start();
