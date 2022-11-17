@@ -6,14 +6,21 @@ const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
 
-function isValidPackage(dep) {
-  const hasSlash = dep.includes('/');
-  const isScopePackage = dep.includes('@');
+function validateImports(deps) {
+  return deps.map((dep) => {
+    const hasSlash = dep.includes('/');
+    if (!hasSlash) {
+      return dep;
+    }
+    const nameParts = dep.split('/');
+    const isScopePackage = dep.includes('@');
 
-  if (hasSlash && !isScopePackage) {
-    return false;
-  }
-  return true;
+    if (isScopePackage) {
+      return `${nameParts[0]}/${nameParts[1]}`;
+    }
+
+    return nameParts[0];
+  });
 }
 
 function findPackages(dirPath) {
@@ -69,7 +76,7 @@ function findPackageMissingDependencies(packageDirPath) {
   const dependenciesList = Object.keys(packageDependencies || {});
 
   const tsFilePaths = findFilesWithExt(packageDirPath, '.ts', '.test.ts', SKIP_DIRECTORIES);
-  const imports = readTsFilesExternalImports(tsFilePaths).filter(isValidPackage);
+  const imports = validateImports(readTsFilesExternalImports(tsFilePaths));
 
   const missing = imports.reduce((result, imp) => {
     if (!dependenciesList.includes(imp)) {
