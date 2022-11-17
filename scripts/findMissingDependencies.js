@@ -6,23 +6,6 @@ const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
 
-function readDependencies(deps) {
-  return deps.map((dep) => {
-    const hasSlash = dep.includes('/');
-    if (!hasSlash) {
-      return dep;
-    }
-    const nameParts = dep.split('/');
-    const isScopePackage = dep.includes('@');
-
-    if (isScopePackage) {
-      return `${nameParts[0]}/${nameParts[1]}`;
-    }
-
-    return nameParts[0];
-  });
-}
-
 function findPackages(dirPath) {
   const result = [];
   fs.readdirSync(dirPath).forEach((fileName) => {
@@ -66,6 +49,23 @@ function readTsFilesExternalImports(filePaths) {
   return [...imports];
 }
 
+function readImports(tsFilePaths) {
+  return readTsFilesExternalImports(tsFilePaths).map((imp) => {
+    const hasSlash = imp.includes('/');
+    if (!hasSlash) {
+      return imp;
+    }
+    const nameParts = imp.split('/');
+    const isScopePackage = imp.includes('@');
+
+    if (isScopePackage) {
+      return `${nameParts[0]}/${nameParts[1]}`;
+    }
+
+    return nameParts[0];
+  });
+}
+
 function findPackageMissingDependencies(packageDirPath) {
   const packageJsonPath = path.join(packageDirPath, 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
@@ -76,7 +76,7 @@ function findPackageMissingDependencies(packageDirPath) {
   const dependenciesList = Object.keys(packageDependencies || {});
 
   const tsFilePaths = findFilesWithExt(packageDirPath, '.ts', '.test.ts', SKIP_DIRECTORIES);
-  const imports = readDependencies(readTsFilesExternalImports(tsFilePaths));
+  const imports = readImports(tsFilePaths);
 
   const missing = imports.reduce((result, imp) => {
     if (!dependenciesList.includes(imp)) {
