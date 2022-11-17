@@ -78,8 +78,9 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
-- [🔐 Authentication and Session Management with NextAuth](#️-authentication-and-session-management-with-nextauth)
+- [🔐 Authentication and Session Management with NextAuth](#-authentication-and-session-management-with-nextauth)
 - [✨ Hook Usage Example](#️-hook-usage-example)
+- [⚙️ Hook Advanced Config](#️-hook-advanced-config)
 - [Authentication Api Hooks](#-authentication-api-hooks)
   - [useAuthRequestChallengeSolana](#️-useAuthRequestChallengeSolana)
   - [useAuthRequestChallengeEvm](#-useAuthRequestChallengeEvm)
@@ -156,6 +157,15 @@ const App = () => {
   )
 }
 ```
+
+# ⚙️ Hook Advanced Config
+
+The `@moralisweb3/next` hooks use [SWR](https://swr.vercel.app/) for a better developer experience. You can provide [config object](https://swr.vercel.app/docs/options#options) to the hooks as it's shown bellow:
+
+```jsx
+const { data } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnFocus: true })
+```
+
 # Authentication Api Hooks
 
 ## `useAuthRequestChallengeSolana()` 
