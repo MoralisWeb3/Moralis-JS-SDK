@@ -21,13 +21,14 @@ import { mockGetPairAddress } from './endpoints/getPairAddress';
 import { mockGetPairReserves } from './endpoints/getPairReserves';
 import { mockGetTokenAllowance } from './endpoints/getTokenAllowance';
 import { mockGetTokenMetadata } from './endpoints/getTokenMetadata';
-import { mockGetTokenMetadataBySymbol } from './endpoints/getTokenMetadataBySymbol';
+import { mockGetTokenMetadataBySymbols } from './endpoints/getTokenMetadataBySymbol';
 import { mockGetTokenPrice } from './endpoints/getTokenPrice';
 import { mockGetTokenTransfers } from './endpoints/getTokenTransfers';
 import { mockGetTransaction } from './endpoints/getTransaction';
 import { mockGetWalletNFTCollections } from './endpoints/getWalletNFTCollections';
 import { mockGetWalletNFTs } from './endpoints/getWalletNFTs';
 import { mockGetWalletNFTTransfers } from './endpoints/getWalletNFTTransfers';
+import { mockGetWalletTokenBalances } from './endpoints/getWalletTokenBalances';
 import { mockGetWalletTokenTransfers } from './endpoints/getWalletTokenTransfers';
 import { mockGetWalletTransactions } from './endpoints/getWalletTransactions';
 import { mockResolveAddress } from './endpoints/resolveAddress';
@@ -44,7 +45,6 @@ export const handlers = [
   mockSearchNFTs,
   mockEndpointWeights,
   mockGetContractNFTs,
-  mockGetNativeBalance,
   mockGetNFTContractMetadata,
   mockGetNFTContractTransfers,
   mockGetNFTLowestPrice,
@@ -54,14 +54,8 @@ export const handlers = [
   mockGetNFTTokenIdOwners,
   mockGetNFTTransfers,
   mockGetNFTTransfersByBlock,
-  mockGetTokenAllowance,
-  mockGetTokenMetadata,
-  mockGetTokenMetadataBySymbol,
-  mockGetTokenPrice,
-  mockGetTokenTransfers,
   mockGetWalletNFTs,
   mockGetWalletNFTTransfers,
-  mockGetWalletTokenTransfers,
   mockRunContractFunction,
   mockSyncNFTContract,
   mockUploadFolder,
@@ -76,6 +70,14 @@ const handler2 = [
   mockGetContractEvents,
   mockGetContractLogs,
   mockGetBlock,
+  mockGetNativeBalance,
+  mockGetTokenAllowance,
+  mockGetTokenPrice,
+  mockGetTokenMetadata,
+  mockGetTokenMetadataBySymbols,
+  mockGetTokenTransfers,
+  mockGetWalletTokenBalances,
+  mockGetWalletTokenTransfers,
   mockResolveAddress,
   mockResolveDomain,
   mockGetPairAddress,

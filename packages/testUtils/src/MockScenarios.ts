@@ -4,7 +4,7 @@ import omitBy from 'lodash/omitBy';
 import { rest, ResponseComposition, RestRequest, PathParams, RestContext } from 'msw';
 
 type Condition = Record<string, unknown>;
-type Response = Record<string, unknown>;
+type Response = Record<string, unknown> | Record<string, unknown>[];
 type Params = PathParams<string>;
 
 const DEFAULT_RESPONSE_STATUS = 200;
