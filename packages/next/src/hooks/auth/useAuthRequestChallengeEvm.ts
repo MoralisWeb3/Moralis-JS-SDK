@@ -3,10 +3,10 @@ import {
   RequestChallengeEvmRequest,
   RequestChallengeEvmResponse,
 } from '@moralisweb3/auth';
-import { SWRConfiguration } from 'swr/dist/types';
-import useSWR from 'swr';
-import { useCallback } from 'react';
 import { fetcher } from '../../utils/fetcher';
+import { SWRConfiguration } from 'swr/dist/types';
+import { useCallback } from 'react';
+import useSWR from 'swr';
 
 export const useAuthRequestChallengeEvm = (request?: RequestChallengeEvmRequest, SWRConfig?: SWRConfiguration) => {
   const endpoint = 'auth/requestChallengeEvm';

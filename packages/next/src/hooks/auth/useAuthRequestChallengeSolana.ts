@@ -1,31 +1,34 @@
 import {
-  requestChallengeSolanaOperation,
+  requestChallengeSolanaOperation as operation,
   RequestChallengeSolanaRequest,
   RequestChallengeSolanaResponse,
 } from '@moralisweb3/auth';
+import { fetcher } from '../../utils/fetcher';
 import { SWRConfiguration } from 'swr/dist/types';
-import axios from 'axios';
-import Moralis from 'moralis';
+import { useCallback } from 'react';
 import useSWR from 'swr';
 
 export const useAuthRequestChallengeSolana = (request: RequestChallengeSolanaRequest, SWRConfig?: SWRConfiguration) => {
-  const axiosFetcher = async (endpoint: string) => {
-    const jsonResponse = await axios.post(
-      `/api/moralis/${endpoint}`,
-      requestChallengeSolanaOperation.serializeRequest(request, Moralis.Core),
-    );
-    return requestChallengeSolanaOperation.deserializeResponse(jsonResponse.data, request, Moralis.Core);
-  };
+  const endpoint = 'auth/requestChallengeSolana';
 
-  const { data, error, mutate, isValidating } = useSWR<RequestChallengeSolanaResponse>(
-    'auth/requestChallengeSolana',
-    axiosFetcher,
-    SWRConfig,
+  const { data, error, isValidating, mutate } = useSWR<RequestChallengeSolanaResponse>(
+    [endpoint, { operation, request }],
+    fetcher,
+    {
+      revalidateOnMount: request ? true : false,
+      revalidateOnFocus: false,
+      ...SWRConfig,
+    },
   );
 
+  const requestChallengeAsync = useCallback((params: RequestChallengeSolanaRequest) => {
+    return mutate(fetcher(endpoint, { operation, request: params }));
+  }, []);
+
   return {
-    data,
+    challenge: data,
     error,
+    requestChallengeAsync,
     refetch: async () => mutate(),
     isValidating,
   };
