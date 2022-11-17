@@ -1,6 +1,5 @@
 import { MockServer } from '@moralisweb3/test-utils';
-// eslint-disable-next-line etc/no-commented-out-code
-// import { setupServer } from 'msw/node';
+import { setupServer } from 'msw/node';
 import { mockEndpointWeights } from './endpoints/endpointWeights';
 import { mockGetBlock } from './endpoints/getBlock';
 import { mockGetContractEvents } from './endpoints/getContractEvents';
@@ -45,10 +44,8 @@ export const handlers = [
   mockSearchNFTs,
   mockEndpointWeights,
   mockGetBlock,
-  mockGetContractEvents,
   mockGetContractNFTs,
   mockGetDateToBlock,
-  mockGetContractLogs,
   mockGetNativeBalance,
   mockGetNFTContractMetadata,
   mockGetNFTContractTransfers,
@@ -66,11 +63,9 @@ export const handlers = [
   mockGetTokenMetadataBySymbol,
   mockGetTokenPrice,
   mockGetTokenTransfers,
-  mockGetTransaction,
   mockGetWalletNFTs,
   mockGetWalletNFTTransfers,
   mockGetWalletTokenTransfers,
-  mockGetWalletTransactions,
   mockResolveAddress,
   mockResolveDomain,
   mockRunContractFunction,
@@ -80,9 +75,7 @@ export const handlers = [
   mockGetWalletNFTCollections,
 ];
 
-// eslint-disable-next-line etc/no-commented-out-code
-// export const mockServer = setupServer(...handlers);
-
 const handler2 = [mockGetTransaction, mockGetWalletTransactions, mockGetContractEvents, mockGetContractLogs];
 
-export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: EVM_API_ROOT }, handler2).start();
+export const mockServer = setupServer(...handlers);
+export const mockServer2 = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: EVM_API_ROOT }, handler2).start();
