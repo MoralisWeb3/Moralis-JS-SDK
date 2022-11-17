@@ -27,10 +27,7 @@ describe('uploadFolder', () => {
     expect(result).toBeDefined();
     expect(result).toEqual(expect.arrayContaining([]));
     expect(result.raw).toStrictEqual({
-      path: {
-        'moralis/logo.jpg':
-          'https://ipfs.moralis.io:2053/ipfs/QmfL6fMaYJDnizFVj4wxyutDnGMePG2JL95rN2A5mcWyB1/moralis/logo.jpg',
-      },
+      path: 'https://ipfs.moralis.io/QmPQ3YJ3hgfsBzJ1U4MGyV2C1GhDy6MWCENr1qMdMpKVnY/moralis/logo.jpg',
     });
   });
 
