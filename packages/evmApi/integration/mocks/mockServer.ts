@@ -54,8 +54,6 @@ export const handlers = [
   mockGetNFTTokenIdOwners,
   mockGetNFTTransfers,
   mockGetNFTTransfersByBlock,
-  mockGetPairAddress,
-  mockGetPairReserves,
   mockGetTokenAllowance,
   mockGetTokenMetadata,
   mockGetTokenMetadataBySymbol,
@@ -64,8 +62,6 @@ export const handlers = [
   mockGetWalletNFTs,
   mockGetWalletNFTTransfers,
   mockGetWalletTokenTransfers,
-  mockResolveAddress,
-  mockResolveDomain,
   mockRunContractFunction,
   mockSyncNFTContract,
   mockWeb3ApiVersion,
@@ -80,6 +76,10 @@ const handler2 = [
   mockGetContractLogs,
   mockGetBlock,
   mockUploadFolder,
+  mockResolveAddress,
+  mockResolveDomain,
+  mockGetPairAddress,
+  mockGetPairReserves,
 ];
 
 export const mockServer = setupServer(...handlers);
