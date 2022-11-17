@@ -68,7 +68,6 @@ export const handlers = [
   mockResolveDomain,
   mockRunContractFunction,
   mockSyncNFTContract,
-  mockUploadFolder,
   mockWeb3ApiVersion,
   mockGetWalletNFTCollections,
 ];
@@ -80,6 +79,7 @@ const handler2 = [
   mockGetContractEvents,
   mockGetContractLogs,
   mockGetBlock,
+  mockUploadFolder,
 ];
 
 export const mockServer = setupServer(...handlers);
