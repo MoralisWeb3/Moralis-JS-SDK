@@ -6,7 +6,7 @@ const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
 
-function validateImports(deps) {
+function readDependencies(deps) {
   return deps.map((dep) => {
     const hasSlash = dep.includes('/');
     if (!hasSlash) {
@@ -76,7 +76,7 @@ function findPackageMissingDependencies(packageDirPath) {
   const dependenciesList = Object.keys(packageDependencies || {});
 
   const tsFilePaths = findFilesWithExt(packageDirPath, '.ts', '.test.ts', SKIP_DIRECTORIES);
-  const imports = validateImports(readTsFilesExternalImports(tsFilePaths));
+  const imports = readDependencies(readTsFilesExternalImports(tsFilePaths));
 
   const missing = imports.reduce((result, imp) => {
     if (!dependenciesList.includes(imp)) {
