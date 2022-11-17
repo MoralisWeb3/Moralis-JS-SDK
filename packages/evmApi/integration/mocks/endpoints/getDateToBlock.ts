@@ -1,4 +1,3 @@
-/* eslint-disable etc/no-commented-out-code */
 import { MockScenarios } from '@moralisweb3/test-utils';
 
 export const mockGetDateToBlock = MockScenarios.create(
