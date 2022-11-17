@@ -6,7 +6,15 @@ const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
 
-const IGNORE_DEPENDENCIES = ['parse/node'];
+function isValidPackage(dep) {
+  const hasSlash = dep.includes('/');
+  const isScopePackage = dep.includes('@');
+
+  if (hasSlash && !isScopePackage) {
+    return false;
+  }
+  return true;
+}
 
 function findPackages(dirPath) {
   const result = [];
@@ -57,13 +65,14 @@ function findPackageMissingDependencies(packageDirPath) {
   if (packageJson.private) {
     return null;
   }
-  const packageDependencies = Object.keys(packageJson.dependencies || {});
+  const packageDependencies = { ...(packageJson?.dependencies || {}), ...(packageJson?.devDependencies || {}) };
+  const dependenciesList = Object.keys(packageDependencies || {});
 
   const tsFilePaths = findFilesWithExt(packageDirPath, '.ts', '.test.ts', SKIP_DIRECTORIES);
-  const imports = readTsFilesExternalImports(tsFilePaths);
+  const imports = readTsFilesExternalImports(tsFilePaths).filter(isValidPackage);
 
   const missing = imports.reduce((result, imp) => {
-    if (!packageDependencies.includes(imp) && !IGNORE_DEPENDENCIES.includes(imp)) {
+    if (!dependenciesList.includes(imp)) {
       result.push(imp);
     }
     return result;
@@ -75,6 +84,7 @@ const repositoryPath = path.resolve(__dirname, '..');
 const allPackagePaths = PACKAGE_DIR_PATHS.map((p) => path.join(repositoryPath, p))
   .map(findPackages)
   .flat();
+
 let exitCode = 0;
 
 for (const packagePath of allPackagePaths) {
