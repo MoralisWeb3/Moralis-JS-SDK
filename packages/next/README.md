@@ -982,4 +982,7 @@ Gets native balance owned by the given network and address
 ```ts
 SolNative
 ```
+# 🧙‍♂️ Community
 
+- [Discord](https://discord.gg/moralis)
+- [Forum](https://forum.moralis.io)

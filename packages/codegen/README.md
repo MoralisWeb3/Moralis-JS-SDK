@@ -10,10 +10,10 @@ Coming Soon...
 
 # Functionality
 
-Currently the library allows to generate automatically hooks for `@moralisweb3/next` library.
+Currently the library allows to generate automatically hooks and README for `@moralisweb3/next` library.
 
 Run the following command from the root folder:
 
 ```sh
-yarn generate:next
+yarn generate
 ```
