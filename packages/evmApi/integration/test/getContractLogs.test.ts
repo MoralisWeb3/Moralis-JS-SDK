@@ -33,6 +33,7 @@ describe('getContractLogs', () => {
     const failedResult = await evmApi.events
       .getContractLogs({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
+        chain: 56, // Goerli
       })
       .then()
       .catch((err) => {
