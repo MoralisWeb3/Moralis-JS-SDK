@@ -64,7 +64,6 @@ export const handlers = [
   mockGetWalletTokenTransfers,
   mockRunContractFunction,
   mockSyncNFTContract,
-  mockUploadFolder,
   mockWeb3ApiVersion,
   mockGetWalletNFTCollections,
 ];
@@ -76,6 +75,7 @@ const handler2 = [
   mockGetContractEvents,
   mockGetContractLogs,
   mockGetBlock,
+  mockUploadFolder,
   mockResolveAddress,
   mockResolveDomain,
   mockGetPairAddress,
