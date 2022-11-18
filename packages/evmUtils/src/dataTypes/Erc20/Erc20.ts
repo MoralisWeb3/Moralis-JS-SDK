@@ -19,6 +19,7 @@ export class Erc20Token implements MoralisDataObject {
    *  Create a new instance of Erc20Token from any valid Erc20Token input
    *
    * @param value - the Erc20Tokenish type
+   * @param core - The MoralisCore instance
    * @example
    * ```ts
    * const token = Erc20Token.create(value);

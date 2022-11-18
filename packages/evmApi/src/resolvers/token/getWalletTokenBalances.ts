@@ -36,7 +36,7 @@ export const getWalletTokenBalances = createEndpointFactory((core) =>
             thumbnail: token.thumbnail,
             chain: EvmChainResolver.resolve(params.chain, core),
           },
-        }),
+        }, core),
       );
     },
     resultToJson: (data) => data.map((tokenValue) => tokenValue.toJSON()),
