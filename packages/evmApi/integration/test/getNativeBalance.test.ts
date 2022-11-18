@@ -1,15 +1,15 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getNativeBalance', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('should get the native balance of an account', async () => {
