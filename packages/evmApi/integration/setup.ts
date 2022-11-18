@@ -25,11 +25,11 @@ export function setupEvmApi(): EvmApi {
   return evmApi;
 }
 
-export function setupEvmApi2(): MoralisEvmApi {
-  const core = MoralisCore.create();
-  const apiUtils = MoralisApiUtils.create(core);
-  const evmUtils = MoralisEvmUtils.create(core);
-  const evmApi = MoralisEvmApi.create(core);
+export function setupEvmApi2(): EvmApi {
+  const core = Core.create();
+  const apiUtils = ApiUtils.create(core);
+  const evmUtils = CommonEvmUtils.create(core);
+  const evmApi = EvmApi.create(core);
 
   // DO NOT SET `MoralisCoreProvider.setDefault(core)` here!
 

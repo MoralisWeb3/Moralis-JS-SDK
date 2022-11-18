@@ -1,8 +1,8 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getPairAddress', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi2();
@@ -25,7 +25,7 @@ describe('getPairAddress', () => {
     expect(result.result.token0.token.name).toEqual('Wrapped BNB');
     expect(result.result.token0.token.symbol).toEqual('WBNB');
     expect(result.result.token0.blockNumber).toEqual('8242108');
-    expect(result.result.token1.token.contractAddress.checksum).toEqual('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c');
+    expect(result.result.token1.token.contractAddress.checksum).toEqual('0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56');
     expect(result.result.token1.token.name).toEqual('BUSD Token');
     expect(result.result.token1.token.symbol).toEqual('BUSD');
     expect(result.result.token1.blockNumber).toEqual('8242108');

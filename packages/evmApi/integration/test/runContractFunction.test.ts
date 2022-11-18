@@ -1,4 +1,4 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 const ABI = [
@@ -19,7 +19,7 @@ const ABI = [
 ];
 
 describe('runContractFunction', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi2();

@@ -1,4 +1,4 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 const ERC721_TRANSFER_ABI = {
@@ -40,7 +40,7 @@ const ERC721_TRANSFER_ABI = {
 };
 
 describe('getContractEvents', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi2();
