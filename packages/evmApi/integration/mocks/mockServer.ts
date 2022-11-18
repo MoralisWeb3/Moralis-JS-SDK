@@ -42,7 +42,6 @@ import { EVM_API_ROOT, MOCK_API_KEY } from './config';
 export const handlers = [
   mockGetNFTTransfersFromToBlock,
   mockSearchNFTs,
-  mockEndpointWeights,
   mockGetContractNFTs,
   mockGetNativeBalance,
   mockGetNFTContractMetadata,
@@ -62,9 +61,7 @@ export const handlers = [
   mockGetWalletNFTs,
   mockGetWalletNFTTransfers,
   mockGetWalletTokenTransfers,
-  mockRunContractFunction,
   mockSyncNFTContract,
-  mockWeb3ApiVersion,
   mockGetWalletNFTCollections,
 ];
 
@@ -80,6 +77,9 @@ const handler2 = [
   mockResolveDomain,
   mockGetPairAddress,
   mockGetPairReserves,
+  mockRunContractFunction,
+  mockWeb3ApiVersion,
+  mockEndpointWeights,
 ];
 
 export const mockServer = setupServer(...handlers);

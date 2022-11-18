@@ -38,6 +38,8 @@ export const runContractFunction = createEndpointFactory((core) =>
       address: EvmAddress.create(params.address, core).lowercase,
       abi: params.abi,
       params: params.params,
+      subdomain: params.subdomain,
+      providerUrl: params.providerUrl,
     }),
     method,
     bodyParams,
