@@ -1,7 +1,7 @@
 import { VerifyChallengeSolanaJSONResponse, VerifyChallengeEvmJSONResponse } from '@moralisweb3/auth';
 import axios from 'axios';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { Network } from '@moralisweb3/common-core';
+import { Network } from 'moralis/common-core';
 
 const MoralisNextAuthProvider = ({ network = 'Evm' }: { network?: Network } = {}) =>
   /**

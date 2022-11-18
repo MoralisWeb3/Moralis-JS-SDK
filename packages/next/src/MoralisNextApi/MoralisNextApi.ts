@@ -1,5 +1,5 @@
 import { ApiUtilsConfigValues } from '@moralisweb3/api-utils';
-import { MoralisCoreConfigValues } from '@moralisweb3/common-core';
+import { MoralisCoreConfigValues } from 'moralis/common-core';
 import { MoralisNextHandlerParams } from './types';
 import { RequestHandlerResolver } from './RequestHandlerResolver';
 import Moralis from 'moralis';
@@ -11,7 +11,7 @@ async function MoralisNextHandler({ req, res }: MoralisNextHandlerParams) {
   const [moduleName, operationName] = req.query.moralis as string[];
 
   try {
-    const requestHandler = RequestHandlerResolver.tryResolve(moduleName, operationName, Moralis.Core);
+    const requestHandler = RequestHandlerResolver.tryResolve(moduleName, operationName);
     if (!requestHandler) {
       return res.status(500).json({ error: `Operation ${moduleName}/${operationName} is not supported` });
     }

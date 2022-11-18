@@ -3,7 +3,7 @@ import {
   web3ApiVersionOperation as operation, 
   Web3ApiVersionRequest, 
   Web3ApiVersionResponse 
-} from '@moralisweb3/common-evm-utils';
+} from 'moralis/common-evm-utils';
 import { SWRConfiguration } from 'swr/dist/types';
 import useSWR from 'swr';
 

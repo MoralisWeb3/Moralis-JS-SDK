@@ -3,7 +3,7 @@ import {
   getBlockOperation as operation, 
   GetBlockRequest, 
   GetBlockResponse 
-} from '@moralisweb3/common-evm-utils';
+} from 'moralis/common-evm-utils';
 import { SWRConfiguration } from 'swr/dist/types';
 import useSWR from 'swr';
 

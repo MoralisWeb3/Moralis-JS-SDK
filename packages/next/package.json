@@ -26,10 +26,7 @@
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.7.4",
-    "@moralisweb3/common-core": "^2.7.4",
     "@moralisweb3/evm-api": "^2.7.4",
-    "@moralisweb3/common-evm-utils": "^2.7.4",
-    "@moralisweb3/common-sol-utils": "^2.7.4",
     "@moralisweb3/auth": "^2.7.4",
     "@moralisweb3/sol-api": "^2.7.4",
     "axios": "^0.27.2",

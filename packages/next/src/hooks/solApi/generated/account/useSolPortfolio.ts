@@ -3,7 +3,7 @@ import {
   getPortfolioOperation as operation, 
   GetPortfolioRequest, 
   GetPortfolioResponse 
-} from '@moralisweb3/common-sol-utils';
+} from 'moralis/common-sol-utils';
 import { SWRConfiguration } from 'swr/dist/types';
 import useSWR from 'swr';
 

@@ -1,5 +1,5 @@
-import { operations as evmOperations } from '@moralisweb3/common-evm-utils';
-import { operations as solOperations } from '@moralisweb3/common-sol-utils';
+import { operations as evmOperations } from 'moralis/common-evm-utils';
+import { operations as solOperations } from 'moralis/common-sol-utils';
 import { operations as authOperations } from '@moralisweb3/auth';
 
 import { Module, OperationAction } from '../next/types';
@@ -12,9 +12,9 @@ export class ModuleGenerator {
   public get operationsPackageName() {
     switch (this.module) {
       case 'evmApi':
-        return '@moralisweb3/common-evm-utils';
+        return 'moralis/common-evm-utils';
       case 'solApi':
-        return '@moralisweb3/common-sol-utils';
+        return 'moralis/common-sol-utils';
       case 'auth':
         return '@moralisweb3/auth';
       default:

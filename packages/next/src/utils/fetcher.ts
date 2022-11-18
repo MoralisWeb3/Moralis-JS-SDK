@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Moralis from 'moralis';
-import { Operation } from '@moralisweb3/common-core';
+import { Operation } from 'moralis/common-core';
 export interface FetcherParams<Response> {
   operation: Pick<Operation<unknown, unknown, Response, unknown>, 'serializeRequest' | 'deserializeResponse'>;
   request: unknown;

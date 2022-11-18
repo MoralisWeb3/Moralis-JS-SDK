@@ -3,7 +3,7 @@ import {
   getNFTMetadataOperation as operation, 
   GetNFTMetadataRequest, 
   GetNFTMetadataResponse 
-} from '@moralisweb3/common-evm-utils';
+} from 'moralis/common-evm-utils';
 import { SWRConfiguration } from 'swr/dist/types';
 import useSWR from 'swr';
 
