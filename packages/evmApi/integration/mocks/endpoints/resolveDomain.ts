@@ -1,26 +1,31 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
+import { createErrorResponse } from '../response/errorResponse';
 
-export const mockResolveDomain = rest.get(`${EVM_API_ROOT}/resolve/:domain`, (req, res, ctx) => {
-  const domain = req.params.domain as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  if (domain === 'brad.crypto') {
-    return res(
-      ctx.status(200),
-      ctx.json({
+export const mockResolveDomain = MockScenarios.create(
+  {
+    name: 'mockResolveDomain',
+    method: 'get',
+    url: '/resolve/:domain',
+    getParams: (req) => ({
+      domain: req.params.domain,
+      currency: req.url.searchParams.get('currency'),
+    }),
+  },
+  [
+    {
+      condition: {
+        domain: 'brad.crypto',
+      },
+      response: {
         address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
-      }),
-    );
-  }
-
-  if (domain === 'notfound.crypto') {
-    return res(ctx.status(404));
-  }
-
-  throw new Error('resolveDomain: Not supported scenario');
-});
+      },
+    },
+    {
+      condition: {
+        domain: 'notfound.crypto',
+      },
+      responseStatus: 404,
+      response: createErrorResponse('null'),
+    },
+  ],
+);

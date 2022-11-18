@@ -1,15 +1,15 @@
-import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { MoralisEvmApi } from '../../src/EvmApi';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('resolveDomain', () => {
-  let evmApi: EvmApi;
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('returns an address', async () => {
