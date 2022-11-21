@@ -41,9 +41,7 @@
     "./common-evm-utils": "./lib/commonEvmUtils/index.js",
     "./common-sol-utils": "./lib/commonSolUtils/index.js",
     "./auth": "./lib/auth/index.js",
-    "./streams": "./lib/streams/index.js",
-    "./evm-api": "./lib/evmApi/index.js",
-    "./sol-api": "./lib/solApi/index.js"
+    "./streams": "./lib/streams/index.js"
   },
   "typesVersions": {
     "*": {
