@@ -18,7 +18,7 @@ export class ModuleGenerator {
       case 'auth':
         return '@moralisweb3/auth';
       default:
-        throw new Error('Not implemented');
+        throw new Error(`Not implemented ${this.module}`);
     }
   }
 
@@ -35,7 +35,7 @@ export class ModuleGenerator {
         relativePath = 'auth/src/operations';
         break;
       default:
-        throw new Error('Not implemented');
+        throw new Error(`Not implemented ${this.module}`);
     }
     return path.join(packagesPath, relativePath);
   }
