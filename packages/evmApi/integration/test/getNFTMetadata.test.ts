@@ -1,7 +1,7 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
-describe('getNFTTokenIdOwners', () => {
+describe('getNFTMetadata', () => {
   let EvmApi: MoralisEvmApi;
 
   beforeAll(() => {
@@ -12,28 +12,29 @@ describe('getNFTTokenIdOwners', () => {
     cleanEvmApi();
   });
 
-  describe('Get NFT Token Id Owners', () => {
-    it('should get owners of a specific NFT given a valid contract address and token ID', async () => {
-      const result = await EvmApi.nft.getNFTTokenIdOwners({
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+  describe('Get NFT Metadata', () => {
+    it('should get NFT metadata for a valid NFT token ID and contract address', async () => {
+      const result = await EvmApi.nft.getNFTMetadata({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         tokenId: '15',
       });
 
-      const response = result.raw.result?.at(0);
+      const response = result?.raw;
 
       expect(result).toBeDefined();
       expect(result).toEqual(expect.objectContaining({}));
-      expect(result.raw.total).toBe(2000);
-      expect(response?.name).toEqual('CryptoKitties');
+      expect(response?.token_hash).toEqual('502cee781b0fb40ea02508b21d319ced');
       expect(response?.block_number).toBe('88256');
       expect(response?.contract_type).toBe('ERC721');
       expect(response?.token_id).toBe('15');
+      expect(response?.name).toEqual('CryptoKitties');
+      expect(response?.token_address).toEqual('0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB');
     });
 
-    it('should not get owners of a specific NFT given an invalid contract address and throw an error', async () => {
+    it('should not get NFT metadata for an invalid NFT contract address and throw an error', async () => {
       const failedResult = await EvmApi.nft
-        .getNFTTokenIdOwners({
-          address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88',
+        .getNFTMetadata({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
           tokenId: '15',
         })
         .then()
@@ -43,17 +44,17 @@ describe('getNFTTokenIdOwners', () => {
 
       expect(failedResult).toBeDefined();
       expect(
-        EvmApi.nft.getNFTTokenIdOwners({
-          address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88',
+        EvmApi.nft.getNFTMetadata({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
           tokenId: '15',
         }),
       ).rejects.toThrowError('[C0005] Invalid address provided');
     });
 
-    it('should not get owners of a specific NFT given an invalid tokenId and throw an error', async () => {
+    it('should not get NFT metadata for an invalid token ID and throw an error', async () => {
       const failedResult = await EvmApi.nft
-        .getNFTTokenIdOwners({
-          address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        .getNFTMetadata({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
           tokenId: '000000215',
         })
         .then()
@@ -63,8 +64,8 @@ describe('getNFTTokenIdOwners', () => {
 
       expect(failedResult).toBeDefined();
       expect(
-        EvmApi.nft.getNFTTokenIdOwners({
-          address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        EvmApi.nft.getNFTMetadata({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
           tokenId: '000000215',
         }),
       ).rejects.toThrowError('[C0006] Request failed, Bad Request(400): [C0005] Invalid TokenId provided');

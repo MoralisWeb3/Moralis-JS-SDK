@@ -2,11 +2,11 @@ import { MockScenarios } from '@moralisweb3/test-utils';
 import { createEvmApiResponse } from '../response/evmApiResponse';
 import { createErrorResponse } from '../response/errorResponse';
 
-export const mockGetNFTTokenIdOwners = MockScenarios.create(
+export const mockResyncMetadata = MockScenarios.create(
   {
     method: 'get',
-    name: 'mockGetNFTTokenIdOwners',
-    url: `/nft/:address/:tokenId/owners`,
+    name: 'mockResyncMetadata',
+    url: `/nft/:address/:tokenId/metadata/resync`,
     getParams: (req) => ({
       address: req.params.address,
       tokenId: req.params.tokenId,

@@ -1,28 +1,29 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
+import { createEvmApiResponse } from '../response/evmApiResponse';
+import { createErrorResponse } from '../response/errorResponse';
 
-const tokens: Record<string, number> = {
-  '0x7de3085b3190b3a787822ee16f23be010f5f8686': 741,
-};
-
-export const mockGetContractNFTs = rest.get(`${EVM_API_ROOT}/nft/:address`, (req, res, ctx) => {
-  const address = req.params.address as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  const value = tokens[address];
-
-  if (!value) {
-    return res(ctx.status(404));
-  }
-
-  return res(
-    ctx.status(200),
-    ctx.json({
-      total: value,
+export const mockGetContractNFTs = MockScenarios.create(
+  {
+    method: 'get',
+    name: 'mockGetContractNFTs',
+    url: `/nft/:address`,
+    getParams: (req) => ({
+      address: req.params.address,
     }),
-  );
-});
+  },
+  [
+    {
+      condition: {
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      },
+      response: createEvmApiResponse('VALID_RESPONSE'),
+    },
+    {
+      condition: {
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+      },
+      responseStatus: 400,
+      response: createErrorResponse('[C0005] Invalid address provided'),
+    },
+  ],
+);
