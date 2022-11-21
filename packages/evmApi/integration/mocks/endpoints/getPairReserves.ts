@@ -1,28 +1,25 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
 
-export const mockGetPairReservess: Record<string, string> = {
-  '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974': '232416936901978959300412',
-};
-
-export const mockGetPairReserves = rest.get(`${EVM_API_ROOT}/:pair_address/reserves`, (req, res, ctx) => {
-  const pair_address = req.params.pair_address as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  const value = mockGetPairReservess[pair_address];
-
-  if (!value) {
-    return res(ctx.status(404));
-  }
-
-  return res(
-    ctx.status(200),
-    ctx.json({
-      reserve0: value,
+export const mockGetPairReserves = MockScenarios.create(
+  {
+    name: 'mockGetPairReserves',
+    getParams: (req) => ({
+      pair_address: req.params['pair_address'],
+      chain: req.url.searchParams.get('chain'),
     }),
-  );
-});
+    url: '/:pair_address/reserves',
+    method: 'get',
+  },
+  [
+    {
+      condition: {
+        pair_address: '0x1b96b92314c44b159149f7e0303511fb2fc4774f',
+        chain: '0x38',
+      },
+      response: {
+        reserve0: '3306559496062120878084',
+        reserve1: '878923281701700934205705',
+      },
+    },
+  ],
+);

@@ -1,5 +1,5 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 const ERC721_TRANSFER_ABI = {
   anonymous: false,
@@ -43,15 +43,15 @@ describe('getContractEvents', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('returns events', async () => {
-    const result = await evmApi.events.getContractEvents({
+    const response = await evmApi.events.getContractEvents({
       chain: 137, // Polygon
       address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
       abi: ERC721_TRANSFER_ABI,
@@ -62,7 +62,10 @@ describe('getContractEvents', () => {
       toDate: '2022-03-05T13:45:42.000Z',
     });
 
-    // TODO: need to add the mock responese for above arguments.
-    expect(result).toBeDefined();
+    const result = response.result;
+    expect(response).toBeDefined();
+    expect(response.raw.total).toBe(12);
+    expect(result[0].address.lowercase).toBe('0x2953399124f0cbb46d2cbacd8a89cf0599974963');
+    expect(result[0].blockNumber.toString()).toBe('14327217');
   });
 });

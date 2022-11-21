@@ -1,15 +1,15 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('web3ApiVersion', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('returns version', async () => {

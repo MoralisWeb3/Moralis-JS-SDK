@@ -1,20 +1,21 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getBlock', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('returns null when API returns HTTP 404', async () => {
     const response = await evmApi.block.getBlock({
       blockNumberOrHash: '404',
+      chain: '0x5',
     });
 
     expect(response).toBeNull();
@@ -23,6 +24,7 @@ describe('getBlock', () => {
   it('returns null when API returns false-positive not found', async () => {
     const response = await evmApi.block.getBlock({
       blockNumberOrHash: '200404',
+      chain: '0x5',
     });
 
     expect(response).toBeNull();
@@ -31,6 +33,7 @@ describe('getBlock', () => {
   it('returns a block', async () => {
     const response = await evmApi.block.getBlock({
       blockNumberOrHash: '15416422',
+      chain: '0x5',
     });
     const result = response!.result.result;
 

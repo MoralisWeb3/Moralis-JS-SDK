@@ -1,29 +1,47 @@
-/* eslint-disable no-console */
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
 
-export const mockRunContractFunctions: Record<string, string> = {
-  '0xecc7f044aa1ce2ad9d2453b01b8732a051213ecf': '1000000000000000000000000',
-};
-
-export const mockRunContractFunction = rest.post(`${EVM_API_ROOT}/:address/function`, (req, res, ctx) => {
-  const address = req.params.address as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  const value = mockRunContractFunctions[address];
-
-  if (!value) {
-    return res(ctx.status(404));
-  }
-
-  return res(
-    ctx.status(200),
-    ctx.json({
-      data: value,
+export const mockRunContractFunction = MockScenarios.create(
+  {
+    name: 'mockRunContractFunction',
+    getParams: (req) => ({
+      address: req.params.address,
+      chain: req.url.searchParams.get('chain'),
+      function_name: req.url.searchParams.get('function_name'),
+      subdomain: req.url.searchParams.get('subdomain'),
+      providerUrl: req.url.searchParams.get('providerUrl'),
+      abi: req.body['abi'],
+      params: req.body['params'],
     }),
-  );
-});
+    url: '/:address/function',
+    method: 'post',
+  },
+  [
+    {
+      condition: {
+        address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+        chain: '0x1',
+        function_name: 'name',
+        subdomain: 'foo.com',
+        providerUrl: 'https://url',
+        abi: [
+          {
+            constant: true,
+            inputs: [],
+            name: 'name',
+            outputs: [
+              {
+                name: '',
+                type: 'string',
+              },
+            ],
+            payable: false,
+            stateMutability: 'view',
+            type: 'function',
+          },
+        ],
+        params: {},
+      },
+      response: 'Wrapped Ether' as never,
+    },
+  ],
+);
