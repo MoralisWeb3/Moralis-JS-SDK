@@ -5,15 +5,14 @@ const defaultMockEvmApi = {
   symbol: 'RARI',
   contract_type: 'ERC721',
 };
-  
-  export const createEvmApiResponse = (tag: string) => ({
-    ...defaultMockEvmApi,
-    tag,
-  });
-  
-  export const createPaginatedEvmApiResponse = (tags: string[], total: number, cursor?: string) => ({
-    result: tags.map((tag) => ({ ...defaultMockEvmApi, tag })),
-    total,
-    cursor,
-  });
-  
+
+export const createEvmApiResponse = (tag: string) => ({
+  ...defaultMockEvmApi,
+  tag,
+});
+
+export const createPaginatedEvmApiResponse = (tags: string[], total: number, cursor?: string) => ({
+  result: tags.map((tag) => ({ ...defaultMockEvmApi, tag })),
+  total,
+  cursor,
+});

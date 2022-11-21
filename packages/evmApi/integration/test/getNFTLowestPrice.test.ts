@@ -1,15 +1,15 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getNFTLowestPrice', () => {
   let EvmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    EvmApi = setupEvmApi();
+    EvmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   describe('Get NFT Lowest Price', () => {

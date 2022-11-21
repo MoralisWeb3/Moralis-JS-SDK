@@ -26,7 +26,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
         tokenId: '15',
       },
       responseStatus: 400,
-      response: createErrorResponse('INVALID_ADDRESS', '[C0005] Invalid address provided'),
+      response: createErrorResponse('[C0005] Invalid address provided'),
     },
     {
       condition: {
@@ -34,10 +34,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
         tokenId: '000000215',
       },
       responseStatus: 400,
-      response: createErrorResponse(
-        'INVALID_TOKEN_ID',
-        '[C0006] Request failed, Bad Request(400): [C0005] Invalid TokenId provided',
-      ),
+      response: createErrorResponse('[C0006] Request failed, Bad Request(400): [C0005] Invalid TokenId provided'),
     },
   ],
 );
