@@ -3,8 +3,15 @@ import { ModuleGenerator } from './ModuleGenerator';
 import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
 import prettier from 'prettier';
+import { Module } from '../next/types';
 
-export class OperationFilesParser extends ModuleGenerator {
+export class OperationFilesParser {
+  private moduleGenerator: ModuleGenerator;
+
+  constructor(public module: Module, public blackListedOperations?: string[]) {
+    this.moduleGenerator = new ModuleGenerator(module, blackListedOperations);
+  }
+
   private formatType(type: string) {
     if (type.includes('{')) {
       const mockedType = prettier.format(`type x = ${type} //end`, { parser: 'typescript' });
@@ -19,7 +26,7 @@ export class OperationFilesParser extends ModuleGenerator {
     });
 
     const sourceFiles = project.addSourceFilesAtPaths([
-      path.join(this.operationsPath, '*/*.ts'),
+      path.join(this.moduleGenerator.operationsPath, '*/*.ts'),
       '!**/*.test.ts',
       '!**/index.ts',
     ]);

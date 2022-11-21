@@ -4,13 +4,20 @@ import { fileURLToPath } from 'node:url';
 import { ModuleGenerator } from '../../../utils/ModuleGenerator';
 import path from 'node:path';
 import { getHookName } from '../../utils/names';
+import { Module } from '../../types';
 
-export class HooksGenerator extends ModuleGenerator {
+export class HooksGenerator {
+  private moduleGenerator: ModuleGenerator;
+
+  constructor(public module: Module, public blackListedOperations?: string[]) {
+    this.moduleGenerator = new ModuleGenerator(module, blackListedOperations);
+  }
+
   public dirname = path.dirname(fileURLToPath(import.meta.url));
   public packagesFolder = path.join(this.dirname, '../../../../..');
 
   private get addHooks() {
-    return this.operations.map((operation) => {
+    return this.moduleGenerator.operations.map((operation) => {
       const hookName = getHookName(operation.name, this.module);
 
       return {
@@ -23,7 +30,7 @@ export class HooksGenerator extends ModuleGenerator {
             operation: `${operation.name}Operation`,
             request: `${_.upperFirst(operation.name)}Request`,
             response: `${_.upperFirst(operation.name)}Response`,
-            commonUtils: this.operationsPackageName,
+            commonUtils: this.moduleGenerator.operationsPackageName,
           },
           relativePath: `${operation.groupName}/${hookName}`,
           url: `${this.module}/${operation.name}`,
