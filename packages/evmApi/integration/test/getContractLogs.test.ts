@@ -1,15 +1,15 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getContractLogs', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('should get logs for an address', async () => {
@@ -33,6 +33,7 @@ describe('getContractLogs', () => {
     const failedResult = await evmApi.events
       .getContractLogs({
         address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b97',
+        chain: 56, // Goerli
       })
       .then()
       .catch((err) => {

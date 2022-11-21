@@ -1,5 +1,4 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
 
 const createResponse = (address: string) => ({
   total: 12,
@@ -22,49 +21,33 @@ const createResponse = (address: string) => ({
   ],
 });
 
-const scenarios = [
+export const mockGetContractEvents = MockScenarios.create(
   {
-    condition: {
-      chain: '0x89',
-      address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
-      topic: '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62',
-      fromBlock: '14327217',
-      toBlock: '14327217',
-      fromDate: '2022-03-05T13:45:42.000Z',
-      toDate: '2022-03-05T13:45:42.000Z',
-    },
-    response: createResponse('0x2953399124f0cbb46d2cbacd8a89cf0599974963'),
-    responseStatus: 200,
+    name: 'mockGetContractEvents',
+    method: 'post',
+    getParams: (req) => ({
+      address: req.params.address,
+      chain: req.url.searchParams.get('chain'),
+      topic: req.url.searchParams.get('topic'),
+      from_block: req.url.searchParams.get('from_block'),
+      to_block: req.url.searchParams.get('to_block'),
+      from_date: req.url.searchParams.get('from_date'),
+      to_date: req.url.searchParams.get('to_date'),
+    }),
+    url: '/:address/events',
   },
-];
-
-export const mockGetContractEvents = rest.post(`${EVM_API_ROOT}/:address/events`, (req, res, ctx) => {
-  const address = req.params.address as string;
-  const chain = req.url.searchParams.get('chain') as string | null;
-  const topic = req.url.searchParams.get('topic') as string | null;
-  const fromBlock = req.url.searchParams.get('from_block') as string | null;
-  const toBlock = req.url.searchParams.get('to_block') as string | null;
-  const fromDate = req.url.searchParams.get('from_date') as string | null;
-  const toDate = req.url.searchParams.get('to_date') as string | null;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-  const scenario = scenarios.find(
-    (s) =>
-      s.condition.address === address &&
-      s.condition.chain === chain &&
-      s.condition.toBlock === toBlock &&
-      s.condition.fromBlock === fromBlock &&
-      s.condition.topic === topic &&
-      s.condition.fromDate === fromDate &&
-      s.condition.toDate === toDate,
-  );
-
-  if (scenario) {
-    return res(ctx.status(scenario.responseStatus), ctx.json(scenario.response));
-  }
-
-  throw new Error('getContractEvents: Not supported scenario');
-});
+  [
+    {
+      condition: {
+        chain: '0x89',
+        address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
+        topic: '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62',
+        from_block: '14327217',
+        to_block: '14327217',
+        from_date: '2022-03-05T13:45:42.000Z',
+        to_date: '2022-03-05T13:45:42.000Z',
+      },
+      response: createResponse('0x2953399124f0cbb46d2cbacd8a89cf0599974963'),
+    },
+  ],
+);

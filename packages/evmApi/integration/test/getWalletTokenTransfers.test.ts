@@ -1,16 +1,16 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
 import { Erc20Transfer } from '@moralisweb3/evm-utils';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getWalletTokenTransfers', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   function assertTransfer(transfer: Erc20Transfer) {
@@ -18,13 +18,13 @@ describe('getWalletTokenTransfers', () => {
     expect(transfer.blockHash).toBe('0x0cd840fb6f116b8dd39ba8c30e3b74d741ecb638c4a8d0704801e7d18baaef05');
     expect(transfer.blockNumber.toString()).toBe('15454126');
     expect(transfer.value.toString()).toBe('347995260860000000000');
-    expect(transfer.fromAddress.lowercase).toBe('0xd73a9eadfff6a332afda7ddbb18cff84bbf6dd0d');
-    expect(transfer.toAddress.lowercase).toBe('0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f');
+    expect(transfer.fromAddress.checksum).toBe('0xd73a9EAdFff6A332aFDa7dDBB18CFf84bBf6dd0D');
+    expect(transfer.toAddress.checksum).toBe('0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F');
   }
 
   it('returns transfers (no pagination)', async () => {
     const response = await evmApi.token.getWalletTokenTransfers({
-      address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
+      address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
     });
 
     expect(response.pagination.total).toEqual(12);
@@ -38,7 +38,7 @@ describe('getWalletTokenTransfers', () => {
 
   it('returns transfer (with pagination)', async () => {
     let response = await evmApi.token.getWalletTokenTransfers({
-      address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
+      address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
       limit: 6,
     });
 

@@ -30,7 +30,7 @@ export const getPairAddress = createEndpointFactory((core) =>
       token0: {
         token: Erc20Token.create(
           {
-            contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address) : '',
+            contractAddress: data.token0?.address ? EvmAddress.create(data.token0?.address, core) : '',
             decimals: data.token0?.decimals ?? 0,
             name: data.token0?.name ?? '',
             symbol: data.token0?.symbol ?? '',
@@ -61,7 +61,7 @@ export const getPairAddress = createEndpointFactory((core) =>
         validated: data.token1?.validated,
         createdAt: data.token1?.created_at ? new Date(data.token1?.created_at) : undefined,
       },
-      pairAddress: data.pairAddress ? EvmAddress.create(data.pairAddress) : undefined,
+      pairAddress: data.pairAddress ? EvmAddress.create(data.pairAddress, core) : undefined,
     }),
     resultToJson: (data) => ({
       ...data,

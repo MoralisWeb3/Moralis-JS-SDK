@@ -1,5 +1,5 @@
 import { createEndpoint, createEndpointFactory } from '@moralisweb3/api-utils';
-import { Camelize } from '@moralisweb3/core';
+import { ApiErrorCode, Camelize, MoralisApiError } from '@moralisweb3/core';
 import { SolAddress, SolNetworkish, SolAddressish, SolNative } from '@moralisweb3/sol-utils';
 import { operations } from '../../generated/types';
 import { SolNetworkResolver } from '../SolNetworkResolver';
@@ -53,9 +53,20 @@ export const getTokenPrice = createEndpointFactory((core) =>
         exchangeName: data.exchangeName,
       };
     },
-    parseParams: (params: Params): ApiParams => ({
-      network: SolNetworkResolver.resolve(params.network, core),
-      address: SolAddress.create(params.address).address,
-    }),
+    parseParams: (params: Params): ApiParams => {
+      const network = SolNetworkResolver.resolve(params.network, core);
+
+      if (network !== 'mainnet') {
+        throw new MoralisApiError({
+          message: `Incorrct value for 'network', getTokenPrice is only available on mainnet`,
+          code: ApiErrorCode.INVALID_PARAMS,
+        });
+      }
+
+      return {
+        network,
+        address: SolAddress.create(params.address).address,
+      };
+    },
   }),
 );

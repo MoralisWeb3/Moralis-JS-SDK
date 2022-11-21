@@ -46,16 +46,16 @@ const apiToResult = (core: MoralisCore, apiData: ApiResult, params: Params) => {
             logs: (transaction.logs ?? []).map((log) =>
               EvmTransactionLog.create({
                 address: log.address,
-                blockHash: log.blockHash,
-                blockNumber: +log.blockNumber,
+                blockHash: log.block_hash,
+                blockNumber: +log.block_number,
                 data: log.data,
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 topics: [log.topic0, log.topic1!, log.topic2!, log.topic3!],
-                transactionHash: log.transactionHash,
-                blockTimestamp: log.blockTimestamp,
-                logIndex: +log.logIndex,
-                transactionIndex: +log.transactionIndex,
-                chain: log.chainId,
+                transactionHash: log.transaction_hash,
+                blockTimestamp: log.block_timestamp,
+                logIndex: +log.log_index,
+                transactionIndex: +log.transaction_index,
+                chain: EvmChainResolver.resolve(params.chain, core),
               }),
             ),
           },
