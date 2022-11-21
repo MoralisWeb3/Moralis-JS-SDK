@@ -4,8 +4,15 @@ import { OperationFilesParser } from '../../../utils/OperationFilesParser';
 import { paths } from './utils/constants';
 import Handlebars from 'handlebars';
 import path from 'node:path';
+import { Module } from '../../types';
 
-export class ReadmeGenerator extends OperationFilesParser {
+export class ReadmeGenerator {
+  private operationFilesParser: OperationFilesParser;
+
+  constructor(public module: Module, public blackListedOperations?: string[]) {
+    this.operationFilesParser = new OperationFilesParser(module, blackListedOperations);
+  }
+
   private get appendHookDescriptions() {
     let pattern: string;
     switch (this.module) {
@@ -18,7 +25,7 @@ export class ReadmeGenerator extends OperationFilesParser {
       default:
         throw new Error(`No Pattern for the ${this.module}`);
     }
-    return this.parsedOperations.map((operation) => {
+    return this.operationFilesParser.parsedOperations.map((operation) => {
       const hookName = getHookName(operation.name, this.module);
       if (hookName === 'useEvmPairAddress') {
         console.warn('Please add Response for useEvmPairAddress in README manually');
@@ -52,7 +59,7 @@ export class ReadmeGenerator extends OperationFilesParser {
         throw new Error(`No Pattern for the ${this.module}`);
     }
 
-    return this.parsedOperations.map((operation) => {
+    return this.operationFilesParser.parsedOperations.map((operation) => {
       return {
         type: 'append',
         template: '  - [{{ hookName }}](#️-{{ hookName }})',
