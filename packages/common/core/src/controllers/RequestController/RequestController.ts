@@ -45,7 +45,7 @@ export class RequestController {
     try {
       const response = await AxiosRetry.request<Data, Response>(retryConfig, {
         ...config,
-        timeout: 10000,
+        timeout: 20000,
       });
       return response.data;
     } catch (e) {
