@@ -8,7 +8,12 @@ import { SWRConfiguration } from 'swr/dist/types';
 import { useCallback } from 'react';
 import useSWR from 'swr';
 
-export const useAuthRequestChallengeSolana = (request: RequestChallengeSolanaRequest, SWRConfig?: SWRConfiguration) => {
+export type RequestChallengeSolanaRequestClient = Pick<RequestChallengeSolanaRequest, 'address' | 'network'>;
+
+export const useAuthRequestChallengeSolana = (
+  request: RequestChallengeSolanaRequestClient,
+  SWRConfig?: SWRConfiguration,
+) => {
   const endpoint = 'auth/requestChallengeSolana';
 
   const { data, error, isValidating, mutate } = useSWR<RequestChallengeSolanaResponse>(
@@ -21,7 +26,7 @@ export const useAuthRequestChallengeSolana = (request: RequestChallengeSolanaReq
     },
   );
 
-  const requestChallengeAsync = useCallback((params: RequestChallengeSolanaRequest) => {
+  const requestChallengeAsync = useCallback((params: RequestChallengeSolanaRequestClient) => {
     return mutate(fetcher(endpoint, { operation, request: params }));
   }, []);
 

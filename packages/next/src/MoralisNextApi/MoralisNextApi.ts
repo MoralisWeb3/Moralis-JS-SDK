@@ -1,13 +1,10 @@
-import { ApiUtilsConfigValues } from '@moralisweb3/api-utils';
-import { MoralisCoreConfigValues } from 'moralis/common-core';
-import { MoralisNextHandlerParams } from './types';
+import { MoralisNextApiParams, MoralisNextHandlerParams } from './types';
 import { RequestHandlerResolver } from './RequestHandlerResolver';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { authOperationNames, moralisNextAuthHandler } from '../auth/moralisNextAuthHandler';
 
-export type MoralisConfigValues = MoralisCoreConfigValues & ApiUtilsConfigValues;
-
-async function MoralisNextHandler({ req, res }: MoralisNextHandlerParams) {
+async function MoralisNextHandler({ req, res, authentication }: MoralisNextHandlerParams) {
   const [moduleName, operationName] = req.query.moralis as string[];
 
   try {
@@ -16,7 +13,13 @@ async function MoralisNextHandler({ req, res }: MoralisNextHandlerParams) {
       return res.status(500).json({ error: `Operation ${moduleName}/${operationName} is not supported` });
     }
 
-    const response = await requestHandler.fetch(req.body);
+    let response;
+
+    if (authOperationNames.includes(operationName)) {
+      response = await moralisNextAuthHandler({ req, res, authentication, requestHandler, operationName });
+    } else {
+      response = await requestHandler.fetch(req.body);
+    }
 
     return res.status(200).json(response);
   } catch (e) {
@@ -24,12 +27,12 @@ async function MoralisNextHandler({ req, res }: MoralisNextHandlerParams) {
   }
 }
 
-const MoralisNextApi = (config: MoralisConfigValues) => {
+const MoralisNextApi = ({ authentication, ...config }: MoralisNextApiParams) => {
   if (!Moralis.Core.isStarted) {
     Moralis.start(config);
   }
 
-  return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res });
+  return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res, authentication });
 };
 
 export default MoralisNextApi;
