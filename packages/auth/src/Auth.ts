@@ -1,13 +1,8 @@
 import { ApiModule, Core, CoreProvider } from '@moralisweb3/common-core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
-import {
-  makeVerify,
-  VerifyEvmData,
-  VerifyEvmOptions,
-  VerifyOptions,
-  VerifySolData,
-  VerifySolOptions,
-} from './methods/verify';
+import { makeVerify, VerifyEvmOptions, VerifyOptions, VerifySolOptions } from './methods/verify';
+import { VerifyChallengeEvmResponseAdapter } from './operations/evm';
+import { VerifyChallengeSolanaResponseAdapter } from './operations/solana';
 
 export const BASE_URL = 'https://authapi.moralis.io';
 
@@ -33,8 +28,8 @@ export class Auth extends ApiModule {
   public requestMessage = (options: RequestMessageOptions) => makeRequestMessage(this.core)(options);
 
   // Function overloading to make typescript happy
-  public verify(options: VerifyEvmOptions): VerifyEvmData;
-  public verify(options: VerifySolOptions): VerifySolData;
+  public verify(options: VerifyEvmOptions): Promise<VerifyChallengeEvmResponseAdapter>;
+  public verify(options: VerifySolOptions): Promise<VerifyChallengeSolanaResponseAdapter>;
   public verify(options: VerifyOptions) {
     return makeVerify(this.core)(options);
   }
