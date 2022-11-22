@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -19,6 +19,8 @@ export type GetSPLJSONRequest = ReturnType<typeof serializeRequest>;
 export interface GetSPLJSONResponse extends SuccessResponse {}
 
 export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetSPLResponseAdapter extends ResponseAdapter<GetSPLResponse, GetSPLJSONResponse> {}
 
 export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',

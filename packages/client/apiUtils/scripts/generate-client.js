@@ -19,7 +19,6 @@ const { determineOperationType } = require('@moralisweb3/common-core');
 
 const uniqueGroupNames = new Set(package.operations.map((o) => o.groupName));
 const sourcePackageImports = new Set();
-const corePackageImports = new Set();
 let bodyOutput = ``;
 
 for (const groupName of uniqueGroupNames) {
@@ -30,31 +29,28 @@ for (const groupName of uniqueGroupNames) {
   for (const operation of package.operations.filter((o) => o.groupName === groupName)) {
     const operationVarName = `${operation.name}Operation`;
     const requestClassName = `${capitalizeFirst(operation.name)}Request`;
-    const responseClassName = `${capitalizeFirst(operation.name)}Response`;
-    const jsonResponseClassName = `${capitalizeFirst(operation.name)}JSONResponse`;
+    const responseClassName = `${capitalizeFirst(operation.name)}ResponseAdapter`;
 
     let methodName;
     let returnType;
     switch (determineOperationType(operation)) {
       case 'nonNullable':
         methodName = 'handle';
-        returnType = `ResponseAdapter<${responseClassName}, ${jsonResponseClassName}>`;
+        returnType = responseClassName;
         break;
       case 'nullable':
         methodName = 'handleNullable';
-        returnType = `ResponseAdapter<${responseClassName}, ${jsonResponseClassName}> | null`;
+        returnType = `${responseClassName} | null`;
         break;
       case 'paginated':
         methodName = 'handlePaginated';
-        returnType = `PaginatedResponseAdapter<${responseClassName}, ${jsonResponseClassName}['result']>`;
+        returnType = responseClassName;
         break;
     }
 
     sourcePackageImports.add(operationVarName);
     sourcePackageImports.add(requestClassName);
     sourcePackageImports.add(responseClassName);
-    sourcePackageImports.add(jsonResponseClassName);
-    corePackageImports.add(returnType.split('<')[0]);
 
     bodyOutput += `   ${operation.name}: (request: ${requestClassName}): Promise<${returnType}> => {
       return this.requestHandler.${methodName}(request, ${operationVarName});
@@ -72,7 +68,6 @@ const output = `
 
 import { ${[...sourcePackageImports].join(', ')} } from '${sourcePackageName}';
 import { ClientRequestHandler } from '@moralisweb3/client-api-utils';
-import { ${[...corePackageImports].join(', ')} } from '@moralisweb3/common-core';
 
 export class ${outputClassName} {
   public constructor(

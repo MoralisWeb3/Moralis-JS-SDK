@@ -1,4 +1,12 @@
-import { Core, Camelize, PaginatedOperation, maybe, DateInput, toCamelCase } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  maybe,
+  DateInput,
+  toCamelCase,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransactionLog, LogTopic } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -26,6 +34,9 @@ export type GetContractLogsJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetContractLogsJSONResponse = SuccessResponse;
 
 export type GetContractLogsResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetContractLogsResponseAdapter
+  extends PaginatedResponseAdapter<GetContractLogsResponse, GetContractLogsJSONResponse['result']> {}
 
 export const getContractLogsOperation: PaginatedOperation<
   GetContractLogsRequest,

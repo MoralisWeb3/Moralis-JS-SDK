@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, toCamelCase, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, toCamelCase, maybe, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNftMetadata } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type GetNFTContractMetadataJSONRequest = ReturnType<typeof serializeReque
 export type GetNFTContractMetadataJSONResponse = SuccessResponse;
 
 export type GetNFTContractMetadataResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetNFTContractMetadataResponseAdapter
+  extends ResponseAdapter<GetNFTContractMetadataResponse, GetNFTContractMetadataJSONResponse> {}
 
 export const getNFTContractMetadataOperation: Operation<
   GetNFTContractMetadataRequest,

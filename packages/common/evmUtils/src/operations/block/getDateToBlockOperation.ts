@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, DateInput } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type GetDateToBlockJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetDateToBlockJSONResponse = SuccessResponse;
 
 export type GetDateToBlockResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetDateToBlockResponseAdapter
+  extends ResponseAdapter<GetDateToBlockResponse, GetDateToBlockJSONResponse> {}
 
 export const getDateToBlockOperation: Operation<
   GetDateToBlockRequest,

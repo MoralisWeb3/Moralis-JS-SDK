@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, toCamelCase } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, toCamelCase, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type GetNFTMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetNFTMetadataJSONResponse = SuccessResponse;
 
 export type GetNFTMetadataResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetNFTMetadataResponseAdapter
+  extends ResponseAdapter<GetNFTMetadataResponse, GetNFTMetadataJSONResponse> {}
 
 export const getNFTMetadataOperation: Operation<
   GetNFTMetadataRequest,

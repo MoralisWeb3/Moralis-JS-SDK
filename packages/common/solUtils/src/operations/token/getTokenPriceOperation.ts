@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, MoralisApiError, ApiErrorCode } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, MoralisApiError, ApiErrorCode, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -19,6 +19,9 @@ export type GetTokenPriceJSONRequest = ReturnType<typeof serializeRequest>;
 export interface GetTokenPriceJSONResponse extends SuccessResponse {}
 
 export type GetTokenPriceResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetTokenPriceResponseAdapter
+  extends ResponseAdapter<GetTokenPriceResponse, GetTokenPriceJSONResponse> {}
 
 export const getTokenPriceOperation: Operation<
   GetTokenPriceRequest,
