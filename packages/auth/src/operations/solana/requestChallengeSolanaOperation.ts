@@ -1,4 +1,4 @@
-import { Camelize, Operation, DateInput } from '@moralisweb3/common-core';
+import { Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '@moralisweb3/common-sol-utils';
 import { operations } from '../../generated/types';
 
@@ -24,6 +24,9 @@ export type RequestChallengeSolanaJSONRequest = ReturnType<typeof serializeReque
 export type RequestChallengeSolanaJSONResponse = SuccessResponse;
 
 export type RequestChallengeSolanaResponse = ReturnType<typeof deserializeResponse>;
+
+export interface RequestChallengeSolanaResponseAdapter
+  extends ResponseAdapter<RequestChallengeSolanaResponse, RequestChallengeSolanaJSONResponse> {}
 
 export const requestChallengeSolanaOperation: Operation<
   RequestChallengeSolanaRequest,

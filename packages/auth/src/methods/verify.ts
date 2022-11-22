@@ -26,9 +26,6 @@ export interface VerifySolOptions {
 
 export type VerifyOptions = VerifyEvmOptions | VerifySolOptions;
 
-export type VerifyEvmData = ReturnType<typeof makeEvmVerify>;
-export type VerifySolData = ReturnType<typeof makeSolVerify>;
-
 const makeEvmVerify = (core: Core, { networkType, network, ...options }: VerifyEvmOptions) => {
   return new OperationResolver(verifyChallengeEvmOperation, BASE_URL, core).fetch({
     message: options.message,
