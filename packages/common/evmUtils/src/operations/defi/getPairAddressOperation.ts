@@ -69,7 +69,7 @@ type TokenJSONResponse = GetPairAddressJSONResponse['token0'] | GetPairAddressJS
 function createErc20Token(token: TokenJSONResponse, core: Core, chain?: EvmChainish) {
   return Erc20Token.create(
     {
-      contractAddress: token?.address ? EvmAddress.create(token?.address) : '',
+      contractAddress: token?.address ? EvmAddress.create(token?.address, core) : '',
       decimals: token?.decimals ?? 0,
       name: token?.name ?? '',
       symbol: token?.symbol ?? '',
@@ -96,7 +96,7 @@ function deserializeResponse(jsonResponse: GetPairAddressJSONResponse, request: 
       validated: jsonResponse.token1?.validated,
       createdAt: jsonResponse.token1?.created_at ? new Date(jsonResponse.token1?.created_at) : undefined,
     },
-    pairAddress: jsonResponse.pairAddress ? EvmAddress.create(jsonResponse.pairAddress) : undefined,
+    pairAddress: jsonResponse.pairAddress ? EvmAddress.create(jsonResponse.pairAddress, core) : undefined,
   };
 }
 

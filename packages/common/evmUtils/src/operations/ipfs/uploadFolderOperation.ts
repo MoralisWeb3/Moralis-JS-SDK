@@ -49,9 +49,7 @@ function getRequestUrlParams(_: UploadFolderRequest) {
 }
 
 function getRequestBody(request: UploadFolderRequest) {
-  return {
-    abi: request.abi,
-  };
+  return request.abi;
 }
 
 function deserializeResponse(jsonResponse: UploadFolderJSONResponse) {

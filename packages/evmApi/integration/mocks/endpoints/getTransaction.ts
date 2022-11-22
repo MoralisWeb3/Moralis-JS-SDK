@@ -1,27 +1,39 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
+import { createErrorResponse } from '../response/errorResponse';
 
-export const mockGetTransaction = rest.get(`${EVM_API_ROOT}/transaction/:transaction_hash`, (req, res, ctx) => {
-  const transactionHash = req.params.transaction_hash as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  if (transactionHash === '0x4044044044044044044044044044044044044044044044044044044044044040') {
-    return res(ctx.status(404));
-  }
-
-  if (transactionHash === '0x2000000000000000000000000000040440440440440440440440440440440440') {
-    // false-positive
-    return res(ctx.status(200), ctx.json({}));
-  }
-
-  if (transactionHash === '0x2c1150c5c8403d10714f840eb032a75f91f906c539601a4fc45835a1b830400e') {
-    return res(
-      ctx.status(200),
-      ctx.json({
+export const mockGetTransaction = MockScenarios.create(
+  {
+    method: 'get',
+    name: 'mockGetTransaction',
+    url: '/transaction/:transactionHash',
+    getParams: (req) => ({
+      transactionHash: req.params.transactionHash,
+      subdomain: req.url.searchParams.get('subdomain'),
+      chain: req.url.searchParams.get('chain'),
+    }),
+  },
+  [
+    {
+      condition: {
+        transactionHash: '0x4044044044044044044044044044044044044044044044044044044044044040',
+        chain: '0x5',
+      },
+      response: createErrorResponse('null'),
+      responseStatus: 404,
+    },
+    {
+      condition: {
+        transactionHash: '0x2000000000000000000000000000040440440440440440440440440440440440',
+        chain: '0x5',
+      },
+      response: {},
+    },
+    {
+      condition: {
+        transactionHash: '0x2c1150c5c8403d10714f840eb032a75f91f906c539601a4fc45835a1b830400e',
+        chain: '0x5',
+      },
+      response: {
         hash: '0x2c1150c5c8403d10714f840eb032a75f91f906c539601a4fc45835a1b830400e',
         nonce: '4074269',
         transaction_index: '47',
@@ -59,9 +71,7 @@ export const mockGetTransaction = rest.get(`${EVM_API_ROOT}/transaction/:transac
             transfer_index: [15416552, 47, 110],
           },
         ],
-      }),
-    );
-  }
-
-  throw new Error('Not supported scenario');
-});
+      },
+    },
+  ],
+);

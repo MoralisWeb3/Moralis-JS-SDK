@@ -1,24 +1,24 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 describe('getPairReserves', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('should get the liquidity reserves for a given pair address ', async () => {
     const result = await evmApi.defi.getPairReserves({
-      pairAddress: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974',
+      pairAddress: '0x1b96b92314c44b159149f7e0303511fb2fc4774f',
+      chain: 0x38,
     });
 
-    expect(result.toJSON().reserve0).toBe('232416936901978959300412');
-    expect(result.raw.reserve0).toBe('232416936901978959300412');
-    expect(result.result.reserve0).toBe('232416936901978959300412');
+    expect(result.result.reserve0).toBe('3306559496062120878084');
+    expect(result.result.reserve1).toBe('878923281701700934205705');
   });
 });

@@ -1,32 +1,52 @@
-/* eslint-disable no-console */
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
 
-export const mockGetPairAddresss: Record<string, string> = {
-  '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c': '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
-};
-
-export const mockGetPairAddress = rest.get(
-  `${EVM_API_ROOT}/:token0_address/:token1_address/pairAddress`,
-  (req, res, ctx) => {
-    const token0_address = req.params.token0_address as string;
-    const apiKey = req.headers.get('x-api-key');
-
-    if (apiKey !== MOCK_API_KEY) {
-      return res(ctx.status(401));
-    }
-
-    const value = mockGetPairAddresss[token0_address];
-
-    if (!value) {
-      return res(ctx.status(404));
-    }
-
-    return res(
-      ctx.status(200),
-      ctx.json({
-        token0: value,
-      }),
-    );
+export const mockGetPairAddress = MockScenarios.create(
+  {
+    name: 'mockGetPairAddress',
+    getParams: (req) => ({
+      token0_address: req.params['token0_address'],
+      token1_address: req.params['token1_address'],
+      exchange: req.url.searchParams.get('exchange'),
+      chain: req.url.searchParams.get('chain'),
+    }),
+    url: '/:token0_address/:token1_address/pairAddress',
+    method: 'get',
   },
+  [
+    {
+      condition: {
+        token0_address: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+        token1_address: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+        exchange: 'pancakeswapv1',
+        chain: '0x38',
+      },
+      response: {
+        token0: {
+          address: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+          name: 'Wrapped BNB',
+          symbol: 'WBNB',
+          logo: null,
+          logo_hash: null,
+          thumbnail: null,
+          decimals: '18',
+          block_number: '8242108',
+          validated: 1,
+          created_at: '2022-01-20T10:41:03.034Z',
+        },
+        token1: {
+          address: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+          name: 'BUSD Token',
+          symbol: 'BUSD',
+          logo: null,
+          logo_hash: null,
+          thumbnail: null,
+          decimals: '18',
+          block_number: '8242108',
+          validated: 1,
+          created_at: '2022-01-20T10:41:03.034Z',
+        },
+        pairAddress: '0x1b96b92314c44b159149f7e0303511fb2fc4774f',
+      },
+    },
+  ],
 );

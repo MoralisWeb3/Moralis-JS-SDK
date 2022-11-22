@@ -1,5 +1,5 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi, setupEvmApi } from '../setup';
+import { cleanEvmApi2, setupEvmApi2 } from '../setup';
 
 const ABI = [
   {
@@ -12,11 +12,11 @@ describe('uploadFolder', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    evmApi = setupEvmApi2();
   });
 
   afterAll(() => {
-    cleanEvmApi();
+    cleanEvmApi2();
   });
 
   it('should Uploads multiple files and place them in a folder directory', async () => {
@@ -27,10 +27,7 @@ describe('uploadFolder', () => {
     expect(result).toBeDefined();
     expect(result).toEqual(expect.arrayContaining([]));
     expect(result.raw).toStrictEqual({
-      path: {
-        'moralis/logo.jpg':
-          'https://ipfs.moralis.io:2053/ipfs/QmfL6fMaYJDnizFVj4wxyutDnGMePG2JL95rN2A5mcWyB1/moralis/logo.jpg',
-      },
+      path: 'https://ipfs.moralis.io/QmPQ3YJ3hgfsBzJ1U4MGyV2C1GhDy6MWCENr1qMdMpKVnY/moralis/logo.jpg',
     });
   });
 
