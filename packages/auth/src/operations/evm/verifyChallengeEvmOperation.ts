@@ -1,4 +1,4 @@
-import { Camelize, maybe, Operation } from '@moralisweb3/common-core';
+import { Camelize, maybe, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 
@@ -18,6 +18,9 @@ export type VerifyChallengeEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type VerifyChallengeEvmJSONResponse = SuccessResponse;
 
 export type VerifyChallengeEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface VerifyChallengeEvmResponseAdapter
+  extends ResponseAdapter<VerifyChallengeEvmResponse, VerifyChallengeEvmJSONResponse> {}
 
 export const verifyChallengeEvmOperation: Operation<
   VerifyChallengeEvmRequest,
