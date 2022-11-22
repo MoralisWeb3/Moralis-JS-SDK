@@ -4,14 +4,14 @@ import {
   GetSPLRequest, 
   GetSPLResponse 
 } from 'moralis/common-sol-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useSolSPL = (request: GetSPLRequest, SWRConfig?: SWRConfiguration) => {
+export const useSolSPL = (request: GetSPLRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetSPLResponse>(
     ['solApi/getSPL', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

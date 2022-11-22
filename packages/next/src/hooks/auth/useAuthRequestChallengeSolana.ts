@@ -4,7 +4,7 @@ import {
   RequestChallengeSolanaResponse,
 } from '@moralisweb3/auth';
 import { fetcher } from '../../utils/fetcher';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../types';
 import { useCallback } from 'react';
 import useSWR from 'swr';
 
@@ -12,7 +12,7 @@ export type RequestChallengeSolanaRequestClient = Pick<RequestChallengeSolanaReq
 
 export const useAuthRequestChallengeSolana = (
   request: RequestChallengeSolanaRequestClient,
-  SWRConfig?: SWRConfiguration,
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'auth/requestChallengeSolana';
 
@@ -22,7 +22,7 @@ export const useAuthRequestChallengeSolana = (
     {
       revalidateOnMount: request ? true : false,
       revalidateOnFocus: false,
-      ...SWRConfig,
+      ...fetchParams,
     },
   );
 

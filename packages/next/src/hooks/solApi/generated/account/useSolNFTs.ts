@@ -4,14 +4,14 @@ import {
   GetNFTsRequest, 
   GetNFTsResponse 
 } from 'moralis/common-sol-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useSolNFTs = (request: GetNFTsRequest, SWRConfig?: SWRConfiguration) => {
+export const useSolNFTs = (request: GetNFTsRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetNFTsResponse>(
     ['solApi/getNFTs', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

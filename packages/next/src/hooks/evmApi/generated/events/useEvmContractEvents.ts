@@ -4,14 +4,14 @@ import {
   GetContractEventsRequest, 
   GetContractEventsResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmContractEvents = (request: GetContractEventsRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmContractEvents = (request: GetContractEventsRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetContractEventsResponse>(
     ['evmApi/getContractEvents', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

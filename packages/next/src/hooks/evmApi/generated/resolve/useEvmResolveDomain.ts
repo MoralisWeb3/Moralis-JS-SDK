@@ -4,14 +4,14 @@ import {
   ResolveDomainRequest, 
   ResolveDomainResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmResolveDomain = (request: ResolveDomainRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmResolveDomain = (request: ResolveDomainRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<ResolveDomainResponse>(
     ['evmApi/resolveDomain', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

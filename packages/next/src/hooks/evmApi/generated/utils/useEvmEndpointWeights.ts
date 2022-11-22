@@ -4,14 +4,14 @@ import {
   EndpointWeightsRequest, 
   EndpointWeightsResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmEndpointWeights = (request: EndpointWeightsRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmEndpointWeights = (request: EndpointWeightsRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<EndpointWeightsResponse>(
     ['evmApi/endpointWeights', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

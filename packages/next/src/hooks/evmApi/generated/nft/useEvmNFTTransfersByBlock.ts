@@ -4,14 +4,14 @@ import {
   GetNFTTransfersByBlockRequest, 
   GetNFTTransfersByBlockResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmNFTTransfersByBlock = (request: GetNFTTransfersByBlockRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmNFTTransfersByBlock = (request: GetNFTTransfersByBlockRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetNFTTransfersByBlockResponse>(
     ['evmApi/getNFTTransfersByBlock', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

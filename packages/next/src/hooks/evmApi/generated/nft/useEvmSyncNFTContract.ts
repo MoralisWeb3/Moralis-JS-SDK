@@ -4,14 +4,14 @@ import {
   SyncNFTContractRequest, 
   SyncNFTContractResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmSyncNFTContract = (request: SyncNFTContractRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmSyncNFTContract = (request: SyncNFTContractRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<SyncNFTContractResponse>(
     ['evmApi/syncNFTContract', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

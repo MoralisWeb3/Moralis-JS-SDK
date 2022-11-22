@@ -4,14 +4,14 @@ import {
   GetNFTMetadataRequest, 
   GetNFTMetadataResponse 
 } from 'moralis/common-sol-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useSolNFTMetadata = (request: GetNFTMetadataRequest, SWRConfig?: SWRConfiguration) => {
+export const useSolNFTMetadata = (request: GetNFTMetadataRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetNFTMetadataResponse>(
     ['solApi/getNFTMetadata', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

@@ -4,14 +4,14 @@ import {
   GetNFTLowestPriceRequest, 
   GetNFTLowestPriceResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmNFTLowestPrice = (request: GetNFTLowestPriceRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmNFTLowestPrice = (request: GetNFTLowestPriceRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetNFTLowestPriceResponse>(
     ['evmApi/getNFTLowestPrice', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

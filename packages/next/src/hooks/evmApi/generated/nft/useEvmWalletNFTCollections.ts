@@ -4,14 +4,14 @@ import {
   GetWalletNFTCollectionsRequest, 
   GetWalletNFTCollectionsResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmWalletNFTCollections = (request: GetWalletNFTCollectionsRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmWalletNFTCollections = (request: GetWalletNFTCollectionsRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetWalletNFTCollectionsResponse>(
     ['evmApi/getWalletNFTCollections', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

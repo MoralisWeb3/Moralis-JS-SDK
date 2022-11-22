@@ -4,14 +4,14 @@ import {
   GetNFTContractMetadataRequest, 
   GetNFTContractMetadataResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmNFTContractMetadata = (request: GetNFTContractMetadataRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmNFTContractMetadata = (request: GetNFTContractMetadataRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetNFTContractMetadataResponse>(
     ['evmApi/getNFTContractMetadata', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

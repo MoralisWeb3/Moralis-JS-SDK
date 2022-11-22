@@ -4,14 +4,14 @@ import {
   GetWalletTransactionsRequest, 
   GetWalletTransactionsResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmWalletTransactions = (request: GetWalletTransactionsRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmWalletTransactions = (request: GetWalletTransactionsRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetWalletTransactionsResponse>(
     ['evmApi/getWalletTransactions', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

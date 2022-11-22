@@ -4,14 +4,14 @@ import {
   ReSyncMetadataRequest, 
   ReSyncMetadataResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmReSyncMetadata = (request: ReSyncMetadataRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmReSyncMetadata = (request: ReSyncMetadataRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<ReSyncMetadataResponse>(
     ['evmApi/reSyncMetadata', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

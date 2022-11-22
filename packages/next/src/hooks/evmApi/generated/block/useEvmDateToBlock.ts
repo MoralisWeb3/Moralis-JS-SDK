@@ -4,14 +4,14 @@ import {
   GetDateToBlockRequest, 
   GetDateToBlockResponse 
 } from 'moralis/common-evm-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useEvmDateToBlock = (request: GetDateToBlockRequest, SWRConfig?: SWRConfiguration) => {
+export const useEvmDateToBlock = (request: GetDateToBlockRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetDateToBlockResponse>(
     ['evmApi/getDateToBlock', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {

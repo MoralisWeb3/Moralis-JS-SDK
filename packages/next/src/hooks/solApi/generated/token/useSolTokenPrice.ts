@@ -4,14 +4,14 @@ import {
   GetTokenPriceRequest, 
   GetTokenPriceResponse 
 } from 'moralis/common-sol-utils';
-import { SWRConfiguration } from 'swr/dist/types';
+import { FetchParams } from '../../../types';
 import useSWR from 'swr';
 
-export const useSolTokenPrice = (request: GetTokenPriceRequest, SWRConfig?: SWRConfiguration) => {
+export const useSolTokenPrice = (request: GetTokenPriceRequest, fetchParams?: FetchParams) => {
   const { data, error, mutate, isValidating } = useSWR<GetTokenPriceResponse>(
     ['solApi/getTokenPrice', {operation, request}], 
     fetcher, 
-    {revalidateOnFocus: false, ...SWRConfig}
+    {revalidateOnFocus: false, ...fetchParams}
   );
 
   return {
