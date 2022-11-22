@@ -1,16 +1,6 @@
 import NextAuth from 'next-auth';
 import { MoralisNextAuthProvider } from '@moralisweb3/next';
 
-export type TUserData = {
-  address: string;
-  signature: string;
-  profileId: string;
-};
-
-export interface ISession {
-  user: TUserData;
-}
-
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
@@ -23,7 +13,7 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
-      (session as unknown as ISession).user = (token as unknown as ISession).user;
+      (session as { user: unknown }).user = token.user;
       return session;
     },
   },
