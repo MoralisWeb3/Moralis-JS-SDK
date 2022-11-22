@@ -1,29 +1,27 @@
-/* eslint-disable no-console */
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
 
-export const mockGetDateToBlocks: Record<string, number> = {
-  '2021-09-29T13:09:15.000Z': 13320838,
-};
-
-export const mockGetDateToBlock = rest.get(`${EVM_API_ROOT}/dateToBlock`, (req, res, ctx) => {
-  const date = req.url.searchParams.get('date') as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  const value = mockGetDateToBlocks[date];
-
-  if (!value) {
-    return res(ctx.status(404));
-  }
-
-  return res(
-    ctx.status(200),
-    ctx.json({
-      block: value,
+export const mockGetDateToBlock = MockScenarios.create(
+  {
+    name: 'mockGetDateToBlock',
+    method: 'get',
+    getParams: (req) => ({
+      chain: req.url.searchParams.get('chain'),
+      date: req.url.searchParams.get('date'),
+      providerUrl: req.url.searchParams.get('providerUrl'),
     }),
-  );
-});
+    url: '/dateToBlock',
+  },
+  [
+    {
+      condition: {
+        date: '2021-09-29T13:09:15.000Z',
+        chain: '0x5',
+      },
+      response: {
+        date: '2020-01-01T00:00:00+00:00',
+        block: 13320838,
+        timestamp: 1577836811,
+      },
+    },
+  ],
+);

@@ -1,26 +1,40 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
+import { createErrorResponse } from '../response/errorResponse';
 
-export const mockGetBlock = rest.get(`${EVM_API_ROOT}/block/:block_number_or_hash`, (req, res, ctx) => {
-  const blockNumberOrHash = req.params.block_number_or_hash as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  if (blockNumberOrHash === '404') {
-    return res(ctx.status(404));
-  }
-
-  if (blockNumberOrHash === '200404') {
-    return res(ctx.status(200), ctx.json({}));
-  }
-
-  if (blockNumberOrHash === '15416422') {
-    return res(
-      ctx.status(200),
-      ctx.json({
+export const mockGetBlock = MockScenarios.create(
+  {
+    name: 'mockGetBlock',
+    getParams: (req) => ({
+      chain: req.url.searchParams.get('chain'),
+      block_number_or_hash: req.params.block_number_or_hash,
+      subdomain: req.url.searchParams.get('subdomain'),
+    }),
+    url: '/block/:block_number_or_hash',
+    method: 'get',
+  },
+  [
+    {
+      condition: {
+        block_number_or_hash: '200404',
+        chain: '0x5',
+      },
+      response: createErrorResponse('null'),
+      responseStatus: 404,
+    },
+    {
+      condition: {
+        block_number_or_hash: '404',
+        chain: '0x5',
+      },
+      response: createErrorResponse('Block not found'),
+      responseStatus: 404,
+    },
+    {
+      condition: {
+        block_number_or_hash: '15416422',
+        chain: '0x5',
+      },
+      response: {
         timestamp: '2022-08-26T16:29:16.000Z',
         number: '15416422',
         hash: '0xea1f77d395510ac0ef2db2aed828caf92d2c7ba4ce5632ab23b5f7078a5d6a49',
@@ -63,9 +77,7 @@ export const mockGetBlock = rest.get(`${EVM_API_ROOT}/block/:block_number_or_has
             transfer_index: [15416422, 185],
           },
         ],
-      }),
-    );
-  }
-
-  throw new Error('getBlock: Not supported scenario');
-});
+      },
+    },
+  ],
+);
