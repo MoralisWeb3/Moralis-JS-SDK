@@ -1,5 +1,4 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createEvmApiResponse } from '../response/evmApiResponse';
 import { createErrorResponse } from '../response/errorResponse';
 
 export const mockResyncMetadata = MockScenarios.create(
@@ -18,7 +17,9 @@ export const mockResyncMetadata = MockScenarios.create(
         address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
         tokenId: '15',
       },
-      response: createEvmApiResponse('VALID_RESPONSE'),
+      response: {
+        status: 'Resync request executed',
+      },
     },
     {
       condition: {
