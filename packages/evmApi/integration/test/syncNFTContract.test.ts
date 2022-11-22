@@ -1,15 +1,15 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
-import { cleanEvmApi2, setupEvmApi2 } from '../setup';
+import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('syncNFTContract', () => {
   let EvmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    EvmApi = setupEvmApi2();
+    EvmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    cleanEvmApi2();
+    cleanEvmApi();
   });
 
   describe('Resync NFT Contract', () => {

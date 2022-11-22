@@ -47,9 +47,3 @@ export const createEvmApiResponse = (tag: string) => ({
   ...defaultMockEvmApi,
   tag,
 });
-
-export const createPaginatedEvmApiResponse = (tags: string[], total: number, cursor?: string) => ({
-  result: tags.map((tag) => ({ ...defaultMockEvmApi, tag })),
-  total,
-  cursor,
-});

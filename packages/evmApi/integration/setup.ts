@@ -5,7 +5,7 @@ import { MoralisEvmApi } from '../src/EvmApi';
 import { MOCK_API_KEY } from './mocks/config';
 import { mockServer } from './mocks/mockServer';
 
-export function setupEvmApi2(): MoralisEvmApi {
+export function setupEvmApi(): MoralisEvmApi {
   const core = MoralisCore.create();
   const apiUtils = MoralisApiUtils.create(core);
   const evmUtils = MoralisEvmUtils.create(core);
@@ -25,6 +25,6 @@ export function setupEvmApi2(): MoralisEvmApi {
   return evmApi;
 }
 
-export function cleanEvmApi2() {
+export function cleanEvmApi() {
   mockServer.close();
 }
