@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmTransaction, EvmTransactionLog, LogTopic } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -22,6 +22,9 @@ export type GetTransactionJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetTransactionJSONResponse = SuccessResponse;
 
 export type GetTransactionResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetTransactionResponseAdapter
+  extends ResponseAdapter<GetTransactionResponse, GetTransactionJSONResponse> {}
 
 export const getTransactionOperation: Operation<
   GetTransactionRequest,

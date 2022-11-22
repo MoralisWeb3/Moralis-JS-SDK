@@ -1,4 +1,11 @@
-import { Core, Camelize, PaginatedOperation, toCamelCase, maybe } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  toCamelCase,
+  maybe,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +30,9 @@ export type GetNFTTokenIdOwnersJSONRequest = ReturnType<typeof serializeRequest>
 export type GetNFTTokenIdOwnersJSONResponse = SuccessResponse;
 
 export type GetNFTTokenIdOwnersResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetNFTTokenIdOwnersResponseAdapter
+  extends PaginatedResponseAdapter<GetNFTTokenIdOwnersResponse, GetNFTTokenIdOwnersJSONResponse['result']> {}
 
 export const getNFTTokenIdOwnersOperation: PaginatedOperation<
   GetNFTTokenIdOwnersRequest,

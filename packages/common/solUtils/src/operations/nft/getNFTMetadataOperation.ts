@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -19,6 +19,9 @@ export type GetNFTMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 export interface GetNFTMetadataJSONResponse extends SuccessResponse {}
 
 export type GetNFTMetadataResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetNFTMetadataResponseAdapter
+  extends ResponseAdapter<GetNFTMetadataResponse, GetNFTMetadataJSONResponse> {}
 
 export const getNFTMetadataOperation: Operation<
   GetNFTMetadataRequest,

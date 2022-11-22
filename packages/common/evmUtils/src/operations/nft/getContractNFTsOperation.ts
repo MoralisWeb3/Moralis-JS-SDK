@@ -1,4 +1,11 @@
-import { Core, Camelize, PaginatedOperation, toCamelCase, maybe } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  toCamelCase,
+  maybe,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +30,9 @@ export type GetContractNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetContractNFTsJSONResponse = SuccessResponse;
 
 export type GetContractNFTsResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetContractNFTsResponseAdapter
+  extends PaginatedResponseAdapter<GetContractNFTsResponse, GetContractNFTsJSONResponse['result']> {}
 
 export const getContractNFTsOperation: PaginatedOperation<
   GetContractNFTsRequest,

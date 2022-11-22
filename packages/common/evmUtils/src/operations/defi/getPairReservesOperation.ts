@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, DateInput } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -24,6 +24,9 @@ export type GetPairReservesJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetPairReservesJSONResponse = SuccessResponse;
 
 export type GetPairReservesResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetPairReservesResponseAdapter
+  extends ResponseAdapter<GetPairReservesResponse, GetPairReservesJSONResponse> {}
 
 export const getPairReservesOperation: Operation<
   GetPairReservesRequest,

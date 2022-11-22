@@ -1,4 +1,11 @@
-import { Core, Camelize, PaginatedOperation, maybe, DateInput } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  maybe,
+  DateInput,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -26,6 +33,9 @@ export type SearchNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 export type SearchNFTsJSONResponse = SuccessResponse;
 
 export type SearchNFTsResponse = ReturnType<typeof deserializeResponse>;
+
+export interface SearchNFTsResponseAdapter
+  extends PaginatedResponseAdapter<SearchNFTsResponse, SearchNFTsJSONResponse['result']> {}
 
 export const searchNFTsOperation: PaginatedOperation<
   SearchNFTsRequest,
