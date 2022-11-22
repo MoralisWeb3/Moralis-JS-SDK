@@ -10,10 +10,7 @@ import useSWR from 'swr';
 
 export type RequestChallengeEvmRequestClient = Pick<RequestChallengeEvmRequest, 'chainId' | 'address'>;
 
-export const useAuthRequestChallengeEvm = (
-  request?: RequestChallengeEvmRequestClient,
-  fetchParams?: FetchParams,
-) => {
+export const useAuthRequestChallengeEvm = (request?: RequestChallengeEvmRequestClient, fetchParams?: FetchParams) => {
   const endpoint = 'auth/requestChallengeEvm';
 
   const { data, error, isValidating, mutate } = useSWR<RequestChallengeEvmResponse>(

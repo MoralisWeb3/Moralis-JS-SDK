@@ -20,7 +20,9 @@ export const moralisNextAuthHandler = async ({
   operationName,
 }: MoralisNextAuthHandler) => {
   if (!authentication) {
-    throw new Error(`Error running the '${operationName}' operation. No authentication config provided in 'pages/api/moralis/[...moralis].ts'`)
+    throw new Error(
+      `Error running the '${operationName}' operation. No authentication config provided in 'pages/api/moralis/[...moralis].ts'`,
+    );
   }
   switch (operationName) {
     case 'requestChallengeEvm':
