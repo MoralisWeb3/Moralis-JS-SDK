@@ -38,3 +38,7 @@ Make sure to set the `DATABASE_URI` in your `.env` file
 For rate-limiting, we are using a redis instance. In order for this to work, you will need to setup redis instance. For more information you can see https://redis.io/docs/getting-started/
 
 For local development you will need to install redis on your local machine, and start the service. Make sure to set the `REDIS_CONNECTION_STRING` in your `.env` file
+
+## Remote deployment
+
+
