@@ -14,7 +14,7 @@ export const mockResyncMetadata = MockScenarios.create(
   [
     {
       condition: {
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        address: '0x057ec652a4f150f7ff94f089a38008f49a0df88e',
         tokenId: '15',
       },
       response: {
@@ -23,7 +23,7 @@ export const mockResyncMetadata = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88',
+        address: '0x057ec652a4f150f7ff94f089a38008f49a0df88',
         tokenId: '15',
       },
       responseStatus: 400,
@@ -31,7 +31,7 @@ export const mockResyncMetadata = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        address: '0x057ec652a4f150f7ff94f089a38008f49a0df88e',
         tokenId: '000000215',
       },
       responseStatus: 400,
