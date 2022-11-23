@@ -25,13 +25,10 @@ export type RequestChallengeEvmJSONResponse = SuccessResponse;
 
 export type RequestChallengeEvmResponse = ReturnType<typeof deserializeResponse>;
 
-<<<<<<< HEAD
-/** The back channel challenge containing the id to store on the api and the message to be signed by the user */
-=======
 export interface RequestChallengeEvmResponseAdapter
   extends ResponseAdapter<RequestChallengeEvmResponse, RequestChallengeEvmJSONResponse> {}
 
->>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
+/** The back channel challenge containing the id to store on the api and the message to be signed by the user */
 export const requestChallengeEvmOperation: Operation<
   RequestChallengeEvmRequest,
   RequestChallengeEvmJSONRequest,
