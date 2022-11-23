@@ -41,4 +41,7 @@ For local development you will need to install redis on your local machine, and 
 
 ## Remote deployment
 
+### AWS Elastic Beanstalk
 
+Follow the steps in the documentation:
+https://docs.moralis.io/docs/deploy-to-production#aws-elastic-beanstalk
