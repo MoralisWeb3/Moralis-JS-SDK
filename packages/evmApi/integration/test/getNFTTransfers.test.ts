@@ -2,43 +2,72 @@ import { MoralisEvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getNFTTransfers', () => {
-  let evmApi: MoralisEvmApi;
+  let EvmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    EvmApi = setupEvmApi();
   });
 
   afterAll(() => {
     cleanEvmApi();
   });
 
-  it('should get the transfers of the tokens matching the given parameters', async () => {
-    const result = await evmApi.nft.getNFTTransfers({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
-      tokenId: '18',
-    });
-
-    expect(result).toBeDefined();
-    expect(result).toEqual(expect.objectContaining({}));
-    expect(result.raw.total).toBe(1);
-  });
-  it('should not get the wallet token Id transfers of an invalid account and throw an error ', async () => {
-    const failedResult = await evmApi.nft
-      .getNFTTransfers({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        tokenId: '18',
-      })
-      .then()
-      .catch((err) => {
-        return err;
+  describe('Get NFT Transfers', () => {
+    it('should get the transfers of an NFT given a valid contract address and token ID', async () => {
+      const result = await EvmApi.nft.getNFTTransfers({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+        tokenId: '15',
       });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.nft.getNFTTransfers({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-        tokenId: '18',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+      const response = result.raw.result?.at(0);
+
+      expect(result).toBeDefined();
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(result.raw.total).toBe(2000);
+      expect(response?.amount).toEqual('1');
+      expect(response?.block_number).toBe('88256');
+      expect(response?.contract_type).toBe('ERC721');
+      expect(response?.token_id).toBe('15');
+    });
+
+    it('should not get the transfers of an NFT given an invalid contract address and a valid token ID', async () => {
+      const failedResult = await EvmApi.nft
+        .getNFTTransfers({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+          tokenId: '15',
+        })
+        .then()
+        .catch((err) => {
+          return err;
+        });
+
+      expect(failedResult).toBeDefined();
+      expect(
+        EvmApi.nft.getNFTTransfers({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+          tokenId: '15',
+        }),
+      ).rejects.toThrowError('[C0005] Invalid address provided');
+    });
+
+    it('should not get the transfers of an NFT given a valid contract address and invalid token ID', async () => {
+      const failedResult = await EvmApi.nft
+        .getNFTTransfers({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+          tokenId: '000000215',
+        })
+        .then()
+        .catch((err) => {
+          return err;
+        });
+
+      expect(failedResult).toBeDefined();
+      expect(
+        EvmApi.nft.getNFTTransfers({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+          tokenId: '000000215',
+        }),
+      ).rejects.toThrowError('[C0006] Request failed, Bad Request(400): [C0005] Invalid TokenId provided');
+    });
   });
 });

@@ -1,16 +1,16 @@
 import { MoralisEvmApi } from '../../src/EvmApi';
 import { Erc20Transfer } from '@moralisweb3/evm-utils';
-import { cleanEvmApi2, setupEvmApi2 } from '../setup';
+import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getTokenTransfers', () => {
   let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi2();
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    cleanEvmApi2();
+    cleanEvmApi();
   });
 
   function assertTransfer(transfer: Erc20Transfer) {
