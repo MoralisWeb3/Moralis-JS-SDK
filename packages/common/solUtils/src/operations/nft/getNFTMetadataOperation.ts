@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -20,7 +20,13 @@ export interface GetNFTMetadataJSONResponse extends SuccessResponse {}
 
 export type GetNFTMetadataResponse = ReturnType<typeof deserializeResponse>;
 
+<<<<<<< HEAD
 /** Gets the contract level metadata (mint, standard, name, symbol, metaplex) for the given network and contract */
+=======
+export interface GetNFTMetadataResponseAdapter
+  extends ResponseAdapter<GetNFTMetadataResponse, GetNFTMetadataJSONResponse> {}
+
+>>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
 export const getNFTMetadataOperation: Operation<
   GetNFTMetadataRequest,
   GetNFTMetadataJSONRequest,

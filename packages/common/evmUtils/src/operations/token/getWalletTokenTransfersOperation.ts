@@ -1,4 +1,13 @@
-import { Core, Camelize, PaginatedOperation, maybe, BigNumber, toCamelCase, DateInput } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  maybe,
+  BigNumber,
+  toCamelCase,
+  DateInput,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transfer } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -24,6 +33,9 @@ export type GetWalletTokenTransfersJSONRequest = ReturnType<typeof serializeRequ
 export type GetWalletTokenTransfersJSONResponse = SuccessResponse;
 
 export type GetWalletTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetWalletTokenTransfersResponseAdapter
+  extends PaginatedResponseAdapter<GetWalletTokenTransfersResponse, GetWalletTokenTransfersJSONResponse['result']> {}
 
 /** Get ERC20 token transactions ordered by block number in descending order. */
 export const getWalletTokenTransfersOperation: PaginatedOperation<

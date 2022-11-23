@@ -31,8 +31,7 @@ for (const groupName of uniqueGroupNames) {
   for (const operation of package.operations.filter((o) => o.groupName === groupName)) {
     const operationVarName = `${operation.name}Operation`;
     const requestClassName = `${capitalizeFirst(operation.name)}Request`;
-    const responseClassName = `${capitalizeFirst(operation.name)}Response`;
-    const jsonResponseClassName = `${capitalizeFirst(operation.name)}JSONResponse`;
+    const responseClassName = `${capitalizeFirst(operation.name)}ResponseAdapter`;
 
     const omitRequest = !operation?.urlPathParamNames && !operation.urlSearchParamNames && !operation.bodyParamNames;
 
@@ -41,15 +40,15 @@ for (const groupName of uniqueGroupNames) {
     switch (determineOperationType(operation)) {
       case 'nonNullable':
         resolverClassName = 'OperationResolver';
-        returnType = `ResponseAdapter<${responseClassName}, ${jsonResponseClassName}>`;
+        returnType = responseClassName;
         break;
       case 'nullable':
         resolverClassName = 'NullableOperationResolver';
-        returnType = `ResponseAdapter<${responseClassName}, ${jsonResponseClassName}> | null`;
+        returnType = `${responseClassName} | null`;
         break;
       case 'paginated':
         resolverClassName = 'PaginatedOperationResolver';
-        returnType = `PaginatedResponseAdapter<${responseClassName}, ${jsonResponseClassName}['result']>`;
+        returnType = responseClassName;
         break;
     }
 
@@ -58,9 +57,7 @@ for (const groupName of uniqueGroupNames) {
       sourcePackageImports.add(requestClassName);
     }
     sourcePackageImports.add(responseClassName);
-    sourcePackageImports.add(jsonResponseClassName);
     apiUtilsPackageImports.add(resolverClassName);
-    corePackageImports.add(returnType.split('<')[0]);
 
     bodyOutput += `   ${operation.name}: (${
       omitRequest ? '' : `request: ${requestClassName}`

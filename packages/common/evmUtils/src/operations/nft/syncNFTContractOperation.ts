@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -24,6 +24,9 @@ export type SyncNFTContractJSONRequest = ReturnType<typeof serializeRequest>;
 export type SyncNFTContractJSONResponse = SuccessResponse;
 
 export type SyncNFTContractResponse = ReturnType<typeof deserializeResponse>;
+
+export interface SyncNFTContractResponseAdapter
+  extends ResponseAdapter<SyncNFTContractResponse, SyncNFTContractJSONResponse> {}
 
 /** Initiates a sync of a previously non synced Contract. */
 export const syncNFTContractOperation: Operation<

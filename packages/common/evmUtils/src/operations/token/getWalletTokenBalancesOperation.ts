@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Value } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type GetWalletTokenBalancesJSONRequest = ReturnType<typeof serializeReque
 export type GetWalletTokenBalancesJSONResponse = SuccessResponse;
 
 export type GetWalletTokenBalancesResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetWalletTokenBalancesResponseAdapter
+  extends ResponseAdapter<GetWalletTokenBalancesResponse, GetWalletTokenBalancesJSONResponse> {}
 
 /** Get token balances for a specific wallet address. */
 export const getWalletTokenBalancesOperation: Operation<

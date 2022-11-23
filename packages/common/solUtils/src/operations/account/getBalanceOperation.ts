@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -20,7 +20,12 @@ export interface GetBalanceJSONResponse extends SuccessResponse {}
 
 export type GetBalanceResponse = ReturnType<typeof deserializeResponse>;
 
+<<<<<<< HEAD
 /** Gets native balance owned by the given network and address */
+=======
+export interface GetBalanceResponseAdapter extends ResponseAdapter<GetBalanceResponse, GetBalanceJSONResponse> {}
+
+>>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
 export const getBalanceOperation: Operation<
   GetBalanceRequest,
   GetBalanceJSONRequest,

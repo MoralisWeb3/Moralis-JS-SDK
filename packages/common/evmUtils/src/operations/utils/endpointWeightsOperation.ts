@@ -1,4 +1,4 @@
-import { Operation } from '@moralisweb3/common-core';
+import { Operation, ResponseAdapter } from '@moralisweb3/common-core';
 
 import { operations } from '../openapi';
 
@@ -15,6 +15,9 @@ export type EndpointWeightsJSONRequest = undefined;
 export type EndpointWeightsJSONResponse = SuccessResponse;
 
 export type EndpointWeightsResponse = ReturnType<typeof deserializeResponse>;
+
+export interface EndpointWeightsResponseAdapter
+  extends ResponseAdapter<EndpointWeightsResponse, EndpointWeightsJSONResponse> {}
 
 /** Get the endpoint price list for rate limits and cost. */
 export const endpointWeightsOperation: Operation<

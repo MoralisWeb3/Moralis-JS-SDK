@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, toCamelCase } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, toCamelCase, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Token } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -22,6 +22,9 @@ export type GetTokenMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetTokenMetadataJSONResponse = SuccessResponse;
 
 export type GetTokenMetadataResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetTokenMetadataResponseAdapter
+  extends ResponseAdapter<GetTokenMetadataResponse, GetTokenMetadataJSONResponse> {}
 
 /** Get the metadata for a given token contract address (name, symbol, decimals, logo). */
 export const getTokenMetadataOperation: Operation<

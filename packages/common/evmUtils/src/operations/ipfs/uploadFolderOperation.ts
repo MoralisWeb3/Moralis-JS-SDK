@@ -1,4 +1,4 @@
-import { Operation } from '@moralisweb3/common-core';
+import { Operation, ResponseAdapter } from '@moralisweb3/common-core';
 
 import { operations } from '../openapi';
 
@@ -21,6 +21,8 @@ export type UploadFolderJSONRequest = ReturnType<typeof serializeRequest>;
 export type UploadFolderJSONResponse = SuccessResponse;
 
 export type UploadFolderResponse = ReturnType<typeof deserializeResponse>;
+
+export interface UploadFolderResponseAdapter extends ResponseAdapter<UploadFolderResponse, UploadFolderJSONResponse> {}
 
 /** Upload multiple files to IPFS and place them in a folder directory. */
 export const uploadFolderOperation: Operation<

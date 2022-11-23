@@ -1,4 +1,4 @@
-import { Operation } from '@moralisweb3/common-core';
+import { Operation, ResponseAdapter } from '@moralisweb3/common-core';
 
 import { operations } from '../openapi';
 
@@ -15,6 +15,9 @@ export type Web3ApiVersionJSONRequest = undefined;
 export type Web3ApiVersionJSONResponse = SuccessResponse;
 
 export type Web3ApiVersionResponse = ReturnType<typeof deserializeResponse>;
+
+export interface Web3ApiVersionResponseAdapter
+  extends ResponseAdapter<Web3ApiVersionResponse, Web3ApiVersionJSONResponse> {}
 
 /** Get the current version of the Moralis Web3 API. */
 export const web3ApiVersionOperation: Operation<

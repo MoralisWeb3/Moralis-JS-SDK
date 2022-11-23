@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '../../dataTypes';
 
 import { operations } from '../openapi';
@@ -21,6 +21,9 @@ export type ResolveAddressJSONRequest = ReturnType<typeof serializeRequest>;
 export type ResolveAddressJSONResponse = SuccessResponse;
 
 export type ResolveAddressResponse = ReturnType<typeof deserializeResponse>;
+
+export interface ResolveAddressResponseAdapter
+  extends ResponseAdapter<ResolveAddressResponse, ResolveAddressJSONResponse> {}
 
 /** Resolve an ETH address and find the ENS name. */
 export const resolveAddressOperation: Operation<

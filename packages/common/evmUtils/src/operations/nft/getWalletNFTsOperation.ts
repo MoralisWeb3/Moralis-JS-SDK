@@ -1,4 +1,11 @@
-import { Core, Camelize, PaginatedOperation, dateInputToDate, maybe } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  dateInputToDate,
+  maybe,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -24,6 +31,9 @@ export type GetWalletNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetWalletNFTsJSONResponse = SuccessResponse;
 
 export type GetWalletNFTsResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetWalletNFTsResponseAdapter
+  extends PaginatedResponseAdapter<GetWalletNFTsResponse, GetWalletNFTsJSONResponse['result']> {}
 
 /**
  * Get NFTs owned by a given address.

@@ -39,7 +39,9 @@
     "./common-core": "./lib/commonCore/index.js",
     "./streams-typings": "./lib/streamsTypings/index.js",
     "./common-evm-utils": "./lib/commonEvmUtils/index.js",
-    "./common-sol-utils": "./lib/commonSolUtils/index.js"
+    "./common-sol-utils": "./lib/commonSolUtils/index.js",
+    "./auth": "./lib/auth/index.js",
+    "./streams": "./lib/streams/index.js"
   },
   "typesVersions": {
     "*": {
@@ -55,8 +57,11 @@
       "common-sol-utils": [
         "lib/commonSolUtils/index.d.ts"
       ],
-      "streams-typings": [
-        "lib/streamsTypings/index.d.ts"
+      "streams": [
+        "lib/streams/index.d.ts"
+      ],
+      "auth": [
+        "lib/auth/index.d.ts"
       ]
     }
   },

@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type RunContractFunctionJSONRequest = ReturnType<typeof serializeRequest>
 export type RunContractFunctionJSONResponse = SuccessResponse;
 
 export type RunContractFunctionResponse = ReturnType<typeof deserializeResponse>;
+
+export interface RunContractFunctionResponseAdapter
+  extends ResponseAdapter<RunContractFunctionResponse, RunContractFunctionJSONResponse> {}
 
 /** Run a given function of a contract ABI and retrieve readonly data. */
 export const runContractFunctionOperation: Operation<

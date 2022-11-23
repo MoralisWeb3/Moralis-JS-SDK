@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, toCamelCase, maybe } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, toCamelCase, maybe, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNftTrade, EvmNative } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type GetNFTLowestPriceJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetNFTLowestPriceJSONResponse = SuccessResponse;
 
 export type GetNFTLowestPriceResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetNFTLowestPriceResponseAdapter
+  extends ResponseAdapter<GetNFTLowestPriceResponse, GetNFTLowestPriceJSONResponse> {}
 
 /** Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH). */
 export const getNFTLowestPriceOperation: Operation<

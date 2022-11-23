@@ -1,4 +1,12 @@
-import { Core, Camelize, PaginatedOperation, maybe, BigNumber, DateInput } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  maybe,
+  BigNumber,
+  DateInput,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransaction } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -28,6 +36,9 @@ export type GetWalletTransactionsJSONRequest = ReturnType<typeof serializeReques
 export type GetWalletTransactionsJSONResponse = SuccessResponse;
 
 export type GetWalletTransactionsResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetWalletTransactionsResponseAdapter
+  extends PaginatedResponseAdapter<GetWalletTransactionsResponse, GetWalletTransactionsJSONResponse['result']> {}
 
 /** Get native transactions ordered by block number in descending order. */
 export const getWalletTransactionsOperation: PaginatedOperation<

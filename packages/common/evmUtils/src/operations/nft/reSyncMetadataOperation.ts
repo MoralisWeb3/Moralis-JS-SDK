@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -25,6 +25,9 @@ export type ReSyncMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 export type ReSyncMetadataJSONResponse = SuccessResponse;
 
 export type ReSyncMetadataResponse = ReturnType<typeof deserializeResponse>;
+
+export interface ReSyncMetadataResponseAdapter
+  extends ResponseAdapter<ReSyncMetadataResponse, ReSyncMetadataJSONResponse> {}
 
 /**
  * ReSync the metadata for an NFT

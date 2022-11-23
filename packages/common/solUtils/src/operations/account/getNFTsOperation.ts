@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -20,7 +20,12 @@ export interface GetNFTsJSONResponse extends SuccessResponse {}
 
 export type GetNFTsResponse = ReturnType<typeof deserializeResponse>;
 
+<<<<<<< HEAD
 /** Gets NFTs owned by the given network and address */
+=======
+export interface GetNFTsResponseAdapter extends ResponseAdapter<GetNFTsResponse, GetNFTsJSONResponse> {}
+
+>>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
 export const getNFTsOperation: Operation<GetNFTsRequest, GetNFTsJSONRequest, GetNFTsResponse, GetNFTsJSONResponse> = {
   method: 'GET',
   name: 'getNFTs',

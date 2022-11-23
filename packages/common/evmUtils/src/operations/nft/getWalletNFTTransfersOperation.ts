@@ -1,4 +1,11 @@
-import { Core, Camelize, PaginatedOperation, maybe, toCamelCase } from '@moralisweb3/common-core';
+import {
+  Core,
+  Camelize,
+  PaginatedOperation,
+  maybe,
+  toCamelCase,
+  PaginatedResponseAdapter,
+} from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNative, EvmNftTransfer } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -25,6 +32,9 @@ export type GetWalletNFTTransfersJSONRequest = ReturnType<typeof serializeReques
 export type GetWalletNFTTransfersJSONResponse = SuccessResponse;
 
 export type GetWalletNFTTransfersResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetWalletNFTTransfersResponseAdapter
+  extends PaginatedResponseAdapter<GetWalletNFTTransfersResponse, GetWalletNFTTransfersJSONResponse['result']> {}
 
 /** Get transfers of NFTs given the wallet and other parameters. */
 export const getWalletNFTTransfersOperation: PaginatedOperation<

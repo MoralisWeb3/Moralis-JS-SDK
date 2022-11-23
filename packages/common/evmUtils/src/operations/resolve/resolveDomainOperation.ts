@@ -1,4 +1,4 @@
-import Core, { Camelize, Operation } from '@moralisweb3/common-core';
+import Core, { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress } from '../../dataTypes';
 
 import { operations } from '../openapi';
@@ -20,6 +20,9 @@ export type ResolveDomainJSONRequest = ReturnType<typeof serializeRequest>;
 export type ResolveDomainJSONResponse = SuccessResponse;
 
 export type ResolveDomainResponse = ReturnType<typeof deserializeResponse>;
+
+export interface ResolveDomainResponseAdapter
+  extends ResponseAdapter<ResolveDomainResponse, ResolveDomainJSONResponse> {}
 
 /** Resolve an Unstoppable domain and get the address. */
 export const resolveDomainOperation: Operation<

@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, BigNumber } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, BigNumber, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -26,6 +26,9 @@ export type GetTokenAllowanceJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetTokenAllowanceJSONResponse = SuccessResponse;
 
 export type GetTokenAllowanceResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetTokenAllowanceResponseAdapter
+  extends ResponseAdapter<GetTokenAllowanceResponse, GetTokenAllowanceJSONResponse> {}
 
 /** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
 export const getTokenAllowanceOperation: Operation<

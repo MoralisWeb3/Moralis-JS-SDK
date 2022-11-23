@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe, toCamelCase } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, maybe, toCamelCase, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNative } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
@@ -24,6 +24,9 @@ export type GetTokenPriceJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetTokenPriceJSONResponse = SuccessResponse;
 
 export type GetTokenPriceResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetTokenPriceResponseAdapter
+  extends ResponseAdapter<GetTokenPriceResponse, GetTokenPriceJSONResponse> {}
 
 /** Get the token price denominated in the blockchains native token and USD. */
 export const getTokenPriceOperation: Operation<

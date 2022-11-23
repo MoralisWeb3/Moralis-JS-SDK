@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
@@ -20,7 +20,12 @@ export interface GetPortfolioJSONResponse extends SuccessResponse {}
 
 export type GetPortfolioResponse = ReturnType<typeof deserializeResponse>;
 
+<<<<<<< HEAD
 /** Gets the portfolio of the given network and address */
+=======
+export interface GetPortfolioResponseAdapter extends ResponseAdapter<GetPortfolioResponse, GetPortfolioJSONResponse> {}
+
+>>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
 export const getPortfolioOperation: Operation<
   GetPortfolioRequest,
   GetPortfolioJSONRequest,

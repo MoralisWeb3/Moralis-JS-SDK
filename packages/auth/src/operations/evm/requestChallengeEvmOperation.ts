@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, DateInput } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChainResolver } from '@moralisweb3/common-evm-utils';
 import { operations } from '../../generated/types';
 
@@ -25,7 +25,13 @@ export type RequestChallengeEvmJSONResponse = SuccessResponse;
 
 export type RequestChallengeEvmResponse = ReturnType<typeof deserializeResponse>;
 
+<<<<<<< HEAD
 /** The back channel challenge containing the id to store on the api and the message to be signed by the user */
+=======
+export interface RequestChallengeEvmResponseAdapter
+  extends ResponseAdapter<RequestChallengeEvmResponse, RequestChallengeEvmJSONResponse> {}
+
+>>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
 export const requestChallengeEvmOperation: Operation<
   RequestChallengeEvmRequest,
   RequestChallengeEvmJSONRequest,
