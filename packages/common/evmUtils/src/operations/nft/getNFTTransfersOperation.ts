@@ -20,10 +20,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTTransfersRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetNFTTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetNFTTransfersJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -34,6 +34,7 @@ export type GetNFTTransfersResponse = ReturnType<typeof deserializeResponse>;
 export interface GetNFTTransfersResponseAdapter
   extends PaginatedResponseAdapter<GetNFTTransfersResponse, GetNFTTransfersJSONResponse['result']> {}
 
+/** Get transfers of an NFT given a contract address and token ID. */
 export const getNFTTransfersOperation: PaginatedOperation<
   GetNFTTransfersRequest,
   GetNFTTransfersJSONRequest,

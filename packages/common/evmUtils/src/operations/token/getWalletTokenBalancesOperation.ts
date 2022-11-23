@@ -27,6 +27,7 @@ export type GetWalletTokenBalancesResponse = ReturnType<typeof deserializeRespon
 export interface GetWalletTokenBalancesResponseAdapter
   extends ResponseAdapter<GetWalletTokenBalancesResponse, GetWalletTokenBalancesJSONResponse> {}
 
+/** Get token balances for a specific wallet address. */
 export const getWalletTokenBalancesOperation: Operation<
   GetWalletTokenBalancesRequest,
   GetWalletTokenBalancesJSONRequest,

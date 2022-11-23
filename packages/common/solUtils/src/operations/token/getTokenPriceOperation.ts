@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetTokenPriceRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
+export interface GetTokenPriceRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
   network?: SolNetworkish;
   address: SolAddressish;
-};
+}
 
 export type GetTokenPriceJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -23,6 +23,7 @@ export type GetTokenPriceResponse = ReturnType<typeof deserializeResponse>;
 export interface GetTokenPriceResponseAdapter
   extends ResponseAdapter<GetTokenPriceResponse, GetTokenPriceJSONResponse> {}
 
+/** Gets the token price (usd and native) for a given contract address and network */
 export const getTokenPriceOperation: Operation<
   GetTokenPriceRequest,
   GetTokenPriceJSONRequest,

@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetBalanceRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
+export interface GetBalanceRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
   network?: SolNetworkish;
   address: SolAddressish;
-};
+}
 
 export type GetBalanceJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -22,6 +22,7 @@ export type GetBalanceResponse = ReturnType<typeof deserializeResponse>;
 
 export interface GetBalanceResponseAdapter extends ResponseAdapter<GetBalanceResponse, GetBalanceJSONResponse> {}
 
+/** Gets native balance owned by the given network and address */
 export const getBalanceOperation: Operation<
   GetBalanceRequest,
   GetBalanceJSONRequest,

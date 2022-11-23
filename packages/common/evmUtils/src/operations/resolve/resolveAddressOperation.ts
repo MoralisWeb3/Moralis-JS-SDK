@@ -25,6 +25,7 @@ export type ResolveAddressResponse = ReturnType<typeof deserializeResponse>;
 export interface ResolveAddressResponseAdapter
   extends ResponseAdapter<ResolveAddressResponse, ResolveAddressJSONResponse> {}
 
+/** Resolve an ETH address and find the ENS name. */
 export const resolveAddressOperation: Operation<
   ResolveAddressRequest,
   ResolveAddressJSONRequest,

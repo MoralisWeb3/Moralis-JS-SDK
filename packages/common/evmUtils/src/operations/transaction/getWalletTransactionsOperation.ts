@@ -40,6 +40,7 @@ export type GetWalletTransactionsResponse = ReturnType<typeof deserializeRespons
 export interface GetWalletTransactionsResponseAdapter
   extends PaginatedResponseAdapter<GetWalletTransactionsResponse, GetWalletTransactionsJSONResponse['result']> {}
 
+/** Get native transactions ordered by block number in descending order. */
 export const getWalletTransactionsOperation: PaginatedOperation<
   GetWalletTransactionsRequest,
   GetWalletTransactionsJSONRequest,

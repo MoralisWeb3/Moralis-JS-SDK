@@ -13,10 +13,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTLowestPriceRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetNFTLowestPriceRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetNFTLowestPriceJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -27,6 +27,7 @@ export type GetNFTLowestPriceResponse = ReturnType<typeof deserializeResponse>;
 export interface GetNFTLowestPriceResponseAdapter
   extends ResponseAdapter<GetNFTLowestPriceResponse, GetNFTLowestPriceJSONResponse> {}
 
+/** Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH). */
 export const getNFTLowestPriceOperation: Operation<
   GetNFTLowestPriceRequest,
   GetNFTLowestPriceJSONRequest,

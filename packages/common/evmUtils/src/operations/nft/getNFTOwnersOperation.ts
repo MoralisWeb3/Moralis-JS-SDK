@@ -20,10 +20,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTOwnersRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetNFTOwnersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetNFTOwnersJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -34,6 +34,10 @@ export type GetNFTOwnersResponse = ReturnType<typeof deserializeResponse>;
 export interface GetNFTOwnersResponseAdapter
   extends PaginatedResponseAdapter<GetNFTOwnersResponse, GetNFTOwnersJSONResponse['result']> {}
 
+/**
+ * Get owners of NFTs for a given contract.
+ * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
+ */
 export const getNFTOwnersOperation: PaginatedOperation<
   GetNFTOwnersRequest,
   GetNFTOwnersJSONRequest,

@@ -20,10 +20,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetContractNFTsRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetContractNFTsRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetContractNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -34,6 +34,11 @@ export type GetContractNFTsResponse = ReturnType<typeof deserializeResponse>;
 export interface GetContractNFTsResponseAdapter
   extends PaginatedResponseAdapter<GetContractNFTsResponse, GetContractNFTsJSONResponse['result']> {}
 
+/**
+ * Get NFTs for a given contract address, including metadata for all NFTs (where available).
+ * * Results are limited to 100 per page by default
+ * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
+ */
 export const getContractNFTsOperation: PaginatedOperation<
   GetContractNFTsRequest,
   GetContractNFTsJSONRequest,

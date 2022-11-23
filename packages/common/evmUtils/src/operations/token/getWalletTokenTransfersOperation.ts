@@ -37,6 +37,7 @@ export type GetWalletTokenTransfersResponse = ReturnType<typeof deserializeRespo
 export interface GetWalletTokenTransfersResponseAdapter
   extends PaginatedResponseAdapter<GetWalletTokenTransfersResponse, GetWalletTokenTransfersJSONResponse['result']> {}
 
+/** Get ERC20 token transactions ordered by block number in descending order. */
 export const getWalletTokenTransfersOperation: PaginatedOperation<
   GetWalletTokenTransfersRequest,
   GetWalletTokenTransfersJSONRequest,

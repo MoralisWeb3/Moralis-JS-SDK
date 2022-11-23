@@ -13,10 +13,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTContractMetadataRequest = Camelize<Omit<RequestParams, 'chain' | 'address'>> & {
+export interface GetNFTContractMetadataRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-};
+}
 
 export type GetNFTContractMetadataJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -27,6 +27,10 @@ export type GetNFTContractMetadataResponse = ReturnType<typeof deserializeRespon
 export interface GetNFTContractMetadataResponseAdapter
   extends ResponseAdapter<GetNFTContractMetadataResponse, GetNFTContractMetadataJSONResponse> {}
 
+/**
+ * Get the collection / contract level metadata for a given contract (name, symbol, base token uri).
+ * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+ */
 export const getNFTContractMetadataOperation: Operation<
   GetNFTContractMetadataRequest,
   GetNFTContractMetadataJSONRequest,

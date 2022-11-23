@@ -24,6 +24,7 @@ export type UploadFolderResponse = ReturnType<typeof deserializeResponse>;
 
 export interface UploadFolderResponseAdapter extends ResponseAdapter<UploadFolderResponse, UploadFolderJSONResponse> {}
 
+/** Upload multiple files to IPFS and place them in a folder directory. */
 export const uploadFolderOperation: Operation<
   UploadFolderRequest,
   UploadFolderJSONRequest,

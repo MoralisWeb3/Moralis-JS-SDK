@@ -36,6 +36,7 @@ export type GetWalletNFTTransfersResponse = ReturnType<typeof deserializeRespons
 export interface GetWalletNFTTransfersResponseAdapter
   extends PaginatedResponseAdapter<GetWalletNFTTransfersResponse, GetWalletNFTTransfersJSONResponse['result']> {}
 
+/** Get transfers of NFTs given the wallet and other parameters. */
 export const getWalletNFTTransfersOperation: PaginatedOperation<
   GetWalletNFTTransfersRequest,
   GetWalletNFTTransfersJSONRequest,

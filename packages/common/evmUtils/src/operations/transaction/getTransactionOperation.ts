@@ -26,6 +26,7 @@ export type GetTransactionResponse = ReturnType<typeof deserializeResponse>;
 export interface GetTransactionResponseAdapter
   extends ResponseAdapter<GetTransactionResponse, GetTransactionJSONResponse> {}
 
+/** Get the contents of a transaction by the given transaction hash. */
 export const getTransactionOperation: Operation<
   GetTransactionRequest,
   GetTransactionJSONRequest,

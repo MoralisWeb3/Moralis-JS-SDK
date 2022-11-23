@@ -28,6 +28,7 @@ export type SyncNFTContractResponse = ReturnType<typeof deserializeResponse>;
 export interface SyncNFTContractResponseAdapter
   extends ResponseAdapter<SyncNFTContractResponse, SyncNFTContractJSONResponse> {}
 
+/** Initiates a sync of a previously non synced Contract. */
 export const syncNFTContractOperation: Operation<
   SyncNFTContractRequest,
   SyncNFTContractJSONRequest,

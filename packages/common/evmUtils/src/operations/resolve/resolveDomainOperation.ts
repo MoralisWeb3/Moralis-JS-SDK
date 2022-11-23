@@ -24,6 +24,7 @@ export type ResolveDomainResponse = ReturnType<typeof deserializeResponse>;
 export interface ResolveDomainResponseAdapter
   extends ResponseAdapter<ResolveDomainResponse, ResolveDomainJSONResponse> {}
 
+/** Resolve an Unstoppable domain and get the address. */
 export const resolveDomainOperation: Operation<
   ResolveDomainRequest,
   ResolveDomainJSONRequest,

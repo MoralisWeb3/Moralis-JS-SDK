@@ -38,6 +38,7 @@ export type GetContractLogsResponse = ReturnType<typeof deserializeResponse>;
 export interface GetContractLogsResponseAdapter
   extends PaginatedResponseAdapter<GetContractLogsResponse, GetContractLogsJSONResponse['result']> {}
 
+/** Get the logs for a contract. */
 export const getContractLogsOperation: PaginatedOperation<
   GetContractLogsRequest,
   GetContractLogsJSONRequest,

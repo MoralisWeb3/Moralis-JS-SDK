@@ -20,11 +20,11 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetWalletNFTsRequest = Camelize<Omit<RequestParams, 'chain' | 'token_addresses' | 'address'>> & {
+export interface GetWalletNFTsRequest extends Camelize<Omit<RequestParams, 'chain' | 'token_addresses' | 'address'>> {
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address: EvmAddressish;
-};
+}
 
 export type GetWalletNFTsJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -35,6 +35,13 @@ export type GetWalletNFTsResponse = ReturnType<typeof deserializeResponse>;
 export interface GetWalletNFTsResponseAdapter
   extends PaginatedResponseAdapter<GetWalletNFTsResponse, GetWalletNFTsJSONResponse['result']> {}
 
+/**
+ * Get NFTs owned by a given address.
+ * * The response will include status [SYNCED/SYNCING] based on the contracts being indexed.
+ * * Use the token_address param to get results for a specific contract only
+ * * Note results will include all indexed NFTs
+ * * Any request which includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
+ */
 export const getWalletNFTsOperation: PaginatedOperation<
   GetWalletNFTsRequest,
   GetWalletNFTsJSONRequest,

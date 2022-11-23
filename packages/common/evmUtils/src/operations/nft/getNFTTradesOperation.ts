@@ -21,12 +21,13 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetNFTTradesRequest = Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> & {
+export interface GetNFTTradesRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
-};
+}
 
 export type GetNFTTradesJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -37,6 +38,7 @@ export type GetNFTTradesResponse = ReturnType<typeof deserializeResponse>;
 export interface GetNFTTradesResponseAdapter
   extends PaginatedResponseAdapter<GetNFTTradesResponse, GetNFTTradesJSONResponse['result']> {}
 
+/** Get trades of NFTs for a given contract and marketplace. */
 export const getNFTTradesOperation: PaginatedOperation<
   GetNFTTradesRequest,
   GetNFTTradesJSONRequest,

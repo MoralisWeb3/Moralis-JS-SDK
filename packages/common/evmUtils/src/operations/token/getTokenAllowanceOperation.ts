@@ -30,6 +30,7 @@ export type GetTokenAllowanceResponse = ReturnType<typeof deserializeResponse>;
 export interface GetTokenAllowanceResponseAdapter
   extends ResponseAdapter<GetTokenAllowanceResponse, GetTokenAllowanceJSONResponse> {}
 
+/** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
 export const getTokenAllowanceOperation: Operation<
   GetTokenAllowanceRequest,
   GetTokenAllowanceJSONRequest,

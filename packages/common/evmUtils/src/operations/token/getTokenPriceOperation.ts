@@ -28,6 +28,7 @@ export type GetTokenPriceResponse = ReturnType<typeof deserializeResponse>;
 export interface GetTokenPriceResponseAdapter
   extends ResponseAdapter<GetTokenPriceResponse, GetTokenPriceJSONResponse> {}
 
+/** Get the token price denominated in the blockchains native token and USD. */
 export const getTokenPriceOperation: Operation<
   GetTokenPriceRequest,
   GetTokenPriceJSONRequest,

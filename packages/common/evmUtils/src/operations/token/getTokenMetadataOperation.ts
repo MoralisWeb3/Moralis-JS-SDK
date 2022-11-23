@@ -26,6 +26,7 @@ export type GetTokenMetadataResponse = ReturnType<typeof deserializeResponse>;
 export interface GetTokenMetadataResponseAdapter
   extends ResponseAdapter<GetTokenMetadataResponse, GetTokenMetadataJSONResponse> {}
 
+/** Get the metadata for a given token contract address (name, symbol, decimals, logo). */
 export const getTokenMetadataOperation: Operation<
   GetTokenMetadataRequest,
   GetTokenMetadataJSONRequest,

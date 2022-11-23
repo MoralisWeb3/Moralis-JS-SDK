@@ -27,6 +27,7 @@ export type RunContractFunctionResponse = ReturnType<typeof deserializeResponse>
 export interface RunContractFunctionResponseAdapter
   extends ResponseAdapter<RunContractFunctionResponse, RunContractFunctionJSONResponse> {}
 
+/** Run a given function of a contract ABI and retrieve readonly data. */
 export const runContractFunctionOperation: Operation<
   RunContractFunctionRequest,
   RunContractFunctionJSONRequest,

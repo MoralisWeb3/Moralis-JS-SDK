@@ -37,6 +37,7 @@ export type GetTokenTransfersResponse = ReturnType<typeof deserializeResponse>;
 export interface GetTokenTransfersResponseAdapter
   extends PaginatedResponseAdapter<GetTokenTransfersResponse, GetTokenTransfersJSONResponse['result']> {}
 
+/** Get ERC20 token transactions from a contract ordered by block number in descending order. */
 export const getTokenTransfersOperation: PaginatedOperation<
   GetTokenTransfersRequest,
   GetTokenTransfersJSONRequest,

@@ -9,10 +9,10 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export type GetSPLRequest = Camelize<Omit<PathParams, 'network' | 'address'>> & {
+export interface GetSPLRequest extends Camelize<Omit<PathParams, 'network' | 'address'>> {
   network?: SolNetworkish;
   address: SolAddressish;
-};
+}
 
 export type GetSPLJSONRequest = ReturnType<typeof serializeRequest>;
 
@@ -22,6 +22,7 @@ export type GetSPLResponse = ReturnType<typeof deserializeResponse>;
 
 export interface GetSPLResponseAdapter extends ResponseAdapter<GetSPLResponse, GetSPLJSONResponse> {}
 
+/** Gets token balances owned by the given network and address */
 export const getSPLOperation: Operation<GetSPLRequest, GetSPLJSONRequest, GetSPLResponse, GetSPLJSONResponse> = {
   method: 'GET',
   name: 'getSPL',

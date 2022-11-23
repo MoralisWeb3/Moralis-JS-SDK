@@ -25,6 +25,7 @@ export type GetTokenMetadataBySymbolResponse = ReturnType<typeof deserializeResp
 export interface GetTokenMetadataBySymbolResponseAdapter
   extends ResponseAdapter<GetTokenMetadataBySymbolResponse, GetTokenMetadataBySymbolJSONResponse> {}
 
+/** Get metadata for a list of token symbols (name, symbol, decimals, logo). */
 export const getTokenMetadataBySymbolOperation: Operation<
   GetTokenMetadataBySymbolRequest,
   GetTokenMetadataBySymbolJSONRequest,

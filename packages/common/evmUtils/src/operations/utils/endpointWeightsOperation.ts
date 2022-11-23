@@ -19,6 +19,7 @@ export type EndpointWeightsResponse = ReturnType<typeof deserializeResponse>;
 export interface EndpointWeightsResponseAdapter
   extends ResponseAdapter<EndpointWeightsResponse, EndpointWeightsJSONResponse> {}
 
+/** Get the endpoint price list for rate limits and cost. */
 export const endpointWeightsOperation: Operation<
   EndpointWeightsRequest,
   EndpointWeightsJSONRequest,

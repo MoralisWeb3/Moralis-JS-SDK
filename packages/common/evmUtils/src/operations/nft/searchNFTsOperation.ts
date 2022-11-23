@@ -37,6 +37,7 @@ export type SearchNFTsResponse = ReturnType<typeof deserializeResponse>;
 export interface SearchNFTsResponseAdapter
   extends PaginatedResponseAdapter<SearchNFTsResponse, SearchNFTsJSONResponse['result']> {}
 
+/** Get NFTs that match a given metadata search query. */
 export const searchNFTsOperation: PaginatedOperation<
   SearchNFTsRequest,
   SearchNFTsJSONRequest,
