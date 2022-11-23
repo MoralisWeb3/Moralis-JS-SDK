@@ -20,13 +20,10 @@ export interface GetTokenPriceJSONResponse extends SuccessResponse {}
 
 export type GetTokenPriceResponse = ReturnType<typeof deserializeResponse>;
 
-<<<<<<< HEAD
-/** Gets the token price (usd and native) for a given contract address and network */
-=======
 export interface GetTokenPriceResponseAdapter
   extends ResponseAdapter<GetTokenPriceResponse, GetTokenPriceJSONResponse> {}
 
->>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
+/** Gets the token price (usd and native) for a given contract address and network */
 export const getTokenPriceOperation: Operation<
   GetTokenPriceRequest,
   GetTokenPriceJSONRequest,

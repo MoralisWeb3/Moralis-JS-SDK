@@ -20,12 +20,9 @@ export interface GetBalanceJSONResponse extends SuccessResponse {}
 
 export type GetBalanceResponse = ReturnType<typeof deserializeResponse>;
 
-<<<<<<< HEAD
-/** Gets native balance owned by the given network and address */
-=======
 export interface GetBalanceResponseAdapter extends ResponseAdapter<GetBalanceResponse, GetBalanceJSONResponse> {}
 
->>>>>>> 1201d180ea476c6b85fb8335f8417667fe62d28e
+/** Gets native balance owned by the given network and address */
 export const getBalanceOperation: Operation<
   GetBalanceRequest,
   GetBalanceJSONRequest,
