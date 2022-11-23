@@ -1,5 +1,6 @@
 import Core, {
   ApiErrorCode,
+  CoreConfig,
   MoralisApiError,
   Operation,
   OperationRequestBody,
@@ -67,6 +68,7 @@ export class OperationRequestBuilder<Request> {
 
   public prepareHeaders(): Record<string, string> {
     const apiKey = this.core.config.get(ApiUtilsConfig.apiKey);
+    const product = this.core.config.get(CoreConfig.product);
 
     if (!apiKey) {
       throw new MoralisApiError({
@@ -77,6 +79,9 @@ export class OperationRequestBuilder<Request> {
 
     const headers = getCommonHeaders();
     headers['x-api-key'] = apiKey;
+    if (product) {
+      headers['x-moralis-product'] = product;
+    }
     return headers;
   }
 }
