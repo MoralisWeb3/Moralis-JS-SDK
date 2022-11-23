@@ -2,41 +2,49 @@ import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getContractNFTs', () => {
-  let evmApi: EvmApi;
+  let EvmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    EvmApi = setupEvmApi();
   });
 
   afterAll(() => {
     cleanEvmApi();
   });
 
-  it('should get all token Ids of an account', async () => {
-    const result = await evmApi.nft.getContractNFTs({
-      address: '0x7de3085b3190b3a787822ee16f23be010f5f8686',
-    });
-
-    expect(result).toBeDefined();
-    expect(result.raw.total).toBe(741);
-    expect(result).toEqual(expect.objectContaining({}));
-  });
-
-  it('should not get all token Ids of an invalid account and throw an error ', async () => {
-    const failedResult = await evmApi.nft
-      .getContractNFTs({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-      })
-      .then()
-      .catch((err) => {
-        return err;
+  describe('Get Contract NFTs', () => {
+    it('should get NFTs for a given contract address', async () => {
+      const result = await EvmApi.nft.getContractNFTs({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
       });
 
-    expect(failedResult).toBeDefined();
-    expect(
-      evmApi.nft.getContractNFTs({
-        address: '0x7de3085b3190b3a787822ee16f23be010f5f868',
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+      const response = result.raw.result?.at(0);
+
+      expect(result).toBeDefined();
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(result.raw.total).toBe(2000);
+      expect(response?.amount).toEqual('1');
+      expect(response?.block_number).toBe('88256');
+      expect(response?.contract_type).toBe('ERC721');
+      expect(response?.token_id).toBe('15');
+    });
+
+    it('should not get NFTs for for an invalid contract address and throw an error', async () => {
+      const failedResult = await EvmApi.nft
+        .getContractNFTs({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+        })
+        .then()
+        .catch((err) => {
+          return err;
+        });
+
+      expect(failedResult).toBeDefined();
+      expect(
+        EvmApi.nft.getContractNFTs({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        }),
+      ).rejects.toThrowError('[C0005] Invalid address provided');
+    });
   });
 });

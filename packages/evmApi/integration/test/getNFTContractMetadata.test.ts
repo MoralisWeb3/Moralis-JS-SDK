@@ -2,33 +2,45 @@ import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getNFTContractMetadata', () => {
-  let evmApi: EvmApi;
+  let EvmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    EvmApi = setupEvmApi();
   });
 
   afterAll(() => {
     cleanEvmApi();
   });
 
-  it('returns a data', async () => {
-    const response = await evmApi.nft.getNFTContractMetadata({
-      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-    });
-    const result = response?.result!;
+  describe('Get NFT Contract Metadata', () => {
+    it('should get the collection metadata for a given contract', async () => {
+      const result = await EvmApi.nft.getNFTContractMetadata({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      });
+      const response = result?.raw!;
 
-    expect(result).toBeDefined();
-    expect(result.result.symbol).toBe('BAYC');
-    expect(result.result.name).toBe('BoredApeYachtClub');
-    expect(result.result.contractType).toBe('ERC721');
-  });
-
-  it('returns null when API returns HTTP 404', async () => {
-    const response = await evmApi.nft.getNFTContractMetadata({
-      address: '0x4044044044044044044044044044044044044040',
+      expect(result).toBeDefined();
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(response.name).toEqual('KryptoKitties');
+      expect(response.token_address).toEqual('0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09');
     });
 
-    expect(response).toBeNull();
+    it('should not get the collection metadata for an invalid contract address and throw a 400 Error', async () => {
+      const failedResult = await EvmApi.nft
+        .getNFTContractMetadata({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        })
+        .then()
+        .catch((err) => {
+          return err;
+        });
+
+      expect(failedResult).toBeDefined();
+      expect(
+        EvmApi.nft.getNFTContractMetadata({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        }),
+      ).rejects.toThrowError('[C0005] Invalid address provided');
+    });
   });
 });

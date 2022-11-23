@@ -60,7 +60,7 @@ export const getNFTOwnersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetNFTOwnersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
     format: request.format,
     limit: maybe(request.limit, String),
     cursor: request.cursor,

@@ -1,4 +1,4 @@
-const defaualtStatsResponse = {
+const defaultStatsResponse = {
   totalWebhooksDelivered: 0,
   totalWebhooksFailed: 0,
   totalLogsProcessed: 2,
@@ -7,5 +7,5 @@ const defaualtStatsResponse = {
 };
 
 export const statsResponse = () => ({
-  ...defaualtStatsResponse,
+  ...defaultStatsResponse,
 });
