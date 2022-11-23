@@ -1,15 +1,15 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi2, setupEvmApi2 } from '../setup';
+import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('endpointWeights', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi2();
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    cleanEvmApi2();
+    cleanEvmApi();
   });
 
   it('should get the endpoint weight ', async () => {

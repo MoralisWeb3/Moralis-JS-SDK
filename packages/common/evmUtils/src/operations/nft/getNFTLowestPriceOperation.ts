@@ -54,7 +54,7 @@ export const getNFTLowestPriceOperation: Operation<
 function getRequestUrlParams(request: GetNFTLowestPriceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address, core).lowercase,
     days: maybe(request.days, String),
     provider_url: request.providerUrl,
     marketplace: request.marketplace,

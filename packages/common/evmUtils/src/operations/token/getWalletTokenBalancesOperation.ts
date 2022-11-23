@@ -68,18 +68,22 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse ?? []).map((token) =>
-    Erc20Value.create(token.balance, {
-      decimals: token.decimals,
-      token: {
+    Erc20Value.create(
+      token.balance,
+      {
         decimals: token.decimals,
-        name: token.name,
-        symbol: token.symbol,
-        contractAddress: token.token_address,
-        logo: token.logo,
-        thumbnail: token.thumbnail,
-        chain: EvmChainResolver.resolve(request.chain, core),
+        token: {
+          decimals: token.decimals,
+          name: token.name,
+          symbol: token.symbol,
+          contractAddress: token.token_address,
+          logo: token.logo,
+          thumbnail: token.thumbnail,
+          chain: EvmChainResolver.resolve(request.chain, core),
+        },
       },
-    }),
+      core,
+    ),
   );
 }
 

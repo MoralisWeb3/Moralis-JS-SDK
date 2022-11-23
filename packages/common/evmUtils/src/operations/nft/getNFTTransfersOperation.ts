@@ -45,7 +45,7 @@ export const getNFTTransfersOperation: PaginatedOperation<
   name: 'getNFTTransfers',
   id: 'getNFTTransfers',
   groupName: 'nft',
-  urlPathPattern: '/nft/{address}/{token_id}/transfers',
+  urlPathPattern: '/nft/{address}/{tokenId}/transfers',
   urlPathParamNames: ['address', 'tokenId'],
   urlSearchParamNames: ['chain', 'format', 'limit', 'cursor'],
   firstPageIndex: 0,

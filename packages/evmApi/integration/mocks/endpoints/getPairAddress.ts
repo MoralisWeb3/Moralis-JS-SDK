@@ -4,8 +4,8 @@ export const mockGetPairAddress = MockScenarios.create(
   {
     name: 'mockGetPairAddress',
     getParams: (req) => ({
-      token0_address: req.params['token0_address'],
-      token1_address: req.params['token1_address'],
+      token0_address: req.params.token0_address,
+      token1_address: req.params.token1_address,
       exchange: req.url.searchParams.get('exchange'),
       chain: req.url.searchParams.get('chain'),
     }),

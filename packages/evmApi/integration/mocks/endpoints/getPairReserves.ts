@@ -4,7 +4,7 @@ export const mockGetPairReserves = MockScenarios.create(
   {
     name: 'mockGetPairReserves',
     getParams: (req) => ({
-      pair_address: req.params['pair_address'],
+      pair_address: req.params.pair_address,
       chain: req.url.searchParams.get('chain'),
     }),
     url: '/:pair_address/reserves',

@@ -1,30 +1,34 @@
-import { rest } from 'msw';
-import { EVM_API_ROOT, MOCK_API_KEY } from '../config';
+import { MockScenarios } from '@moralisweb3/test-utils';
+import { createErrorResponse } from '../response/errorResponse';
 
-export const mockGetNFTContractMetadata = rest.get(`${EVM_API_ROOT}/nft/:address/metadata`, (req, res, ctx) => {
-  const address = req.params.address as string;
-  const apiKey = req.headers.get('x-api-key');
-
-  if (apiKey !== MOCK_API_KEY) {
-    return res(ctx.status(401));
-  }
-
-  if (address === '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d') {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        token_address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-        name: 'BoredApeYachtClub',
-        symbol: 'BAYC',
+export const mockGetNFTContractMetadata = MockScenarios.create(
+  {
+    method: 'get',
+    name: 'mockGetNFTContractMetadata',
+    url: `/nft/:address/metadata`,
+    getParams: (req) => ({
+      address: req.params.address,
+    }),
+  },
+  [
+    {
+      condition: {
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      },
+      response: {
+        token_address: '0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09',
+        name: 'KryptoKitties',
+        synced_at: 'string',
+        symbol: 'RARI',
         contract_type: 'ERC721',
-        synced_at: '2021-09-12T00:00:00.000Z',
-      }),
-    );
-  }
-
-  if (address === '0x4044044044044044044044044044044044044040') {
-    return res(ctx.status(404));
-  }
-
-  throw new Error('getNFTContractMetadata: Not supported scenario');
-});
+      },
+    },
+    {
+      condition: {
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+      },
+      responseStatus: 400,
+      response: createErrorResponse('[C0005] Invalid address provided'),
+    },
+  ],
+);

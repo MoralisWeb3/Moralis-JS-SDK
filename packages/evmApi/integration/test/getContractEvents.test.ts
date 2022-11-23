@@ -1,5 +1,5 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi2, setupEvmApi2 } from '../setup';
+import { cleanEvmApi, setupEvmApi } from '../setup';
 
 const ERC721_TRANSFER_ABI = {
   anonymous: false,
@@ -43,11 +43,11 @@ describe('getContractEvents', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi2();
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    cleanEvmApi2();
+    cleanEvmApi();
   });
 
   it('returns events', async () => {

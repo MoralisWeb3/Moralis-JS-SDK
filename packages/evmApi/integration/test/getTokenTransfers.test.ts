@@ -2,7 +2,7 @@ import { EvmApi } from '../../src/EvmApi';
 import { Erc20Transfer } from '@moralisweb3/common-evm-utils';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
-describe('getWalletTokenTransfers', () => {
+describe('getTokenTransfers', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
@@ -22,8 +22,8 @@ describe('getWalletTokenTransfers', () => {
     expect(transfer.toAddress.checksum).toBe('0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F');
   }
 
-  it('returns transfers (no pagination)', async () => {
-    const response = await evmApi.token.getWalletTokenTransfers({
+  it('returns transfers', async () => {
+    const response = await evmApi.token.getTokenTransfers({
       address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
     });
 
@@ -31,31 +31,7 @@ describe('getWalletTokenTransfers', () => {
     expect(response.pagination.page).toEqual(0);
     expect(response.pagination.pageSize).toEqual(100);
     expect(response.result.length).toEqual(12);
-    expect(response.hasNext()).toEqual(false);
 
-    assertTransfer(response.result[0]);
-  });
-
-  it('returns transfer (with pagination)', async () => {
-    let response = await evmApi.token.getWalletTokenTransfers({
-      address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
-      limit: 6,
-    });
-
-    expect(response.pagination.total).toEqual(12);
-    expect(response.pagination.page).toEqual(0);
-    expect(response.pagination.pageSize).toEqual(6);
-    expect(response.result.length).toEqual(6);
-    expect(response.hasNext()).toEqual(true);
-    assertTransfer(response.result[0]);
-
-    response = await response.next();
-
-    expect(response.pagination.total).toEqual(12);
-    expect(response.pagination.page).toEqual(1);
-    expect(response.pagination.pageSize).toEqual(6);
-    expect(response.result.length).toEqual(6);
-    expect(response.hasNext()).toEqual(false);
     assertTransfer(response.result[0]);
   });
 });

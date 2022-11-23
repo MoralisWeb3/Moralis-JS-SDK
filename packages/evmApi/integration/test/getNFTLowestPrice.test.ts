@@ -2,40 +2,45 @@ import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getNFTLowestPrice', () => {
-  let evmApi: EvmApi;
+  let EvmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    EvmApi = setupEvmApi();
   });
 
   afterAll(() => {
     cleanEvmApi();
   });
 
-  it('returns a data', async () => {
-    const response = await evmApi.nft.getNFTLowestPrice({
-      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    });
-    const result = response?.result!;
+  describe('Get NFT Lowest Price', () => {
+    it('should get the lowest executed price for an NFT contract', async () => {
+      const result = await EvmApi.nft.getNFTLowestPrice({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      });
 
-    expect(result).toBeDefined();
-    expect(result.result.blockNumber.toString()).toBe('15401671');
-    expect(result.result.blockHash).toBe('0x69de52caa13ac1c165d6b408a47f7ed79cef12280d1d26099d9c0d2b63b52626');
-    expect(result.result.price.wei).toBe('66990000000000000000');
-  });
-
-  it('returns null when API returns HTTP 404', async () => {
-    const response = await evmApi.nft.getNFTLowestPrice({
-      address: '0x4044044044044044044044044044044044044040',
+      expect(result).toBeDefined();
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(result?.raw.seller_address).toBe('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+      expect(result?.raw.transaction_hash).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+      expect(result?.raw.block_number).toBe('13680123');
     });
 
-    expect(response).toBeNull();
-  });
+    it('should not get the lowest executed price when an invalid address is provided and throw an error', async () => {
+      const failedResult = await EvmApi.nft
+        .getNFTLowestPrice({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        })
+        .then()
+        .catch((err) => {
+          return err;
+        });
 
-  it('returns null when API returns false-positive not found', async () => {
-    const response = await evmApi.nft.getNFTLowestPrice({
-      address: '0x2000000000000000000404404404404404404404',
+      expect(failedResult).toBeDefined();
+      expect(
+        EvmApi.nft.getNFTLowestPrice({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        }),
+      ).rejects.toThrowError('[C0005] Invalid address provided');
     });
-    expect(response).toBeNull();
   });
 });

@@ -1,5 +1,5 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi2, setupEvmApi2 } from '../setup';
+import { cleanEvmApi, setupEvmApi } from '../setup';
 
 const ABI = [
   {
@@ -22,11 +22,11 @@ describe('runContractFunction', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi2();
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    cleanEvmApi2();
+    cleanEvmApi();
   });
 
   it('should run a contract and return readonly data', async () => {

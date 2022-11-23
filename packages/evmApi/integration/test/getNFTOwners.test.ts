@@ -1,44 +1,67 @@
 import { EvmApi } from '../../src/EvmApi';
-import { EvmNft } from '@moralisweb3/common-evm-utils';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getNFTOwners', () => {
-  let evmApi: EvmApi;
+  let EvmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi();
+    EvmApi = setupEvmApi();
   });
 
   afterAll(() => {
     cleanEvmApi();
   });
 
-  function assertOwner(nft: EvmNft) {
-    expect(nft.blockNumber?.toString()).toEqual('15458263');
-    expect(nft.name).toEqual('BoredApeYachtClub');
-    expect(nft.contractType).toEqual('ERC721');
-    expect(nft.symbol).toEqual('BAYC');
-  }
+  describe('Get NFT Owners', () => {
+    it('should return a collection of NFT owners when a valid address is provided', async () => {
+      const result = await EvmApi.nft.getNFTOwners({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      });
 
-  it('returns owners with pagination', async () => {
-    let response = await evmApi.nft.getNFTOwners({
-      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+      const response = result.raw.result?.at(0);
+
+      expect(result).toBeDefined();
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(result.raw.total).toBe(2000);
+      expect(response?.amount).toEqual('1');
+      expect(response?.name).toBe('CryptoKitties');
+      expect(response?.contract_type).toBe('ERC721');
+      expect(response?.symbol).toBe('RARI');
     });
 
-    expect(response.pagination.total).toEqual(150);
-    expect(response.pagination.page).toEqual(1);
-    expect(response.pagination.pageSize).toEqual(100);
-    expect(response.result.length).toEqual(100);
-    expect(response.hasNext()).toEqual(true);
-    assertOwner(response.result[0]);
+    it('should not return a collection of NFT owners when an invalid address is provided', async () => {
+      const failedResult = await EvmApi.nft
+        .getNFTOwners({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        })
+        .then()
+        .catch((err) => {
+          return err;
+        });
 
-    response = await response.next();
+      expect(failedResult).toBeDefined();
+      expect(
+        EvmApi.nft.getNFTOwners({
+          address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        }),
+      ).rejects.toThrowError('[C0005] Invalid address provided');
+    });
 
-    expect(response.pagination.total).toEqual(150);
-    expect(response.pagination.page).toEqual(2);
-    expect(response.pagination.pageSize).toEqual(100);
-    expect(response.result.length).toEqual(50);
-    expect(response.hasNext()).toEqual(false);
-    assertOwner(response.result[0]);
+    it('returns owners with pagination', async () => {
+      let response = await EvmApi.nft.getNFTOwners({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      });
+
+      expect(response.pagination.total).toEqual(2000);
+      expect(response.pagination.pageSize).toEqual(100);
+      expect(response.hasNext()).toEqual(true);
+
+      response = await response.next();
+
+      expect(response.pagination.total).toEqual(2000);
+      expect(response.pagination.page).toEqual(2);
+      expect(response.pagination.pageSize).toEqual(100);
+      expect(response.hasNext()).toEqual(true);
+    });
   });
 });

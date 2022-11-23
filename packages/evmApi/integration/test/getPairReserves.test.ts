@@ -1,15 +1,15 @@
 import { EvmApi } from '../../src/EvmApi';
-import { cleanEvmApi2, setupEvmApi2 } from '../setup';
+import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getPairReserves', () => {
   let evmApi: EvmApi;
 
   beforeAll(() => {
-    evmApi = setupEvmApi2();
+    evmApi = setupEvmApi();
   });
 
   afterAll(() => {
-    cleanEvmApi2();
+    cleanEvmApi();
   });
 
   it('should get the liquidity reserves for a given pair address ', async () => {
