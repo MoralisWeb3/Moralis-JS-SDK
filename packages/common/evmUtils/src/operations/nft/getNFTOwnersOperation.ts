@@ -46,7 +46,7 @@ export const getNFTOwnersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/owners',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'normalizeMetadata'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'normalizeMetadata'],
   firstPageIndex: 1,
 
   getRequestUrlParams,
@@ -63,6 +63,7 @@ function getRequestUrlParams(request: GetNFTOwnersRequest, core: Core) {
     address: EvmAddress.create(request.address, core).lowercase,
     format: request.format,
     limit: maybe(request.limit, String),
+    cursor: request.cursor,
     normalizeMetadata: request.normalizeMetadata,
   };
 }
@@ -87,6 +88,7 @@ function serializeRequest(request: GetNFTOwnersRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
     limit: request.limit,
+    cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
   };
 }
@@ -96,6 +98,7 @@ function deserializeRequest(jsonRequest: GetNFTOwnersJSONRequest, core: Core): G
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,
     limit: jsonRequest.limit,
+    cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
   };
 }

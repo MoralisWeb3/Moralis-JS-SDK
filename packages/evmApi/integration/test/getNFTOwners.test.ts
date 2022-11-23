@@ -46,5 +46,22 @@ describe('getNFTOwners', () => {
         }),
       ).rejects.toThrowError('[C0005] Invalid address provided');
     });
+
+    it('returns owners with pagination', async () => {
+      let response = await EvmApi.nft.getNFTOwners({
+        address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+      });
+
+      expect(response.pagination.total).toEqual(2000);
+      expect(response.pagination.pageSize).toEqual(100);
+      expect(response.hasNext()).toEqual(true);
+
+      response = await response.next();
+
+      expect(response.pagination.total).toEqual(2000);
+      expect(response.pagination.page).toEqual(2);
+      expect(response.pagination.pageSize).toEqual(100);
+      expect(response.hasNext()).toEqual(true);
+    });
   });
 });
