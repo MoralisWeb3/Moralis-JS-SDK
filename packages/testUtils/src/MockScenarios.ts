@@ -4,7 +4,8 @@ import omitBy from 'lodash/omitBy';
 import { rest, ResponseComposition, RestRequest, PathParams, RestContext } from 'msw';
 
 type Condition = Record<string, unknown>;
-type Response = Record<string, unknown>;
+type Request = Record<string, unknown>;
+type Response = Record<string, unknown> | Record<string, unknown>[];
 type Params = PathParams<string>;
 
 const DEFAULT_RESPONSE_STATUS = 200;
@@ -20,14 +21,14 @@ export interface MockScenariosOptions {
   method: 'get' | 'post' | 'put' | 'delete';
   // Should return an object with the params that will be used to match the scenario conditions
   getParams: (
-    req: RestRequest<Response, Params>,
+    req: RestRequest<Request, Params>,
     res: ResponseComposition<Response>,
     ctx: RestContext,
   ) => Record<string, unknown>;
   // Optional hook to run logic after matching scenarios
-  beforeScenarios?: (req: RestRequest<Response, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
+  beforeScenarios?: (req: RestRequest<Request, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
   // Optional hook to run logic before matching scenarios
-  afterScenarios?: (req: RestRequest<Response, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
+  afterScenarios?: (req: RestRequest<Request, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
   // Url of the mock (see https://mswjs.io/docs/api/rest)
   url: string;
   // Name of the mock (used in error messages)
@@ -77,7 +78,7 @@ export class MockScenarios {
   };
 
   private mockRequest = async (
-    req: RestRequest<Response, Params>,
+    req: RestRequest<Request, Params>,
     res: ResponseComposition<Response>,
     ctx: RestContext,
   ) => {

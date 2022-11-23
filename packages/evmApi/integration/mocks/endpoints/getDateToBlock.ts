@@ -14,7 +14,7 @@ export const mockGetDateToBlock = MockScenarios.create(
   [
     {
       condition: {
-        date: '2021-09-29T13:09:15.000Z',
+        date: '2021-09-29T13:09:15+00:00',
         chain: '0x5',
       },
       response: {

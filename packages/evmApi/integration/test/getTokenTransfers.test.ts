@@ -1,9 +1,9 @@
-import { EvmApi } from '../../src/EvmApi';
-import { Erc20Transfer } from '@moralisweb3/common-evm-utils';
+import { MoralisEvmApi } from '../../src/EvmApi';
+import { Erc20Transfer } from '@moralisweb3/evm-utils';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
-describe('getWalletTokenTransfers', () => {
-  let evmApi: EvmApi;
+describe('getTokenTransfers', () => {
+  let evmApi: MoralisEvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi();
@@ -23,7 +23,7 @@ describe('getWalletTokenTransfers', () => {
   }
 
   it('returns transfers (no pagination)', async () => {
-    const response = await evmApi.token.getWalletTokenTransfers({
+    const response = await evmApi.token.getTokenTransfers({
       address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
     });
 
@@ -37,7 +37,7 @@ describe('getWalletTokenTransfers', () => {
   });
 
   it('returns transfer (with pagination)', async () => {
-    let response = await evmApi.token.getWalletTokenTransfers({
+    let response = await evmApi.token.getTokenTransfers({
       address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
       limit: 6,
     });
