@@ -272,11 +272,12 @@ const generateDemoMarkdown = (demoData, readme) => {
  * Create all markdown files for the demos in the docs folder
  */
 const createMarkdownFiles = async (demosData, readmeData) => {
+  fs.mkdirSync(path.join(outputDocsPath, `demos`));
   await Promise.all(
     demosData.map(async (demoData) => {
       const markdown = generateDemoMarkdown(demoData, readmeData[demoData.name]);
 
-      const outPath = path.join(outputDocsPath, `nodejs-demo-${demoData.name}.md`);
+      const outPath = path.join(outputDocsPath, `demos/${demoData.name}.md`);
       await fs.writeFileSync(outPath, markdown);
     }),
   );

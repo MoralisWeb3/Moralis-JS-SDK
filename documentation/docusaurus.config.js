@@ -61,9 +61,9 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'nodejs-demo-cli',
+            docId: 'demos/express-proxy',
             position: 'left',
-            label: 'Examples',
+            label: 'Demos',
           },
           { href: 'https://moralis.io/blog/', label: 'Blog', position: 'left' },
           {
@@ -89,8 +89,8 @@ const config = {
                 to: '/docs/nodejs-sdk-references',
               },
               {
-                label: 'Examples',
-                to: '/docs/nodejs-demo-cli',
+                label: 'Demos',
+                to: '/docs/demos/express-proxy',
               },
             ],
           },

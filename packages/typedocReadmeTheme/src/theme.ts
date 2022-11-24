@@ -36,11 +36,15 @@ hidden: false
   }
 
   getRelativeUrl(url: string) {
-    return encodeURI(url.replace('.md', ''));
+    const directory = url.split('/');
+    const filename = (directory.pop() || '').replace('.md', '');
+    const returns = directory.map(() => '..');
+
+    return `docs/${[...returns, ...directory, filename].join('/')}`;
   }
 
   toUrl(mapping: any, reflection: DeclarationReflection) {
-    return `${reflection.getFullName().replace(/[/.]/g, '-').replace('@', '').toLowerCase()}.md`;
+    return `${reflection.getFullName().replace(/[.]/g, '/').replace('@', '').toLowerCase()}.md`;
   }
 
   getSlug(page: PageEvent<any>) {
