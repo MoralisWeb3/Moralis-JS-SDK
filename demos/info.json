@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2022-11-23T06:12:07.526Z",
+  "generatedAt": "2022-11-24T10:30:07.357Z",
   "demos": [
     {
       "name": "cli",
@@ -53,7 +53,8 @@
       "name": "parse-server-migration",
       "github": "https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos/parse-server-migration",
       "download": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration/parse-server-migration.zip",
-      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration/code"
+      "code": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration/code",
+      "fullBuildCode": "https://moralisweb3.github.io/Moralis-JS-SDK/demos/parse-server-migration/code-build"
     },
     {
       "name": "parse-server-migration-react-client",

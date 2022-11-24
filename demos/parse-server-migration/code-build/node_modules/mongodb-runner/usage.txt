@@ -1,0 +1,50 @@
+
+Usage: mongodb-runner <start|stop|install> [options]
+
+Start/stop/install MongoDB for testing.
+
+Options:
+  --topology=<topology>         One of standalone, replicaset, or cluster [Default: `standalone`].
+  --pidpath=<pidpath>           Where to put pid files [Default: `~/mongodb/pids`].
+  --bin=<path>                  Path to mongod|mongos binary [Default: `which mongod|mongos`].
+
+Options depending on `--topology`:
+  --topology=standalone
+    --name=<name>                 The replSet name [Default: `my-standalone`].
+    --port=<port>                 Port to start mongod on [Default: `27017`].
+    --dbpath=<dbpath>             Where to put the data [Default: `~/.mongodb/data/#{name}`]
+    --logpath=<logpath>           [Default: `~/.mongodb/#{name}.log`]
+
+  --topology=replicaset
+    --name=<name>                 The replSet name [Default: `my-replicaset`].
+    --port=<port>                 The starting port to use for mongod instances [Default: `27017`].
+    --dbpath=<dbpath>             [Default: `~/.mongodb/data/#{name}-#{instance_id}`]
+    --logpath=<logpath>           [Default: `~/.mongodb/#{name}.log/#{instance_id}.log`]
+    --arbiters=<n>                How many arbiters to start [Default: `0`].
+    --passives=<n>                How many passive instances to start [Default: `1`].
+    --secondaries=<n>             How many secondary instances to start [Default: `2`]. Maps to `secondaries` option.
+
+  --topology=cluster
+    --shards=<n>                  Number of shards in the cluster [Default: `2`].
+    --routers=<n>                 Number of router instances [Default: `2`].
+    --configs=<n>                 Number of config servers [Default: `1`].
+    --port=<port>                 Port number to start incrementing from when starting routers [Default `27017`].
+    --shardPort=<port>            Port number to start incrementing from when starting shard members [Default `31000`].
+    --configPort=<port>           Port number to start incrementing from when starting shard members [Default `35000`].
+
+Environment Variables:
+  MONGODB_VERSION      What version of MongoDB should be installed and available [Default: `stable`]
+  MONGODB_TOPOLOGY     See `--topology`
+  MONGODB_PORT         See `--port`
+  MONGODB_TOPOLOGY     See `topology`
+  MONGODB_ARBITERS     See `arbiters`
+  MONGODB_SECONDARIES  See `secondaries`
+  MONGODB_PASSIVES     See `passives`
+  MONGODB_SHARDS       See `--shards`
+  MONGODB_ROUTERS      See `--routers`
+  MONGODB_CONFIGS      See `--configs`
+  MONGODB_SHARDS_PORT  See `--shardPort`
+  MONGODB_CONFIGS_PORT See `--configPort`
+  MONGODB_ARBITERS     See `--arbiters`
+  MONGODB_SECONDARIES  See `--secondaries`
+  MONGODB_PASSIVES     See `--passives`

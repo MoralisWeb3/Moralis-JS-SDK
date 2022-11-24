@@ -1,0 +1,23 @@
+{
+  "name": "array-next",
+  "version": "0.0.1",
+  "description": "Advance to the next item in the array looping when hitting the end.",
+  "main": "array-next.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HenrikJoreteg/array-next"
+  },
+  "keywords": [
+    "util",
+    "array",
+    "index"
+  ],
+  "author": "Henrik Joreteg <henrik@andyet.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HenrikJoreteg/array-next/issues"
+  }
+}

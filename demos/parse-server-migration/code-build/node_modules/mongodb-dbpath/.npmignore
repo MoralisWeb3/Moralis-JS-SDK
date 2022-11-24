@@ -1,0 +1,6 @@
+.jsfmtrc
+.eslintrc
+.travis.yml
+test/
+.lone
+gulpfile.js

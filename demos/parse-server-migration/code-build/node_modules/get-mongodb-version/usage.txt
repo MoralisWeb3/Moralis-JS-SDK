@@ -1,0 +1,22 @@
+Usage: get-mongodb-version
+
+Get the MongoDB version for a path or uri.
+
+Usage:
+  get-mongodb-version
+  # /usr/bin/env mongod --version
+
+  get-mongodb-version /usr/local/bin/mongod
+  # /usr/local/bin/mongod --version
+
+  get-mongodb-version localhost:27017
+  # Connects to mongodb://localhost:27017
+  # and prints db.admin().serverInfo().version
+
+  get-mongodb-version mongodb://my.mongodb.com:27017/mydb
+  # Connects to mongodb://my.mongodb.com:27017/mydb
+  # and prints db.admin().serverInfo().version
+
+Options:
+  -h --help            Show this screen.
+  --version            Show version.

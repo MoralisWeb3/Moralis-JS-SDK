@@ -1,0 +1,18 @@
+Usage: mongodb-dbpath <name>
+
+Get a path for --dbpath that's writeable for the current user and mkdirp it.
+
+Usage:
+  mongodb-dbpath my-db
+  # On your laptop `~/.mongodb/data/my-db`
+
+  mongodb-dbpath my-db
+  # On travis `process.cwd() + /.mongodb/data/my-db`
+
+  mongodb-dbpath my-db
+  # On appveyor `process.env.LOCALAPPDATA + \.mongodb\data\my-db`
+
+Options:
+  --debug              Enable debug messages.
+  -h --help            Show this screen.
+  --version            Show version.

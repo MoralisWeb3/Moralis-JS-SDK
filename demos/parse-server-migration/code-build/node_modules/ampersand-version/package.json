@@ -1,0 +1,22 @@
+{
+  "name": "ampersand-version",
+  "description": "Transform for making it easy to include version numbers of used ampersand modules.",
+  "version": "1.0.2",
+  "author": "Philip Roberts <phil@latentflip.com>",
+  "bugs": "https://github.com/ampersandjs/ampersand-version/issues",
+  "dependencies": {
+    "find-root": "^0.1.1",
+    "through2": "^0.6.3"
+  },
+  "homepage": "https://github.com/ampersandjs/ampersand-version",
+  "keywords": [
+    "util",
+    "ampersand"
+  ],
+  "license": "MIT",
+  "main": "ampersand-version.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ampersandjs/ampersand-version.git"
+  }
+}

@@ -1,0 +1,25 @@
+os:
+- linux
+language: node_js
+node_js:
+- '7'
+- '6'
+- '5'
+- '4'
+- '0.12'
+branches:
+  only:
+    - master
+    - /release\/.*/
+
+deploy:
+  provider: npm
+  email: "$NPM_EMAIL"
+  api_key:
+    secure: "$NPM_API_KEY"
+  on:
+    branch: master
+env:
+  global:
+  - secure: Wks3CAJcaU1kQmGN2K9CcPSxrCRRi979WbRvKGRAadklO17OptUEwJfaBNwk8jTRP/y2ZvS33EWJynlFEonGWpW6iEY8EBDgqbC5gqqvK0OANR/U/y8Hb7TBOY8qJmr1Ozr2oZeLf4bv62Y1GDZOwSLw7Jj0q7wsjWkd8pL4Vo8=
+  - secure: jwRVk9eBLLNHBw0R0ggkfXcIAYCJidbPjAPsnlu5rMVQUWEnPw3y5LaeuQiNIRzs/VH6/8vmmDEX6Nk83HxKl5Su7z2Pbmpv12TZTJdBc1nUsxGRfewal8dwS71nK6Zs5lO3/b+v34/BRP/x08olbevzm0Bv+MtqAcOcUIzY8l4=

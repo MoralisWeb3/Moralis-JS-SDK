@@ -1,0 +1,11 @@
+Usage: mongodb-version-list
+
+Get a list of available MongoDB versions.
+
+Usage:
+  mongodb-version-list
+
+Options:
+  --debug              Enable debug messages.
+  -h --help            Show this screen.
+  --version            Show version.

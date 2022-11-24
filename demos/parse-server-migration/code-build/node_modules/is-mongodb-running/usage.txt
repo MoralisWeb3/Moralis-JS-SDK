@@ -1,0 +1,21 @@
+Usage: is-mongodb-running [--port=<n> --pid=<pid>]
+
+Is MongoDB running?  What port is it using?
+
+Usage:
+  is-mongodb-running
+
+  # I know the port but I don't know the pid...
+  is-mongodb-running --port=27017
+
+  # I know the pid but I don't know the port...
+  is-mongodb-running --pid=987
+
+
+Options:
+  --port=<n>     Port you think MongoDB is running on.
+  --pid=<pid>    Pid you think MongoDB is running on.
+  --json         Ouput results as json [Default: `false`].
+  --debug        Enable debug messages.
+  -h --help      Show this screen.
+  --version      Show version.

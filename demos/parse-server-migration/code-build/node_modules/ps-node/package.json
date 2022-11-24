@@ -1,0 +1,28 @@
+{
+  "name": "ps-node",
+  "version": "0.1.6",
+  "description": "A process lookup utility",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neekey/ps.git"
+  },
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha -t 0 -R spec test/test.js",
+    "testWatch": "node ./node_modules/mocha/bin/mocha -t 0 -R spec --watch test/test.js"
+  },
+  "keywords": [
+    "ps",
+    "process",
+    "lookup",
+    "pid"
+  ],
+  "dependencies": {
+    "table-parser": "^0.1.3"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "sinon": "^2.1.0",
+    "mocha": "^2.4.5"
+  }
+}
