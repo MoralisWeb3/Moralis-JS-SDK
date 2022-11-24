@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "out": "docs",
+  "out": "documentation/docs",
   "media": "./assets",
   "plugin": ["typedoc-plugin-markdown", "@moralisweb3/typedoc-readme-theme"],
   "theme": "readme",
@@ -15,7 +15,6 @@
   "excludePrivate": true,
   "readme": "none",
   "excludeNotDocumented": true,
-  "exclude": ["packages/eslintConfig"],
   "validation": {
     "notExported": false,
     "invalidLink": true,

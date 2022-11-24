@@ -23,7 +23,7 @@ const DIR_DEMO = 'demos';
 
 // Reference to the output folders
 const OUT_DIR_CODE = 'pages';
-const OUT_DIR_DOCS = 'docs';
+const OUT_DIR_DOCS = 'documentation/docs';
 
 // Reference to the folder names in the output folder
 const DEMOS_DIR = 'demos';
