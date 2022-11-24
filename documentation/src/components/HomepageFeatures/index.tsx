@@ -12,33 +12,21 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Build',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Build and prototype dapps quickly using familiar platforms like Firebase.
-      </>
-    ),
+    description: <>Build and prototype dapps quickly using familiar platforms like Firebase.</>,
   },
   {
     title: 'Learn',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Understand and master Web3 through practical projects and expert courses.
-      </>
-    ),
+    description: <>Understand and master Web3 through practical projects and expert courses.</>,
   },
   {
     title: 'Scale',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Trusted enterprise APIs that empower businesses to integrate blockchain into everything.
-      </>
-    ),
+    description: <>Trusted enterprise APIs that empower businesses to integrate blockchain into everything.</>,
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
