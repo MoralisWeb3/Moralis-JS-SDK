@@ -9,6 +9,8 @@ const PARENT_ID = '6306b23a7acda000913f9ed7';
 const CATEGORY_ID = '630696f4ab47c500b41899b7';
 
 export class ReadmeTheme extends MarkdownTheme {
+  publicPath = '/docs';
+
   formatContents(contents: string): string {
     return `${contents
       .replace(/[\r\n]{3,}/g, '\n\n')
@@ -35,16 +37,12 @@ hidden: false
     return getPageTitle(page as PageEvent<unknown>);
   }
 
-  getRelativeUrl(url: string) {
-    const directory = url.split('/');
-    const filename = (directory.pop() || '').replace('.md', '');
-    const returns = directory.map(() => '..');
-
-    return `docs/${[...returns, ...directory, filename].join('/')}`;
-  }
-
   toUrl(mapping: any, reflection: DeclarationReflection) {
-    return `${reflection.getFullName().replace(/[.]/g, '/').replace('@', '').toLowerCase()}.md`;
+    let url = `/${reflection.getFullName().replace(/[.]/g, '/').replace('@', '').toLowerCase()}.md`;
+    if (reflection.kindString === 'Module') {
+      url = url.replace('.md', '/index.md');
+    }
+    return url;
   }
 
   getSlug(page: PageEvent<any>) {
