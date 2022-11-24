@@ -3,7 +3,7 @@
   "author": "Moralis",
   "version": "2.7.4",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
