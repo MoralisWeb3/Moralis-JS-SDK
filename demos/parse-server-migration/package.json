@@ -41,5 +41,8 @@
     "dev:db-stop": "mongodb-runner stop",
     "gen:cloud": "ts-node ./scripts/generateCloudCode.ts",
     "tsc": "tsc"
+  },
+  "engines": {
+    "node": "16.17.1"
   }
 }
