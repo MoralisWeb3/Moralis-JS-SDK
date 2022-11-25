@@ -52,7 +52,7 @@ describe('getContractLogs', () => {
     const result = await evmApi.events.getContractLogs({
       address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b989',
     });
-    
+
     expect(result).toBeDefined();
     expect(result.raw.total).toBe(100);
     expect(result.result?.at(0)?.chain.apiHex).toBe('0x1');
