@@ -47,4 +47,15 @@ describe('getContractLogs', () => {
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
   });
+
+  it('should get logs for a valid address', async () => {
+    const result = await evmApi.events.getContractLogs({
+      address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b989',
+    });
+    
+    expect(result).toBeDefined();
+    expect(result.raw.total).toBe(100);
+    expect(result.result?.at(0)?.chain.apiHex).toBe('0x1');
+    expect(result).toEqual(expect.objectContaining({}));
+  });
 });
