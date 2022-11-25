@@ -1,7 +1,7 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import { updateStreamEvmOperation, UpdateStreamEvmRequest } from '../operations';
+import { updateStreamEvmOperation, UpdateStreamEvmRequest } from '@moralisweb3/common-streams-utils';
 import Core from '@moralisweb3/common-core';
 
 export interface UpdateStreamEvmOptions extends UpdateStreamEvmRequest {

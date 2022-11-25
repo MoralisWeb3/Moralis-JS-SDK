@@ -1,6 +1,6 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
 import Core from '@moralisweb3/common-core';
-import { updateStreamStatusEvmOperation, UpdateStreamStatusEvmRequest } from '../operations';
+import { updateStreamStatusEvmOperation, UpdateStreamStatusEvmRequest } from '@moralisweb3/common-streams-utils';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import { StreamNetwork } from '../utils/StreamNetwork';
 

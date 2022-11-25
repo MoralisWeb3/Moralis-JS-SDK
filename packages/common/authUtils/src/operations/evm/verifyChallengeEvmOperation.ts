@@ -1,6 +1,6 @@
 import { Camelize, maybe, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'verifyChallengeEvm';
 
