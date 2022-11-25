@@ -23,7 +23,7 @@
   "dependencies": {
     "firebase": "^9.10.0",
     "@firebase/auth": "^0.20.11",
-    "@moralisweb3/client-firebase-auth-utils": "^2.7.4",
-    "bs58": "^5.0.0"
+    "@moralisweb3/client-sol-auth": "^2.7.4",
+    "@moralisweb3/client-firebase-utils": "^2.7.4"
   }
 }

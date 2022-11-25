@@ -91,7 +91,13 @@ export class Core {
       moduleNames: this.modules.listNames(),
     });
 
-    await Promise.all(allModules.map((module) => module.start()));
+    await Promise.all(
+      allModules.map(async (module) => {
+        if (module.start) {
+          await module.start();
+        }
+      }),
+    );
 
     this.logger.verbose('Finished starting all registered modules', {
       moduleNames: this.modules.listNames(),

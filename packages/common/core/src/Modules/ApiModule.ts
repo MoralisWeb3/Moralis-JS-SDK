@@ -1,7 +1,5 @@
 import { ModuleType } from './ModuleType';
 import { Module } from './Module';
-import { EventMap } from 'typed-emitter';
-import { Core } from '../Core';
 
 /**
  * The base class of every Moralis Api class that gets registered as a module via MoralisModules
@@ -10,9 +8,7 @@ import { Core } from '../Core';
  * - `core`: the Core instance
  * - `baseUrl`: the base url where of the api
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class ApiModule<Events extends EventMap = any> extends Module<Events> {
-  public constructor(name: string, core: Core, public readonly baseUrl: string) {
-    super(name, core, ModuleType.API);
-  }
+export interface ApiModule extends Module {
+  type: ModuleType.API;
+  baseUrl: string;
 }

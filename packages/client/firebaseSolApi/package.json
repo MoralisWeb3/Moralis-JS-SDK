@@ -3,7 +3,7 @@
   "author": "Moralis",
   "version": "2.7.4",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
@@ -27,6 +27,6 @@
     "@moralisweb3/common-core": "^2.7.4",
     "@moralisweb3/common-sol-utils": "^2.7.4",
     "@moralisweb3/client-sol-api": "^2.7.4",
-    "@moralisweb3/client-firebase-api-utils": "^2.7.4"
+    "@moralisweb3/client-firebase-utils": "^2.7.4"
   }
 }

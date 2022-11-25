@@ -1,14 +1,9 @@
-import { signInWithCustomToken, UserCredential } from '@firebase/auth';
-import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
-import { MoralisAuth, requestMessage, issueToken } from '@moralisweb3/client-firebase-auth-utils';
-import detectEthereumProvider from '@metamask/detect-provider';
+import { getAuth, signInWithCustomToken, UserCredential } from '@firebase/auth';
+import { EvmAuthClient, EvmAuthClientOptions } from '@moralisweb3/client-evm-auth';
+import { MoralisFirebase } from '@moralisweb3/client-firebase-utils';
+import { JsonRpcProvider } from '@ethersproject/providers';
 
-export interface SignInWithMoralisOptions {
-  /**
-   * @description Custom Ethereum provider.
-   */
-  provider?: JsonRpcProvider | Web3Provider;
-}
+export interface SignInWithMoralisOptions extends EvmAuthClientOptions {}
 
 export interface SignInWithMoralisResponse {
   provider: JsonRpcProvider;
@@ -16,41 +11,16 @@ export interface SignInWithMoralisResponse {
 }
 
 export async function signInWithMoralis(
-  moralisAuth: MoralisAuth,
+  moralis: MoralisFirebase,
   options?: SignInWithMoralisOptions,
 ): Promise<SignInWithMoralisResponse> {
-  const provider = options?.provider ?? (await getDefaultProvider());
+  const evmAuthClient = EvmAuthClient.create(moralis.backendAdapter, options, moralis.core);
 
-  const [accounts, chain] = await Promise.all([provider.send('eth_accounts', []), provider.send('eth_chainId', [])]);
+  const result = await evmAuthClient.signIn();
 
-  const context = await requestMessage(moralisAuth, {
-    networkType: 'evm',
-    address: accounts[0],
-    chain,
-  });
-
-  const signer = provider.getSigner();
-  const signature = await signer.signMessage(context.message);
-
-  const token = await issueToken(moralisAuth, {
-    context,
-    signature,
-  });
-
-  const credentials = await signInWithCustomToken(moralisAuth.auth, token);
+  const credentials = await signInWithCustomToken(getAuth(moralis.app), result.token);
   return {
-    provider,
+    provider: result.provider,
     credentials,
   };
-}
-
-async function getDefaultProvider(): Promise<JsonRpcProvider> {
-  const ethereum = await detectEthereumProvider();
-  if (!ethereum) {
-    throw new Error('Ethereum provider not found');
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const provider = new Web3Provider(ethereum as any, 'any');
-  await provider.send('eth_requestAccounts', []);
-  return provider;
 }

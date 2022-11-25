@@ -5313,6 +5313,13 @@
   resolved "https://registry.npmjs.org/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
+"@moralisweb3/client-firebase-auth-utils@^2.7.4":
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/client-firebase-auth-utils/-/client-firebase-auth-utils-2.7.4.tgz#3477e535bc83ed7f5d02b3b61d233b283f09b663"
+  integrity sha512-WY9hCeZ/3LpTQqcLrWMqnblQNEc/mq5/5biautuBliU2ZNqv7Y3QSYF/9kVNe/hBFpSE4HyPVa+9j0D/c6DalQ==
+  dependencies:
+    firebase "^9.10.0"
+
 "@moralisweb3/streams-typings@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@moralisweb3/streams-typings/-/streams-typings-1.0.5.tgz#6115031ce6428f347841d930aad3b0903ed5d8e1"

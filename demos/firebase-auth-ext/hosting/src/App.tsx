@@ -3,7 +3,7 @@ import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/cli
 import { httpsCallable } from '@firebase/functions';
 import { User } from '@firebase/auth';
 import { Fragment, useState } from 'react';
-import { auth, functions, moralisAuth } from './firebase';
+import { auth, functions, moralis } from './firebase';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { Web3Provider } from '@ethersproject/providers';
 
@@ -11,7 +11,7 @@ export function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(() => auth.currentUser);
 
   async function signInWithMetamask() {
-    const result = await signInWithMoralisByEvm(moralisAuth);
+    const result = await signInWithMoralisByEvm(moralis);
 
     setCurrentUser(result.credentials.user);
   }
@@ -27,7 +27,7 @@ export function App() {
 
     await provider.enable();
 
-    const result = await signInWithMoralisByEvm(moralisAuth, {
+    const result = await signInWithMoralisByEvm(moralis, {
       provider: new Web3Provider(provider),
     });
 
@@ -35,7 +35,7 @@ export function App() {
   }
 
   async function signInWithPhantom() {
-    const result = await signInWithMoralisBySolana(moralisAuth);
+    const result = await signInWithMoralisBySolana(moralis);
 
     setCurrentUser(result.credentials.user);
   }

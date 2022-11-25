@@ -1,7 +1,7 @@
 import { initializeApp } from '@firebase/app';
 import { getAuth, browserSessionPersistence } from '@firebase/auth';
 import { connectFunctionsEmulator, getFunctions } from '@firebase/functions';
-import { getMoralisAuth } from '@moralisweb3/client-firebase-auth-utils';
+import { getMoralis } from '@moralisweb3/client-firebase-utils';
 
 export const app = initializeApp({
   apiKey: String(process.env.REACT_APP_FIREBASE_API_KEY),
@@ -16,7 +16,7 @@ export const auth = getAuth(app);
 
 export const functions = getFunctions(app);
 
-export const moralisAuth = getMoralisAuth(app);
+export const moralis = getMoralis(app);
 
 export async function initFirebase() {
   // eslint-disable-next-line no-undef

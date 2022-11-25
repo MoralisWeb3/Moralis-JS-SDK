@@ -1,4 +1,4 @@
-import { ApiModule, Core, CoreProvider } from '@moralisweb3/common-core';
+import { ApiModule, Core, CoreProvider, ModuleType } from '@moralisweb3/common-core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import { makeVerify, VerifyEvmOptions, VerifyOptions, VerifySolOptions } from './methods/verify';
 import { VerifyChallengeEvmResponseAdapter } from './operations/evm';
@@ -6,24 +6,18 @@ import { VerifyChallengeSolanaResponseAdapter } from './operations/solana';
 
 export const BASE_URL = 'https://authapi.moralis.io';
 
-export class Auth extends ApiModule {
-  public static readonly moduleName = 'auth';
+export class Auth implements ApiModule {
+  public static moduleName = 'auth';
 
   public static create(core?: Core): Auth {
     return new Auth(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: Core) {
-    super(Auth.moduleName, core, BASE_URL);
-  }
+  public readonly name = Auth.moduleName;
+  public readonly type = ModuleType.API;
+  public readonly baseUrl = BASE_URL;
 
-  public setup() {
-    // Nothing
-  }
-
-  public start() {
-    // Nothing
-  }
+  private constructor(private readonly core: Core) {}
 
   public requestMessage = (options: RequestMessageOptions) => makeRequestMessage(this.core)(options);
 
