@@ -4,7 +4,7 @@
   "media": "./assets",
   "plugin": ["typedoc-plugin-markdown", "@moralisweb3/typedoc-readme-theme"],
   "theme": "readme",
-  "entryDocument": "nodejs-sdk-references.md",
+  "entryDocument": "/nodejs-sdk-references.md",
   "entryPoints": ["packages/*"],
   "exclude": ["packages/eslintConfig"],
   "entryPointStrategy": "packages",

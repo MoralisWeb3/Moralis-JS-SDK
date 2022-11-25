@@ -14,7 +14,7 @@ export type SolNativeUnit = 'solana' | 'lamports' | number;
 
 /**
  * Valid input for a new SolNative instance.
- * This can be an existing {@link SolNative} or a valid {@link BigNumberish} type
+ * This can be an existing {@link SolNative} or a valid {@link @moralisweb3/core!BigNumberish} type
  */
 export type SolNativeish = SolNative | BigNumberish;
 
@@ -23,6 +23,11 @@ const unitToDecimals: Record<SolNativeUnit, number> = {
   lamports: 0,
 };
 
+/**
+ * The SolNative class is a MoralisData that references to the value of Solana native currency SOL
+ *
+ * @category DataType
+ */
 export class SolNative implements MoralisData {
   /**
    * Create a new instance of SolNative from any valid {@link SolNativeish} value.
