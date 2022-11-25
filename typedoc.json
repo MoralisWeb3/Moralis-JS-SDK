@@ -8,6 +8,7 @@
   "entryPoints": ["packages/*"],
   "exclude": ["packages/eslintConfig"],
   "entryPointStrategy": "packages",
+  "includeVersion": false,
   "logLevel": "Verbose",
   "intentionallyNotExported": [],
   "excludeExternals": true,
