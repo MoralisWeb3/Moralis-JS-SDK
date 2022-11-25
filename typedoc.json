@@ -31,5 +31,5 @@
     "@alpha": false,
     "@beta": false
   },
-  "sort": ["source-order"]
+  "sort": ["static-first", "visibility", "alphabetical"]
 }
