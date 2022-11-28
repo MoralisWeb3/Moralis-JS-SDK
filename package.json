@@ -55,6 +55,7 @@
       "packages/common/*",
       "packages/client/*",
       "packages/common/*",
+      "packages/create-moralis-dapp/*",
       "demos/*",
       "demos/firebase-proxy/*",
       "demos/firebase-auth-ext/*",

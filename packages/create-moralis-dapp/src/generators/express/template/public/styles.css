@@ -1,0 +1,38 @@
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 2.4rem;
+  color: rgb(4, 24, 54);
+}
+
+.btn {
+  background-color: #20c8a0;
+  color: #041836;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #16ecb3;
+}
+
+#user {
+  padding: 2rem;
+  white-space: pre;
+  line-height: 1.2;
+  font-size: 1rem;
+  color: rgb(4, 24, 54);
+}
+
+#error {
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-size: 1rem;
+  color: rgb(200, 31, 31);
+}
