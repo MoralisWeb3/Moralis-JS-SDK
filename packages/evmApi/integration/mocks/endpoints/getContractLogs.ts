@@ -61,5 +61,13 @@ export const mockGetContractLogs = MockScenarios.create(
       response: createErrorResponse('Invalid address provided'),
       responseStatus: 400,
     },
+    {
+      condition: {
+        address: '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b989',
+        chain: '0x1',
+      },
+      response: createResponse('0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b989'),
+      responseStatus: 200,
+    },
   ],
 );
