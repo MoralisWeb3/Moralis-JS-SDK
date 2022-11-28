@@ -21,12 +21,10 @@ moralis_1.default.start({
 exports.app.use(express_1.default.urlencoded({ extended: true }));
 exports.app.use(express_1.default.json());
 exports.app.use((0, cors_1.default)());
-if (config_1.default.USE_STREAMS) {
-    exports.app.use((0, parse_server_2.streamsSync)(parseServer_1.parseServer, {
-        apiKey: config_1.default.MORALIS_API_KEY,
-        webhookUrl: config_1.default.STREAMS_WEBHOOK_URL,
-    }));
-}
+exports.app.use((0, parse_server_2.streamsSync)(parseServer_1.parseServer, {
+    apiKey: config_1.default.MORALIS_API_KEY,
+    webhookUrl: '/streams',
+}));
 exports.app.use(`/server`, parseServer_1.parseServer.app);
 const httpServer = http_1.default.createServer(exports.app);
 httpServer.listen(config_1.default.PORT, async () => {

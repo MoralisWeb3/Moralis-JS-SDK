@@ -59,20 +59,28 @@ const getPathByTag = (swagger: Swagger) => {
   return { pathByTag, pathDetails };
 };
 
-export const fetchEndpoints = async (swaggerUrl: string) => {
+export const fetchEndpoints = async (swaggerUrl: string, replacements: { [oldPath: string]: string }) => {
   const swagger = await fetchSwaggerJson(swaggerUrl);
   const { pathDetails, pathByTag } = getPathByTag(swagger);
 
   const tags = Object.keys(pathByTag);
   const endpoints: Endpoint[] = [];
 
-  Object.keys(pathDetails).forEach((x) => {
-    const item = pathDetails[x];
+  Object.keys(pathDetails).forEach((name) => {
+    const item = pathDetails[name];
+
+    let group = item.data.tags[0].toLowerCase();
+    let methodName = name;
+    const replacement = replacements[`${group}.${methodName}`];
+    if (replacement) {
+      [group, methodName] = replacement.split('.');
+    }
 
     const endpoint: Endpoint = {
       method: item.method.toUpperCase(),
-      group: item.data.tags[0],
-      name: x,
+      group,
+      name,
+      methodName,
       url: item.pathName.split('{').join(':').split('}').join(''),
     };
 

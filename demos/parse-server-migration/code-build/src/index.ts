@@ -20,14 +20,12 @@ app.use(express.json());
 
 app.use(cors());
 
-if (config.USE_STREAMS) {
-  app.use(
-    streamsSync(parseServer, {
-      apiKey: config.MORALIS_API_KEY,
-      webhookUrl: config.STREAMS_WEBHOOK_URL,
-    }),
-  );
-}
+app.use(
+  streamsSync(parseServer, {
+    apiKey: config.MORALIS_API_KEY,
+    webhookUrl: '/streams',
+  }),
+);
 
 app.use(`/server`, parseServer.app);
 

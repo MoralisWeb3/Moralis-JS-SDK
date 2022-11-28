@@ -1,7 +1,10 @@
 import Moralis from 'moralis';
+import { operations } from 'moralis/common-sol-utils';
+import { operations as evmOperations } from 'moralis/common-evm-utils';
 import express from 'express';
 import axios from 'axios';
 import { errorHandler } from '../middlewares/errorHandler';
+import { EndpointDescriptor, convertOperationToDescriptor } from '@moralisweb3/api-utils';
 
 const proxyRouter = express.Router();
 
@@ -18,15 +21,15 @@ export class ProxyGenerator {
   }
 
   public getRouter() {
-    let descriptors;
+    let descriptors: EndpointDescriptor[];
     let baseUrl: string;
     switch (this.api) {
       case 'evm':
-        descriptors = Moralis.EvmApi.endpoints.getDescriptors();
+        descriptors = evmOperations.map(convertOperationToDescriptor);
         baseUrl = Moralis.EvmApi.baseUrl;
         break;
       case 'solana':
-        descriptors = Moralis.SolApi.endpoints.getDescriptors();
+        descriptors = operations.map(convertOperationToDescriptor);
         baseUrl = Moralis.SolApi.baseUrl;
         break;
       default:

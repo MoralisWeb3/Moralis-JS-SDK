@@ -12,6 +12,7 @@ exports.parseServer = new parse_server_1.default({
     databaseURI: config_1.default.DATABASE_URI,
     cloud: config_1.default.CLOUD_PATH,
     serverURL: config_1.default.SERVER_URL,
+    publicServerURL: config_1.default.SERVER_URL,
     appId: config_1.default.APPLICATION_ID,
     masterKey: config_1.default.MASTER_KEY,
     auth: {
