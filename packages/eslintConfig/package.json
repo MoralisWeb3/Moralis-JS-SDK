@@ -1,6 +1,6 @@
 {
   "name": "@moralisweb3/eslint-config",
-  "version": "1.0.1",
+  "version": "2.8.0",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {

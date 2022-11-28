@@ -1,6 +1,6 @@
 {
   "name": "@moralisweb3/typedoc-readme-theme",
-  "version": "1.0.0",
+  "version": "2.8.0",
   "main": "dist/index.js",
   "license": "MIT",
   "private": true,

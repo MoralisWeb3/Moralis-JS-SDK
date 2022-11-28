@@ -1,5 +1,7 @@
 # @moralisweb3/eslint-config
 
+## 2.8.0
+
 ## 1.0.1
 
 ### Patch Changes
