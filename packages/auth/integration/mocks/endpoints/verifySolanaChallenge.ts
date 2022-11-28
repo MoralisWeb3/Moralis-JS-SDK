@@ -30,6 +30,7 @@ export const mockVerifySolanaChallenge = MockScenarios.create(
     },
     {
       condition: {
+        message: '',
         signature: 'some-signature',
       },
       responseStatus: 400,

@@ -1,0 +1,42 @@
+{
+  "name": "@moralisweb3/next",
+  "author": "Moralis",
+  "version": "2.8.0",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib/*"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "react-dom": "^18.2.0",
+    "next-auth": "^4.16.4",
+    "next": "^13.0.3",
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@moralisweb3/api-utils": "^2.8.0",
+    "@moralisweb3/evm-api": "^2.8.0",
+    "@moralisweb3/common-auth-utils": "^2.8.0",
+    "@moralisweb3/auth": "^2.8.0",
+    "@moralisweb3/sol-api": "^2.8.0",
+    "axios": "^0.27.2",
+    "swr": "^1.3.0",
+    "moralis": "^2.8.0"
+  },
+  "peerDependencies": {
+    "next-auth": ">=4.16.4",
+    "next": ">=12.2.5",
+    "react-dom": ">=17.0.0",
+    "react": ">=17.0.0"
+  }
+}

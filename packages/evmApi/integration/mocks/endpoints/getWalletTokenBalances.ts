@@ -13,7 +13,7 @@ export const mockGetWalletTokenBalances = MockScenarios.create(
   [
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
       },
       response: [
         createTokenBalanceResponse(

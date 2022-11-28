@@ -1,5 +1,5 @@
-import { ApiConfig } from '@moralisweb3/api-utils';
-import { MoralisCore, MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
+import { ApiUtilsConfig } from '@moralisweb3/api-utils';
+import { Core, MoralisStreamError, StreamErrorCode } from '@moralisweb3/common-core';
 import { IWebhook } from '@moralisweb3/streams-typings';
 import { sha3 } from '../utils/sha3';
 
@@ -9,9 +9,9 @@ export interface VerifySignatureOptions {
 }
 
 export const makeVerifySignature =
-  (core: MoralisCore) =>
+  (core: Core) =>
   ({ body, signature }: VerifySignatureOptions): boolean => {
-    const apiKey = core.config.get(ApiConfig.apiKey);
+    const apiKey = core.config.get(ApiUtilsConfig.apiKey);
     if (!apiKey) {
       throw new MoralisStreamError({
         code: StreamErrorCode.GENERIC_STREAM_ERROR,

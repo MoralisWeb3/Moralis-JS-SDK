@@ -1,10 +1,10 @@
-import { SolAddressish, SolNetworkish, SolAddress, SolNetwork } from '@moralisweb3/sol-utils';
-import { EndpointResolver } from '@moralisweb3/api-utils';
-import MoralisCore, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/core';
-import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/evm-utils';
-import { BASE_URL } from '../MoralisAuth';
-import { initializeChallengeEvm, initializeChallengeSol } from '../resolvers';
+import { SolAddressish, SolNetworkish, SolAddress, SolNetwork } from '@moralisweb3/common-sol-utils';
+import { OperationResolver } from '@moralisweb3/api-utils';
+import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
+import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
+import { BASE_URL } from '../Auth';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
+import { requestChallengeSolanaOperation, requestChallengeEvmOperation } from '@moralisweb3/common-auth-utils';
 
 // Imported from Swagger and adjusted for better types for Evm
 // TODO: generalize and extend generated types
@@ -48,10 +48,10 @@ export interface RequestMessageSolOptions {
 export type RequestMessageOptions = RequestMessageEvmOptions | RequestMessageSolOptions;
 
 const makeEvmRequestMessage = (
-  core: MoralisCore,
+  core: Core,
   { chain, address, networkType, network, ...options }: RequestMessageEvmOptions,
 ) => {
-  return EndpointResolver.create(core, BASE_URL, initializeChallengeEvm).fetch({
+  return new OperationResolver(requestChallengeEvmOperation, BASE_URL, core).fetch({
     chainId: EvmChain.create(chain).apiId,
     address: EvmAddress.create(address).checksum,
     ...options,
@@ -59,17 +59,17 @@ const makeEvmRequestMessage = (
 };
 
 const makeSolRequestMessage = (
-  core: MoralisCore,
+  core: Core,
   { address, solNetwork, networkType, network, ...options }: RequestMessageSolOptions,
 ) => {
-  return EndpointResolver.create(core, BASE_URL, initializeChallengeSol).fetch({
+  return new OperationResolver(requestChallengeSolanaOperation, BASE_URL, core).fetch({
     network: SolNetwork.create(solNetwork).network,
     address: SolAddress.create(address).toString(),
     ...options,
   });
 };
 
-export const makeRequestMessage = (core: MoralisCore) => async (options: RequestMessageOptions) => {
+export const makeRequestMessage = (core: Core) => async (options: RequestMessageOptions) => {
   // Backwards compatibility for the 'network' parameter
   if (!options.networkType && options.network) {
     options.networkType = options.network;

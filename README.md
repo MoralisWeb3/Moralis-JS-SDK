@@ -31,7 +31,7 @@
 **Features**:
 
 - Web3 authentication
-- Make **Evm api** and **Solana api** calls
+- Make **Evm API** and **Solana API** calls
 - Consistent data types and utilities
 - **Modular** package: include only what you need
 - Fully **Typescript** ready out-of-the box
@@ -114,21 +114,21 @@ It's possible to install all functionalities of Moralis by installing `moralis` 
 
 ## 1. Install the dependencies
 
-Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/core` package. For example:
+Instead of installing `moralis` you can need to install the packages that you want to use. You always need to install the `@moralisweb3/common-core` package. For example:
 
 ```shell
-yarn add @moralisweb3/core @moralisweb3/evm @moralisweb3/evm-api @moralisweb3/evm-wallet-connect-connector
+yarn add @moralisweb3/common-core @moralisweb3/evm-api
 ```
 
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
-import MoralisCore from '@moralisweb3/core';
-import MoralisEvmApi from '@moralisweb3/evm-api';
+import Core from '@moralisweb3/common-core';
+import EvmApi from '@moralisweb3/evm-api';
 
-const core = MoralisCore.create();
-// Register all imported modules to the @moralisweb3/core module
-core.registerModules([MoralisEvmApi]);
+const core = Core.create();
+// Register all imported modules to the @moralisweb3/common-core module
+core.registerModules([EvmApi]);
 ```
 
 Then, initialize the app the same way as when using the umbrella `moralis` package. You only need to provide configuration that is required by the packages. So if you don't include an api package, then you might not need to include the apiKey.
@@ -143,9 +143,9 @@ core.start({
 Now you can use any functionality from the installed modules. The only difference is that you need to call in your code:
 
 ```ts
-import MoralisEvmApi from '@moralisweb3/evm-api';
+import EvmApi from '@moralisweb3/evm-api';
 
-const evmApi = core.getModule<MoralisEvmApi>(MoralisEvmApi.moduleName);
+const evmApi = core.getModule<EvmApi>(EvmApi.moduleName);
 evmApi.block.getBlock();
 ```
 
@@ -161,10 +161,10 @@ Of course you are free to combine the modules in a single object, and use that i
 
 ```javascript
 // moralis.ts
-import { MoralisCore } from '@moralisweb3/core';
+import { Core } from '@moralisweb3/common-core';
 import EvmApi from '@moralisweb3/evm-api';
 
-const core = MoralisCore.create();
+const core = Core.create();
 const evmApi = EvmApi.create(core);
 core.registerModules([evmApi]);
 
@@ -182,40 +182,41 @@ Moralis.EvmApi.block.getBlock();
 
 ## Umbrella package
 
-| package  | Changelog | Description                                                      |
-| -------  | --------- | ---------------------------------------------------------------- |
+| package                           | Changelog                                            | Description                                                      |
+| --------------------------------- | ---------------------------------------------------- | ---------------------------------------------------------------- |
 | [moralis](./packages/moralis)     | [CHANGELOG.md](./packages/moralis/CHANGELOG.md)      | Umbrella package that includes all packages and initialises them |
 
 ## Core module
 
 The core module is required in all applications. It will handle global dependencies and communications between other packages.
 
-| package                                        |  Changelog | Description                                                                          |
-| ---------------------------------------------- |--------- | ------------------------------------------------------------------------------------ |
-| [@moralisweb3/core](./packages/core) | [CHANGELOG.md](./packages/core/CHANGELOG.md)      | Core logic, responsible for core logic and sharing state and events between packages |
+| package                                            |  Changelog                                            | Description                                                                            |
+| -------------------------------------------------- |------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| [@moralisweb3/common-core](./packages/common/core) | [CHANGELOG.md](./packages/common/core/CHANGELOG.md)   | Core logic, responsible for core logic and sharing state and events between packages   |
 
 
 ##  Utilities
-| package                                              |  Changelog | Description |
-| ---------------------------------------------------- | --------- | ----------- |
-| [@moralisweb3/evm-utils](./packages/evmUtils) | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Utility functions and datatypes for EVM chains.         |
-| [@moralisweb3/sol-utils](./packages/solUtils) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Utility functions and datatypes for Solana networks.         |
-| [@moralisweb3/api-utils](./packages/apiUtils) | [CHANGELOG.md](./packages/apiUtils/CHANGELOG.md)      |    Generic functions, used in all api logic within the SDK.         |
+| package                                                     |  Changelog                                              | Description                                                  |
+| ----------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
+| [@moralisweb3/common-evm-utils](./packages/common/evmUtils) | [CHANGELOG.md](./packages/common/evmApi/CHANGELOG.md)   |    Utility functions and datatypes for EVM chains.           |
+| [@moralisweb3/common-sol-utils](./packages/common/solUtils) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)          |    Utility functions and datatypes for Solana networks.      |
+| [@moralisweb3/api-utils](./packages/apiUtils)               | [CHANGELOG.md](./packages/apiUtils/CHANGELOG.md)        |    Generic functions, used in all api logic within the SDK.  |
 
 
 ## Moralis functionalities
 
-| package                                              |  Changelog | Description |
-| ---------------------------------------------------- | --------- | ----------- |
-| [@moralisweb3/evm-api](./packages/evmApi) | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Fetch data from an EVM chain         |
-| [@moralisweb3/sol-api](./packages/solApi) | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Fetch data from a Solana network         |
-| [@moralisweb3/auth](./packages/auth) | [CHANGELOG.md](./packages/auth/CHANGELOG.md)      |    Handle authentication         |
+| package                                              |  Changelog                                          | Description                             |
+| ---------------------------------------------------- | --------------------------------------------------- | --------------------------------------- |
+| [@moralisweb3/evm-api](./packages/evmApi)            | [CHANGELOG.md](./packages/evmApi/CHANGELOG.md)      |    Fetch data from an EVM chain         |
+| [@moralisweb3/sol-api](./packages/solApi)            | [CHANGELOG.md](./packages/solApi/CHANGELOG.md)      |    Fetch data from a Solana network     |
+| [@moralisweb3/auth](./packages/auth)                 | [CHANGELOG.md](./packages/auth/CHANGELOG.md)        |    Handle authentication                |
+| [@moralisweb3/streams](./packages/streams)           | [CHANGELOG.md](./packages/streams/CHANGELOG.md)     |    Listen EVM blockchains               |
 
 ## Other
 
-| package                                              |  Changelog | Description |
-| ---------------------------------------------------- | --------- | ----------- |
-| [@moralisweb3/eslint-config](./packages/eslintConfig) | -     |    Eslint configuration that is used within Moralis         |
+| package                                               |  Changelog | Description                                                 |
+| ----------------------------------------------------- | ---------- | ----------------------------------------------------------- |
+| [@moralisweb3/eslint-config](./packages/eslintConfig) | -          |    Eslint configuration that is used within Moralis         |
 
 
 # 🧙‍♂️ Community

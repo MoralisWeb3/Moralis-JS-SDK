@@ -9,7 +9,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
-    "@moralisweb3/eslint-config": "^1.0.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "@moralisweb3/typedoc-readme-theme": "^1.0.0",
     "@types/estree": "^1.0.0",
     "@types/jest": "^27.4.0",
@@ -46,12 +46,15 @@
     "test:coverage": "yarn nx run-many --target=test:coverage --all",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
-    "release": "yarn build && changeset publish"
+    "release": "yarn build && changeset publish",
+    "generate": "nx run @moralisweb3/codegen:generate"
   },
   "workspaces": {
     "packages": [
       "packages/*",
+      "packages/common/*",
       "packages/client/*",
+      "packages/common/*",
       "demos/*",
       "demos/firebase-proxy/*",
       "demos/firebase-auth-ext/*",

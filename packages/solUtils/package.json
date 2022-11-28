@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/sol-utils",
   "author": "Moralis",
-  "version": "2.7.4",
+  "version": "2.8.0",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -11,21 +11,13 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
-    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
-    "test:watch": "yarn run test --watch",
-    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc -p tsconfig.build.json",
-    "dev": "tsc --watch"
+    "build": "tsc -p tsconfig.build.json"
   },
   "devDependencies": {
-    "openapi-typescript": "^5.2.0",
-    "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.7.4",
-    "@solana/web3.js": "^1.56.2"
+    "@moralisweb3/common-sol-utils": "^2.8.0"
   }
 }

@@ -20,6 +20,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Use cache dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Install packages
         run: yarn install
       - name: Create Release Pull Request or Publish to npm
@@ -30,3 +39,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Notify Slack
+        id: slack
+        if: steps.changesets.outputs.published == 'true'
+        uses: slackapi/slack-github-action@v1.23.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE_URL }}
