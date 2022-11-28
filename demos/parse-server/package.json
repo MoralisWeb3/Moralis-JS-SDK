@@ -19,7 +19,7 @@
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
-    "@typescript-eslint/parser": "^5.12.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.9.0",
     "eslint-plugin-etc": "^2.0.2",
     "eslint-plugin-import": "^2.26.0",
