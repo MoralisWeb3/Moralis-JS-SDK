@@ -1,5 +1,4 @@
 ---
-'demo-parse-server-migration': minor
 '@moralisweb3/api-utils': minor
 '@moralisweb3/auth': minor
 '@moralisweb3/client-firebase-auth-utils': minor
