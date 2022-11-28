@@ -1,5 +1,8 @@
-import { MoralisAuth } from './MoralisAuth';
+import { Auth } from './Auth';
 
-export * from './MoralisAuth';
+export * from './Auth';
 
-export default MoralisAuth;
+// Export SDK types
+export * from './methods/types';
+
+export default Auth;

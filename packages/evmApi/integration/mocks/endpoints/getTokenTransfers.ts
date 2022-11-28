@@ -10,13 +10,12 @@ export const mockGetTokenTransfers = MockScenarios.create(
     getParams: (req) => ({
       address: req.params.address,
       limit: req.url.searchParams.get('limit'),
-      cursor: req.url.searchParams.get('cursor'),
     }),
   },
   [
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
       },
       response: createPaginatedResponse(
         Array(12).fill(
@@ -39,7 +38,7 @@ export const mockGetTokenTransfers = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
         limit: '6',
       },
       response: createPaginatedResponse(
@@ -63,9 +62,8 @@ export const mockGetTokenTransfers = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
         limit: '6',
-        cursor: 'limit_6_page_0',
       },
       response: createPaginatedResponse(
         Array(6).fill(

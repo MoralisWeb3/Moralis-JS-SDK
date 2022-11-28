@@ -4,18 +4,21 @@
   "commit": false,
   "fixed": [
     [
-      "moralis",
-      "@moralisweb3/core",
-      "@moralisweb3/auth",
-      "@moralisweb3/streams",
       "@moralisweb3/api-utils",
-      "@moralisweb3/evm-utils",
-      "@moralisweb3/sol-utils",
-      "@moralisweb3/evm-api",
-      "@moralisweb3/sol-api",
+      "@moralisweb3/auth",
       "@moralisweb3/client-firebase-auth-utils",
       "@moralisweb3/client-firebase-evm-auth",
-      "@moralisweb3/client-firebase-sol-auth"
+      "@moralisweb3/client-firebase-sol-auth",
+      "@moralisweb3/common-core",
+      "@moralisweb3/common-evm-utils",
+      "@moralisweb3/common-sol-utils",
+      "@moralisweb3/common-streams-utils",
+      "@moralisweb3/evm-api",
+      "@moralisweb3/sol-api",
+      "@moralisweb3/streams",
+      "@moralisweb3/parse-server",
+      "@moralisweb3/next",
+      "moralis"
     ]
   ],
   "linked": [],

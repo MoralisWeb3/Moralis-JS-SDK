@@ -1,8 +1,8 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getTokenAllowance', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi();

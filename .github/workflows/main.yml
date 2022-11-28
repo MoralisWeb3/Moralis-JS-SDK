@@ -25,14 +25,18 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Use cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Install packages
-        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+      - name: Install packages
         run: yarn install
 
   lint:
@@ -50,12 +54,17 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Use cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
       - name: ESLint
         run: yarn lint
         continue-on-error: true
@@ -82,12 +91,17 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Use cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
       - name: Prettier
         run: yarn format:check
 
@@ -106,12 +120,17 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Use cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}_C8
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
@@ -124,7 +143,10 @@ jobs:
             auth, ./packages/auth/coverage/coverage-summary.json
             core, ./packages/core/coverage/coverage-summary.json
             evm-api, ./packages/evmApi/coverage/coverage-summary.json
-            evm-utils, ./packages/evmUtils/coverage/coverage-summary.json
+            common-evm-utils, ./packages/common/evmUtils/coverage/coverage-summary.json
             sol-api, ./packages/solApi/coverage/coverage-summary.json
-            sol-utils, ./packages/solUtils/coverage/coverage-summary.json
+            common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
+            common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
+      - name: Find missing dependencies
+        run: node scripts/findMissingDependencies.js

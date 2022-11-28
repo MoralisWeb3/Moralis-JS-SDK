@@ -16,7 +16,7 @@ export const mockGetWalletTokenTransfers = MockScenarios.create(
   [
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
       },
       response: createPaginatedResponse(
         Array(12).fill(
@@ -27,7 +27,7 @@ export const mockGetWalletTokenTransfers = MockScenarios.create(
             '15454126',
             '0x0cd840fb6f116b8dd39ba8c30e3b74d741ecb638c4a8d0704801e7d18baaef05',
             '0xd73a9EAdFff6A332aFDa7dDBB18CFf84bBf6dd0D',
-            '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+            '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
             '347995260860000000000',
           ),
         ),
@@ -39,7 +39,7 @@ export const mockGetWalletTokenTransfers = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
         limit: '6',
       },
       response: createPaginatedResponse(
@@ -51,7 +51,7 @@ export const mockGetWalletTokenTransfers = MockScenarios.create(
             '15454126',
             '0x0cd840fb6f116b8dd39ba8c30e3b74d741ecb638c4a8d0704801e7d18baaef05',
             '0xd73a9EAdFff6A332aFDa7dDBB18CFf84bBf6dd0D',
-            '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+            '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
             '347995260860000000000',
           ),
         ),
@@ -63,7 +63,7 @@ export const mockGetWalletTokenTransfers = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+        address: '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
         limit: '6',
         cursor: 'limit_6_page_0',
       },
@@ -76,7 +76,7 @@ export const mockGetWalletTokenTransfers = MockScenarios.create(
             '15454126',
             '0x0cd840fb6f116b8dd39ba8c30e3b74d741ecb638c4a8d0704801e7d18baaef05',
             '0xd73a9EAdFff6A332aFDa7dDBB18CFf84bBf6dd0D',
-            '0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F',
+            '0x72fdd62fbfa2faa9a8677c58d9992068772e0f7f',
             '347995260860000000000',
           ),
         ),

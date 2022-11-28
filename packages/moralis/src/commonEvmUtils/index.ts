@@ -1,1 +1,1 @@
-export * from '@moralisweb3/evm-utils';
+export * from '@moralisweb3/common-evm-utils';

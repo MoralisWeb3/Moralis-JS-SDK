@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Moralis from 'moralis'
-import { MoralisError } from '@moralisweb3/core';
+import { MoralisError } from '@moralisweb3/common-core';
 import { handleRateLimit } from '../../rateLimit'
 import { AxiosError } from 'axios'
 declare const Parse: any;
@@ -20,7 +20,7 @@ const getErrorMessage = (error: Error, name: string) => {
 
   if (error instanceof Error) {
     return error.message;
-  } 
+  }
 
   return `API error while calling ${name}`
 }
@@ -36,8 +36,7 @@ const beforeApiRequest = async (user: any, ip: any, name: string) => {
 Parse.Cloud.define("sol-balance", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'balance');
-    //@ts-ignore
-    const result = await Moralis.SolApi.account.balance(params);
+    const result = await Moralis.SolApi.account.getBalance(params);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-balance'));
@@ -84,15 +83,13 @@ Parse.Cloud.define("sol-getNFTMetadata", async ({params, user, ip}: any) => {
   }
 })
 
-// TODO: implement in SDK
-// Parse.Cloud.define("sol-getTokenPrice", async ({params, user, ip}: any) => {
-//   try {
-//     await beforeApiRequest(user, ip, 'getTokenPrice');
-    
-//     const result = await Moralis.SolApi.token.getTokenPrice(params);
-//     return result?.raw;
-//   } catch (error) {
-//     throw new Error(getErrorMessage(error, 'sol-getTokenPrice'));
-//   }
-// })
+Parse.Cloud.define("sol-getTokenPrice", async ({params, user, ip}: any) => {
+  try {
+    await beforeApiRequest(user, ip, 'getTokenPrice');
+    const result = await Moralis.SolApi.token.getTokenPrice(params);
+    return result?.raw;
+  } catch (error) {
+    throw new Error(getErrorMessage(error, 'sol-getTokenPrice'));
+  }
+})
 

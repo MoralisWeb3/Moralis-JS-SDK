@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
-    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
+    "test:coverage": "yarn run test  --coverage",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
@@ -22,9 +22,11 @@
   "devDependencies": {
     "prettier": "^2.5.1",
     "typescript": "^4.5.5",
-    "@moralisweb3/evm-utils": "^2.7.4"
+    "@moralisweb3/common-evm-utils": "^2.7.4"
   },
   "dependencies": {
-    "@moralisweb3/core": "^2.7.4"
+    "@moralisweb3/common-core": "^2.7.4",
+    "@moralisweb3/common-evm-utils": "^2.7.4",
+    "axios": "^0.27.2"
   }
 }

@@ -1,5 +1,5 @@
-import { MoralisEvmApi } from './EvmApi';
+import { EvmApi } from './EvmApi';
 
 export * from './EvmApi';
 
-export default MoralisEvmApi;
+export default EvmApi;

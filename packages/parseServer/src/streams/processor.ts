@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { webhookRouter } from './webbhook';
-import { MoralisCore } from 'moralis/core';
-import { MoralisStreams } from '@moralisweb3/streams';
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
+import { Core } from '@moralisweb3/common-core';
+import { Streams } from '@moralisweb3/streams';
+import { ApiUtils } from '@moralisweb3/api-utils';
 
 interface StreamOptions {
   webhookUrl?: string;
@@ -10,9 +10,9 @@ interface StreamOptions {
 }
 
 export const streamsSync = (parseInstance: any, options: StreamOptions) => {
-  const core = MoralisCore.create();
-  const streams = MoralisStreams.create(core);
-  const apiUtils = MoralisApiUtils.create(core);
+  const core = Core.create();
+  const streams = Streams.create(core);
+  const apiUtils = ApiUtils.create(core);
   core.registerModules([streams, apiUtils]);
   core.start({ apiKey: options.apiKey });
   return webhookRouter(parseInstance, options?.webhookUrl || '/streams-webhook', streams);

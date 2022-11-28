@@ -1,4 +1,4 @@
-import { isMoralisError, MoralisError } from '@moralisweb3/core';
+import { isMoralisError, MoralisError } from '@moralisweb3/common-core';
 import { NextFunction, Request, Response } from 'express';
 import { AxiosError } from 'axios';
 

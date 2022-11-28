@@ -16,7 +16,7 @@
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json --output src/generated/types.ts",
+    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils",
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
   },
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.7.4",
-    "@moralisweb3/core": "^2.7.4",
-    "@moralisweb3/evm-utils": "^2.7.4"
+    "@moralisweb3/common-core": "^2.7.4",
+    "@moralisweb3/common-evm-utils": "^2.7.4"
   }
 }

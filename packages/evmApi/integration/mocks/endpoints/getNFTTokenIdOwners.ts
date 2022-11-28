@@ -14,7 +14,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
   [
     {
       condition: {
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        address: '0x057ec652a4f150f7ff94f089a38008f49a0df88e',
         tokenId: '15',
       },
       response: {
@@ -28,7 +28,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
             token_address: '0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB',
             token_id: '15',
             contract_type: 'ERC721',
-            owner_of: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+            owner_of: '0x057ec652a4f150f7ff94f089a38008f49a0df88e',
             block_number: '88256',
             block_number_minted: '88256',
             token_uri: 'string',
@@ -72,7 +72,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
     },
     {
       condition: {
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        address: '0x057ec652a4f150f7ff94f089a38008f49a0df88e',
         tokenId: '000000215',
       },
       responseStatus: 400,

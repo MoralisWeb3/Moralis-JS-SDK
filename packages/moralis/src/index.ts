@@ -1,30 +1,32 @@
-import { MoralisStreams } from '@moralisweb3/streams';
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
-import { MoralisAuth } from '@moralisweb3/auth';
-import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
-import { MoralisEvmApi } from '@moralisweb3/evm-api';
-import { MoralisSolUtils } from '@moralisweb3/sol-utils';
-import { MoralisSolApi } from '@moralisweb3/sol-api';
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
+import { Streams } from '@moralisweb3/streams';
+import { ApiUtils } from '@moralisweb3/api-utils';
+import { Auth } from '@moralisweb3/auth';
+import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
+import { EvmApi } from '@moralisweb3/evm-api';
+import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
+import { SolApi } from '@moralisweb3/sol-api';
+import { Core, CoreProvider } from '@moralisweb3/common-core';
+
+import { MoralisConfigValues } from './config/MoralisConfig';
 
 // Core
-const core = MoralisCore.create();
+const core = Core.create();
 
 // Utility modules
-const evmUtils = MoralisEvmUtils.create(core);
-const solUtils = MoralisSolUtils.create(core);
-const apiUtils = MoralisApiUtils.create(core);
+const commonEvmUtils = CommonEvmUtils.create(core);
+const commonSolUtils = CommonSolUtils.create(core);
+const apiUtils = ApiUtils.create(core);
 
 // Feature modules
-const auth = MoralisAuth.create(core);
-const streams = MoralisStreams.create(core);
-const evmApi = MoralisEvmApi.create(core);
-const solApi = MoralisSolApi.create(core);
+const auth = Auth.create(core);
+const streams = Streams.create(core);
+const evmApi = EvmApi.create(core);
+const solApi = SolApi.create(core);
 
-// Register all Moralis modules to MoralisCore
-core.registerModules([evmUtils, solUtils, auth, apiUtils, evmApi, solApi, streams]);
+// Register all Moralis modules to Core
+core.registerModules([commonEvmUtils, commonSolUtils, auth, apiUtils, evmApi, solApi, streams]);
 
-MoralisCoreProvider.setDefault(core);
+CoreProvider.setDefault(core);
 
 const Moralis = {
   Core: core,
@@ -34,7 +36,9 @@ const Moralis = {
   EvmApi: evmApi,
   SolApi: solApi,
 
-  start: core.start,
+  start: (config?: Partial<MoralisConfigValues>) => {
+    return core.start(config);
+  },
 };
 
 export default Moralis;

@@ -1,8 +1,8 @@
-import { MoralisAuth } from '../../src/MoralisAuth';
+import { Auth } from '../../src/Auth';
 import { cleanAuth, setupAuth } from '../setup';
 
 describe('verifyEvmChallenge', () => {
-  let AuthApi: MoralisAuth;
+  let AuthApi: Auth;
 
   beforeAll(() => {
     AuthApi = setupAuth();

@@ -1,10 +1,8 @@
 import 'next-auth';
-import { TUserData } from './pages/api/auth/[...nextauth]';
+import { VerifyChallengeSolanaJSONResponse, VerifyChallengeEvmJSONResponse } from '@moralisweb3/auth';
 
 declare module 'next-auth' {
-  interface User extends TUserData {}
-
   interface Session {
-    user: User;
+    user: VerifyChallengeSolanaJSONResponse | VerifyChallengeEvmJSONResponse;
   }
 }
