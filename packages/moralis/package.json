@@ -40,6 +40,8 @@
     "./streams-typings": "./lib/streamsTypings/index.js",
     "./common-evm-utils": "./lib/commonEvmUtils/index.js",
     "./common-sol-utils": "./lib/commonSolUtils/index.js",
+    "./common-auth-utils": "./lib/commonAuthUtils/index.js",
+    "./common-streams-utils": "./lib/commonStreamsUtils/index.js",
     "./auth": "./lib/auth/index.js",
     "./streams": "./lib/streams/index.js"
   },
@@ -57,6 +59,12 @@
       "common-sol-utils": [
         "lib/commonSolUtils/index.d.ts"
       ],
+      "common-auth-utils": [
+        "lib/commonAuthUtils/index.d.ts"
+      ],
+      "common-streams-utils": [
+        "lib/commonStreamsUtils/index.d.ts"
+      ],
       "streams": [
         "lib/streams/index.d.ts"
       ],
@@ -67,6 +75,8 @@
   },
   "dependencies": {
     "@moralisweb3/auth": "^2.7.4",
+    "@moralisweb3/common-auth-utils": "^2.7.4",
+    "@moralisweb3/common-streams-utils": "^2.7.4",
     "@moralisweb3/common-core": "^2.7.4",
     "@moralisweb3/streams": "^2.7.4",
     "@moralisweb3/api-utils": "^2.7.4",

@@ -2,7 +2,7 @@ import {
   requestChallengeEvmOperation as operation,
   RequestChallengeEvmRequest,
   RequestChallengeEvmResponse,
-} from '@moralisweb3/auth';
+} from '@moralisweb3/common-auth-utils';
 import { fetcher } from '../../utils/fetcher';
 import { FetchParams } from '../types';
 import { useCallback } from 'react';

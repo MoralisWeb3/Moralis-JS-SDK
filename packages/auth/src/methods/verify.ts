@@ -1,7 +1,7 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
 import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { BASE_URL } from '../Auth';
-import { verifyChallengeSolanaOperation, verifyChallengeEvmOperation } from '../operations';
+import { verifyChallengeSolanaOperation, verifyChallengeEvmOperation } from '@moralisweb3/common-auth-utils';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
 
 export interface VerifyEvmOptions {

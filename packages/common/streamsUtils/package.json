@@ -14,6 +14,8 @@
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage",
     "test:watch": "yarn run test --watch",
+    "gen:api-types": "openapi-typescript https://api.moralis-streams.com/api-docs/swagger.json --output src/operations/openapi.ts",
+    "gen:api-types-beta": "openapi-typescript https://streams-api-stage.aws-prod-streams-master-1.moralis.io/api-docs/swagger.json --output src/operations/openapi.ts",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc -p tsconfig.build.json",

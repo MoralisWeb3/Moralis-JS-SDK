@@ -23,6 +23,7 @@ describe('createStreamEvmOperation', () => {
       chains: ['0x1'],
       abi: null,
       advancedOptions: null,
+      demo: true,
     };
 
     const serializedRequest = updateStreamEvmOperation.serializeRequest(request, core);

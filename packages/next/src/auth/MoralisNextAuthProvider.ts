@@ -1,4 +1,4 @@
-import { VerifyChallengeSolanaJSONResponse, VerifyChallengeEvmJSONResponse } from '@moralisweb3/auth';
+import { VerifyChallengeSolanaJSONResponse, VerifyChallengeEvmJSONResponse } from '@moralisweb3/common-auth-utils';
 import axios from 'axios';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { Network } from 'moralis/common-core';
