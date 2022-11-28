@@ -9,14 +9,14 @@ const outputDocumentsPath = path.join(__dirname, '..', OUT_DIR_DOCS, DOCUMENTS_D
 
 const ensureCleanOutputDir = async () => {
   await fse.emptyDirSync(outputDocumentsPath);
-}
+};
 
 const createContributing = async () => {
   const readme = await fse.readFileSync(path.join(__dirname, '../CONTRIBUTING.md'), 'utf8');
   const readmePath = path.join(outputDocumentsPath, 'CONTRIBUTING.md');
 
   await fs.writeFileSync(readmePath, readme);
-}
+};
 
 const createDocuments = async () => {
   const documents = fs.readdirSync(path.join(__dirname, '../documents'));
@@ -28,7 +28,7 @@ const createDocuments = async () => {
     const outputPath = path.join(outputDocumentsPath, document);
     await fs.writeFileSync(outputPath, documentContent);
   }
-}
+};
 
 /**
  * Run all the code

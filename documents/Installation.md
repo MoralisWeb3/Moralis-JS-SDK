@@ -31,4 +31,5 @@ Moralis.start({
   apiKey: 'YOUR_API_KEY',
 });
 ```
- And then you can start using the Moralis SDK!
+
+And then you can start using the Moralis SDK!
