@@ -21,7 +21,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^2.8.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "eslint": "^8.22.0",
     "eslint-plugin-jest": "^26.8.3",
     "prettier": "^2.5.1",

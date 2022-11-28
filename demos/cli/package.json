@@ -15,7 +15,7 @@
     "moralis": "^2.8.0"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^2.8.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
