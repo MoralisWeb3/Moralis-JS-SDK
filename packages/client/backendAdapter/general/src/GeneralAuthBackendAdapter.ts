@@ -13,7 +13,10 @@ export interface GeneralAuthBackendAdapterOptions {
 }
 
 export class GeneralAuthBackendAdapter implements AuthBackendAdapter {
-  public constructor(protected readonly core: Core, protected readonly options: GeneralAuthBackendAdapterOptions | undefined) {}
+  public constructor(
+    protected readonly core: Core,
+    protected readonly options: GeneralAuthBackendAdapterOptions | undefined,
+  ) {}
 
   public requestAuthMessage(_: string, __: RequestAuthMessageRequest): Promise<RequestAuthMessageResponse> {
     // TODO: axios

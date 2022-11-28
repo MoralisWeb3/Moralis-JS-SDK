@@ -15,7 +15,8 @@ export class FirebaseAuthBackendAdapter implements AuthBackendAdapter {
   private readonly functionNamePrefix: string;
 
   public constructor(private readonly functions: Functions, options: FirebaseAuthBackendAdapterOptions | undefined) {
-    this.functionNamePrefix = (options?.functionNamePrefix === undefined) ? 'ext-moralis-auth-' : options.functionNamePrefix;
+    this.functionNamePrefix =
+      options?.functionNamePrefix === undefined ? 'ext-moralis-auth-' : options.functionNamePrefix;
   }
 
   public async requestAuthMessage(

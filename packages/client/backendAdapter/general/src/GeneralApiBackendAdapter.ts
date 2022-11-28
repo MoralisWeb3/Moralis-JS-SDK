@@ -13,7 +13,10 @@ export interface GeneralApiBackendAdapterOptions {
 }
 
 export class GeneralApiBackendAdapter implements ApiBackendAdapter {
-  public constructor(protected readonly core: Core, protected readonly baseUrl: GeneralApiBackendAdapterOptions | undefined) {}
+  public constructor(
+    protected readonly core: Core,
+    protected readonly baseUrl: GeneralApiBackendAdapterOptions | undefined,
+  ) {}
 
   public async requestOperation<Request, JSONRequest, Response, JSONResponse>(
     _: string,

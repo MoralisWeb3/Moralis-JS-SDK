@@ -23,7 +23,7 @@ export class FirebaseApiBackendAdapter implements ApiBackendAdapter {
     private readonly core: Core,
     options: FirebaseApiBackendAdapterOptions | undefined,
   ) {
-    const prefix = (options?.functionNamePrefix === undefined) ? 'ext-moralis-api-' : options.functionNamePrefix;
+    const prefix = options?.functionNamePrefix === undefined ? 'ext-moralis-api-' : options.functionNamePrefix;
     this.functionName = `${prefix}call`;
   }
 
