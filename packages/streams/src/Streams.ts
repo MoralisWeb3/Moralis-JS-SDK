@@ -27,7 +27,7 @@ import {
   getStatsOperation,
   setSettingsOperation,
   replayHistoryOperation,
-} from './operations/index';
+} from '@moralisweb3/common-streams-utils';
 
 const BASE_URL = 'https://api.moralis-streams.com';
 

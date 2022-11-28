@@ -6,7 +6,7 @@ describe('operations', () => {
   let reader: OpenApiInterfaceReader;
 
   beforeAll(() => {
-    reader = new OpenApiInterfaceReader('src/generated/types.ts')!;
+    reader = new OpenApiInterfaceReader('src/operations/openapi.ts')!;
   });
 
   for (const operation of operations) {

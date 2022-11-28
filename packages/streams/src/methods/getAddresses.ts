@@ -1,7 +1,7 @@
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import { getAddressesEvmOperation, GetAddressesEvmRequest } from '../operations';
+import { getAddressesEvmOperation, GetAddressesEvmRequest } from '@moralisweb3/common-streams-utils';
 import Core from '@moralisweb3/common-core';
 
 export interface GetAddressesEvmOptions extends GetAddressesEvmRequest {

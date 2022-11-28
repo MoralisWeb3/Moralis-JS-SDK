@@ -1,8 +1,10 @@
 import { ApiModule, Core, CoreProvider, ModuleType } from '@moralisweb3/common-core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import { makeVerify, VerifyEvmOptions, VerifyOptions, VerifySolOptions } from './methods/verify';
-import { VerifyChallengeEvmResponseAdapter } from './operations/evm';
-import { VerifyChallengeSolanaResponseAdapter } from './operations/solana';
+import {
+  VerifyChallengeSolanaResponseAdapter,
+  VerifyChallengeEvmResponseAdapter,
+} from '@moralisweb3/common-auth-utils';
 
 export const BASE_URL = 'https://authapi.moralis.io';
 

@@ -2,7 +2,7 @@ import { OperationResolver } from '@moralisweb3/api-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import Core from '@moralisweb3/common-core';
-import { deleteStreamEvmOperation, DeleteStreamEvmRequest } from '../operations';
+import { deleteStreamEvmOperation, DeleteStreamEvmRequest } from '@moralisweb3/common-streams-utils';
 
 export interface DeleteStreamEvmOptions extends DeleteStreamEvmRequest {
   networkType?: 'evm';
