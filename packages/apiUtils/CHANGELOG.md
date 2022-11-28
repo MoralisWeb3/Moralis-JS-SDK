@@ -42,8 +42,8 @@
 
   - `moralis/common-evm-utils` for evm api methods
   - `moralis/common-sol-utils` for sol api methods
-  - `moralis/auth` for auth methods
-  - `moralis/streams` for streams methods
+  - `moralis/common-auth-utils` for auth methods
+  - `moralis/common-streams-utils` for streams methods
 
   For example:
 
