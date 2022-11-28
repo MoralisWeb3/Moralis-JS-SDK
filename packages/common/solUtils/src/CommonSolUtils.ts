@@ -1,4 +1,5 @@
 import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
+import { CommonSolUtilsConfigSetup } from './config';
 
 export class CommonSolUtils implements Module {
   public readonly name = 'solUtils';
@@ -8,4 +9,8 @@ export class CommonSolUtils implements Module {
   }
 
   private constructor(protected readonly core: Core) {}
+
+  public setup() {
+    CommonSolUtilsConfigSetup.register(this.core.config);
+  }
 }

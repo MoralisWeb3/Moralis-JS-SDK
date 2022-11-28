@@ -81,8 +81,6 @@ export class Core {
     }
     this._isStarted = true;
 
-    const allModules = this.modules.list();
-
     if (providedConfig) {
       this.config.merge(providedConfig);
     }
@@ -90,14 +88,6 @@ export class Core {
     this.logger.verbose('Starting all registered modules', {
       moduleNames: this.modules.listNames(),
     });
-
-    await Promise.all(
-      allModules.map(async (module) => {
-        if (module.start) {
-          await module.start();
-        }
-      }),
-    );
 
     this.logger.verbose('Finished starting all registered modules', {
       moduleNames: this.modules.listNames(),

@@ -8,13 +8,15 @@ import { FirebaseAuthBackendAdapter, FirebaseAuthBackendAdapterOptions } from '.
 
 export interface FirebaseBackendAdapterOptions {
   functions?: Functions;
+  regionOrCustomDomain?: string;
+
   api?: FirebaseApiBackendAdapterOptions;
   auth?: FirebaseAuthBackendAdapterOptions;
 }
 
 export class FirebaseBackendAdapter implements BackendAdapter {
   public static create(app: FirebaseApp, options?: FirebaseBackendAdapterOptions) {
-    const functions = options?.functions ?? getFunctions(app);
+    const functions = options?.functions ?? getFunctions(app, options?.regionOrCustomDomain);
     return new FirebaseBackendAdapter(functions, options);
   }
 

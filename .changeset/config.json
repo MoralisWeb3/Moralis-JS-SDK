@@ -6,7 +6,7 @@
     [
       "@moralisweb3/api-utils",
       "@moralisweb3/auth",
-      "@moralisweb3/client-firebase-auth-utils",
+      "@moralisweb3/client-firebase-utils",
       "@moralisweb3/client-firebase-evm-auth",
       "@moralisweb3/client-firebase-sol-auth",
       "@moralisweb3/common-core",

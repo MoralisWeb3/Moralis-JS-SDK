@@ -5,7 +5,7 @@ import { getBalanceOperation, GetBalanceRequest, GetBalanceResponseAdapter, getN
 import { ApiBackendAdapter } from '@moralisweb3/client-backend-adapter-utils';
 import { Module, Core, ModuleType } from '@moralisweb3/common-core';
 
-const backendModuleName = 'solApi';
+const backendModuleName = 'sol-api';
 
 export abstract class SolApiClient implements Module {
   protected abstract core: Core;

@@ -5,7 +5,7 @@ import { endpointWeightsOperation, EndpointWeightsRequest, EndpointWeightsRespon
 import { ApiBackendAdapter } from '@moralisweb3/client-backend-adapter-utils';
 import { Module, Core, ModuleType } from '@moralisweb3/common-core';
 
-const backendModuleName = 'evmApi';
+const backendModuleName = 'evm-api';
 
 export abstract class EvmApiClient implements Module {
   protected abstract core: Core;

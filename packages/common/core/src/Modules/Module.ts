@@ -14,13 +14,10 @@ export interface Module {
   name: string;
   type?: ModuleType;
 
-  setup?: () => void;
-
   /**
-   * Start the module (if needed).
-   * This function can be used to initialize variables etc.
+   * Initializes the module.
    */
-  start?: () => void | Promise<void>;
+  setup?: () => void;
 }
 
 export interface ModuleFactory {

@@ -8,8 +8,12 @@ import {
   ResponseAdapter,
 } from '@moralisweb3/common-core';
 
+export interface GeneralApiBackendAdapterOptions {
+  baseUrl?: string;
+}
+
 export class GeneralApiBackendAdapter implements ApiBackendAdapter {
-  public constructor(protected readonly baseUrl: string, protected readonly core: Core) {}
+  public constructor(protected readonly core: Core, protected readonly baseUrl: GeneralApiBackendAdapterOptions | undefined) {}
 
   public async requestOperation<Request, JSONRequest, Response, JSONResponse>(
     _: string,
