@@ -21,7 +21,7 @@ const unitToDecimals: Record<EvmNativeUnit, number> = {
 type UnitOrDecimals = EvmNativeUnit | number;
 
 /**
- * This is any valid {@link @moralisweb3/core!BigNumberish} value
+ * This is any valid {@link @moralisweb3/common-core!BigNumberish} value
  */
 export type InputEvmNative = BigNumberish;
 

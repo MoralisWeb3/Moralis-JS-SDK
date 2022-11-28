@@ -35,7 +35,8 @@
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
     "build:demo-docs": "node ./scripts/buildDemoDocs.js",
-    "build:docs": "rm -rf documentation/docs && yarn typedoc && yarn build:demo-docs",
+    "build:documents": "node ./scripts/buildDocuments.js",
+    "build:docs": "rm -rf documentation/docs && yarn typedoc && yarn build:documents && yarn build:demo-docs",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",

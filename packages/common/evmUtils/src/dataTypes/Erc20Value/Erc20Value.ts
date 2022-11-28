@@ -4,7 +4,7 @@ import { Erc20Token, Erc20Tokenish } from '../Erc20/Erc20';
 const EVM_ERC20_DEFAULT_DECIMALS = 18;
 
 /**
- * {@link @moralisweb3/core!BigNumberish} type for the amount of tokens
+ * {@link @moralisweb3/common-core!BigNumberish} type for the amount of tokens
  */
 export type Erc20ValueInputAmount = BigNumberish;
 

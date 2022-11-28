@@ -14,7 +14,7 @@ export type SolNativeUnit = 'solana' | 'lamports' | number;
 
 /**
  * Valid input for a new SolNative instance.
- * This can be an existing {@link SolNative} or a valid {@link @moralisweb3/core!BigNumberish} type
+ * This can be an existing {@link SolNative} or a valid {@link @moralisweb3/common-core!BigNumberish} type
  */
 export type SolNativeish = SolNative | BigNumberish;
 
