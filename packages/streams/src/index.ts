@@ -9,6 +9,5 @@ export * from './Streams';
 // Export SDK types
 export * from './methods/types';
 export * from './mapping';
-export * from './operations';
 
 export default Streams;

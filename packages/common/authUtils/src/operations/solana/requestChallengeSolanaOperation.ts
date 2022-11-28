@@ -1,6 +1,6 @@
 import { Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '@moralisweb3/common-sol-utils';
-import { operations } from '../../generated/types';
+import { operations } from '../openapi';
 
 type OperationId = 'requestChallengeSolana';
 

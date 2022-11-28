@@ -1,38 +1,40 @@
 import { Camelize, Core, Operation } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
-import { EvmStream } from '@moralisweb3/common-streams-utils';
+import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
-type OperationId = 'CreateStream';
+type OperationId = 'UpdateStream';
 
+type PathParams = operations[OperationId]['parameters']['path'];
 type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
-type RequestParams = BodyParams;
+type RequestParams = PathParams & BodyParams;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
-export interface CreateStreamEvmRequest extends Camelize<Omit<RequestParams, 'chainIds'>> {
+export interface UpdateStreamEvmRequest extends Camelize<Omit<RequestParams, 'chainIds'>> {
   chains: EvmChainish[];
 }
 
-export type CreateStreamEvmJSONRequest = ReturnType<typeof serializeRequest>;
+export type UpdateStreamEvmJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type CreateStreamEvmJSONResponse = SuccessResponse;
+export type UpdateStreamEvmJSONResponse = SuccessResponse;
 
-export type CreateStreamEvmResponse = ReturnType<typeof deserializeResponse>;
+export type UpdateStreamEvmResponse = ReturnType<typeof deserializeResponse>;
 
-export const createStreamEvmOperation: Operation<
-  CreateStreamEvmRequest,
-  CreateStreamEvmJSONRequest,
-  CreateStreamEvmResponse,
-  CreateStreamEvmJSONResponse
+export const updateStreamEvmOperation: Operation<
+  UpdateStreamEvmRequest,
+  UpdateStreamEvmJSONRequest,
+  UpdateStreamEvmResponse,
+  UpdateStreamEvmJSONResponse
 > = {
-  method: 'PUT',
-  name: 'createStreamEvm',
-  id: 'CreateStream',
+  method: 'POST',
+  name: 'updateStreamEvm',
+  id: 'UpdateStream',
   groupName: 'evmStreams',
-  urlPathPattern: '/streams/evm',
+  urlPathParamNames: ['id'],
+  urlPathPattern: '/streams/evm/{id}',
   bodyParamNames: [
     'webhookUrl',
     'description',
@@ -57,11 +59,13 @@ export const createStreamEvmOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams() {
-  return {};
+function getRequestUrlParams(request: UpdateStreamEvmRequest) {
+  return {
+    id: request.id,
+  };
 }
 
-function getRequestBody(request: CreateStreamEvmRequest, core: Core) {
+function getRequestBody(request: UpdateStreamEvmRequest, core: Core) {
   return {
     webhookUrl: request.webhookUrl,
     description: request.description,
@@ -77,12 +81,13 @@ function getRequestBody(request: CreateStreamEvmRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: CreateStreamEvmJSONResponse, request: CreateStreamEvmRequest, core: Core) {
+function deserializeResponse(jsonResponse: UpdateStreamEvmJSONResponse, request: UpdateStreamEvmRequest, core: Core) {
   return EvmStream.create(jsonResponse, core);
 }
 
-function serializeRequest(request: CreateStreamEvmRequest, core: Core) {
+function serializeRequest(request: UpdateStreamEvmRequest, core: Core) {
   return {
+    id: request.id,
     webhookUrl: request.webhookUrl,
     description: request.description,
     tag: request.tag,
@@ -97,8 +102,9 @@ function serializeRequest(request: CreateStreamEvmRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: CreateStreamEvmJSONRequest, core: Core): CreateStreamEvmRequest {
+function deserializeRequest(jsonRequest: UpdateStreamEvmJSONRequest, core: Core): UpdateStreamEvmRequest {
   return {
+    id: jsonRequest.id,
     webhookUrl: jsonRequest.webhookUrl,
     description: jsonRequest.description,
     tag: jsonRequest.tag,

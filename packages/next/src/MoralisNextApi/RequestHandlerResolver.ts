@@ -3,7 +3,8 @@ import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
 import { Operation } from 'moralis/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { operations as authOperations, Auth } from '@moralisweb3/auth';
+import { operations as authOperations } from '@moralisweb3/common-auth-utils';
+import { Auth } from '@moralisweb3/auth';
 import { SolApi } from '@moralisweb3/sol-api';
 import Moralis from 'moralis';
 

@@ -1,5 +1,5 @@
 import { Camelize, Core, Operation } from '@moralisweb3/common-core';
-import { EvmStream } from '@moralisweb3/common-streams-utils';
+import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
 type OperationId = 'DeleteStream';
