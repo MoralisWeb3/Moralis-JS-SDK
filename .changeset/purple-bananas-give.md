@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/next': minor
+'@moralisweb3/next': patch
 ---
 
 1. No infinite rerenders when pass Moralis Datatypes to the hooks as params.
