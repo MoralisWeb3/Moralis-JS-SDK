@@ -11,8 +11,7 @@
     "name": "Evm Api",
     "type": "integration",
     "scope": "server",
-    "description": "Integration of Moralis in NextJs",
-    "long_description": "Integration of Moralis in NextJs"
+    "description": "Integration of Moralis in NextJs"
   },
   "files": [
     "lib/*"

@@ -11,8 +11,7 @@
     "name": "Streams utilities",
     "type": "utils",
     "scope": "common",
-    "description": "Utilities, operations, datatypes and types related to Streams",
-    "long_description": "Utilities, operations, datatypes and types related to Streams"
+    "description": "Utilities, operations, datatypes and types related to Streams"
   },
   "files": [
     "lib/*"

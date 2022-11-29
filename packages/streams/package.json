@@ -11,8 +11,7 @@
     "name": "Streams",
     "type": "feature",
     "scope": "server",
-    "description": "Subscribe to realtime data from the blockchain",
-    "long_description": "Subscribe to realtime data from the blockchain"
+    "description": "Subscribe to realtime data from the blockchain"
   },
   "files": [
     "lib/*"

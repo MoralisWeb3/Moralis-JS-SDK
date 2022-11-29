@@ -11,8 +11,7 @@
     "name": "Solana Api logic for client-side",
     "type": "utils",
     "scope": "client",
-    "description": "Client-side logic for making Solana Api calls",
-    "long_description": "Client-side logic for making Solana Api calls"
+    "description": "Client-side logic for making Solana Api calls"
   },
   "files": [
     "lib/*"

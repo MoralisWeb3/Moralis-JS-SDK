@@ -11,8 +11,7 @@
     "name": "Parse server",
     "type": "integration",
     "scope": "server",
-    "description": "Integration of Moralis in parse-server",
-    "long_description": "Integration of Moralis in parse-server"
+    "description": "Integration of Moralis in parse-server"
   },
   "files": [
     "lib/*"

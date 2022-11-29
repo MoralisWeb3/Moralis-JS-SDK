@@ -7,8 +7,7 @@
     "name": "Eslint Config",
     "type": "tools",
     "scope": "common",
-    "description": "Eslint rules, used within the Moralis SDK and its demo projects",
-    "long_description": "Eslint rules, used within the Moralis SDK and its demo projects"
+    "description": "Eslint rules, used within the Moralis SDK and its demo projects"
   },
   "peerDependencies": {
     "eslint": "^8.22.0",

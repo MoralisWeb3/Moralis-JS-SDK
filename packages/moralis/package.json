@@ -28,8 +28,7 @@
     "name": "Moralis Umbrella Package",
     "type": "main",
     "scope": "server",
-    "description": "The main package of Moralis containing all features. You probably are looking for this one.",
-    "long_description": "The main package of Moralis containing all features. You probably are looking for this one."
+    "description": "The main package of Moralis containing all features. You probably are looking for this one."
   },
   "files": [
     "lib/*"

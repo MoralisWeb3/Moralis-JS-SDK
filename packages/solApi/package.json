@@ -11,8 +11,7 @@
     "name": "Solana Api",
     "type": "feature",
     "scope": "server",
-    "description": "Make calls to the Solana blockchain via Moralis Solana Apis",
-    "long_description": "Make calls to the Solana blockchain via Moralis Solana Apis"
+    "description": "Make calls to the Solana blockchain via Moralis Solana Apis"
   },
   "files": [
     "lib/*"

@@ -11,8 +11,7 @@
     "name": "Auth",
     "type": "feature",
     "scope": "server",
-    "description": "Authenticate via web3",
-    "long_description": "Authenticate via web3"
+    "description": "Authenticate via web3"
   },
   "files": [
     "lib/*"
