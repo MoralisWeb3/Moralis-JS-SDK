@@ -25,7 +25,7 @@ const sidebars = {
   sidebar: [
     {
       type: 'doc',
-      label: 'NodeJS SDK',
+      label: 'Introduction',
       id: 'documents/Introduction',
     },
     {

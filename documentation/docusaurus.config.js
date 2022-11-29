@@ -2,7 +2,6 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 const moralisPackage = require('../packages/moralis/package.json');
 
-
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -29,6 +28,10 @@ const config = {
     locales: ['en'],
   },
 
+  // Plugins
+  plugins: [require.resolve('docusaurus-lunr-search')],
+  // Note: Docusaurus search information can only be generated from a production build. Local development is currently not supported.
+
   presets: [
     [
       'classic',
@@ -47,7 +50,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      metadata: [{name: 'keywords', content: moralisPackage.keywords.join(', ')}],
+      metadata: [{ name: 'keywords', content: moralisPackage.keywords.join(', ') }],
       navbar: {
         title: 'Moralis SDK',
         logo: {
