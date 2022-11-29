@@ -103,10 +103,6 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [👩‍🔬 Advanced setup](#-advanced-setup)
   - [1. Install the dependencies](#1-install-the-dependencies)
 - [📦 Packages](#-packages)
-  - [Umbrella package](#umbrella-package)
-  - [Core module](#core-module)
-  - [API modules](#api-modules)
-  - [Other](#other)
 - [🧙‍♂️ Community](#️-community)
 
 # ⚙️ Configuration
