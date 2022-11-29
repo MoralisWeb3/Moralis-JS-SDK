@@ -8,6 +8,13 @@
   "module": "./lib.esm/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Test utilities",
+    "type": "internal",
+    "scope": "internal",
+    "description": "Utilities related to integration and unit tests",
+    "long_description": "Utilities related to integration and unit tests"
+  },
   "scripts": {
     "lint": "eslint .",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",

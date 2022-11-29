@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Core module",
+    "type": "core",
+    "scope": "common",
+    "description": "All core logic related to the SDK",
+    "long_description": "This module is responsible for all core functionalities within any Moralis module. It is a required dependency for any functionalitiy of the SDK to work properly. "
+  },
   "files": [
     "lib/*"
   ],

@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Auth",
+    "type": "feature",
+    "scope": "server",
+    "description": "Authenticate via web3",
+    "long_description": "Authenticate via web3"
+  },
   "files": [
     "lib/*"
   ],

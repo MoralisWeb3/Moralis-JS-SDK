@@ -4,6 +4,13 @@
   "main": "dist/index.js",
   "license": "MIT",
   "private": true,
+  "moralis": {
+    "name": "Typedoc Readme Theme",
+    "type": "internal",
+    "scope": "internal",
+    "description": "Theme to generate readme.com compatible docs",
+    "long_description": "Theme to generate readme.com compatible docs"
+  },
   "scripts": {
     "build": "tsc",
     "predocs": "tsc",

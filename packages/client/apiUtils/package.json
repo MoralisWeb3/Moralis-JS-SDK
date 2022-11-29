@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Api Utilities for client-side",
+    "type": "utils",
+    "scope": "client",
+    "description": "Client-side utilities for api calls",
+    "long_description": "Client-side utilities for api calls"
+  },
   "files": [
     "lib/*"
   ],

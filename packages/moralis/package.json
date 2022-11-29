@@ -24,11 +24,17 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Moralis Umbrella Package",
+    "type": "main",
+    "scope": "server",
+    "description": "The main package of Moralis containing all features. You probably are looking for this one.",
+    "long_description": "The main package of Moralis containing all features. You probably are looking for this one."
+  },
   "files": [
     "lib/*"
   ],
   "scripts": {
-    "prebuild": "cp -f ../../README.md README.md",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",

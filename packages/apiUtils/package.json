@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Api Utilities",
+    "type": "utils",
+    "scope": "server",
+    "description": "Utilities and types to handle logic for api calls",
+    "long_description": "Utilities and types to handle logic for api calls"
+  },
   "files": [
     "lib/*"
   ],

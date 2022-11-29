@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Api",
+    "type": "feature",
+    "scope": "server",
+    "description": "Make calls to the Evm blockchain via Moralis Evm Apis",
+    "long_description": "Make calls to the Evm blockchain via Moralis Evm Apis"
+  },
   "files": [
     "lib/*"
   ],

@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Solana utilities",
+    "type": "utils",
+    "scope": "common",
+    "description": "Utilities, operations, datatypes and types related to Solana",
+    "long_description": "Utilities, operations, datatypes and types related to Solana"
+  },
   "files": [
     "lib/*"
   ],

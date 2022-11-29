@@ -7,6 +7,14 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Utilities",
+    "type": "utils",
+    "scope": "server",
+    "deprecated": true,
+    "description": "Deprecated: use @moralis/common-sol-utils instead",
+    "long_description": "Deprecated: use @moralis/common-sol-utils instead"
+  },
   "files": [
     "lib/*"
   ],
