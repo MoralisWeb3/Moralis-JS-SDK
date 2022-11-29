@@ -1,5 +1,7 @@
 # @moralisweb3/test-utils
 
+## 2.8.1
+
 ## 2.8.0
 
 ### Minor Changes
