@@ -12,19 +12,31 @@ export type RequestChallengeEvmRequestClient = Pick<RequestChallengeEvmRequest, 
 
 export const useAuthRequestChallengeEvm = (request?: RequestChallengeEvmRequestClient, fetchParams?: FetchParams) => {
   const endpoint = 'auth/requestChallengeEvm';
+  const { deserializeResponse } = operation;
 
   const { data, error, isValidating, mutate } = useSWR<RequestChallengeEvmResponse>(
-    [endpoint, { operation, request }],
-    fetcher,
+    [
+      endpoint,
+      {
+        deserializeResponse,
+        request,
+      },
+    ],
+    request ? fetcher : null,
     {
-      revalidateOnMount: request ? true : false,
       revalidateOnFocus: false,
+      revalidateIfStale: false,
       ...fetchParams,
     },
   );
 
   const requestChallengeAsync = useCallback((params: RequestChallengeEvmRequestClient) => {
-    return mutate(fetcher(endpoint, { operation, request: params }));
+    return mutate(
+      fetcher(endpoint, {
+        deserializeResponse,
+        request: params,
+      }),
+    );
   }, []);
 
   return {

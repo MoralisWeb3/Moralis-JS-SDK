@@ -1,6 +1,6 @@
 import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
-import { operations as authOperations } from '@moralisweb3/auth';
+import { operations as authOperations } from 'moralis/common-auth-utils';
 
 import { Module, OperationAction } from '../next/types';
 import path from 'node:path';
