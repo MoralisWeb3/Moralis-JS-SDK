@@ -6,10 +6,12 @@ import {
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import useSWR from 'swr';
+import Moralis from 'moralis';
 
 export const useEvmWalletNFTCollections = (request: GetWalletNFTCollectionsRequest, fetchParams?: FetchParams) => {
+  const { deserializeResponse, serializeRequest } = operation
   const { data, error, mutate, isValidating } = useSWR<GetWalletNFTCollectionsResponse>(
-    ['evmApi/getWalletNFTCollections', {operation, request}], 
+    ['evmApi/getWalletNFTCollections', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
     fetcher, 
     {revalidateOnFocus: false, ...fetchParams}
   );
