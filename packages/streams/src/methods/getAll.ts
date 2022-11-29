@@ -1,6 +1,6 @@
 import Core from '@moralisweb3/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
-import { getStreamsEvmOperation, GetStreamsEvmRequest } from '../operations';
+import { getStreamsEvmOperation, GetStreamsEvmRequest } from '@moralisweb3/common-streams-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 

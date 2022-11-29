@@ -4,7 +4,7 @@ import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core'
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { BASE_URL } from '../Auth';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
-import { requestChallengeSolanaOperation, requestChallengeEvmOperation } from '../operations';
+import { requestChallengeSolanaOperation, requestChallengeEvmOperation } from '@moralisweb3/common-auth-utils';
 
 // Imported from Swagger and adjusted for better types for Evm
 // TODO: generalize and extend generated types

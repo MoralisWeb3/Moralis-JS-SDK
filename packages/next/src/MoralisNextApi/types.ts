@@ -1,5 +1,5 @@
 import { ApiUtilsConfigValues } from '@moralisweb3/api-utils';
-import { RequestChallengeEvmRequest, RequestChallengeSolanaRequest } from '@moralisweb3/auth';
+import { RequestChallengeEvmRequest, RequestChallengeSolanaRequest } from '@moralisweb3/common-auth-utils';
 import { MoralisCoreConfigValues } from 'moralis/common-core';
 import type { NextApiRequest, NextApiResponse } from 'next';
 

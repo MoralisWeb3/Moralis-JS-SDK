@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const fse = require('fs-extra');
 const archiver = require('archiver');
+const util = require('util');
+const asyncExec = util.promisify(require('child_process').exec);
 
 // Url to hosted github  pages
 const HOSTED_PAGES = 'https://moralisweb3.github.io/Moralis-JS-SDK';
@@ -26,10 +28,16 @@ const OUT_DIR_DOCS = 'docs';
 // Reference to the folder names in the output folder
 const DEMOS_DIR = 'demos';
 const CODE_DIR = 'code';
+const CODE_WITH_BUILD_DIR = 'code-build';
 
 const demoFolderPath = path.join(__dirname, '..', DIR_DEMO);
 const outputCodePath = path.join(__dirname, '..', OUT_DIR_CODE, DEMOS_DIR);
 const outputDocsPath = path.join(__dirname, '..', OUT_DIR_DOCS);
+
+// List of demos that require to upload a full build (node_modules and build artefacts) as well
+const fullBuild = ['parse-server-migration'];
+
+const isFullBuild = (demoFolder) => fullBuild.includes(demoFolder);
 
 const getAllFilesFromFolder = async (folderName) =>
   require('glob-fs')({ dotfiles: true }).readdirSync(`demos/${folderName}/**/*`);
@@ -63,6 +71,12 @@ const copyDemoToDocs = async (name, filePath) => {
 
   await fse.copySync(srcPath, outPath);
 
+  if (isFullBuild(name)) {
+    const fullBuildOutPath = path.join(outputCodePath, name, CODE_WITH_BUILD_DIR, subPath);
+
+    await fse.copySync(srcPath, fullBuildOutPath);
+  }
+
   return subPath;
 };
 
@@ -80,6 +94,20 @@ const copyAllDemosToDocs = async (demoFolders) => {
   );
 
   return info;
+};
+
+/**
+ * Install and build for the demos that need a full build as well
+ */
+const createFullBuilds = async (demoFolders) => {
+  await Promise.all(
+    demoFolders.filter(isFullBuild).map(async (name) => {
+      const pathToDemo = path.join(outputCodePath, name, CODE_WITH_BUILD_DIR);
+
+      await asyncExec('yarn install', { cwd: pathToDemo });
+      await asyncExec('yarn build', { cwd: pathToDemo });
+    }),
+  );
 };
 
 /**
@@ -115,12 +143,14 @@ const getGithubUrl = (name) => `${GITHUB_DEMO_PATH}/${name}`;
 const getDownloadName = (name) => `${name}.zip`;
 const getDownloadPath = (name) => `${HOSTED_PAGES}/${DEMOS_DIR}/${name}/${getDownloadName(name)}`;
 const getCodePath = (name) => `${HOSTED_PAGES}/${DEMOS_DIR}/${name}/${CODE_DIR}`;
+const getFullBuildCodePath = (name) => `${HOSTED_PAGES}/${DEMOS_DIR}/${name}/${CODE_WITH_BUILD_DIR}`;
+const getFullbuildDownloadName = (name) => `${name}-build.zip`;
 
 /**
  * Creates a .zip file for a demo project
  */
-const createAchive = (folder) => {
-  const output = fs.createWriteStream(path.join(outputCodePath, folder, getDownloadName(folder)));
+const createAchive = (folder, fileName, codePath) => {
+  const output = fs.createWriteStream(path.join(outputCodePath, folder, fileName));
   const archive = archiver('zip', {
     zlib: { level: COMPRESSION_LEVEL },
   });
@@ -150,7 +180,7 @@ const createAchive = (folder) => {
 
   archive.pipe(output);
 
-  archive.directory(path.join(outputCodePath, folder, CODE_DIR), false);
+  archive.directory(path.join(outputCodePath, folder, codePath), false);
 
   archive.finalize();
 };
@@ -158,8 +188,16 @@ const createAchive = (folder) => {
 /**
  * Create archives for all demo projects
  */
-const createAllAchives = (demoFolders) => {
-  return Promise.all(demoFolders.map((folder) => createAchive(folder)));
+const createAllAchives = async (demoFolders) => {
+  // Create archive for all demos
+  await Promise.all(demoFolders.map((folder) => createAchive(folder, getDownloadName(folder), CODE_DIR)));
+
+  // Create archives for full build demos
+  await Promise.all(
+    demoFolders
+      .filter(isFullBuild)
+      .map((folder) => createAchive(folder, getFullbuildDownloadName(folder), CODE_WITH_BUILD_DIR)),
+  );
 };
 
 /**
@@ -170,6 +208,7 @@ const createInfo = (name) => ({
   github: getGithubUrl(name),
   download: getDownloadPath(name),
   code: getCodePath(name),
+  ...(isFullBuild(name) ? { fullBuildCode: getFullBuildCodePath(name) } : {}),
 });
 
 /**
@@ -260,6 +299,7 @@ const run = async () => {
 
   await ensureAllCleanOutputDir(demoFolders);
   await copyAllDemosToDocs(demoFolders);
+  await createFullBuilds(demoFolders);
   await createAllAchives(demoFolders);
   const readmeData = await getAllReadmeData(demoFolders);
   const demosData = createDemoData(demoFolders);

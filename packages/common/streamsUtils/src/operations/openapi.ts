@@ -288,8 +288,8 @@ export interface components {
      */
     StreamsStatus: "active" | "paused" | "error" | "terminated";
     /**
-     * @description The filter object, optional and only used if the type : log
-     * https://v1docs.moralis.io/moralis-dapp/automatic-transaction-sync/smart-contract-events#event-filters
+     * @description The filter object for the topic0
+     * https://docs.moralis.io/docs/filter-streams
      * @example {}
      */
     StreamsFilter: { [key: string]: unknown };
@@ -306,7 +306,7 @@ export interface components {
       description: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
-      /** @description An Array of topic0's in hex, required if the type : log */
+      /** @description An Array of topic0's in string-signature format ex: ['FunctionName(address,uint256)'] */
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
@@ -320,6 +320,8 @@ export interface components {
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
+      /** @description Indicator if it is a demo stream */
+      demo?: boolean;
       /** @description The unique uuid of the stream */
       id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -345,7 +347,7 @@ export interface components {
       description: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
-      /** @description An Array of topic0's in hex, required if the type : log */
+      /** @description An Array of topic0's in string-signature format ex: ['FunctionName(address,uint256)'] */
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
@@ -359,6 +361,8 @@ export interface components {
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
+      /** @description Indicator if it is a demo stream */
+      demo?: boolean;
       /** @description The unique uuid of the stream */
       id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -373,7 +377,7 @@ export interface components {
       description: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
-      /** @description An Array of topic0's in hex, required if the type : log */
+      /** @description An Array of topic0's in string-signature format ex: ['FunctionName(address,uint256)'] */
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
@@ -387,6 +391,8 @@ export interface components {
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
+      /** @description Indicator if it is a demo stream */
+      demo?: boolean;
     };
     /** @description Make all properties in T optional */
     "Partial_streamsTypes.StreamsModelCreate_": {
@@ -396,7 +402,7 @@ export interface components {
       description?: string;
       /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag?: string;
-      /** @description An Array of topic0's in hex, required if the type : log */
+      /** @description An Array of topic0's in string-signature format ex: ['FunctionName(address,uint256)'] */
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
@@ -410,6 +416,8 @@ export interface components {
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds?: string[];
+      /** @description Indicator if it is a demo stream */
+      demo?: boolean;
     };
     "streamsTypes.StreamsStatusUpdate": {
       /** @description The status of the stream. */
