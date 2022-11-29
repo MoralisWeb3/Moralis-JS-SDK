@@ -1,12 +1,10 @@
-# @moralisweb3/client-firebase-auth-utils
+# @moralisweb3/client-evm-api
 
 ## 2.8.0
 
 ### Minor Changes
 
-- [#777](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/777) [`f1336a35`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f1336a35fc2df2d9c7f4c1c376d0b38eb57de702) Thanks [@ErnoW](https://github.com/ErnoW)! - Move `@moralisweb3/core` package to `@moralisweb3/common-core`
-
-* [#846](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/846) [`1374573d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/1374573d183d3aba0b92e313855bde7a15542f46) Thanks [@ErnoW](https://github.com/ErnoW)! - # Api responses (breaking change)
+- [#846](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/846) [`1374573d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/1374573d183d3aba0b92e313855bde7a15542f46) Thanks [@ErnoW](https://github.com/ErnoW)! - # Api responses (breaking change)
 
   For any api call, you get a resultAdapter response. The value of the `toJSON()` value has changed. Now it is the same value as `.raw`. Previously this caused a lot of confusion, and as both return a json. The value of this method has changed. So if you used `.toJSON()` on an api result you can:
 
@@ -66,38 +64,9 @@
 
   As a first step to provide better client-side support, all datatypes are now usable in server-side and client-side.
 
-## 2.7.4
-
-## 2.7.3
-
-## 2.7.2
-
-## 2.7.1
-
-## 2.7.0
-
-## 2.6.7
-
-## 2.6.6
-
-## 2.6.5
-
-## 2.6.4
-
-## 2.6.3
-
-## 2.6.2
-
-## 2.6.1
-
-## 2.6.0
-
-## 2.5.8
-
-## 2.5.7
-
-## 2.5.6
-
 ### Patch Changes
 
-- [#702](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/702) [`97425b54`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/97425b54140f2e2779057fbba30c62fa6151fc22) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Add client package for Firebase authentication.
+- Updated dependencies [[`f1336a35`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f1336a35fc2df2d9c7f4c1c376d0b38eb57de702), [`62036ef3`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/62036ef3cf30f89cf1099dc9aa627eecf4ca83df), [`1374573d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/1374573d183d3aba0b92e313855bde7a15542f46)]:
+  - @moralisweb3/common-core@2.8.0
+  - @moralisweb3/common-evm-utils@2.8.0
+  - @moralisweb3/client-api-utils@2.8.0
