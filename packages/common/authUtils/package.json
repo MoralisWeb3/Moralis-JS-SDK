@@ -23,8 +23,8 @@
   "devDependencies": {
     "eslint-plugin-jest": "^26.8.3",
     "jest": "^28.0.3",
-    "prettier": "^2.5.1",
-    "typescript": "^4.5.5"
+    "prettier": "^2.8.0",
+    "typescript": "^4.9.3"
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
