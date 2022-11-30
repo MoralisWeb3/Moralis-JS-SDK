@@ -7,7 +7,6 @@
 <div align="center">
 
 ![npm](https://img.shields.io/npm/v/@moralisweb3/next)
-![GitHub last commit](https://img.shields.io/github/last-commit/MoralisWeb3/Moralis-JS-SDK/tree/main/packages/next)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moralisweb3/next)
 ![npm type definitions](https://img.shields.io/npm/types/@moralisweb3/next)
 
