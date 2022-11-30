@@ -1,0 +1,41 @@
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  padding: 0;
+}
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 1rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.links {
+  font-size: 12px;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #2e7daf;
+}

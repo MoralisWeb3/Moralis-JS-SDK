@@ -1,4 +1,4 @@
-import { copy, readdirSync, readJsonSync, renameSync, statSync, writeJson } from 'fs-extra';
+import { copy, readdirSync, readJson, readJsonSync, renameSync, statSync, writeJson } from 'fs-extra';
 import { exec } from 'child_process';
 import { join } from 'path';
 import { renderFile } from 'ejs';
@@ -105,8 +105,10 @@ export const addDependenciesToPackageJson = (destination: string, dependencies: 
 
 export const addPrettier = async (destination: string) => {
   addDependenciesToPackageJson(destination, [{ name: 'prettier', version: versions.prettier }]);
+
   const packageJsonPath = join(destination, 'package.json');
-  const packageJson = readJsonSync(packageJsonPath);
+
+  const packageJson = await readJson(packageJsonPath);
 
   const scriptsToAdd = [
     { name: 'format', script: 'yarn prettier . "**/*.+(js|ts|json)" --write' },

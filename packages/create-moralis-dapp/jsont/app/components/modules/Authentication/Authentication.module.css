@@ -1,0 +1,22 @@
+.auth {
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  color: #4c5467;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.options {
+  border-radius: 18px;
+  border: 2px solid #f3f3f3;
+  display: flex;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  padding: 14px;
+  gap: 12px;
+}
