@@ -19,19 +19,18 @@
   <p>
   </p>
   <p>
-    A library that gives you access to the powerful Moralis Server backend from your JavaScript app.
+    The most powerful Web3 library for your backend in Javascript and Typescript.
   </p>
   <br/>
 </div>
 
 ---
 
-> **⚠ WARNING**: This library is dedicated to back-end projects only. You **should NOT** use this library for a front-end project. Keep your API key secret and don't disclose it.
-
 **Features**:
 
 - Web3 authentication
 - Make **Evm API** and **Solana API** calls
+- Subscribe to real-time blockchain updates via **Streams**
 - Consistent data types and utilities
 - **Modular** package: include only what you need
 - Fully **Typescript** ready out-of-the box
@@ -69,6 +68,8 @@ import Moralis from 'moralis';
 ## 2. Initialize Moralis
 
 After your dependency is added, you simply need to initialize moralis via the `start` method:
+
+> **⚠️ Warning**: Make sure to keep your api key private
 
 ```javascript
 Moralis.start({
