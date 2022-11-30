@@ -6,10 +6,12 @@ import {
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import useSWR from 'swr';
+import Moralis from 'moralis';
 
 export const useEvmResolveAddress = (request: ResolveAddressRequest, fetchParams?: FetchParams) => {
+  const { deserializeResponse, serializeRequest } = operation
   const { data, error, mutate, isValidating } = useSWR<ResolveAddressResponse>(
-    ['evmApi/resolveAddress', {operation, request}], 
+    ['evmApi/resolveAddress', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
     fetcher, 
     {revalidateOnFocus: false, ...fetchParams}
   );

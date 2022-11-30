@@ -1,5 +1,21 @@
 # moralis
 
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.8.1
+  - @moralisweb3/auth@2.8.1
+  - @moralisweb3/common-auth-utils@2.8.1
+  - @moralisweb3/common-core@2.8.1
+  - @moralisweb3/common-evm-utils@2.8.1
+  - @moralisweb3/common-sol-utils@2.8.1
+  - @moralisweb3/common-streams-utils@2.8.1
+  - @moralisweb3/evm-api@2.8.1
+  - @moralisweb3/sol-api@2.8.1
+  - @moralisweb3/streams@2.8.1
+
 ## 2.8.0
 
 ### Minor Changes

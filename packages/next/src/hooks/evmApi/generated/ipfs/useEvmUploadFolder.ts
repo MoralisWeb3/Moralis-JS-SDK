@@ -6,10 +6,12 @@ import {
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import useSWR from 'swr';
+import Moralis from 'moralis';
 
 export const useEvmUploadFolder = (request: UploadFolderRequest, fetchParams?: FetchParams) => {
+  const { deserializeResponse, serializeRequest } = operation
   const { data, error, mutate, isValidating } = useSWR<UploadFolderResponse>(
-    ['evmApi/uploadFolder', {operation, request}], 
+    ['evmApi/uploadFolder', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
     fetcher, 
     {revalidateOnFocus: false, ...fetchParams}
   );
