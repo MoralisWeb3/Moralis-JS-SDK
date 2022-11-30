@@ -2,15 +2,13 @@ import axios from 'axios';
 import Moralis from 'moralis';
 import { Operation } from 'moralis/common-core';
 export interface FetcherParams<Response> {
-  operation: Pick<Operation<unknown, unknown, Response, unknown>, 'serializeRequest' | 'deserializeResponse'>;
+  deserializeResponse: Operation<unknown, unknown, Response, unknown>['deserializeResponse'];
   request: unknown;
 }
 
-export async function fetcher<Response>(endpoint: string, { operation, request }: FetcherParams<Response>) {
-  const { serializeRequest, deserializeResponse } = operation;
-
+export async function fetcher<Response>(endpoint: string, { deserializeResponse, request }: FetcherParams<Response>) {
   endpoint = `/api/moralis/${endpoint}`;
 
-  const jsonResponse = await axios.post(endpoint, serializeRequest(request, Moralis.Core));
+  const jsonResponse = await axios.post(endpoint, request);
   return deserializeResponse(jsonResponse.data, request, Moralis.Core);
 }

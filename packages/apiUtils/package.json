@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/api-utils",
   "author": "Moralis",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
@@ -28,11 +28,11 @@
   "devDependencies": {
     "prettier": "^2.5.1",
     "typescript": "^4.5.5",
-    "@moralisweb3/common-evm-utils": "^2.8.0"
+    "@moralisweb3/common-evm-utils": "^2.8.1"
   },
   "dependencies": {
-    "@moralisweb3/common-core": "^2.8.0",
-    "@moralisweb3/common-evm-utils": "^2.8.0",
+    "@moralisweb3/common-core": "^2.8.1",
+    "@moralisweb3/common-evm-utils": "^2.8.1",
     "axios": "^0.27.2"
   }
 }

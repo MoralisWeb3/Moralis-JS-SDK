@@ -1,5 +1,12 @@
 # @moralisweb3/evm-utils
 
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-evm-utils@2.8.1
+
 ## 2.8.0
 
 ### Minor Changes
