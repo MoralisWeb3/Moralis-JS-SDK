@@ -7,6 +7,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Api logic for client-side",
+    "type": "utils",
+    "scope": "client",
+    "description": "Client-side logic for making Evm Api calls"
+  },
   "files": [
     "lib/*"
   ],

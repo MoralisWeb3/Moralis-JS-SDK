@@ -7,6 +7,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Solana Api",
+    "type": "feature",
+    "scope": "server",
+    "description": "Make calls to the Solana blockchain via Moralis Solana Apis"
+  },
   "files": [
     "lib/*"
   ],
