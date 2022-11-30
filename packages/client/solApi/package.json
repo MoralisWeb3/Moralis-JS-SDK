@@ -7,6 +7,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Solana Api logic for client-side",
+    "type": "utils",
+    "scope": "client",
+    "description": "Client-side logic for making Solana Api calls"
+  },
   "files": [
     "lib/*"
   ],

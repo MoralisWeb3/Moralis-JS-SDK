@@ -8,6 +8,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Api",
+    "type": "integration",
+    "scope": "server",
+    "description": "Integration of Moralis in NextJs"
+  },
   "files": [
     "lib/*"
   ],

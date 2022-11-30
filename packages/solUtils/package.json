@@ -7,6 +7,13 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Solana Utilities",
+    "type": "utils",
+    "scope": "server",
+    "deprecated": true,
+    "description": "Deprecated: use @moralis/common-sol-utils instead"
+  },
   "files": [
     "lib/*"
   ],

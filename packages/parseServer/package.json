@@ -7,6 +7,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Parse server",
+    "type": "integration",
+    "scope": "server",
+    "description": "Integration of Moralis in parse-server"
+  },
   "files": [
     "lib/*"
   ],

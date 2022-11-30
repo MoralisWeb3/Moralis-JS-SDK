@@ -7,6 +7,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Streams",
+    "type": "feature",
+    "scope": "server",
+    "description": "Subscribe to realtime data from the blockchain"
+  },
   "files": [
     "lib/*"
   ],

@@ -7,6 +7,12 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Auth utilities",
+    "type": "utils",
+    "scope": "common",
+    "description": "Utilities, operations, datatypes, and types related to Auth"
+  },
   "files": [
     "lib/*"
   ],
