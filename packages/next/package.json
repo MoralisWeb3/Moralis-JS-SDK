@@ -1,5 +1,6 @@
 {
   "name": "@moralisweb3/next",
+  "description": "Moralis Evm and Solana Hooks for NextJS",
   "author": "Moralis",
   "version": "2.8.1",
   "license": "MIT",
