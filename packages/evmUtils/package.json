@@ -12,7 +12,7 @@
     "type": "utils",
     "scope": "server",
     "deprecated": true,
-    "description": "Deprecated: use @moralis/common-sol-utils instead"
+    "description": "Deprecated: use @moralis/common-evm-utils instead"
   },
   "files": [
     "lib/*"
