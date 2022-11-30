@@ -93,6 +93,8 @@ async function main() {
 
   await execWithSpinner('npm run format', destination, 'Running prettier format');
 
-  console.log(`The ${name} project created successfully\nProject path: ${destination}`);
+  console.log(
+    `The ${name} project created successfully\nProject path: ${destination}\nWrite 'cd ${name}' and '${packageManager} run dev'`,
+  );
 }
 main();
