@@ -27,7 +27,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "eslint-plugin-jest": "^26.8.3",
+    "eslint-plugin-jest": "^27.1.6",
     "jest": "^28.0.3",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
