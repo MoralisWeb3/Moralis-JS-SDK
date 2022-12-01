@@ -14,6 +14,7 @@ export const nextGenerator = async (name: string, destination: string) => {
       {
         name: 'MORALIS_API_KEY',
         message: '🧙 : Input your Moralis Api key. You can find it on https://admin.moralis.io/web3apis',
+        type: 'password',
       },
       {
         name: 'NEXTAUTH_URL',
