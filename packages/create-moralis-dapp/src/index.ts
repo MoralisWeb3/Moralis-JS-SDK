@@ -43,6 +43,17 @@ const questions: ListQuestion[] = [
 ];
 
 async function main() {
+  const { confirmBeta } = await prompt({
+    name: 'confirmBeta',
+    type: 'confirm',
+    message:
+      'Note: This tool is still in beta, and in active development. Many changes and updates are coming, which may impact your experience. Reach out to us in forum.moralis.io or in our discord for any feedback.',
+  });
+
+  if (!confirmBeta) {
+    throw new Error('To use this tool you need to confirm participation in beta');
+  }
+
   const { stack } = await prompt<{
     stack: 'only-backend' | 'next' | 'react' | 'vanilla';
     // backend: 'express' | 'firebase' | null;
