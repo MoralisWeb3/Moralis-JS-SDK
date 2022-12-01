@@ -65,6 +65,5 @@
   "resolutions": {
     "debug": "^3.1.0",
     "micromatch": "^4.0.2"
-  },
-  "dependencies": {}
+  }
 }
