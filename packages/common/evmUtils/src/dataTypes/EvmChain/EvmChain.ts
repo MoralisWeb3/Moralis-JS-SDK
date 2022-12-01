@@ -42,6 +42,11 @@ export class EvmChain implements MoralisData, EvmChainable {
     return EvmChain.create(5);
   }
 
+  /**
+   * Returns SEPOLIA chain
+   *
+   * @example EvmChain.SEPOLIA
+   */
   public static get SEPOLIA() {
     return EvmChain.create(11155111);
   }
@@ -125,6 +130,15 @@ export class EvmChain implements MoralisData, EvmChainable {
    */
   public static get CRONOS_TESTNET() {
     return EvmChain.create(338);
+  }
+
+  /**
+   * Returns PALM chain
+   *
+   * @example EvmChain.PALM
+   */
+  public static get PALM() {
+    return EvmChain.create(11297108109);
   }
 
   /**
@@ -296,29 +310,8 @@ export class EvmChain implements MoralisData, EvmChainable {
       | '0xa869'
       | '0xfa'
       | '0x19'
-      | '0x152';
-  }
-
-  /**
-   * Validate and cast to api compatible id
-   *
-   * @example chain.apiId // 1
-   */
-  get apiId() {
-    return this._value as
-      | '1'
-      | '5'
-      | '25'
-      | '56'
-      | '97'
-      | '137'
-      | '250'
-      | '338'
-      | '1337'
-      | '43113'
-      | '43114'
-      | '80001'
-      | '11155111';
+      | '0x152'
+      | '0x2a15c308d';
   }
 
   /**
