@@ -3,8 +3,6 @@ name: Release
 on:
   push:
     branches:
-      - alpha
-      - beta
       - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
