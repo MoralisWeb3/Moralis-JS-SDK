@@ -1,5 +1,16 @@
 # @moralisweb3/evm-utils
 
+## 2.8.2
+
+### Patch Changes
+
+- [#863](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/863) [`0cefcef6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0cefcef6f42cd4f37e2c7ca0d0499761750e114b) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Removed the duplicated `apiId` property from the `EvmChain` type.
+
+* [#863](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/863) [`0cefcef6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0cefcef6f42cd4f37e2c7ca0d0499761750e114b) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the PALM network to the `EvmChain` type.
+
+* Updated dependencies []:
+  - @moralisweb3/common-core@2.8.2
+
 ## 2.8.1
 
 ### Patch Changes
