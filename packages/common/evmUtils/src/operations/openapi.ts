@@ -86,7 +86,7 @@ export interface paths {
     /**
      * Resync the metadata for an NFT
      * * The metadata flag will request the NFT's metadata from an already existing token_uri
-     * * The URI (default) flag will fetch the latest token_uri from the given NFT contract address. In sync mode the metadata will also be fetched
+     * * The uri (default) flag will fetch the latest token_uri from the given NFT contract address. In sync mode the metadata will also be fetched
      * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
      * * The async mode (default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
      */
@@ -136,6 +136,10 @@ export interface paths {
     /** Get native transactions ordered by block number in descending order. */
     get: operations["getWalletTransactions"];
   };
+  "/{address}/verbose": {
+    /** Get native transactions ordered by block number in descending order. */
+    get: operations["getWalletTransactions"];
+  };
   "/transaction/{transaction_hash}": {
     /** Get the contents of a transaction by the given transaction hash. */
     get: operations["getTransaction"];
@@ -153,11 +157,11 @@ export interface paths {
     get: operations["getContractLogs"];
   };
   "/{address}/events": {
-    /** Get events for a contract ordered by block number in descending order. */
+    /** Get events for a contract ordered by block number in descending order. [Try it with Swagger](https://deep-index.moralis.io/api-docs-2.1/#/Events/getContractEvents). */
     post: operations["getContractEvents"];
   };
   "/{address}/function": {
-    /** Run a given function of a contract ABI and retrieve readonly data. */
+    /** Run a given function of a contract ABI and retrieve readonly data. [Try it with Swagger](https://deep-index.moralis.io/api-docs-2.1/#/Utils/runContractFunction). */
     post: operations["runContractFunction"];
   };
   "/web3/version": {
@@ -502,6 +506,21 @@ export interface components {
        * @example 1577836811
        */
       timestamp: number;
+      /**
+       * @description The timestamp of the block
+       * @example 2022-01-03T22:59:39.000Z
+       */
+      block_timestamp?: number;
+      /**
+       * @description The block hash
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash?: string;
+      /**
+       * @description The block hash of the parent block
+       * @example 0x011d1fc45839de975cc55d758943f9f1d204f80a90eb631f3bf064b80d53e045
+       */
+      parent_hash?: string;
     };
     RunContractDto: {
       /**
@@ -532,6 +551,24 @@ export interface components {
        */
       page_size?: number;
       result?: components["schemas"]["transaction"][];
+    };
+    transactionCollectionVerbose: {
+      /**
+       * @description The total number of matches for this query
+       * @example 2000
+       */
+      total?: number;
+      /**
+       * @description The current page of the result
+       * @example 2
+       */
+      page?: number;
+      /**
+       * @description The number of results per page
+       * @example 100
+       */
+      page_size?: number;
+      result?: components["schemas"]["blockTransaction"][];
     };
     transaction: {
       /**
@@ -760,6 +797,8 @@ export interface components {
       | "0xa869"
       | "fantom"
       | "0xfa"
+      | "palm"
+      | "0x2a15c308d"
       | "cronos"
       | "0x19"
       | "cronos testnet"
@@ -2071,7 +2110,7 @@ export interface operations {
   /**
    * Resync the metadata for an NFT
    * * The metadata flag will request the NFT's metadata from an already existing token_uri
-   * * The URI (default) flag will fetch the latest token_uri from the given NFT contract address. In sync mode the metadata will also be fetched
+   * * The uri (default) flag will fetch the latest token_uri from the given NFT contract address. In sync mode the metadata will also be fetched
    * * The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
    * * The async mode (default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
    */
@@ -2502,7 +2541,7 @@ export interface operations {
       /** Returns a collection of native transactions. */
       200: {
         content: {
-          "application/json": components["schemas"]["transactionCollection"];
+          "application/json": components["schemas"]["transactionCollectionVerbose"];
         };
       };
     };
@@ -2641,7 +2680,7 @@ export interface operations {
       };
     };
   };
-  /** Get events for a contract ordered by block number in descending order. */
+  /** Get events for a contract ordered by block number in descending order. [Try it with Swagger](https://deep-index.moralis.io/api-docs-2.1/#/Events/getContractEvents). */
   getContractEvents: {
     parameters: {
       query: {
@@ -2719,7 +2758,7 @@ export interface operations {
       };
     };
   };
-  /** Run a given function of a contract ABI and retrieve readonly data. */
+  /** Run a given function of a contract ABI and retrieve readonly data. [Try it with Swagger](https://deep-index.moralis.io/api-docs-2.1/#/Utils/runContractFunction). */
   runContractFunction: {
     parameters: {
       query: {

@@ -52,7 +52,7 @@ const makeEvmRequestMessage = (
   { chain, address, networkType, network, ...options }: RequestMessageEvmOptions,
 ) => {
   return new OperationResolver(requestChallengeEvmOperation, BASE_URL, core).fetch({
-    chainId: EvmChain.create(chain).apiId,
+    chainId: EvmChain.create(chain).hex,
     address: EvmAddress.create(address).checksum,
     ...options,
   });
