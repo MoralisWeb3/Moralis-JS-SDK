@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@ethersproject/providers": "^5.7.1",
-    "@moralisweb3/client-firebase-auth-utils": "^2.7.4",
-    "@moralisweb3/client-firebase-evm-auth": "^2.7.4",
-    "@moralisweb3/client-firebase-sol-auth": "^2.7.4",
+    "@moralisweb3/client-firebase-auth-utils": "^2.8.1",
+    "@moralisweb3/client-firebase-evm-auth": "^2.8.1",
+    "@moralisweb3/client-firebase-sol-auth": "^2.8.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "react-app-rewired": "^2.2.1",
-    "@moralisweb3/eslint-config": "^1.0.0",
+    "@moralisweb3/eslint-config": "^1.0.1",
     "eslint-plugin-etc": "^2.0.2"
   },
   "scripts": {

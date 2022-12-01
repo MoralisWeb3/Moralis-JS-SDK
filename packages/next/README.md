@@ -1,14 +1,12 @@
 <div align="center">
     <p align="center">
-      <img src="./.readme/MoralisLogo.png" alt="Moralis NextJS" />
+      <img src="https://raw.githubusercontent.com/MoralisWeb3/Moralis-JS-SDK/main/packages/next/.readme/MoralisLogo.png" alt="Moralis NextJS" />
     </p>
 </div>
 
 <div align="center">
 
 ![npm](https://img.shields.io/npm/v/@moralisweb3/next)
-![node-current](https://img.shields.io/node/v/@moralisweb3/next)
-![GitHub last commit](https://img.shields.io/github/last-commit/MoralisWeb3/@moralisweb3/next)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moralisweb3/next)
 ![npm type definitions](https://img.shields.io/npm/types/@moralisweb3/next)
 
@@ -26,18 +24,18 @@ Please check the [official documentation of Moralis](https://docs.moralis.io/) f
 
 ### 1. Install Dependencies
 
-Make sure to have `next`, `react`, `react-dom` and `moralis` installed as dependencies, then install `@moralisweb3/next`
+Make sure to have `next`, `next-auth`, `react`, `react-dom` and `moralis` installed as dependencies, then install `@moralisweb3/next`
 
 In short:
 
 ```sh
-npm install moralis @moralisweb3/next next react react-dom
+npm install moralis @moralisweb3/next next next-auth react react-dom
 ```
 
 or
 
 ```sh
-yarn add moralis @moralisweb3/next next react react-dom
+yarn add moralis @moralisweb3/next next next-auth react react-dom
 ```
 
 > Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
@@ -82,55 +80,55 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [✨ Hook Usage Example](#️-hook-usage-example)
 - [⚙️ Hook Advanced Config](#️-hook-advanced-config)
 - [Authentication Api Hooks](#-authentication-api-hooks)
-  - [useAuthRequestChallengeSolana](#️-useAuthRequestChallengeSolana)
+  - [useAuthRequestChallengeSolana](#️useAuthRequestChallengeSolana)
   - [useAuthRequestChallengeEvm](#-useAuthRequestChallengeEvm)
 - [Evm Api Hooks](#-evm-api-hooks)
-  - [useEvmWeb3ApiVersion](#️-useEvmWeb3ApiVersion)
-  - [useEvmRunContractFunction](#️-useEvmRunContractFunction)
-  - [useEvmEndpointWeights](#️-useEvmEndpointWeights)
-  - [useEvmWalletTransactions](#️-useEvmWalletTransactions)
-  - [useEvmTransaction](#️-useEvmTransaction)
-  - [useEvmWalletTokenTransfers](#️-useEvmWalletTokenTransfers)
-  - [useEvmWalletTokenBalances](#️-useEvmWalletTokenBalances)
-  - [useEvmTokenTransfers](#️-useEvmTokenTransfers)
-  - [useEvmTokenPrice](#️-useEvmTokenPrice)
-  - [useEvmTokenMetadata](#️-useEvmTokenMetadata)
-  - [useEvmTokenMetadataBySymbol](#️-useEvmTokenMetadataBySymbol)
-  - [useEvmTokenAllowance](#️-useEvmTokenAllowance)
-  - [useEvmResolveDomain](#️-useEvmResolveDomain)
-  - [useEvmResolveAddress](#️-useEvmResolveAddress)
-  - [useEvmSyncNFTContract](#️-useEvmSyncNFTContract)
-  - [useEvmSearchNFTs](#️-useEvmSearchNFTs)
-  - [useEvmReSyncMetadata](#️-useEvmReSyncMetadata)
-  - [useEvmWalletNFTTransfers](#️-useEvmWalletNFTTransfers)
-  - [useEvmWalletNFTs](#️-useEvmWalletNFTs)
-  - [useEvmWalletNFTCollections](#️-useEvmWalletNFTCollections)
-  - [useEvmNFTTransfers](#️-useEvmNFTTransfers)
-  - [useEvmNFTTransfersFromToBlock](#️-useEvmNFTTransfersFromToBlock)
-  - [useEvmNFTTransfersByBlock](#️-useEvmNFTTransfersByBlock)
-  - [useEvmNFTTrades](#️-useEvmNFTTrades)
-  - [useEvmNFTTokenIdOwners](#️-useEvmNFTTokenIdOwners)
-  - [useEvmNFTOwners](#️-useEvmNFTOwners)
-  - [useEvmNFTMetadata](#️-useEvmNFTMetadata)
-  - [useEvmNFTLowestPrice](#️-useEvmNFTLowestPrice)
-  - [useEvmNFTContractTransfers](#️-useEvmNFTContractTransfers)
-  - [useEvmNFTContractMetadata](#️-useEvmNFTContractMetadata)
-  - [useEvmContractNFTs](#️-useEvmContractNFTs)
-  - [useEvmUploadFolder](#️-useEvmUploadFolder)
-  - [useEvmContractLogs](#️-useEvmContractLogs)
-  - [useEvmContractEvents](#️-useEvmContractEvents)
-  - [useEvmPairReserves](#️-useEvmPairReserves)
-  - [useEvmPairAddress](#️-useEvmPairAddress)
-  - [useEvmDateToBlock](#️-useEvmDateToBlock)
-  - [useEvmBlock](#️-useEvmBlock)
-  - [useEvmNativeBalance](#️-useEvmNativeBalance)
+  - [useEvmWeb3ApiVersion](#️useEvmWeb3ApiVersion)
+  - [useEvmRunContractFunction](#️useEvmRunContractFunction)
+  - [useEvmEndpointWeights](#️useEvmEndpointWeights)
+  - [useEvmWalletTransactions](#️useEvmWalletTransactions)
+  - [useEvmTransaction](#️useEvmTransaction)
+  - [useEvmWalletTokenTransfers](#️useEvmWalletTokenTransfers)
+  - [useEvmWalletTokenBalances](#️useEvmWalletTokenBalances)
+  - [useEvmTokenTransfers](#️useEvmTokenTransfers)
+  - [useEvmTokenPrice](#️useEvmTokenPrice)
+  - [useEvmTokenMetadata](#️useEvmTokenMetadata)
+  - [useEvmTokenMetadataBySymbol](#️useEvmTokenMetadataBySymbol)
+  - [useEvmTokenAllowance](#️useEvmTokenAllowance)
+  - [useEvmResolveDomain](#️useEvmResolveDomain)
+  - [useEvmResolveAddress](#️useEvmResolveAddress)
+  - [useEvmSyncNFTContract](#️useEvmSyncNFTContract)
+  - [useEvmSearchNFTs](#️useEvmSearchNFTs)
+  - [useEvmReSyncMetadata](#️useEvmReSyncMetadata)
+  - [useEvmWalletNFTTransfers](#️useEvmWalletNFTTransfers)
+  - [useEvmWalletNFTs](#️useEvmWalletNFTs)
+  - [useEvmWalletNFTCollections](#️useEvmWalletNFTCollections)
+  - [useEvmNFTTransfers](#️useEvmNFTTransfers)
+  - [useEvmNFTTransfersFromToBlock](#️useEvmNFTTransfersFromToBlock)
+  - [useEvmNFTTransfersByBlock](#️useEvmNFTTransfersByBlock)
+  - [useEvmNFTTrades](#️useEvmNFTTrades)
+  - [useEvmNFTTokenIdOwners](#️useEvmNFTTokenIdOwners)
+  - [useEvmNFTOwners](#️useEvmNFTOwners)
+  - [useEvmNFTMetadata](#️useEvmNFTMetadata)
+  - [useEvmNFTLowestPrice](#️useEvmNFTLowestPrice)
+  - [useEvmNFTContractTransfers](#️useEvmNFTContractTransfers)
+  - [useEvmNFTContractMetadata](#️useEvmNFTContractMetadata)
+  - [useEvmContractNFTs](#️useEvmContractNFTs)
+  - [useEvmUploadFolder](#️useEvmUploadFolder)
+  - [useEvmContractLogs](#️useEvmContractLogs)
+  - [useEvmContractEvents](#️useEvmContractEvents)
+  - [useEvmPairReserves](#️useEvmPairReserves)
+  - [useEvmPairAddress](#️useEvmPairAddress)
+  - [useEvmDateToBlock](#️useEvmDateToBlock)
+  - [useEvmBlock](#️useEvmBlock)
+  - [useEvmNativeBalance](#️useEvmNativeBalance)
 - [Solana Api Hooks](#-solana-api-hooks)
-  - [useSolTokenPrice](#️-useSolTokenPrice)
-  - [useSolNFTMetadata](#️-useSolNFTMetadata)
-  - [useSolSPL](#️-useSolSPL)
-  - [useSolPortfolio](#️-useSolPortfolio)
-  - [useSolNFTs](#️-useSolNFTs)
-  - [useSolBalance](#️-useSolBalance)
+  - [useSolTokenPrice](#️useSolTokenPrice)
+  - [useSolNFTMetadata](#️useSolNFTMetadata)
+  - [useSolSPL](#️useSolSPL)
+  - [useSolPortfolio](#️useSolPortfolio)
+  - [useSolNFTs](#️useSolNFTs)
+  - [useSolBalance](#️useSolBalance)
 - [🧙‍♂️ Community](#️-community)
 
 # 🔐 Authentication and Session Management with NextAuth

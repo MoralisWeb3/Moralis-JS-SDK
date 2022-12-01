@@ -6,10 +6,12 @@ import {
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import useSWR from 'swr';
+import Moralis from 'moralis';
 
 export const useEvmNFTContractTransfers = (request: GetNFTContractTransfersRequest, fetchParams?: FetchParams) => {
+  const { deserializeResponse, serializeRequest } = operation
   const { data, error, mutate, isValidating } = useSWR<GetNFTContractTransfersResponse>(
-    ['evmApi/getNFTContractTransfers', {operation, request}], 
+    ['evmApi/getNFTContractTransfers', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
     fetcher, 
     {revalidateOnFocus: false, ...fetchParams}
   );

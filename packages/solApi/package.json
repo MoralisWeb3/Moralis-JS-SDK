@@ -1,12 +1,18 @@
 {
   "name": "@moralisweb3/sol-api",
   "author": "Moralis",
-  "version": "2.7.4",
+  "version": "2.8.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Solana Api",
+    "type": "feature",
+    "scope": "server",
+    "description": "Make calls to the Solana blockchain via Moralis Solana Apis"
+  },
   "files": [
     "lib/*"
   ],
@@ -26,8 +32,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.7.4",
-    "@moralisweb3/common-core": "^2.7.4",
-    "@moralisweb3/common-sol-utils": "^2.7.4"
+    "@moralisweb3/api-utils": "^2.8.1",
+    "@moralisweb3/common-core": "^2.8.1",
+    "@moralisweb3/common-sol-utils": "^2.8.1"
   }
 }
