@@ -20,7 +20,7 @@
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "postbuild": "npm run copy-files",
-    "copy-files": "copyfiles -u 1 src/generators/*/template/** lib",
+    "copy-files": "copyfiles -u 1 -a src/generators/*/template/** lib",
     "dev": "ts-node-dev src/index.ts"
   },
   "devDependencies": {
