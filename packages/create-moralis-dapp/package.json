@@ -1,5 +1,5 @@
 {
-  "name": "@moralisweb3/create-moralis-dapp",
+  "name": "create-moralis-dapp",
   "author": "Moralis",
   "version": "2.7.4",
   "license": "MIT",
@@ -19,6 +19,8 @@
     "format": "prettier --write 'src/**/*.{js,ts}'",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
+    "postbuild": "npm run copy-files",
+    "copy-files": "copyfiles -u 1 src/generators/*/template/** lib",
     "dev": "ts-node-dev src/index.ts"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
     "fs-extra": "^10.1.0",
     "inquirer": "^8.0.0",
     "axios": "^1.2.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "copyfiles": "2.4.1"
   }
 }
