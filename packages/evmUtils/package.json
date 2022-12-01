@@ -1,12 +1,19 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.7.4",
+  "version": "2.8.1",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Utilities",
+    "type": "utils",
+    "scope": "server",
+    "deprecated": true,
+    "description": "Deprecated: use @moralis/common-evm-utils instead"
+  },
   "files": [
     "lib/*"
   ],
@@ -18,6 +25,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/common-evm-utils": "^2.7.4"
+    "@moralisweb3/common-evm-utils": "^2.8.1"
   }
 }

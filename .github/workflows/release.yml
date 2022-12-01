@@ -3,8 +3,6 @@ name: Release
 on:
   push:
     branches:
-      - alpha
-      - beta
       - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
@@ -20,6 +18,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Use cache dependencies
         uses: actions/cache@v3
         id: cache
@@ -36,3 +37,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Notify Slack
+        id: slack
+        if: steps.changesets.outputs.published == 'true'
+        uses: slackapi/slack-github-action@v1.23.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE_URL }}

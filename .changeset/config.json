@@ -2,39 +2,10 @@
   "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "MoralisWeb3/Moralis-JS-SDK" }],
   "commit": false,
-  "fixed": [
-    [
-      "@moralisweb3/api-utils",
-      "@moralisweb3/auth",
-      "@moralisweb3/client-firebase-utils",
-      "@moralisweb3/client-firebase-evm-auth",
-      "@moralisweb3/client-firebase-sol-auth",
-      "@moralisweb3/common-core",
-      "@moralisweb3/common-evm-utils",
-      "@moralisweb3/common-sol-utils",
-      "@moralisweb3/common-streams-utils",
-      "@moralisweb3/evm-api",
-      "@moralisweb3/sol-api",
-      "@moralisweb3/streams",
-      "@moralisweb3/parse-server",
-      "@moralisweb3/next",
-      "moralis"
-    ]
-  ],
+  "fixed": [["@moralisweb3/!(eslint-config|typedoc-readme-theme)", "moralis"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "demo-cli",
-    "demo-nextjs",
-    "demo-express-proxy",
-    "demo-parse-server",
-    "demo-supabase-auth",
-    "demo-firebase-proxy-functions",
-    "demo-firebase-auth-ext-functions",
-    "demo-firebase-auth-ext-hosting",
-    "demo-firebase-streams-ext-functions",
-    "demo-moralis-stream"
-  ]
+  "ignore": ["demo-*"]
 }
