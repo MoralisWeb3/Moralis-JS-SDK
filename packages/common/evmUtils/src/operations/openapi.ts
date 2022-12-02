@@ -137,8 +137,8 @@ export interface paths {
     get: operations["getWalletTransactions"];
   };
   "/{address}/verbose": {
-    /** Get native transactions ordered by block number in descending order. */
-    get: operations["getWalletTransactions"];
+    /** Get native transactions and logs ordered by block number in descending order. */
+    get: operations["getWalletTransactionsVerbose"];
   };
   "/transaction/{transaction_hash}": {
     /** Get the contents of a transaction by the given transaction hash. */
@@ -553,11 +553,6 @@ export interface components {
       result?: components["schemas"]["transaction"][];
     };
     transactionCollectionVerbose: {
-      /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
       /**
        * @description The current page of the result
        * @example 2
@@ -2497,6 +2492,57 @@ export interface operations {
   };
   /** Get native transactions ordered by block number in descending order. */
   getWalletTransactions: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
+        subdomain?: string;
+        /**
+         * The minimum block number from which to get the transactions
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_block?: number;
+        /**
+         * The maximum block number from which to get the transactions.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_block?: number;
+        /**
+         * The start date from which to get the transactions (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get the transactions up to this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: string;
+        /** The cursor returned in the previous response (used for getting the next page). */
+        cursor?: string;
+        /** The desired page size of the result. */
+        limit?: number;
+      };
+      path: {
+        /** The address of the wallet */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns a collection of native transactions. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["transactionCollection"];
+        };
+      };
+    };
+  };
+  /** Get native transactions and logs ordered by block number in descending order. */
+  getWalletTransactionsVerbose: {
     parameters: {
       query: {
         /** The chain to query */
