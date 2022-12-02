@@ -4,4 +4,4 @@
 '@moralisweb3/evm-api': minor
 ---
 
-get transactions verbose support added
+Get transactions verbose support added.
