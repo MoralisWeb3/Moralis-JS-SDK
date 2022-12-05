@@ -1,25 +1,52 @@
-import { fetcher } from '../../../../utils/fetcher';
+import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   web3ApiVersionOperation as operation, 
   Web3ApiVersionRequest, 
   Web3ApiVersionResponse 
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useCallback } from 'react';
 import Moralis from 'moralis';
+import useSWR from 'swr';
 
-export const useEvmWeb3ApiVersion = (request: Web3ApiVersionRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
+export const useEvmWeb3ApiVersion = (
+  request?: Web3ApiVersionRequest, 
+  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+) => {
+  const endpoint = 'evmApi/web3ApiVersion';
+  const { deserializeResponse, serializeRequest } = operation;
+
   const { data, error, mutate, isValidating } = useSWR<Web3ApiVersionResponse>(
-    ['evmApi/web3ApiVersion', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
+    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
+    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
   );
+
+  const fetch = useCallback((params?: Web3ApiVersionRequest) => {
+    const fetchRequest = params ?? request;
+    if (!fetchRequest) {
+      throw new NoHookParamsError('useEvmNativeBalance');
+    }
+    return mutate(
+      fetcher(endpoint, {
+        deserializeResponse,
+        request: params ?? request,
+      }),
+    );
+  }, []);
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching: isValidating,
+    /**
+     * @deprecated use `isFetching` instead
+     */
     isValidating,
   };
 };

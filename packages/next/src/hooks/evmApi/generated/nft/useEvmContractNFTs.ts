@@ -1,25 +1,52 @@
-import { fetcher } from '../../../../utils/fetcher';
+import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   getContractNFTsOperation as operation, 
   GetContractNFTsRequest, 
   GetContractNFTsResponse 
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useCallback } from 'react';
 import Moralis from 'moralis';
+import useSWR from 'swr';
 
-export const useEvmContractNFTs = (request: GetContractNFTsRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
+export const useEvmContractNFTs = (
+  request?: GetContractNFTsRequest, 
+  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+) => {
+  const endpoint = 'evmApi/getContractNFTs';
+  const { deserializeResponse, serializeRequest } = operation;
+
   const { data, error, mutate, isValidating } = useSWR<GetContractNFTsResponse>(
-    ['evmApi/getContractNFTs', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
+    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
+    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
   );
+
+  const fetch = useCallback((params?: GetContractNFTsRequest) => {
+    const fetchRequest = params ?? request;
+    if (!fetchRequest) {
+      throw new NoHookParamsError('useEvmNativeBalance');
+    }
+    return mutate(
+      fetcher(endpoint, {
+        deserializeResponse,
+        request: params ?? request,
+      }),
+    );
+  }, []);
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching: isValidating,
+    /**
+     * @deprecated use `isFetching` instead
+     */
     isValidating,
   };
 };
