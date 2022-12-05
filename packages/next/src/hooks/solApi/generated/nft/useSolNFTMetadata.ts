@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useSolNFTMetadata = (
   request?: GetNFTMetadataRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'solApi/getNFTMetadata';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useSolNFTMetadata = (
   const { data, error, mutate, isValidating } = useSWR<GetNFTMetadataResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetNFTMetadataRequest) => {

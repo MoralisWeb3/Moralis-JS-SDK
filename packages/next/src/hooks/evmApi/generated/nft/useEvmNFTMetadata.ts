@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmNFTMetadata = (
   request?: GetNFTMetadataRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getNFTMetadata';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmNFTMetadata = (
   const { data, error, mutate, isValidating } = useSWR<GetNFTMetadataResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetNFTMetadataRequest) => {

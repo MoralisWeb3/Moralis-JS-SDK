@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmNativeBalance = (
   request?: GetNativeBalanceRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getNativeBalance';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmNativeBalance = (
   const { data, error, mutate, isValidating } = useSWR<GetNativeBalanceResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetNativeBalanceRequest) => {

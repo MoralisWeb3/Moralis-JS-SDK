@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmTokenPrice = (
   request?: GetTokenPriceRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getTokenPrice';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmTokenPrice = (
   const { data, error, mutate, isValidating } = useSWR<GetTokenPriceResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetTokenPriceRequest) => {

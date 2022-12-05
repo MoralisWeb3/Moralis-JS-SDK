@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmTokenMetadataBySymbol = (
   request?: GetTokenMetadataBySymbolRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getTokenMetadataBySymbol';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmTokenMetadataBySymbol = (
   const { data, error, mutate, isValidating } = useSWR<GetTokenMetadataBySymbolResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetTokenMetadataBySymbolRequest) => {

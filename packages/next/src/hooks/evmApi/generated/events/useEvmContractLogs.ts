@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmContractLogs = (
   request?: GetContractLogsRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getContractLogs';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmContractLogs = (
   const { data, error, mutate, isValidating } = useSWR<GetContractLogsResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetContractLogsRequest) => {

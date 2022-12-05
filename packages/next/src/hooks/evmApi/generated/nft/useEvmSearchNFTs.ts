@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmSearchNFTs = (
   request?: SearchNFTsRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/searchNFTs';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmSearchNFTs = (
   const { data, error, mutate, isValidating } = useSWR<SearchNFTsResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: SearchNFTsRequest) => {

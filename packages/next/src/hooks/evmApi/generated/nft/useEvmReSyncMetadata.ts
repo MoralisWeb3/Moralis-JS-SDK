@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmReSyncMetadata = (
   request?: ReSyncMetadataRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/reSyncMetadata';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmReSyncMetadata = (
   const { data, error, mutate, isValidating } = useSWR<ReSyncMetadataResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: ReSyncMetadataRequest) => {

@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmDateToBlock = (
   request?: GetDateToBlockRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getDateToBlock';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmDateToBlock = (
   const { data, error, mutate, isValidating } = useSWR<GetDateToBlockResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetDateToBlockRequest) => {

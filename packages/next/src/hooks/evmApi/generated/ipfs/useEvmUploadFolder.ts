@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmUploadFolder = (
   request?: UploadFolderRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/uploadFolder';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmUploadFolder = (
   const { data, error, mutate, isValidating } = useSWR<UploadFolderResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: UploadFolderRequest) => {

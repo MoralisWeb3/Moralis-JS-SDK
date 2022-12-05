@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useSolNFTs = (
   request?: GetNFTsRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'solApi/getNFTs';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useSolNFTs = (
   const { data, error, mutate, isValidating } = useSWR<GetNFTsResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetNFTsRequest) => {

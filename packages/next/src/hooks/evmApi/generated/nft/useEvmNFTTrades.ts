@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmNFTTrades = (
   request?: GetNFTTradesRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getNFTTrades';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmNFTTrades = (
   const { data, error, mutate, isValidating } = useSWR<GetNFTTradesResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetNFTTradesRequest) => {

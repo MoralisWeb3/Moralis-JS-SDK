@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmWalletTokenBalances = (
   request?: GetWalletTokenBalancesRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getWalletTokenBalances';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmWalletTokenBalances = (
   const { data, error, mutate, isValidating } = useSWR<GetWalletTokenBalancesResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetWalletTokenBalancesRequest) => {

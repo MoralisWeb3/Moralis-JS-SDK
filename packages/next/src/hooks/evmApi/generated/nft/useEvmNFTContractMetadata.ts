@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmNFTContractMetadata = (
   request?: GetNFTContractMetadataRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getNFTContractMetadata';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmNFTContractMetadata = (
   const { data, error, mutate, isValidating } = useSWR<GetNFTContractMetadataResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetNFTContractMetadataRequest) => {

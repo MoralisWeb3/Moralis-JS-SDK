@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useSolSPL = (
   request?: GetSPLRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'solApi/getSPL';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useSolSPL = (
   const { data, error, mutate, isValidating } = useSWR<GetSPLResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetSPLRequest) => {

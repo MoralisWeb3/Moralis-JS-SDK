@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmWeb3ApiVersion = (
   request?: Web3ApiVersionRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/web3ApiVersion';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmWeb3ApiVersion = (
   const { data, error, mutate, isValidating } = useSWR<Web3ApiVersionResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: Web3ApiVersionRequest) => {

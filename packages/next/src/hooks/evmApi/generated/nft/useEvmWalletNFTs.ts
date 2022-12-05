@@ -11,7 +11,7 @@ import useSWR from 'swr';
 
 export const useEvmWalletNFTs = (
   request?: GetWalletNFTsRequest, 
-  { revalidateOnMount = true, ...fetchParams }: FetchParams = {},
+  fetchParams?: FetchParams,
 ) => {
   const endpoint = 'evmApi/getWalletNFTs';
   const { deserializeResponse, serializeRequest } = operation;
@@ -19,7 +19,7 @@ export const useEvmWalletNFTs = (
   const { data, error, mutate, isValidating } = useSWR<GetWalletNFTsResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    { revalidateOnFocus: false, revalidateOnMount, ...fetchParams }
+    { revalidateOnFocus: false, ...fetchParams }
   );
 
   const fetch = useCallback((params?: GetWalletNFTsRequest) => {
