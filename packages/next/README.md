@@ -141,13 +141,13 @@ Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-
 import { useEvmWalletTokenBalances } from '@moralisweb3/next'
 
 const App = () => {
-  const { data: balance, error, refetch, isValidating } = useEvmWalletTokenBalances({ address: '0x...' })
+  const { data: balance, error, fetch, isFetching } = useEvmWalletTokenBalances({ address: '0x...' })
 
-  if (isValidating) return <div>Fetching/Refreshing balance…</div>
+  if (isFetching) return <div>Fetching/Refreshing balance…</div>
   if (error) return <div>{JSON.stringify(error, null, 2)}</div>
   return (
     <>
-      <button onClick={refetch}>Refetch Balance</button>
+      <button onClick={fetch}>Refetch Balance</button>
       <div>{JSON.stringify(balance, null, 2)}</div>
     </>
   )
