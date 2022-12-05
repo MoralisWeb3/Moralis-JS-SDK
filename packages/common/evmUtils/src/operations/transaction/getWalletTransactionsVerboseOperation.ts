@@ -7,11 +7,19 @@ import {
   DateInput,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransaction } from '../../dataTypes';
+import {
+  EvmChain,
+  EvmChainish,
+  EvmAddress,
+  EvmAddressish,
+  EvmTransaction,
+  EvmTransactionLog,
+  LogTopic,
+} from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
-type OperationId = 'getWalletTransactions';
+type OperationId = 'getWalletTransactionsVerbose';
 
 type PathParams = operations[OperationId]['parameters']['path'];
 
@@ -23,7 +31,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetWalletTransactionsRequest
+export interface GetWalletTransactionsVerboseRequest
   extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
@@ -31,27 +39,30 @@ export interface GetWalletTransactionsRequest
   toDate?: DateInput;
 }
 
-export type GetWalletTransactionsJSONRequest = ReturnType<typeof serializeRequest>;
+export type GetWalletTransactionsVerboseJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetWalletTransactionsJSONResponse = SuccessResponse;
+export type GetWalletTransactionsVerboseJSONResponse = SuccessResponse;
 
-export type GetWalletTransactionsResponse = ReturnType<typeof deserializeResponse>;
+export type GetWalletTransactionsVerboseResponse = ReturnType<typeof deserializeResponse>;
 
-export interface GetWalletTransactionsResponseAdapter
-  extends PaginatedResponseAdapter<GetWalletTransactionsResponse, GetWalletTransactionsJSONResponse['result']> {}
+export interface GetWalletTransactionsVerboseResponseAdapter
+  extends PaginatedResponseAdapter<
+    GetWalletTransactionsVerboseResponse,
+    GetWalletTransactionsVerboseJSONResponse['result']
+  > {}
 
 /** Get native transactions ordered by block number in descending order. */
-export const getWalletTransactionsOperation: PaginatedOperation<
-  GetWalletTransactionsRequest,
-  GetWalletTransactionsJSONRequest,
-  GetWalletTransactionsResponse,
-  GetWalletTransactionsJSONResponse['result']
+export const getWalletTransactionsVerboseOperation: PaginatedOperation<
+  GetWalletTransactionsVerboseRequest,
+  GetWalletTransactionsVerboseJSONRequest,
+  GetWalletTransactionsVerboseResponse,
+  GetWalletTransactionsVerboseJSONResponse['result']
 > = {
   method: 'GET',
-  name: 'getWalletTransactions',
-  id: 'getWalletTransactions',
+  name: 'getWalletTransactionsVerbose',
+  id: 'getWalletTransactionsVerbose',
   groupName: 'transaction',
-  urlPathPattern: '/{address}',
+  urlPathPattern: '/{address}/verbose',
   urlPathParamNames: ['address'],
   urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit'],
   firstPageIndex: 0,
@@ -64,7 +75,7 @@ export const getWalletTransactionsOperation: PaginatedOperation<
 
 // Methods
 
-function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) {
+function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
@@ -78,7 +89,7 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
   };
 }
 
-function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
+function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     subdomain: request.subdomain,
@@ -92,7 +103,10 @@ function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core: Core): GetWalletTransactionsRequest {
+function deserializeRequest(
+  jsonRequest: GetWalletTransactionsVerboseJSONRequest,
+  core: Core,
+): GetWalletTransactionsVerboseRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     subdomain: jsonRequest.subdomain,
@@ -107,8 +121,8 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core:
 }
 
 function deserializeResponse(
-  jsonResponse: GetWalletTransactionsJSONResponse,
-  request: GetWalletTransactionsJSONRequest,
+  jsonResponse: GetWalletTransactionsVerboseJSONResponse,
+  request: GetWalletTransactionsVerboseJSONRequest,
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
@@ -118,20 +132,37 @@ function deserializeResponse(
         gasPrice: transfer.gas_price,
         gasUsed: transfer.receipt_gas_used,
         index: +transfer.transaction_index,
-        contractAddress: transfer.receipt_contract_address as string | null,
-        receiptRoot: transfer.receipt_root as string | null,
+        contractAddress: transfer.receipt_contract_address as string,
+        receiptRoot: transfer.receipt_root as string,
         receiptStatus: +transfer.receipt_status,
         chain: EvmChainResolver.resolve(request.chain, core),
         data: transfer.input,
-        from: transfer.from_address,
+        from: EvmAddress.create(transfer.from_address, core),
         hash: transfer.hash,
         nonce: transfer.nonce,
         value: transfer.value,
         blockHash: transfer.block_hash,
         blockNumber: +transfer.block_number,
         blockTimestamp: new Date(transfer.block_timestamp),
-        gas: transfer.gas ? BigNumber.create(transfer.gas as string) : null,
-        to: transfer.to_address ? (transfer.to_address as string) : null,
+        gas: BigNumber.create(transfer.gas as string),
+        to: EvmAddress.create(transfer.to_address as string, core),
+        logs: (transfer.logs ?? []).map((log) =>
+          EvmTransactionLog.create(
+            {
+              logIndex: +log.log_index,
+              transactionHash: log.transaction_hash,
+              transactionIndex: +log.transaction_index,
+              address: log.address,
+              data: log.data,
+              topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
+              blockHash: log.block_hash,
+              blockNumber: +log.block_number,
+              blockTimestamp: transfer.block_timestamp,
+              chain: EvmChainResolver.resolve(request.chain, core),
+            },
+            core,
+          ),
+        ),
       },
       core,
     ),

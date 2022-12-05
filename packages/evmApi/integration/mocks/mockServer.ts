@@ -19,6 +19,7 @@ import { mockGetWalletNFTTransfers } from './endpoints/getWalletNFTTransfers';
 import { mockGetWalletTokenBalances } from './endpoints/getWalletTokenBalances';
 import { mockGetWalletTokenTransfers } from './endpoints/getWalletTokenTransfers';
 import { mockGetWalletTransactions } from './endpoints/getWalletTransactions';
+import { mockGetWalletTransactionsVerbose } from './endpoints/getWalletTransactionsVerbose';
 import { mockResolveAddress } from './endpoints/resolveAddress';
 import { mockResolveDomain } from './endpoints/resolveDomain';
 import { mockRunContractFunction } from './endpoints/runContractFunction';
@@ -44,6 +45,7 @@ const handler = [
   mockGetDateToBlock,
   mockGetNFTContractTransfers,
   mockGetTransaction,
+  mockGetWalletTransactionsVerbose,
   mockGetWalletTransactions,
   mockGetContractEvents,
   mockGetContractLogs,
