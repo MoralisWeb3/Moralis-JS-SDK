@@ -37,6 +37,7 @@ export const mockVerifyEvmChallenge = MockScenarios.create(
     },
     {
       condition: {
+        message: '',
         signature: 'some-signature',
       },
       responseStatus: 400,

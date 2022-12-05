@@ -19,7 +19,7 @@
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
     "firebase-functions-rate-limiter": "^3.9.1",
-    "moralis": "^2.7.4"
+    "moralis": "^2.8.2"
   },
   "devDependencies": {
     "@firebase/app-types": "^0.7.0",

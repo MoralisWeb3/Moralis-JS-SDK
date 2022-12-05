@@ -1,8 +1,8 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getDateToBlock', () => {
-  let evmApi: MoralisEvmApi;
+  let evmApi: EvmApi;
 
   beforeAll(() => {
     evmApi = setupEvmApi();
@@ -14,7 +14,7 @@ describe('getDateToBlock', () => {
 
   it('should get the closest block of the provided date ', async () => {
     const result = await evmApi.block.getDateToBlock({
-      date: '2021-09-29T13:09:15+00:00',
+      date: '2021-09-29T13:09:15.000Z',
       chain: 5,
     });
 

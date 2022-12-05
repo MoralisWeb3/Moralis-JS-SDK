@@ -1,12 +1,18 @@
 {
   "name": "@moralisweb3/parse-server",
   "author": "Moralis",
-  "version": "2.7.0",
+  "version": "2.8.2",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Parse server",
+    "type": "integration",
+    "scope": "server",
+    "description": "Integration of Moralis in parse-server"
+  },
   "files": [
     "lib/*"
   ],
@@ -23,8 +29,11 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@moralisweb3/streams": "^2.7.0",
-    "moralis": "^2.7.0",
+    "@moralisweb3/common-core": "^2.8.2",
+    "@moralisweb3/streams": "^2.8.2",
+    "@moralisweb3/api-utils": "^2.8.2",
+    "@moralisweb3/streams-typings": "^1.0.5",
+    "moralis": "^2.8.2",
     "express": "^4.18.1",
     "parse": "3.4.4",
     "body-parser": "^1.20.0"

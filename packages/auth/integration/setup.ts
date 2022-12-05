@@ -1,21 +1,21 @@
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
-import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
-import { MoralisSolUtils } from '@moralisweb3/sol-utils';
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
-import { MoralisAuth } from '../src/MoralisAuth';
+import { ApiUtils } from '@moralisweb3/api-utils';
+import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
+import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
+import { Core, CoreProvider } from '@moralisweb3/common-core';
+import { Auth } from '../src/Auth';
 import { MOCK_API_KEY } from './mocks/config';
 import { mockServer } from './mocks/mockServer';
 
-export function setupAuth(): MoralisAuth {
-  const core = MoralisCore.create();
-  const apiUtils = MoralisApiUtils.create(core);
-  const evmUtils = MoralisEvmUtils.create(core);
-  const solUtils = MoralisSolUtils.create(core);
-  const auth = MoralisAuth.create(core);
+export function setupAuth(): Auth {
+  const core = Core.create();
+  const apiUtils = ApiUtils.create(core);
+  const commonEvmUtils = CommonEvmUtils.create(core);
+  const commonSolUtils = CommonSolUtils.create(core);
+  const auth = Auth.create(core);
 
-  MoralisCoreProvider.setDefault(core);
+  CoreProvider.setDefault(core);
 
-  core.registerModules([apiUtils, evmUtils, solUtils, auth]);
+  core.registerModules([apiUtils, commonEvmUtils, commonSolUtils, auth]);
   core.start({
     apiKey: MOCK_API_KEY,
   });

@@ -1,19 +1,19 @@
-import { MoralisApiUtils } from '@moralisweb3/api-utils';
-import { MoralisEvmUtils } from '@moralisweb3/evm-utils';
-import { MoralisCore, MoralisCoreProvider } from '@moralisweb3/core';
-import { MoralisStreams } from '../src/MoralisStreams';
+import { ApiUtils } from '@moralisweb3/api-utils';
+import { CommonEvmUtils } from '@moralisweb3/common-evm-utils';
+import { Core, CoreProvider } from '@moralisweb3/common-core';
+import { Streams } from '../src/Streams';
 import { MOCK_API_KEY } from './mocks/config';
 import { mockServer } from './mocks/mockServer';
 
-export function setupStreamApi(): MoralisStreams {
-  const core = MoralisCore.create();
-  const apiUtils = MoralisApiUtils.create(core);
-  const evmUtils = MoralisEvmUtils.create(core);
-  const streamsApi = MoralisStreams.create(core);
+export function setupStreamApi(): Streams {
+  const core = Core.create();
+  const apiUtils = ApiUtils.create(core);
+  const commonEvmUtils = CommonEvmUtils.create(core);
+  const streamsApi = Streams.create(core);
 
-  MoralisCoreProvider.setDefault(core);
+  CoreProvider.setDefault(core);
 
-  core.registerModules([apiUtils, evmUtils, streamsApi]);
+  core.registerModules([apiUtils, commonEvmUtils, streamsApi]);
   core.start({
     apiKey: MOCK_API_KEY,
   });

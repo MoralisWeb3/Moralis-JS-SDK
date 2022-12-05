@@ -1,0 +1,40 @@
+{
+  "name": "@moralisweb3/common-evm-utils",
+  "author": "Moralis",
+  "version": "2.8.2",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "moralis": {
+    "name": "Evm utilities",
+    "type": "utils",
+    "scope": "common",
+    "description": "Utilities, operations, datatypes and types related to Evm"
+  },
+  "files": [
+    "lib/*"
+  ],
+  "scripts": {
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test:coverage": "yarn run test  --coverage",
+    "test:watch": "yarn run test --watch",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc --watch",
+    "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json --output src/operations/openapi.ts"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^5.2.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@ethersproject/address": "^5.7.0",
+    "@ethersproject/transactions": "^5.6.0",
+    "@ethersproject/bytes": "^5.6.0",
+    "@moralisweb3/common-core": "^2.8.2"
+  }
+}

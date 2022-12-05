@@ -1,8 +1,8 @@
-import { MoralisStreams } from '../../src/MoralisStreams';
+import { Streams } from '../../src/Streams';
 import { cleanStreamsApi, setupStreamApi } from '../setup';
 
 describe('Get stats by ID', () => {
-  let StreamApi: MoralisStreams;
+  let StreamApi: Streams;
 
   beforeAll(() => {
     StreamApi = setupStreamApi();

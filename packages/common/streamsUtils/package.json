@@ -1,0 +1,42 @@
+{
+  "name": "@moralisweb3/common-streams-utils",
+  "author": "Moralis",
+  "version": "2.8.2",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "moralis": {
+    "name": "Streams utilities",
+    "type": "utils",
+    "scope": "common",
+    "description": "Utilities, operations, datatypes and types related to Streams"
+  },
+  "files": [
+    "lib/*"
+  ],
+  "scripts": {
+    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test:coverage": "yarn run test --coverage",
+    "test:watch": "yarn run test --watch",
+    "gen:api-types": "openapi-typescript https://api.moralis-streams.com/api-docs/swagger.json --output src/operations/openapi.ts",
+    "gen:api-types-beta": "openapi-typescript https://streams-api-stage.aws-prod-streams-master-1.moralis.io/api-docs/swagger.json --output src/operations/openapi.ts",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "eslint-plugin-jest": "^26.8.3",
+    "jest": "^28.0.3",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@moralisweb3/common-core": "^2.8.2",
+    "@moralisweb3/common-evm-utils": "^2.8.2",
+    "@moralisweb3/streams-typings": "^1.0.5"
+  }
+}

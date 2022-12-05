@@ -1,4 +1,4 @@
-import { MoralisStreamError, StreamErrorCode } from '@moralisweb3/core';
+import { MoralisStreamError, StreamErrorCode } from '@moralisweb3/common-core';
 import { IWebhook } from '@moralisweb3/streams-typings';
 import { isWebhook, hasAbis } from '../utils/logDecoderUtils';
 import { LogParser } from '../mapping';

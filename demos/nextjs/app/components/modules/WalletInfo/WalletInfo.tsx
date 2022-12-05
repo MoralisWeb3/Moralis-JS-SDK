@@ -24,7 +24,7 @@ const WalletInfo = () => {
               <div>
                 <span>{chain?.name || 'no network'}</span>
               </div>
-              <div className={`${styles.status} ${status == 'authenticated' ? styles.active : styles.nonActive}`} />
+              <div className={`${styles.status} ${status === 'authenticated' ? styles.active : styles.nonActive}`} />
               <span>{getEllipsisTxt(data?.user.address)}</span>
             </div>
             <button className={styles.disconnectButton} onClick={handleDisconnect}>

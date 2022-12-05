@@ -16,19 +16,19 @@ export const mockAddAddressEvm = MockScenarios.create(
     {
       condition: {
         id: 'VALID_RESPONSE',
-        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+        address: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
       },
-      response: createSimpleStreamResponse('VALID_RESPONSE', '0x295522b61890c3672d12efbff4358a6411ce996f'),
+      response: createSimpleStreamResponse('VALID_RESPONSE', '0x295522b61890c3672D12eFbFf4358a6411CE996F'),
     },
 
     {
       condition: {
         id: 'MULTIPLE_ADDRESSES',
-        address: ['0x295522b61890c3672d12efbff4358a6411ce996f', '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'],
+        address: ['0x295522b61890c3672D12eFbFf4358a6411CE996F', '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'],
       },
       response: createSimpleStreamResponse('MULTIPLE_ADDRESSES', [
-        '0x295522b61890c3672d12efbff4358a6411ce996f',
-        '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+        '0x295522b61890c3672D12eFbFf4358a6411CE996F',
+        '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
       ]),
     },
     {
@@ -42,7 +42,7 @@ export const mockAddAddressEvm = MockScenarios.create(
     {
       condition: {
         id: 'STREAM_NOT_FOUND',
-        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+        address: '0x295522b61890c3672D12eFbFf4358a6411CE996F',
       },
       responseStatus: 404,
       response: createErrorResponse('Stream not found'),

@@ -5,8 +5,8 @@ import { Option } from '../../elements';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import apiPost from '../../../utils/apiPost';
 import styles from './Authentication.module.css';
+import { useAuthRequestChallengeEvm } from '@moralisweb3/next';
 
 const wallets = [
   {
@@ -39,6 +39,8 @@ const Authentication = () => {
   const { signMessageAsync } = useSignMessage();
   const { push } = useRouter();
 
+  const { requestChallengeAsync } = useAuthRequestChallengeEvm();
+
   const handleAuth = async (connector?: Connector, disabled?: boolean) => {
     if (disabled) {
       // eslint-disable-next-line no-alert
@@ -52,14 +54,16 @@ const Authentication = () => {
 
     const { account, chain } = await connectAsync({ connector });
 
-    const userData = { address: account, chain: chain.id, networkType: 'evm' };
-
-    const { message } = await apiPost('/auth/request-message', userData);
-
-    const signature = await signMessageAsync({ message });
-
     try {
-      await signIn('credentials', { message, signature, redirect: false });
+      const challenge = await requestChallengeAsync({ address: account, chainId: chain.id });
+
+      if (!challenge) {
+        throw new Error('No challenge received');
+      }
+
+      const signature = await signMessageAsync({ message: challenge.message });
+      await signIn('credentials', { message: challenge.message, signature, network: 'Evm', redirect: false });
+
       // redirects to main page
       push('/');
     } catch (e) {

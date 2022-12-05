@@ -1,8 +1,8 @@
-import { MoralisEvmApi } from '../../src/EvmApi';
+import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
 describe('getNFTContractTransfers', () => {
-  let EvmApi: MoralisEvmApi;
+  let EvmApi: EvmApi;
 
   beforeAll(() => {
     EvmApi = setupEvmApi();
