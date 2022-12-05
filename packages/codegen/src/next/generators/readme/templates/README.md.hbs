@@ -141,14 +141,14 @@ const App = () => {
   const [bnbBalance, setBnbBalance] = useState('');
 
   const fetchBalanceForEthereum = async () => {
-    const response = await fetch({ address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045', chain: EvmChain.ETHEREUM });
+    const response = await fetch({ address: '0x...', chain: EvmChain.ETHEREUM });
     if (response?.balance) {
       setEthBalance(response.balance.ether);
     }
   };
 
   const fetchBalanceForBsc = async () => {
-    const response = await fetch({ address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045', chain: EvmChain.BSC });
+    const response = await fetch({ address: '0x...', chain: EvmChain.BSC });
     if (response?.balance) {
       setBnbBalance(response.balance.ether);
     }
