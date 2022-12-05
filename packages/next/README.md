@@ -24,21 +24,19 @@ Please check the [official documentation of Moralis](https://docs.moralis.io/) f
 
 ### 1. Install Dependencies
 
-Make sure to have `next`, `next-auth`, `react`, `react-dom` and `moralis` installed as dependencies, then install `@moralisweb3/next`
+Make sure to have `next`, `next-auth`, `react` and `react-dom` installed as dependencies, then install `@moralisweb3/next`
 
 In short:
 
 ```sh
-npm install moralis @moralisweb3/next next next-auth react react-dom
+npm install @moralisweb3/next next next-auth react react-dom
 ```
 
 or
 
 ```sh
-yarn add moralis @moralisweb3/next next next-auth react react-dom
+yarn add @moralisweb3/next next next-auth react react-dom
 ```
-
-> Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
 
 ### 2. Create environment variables file
 
@@ -76,13 +74,13 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
-- [🔐 Authentication and Session Management with NextAuth](#-authentication-and-session-management-with-nextauth)
+- [🔐 Authentication and Session Management with NextAuth](#️-authentication-and-session-management-with-nextauth)
 - [✨ Hook Usage Example](#️-hook-usage-example)
 - [⚙️ Hook Advanced Config](#️-hook-advanced-config)
-- [Authentication Api Hooks](#-authentication-api-hooks)
+- [Authentication Api Hooks](#authentication-api-hooks)
   - [useAuthRequestChallengeSolana](#️useAuthRequestChallengeSolana)
-  - [useAuthRequestChallengeEvm](#-useAuthRequestChallengeEvm)
-- [Evm Api Hooks](#-evm-api-hooks)
+  - [useAuthRequestChallengeEvm](#useAuthRequestChallengeEvm)
+- [Evm Api Hooks](#evm-api-hooks)
   - [useEvmWeb3ApiVersion](#️useEvmWeb3ApiVersion)
   - [useEvmRunContractFunction](#️useEvmRunContractFunction)
   - [useEvmEndpointWeights](#️useEvmEndpointWeights)
@@ -100,8 +98,8 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useEvmSyncNFTContract](#️useEvmSyncNFTContract)
   - [useEvmSearchNFTs](#️useEvmSearchNFTs)
   - [useEvmReSyncMetadata](#️useEvmReSyncMetadata)
-  - [useEvmWalletNFTTransfers](#️useEvmWalletNFTTransfers)
   - [useEvmWalletNFTs](#️useEvmWalletNFTs)
+  - [useEvmWalletNFTTransfers](#️useEvmWalletNFTTransfers)
   - [useEvmWalletNFTCollections](#️useEvmWalletNFTCollections)
   - [useEvmNFTTransfers](#️useEvmNFTTransfers)
   - [useEvmNFTTransfersFromToBlock](#️useEvmNFTTransfersFromToBlock)
@@ -122,7 +120,7 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useEvmDateToBlock](#️useEvmDateToBlock)
   - [useEvmBlock](#️useEvmBlock)
   - [useEvmNativeBalance](#️useEvmNativeBalance)
-- [Solana Api Hooks](#-solana-api-hooks)
+- [Solana Api Hooks](#solana-api-hooks)
   - [useSolTokenPrice](#️useSolTokenPrice)
   - [useSolNFTMetadata](#️useSolNFTMetadata)
   - [useSolSPL](#️useSolSPL)
@@ -497,20 +495,6 @@ ReSync the metadata for an NFT
 { status: string }; 
 ```
 
-## `useEvmWalletNFTTransfers()` 
-
-Get transfers of NFTs given the wallet and other parameters.
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNftTransfer[]
-```
-
 ## `useEvmWalletNFTs()` 
 
 
@@ -532,6 +516,20 @@ Get NFTs owned by a given address.
 ### Response:
 ```ts
 EvmNft[]
+```
+
+## `useEvmWalletNFTTransfers()` 
+
+Get transfers of NFTs given the wallet and other parameters.
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNftTransfer[]
 ```
 
 ## `useEvmWalletNFTCollections()` 
@@ -990,6 +988,8 @@ Gets native balance owned by the given network and address
 ```ts
 SolNative
 ```
+
+
 # 🧙‍♂️ Community
 
 - [Discord](https://discord.gg/moralis)

@@ -185,60 +185,60 @@ Moralis.EvmApi.block.getBlock();
 
 The main modules of the SDK
 
-| package                               | changelog                              | description                                                                                 |
-| ------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------- |
-| [moralis](packages/moralis/README.md) | [2.8.2](packages/moralis/CHANGELOG.md) | The main package of Moralis containing all features. You probably are looking for this one. |
+| package              | changelog             | description                                                                                 |
+| -------------------- | --------------------- | ------------------------------------------------------------------------------------------- |
+| [moralis](README.md) | [2.8.1](CHANGELOG.md) | The main package of Moralis containing all features. You probably are looking for this one. |
 
 ## Integrations
 
 Integrations with frameworks and services
 
-| package                                                     | changelog                                  | description                            |
-| ----------------------------------------------------------- | ------------------------------------------ | -------------------------------------- |
-| [@moralisweb3/next](packages/next/README.md)                | [2.8.2](packages/next/CHANGELOG.md)        | Integration of Moralis in NextJs       |
-| [@moralisweb3/parse-server](packages/parseServer/README.md) | [2.8.2](packages/parseServer/CHANGELOG.md) | Integration of Moralis in parse-server |
+| package                                               | changelog                            | description                            |
+| ----------------------------------------------------- | ------------------------------------ | -------------------------------------- |
+| [@moralisweb3/next](../next/README.md)                | [2.8.1](../next/CHANGELOG.md)        | Integration of Moralis in NextJs       |
+| [@moralisweb3/parse-server](../parseServer/README.md) | [2.8.1](../parseServer/CHANGELOG.md) | Integration of Moralis in parse-server |
 
 ## Features
 
 Feature modules. Only use these directly for advanced use-cases, the prefered way is to use these features via the umbrella package &quot;moralis&quot;
 
-| package                                            | changelog                              | description                                                 |
-| -------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------- |
-| [@moralisweb3/auth](packages/auth/README.md)       | [2.8.2](packages/auth/CHANGELOG.md)    | Authenticate via web3                                       |
-| [@moralisweb3/evm-api](packages/evmApi/README.md)  | [2.8.2](packages/evmApi/CHANGELOG.md)  | Make calls to the Evm blockchain via Moralis Evm Apis       |
-| [@moralisweb3/sol-api](packages/solApi/README.md)  | [2.8.2](packages/solApi/CHANGELOG.md)  | Make calls to the Solana blockchain via Moralis Solana Apis |
-| [@moralisweb3/streams](packages/streams/README.md) | [2.8.2](packages/streams/CHANGELOG.md) | Subscribe to realtime data from the blockchain              |
+| package                                      | changelog                        | description                                                 |
+| -------------------------------------------- | -------------------------------- | ----------------------------------------------------------- |
+| [@moralisweb3/auth](../auth/README.md)       | [2.8.1](../auth/CHANGELOG.md)    | Authenticate via web3                                       |
+| [@moralisweb3/evm-api](../evmApi/README.md)  | [2.8.1](../evmApi/CHANGELOG.md)  | Make calls to the Evm blockchain via Moralis Evm Apis       |
+| [@moralisweb3/sol-api](../solApi/README.md)  | [2.8.1](../solApi/CHANGELOG.md)  | Make calls to the Solana blockchain via Moralis Solana Apis |
+| [@moralisweb3/streams](../streams/README.md) | [2.8.1](../streams/CHANGELOG.md) | Subscribe to realtime data from the blockchain              |
 
 ## Core modules
 
 Core modules are the building blocks of Moralis.
 
-| package                                                    | changelog                                  | description                       |
-| ---------------------------------------------------------- | ------------------------------------------ | --------------------------------- |
-| [@moralisweb3/common-core](packages/common/core/README.md) | [2.8.2](packages/common/core/CHANGELOG.md) | All core logic related to the SDK |
+| package                                              | changelog                            | description                       |
+| ---------------------------------------------------- | ------------------------------------ | --------------------------------- |
+| [@moralisweb3/common-core](../common/core/README.md) | [2.8.1](../common/core/CHANGELOG.md) | All core logic related to the SDK |
 
 ## Utilities
 
 Utilities, types, operations and datatypes related used by other modules.
 
-| package                                                                     | changelog                                          | description                                                   |
-| --------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
-| [@moralisweb3/api-utils](packages/apiUtils/README.md)                       | [2.8.2](packages/apiUtils/CHANGELOG.md)            | Utilities and types to handle logic for api calls             |
-| [@moralisweb3/client-api-utils](packages/client/apiUtils/README.md)         | [2.8.2](packages/client/apiUtils/CHANGELOG.md)     | Client-side utilities for api calls                           |
-| [@moralisweb3/client-evm-api](packages/client/evmApi/README.md)             | [2.8.2](packages/client/evmApi/CHANGELOG.md)       | Client-side logic for making Evm Api calls                    |
-| [@moralisweb3/client-sol-api](packages/client/solApi/README.md)             | [2.8.2](packages/client/solApi/CHANGELOG.md)       | Client-side logic for making Solana Api calls                 |
-| [@moralisweb3/common-auth-utils](packages/common/authUtils/README.md)       | [2.8.2](packages/common/authUtils/CHANGELOG.md)    | Utilities, operations, datatypes, and types related to Auth   |
-| [@moralisweb3/common-evm-utils](packages/common/evmUtils/README.md)         | [2.8.2](packages/common/evmUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Evm     |
-| [@moralisweb3/common-sol-utils](packages/common/solUtils/README.md)         | [2.8.2](packages/common/solUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Solana  |
-| [@moralisweb3/common-streams-utils](packages/common/streamsUtils/README.md) | [2.8.2](packages/common/streamsUtils/CHANGELOG.md) | Utilities, operations, datatypes and types related to Streams |
+| package                                                               | changelog                                    | description                                                   |
+| --------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------- |
+| [@moralisweb3/api-utils](../apiUtils/README.md)                       | [2.8.1](../apiUtils/CHANGELOG.md)            | Utilities and types to handle logic for api calls             |
+| [@moralisweb3/client-api-utils](../client/apiUtils/README.md)         | [2.8.1](../client/apiUtils/CHANGELOG.md)     | Client-side utilities for api calls                           |
+| [@moralisweb3/client-evm-api](../client/evmApi/README.md)             | [2.8.1](../client/evmApi/CHANGELOG.md)       | Client-side logic for making Evm Api calls                    |
+| [@moralisweb3/client-sol-api](../client/solApi/README.md)             | [2.8.1](../client/solApi/CHANGELOG.md)       | Client-side logic for making Solana Api calls                 |
+| [@moralisweb3/common-auth-utils](../common/authUtils/README.md)       | [2.8.1](../common/authUtils/CHANGELOG.md)    | Utilities, operations, datatypes, and types related to Auth   |
+| [@moralisweb3/common-evm-utils](../common/evmUtils/README.md)         | [2.8.1](../common/evmUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Evm     |
+| [@moralisweb3/common-sol-utils](../common/solUtils/README.md)         | [2.8.1](../common/solUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Solana  |
+| [@moralisweb3/common-streams-utils](../common/streamsUtils/README.md) | [2.8.1](../common/streamsUtils/CHANGELOG.md) | Utilities, operations, datatypes and types related to Streams |
 
 ## Tools
 
 Stand-alone tools and utilities
 
-| package                                                       | changelog                                   | description                                                     |
-| ------------------------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------- |
-| [@moralisweb3/eslint-config](packages/eslintConfig/README.md) | [1.0.1](packages/eslintConfig/CHANGELOG.md) | Eslint rules, used within the Moralis SDK and its demo projects |
+| package                                                 | changelog                             | description                                                     |
+| ------------------------------------------------------- | ------------------------------------- | --------------------------------------------------------------- |
+| [@moralisweb3/eslint-config](../eslintConfig/README.md) | [1.0.1](../eslintConfig/CHANGELOG.md) | Eslint rules, used within the Moralis SDK and its demo projects |
 
 
 
