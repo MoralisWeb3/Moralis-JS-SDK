@@ -154,6 +154,76 @@ const App = () => {
 }
 ```
 
+Basically, there are three options how to fetch data with `@moralisweb3/next` hooks:
+
+## 1. Provide params directly to the hook
+In case all required params for the hook are defined you can provide them directly to the hook params. Data fetching in this case will be triggered automatically:
+```jsx
+import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+
+const App = () => {
+  const { data: balance } = useEvmWalletTokenBalances({ address: '0x...' })
+
+  return (
+      <div>{JSON.stringify(balance, null, 2)}</div>
+  )
+}
+```
+
+## 2. Provide params to the fetch()
+Sometimes you need to fetch data somewhere in your code or even fetch it twice with different variables. You can provide params to the `fetch()` function:
+```jsx
+import { useState } from 'react';
+import { useEvmNativeBalance } from '@moralisweb3/next'
+import { EvmChain } from 'moralis/common-evm-utils';
+
+const App = () => {
+  const { fetch } = useEvmNativeBalance();
+  const [ethBalance, setEthBalance] = useState('');
+  const [bnbBalance, setBnbBalance] = useState('');
+
+  const fetchBalanceForEthereum = async () => {
+    const response = await fetch({ address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045', chain: EvmChain.ETHEREUM });
+    if (response?.balance) {
+      setEthBalance(response.balance.ether);
+    }
+  };
+
+  const fetchBalanceForBsc = async () => {
+    const response = await fetch({ address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045', chain: EvmChain.BSC });
+    if (response?.balance) {
+      setBnbBalance(response.balance.ether);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={fetchBalanceForEthereum}>Fetch Balance For Ethereum</button>
+      <button onClick={fetchBalanceForBsc}>Fetch Balance For BSC</button>
+      <p>Ethereum Balance: {ethBalance} Ether</p>
+      <p>Binance Balance: {bnbBalance} BNB</p>
+    </div>
+  )
+}
+```
+## 3. Disable Auto Data Fetching
+To disable auto data fetching after your component has been mounted you can set `revalidateOnMount = false`. Example:
+
+```jsx
+import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+
+const App = () => {
+  const { data: balance, fetch } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnMount: false })
+
+  return (
+    <>
+      <button onClick={fetch}>Fetch Balance Manually</button>
+      <div>{JSON.stringify(balance, null, 2)}</div>
+    </>
+  )
+}
+```
+
 # ⚙️ Hook Advanced Config
 
 The `@moralisweb3/next` hooks use [SWR](https://swr.vercel.app/) for a better developer experience. You can provide [config object](https://swr.vercel.app/docs/options#options) to the hooks as it's shown bellow:

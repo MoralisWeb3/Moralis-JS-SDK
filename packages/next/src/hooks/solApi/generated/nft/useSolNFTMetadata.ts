@@ -30,7 +30,7 @@ export const useSolNFTMetadata = (
     return mutate(
       fetcher(endpoint, {
         deserializeResponse,
-        request: params ?? request,
+        request: serializeRequest(fetchRequest, Moralis.Core),
       }),
     );
   }, []);
