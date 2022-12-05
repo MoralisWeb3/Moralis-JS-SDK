@@ -75,7 +75,10 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
 - [🔐 Authentication and Session Management with NextAuth](#️-authentication-and-session-management-with-nextauth)
-- [✨ Hook Usage Example](#️-hook-usage-example)
+- [✨ Hook Usage Examples](#️-hook-usage-examples)
+  - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
+  - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
+  - [3. Disable Auto Data Fetching](#3-disable-auto-data-fetching)
 - [⚙️ Hook Advanced Config](#️-hook-advanced-config)
 - [Authentication Api Hooks](#authentication-api-hooks)
   - [useAuthRequestChallengeSolana](#️useAuthRequestChallengeSolana)
@@ -90,7 +93,7 @@ The `@moralisweb3/next` library provides first class tools for web3 authenticati
 
 Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-metamask) Tutorial for NextJS.
 
-# ✨ Hook Usage Example
+# ✨ Hook Usage Examples
 
 ```jsx
 import { useEvmWalletTokenBalances } from '@moralisweb3/next'
