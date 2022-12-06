@@ -19,7 +19,6 @@
     "@types/markdown-table": "^3.0.0",
     "@types/minimist": "^1.2.2",
     "eslint": "^8.29.0",
-    "eslint-plugin-jest": "^26.8.3",
     "esmo": "^0.14.1",
     "glob": "^8.0.3",
     "handlebars": "^4.7.7",
