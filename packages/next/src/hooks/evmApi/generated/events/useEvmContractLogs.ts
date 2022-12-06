@@ -1,52 +1,37 @@
-import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   getContractLogsOperation as operation, 
-  GetContractLogsRequest, 
-  GetContractLogsResponse 
+  GetContractLogsRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import { useCallback } from 'react';
-import Moralis from 'moralis';
-import useSWR from 'swr';
+import { useResolverPaginated } from '../../../resolvers';
 
 export const useEvmContractLogs = (
   request?: GetContractLogsRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const endpoint = 'evmApi/getContractLogs';
-  const { deserializeResponse, serializeRequest } = operation;
-
-  const { data, error, mutate, isValidating } = useSWR<GetContractLogsResponse>(
-    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
-    fetcher, 
-    { revalidateOnFocus: false, ...fetchParams }
-  );
-
-  const fetch = useCallback((params?: GetContractLogsRequest) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
-    }
-    return mutate(
-      fetcher(endpoint, {
-        deserializeResponse,
-        request: serializeRequest(fetchRequest, Moralis.Core),
-      }),
-    );
-  }, []);
+  const { data, error, fetch, isFetching } = useResolverPaginated({
+    endpoint: 'evmApi/getContractLogs',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
-    data,
+    data: data?.data,
+    cursor: data?.cursor,
+    page: data?.page,
+    pageSize: data?.pageSize,
+    total: data?.total,
     error,
     fetch,
     /**
      * @deprecated use `fetch()` instead
      */
     refetch: () => fetch(),
-    isFetching: isValidating,
+    isFetching,
     /**
      * @deprecated use `isFetching` instead
      */
-    isValidating,
+    isValidating: isFetching,
   };
 };

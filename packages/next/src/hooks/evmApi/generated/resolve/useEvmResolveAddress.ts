@@ -1,39 +1,20 @@
-import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   resolveAddressOperation as operation, 
-  ResolveAddressRequest, 
-  ResolveAddressResponse 
+  ResolveAddressRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import { useCallback } from 'react';
-import Moralis from 'moralis';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
 export const useEvmResolveAddress = (
   request?: ResolveAddressRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const endpoint = 'evmApi/resolveAddress';
-  const { deserializeResponse, serializeRequest } = operation;
-
-  const { data, error, mutate, isValidating } = useSWR<ResolveAddressResponse>(
-    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
-    fetcher, 
-    { revalidateOnFocus: false, ...fetchParams }
-  );
-
-  const fetch = useCallback((params?: ResolveAddressRequest) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
-    }
-    return mutate(
-      fetcher(endpoint, {
-        deserializeResponse,
-        request: serializeRequest(fetchRequest, Moralis.Core),
-      }),
-    );
-  }, []);
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/resolveAddress',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
@@ -43,10 +24,10 @@ export const useEvmResolveAddress = (
      * @deprecated use `fetch()` instead
      */
     refetch: () => fetch(),
-    isFetching: isValidating,
+    isFetching,
     /**
      * @deprecated use `isFetching` instead
      */
-    isValidating,
+    isValidating: isFetching,
   };
 };

@@ -20,9 +20,15 @@ export class HooksGenerator {
     return this.moduleGenerator.operations.map((operation) => {
       const hookName = getHookName(operation.name, this.module);
 
+      //@ts-ignore
+      const isPaginated = Boolean(operation?.urlSearchParamNames?.includes('cursor'));
+
       return {
         type: 'add',
-        templateFile: path.join(this.dirname, 'templates/hook.ts.hbs'),
+        templateFile: path.join(
+          this.dirname,
+          isPaginated ? 'templates/hook_paginated.ts.hbs' : 'templates/hook.ts.hbs',
+        ),
         path: path.join(this.packagesFolder, `next/src/hooks/${this.module}/generated/{{ relativePath }}.ts`),
         data: {
           names: {

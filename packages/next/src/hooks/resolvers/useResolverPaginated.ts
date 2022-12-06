@@ -1,7 +1,8 @@
-import { Operation } from 'moralis/common-core';
+import { PaginatedOperation, PaginatedRequest } from 'moralis/common-core';
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import { fetcher, NoHookParamsError } from '../../utils';
+import { fetcherPaginated, NoHookParamsError } from '../../utils';
+import { FetcherPaginatedResponse } from '../../utils/fetchers/fetcherPaginated';
 import { FetchParams } from '../types';
 
 export interface useResolverParams<Operation, Request> {
@@ -11,18 +12,21 @@ export interface useResolverParams<Operation, Request> {
   fetchParams?: FetchParams;
 }
 
-const useResolver = <Request, Response, JSONResponse>({
+const useResolverPaginated = <Request, Response, JSONResponse>({
   endpoint,
   operation,
   request,
   fetchParams,
 }: useResolverParams<
-  Pick<Operation<Request, unknown, Response, JSONResponse>, 'serializeRequest' | 'deserializeResponse'>,
+  Pick<
+    PaginatedOperation<PaginatedRequest, unknown, Response, JSONResponse>,
+    'serializeRequest' | 'deserializeResponse'
+  >,
   Request
 >) => {
-  const { data, error, mutate, isValidating } = useSWR<Response>(
+  const { data, error, mutate, isValidating } = useSWR<FetcherPaginatedResponse<Response>>(
     [endpoint, request ? { operation, request } : null],
-    fetcher,
+    fetcherPaginated,
     {
       revalidateOnFocus: false,
       ...fetchParams,
@@ -35,7 +39,7 @@ const useResolver = <Request, Response, JSONResponse>({
       throw new NoHookParamsError('useEvmNativeBalance');
     }
     return mutate(
-      fetcher(endpoint, {
+      fetcherPaginated(endpoint, {
         operation,
         request: fetchRequest,
       }),
@@ -50,4 +54,4 @@ const useResolver = <Request, Response, JSONResponse>({
   };
 };
 
-export default useResolver;
+export default useResolverPaginated;

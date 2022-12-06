@@ -1,16 +1,16 @@
 import { 
-  getWalletNFTsOperation as operation, 
-  GetWalletNFTsRequest,
-} from 'moralis/common-evm-utils';
+  {{ names.operation }} as operation, 
+  {{ names.request }},
+} from '{{ names.commonUtils }}';
 import { FetchParams } from '../../../types';
 import { useResolverPaginated } from '../../../resolvers';
 
-export const useEvmWalletNFTs = (
-  request?: GetWalletNFTsRequest, 
+export const {{ names.hook }} = (
+  request?: {{ names.request }}, 
   fetchParams?: FetchParams,
 ) => {
   const { data, error, fetch, isFetching } = useResolverPaginated({
-    endpoint: 'evmApi/getWalletNFTs',
+    endpoint: '{{ url }}',
     operation,
     request,
     fetchParams,
