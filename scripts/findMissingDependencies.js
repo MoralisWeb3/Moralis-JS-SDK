@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
 
-const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client', 'packages/client/backendAdapter'];
+const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client', 'packages/client/adapter'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
 

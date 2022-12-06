@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "@firebase/app": "^0.8.3",
-    "@moralisweb3/client-backend-adapter-utils": "^2.8.1",
-    "@moralisweb3/client-backend-adapter-firebase": "^2.8.1",
+    "@moralisweb3/client-adapter-utils": "^2.8.1",
+    "@moralisweb3/client-adapter-firebase": "^2.8.1",
     "@moralisweb3/common-core": "^2.8.1"
   }
 }

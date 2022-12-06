@@ -1,73 +1,99 @@
 import { SolanaProvider } from './SolanaProvider';
 import { encode } from 'bs58';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
-import { AuthBackendAdapter, BackendAdapter } from '@moralisweb3/client-backend-adapter-utils';
-
-export declare type SolanaNetwork = 'mainnet' | 'devnet';
-
-export interface SolAuthClientOptions {
-  provider?: SolanaProvider;
-  network?: SolanaNetwork;
-}
-
-export interface SignInResult {
-  provider: SolanaProvider;
-  token: string;
-}
+import { AuthAdapter, AuthProvider, AuthStorage, Credentials } from '@moralisweb3/client-adapter-utils';
+import { SolanaNetwork, SolAuthClientOptions, SolProviderName } from './SolAuthClientOptions';
+import { SolanaProviderResolver } from './SolanaProviderResolver';
 
 const backendModuleName = 'solana';
+const providerNameKey = 'solProviderName';
 
 export class SolAuthClient implements Module {
-  public static create(backendAdapter: BackendAdapter, options?: SolAuthClientOptions, core?: Core): SolAuthClient {
+  public static create(authAdapter: AuthAdapter, options?: SolAuthClientOptions, core?: Core): SolAuthClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    return new SolAuthClient(core, backendAdapter.createAuth(core), options);
+    const authProvider = new AuthProvider(core, authAdapter);
+    const authStorage = new AuthStorage();
+    const solProviderResolver = new SolanaProviderResolver(options?.providerFactory);
+    return new SolAuthClient(authProvider, authStorage, solProviderResolver);
   }
 
   public readonly name = 'generalSolAuthClient';
+  private provider: SolanaProvider | null = null;
 
   private constructor(
-    protected readonly core: Core,
-    private readonly authBackendAdapter: AuthBackendAdapter,
-    private readonly options?: SolAuthClientOptions,
+    private readonly authProvider: AuthProvider,
+    private readonly authStorage: AuthStorage,
+    private readonly solProviderResolver: SolanaProviderResolver,
   ) {}
 
-  public async signIn(): Promise<SignInResult> {
-    const provider = this.options?.provider ?? getDefaultProvider();
+  public async signIn(network?: SolanaNetwork, providerName?: SolProviderName): Promise<void> {
+    const auth = await this.authProvider.get();
+    if (auth.tryGetCredentials()) {
+      throw new Error('You are already signed in');
+    }
+
+    const finalProviderName = providerName || 'default';
+    const provider = await this.solProviderResolver.resolve(providerName || finalProviderName);
 
     await provider.connect();
 
     const address = provider.publicKey.toBase58();
-    const context = await this.authBackendAdapter.requestAuthMessage(backendModuleName, {
+    const context = await auth.getMessageToSign(backendModuleName, {
       address,
-      network: this.options?.network ?? 'mainnet',
+      network: network ?? 'mainnet',
     });
 
     const encodedMessage = new TextEncoder().encode(context.message);
 
     const signature = await provider.signMessage(encodedMessage);
 
-    const token = await this.authBackendAdapter.issueAuthToken(backendModuleName, {
+    await auth.signIn(backendModuleName, {
       message: context.message,
       signature: encode(signature.signature),
     });
 
-    return {
-      provider,
-      token: token.token,
-    };
+    this.authStorage.set(providerNameKey, finalProviderName as string);
+    this.provider = provider;
   }
-}
 
-function getDefaultProvider(): SolanaProvider {
-  // eslint-disable-next-line
-  const provider = (window as any)['solana'];
-  if (!provider) {
-    throw new Error('Solana provider not found');
+  public async tryGetCredentials(): Promise<Credentials | null> {
+    const auth = await this.authProvider.get();
+    const credentials = auth.tryGetCredentials();
+    if (credentials && credentials.networkType === 'solana') {
+      return credentials;
+    }
+    return null;
   }
-  if (!provider.isPhantom) {
-    throw new Error('Phantom provider not found');
+
+  public async isSignedIn(): Promise<boolean> {
+    return (await this.tryGetCredentials()) !== null;
   }
-  return provider;
+
+  public async signOut(): Promise<void> {
+    const auth = await this.authProvider.get();
+    if (!auth.tryGetCredentials()) {
+      throw new Error('You are not signed in');
+    }
+
+    await auth.signOut();
+    this.authStorage.remove(providerNameKey);
+    this.provider = null;
+  }
+
+  public async restoreProvider(): Promise<SolanaProvider> {
+    if (this.provider) {
+      return this.provider;
+    }
+    if (!(await this.isSignedIn())) {
+      throw new Error('You cannot restore Solana provider if you are not singed in');
+    }
+    const providerName = this.authStorage.get(providerNameKey);
+    if (!providerName) {
+      throw new Error('Cannot restore Solana provider');
+    }
+    this.provider = await this.solProviderResolver.resolve(providerName);
+    return this.provider;
+  }
 }

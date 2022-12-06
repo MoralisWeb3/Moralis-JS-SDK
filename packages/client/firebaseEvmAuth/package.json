@@ -24,6 +24,7 @@
     "firebase": "^9.10.0",
     "@firebase/auth": "^0.20.11",
     "@moralisweb3/client-evm-auth": "^2.8.1",
+    "@moralisweb3/client-adapter-utils": "^2.8.1",
     "@moralisweb3/client-firebase-utils": "^2.8.1",
     "@ethersproject/providers": "^5.7.1"
   }

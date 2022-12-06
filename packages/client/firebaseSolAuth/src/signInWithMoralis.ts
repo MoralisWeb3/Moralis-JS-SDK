@@ -1,25 +1,20 @@
-import { getAuth, signInWithCustomToken, UserCredential } from '@firebase/auth';
-import { SolAuthClient, SolAuthClientOptions, SolanaProvider } from '@moralisweb3/client-sol-auth';
-import { MoralisFirebase } from '@moralisweb3/client-firebase-utils';
-
-export interface SignInWithMoralisOptions extends SolAuthClientOptions {}
+import { SolAuthClient, SolanaProvider } from '@moralisweb3/client-sol-auth';
+import { Credentials } from '@moralisweb3/client-adapter-utils';
 
 export interface SignInWithMoralisResponse {
-  provider: SolanaProvider;
-  credentials: UserCredential;
+  solanaProvider: SolanaProvider;
+  credentials: Credentials;
 }
 
-export async function signInWithMoralis(
-  moralis: MoralisFirebase,
-  options?: SignInWithMoralisOptions,
-): Promise<SignInWithMoralisResponse> {
-  const solAuthClient = SolAuthClient.create(moralis.backendAdapter, options, moralis.core);
+export async function signInWithMoralis(solAuthClient: SolAuthClient): Promise<SignInWithMoralisResponse> {
+  await solAuthClient.signIn();
+  const credentials = await solAuthClient.tryGetCredentials();
+  if (!credentials) {
+    throw new Error('Cannot read credentials');
+  }
 
-  const result = await solAuthClient.signIn();
-
-  const credentials = await signInWithCustomToken(getAuth(moralis.app), result.token);
   return {
-    provider: result.provider,
+    solanaProvider: await solAuthClient.restoreProvider(),
     credentials,
   };
 }

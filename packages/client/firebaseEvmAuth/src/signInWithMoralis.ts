@@ -1,26 +1,25 @@
-import { getAuth, signInWithCustomToken, UserCredential } from '@firebase/auth';
-import { EvmAuthClient, EvmAuthClientOptions } from '@moralisweb3/client-evm-auth';
-import { MoralisFirebase } from '@moralisweb3/client-firebase-utils';
-import { JsonRpcProvider } from '@ethersproject/providers';
-
-export interface SignInWithMoralisOptions extends EvmAuthClientOptions {}
+import { EvmAuthClient, EvmProviderName } from '@moralisweb3/client-evm-auth';
+import { Credentials } from '@moralisweb3/client-adapter-utils';
+import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 
 export interface SignInWithMoralisResponse {
-  provider: JsonRpcProvider;
-  credentials: UserCredential;
+  provider: JsonRpcProvider | Web3Provider;
+  credentials: Credentials;
 }
 
 export async function signInWithMoralis(
-  moralis: MoralisFirebase,
-  options?: SignInWithMoralisOptions,
+  evmAuthClient: EvmAuthClient,
+  providerName?: EvmProviderName,
 ): Promise<SignInWithMoralisResponse> {
-  const evmAuthClient = EvmAuthClient.create(moralis.backendAdapter, options, moralis.core);
+  await evmAuthClient.signIn(providerName);
 
-  const result = await evmAuthClient.signIn();
+  const credentials = await evmAuthClient.tryGetCredentials();
+  if (!credentials) {
+    throw new Error('Cannot read credentials');
+  }
 
-  const credentials = await signInWithCustomToken(getAuth(moralis.app), result.token);
   return {
-    provider: result.provider,
+    provider: await evmAuthClient.restoreProvider(),
     credentials,
   };
 }
