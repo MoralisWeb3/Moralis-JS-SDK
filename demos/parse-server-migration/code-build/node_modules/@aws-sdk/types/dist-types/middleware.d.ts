@@ -343,6 +343,13 @@ export interface HandlerExecutionContext {
      * Set at the same time as endpointV2.
      */
     authSchemes?: AuthScheme[];
+    /**
+     * Used by DynamoDbDocumentClient.
+     */
+    dynamoDbDocumentClientOptions?: Partial<{
+        overrideInputFilterSensitiveLog(...args: any[]): string | void;
+        overrideOutputFilterSensitiveLog(...args: any[]): string | void;
+    }>;
     [key: string]: any;
 }
 export interface Pluggable<Input extends object, Output extends object> {

@@ -1,6 +1,7 @@
 export const loggerMiddleware = () => (next, context) => async (args) => {
-    const { clientName, commandName, inputFilterSensitiveLog, logger, outputFilterSensitiveLog } = context;
     const response = await next(args);
+    const { clientName, commandName, logger, inputFilterSensitiveLog, outputFilterSensitiveLog, dynamoDbDocumentClientOptions = {}, } = context;
+    const { overrideInputFilterSensitiveLog, overrideOutputFilterSensitiveLog } = dynamoDbDocumentClientOptions;
     if (!logger) {
         return response;
     }
@@ -9,8 +10,8 @@ export const loggerMiddleware = () => (next, context) => async (args) => {
         logger.info({
             clientName,
             commandName,
-            input: inputFilterSensitiveLog(args.input),
-            output: outputFilterSensitiveLog(outputWithoutMetadata),
+            input: (overrideInputFilterSensitiveLog ?? inputFilterSensitiveLog)(args.input),
+            output: (overrideOutputFilterSensitiveLog ?? outputFilterSensitiveLog)(outputWithoutMetadata),
             metadata: $metadata,
         });
     }

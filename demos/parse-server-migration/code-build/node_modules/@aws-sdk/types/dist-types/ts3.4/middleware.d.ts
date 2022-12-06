@@ -202,6 +202,10 @@ export interface HandlerExecutionContext {
   userAgent?: UserAgent;
   endpointV2?: EndpointV2;
   authSchemes?: AuthScheme[];
+  dynamoDbDocumentClientOptions?: Partial<{
+    overrideInputFilterSensitiveLog(...args: any[]): string | void;
+    overrideOutputFilterSensitiveLog(...args: any[]): string | void;
+  }>;
   [key: string]: any;
 }
 export interface Pluggable<Input extends object, Output extends object> {
