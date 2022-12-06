@@ -1,39 +1,17 @@
-import { fetcher, NoHookParamsError } from '../../../../utils';
-import { 
-  getNativeBalanceOperation as operation, 
-  GetNativeBalanceRequest, 
-  GetNativeBalanceResponse 
+import {
+  getNativeBalanceOperation as operation,
+  GetNativeBalanceRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import { useCallback } from 'react';
-import Moralis from 'moralis';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmNativeBalance = (
-  request?: GetNativeBalanceRequest, 
-  fetchParams?: FetchParams,
-) => {
-  const endpoint = 'evmApi/getNativeBalance';
-  const { deserializeResponse, serializeRequest } = operation;
-
-  const { data, error, mutate, isValidating } = useSWR<GetNativeBalanceResponse>(
-    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
-    fetcher, 
-    { revalidateOnFocus: false, ...fetchParams }
-  );
-
-  const fetch = useCallback((params?: GetNativeBalanceRequest) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
-    }
-    return mutate(
-      fetcher(endpoint, {
-        deserializeResponse,
-        request: serializeRequest(fetchRequest, Moralis.Core),
-      }),
-    );
-  }, []);
+export const useEvmNativeBalance = (request?: GetNativeBalanceRequest, fetchParams?: FetchParams) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/getNativeBalance',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
@@ -43,10 +21,10 @@ export const useEvmNativeBalance = (
      * @deprecated use `fetch()` instead
      */
     refetch: () => fetch(),
-    isFetching: isValidating,
+    isFetching,
     /**
      * @deprecated use `isFetching` instead
      */
-    isValidating,
+    isValidating: isFetching,
   };
 };
