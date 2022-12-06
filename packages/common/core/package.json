@@ -1,12 +1,18 @@
 {
   "name": "@moralisweb3/common-core",
   "author": "Moralis",
-  "version": "2.8.0",
+  "version": "2.8.2",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Core module",
+    "type": "core",
+    "scope": "common",
+    "description": "All core logic related to the SDK"
+  },
   "files": [
     "lib/*"
   ],

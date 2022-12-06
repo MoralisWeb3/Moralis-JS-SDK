@@ -11,23 +11,35 @@ import useSWR from 'swr';
 export type RequestChallengeSolanaRequestClient = Pick<RequestChallengeSolanaRequest, 'address' | 'network'>;
 
 export const useAuthRequestChallengeSolana = (
-  request: RequestChallengeSolanaRequestClient,
+  request?: RequestChallengeSolanaRequestClient,
   fetchParams?: FetchParams,
 ) => {
   const endpoint = 'auth/requestChallengeSolana';
+  const { deserializeResponse } = operation;
 
   const { data, error, isValidating, mutate } = useSWR<RequestChallengeSolanaResponse>(
-    [endpoint, { operation, request }],
-    fetcher,
+    [
+      endpoint,
+      {
+        deserializeResponse,
+        request,
+      },
+    ],
+    request ? fetcher : null,
     {
-      revalidateOnMount: request ? true : false,
       revalidateOnFocus: false,
+      revalidateIfStale: false,
       ...fetchParams,
     },
   );
 
   const requestChallengeAsync = useCallback((params: RequestChallengeSolanaRequestClient) => {
-    return mutate(fetcher(endpoint, { operation, request: params }));
+    return mutate(
+      fetcher(endpoint, {
+        deserializeResponse,
+        request: params,
+      }),
+    );
   }, []);
 
   return {

@@ -1,12 +1,19 @@
 {
   "name": "@moralisweb3/next",
+  "description": "Moralis Evm and Solana Hooks for NextJS",
   "author": "Moralis",
-  "version": "2.8.0",
+  "version": "2.8.2",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Api",
+    "type": "integration",
+    "scope": "server",
+    "description": "Integration of Moralis in NextJs"
+  },
   "files": [
     "lib/*"
   ],
@@ -24,13 +31,13 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.8.0",
-    "@moralisweb3/auth": "^2.8.0",
-    "@moralisweb3/common-auth-utils": "^2.8.0",
-    "@moralisweb3/evm-api": "^2.8.0",
-    "@moralisweb3/sol-api": "^2.8.0",
+    "@moralisweb3/api-utils": "^2.8.2",
+    "@moralisweb3/auth": "^2.8.2",
+    "@moralisweb3/common-auth-utils": "^2.8.2",
+    "@moralisweb3/evm-api": "^2.8.2",
+    "@moralisweb3/sol-api": "^2.8.2",
     "axios": "^0.27.2",
-    "moralis": "^2.8.0",
+    "moralis": "^2.8.2",
     "swr": "^1.3.0"
   },
   "peerDependencies": {

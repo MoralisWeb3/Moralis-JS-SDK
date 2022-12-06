@@ -32,7 +32,11 @@ import {
   getWalletTokenBalancesOperation,
 } from './token';
 import { getWalletTokenTransfersOperation } from './token/getWalletTokenTransfersOperation';
-import { getTransactionOperation, getWalletTransactionsOperation } from './transaction';
+import {
+  getTransactionOperation,
+  getWalletTransactionsOperation,
+  getWalletTransactionsVerboseOperation,
+} from './transaction';
 import { endpointWeightsOperation, web3ApiVersionOperation } from './utils';
 import { runContractFunctionOperation } from './utils/runContractFunctionOperation';
 
@@ -68,6 +72,7 @@ export const operations = [
   getWalletTokenBalancesOperation,
   getWalletTokenTransfersOperation,
   getWalletTransactionsOperation,
+  getWalletTransactionsVerboseOperation,
   resolveAddressOperation,
   resolveDomainOperation,
   reSyncMetadataOperation,

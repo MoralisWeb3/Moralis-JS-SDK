@@ -6,10 +6,12 @@ import {
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import useSWR from 'swr';
+import Moralis from 'moralis';
 
 export const useEvmTokenMetadataBySymbol = (request: GetTokenMetadataBySymbolRequest, fetchParams?: FetchParams) => {
+  const { deserializeResponse, serializeRequest } = operation
   const { data, error, mutate, isValidating } = useSWR<GetTokenMetadataBySymbolResponse>(
-    ['evmApi/getTokenMetadataBySymbol', {operation, request}], 
+    ['evmApi/getTokenMetadataBySymbol', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
     fetcher, 
     {revalidateOnFocus: false, ...fetchParams}
   );

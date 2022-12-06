@@ -1,12 +1,18 @@
 {
   "name": "@moralisweb3/client-sol-api",
   "author": "Moralis",
-  "version": "2.8.0",
+  "version": "2.8.2",
   "license": "MIT",
   "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Solana Api logic for client-side",
+    "type": "utils",
+    "scope": "client",
+    "description": "Client-side logic for making Solana Api calls"
+  },
   "files": [
     "lib/*"
   ],
@@ -22,8 +28,8 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@moralisweb3/client-api-utils": "^2.8.0",
-    "@moralisweb3/common-core": "^2.8.0",
-    "@moralisweb3/common-sol-utils": "^2.8.0"
+    "@moralisweb3/client-api-utils": "^2.8.2",
+    "@moralisweb3/common-core": "^2.8.2",
+    "@moralisweb3/common-sol-utils": "^2.8.2"
   }
 }

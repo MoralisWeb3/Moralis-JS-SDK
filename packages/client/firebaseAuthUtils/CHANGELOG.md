@@ -1,5 +1,9 @@
 # @moralisweb3/client-firebase-auth-utils
 
+## 2.8.2
+
+## 2.8.1
+
 ## 2.8.0
 
 ### Minor Changes

@@ -3,6 +3,12 @@
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "moralis": {
+    "name": "Eslint Config",
+    "type": "tools",
+    "scope": "common",
+    "description": "Eslint rules, used within the Moralis SDK and its demo projects"
+  },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.0.0",
