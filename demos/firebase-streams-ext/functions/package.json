@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/parser": "^5.45.1",
     "eslint-plugin-etc": "^2.0.2",
     "firebase-functions-test": "^0.2.0",
     "ngrok": "^4.3.3",
