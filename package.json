@@ -24,7 +24,7 @@
     "jest": "28",
     "nx": "^14.5.10",
     "openapi-types": "^12.0.0",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "rdme": "^7.5.0",
     "ts-jest": "^28.0.3",
     "typedoc": "^0.23.10",

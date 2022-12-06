@@ -24,7 +24,6 @@
     "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientSolApi.ts @moralisweb3/common-sol-utils"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {

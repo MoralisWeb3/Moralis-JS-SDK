@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@moralisweb3/common-evm-utils": "^2.8.2",
-    "prettier": "^2.5.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {
