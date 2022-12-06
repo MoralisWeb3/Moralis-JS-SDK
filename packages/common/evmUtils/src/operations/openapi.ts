@@ -797,7 +797,9 @@ export interface components {
       | "cronos"
       | "0x19"
       | "cronos testnet"
-      | "0x152";
+      | "0x152"
+      | "arbitrum"
+      | "0xa4b1";
     nft: {
       /**
        * @description The address of the NFT contract
@@ -1639,7 +1641,7 @@ export interface components {
        * @description The number of hits the request counts towards rate limiting
        * @example 1
        */
-      rateLimitWeight: string;
+      rateLimitCost: string;
       /**
        * @description The number of compute units the request counts towards billing
        * @example 0
