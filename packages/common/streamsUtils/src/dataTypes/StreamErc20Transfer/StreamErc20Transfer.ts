@@ -1,5 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
 import { StreamErc20TransferData, StreamErc20TransferInput, StreamErc20TransferJSON } from './types';
 
 export type StreamErc20Transferish = StreamErc20TransferInput | StreamErc20Transfer;
@@ -47,6 +48,7 @@ export class StreamErc20Transfer implements MoralisDataObject {
       value: BigNumber.create(data.value),
       valueWithDecimals: maybe(data.valueWithDecimals),
       tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
     };
   };
 
@@ -76,6 +78,22 @@ export class StreamErc20Transfer implements MoralisDataObject {
       return false;
     }
 
+    if (erc20TransferA.triggers?.length !== erc20TransferB.triggers?.length) {
+      return false;
+    } else {
+      const triggerResultsA = erc20TransferA.triggers || [];
+      const triggerResultsB = erc20TransferB.triggers || [];
+
+      triggerResultsA.sort((a, b) => (b.name > a.name ? 1 : -1));
+      triggerResultsB.sort((a, b) => (b.name > a.name ? 1 : -1));
+
+      for (let i = 0; i < triggerResultsA?.length; i++) {
+        if (!triggerResultsA[i].equals(triggerResultsB[i])) {
+          return false;
+        }
+      }
+    }
+
     return true;
   }
 
@@ -98,7 +116,7 @@ export class StreamErc20Transfer implements MoralisDataObject {
    * @example `erc20Transfer.toJSON()`
    */
   toJSON(): StreamErc20TransferJSON {
-    const { chain, from, to, contract, value, ...data } = this._data;
+    const { chain, from, to, contract, value, triggers, ...data } = this._data;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
@@ -107,6 +125,7 @@ export class StreamErc20Transfer implements MoralisDataObject {
       to: to.format(),
       contract: contract.format(),
       value: value.toString(),
+      triggers: triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -161,5 +180,9 @@ export class StreamErc20Transfer implements MoralisDataObject {
 
   get valueWithDecimals() {
     return this._data.valueWithDecimals;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }

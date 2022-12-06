@@ -1,5 +1,6 @@
 import { BigNumber, BigNumberish } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerResult, StreamTriggerResultish, StreamTriggerResultJSON } from '@moralisweb3/common-streams-utils';
 
 export interface StreamErc20ApprovalInput {
   chain: EvmChainish;
@@ -15,6 +16,7 @@ export interface StreamErc20ApprovalInput {
   tokenName: string;
   tokenSymbol: string;
   valueWithDecimals?: null | string;
+  triggers?: StreamTriggerResultish[];
 }
 
 export interface StreamErc20ApprovalData {
@@ -31,6 +33,7 @@ export interface StreamErc20ApprovalData {
   tokenName: string;
   tokenSymbol: string;
   valueWithDecimals?: string;
+  triggers?: StreamTriggerResult[];
 }
 
 export type StreamErc20ApprovalJSON = {
@@ -47,4 +50,5 @@ export type StreamErc20ApprovalJSON = {
   tokenName: string;
   tokenSymbol: string;
   valueWithDecimals?: string;
+  triggers?: StreamTriggerResultJSON[];
 };

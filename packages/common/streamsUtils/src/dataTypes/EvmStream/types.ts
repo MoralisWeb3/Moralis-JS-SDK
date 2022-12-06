@@ -1,4 +1,6 @@
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
+import { StreamTrigger } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerish, StreamTriggerJSON } from 'packages/common/streamsUtils/src/dataTypes/StreamTrigger/index';
 import { EvmAbi } from '../EvmAbi';
 
 export type EvmStreamAdvancedOptions = {
@@ -21,6 +23,7 @@ export interface EvmStreamInput {
   id: string;
   status: string;
   statusMessage: string;
+  triggers?: StreamTriggerish[] | null;
 }
 
 export interface EvmStreamData {
@@ -38,6 +41,7 @@ export interface EvmStreamData {
   id: string;
   status: string;
   statusMessage: string;
+  triggers?: StreamTrigger[];
 }
 
 export type EvmStreamJSON = {
@@ -55,4 +59,5 @@ export type EvmStreamJSON = {
   id: string;
   status: string;
   statusMessage: string;
+  triggers?: StreamTriggerJSON[];
 };

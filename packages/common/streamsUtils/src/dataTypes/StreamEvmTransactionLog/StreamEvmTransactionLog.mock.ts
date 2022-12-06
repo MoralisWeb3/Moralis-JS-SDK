@@ -10,6 +10,9 @@ const erc20TransferLog: StreamEvmTransactionLogInput = {
   topic1: '0x000000000000000000000000f89d7b9c864f589bbf53a82105107622b35eaa40',
   topic2: '0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8',
   topic3: null,
+  triggers: [
+    { name: "balance", value: "6967063534600021400000" },
+  ],
 };
 
 const erc1155SingleTransferLog: StreamEvmTransactionLogInput = {

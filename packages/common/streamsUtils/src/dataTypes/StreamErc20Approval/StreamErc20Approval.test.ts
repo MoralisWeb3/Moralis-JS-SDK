@@ -41,6 +41,10 @@ describe('StreamErc20Approval', () => {
       expect(approval.tokenDecimals).toBe(6);
       expect(approval.tokenSymbol).toBe('STREAMS');
       expect(approval.tokenName).toBe('Stream');
+      expect(approval.triggers?.map(t => t.toJSON())).toStrictEqual([
+        { name: "ownerBalance", value: "6967063534600021400000" },
+        { name: "spenderBalance", value: "200000000000000000" },
+      ]);
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -58,6 +62,10 @@ describe('StreamErc20Approval', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
         valueWithDecimals: '0.012345',
+        triggers: [
+          { name: "ownerBalance", value: "6967063534600021400000" },
+          { name: "spenderBalance", value: "200000000000000000" },
+        ],
       });
     });
 
@@ -76,6 +84,10 @@ describe('StreamErc20Approval', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
         valueWithDecimals: '0.012345',
+        triggers: [
+          { name: "ownerBalance", value: "6967063534600021400000" },
+          { name: "spenderBalance", value: "200000000000000000" },
+        ],
       });
     });
   });
@@ -101,6 +113,7 @@ describe('StreamErc20Approval', () => {
       expect(approval.tokenDecimals).toBeUndefined();
       expect(approval.tokenSymbol).toBe('');
       expect(approval.tokenName).toBe('');
+      expect(approval.triggers).toBeUndefined();
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -118,6 +131,7 @@ describe('StreamErc20Approval', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
         valueWithDecimals: undefined,
+        triggers: undefined,
       });
     });
 
@@ -136,11 +150,12 @@ describe('StreamErc20Approval', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
         valueWithDecimals: undefined,
+        triggers: undefined,
       });
     });
   });
 
-  it('should return return true for .equals() on equality match', () => {
+  it('should return true for .equals() on equality match', () => {
     const input = mockStreamErc20Approval.FULL;
     const transfer = StreamErc20Approval.create(input, core);
     const isEqual = transfer.equals({
@@ -150,7 +165,7 @@ describe('StreamErc20Approval', () => {
     expect(isEqual).toBe(true);
   });
 
-  it('should return return false for .equals() on mismatching chain', () => {
+  it('should return false for .equals() on mismatching chain', () => {
     const input = mockStreamErc20Approval.FULL;
     const transfer = StreamErc20Approval.create(input, core);
     const isEqual = transfer.equals({
@@ -161,7 +176,7 @@ describe('StreamErc20Approval', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching logIndex', () => {
+  it('should return false for .equals() on mismatching logIndex', () => {
     const input = mockStreamErc20Approval.FULL;
     const transfer = StreamErc20Approval.create(input, core);
     const isEqual = transfer.equals({
@@ -172,12 +187,39 @@ describe('StreamErc20Approval', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching transactionHash', () => {
+  it('should return false for .equals() on mismatching transactionHash', () => {
     const input = mockStreamErc20Approval.FULL;
     const transfer = StreamErc20Approval.create(input, core);
     const isEqual = transfer.equals({
       ...input,
       transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching trigger results length', () => {
+    const input = mockStreamErc20Approval.FULL;
+    const transfer = StreamErc20Approval.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      triggers: [
+        { name: "ownerBalance", value: "6967063534600021400000" },
+      ],
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching trigger results', () => {
+    const input = mockStreamErc20Approval.FULL;
+    const transfer = StreamErc20Approval.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      triggers: [
+        { name: "ownerBalance", value: "6967063534600021400000" },
+        { name: "spenderBalance", value: "200" },
+      ],
     });
 
     expect(isEqual).toBe(false);

@@ -44,6 +44,15 @@ describe('EvmStream', () => {
       expect(stream.statusMessage).toBe('Stream is active');
       expect(stream.chains.map((chain) => chain.decimal)).toStrictEqual([3, 4]);
       expect(stream.chainIds).toStrictEqual(['0x3', '0x4']);
+      expect(stream.triggers!.map((trigger) => trigger.toJSON())).toStrictEqual([
+        {
+          type: 'erc20transfer',
+          contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+          functionAbi: {},
+          inputs: ['$to'],
+          callFrom: undefined,
+        },
+      ]);
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -64,6 +73,15 @@ describe('EvmStream', () => {
         tag: 'tag',
         topic0: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'],
         webhookUrl: 'https://webhook.site/c76c6361-960d-4600-8498-9fecba8abb5f',
+        triggers: [
+          {
+            type: 'erc20transfer',
+            contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+            functionAbi: {},
+            inputs: ['$to'],
+            callFrom: undefined,
+          },
+        ],
       });
     });
 
@@ -85,11 +103,20 @@ describe('EvmStream', () => {
         tag: 'tag',
         topic0: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'],
         webhookUrl: 'https://webhook.site/c76c6361-960d-4600-8498-9fecba8abb5f',
+        triggers: [
+          {
+            type: 'erc20transfer',
+            contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+            functionAbi: {},
+            inputs: ['$to'],
+            callFrom: undefined,
+          },
+        ],
       });
     });
   });
 
-  it('should return return true for .equals() on equality match', () => {
+  it('should return true for .equals() on equality match', () => {
     const input = mockEvmStream.SIMPLE;
     const transfer = EvmStream.create(input, core);
     const isEqual = transfer.equals({
@@ -99,12 +126,23 @@ describe('EvmStream', () => {
     expect(isEqual).toBe(true);
   });
 
-  it('should return return false for .equals() on mismatching id', () => {
+  it('should return false for .equals() on mismatching id', () => {
     const input = mockEvmStream.SIMPLE;
     const transfer = EvmStream.create(input, core);
     const isEqual = transfer.equals({
       ...input,
       id: '3fa85f64-5717-4562-b3fc-2c963f66afax',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching triggers', () => {
+    const input = mockEvmStream.SIMPLE;
+    const transfer = EvmStream.create(input, core);
+    const isEqual = transfer.equals({
+      ...input,
+      triggers: undefined,
     });
 
     expect(isEqual).toBe(false);

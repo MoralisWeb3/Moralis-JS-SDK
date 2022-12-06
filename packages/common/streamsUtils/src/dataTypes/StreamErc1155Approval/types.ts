@@ -1,4 +1,5 @@
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerResult, StreamTriggerResultish, StreamTriggerResultJSON } from '@moralisweb3/common-streams-utils';
 
 export interface StreamErc1155ApprovalInput {
   chain: EvmChainish;
@@ -11,6 +12,7 @@ export interface StreamErc1155ApprovalInput {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerResultish[];
 }
 export interface StreamErc1155ApprovalData {
   chain: EvmChain;
@@ -23,6 +25,7 @@ export interface StreamErc1155ApprovalData {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerResult[];
 }
 
 export type StreamErc1155ApprovalJSON = {
@@ -36,4 +39,5 @@ export type StreamErc1155ApprovalJSON = {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerResultJSON[];
 };

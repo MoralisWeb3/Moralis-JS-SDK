@@ -39,6 +39,10 @@ describe('StreamErc721Approval', () => {
       expect(approval.tokenContractType).toBe('ERC721');
       expect(approval.tokenName).toBe('Stream');
       expect(approval.tokenSymbol).toBe('STREAMS');
+      expect(approval.triggers?.map(t => t.toJSON())).toStrictEqual([
+        { name: "ownerBalance", value: "6967063534600021400000" },
+        { name: "approverBalance", value: "200000000000000000" },
+      ]);
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -54,6 +58,10 @@ describe('StreamErc721Approval', () => {
         tokenName: 'Stream',
         tokenSymbol: 'STREAMS',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
+        triggers: [
+          { name: "ownerBalance", value: "6967063534600021400000" },
+          { name: "approverBalance", value: "200000000000000000" },
+        ],
       });
     });
 
@@ -71,10 +79,14 @@ describe('StreamErc721Approval', () => {
         tokenName: 'Stream',
         tokenSymbol: 'STREAMS',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
+        triggers: [
+          { name: "ownerBalance", value: "6967063534600021400000" },
+          { name: "approverBalance", value: "200000000000000000" },
+        ],
       });
     });
 
-    it('should return return true for .equals() on equality match', () => {
+    it('should return true for .equals() on equality match', () => {
       const isEqual = approval.equals({
         ...input,
       });
@@ -82,7 +94,7 @@ describe('StreamErc721Approval', () => {
       expect(isEqual).toBe(true);
     });
 
-    it('should return return false for .equals() on mismatching chain', () => {
+    it('should return false for .equals() on mismatching chain', () => {
       const isEqual = approval.equals({
         ...input,
         chain: '0x2',
@@ -91,7 +103,7 @@ describe('StreamErc721Approval', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching transactionHash', () => {
+    it('should return false for .equals() on mismatching transactionHash', () => {
       const isEqual = approval.equals({
         ...input,
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
@@ -100,7 +112,7 @@ describe('StreamErc721Approval', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching account', () => {
+    it('should return false for .equals() on mismatching account', () => {
       const isEqual = approval.equals({
         ...input,
         owner: '0xbb6a28edbbaf0c7542c73212d26cc0b249da47a6',
@@ -109,7 +121,7 @@ describe('StreamErc721Approval', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching contract', () => {
+    it('should return false for .equals() on mismatching contract', () => {
       const isEqual = approval.equals({
         ...input,
         contract: '0xdac17f958d2ee523a2206206994597c13d831ec8',
@@ -118,7 +130,7 @@ describe('StreamErc721Approval', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching operator', () => {
+    it('should return false for .equals() on mismatching operator', () => {
       const isEqual = approval.equals({
         ...input,
         tokenId: '456',
@@ -127,10 +139,33 @@ describe('StreamErc721Approval', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching approved', () => {
+    it('should return false for .equals() on mismatching approved', () => {
       const isEqual = approval.equals({
         ...input,
         approved: '0xee010a7476bc5adc88f1befc68c3b58f27f90410',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return false for .equals() on mismatching trigger results length', () => {
+      const isEqual = approval.equals({
+        ...input,
+        triggers: [
+          { name: "ownerBalance", value: "6967063534600021400000" },
+        ],
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return false for .equals() on mismatching trigger results', () => {
+      const isEqual = approval.equals({
+        ...input,
+        triggers: [
+          { name: "ownerBalance", value: "6967063534600021400000" },
+          { name: "approverBalance", value: "200" },
+        ],
       });
 
       expect(isEqual).toBe(false);

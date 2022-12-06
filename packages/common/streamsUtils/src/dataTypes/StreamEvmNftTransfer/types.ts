@@ -1,4 +1,5 @@
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerResult, StreamTriggerResultish, StreamTriggerResultJSON } from '@moralisweb3/common-streams-utils';
 
 export interface StreamEvmNftTransferInput {
   chain: EvmChainish;
@@ -13,6 +14,7 @@ export interface StreamEvmNftTransferInput {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerResultish[];
 }
 
 export interface StreamEvmNftTransferData {
@@ -28,6 +30,7 @@ export interface StreamEvmNftTransferData {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerResult[];
 }
 
 export type StreamEvmNftTransferJSON = {
@@ -43,4 +46,5 @@ export type StreamEvmNftTransferJSON = {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerResultJSON[];
 };

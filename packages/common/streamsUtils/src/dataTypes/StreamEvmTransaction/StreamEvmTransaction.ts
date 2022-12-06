@@ -1,5 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
 import { StreamEvmTransactionData, StreamEvmTransactionInput, StreamEvmTransactionJSON } from './types';
 
 type StreamEvmTransactionish = StreamEvmTransaction | StreamEvmTransactionInput;
@@ -59,6 +60,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
       receiptStatus: maybe(data.receiptStatus, (status) => +status),
       signature,
       transactionIndex: +data.transactionIndex,
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
     };
   }
 
@@ -82,6 +84,22 @@ export class StreamEvmTransaction implements MoralisDataObject {
 
     if (transactionA.hash !== transactionB.hash) {
       return false;
+    }
+
+    if (transactionA.triggers?.length !== transactionB.triggers?.length) {
+      return false;
+    } else {
+      const triggerResultsA = transactionA.triggers || [];
+      const triggerResultsB = transactionB.triggers || [];
+
+      triggerResultsA.sort((a, b) => (b.name > a.name ? 1 : -1));
+      triggerResultsB.sort((a, b) => (b.name > a.name ? 1 : -1));
+
+      for (let i = 0; i < triggerResultsA?.length; i++) {
+        if (!triggerResultsA[i].equals(triggerResultsB[i])) {
+          return false;
+        }
+      }
     }
 
     return true;
@@ -118,6 +136,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
       receiptCumulativeGasUsed,
       receiptGasUsed,
       signature,
+      triggers,
       ...data
     } = this._data;
 
@@ -136,6 +155,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
       r: signature?.r,
       s: signature?.s,
       v: signature?.v,
+      triggers: triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -226,5 +246,9 @@ export class StreamEvmTransaction implements MoralisDataObject {
 
   get receiptStatus() {
     return this._data.receiptStatus;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }
