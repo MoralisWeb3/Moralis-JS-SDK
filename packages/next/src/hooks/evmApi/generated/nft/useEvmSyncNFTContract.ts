@@ -1,25 +1,52 @@
-import { fetcher } from '../../../../utils/fetcher';
+import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   syncNFTContractOperation as operation, 
   SyncNFTContractRequest, 
   SyncNFTContractResponse 
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useCallback } from 'react';
 import Moralis from 'moralis';
+import useSWR from 'swr';
 
-export const useEvmSyncNFTContract = (request: SyncNFTContractRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
+export const useEvmSyncNFTContract = (
+  request?: SyncNFTContractRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const endpoint = 'evmApi/syncNFTContract';
+  const { deserializeResponse, serializeRequest } = operation;
+
   const { data, error, mutate, isValidating } = useSWR<SyncNFTContractResponse>(
-    ['evmApi/syncNFTContract', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
+    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
+    { revalidateOnFocus: false, ...fetchParams }
   );
+
+  const fetch = useCallback((params?: SyncNFTContractRequest) => {
+    const fetchRequest = params ?? request;
+    if (!fetchRequest) {
+      throw new NoHookParamsError('useEvmNativeBalance');
+    }
+    return mutate(
+      fetcher(endpoint, {
+        deserializeResponse,
+        request: serializeRequest(fetchRequest, Moralis.Core),
+      }),
+    );
+  }, []);
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching: isValidating,
+    /**
+     * @deprecated use `isFetching` instead
+     */
     isValidating,
   };
 };

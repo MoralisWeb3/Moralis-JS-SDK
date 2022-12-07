@@ -1,28 +1,28 @@
 import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
-  getContractNFTsOperation as operation, 
-  GetContractNFTsRequest, 
-  GetContractNFTsResponse 
+  getWalletTransactionsVerboseOperation as operation, 
+  GetWalletTransactionsVerboseRequest, 
+  GetWalletTransactionsVerboseResponse 
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import { useCallback } from 'react';
 import Moralis from 'moralis';
 import useSWR from 'swr';
 
-export const useEvmContractNFTs = (
-  request?: GetContractNFTsRequest, 
+export const useEvmWalletTransactionsVerbose = (
+  request?: GetWalletTransactionsVerboseRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const endpoint = 'evmApi/getContractNFTs';
+  const endpoint = 'evmApi/getWalletTransactionsVerbose';
   const { deserializeResponse, serializeRequest } = operation;
 
-  const { data, error, mutate, isValidating } = useSWR<GetContractNFTsResponse>(
+  const { data, error, mutate, isValidating } = useSWR<GetWalletTransactionsVerboseResponse>(
     [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
     fetcher, 
     { revalidateOnFocus: false, ...fetchParams }
   );
 
-  const fetch = useCallback((params?: GetContractNFTsRequest) => {
+  const fetch = useCallback((params?: GetWalletTransactionsVerboseRequest) => {
     const fetchRequest = params ?? request;
     if (!fetchRequest) {
       throw new NoHookParamsError('useEvmNativeBalance');
