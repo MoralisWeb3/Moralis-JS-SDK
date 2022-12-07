@@ -15,9 +15,11 @@
     "firebase-functions": "^3.18.0"
   },
   "devDependencies": {
+    "@firebase/app-types": "^0.8.1",
     "@moralisweb3/eslint-config": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
+    "eslint": "^8.29.0",
     "eslint-plugin-etc": "^2.0.2",
     "firebase-functions-test": "^0.2.0",
     "typescript": "^4.9.3"

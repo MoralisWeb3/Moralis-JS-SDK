@@ -3,7 +3,6 @@
   "author": "Moralis",
   "version": "2.8.2",
   "license": "MIT",
-  "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
@@ -17,7 +16,7 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test  --coverage",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
@@ -29,7 +28,7 @@
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.1",
     "eslint": "^8.29.0",
-    "msw": "0.43.0",
+    "msw": "0.49.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {

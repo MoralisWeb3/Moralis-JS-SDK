@@ -51,3 +51,5 @@ archive/**/*
 .vscode/
 .idea/
 dump.rdb
+
+.yarn

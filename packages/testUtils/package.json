@@ -25,6 +25,6 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "msw": "0.43.0"
+    "msw": "0.49.1"
   }
 }
