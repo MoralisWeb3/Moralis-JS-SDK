@@ -142,6 +142,15 @@ export class EvmChain implements MoralisData, EvmChainable {
   }
 
   /**
+   * Returns ARBITRUM chain
+   *
+   * @example EvmChain.ARBITRUM
+   */
+  public static get ARBITRUM() {
+    return EvmChain.create(42161);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -311,7 +320,8 @@ export class EvmChain implements MoralisData, EvmChainable {
       | '0xfa'
       | '0x19'
       | '0x152'
-      | '0x2a15c308d';
+      | '0x2a15c308d'
+      | '0xa4B1';
   }
 
   /**
