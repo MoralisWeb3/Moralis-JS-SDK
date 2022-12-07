@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'package.json'
+      - '*.lock'
+      - '.yarnrc.yml'
+      - '.github/**'
 
 jobs:
   build_and_deploy:
@@ -17,7 +22,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
-        run: ./.github/actions/yarn-monorepo-install
+        uses: ./.github/actions/yarn-monorepo-install
       - name: Create the docs and pages directory locally in CI
         run: yarn build && yarn build:docs
       - name: Deploy Docs

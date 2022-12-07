@@ -1,6 +1,15 @@
-# Reference: https://gist.github.com/belgattitude/042f9caf10d029badbde6cf9d43e400a
+########################################################################################
+# "yarn install" composite action for yarn 2/3/4+ and "nodeLinker: node-modules"       #
+#--------------------------------------------------------------------------------------#
+# Cache:                                                                               #
+#   - Downloaded zip archive (multi-arch, preserved across yarn.lock changes)          #
+#   - Yarn install state (discarded in yarn.lock changes)                              #
+# References:                                                                          #
+#   - bench: https://gist.github.com/belgattitude/0ecd26155b47e7be1be6163ecfbb0f0b     #
+#   - vs @setup/node: https://github.com/actions/setup-node/issues/325                 #
+########################################################################################
 
-name: 'Yarn install'
+name: 'Monorepo install (yarn)'
 description: 'Run yarn install with node_modules linker and cache enabled'
 
 runs:
@@ -11,7 +20,6 @@ runs:
       shell: bash
       run: |
         echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
     # Yarn rotates the downloaded cache archives, @see https://github.com/actions/setup-node/issues/325
     # Yarn cache is also reusable between arch and os.
     - name: Restore yarn cache
@@ -22,8 +30,7 @@ runs:
         key: yarn-download-cache-${{ hashFiles('yarn.lock') }}
         restore-keys: |
           yarn-download-cache-
-
-    # Invalidated on yarn.lock changes
+    # Save install_state (invalidated on yarn.lock changes)
     - name: Restore yarn install state
       id: yarn-install-state-cache
       uses: actions/cache@v3
