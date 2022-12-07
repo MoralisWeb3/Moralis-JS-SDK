@@ -18,7 +18,7 @@ function getClient(): Client {
 }
 
 export class MoralisClient {
-  public static async start(options?: ClientOptions): Promise<void> {
+  public static start(options?: ClientOptions) {
     if (client) {
       throw new MoralisError({
         code: CoreErrorCode.ALREADY_INITIALIZED,
@@ -27,7 +27,7 @@ export class MoralisClient {
     }
 
     client = Client.create(options);
-    await client.start();
+    client.start();
   }
 
   public static get evmApi(): EvmApiClient {

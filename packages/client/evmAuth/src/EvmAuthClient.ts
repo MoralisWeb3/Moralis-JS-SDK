@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
-import { AuthAdapter, AuthProvider, AuthStorage, Credentials } from '@moralisweb3/client-adapter-utils';
+import { AuthAdapter, AuthProvider, AuthStorage, User } from '@moralisweb3/client-adapter-utils';
 import { Web3ProviderResolver } from './Web3ProviderResolver';
 import { EvmAuthClientOptions, EvmProviderName } from './EvmAuthClientOptions';
 
@@ -27,9 +27,9 @@ export class EvmAuthClient implements Module {
     private readonly web3ProviderResolver: Web3ProviderResolver,
   ) {}
 
-  public async signIn(providerName?: EvmProviderName): Promise<void> {
+  public async authenticate(providerName?: EvmProviderName): Promise<void> {
     const auth = await this.authProvider.get();
-    if (auth.tryGetCredentials()) {
+    if (auth.tryGetUser()) {
       throw new Error('You are already signed in');
     }
 
@@ -55,22 +55,22 @@ export class EvmAuthClient implements Module {
     this.provider = provider;
   }
 
-  public async tryGetCredentials(): Promise<Credentials | null> {
+  public async tryGetUser(): Promise<User | null> {
     const auth = await this.authProvider.get();
-    const credentials = auth.tryGetCredentials();
-    if (credentials && credentials.networkType === 'evm') {
-      return credentials;
+    const user = auth.tryGetUser();
+    if (user && user.networkType === 'evm') {
+      return user;
     }
     return null;
   }
 
-  public async isSignedIn(): Promise<boolean> {
-    return (await this.tryGetCredentials()) !== null;
+  public async isLoggedIn(): Promise<boolean> {
+    return (await this.tryGetUser()) !== null;
   }
 
-  public async signOut(): Promise<void> {
+  public async logOut(): Promise<void> {
     const auth = await this.authProvider.get();
-    if (!auth.tryGetCredentials()) {
+    if (!auth.tryGetUser()) {
       throw new Error('You are not signed in');
     }
 
@@ -83,7 +83,7 @@ export class EvmAuthClient implements Module {
     if (this.provider) {
       return this.provider;
     }
-    if (!(await this.isSignedIn())) {
+    if (!(await this.isLoggedIn())) {
       throw new Error('You cannot restore Web3 provider if you are not singed in');
     }
     const providerName = this.authStorage.get(providerNameKey);

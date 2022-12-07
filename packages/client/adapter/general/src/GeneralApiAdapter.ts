@@ -15,6 +15,6 @@ export class GeneralApiAdapter implements ApiAdapter {
   public constructor(protected readonly options: GeneralApiAdapterOptions | undefined) {}
 
   public createResolver(_: Core): ApiOperationResolver {
-    throw new GeneralApiOperationResolver();
+    return new GeneralApiOperationResolver();
   }
 }

@@ -1,7 +1,7 @@
 import { Functions, httpsCallable } from '@firebase/functions';
 import {
   Auth as MoralisAuth,
-  Credentials,
+  User,
   GetMessageToSignRequest,
   GetMessageToSignResponse,
   NetworkTypeResolver,
@@ -20,7 +20,7 @@ export class FirebaseAuth implements MoralisAuth {
     this.functionNamePrefix = functionNamePrefix || 'ext-moralis-auth-';
   }
 
-  public tryGetCredentials(): Credentials | null {
+  public tryGetUser(): User | null {
     if (!this.auth.currentUser) {
       return null;
     }

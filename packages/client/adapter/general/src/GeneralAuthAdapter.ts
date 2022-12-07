@@ -1,5 +1,6 @@
 import { Auth, AuthAdapter } from '@moralisweb3/client-adapter-utils';
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
+import { GeneralAuth } from './GeneralAuth';
 
 export interface GeneralAuthAdapterOptions {
   // TODO: replace this property
@@ -13,8 +14,7 @@ export class GeneralAuthAdapter implements AuthAdapter {
 
   public constructor(protected readonly options: GeneralAuthAdapterOptions) {}
 
-  public createAuth(_: Core): Promise<Auth> {
-    // TODO: add implementation
-    throw new Error('Method not implemented.');
+  public async createAuth(_: Core): Promise<Auth> {
+    return new GeneralAuth();
   }
 }

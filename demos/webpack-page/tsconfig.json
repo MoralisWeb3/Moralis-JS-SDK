@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "noImplicitAny": true,
+    "target": "es6",
+    "module": "es2015",
+    "sourceMap": false,
+    "strict": true,
+    "allowJs": false,
+    "declaration": true,
+    "declarationDir": "./lib",
+    "moduleResolution": "node",
+    "lib": ["es2015", "dom"]
+  }
+}

@@ -1,25 +1,31 @@
 import { EvmAuthClient, EvmProviderName } from '@moralisweb3/client-evm-auth';
-import { Credentials } from '@moralisweb3/client-adapter-utils';
+import { User } from '@moralisweb3/client-adapter-utils';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 
 export interface SignInWithMoralisResponse {
   provider: JsonRpcProvider | Web3Provider;
-  credentials: Credentials;
+  user: User;
+
+  /**
+   * @deprecated Use `.user` property instead.
+   */
+  credentials: User;
 }
 
 export async function signInWithMoralis(
   evmAuthClient: EvmAuthClient,
   providerName?: EvmProviderName,
 ): Promise<SignInWithMoralisResponse> {
-  await evmAuthClient.signIn(providerName);
+  await evmAuthClient.authenticate(providerName);
 
-  const credentials = await evmAuthClient.tryGetCredentials();
-  if (!credentials) {
+  const user = await evmAuthClient.tryGetUser();
+  if (!user) {
     throw new Error('Cannot read credentials');
   }
 
   return {
     provider: await evmAuthClient.restoreProvider(),
-    credentials,
+    credentials: user,
+    user,
   };
 }

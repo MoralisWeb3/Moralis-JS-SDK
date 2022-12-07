@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      const salt = Math.random();
+      document.write(`<script src="../lib/main.js?_=${salt}"><\/script>`);
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🦊 Simple Webpack Page</title>
+
+    <style>
+      body {
+        margin: 0;
+        font: 14px/1.4em Arial, Verdana, Tahoma, Serif;
+        text-align: center;
+      }
+      button {
+        border: 0;
+        background: #eee;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🦊 Simple Webpack Page</h1>
+
+    <p>
+      👨‍🦱 Current user:
+      <strong id="userAddress"></strong>
+    </p>
+
+    <p>
+      🏦 Ballance:
+      <strong id="userBalance"></strong>
+    </p>
+
+    <p>
+      <button class="button" data-action="signInByMetaMask">Sign In By MetaMask ⚽</button> |
+      <button class="button" data-action="signInByWalletConnect">Sign In By WalletConnect ⚾</button> |
+      <button class="button" data-action="signInByPhantom">Sign In By Phantom 🥎</button> |
+      <button class="button" data-action="signOut">Sign Out ⛔</button>
+    </p>
+  </body>
+</html>

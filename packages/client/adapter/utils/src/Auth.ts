@@ -1,5 +1,5 @@
 export interface Auth {
-  tryGetCredentials(): Credentials | null;
+  tryGetUser(): User | null;
 
   getMessageToSign(backendModuleName: string, request: GetMessageToSignRequest): Promise<GetMessageToSignResponse>;
 
@@ -10,7 +10,7 @@ export interface Auth {
 
 export type NetworkType = 'solana' | 'evm';
 
-export interface Credentials {
+export interface User {
   networkType: NetworkType;
   profileId: string;
   address: string;

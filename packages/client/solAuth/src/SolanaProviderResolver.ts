@@ -12,14 +12,15 @@ export class SolanaProviderResolver {
   }
 }
 
-function getPhantomProvider(): SolanaProvider {
+async function getPhantomProvider(): Promise<SolanaProvider> {
   // eslint-disable-next-line
-  const provider = (window as any)['solana'];
+  const provider = (window as any)['solana'] as SolanaProvider | null;
   if (!provider) {
     throw new Error('Solana provider not found');
   }
   if (!provider.isPhantom) {
     throw new Error('Phantom provider not found');
   }
+  await provider.connect();
   return provider;
 }

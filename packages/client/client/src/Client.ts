@@ -47,7 +47,7 @@ export class Client {
     public readonly solAuth: SolAuthClient,
   ) {}
 
-  public async start(): Promise<void> {
-    await this.core.start();
+  public start() {
+    this.core.start();
   }
 }

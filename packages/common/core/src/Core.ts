@@ -72,7 +72,7 @@ export class Core {
    *
    * This will call `start()` on every registered module
    */
-  public start = async (providedConfig?: Partial<MoralisCoreConfigValues>) => {
+  public start = (providedConfig?: Partial<MoralisCoreConfigValues>) => {
     if (this._isStarted) {
       throw new MoralisError({
         message: 'Modules are started already. This method should be called only one time.',

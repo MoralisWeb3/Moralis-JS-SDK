@@ -1,5 +1,5 @@
 import { Auth, AuthAdapter } from '@moralisweb3/client-adapter-utils';
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { FrontEndOnlyAuth } from './FrontEndOnlyAuth';
 
 export interface FrontEndOnlyAuthAdapterOptions {

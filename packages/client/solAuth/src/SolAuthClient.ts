@@ -1,7 +1,7 @@
 import { SolanaProvider } from './SolanaProvider';
 import { encode } from 'bs58';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
-import { AuthAdapter, AuthProvider, AuthStorage, Credentials } from '@moralisweb3/client-adapter-utils';
+import { AuthAdapter, AuthProvider, AuthStorage, User } from '@moralisweb3/client-adapter-utils';
 import { SolanaNetwork, SolAuthClientOptions, SolProviderName } from './SolAuthClientOptions';
 import { SolanaProviderResolver } from './SolanaProviderResolver';
 
@@ -28,16 +28,14 @@ export class SolAuthClient implements Module {
     private readonly solProviderResolver: SolanaProviderResolver,
   ) {}
 
-  public async signIn(network?: SolanaNetwork, providerName?: SolProviderName): Promise<void> {
+  public async authenticate(network?: SolanaNetwork, providerName?: SolProviderName): Promise<void> {
     const auth = await this.authProvider.get();
-    if (auth.tryGetCredentials()) {
+    if (auth.tryGetUser()) {
       throw new Error('You are already signed in');
     }
 
     const finalProviderName = providerName || 'default';
     const provider = await this.solProviderResolver.resolve(providerName || finalProviderName);
-
-    await provider.connect();
 
     const address = provider.publicKey.toBase58();
     const context = await auth.getMessageToSign(backendModuleName, {
@@ -58,22 +56,22 @@ export class SolAuthClient implements Module {
     this.provider = provider;
   }
 
-  public async tryGetCredentials(): Promise<Credentials | null> {
+  public async tryGetUser(): Promise<User | null> {
     const auth = await this.authProvider.get();
-    const credentials = auth.tryGetCredentials();
+    const credentials = auth.tryGetUser();
     if (credentials && credentials.networkType === 'solana') {
       return credentials;
     }
     return null;
   }
 
-  public async isSignedIn(): Promise<boolean> {
-    return (await this.tryGetCredentials()) !== null;
+  public async isLoggedIn(): Promise<boolean> {
+    return (await this.tryGetUser()) !== null;
   }
 
-  public async signOut(): Promise<void> {
+  public async logOut(): Promise<void> {
     const auth = await this.authProvider.get();
-    if (!auth.tryGetCredentials()) {
+    if (!auth.tryGetUser()) {
       throw new Error('You are not signed in');
     }
 
@@ -86,7 +84,7 @@ export class SolAuthClient implements Module {
     if (this.provider) {
       return this.provider;
     }
-    if (!(await this.isSignedIn())) {
+    if (!(await this.isLoggedIn())) {
       throw new Error('You cannot restore Solana provider if you are not singed in');
     }
     const providerName = this.authStorage.get(providerNameKey);
