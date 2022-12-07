@@ -27,7 +27,7 @@ export class StreamTriggerResult implements MoralisDataObject {
     return {
       ...data,
     };
-  }
+  };
 
   /**
    * Compares two StreamTriggerResult data. It checks a deep equality check of both values.
@@ -43,7 +43,10 @@ export class StreamTriggerResult implements MoralisDataObject {
     const streamTriggerResultA = StreamTriggerResult.create(valueA);
     const streamTriggerResultB = StreamTriggerResult.create(valueB);
 
-    return streamTriggerResultA.name === streamTriggerResultB.name && streamTriggerResultA.value === streamTriggerResultB.value;
+    return (
+      streamTriggerResultA.name === streamTriggerResultB.name &&
+      streamTriggerResultA.value === streamTriggerResultB.value
+    );
   }
 
   /**
@@ -68,7 +71,7 @@ export class StreamTriggerResult implements MoralisDataObject {
     const { ...data } = this._data;
     return {
       ...data,
-    }
+    };
   }
 
   /**

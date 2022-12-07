@@ -14,8 +14,8 @@ const erc721: StreamEvmNftTransferInput = {
   tokenSymbol: 'STREAMS',
   transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
   triggers: [
-    { name: "fromBalance", value: "21" },
-    { name: "toBalance", value: "10" },
+    { name: 'fromBalance', value: '21' },
+    { name: 'toBalance', value: '10' },
   ],
 };
 
@@ -32,9 +32,7 @@ const erc1155Mint: StreamEvmNftTransferInput = {
   tokenName: 'Stream',
   tokenSymbol: 'STREAMS',
   transactionHash: '0x799ef3f2aecb8baa8293ce41e0871c854ae1d61619fa5f6d6c02a1bc865573f1',
-  triggers: [
-    { name: "balance", value: "15" },
-  ],
+  triggers: [{ name: 'balance', value: '15' }],
 };
 
 const erc1155: StreamEvmNftTransferInput = {
@@ -51,8 +49,8 @@ const erc1155: StreamEvmNftTransferInput = {
   tokenSymbol: 'STREAMS',
   transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
   triggers: [
-    { name: "fromBalance", value: "21" },
-    { name: "toBalance", value: "10" },
+    { name: 'fromBalance', value: '21' },
+    { name: 'toBalance', value: '10' },
   ],
 };
 

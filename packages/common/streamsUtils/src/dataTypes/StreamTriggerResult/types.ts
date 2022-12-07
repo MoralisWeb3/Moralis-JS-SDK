@@ -11,4 +11,4 @@ export interface StreamTriggerResultData {
 export type StreamTriggerResultJSON = {
   name: string;
   value: string;
-}
+};

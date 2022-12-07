@@ -42,8 +42,8 @@ describe('StreamErc20Transfer', () => {
       expect(transfer.tokenSymbol).toBe('STREAMS');
       expect(transfer.tokenName).toBe('Stream');
       expect(transfer.triggers?.map(t => t.format())).toStrictEqual([
-        { name: "fromBalance", value: "6967063534600021400000" },
-        { name: "toBalance", value: "200000000000000000" },
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200000000000000000' },
       ]);
     });
 
@@ -63,8 +63,8 @@ describe('StreamErc20Transfer', () => {
         value: '12345',
         valueWithDecimals: '0.012345',
         triggers: [
-          { name: "fromBalance", value: "6967063534600021400000" },
-          { name: "toBalance", value: "200000000000000000" },
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -85,8 +85,8 @@ describe('StreamErc20Transfer', () => {
         value: '12345',
         valueWithDecimals: '0.012345',
         triggers: [
-          { name: "fromBalance", value: "6967063534600021400000" },
-          { name: "toBalance", value: "200000000000000000" },
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -203,9 +203,7 @@ describe('StreamErc20Transfer', () => {
     const transfer = StreamErc20Transfer.create(input, core);
     const isEqual = transfer.equals({
       ...input,
-      triggers: [
-        { name: "fromBalance", value: "6967063534600021400000" },
-      ],
+      triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
     });
 
     expect(isEqual).toBe(false);
@@ -217,8 +215,8 @@ describe('StreamErc20Transfer', () => {
     const isEqual = transfer.equals({
       ...input,
       triggers: [
-        { name: "fromBalance", value: "6967063534600021400000" },
-        { name: "toBalance", value: "200" },
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200' },
       ],
     });
 

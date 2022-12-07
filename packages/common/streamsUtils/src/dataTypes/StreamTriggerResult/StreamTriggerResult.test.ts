@@ -20,7 +20,7 @@ describe('StreamTriggerResult', () => {
   });
 
   it('should return true for .equals() on equality match', () => {
-    const input = mockStreamTriggerResult.BALANCE_TRIGGER
+    const input = mockStreamTriggerResult.BALANCE_TRIGGER;
     const result = StreamTriggerResult.create(input, core);
     const isEqual = result.equals({ ...input });
 
@@ -28,7 +28,7 @@ describe('StreamTriggerResult', () => {
   });
 
   it('should return false for .equals() on mismatch name', () => {
-    const input = mockStreamTriggerResult.BALANCE_TRIGGER
+    const input = mockStreamTriggerResult.BALANCE_TRIGGER;
     const result = StreamTriggerResult.create(input, core);
     const isEqual = result.equals({ ...input, name: 'output1' });
 
@@ -36,7 +36,7 @@ describe('StreamTriggerResult', () => {
   });
 
   it('should return false for .equals() on mismatch value', () => {
-    const input = mockStreamTriggerResult.BALANCE_TRIGGER
+    const input = mockStreamTriggerResult.BALANCE_TRIGGER;
     const result = StreamTriggerResult.create(input, core);
     const isEqual = result.equals({ ...input, value: '51390023141500000' });
 

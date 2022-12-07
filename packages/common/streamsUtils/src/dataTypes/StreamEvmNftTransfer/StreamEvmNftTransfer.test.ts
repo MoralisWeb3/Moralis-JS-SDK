@@ -45,8 +45,8 @@ describe('StreamEvmNftTransfer', () => {
       expect(evmNftTransfer.tokenContractType).toBe('ERC721');
       expect(evmNftTransfer.operator?.lowercase).toBe('0xdac17f958d2ee523a2206206994597c13d831ec8');
       expect(evmNftTransfer.triggers?.map(t => t.toJSON())).toStrictEqual([
-        { name: "fromBalance", value: "21" },
-        { name: "toBalance", value: "10" },
+        { name: 'fromBalance', value: '21' },
+        { name: 'toBalance', value: '10' },
       ]);
     });
 
@@ -67,8 +67,8 @@ describe('StreamEvmNftTransfer', () => {
         tokenContractType: 'ERC721',
         operator: '0xdac17f958d2ee523a2206206994597c13d831ec8',
         triggers: [
-          { name: "fromBalance", value: "21" },
-          { name: "toBalance", value: "10" },
+          { name: 'fromBalance', value: '21' },
+          { name: 'toBalance', value: '10' },
         ],
       });
     });
@@ -90,8 +90,8 @@ describe('StreamEvmNftTransfer', () => {
         tokenContractType: 'ERC721',
         operator: '0xdac17f958d2ee523a2206206994597c13d831ec8',
         triggers: [
-          { name: "fromBalance", value: "21" },
-          { name: "toBalance", value: "10" },
+          { name: 'fromBalance', value: '21' },
+          { name: 'toBalance', value: '10' },
         ],
       });
     });
@@ -152,9 +152,7 @@ describe('StreamEvmNftTransfer', () => {
     it('should return false for .equals() on mismatching trigger results length', () => {
       const isEqual = evmNftTransfer.equals({
         ...mockStreamEvmNftTransferInput.ERC721,
-        triggers: [
-          { name: "fromBalance", value: "21" },
-        ],
+        triggers: [{ name: 'fromBalance', value: '21' }],
       });
 
       expect(isEqual).toBe(false);
@@ -164,8 +162,8 @@ describe('StreamEvmNftTransfer', () => {
       const isEqual = evmNftTransfer.equals({
         ...mockStreamEvmNftTransferInput.ERC721,
         triggers: [
-          { name: "fromBalance", value: "21" },
-          { name: "toBalance", value: "20" },
+          { name: 'fromBalance', value: '21' },
+          { name: 'toBalance', value: '20' },
         ],
       });
 

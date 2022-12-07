@@ -13,23 +13,23 @@ describe('createStreamEvmOperation', () => {
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {
     const contractAddress = '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE';
     const balanceOfAbi = {
-      "constant": true,
-      "inputs": [
+      constant: true,
+      inputs: [
         {
-          "name": "owner",
-          "type": "address",
+          name: 'owner',
+          type: 'address',
         },
       ],
-      "name": "balanceOf",
-      "outputs": [
+      name: 'balanceOf',
+      outputs: [
         {
-          "name": "toBalance",
-          "type": "uint256",
+          name: 'toBalance',
+          type: 'uint256',
         },
       ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function",
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
     };
 
     const request: Required<CreateStreamEvmRequest> = {
@@ -52,7 +52,9 @@ describe('createStreamEvmOperation', () => {
             contractAddress,
             functionAbi: balanceOfAbi,
             inputs: ['$to'],
-          }, core),
+          },
+          core,
+        ),
       ],
     };
 

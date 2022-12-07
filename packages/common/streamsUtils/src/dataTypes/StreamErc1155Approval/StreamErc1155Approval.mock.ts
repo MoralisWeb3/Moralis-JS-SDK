@@ -12,8 +12,8 @@ const full: StreamErc1155ApprovalInput = {
   tokenName: 'Stream',
   tokenSymbol: 'STREAMS',
   triggers: [
-    { name: "ownerBalance", value: "6967063534600021400000" },
-    { name: "approverBalance", value: "200000000000000000" },
+    { name: 'ownerBalance', value: '6967063534600021400000' },
+    { name: 'approverBalance', value: '200000000000000000' },
   ],
 };
 

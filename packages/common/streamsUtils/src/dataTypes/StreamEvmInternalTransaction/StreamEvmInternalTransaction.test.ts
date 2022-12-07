@@ -36,8 +36,8 @@ describe('StreamEvmInternalTransaction', () => {
       expect(transaction.value?.toString()).toBe('12345');
       expect(transaction.gas?.toString()).toBe('100');
       expect(transaction.triggers?.map(t => t.toJSON())).toStrictEqual([
-        { name: "fromBalance", value: "6967063534600021400000" },
-        { name: "toBalance", value: "200000000000000000" },
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200000000000000000' },
       ]);
     });
 
@@ -52,8 +52,8 @@ describe('StreamEvmInternalTransaction', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
         triggers: [
-          { name: "fromBalance", value: "6967063534600021400000" },
-          { name: "toBalance", value: "200000000000000000" },
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -69,8 +69,8 @@ describe('StreamEvmInternalTransaction', () => {
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
         triggers: [
-          { name: "fromBalance", value: "6967063534600021400000" },
-          { name: "toBalance", value: "200000000000000000" },
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -161,9 +161,7 @@ describe('StreamEvmInternalTransaction', () => {
     const transaction = StreamEvmInternalTransaction.create(input, core);
     const isEqual = transaction.equals({
       ...input,
-      triggers: [
-        { name: "fromBalance", value: "6967063534600021400000" },
-      ],
+      triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
     });
 
     expect(isEqual).toBe(false);
@@ -175,8 +173,8 @@ describe('StreamEvmInternalTransaction', () => {
     const isEqual = transaction.equals({
       ...input,
       triggers: [
-        { name: "fromBalance", value: "6967063534600021400000" },
-        { name: "toBalance", value: "200" },
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200' },
       ],
     });
 

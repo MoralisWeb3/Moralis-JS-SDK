@@ -21,8 +21,8 @@ const full1: StreamEvmTransactionInput = {
   receiptCumulativeGasUsed: '600',
   receiptContractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7',
   triggers: [
-    { name: "fromBalance", value: "6967063534600021400000" },
-    { name: "toBalance", value: "200000000000000000" },
+    { name: 'fromBalance', value: '6967063534600021400000' },
+    { name: 'toBalance', value: '200000000000000000' },
   ],
 };
 

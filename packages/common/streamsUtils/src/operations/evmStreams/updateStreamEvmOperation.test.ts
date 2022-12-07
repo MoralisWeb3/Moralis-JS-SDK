@@ -13,23 +13,23 @@ describe('createStreamEvmOperation', () => {
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {
     const contractAddress = '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE';
     const balanceOfAbi = {
-      'constant': true,
-      'inputs': [
+      constant: true,
+      inputs: [
         {
-          'name': 'owner',
-          'type': 'address',
+          name: 'owner',
+          type: 'address',
         },
       ],
-      'name': 'balanceOf',
-      'outputs': [
+      name: 'balanceOf',
+      outputs: [
         {
-          'name': 'toBalance',
-          'type': 'uint256',
+          name: 'toBalance',
+          type: 'uint256',
         },
       ],
-      'payable': false,
-      'stateMutability': 'view',
-      'type': 'function',
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
     };
 
     const request: Required<UpdateStreamEvmRequest> = {
@@ -52,8 +52,10 @@ describe('createStreamEvmOperation', () => {
             type: 'erc20transfer',
             contractAddress,
             functionAbi: balanceOfAbi,
-            inputs: ['$to'],
-          }, core),
+            inputs: [['Joe', '25', '$from']],
+          },
+          core,
+        ),
       ],
     };
 
@@ -77,7 +79,7 @@ describe('createStreamEvmOperation', () => {
     expect(serializedTrigger.type).toBe('erc20transfer');
     expect(serializedTrigger.contractAddress).toBe(contractAddress);
     expect(serializedTrigger.functionAbi).toBe(balanceOfAbi);
-    expect(serializedTrigger.inputs).toStrictEqual(['$to']);
+    expect(serializedTrigger.inputs).toStrictEqual([['Joe', '25', '$from']]);
 
     const deserializedRequest = updateStreamEvmOperation.deserializeRequest(serializedRequest, core);
 
@@ -99,6 +101,6 @@ describe('createStreamEvmOperation', () => {
     expect(deserializedTrigger.type).toBe('erc20transfer');
     expect((deserializedTrigger.contractAddress as EvmAddress).checksum).toBe(contractAddress);
     expect(deserializedTrigger.functionAbi).toBe(balanceOfAbi);
-    expect(deserializedTrigger.inputs).toStrictEqual(['$to']);
+    expect(deserializedTrigger.inputs).toStrictEqual([['Joe', '25', '$from']]);
   });
 });

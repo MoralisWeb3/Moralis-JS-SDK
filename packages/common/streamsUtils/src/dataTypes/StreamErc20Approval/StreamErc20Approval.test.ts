@@ -42,8 +42,8 @@ describe('StreamErc20Approval', () => {
       expect(approval.tokenSymbol).toBe('STREAMS');
       expect(approval.tokenName).toBe('Stream');
       expect(approval.triggers?.map(t => t.toJSON())).toStrictEqual([
-        { name: "ownerBalance", value: "6967063534600021400000" },
-        { name: "spenderBalance", value: "200000000000000000" },
+        { name: 'ownerBalance', value: '6967063534600021400000' },
+        { name: 'spenderBalance', value: '200000000000000000' },
       ]);
     });
 
@@ -63,8 +63,8 @@ describe('StreamErc20Approval', () => {
         value: '12345',
         valueWithDecimals: '0.012345',
         triggers: [
-          { name: "ownerBalance", value: "6967063534600021400000" },
-          { name: "spenderBalance", value: "200000000000000000" },
+          { name: 'ownerBalance', value: '6967063534600021400000' },
+          { name: 'spenderBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -85,8 +85,8 @@ describe('StreamErc20Approval', () => {
         value: '12345',
         valueWithDecimals: '0.012345',
         triggers: [
-          { name: "ownerBalance", value: "6967063534600021400000" },
-          { name: "spenderBalance", value: "200000000000000000" },
+          { name: 'ownerBalance', value: '6967063534600021400000' },
+          { name: 'spenderBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -203,9 +203,7 @@ describe('StreamErc20Approval', () => {
     const transfer = StreamErc20Approval.create(input, core);
     const isEqual = transfer.equals({
       ...input,
-      triggers: [
-        { name: "ownerBalance", value: "6967063534600021400000" },
-      ],
+      triggers: [{ name: 'ownerBalance', value: '6967063534600021400000' }],
     });
 
     expect(isEqual).toBe(false);
@@ -217,8 +215,8 @@ describe('StreamErc20Approval', () => {
     const isEqual = transfer.equals({
       ...input,
       triggers: [
-        { name: "ownerBalance", value: "6967063534600021400000" },
-        { name: "spenderBalance", value: "200" },
+        { name: 'ownerBalance', value: '6967063534600021400000' },
+        { name: 'spenderBalance', value: '200' },
       ],
     });
 

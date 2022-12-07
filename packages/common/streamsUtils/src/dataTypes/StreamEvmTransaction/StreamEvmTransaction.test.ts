@@ -52,8 +52,8 @@ describe('StreamEvmTransaction', () => {
       expect(transaction.v).toBe(1);
       expect(transaction.type).toBe(2);
       expect(transaction.triggers?.map(t => t.format())).toStrictEqual([
-        { name: "fromBalance", value: "6967063534600021400000" },
-        { name: "toBalance", value: "200000000000000000" },
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200000000000000000' },
       ]);
     });
 
@@ -81,8 +81,8 @@ describe('StreamEvmTransaction', () => {
         v: 1,
         type: 2,
         triggers: [
-          { name: "fromBalance", value: "6967063534600021400000" },
-          { name: "toBalance", value: "200000000000000000" },
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -111,8 +111,8 @@ describe('StreamEvmTransaction', () => {
         v: 1,
         type: 2,
         triggers: [
-          { name: "fromBalance", value: "6967063534600021400000" },
-          { name: "toBalance", value: "200000000000000000" },
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -244,9 +244,7 @@ describe('StreamEvmTransaction', () => {
     const transaction = StreamEvmTransaction.create(input, core);
     const isEqual = transaction.equals({
       ...input,
-      triggers: [
-        { name: "fromBalance", value: "6967063534600021400000" },
-      ],
+      triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
     });
 
     expect(isEqual).toBe(false);
@@ -258,8 +256,8 @@ describe('StreamEvmTransaction', () => {
     const isEqual = transaction.equals({
       ...input,
       triggers: [
-        { name: "fromBalance", value: "6967063534600021400000" },
-        { name: "toBalance", value: "200" },
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200' },
       ],
     });
 

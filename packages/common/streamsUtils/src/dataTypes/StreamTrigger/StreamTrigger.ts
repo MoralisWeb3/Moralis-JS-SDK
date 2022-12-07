@@ -30,7 +30,7 @@ export class StreamTrigger implements MoralisDataObject {
       contractAddress: EvmAddress.create(data.contractAddress, core),
       callFrom: maybe(data.callFrom, (address) => EvmAddress.create(address, core)),
     };
-  }
+  };
 
   static equals(valueA: StreamTriggerish, valueB: StreamTriggerish) {
     const streamTriggerA = StreamTrigger.create(valueA);
@@ -87,7 +87,7 @@ export class StreamTrigger implements MoralisDataObject {
       ...data,
       contractAddress: contractAddress.checksum,
       callFrom: callFrom?.format(),
-    }
+    };
   }
 
   /**

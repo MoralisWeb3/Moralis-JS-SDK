@@ -39,7 +39,7 @@ describe('StreamEvmTransactionLog', () => {
       expect(transactionLog.topic2).toBe('0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8');
       expect(transactionLog.topic3).toBeUndefined();
       expect(transactionLog.triggers?.map(t => t.format())).toStrictEqual([
-        { name: "balance", value: "6967063534600021400000" },
+        { name: 'balance', value: '6967063534600021400000' },
       ]);
     });
 
@@ -56,9 +56,7 @@ describe('StreamEvmTransactionLog', () => {
         topic2: '0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8',
         topic3: undefined,
         transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9a',
-        triggers: [
-          { name: "balance", value: "6967063534600021400000" },
-        ],
+        triggers: [{ name: 'balance', value: '6967063534600021400000' }],
       });
     });
 
@@ -75,9 +73,7 @@ describe('StreamEvmTransactionLog', () => {
         topic2: '0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8',
         topic3: undefined,
         transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9a',
-        triggers: [
-          { name: "balance", value: "6967063534600021400000" },
-        ],
+        triggers: [{ name: 'balance', value: '6967063534600021400000' }],
       });
     });
 
@@ -128,9 +124,7 @@ describe('StreamEvmTransactionLog', () => {
     it('should return false for .equals() on mismatching trigger results', () => {
       const isEqual = transactionLog.equals({
         ...input,
-        triggers: [
-          { name: "balance", value: "2000" },
-        ],
+        triggers: [{ name: 'balance', value: '2000' }],
       });
 
       expect(isEqual).toBe(false);

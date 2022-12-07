@@ -1,23 +1,23 @@
 import { StreamTriggerInput } from './types';
 
 const balanceOfAbi = {
-  "constant": true,
-  "inputs": [
+  constant: true,
+  inputs: [
     {
-      "name": "owner",
-      "type": "address",
+      name: 'owner',
+      type: 'address',
     },
   ],
-  "name": "balanceOf",
-  "outputs": [
+  name: 'balanceOf',
+  outputs: [
     {
-      "name": "toBalance",
-      "type": "uint256",
+      name: 'toBalance',
+      type: 'uint256',
     },
   ],
-  "payable": false,
-  "stateMutability": "view",
-  "type": "function",
+  payable: false,
+  stateMutability: 'view',
+  type: 'function',
 };
 
 const erc20TransferTrigger: StreamTriggerInput = {

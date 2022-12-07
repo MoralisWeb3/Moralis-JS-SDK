@@ -1,5 +1,9 @@
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult, StreamTriggerResultish, StreamTriggerResultJSON } from '@moralisweb3/common-streams-utils';
+import {
+  StreamTriggerResult,
+  StreamTriggerResultish,
+  StreamTriggerResultJSON,
+} from '@moralisweb3/common-streams-utils';
 
 export interface StreamErc721ApprovalInput {
   chain: EvmChainish;

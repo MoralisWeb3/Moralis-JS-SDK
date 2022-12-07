@@ -40,8 +40,8 @@ describe('StreamErc721Approval', () => {
       expect(approval.tokenName).toBe('Stream');
       expect(approval.tokenSymbol).toBe('STREAMS');
       expect(approval.triggers?.map(t => t.toJSON())).toStrictEqual([
-        { name: "ownerBalance", value: "6967063534600021400000" },
-        { name: "approverBalance", value: "200000000000000000" },
+        { name: 'ownerBalance', value: '6967063534600021400000' },
+        { name: 'approverBalance', value: '200000000000000000' },
       ]);
     });
 
@@ -59,8 +59,8 @@ describe('StreamErc721Approval', () => {
         tokenSymbol: 'STREAMS',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         triggers: [
-          { name: "ownerBalance", value: "6967063534600021400000" },
-          { name: "approverBalance", value: "200000000000000000" },
+          { name: 'ownerBalance', value: '6967063534600021400000' },
+          { name: 'approverBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -80,8 +80,8 @@ describe('StreamErc721Approval', () => {
         tokenSymbol: 'STREAMS',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         triggers: [
-          { name: "ownerBalance", value: "6967063534600021400000" },
-          { name: "approverBalance", value: "200000000000000000" },
+          { name: 'ownerBalance', value: '6967063534600021400000' },
+          { name: 'approverBalance', value: '200000000000000000' },
         ],
       });
     });
@@ -151,9 +151,7 @@ describe('StreamErc721Approval', () => {
     it('should return false for .equals() on mismatching trigger results length', () => {
       const isEqual = approval.equals({
         ...input,
-        triggers: [
-          { name: "ownerBalance", value: "6967063534600021400000" },
-        ],
+        triggers: [{ name: 'ownerBalance', value: '6967063534600021400000' }],
       });
 
       expect(isEqual).toBe(false);
@@ -163,8 +161,8 @@ describe('StreamErc721Approval', () => {
       const isEqual = approval.equals({
         ...input,
         triggers: [
-          { name: "ownerBalance", value: "6967063534600021400000" },
-          { name: "approverBalance", value: "200" },
+          { name: 'ownerBalance', value: '6967063534600021400000' },
+          { name: 'approverBalance', value: '200' },
         ],
       });
 
