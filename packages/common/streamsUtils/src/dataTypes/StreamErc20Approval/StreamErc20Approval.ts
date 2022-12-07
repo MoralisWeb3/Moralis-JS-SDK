@@ -1,6 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamErc20ApprovalData, StreamErc20ApprovalInput, StreamErc20ApprovalJSON } from './types';
 
 export type StreamErc20Approvalish = StreamErc20ApprovalInput | StreamErc20Approval;
@@ -48,7 +48,7 @@ export class StreamErc20Approval implements MoralisDataObject {
       value: BigNumber.create(data.value),
       valueWithDecimals: maybe(data.valueWithDecimals),
       tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
     };
   };
 

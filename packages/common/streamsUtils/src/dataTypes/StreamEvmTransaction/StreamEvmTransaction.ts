@@ -1,6 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmTransactionData, StreamEvmTransactionInput, StreamEvmTransactionJSON } from './types';
 
 type StreamEvmTransactionish = StreamEvmTransaction | StreamEvmTransactionInput;
@@ -60,7 +60,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
       receiptStatus: maybe(data.receiptStatus, (status) => +status),
       signature,
       transactionIndex: +data.transactionIndex,
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
     };
   }
 

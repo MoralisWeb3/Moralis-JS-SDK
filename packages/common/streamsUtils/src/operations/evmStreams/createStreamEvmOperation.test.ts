@@ -1,6 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTrigger } from '@moralisweb3/common-streams-utils';
+import { StreamTrigger } from '../../dataTypes';
 import { createStreamEvmOperation, CreateStreamEvmRequest } from './createStreamEvmOperation';
 
 describe('createStreamEvmOperation', () => {

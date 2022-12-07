@@ -1,6 +1,6 @@
 import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmTransactionLogData, StreamEvmTransactionLogInput, StreamEvmTransactionLogJSON } from './types';
 
 type StreamEvmTransactionLogish = StreamEvmTransactionLog | StreamEvmTransactionLogInput;
@@ -46,7 +46,7 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       topic1: maybe(data.topic1),
       topic2: maybe(data.topic2),
       topic3: maybe(data.topic3),
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
     };
   }
 

@@ -1,6 +1,6 @@
 import Core, { CoreProvider, maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamErc721ApprovalData, StreamErc721ApprovalInput, StreamErc721ApprovalJSON } from './types';
 
 export type StreamErc721Approvalish = StreamErc721ApprovalInput | StreamErc721Approval;
@@ -46,7 +46,7 @@ export class StreamErc721Approval implements MoralisDataObject {
       contract: EvmAddress.create(data.contract, core),
       tokenContractType: data.tokenContractType,
       approved: EvmAddress.create(data.approved, core),
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
     };
   };
 

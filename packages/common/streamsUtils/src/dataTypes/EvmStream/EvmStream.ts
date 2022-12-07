@@ -1,6 +1,6 @@
 import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTrigger } from '@moralisweb3/common-streams-utils';
+import { StreamTrigger } from '../StreamTrigger';
 import { EvmStreamData, EvmStreamInput, EvmStreamJSON } from './types';
 
 export type EvmStreamish = EvmStreamInput | EvmStream;

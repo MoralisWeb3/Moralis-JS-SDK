@@ -1,6 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import {
   StreamEvmInternalTransactionData,
   StreamEvmInternalTransactionInput,
@@ -47,7 +47,7 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
     to: maybe(data.to, (value) => EvmAddress.create(value, core)),
     value: maybe(data.value, (value) => BigNumber.create(value)),
     gas: maybe(data.gas, (value) => BigNumber.create(value)),
-    triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
+    triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
   });
 
   /**

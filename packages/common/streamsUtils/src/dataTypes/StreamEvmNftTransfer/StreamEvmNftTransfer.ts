@@ -1,6 +1,6 @@
 import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
-import { StreamTriggerResult } from '@moralisweb3/common-streams-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
 
 type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;
@@ -49,7 +49,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       transactionHash: data.transactionHash,
       amount: +data.amount,
       tokenName: data.tokenName,
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerResult.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
     };
   }
 

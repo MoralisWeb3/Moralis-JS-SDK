@@ -1,9 +1,9 @@
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import {
-  StreamTriggerResult,
-  StreamTriggerResultish,
-  StreamTriggerResultJSON,
-} from '@moralisweb3/common-streams-utils';
+  StreamTriggerOutput,
+  StreamTriggerOutputish,
+  StreamTriggerOutputJSON,
+} from '../StreamTriggerOutput';
 
 export interface StreamEvmTransactionLogInput {
   chain: EvmChainish;
@@ -15,7 +15,7 @@ export interface StreamEvmTransactionLogInput {
   topic1?: string | null;
   topic2?: string | null;
   topic3?: string | null;
-  triggers?: StreamTriggerResultish[];
+  triggers?: StreamTriggerOutputish[];
 }
 
 export interface StreamEvmTransactionLogData {
@@ -28,7 +28,7 @@ export interface StreamEvmTransactionLogData {
   topic1?: string;
   topic2?: string;
   topic3?: string;
-  triggers?: StreamTriggerResult[];
+  triggers?: StreamTriggerOutput[];
 }
 
 export type StreamEvmTransactionLogJSON = {
@@ -41,5 +41,5 @@ export type StreamEvmTransactionLogJSON = {
   topic1?: string;
   topic2?: string;
   topic3?: string;
-  triggers?: StreamTriggerResultJSON[];
+  triggers?: StreamTriggerOutputJSON[];
 };
