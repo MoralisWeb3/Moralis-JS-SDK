@@ -2,23 +2,16 @@ import { EvmApiClient } from '@moralisweb3/client-evm-api';
 import { SolApiClient } from '@moralisweb3/client-sol-api';
 import { EvmAuthClient, EvmAuthClientOptions } from '@moralisweb3/client-evm-auth';
 import { SolAuthClient, SolAuthClientOptions } from '@moralisweb3/client-sol-auth';
-import { ApiAdapter, AuthAdapter } from '@moralisweb3/client-adapter-utils';
-import {
-  GeneralApiAdapter,
-  GeneralApiAdapterOptions,
-  GeneralAuthAdapter,
-  GeneralAuthAdapterOptions,
-} from '@moralisweb3/client-adapter-general';
+import { BackendAdapter, AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
+import { RestBackendAdapter, RestBackendAdapterOptions } from '@moralisweb3/client-backend-adapter-rest';
 import { Core } from '@moralisweb3/common-core';
 
 export interface ClientOptions {
-  apiAdapter?: ApiAdapter;
-  defaultApiAdapterOptions?: GeneralApiAdapterOptions;
-  authAdapter?: AuthAdapter;
-  defaultAuthAdapterOptions?: GeneralAuthAdapterOptions;
+  backendAdapter?: BackendAdapter;
+  defaultBackendAdapter?: RestBackendAdapterOptions;
 
-  evmAuthOptions?: EvmAuthClientOptions;
-  solAuthOptions?: SolAuthClientOptions;
+  evmAuth?: EvmAuthClientOptions;
+  solAuth?: SolAuthClientOptions;
 }
 
 export class Client {
@@ -27,13 +20,13 @@ export class Client {
       core = Core.create();
     }
 
-    const apiAdapter = options?.apiAdapter ?? GeneralApiAdapter.create(options?.defaultApiAdapterOptions);
-    const authAdapter = options?.authAdapter ?? GeneralAuthAdapter.create(options?.defaultAuthAdapterOptions);
+    const backendAdapter = options?.backendAdapter ?? RestBackendAdapter.create(options?.defaultBackendAdapter);
+    const authProvider = AuthProvider.create(backendAdapter, core);
 
-    const evmApi = EvmApiClient.create(apiAdapter, core);
-    const evmAuth = EvmAuthClient.create(authAdapter, options?.evmAuthOptions, core);
-    const solApi = SolApiClient.create(apiAdapter, core);
-    const solAuth = SolAuthClient.create(authAdapter, options?.solAuthOptions, core);
+    const evmApi = EvmApiClient.create(backendAdapter, core);
+    const evmAuth = EvmAuthClient.create(authProvider, options?.evmAuth, core);
+    const solApi = SolApiClient.create(backendAdapter, core);
+    const solAuth = SolAuthClient.create(authProvider, options?.solAuth, core);
     core.registerModules([evmApi, evmAuth, solApi, solAuth]);
 
     return new Client(core, evmApi, evmAuth, solApi, solAuth);

@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "@moralisweb3/common-core": "^2.8.1",
-    "@moralisweb3/client-adapter-utils": "^2.8.1",
+    "@moralisweb3/client-backend-adapter-utils": "^2.8.1",
+    "@moralisweb3/client-auth-utils": "^2.8.1",
     "bs58": "^5.0.0"
   }
 }

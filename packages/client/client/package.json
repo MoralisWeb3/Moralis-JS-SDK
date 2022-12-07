@@ -27,7 +27,7 @@
     "@moralisweb3/client-evm-auth": "^2.8.1",
     "@moralisweb3/client-sol-api": "^2.8.1",
     "@moralisweb3/client-sol-auth": "^2.8.1",
-    "@moralisweb3/client-adapter-utils": "^2.8.1",
-    "@moralisweb3/client-adapter-general": "^2.8.1"
+    "@moralisweb3/client-backend-adapter-utils": "^2.8.1",
+    "@moralisweb3/client-backend-adapter-rest": "^2.8.1"
   }
 }

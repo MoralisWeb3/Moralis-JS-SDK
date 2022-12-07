@@ -4,5 +4,5 @@ import { SolAuthClient, SolAuthClientOptions } from '@moralisweb3/client-sol-aut
 export interface GetMoralisSolAuthOptions extends SolAuthClientOptions {}
 
 export function getMoralisSolAuth(moralis: MoralisFirebase, options?: GetMoralisSolAuthOptions): SolAuthClient {
-  return SolAuthClient.create(moralis.authAdapter, options, moralis.core);
+  return SolAuthClient.create(moralis.authProvider, options, moralis.core);
 }

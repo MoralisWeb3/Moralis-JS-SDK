@@ -3,14 +3,14 @@ import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/cli
 import { httpsCallable } from '@firebase/functions';
 import { Fragment, useEffect, useState } from 'react';
 import { evmAuth, functions, solAuth } from './firebase';
-import { Credentials } from '@moralisweb3/client-adapter-utils';
+import { User } from '@moralisweb3/client-backend-adapter-utils';
 
 export function App() {
-  const [credentials, setCredentials] = useState<Credentials | null>(() => null);
+  const [credentials, setCredentials] = useState<User | null>(() => null);
 
   useEffect(() => {
     async function restoreCredentials() {
-      const result = await Promise.all([evmAuth.tryGetCredentials(), solAuth.tryGetCredentials()]);
+      const result = await Promise.all([evmAuth.tryGetUser(), solAuth.tryGetUser()]);
       setCredentials(result[0] || result[1]);
     }
 
@@ -20,7 +20,7 @@ export function App() {
   async function signInWithMetamask() {
     const result = await signInWithMoralisByEvm(evmAuth, 'default');
 
-    setCredentials(result.credentials);
+    setCredentials(result.user);
   }
 
   async function signInWithWalletConnect() {
@@ -28,22 +28,22 @@ export function App() {
 
     const result = await signInWithMoralisByEvm(evmAuth, 'walletconnect');
 
-    setCredentials(result.credentials);
+    setCredentials(result.user);
   }
 
   async function signInWithPhantom() {
     const result = await signInWithMoralisBySolana(solAuth);
 
-    setCredentials(result.credentials);
+    setCredentials(result.user);
   }
 
   async function signOut() {
     switch (credentials?.networkType) {
       case 'evm':
-        await evmAuth.signOut();
+        await evmAuth.logOut();
         break;
       case 'solana':
-        await solAuth.signOut();
+        await solAuth.logOut();
         break;
     }
     setCredentials(null);

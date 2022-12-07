@@ -1,41 +1,41 @@
 import { SolanaProvider } from './SolanaProvider';
 import { encode } from 'bs58';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
-import { AuthAdapter, AuthProvider, AuthStorage, User } from '@moralisweb3/client-adapter-utils';
-import { SolanaNetwork, SolAuthClientOptions, SolProviderName } from './SolAuthClientOptions';
-import { SolanaProviderResolver } from './SolanaProviderResolver';
+import { AuthProvider, User } from '@moralisweb3/client-backend-adapter-utils';
+import { SolanaNetwork, SolAuthClientOptions } from './SolAuthClientOptions';
+import { AuthClient } from '@moralisweb3/client-auth-utils';
+import { SolWalletProviderResolver } from './SolWalletProviderResolver';
 
 const backendModuleName = 'solana';
-const providerNameKey = 'solProviderName';
 
-export class SolAuthClient implements Module {
-  public static create(authAdapter: AuthAdapter, options?: SolAuthClientOptions, core?: Core): SolAuthClient {
+export class SolAuthClient implements Module, AuthClient<SolanaProvider> {
+  public static create(authProvider: AuthProvider, options?: SolAuthClientOptions, core?: Core): SolAuthClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const authProvider = new AuthProvider(core, authAdapter);
-    const authStorage = new AuthStorage();
-    const solProviderResolver = new SolanaProviderResolver(options?.providerFactory);
-    return new SolAuthClient(authProvider, authStorage, solProviderResolver);
+    const walletProviderResolver = new SolWalletProviderResolver(options?.walletProviders);
+    return new SolAuthClient(authProvider, walletProviderResolver);
   }
 
-  public readonly name = 'generalSolAuthClient';
+  public readonly name = 'solAuthClient';
   private provider: SolanaProvider | null = null;
 
   private constructor(
     private readonly authProvider: AuthProvider,
-    private readonly authStorage: AuthStorage,
-    private readonly solProviderResolver: SolanaProviderResolver,
+    private readonly walletProviderResolver: SolWalletProviderResolver,
   ) {}
 
-  public async authenticate(network?: SolanaNetwork, providerName?: SolProviderName): Promise<void> {
+  public async authenticate(network?: SolanaNetwork, walletProviderName?: string): Promise<void> {
     const auth = await this.authProvider.get();
     if (auth.tryGetUser()) {
       throw new Error('You are already signed in');
     }
 
-    const finalProviderName = providerName || 'default';
-    const provider = await this.solProviderResolver.resolve(providerName || finalProviderName);
+    if (!walletProviderName) {
+      walletProviderName = 'default';
+    }
+
+    const provider = await this.walletProviderResolver.resolve(walletProviderName);
 
     const address = provider.publicKey.toBase58();
     const context = await auth.getMessageToSign(backendModuleName, {
@@ -50,9 +50,9 @@ export class SolAuthClient implements Module {
     await auth.signIn(backendModuleName, {
       message: context.message,
       signature: encode(signature.signature),
+      payload: walletProviderName,
     });
 
-    this.authStorage.set(providerNameKey, finalProviderName as string);
     this.provider = provider;
   }
 
@@ -76,7 +76,6 @@ export class SolAuthClient implements Module {
     }
 
     await auth.signOut();
-    this.authStorage.remove(providerNameKey);
     this.provider = null;
   }
 
@@ -84,14 +83,15 @@ export class SolAuthClient implements Module {
     if (this.provider) {
       return this.provider;
     }
-    if (!(await this.isLoggedIn())) {
-      throw new Error('You cannot restore Solana provider if you are not singed in');
+    const user = await this.tryGetUser();
+    if (!user) {
+      throw new Error('You cannot restore Web3 provider if you are not singed in');
     }
-    const providerName = this.authStorage.get(providerNameKey);
-    if (!providerName) {
+    const walletProviderName = user.payload;
+    if (!walletProviderName) {
       throw new Error('Cannot restore Solana provider');
     }
-    this.provider = await this.solProviderResolver.resolve(providerName);
+    this.provider = await this.walletProviderResolver.resolve(walletProviderName);
     return this.provider;
   }
 }

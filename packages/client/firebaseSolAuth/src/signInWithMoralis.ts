@@ -1,5 +1,5 @@
 import { SolAuthClient, SolanaProvider } from '@moralisweb3/client-sol-auth';
-import { User } from '@moralisweb3/client-adapter-utils';
+import { User } from '@moralisweb3/client-backend-adapter-utils';
 
 export interface SignInWithMoralisResponse {
   solanaProvider: SolanaProvider;
@@ -15,7 +15,7 @@ export async function signInWithMoralis(solAuthClient: SolAuthClient): Promise<S
   await solAuthClient.authenticate();
   const user = await solAuthClient.tryGetUser();
   if (!user) {
-    throw new Error('Cannot read credentials');
+    throw new Error('Cannot read user');
   }
 
   return {

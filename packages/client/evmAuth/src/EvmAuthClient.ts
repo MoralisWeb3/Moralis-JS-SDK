@@ -1,21 +1,19 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
-import { AuthAdapter, AuthProvider, AuthStorage, User } from '@moralisweb3/client-adapter-utils';
-import { Web3ProviderResolver } from './Web3ProviderResolver';
-import { EvmAuthClientOptions, EvmProviderName } from './EvmAuthClientOptions';
+import { AuthProvider, User } from '@moralisweb3/client-backend-adapter-utils';
+import { EvmWalletProviderResolver } from './EvmWalletProviderResolver';
+import { EvmAuthClientOptions } from './EvmAuthClientOptions';
+import { AuthClient, AuthClientError, AuthClientErrorCode } from '@moralisweb3/client-auth-utils';
 
 const backendModuleName = 'evm';
-const providerNameKey = 'evmProviderName';
 
-export class EvmAuthClient implements Module {
-  public static create(authAdapter: AuthAdapter, options?: EvmAuthClientOptions, core?: Core): EvmAuthClient {
+export class EvmAuthClient implements Module, AuthClient<JsonRpcProvider> {
+  public static create(authProvider: AuthProvider, options?: EvmAuthClientOptions, core?: Core): EvmAuthClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const authProvider = new AuthProvider(core, authAdapter);
-    const authStorage = new AuthStorage();
-    const web3ProviderResolver = new Web3ProviderResolver(options?.providerFactory);
-    return new EvmAuthClient(authProvider, authStorage, web3ProviderResolver);
+    const walletProviderResolver = new EvmWalletProviderResolver(options?.walletProviders);
+    return new EvmAuthClient(authProvider, walletProviderResolver);
   }
 
   public readonly name = 'evmAuthClient';
@@ -23,18 +21,22 @@ export class EvmAuthClient implements Module {
 
   private constructor(
     private readonly authProvider: AuthProvider,
-    private readonly authStorage: AuthStorage,
-    private readonly web3ProviderResolver: Web3ProviderResolver,
+    private readonly walletProviderResolver: EvmWalletProviderResolver,
   ) {}
 
-  public async authenticate(providerName?: EvmProviderName): Promise<void> {
+  public async authenticate(walletProviderName?: string): Promise<void> {
     const auth = await this.authProvider.get();
     if (auth.tryGetUser()) {
-      throw new Error('You are already signed in');
+      throw new AuthClientError({
+        code: AuthClientErrorCode.ALREADY_AUTHENTICATED,
+        message: 'You are already authenticated',
+      });
+    }
+    if (!walletProviderName) {
+      walletProviderName = 'default';
     }
 
-    const finalProviderName = providerName || 'default';
-    const provider = await this.web3ProviderResolver.resolve(finalProviderName);
+    const provider = await this.walletProviderResolver.resolve(walletProviderName);
 
     const [accounts, chain] = await Promise.all([provider.send('eth_accounts', []), provider.send('eth_chainId', [])]);
 
@@ -49,9 +51,9 @@ export class EvmAuthClient implements Module {
     await auth.signIn(backendModuleName, {
       message: response.message,
       signature,
+      payload: walletProviderName,
     });
 
-    this.authStorage.set(providerNameKey, finalProviderName as string);
     this.provider = provider;
   }
 
@@ -71,11 +73,13 @@ export class EvmAuthClient implements Module {
   public async logOut(): Promise<void> {
     const auth = await this.authProvider.get();
     if (!auth.tryGetUser()) {
-      throw new Error('You are not signed in');
+      throw new AuthClientError({
+        code: AuthClientErrorCode.NOT_AUTHENTICATED,
+        message: 'You are not authenticated',
+      });
     }
 
     await auth.signOut();
-    this.authStorage.remove(providerNameKey);
     this.provider = null;
   }
 
@@ -83,14 +87,24 @@ export class EvmAuthClient implements Module {
     if (this.provider) {
       return this.provider;
     }
-    if (!(await this.isLoggedIn())) {
-      throw new Error('You cannot restore Web3 provider if you are not singed in');
+
+    const user = await this.tryGetUser();
+    if (!user) {
+      throw new AuthClientError({
+        code: AuthClientErrorCode.NOT_AUTHENTICATED,
+        message: 'You cannot restore EVM provider if you are not authenticated',
+      });
     }
-    const providerName = this.authStorage.get(providerNameKey);
-    if (!providerName) {
-      throw new Error('Cannot restore Web3 provider');
+
+    const walletProviderName = user.payload;
+    if (!walletProviderName) {
+      throw new AuthClientError({
+        code: AuthClientErrorCode.GENERIC,
+        message: 'Cannot restore provider name',
+      });
     }
-    this.provider = await this.web3ProviderResolver.resolve(providerName);
+
+    this.provider = await this.walletProviderResolver.resolve(walletProviderName);
     return this.provider;
   }
 }

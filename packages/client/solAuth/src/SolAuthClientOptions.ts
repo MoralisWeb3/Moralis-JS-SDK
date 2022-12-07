@@ -1,11 +1,10 @@
-import { SolanaProvider } from './SolanaProvider';
+import { SolWalletProvider } from './SolWalletProvider';
 
 export declare type SolanaNetwork = 'mainnet' | 'devnet';
 
-export type SolProviderName = 'default' | string;
-
-export type SolProviderFactory = (providerName: SolProviderName) => Promise<SolanaProvider> | SolanaProvider;
-
 export interface SolAuthClientOptions {
-  providerFactory?: SolProviderFactory;
+  /**
+   * @description Custom Solana wallet providers.
+   */
+  walletProviders?: SolWalletProvider[];
 }

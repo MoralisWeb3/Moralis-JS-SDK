@@ -1,19 +1,11 @@
 import { FirebaseApp } from '@firebase/app';
-import { ApiAdapter, AuthAdapter } from '@moralisweb3/client-adapter-utils';
-import {
-  FirebaseApiAdapter,
-  FirebaseApiAdapterOptions,
-  FirebaseAuthAdapter,
-  FirebaseAuthAdapterOptions,
-} from '@moralisweb3/client-adapter-firebase';
+import { BackendAdapter, AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
+import { FirebaseBackendAdapter, FirebaseBackendAdapterOptions } from '@moralisweb3/client-backend-adapter-firebase';
 import { Core } from '@moralisweb3/common-core';
 
 export interface GetMoralisOptions {
-  apiAdapter?: ApiAdapter;
-  defaultApiAdapterOptions?: FirebaseApiAdapterOptions;
-
-  authAdapter?: AuthAdapter;
-  defaultAuthAdapterOptions?: FirebaseAuthAdapterOptions;
+  backendAdapter?: BackendAdapter;
+  defaultBackendAdapter?: FirebaseBackendAdapterOptions;
 }
 
 export function getMoralis(app: FirebaseApp, options?: GetMoralisOptions, core?: Core): MoralisFirebase {
@@ -21,20 +13,20 @@ export function getMoralis(app: FirebaseApp, options?: GetMoralisOptions, core?:
     core = Core.create();
   }
 
-  const apiAdapter = options?.apiAdapter ?? FirebaseApiAdapter.create(app, options?.defaultApiAdapterOptions);
-  const authAdapter = options?.authAdapter ?? FirebaseAuthAdapter.create(app, options?.defaultAuthAdapterOptions);
+  const backendAdapter = options?.backendAdapter ?? FirebaseBackendAdapter.create(app, options?.defaultBackendAdapter);
+  const authProvider = AuthProvider.create(backendAdapter, core);
 
   return {
     app,
-    apiAdapter,
-    authAdapter,
+    backendAdapter,
+    authProvider,
     core,
   };
 }
 
 export interface MoralisFirebase {
   app: FirebaseApp;
-  apiAdapter: ApiAdapter;
-  authAdapter: AuthAdapter;
+  backendAdapter: BackendAdapter;
+  authProvider: AuthProvider;
   core: Core;
 }

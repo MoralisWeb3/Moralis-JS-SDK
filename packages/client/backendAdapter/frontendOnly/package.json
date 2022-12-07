@@ -1,0 +1,27 @@
+{
+  "name": "@moralisweb3/client-backend-adapter-frontend-only",
+  "author": "Moralis",
+  "version": "2.8.1",
+  "license": "MIT",
+  "private": false,
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib/*"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@moralisweb3/common-core": "^2.8.1",
+    "@moralisweb3/client-backend-adapter-utils": "^2.8.1"
+  }
+}

@@ -30,19 +30,19 @@ export class MoralisClient {
     client.start();
   }
 
-  public static get evmApi(): EvmApiClient {
+  public static get EvmApi(): EvmApiClient {
     return getClient().evmApi;
   }
 
-  public static get evmAuth(): EvmAuthClient {
+  public static get EvmAuth(): EvmAuthClient {
     return getClient().evmAuth;
   }
 
-  public static get solApi(): SolApiClient {
+  public static get SolApi(): SolApiClient {
     return getClient().solApi;
   }
 
-  public static get solAuth(): SolAuthClient {
+  public static get SolAuth(): SolAuthClient {
     return getClient().solAuth;
   }
 }
