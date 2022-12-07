@@ -32,7 +32,7 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        ./yarn-monorepo-install
+        ./.github/actions/yarn-monorepo-install
       env:
         # CI optimizations. Overrides yarnrc.yml options (or their defaults) in the CI action.
         YARN_ENABLE_GLOBAL_CACHE: 'false' # Use local cache folder to keep downloaded archives
