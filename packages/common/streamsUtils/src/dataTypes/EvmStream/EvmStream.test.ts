@@ -47,7 +47,7 @@ describe('EvmStream', () => {
       expect(stream.triggers!.map((trigger) => trigger.toJSON())).toStrictEqual([
         {
           type: 'erc20transfer',
-          contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+          contractAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
           functionAbi: {},
           inputs: ['$to'],
           callFrom: undefined,
@@ -76,7 +76,7 @@ describe('EvmStream', () => {
         triggers: [
           {
             type: 'erc20transfer',
-            contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+            contractAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
             functionAbi: {},
             inputs: ['$to'],
             callFrom: undefined,
@@ -106,7 +106,7 @@ describe('EvmStream', () => {
         triggers: [
           {
             type: 'erc20transfer',
-            contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+            contractAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
             functionAbi: {},
             inputs: ['$to'],
             callFrom: undefined,

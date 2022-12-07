@@ -1,5 +1,5 @@
 import MoralisCore from '@moralisweb3/common-core';
-import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { CommonEvmUtils, CommonEvmUtilsConfig, EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTrigger } from '../../dataTypes';
 import { updateStreamEvmOperation, UpdateStreamEvmRequest } from './updateStreamEvmOperation';
 
@@ -8,6 +8,9 @@ describe('createStreamEvmOperation', () => {
 
   beforeAll(() => {
     core = MoralisCore.create();
+    const evmUtils = CommonEvmUtils.create(core);
+    core.registerModules([evmUtils]);
+    core.config.set(CommonEvmUtilsConfig.formatEvmAddress, 'checksum');
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {

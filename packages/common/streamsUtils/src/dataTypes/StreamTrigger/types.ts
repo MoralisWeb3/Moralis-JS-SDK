@@ -1,23 +1,22 @@
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
-
-// TODO support for selectors
+import { StreamSelector, StreamSelectorish } from '../StreamSelector';
 
 export interface StreamTriggerInput {
   type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
-  contractAddress: EvmAddressish;
+  contractAddress: StreamSelectorish | EvmAddressish;
   functionAbi: any;
   inputs?: (string | string[])[];
   topic0?: string;
-  callFrom?: EvmAddressish;
+  callFrom?: StreamSelectorish | EvmAddressish;
 }
 
 export interface StreamTriggerData {
   type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
-  contractAddress: EvmAddress;
+  contractAddress: StreamSelector | EvmAddress;
   functionAbi: any;
   inputs?: (string | string[])[];
   topic0?: string;
-  callFrom?: EvmAddress;
+  callFrom?: StreamSelector | EvmAddress;
 }
 
 export type StreamTriggerJSON = {

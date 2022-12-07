@@ -1,5 +1,6 @@
 import Core, { CoreProvider, maybe, MoralisDataObject } from '@moralisweb3/common-core';
-import { EvmAddress } from '@moralisweb3/common-evm-utils';
+import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
+import { StreamSelector, StreamSelectorish } from '../StreamSelector';
 import { StreamTriggerData, StreamTriggerInput, StreamTriggerJSON } from './types';
 
 export type StreamTriggerish = StreamTrigger | StreamTriggerInput | StreamTriggerData;
@@ -24,11 +25,29 @@ export class StreamTrigger implements MoralisDataObject {
     return new StreamTrigger(data, finalCore);
   }
 
+  private static parseSelectorOrAddress(input: StreamSelectorish | EvmAddressish, core: Core) {
+    let result: StreamSelector | EvmAddress;
+
+    // If it is not an EvmAddress, it can be a string, but only the ones that are selectors should be treated that way
+    if (!(input instanceof EvmAddress) && StreamSelector.isSelectorString(input)) {
+      result = StreamSelector.create(input);
+    } else {
+      result = EvmAddress.create(input as EvmAddressish, core);
+    }
+
+    return result;
+  }
+
   private static parse = (data: StreamTriggerInput, core: Core): StreamTriggerData => {
+    const { contractAddress: contractAddressInput, callFrom: callFromInput, ...input } = data;
+
+    const contractAddress = StreamTrigger.parseSelectorOrAddress(contractAddressInput, core);
+    const callFrom = maybe(callFromInput, (value) => StreamTrigger.parseSelectorOrAddress(value, core));
+
     return {
-      ...data,
-      contractAddress: EvmAddress.create(data.contractAddress, core),
-      callFrom: maybe(data.callFrom, (address) => EvmAddress.create(address, core)),
+      ...input,
+      contractAddress,
+      callFrom,
     };
   };
 
@@ -40,7 +59,8 @@ export class StreamTrigger implements MoralisDataObject {
       return false;
     }
 
-    if (!streamTriggerA.contractAddress.equals(streamTriggerB.contractAddress)) {
+    // contractAddress can be a StreamSelector or an EvmAddress. It is easier to compare them as strings
+    if (streamTriggerA.contractAddress.format() !== streamTriggerB.contractAddress.format()) {
       return false;
     }
 
@@ -48,8 +68,20 @@ export class StreamTrigger implements MoralisDataObject {
       return false;
     }
 
-    if (streamTriggerA.inputs !== streamTriggerB.inputs) {
+    if (streamTriggerA.inputs?.length !== streamTriggerB.inputs?.length) {
       return false;
+    } else {
+      const triggerInputsA = streamTriggerA.inputs || [];
+      const triggerInputsB = streamTriggerB.inputs || [];
+
+      triggerInputsA.sort();
+      triggerInputsB.sort();
+
+      for (let i = 0; i < triggerInputsA?.length; i++) {
+        if (triggerInputsA[i] !== triggerInputsB[i]) {
+          return false;
+        }
+      }
     }
 
     if (streamTriggerA.topic0 !== streamTriggerB.topic0) {
@@ -85,7 +117,7 @@ export class StreamTrigger implements MoralisDataObject {
     const { contractAddress, callFrom, ...data } = this._data;
     return {
       ...data,
-      contractAddress: contractAddress.checksum,
+      contractAddress: contractAddress.format(),
       callFrom: callFrom?.format(),
     };
   }
