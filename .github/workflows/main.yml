@@ -27,7 +27,7 @@ jobs:
           node-version: '16'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - name: Use cache dependencies
         uses: actions/cache@v3
         id: cache
@@ -56,7 +56,7 @@ jobs:
           node-version: '16'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - name: Use cache dependencies
         uses: actions/cache@v3
         id: cache
@@ -93,7 +93,7 @@ jobs:
           node-version: '16'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - name: Use cache dependencies
         uses: actions/cache@v3
         id: cache
@@ -122,7 +122,7 @@ jobs:
           node-version: '16'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - name: Use cache dependencies
         uses: actions/cache@v3
         id: cache
