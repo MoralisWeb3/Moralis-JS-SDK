@@ -27,7 +27,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
-        run: ./.github/actions/yarn-monorepo-install
+        run: ./yarn-monorepo-install
 
   lint:
     name: Eslint
@@ -46,7 +46,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
-        run: ./.github/actions/yarn-monorepo-install
+        run: ./yarn-monorepo-install
       - name: ESLint
         run: yarn lint
         continue-on-error: true
@@ -75,7 +75,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
-        run: ./.github/actions/yarn-monorepo-install
+        run: ./yarn-monorepo-install
       - name: Prettier
         run: yarn format:check
 
@@ -96,7 +96,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
-        uses: ./.github/actions/yarn-monorepo-install
+        uses: ./yarn-monorepo-install
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
