@@ -49,7 +49,7 @@ export class EvmNftTrade implements MoralisDataObject {
     tokenAddress: EvmAddress.create(data.tokenAddress),
     priceTokenAddress: maybe(data.priceTokenAddress, EvmAddress.create),
     blockNumber: BigNumber.create(data.blockNumber),
-    price: EvmNative.create(data.price),
+    price: EvmNative.create(data.price, 'wei'),
     transactionIndex: +data.transactionIndex,
     blockTimestamp: dateInputToDate(data.blockTimestamp),
   });
