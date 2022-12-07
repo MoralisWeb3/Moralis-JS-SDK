@@ -5,11 +5,21 @@ on:
       - main
       - beta
       - alpha
+    paths:
+      - 'package.json'
+      - '*.lock'
+      - '.yarnrc.yml'
+      - '.github/**'
   push:
     branches:
       - main
       - beta
       - alpha
+    paths:
+      - 'package.json'
+      - '*.lock'
+      - '.yarnrc.yml'
+      - '.github/**'
 jobs:
   setup:
     name: Setup
