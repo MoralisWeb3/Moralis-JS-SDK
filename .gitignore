@@ -53,3 +53,5 @@ archive/**/*
 dump.rdb
 
 .yarn
+.npmrc
+.yarnrc

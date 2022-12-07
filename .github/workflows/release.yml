@@ -20,7 +20,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
-        run: yarn install --immutable
+        run: ./.github/actions/yarn-monorepo-install
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
