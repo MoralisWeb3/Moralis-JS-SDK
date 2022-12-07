@@ -7,21 +7,25 @@ export const mockUpdateStream = MockScenarios.create(
     method: 'post',
     name: 'mockUpdateStream',
     url: `/streams/evm/:id`,
-    getParams: (req) => ({
-      id: req.params.id,
+    getParams: async (req) => {
+      const body = await req.json().catch(() => ({}));
 
-      webhookUrl: req.body.webhookUrl,
-      description: req.body.description,
-      tag: req.body.tag,
-      chainIds: req.body.chainIds,
-      abi: req.body.abi,
-      advancedOptions: req.body.advancedOptions,
-      topic0: req.body.topic0,
-      includeNativeTxs: req.body.includeNativeTxs,
-      allAddresses: req.body.allAddresses,
-      includeContractLogs: req.body.includeContractLogs,
-      includeInternalTxs: req.body.includeInternalTxs,
-    }),
+      return {
+        id: req.params.id,
+
+        webhookUrl: body.webhookUrl,
+        description: body.description,
+        tag: body.tag,
+        chainIds: body.chainIds,
+        abi: body.abi,
+        advancedOptions: body.advancedOptions,
+        topic0: body.topic0,
+        includeNativeTxs: body.includeNativeTxs,
+        allAddresses: body.allAddresses,
+        includeContractLogs: body.includeContractLogs,
+        includeInternalTxs: body.includeInternalTxs,
+      };
+    },
   },
   [
     {

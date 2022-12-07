@@ -7,10 +7,14 @@ export const mockVerifyEvmChallenge = MockScenarios.create(
     method: 'post',
     name: 'mockVerifyEvmChallenge',
     url: `/challenge/verify/evm`,
-    getParams: (req) => ({
-      message: req.body.message,
-      signature: req.body.signature,
-    }),
+    getParams: async (req) => {
+      const body = await req.json().catch(() => ({}));
+
+      return {
+        message: body.message,
+        signature: body.signature,
+      };
+    },
   },
   [
     {

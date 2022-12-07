@@ -7,10 +7,14 @@ export const mockVerifySolanaChallenge = MockScenarios.create(
     method: 'post',
     name: 'mockVerifySolanaChallenge',
     url: `/challenge/verify/solana`,
-    getParams: (req) => ({
-      message: req.body.message,
-      signature: req.body.signature,
-    }),
+    getParams: async (req) => {
+      const body = await req.json().catch(() => ({}));
+
+      return {
+        message: body.message,
+        signature: body.signature,
+      };
+    },
   },
   [
     {

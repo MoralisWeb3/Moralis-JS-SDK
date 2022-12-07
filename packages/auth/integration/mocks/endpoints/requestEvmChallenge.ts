@@ -7,18 +7,22 @@ export const mockRequestEvmChallenge = MockScenarios.create(
     method: 'post',
     name: 'mockRequestEvmChallenge',
     url: `/challenge/request/evm`,
-    getParams: (req) => ({
-      domain: req.body.domain,
-      chain: req.body.chainId,
-      address: req.body.address,
-      statement: req.body.statement,
-      uri: req.body.uri,
-      expirationTime: req.body.expirationTime,
-      notBefore: req.body.notBefore,
-      resources: req.body.resources,
-      timeout: req.body.timeout,
-      networkType: req.body.networkType,
-    }),
+    getParams: async (req) => {
+      const body = await req.json().catch(() => ({}));
+
+      return {
+        domain: body.domain,
+        chain: body.chainId,
+        address: body.address,
+        statement: body.statement,
+        uri: body.uri,
+        expirationTime: body.expirationTime,
+        notBefore: body.notBefore,
+        resources: body.resources,
+        timeout: body.timeout,
+        networkType: body.networkType,
+      };
+    },
   },
   [
     {
