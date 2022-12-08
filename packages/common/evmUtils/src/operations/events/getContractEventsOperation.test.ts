@@ -19,9 +19,14 @@ describe('getContractEventsOperation', () => {
       chain: EvmChain.create(chain, core),
       toBlock: 123,
       fromBlock: 123,
-      abi: [
-        /* empty abi */
-      ],
+      abi: {
+        anonymous: true,
+        name: 'Transfer',
+        type: 'event',
+        inputs: [
+          /* ... */
+        ],
+      },
       toDate: new Date(toDate),
       fromDate: new Date(fromDate),
       address: EvmAddress.create(address, core),

@@ -6,7 +6,7 @@ import { useEvmNativeBalance } from '@moralisweb3/next';
 
 const Profile: FC = () => {
   const { data } = useSession();
-  const { data: balance } = useEvmNativeBalance({ address: data?.user.address || '' });
+  const { data: balance } = useEvmNativeBalance({ address: data?.user?.address });
 
   return (
     <div className={styles.profile}>
