@@ -1,1 +1,0 @@
-export { loadBinding } from './loader';
