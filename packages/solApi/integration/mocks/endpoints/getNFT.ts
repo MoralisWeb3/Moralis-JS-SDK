@@ -5,7 +5,7 @@ export const mockGetNFTSol = MockScenarios.create(
     method: 'get',
     name: 'mockGetNFTSol',
     url: `/account/:network/:address/nft`,
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       network: req.params.network,
       address: req.params.address,
     }),

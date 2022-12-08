@@ -7,7 +7,7 @@ export const mockGetStatsById = MockScenarios.create(
     method: 'get',
     name: 'mockGetStatsById',
     url: `/stats/:streamId`,
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       streamId: req.params.streamId,
     }),
   },

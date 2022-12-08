@@ -6,7 +6,7 @@ export const mockGetHistory = MockScenarios.create(
     method: 'get',
     name: 'mockGetHistory',
     url: `/history`,
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       limit: req.url.searchParams.get('limit'),
       cursor: req.url.searchParams.get('cursor'),
     }),

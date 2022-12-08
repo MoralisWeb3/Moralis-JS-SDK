@@ -7,12 +7,10 @@ export const mockDeleteStream = MockScenarios.create(
     method: 'delete',
     name: 'mockDeleteStream',
     url: `/streams/evm/:id`,
-    getParams: async (req) => {
-      const body = await req.json().catch(() => ({}));
-
+    getParams: async ({ req, reqBody }) => {
       return {
         id: req.params.id,
-        address: body.address,
+        address: reqBody?.address,
       };
     },
   },

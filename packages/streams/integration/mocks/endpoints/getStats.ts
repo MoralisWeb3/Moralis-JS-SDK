@@ -6,7 +6,7 @@ export const mockGetStats = MockScenarios.create(
     method: 'get',
     name: 'mockGetStats',
     url: `/stats`,
-    getParams: () => ({}),
+    getParams: async () => ({}),
   },
   [
     {

@@ -4,11 +4,9 @@ export const mockUploadFolder = MockScenarios.create(
   {
     name: 'mockUploadFolder',
     method: 'post',
-    getParams: async (req) => {
-      const body = await req.json().catch(() => ({}));
-
+    getParams: async ({ reqBody }) => {
       return {
-        abi: body,
+        abi: reqBody,
       };
     },
     url: '/ipfs/uploadFolder',

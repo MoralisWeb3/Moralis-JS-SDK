@@ -3,7 +3,7 @@ import { MockScenarios } from '@moralisweb3/test-utils';
 export const mockWeb3ApiVersion = MockScenarios.create(
   {
     name: 'mockWeb3ApiVersion',
-    getParams: () => ({}),
+    getParams: async () => ({}),
     url: '/web3/version',
     method: 'get',
   },

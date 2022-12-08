@@ -5,7 +5,7 @@ export const mockGetBalanceSol = MockScenarios.create(
     method: 'get',
     name: 'mockGetBalanceSol',
     url: `/account/:network/:address/balance`,
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       network: req.params.network,
       address: req.params.address,
     }),

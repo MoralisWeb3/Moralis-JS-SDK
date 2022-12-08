@@ -20,11 +20,12 @@ export interface MockScenario {
 export interface MockScenariosOptions {
   method: 'get' | 'post' | 'put' | 'delete';
   // Should return an object with the params that will be used to match the scenario conditions
-  getParams: (
-    req: RestRequest<Request, Params>,
-    res: ResponseComposition<Response>,
-    ctx: RestContext,
-  ) => Promise<Record<string, unknown>> | Record<string, unknown>;
+  getParams: (params: {
+    req: RestRequest<Request, Params>;
+    reqBody: Record<string, unknown> | null;
+    res: ResponseComposition<Response>;
+    ctx: RestContext;
+  }) => Promise<Record<string, unknown>> | Record<string, unknown>;
   // Optional hook to run logic after matching scenarios
   beforeScenarios?: (req: RestRequest<Request, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
   // Optional hook to run logic before matching scenarios
@@ -99,7 +100,16 @@ export class MockScenarios {
       beforeScenarios(req, res, ctx);
     }
 
-    const params = omitBy(await getParams(req, res, ctx), isNil);
+    let reqBody = null;
+
+    try {
+      reqBody = await req.json();
+    } catch (error) {
+      // do nothing, leave reqBody an empty object.
+      // We need try catch as sometimes req.json is not defined, or not a function, or may return an error
+    }
+
+    const params = omitBy(await getParams({ req, reqBody, res, ctx }), isNil);
     const scenario = this.scenarios.find(({ condition }) => isEqual(condition, params));
 
     if (!scenario) {

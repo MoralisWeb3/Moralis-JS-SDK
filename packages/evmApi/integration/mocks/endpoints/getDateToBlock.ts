@@ -4,7 +4,7 @@ export const mockGetDateToBlock = MockScenarios.create(
   {
     name: 'mockGetDateToBlock',
     method: 'get',
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       chain: req.url.searchParams.get('chain'),
       date: req.url.searchParams.get('date'),
       providerUrl: req.url.searchParams.get('providerUrl'),

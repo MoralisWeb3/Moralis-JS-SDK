@@ -6,7 +6,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
     method: 'get',
     name: 'mockGetNFTContractTransfers',
     url: `/nft/:address/transfers`,
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       address: req.params.address,
     }),
   },

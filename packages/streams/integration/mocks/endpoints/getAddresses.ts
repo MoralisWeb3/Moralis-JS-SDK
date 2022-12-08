@@ -7,12 +7,10 @@ export const mockGetAddressesEvm = MockScenarios.create(
     method: 'get',
     name: 'mockGetAddressesEvm',
     url: `/streams/evm/:id/address`,
-    getParams: async (req) => {
-      const body = await req.json().catch(() => ({}));
-
+    getParams: async ({ req, reqBody }) => {
       return {
         id: req.params.id,
-        address: body.address,
+        address: reqBody?.address,
       };
     },
   },

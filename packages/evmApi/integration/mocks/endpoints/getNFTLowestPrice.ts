@@ -6,7 +6,7 @@ export const mockGetNFTLowestPrice = MockScenarios.create(
     method: 'get',
     name: 'mockGetNFTLowestPrice',
     url: `/nft/:address/lowestprice`,
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       address: req.params.address,
     }),
   },

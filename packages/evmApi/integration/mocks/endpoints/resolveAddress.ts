@@ -5,7 +5,7 @@ export const mockResolveAddress = MockScenarios.create(
   {
     name: 'mockResolveAddress',
     method: 'get',
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       address: req.params.address,
     }),
     url: '/resolve/:address/reverse',

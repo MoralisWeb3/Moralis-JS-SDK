@@ -26,7 +26,7 @@ export const mockGetContractLogs = MockScenarios.create(
   {
     name: 'mockGetContractLogs',
     url: '/:address/logs',
-    getParams: (req) => ({
+    getParams: async ({ req }) => ({
       address: req.params.address,
       chain: req.url.searchParams.get('chain'),
       topic0: req.url.searchParams.get('topic0'),
