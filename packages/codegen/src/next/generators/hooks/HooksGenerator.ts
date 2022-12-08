@@ -20,8 +20,8 @@ export class HooksGenerator {
     return this.moduleGenerator.operations.map((operation) => {
       const hookName = getHookName(operation.name, this.module);
 
-      //@ts-ignore
-      const isPaginated = Boolean(operation?.urlSearchParamNames?.includes('cursor'));
+      const urlSearchParamNames: string[] = operation.urlSearchParamNames ?? [];
+      const isPaginated = Boolean(urlSearchParamNames.includes('cursor'));
 
       return {
         type: 'add',
