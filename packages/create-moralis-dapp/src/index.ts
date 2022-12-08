@@ -1,32 +1,9 @@
 #!/usr/bin/env node
-/* eslint-disable etc/no-commented-out-code */
 import { join } from 'path';
 import { prompt } from 'inquirer';
 import { addPrettier, execWithSpinner, installDepsWithPackageManager } from './utils';
 import { yarnWorkspaceGenerator, nextGenerator, expressGenerator } from './generators';
 import _ from 'lodash';
-// import { addPrettier, execWithSpinner, installDepsWithPackageManager } from './utils';
-
-// const questions: ListQuestion[] = [
-// {
-//   type: 'list',
-//   name: 'backend',
-//   when(answers) {
-//     return answers.stack !== 'next';
-//   },
-//   message: '🧙 : Select a backend for your dApp ...',
-//   choices: [
-//     {
-//       value: 'express',
-//       name: 'TODO: Express',
-//     },
-//     // {
-//     //   value: 'firebase',
-//     //   name: 'TODO: Firebase',
-//     // },
-//   ],
-// },
-// ];
 
 async function main() {
   const { confirmBeta } = await prompt({
@@ -67,16 +44,6 @@ async function main() {
   if (stack.isFrontendWithBackend) {
     await yarnWorkspaceGenerator(name, destination);
   }
-
-  // switch (backend) {
-  //   case 'express':
-  //     await expressGenerator(name, destination, isFrontendWithBackend);
-  //     break;
-  //   case undefined:
-  //     break;
-  //   default:
-  //     throw new Error(`The ${backend} backend is not implemented`);
-  // }
 
   switch (stack.stack) {
     case 'next':
