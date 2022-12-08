@@ -1,3 +1,11 @@
+1.20.5 / 2022-12-07
+=================
+  * [Fix] `ES2020+`: `floor`: make it work with BigInts as well
+  * [Refactor] use `gopd`
+  * [Tests] add `mod` helper tests (#147)
+  * [Deps] update `string.prototype.trimend`, `string.prototype.trimstart`
+  * [Dev Deps] update `array.prototype.filter`, `array.prototype.flatmap`, `array.prototype.indexof`, `object.fromentries`
+
 1.20.4 / 2022-10-06
 =================
   * [Fix] `ES2021+`: values that truncate to -0 in `ToIntegerOrInfinity` (#146)
