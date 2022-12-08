@@ -14,3 +14,4 @@ export * from './EvmNftTransfer';
 export * from './EvmSignature';
 export * from './EvmTransaction';
 export * from './EvmTransactionLog';
+export * from './EvmAbiItem';
