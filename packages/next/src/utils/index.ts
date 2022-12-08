@@ -1,2 +1,2 @@
 export * from './errors';
-export * from './fetcher';
+export * from './fetchers';

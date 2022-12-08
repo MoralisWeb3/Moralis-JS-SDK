@@ -1,39 +1,20 @@
-import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   uploadFolderOperation as operation, 
-  UploadFolderRequest, 
-  UploadFolderResponse 
+  UploadFolderRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import { useCallback } from 'react';
-import Moralis from 'moralis';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
 export const useEvmUploadFolder = (
   request?: UploadFolderRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const endpoint = 'evmApi/uploadFolder';
-  const { deserializeResponse, serializeRequest } = operation;
-
-  const { data, error, mutate, isValidating } = useSWR<UploadFolderResponse>(
-    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
-    fetcher, 
-    { revalidateOnFocus: false, ...fetchParams }
-  );
-
-  const fetch = useCallback((params?: UploadFolderRequest) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
-    }
-    return mutate(
-      fetcher(endpoint, {
-        deserializeResponse,
-        request: serializeRequest(fetchRequest, Moralis.Core),
-      }),
-    );
-  }, []);
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/uploadFolder',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
@@ -43,10 +24,10 @@ export const useEvmUploadFolder = (
      * @deprecated use `fetch()` instead
      */
     refetch: () => fetch(),
-    isFetching: isValidating,
+    isFetching,
     /**
      * @deprecated use `isFetching` instead
      */
-    isValidating,
+    isValidating: isFetching,
   };
 };
