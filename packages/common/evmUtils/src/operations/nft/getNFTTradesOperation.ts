@@ -96,7 +96,7 @@ function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse, request: Ge
       buyerAddress: EvmAddress.create(trade.buyer_address, core),
       marketplaceAddress: EvmAddress.create(trade.marketplace_address, core),
       tokenAddress: EvmAddress.create(trade.token_address as string, core),
-      price: EvmNative.create(trade.price),
+      price: EvmNative.create(trade.price, 'wei'),
       blockTimestamp: new Date(trade.block_timestamp),
       tokenIds: trade.token_ids as string[],
     }),
