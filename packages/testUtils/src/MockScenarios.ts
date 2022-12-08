@@ -102,14 +102,12 @@ export class MockScenarios {
 
     let reqBody = null;
 
-    try {
+    // @ts-ignore _body is not part of the public API, but it's the only way to determine if a body is available
+    const rawBody = req._body;
+
+    if (rawBody.byteLength > 0) {
+      // For now we always assume the body to be JSON if it is set
       reqBody = await req.json();
-    } catch (error) {
-      // Do nothing, leave reqBody an empty object. This handles scenarios as:
-      // - req.json is not defined
-      // - req.json is not a function,
-      // - req.json may rejects
-      // In all cases we continue and assume no body
     }
 
     const params = omitBy(await getParams({ req, reqBody, res, ctx }), isNil);
