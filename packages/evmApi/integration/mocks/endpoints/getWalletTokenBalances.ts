@@ -6,7 +6,7 @@ export const mockGetWalletTokenBalances = MockScenarios.create(
     method: 'get',
     name: 'mockGetWalletTokenBalances',
     url: '/:address/erc20',
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
     }),
   },

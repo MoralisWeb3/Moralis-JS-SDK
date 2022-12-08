@@ -20,11 +20,12 @@ export interface MockScenario {
 export interface MockScenariosOptions {
   method: 'get' | 'post' | 'put' | 'delete';
   // Should return an object with the params that will be used to match the scenario conditions
-  getParams: (
-    req: RestRequest<Request, Params>,
-    res: ResponseComposition<Response>,
-    ctx: RestContext,
-  ) => Record<string, unknown>;
+  getParams: (params: {
+    req: RestRequest<Request, Params>;
+    reqBody: Record<string, unknown> | null;
+    res: ResponseComposition<Response>;
+    ctx: RestContext;
+  }) => Promise<Record<string, unknown>> | Record<string, unknown>;
   // Optional hook to run logic after matching scenarios
   beforeScenarios?: (req: RestRequest<Request, Params>, res: ResponseComposition<Response>, ctx: RestContext) => void;
   // Optional hook to run logic before matching scenarios
@@ -99,7 +100,17 @@ export class MockScenarios {
       beforeScenarios(req, res, ctx);
     }
 
-    const params = omitBy(await getParams(req, res, ctx), isNil);
+    let reqBody = null;
+
+    // @ts-ignore _body is not part of the public API, but it's the only way to determine if a body is available
+    const rawBody = req._body;
+
+    if (rawBody.byteLength > 0) {
+      // For now we always assume the body to be JSON if it is set
+      reqBody = await req.json();
+    }
+
+    const params = omitBy(await getParams({ req, reqBody, res, ctx }), isNil);
     const scenario = this.scenarios.find(({ condition }) => isEqual(condition, params));
 
     if (!scenario) {

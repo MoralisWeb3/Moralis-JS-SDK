@@ -6,7 +6,7 @@ export const mockGetTokenMetadataBySymbols = MockScenarios.create(
     method: 'get',
     name: 'mockGetTokenMetadataBySymbol',
     url: '/erc20/metadata/symbols',
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       symbols: req.url.searchParams.get('symbols[]'),
     }),
   },

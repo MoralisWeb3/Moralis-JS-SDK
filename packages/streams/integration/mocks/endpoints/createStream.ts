@@ -7,19 +7,21 @@ export const mockCreateStream = MockScenarios.create(
     method: 'put',
     name: 'mockCreateStream',
     url: `/streams/evm`,
-    getParams: (req) => ({
-      webhookUrl: req.body.webhookUrl,
-      description: req.body.description,
-      tag: req.body.tag,
-      chainIds: req.body.chainIds,
-      abi: req.body.abi,
-      advancedOptions: req.body.advancedOptions,
-      topic0: req.body.topic0,
-      includeNativeTxs: req.body.includeNativeTxs,
-      allAddresses: req.body.allAddresses,
-      includeContractLogs: req.body.includeContractLogs,
-      includeInternalTxs: req.body.includeInternalTxs,
-    }),
+    getParams: ({ reqBody }) => {
+      return {
+        webhookUrl: reqBody?.webhookUrl,
+        description: reqBody?.description,
+        tag: reqBody?.tag,
+        chainIds: reqBody?.chainIds,
+        abi: reqBody?.abi,
+        advancedOptions: reqBody?.advancedOptions,
+        topic0: reqBody?.topic0,
+        includeNativeTxs: reqBody?.includeNativeTxs,
+        allAddresses: reqBody?.allAddresses,
+        includeContractLogs: reqBody?.includeContractLogs,
+        includeInternalTxs: reqBody?.includeInternalTxs,
+      };
+    },
   },
   [
     {
