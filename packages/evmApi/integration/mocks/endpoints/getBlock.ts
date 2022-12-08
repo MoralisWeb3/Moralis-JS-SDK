@@ -4,7 +4,7 @@ import { createErrorResponse } from '../response/errorResponse';
 export const mockGetBlock = MockScenarios.create(
   {
     name: 'mockGetBlock',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       chain: req.url.searchParams.get('chain'),
       block_number_or_hash: req.params.block_number_or_hash,
       subdomain: req.url.searchParams.get('subdomain'),

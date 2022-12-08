@@ -105,8 +105,11 @@ export class MockScenarios {
     try {
       reqBody = await req.json();
     } catch (error) {
-      // do nothing, leave reqBody an empty object.
-      // We need try catch as sometimes req.json is not defined, or not a function, or may return an error
+      // Do nothing, leave reqBody an empty object. This handles scenarios as:
+      // - req.json is not defined
+      // - req.json is not a function,
+      // - req.json may rejects
+      // In all cases we continue and assume no body
     }
 
     const params = omitBy(await getParams({ req, reqBody, res, ctx }), isNil);

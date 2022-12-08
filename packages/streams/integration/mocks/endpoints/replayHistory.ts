@@ -7,7 +7,7 @@ export const mockReplayHistory = MockScenarios.create(
     method: 'post',
     name: 'mockReplayHistory',
     url: `/history/replay/:streamId/:id`,
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       streamId: req.params.streamId,
       id: req.params.id,
     }),

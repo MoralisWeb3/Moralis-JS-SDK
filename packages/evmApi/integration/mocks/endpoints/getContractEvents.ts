@@ -63,7 +63,7 @@ export const mockGetContractEvents = MockScenarios.create(
   {
     name: 'mockGetContractEvents',
     method: 'post',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       chain: req.url.searchParams.get('chain'),
       topic: req.url.searchParams.get('topic'),

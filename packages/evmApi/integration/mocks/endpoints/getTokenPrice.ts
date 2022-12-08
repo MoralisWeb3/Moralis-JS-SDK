@@ -6,7 +6,7 @@ export const mockGetTokenPrice = MockScenarios.create(
     method: 'get',
     name: 'mockGetTokenPrice',
     url: '/erc20/:address/price',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       chain: req.url.searchParams.get('chain'),
       toBlock: req.url.searchParams.get('to_block'),

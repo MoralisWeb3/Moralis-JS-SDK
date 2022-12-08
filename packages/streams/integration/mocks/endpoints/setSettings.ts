@@ -7,7 +7,7 @@ export const mockSetSettings = MockScenarios.create(
     method: 'post',
     name: 'mockSetSettings',
     url: `/settings`,
-    getParams: async ({ reqBody }) => {
+    getParams: ({ reqBody }) => {
       return {
         region: reqBody?.region,
       };

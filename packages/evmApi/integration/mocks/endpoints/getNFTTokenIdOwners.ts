@@ -6,7 +6,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
     method: 'get',
     name: 'mockGetNFTTokenIdOwners',
     url: `/nft/:address/:tokenId/owners`,
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       tokenId: req.params.tokenId,
     }),

@@ -7,7 +7,7 @@ export const mockGetTokenTransfers = MockScenarios.create(
     method: 'get',
     name: 'mockGetTokenAddressTransfers',
     url: '/erc20/:address/transfers',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       limit: req.url.searchParams.get('limit'),
     }),

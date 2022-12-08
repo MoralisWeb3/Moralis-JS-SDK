@@ -7,7 +7,7 @@ export const mockAddAddressEvm = MockScenarios.create(
     method: 'post',
     name: 'mockAddAddressEvm',
     url: `/streams/evm/:id/address`,
-    getParams: async ({ req, reqBody }) => {
+    getParams: ({ req, reqBody }) => {
       return {
         id: req.params.id,
         address: reqBody?.address,

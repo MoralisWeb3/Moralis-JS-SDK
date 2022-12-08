@@ -6,7 +6,7 @@ export const mockSearchNFTs = MockScenarios.create(
     method: 'get',
     name: 'mockSearchNFTs',
     url: `/nft/search`,
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       q: req.url.searchParams.get('q'),
     }),
   },

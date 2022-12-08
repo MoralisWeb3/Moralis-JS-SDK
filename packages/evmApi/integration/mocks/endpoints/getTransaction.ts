@@ -6,7 +6,7 @@ export const mockGetTransaction = MockScenarios.create(
     method: 'get',
     name: 'mockGetTransaction',
     url: '/transaction/:transactionHash',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       transactionHash: req.params.transactionHash,
       subdomain: req.url.searchParams.get('subdomain'),
       chain: req.url.searchParams.get('chain'),

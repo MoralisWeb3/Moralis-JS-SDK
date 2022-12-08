@@ -7,7 +7,7 @@ export const mockDeleteAddressEvm = MockScenarios.create(
     method: 'delete',
     name: 'mockDeleteAddressEvm',
     url: `/streams/evm/:id/address`,
-    getParams: async ({ req, reqBody }) => {
+    getParams: ({ req, reqBody }) => {
       return {
         id: req.params.id,
         address: reqBody?.address,

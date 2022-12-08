@@ -7,7 +7,7 @@ export const mockCreateStream = MockScenarios.create(
     method: 'put',
     name: 'mockCreateStream',
     url: `/streams/evm`,
-    getParams: async ({ reqBody }) => {
+    getParams: ({ reqBody }) => {
       return {
         webhookUrl: reqBody?.webhookUrl,
         description: reqBody?.description,

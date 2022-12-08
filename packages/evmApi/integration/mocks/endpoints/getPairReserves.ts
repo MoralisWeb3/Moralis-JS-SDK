@@ -3,7 +3,7 @@ import { MockScenarios } from '@moralisweb3/test-utils';
 export const mockGetPairReserves = MockScenarios.create(
   {
     name: 'mockGetPairReserves',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       pair_address: req.params.pair_address,
       chain: req.url.searchParams.get('chain'),
     }),

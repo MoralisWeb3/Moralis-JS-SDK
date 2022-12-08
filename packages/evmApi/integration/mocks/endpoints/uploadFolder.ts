@@ -4,7 +4,7 @@ export const mockUploadFolder = MockScenarios.create(
   {
     name: 'mockUploadFolder',
     method: 'post',
-    getParams: async ({ reqBody }) => {
+    getParams: ({ reqBody }) => {
       return {
         abi: reqBody,
       };

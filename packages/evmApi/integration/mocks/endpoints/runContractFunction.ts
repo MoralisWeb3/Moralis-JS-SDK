@@ -3,7 +3,7 @@ import { MockScenarios } from '@moralisweb3/test-utils';
 export const mockRunContractFunction = MockScenarios.create(
   {
     name: 'mockRunContractFunction',
-    getParams: async ({ req, reqBody }) => {
+    getParams: ({ req, reqBody }) => {
       return {
         address: req.params.address,
         chain: req.url.searchParams.get('chain'),

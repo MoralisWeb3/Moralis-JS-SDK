@@ -7,7 +7,7 @@ export const mockRequestEvmChallenge = MockScenarios.create(
     method: 'post',
     name: 'mockRequestEvmChallenge',
     url: `/challenge/request/evm`,
-    getParams: async ({ reqBody }) => {
+    getParams: ({ reqBody }) => {
       return {
         domain: reqBody?.domain,
         chain: reqBody?.chainId,

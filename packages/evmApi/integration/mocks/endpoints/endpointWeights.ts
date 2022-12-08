@@ -25,7 +25,7 @@ const response = [
 export const mockEndpointWeights = MockScenarios.create(
   {
     name: 'mockEndpointWeights',
-    getParams: async () => ({}),
+    getParams: () => ({}),
     url: '/info/endpointWeights',
     method: 'get',
   },

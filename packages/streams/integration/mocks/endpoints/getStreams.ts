@@ -6,7 +6,7 @@ export const mockGetStreams = MockScenarios.create(
     method: 'get',
     name: 'mockGetStreams',
     url: `/streams/evm`,
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       limit: req.url.searchParams.get('limit'),
       cursor: req.url.searchParams.get('cursor'),
     }),

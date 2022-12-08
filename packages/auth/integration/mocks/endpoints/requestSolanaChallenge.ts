@@ -7,7 +7,7 @@ export const mockRequestSolanaChallenge = MockScenarios.create(
     method: 'post',
     name: 'mockRequestSolanaChallenge',
     url: `/challenge/request/solana`,
-    getParams: async ({ reqBody }) => {
+    getParams: ({ reqBody }) => {
       return {
         domain: reqBody?.domain,
         networkType: reqBody?.networkType,

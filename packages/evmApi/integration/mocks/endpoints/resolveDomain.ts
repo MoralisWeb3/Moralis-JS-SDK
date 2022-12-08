@@ -6,7 +6,7 @@ export const mockResolveDomain = MockScenarios.create(
     name: 'mockResolveDomain',
     method: 'get',
     url: '/resolve/:domain',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       domain: req.params.domain,
       currency: req.url.searchParams.get('currency'),
     }),

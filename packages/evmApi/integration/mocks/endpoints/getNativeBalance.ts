@@ -6,7 +6,7 @@ export const mockGetNativeBalance = MockScenarios.create(
     method: 'get',
     name: 'mockGetNativeBalance',
     url: '/:address/balance',
-    getParams: async ({ req }) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
     }),
   },

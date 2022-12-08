@@ -7,7 +7,7 @@ export const mockUpdateStream = MockScenarios.create(
     method: 'post',
     name: 'mockUpdateStream',
     url: `/streams/evm/:id`,
-    getParams: async ({ req, reqBody }) => {
+    getParams: ({ req, reqBody }) => {
       return {
         id: req.params.id,
 
