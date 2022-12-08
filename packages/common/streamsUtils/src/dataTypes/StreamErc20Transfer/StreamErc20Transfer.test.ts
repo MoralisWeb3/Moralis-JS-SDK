@@ -41,7 +41,7 @@ describe('StreamErc20Transfer', () => {
       expect(transfer.tokenDecimals).toBe(6);
       expect(transfer.tokenSymbol).toBe('STREAMS');
       expect(transfer.tokenName).toBe('Stream');
-      expect(transfer.triggers?.map(t => t.format())).toStrictEqual([
+      expect(transfer.triggers?.map((trigger) => trigger.format())).toStrictEqual([
         { name: 'fromBalance', value: '6967063534600021400000' },
         { name: 'toBalance', value: '200000000000000000' },
       ]);

@@ -60,7 +60,9 @@ export class StreamEvmTransaction implements MoralisDataObject {
       receiptStatus: maybe(data.receiptStatus, (status) => +status),
       signature,
       transactionIndex: +data.transactionIndex,
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   }
 

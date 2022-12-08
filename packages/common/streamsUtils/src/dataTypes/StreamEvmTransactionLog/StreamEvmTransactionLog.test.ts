@@ -38,7 +38,7 @@ describe('StreamEvmTransactionLog', () => {
       expect(transactionLog.topic1).toBe('0x000000000000000000000000f89d7b9c864f589bbf53a82105107622b35eaa40');
       expect(transactionLog.topic2).toBe('0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8');
       expect(transactionLog.topic3).toBeUndefined();
-      expect(transactionLog.triggers?.map(t => t.format())).toStrictEqual([
+      expect(transactionLog.triggers?.map((trigger) => trigger.format())).toStrictEqual([
         { name: 'balance', value: '6967063534600021400000' },
       ]);
     });

@@ -44,7 +44,7 @@ describe('StreamEvmNftTransfer', () => {
       // Optional
       expect(evmNftTransfer.tokenContractType).toBe('ERC721');
       expect(evmNftTransfer.operator?.lowercase).toBe('0xdac17f958d2ee523a2206206994597c13d831ec8');
-      expect(evmNftTransfer.triggers?.map(t => t.toJSON())).toStrictEqual([
+      expect(evmNftTransfer.triggers?.map((trigger) => trigger.toJSON())).toStrictEqual([
         { name: 'fromBalance', value: '21' },
         { name: 'toBalance', value: '10' },
       ]);

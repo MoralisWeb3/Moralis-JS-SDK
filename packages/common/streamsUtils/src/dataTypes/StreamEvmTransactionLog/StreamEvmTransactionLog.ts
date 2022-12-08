@@ -46,7 +46,9 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       topic1: maybe(data.topic1),
       topic2: maybe(data.topic2),
       topic3: maybe(data.topic3),
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   }
 

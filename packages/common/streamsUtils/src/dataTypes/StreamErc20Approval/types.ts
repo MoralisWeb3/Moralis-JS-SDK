@@ -1,10 +1,6 @@
 import { BigNumber, BigNumberish } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/common-evm-utils';
-import {
-  StreamTriggerOutput,
-  StreamTriggerOutputish,
-  StreamTriggerOutputJSON,
-} from '../StreamTriggerOutput';
+import { StreamTriggerOutput, StreamTriggerOutputish, StreamTriggerOutputJSON } from '../StreamTriggerOutput';
 
 export interface StreamErc20ApprovalInput {
   chain: EvmChainish;

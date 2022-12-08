@@ -46,7 +46,9 @@ export class StreamErc721Approval implements MoralisDataObject {
       contract: EvmAddress.create(data.contract, core),
       tokenContractType: data.tokenContractType,
       approved: EvmAddress.create(data.approved, core),
-      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   };
 

@@ -35,7 +35,7 @@ describe('StreamEvmInternalTransaction', () => {
       expect(transaction.to?.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
       expect(transaction.value?.toString()).toBe('12345');
       expect(transaction.gas?.toString()).toBe('100');
-      expect(transaction.triggers?.map(t => t.toJSON())).toStrictEqual([
+      expect(transaction.triggers?.map((trigger) => trigger.toJSON())).toStrictEqual([
         { name: 'fromBalance', value: '6967063534600021400000' },
         { name: 'toBalance', value: '200000000000000000' },
       ]);

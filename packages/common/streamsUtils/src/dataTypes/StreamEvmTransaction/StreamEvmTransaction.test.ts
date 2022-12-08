@@ -51,7 +51,7 @@ describe('StreamEvmTransaction', () => {
       expect(transaction.s).toBe('0x7727e1707d90e4e09eff56bbb045d3278c418d2111fb687f536a9766764f9c41');
       expect(transaction.v).toBe(1);
       expect(transaction.type).toBe(2);
-      expect(transaction.triggers?.map(t => t.format())).toStrictEqual([
+      expect(transaction.triggers?.map((trigger) => trigger.format())).toStrictEqual([
         { name: 'fromBalance', value: '6967063534600021400000' },
         { name: 'toBalance', value: '200000000000000000' },
       ]);

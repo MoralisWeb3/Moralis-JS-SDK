@@ -39,7 +39,7 @@ describe('StreamErc721Approval', () => {
       expect(approval.tokenContractType).toBe('ERC721');
       expect(approval.tokenName).toBe('Stream');
       expect(approval.tokenSymbol).toBe('STREAMS');
-      expect(approval.triggers?.map(t => t.toJSON())).toStrictEqual([
+      expect(approval.triggers?.map((trigger) => trigger.toJSON())).toStrictEqual([
         { name: 'ownerBalance', value: '6967063534600021400000' },
         { name: 'approverBalance', value: '200000000000000000' },
       ]);

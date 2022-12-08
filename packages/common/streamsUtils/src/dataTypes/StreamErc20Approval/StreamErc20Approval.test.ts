@@ -41,7 +41,7 @@ describe('StreamErc20Approval', () => {
       expect(approval.tokenDecimals).toBe(6);
       expect(approval.tokenSymbol).toBe('STREAMS');
       expect(approval.tokenName).toBe('Stream');
-      expect(approval.triggers?.map(t => t.toJSON())).toStrictEqual([
+      expect(approval.triggers?.map((trigger) => trigger.toJSON())).toStrictEqual([
         { name: 'ownerBalance', value: '6967063534600021400000' },
         { name: 'spenderBalance', value: '200000000000000000' },
       ]);
