@@ -1,46 +1,32 @@
 #!/usr/bin/env node
 /* eslint-disable etc/no-commented-out-code */
 import { join } from 'path';
-import { prompt, ListQuestion } from 'inquirer';
+import { prompt } from 'inquirer';
 import { addPrettier, execWithSpinner, installDepsWithPackageManager } from './utils';
-// import { baseGenerator as reactGenerator } from './generators/react';
-// import { baseGenerator as expressGenerator } from './generators/express';
-import { yarnWorkspaceGenerator } from './generators/yarnWorkspace';
-import { nextGenerator } from './generators/next';
+import { yarnWorkspaceGenerator, nextGenerator, expressGenerator } from './generators';
 import _ from 'lodash';
 // import { addPrettier, execWithSpinner, installDepsWithPackageManager } from './utils';
 
-const questions: ListQuestion[] = [
-  {
-    type: 'list',
-    name: 'stack',
-    message: '🧙 : Select a core stack for your dApp ...',
-    choices: [
-      {
-        value: 'next',
-        name: 'NextJS            [only frontend]',
-      },
-    ],
-  },
-  // {
-  //   type: 'list',
-  //   name: 'backend',
-  //   when(answers) {
-  //     return answers.stack !== 'next';
-  //   },
-  //   message: '🧙 : Select a backend for your dApp ...',
-  //   choices: [
-  //     {
-  //       value: 'express',
-  //       name: 'TODO: Express',
-  //     },
-  //     {
-  //       value: 'firebase',
-  //       name: 'TODO: Firebase',
-  //     },
-  //   ],
-  // },
-];
+// const questions: ListQuestion[] = [
+// {
+//   type: 'list',
+//   name: 'backend',
+//   when(answers) {
+//     return answers.stack !== 'next';
+//   },
+//   message: '🧙 : Select a backend for your dApp ...',
+//   choices: [
+//     {
+//       value: 'express',
+//       name: 'TODO: Express',
+//     },
+//     // {
+//     //   value: 'firebase',
+//     //   name: 'TODO: Firebase',
+//     // },
+//   ],
+// },
+// ];
 
 async function main() {
   const { confirmBeta } = await prompt({
@@ -54,12 +40,21 @@ async function main() {
     throw new Error('To use this tool you need to confirm participation in beta');
   }
 
-  const { stack } = await prompt<{
-    stack: 'only-backend' | 'next' | 'react' | 'vanilla';
-    // backend: 'express' | 'firebase' | null;
-  }>(questions);
-
-  const isClientServer = stack !== 'next' && stack !== 'only-backend';
+  const { stack } = await prompt({
+    type: 'list',
+    name: 'stack',
+    message: '🧙 : Select a core stack for your dApp ...',
+    choices: [
+      {
+        value: { stack: 'next', isFrontendWithBackend: false },
+        name: 'NextJS            [only frontend]',
+      },
+      {
+        value: { stack: 'expressOnly', isFrontendWithBackend: false },
+        name: 'express-server    [no frontend]',
+      },
+    ],
+  });
 
   const name = await prompt<{ name: string }>({
     type: 'input',
@@ -69,13 +64,13 @@ async function main() {
 
   const destination = join(process.cwd(), name);
 
-  if (isClientServer) {
+  if (stack.isFrontendWithBackend) {
     await yarnWorkspaceGenerator(name, destination);
   }
 
   // switch (backend) {
   //   case 'express':
-  //     await expressGenerator(name, destination, isClientServer);
+  //     await expressGenerator(name, destination, isFrontendWithBackend);
   //     break;
   //   case undefined:
   //     break;
@@ -83,12 +78,13 @@ async function main() {
   //     throw new Error(`The ${backend} backend is not implemented`);
   // }
 
-  switch (stack) {
-    // case 'react':
-    //   await reactGenerator(name, destination, isClientServer);
-    //   break;
+  switch (stack.stack) {
     case 'next':
       await nextGenerator(name, destination);
+      break;
+    case 'expressOnly':
+      await expressGenerator(name, destination, stack.isFrontendWithBackend);
+      break;
   }
 
   const { packageManager } = await prompt({
