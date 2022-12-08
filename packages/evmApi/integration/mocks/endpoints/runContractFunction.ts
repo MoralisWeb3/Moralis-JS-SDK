@@ -10,8 +10,8 @@ export const mockRunContractFunction = MockScenarios.create(
         function_name: req.url.searchParams.get('function_name'),
         subdomain: req.url.searchParams.get('subdomain'),
         providerUrl: req.url.searchParams.get('providerUrl'),
-        abi: reqBody['abi'],
-        params: reqBody['params'],
+        abi: reqBody?.abi,
+        params: reqBody?.params,
       };
     },
     url: '/:address/function',
