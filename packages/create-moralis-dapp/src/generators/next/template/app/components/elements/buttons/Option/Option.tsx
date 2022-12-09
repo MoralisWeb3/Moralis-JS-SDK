@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import styles from './Option.module.css';
+import React from 'react';
 
 export interface IOption {
   name: string;

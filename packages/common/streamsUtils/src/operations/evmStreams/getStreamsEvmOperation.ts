@@ -1,4 +1,4 @@
-import { Core, Camelize, maybe, PaginatedOperation } from '@moralisweb3/common-core';
+import { Core, Camelize, maybe, PaginatedOperation, PaginatedResponseAdapter } from '@moralisweb3/common-core';
 import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
@@ -18,6 +18,9 @@ export type GetStreamsEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetStreamsEvmJSONResponse = SuccessResponse;
 
 export type GetStreamsEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetStreamsEvmResponseAdapter
+  extends PaginatedResponseAdapter<GetStreamsEvmResponse, GetStreamsEvmJSONResponse['result']> {}
 
 export const getStreamsEvmOperation: PaginatedOperation<
   GetStreamsEvmRequest,

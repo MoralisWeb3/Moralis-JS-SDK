@@ -12,6 +12,7 @@ docs/
 
 # gh-pages
 pages/
+/docs-out/
 
 # Build
 packages/**/build
@@ -51,3 +52,21 @@ archive/**/*
 .vscode/
 .idea/
 dump.rdb
+
+# Yarn https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+documentation/.yarn/*
+!documentation/.yarn/patches
+!documentation/.yarn/plugins
+!documentation/.yarn/releases
+!documentation/.yarn/sdks
+!documentation/.yarn/versions
+
+.npmrc
+.yarnrc
