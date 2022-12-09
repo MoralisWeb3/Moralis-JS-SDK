@@ -1,4 +1,4 @@
 export * from './SolAuthClient';
 export * from './SolAuthClientOptions';
-export * from './SolWalletProvider';
+export * from './SolConnector';
 export * from './SolanaProvider';

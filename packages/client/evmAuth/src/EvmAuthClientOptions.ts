@@ -1,8 +1,8 @@
-import { EvmWalletProvider } from './EvmWalletProvider';
+import { EvmConnector } from './EvmConnector';
 
 export interface EvmAuthClientOptions {
   /**
-   * @description Custom Ethereum wallet providers.
+   * @description Custom Ethereum wallet connectors.
    */
-  walletProviders?: EvmWalletProvider[];
+  connectors?: EvmConnector[];
 }

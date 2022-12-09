@@ -2,6 +2,8 @@ export enum AuthClientErrorCode {
   GENERIC = 'CA0000',
   ALREADY_AUTHENTICATED = 'CA0001',
   NOT_AUTHENTICATED = 'CA0002',
+  ALREADY_CONNECTED = 'CA0003',
+  NOT_CONNECTED = 'CA0004',
 }
 
 // TODO: we don't use errors from the @moralisweb3/core package, because we would have a collision with the MoralisAuthError type.

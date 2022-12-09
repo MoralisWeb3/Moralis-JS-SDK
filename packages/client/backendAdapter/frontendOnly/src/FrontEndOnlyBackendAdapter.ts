@@ -4,6 +4,9 @@ import { FrontEndOnlyApiClient } from './FrontEndOnlyApiClient';
 import { FrontEndOnlyAuth } from './FrontEndOnlyAuth';
 
 export interface FrontEndOnlyBackendAdapterOptions {
+  /**
+   * @deprecated TODO! This is only a fake parameter.
+   */
   publicApiKey: string;
 }
 

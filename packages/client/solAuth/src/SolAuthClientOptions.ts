@@ -1,10 +1,10 @@
-import { SolWalletProvider } from './SolWalletProvider';
+import { SolConnector } from './SolConnector';
 
 export declare type SolanaNetwork = 'mainnet' | 'devnet';
 
 export interface SolAuthClientOptions {
   /**
-   * @description Custom Solana wallet providers.
+   * @description Custom Solana wallet connectors.
    */
-  walletProviders?: SolWalletProvider[];
+  connectors?: SolConnector[];
 }

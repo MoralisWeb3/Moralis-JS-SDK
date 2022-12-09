@@ -3,7 +3,7 @@ import { connectFunctionsEmulator, getFunctions } from '@firebase/functions';
 import { getMoralisEvmAuth } from '@moralisweb3/client-firebase-evm-auth';
 import { getMoralisSolAuth } from '@moralisweb3/client-firebase-sol-auth';
 import { getMoralis } from '@moralisweb3/client-firebase-utils';
-import { WalletConnectEvmProviderFactory } from './WalletConnectEvmWalletProvider';
+import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
 
 export const app = initializeApp({
   apiKey: String(process.env.REACT_APP_FIREBASE_API_KEY),
@@ -25,7 +25,13 @@ export const moralis = getMoralis(app, {
 });
 
 export const evmAuth = getMoralisEvmAuth(moralis, {
-  walletProviders: [WalletConnectEvmProviderFactory.create()],
+  connectors: [
+    WalletConnectEvmConnector.create({
+      rpc: {
+        1: 'https://replace_me/',
+      },
+    }),
+  ],
 });
 
 export const solAuth = getMoralisSolAuth(moralis);

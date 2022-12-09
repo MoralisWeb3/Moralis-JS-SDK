@@ -55,6 +55,7 @@
       "packages/common/*",
       "packages/client/*",
       "packages/client/backendAdapter/*",
+      "packages/client/connector/*",
       "packages/common/*",
       "demos/*",
       "demos/firebase-proxy/*",

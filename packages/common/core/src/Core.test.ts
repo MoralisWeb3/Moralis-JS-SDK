@@ -14,7 +14,7 @@ describe('Core', () => {
 
     it('cannot call method more than one time', () => {
       core.start({});
-      expect(() => core.start({})).rejects.toThrowError(
+      expect(() => core.start({})).toThrowError(
         '[C0009] Modules are started already. This method should be called only one time.',
       );
     });

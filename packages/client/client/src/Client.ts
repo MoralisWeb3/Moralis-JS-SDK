@@ -33,7 +33,7 @@ export class Client {
   }
 
   private constructor(
-    private readonly core: Core,
+    public readonly core: Core,
     public readonly evmApi: EvmApiClient,
     public readonly evmAuth: EvmAuthClient,
     public readonly solApi: SolApiClient,

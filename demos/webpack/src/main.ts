@@ -1,7 +1,7 @@
 import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
-import { WalletConnectEvmWalletProvider } from './WalletConnectEvmWalletProvider';
+import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
 
 async function reloadCurrentUser() {
   const userAddress = document.getElementById('userAddress') as HTMLElement;
@@ -10,7 +10,9 @@ async function reloadCurrentUser() {
   const users = await Promise.all([MoralisClient.EvmAuth.tryGetUser(), MoralisClient.SolAuth.tryGetUser()]);
   const user = users[0] || users[1];
 
-  userAddress.innerText = user ? `${user.address}` : `Unknown`;
+  userAddress.innerText = user
+    ? `address: ${user.address}, profileId: ${user.profileId || 'NOT_AUTHENTICATED'}`
+    : `Unknown`;
 
   let balance: string | null = null;
   if (user) {
@@ -38,49 +40,69 @@ async function reloadCurrentUser() {
   userBalance.innerText = balance ? balance : 'Unknown';
 }
 
-async function signIn(action: string) {
-  switch (action) {
-    case 'signInByMetaMask':
+async function authenticate(wallet: string) {
+  switch (wallet) {
+    case 'metaMask':
       await MoralisClient.EvmAuth.authenticate();
       break;
 
-    case 'signInByWalletConnect':
-      localStorage.removeItem('walletconnect');
-      await MoralisClient.EvmAuth.authenticate('walletconnect');
+    case 'walletConnect':
+      await MoralisClient.EvmAuth.authenticate('walletConnect');
       break;
 
-    case 'signInByPhantom':
+    case 'phantom':
       await MoralisClient.SolAuth.authenticate();
       break;
   }
-  await reloadCurrentUser();
 }
 
-async function signOut() {
+async function connect(action: string) {
+  switch (action) {
+    case 'metaMask':
+      await MoralisClient.EvmAuth.connect();
+      break;
+
+    case 'walletConnect':
+      await MoralisClient.EvmAuth.connect('walletConnect');
+      break;
+
+    case 'phantom':
+      await MoralisClient.SolAuth.connect();
+      break;
+  }
+}
+
+async function logOut() {
   const evmUser = await MoralisClient.EvmAuth.tryGetUser();
   if (evmUser) {
     await MoralisClient.EvmAuth.logOut();
+    return;
   }
   const solUser = await MoralisClient.SolAuth.tryGetUser();
   if (solUser) {
     await MoralisClient.SolAuth.logOut();
+    return;
   }
-  await reloadCurrentUser();
+  throw new Error('You are not logged in');
 }
 
-function onButtonClicked(e: Event) {
+async function onButtonClicked(e: Event) {
   const action = (e.target as HTMLElement).getAttribute('data-action');
+  const wallet = (e.target as HTMLElement).getAttribute('data-wallet');
   switch (action) {
-    case 'signInByMetaMask':
-    case 'signInByWalletConnect':
-    case 'signInByPhantom':
-      signIn(action);
+    case 'authenticate':
+      await authenticate(wallet as string);
       break;
 
-    case 'signOut':
-      signOut();
+    case 'connect':
+      await connect(wallet as string);
+      break;
+
+    case 'logOut':
+      await logOut();
       break;
   }
+  await reloadCurrentUser();
 }
 
 async function init() {
@@ -89,7 +111,13 @@ async function init() {
       publicApiKey: 'TODO_TODO',
     }),
     evmAuth: {
-      walletProviders: [WalletConnectEvmWalletProvider.create()],
+      connectors: [
+        WalletConnectEvmConnector.create({
+          rpc: {
+            1: 'https://replace_me/',
+          },
+        }),
+      ],
     },
   });
 

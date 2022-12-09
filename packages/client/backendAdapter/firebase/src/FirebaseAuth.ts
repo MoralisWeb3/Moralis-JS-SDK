@@ -1,15 +1,13 @@
 import { Functions, httpsCallable } from '@firebase/functions';
 import {
   Auth as MoralisAuth,
-  User,
+  AuthSession,
   GetMessageToSignRequest,
   GetMessageToSignResponse,
   NetworkTypeResolver,
   SignInRequest,
 } from '@moralisweb3/client-backend-adapter-utils';
 import { signInWithCustomToken, Auth } from '@firebase/auth';
-
-const payloadStoreKey = 'firebaseAuthPayload';
 
 export class FirebaseAuth implements MoralisAuth {
   private readonly functionNamePrefix: string;
@@ -22,7 +20,7 @@ export class FirebaseAuth implements MoralisAuth {
     this.functionNamePrefix = functionNamePrefix || 'ext-moralis-auth-';
   }
 
-  public tryGetUser(): User | null {
+  public tryGetSession(): AuthSession | null {
     if (!this.auth.currentUser) {
       return null;
     }
@@ -35,20 +33,16 @@ export class FirebaseAuth implements MoralisAuth {
       networkType: NetworkTypeResolver.resolveByAddress(address),
       address,
       profileId,
-      payload: localStorage[payloadStoreKey],
     };
   }
 
-  public async getMessageToSign(
-    backendModuleName: string,
-    request: GetMessageToSignRequest,
-  ): Promise<GetMessageToSignResponse> {
+  public async getMessageToSign(request: GetMessageToSignRequest): Promise<GetMessageToSignResponse> {
     const functionName = this.functionNamePrefix.concat('requestMessage');
     const response = await httpsCallable<unknown, RequestMessageRawResponse>(
       this.functions,
       functionName,
     )({
-      networkType: backendModuleName,
+      networkType: request.networkType,
       address: request.address,
       network: request.network,
       chain: request.chain,
@@ -60,21 +54,19 @@ export class FirebaseAuth implements MoralisAuth {
     };
   }
 
-  public async signIn(backendModuleName: string, request: SignInRequest): Promise<void> {
+  public async signIn(request: SignInRequest): Promise<void> {
     const functionName = this.functionNamePrefix.concat('issueToken');
     const response = await httpsCallable<unknown, IssueTokenRawResponse>(
       this.functions,
       functionName,
     )({
-      networkType: backendModuleName,
+      networkType: request.networkType,
       message: request.message,
       signature: request.signature,
     });
     const { token } = response.data;
 
     await signInWithCustomToken(this.auth, token);
-
-    localStorage[payloadStoreKey] = request.payload;
   }
 
   public async signOut(): Promise<void> {

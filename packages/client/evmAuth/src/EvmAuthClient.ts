@@ -1,110 +1,49 @@
-import { JsonRpcProvider } from '@ethersproject/providers';
+import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
-import { AuthProvider, User } from '@moralisweb3/client-backend-adapter-utils';
-import { EvmWalletProviderResolver } from './EvmWalletProviderResolver';
+import { AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
+import { EvmConnectorResolver } from './EvmConnectorResolver';
 import { EvmAuthClientOptions } from './EvmAuthClientOptions';
-import { AuthClient, AuthClientError, AuthClientErrorCode } from '@moralisweb3/client-auth-utils';
+import { AuthClient, AuthClientState, User } from '@moralisweb3/client-auth-utils';
 
-const backendModuleName = 'evm';
-
-export class EvmAuthClient implements Module, AuthClient<JsonRpcProvider> {
+export class EvmAuthClient implements Module, AuthClient<Web3Provider | JsonRpcProvider> {
   public static create(authProvider: AuthProvider, options?: EvmAuthClientOptions, core?: Core): EvmAuthClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const walletProviderResolver = new EvmWalletProviderResolver(options?.walletProviders);
-    return new EvmAuthClient(authProvider, walletProviderResolver);
+    const connectorResolver = new EvmConnectorResolver(options?.connectors);
+    const state = new AuthClientState('evm', authProvider, connectorResolver);
+    return new EvmAuthClient(state);
   }
 
   public readonly name = 'evmAuthClient';
-  private provider: JsonRpcProvider | null = null;
 
-  private constructor(
-    private readonly authProvider: AuthProvider,
-    private readonly walletProviderResolver: EvmWalletProviderResolver,
-  ) {}
+  private constructor(private readonly state: AuthClientState<Web3Provider | JsonRpcProvider>) {}
 
-  public async authenticate(walletProviderName?: string): Promise<void> {
-    const auth = await this.authProvider.get();
-    if (auth.tryGetUser()) {
-      throw new AuthClientError({
-        code: AuthClientErrorCode.ALREADY_AUTHENTICATED,
-        message: 'You are already authenticated',
-      });
-    }
-    if (!walletProviderName) {
-      walletProviderName = 'default';
-    }
-
-    const provider = await this.walletProviderResolver.resolve(walletProviderName);
-
-    const [accounts, chain] = await Promise.all([provider.send('eth_accounts', []), provider.send('eth_chainId', [])]);
-
-    const response = await auth.getMessageToSign(backendModuleName, {
-      address: accounts[0],
-      chain,
-    });
-
-    const signer = provider.getSigner();
-    const signature = await signer.signMessage(response.message);
-
-    await auth.signIn(backendModuleName, {
-      message: response.message,
-      signature,
-      payload: walletProviderName,
-    });
-
-    this.provider = provider;
+  public connect(connectorName?: string): Promise<void> {
+    return this.state.connect(connectorName);
   }
 
-  public async tryGetUser(): Promise<User | null> {
-    const auth = await this.authProvider.get();
-    const user = auth.tryGetUser();
-    if (user && user.networkType === 'evm') {
-      return user;
-    }
-    return null;
+  public authenticate(connectorName?: string): Promise<void> {
+    return this.state.authenticate(connectorName);
   }
 
-  public async isLoggedIn(): Promise<boolean> {
-    return (await this.tryGetUser()) !== null;
+  public tryGetUser(): Promise<User | null> {
+    return this.state.tryGetUser();
   }
 
-  public async logOut(): Promise<void> {
-    const auth = await this.authProvider.get();
-    if (!auth.tryGetUser()) {
-      throw new AuthClientError({
-        code: AuthClientErrorCode.NOT_AUTHENTICATED,
-        message: 'You are not authenticated',
-      });
-    }
-
-    await auth.signOut();
-    this.provider = null;
+  public isConnected(): boolean {
+    return this.state.isConnected();
   }
 
-  public async restoreProvider(): Promise<JsonRpcProvider> {
-    if (this.provider) {
-      return this.provider;
-    }
+  public isAuthenticated(): Promise<boolean> {
+    return this.state.isAuthenticated();
+  }
 
-    const user = await this.tryGetUser();
-    if (!user) {
-      throw new AuthClientError({
-        code: AuthClientErrorCode.NOT_AUTHENTICATED,
-        message: 'You cannot restore EVM provider if you are not authenticated',
-      });
-    }
+  public logOut(): Promise<void> {
+    return this.state.logOut();
+  }
 
-    const walletProviderName = user.payload;
-    if (!walletProviderName) {
-      throw new AuthClientError({
-        code: AuthClientErrorCode.GENERIC,
-        message: 'Cannot restore provider name',
-      });
-    }
-
-    this.provider = await this.walletProviderResolver.resolve(walletProviderName);
-    return this.provider;
+  public restoreProvider(): Promise<Web3Provider | JsonRpcProvider> {
+    return this.state.restoreProvider();
   }
 }

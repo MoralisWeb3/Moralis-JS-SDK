@@ -1,23 +1,23 @@
 export interface Auth {
-  tryGetUser(): User | null;
+  tryGetSession(): AuthSession | null;
 
-  getMessageToSign(backendModuleName: string, request: GetMessageToSignRequest): Promise<GetMessageToSignResponse>;
+  getMessageToSign(request: GetMessageToSignRequest): Promise<GetMessageToSignResponse>;
 
-  signIn(backendModuleName: string, request: SignInRequest): Promise<void>;
+  signIn(request: SignInRequest): Promise<void>;
 
   signOut(): Promise<void>;
 }
 
 export type NetworkType = 'solana' | 'evm';
 
-export interface User {
+export interface AuthSession {
   networkType: NetworkType;
   profileId: string;
   address: string;
-  payload: string | undefined;
 }
 
 export interface GetMessageToSignRequest {
+  networkType: NetworkType;
   address: string;
   network?: string;
   chain?: string;
@@ -29,7 +29,7 @@ export interface GetMessageToSignResponse {
 }
 
 export interface SignInRequest {
+  networkType: NetworkType;
   message: string;
   signature: string;
-  payload: string | undefined;
 }

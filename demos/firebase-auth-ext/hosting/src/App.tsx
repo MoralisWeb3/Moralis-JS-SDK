@@ -3,42 +3,42 @@ import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/cli
 import { httpsCallable } from '@firebase/functions';
 import { Fragment, useEffect, useState } from 'react';
 import { evmAuth, functions, solAuth } from './firebase';
-import { User } from '@moralisweb3/client-backend-adapter-utils';
+import { User } from '@moralisweb3/client-auth-utils';
 
 export function App() {
-  const [credentials, setCredentials] = useState<User | null>(() => null);
+  const [user, setUser] = useState<User | null>(() => null);
 
   useEffect(() => {
-    async function restoreCredentials() {
+    async function restoreUser() {
       const result = await Promise.all([evmAuth.tryGetUser(), solAuth.tryGetUser()]);
-      setCredentials(result[0] || result[1]);
+      setUser(result[0] || result[1]);
     }
 
-    restoreCredentials();
+    restoreUser();
   }, []);
 
   async function signInWithMetamask() {
     const result = await signInWithMoralisByEvm(evmAuth, 'default');
 
-    setCredentials(result.user);
+    setUser(result.user);
   }
 
   async function signInWithWalletConnect() {
     localStorage.removeItem('walletconnect');
 
-    const result = await signInWithMoralisByEvm(evmAuth, 'walletconnect');
+    const result = await signInWithMoralisByEvm(evmAuth, 'walletConnect');
 
-    setCredentials(result.user);
+    setUser(result.user);
   }
 
   async function signInWithPhantom() {
     const result = await signInWithMoralisBySolana(solAuth);
 
-    setCredentials(result.user);
+    setUser(result.user);
   }
 
   async function signOut() {
-    switch (credentials?.networkType) {
+    switch (user?.networkType) {
       case 'evm':
         await evmAuth.logOut();
         break;
@@ -46,7 +46,7 @@ export function App() {
         await solAuth.logOut();
         break;
     }
-    setCredentials(null);
+    setUser(null);
   }
 
   async function getSecretData() {
@@ -67,9 +67,9 @@ export function App() {
       <p>
         Current user:&nbsp;
         <strong>
-          {credentials ? (
+          {user ? (
             <Fragment>
-              address: {credentials.address}, profileId: {credentials.profileId}, networkType: {credentials.networkType}
+              address: {user.address}, profileId: {user.profileId}, networkType: {user.networkType}
             </Fragment>
           ) : (
             'unknown'

@@ -1,3 +1,3 @@
 export * from './EvmAuthClient';
 export * from './EvmAuthClientOptions';
-export * from './EvmWalletProvider';
+export * from './EvmConnector';

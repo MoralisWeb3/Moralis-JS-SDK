@@ -1,6 +1,6 @@
 import { EvmAuthClient } from '@moralisweb3/client-evm-auth';
-import { User } from '@moralisweb3/client-backend-adapter-utils';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
+import { User } from '@moralisweb3/client-auth-utils';
 
 export interface SignInWithMoralisResponse {
   provider: JsonRpcProvider | Web3Provider;
@@ -25,7 +25,7 @@ export async function signInWithMoralis(
 
   return {
     provider: await evmAuthClient.restoreProvider(),
-    credentials: user,
     user,
+    credentials: user,
   };
 }

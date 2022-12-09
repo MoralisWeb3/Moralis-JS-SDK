@@ -1,5 +1,5 @@
 import { SolAuthClient, SolanaProvider } from '@moralisweb3/client-sol-auth';
-import { User } from '@moralisweb3/client-backend-adapter-utils';
+import { User } from '@moralisweb3/client-auth-utils';
 
 export interface SignInWithMoralisResponse {
   solanaProvider: SolanaProvider;

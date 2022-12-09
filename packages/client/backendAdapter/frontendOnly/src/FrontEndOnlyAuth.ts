@@ -1,6 +1,6 @@
 import {
   Auth,
-  User,
+  AuthSession,
   GetMessageToSignRequest,
   GetMessageToSignResponse,
   NetworkTypeResolver,
@@ -11,30 +11,26 @@ const storeKey = 'frontEndOnlyAuth';
 
 interface FrontEndOnlySession {
   address: string;
-  payload?: string;
 }
 
 export class FrontEndOnlyAuth implements Auth {
-  public tryGetUser(): User | null {
+  public tryGetSession(): AuthSession | null {
     const session = readSession();
     if (session) {
       const networkType = NetworkTypeResolver.resolveByAddress(session.address);
       return {
         networkType,
         address: session.address,
-        profileId: 'NOT_SUPPORTED_PROFILE_ID',
-        payload: session.payload,
+        // TODO: do we support it?
+        profileId: `FRONT_END_ONLY_BACKEND_ADAPTER_${session.address}`,
       };
     }
     return null;
   }
 
-  public async getMessageToSign(
-    backendModuleName: string,
-    request: GetMessageToSignRequest,
-  ): Promise<GetMessageToSignResponse> {
+  public async getMessageToSign(request: GetMessageToSignRequest): Promise<GetMessageToSignResponse> {
     const message: string[] = [];
-    message.push(`Module: ${backendModuleName}`);
+    message.push(`Network Type: ${request.networkType}`);
     message.push(`Address: ${request.address}`);
     if (request.chain) {
       message.push(`Chain: ${request.chain}`);
@@ -49,7 +45,7 @@ export class FrontEndOnlyAuth implements Auth {
     };
   }
 
-  public async signIn(_: string, request: SignInRequest): Promise<void> {
+  public async signIn(request: SignInRequest): Promise<void> {
     const addressMatchArray = request.message.match(/Address: ([^\n]+)/);
     if (addressMatchArray?.length !== 2) {
       throw new Error('Cannot determine wallet address');
@@ -57,7 +53,6 @@ export class FrontEndOnlyAuth implements Auth {
 
     const session: FrontEndOnlySession = {
       address: addressMatchArray[1],
-      payload: request.payload,
     };
     writeSession(session);
   }

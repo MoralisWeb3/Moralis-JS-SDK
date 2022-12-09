@@ -37,4 +37,32 @@ describe('AuthProvider', () => {
     expect(results[1]).toBe(firstAuth);
     expect(results[2]).toBe(firstAuth);
   });
+
+  it('returns the same instance of error', async () => {
+    const error = new Error('X');
+    const backendAdapter = new BackendAdapterMock(async () => {
+      throw error;
+    });
+    const authProvider = AuthProvider.create(backendAdapter, core);
+
+    const promise1 = authProvider.get();
+    const promise2 = authProvider.get();
+    let errors = 0;
+
+    try {
+      await promise1;
+    } catch (e) {
+      expect(e).toBe(error);
+      errors++;
+    }
+
+    try {
+      await promise2;
+    } catch (e) {
+      expect(e).toBe(error);
+      errors++;
+    }
+
+    expect(errors).toBe(2);
+  });
 });

@@ -2,7 +2,7 @@ import { EvmApiClient } from '@moralisweb3/client-evm-api';
 import { EvmAuthClient } from '@moralisweb3/client-evm-auth';
 import { SolApiClient } from '@moralisweb3/client-sol-api';
 import { SolAuthClient } from '@moralisweb3/client-sol-auth';
-import { CoreErrorCode, MoralisError } from '@moralisweb3/common-core';
+import { CoreErrorCode, CoreProvider, MoralisError } from '@moralisweb3/common-core';
 import { Client, ClientOptions } from './Client';
 
 let client: Client | null = null;
@@ -28,6 +28,7 @@ export class MoralisClient {
 
     client = Client.create(options);
     client.start();
+    CoreProvider.setDefault(client.core);
   }
 
   public static get EvmApi(): EvmApiClient {
