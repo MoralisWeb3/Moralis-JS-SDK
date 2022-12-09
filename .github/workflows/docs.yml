@@ -24,6 +24,8 @@ jobs:
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
       - name: Build docs
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
         run: yarn build && yarn build:docs
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@4.1.4

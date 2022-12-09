@@ -2,7 +2,7 @@ const path = require('path');
 const fse = require('fs-extra');
 const { buildDocuments } = require('./buildDocuments');
 const { buildDemoDocs } = require('./buildDemoDocs');
-const { tryChildProcess } = require('./utils/childProcess');
+const { runChildProcess } = require('./utils/childProcess');
 
 const documentationPath = path.join(__dirname, '..', 'documentation');
 const outPath = path.join(__dirname, '..', 'docs-out');
@@ -16,7 +16,7 @@ const run = async () => {
   fse.emptyDirSync(path.join(outPath));
 
   console.log('⏳ Generating Typedoc markdown files');
-  tryChildProcess(`yarn --cwd "${rootPath}" typedoc`);
+  runChildProcess(`yarn --cwd "${rootPath}" typedoc`);
 
   console.log('⏳ Building documents..');
   await buildDocuments();
@@ -25,10 +25,10 @@ const run = async () => {
   await buildDemoDocs();
 
   console.log('⏳ Install dependencies for documentation site...');
-  tryChildProcess(`yarn --cwd "${rootPath}" documentation/ install`);
+  runChildProcess(`yarn --cwd "${rootPath}" documentation/ install`);
 
   console.log('⏳ Building documentation site...');
-  tryChildProcess(`yarn --cwd "${rootPath}" documentation/ build --out-dir "${outPath}"`);
+  runChildProcess(`yarn --cwd "${rootPath}" documentation/ build --out-dir "${outPath}"`);
   console.log('✅ Done!');
 };
 

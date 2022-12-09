@@ -1,6 +1,6 @@
 const execSync = require('child_process').execSync;
 
-const tryChildProcess = (command) => {
+const runChildProcess = (command) => {
   console.log(`executing: ${command}`);
   try {
     const res = execSync(command);
@@ -10,9 +10,10 @@ const tryChildProcess = (command) => {
     console.error('Failed output', error);
     console.error('Failed sdterr', error.stderr.toString());
     console.error('Failed stdout', error.stdout.toString());
+    throw error;
   }
 };
 
 module.exports = {
-  tryChildProcess,
+  runChildProcess,
 };
