@@ -1,5 +1,11 @@
 # @moralisweb3/core
 
+## 2.9.0
+
+### Patch Changes
+
+- [#884](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/884) [`338ee39e8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/338ee39e81c80b96e36c32da2507de7114b9dc17) Thanks [@ErnoW](https://github.com/ErnoW)! - Allow more than 10mb upload via Api
+
 ## 2.8.2
 
 ## 2.8.1
