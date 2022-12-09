@@ -1,6 +1,8 @@
 import { EvmChain } from './EvmChain';
 
-// hex-string, ChainNameor a number
+/**
+ * This can be an hex-string, ChainName or a number
+ */
 export type InputChainId = string | number;
 
 /**

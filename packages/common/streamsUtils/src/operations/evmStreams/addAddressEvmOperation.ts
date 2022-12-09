@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, toCamelCase } from '@moralisweb3/common-core';
+import { Camelize, Core, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -21,6 +21,9 @@ export type AddAddressEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type AddAddressEvmJSONResponse = SuccessResponse;
 
 export type AddAddressEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface AddAddressEvmResponseAdapter
+  extends ResponseAdapter<AddAddressEvmResponse, AddAddressEvmJSONResponse> {}
 
 export const addAddressEvmOperation: Operation<
   AddAddressEvmRequest,
