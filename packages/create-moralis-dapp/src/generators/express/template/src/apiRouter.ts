@@ -20,7 +20,7 @@ apiRouter.get('/evm/:address/nft', apiLimiter, async (req, res) => {
     res.send(data.toJSON());
   } catch (e) {
     console.log(e);
-    res.status(400).send({ message: 'Something went wrong' });
+    res.status(500).send({ message: 'Something went wrong' });
   }
 });
 
@@ -30,6 +30,6 @@ apiRouter.get('/evm/:address/erc20', apiLimiter, async (req, res) => {
     res.send(data.toJSON());
   } catch (e) {
     console.log(e);
-    res.status(400).send({ message: 'Something went wrong' });
+    res.status(500).send({ message: 'Something went wrong' });
   }
 });
