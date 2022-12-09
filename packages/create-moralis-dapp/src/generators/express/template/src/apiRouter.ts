@@ -19,7 +19,8 @@ apiRouter.get('/evm/:address/nft', apiLimiter, async (req, res) => {
     const data = await Moralis.EvmApi.nft.getWalletNFTs({ address: req.params.address, ...req.query });
     res.send(data.toJSON());
   } catch (e) {
-    res.status(400).send(e);
+    console.log(e);
+    res.status(400).send({ message: 'Something went wrong' });
   }
 });
 
@@ -28,6 +29,7 @@ apiRouter.get('/evm/:address/erc20', apiLimiter, async (req, res) => {
     const data = await Moralis.EvmApi.token.getWalletTokenBalances({ address: req.params.address, ...req.query });
     res.send(data.toJSON());
   } catch (e) {
-    res.status(400).send(e);
+    console.log(e);
+    res.status(400).send({ message: 'Something went wrong' });
   }
 });
