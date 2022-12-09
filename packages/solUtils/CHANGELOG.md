@@ -1,5 +1,12 @@
 # @moralisweb3/sol-utils
 
+## 2.9.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-sol-utils@2.9.0
+
 ## 2.8.2
 
 ### Patch Changes
