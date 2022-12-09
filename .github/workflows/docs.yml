@@ -23,14 +23,10 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
-      - name: Create the docs and pages directory locally in CI
+      - name: Build docs
         run: yarn build && yarn build:docs
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: pages
-      - name: Deploy Readme docs
-        uses: readmeio/rdme@7.5.0
-        with:
-          rdme: docs ./docs --version=v2.0 --key=${{ secrets.README_API_KEY }}
+          folder: docs-out

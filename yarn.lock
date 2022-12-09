@@ -6822,10 +6822,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/typedoc-readme-theme@workspace:packages/typedocReadmeTheme"
   dependencies:
-    typedoc-plugin-markdown: ^3.13.4
+    typedoc-plugin-markdown: ^3.14.0
   peerDependencies:
-    typedoc: ">=0.23.0"
-    typedoc-plugin-markdown: ">=3.13.4"
+    typedoc: ">=0.23.21"
+    typedoc-plugin-markdown: ">=3.14.0"
   languageName: unknown
   linkType: soft
 
@@ -24065,7 +24065,7 @@ __metadata:
     rdme: ^7.5.0
     ts-jest: ^29.0.3
     typedoc: ^0.23.21
-    typedoc-plugin-markdown: ^3.13.4
+    typedoc-plugin-markdown: ^3.14.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -31856,14 +31856,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-markdown@npm:^3.13.4":
-  version: 3.13.4
-  resolution: "typedoc-plugin-markdown@npm:3.13.4"
+"typedoc-plugin-markdown@npm:^3.14.0":
+  version: 3.14.0
+  resolution: "typedoc-plugin-markdown@npm:3.14.0"
   dependencies:
     handlebars: ^4.7.7
   peerDependencies:
     typedoc: ">=0.23.0"
-  checksum: b4edc0147694b8669a05695ef67b6a1f645c10179930fa86759374347f4e8cbb6bd29b58929abce62ab6a3e165de36711ab22eaad240785b1235c06bba4574e4
+  checksum: 6205600052185b4b193ab8a253d9df5ccbc95002c948a07f9024bcd26f0f23fbcc089fda4d6b4c8f4172f4eaca2bf9c32129989f6baaace7261cf4a0e41c976b
   languageName: node
   linkType: hard
 

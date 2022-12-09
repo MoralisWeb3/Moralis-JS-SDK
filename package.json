@@ -29,13 +29,12 @@
     "rdme": "^7.5.0",
     "ts-jest": "^29.0.3",
     "typedoc": "^0.23.21",
-    "typedoc-plugin-markdown": "^3.13.4",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "^4.9.3"
   },
   "scripts": {
     "build": "yarn nx run-many --target=build --all",
-    "build:demo-docs": "node ./scripts/buildDemoDocs.js",
-    "build:docs": "rm -rf docs && yarn typedoc && yarn build:demo-docs",
+    "build:docs": "node ./scripts/buildDocs.js",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
     "dev": "yarn nx run-many --target=dev --all",

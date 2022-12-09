@@ -17,11 +17,11 @@
     "lint": "eslint . --ext .js,.ts,.tsx,jsx"
   },
   "peerDependencies": {
-    "typedoc": ">=0.23.0",
-    "typedoc-plugin-markdown": ">=3.13.4"
+    "typedoc": ">=0.23.21",
+    "typedoc-plugin-markdown": ">=3.14.0"
   },
   "devDependencies": {
-    "typedoc-plugin-markdown": "^3.13.4"
+    "typedoc-plugin-markdown": "^3.14.0"
   },
   "keywords": [
     "typedoc",
