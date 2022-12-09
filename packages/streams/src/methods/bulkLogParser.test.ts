@@ -81,7 +81,6 @@ const webhookDataNoAbi: Partial<IWebhook> = {
 describe('logDecoder', () => {
   it('should decode logs', () => {
     const decodedLogs: any = parseLog(webhookData as IWebhook);
-    console.log('decodedLogs', decodedLogs);
 
     expect(decodedLogs[0].from).toEqual('0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc');
     expect(decodedLogs[0].to).toEqual('0x88ff79eB2Bc5850F27315415da8685282C7610F9');

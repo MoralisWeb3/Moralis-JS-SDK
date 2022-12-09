@@ -1,23 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getSPLOperation as operation, 
-  GetSPLRequest, 
-  GetSPLResponse 
+  GetSPLRequest,
 } from 'moralis/common-sol-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
-export const useSolSPL = (request: GetSPLRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<GetSPLResponse>(
-    ['solApi/getSPL', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useSolSPL = (
+  request?: GetSPLRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'solApi/getSPL',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

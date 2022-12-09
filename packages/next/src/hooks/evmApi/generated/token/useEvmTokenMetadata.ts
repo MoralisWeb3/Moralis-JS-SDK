@@ -1,23 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getTokenMetadataOperation as operation, 
-  GetTokenMetadataRequest, 
-  GetTokenMetadataResponse 
+  GetTokenMetadataRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmTokenMetadata = (request: GetTokenMetadataRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<GetTokenMetadataResponse>(
-    ['evmApi/getTokenMetadata', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmTokenMetadata = (
+  request?: GetTokenMetadataRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/getTokenMetadata',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

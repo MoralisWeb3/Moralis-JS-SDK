@@ -1,23 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   uploadFolderOperation as operation, 
-  UploadFolderRequest, 
-  UploadFolderResponse 
+  UploadFolderRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmUploadFolder = (request: UploadFolderRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<UploadFolderResponse>(
-    ['evmApi/uploadFolder', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmUploadFolder = (
+  request?: UploadFolderRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/uploadFolder',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

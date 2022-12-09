@@ -1,23 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getDateToBlockOperation as operation, 
-  GetDateToBlockRequest, 
-  GetDateToBlockResponse 
+  GetDateToBlockRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmDateToBlock = (request: GetDateToBlockRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<GetDateToBlockResponse>(
-    ['evmApi/getDateToBlock', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmDateToBlock = (
+  request?: GetDateToBlockRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/getDateToBlock',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

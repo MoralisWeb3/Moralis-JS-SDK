@@ -1,7 +1,11 @@
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import { getAddressesEvmOperation, GetAddressesEvmRequest } from '@moralisweb3/common-streams-utils';
+import {
+  getAddressesEvmOperation,
+  GetAddressesEvmRequest,
+  GetAddressesEvmResponseAdapter,
+} from '@moralisweb3/common-streams-utils';
 import Core from '@moralisweb3/common-core';
 
 export interface GetAddressesEvmOptions extends GetAddressesEvmRequest {
@@ -13,7 +17,7 @@ export type GetAddressesOptions = GetAddressesEvmOptions;
 export const makeGetAddresses = (core: Core, baseUrl: string) => {
   const evmFetcher = new PaginatedOperationResolver(getAddressesEvmOperation, baseUrl, core).fetch;
 
-  return ({ networkType, ...options }: GetAddressesOptions) => {
+  return ({ networkType, ...options }: GetAddressesOptions): Promise<GetAddressesEvmResponseAdapter> => {
     switch (networkType) {
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });

@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, toCamelCase } from '@moralisweb3/common-core';
+import { Camelize, Core, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -20,6 +20,9 @@ export type DeleteAddressEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type DeleteAddressEvmJSONResponse = SuccessResponse;
 
 export type DeleteAddressEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface DeleteAddressEvmResponseAdapter
+  extends ResponseAdapter<DeleteAddressEvmResponse, DeleteAddressEvmJSONResponse> {}
 
 export const deleteAddressEvmOperation: Operation<
   DeleteAddressEvmRequest,

@@ -1,37 +1,29 @@
-import {
-  requestChallengeEvmOperation as operation,
-  RequestChallengeEvmRequest,
-  RequestChallengeEvmResponse,
-} from '@moralisweb3/common-auth-utils';
-import { fetcher } from '../../utils/fetcher';
+import { requestChallengeEvmOperation as operation, RequestChallengeEvmRequest } from '@moralisweb3/common-auth-utils';
 import { FetchParams } from '../types';
-import { useCallback } from 'react';
-import useSWR from 'swr';
+import { useResolver } from '../resolvers';
 
 export type RequestChallengeEvmRequestClient = Pick<RequestChallengeEvmRequest, 'chainId' | 'address'>;
 
 export const useAuthRequestChallengeEvm = (request?: RequestChallengeEvmRequestClient, fetchParams?: FetchParams) => {
-  const endpoint = 'auth/requestChallengeEvm';
-
-  const { data, error, isValidating, mutate } = useSWR<RequestChallengeEvmResponse>(
-    [endpoint, { operation, request }],
-    fetcher,
-    {
-      revalidateOnMount: request ? true : false,
-      revalidateOnFocus: false,
-      ...fetchParams,
-    },
-  );
-
-  const requestChallengeAsync = useCallback((params: RequestChallengeEvmRequestClient) => {
-    return mutate(fetcher(endpoint, { operation, request: params }));
-  }, []);
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'auth/requestChallengeEvm',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     challenge: data,
     error,
-    requestChallengeAsync,
-    refetch: async () => mutate(),
-    isValidating,
+    requestChallengeAsync: fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

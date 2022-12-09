@@ -1,23 +1,37 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getNFTTransfersOperation as operation, 
-  GetNFTTransfersRequest, 
-  GetNFTTransfersResponse 
+  GetNFTTransfersRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolverPaginated } from '../../../resolvers';
 
-export const useEvmNFTTransfers = (request: GetNFTTransfersRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<GetNFTTransfersResponse>(
-    ['evmApi/getNFTTransfers', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmNFTTransfers = (
+  request?: GetNFTTransfersRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolverPaginated({
+    endpoint: 'evmApi/getNFTTransfers',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
-    data,
+    data: data?.data,
+    cursor: data?.cursor,
+    page: data?.page,
+    pageSize: data?.pageSize,
+    total: data?.total,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

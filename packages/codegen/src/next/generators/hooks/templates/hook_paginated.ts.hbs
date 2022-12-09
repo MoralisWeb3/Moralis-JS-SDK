@@ -1,0 +1,37 @@
+import { 
+  {{ names.operation }} as operation, 
+  {{ names.request }},
+} from '{{ names.commonUtils }}';
+import { FetchParams } from '../../../types';
+import { useResolverPaginated } from '../../../resolvers';
+
+export const {{ names.hook }} = (
+  request?: {{ names.request }}, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolverPaginated({
+    endpoint: '{{ url }}',
+    operation,
+    request,
+    fetchParams,
+  });
+
+  return {
+    data: data?.data,
+    cursor: data?.cursor,
+    page: data?.page,
+    pageSize: data?.pageSize,
+    total: data?.total,
+    error,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
+  };
+};

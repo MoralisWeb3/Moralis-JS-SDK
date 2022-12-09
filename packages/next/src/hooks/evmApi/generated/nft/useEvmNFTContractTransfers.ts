@@ -1,23 +1,37 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getNFTContractTransfersOperation as operation, 
-  GetNFTContractTransfersRequest, 
-  GetNFTContractTransfersResponse 
+  GetNFTContractTransfersRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolverPaginated } from '../../../resolvers';
 
-export const useEvmNFTContractTransfers = (request: GetNFTContractTransfersRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<GetNFTContractTransfersResponse>(
-    ['evmApi/getNFTContractTransfers', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmNFTContractTransfers = (
+  request?: GetNFTContractTransfersRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolverPaginated({
+    endpoint: 'evmApi/getNFTContractTransfers',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
-    data,
+    data: data?.data,
+    cursor: data?.cursor,
+    page: data?.page,
+    pageSize: data?.pageSize,
+    total: data?.total,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

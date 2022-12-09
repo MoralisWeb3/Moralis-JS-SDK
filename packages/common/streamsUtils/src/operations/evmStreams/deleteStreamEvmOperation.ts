@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation } from '@moralisweb3/common-core';
+import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
@@ -17,6 +17,9 @@ export type DeleteStreamEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type DeleteStreamEvmJSONResponse = SuccessResponse;
 
 export type DeleteStreamEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface DeleteStreamEvmResponseAdapter
+  extends ResponseAdapter<DeleteStreamEvmResponse, DeleteStreamEvmJSONResponse> {}
 
 export const deleteStreamEvmOperation: Operation<
   DeleteStreamEvmRequest,

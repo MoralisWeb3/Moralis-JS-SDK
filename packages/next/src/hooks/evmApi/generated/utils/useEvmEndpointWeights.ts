@@ -1,23 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   endpointWeightsOperation as operation, 
-  EndpointWeightsRequest, 
-  EndpointWeightsResponse 
+  EndpointWeightsRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmEndpointWeights = (request: EndpointWeightsRequest, fetchParams?: FetchParams) => {
-  const { data, error, mutate, isValidating } = useSWR<EndpointWeightsResponse>(
-    ['evmApi/endpointWeights', {operation, request}], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmEndpointWeights = (
+  request?: EndpointWeightsRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/endpointWeights',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

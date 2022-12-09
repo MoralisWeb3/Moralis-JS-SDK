@@ -228,4 +228,51 @@ describe('LogParser', () => {
     expect(params['expires'].type).toBe('uint256');
     expectBigNumber(params['expires'], '1696950755');
   });
+
+  it('reads log correctly when internally @ethersproject/abi return an instance of Indexed class', () => {
+    const log: Log = {
+      logIndex: '10',
+      transactionHash: '0x51ece41e15b9bec389ecdba5fc42366e40904ee0a7588a8bd0731f625c5fd0a1',
+      address: '0xca052c2c5ca7cf81c5d47ca6f1dcd5803d491365',
+      data: '0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000183633393139666535313833326161656138396637633733360000000000000000',
+      topic0: '0x5cc8a983927b60e71d90ba4fbf642eb3e461d4eeefca2c1e5789a99d0f1263f1',
+      topic1: '0x000000000000000000000000a71c821a533fbc68247e729908d485abc14729c1',
+      topic2: '0xdd59c5286381d1e7091e99aa5732fa35b875b732751f8764ff13f675c48acb25',
+      topic3: null,
+    };
+    const abiItems: AbiItem[] = [
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: 'string',
+            name: 'id',
+            type: 'string',
+          },
+          {
+            indexed: true,
+            internalType: 'address',
+            name: 'chef',
+            type: 'address',
+          },
+          {
+            indexed: true,
+            internalType: 'string',
+            name: 'rewardNFT',
+            type: 'string',
+          },
+        ],
+        name: 'NewNFTChefContract',
+        type: 'event',
+      },
+    ];
+
+    const { name, params } = new LogParser(abiItems).read(log);
+
+    expect(name).toBe('NewNFTChefContract');
+    expect(params['id'].value).toBe('63919fe51832aaea89f7c736');
+    expect(params['chef'].value).toBe('0xA71c821A533FBc68247e729908D485AbC14729c1');
+    expect(params['rewardNFT'].value).toBe('0xdd59c5286381d1e7091e99aa5732fa35b875b732751f8764ff13f675c48acb25');
+  });
 });

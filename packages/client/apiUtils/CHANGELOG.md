@@ -1,5 +1,19 @@
 # @moralisweb3/client-api-utils
 
+## 2.8.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.8.2
+
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.8.1
+
 ## 2.8.0
 
 ### Minor Changes

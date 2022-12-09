@@ -1,4 +1,4 @@
-import { Camelize, Operation } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
 type OperationId = 'UpdateStreamStatus';
@@ -18,6 +18,9 @@ export type UpdateStreamStatusEvmJSONRequest = ReturnType<typeof serializeReques
 export type UpdateStreamStatusEvmJSONResponse = SuccessResponse;
 
 export type UpdateStreamStatusEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface UpdateStreamStatusEvmResponseAdapter
+  extends ResponseAdapter<UpdateStreamStatusEvmResponse, UpdateStreamStatusEvmJSONResponse> {}
 
 export const updateStreamStatusEvmOperation: Operation<
   UpdateStreamStatusEvmRequest,

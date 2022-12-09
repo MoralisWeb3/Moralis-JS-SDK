@@ -6,7 +6,7 @@ export const mockResyncMetadata = MockScenarios.create(
     method: 'get',
     name: 'mockResyncMetadata',
     url: `/nft/:address/:tokenId/metadata/resync`,
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       tokenId: req.params.tokenId,
     }),

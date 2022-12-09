@@ -5,7 +5,7 @@ export const mockGetSPLSol = MockScenarios.create(
     method: 'get',
     name: 'mockGetSPLSol',
     url: `/account/:network/:address/tokens`,
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       network: req.params.network,
       address: req.params.address,
     }),
