@@ -33,11 +33,11 @@ const createDocuments = async () => {
 /**
  * Run all the code
  */
-const run = async () => {
+const buildDocuments = async () => {
   await ensureCleanOutputDir();
 
   await createContributing();
   await createDocuments();
 };
 
-run();
+module.exports = { buildDocuments };

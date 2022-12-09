@@ -12,6 +12,7 @@ docs/
 
 # gh-pages
 pages/
+/docs-out/
 
 # Build
 packages/**/build
@@ -59,6 +60,13 @@ dump.rdb
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+documentation/.yarn/*
+!documentation/.yarn/patches
+!documentation/.yarn/plugins
+!documentation/.yarn/releases
+!documentation/.yarn/sdks
+!documentation/.yarn/versions
 
 .npmrc
 .yarnrc

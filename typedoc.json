@@ -15,7 +15,7 @@
   "excludeInternal": true,
   "excludePrivate": true,
   "readme": "none",
-  "excludeNotDocumented": true,
+  "excludeNotDocumented": false,
   "validation": {
     "notExported": false,
     "invalidLink": true,
