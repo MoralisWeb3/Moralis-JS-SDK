@@ -4,13 +4,21 @@ import { DeclarationReflection, PageEvent, Reflection } from 'typedoc';
 import { getPageTitle } from 'typedoc-plugin-markdown/dist/utils/front-matter';
 
 export class ReadmeTheme extends MarkdownTheme {
-  publicPath = '/docs';
+  publicPath = '';
 
   formatContents(contents: string): string {
     return `${contents
       .replace(/[\r\n]{3,}/g, '\n\n')
       .replace(/!spaces/g, '')
       .replace(/^\s+|\s+$/g, '')}\n`;
+  }
+
+  getFrontMatter(page: PageEvent<any>) {
+    return `\
+---
+slug: "${this.getSlug(page)}"
+---
+`;
   }
 
   getTitle(page: PageEvent<Reflection>) {
@@ -36,6 +44,6 @@ export class ReadmeTheme extends MarkdownTheme {
   }
 
   render(page: PageEvent<Reflection>): string {
-    return `${this.formatContents(page.template(page) as string)}`;
+    return `${this.getFrontMatter(page)}${this.formatContents(page.template(page) as string)}`;
   }
 }

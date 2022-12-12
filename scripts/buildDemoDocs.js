@@ -146,39 +146,41 @@ const getFullbuildDownloadName = (name) => `${name}-build.zip`;
  * Creates a .zip file for a demo project
  */
 const createAchive = (folder, fileName, codePath) => {
+  console.log(`⏳ Creating archive for ${fileName}..`);
   const output = fs.createWriteStream(path.join(outputCodePath, folder, fileName));
   const archive = archiver('zip', {
     zlib: { level: COMPRESSION_LEVEL },
   });
 
-  output.on('close', function () {
-    console.log(archive.pointer() + ' total bytes');
-    console.log('archiver has been finalized and the output file descriptor has closed.');
+  return new Promise((resolve, reject) => {
+    output.on('close', function () {
+      console.log(`✅ Created archive for ${fileName} with ${archive.pointer()} total bytes`);
+      resolve();
+    });
+
+    output.on('end', function () {
+      console.log(`⚠️ Data has been drained archive for ${fileName}`);
+    });
+
+    archive.on('warning', function (err) {
+      if (err.code === 'ENOENT') {
+        // log warning
+        console.warn(err);
+        console.log(`⚠️ Warning on creating archive for ${fileName}: ${err}`);
+      } else {
+        // throw error
+        reject(err);
+      }
+    });
+
+    archive.on('error', function (err) {
+      reject(err);
+    });
+
+    archive.pipe(output);
+    archive.directory(path.join(outputCodePath, folder, codePath), false);
+    archive.finalize();
   });
-
-  output.on('end', function () {
-    console.log('Data has been drained');
-  });
-
-  archive.on('warning', function (err) {
-    if (err.code === 'ENOENT') {
-      // log warning
-      console.warn(err);
-    } else {
-      // throw error
-      throw err;
-    }
-  });
-
-  archive.on('error', function (err) {
-    throw err;
-  });
-
-  archive.pipe(output);
-
-  archive.directory(path.join(outputCodePath, folder, codePath), false);
-
-  archive.finalize();
 };
 
 /**
