@@ -21,9 +21,9 @@ jobs:
       - name: Build docs
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
-        run: yarn build && yarn build:docs
+        run: yarn build:docs
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: docs-out
+          folder: docs-build

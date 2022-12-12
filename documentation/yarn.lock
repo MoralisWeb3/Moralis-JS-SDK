@@ -4797,9 +4797,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"documentation@workspace:.":
+"docs@workspace:.":
   version: 0.0.0-use.local
-  resolution: "documentation@workspace:."
+  resolution: "docs@workspace:."
   dependencies:
     "@docusaurus/core": 2.2.0
     "@docusaurus/module-type-aliases": 2.2.0
