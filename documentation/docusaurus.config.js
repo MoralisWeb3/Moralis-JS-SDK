@@ -10,7 +10,9 @@ const config = {
   title: 'Moralis SDK (JavaSDKScript / TypeScript)',
   tagline: 'A library that gives you access to the powerful Moralis Server backend from your JavaScript app.',
   url: 'https://docs.moralis.io/',
-  baseUrl: '/',
+  baseUrl: '/Moralis-JS-SD',
+  // Use for serving locally:
+  // baseUrl: '/docs-out/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
