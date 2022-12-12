@@ -3,15 +3,17 @@ import { MockScenarios } from '@moralisweb3/test-utils';
 export const mockRunContractFunction = MockScenarios.create(
   {
     name: 'mockRunContractFunction',
-    getParams: (req) => ({
-      address: req.params.address,
-      chain: req.url.searchParams.get('chain'),
-      function_name: req.url.searchParams.get('function_name'),
-      subdomain: req.url.searchParams.get('subdomain'),
-      providerUrl: req.url.searchParams.get('providerUrl'),
-      abi: req.body['abi'],
-      params: req.body['params'],
-    }),
+    getParams: ({ req, reqBody }) => {
+      return {
+        address: req.params.address,
+        chain: req.url.searchParams.get('chain'),
+        function_name: req.url.searchParams.get('function_name'),
+        subdomain: req.url.searchParams.get('subdomain'),
+        providerUrl: req.url.searchParams.get('providerUrl'),
+        abi: reqBody?.abi,
+        params: reqBody?.params,
+      };
+    },
     url: '/:address/function',
     method: 'post',
   },

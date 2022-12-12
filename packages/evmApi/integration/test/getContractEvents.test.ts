@@ -1,7 +1,7 @@
 import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
-const ERC721_TRANSFER_ABI = {
+const ERC721_ABI_ITEM = {
   anonymous: false,
   inputs: [
     {
@@ -54,7 +54,7 @@ describe('getContractEvents', () => {
     const response = await evmApi.events.getContractEvents({
       chain: 137, // Polygon
       address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
-      abi: ERC721_TRANSFER_ABI,
+      abi: ERC721_ABI_ITEM,
       topic: '0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62',
       fromBlock: 14327217,
       toBlock: 14327217,

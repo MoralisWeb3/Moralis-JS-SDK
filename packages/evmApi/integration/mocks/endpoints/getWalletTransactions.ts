@@ -7,7 +7,7 @@ export const mockGetWalletTransactions = MockScenarios.create(
     method: 'get',
     url: `/:address`,
     name: 'mockGetWalletTransactions',
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       chain: req.url.searchParams.get('chain'),
       subdomain: req.url.searchParams.get('subdomain'),

@@ -6,7 +6,7 @@ export const mockGetNFTMetadata = MockScenarios.create(
     method: 'get',
     name: 'mockGetNFTMetadata',
     url: `/nft/:address/:tokenId`,
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       tokenId: req.params.tokenId,
     }),

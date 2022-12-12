@@ -5,7 +5,7 @@ export const mockGetPortfolioSol = MockScenarios.create(
     method: 'get',
     name: 'mockGetPortfolioSol',
     url: `/account/:network/:address/portfolio`,
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       network: req.params.network,
       address: req.params.address,
     }),
