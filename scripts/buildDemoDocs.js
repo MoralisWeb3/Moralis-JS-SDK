@@ -8,10 +8,6 @@ const asyncExec = util.promisify(require('child_process').exec);
 // Url to hosted github  pages
 const HOSTED_PAGES = 'https://moralisweb3.github.io/Moralis-JS-SDK';
 
-// reference to https://docs.moralis.io/docs/nodejs-demos
-const DOCS_PARENT_ID = '63074bbec5f3ae0a0b565cf6';
-// id for the technical references
-const DOCS_CATEGORY_ID = '630696f4ab47c500b41899b7';
 // Root URL of github demos
 const GITHUB_DEMO_PATH = 'https://github.com/MoralisWeb3/Moralis-JS-SDK/tree/main/demos';
 
@@ -22,8 +18,8 @@ const COMPRESSION_LEVEL = 9;
 const DIR_DEMO = 'demos';
 
 // Reference to the output folders
-const OUT_DIR_CODE = 'pages';
-const OUT_DIR_DOCS = 'docs';
+const OUT_DIR_CODE = 'docs-out';
+const OUT_DIR_DOCS = 'documentation/docs';
 
 // Reference to the folder names in the output folder
 const DEMOS_DIR = 'demos';
@@ -150,39 +146,41 @@ const getFullbuildDownloadName = (name) => `${name}-build.zip`;
  * Creates a .zip file for a demo project
  */
 const createAchive = (folder, fileName, codePath) => {
+  console.log(`⏳ Creating archive for ${fileName}..`);
   const output = fs.createWriteStream(path.join(outputCodePath, folder, fileName));
   const archive = archiver('zip', {
     zlib: { level: COMPRESSION_LEVEL },
   });
 
-  output.on('close', function () {
-    console.log(archive.pointer() + ' total bytes');
-    console.log('archiver has been finalized and the output file descriptor has closed.');
+  return new Promise((resolve, reject) => {
+    output.on('close', function () {
+      console.log(`✅ Created archive for ${fileName} with ${archive.pointer()} total bytes`);
+      resolve();
+    });
+
+    output.on('end', function () {
+      console.log(`⚠️ Data has been drained archive for ${fileName}`);
+    });
+
+    archive.on('warning', function (err) {
+      if (err.code === 'ENOENT') {
+        // log warning
+        console.warn(err);
+        console.log(`⚠️ Warning on creating archive for ${fileName}: ${err}`);
+      } else {
+        // throw error
+        reject(err);
+      }
+    });
+
+    archive.on('error', function (err) {
+      reject(err);
+    });
+
+    archive.pipe(output);
+    archive.directory(path.join(outputCodePath, folder, codePath), false);
+    archive.finalize();
   });
-
-  output.on('end', function () {
-    console.log('Data has been drained');
-  });
-
-  archive.on('warning', function (err) {
-    if (err.code === 'ENOENT') {
-      // log warning
-      console.warn(err);
-    } else {
-      // throw error
-      throw err;
-    }
-  });
-
-  archive.on('error', function (err) {
-    throw err;
-  });
-
-  archive.pipe(output);
-
-  archive.directory(path.join(outputCodePath, folder, codePath), false);
-
-  archive.finalize();
 };
 
 /**
@@ -231,16 +229,6 @@ const createInfoJson = async (demos) => {
   await fse.writeJsonSync(outPath, data, { spaces: 2 });
 };
 
-const makeFrontMatter = (demoData) => {
-  return `---
-title: "${demoData.name}"
-category: ${DOCS_CATEGORY_ID}
-parentDoc: ${DOCS_PARENT_ID}
-hidden: false
----
-`;
-};
-
 const makeMarkdownHeader = (demoData) => {
   return `[Download](${demoData.download})
 
@@ -254,7 +242,7 @@ const makeMarkdownHeader = (demoData) => {
  * Generate HTML index page for the demos
  */
 const generateDemoMarkdown = (demoData, readme) => {
-  let markdown = `${makeFrontMatter(demoData)}${makeMarkdownHeader(demoData)}`;
+  let markdown = `${makeMarkdownHeader(demoData)}`;
 
   if (readme) {
     // Remove title header
@@ -272,11 +260,12 @@ const generateDemoMarkdown = (demoData, readme) => {
  * Create all markdown files for the demos in the docs folder
  */
 const createMarkdownFiles = async (demosData, readmeData) => {
+  fs.mkdirSync(path.join(outputDocsPath, `demos`));
   await Promise.all(
     demosData.map(async (demoData) => {
       const markdown = generateDemoMarkdown(demoData, readmeData[demoData.name]);
 
-      const outPath = path.join(outputDocsPath, `nodejs-demo-${demoData.name}.md`);
+      const outPath = path.join(outputDocsPath, `demos/${demoData.name}.md`);
       await fs.writeFileSync(outPath, markdown);
     }),
   );
@@ -294,7 +283,7 @@ const getAllDemoFolders = async () =>
 /**
  * Run all the code
  */
-const run = async () => {
+const buildDemoDocs = async () => {
   const demoFolders = await getAllDemoFolders();
 
   await ensureAllCleanOutputDir(demoFolders);
@@ -307,4 +296,4 @@ const run = async () => {
   await createInfoJson(demosData);
 };
 
-run();
+module.exports = { buildDemoDocs };

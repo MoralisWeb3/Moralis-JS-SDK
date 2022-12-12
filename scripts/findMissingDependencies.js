@@ -4,7 +4,9 @@ const ts = require('typescript');
 
 const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client', 'packages/client/backendAdapter'];
 
-const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules'];
+const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules', 'template'];
+
+const IGNORE_DEPENDENCIES = ['path', 'lodash', 'child_process', 'fs'];
 
 function findPackages(dirPath) {
   const result = [];
@@ -79,7 +81,7 @@ function findPackageMissingDependencies(packageDirPath) {
   const imports = readImports(tsFilePaths);
 
   const missing = imports.reduce((result, imp) => {
-    if (!dependenciesList.includes(imp)) {
+    if (!dependenciesList.includes(imp) && !IGNORE_DEPENDENCIES.includes(imp)) {
       result.push(imp);
     }
     return result;

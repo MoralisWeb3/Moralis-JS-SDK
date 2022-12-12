@@ -21,7 +21,7 @@ const unitToDecimals: Record<EvmNativeUnit, number> = {
 type UnitOrDecimals = EvmNativeUnit | number;
 
 /**
- * This is any valid {@link BigNumberish} value.
+ * This is any valid {@link @moralisweb3/common-core!BigNumberish} value
  */
 export type InputEvmNative = BigNumberish;
 
@@ -32,7 +32,7 @@ export type InputEvmNative = BigNumberish;
 export type EvmNativeish = InputEvmNative | EvmNative;
 
 /**
- * The EvmNative class is a MoralisData that references to a the value of a native currency (like ETH, BNB etc.)
+ * The EvmNative class is a MoralisData that references to the value of an EVM native currency (like ETH, BNB etc.)
  *
  * @category DataType
  */

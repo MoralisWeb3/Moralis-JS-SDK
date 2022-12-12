@@ -11,6 +11,7 @@ const MoralisNextAuthProvider = () =>
    */
   CredentialsProvider({
     name: 'MoralisAuth',
+    id: 'moralis-auth',
     /**
      * Credentials is required data for authentication
      * Received from Moralis.Auth.requestMessage()

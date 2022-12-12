@@ -6,7 +6,7 @@ import {
   DateInput,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmEvent } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmEvent, EvmAbiItem } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -24,7 +24,7 @@ export interface GetContractEventsRequest
   extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
-  abi: unknown;
+  abi: EvmAbiItem;
   fromDate?: DateInput;
   toDate?: DateInput;
 }
@@ -64,7 +64,7 @@ export const getContractEventsOperation: PaginatedOperation<
     'limit',
   ],
   bodyParamNames: ['abi'],
-  bodyType: 'properties',
+  bodyType: 'raw',
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -93,9 +93,7 @@ function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
 }
 
 function getRequestBody(request: GetContractEventsRequest) {
-  return {
-    abi: request.abi,
-  };
+  return request.abi;
 }
 
 function deserializeResponse(

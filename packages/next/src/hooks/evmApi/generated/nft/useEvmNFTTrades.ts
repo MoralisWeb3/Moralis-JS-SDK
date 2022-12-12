@@ -1,25 +1,37 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getNFTTradesOperation as operation, 
-  GetNFTTradesRequest, 
-  GetNFTTradesResponse 
+  GetNFTTradesRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
-import Moralis from 'moralis';
+import { useResolverPaginated } from '../../../resolvers';
 
-export const useEvmNFTTrades = (request: GetNFTTradesRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
-  const { data, error, mutate, isValidating } = useSWR<GetNFTTradesResponse>(
-    ['evmApi/getNFTTrades', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmNFTTrades = (
+  request?: GetNFTTradesRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolverPaginated({
+    endpoint: 'evmApi/getNFTTrades',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
-    data,
+    data: data?.data,
+    cursor: data?.cursor,
+    page: data?.page,
+    pageSize: data?.pageSize,
+    total: data?.total,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

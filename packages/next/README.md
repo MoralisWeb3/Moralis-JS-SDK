@@ -24,21 +24,19 @@ Please check the [official documentation of Moralis](https://docs.moralis.io/) f
 
 ### 1. Install Dependencies
 
-Make sure to have `next`, `next-auth`, `react`, `react-dom` and `moralis` installed as dependencies, then install `@moralisweb3/next`
+Make sure to have `next`, `next-auth`, `react` and `react-dom` installed as dependencies, then install `@moralisweb3/next`
 
 In short:
 
 ```sh
-npm install moralis @moralisweb3/next next next-auth react react-dom
+npm install @moralisweb3/next next next-auth react react-dom
 ```
 
 or
 
 ```sh
-yarn add moralis @moralisweb3/next next next-auth react react-dom
+yarn add @moralisweb3/next next next-auth react react-dom
 ```
-
-> Make sure to also  `moralis` to the latest version, when you update `@moralisweb3/next`.
 
 ### 2. Create environment variables file
 
@@ -76,13 +74,16 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
-- [🔐 Authentication and Session Management with NextAuth](#-authentication-and-session-management-with-nextauth)
-- [✨ Hook Usage Example](#️-hook-usage-example)
+- [🔐 Authentication and Session Management with NextAuth](#️-authentication-and-session-management-with-nextauth)
+- [✨ Hook Usage Examples](#️-hook-usage-examples)
+  - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
+  - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
+  - [3. Disable Auto Data Fetching](#3-disable-auto-data-fetching)
 - [⚙️ Hook Advanced Config](#️-hook-advanced-config)
-- [Authentication Api Hooks](#-authentication-api-hooks)
+- [Authentication Api Hooks](#authentication-api-hooks)
   - [useAuthRequestChallengeSolana](#️useAuthRequestChallengeSolana)
-  - [useAuthRequestChallengeEvm](#-useAuthRequestChallengeEvm)
-- [Evm Api Hooks](#-evm-api-hooks)
+  - [useAuthRequestChallengeEvm](#useAuthRequestChallengeEvm)
+- [Evm Api Hooks](#evm-api-hooks)
   - [useEvmWeb3ApiVersion](#️useEvmWeb3ApiVersion)
   - [useEvmRunContractFunction](#️useEvmRunContractFunction)
   - [useEvmEndpointWeights](#️useEvmEndpointWeights)
@@ -100,8 +101,8 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useEvmSyncNFTContract](#️useEvmSyncNFTContract)
   - [useEvmSearchNFTs](#️useEvmSearchNFTs)
   - [useEvmReSyncMetadata](#️useEvmReSyncMetadata)
-  - [useEvmWalletNFTTransfers](#️useEvmWalletNFTTransfers)
   - [useEvmWalletNFTs](#️useEvmWalletNFTs)
+  - [useEvmWalletNFTTransfers](#️useEvmWalletNFTTransfers)
   - [useEvmWalletNFTCollections](#️useEvmWalletNFTCollections)
   - [useEvmNFTTransfers](#️useEvmNFTTransfers)
   - [useEvmNFTTransfersFromToBlock](#️useEvmNFTTransfersFromToBlock)
@@ -122,7 +123,7 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useEvmDateToBlock](#️useEvmDateToBlock)
   - [useEvmBlock](#️useEvmBlock)
   - [useEvmNativeBalance](#️useEvmNativeBalance)
-- [Solana Api Hooks](#-solana-api-hooks)
+- [Solana Api Hooks](#solana-api-hooks)
   - [useSolTokenPrice](#️useSolTokenPrice)
   - [useSolNFTMetadata](#️useSolNFTMetadata)
   - [useSolSPL](#️useSolSPL)
@@ -137,19 +138,89 @@ The `@moralisweb3/next` library provides first class tools for web3 authenticati
 
 Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-metamask) Tutorial for NextJS.
 
-# ✨ Hook Usage Example
+# ✨ Hook Usage Examples
 
 ```jsx
 import { useEvmWalletTokenBalances } from '@moralisweb3/next'
 
 const App = () => {
-  const { data: balance, error, refetch, isValidating } = useEvmWalletTokenBalances({ address: '0x...' })
+  const { data: balance, error, fetch, isFetching } = useEvmWalletTokenBalances({ address: '0x...' })
 
-  if (isValidating) return <div>Fetching/Refreshing balance…</div>
+  if (isFetching) return <div>Fetching/Refreshing balance…</div>
   if (error) return <div>{JSON.stringify(error, null, 2)}</div>
   return (
     <>
-      <button onClick={refetch}>Refetch Balance</button>
+      <button onClick={fetch}>Refetch Balance</button>
+      <div>{JSON.stringify(balance, null, 2)}</div>
+    </>
+  )
+}
+```
+
+Basically, there are three options how to fetch data with `@moralisweb3/next` hooks:
+
+## 1. Provide params directly to the hook
+In case all required params for the hook are defined you can provide them directly to the hook params. Data fetching in this case will be triggered automatically:
+```jsx
+import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+
+const App = () => {
+  const { data: balance } = useEvmWalletTokenBalances({ address: '0x...' })
+
+  return (
+      <div>{JSON.stringify(balance, null, 2)}</div>
+  )
+}
+```
+
+## 2. Provide params to the fetch()
+Sometimes you need to fetch data somewhere in your code or even fetch it twice with different variables. You can provide params to the `fetch()` function:
+```jsx
+import { useState } from 'react';
+import { useEvmNativeBalance } from '@moralisweb3/next'
+import { EvmChain } from 'moralis/common-evm-utils';
+
+const App = () => {
+  const { fetch } = useEvmNativeBalance();
+  const [ethBalance, setEthBalance] = useState('');
+  const [bnbBalance, setBnbBalance] = useState('');
+
+  const fetchBalanceForEthereum = async () => {
+    const response = await fetch({ address: '0x...', chain: EvmChain.ETHEREUM });
+    if (response?.balance) {
+      setEthBalance(response.balance.ether);
+    }
+  };
+
+  const fetchBalanceForBsc = async () => {
+    const response = await fetch({ address: '0x...', chain: EvmChain.BSC });
+    if (response?.balance) {
+      setBnbBalance(response.balance.ether);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={fetchBalanceForEthereum}>Fetch Balance For Ethereum</button>
+      <button onClick={fetchBalanceForBsc}>Fetch Balance For BSC</button>
+      <p>Ethereum Balance: {ethBalance} Ether</p>
+      <p>Binance Balance: {bnbBalance} BNB</p>
+    </div>
+  )
+}
+```
+## 3. Disable Auto Data Fetching
+To disable auto data fetching after your component has been mounted you can set `revalidateOnMount = false`. Example:
+
+```jsx
+import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+
+const App = () => {
+  const { data: balance, fetch } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnMount: false })
+
+  return (
+    <>
+      <button onClick={fetch}>Fetch Balance Manually</button>
       <div>{JSON.stringify(balance, null, 2)}</div>
     </>
   )
@@ -497,20 +568,6 @@ ReSync the metadata for an NFT
 { status: string }; 
 ```
 
-## `useEvmWalletNFTTransfers()` 
-
-Get transfers of NFTs given the wallet and other parameters.
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNftTransfer[]
-```
-
 ## `useEvmWalletNFTs()` 
 
 
@@ -532,6 +589,20 @@ Get NFTs owned by a given address.
 ### Response:
 ```ts
 EvmNft[]
+```
+
+## `useEvmWalletNFTTransfers()` 
+
+Get transfers of NFTs given the wallet and other parameters.
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNftTransfer[]
 ```
 
 ## `useEvmWalletNFTCollections()` 
@@ -990,6 +1061,8 @@ Gets native balance owned by the given network and address
 ```ts
 SolNative
 ```
+
+
 # 🧙‍♂️ Community
 
 - [Discord](https://discord.gg/moralis)

@@ -1,11 +1,43 @@
 # @moralisweb3/next
 
+## 2.9.0
+
+### Patch Changes
+
+- [#872](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/872) [`8428ad9b5`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/8428ad9b5f370a9e8d27ff5645ef5124672be6dd) Thanks [@Y0moo](https://github.com/Y0moo)! - - Added more data fetching examples to the @moralisweb3/next's README
+
+  - Deprecation warning for `isValidating`. It'll be replaced with `isFetching`.
+  - Deprecation warning for `refetch`. It'll be replaced with `fetch`.
+  - No data will be fetched if params were not provided to the hook.
+  - `fetch()` function returnes a response value
+
+- [#878](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/878) [`dcc1c3f90`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dcc1c3f90c262f2764701fdb1c971aa3188a3cdf) Thanks [@Y0moo](https://github.com/Y0moo)! - Added paginated hooks
+
+- Updated dependencies [[`a8c2175c2`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a8c2175c2483d1de14af279da933ce3ddbe5f761), [`f709e1179`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f709e117975855f81391ee173b890eb033bee5fb), [`31ef229ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/31ef229ad13f3c92852008103567a57bc7381c4a)]:
+  - @moralisweb3/evm-api@2.9.0
+  - @moralisweb3/api-utils@2.9.0
+  - @moralisweb3/auth@2.9.0
+  - @moralisweb3/common-auth-utils@2.9.0
+  - @moralisweb3/sol-api@2.9.0
+  - moralis@2.9.0
+
+## 2.8.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.8.2
+  - @moralisweb3/auth@2.8.2
+  - @moralisweb3/common-auth-utils@2.8.2
+  - @moralisweb3/evm-api@2.8.2
+  - @moralisweb3/sol-api@2.8.2
+  - moralis@2.8.2
+
 ## 2.8.1
 
 ### Patch Changes
 
-- [#859](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/859) [`3b584866`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3b584866114107785efd13bf1ac6ca3ebf542ff9) Thanks [@Y0moo](https://github.com/Y0moo)! - 1. No infinite rerenders when pass Moralis Datatypes to the hooks as params.
-  2. No unexpected challenge requests when use `requestChallengeAsync` from the challenge hooks.
+- [#859](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/859) [`3b584866`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3b584866114107785efd13bf1ac6ca3ebf542ff9) Thanks [@Y0moo](https://github.com/Y0moo)! - 1. No infinite rerenders when pass Moralis Datatypes to the hooks as params. 2. No unexpected challenge requests when use `requestChallengeAsync` from the challenge hooks.
 - Updated dependencies []:
   - @moralisweb3/api-utils@2.8.1
   - @moralisweb3/auth@2.8.1

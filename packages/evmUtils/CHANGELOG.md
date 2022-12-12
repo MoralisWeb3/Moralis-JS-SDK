@@ -1,5 +1,19 @@
 # @moralisweb3/evm-utils
 
+## 2.9.0
+
+### Patch Changes
+
+- Updated dependencies [[`a8c2175c2`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a8c2175c2483d1de14af279da933ce3ddbe5f761), [`f709e1179`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f709e117975855f81391ee173b890eb033bee5fb), [`31ef229ad`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/31ef229ad13f3c92852008103567a57bc7381c4a), [`248089ffa`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/248089ffa26e80136e0eb1dd568eb678c06da53e)]:
+  - @moralisweb3/common-evm-utils@2.9.0
+
+## 2.8.2
+
+### Patch Changes
+
+- Updated dependencies [[`0cefcef6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0cefcef6f42cd4f37e2c7ca0d0499761750e114b), [`0cefcef6`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0cefcef6f42cd4f37e2c7ca0d0499761750e114b)]:
+  - @moralisweb3/common-evm-utils@2.8.2
+
 ## 2.8.1
 
 ### Patch Changes

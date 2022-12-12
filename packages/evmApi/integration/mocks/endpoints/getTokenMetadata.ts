@@ -6,7 +6,7 @@ export const mockGetTokenMetadata = MockScenarios.create(
     method: 'get',
     name: 'mockGetTokenMetadata',
     url: '/erc20/metadata',
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       addresses: req.url.searchParams.get('addresses[]'),
     }),
   },

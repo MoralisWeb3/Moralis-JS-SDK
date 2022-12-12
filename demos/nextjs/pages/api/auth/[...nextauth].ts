@@ -1,8 +1,6 @@
 import NextAuth from 'next-auth';
 import { MoralisNextAuthProvider } from '@moralisweb3/next';
 
-// For more information on each option (and a full list of options) go to
-// https://next-auth.js.org/configuration/options
 export default NextAuth({
   providers: [MoralisNextAuthProvider()],
   callbacks: {

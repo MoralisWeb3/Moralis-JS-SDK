@@ -3,23 +3,23 @@
   To adjust it, change the sdk-readme code generator or its template
 -->
 <div align="center">
-    <a align="center" href="https://moralis.io" target="_blank">
+    <a href="https://moralis.io" target="_blank">
       <img src="https://github.com/MoralisWeb3/Moralis-JS-SDK/raw/main/assets/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
     </a>
     <h1 align="center">Moralis SDK (JavaScript / TypeScript)</h1>
     <a href="https://discord.gg/moralis" target="_blank">
-      <img alt="Join the Moralis DAO on Discord" src="https://img.shields.io/discord/819584798443569182?color=7289DA&label=Discord&logo=discord&logoColor=ffffff">
+      <img alt="Join the Moralis DAO on Discord" src="https://img.shields.io/discord/819584798443569182?color=7289DA&label=Discord&logo=discord&logoColor=ffffff" />
     </a>
     <a href="https://docs.moralis.io" target="_blank">
-      <img alt="Check the docs" src="https://img.shields.io/badge/Docs-Full Documentation-21BF96?style=flat&logo=gitbook&logoColor=ffffff">
+      <img alt="Check the docs" src="https://img.shields.io/badge/Docs-Full Documentation-21BF96?style=flat&logo=gitbook&logoColor=ffffff" />
     </a>
     <a href="https://forum.moralis.io" target="_blank">
-      <img alt="Discourse posts" src="https://img.shields.io/discourse/posts?color=B7E803&label=Forum&logo=discourse&server=https%3A%2F%2Fforum.moralis.io">
+      <img alt="Discourse posts" src="https://img.shields.io/discourse/posts?color=B7E803&label=Forum&logo=discourse&server=https%3A%2F%2Fforum.moralis.io" />
     </a><br/>
-    <img alt="npm" src="https://img.shields.io/npm/v/moralis?label=version">
-    <img src="https://img.shields.io/github/last-commit/MoralisWeb3/Moralis-JS-SDK">
-    <img src="https://img.shields.io/bundlephobia/minzip/moralis">
-    <img src="https://img.shields.io/npm/types/moralis">
+    <img alt="npm" src="https://img.shields.io/npm/v/moralis?label=version" />
+    <img alt="github" src="https://img.shields.io/github/last-commit/MoralisWeb3/Moralis-JS-SDK" />
+    <img alt="bundlephobia" src="https://img.shields.io/bundlephobia/minzip/moralis" />
+    <img alt="typescript" src="https://img.shields.io/npm/types/moralis" />
   <p>
   </p>
   <p>
@@ -187,7 +187,7 @@ The main modules of the SDK
 
 | package                               | changelog                              | description                                                                                 |
 | ------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------- |
-| [moralis](packages/moralis/README.md) | [2.8.0](packages/moralis/CHANGELOG.md) | The main package of Moralis containing all features. You probably are looking for this one. |
+| [moralis](packages/moralis/README.md) | [2.8.2](packages/moralis/CHANGELOG.md) | The main package of Moralis containing all features. You probably are looking for this one. |
 
 ## Integrations
 
@@ -195,8 +195,8 @@ Integrations with frameworks and services
 
 | package                                                     | changelog                                  | description                            |
 | ----------------------------------------------------------- | ------------------------------------------ | -------------------------------------- |
-| [@moralisweb3/next](packages/next/README.md)                | [2.8.0](packages/next/CHANGELOG.md)        | Integration of Moralis in NextJs       |
-| [@moralisweb3/parse-server](packages/parseServer/README.md) | [2.8.0](packages/parseServer/CHANGELOG.md) | Integration of Moralis in parse-server |
+| [@moralisweb3/next](packages/next/README.md)                | [2.8.2](packages/next/CHANGELOG.md)        | Integration of Moralis in NextJs       |
+| [@moralisweb3/parse-server](packages/parseServer/README.md) | [2.8.2](packages/parseServer/CHANGELOG.md) | Integration of Moralis in parse-server |
 
 ## Features
 
@@ -204,10 +204,10 @@ Feature modules. Only use these directly for advanced use-cases, the prefered wa
 
 | package                                            | changelog                              | description                                                 |
 | -------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------- |
-| [@moralisweb3/auth](packages/auth/README.md)       | [2.8.0](packages/auth/CHANGELOG.md)    | Authenticate via web3                                       |
-| [@moralisweb3/evm-api](packages/evmApi/README.md)  | [2.8.0](packages/evmApi/CHANGELOG.md)  | Make calls to the Evm blockchain via Moralis Evm Apis       |
-| [@moralisweb3/sol-api](packages/solApi/README.md)  | [2.8.0](packages/solApi/CHANGELOG.md)  | Make calls to the Solana blockchain via Moralis Solana Apis |
-| [@moralisweb3/streams](packages/streams/README.md) | [2.8.0](packages/streams/CHANGELOG.md) | Subscribe to realtime data from the blockchain              |
+| [@moralisweb3/auth](packages/auth/README.md)       | [2.8.2](packages/auth/CHANGELOG.md)    | Authenticate via web3                                       |
+| [@moralisweb3/evm-api](packages/evmApi/README.md)  | [2.8.2](packages/evmApi/CHANGELOG.md)  | Make calls to the Evm blockchain via Moralis Evm Apis       |
+| [@moralisweb3/sol-api](packages/solApi/README.md)  | [2.8.2](packages/solApi/CHANGELOG.md)  | Make calls to the Solana blockchain via Moralis Solana Apis |
+| [@moralisweb3/streams](packages/streams/README.md) | [2.8.2](packages/streams/CHANGELOG.md) | Subscribe to realtime data from the blockchain              |
 
 ## Core modules
 
@@ -215,7 +215,7 @@ Core modules are the building blocks of Moralis.
 
 | package                                                    | changelog                                  | description                       |
 | ---------------------------------------------------------- | ------------------------------------------ | --------------------------------- |
-| [@moralisweb3/common-core](packages/common/core/README.md) | [2.8.0](packages/common/core/CHANGELOG.md) | All core logic related to the SDK |
+| [@moralisweb3/common-core](packages/common/core/README.md) | [2.8.2](packages/common/core/CHANGELOG.md) | All core logic related to the SDK |
 
 ## Utilities
 
@@ -223,14 +223,14 @@ Utilities, types, operations and datatypes related used by other modules.
 
 | package                                                                     | changelog                                          | description                                                   |
 | --------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
-| [@moralisweb3/api-utils](packages/apiUtils/README.md)                       | [2.8.0](packages/apiUtils/CHANGELOG.md)            | Utilities and types to handle logic for api calls             |
-| [@moralisweb3/client-api-utils](packages/client/apiUtils/README.md)         | [2.8.0](packages/client/apiUtils/CHANGELOG.md)     | Client-side utilities for api calls                           |
-| [@moralisweb3/client-evm-api](packages/client/evmApi/README.md)             | [2.8.0](packages/client/evmApi/CHANGELOG.md)       | Client-side logic for making Evm Api calls                    |
-| [@moralisweb3/client-sol-api](packages/client/solApi/README.md)             | [2.8.0](packages/client/solApi/CHANGELOG.md)       | Client-side logic for making Solana Api calls                 |
-| [@moralisweb3/common-auth-utils](packages/common/authUtils/README.md)       | [2.8.0](packages/common/authUtils/CHANGELOG.md)    | Utilities, operations, datatypes, and types related to Auth   |
-| [@moralisweb3/common-evm-utils](packages/common/evmUtils/README.md)         | [2.8.0](packages/common/evmUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Evm     |
-| [@moralisweb3/common-sol-utils](packages/common/solUtils/README.md)         | [2.8.0](packages/common/solUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Solana  |
-| [@moralisweb3/common-streams-utils](packages/common/streamsUtils/README.md) | [2.8.0](packages/common/streamsUtils/CHANGELOG.md) | Utilities, operations, datatypes and types related to Streams |
+| [@moralisweb3/api-utils](packages/apiUtils/README.md)                       | [2.8.2](packages/apiUtils/CHANGELOG.md)            | Utilities and types to handle logic for api calls             |
+| [@moralisweb3/client-api-utils](packages/client/apiUtils/README.md)         | [2.8.2](packages/client/apiUtils/CHANGELOG.md)     | Client-side utilities for api calls                           |
+| [@moralisweb3/client-evm-api](packages/client/evmApi/README.md)             | [2.8.2](packages/client/evmApi/CHANGELOG.md)       | Client-side logic for making Evm Api calls                    |
+| [@moralisweb3/client-sol-api](packages/client/solApi/README.md)             | [2.8.2](packages/client/solApi/CHANGELOG.md)       | Client-side logic for making Solana Api calls                 |
+| [@moralisweb3/common-auth-utils](packages/common/authUtils/README.md)       | [2.8.2](packages/common/authUtils/CHANGELOG.md)    | Utilities, operations, datatypes, and types related to Auth   |
+| [@moralisweb3/common-evm-utils](packages/common/evmUtils/README.md)         | [2.8.2](packages/common/evmUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Evm     |
+| [@moralisweb3/common-sol-utils](packages/common/solUtils/README.md)         | [2.8.2](packages/common/solUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Solana  |
+| [@moralisweb3/common-streams-utils](packages/common/streamsUtils/README.md) | [2.8.2](packages/common/streamsUtils/CHANGELOG.md) | Utilities, operations, datatypes and types related to Streams |
 
 ## Tools
 
