@@ -7,11 +7,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Moralis SDK (JavaScript / TypeScript)',
+  title: 'Moralis SDK (JavaSDKScript / TypeScript)',
   tagline: 'A library that gives you access to the powerful Moralis Server backend from your JavaScript app.',
   url: 'https://docs.moralis.io/',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
+  baseUrl: '/Moralis-JS-SD',
+  // Use for serving locally:
+  // baseUrl: '/docs-out/',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
 
@@ -38,6 +40,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
         },
         theme: {
@@ -52,7 +55,7 @@ const config = {
     ({
       metadata: [{ name: 'keywords', content: moralisPackage.keywords.join(', ') }],
       navbar: {
-        title: 'Moralis SDK',
+        title: 'Moralis JS SDK',
         logo: {
           href: '/',
           alt: 'Moralis',
@@ -63,7 +66,7 @@ const config = {
             type: 'doc',
             docId: 'nodejs-sdk-references',
             position: 'left',
-            label: 'Documentation',
+            label: 'Technical Docs',
           },
           {
             type: 'doc',
@@ -71,10 +74,9 @@ const config = {
             position: 'left',
             label: 'Demos',
           },
-          { href: 'https://moralis.io/blog/', label: 'Blog', position: 'left' },
           {
-            href: 'https://moralis.io/',
-            label: 'Moralis',
+            href: 'https://docs.moralis.io/',
+            label: 'Moralis Docs',
             position: 'right',
           },
           {
@@ -98,11 +100,11 @@ const config = {
             items: [
               {
                 label: 'NodeJS SDK',
-                to: '/docs/nodejs-sdk-references',
+                to: '/nodejs-sdk-references',
               },
               {
                 label: 'Demos',
-                to: '/docs/demos/express-proxy',
+                to: '/demos/express-proxy',
               },
             ],
           },
