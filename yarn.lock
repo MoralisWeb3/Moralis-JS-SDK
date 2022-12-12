@@ -6686,6 +6686,7 @@ __metadata:
     "@firebase/app": ^0.9.0
     "@firebase/app-types": ^0.9.0
     "@firebase/auth": ^0.20.11
+    "@moralisweb3/client-auth-utils": ^2.9.0
     "@moralisweb3/client-backend-adapter-utils": ^2.9.0
     "@moralisweb3/client-evm-auth": ^2.9.0
     "@moralisweb3/client-firebase-utils": ^2.9.0
@@ -6719,6 +6720,7 @@ __metadata:
     "@firebase/app": ^0.9.0
     "@firebase/app-types": ^0.9.0
     "@firebase/auth": ^0.20.11
+    "@moralisweb3/client-auth-utils": ^2.9.0
     "@moralisweb3/client-backend-adapter-utils": ^2.9.0
     "@moralisweb3/client-firebase-utils": ^2.9.0
     "@moralisweb3/client-sol-auth": ^2.9.0
