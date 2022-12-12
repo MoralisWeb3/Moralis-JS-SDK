@@ -1,20 +1,22 @@
-runtime: nodejs
-env: flex
+runtime: nodejs16
 
 env_variables:
   # --REQUIRED--
   MORALIS_API_KEY: 27Y4Ztix3JltJ8XVvlhsT4TAlcM0Qv9SkbQZ5IvPsc2ZrbiO2EUF4HQMiRKfVJRl
   APPLICATION_ID: 001
   MASTER_KEY: 123
-  SERVER_URL: https://my-test-project-363808.appspot.com/server
   DATABASE_URI: mongodb+srv://dpradell:Wlcoralis91+@cluster0.cwcgkas.mongodb.net/?retryWrites=true&w=majority
+  SERVER_URL: https://PROJECT_ID.REGION_ID.r.appspot.com:8080/server
   REDIS_CONNECTION_STRING: redis://dpradell:Wlcoralis91+@redis-16757.c10.us-east-1-4.ec2.cloud.redislabs.com:16757
   RATE_LIMIT_TTL: 30
   RATE_LIMIT_AUTHENTICATED: 50
   RATE_LIMIT_ANONYMOUS: 20
+  CLOUD_PATH: './build/cloud/main.js'
   USE_STREAMS: false
   STREAMS_WEBHOOK_URL: /streams-webhook
-
+  
   # --OPTIONAL--
   # CLOUD_PATH = './build/cloud/main.js'
   # PORT = 80
+  # USE_STREAMS: false
+  # STREAMS_WEBHOOK_URL: /streams-webhook
