@@ -1,23 +1,23 @@
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
 import { AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
-import { EvmConnectorResolver } from './EvmConnectorResolver';
 import { EvmAuthClientOptions } from './EvmAuthClientOptions';
-import { AuthClient, AuthClientState, User } from '@moralisweb3/client-auth-utils';
+import { AuthClient, AuthState, ConnectorResolver, User } from '@moralisweb3/client-auth-utils';
+import { MetaMaskEvmConnector } from './MetaMaskEvmConnector';
 
 export class EvmAuthClient implements Module, AuthClient<Web3Provider | JsonRpcProvider> {
   public static create(authProvider: AuthProvider, options?: EvmAuthClientOptions, core?: Core): EvmAuthClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const connectorResolver = new EvmConnectorResolver(options?.connectors);
-    const state = new AuthClientState('evm', authProvider, connectorResolver);
+    const connectorResolver = new ConnectorResolver(options?.connectors, new MetaMaskEvmConnector());
+    const state = new AuthState('evm', authProvider, connectorResolver, localStorage);
     return new EvmAuthClient(state);
   }
 
   public readonly name = 'evmAuthClient';
 
-  private constructor(private readonly state: AuthClientState<Web3Provider | JsonRpcProvider>) {}
+  private constructor(private readonly state: AuthState<Web3Provider | JsonRpcProvider>) {}
 
   public connect(connectorName?: string): Promise<void> {
     return this.state.connect(connectorName);

@@ -1,7 +1,3 @@
-export interface ConnectorResolver<WalletProvider> {
-  resolve(name: string): Connector<WalletProvider>;
-}
-
 export interface Connector<WalletProvider> {
   name: string;
   connect(): Promise<Connection<WalletProvider>>;

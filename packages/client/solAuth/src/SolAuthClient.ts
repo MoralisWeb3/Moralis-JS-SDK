@@ -2,22 +2,22 @@ import { SolanaProvider } from './SolanaProvider';
 import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
 import { AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
 import { SolAuthClientOptions } from './SolAuthClientOptions';
-import { AuthClient, AuthClientState, User } from '@moralisweb3/client-auth-utils';
-import { SolConnectorResolver } from './SolConnectorResolver';
+import { AuthClient, AuthState, ConnectorResolver, User } from '@moralisweb3/client-auth-utils';
+import { PhantomSolConnector } from './PhantomSolConnector';
 
 export class SolAuthClient implements Module, AuthClient<SolanaProvider> {
   public static create(authProvider: AuthProvider, options?: SolAuthClientOptions, core?: Core): SolAuthClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const connectorResolver = new SolConnectorResolver(options?.connectors);
-    const state = new AuthClientState('solana', authProvider, connectorResolver);
+    const connectorResolver = new ConnectorResolver(options?.connectors, new PhantomSolConnector());
+    const state = new AuthState('solana', authProvider, connectorResolver, localStorage);
     return new SolAuthClient(state);
   }
 
   public readonly name = 'solAuthClient';
 
-  private constructor(private readonly state: AuthClientState<SolanaProvider>) {}
+  private constructor(private readonly state: AuthState<SolanaProvider>) {}
 
   public connect(connectorName?: string): Promise<void> {
     return this.state.connect(connectorName);

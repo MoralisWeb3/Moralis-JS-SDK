@@ -1,4 +1,4 @@
-import { NetworkType } from '@moralisweb3/client-backend-adapter-utils';
+import { User } from './User';
 
 export interface AuthClient<WalletProvider> {
   connect(connectorName?: string): Promise<void>;
@@ -11,16 +11,4 @@ export interface AuthClient<WalletProvider> {
   logOut(): Promise<void>;
 
   restoreProvider(): Promise<WalletProvider>;
-}
-
-export interface User {
-  networkType: NetworkType;
-  /**
-   * @description Address of a user's wallet.
-   */
-  address: string;
-  /**
-   * @description Profile id of an authenticated user. If a user is not authenticated, this field is empty.
-   */
-  profileId?: string;
 }

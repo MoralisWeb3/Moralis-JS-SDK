@@ -21,8 +21,8 @@ export class FrontEndOnlyAuth implements Auth {
       return {
         networkType,
         address: session.address,
-        // TODO: do we support it?
-        profileId: `FRONT_END_ONLY_BACKEND_ADAPTER_${session.address}`,
+        // TODO: here we should call the Moralis API and receive the profileId.
+        profileId: `TODO_DO_NOT_USE_THIS_VALUE_${session.address}_TODO`,
       };
     }
     return null;

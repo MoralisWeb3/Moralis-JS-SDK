@@ -1,9 +1,11 @@
 import { AuthProvider, AuthSession, NetworkType } from '@moralisweb3/client-backend-adapter-utils';
-import { AuthClient, User } from './AuthClient';
+import { AuthClient } from './AuthClient';
 import { AuthClientError, AuthClientErrorCode } from './AuthClientError';
-import { Connection, ConnectorResolver } from './Connector';
+import { Connection } from './Connector';
+import { ConnectorResolver } from './ConnectorResolver';
+import { User } from './User';
 
-export class AuthClientState<WalletProvider> implements AuthClient<WalletProvider> {
+export class AuthState<WalletProvider> implements AuthClient<WalletProvider> {
   private readonly storageKey: string;
   private connection: Connection<WalletProvider> | null = null;
 
@@ -11,6 +13,7 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
     private readonly networkType: NetworkType,
     private readonly authProvider: AuthProvider,
     private readonly connectorResolver: ConnectorResolver<WalletProvider>,
+    private readonly storage: AuthStateStorage,
   ) {
     this.storageKey = `authClient${networkType.toUpperCase()}`;
   }
@@ -23,7 +26,7 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
       });
     }
 
-    connectorName = resolveConnectorName(connectorName);
+    connectorName = this.connectorResolver.resolveName(connectorName);
     this.connection = await this.initConnector(connectorName);
   }
 
@@ -36,7 +39,7 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
       });
     }
 
-    connectorName = resolveConnectorName(connectorName);
+    connectorName = this.connectorResolver.resolveName(connectorName);
 
     if (!this.connection) {
       this.connection = await this.initConnector(connectorName);
@@ -68,7 +71,12 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
   public async tryGetUser(): Promise<User | null> {
     const session = await this.tryGetSession();
     if (session) {
-      return session;
+      return {
+        address: session.address,
+        networkType: session.networkType,
+        isAuthenticated: true,
+        profileId: session.profileId,
+      };
     }
 
     if (this.isConnected()) {
@@ -77,14 +85,14 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
       return {
         networkType: this.networkType,
         address: wallet.address,
+        isAuthenticated: false,
       };
     }
-
     return null;
   }
 
   public isConnected(): boolean {
-    return !!localStorage.getItem(this.storageKey);
+    return !!this.storage.getItem(this.storageKey);
   }
 
   public async isAuthenticated(): Promise<boolean> {
@@ -110,7 +118,7 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
         await this.connection.disconnect();
         this.connection = null;
       }
-      localStorage.removeItem(this.storageKey);
+      this.storage.removeItem(this.storageKey);
       success = true;
     }
 
@@ -126,13 +134,13 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
     const connector = this.connectorResolver.resolve(connectorName);
     const connection = await connector.connect();
 
-    localStorage.setItem(this.storageKey, connectorName);
+    this.storage.setItem(this.storageKey, connectorName);
     return connection;
   }
 
   private async restoreConnection(): Promise<Connection<WalletProvider>> {
     if (!this.connection) {
-      const connectorName = localStorage[this.storageKey];
+      const connectorName = this.storage.getItem(this.storageKey);
       if (!connectorName) {
         throw new AuthClientError({
           code: AuthClientErrorCode.NOT_CONNECTED,
@@ -155,6 +163,8 @@ export class AuthClientState<WalletProvider> implements AuthClient<WalletProvide
   }
 }
 
-function resolveConnectorName(connectorName?: string): string {
-  return connectorName || 'default';
+export interface AuthStateStorage {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+  removeItem(key: string): void;
 }
