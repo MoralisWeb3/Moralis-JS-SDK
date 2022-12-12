@@ -10,7 +10,7 @@ const config = {
   title: 'Moralis SDK (JavaSDKScript / TypeScript)',
   tagline: 'A library that gives you access to the powerful Moralis Server backend from your JavaScript app.',
   url: 'https://docs.moralis.io/',
-  baseUrl: '/Moralis-JS-SD',
+  baseUrl: '/Moralis-JS-SDK',
   // Use for serving locally:
   // baseUrl: '/docs-out/',
   onBrokenLinks: 'warn',
@@ -76,13 +76,14 @@ const config = {
           },
           {
             href: 'https://docs.moralis.io/',
-            label: 'Moralis Docs',
+            label: 'Main Docs',
             position: 'right',
           },
           {
             href: 'https://github.com/MoralisWeb3/Moralis-JS-SDK',
-            label: 'GitHub',
             position: 'right',
+            'aria-label': 'GitHub repository',
+            className: 'header-github-link',
           },
         ],
       },
@@ -99,12 +100,16 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'NodeJS SDK',
+                label: 'Main Docs',
+                to: 'https://docs.moralis.io/',
+              },
+              {
+                label: 'JS SDK Docs',
                 to: '/nodejs-sdk-references',
               },
               {
-                label: 'Demos',
-                to: '/demos/express-proxy',
+                label: 'Python SDK Docs',
+                to: 'https://moralisweb3.github.io/Moralis-Python-SDK/',
               },
             ],
           },
@@ -151,7 +156,7 @@ const config = {
             ],
           },
         ],
-        copyright: `© Moralis Copyright ${new Date().getFullYear()}. Built with Docusaurus.`,
+        copyright: `© Moralis Copyright ${new Date().getFullYear()}. All rights reserved`,
       },
       prism: {
         theme: lightCodeTheme,
