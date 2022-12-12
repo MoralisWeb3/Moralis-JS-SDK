@@ -1,39 +1,20 @@
-import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   getTransactionOperation as operation, 
-  GetTransactionRequest, 
-  GetTransactionResponse 
+  GetTransactionRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import { useCallback } from 'react';
-import Moralis from 'moralis';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
 export const useEvmTransaction = (
   request?: GetTransactionRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const endpoint = 'evmApi/getTransaction';
-  const { deserializeResponse, serializeRequest } = operation;
-
-  const { data, error, mutate, isValidating } = useSWR<GetTransactionResponse>(
-    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
-    fetcher, 
-    { revalidateOnFocus: false, ...fetchParams }
-  );
-
-  const fetch = useCallback((params?: GetTransactionRequest) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
-    }
-    return mutate(
-      fetcher(endpoint, {
-        deserializeResponse,
-        request: serializeRequest(fetchRequest, Moralis.Core),
-      }),
-    );
-  }, []);
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/getTransaction',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
@@ -43,10 +24,10 @@ export const useEvmTransaction = (
      * @deprecated use `fetch()` instead
      */
     refetch: () => fetch(),
-    isFetching: isValidating,
+    isFetching,
     /**
      * @deprecated use `isFetching` instead
      */
-    isValidating,
+    isValidating: isFetching,
   };
 };

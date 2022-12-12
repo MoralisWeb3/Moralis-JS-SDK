@@ -1,9 +1,8 @@
 {
   "name": "@moralisweb3/sol-api",
   "author": "Moralis",
-  "version": "2.8.2",
+  "version": "2.9.0",
   "license": "MIT",
-  "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
@@ -17,7 +16,7 @@
     "lib/*"
   ],
   "scripts": {
-    "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
@@ -27,13 +26,13 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
+    "jest": "29.3.1",
     "openapi-typescript": "^5.2.0",
-    "prettier": "^2.5.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.8.2",
-    "@moralisweb3/common-core": "^2.8.2",
-    "@moralisweb3/common-sol-utils": "^2.8.2"
+    "@moralisweb3/api-utils": "^2.9.0",
+    "@moralisweb3/common-core": "^2.9.0",
+    "@moralisweb3/common-sol-utils": "^2.9.0"
   }
 }

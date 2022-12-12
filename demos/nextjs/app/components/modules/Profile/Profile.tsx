@@ -7,7 +7,6 @@ import { useEvmNativeBalance } from '@moralisweb3/next';
 const Profile: FC = () => {
   const { data } = useSession();
   const { data: balance } = useEvmNativeBalance({ address: data?.user?.address });
-
   return (
     <div className={styles.profile}>
       <Image src="/assets/mage.svg" width={46} height={46} alt="profile" />

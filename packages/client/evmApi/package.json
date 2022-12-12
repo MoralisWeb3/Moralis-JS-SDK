@@ -1,9 +1,8 @@
 {
   "name": "@moralisweb3/client-evm-api",
   "author": "Moralis",
-  "version": "2.8.2",
+  "version": "2.9.0",
   "license": "MIT",
-  "private": false,
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
@@ -24,12 +23,11 @@
     "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@moralisweb3/common-core": "^2.8.2",
-    "@moralisweb3/common-evm-utils": "^2.8.2",
-    "@moralisweb3/client-api-utils": "^2.8.2"
+    "@moralisweb3/client-api-utils": "^2.9.0",
+    "@moralisweb3/common-core": "^2.9.0",
+    "@moralisweb3/common-evm-utils": "^2.9.0"
   }
 }

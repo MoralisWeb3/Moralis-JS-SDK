@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation } from '@moralisweb3/common-core';
+import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EvmStream, StreamTrigger, StreamTriggerish } from '../../dataTypes';
 import { operations } from '../openapi';
@@ -23,6 +23,9 @@ export type UpdateStreamEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type UpdateStreamEvmJSONResponse = SuccessResponse;
 
 export type UpdateStreamEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface UpdateStreamEvmResponseAdapter
+  extends ResponseAdapter<UpdateStreamEvmResponse, UpdateStreamEvmJSONResponse> {}
 
 export const updateStreamEvmOperation: Operation<
   UpdateStreamEvmRequest,

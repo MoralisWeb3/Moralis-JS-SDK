@@ -1,39 +1,20 @@
-import { fetcher, NoHookParamsError } from '../../../../utils';
 import { 
   getBalanceOperation as operation, 
-  GetBalanceRequest, 
-  GetBalanceResponse 
+  GetBalanceRequest,
 } from 'moralis/common-sol-utils';
 import { FetchParams } from '../../../types';
-import { useCallback } from 'react';
-import Moralis from 'moralis';
-import useSWR from 'swr';
+import { useResolver } from '../../../resolvers';
 
 export const useSolBalance = (
   request?: GetBalanceRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const endpoint = 'solApi/getBalance';
-  const { deserializeResponse, serializeRequest } = operation;
-
-  const { data, error, mutate, isValidating } = useSWR<GetBalanceResponse>(
-    [endpoint, request ? { deserializeResponse, request: serializeRequest(request, Moralis.Core) } : null], 
-    fetcher, 
-    { revalidateOnFocus: false, ...fetchParams }
-  );
-
-  const fetch = useCallback((params?: GetBalanceRequest) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
-    }
-    return mutate(
-      fetcher(endpoint, {
-        deserializeResponse,
-        request: serializeRequest(fetchRequest, Moralis.Core),
-      }),
-    );
-  }, []);
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'solApi/getBalance',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
@@ -43,10 +24,10 @@ export const useSolBalance = (
      * @deprecated use `fetch()` instead
      */
     refetch: () => fetch(),
-    isFetching: isValidating,
+    isFetching,
     /**
      * @deprecated use `isFetching` instead
      */
-    isValidating,
+    isValidating: isFetching,
   };
 };

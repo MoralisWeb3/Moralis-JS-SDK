@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-firebase-sol-api",
   "author": "Moralis",
-  "version": "2.8.2",
+  "version": "2.9.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -17,16 +17,16 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.9.3"
   },
   "dependencies": {
-    "firebase": "^9.10.0",
+    "@firebase/app": "^0.8.4",
+    "@firebase/app-types": "^0.8.1",
     "@firebase/functions": "^0.8.8",
-    "@firebase/app": "^0.8.3",
-    "@moralisweb3/common-core": "^2.8.2",
-    "@moralisweb3/common-sol-utils": "^2.8.2",
-    "@moralisweb3/client-sol-api": "^2.8.2",
-    "@moralisweb3/client-firebase-api-utils": "^2.8.2"
+    "@moralisweb3/client-firebase-api-utils": "^2.9.0",
+    "@moralisweb3/client-sol-api": "^2.9.0",
+    "@moralisweb3/common-core": "^2.9.0",
+    "@moralisweb3/common-sol-utils": "^2.9.0",
+    "firebase": "^9.10.0"
   }
 }
