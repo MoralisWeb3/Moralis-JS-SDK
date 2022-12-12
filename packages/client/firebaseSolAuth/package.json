@@ -25,6 +25,7 @@
     "@firebase/auth": "^0.20.11",
     "@moralisweb3/client-backend-adapter-utils": "^2.9.0",
     "@moralisweb3/client-firebase-utils": "^2.9.0",
+    "@moralisweb3/client-auth-utils": "^2.9.0",
     "@moralisweb3/client-sol-auth": "^2.9.0",
     "firebase": "^9.10.0"
   }

@@ -1,4 +1,4 @@
-import { AuthClientError, AuthClientErrorCode } from '@moralisweb3/client-auth-utils';
+import { AuthClientError, AuthClientErrorCode } from './AuthClientError';
 import { Connector } from './Connector';
 
 export class ConnectorResolver<WalletProvider> {
