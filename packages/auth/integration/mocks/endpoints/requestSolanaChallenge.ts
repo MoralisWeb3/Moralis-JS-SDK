@@ -7,18 +7,20 @@ export const mockRequestSolanaChallenge = MockScenarios.create(
     method: 'post',
     name: 'mockRequestSolanaChallenge',
     url: `/challenge/request/solana`,
-    getParams: (req) => ({
-      domain: req.body.domain,
-      networkType: req.body.networkType,
-      solNetwork: req.body.solNetwork,
-      address: req.body.address,
-      statement: req.body.statement,
-      uri: req.body.uri,
-      expirationTime: req.body.expirationTime,
-      notBefore: req.body.notBefore,
-      resources: req.body.resources,
-      timeout: req.body.timeout,
-    }),
+    getParams: ({ reqBody }) => {
+      return {
+        domain: reqBody?.domain,
+        networkType: reqBody?.networkType,
+        solNetwork: reqBody?.solNetwork,
+        address: reqBody?.address,
+        statement: reqBody?.statement,
+        uri: reqBody?.uri,
+        expirationTime: reqBody?.expirationTime,
+        notBefore: reqBody?.notBefore,
+        resources: reqBody?.resources,
+        timeout: reqBody?.timeout,
+      };
+    },
   },
   [
     {

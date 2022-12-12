@@ -1,25 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getContractEventsOperation as operation, 
-  GetContractEventsRequest, 
-  GetContractEventsResponse 
+  GetContractEventsRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
-import Moralis from 'moralis';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmContractEvents = (request: GetContractEventsRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
-  const { data, error, mutate, isValidating } = useSWR<GetContractEventsResponse>(
-    ['evmApi/getContractEvents', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmContractEvents = (
+  request?: GetContractEventsRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/getContractEvents',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

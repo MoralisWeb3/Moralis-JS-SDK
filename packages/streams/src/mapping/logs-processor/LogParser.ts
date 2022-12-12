@@ -1,7 +1,7 @@
 import { BigNumber } from 'ethers';
 
 import { AbiItem, Log } from '@moralisweb3/streams-typings';
-import { JsonFragment, Interface } from '@ethersproject/abi';
+import { JsonFragment, Interface, Indexed } from '@ethersproject/abi';
 
 export interface ParsedLog {
   name: string;
@@ -26,22 +26,27 @@ export class LogParser {
     // Solidity supports max 3 topics. https://docs.soliditylang.org/en/latest/contracts.html#events
     const topics = [log.topic0, log.topic1, log.topic2, log.topic3].filter((t) => t !== null) as string[];
 
-    const result = this.abiInterface.parseLog({
-      data: log.data,
-      topics,
-    });
+    // Do not call the `this.abiInterface.parseLog()` method here! The @ethersproject/abi package (5.7.0) has a bug,
+    // that doesn't return `args` with named keys in a specific case. That problem doesn't occur when we call directly the decodeEventLog() method.
+
+    const eventFragment = this.abiInterface.getEvent(topics[0]);
+    const args = this.abiInterface.decodeEventLog(eventFragment, log.data, topics);
 
     const params: Record<string, LogParam> = {};
 
-    for (const input of result.eventFragment.inputs) {
+    for (const input of eventFragment.inputs) {
+      let value = args[input.name];
+      if (value instanceof Indexed) {
+        value = value.hash;
+      }
       params[input.name] = {
         type: input.type,
-        value: result.args[input.name],
+        value,
       };
     }
 
     return {
-      name: result.name,
+      name: eventFragment.name,
       params,
     };
   }

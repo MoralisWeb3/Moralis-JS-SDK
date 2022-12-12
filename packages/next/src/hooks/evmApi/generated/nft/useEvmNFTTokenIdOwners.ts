@@ -1,25 +1,37 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getNFTTokenIdOwnersOperation as operation, 
-  GetNFTTokenIdOwnersRequest, 
-  GetNFTTokenIdOwnersResponse 
+  GetNFTTokenIdOwnersRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
-import Moralis from 'moralis';
+import { useResolverPaginated } from '../../../resolvers';
 
-export const useEvmNFTTokenIdOwners = (request: GetNFTTokenIdOwnersRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
-  const { data, error, mutate, isValidating } = useSWR<GetNFTTokenIdOwnersResponse>(
-    ['evmApi/getNFTTokenIdOwners', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmNFTTokenIdOwners = (
+  request?: GetNFTTokenIdOwnersRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolverPaginated({
+    endpoint: 'evmApi/getNFTTokenIdOwners',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
-    data,
+    data: data?.data,
+    cursor: data?.cursor,
+    page: data?.page,
+    pageSize: data?.pageSize,
+    total: data?.total,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

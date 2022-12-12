@@ -1,25 +1,33 @@
-import { fetcher } from '../../../../utils/fetcher';
 import { 
   getPairReservesOperation as operation, 
-  GetPairReservesRequest, 
-  GetPairReservesResponse 
+  GetPairReservesRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import useSWR from 'swr';
-import Moralis from 'moralis';
+import { useResolver } from '../../../resolvers';
 
-export const useEvmPairReserves = (request: GetPairReservesRequest, fetchParams?: FetchParams) => {
-  const { deserializeResponse, serializeRequest } = operation
-  const { data, error, mutate, isValidating } = useSWR<GetPairReservesResponse>(
-    ['evmApi/getPairReserves', { deserializeResponse, request: serializeRequest(request, Moralis.Core) }], 
-    fetcher, 
-    {revalidateOnFocus: false, ...fetchParams}
-  );
+export const useEvmPairReserves = (
+  request?: GetPairReservesRequest, 
+  fetchParams?: FetchParams,
+) => {
+  const { data, error, fetch, isFetching } = useResolver({
+    endpoint: 'evmApi/getPairReserves',
+    operation,
+    request,
+    fetchParams,
+  });
 
   return {
     data,
     error,
-    refetch: async () => mutate(),
-    isValidating,
+    fetch,
+    /**
+     * @deprecated use `fetch()` instead
+     */
+    refetch: () => fetch(),
+    isFetching,
+    /**
+     * @deprecated use `isFetching` instead
+     */
+    isValidating: isFetching,
   };
 };

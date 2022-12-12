@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation } from '@moralisweb3/common-core';
+import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
@@ -18,6 +18,8 @@ export type GetStreamEvmJSONRequest = ReturnType<typeof serializeRequest>;
 export type GetStreamEvmJSONResponse = SuccessResponse;
 
 export type GetStreamEvmResponse = ReturnType<typeof deserializeResponse>;
+
+export interface GetStreamEvmResponseAdapter extends ResponseAdapter<GetStreamEvmResponse, GetStreamEvmJSONResponse> {}
 
 export const getStreamEvmOperation: Operation<
   GetStreamEvmRequest,

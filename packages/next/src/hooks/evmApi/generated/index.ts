@@ -29,6 +29,7 @@
   export * from './token/useEvmWalletTokenBalances'
   export * from './token/useEvmWalletTokenTransfers'
   export * from './transaction/useEvmWalletTransactions'
+  export * from './transaction/useEvmWalletTransactionsVerbose'
   export * from './resolve/useEvmResolveAddress'
   export * from './resolve/useEvmResolveDomain'
   export * from './nft/useEvmReSyncMetadata'

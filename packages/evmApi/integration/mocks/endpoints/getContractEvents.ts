@@ -1,5 +1,43 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
 
+const ERC721_ABI_ITEM = {
+  anonymous: false,
+  inputs: [
+    {
+      indexed: true,
+      internalType: 'address',
+      name: 'operator',
+      type: 'address',
+    },
+    {
+      indexed: true,
+      internalType: 'address',
+      name: 'from',
+      type: 'address',
+    },
+    {
+      indexed: true,
+      internalType: 'address',
+      name: 'to',
+      type: 'address',
+    },
+    {
+      indexed: false,
+      internalType: 'uint256',
+      name: 'id',
+      type: 'uint256',
+    },
+    {
+      indexed: false,
+      internalType: 'uint256',
+      name: 'value',
+      type: 'uint256',
+    },
+  ],
+  name: 'TransferSingle',
+  type: 'event',
+};
+
 const createResponse = (address: string) => ({
   total: 12,
   page: 0,
@@ -25,7 +63,7 @@ export const mockGetContractEvents = MockScenarios.create(
   {
     name: 'mockGetContractEvents',
     method: 'post',
-    getParams: (req) => ({
+    getParams: ({ req }) => ({
       address: req.params.address,
       chain: req.url.searchParams.get('chain'),
       topic: req.url.searchParams.get('topic'),
@@ -33,6 +71,7 @@ export const mockGetContractEvents = MockScenarios.create(
       to_block: req.url.searchParams.get('to_block'),
       from_date: req.url.searchParams.get('from_date'),
       to_date: req.url.searchParams.get('to_date'),
+      abi: req.body,
     }),
     url: '/:address/events',
   },
@@ -46,6 +85,7 @@ export const mockGetContractEvents = MockScenarios.create(
         to_block: '14327217',
         from_date: '2022-03-05T13:45:42.000Z',
         to_date: '2022-03-05T13:45:42.000Z',
+        abi: ERC721_ABI_ITEM,
       },
       response: createResponse('0x2953399124f0cbb46d2cbacd8a89cf0599974963'),
     },
