@@ -18,8 +18,8 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
-      - name: Build Theme pakage
-        run: yarn nx run @moralisweb3/typedoc-readme-theme:build
+      - name: Build packages # Required for typedocs to run properly during next step
+        run: yarn build
       - name: Build docs
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
