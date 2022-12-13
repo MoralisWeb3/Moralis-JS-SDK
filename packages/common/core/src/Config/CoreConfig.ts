@@ -28,6 +28,9 @@ export const CoreConfig = {
     defaultValue: undefined,
   } as ConfigKey<string | undefined>,
 
+  /**
+   * @description Maximal number of request retries.
+   */
   maxRetries: {
     name: 'maxRetries',
     defaultValue: 2,
