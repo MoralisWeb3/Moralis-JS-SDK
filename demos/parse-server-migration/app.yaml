@@ -2,19 +2,17 @@ runtime: nodejs16
 
 env_variables:
   # --REQUIRED--
-  MORALIS_API_KEY: 27Y4Ztix3JltJ8XVvlhsT4TAlcM0Qv9SkbQZ5IvPsc2ZrbiO2EUF4HQMiRKfVJRl
-  APPLICATION_ID: 001
-  MASTER_KEY: 123
-  DATABASE_URI: mongodb+srv://dpradell:pswd@cluster0.cwcgkas.mongodb.net/?retryWrites=true&w=majority
+  MORALIS_API_KEY: replace_me
+  APPLICATION_ID: replace_me
+  MASTER_KEY: replace_me
   SERVER_URL: https://PROJECT_ID.REGION_ID.r.appspot.com:8080/server
-  REDIS_CONNECTION_STRING: redis://dpradell:pswd@redis-16757.c10.us-east-1-4.ec2.cloud.redislabs.com:16757
+  DATABASE_URI: mongodb://localhost:27017
+  REDIS_CONNECTION_STRING: redis://127.0.0.1:6379
   RATE_LIMIT_TTL: 30
   RATE_LIMIT_AUTHENTICATED: 50
   RATE_LIMIT_ANONYMOUS: 20
-  CLOUD_PATH: './build/cloud/main.js'
+  CLOUD_PATH: ./build/cloud/main.js
   
   # --OPTIONAL--
-  # CLOUD_PATH = './build/cloud/main.js'
-  # PORT = 80
   # USE_STREAMS: false
   # STREAMS_WEBHOOK_URL: /streams-webhook
