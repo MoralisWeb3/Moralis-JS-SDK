@@ -78,20 +78,10 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       return false;
     }
 
-    if (transactionLogA.triggers?.length !== transactionLogB.triggers?.length) {
+    if (transactionLogA.triggers?.length !== transactionLogB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(transactionLogA.triggers || [], transactionLogB.triggers || [])
+    ) {
       return false;
-    } else {
-      const triggerResultsA = transactionLogA.triggers || [];
-      const triggerResultsB = transactionLogB.triggers || [];
-
-      triggerResultsA.sort((a, b) => (b.name > a.name ? 1 : -1));
-      triggerResultsB.sort((a, b) => (b.name > a.name ? 1 : -1));
-
-      for (let i = 0; i < triggerResultsA?.length; i++) {
-        if (!triggerResultsA[i].equals(triggerResultsB[i])) {
-          return false;
-        }
-      }
     }
 
     return true;

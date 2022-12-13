@@ -49,6 +49,26 @@ export class StreamTriggerOutput implements MoralisDataObject {
     );
   }
 
+  static arrayEquals(triggerOutputishA: StreamTriggerOutputish[], triggerOutputishB: StreamTriggerOutputish[]) {
+    if (triggerOutputishA.length !== triggerOutputishB.length) {
+      return false;
+    }
+
+    const triggerOutputsA = triggerOutputishA.map((triggerOutput) => StreamTriggerOutput.create(triggerOutput));
+    const triggerOutputsB = triggerOutputishB.map((triggerOutput) => StreamTriggerOutput.create(triggerOutput));
+
+    triggerOutputsA.sort((a, b) => (b.name > a.name ? 1 : -1));
+    triggerOutputsB.sort((a, b) => (b.name > a.name ? 1 : -1));
+
+    for (let i = 0; i < triggerOutputsA?.length; i++) {
+      if (!triggerOutputsA[i].equals(triggerOutputsB[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   /**
    * Compares an StreamTriggerOutputish data to this StreamTriggerOutput instance.
    * @param value - the value to compare

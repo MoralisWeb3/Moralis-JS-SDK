@@ -89,20 +89,10 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       return false;
     }
 
-    if (transferA.triggers?.length !== transferB.triggers?.length) {
+    if (transferA.triggers?.length !== transferB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(transferA.triggers || [], transferB.triggers || [])
+    ) {
       return false;
-    } else {
-      const triggerResultsA = transferA.triggers || [];
-      const triggerResultsB = transferB.triggers || [];
-
-      triggerResultsA.sort((a, b) => (b.name > a.name ? 1 : -1));
-      triggerResultsB.sort((a, b) => (b.name > a.name ? 1 : -1));
-
-      for (let i = 0; i < triggerResultsA?.length; i++) {
-        if (!triggerResultsA[i].equals(triggerResultsB[i])) {
-          return false;
-        }
-      }
     }
 
     return true;

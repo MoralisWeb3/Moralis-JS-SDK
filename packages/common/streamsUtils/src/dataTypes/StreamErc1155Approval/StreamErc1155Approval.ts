@@ -90,20 +90,10 @@ export class StreamErc1155Approval implements MoralisDataObject {
       return false;
     }
 
-    if (evmNftApprovalA.triggers?.length !== evmNftApprovalB.triggers?.length) {
+    if (evmNftApprovalA.triggers?.length !== evmNftApprovalB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(evmNftApprovalA.triggers || [], evmNftApprovalB.triggers || [])
+    ) {
       return false;
-    } else {
-      const triggerResultsA = evmNftApprovalA.triggers || [];
-      const triggerResultsB = evmNftApprovalB.triggers || [];
-
-      triggerResultsA.sort((a, b) => (b.name > a.name ? 1 : -1));
-      triggerResultsB.sort((a, b) => (b.name > a.name ? 1 : -1));
-
-      for (let i = 0; i < triggerResultsA?.length; i++) {
-        if (!triggerResultsA[i].equals(triggerResultsB[i])) {
-          return false;
-        }
-      }
     }
 
     return true;

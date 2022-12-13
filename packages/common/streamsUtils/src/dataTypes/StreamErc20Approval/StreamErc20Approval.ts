@@ -80,20 +80,10 @@ export class StreamErc20Approval implements MoralisDataObject {
       return false;
     }
 
-    if (erc20ApprovalA.triggers?.length !== erc20ApprovalB.triggers?.length) {
+    if (erc20ApprovalA.triggers?.length !== erc20ApprovalB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(erc20ApprovalA.triggers || [], erc20ApprovalB.triggers || [])
+    ) {
       return false;
-    } else {
-      const triggerResultsA = erc20ApprovalA.triggers || [];
-      const triggerResultsB = erc20ApprovalB.triggers || [];
-
-      triggerResultsA.sort((a, b) => (b.name > a.name ? 1 : -1));
-      triggerResultsB.sort((a, b) => (b.name > a.name ? 1 : -1));
-
-      for (let i = 0; i < triggerResultsA?.length; i++) {
-        if (!triggerResultsA[i].equals(triggerResultsB[i])) {
-          return false;
-        }
-      }
     }
 
     return true;
