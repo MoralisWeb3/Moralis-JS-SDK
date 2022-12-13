@@ -19,7 +19,7 @@ jobs:
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
       - name: Build Theme pakage
-        run: nx run @moralisweb3/typedoc-readme-theme:build
+        run: yarn nx run @moralisweb3/typedoc-readme-theme:build
       - name: Build docs
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
