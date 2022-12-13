@@ -72,7 +72,8 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
       return false;
     }
 
-    if (evmInternalTransactionA.triggers?.length !== evmInternalTransactionB.triggers?.length ||
+    if (
+      evmInternalTransactionA.triggers?.length !== evmInternalTransactionB.triggers?.length ||
       !StreamTriggerOutput.arrayEquals(evmInternalTransactionA.triggers || [], evmInternalTransactionB.triggers || [])
     ) {
       return false;

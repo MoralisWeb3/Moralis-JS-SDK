@@ -89,7 +89,8 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       return false;
     }
 
-    if (transferA.triggers?.length !== transferB.triggers?.length ||
+    if (
+      transferA.triggers?.length !== transferB.triggers?.length ||
       !StreamTriggerOutput.arrayEquals(transferA.triggers || [], transferB.triggers || [])
     ) {
       return false;

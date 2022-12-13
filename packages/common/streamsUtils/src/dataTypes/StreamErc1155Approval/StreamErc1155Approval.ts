@@ -90,7 +90,8 @@ export class StreamErc1155Approval implements MoralisDataObject {
       return false;
     }
 
-    if (evmNftApprovalA.triggers?.length !== evmNftApprovalB.triggers?.length ||
+    if (
+      evmNftApprovalA.triggers?.length !== evmNftApprovalB.triggers?.length ||
       !StreamTriggerOutput.arrayEquals(evmNftApprovalA.triggers || [], evmNftApprovalB.triggers || [])
     ) {
       return false;

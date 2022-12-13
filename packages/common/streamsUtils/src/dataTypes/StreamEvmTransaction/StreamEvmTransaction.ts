@@ -88,7 +88,8 @@ export class StreamEvmTransaction implements MoralisDataObject {
       return false;
     }
 
-    if (transactionA.triggers?.length !== transactionB.triggers?.length ||
+    if (
+      transactionA.triggers?.length !== transactionB.triggers?.length ||
       !StreamTriggerOutput.arrayEquals(transactionA.triggers || [], transactionB.triggers || [])
     ) {
       return false;

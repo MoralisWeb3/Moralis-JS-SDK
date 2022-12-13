@@ -80,7 +80,8 @@ export class StreamErc20Approval implements MoralisDataObject {
       return false;
     }
 
-    if (erc20ApprovalA.triggers?.length !== erc20ApprovalB.triggers?.length ||
+    if (
+      erc20ApprovalA.triggers?.length !== erc20ApprovalB.triggers?.length ||
       !StreamTriggerOutput.arrayEquals(erc20ApprovalA.triggers || [], erc20ApprovalB.triggers || [])
     ) {
       return false;

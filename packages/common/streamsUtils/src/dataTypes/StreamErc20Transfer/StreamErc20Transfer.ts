@@ -80,7 +80,8 @@ export class StreamErc20Transfer implements MoralisDataObject {
       return false;
     }
 
-    if (erc20TransferA.triggers?.length !== erc20TransferB.triggers?.length ||
+    if (
+      erc20TransferA.triggers?.length !== erc20TransferB.triggers?.length ||
       !StreamTriggerOutput.arrayEquals(erc20TransferA.triggers || [], erc20TransferB.triggers || [])
     ) {
       return false;
