@@ -1,7 +1,7 @@
 import { MarkdownTheme } from 'typedoc-plugin-markdown';
 
 import { DeclarationReflection, PageEvent, Reflection } from 'typedoc';
-import { getPageTitle } from 'typedoc-plugin-markdown/dist/utils/front-matter';
+import { getPageTitle, prependYAML } from 'typedoc-plugin-markdown/dist/utils/front-matter';
 
 export class ReadmeTheme extends MarkdownTheme {
   publicPath = '';
@@ -13,14 +13,6 @@ export class ReadmeTheme extends MarkdownTheme {
       .replace(/^\s+|\s+$/g, '')}\n`;
   }
 
-  getFrontMatter(page: PageEvent<any>) {
-    return `\
----
-slug: "${this.getSlug(page)}"
----
-`;
-  }
-
   getTitle(page: PageEvent<Reflection>) {
     if (page.url === this.entryDocument) {
       return page.url === page.project.url ? this.indexTitle || page.model.name : 'Readme';
@@ -29,6 +21,15 @@ slug: "${this.getSlug(page)}"
       return this.indexTitle;
     }
     return getPageTitle(page as PageEvent<unknown>);
+  }
+
+  getSidebarTitle(page: PageEvent<Reflection>) {
+    const title = this.getTitle(page);
+    const splitTitle = title.split(': ');
+    if (splitTitle.length > 1) {
+      return splitTitle[1];
+    }
+    return splitTitle;
   }
 
   toUrl(mapping: any, reflection: DeclarationReflection) {
@@ -44,6 +45,10 @@ slug: "${this.getSlug(page)}"
   }
 
   render(page: PageEvent<Reflection>): string {
-    return `${this.getFrontMatter(page)}${this.formatContents(page.template(page) as string)}`;
+    return prependYAML(this.formatContents(page.template(page) as string), {
+      slug: this.getSlug(page),
+      title: this.getTitle(page),
+      sidebar_label: this.getSidebarTitle(page),
+    });
   }
 }
