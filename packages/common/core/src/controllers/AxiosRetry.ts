@@ -3,7 +3,7 @@ import { isTest } from '../environment/isTest';
 import { noop } from '../utils/noop';
 
 export interface AxiosRetryConfig {
-  maxAttempts: number;
+  maxRetries: number;
   allowedMethods: string[];
   allowedResponseStatuses: number[];
   beforeRetry?: (attempt: number, error: AxiosError) => void;
@@ -30,7 +30,7 @@ export class AxiosRetry {
         const response = await axios.request(requestConfig);
         return response;
       } catch (e) {
-        if (attempt >= retryConfig.maxAttempts) {
+        if (attempt >= retryConfig.maxRetries) {
           throw e;
         }
         if (!requestConfig.method || !retryConfig.allowedMethods.includes(requestConfig.method.toUpperCase())) {

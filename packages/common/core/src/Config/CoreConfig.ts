@@ -27,4 +27,9 @@ export const CoreConfig = {
     name: 'product',
     defaultValue: undefined,
   } as ConfigKey<string | undefined>,
+
+  maxRetries: {
+    name: 'maxRetries',
+    defaultValue: 2,
+  } as ConfigKey<number>,
 };

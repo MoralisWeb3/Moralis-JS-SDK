@@ -32,9 +32,9 @@ describe('AxiosRetry', () => {
     });
   }
 
-  function createRetryConfig(maxAttempts: number): AxiosRetryConfig {
+  function createRetryConfig(maxRetries: number): AxiosRetryConfig {
     return {
-      maxAttempts,
+      maxRetries,
       allowedMethods: ['GET'],
       allowedResponseStatuses: [444],
     };
