@@ -4,6 +4,7 @@ import { AxiosRetry, AxiosRetryConfig } from '../AxiosRetry';
 import { Core } from '../../Core';
 import { LoggerController } from '../LoggerController';
 import { getMessageFromApiRequestError, isApiRequestError } from './ApiRequestError';
+import { Config, CoreConfig } from '../../Config';
 
 export interface RequestOptions {
   headers?: { [name: string]: string };
@@ -15,10 +16,10 @@ export interface RequestOptions {
  */
 export class RequestController {
   public static create(core: Core): RequestController {
-    return new RequestController(core.logger);
+    return new RequestController(core.config, core.logger);
   }
 
-  private constructor(private readonly logger: LoggerController) {}
+  private constructor(private readonly config: Config, private readonly logger: LoggerController) {}
 
   public async request<Data, Response>(config: AxiosRequestConfig<Data>): Promise<Response> {
     this.logger.verbose('[RequestController] request started', {
@@ -27,8 +28,9 @@ export class RequestController {
       body: config.data,
     });
 
+    const maxRetries = this.config.get(CoreConfig.maxRetries);
     const retryConfig: AxiosRetryConfig = {
-      maxAttempts: 2,
+      maxRetries,
       allowedMethods: ['GET', 'OPTIONS'],
       allowedResponseStatuses: [408, 413, 429, 500, 502, 503, 504],
       beforeRetry: (attempt: number, error: AxiosError) => {
