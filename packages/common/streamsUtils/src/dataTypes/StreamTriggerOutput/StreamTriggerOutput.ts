@@ -49,6 +49,16 @@ export class StreamTriggerOutput implements MoralisDataObject {
     );
   }
 
+  /**
+   * Compares two StreamTriggerOutput arrays. It checks a deep equality check of both values, meaning that all the values have to be on both arrays.
+   * @param triggerOutputishA - the first StreamTriggerOutputish[] data to compare
+   * @param triggerOutputishB - the second StreamTriggerOutputish[] data to compare
+   * @returns true if all values are equal, false otherwise
+   * @example
+   * ```ts
+   *  StreamTriggerOutput.arrayEquals(valueA, valueB);
+   * ```
+   */
   static arrayEquals(triggerOutputishA: StreamTriggerOutputish[], triggerOutputishB: StreamTriggerOutputish[]) {
     if (triggerOutputishA.length !== triggerOutputishB.length) {
       return false;
