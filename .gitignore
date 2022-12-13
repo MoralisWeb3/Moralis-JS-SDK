@@ -7,11 +7,8 @@ lerna-debug.log
 npm-debug.log
 yarn-error.log
 
-# docs
-docs/
-
 # gh-pages
-/docs-out/
+/docs-build/
 
 # Build
 packages/**/build
@@ -69,3 +66,6 @@ documentation/.yarn/*
 
 .npmrc
 .yarnrc
+
+# Temporary files
+/temp
