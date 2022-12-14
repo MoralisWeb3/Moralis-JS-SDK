@@ -69,8 +69,10 @@ export class EvmStream implements MoralisDataObject {
       return false;
     }
 
-    if (evmStreamA.triggers?.length !== evmStreamB.triggers?.length ||
-      !StreamTrigger.arrayEquals(evmStreamA.triggers || [], evmStreamB.triggers || [])) {
+    if (
+      evmStreamA.triggers?.length !== evmStreamB.triggers?.length ||
+      !StreamTrigger.arrayEquals(evmStreamA.triggers || [], evmStreamB.triggers || [])
+    ) {
       return false;
     }
 
