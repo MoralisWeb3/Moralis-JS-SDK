@@ -51,21 +51,21 @@ export class StreamTriggerOutput implements MoralisDataObject {
 
   /**
    * Compares two StreamTriggerOutput arrays. It checks a deep equality check of both values, meaning that all the values have to be on both arrays.
-   * @param triggerOutputishA - the first StreamTriggerOutputish[] data to compare
-   * @param triggerOutputishB - the second StreamTriggerOutputish[] data to compare
+   * @param valueA - the first StreamTriggerOutputish[] data to compare
+   * @param valueB - the second StreamTriggerOutputish[] data to compare
    * @returns true if all values are equal, false otherwise
    * @example
    * ```ts
    *  StreamTriggerOutput.arrayEquals(valueA, valueB);
    * ```
    */
-  static arrayEquals(triggerOutputishA: StreamTriggerOutputish[], triggerOutputishB: StreamTriggerOutputish[]) {
-    if (triggerOutputishA.length !== triggerOutputishB.length) {
+  static arrayEquals(valueA: StreamTriggerOutputish[], valueB: StreamTriggerOutputish[]) {
+    if (valueA.length !== valueB.length) {
       return false;
     }
 
-    const triggerOutputsA = triggerOutputishA.map((triggerOutput) => StreamTriggerOutput.create(triggerOutput));
-    const triggerOutputsB = triggerOutputishB.map((triggerOutput) => StreamTriggerOutput.create(triggerOutput));
+    const triggerOutputsA = valueA.map((triggerOutput) => StreamTriggerOutput.create(triggerOutput));
+    const triggerOutputsB = valueB.map((triggerOutput) => StreamTriggerOutput.create(triggerOutput));
 
     triggerOutputsA.sort((a, b) => (b.name > a.name ? 1 : -1));
     triggerOutputsB.sort((a, b) => (b.name > a.name ? 1 : -1));

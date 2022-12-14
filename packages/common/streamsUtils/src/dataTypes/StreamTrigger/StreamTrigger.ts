@@ -74,9 +74,6 @@ export class StreamTrigger implements MoralisDataObject {
       const triggerInputsA = streamTriggerA.inputs || [];
       const triggerInputsB = streamTriggerB.inputs || [];
 
-      triggerInputsA.sort();
-      triggerInputsB.sort();
-
       for (let i = 0; i < triggerInputsA?.length; i++) {
         if (triggerInputsA[i] !== triggerInputsB[i]) {
           return false;
@@ -89,6 +86,39 @@ export class StreamTrigger implements MoralisDataObject {
     }
 
     if (streamTriggerA.callFrom !== streamTriggerB.callFrom) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Compares two StreamTrigger arrays. It checks a deep equality check of both values, meaning that all the values have to be on both arrays.
+   * @param valueA - the first StreamTriggerish[] data to compare
+   * @param valueB - the second StreamTriggerish[] data to compare
+   * @returns true if all values are equal, false otherwise
+   * @example
+   * ```ts
+   *  StreamTrigger.arrayEquals(valueA, valueB);
+   * ```
+   */
+  static arrayEquals(valueA: StreamTriggerish[], valueB: StreamTriggerish[]) {
+    if (valueA.length !== valueB.length) {
+      return false;
+    }
+
+    const triggersA = valueA.map((trigger) => StreamTrigger.create(trigger));
+    const triggersB = valueB.map((trigger) => StreamTrigger.create(trigger));
+
+    const seenTriggersB = Array(triggersB.length).fill(false);
+    for (let i = 0; i < triggersA.length; i++) {
+      const indexB = triggersB.findIndex((triggerB) => triggerB.equals(triggersA[i]));
+      if (indexB < 0) {
+        return false;
+      }
+      seenTriggersB[indexB] = true;
+    }
+    if (seenTriggersB.some((seen) => !seen)) {
       return false;
     }
 

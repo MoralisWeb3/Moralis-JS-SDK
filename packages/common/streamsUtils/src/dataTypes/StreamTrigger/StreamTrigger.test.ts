@@ -80,4 +80,28 @@ describe('StreamTrigger', () => {
 
     expect(isEqual).toBe(false);
   });
+
+  it('should return true for .arrayEquals() on equality match', () => {
+    const transferInput = mockStreamTrigger.ERC20_TRANSFER;
+    const allowanceSelector = mockStreamTrigger.ALLOWANCE_SELECTORS;
+    const isEqual = StreamTrigger.arrayEquals([transferInput, allowanceSelector], [allowanceSelector, transferInput]);
+
+    expect(isEqual).toBe(true);
+  });
+
+  it('should return false for .arrayEquals() on array length mismatch', () => {
+    const transferInput = mockStreamTrigger.ERC20_TRANSFER;
+    const allowanceSelector = mockStreamTrigger.ALLOWANCE_SELECTORS;
+    const isEqual = StreamTrigger.arrayEquals([], [allowanceSelector, transferInput]);
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .arrayEquals() on values mismatch', () => {
+    const transferInput = mockStreamTrigger.ERC20_TRANSFER;
+    const allowanceSelector = mockStreamTrigger.ALLOWANCE_SELECTORS;
+    const isEqual = StreamTrigger.arrayEquals([transferInput, transferInput], [allowanceSelector, transferInput]);
+
+    expect(isEqual).toBe(false);
+  });
 });
