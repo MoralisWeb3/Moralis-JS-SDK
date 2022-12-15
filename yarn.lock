@@ -6773,6 +6773,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client@workspace:packages/client/client"
   dependencies:
+    "@moralisweb3/client-auth-utils": ^2.9.0
     "@moralisweb3/client-backend-adapter-rest": ^2.9.0
     "@moralisweb3/client-backend-adapter-utils": ^2.9.0
     "@moralisweb3/client-evm-api": ^2.9.0
