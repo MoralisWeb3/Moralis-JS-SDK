@@ -38,7 +38,7 @@ const endpointWeights = () => {
 };
 
 const getEvmNativeBalance = () => {
-  handleEvmProxyCall('0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7/balance?chain=0x4');
+  handleEvmProxyCall('0x992eCcC191D6F74E8Be187ed6B6AC196b08314f7/balance?chain=0x5');
 };
 
 // solana api proxy calls
