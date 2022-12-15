@@ -1,3 +1,4 @@
+import Moralis from 'moralis';
 import { PaginatedOperation, PaginatedRequest } from 'moralis/common-core';
 import { useCallback } from 'react';
 import useSWR from 'swr';
@@ -25,7 +26,7 @@ const useResolverPaginated = <Request, Response, JSONResponse>({
   Request
 >) => {
   const { data, error, mutate, isValidating } = useSWR<FetcherPaginatedResponse<Response>>(
-    [endpoint, request ? { operation, request } : null],
+    [endpoint, request ? { operation, request: operation.serializeRequest(request, Moralis.Core) } : null],
     fetcherPaginated,
     {
       revalidateOnFocus: false,
