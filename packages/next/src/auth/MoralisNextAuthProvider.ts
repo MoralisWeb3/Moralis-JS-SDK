@@ -1,7 +1,7 @@
-import { VerifyChallengeSolanaJSONResponse, VerifyChallengeEvmJSONResponse } from '@moralisweb3/common-auth-utils';
-import axios from 'axios';
+import { LoggerController, Network } from 'moralis/common-core';
+import { OperationResolver } from '@moralisweb3/api-utils';
+import { verifyChallengeEvmOperation, verifyChallengeSolanaOperation } from '@moralisweb3/common-auth-utils';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { Network } from 'moralis/common-core';
 import Moralis from 'moralis';
 
 const MoralisNextAuthProvider = () =>
@@ -40,9 +40,9 @@ const MoralisNextAuthProvider = () =>
          * Receiving credentials from signIn() payload
          */
         const { message, signature, network } = credentials as {
-          message?: string;
-          signature?: string;
-          network?: Network;
+          message: string;
+          signature: string;
+          network: Network;
         };
 
         const nextAuthUrl = process.env.NEXTAUTH_URL;
@@ -51,10 +51,29 @@ const MoralisNextAuthProvider = () =>
           throw new Error('NEXTAUTH_URL missing');
         }
 
-        const { data: user } = await axios.post<VerifyChallengeSolanaJSONResponse | VerifyChallengeEvmJSONResponse>(
-          `${nextAuthUrl}/api/moralis/auth/verifyChallenge${network || Moralis.Core.config.get('defaultNetwork')}`,
-          { message, signature },
-        );
+        const { baseUrl } = Moralis.Auth;
+
+        let user;
+        switch (network) {
+          case 'Evm':
+            user = (
+              await new OperationResolver(verifyChallengeEvmOperation, baseUrl, Moralis.Core).fetch({
+                message,
+                signature,
+              })
+            ).raw;
+            break;
+          case 'Solana':
+            user = (
+              await new OperationResolver(verifyChallengeSolanaOperation, baseUrl, Moralis.Core).fetch({
+                message,
+                signature,
+              })
+            ).raw;
+            break;
+          default:
+            throw new Error(`The ${network} networkType is not supported for authentication`);
+        }
 
         if (user.uri !== nextAuthUrl) {
           return null;
@@ -64,6 +83,8 @@ const MoralisNextAuthProvider = () =>
          */
         return user;
       } catch (e) {
+        const logger = new LoggerController('Next', Moralis.Core.config);
+        logger.error(e);
         return null;
       }
     },

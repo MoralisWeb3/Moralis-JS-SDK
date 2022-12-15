@@ -62,7 +62,7 @@ const Authentication = () => {
       }
 
       const signature = await signMessageAsync({ message: challenge.message });
-      await signIn('moralis-auth', { message: challenge.message, signature, network: 'Evm', redirect: false });
+      await signIn('moralis-auth', { message: challenge.message, signature, network: 'Solana', redirect: false });
 
       // redirects to main page
       push('/');
