@@ -11,8 +11,24 @@ export interface Connection<WalletProvider> {
   disconnect(): Promise<void>;
 }
 
+/**
+ * @description Connected wallet details.
+ */
 export interface WalletDetails {
+  /**
+   * @description Address of a user's wallet.
+   */
   address: string;
-  chain?: string;
-  network?: string;
+
+  /**
+   * @description Chain of an connected EVM wallet.
+   * @example "0x1"
+   */
+  evmChain?: string;
+
+  /**
+   * @description Network of an connected Solana wallet.
+   * @example "mainnet"
+   */
+  solNetwork?: string;
 }

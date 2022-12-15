@@ -10,7 +10,9 @@ export class SolAuthClient implements Module, AuthClient<SolanaProvider> {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const connectorResolver = new ConnectorResolver(options?.connectors, new PhantomSolConnector());
+
+    const defaultConnector = PhantomSolConnector.create();
+    const connectorResolver = new ConnectorResolver(options?.connectors, defaultConnector);
     const state = new AuthState('solana', authProvider, connectorResolver, localStorage);
     return new SolAuthClient(state);
   }

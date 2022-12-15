@@ -3,8 +3,18 @@ import { SolanaProvider } from './SolanaProvider';
 import { SolConnection, SolConnector } from './SolConnector';
 import { encode } from 'bs58';
 
+export interface PhantomSolConnectorOptions {
+  network?: string;
+}
+
 export class PhantomSolConnector implements SolConnector {
-  public readonly name = 'default';
+  public static create(options?: PhantomSolConnectorOptions): PhantomSolConnector {
+    return new PhantomSolConnector(options || {});
+  }
+
+  public readonly name = 'phantom';
+
+  private constructor(private readonly options: PhantomSolConnectorOptions) {}
 
   public async connect(): Promise<SolConnection> {
     // eslint-disable-next-line
@@ -24,17 +34,22 @@ export class PhantomSolConnector implements SolConnector {
     }
 
     await provider.connect();
-    return new PhantomSolConnection(this.name, provider);
+    return new PhantomSolConnection(this.name, provider, this.options.network);
   }
 }
 
 class PhantomSolConnection implements SolConnection {
-  public constructor(public readonly connectorName: string, public readonly provider: SolanaProvider) {}
+  public constructor(
+    public readonly connectorName: string,
+    public readonly provider: SolanaProvider,
+    private readonly network: string | undefined,
+  ) {}
 
   public async readWallet(): Promise<WalletDetails> {
     const address = this.provider.publicKey.toBase58();
     return {
       address,
+      solNetwork: this.network || 'mainnet',
     };
   }
 

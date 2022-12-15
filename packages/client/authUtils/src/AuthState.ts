@@ -55,8 +55,8 @@ export class AuthState<WalletProvider> implements AuthClient<WalletProvider> {
     const response = await auth.getMessageToSign({
       networkType: this.networkType,
       address: wallet.address,
-      chain: wallet.chain,
-      network: wallet.network,
+      evmChain: wallet.evmChain,
+      solNetwork: wallet.solNetwork,
     });
 
     const signature = await this.connection.signMessage(response.message);

@@ -1,5 +1,6 @@
 import { EvmApiClient } from '@moralisweb3/client-evm-api';
 import { SolApiClient } from '@moralisweb3/client-sol-api';
+import { User } from '@moralisweb3/client-auth-utils';
 import { EvmAuthClient, EvmAuthClientOptions } from '@moralisweb3/client-evm-auth';
 import { SolAuthClient, SolAuthClientOptions } from '@moralisweb3/client-sol-auth';
 import { BackendAdapter, AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
@@ -42,5 +43,13 @@ export class Client {
 
   public start() {
     this.core.start();
+  }
+
+  /**
+   * @description Returns a connected or authorized user from EvmAuth or SolAuth modules. Otherwise returns `null`.
+   */
+  public async tryGetUser(): Promise<User | null> {
+    const users = await Promise.all([this.evmAuth.tryGetUser(), this.solAuth.tryGetUser()]);
+    return users[0] || users[1];
   }
 }

@@ -10,7 +10,9 @@ export class EvmAuthClient implements Module, AuthClient<Web3Provider | JsonRpcP
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const connectorResolver = new ConnectorResolver(options?.connectors, new MetaMaskEvmConnector());
+
+    const defaultConnector = MetaMaskEvmConnector.create();
+    const connectorResolver = new ConnectorResolver(options?.connectors, defaultConnector);
     const state = new AuthState('evm', authProvider, connectorResolver, localStorage);
     return new EvmAuthClient(state);
   }

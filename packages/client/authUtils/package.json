@@ -11,12 +11,12 @@
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
-    "dev": "tsc --watch",
-    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientSolApi.ts @moralisweb3/common-sol-utils"
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "jest": "29.3.1",

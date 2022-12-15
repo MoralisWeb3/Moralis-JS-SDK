@@ -4,7 +4,15 @@ import { EvmConnection, EvmConnector } from './EvmConnector';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 export class MetaMaskEvmConnector implements EvmConnector {
-  public readonly name = 'default';
+  public static create(): MetaMaskEvmConnector {
+    return new MetaMaskEvmConnector();
+  }
+
+  public readonly name = 'metaMask';
+
+  private constructor() {
+    // Nothing...
+  }
 
   public async connect(): Promise<EvmConnection> {
     const ethereum = await detectEthereumProvider();
@@ -32,11 +40,11 @@ class MetaMaskEvmConnection implements EvmConnection {
     ]);
     return {
       address: accounts[0],
-      chain,
+      evmChain: chain,
     };
   }
 
-  public async signMessage(message: string): Promise<string> {
+  public signMessage(message: string): Promise<string> {
     const signer = this.provider.getSigner();
     return signer.signMessage(message);
   }

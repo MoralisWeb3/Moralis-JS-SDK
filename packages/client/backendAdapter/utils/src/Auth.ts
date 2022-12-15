@@ -19,8 +19,8 @@ export interface AuthSession {
 export interface GetMessageToSignRequest {
   networkType: NetworkType;
   address: string;
-  network?: string;
-  chain?: string;
+  evmChain?: string;
+  solNetwork?: string;
 }
 
 export interface GetMessageToSignResponse {

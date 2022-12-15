@@ -44,8 +44,8 @@ export class FirebaseAuth implements MoralisAuth {
     )({
       networkType: request.networkType,
       address: request.address,
-      network: request.network,
-      chain: request.chain,
+      network: request.solNetwork,
+      chain: request.evmChain,
     });
 
     return {

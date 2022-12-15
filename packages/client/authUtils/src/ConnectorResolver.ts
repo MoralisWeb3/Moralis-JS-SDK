@@ -12,15 +12,15 @@ export class ConnectorResolver<WalletProvider> {
   }
 
   public resolve(name: string): Connector<WalletProvider> {
-    if (name === this.defaultConnector.name) {
-      return this.defaultConnector;
-    }
-
     if (this.connectors) {
       const connector = this.connectors.find((conn) => conn.name === name);
       if (connector) {
         return connector;
       }
+    }
+
+    if (name === this.defaultConnector.name) {
+      return this.defaultConnector;
     }
 
     throw new AuthClientError({

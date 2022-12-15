@@ -32,7 +32,7 @@ class WalletConnectEvmConnection implements EvmConnection {
     ]);
     return {
       address: accounts[0],
-      chain,
+      evmChain: chain,
     };
   }
 

@@ -32,11 +32,11 @@ export class FrontEndOnlyAuth implements Auth {
     const message: string[] = [];
     message.push(`Network Type: ${request.networkType}`);
     message.push(`Address: ${request.address}`);
-    if (request.chain) {
-      message.push(`Chain: ${request.chain}`);
+    if (request.evmChain) {
+      message.push(`Chain: ${request.evmChain}`);
     }
-    if (request.network) {
-      message.push(`Network: ${request.network}`);
+    if (request.solNetwork) {
+      message.push(`Network: ${request.solNetwork}`);
     }
 
     return {

@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
+    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
