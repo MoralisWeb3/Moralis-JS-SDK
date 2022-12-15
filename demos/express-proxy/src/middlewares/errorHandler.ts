@@ -1,6 +1,6 @@
 import { MoralisError, isMoralisError } from '@moralisweb3/common-core';
 import { NextFunction, Request, Response } from 'express';
-import { AxiosError } from 'axios';
+import { AxiosError, isAxiosError } from 'axios';
 
 const makeMoralisErrorMessage = (error: MoralisError) => {
   let message = error.message || 'Unknown error';
@@ -41,14 +41,10 @@ export function errorHandler(
   } else if (isAxiosError(error)) {
     res.status(error.response?.status || 500).json({
       data: error.response?.data || 'Unknown error',
-      method: error.config.method?.toUpperCase(),
-      url: error.config.url,
+      method: error.config?.method?.toUpperCase(),
+      url: error.config?.url,
     });
   } else {
     res.status(500).json({ error: error.message });
   }
-}
-
-function isAxiosError<Type>(error: Error | AxiosError<Type>): error is AxiosError<Type> {
-  return 'isAxiosError' in error && error.isAxiosError;
 }
