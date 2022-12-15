@@ -39,7 +39,11 @@ const MoralisNextAuthProvider = () =>
         /**
          * Receiving credentials from signIn() payload
          */
-        const { message, signature, network } = credentials as {
+        const {
+          message,
+          signature,
+          network = 'Evm',
+        } = credentials as {
           message: string;
           signature: string;
           network: Network;
