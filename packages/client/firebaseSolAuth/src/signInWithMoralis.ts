@@ -1,57 +1,26 @@
-import { signInWithCustomToken, UserCredential } from '@firebase/auth';
-import { MoralisAuth, requestMessage, issueToken, SolanaNetwork } from '@moralisweb3/client-firebase-auth-utils';
-import { encode } from 'bs58';
-import { SolanaProvider } from './SolanaProvider';
-
-export interface SignInWithMoralisOptions {
-  provider?: SolanaProvider;
-  network?: SolanaNetwork;
-}
+import { SolAuthClient, SolanaProvider } from '@moralisweb3/client-sol-auth';
+import { User } from '@moralisweb3/client-auth-utils';
 
 export interface SignInWithMoralisResponse {
-  provider: SolanaProvider;
-  credentials: UserCredential;
+  solanaProvider: SolanaProvider;
+  user: User;
+
+  /**
+   * @deprecated Use `.user` property instead.
+   */
+  credentials: User;
 }
 
-export async function signInWithMoralis(
-  moralisAuth: MoralisAuth,
-  options?: SignInWithMoralisOptions,
-): Promise<SignInWithMoralisResponse> {
-  const provider = options?.provider ?? getDefaultProvider();
+export async function signInWithMoralis(solAuthClient: SolAuthClient): Promise<SignInWithMoralisResponse> {
+  await solAuthClient.authenticate();
+  const user = await solAuthClient.tryGetUser();
+  if (!user) {
+    throw new Error('Cannot read user');
+  }
 
-  await provider.connect();
-
-  const address = provider.publicKey.toBase58();
-  const context = await requestMessage(moralisAuth, {
-    networkType: 'solana',
-    address,
-    network: options?.network ?? 'mainnet',
-  });
-
-  const encodedMessage = new TextEncoder().encode(context.message);
-
-  const signature = await provider.signMessage(encodedMessage);
-
-  const token = await issueToken(moralisAuth, {
-    context,
-    signature: encode(signature.signature),
-  });
-
-  const credentials = await signInWithCustomToken(moralisAuth.auth, token);
   return {
-    provider,
-    credentials,
+    solanaProvider: await solAuthClient.restoreProvider(),
+    credentials: user,
+    user,
   };
-}
-
-function getDefaultProvider(): SolanaProvider {
-  // eslint-disable-next-line
-  const provider = (window as any)['solana'];
-  if (!provider) {
-    throw new Error('Solana provider not found');
-  }
-  if (!provider.isPhantom) {
-    throw new Error('Phantom provider not found');
-  }
-  return provider;
 }

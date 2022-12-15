@@ -1,48 +1,52 @@
 import { signInWithMoralis as signInWithMoralisByEvm } from '@moralisweb3/client-firebase-evm-auth';
 import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/client-firebase-sol-auth';
 import { httpsCallable } from '@firebase/functions';
-import { User } from '@firebase/auth';
-import { Fragment, useState } from 'react';
-import { auth, functions, moralisAuth } from './firebase';
-import WalletConnectProvider from '@walletconnect/web3-provider';
-import { Web3Provider } from '@ethersproject/providers';
+import { Fragment, useEffect, useState } from 'react';
+import { evmAuth, functions, solAuth } from './firebase';
+import { User } from '@moralisweb3/client-auth-utils';
 
 export function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(() => auth.currentUser);
+  const [user, setUser] = useState<User | null>(() => null);
+
+  useEffect(() => {
+    async function restoreUser() {
+      const result = await Promise.all([evmAuth.tryGetUser(), solAuth.tryGetUser()]);
+      setUser(result[0] || result[1]);
+    }
+
+    restoreUser();
+  }, []);
 
   async function signInWithMetamask() {
-    const result = await signInWithMoralisByEvm(moralisAuth);
+    const result = await signInWithMoralisByEvm(evmAuth, 'default');
 
-    setCurrentUser(result.credentials.user);
+    setUser(result.user);
   }
 
   async function signInWithWalletConnect() {
     localStorage.removeItem('walletconnect');
 
-    const provider = new WalletConnectProvider({
-      rpc: {
-        1: 'https://replace_me/',
-      },
-    });
+    const result = await signInWithMoralisByEvm(evmAuth, 'walletConnect');
 
-    await provider.enable();
-
-    const result = await signInWithMoralisByEvm(moralisAuth, {
-      provider: new Web3Provider(provider),
-    });
-
-    setCurrentUser(result.credentials.user);
+    setUser(result.user);
   }
 
   async function signInWithPhantom() {
-    const result = await signInWithMoralisBySolana(moralisAuth);
+    const result = await signInWithMoralisBySolana(solAuth);
 
-    setCurrentUser(result.credentials.user);
+    setUser(result.user);
   }
 
   async function signOut() {
-    await auth.signOut();
-    setCurrentUser(null);
+    switch (user?.networkType) {
+      case 'evm':
+        await evmAuth.logOut();
+        break;
+      case 'solana':
+        await solAuth.logOut();
+        break;
+    }
+    setUser(null);
   }
 
   async function getSecretData() {
@@ -63,9 +67,9 @@ export function App() {
       <p>
         Current user:&nbsp;
         <strong>
-          {currentUser ? (
+          {user ? (
             <Fragment>
-              address: {currentUser.displayName}, uid: {currentUser.uid}
+              address: {user.address}, profileId: {user.profileId}, networkType: {user.networkType}
             </Fragment>
           ) : (
             'unknown'

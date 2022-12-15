@@ -1,16 +1,14 @@
 import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfigSetup } from './config/CommonEvmUtilsConfigSetup';
 
-export class CommonEvmUtils extends Module {
-  public static readonly moduleName = 'evmUtils';
+export class CommonEvmUtils implements Module {
+  public readonly name = 'evmUtils';
 
   public static create(core?: Core): CommonEvmUtils {
     return new CommonEvmUtils(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: Core) {
-    super(CommonEvmUtils.moduleName, core);
-  }
+  private constructor(private readonly core: Core) {}
 
   public setup() {
     CommonEvmUtilsConfigSetup.register(this.core.config);
