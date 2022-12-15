@@ -4,7 +4,6 @@
 # Except for the themes directories:
 
 !src/**
-!.eslintrc.js
 !.gitignore
 !CHANGELOG.md
 !package.json
