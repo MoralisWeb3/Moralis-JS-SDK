@@ -22,13 +22,14 @@
   },
   "devDependencies": {
     "@types/ejs": "3.1.1",
-    "axios": "^1.2.0",
+    "axios": "^1.2.1",
     "chalk": "^5.0.1",
     "copyfiles": "2.4.1",
     "ejs": "^3.1.8",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
-    "ora": "^5.4.1"
+    "ora": "^5.4.1",
+    "ts-node-dev": "^2.0.0"
   }
 }
