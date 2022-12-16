@@ -45,3 +45,8 @@ For local development you will need to install redis on your local machine, and 
 
 Follow the steps in the documentation:
 https://docs.moralis.io/docs/deploy-to-production#aws-elastic-beanstalk
+
+### Google App Engine
+
+Follow the steps in the documentation:
+https://docs.moralis.io/docs/deploy-to-production#google-app-engine
