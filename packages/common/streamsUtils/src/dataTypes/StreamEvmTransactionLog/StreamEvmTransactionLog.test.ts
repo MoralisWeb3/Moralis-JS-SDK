@@ -38,6 +38,9 @@ describe('StreamEvmTransactionLog', () => {
       expect(transactionLog.topic1).toBe('0x000000000000000000000000f89d7b9c864f589bbf53a82105107622b35eaa40');
       expect(transactionLog.topic2).toBe('0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8');
       expect(transactionLog.topic3).toBeUndefined();
+      expect(transactionLog.triggers?.map((trigger) => trigger.format())).toStrictEqual([
+        { name: 'balance', value: '6967063534600021400000' },
+      ]);
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -53,6 +56,7 @@ describe('StreamEvmTransactionLog', () => {
         topic2: '0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8',
         topic3: undefined,
         transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9a',
+        triggers: [{ name: 'balance', value: '6967063534600021400000' }],
       });
     });
 
@@ -69,10 +73,11 @@ describe('StreamEvmTransactionLog', () => {
         topic2: '0x000000000000000000000000f5c91201b04346c683ecbbd06a37ab6df0f594a8',
         topic3: undefined,
         transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9a',
+        triggers: [{ name: 'balance', value: '6967063534600021400000' }],
       });
     });
 
-    it('should return return true for .equals() on equality match', () => {
+    it('should return true for .equals() on equality match', () => {
       const isEqual = transactionLog.equals({
         ...input,
       });
@@ -80,7 +85,7 @@ describe('StreamEvmTransactionLog', () => {
       expect(isEqual).toBe(true);
     });
 
-    it('should return return false for .equals() on mismatching chain', () => {
+    it('should return false for .equals() on mismatching chain', () => {
       const isEqual = transactionLog.equals({
         ...input,
         chain: '0x2',
@@ -89,7 +94,7 @@ describe('StreamEvmTransactionLog', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching logIndex', () => {
+    it('should return false for .equals() on mismatching logIndex', () => {
       const isEqual = transactionLog.equals({
         ...input,
         logIndex: 11,
@@ -98,10 +103,28 @@ describe('StreamEvmTransactionLog', () => {
       expect(isEqual).toBe(false);
     });
 
-    it('should return return false for .equals() on mismatching transactionHash', () => {
+    it('should return false for .equals() on mismatching transactionHash', () => {
       const isEqual = transactionLog.equals({
         ...mockStreamEvmTransactionLogInput.ERC20_TRANSFER,
         transactionHash: '0xe688fb681f0d5539637a0020a26fab3662fdde48879fffdb1cc3f81909924d9b',
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return false for .equals() on mismatching trigger results length', () => {
+      const isEqual = transactionLog.equals({
+        ...input,
+        triggers: [],
+      });
+
+      expect(isEqual).toBe(false);
+    });
+
+    it('should return false for .equals() on mismatching trigger results', () => {
+      const isEqual = transactionLog.equals({
+        ...input,
+        triggers: [{ name: 'balance', value: '2000' }],
       });
 
       expect(isEqual).toBe(false);

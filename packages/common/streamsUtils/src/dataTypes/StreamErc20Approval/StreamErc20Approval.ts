@@ -1,5 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamErc20ApprovalData, StreamErc20ApprovalInput, StreamErc20ApprovalJSON } from './types';
 
 export type StreamErc20Approvalish = StreamErc20ApprovalInput | StreamErc20Approval;
@@ -47,6 +48,9 @@ export class StreamErc20Approval implements MoralisDataObject {
       value: BigNumber.create(data.value),
       valueWithDecimals: maybe(data.valueWithDecimals),
       tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   };
 
@@ -76,6 +80,13 @@ export class StreamErc20Approval implements MoralisDataObject {
       return false;
     }
 
+    if (
+      erc20ApprovalA.triggers?.length !== erc20ApprovalB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(erc20ApprovalA.triggers || [], erc20ApprovalB.triggers || [])
+    ) {
+      return false;
+    }
+
     return true;
   }
 
@@ -98,7 +109,7 @@ export class StreamErc20Approval implements MoralisDataObject {
    * @example `erc20Approval.toJSON()`
    */
   toJSON(): StreamErc20ApprovalJSON {
-    const { chain, owner, spender, contract, value, ...data } = this._data;
+    const { chain, owner, spender, contract, value, triggers, ...data } = this._data;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
@@ -107,6 +118,7 @@ export class StreamErc20Approval implements MoralisDataObject {
       spender: spender.format(),
       contract: contract.format(),
       value: value.toString(),
+      triggers: triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -161,5 +173,9 @@ export class StreamErc20Approval implements MoralisDataObject {
 
   get valueWithDecimals() {
     return this._data.valueWithDecimals;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }

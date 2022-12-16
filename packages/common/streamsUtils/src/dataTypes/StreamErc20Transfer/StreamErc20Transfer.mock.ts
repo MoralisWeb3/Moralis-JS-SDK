@@ -12,6 +12,10 @@ const full: StreamErc20TransferInput = {
   tokenSymbol: 'STREAMS',
   tokenDecimals: '6',
   valueWithDecimals: '0.012345',
+  triggers: [
+    { name: 'fromBalance', value: '6967063534600021400000' },
+    { name: 'toBalance', value: '200000000000000000' },
+  ],
 };
 
 const noMetadata: StreamErc20TransferInput = {
@@ -40,6 +44,7 @@ const usdc: StreamErc20TransferInput = {
   tokenSymbol: 'USDC',
   tokenDecimals: '6',
   valueWithDecimals: '2892.46',
+  triggers: [{ name: 'toBalance', value: '200000000000000000' }],
 };
 
 const link: StreamErc20TransferInput = {

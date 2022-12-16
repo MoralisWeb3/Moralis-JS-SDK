@@ -1,5 +1,6 @@
 import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import {
   StreamEvmInternalTransactionData,
   StreamEvmInternalTransactionInput,
@@ -46,6 +47,7 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
     to: maybe(data.to, (value) => EvmAddress.create(value, core)),
     value: maybe(data.value, (value) => BigNumber.create(value)),
     gas: maybe(data.gas, (value) => BigNumber.create(value)),
+    triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
   });
 
   /**
@@ -67,6 +69,13 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
     }
 
     if (evmInternalTransactionA.transactionHash !== evmInternalTransactionB.transactionHash) {
+      return false;
+    }
+
+    if (
+      evmInternalTransactionA.triggers?.length !== evmInternalTransactionB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(evmInternalTransactionA.triggers || [], evmInternalTransactionB.triggers || [])
+    ) {
       return false;
     }
 
@@ -100,6 +109,7 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
       to: data.to?.format(),
       value: data.value?.toString(),
       gas: data.gas?.toString(),
+      triggers: data.triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -134,5 +144,9 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
 
   get gas() {
     return this._data.gas;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }
