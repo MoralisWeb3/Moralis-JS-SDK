@@ -24,7 +24,7 @@
   "devDependencies": {
     "@firebase/app-types": "^0.7.0",
     "@moralisweb3/eslint-config": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.45.1",
     "eslint": "^8.29.0",
     "eslint-plugin-etc": "^2.0.2",
