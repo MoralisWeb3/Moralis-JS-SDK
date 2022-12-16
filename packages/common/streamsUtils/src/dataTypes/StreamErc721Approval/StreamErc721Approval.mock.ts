@@ -11,6 +11,10 @@ const full: StreamErc721ApprovalInput = {
   tokenContractType: 'ERC721',
   tokenName: 'Stream',
   tokenSymbol: 'STREAMS',
+  triggers: [
+    { name: 'ownerBalance', value: '6967063534600021400000' },
+    { name: 'approverBalance', value: '200000000000000000' },
+  ],
 };
 
 export const mockStreamErc721Approval = {

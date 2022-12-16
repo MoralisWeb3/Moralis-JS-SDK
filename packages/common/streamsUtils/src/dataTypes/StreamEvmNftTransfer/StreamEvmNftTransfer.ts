@@ -1,5 +1,6 @@
 import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
 
 type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;
@@ -48,6 +49,9 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       transactionHash: data.transactionHash,
       amount: +data.amount,
       tokenName: data.tokenName,
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   }
 
@@ -85,6 +89,13 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       return false;
     }
 
+    if (
+      transferA.triggers?.length !== transferB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(transferA.triggers || [], transferB.triggers || [])
+    ) {
+      return false;
+    }
+
     return true;
   }
 
@@ -115,6 +126,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       to: data.to.format(),
       contract: data.contract.format(),
       operator: data.operator?.format(),
+      triggers: data.triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -173,5 +185,9 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
 
   get operator() {
     return this._data.operator;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }

@@ -21,4 +21,5 @@ describe('CoreConfig', () => {
   testSetAndGet<LogLevel>(CoreConfig.logLevel, 'off');
   testSetAndGet<BuildEnvironment>(CoreConfig.buidEnvironment, 'react-native');
   testSetAndGet<Network>(CoreConfig.defaultNetwork, 'Solana');
+  testSetAndGet<number>(CoreConfig.maxRetries, 5);
 });
