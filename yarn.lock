@@ -6679,7 +6679,7 @@ __metadata:
   resolution: "@moralisweb3/eslint-config@workspace:packages/eslintConfig"
   dependencies:
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.26.0
     typescript: ^4.9.3
@@ -9405,7 +9405,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:5.45.1, @typescript-eslint/parser@npm:^5.21.0, @typescript-eslint/parser@npm:^5.45.1, @typescript-eslint/parser@npm:^5.5.0":
+"@typescript-eslint/parser@npm:5.46.1, @typescript-eslint/parser@npm:^5.46.1":
+  version: 5.46.1
+  resolution: "@typescript-eslint/parser@npm:5.46.1"
+  dependencies:
+    "@typescript-eslint/scope-manager": 5.46.1
+    "@typescript-eslint/types": 5.46.1
+    "@typescript-eslint/typescript-estree": 5.46.1
+    debug: ^4.3.4
+  peerDependencies:
+    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 784fe3ae688da85784b271c10d1e0b807583f4c370e32aa7a09b2584d0f7b92316a93cccbd9458bdf08f169b220097a4b0456bc5f62a210607a13a5fae84c972
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^5.21.0, @typescript-eslint/parser@npm:^5.5.0":
   version: 5.45.1
   resolution: "@typescript-eslint/parser@npm:5.45.1"
   dependencies:
@@ -9442,6 +9459,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/scope-manager@npm:5.46.1":
+  version: 5.46.1
+  resolution: "@typescript-eslint/scope-manager@npm:5.46.1"
+  dependencies:
+    "@typescript-eslint/types": 5.46.1
+    "@typescript-eslint/visitor-keys": 5.46.1
+  checksum: bf934603dc9c7da71eb26f415d13018f2a96dbba193a773bc440a5c93828365f09bb3db9be55189dfbbace414c6c48d7fad246c0d9717dab4676d0d79d6d8676
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/type-utils@npm:5.45.1":
   version: 5.45.1
   resolution: "@typescript-eslint/type-utils@npm:5.45.1"
@@ -9470,6 +9497,13 @@ __metadata:
   version: 5.45.1
   resolution: "@typescript-eslint/types@npm:5.45.1"
   checksum: 7f809d2951812ae5752c9d1617b7e6dfd662370390b0ddba72005ebc62bd5f04745567bb62cf00a9e43db9dfd222d18ea22945f5457f76ea86386ef7b98c8424
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/types@npm:5.46.1":
+  version: 5.46.1
+  resolution: "@typescript-eslint/types@npm:5.46.1"
+  checksum: 91143d3304b8c70d69d9c8e5b7428cce3a222eacfbeb99e592d278668bcf998760731deae064a76157b9a0fc4911fe3178aa24e4ea6fe2ba68dd37113834c924
   languageName: node
   linkType: hard
 
@@ -9506,6 +9540,24 @@ __metadata:
     typescript:
       optional: true
   checksum: 867b19ba050af7410c75e4e42b511d4299c8043d238959e9794bb65d7a9db1a875880e5dd50f112896218f3a3d163cd8ce61db94034ca628eca4f7ddccb1d348
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/typescript-estree@npm:5.46.1":
+  version: 5.46.1
+  resolution: "@typescript-eslint/typescript-estree@npm:5.46.1"
+  dependencies:
+    "@typescript-eslint/types": 5.46.1
+    "@typescript-eslint/visitor-keys": 5.46.1
+    debug: ^4.3.4
+    globby: ^11.1.0
+    is-glob: ^4.0.3
+    semver: ^7.3.7
+    tsutils: ^3.21.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 21499b927b4118cd51e841b2e1b7e55621135f923f461b75dc8ca8442de38a82da5a0232dce5229e0266b6fc12d70696e0e912fcf1483d4c44f02e4cad39ed98
   languageName: node
   linkType: hard
 
@@ -9560,6 +9612,16 @@ __metadata:
     "@typescript-eslint/types": 5.45.1
     eslint-visitor-keys: ^3.3.0
   checksum: 725a434fb05010b6ead7e880fa1fcdb4dbc7421b80667e96ad27fcfb3c2b2b0edde64be488740577dd147547fc4a9eac52e2602eb6a8a261ee14a917d4a50c4f
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/visitor-keys@npm:5.46.1":
+  version: 5.46.1
+  resolution: "@typescript-eslint/visitor-keys@npm:5.46.1"
+  dependencies:
+    "@typescript-eslint/types": 5.46.1
+    eslint-visitor-keys: ^3.3.0
+  checksum: 952cf20e29a040e0820e52d6815097abf042ea8e1fd5d013c0a319284ea0e2e29e0ca9ef244717450a6eb9d32ebf7fa9ed91185675a27adc35c9ad070d561b7c
   languageName: node
   linkType: hard
 
@@ -14489,7 +14551,7 @@ __metadata:
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     dotenv: ^16.0.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
@@ -14510,7 +14572,7 @@ __metadata:
     "@types/express": ^4.17.14
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     cors: ^2.8.5
     dotenv: ^16.0.1
     envalid: 7.3.1
@@ -14533,7 +14595,7 @@ __metadata:
     "@firebase/app-types": ^0.8.1
     "@moralisweb3/eslint-config": ^1.0.1
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
     firebase-admin: ^10.3.0
@@ -14588,7 +14650,7 @@ __metadata:
     "@firebase/app-types": ^0.7.0
     "@moralisweb3/eslint-config": ^1.0.1
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.26.0
@@ -14608,7 +14670,7 @@ __metadata:
     "@firebase/app-types": ^0.8.1
     "@moralisweb3/eslint-config": ^1.0.1
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
     firebase-admin: ^10.3.0
@@ -14629,7 +14691,7 @@ __metadata:
     "@types/express": ^4.17.14
     "@types/node": 18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     cors: ^2.8.5
     dotenv: ^16.0.1
     envalid: 7.3.1
@@ -14659,7 +14721,7 @@ __metadata:
     "@types/react": ^18.0.18
     "@types/react-dom": ^18.0.6
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": 5.45.1
+    "@typescript-eslint/parser": 5.46.1
     axios: ^1.2.1
     eslint: ^8.22.0
     eslint-config-next: 12.2.3
@@ -14685,7 +14747,7 @@ __metadata:
     "@moralisweb3/parse-server": 2.10.0
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     axios: ^1.2.1
     dotenv: ^16.0.1
     envalid: 7.3.1
@@ -14715,7 +14777,7 @@ __metadata:
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     dotenv: ^16.0.1
     envalid: 7.3.1
     eslint: ^8.29.0
@@ -14747,7 +14809,7 @@ __metadata:
     "@types/jsonwebtoken": ^8.5.8
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     cors: ^2.8.5
     dotenv: ^16.0.1
     envalid: 7.3.1
@@ -23744,7 +23806,7 @@ __metadata:
     "@types/jest": ^29.2.4
     "@types/node": ^18.11.13
     "@typescript-eslint/eslint-plugin": ^5.45.1
-    "@typescript-eslint/parser": ^5.45.1
+    "@typescript-eslint/parser": ^5.46.1
     archiver: ^5.3.1
     cross-env: ^7.0.3
     eslint: ^8.29.0
