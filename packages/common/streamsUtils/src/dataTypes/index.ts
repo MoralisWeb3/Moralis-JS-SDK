@@ -8,4 +8,6 @@ export * from './StreamEvmInternalTransaction';
 export * from './StreamEvmNftTransfer';
 export * from './StreamEvmTransaction';
 export * from './StreamEvmTransactionLog';
+export * from './StreamTrigger';
+export * from './StreamTriggerOutput';
 export * from './EvmAbi';

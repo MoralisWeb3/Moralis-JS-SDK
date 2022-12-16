@@ -1,4 +1,5 @@
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput, StreamTriggerOutputish, StreamTriggerOutputJSON } from '../StreamTriggerOutput';
 
 export interface StreamErc721ApprovalInput {
   chain: EvmChainish;
@@ -11,6 +12,7 @@ export interface StreamErc721ApprovalInput {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerOutputish[];
 }
 
 export interface StreamErc721ApprovalData {
@@ -24,6 +26,7 @@ export interface StreamErc721ApprovalData {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerOutput[];
 }
 
 export type StreamErc721ApprovalJSON = {
@@ -37,4 +40,5 @@ export type StreamErc721ApprovalJSON = {
   tokenContractType: string;
   tokenName: string;
   tokenSymbol: string;
+  triggers?: StreamTriggerOutputJSON[];
 };

@@ -67,7 +67,12 @@ export interface components {
       hash: string;
       timestamp: string;
     };
+    TriggerOutput: {
+      value: unknown;
+      name: string;
+    };
     Log: {
+      triggers?: components["schemas"]["TriggerOutput"][];
       logIndex: string;
       transactionHash: string;
       address: string;
@@ -78,6 +83,7 @@ export interface components {
       topic3: string | null;
     };
     Transaction: {
+      triggers?: components["schemas"]["TriggerOutput"][];
       hash: string;
       gas: string | null;
       gasPrice: string | null;
@@ -299,6 +305,16 @@ export interface components {
       filter?: components["schemas"]["StreamsFilter"];
       includeNativeTxs?: boolean;
     };
+    /** @description Trigger */
+    StreamsTrigger: {
+      /** @enum {string} */
+      type: "tx" | "log" | "erc20transfer" | "erc20approval" | "nfttransfer";
+      contractAddress: string;
+      inputs?: (Partial<string> & Partial<unknown[]>)[];
+      functionAbi: components["schemas"]["AbiItem"];
+      topic0?: string;
+      callFrom?: string;
+    };
     StreamsModel: {
       /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl: string;
@@ -322,6 +338,8 @@ export interface components {
       chainIds: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
       /** @description The unique uuid of the stream */
       id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -363,6 +381,8 @@ export interface components {
       chainIds: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
       /** @description The unique uuid of the stream */
       id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -393,6 +413,8 @@ export interface components {
       chainIds: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
     };
     /** @description Make all properties in T optional */
     "Partial_streamsTypes.StreamsModelCreate_": {
@@ -418,6 +440,8 @@ export interface components {
       chainIds?: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
     };
     "streamsTypes.StreamsStatusUpdate": {
       /** @description The status of the stream. */

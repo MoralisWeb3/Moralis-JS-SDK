@@ -1,5 +1,6 @@
-import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import Core, { CoreProvider, maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamErc721ApprovalData, StreamErc721ApprovalInput, StreamErc721ApprovalJSON } from './types';
 
 export type StreamErc721Approvalish = StreamErc721ApprovalInput | StreamErc721Approval;
@@ -45,6 +46,9 @@ export class StreamErc721Approval implements MoralisDataObject {
       contract: EvmAddress.create(data.contract, core),
       tokenContractType: data.tokenContractType,
       approved: EvmAddress.create(data.approved, core),
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   };
 
@@ -86,6 +90,13 @@ export class StreamErc721Approval implements MoralisDataObject {
       return false;
     }
 
+    if (
+      evmNftApprovalA.triggers?.length !== evmNftApprovalB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(evmNftApprovalA.triggers || [], evmNftApprovalB.triggers || [])
+    ) {
+      return false;
+    }
+
     return true;
   }
 
@@ -115,6 +126,7 @@ export class StreamErc721Approval implements MoralisDataObject {
       contract: data.contract.format(),
       owner: data.owner.format(),
       approved: data.approved.format(),
+      triggers: data.triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -165,5 +177,9 @@ export class StreamErc721Approval implements MoralisDataObject {
 
   get tokenSymbol() {
     return this._data.tokenSymbol;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }

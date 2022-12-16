@@ -7,6 +7,10 @@ const full: StreamEvmInternalTransactionInput = {
   to: '0xee010a7476bc5adc88f1befc68c3b58f27f90419',
   value: '12345',
   gas: '100',
+  triggers: [
+    { name: 'fromBalance', value: '6967063534600021400000' },
+    { name: 'toBalance', value: '200000000000000000' },
+  ],
 };
 
 const partial: StreamEvmInternalTransactionInput = {
