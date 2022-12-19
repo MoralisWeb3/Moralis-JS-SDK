@@ -35,6 +35,7 @@ describe('getWalletNFTsOperation', () => {
       expect((serializedRequest.tokenAddresses ?? [])[i]).toBe(tokenAddresses[i]);
     }
     expect(serializedRequest.cursor).toBe(request.cursor);
+    expect(serializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
 
     const deserializedRequest = getWalletNFTsOperation.deserializeRequest(serializedRequest, core);
 
@@ -48,5 +49,6 @@ describe('getWalletNFTsOperation', () => {
       expect(EvmAddress.equals(tokenAddress, requestAddress)).toBeTruthy();
     }
     expect(deserializedRequest.cursor).toBe(request.cursor);
+    expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
   });
 });
