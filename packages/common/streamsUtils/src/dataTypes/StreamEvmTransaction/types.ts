@@ -1,5 +1,6 @@
 import { BigNumber, BigNumberish } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish, EvmChainish, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput, StreamTriggerOutputish, StreamTriggerOutputJSON } from '../StreamTriggerOutput';
 
 export interface StreamEvmTransactionInput {
   chain: EvmChainish;
@@ -21,6 +22,7 @@ export interface StreamEvmTransactionInput {
   r?: string | null;
   s?: string | null;
   v?: number | string | null;
+  triggers?: StreamTriggerOutputish[];
 }
 
 export interface StreamEvmTransactionData {
@@ -41,6 +43,7 @@ export interface StreamEvmTransactionData {
   receiptRoot?: string;
   receiptStatus?: number;
   signature?: EvmSignature;
+  triggers?: StreamTriggerOutput[];
 }
 
 export type StreamEvmTransactionJSON = {
@@ -63,4 +66,5 @@ export type StreamEvmTransactionJSON = {
   r?: string;
   s?: string;
   v?: number;
+  triggers?: StreamTriggerOutputJSON[];
 };

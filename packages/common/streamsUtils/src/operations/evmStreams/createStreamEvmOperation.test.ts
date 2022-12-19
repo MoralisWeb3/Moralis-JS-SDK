@@ -1,5 +1,6 @@
 import MoralisCore from '@moralisweb3/common-core';
-import { EvmChain } from '@moralisweb3/common-evm-utils';
+import { CommonEvmUtils, CommonEvmUtilsConfig, EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTrigger } from '../../dataTypes';
 import { createStreamEvmOperation, CreateStreamEvmRequest } from './createStreamEvmOperation';
 
 describe('createStreamEvmOperation', () => {
@@ -7,9 +8,33 @@ describe('createStreamEvmOperation', () => {
 
   beforeAll(() => {
     core = MoralisCore.create();
+    const evmUtils = CommonEvmUtils.create(core);
+    core.registerModules([evmUtils]);
+    core.config.set(CommonEvmUtilsConfig.formatEvmAddress, 'checksum');
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {
+    const contractAddress = '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE';
+    const balanceOfAbi = {
+      constant: true,
+      inputs: [
+        {
+          name: 'owner',
+          type: 'address',
+        },
+      ],
+      name: 'balanceOf',
+      outputs: [
+        {
+          name: 'toBalance',
+          type: 'uint256',
+        },
+      ],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+    };
+
     const request: Required<CreateStreamEvmRequest> = {
       webhookUrl: 'https://domain.com/webhook',
       description: 'Description',
@@ -23,6 +48,17 @@ describe('createStreamEvmOperation', () => {
       abi: null,
       advancedOptions: null,
       demo: true,
+      triggers: [
+        StreamTrigger.create(
+          {
+            type: 'erc20transfer',
+            contractAddress,
+            functionAbi: balanceOfAbi,
+            inputs: ['$to'],
+          },
+          core,
+        ),
+      ],
     };
 
     const serializedRequest = createStreamEvmOperation.serializeRequest(request, core);
@@ -38,6 +74,13 @@ describe('createStreamEvmOperation', () => {
     expect(serializedRequest.chainIds).toContain('0x1');
     expect(serializedRequest.abi).toBe(null);
     expect(serializedRequest.advancedOptions).toBe(null);
+    expect(serializedRequest.demo).toBe(true);
+    expect(serializedRequest.triggers).toHaveLength(1);
+    const serializedTrigger = serializedRequest.triggers![0];
+    expect(serializedTrigger.type).toBe('erc20transfer');
+    expect(serializedTrigger.contractAddress).toBe(contractAddress);
+    expect(serializedTrigger.functionAbi).toBe(balanceOfAbi);
+    expect(serializedTrigger.inputs).toStrictEqual(['$to']);
 
     const deserializedRequest = createStreamEvmOperation.deserializeRequest(serializedRequest, core);
 
@@ -52,5 +95,12 @@ describe('createStreamEvmOperation', () => {
     expect((deserializedRequest.chains[0] as EvmChain).apiHex).toContain('0x1');
     expect(deserializedRequest.abi).toBe(null);
     expect(deserializedRequest.advancedOptions).toBe(null);
+    expect(deserializedRequest.demo).toBe(true);
+    expect(deserializedRequest.triggers).toHaveLength(1);
+    const deserializedTrigger = deserializedRequest.triggers![0];
+    expect(deserializedTrigger.type).toBe('erc20transfer');
+    expect((deserializedTrigger.contractAddress as EvmAddress).checksum).toBe(contractAddress);
+    expect(deserializedTrigger.functionAbi).toBe(balanceOfAbi);
+    expect(deserializedTrigger.inputs).toStrictEqual(['$to']);
   });
 });

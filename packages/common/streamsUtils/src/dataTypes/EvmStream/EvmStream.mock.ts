@@ -15,6 +15,14 @@ const simple: EvmStreamInput = {
   statusMessage: 'Stream is active',
   advancedOptions: null,
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+  triggers: [
+    {
+      type: 'erc20transfer',
+      contractAddress: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+      functionAbi: {},
+      inputs: ['$to'],
+    },
+  ],
 };
 
 const advancedOptions: EvmStreamInput = {
