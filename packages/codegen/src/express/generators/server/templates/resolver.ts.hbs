@@ -1,0 +1,27 @@
+import {
+  {{ names.jsonRequest }},
+  {{ names.operation }},
+} from '{{ names.commonUtils }}';
+import { NextFunction, Response, Request } from 'express';
+import { OperationResolver } from '@moralisweb3/api-utils';
+import Moralis from 'moralis';
+
+{{#if params}}type RequestParams = Pick<{{ names.jsonRequest }}, {{#each params}}| '{{ this }}'{{/each}}>{{/if}}
+{{#if body}}type RequestBody = Pick<{{ names.jsonRequest }}, {{#each body}}| '{{ this }}'{{/each}}>{{/if}}
+{{#if query}}type RequestQuery = Pick<{{ names.jsonRequest }}, {{#each query}}| '{{ this }}'{{/each}}>{{/if}}
+
+export const {{ names.resolver }}  = async (
+  req: Request<{{#if params}}RequestParams{{else}}any{{/if}}, any, {{#if body}}RequestBody{{else}}any{{/if}}, {{#if query}}RequestQuery{{else}}any{{/if}}>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { raw } = await new OperationResolver({{ names.operation }}, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+      {{ names.operation }}.deserializeRequest({ {{#if params}}...req.params,{{/if}} {{#if body}}...req.body,{{/if}} {{#if query}}...req.query,{{/if}} }, Moralis.Core),
+    );
+
+    return res.send(raw);
+  } catch (error) {
+    return next(error);
+  }
+};

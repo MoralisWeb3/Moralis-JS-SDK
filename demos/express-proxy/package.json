@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "private": true,
   "dependencies": {
-    "@moralisweb3/common-core": "^2.9.0",
+    "@moralisweb3/express": "^2.9.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "envalid": "7.3.1",
