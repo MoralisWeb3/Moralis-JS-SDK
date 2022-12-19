@@ -282,5 +282,5 @@ export const streamWebhook = functions.https.onRequest(async (request, response)
     }
   }
 
-  response.status(200).send(body);
+  response.status(200).send('OK');
 });
