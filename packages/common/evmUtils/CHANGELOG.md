@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.10.1
+
+### Patch Changes
+
+- [#905](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/905) [`33230c43c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/33230c43c4a100f400fb862718e21ef487ca656c) Thanks [@Y0moo](https://github.com/Y0moo)! - Added missing "normalizeMetadata" parameter to getContractNFTsOperation, getNFTMetadataOperation, getNFTOwnersOperation, getNFTTokenIdOwnersOperation and getWalletNFTsOperation
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.10.1
+
 ## 2.10.0
 
 ### Minor Changes
