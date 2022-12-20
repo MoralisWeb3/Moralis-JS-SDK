@@ -11,7 +11,7 @@ import Moralis from 'moralis';
 {{#if query}}type RequestQuery = Pick<{{ names.jsonRequest }}, {{#each query}}| '{{ this }}'{{/each}}>{{/if}}
 
 export const {{ names.resolver }}  = async (
-  req: Request<{{#if params}}RequestParams{{else}}any{{/if}}, any, {{#if body}}RequestBody{{else}}any{{/if}}, {{#if query}}RequestQuery{{else}}any{{/if}}>,
+  req: Request<{{#if params}}RequestParams{{else}}undefined{{/if}}, undefined, {{#if body}}RequestBody{{else}}undefined{{/if}}, {{#if query}}RequestQuery{{else}}undefined{{/if}}>,
   res: Response,
   next: NextFunction,
 ) => {

@@ -1,2 +1,2 @@
-export * from './generated/AuthRouter';
-export * from './generated/resolvers';
+export * from './generated/AuthRouter'
+export * from './generated/resolvers'
