@@ -25,7 +25,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
       toBlock: 20,
       fromDate: new Date(fromDate),
       toDate: new Date(toDate),
-      subdomain: 'test.com',
       cursor: 'CURSOR1',
       limit: 333,
     };
@@ -38,7 +37,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
 
@@ -50,7 +48,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect(deserializedRequest.fromDate).toBe(request.fromDate);
     expect(deserializedRequest.toDate).toBe(request.toDate);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
   });

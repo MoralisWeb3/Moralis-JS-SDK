@@ -7,6 +7,9 @@ export type EvmStreamAdvancedOptions = {
   filter?: Record<string, any>;
   includeNativeTxs?: boolean;
 };
+
+export type GetNativeBalanceType = 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer' | 'internalTx';
+
 export interface EvmStreamInput {
   webhookUrl: string;
   description: string;
@@ -23,6 +26,11 @@ export interface EvmStreamInput {
   status: string;
   statusMessage: string;
   triggers?: StreamTriggerish[] | null;
+  getNativeBalances?:
+    | {
+        selectors: string[];
+        type: GetNativeBalanceType;
+      }[];
 }
 
 export interface EvmStreamData {
@@ -41,6 +49,10 @@ export interface EvmStreamData {
   status: string;
   statusMessage: string;
   triggers?: StreamTrigger[];
+  getNativeBalances?: {
+    selectors: string[];
+    type: GetNativeBalanceType;
+  }[];
 }
 
 export type EvmStreamJSON = {
@@ -59,4 +71,8 @@ export type EvmStreamJSON = {
   status: string;
   statusMessage: string;
   triggers?: StreamTriggerJSON[];
+  getNativeBalances?: {
+    selectors: string[];
+    type: GetNativeBalanceType;
+  }[];
 };

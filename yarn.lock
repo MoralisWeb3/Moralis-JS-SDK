@@ -6668,7 +6668,7 @@ __metadata:
     "@moralisweb3/common-core": ^2.10.0
     "@moralisweb3/common-evm-utils": ^2.10.0
     "@moralisweb3/eslint-config": ^1.0.1
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
     eslint: ^8.29.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
@@ -6788,6 +6788,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@moralisweb3/streams-typings@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@moralisweb3/streams-typings@npm:1.0.6"
+  checksum: aec1c9a1bf30e2cf6443f4124b30d74e3338a209114343e490eea6bb3388c4dfba0d16e0f49631157025997ff03122048ce0ff430bad9098af174d2399b0daf4
+  languageName: node
+  linkType: hard
+
 "@moralisweb3/streams@^2.10.0, @moralisweb3/streams@workspace:packages/streams":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/streams@workspace:packages/streams"
@@ -6797,7 +6804,7 @@ __metadata:
     "@moralisweb3/common-core": ^2.10.0
     "@moralisweb3/common-evm-utils": ^2.10.0
     "@moralisweb3/common-streams-utils": ^2.10.0
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
     "@moralisweb3/test-utils": 2.10.0
     "@types/ethereumjs-util": 5.2.0
     ethereumjs-util: ^7.1.0

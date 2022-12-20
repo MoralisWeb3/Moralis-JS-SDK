@@ -37,6 +37,6 @@
     "@ethersproject/abi": "^5.7.0",
     "@moralisweb3/common-core": "^2.10.0",
     "@moralisweb3/common-evm-utils": "^2.10.0",
-    "@moralisweb3/streams-typings": "^1.0.5"
+    "@moralisweb3/streams-typings": "^1.0.6"
   }
 }

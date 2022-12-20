@@ -7,7 +7,6 @@ export const mockGetBlock = MockScenarios.create(
     getParams: ({ req }) => ({
       chain: req.url.searchParams.get('chain'),
       block_number_or_hash: req.params.block_number_or_hash,
-      subdomain: req.url.searchParams.get('subdomain'),
     }),
     url: '/block/:block_number_or_hash',
     method: 'get',

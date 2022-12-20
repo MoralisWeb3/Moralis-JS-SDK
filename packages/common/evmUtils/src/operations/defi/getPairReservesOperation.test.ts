@@ -19,14 +19,12 @@ describe('getPairReservesOperation', () => {
       toBlock: '123',
       toDate: new Date(toDate),
       pairAddress: EvmAddress.create(address, core),
-      providerUrl: 'https://provider.com/url',
     };
 
     const serializedRequest = getPairReservesOperation.serializeRequest(request, core);
 
     expect(serializedRequest.pairAddress).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.toDate).toBe(toDate);
 
@@ -36,6 +34,5 @@ describe('getPairReservesOperation', () => {
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect((deserializedRequest.toDate as Date | undefined)?.toISOString()).toBe(toDate);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
   });
 });

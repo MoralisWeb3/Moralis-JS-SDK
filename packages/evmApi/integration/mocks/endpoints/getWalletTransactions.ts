@@ -10,7 +10,6 @@ export const mockGetWalletTransactions = MockScenarios.create(
     getParams: ({ req }) => ({
       address: req.params.address,
       chain: req.url.searchParams.get('chain'),
-      subdomain: req.url.searchParams.get('subdomain'),
       from_block: req.url.searchParams.get('from_block'),
       to_block: req.url.searchParams.get('to_block'),
       limit: req.url.searchParams.get('limit'),
