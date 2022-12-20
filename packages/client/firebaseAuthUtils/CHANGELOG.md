@@ -1,5 +1,11 @@
 # @moralisweb3/client-firebase-auth-utils
 
+## 2.10.1
+
+### Patch Changes
+
+- [#904](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/904) [`05770cd1c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/05770cd1ce6ef5b26bdcc12d7f9ba5f00fa55026) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `auth` property to the `GetMoralisAuthOptions` interface. That allows to pass a custom Firebase Auth instance to the Moralis Auth.
+
 ## 2.10.0
 
 ## 2.9.0
