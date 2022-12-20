@@ -71,7 +71,7 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'demos/express-proxy',
+            docId: 'demos/express',
             position: 'left',
             label: 'Demos',
           },
