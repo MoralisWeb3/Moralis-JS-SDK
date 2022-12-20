@@ -107,6 +107,7 @@ function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
     tokenAddresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).checksum),
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 
@@ -120,5 +121,6 @@ function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest, core: Core): 
     ),
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    normalizeMetadata: jsonRequest.normalizeMetadata,
   };
 }

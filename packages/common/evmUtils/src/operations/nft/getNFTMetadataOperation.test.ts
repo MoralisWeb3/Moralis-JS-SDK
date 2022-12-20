@@ -27,6 +27,7 @@ describe('getNFTMetadataOperation', () => {
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.tokenId).toBe(request.tokenId);
     expect(serializedRequest.format).toBe(request.format);
+    expect(serializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
 
     const deserializedRequest = getNFTMetadataOperation.deserializeRequest(serializedRequest, core);
 
@@ -34,5 +35,6 @@ describe('getNFTMetadataOperation', () => {
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.tokenId).toBe(request.tokenId);
     expect(deserializedRequest.format).toBe(request.format);
+    expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
   });
 });
