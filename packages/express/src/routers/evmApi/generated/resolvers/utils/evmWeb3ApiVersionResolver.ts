@@ -1,5 +1,5 @@
 import {
-  Web3ApiVersionJSONRequest,
+  
   web3ApiVersionOperation,
 } from 'moralis/common-evm-utils';
 import { NextFunction, Response, Request } from 'express';
@@ -17,7 +17,7 @@ export const evmWeb3ApiVersionResolver  = async (
 ) => {
   try {
     const { raw } = await new OperationResolver(web3ApiVersionOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
-      web3ApiVersionOperation.deserializeRequest({    }, Moralis.Core),
+      web3ApiVersionOperation.deserializeRequest(undefined, Moralis.Core),
     );
 
     return res.send(raw);

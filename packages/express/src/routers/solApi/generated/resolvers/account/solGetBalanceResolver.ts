@@ -16,7 +16,7 @@ export const solGetBalanceResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(getBalanceOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(getBalanceOperation, Moralis.SolApi.baseUrl, Moralis.Core).fetch(
       getBalanceOperation.deserializeRequest({ ...req.params,   }, Moralis.Core),
     );
 

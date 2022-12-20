@@ -16,7 +16,7 @@ export const solGetPortfolioResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(getPortfolioOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(getPortfolioOperation, Moralis.SolApi.baseUrl, Moralis.Core).fetch(
       getPortfolioOperation.deserializeRequest({ ...req.params,   }, Moralis.Core),
     );
 

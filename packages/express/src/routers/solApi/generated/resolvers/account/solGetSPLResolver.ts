@@ -16,7 +16,7 @@ export const solGetSPLResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(getSPLOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(getSPLOperation, Moralis.SolApi.baseUrl, Moralis.Core).fetch(
       getSPLOperation.deserializeRequest({ ...req.params,   }, Moralis.Core),
     );
 

@@ -16,7 +16,7 @@ export const authRequestChallengeSolanaResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(requestChallengeSolanaOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(requestChallengeSolanaOperation, Moralis.Auth.baseUrl, Moralis.Core).fetch(
       requestChallengeSolanaOperation.deserializeRequest({  ...req.body,  }, Moralis.Core),
     );
 

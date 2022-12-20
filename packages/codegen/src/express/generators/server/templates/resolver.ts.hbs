@@ -1,5 +1,5 @@
 import {
-  {{ names.jsonRequest }},
+  {{#if hasParams}}{{ names.jsonRequest }},{{/if}}
   {{ names.operation }},
 } from '{{ names.commonUtils }}';
 import { NextFunction, Response, Request } from 'express';
@@ -16,8 +16,8 @@ export const {{ names.resolver }}  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver({{ names.operation }}, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
-      {{ names.operation }}.deserializeRequest({ {{#if params}}...req.params,{{/if}} {{#if body}}...req.body,{{/if}} {{#if query}}...req.query,{{/if}} }, Moralis.Core),
+    const { raw } = await new OperationResolver({{ names.operation }}, Moralis.{{ names.module }}.baseUrl, Moralis.Core).fetch(
+      {{ names.operation }}.deserializeRequest({{#if hasParams}}{ {{#if params}}...req.params,{{/if}} {{#if body}}...req.body,{{/if}} {{#if query}}...req.query,{{/if}} }{{else}}undefined{{/if}}, Moralis.Core),
     );
 
     return res.send(raw);

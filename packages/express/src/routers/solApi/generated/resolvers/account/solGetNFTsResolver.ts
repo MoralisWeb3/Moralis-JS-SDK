@@ -16,7 +16,7 @@ export const solGetNFTsResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(getNFTsOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(getNFTsOperation, Moralis.SolApi.baseUrl, Moralis.Core).fetch(
       getNFTsOperation.deserializeRequest({ ...req.params,   }, Moralis.Core),
     );
 

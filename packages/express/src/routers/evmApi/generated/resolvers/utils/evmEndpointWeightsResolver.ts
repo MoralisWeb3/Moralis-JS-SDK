@@ -1,5 +1,5 @@
 import {
-  EndpointWeightsJSONRequest,
+  
   endpointWeightsOperation,
 } from 'moralis/common-evm-utils';
 import { NextFunction, Response, Request } from 'express';
@@ -17,7 +17,7 @@ export const evmEndpointWeightsResolver  = async (
 ) => {
   try {
     const { raw } = await new OperationResolver(endpointWeightsOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
-      endpointWeightsOperation.deserializeRequest({    }, Moralis.Core),
+      endpointWeightsOperation.deserializeRequest(undefined, Moralis.Core),
     );
 
     return res.send(raw);

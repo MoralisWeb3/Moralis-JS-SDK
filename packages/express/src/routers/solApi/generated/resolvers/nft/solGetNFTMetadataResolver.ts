@@ -16,7 +16,7 @@ export const solGetNFTMetadataResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(getNFTMetadataOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(getNFTMetadataOperation, Moralis.SolApi.baseUrl, Moralis.Core).fetch(
       getNFTMetadataOperation.deserializeRequest({ ...req.params,   }, Moralis.Core),
     );
 

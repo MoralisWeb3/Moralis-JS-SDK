@@ -32,8 +32,6 @@ export class ServerGenerator {
     const resolverName = this.getResolverName(operation.name);
     const relativePath = `${operation.groupName}/${resolverName}`;
     this.relativePaths.push(relativePath);
-    // urlPathParamNames
-    // console.log('queryParam: ', this.queryParamFromUrlPathPattern(operation.urlPathPattern));
 
     let reqIdentifier: 'query' | 'body';
     switch (operation.method) {
@@ -57,10 +55,16 @@ export class ServerGenerator {
           jsonRequest: `${_.upperFirst(operation.name)}JSONRequest`,
           commonUtils: this.moduleGenerator.operationsPackageName,
           reqIdentifier,
+          module: _.upperFirst(this.module),
         },
         params: operation.urlPathParamNames,
         body: operation.bodyParamNames,
         query: operation.urlSearchParamNames,
+        hasParams: Boolean(
+          operation.urlPathParamNames?.length ||
+            operation.bodyParamNames?.length ||
+            operation.urlSearchParamNames?.length,
+        ),
         relativePath,
         url: `${this.module}/${operation.name}`,
       },

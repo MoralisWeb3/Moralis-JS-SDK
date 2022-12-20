@@ -16,7 +16,7 @@ export const solGetTokenPriceResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(getTokenPriceOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(getTokenPriceOperation, Moralis.SolApi.baseUrl, Moralis.Core).fetch(
       getTokenPriceOperation.deserializeRequest({ ...req.params,   }, Moralis.Core),
     );
 

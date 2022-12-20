@@ -16,7 +16,7 @@ export const authRequestChallengeEvmResolver  = async (
   next: NextFunction,
 ) => {
   try {
-    const { raw } = await new OperationResolver(requestChallengeEvmOperation, Moralis.EvmApi.baseUrl, Moralis.Core).fetch(
+    const { raw } = await new OperationResolver(requestChallengeEvmOperation, Moralis.Auth.baseUrl, Moralis.Core).fetch(
       requestChallengeEvmOperation.deserializeRequest({  ...req.body,  }, Moralis.Core),
     );
 
