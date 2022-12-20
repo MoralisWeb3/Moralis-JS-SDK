@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-firebase-evm-api",
   "author": "Moralis",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -23,10 +23,10 @@
     "@firebase/app": "^0.8.4",
     "@firebase/app-types": "^0.8.1",
     "@firebase/functions": "^0.8.8",
-    "@moralisweb3/client-evm-api": "^2.10.0",
-    "@moralisweb3/client-firebase-api-utils": "^2.10.0",
-    "@moralisweb3/common-core": "^2.10.0",
-    "@moralisweb3/common-evm-utils": "^2.10.0",
+    "@moralisweb3/client-evm-api": "^2.10.1",
+    "@moralisweb3/client-firebase-api-utils": "^2.10.1",
+    "@moralisweb3/common-core": "^2.10.1",
+    "@moralisweb3/common-evm-utils": "^2.10.1",
     "firebase": "^9.13.0"
   }
 }
