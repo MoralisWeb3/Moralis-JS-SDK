@@ -44,6 +44,12 @@ describe('createStreamEvmOperation', () => {
       includeNativeTxs: true,
       includeContractLogs: true,
       includeInternalTxs: true,
+      getNativeBalances: [
+        {
+          selectors: ['$fromAddress', '$toAddress'],
+          type: 'tx',
+        },
+      ],
       chains: ['0x1'],
       abi: null,
       advancedOptions: null,

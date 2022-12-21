@@ -97,6 +97,7 @@ function serializeRequest(request: GetNFTTokenIdOwnersRequest, core: Core) {
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 
@@ -108,5 +109,6 @@ function deserializeRequest(jsonRequest: GetNFTTokenIdOwnersJSONRequest, core: C
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
     tokenId: jsonRequest.tokenId,
+    normalizeMetadata: jsonRequest.normalizeMetadata,
   };
 }

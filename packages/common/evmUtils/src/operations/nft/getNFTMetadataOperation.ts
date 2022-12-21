@@ -83,6 +83,7 @@ function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
     format: request.format,
     address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
+    normalizeMetadata: request.normalizeMetadata,
   };
 }
 
@@ -92,5 +93,6 @@ function deserializeRequest(jsonRequest: GetNFTMetadataJSONRequest, core: Core):
     format: jsonRequest.format,
     address: EvmAddress.create(jsonRequest.address, core),
     tokenId: jsonRequest.tokenId,
+    normalizeMetadata: jsonRequest.normalizeMetadata,
   };
 }

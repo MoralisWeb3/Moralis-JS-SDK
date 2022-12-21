@@ -3,11 +3,12 @@ import { addStream, deleteStream, getStreams, updateStream } from './streamServi
 
 export async function create(req: Request, res: Response, next: NextFunction) {
   try {
-    const { webhookUrl } = req.body;
+    const { webhookUrl, triggers } = req.body;
 
     const result = await addStream({
       networkType: 'evm',
       webhookUrl,
+      triggers,
     });
 
     res.status(200).json({ result });
@@ -28,12 +29,13 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
-    const { webhookUrl } = req.body;
+    const { webhookUrl, triggers } = req.body;
     const { id } = req.params;
 
     const message = await updateStream(id, {
       networkType: 'evm',
       webhookUrl,
+      triggers,
     });
 
     res.status(200).json({ message });

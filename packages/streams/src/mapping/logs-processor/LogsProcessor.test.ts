@@ -361,6 +361,8 @@ const batch: IWebhook = {
   nftTokenApprovals: [],
   tag: 'Some Tag',
   streamId: 'ba3b3c52-3dd3-4eb7-a2b7-4b61d3439c5e',
+  nativeBalances: [],
+  nftTokenApprovals: [],
 };
 
 describe('LogsProcessor', () => {

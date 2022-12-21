@@ -1,5 +1,28 @@
 # @moralisweb3/evm-utils
 
+## 2.10.2
+
+### Patch Changes
+
+- [#912](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/912) [`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types to include latest features and fixes of evmApi and streams. This includes:
+
+  - removal of deprecated `subdomain` and `providerUrl` params
+  - evm endpooint for `getMultipleNFTs`
+  - evm endpoint updated for `getNFTContractTransfers` to include `fromBlock`, `toBlock`, `fromDate` and `toDate` params
+  - streams support for `getNativeBalances`
+
+- Updated dependencies [[`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b)]:
+  - @moralisweb3/common-core@2.10.2
+
+## 2.10.1
+
+### Patch Changes
+
+- [#905](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/905) [`33230c43c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/33230c43c4a100f400fb862718e21ef487ca656c) Thanks [@Y0moo](https://github.com/Y0moo)! - Added missing "normalizeMetadata" parameter to getContractNFTsOperation, getNFTMetadataOperation, getNFTOwnersOperation, getNFTTokenIdOwnersOperation and getWalletNFTsOperation
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.10.1
+
 ## 2.10.0
 
 ### Minor Changes

@@ -40,7 +40,7 @@ export const getWalletTokenBalancesOperation: Operation<
   groupName: 'token',
   urlPathPattern: '/{address}/erc20',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'toBlock', 'tokenAddresses'],
+  urlSearchParamNames: ['chain', 'toBlock', 'tokenAddresses'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -53,7 +53,6 @@ export const getWalletTokenBalancesOperation: Operation<
 function getRequestUrlParams(request: GetWalletTokenBalancesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     to_block: maybe(request.toBlock, String),
     token_addresses: maybe(request.tokenAddresses, (addresses) =>
       addresses.map((address) => EvmAddress.create(address, core).lowercase),
@@ -94,7 +93,6 @@ function serializeRequest(request: GetWalletTokenBalancesRequest, core: Core) {
       addresses.map((address) => EvmAddress.create(address, core).checksum),
     ),
     address: EvmAddress.create(request.address).checksum,
-    subdomain: request.subdomain,
     toBlock: request.toBlock,
   };
 }
@@ -106,7 +104,6 @@ function deserializeRequest(jsonRequest: GetWalletTokenBalancesJSONRequest, core
       addresses.map((address) => EvmAddress.create(address, core)),
     ),
     address: EvmAddress.create(jsonRequest.address, core),
-    subdomain: jsonRequest.subdomain,
     toBlock: jsonRequest.toBlock,
   };
 }

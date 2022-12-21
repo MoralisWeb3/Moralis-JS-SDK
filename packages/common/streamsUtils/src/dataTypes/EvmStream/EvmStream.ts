@@ -48,6 +48,7 @@ export class EvmStream implements MoralisDataObject {
       advancedOptions: maybe(data.advancedOptions),
       abi: maybe(data.abi),
       triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTrigger.create(trigger, core))),
+      getNativeBalances: maybe(data.getNativeBalances),
     };
   };
 
@@ -178,5 +179,9 @@ export class EvmStream implements MoralisDataObject {
 
   get triggers() {
     return this._data.triggers;
+  }
+
+  get getNativeBalances() {
+    return this._data.getNativeBalances;
   }
 }

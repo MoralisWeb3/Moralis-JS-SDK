@@ -5,7 +5,7 @@ import { rest, ResponseComposition, RestRequest, PathParams, RestContext } from 
 
 type Condition = Record<string, unknown>;
 type Request = Record<string, unknown>;
-type Response = Record<string, unknown> | Record<string, unknown>[];
+type Response = Record<string, unknown> | Record<string, unknown>[] | Array<unknown>;
 type Params = PathParams<string>;
 
 const DEFAULT_RESPONSE_STATUS = 200;

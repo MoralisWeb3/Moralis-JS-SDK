@@ -59,6 +59,25 @@ describe('Create stream', () => {
     expect(result.result.tag).toEqual('test-2');
   });
 
+  it('should create a stream with getNativeBalances', async () => {
+    const result = await StreamApi.add({
+      webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+      description: 'Body With getNativeBalances',
+      tag: 'test-4',
+      chains: ['0x3'],
+      includeNativeTxs: true,
+      getNativeBalances: [
+        {
+          selectors: ['$fromAddress', '$toAddress'],
+          type: 'tx',
+        },
+      ],
+    });
+
+    expect(result).toBeDefined();
+    expect(result.result.tag).toEqual('test-4');
+  });
+
   it('should create a stream with all provided params', async () => {
     const result = await StreamApi.add({
       webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
