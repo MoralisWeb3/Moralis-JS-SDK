@@ -29,6 +29,7 @@ describe('getNFTOwnersOperation', () => {
     expect(serializedRequest.format).toBe(request.format);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
+    expect(serializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
 
     const deserializedRequest = getNFTOwnersOperation.deserializeRequest(serializedRequest, core);
 
@@ -37,5 +38,6 @@ describe('getNFTOwnersOperation', () => {
     expect(deserializedRequest.format).toBe(request.format);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
+    expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
   });
 });

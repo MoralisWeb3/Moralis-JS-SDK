@@ -1,5 +1,12 @@
 # @moralisweb3/client-firebase-evm-auth
 
+## 2.10.1
+
+### Patch Changes
+
+- Updated dependencies [[`05770cd1c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/05770cd1ce6ef5b26bdcc12d7f9ba5f00fa55026)]:
+  - @moralisweb3/client-firebase-auth-utils@2.10.1
+
 ## 2.10.0
 
 ### Patch Changes

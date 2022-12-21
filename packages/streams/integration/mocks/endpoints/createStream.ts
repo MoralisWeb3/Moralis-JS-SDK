@@ -20,6 +20,7 @@ export const mockCreateStream = MockScenarios.create(
         allAddresses: reqBody?.allAddresses,
         includeContractLogs: reqBody?.includeContractLogs,
         includeInternalTxs: reqBody?.includeInternalTxs,
+        getNativeBalances: reqBody?.getNativeBalances,
       };
     },
   },
@@ -73,6 +74,23 @@ export const mockCreateStream = MockScenarios.create(
       },
       response: createStreamResponse('test-3'),
     },
+    {
+      condition: {
+        webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+        description: 'Body With getNativeBalances',
+        tag: 'test-4',
+        chainIds: ['0x3'],
+        includeNativeTxs: true,
+        getNativeBalances: [
+          {
+            selectors: ['$fromAddress', '$toAddress'],
+            type: 'tx',
+          },
+        ],
+      },
+      response: createStreamResponse('test-4'),
+    },
+
     {
       condition: {
         chainIds: ['0x3'],

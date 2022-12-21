@@ -15,19 +15,16 @@ describe('getBlockOperation', () => {
     const request: Required<GetBlockRequest> = {
       blockNumberOrHash: '0x123',
       chain: EvmChain.create(chain, core),
-      subdomain: 'some-subdomain',
     };
 
     const serializedRequest = getBlockOperation.serializeRequest(request, core);
 
     expect(serializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
 
     const deserializedRequest = getBlockOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
   });
 });

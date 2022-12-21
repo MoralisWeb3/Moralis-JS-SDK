@@ -21,8 +21,6 @@ describe('runContractFunctionOperation', () => {
       abi: [
         /* empty abi */
       ],
-      providerUrl: 'https://provider.com/url',
-      subdomain: 'my-domain.com',
     };
 
     const serializedRequest = runContractFunctionOperation.serializeRequest(request, core);
@@ -32,8 +30,6 @@ describe('runContractFunctionOperation', () => {
     expect(serializedRequest.functionName).toBe(request.functionName);
     expect(serializedRequest.params).toBe(request.params);
     expect(serializedRequest.abi).toBe(request.abi);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
 
     const deserializedRequest = runContractFunctionOperation.deserializeRequest(serializedRequest, core);
 
@@ -42,7 +38,5 @@ describe('runContractFunctionOperation', () => {
     expect(deserializedRequest.functionName).toBe(request.functionName);
     expect(deserializedRequest.params).toBe(request.params);
     expect(deserializedRequest.abi).toBe(request.abi);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
   });
 });

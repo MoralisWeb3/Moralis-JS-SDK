@@ -9,6 +9,7 @@ import { StreamEvmInternalTransaction } from '../StreamEvmInternalTransaction/St
 import { StreamEvmNftTransfer } from '../StreamEvmNftTransfer/StreamEvmNftTransfer';
 import { StreamEvmTransaction } from '../StreamEvmTransaction/StreamEvmTransaction';
 import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTransactionLog';
+import { StreamNativeBalance } from '../StreamNativeBalance';
 
 export interface EvmStreamResultData {
   chain: EvmChain;
@@ -28,6 +29,7 @@ export interface EvmStreamResultData {
   abi: EvmAbi;
   tag: string;
   streamId: string;
+  nativeBalances: StreamNativeBalance[];
 }
 
 export type EvmStreamResultInput = IWebhook;

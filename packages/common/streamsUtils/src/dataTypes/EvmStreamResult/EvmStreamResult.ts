@@ -184,6 +184,10 @@ export class EvmStreamResult implements MoralisDataObject {
   get abi() {
     return this._data.abi;
   }
+
+  get nativeBalances() {
+    return this._data.nativeBalances;
+  }
 }
 
 const isNotEmpty = <Value>(value: Value | null | undefined): value is Value => value != null;

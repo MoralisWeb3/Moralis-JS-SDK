@@ -18,7 +18,6 @@ describe('getWalletTokenBalancesOperation', () => {
       address: EvmAddress.create(address, core),
       chain: EvmChain.create(chain, core),
       tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address, core)),
-      subdomain: 'test.com',
       toBlock: 20,
     };
 
@@ -30,7 +29,6 @@ describe('getWalletTokenBalancesOperation', () => {
     for (let i = 0; i < request.tokenAddresses.length; i++) {
       expect((serializedRequest.tokenAddresses ?? [])[i]).toBe(tokenAddresses[i]);
     }
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
 
     const deserializedRequest = getWalletTokenBalancesOperation.deserializeRequest(serializedRequest, core);
@@ -43,7 +41,6 @@ describe('getWalletTokenBalancesOperation', () => {
       const requestAddress = request.tokenAddresses[i];
       expect(EvmAddress.equals(tokenAddress, requestAddress)).toBeTruthy();
     }
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
   });
 });

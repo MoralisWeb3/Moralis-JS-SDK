@@ -21,6 +21,11 @@ export interface GetMoralisAuthOptions {
   regionOrCustomDomain?: string;
 
   /**
+   * @description Own instance of the `Auth` class.
+   */
+  auth?: Auth;
+
+  /**
    * @description Own instance of the `Functions` class.
    */
   functions?: Functions;
@@ -33,7 +38,7 @@ export function getMoralisAuth(app: FirebaseApp, options?: GetMoralisAuthOptions
 
   return {
     functionNamePrefix: options?.functionNamePrefix ?? 'ext-moralis-auth-',
-    auth: getAuth(app),
+    auth: options?.auth ?? getAuth(app),
     functions: options?.functions ?? getFunctions(app, options?.regionOrCustomDomain),
   };
 }
