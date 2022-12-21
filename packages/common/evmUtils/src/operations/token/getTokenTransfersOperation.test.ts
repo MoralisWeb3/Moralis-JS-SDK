@@ -18,7 +18,6 @@ describe('getTokenTransfersOperation', () => {
     const request: Required<GetTokenTransfersRequest> = {
       address: EvmAddress.create(address, core),
       chain: EvmChain.create(chain, core),
-      subdomain: 'my-domain.com',
       fromBlock: 10,
       toBlock: 20,
       fromDate: new Date(fromDate),
@@ -31,7 +30,6 @@ describe('getTokenTransfersOperation', () => {
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.fromDate).toBe(request.fromDate);
@@ -43,7 +41,6 @@ describe('getTokenTransfersOperation', () => {
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect(deserializedRequest.fromDate).toBe(request.fromDate);

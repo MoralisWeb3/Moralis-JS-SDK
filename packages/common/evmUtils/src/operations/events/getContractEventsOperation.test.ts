@@ -30,19 +30,15 @@ describe('getContractEventsOperation', () => {
       toDate: new Date(toDate),
       fromDate: new Date(fromDate),
       address: EvmAddress.create(address, core),
-      subdomain: 'subdomain',
       limit: 100,
       offset: 0,
       topic: 'topic0',
-      providerUrl: 'https://provider.com/url',
     };
 
     const serializedRequest = getContractEventsOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.offset).toBe(request.offset);
     expect(serializedRequest.topic).toBe(request.topic);
@@ -58,8 +54,6 @@ describe('getContractEventsOperation', () => {
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect((deserializedRequest.fromDate as Date | undefined)?.toISOString()).toBe(fromDate);
     expect((deserializedRequest.toDate as Date | undefined)?.toISOString()).toBe(toDate);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.offset).toBe(request.offset);
     expect(deserializedRequest.topic).toBe(request.topic);

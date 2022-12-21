@@ -92,6 +92,6 @@
     "@moralisweb3/evm-api": "^2.10.1",
     "@moralisweb3/sol-api": "^2.10.1",
     "@moralisweb3/streams": "^2.10.1",
-    "@moralisweb3/streams-typings": "^1.0.5"
+    "@moralisweb3/streams-typings": "^1.0.6"
   }
 }

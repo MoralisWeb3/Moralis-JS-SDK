@@ -50,7 +50,7 @@ export const getTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/erc20/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'offset', 'limit'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'offset', 'limit'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -64,7 +64,6 @@ export const getTokenTransfersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -96,7 +95,6 @@ function deserializeResponse(
 function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
@@ -110,7 +108,6 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Core): GetTokenTransfersRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,

@@ -51,18 +51,7 @@ export const getContractEventsOperation: PaginatedOperation<
   groupName: 'events',
   urlPathPattern: '/{address}/events',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: [
-    'chain',
-    'subdomain',
-    'providerUrl',
-    'fromBlock',
-    'toBlock',
-    'fromDate',
-    'toDate',
-    'topic',
-    'offset',
-    'limit',
-  ],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'topic', 'offset', 'limit'],
   bodyParamNames: ['abi'],
   bodyType: 'raw',
   firstPageIndex: 0,
@@ -79,8 +68,6 @@ export const getContractEventsOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
-    providerUrl: request.providerUrl,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -124,8 +111,6 @@ function deserializeResponse(
 function serializeRequest(request: GetContractEventsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
-    providerUrl: request.providerUrl,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -141,8 +126,6 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Core): GetContractEventsRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
-    providerUrl: jsonRequest.providerUrl,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
