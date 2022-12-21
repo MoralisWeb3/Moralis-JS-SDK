@@ -9275,6 +9275,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cors@npm:^2.8.13":
+  version: 2.8.13
+  resolution: "@types/cors@npm:2.8.13"
+  dependencies:
+    "@types/node": "*"
+  checksum: 7ef197ea19d2e5bf1313b8416baa6f3fd6dd887fd70191da1f804f557395357dafd8bc8bed0ac60686923406489262a7c8a525b55748f7b2b8afa686700de907
+  languageName: node
+  linkType: hard
+
 "@types/debug@npm:^4.1.7":
   version: 4.1.7
   resolution: "@types/debug@npm:4.1.7"
@@ -15507,10 +15516,12 @@ __metadata:
     "@moralisweb3/common-core": ^2.10.1
     "@moralisweb3/eslint-config": ^1.0.1
     "@moralisweb3/parse-server": 2.10.1
+    "@types/cors": ^2.8.13
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
     "@typescript-eslint/parser": ^5.45.1
     axios: ^1.2.1
+    cors: ^2.8.5
     dotenv: ^16.0.1
     envalid: 7.3.1
     eslint: ^8.29.0
@@ -15537,9 +15548,11 @@ __metadata:
     "@codemirror/language": ^0.20.0
     "@moralisweb3/common-core": ^2.10.1
     "@moralisweb3/eslint-config": ^1.0.1
+    "@types/cors": ^2.8.13
     "@types/node": ^18.11.11
     "@typescript-eslint/eslint-plugin": ^5.45.1
     "@typescript-eslint/parser": ^5.45.1
+    cors: ^2.8.5
     dotenv: ^16.0.1
     envalid: 7.3.1
     eslint: ^8.29.0
