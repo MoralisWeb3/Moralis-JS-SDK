@@ -50,7 +50,6 @@ export const getMultipleNFTsOperation: Operation<
   id: 'getMultipleNFTs',
   groupName: 'nft',
   urlPathPattern: '/nft/getMultipleNFTs',
-  urlPathParamNames: [],
   urlSearchParamNames: ['chain'],
   bodyType: 'properties',
   bodyParamNames: ['tokens', 'normalizeMetadata'],
