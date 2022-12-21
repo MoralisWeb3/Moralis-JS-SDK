@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-evm-utils",
   "author": "Moralis",
-  "version": "2.10.1",
+  "version": "2.10.2",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -36,6 +36,6 @@
     "@ethersproject/address": "^5.7.0",
     "@ethersproject/bytes": "^5.6.0",
     "@ethersproject/transactions": "^5.6.0",
-    "@moralisweb3/common-core": "^2.10.1"
+    "@moralisweb3/common-core": "^2.10.2"
   }
 }
