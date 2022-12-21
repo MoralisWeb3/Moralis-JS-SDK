@@ -5,6 +5,7 @@ import { getContractEventsOperation, getContractLogsOperation } from './events';
 import { uploadFolderOperation } from './ipfs';
 import {
   getContractNFTsOperation,
+  getMultipleNFTsOperation,
   getNFTContractMetadataOperation,
   getNFTContractTransfersOperation,
   getNFTLowestPriceOperation,
@@ -47,6 +48,7 @@ export const operations = [
   getContractLogsOperation,
   getContractNFTsOperation,
   getDateToBlockOperation,
+  getMultipleNFTsOperation,
   getNativeBalanceOperation,
   getNFTContractMetadataOperation,
   getNFTContractTransfersOperation,

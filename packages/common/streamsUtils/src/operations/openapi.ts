@@ -293,6 +293,17 @@ export interface components {
      * @enum {string}
      */
     StreamsStatus: "active" | "paused" | "error" | "terminated";
+    getNativeBalances: {
+      selectors: string[];
+      /** @enum {string} */
+      type:
+        | "tx"
+        | "log"
+        | "erc20transfer"
+        | "erc20approval"
+        | "nfttransfer"
+        | "internalTx";
+    };
     /**
      * @description The filter object for the topic0
      * https://docs.moralis.io/docs/filter-streams
@@ -332,6 +343,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
@@ -375,6 +388,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
@@ -407,6 +422,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
@@ -434,6 +451,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */

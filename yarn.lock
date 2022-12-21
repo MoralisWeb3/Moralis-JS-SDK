@@ -7145,9 +7145,10 @@ __metadata:
     "@moralisweb3/common-evm-utils": ^2.10.1
     "@moralisweb3/common-sol-utils": ^2.10.1
     "@moralisweb3/eslint-config": ^1.0.1
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
     eslint: ^8.29.0
     jest: 29.3.1
+    openapi-typescript: ^5.2.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7205,9 +7206,10 @@ __metadata:
     "@moralisweb3/common-core": ^2.10.1
     "@moralisweb3/common-evm-utils": ^2.10.1
     "@moralisweb3/eslint-config": ^1.0.1
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
     eslint: ^8.29.0
     jest: 29.3.1
+    openapi-typescript: ^5.2.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7284,7 +7286,7 @@ __metadata:
     "@moralisweb3/api-utils": ^2.10.1
     "@moralisweb3/common-core": ^2.10.1
     "@moralisweb3/streams": ^2.10.1
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
     "@types/express": 4.17.14
     "@types/parse": ^2.18.18
     body-parser: ^1.20.0
@@ -7317,10 +7319,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/streams-typings@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@moralisweb3/streams-typings@npm:1.0.5"
-  checksum: 119c67bac5a71c6f7645b1bc01da9fd18a1bad218fd2623eb88d9f87f6d48ca7a6210c9b42b873256847fd337c0f16966dde8c2f4a6c5ab8d26b48a9e121fd92
+"@moralisweb3/streams-typings@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@moralisweb3/streams-typings@npm:1.0.6"
+  checksum: aec1c9a1bf30e2cf6443f4124b30d74e3338a209114343e490eea6bb3388c4dfba0d16e0f49631157025997ff03122048ce0ff430bad9098af174d2399b0daf4
   languageName: node
   linkType: hard
 
@@ -7333,7 +7335,7 @@ __metadata:
     "@moralisweb3/common-core": ^2.10.1
     "@moralisweb3/common-evm-utils": ^2.10.1
     "@moralisweb3/common-streams-utils": ^2.10.1
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
     "@moralisweb3/test-utils": 2.10.1
     "@types/ethereumjs-util": 5.2.0
     ethereumjs-util: ^7.1.0
@@ -24869,7 +24871,7 @@ __metadata:
     "@moralisweb3/evm-api": ^2.10.1
     "@moralisweb3/sol-api": ^2.10.1
     "@moralisweb3/streams": ^2.10.1
-    "@moralisweb3/streams-typings": ^1.0.5
+    "@moralisweb3/streams-typings": ^1.0.6
   languageName: unknown
   linkType: soft
 

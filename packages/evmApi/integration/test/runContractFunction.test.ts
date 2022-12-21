@@ -34,10 +34,8 @@ describe('runContractFunction', () => {
       address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       functionName: 'name',
       chain: 0x1,
-      subdomain: 'foo.com',
       abi: ABI,
       params: {},
-      providerUrl: 'https://url',
     });
 
     expect(result).toBeDefined();

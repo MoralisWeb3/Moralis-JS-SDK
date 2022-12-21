@@ -40,7 +40,7 @@ export const getTransactionOperation: Operation<
   isNullable: true,
   urlPathPattern: '/transaction/{transactionHash}',
   urlPathParamNames: ['transactionHash'],
-  urlSearchParamNames: ['chain', 'subdomain'],
+  urlSearchParamNames: ['chain'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -51,7 +51,6 @@ export const getTransactionOperation: Operation<
 function getRequestUrlParams(request: GetTransactionRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     transactionHash: request.transactionHash,
   };
 }
@@ -59,7 +58,6 @@ function getRequestUrlParams(request: GetTransactionRequest, core: Core) {
 function serializeRequest(request: GetTransactionRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     transactionHash: request.transactionHash,
   };
 }
@@ -67,7 +65,6 @@ function serializeRequest(request: GetTransactionRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetTransactionJSONRequest, core: Core): GetTransactionRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     transactionHash: jsonRequest.transactionHash,
   };
 }
