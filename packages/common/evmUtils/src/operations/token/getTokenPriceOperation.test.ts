@@ -16,7 +16,6 @@ describe('getTokenPriceOperation', () => {
     const request: Required<GetTokenPriceRequest> = {
       address: EvmAddress.create(address, core),
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://provider.com/url',
       exchange: 'pancakeswapv2',
       toBlock: 20,
     };
@@ -25,7 +24,6 @@ describe('getTokenPriceOperation', () => {
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.exchange).toBe(request.exchange);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
 
@@ -33,7 +31,6 @@ describe('getTokenPriceOperation', () => {
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
     expect(deserializedRequest.exchange).toBe(request.exchange);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
   });

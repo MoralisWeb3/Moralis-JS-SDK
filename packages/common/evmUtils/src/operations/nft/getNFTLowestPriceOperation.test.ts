@@ -15,7 +15,6 @@ describe('getNftLowestPriceOperation', () => {
 
     const request: Required<GetNFTLowestPriceRequest> = {
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://provider.com/url',
       address: EvmAddress.create(address, core),
       days: 7,
       marketplace: 'opensea',
@@ -25,7 +24,6 @@ describe('getNftLowestPriceOperation', () => {
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.days).toBe(request.days);
     expect(serializedRequest.marketplace).toBe(request.marketplace);
 
@@ -33,7 +31,6 @@ describe('getNftLowestPriceOperation', () => {
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
     expect(deserializedRequest.days).toBe(request.days);
     expect(deserializedRequest.marketplace).toBe(request.marketplace);
   });
