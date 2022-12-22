@@ -1,0 +1,20 @@
+import { Router } from 'express';
+import { 
+{{#each resolvers}}
+  {{ this.name }},
+{{/each}}
+} from './resolvers';
+
+export class {{ name }} {
+
+  static get Router() {
+
+    const router = Router();
+
+  {{#each resolvers}}
+    router.{{ this.method }}('{{ this.urlPath }}', {{ this.name }})
+  {{/each}}
+  
+    return router;
+  }
+}

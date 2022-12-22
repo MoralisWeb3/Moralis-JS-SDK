@@ -6575,6 +6575,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@moralisweb3/code-generator@workspace:packages/code-generator":
+  version: 0.0.0-use.local
+  resolution: "@moralisweb3/code-generator@workspace:packages/code-generator"
+  dependencies:
+    "@types/ejs": ^3.1.1
+    "@types/node": ^18.11.15
+    axios: ^1.2.1
+    chalk: ^5.0.1
+    copyfiles: ^2.4.1
+    fs-extra: ^10.1.0
+    handlebars: ^4.7.7
+    inquirer: ^8.0.0
+    lodash: ^4.17.21
+    ora: ^5.4.1
+    ts-node-dev: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
 "@moralisweb3/codegen@workspace:packages/codegen":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/codegen@workspace:packages/codegen"
@@ -8617,7 +8635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ejs@npm:3.1.1":
+"@types/ejs@npm:3.1.1, @types/ejs@npm:^3.1.1":
   version: 3.1.1
   resolution: "@types/ejs@npm:3.1.1"
   checksum: 12fa444920aaa70af2fae4424fa62b49c23b31a37129c428b7c9f9068e58c0696b4e5601b0449f87bae8794e039c679a43651c356c34f17d1bb460456dd41441
@@ -13520,7 +13538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copyfiles@npm:2.4.1":
+"copyfiles@npm:2.4.1, copyfiles@npm:^2.4.1":
   version: 2.4.1
   resolution: "copyfiles@npm:2.4.1"
   dependencies:

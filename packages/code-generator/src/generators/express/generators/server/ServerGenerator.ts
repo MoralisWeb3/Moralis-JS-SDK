@@ -1,0 +1,137 @@
+import _ from 'lodash';
+import { AddActionConfig } from 'node-plop';
+import { GeneratedModule } from '../../utils/types';
+import { OperationAction, ModuleGenerator, packagesPath } from '../../../../utils';
+import path from 'path';
+import { CodeGenerator } from '../../../../code-generator/CodeGenerator';
+
+export class ServerGenerator {
+  public dirname = __dirname;
+  public packagesFolder = path.join(this.dirname, '../../../../..');
+  private relativePaths: string[] = [];
+
+  private moduleGenerator: ModuleGenerator;
+
+  private codeGenerator = new CodeGenerator();
+
+  constructor(public module: GeneratedModule, public blackListedOperations?: string[]) {
+    this.moduleGenerator = new ModuleGenerator(module, blackListedOperations);
+  }
+
+  private get routerName() {
+    return `${_.upperFirst(this.module)}Router`;
+  }
+
+  private urlPathPatternToExpressPath = (urlPathPattern: string) => {
+    return urlPathPattern.replaceAll(/\{/g, ':').replaceAll(/\}/g, '');
+  };
+
+  private getResolverName(operationName: string) {
+    return `${this.module.replace('Api', '')}${_.upperFirst(operationName)}Resolver`;
+  }
+
+  private addResolver(operation: OperationAction) {
+    const resolverName = this.getResolverName(operation.name);
+    const relativePath = `${operation.groupName}/${resolverName}`;
+    this.relativePaths.push(relativePath);
+
+    let reqIdentifier: 'query' | 'body';
+    switch (operation.method) {
+      case 'GET':
+        reqIdentifier = 'query';
+        break;
+      case 'POST':
+      case 'DELETE':
+      case 'PUT':
+        reqIdentifier = 'body';
+    }
+
+    return {
+      type: 'add',
+      templateFile: path.join(this.dirname, 'templates/resolver.ts.hbs'),
+      path: path.join(packagesPath, `express/src/routers/${this.module}/generated/resolvers/{{ relativePath }}.ts`),
+      data: {
+        names: {
+          resolver: resolverName,
+          operation: `${operation.name}Operation`,
+          jsonRequest: `${_.upperFirst(operation.name)}JSONRequest`,
+          commonUtils: this.moduleGenerator.operationsPackageName,
+          reqIdentifier,
+          module: _.upperFirst(this.module),
+        },
+        params: operation.urlPathParamNames,
+        body: operation.bodyParamNames,
+        query: operation.urlSearchParamNames,
+        hasParams: Boolean(
+          operation.urlPathParamNames?.length ||
+            operation.bodyParamNames?.length ||
+            operation.urlSearchParamNames?.length,
+        ),
+        relativePath,
+        url: `${this.module}/${operation.name}`,
+      },
+      force: true,
+    };
+  }
+
+  private get addResolvers() {
+    return this.moduleGenerator.operations.map((operation) => this.addResolver(operation as OperationAction));
+  }
+
+  private get addResolverExports(): AddActionConfig {
+    return {
+      type: 'add',
+      templateFile: path.join(this.dirname, `templates/index.ts.hbs`),
+      data: { relativePaths: this.relativePaths },
+      path: path.join(packagesPath, `express/src/routers/${this.module}/generated/resolvers/index.ts`),
+      force: true,
+    };
+  }
+
+  private get addRouterExports(): AddActionConfig {
+    return {
+      type: 'add',
+      templateFile: path.join(this.dirname, `templates/router/index.ts.hbs`),
+      data: { routerName: this.routerName },
+      path: path.join(packagesPath, `express/src/routers/${this.module}/index.ts`),
+      force: true,
+    };
+  }
+
+  private addRouter() {
+    return this.codeGenerator.addFile({
+      targetPath: path.join(__dirname, `kek.ts`),
+      templatePath: path.join(this.dirname, `templates/router.ts.hbs`),
+      data: {
+        name: `${_.upperFirst(this.module)}Router`,
+        resolvers: this.moduleGenerator.operations.map((operation) => {
+          return {
+            name: this.getResolverName(operation.name),
+            method: _.lowerCase(operation.method),
+            urlPath: this.urlPathPatternToExpressPath(operation.urlPathPattern),
+          };
+        }),
+      },
+    });
+    // return {
+    //   type: 'add',
+    //   templateFile: path.join(this.dirname, `templates/router.ts.hbs`),
+    // data: {
+    //   name: `${_.upperFirst(this.module)}Router`,
+    //   resolvers: this.moduleGenerator.operations.map((operation) => {
+    //     return {
+    //       name: this.getResolverName(operation.name),
+    //       method: _.lowerCase(operation.method),
+    //       urlPath: this.urlPathPatternToExpressPath(operation.urlPathPattern),
+    //     };
+    //   }),
+    // },
+    //   path: path.join(packagesPath, `express/src/routers/${this.module}/generated/${this.routerName}.ts`),
+    //   force: true,
+    // };
+  }
+
+  public get actions() {
+    return this.addRouter();
+  }
+}
