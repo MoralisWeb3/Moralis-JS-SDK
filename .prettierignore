@@ -12,7 +12,6 @@ packages/**/generated/**/*
 **/generated/**/*
 packages/core/src/version.ts
 **/src/operations/openapi.ts
-!packages/express/src/**/generated/**/*
 
 node_modules
 
