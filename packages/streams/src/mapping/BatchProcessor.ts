@@ -10,18 +10,27 @@ import { TxsProcessor } from './txs-processor';
 
 export class BatchProcessor {
   public static create(): BatchProcessor {
-    return new BatchProcessor(new CollectionNameBuilder());
+    const nameBuilder = new CollectionNameBuilder();
+    return new BatchProcessor(
+      new Erc20ApprovalsProcessor(nameBuilder),
+      new Erc20TransfersProcessor(nameBuilder),
+      new InternalTxsProcessor(nameBuilder),
+      new LogsProcessor(nameBuilder),
+      new NftApprovalsProcessor(nameBuilder),
+      new NftTransfersProcessor(nameBuilder),
+      new TxsProcessor(nameBuilder),
+    );
   }
 
-  private readonly erc20ApprovalsProcessor = new Erc20ApprovalsProcessor(this.collectionNameBuilder);
-  private readonly erc20TransfersProcessor = new Erc20TransfersProcessor(this.collectionNameBuilder);
-  private readonly internalTxsProcessor = new InternalTxsProcessor(this.collectionNameBuilder);
-  private readonly logsProcessor = new LogsProcessor(this.collectionNameBuilder);
-  private readonly nftApprovalsProcessor = new NftApprovalsProcessor(this.collectionNameBuilder);
-  private readonly nftTransfersProcessor = new NftTransfersProcessor(this.collectionNameBuilder);
-  private readonly txsProcessor = new TxsProcessor(this.collectionNameBuilder);
-
-  private constructor(private readonly collectionNameBuilder: CollectionNameBuilder) {}
+  private constructor(
+    private readonly erc20ApprovalsProcessor: Erc20ApprovalsProcessor,
+    private readonly erc20TransfersProcessor: Erc20TransfersProcessor,
+    private readonly internalTxsProcessor: InternalTxsProcessor,
+    private readonly logsProcessor: LogsProcessor,
+    private readonly nftApprovalsProcessor: NftApprovalsProcessor,
+    private readonly nftTransfersProcessor: NftTransfersProcessor,
+    private readonly txsProcessor: TxsProcessor,
+  ) {}
 
   public process(batch: IWebhook) {
     return {
