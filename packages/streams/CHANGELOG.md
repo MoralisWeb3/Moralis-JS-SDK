@@ -1,5 +1,17 @@
 # @moralisweb3/streams
 
+## 2.10.3
+
+### Patch Changes
+
+- [#916](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/916) [`744d12930`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/744d12930b37fe7448e25e62a42dc1b44a2d816b) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added support for `erc20Approvals`, `erc20Transfers`, `nftTokenApprovals` and `nftTransfers` to the mapper.
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.10.3
+  - @moralisweb3/common-core@2.10.3
+  - @moralisweb3/common-evm-utils@2.10.3
+  - @moralisweb3/common-streams-utils@2.10.3
+
 ## 2.10.2
 
 ### Patch Changes
