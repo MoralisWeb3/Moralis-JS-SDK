@@ -1,6 +1,7 @@
 import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
+import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
 
 async function reloadCurrentUser() {
@@ -50,6 +51,10 @@ async function authenticate(wallet: string) {
       await MoralisClient.EvmAuth.authenticate('walletConnect');
       break;
 
+    case 'magicLink':
+      await MoralisClient.EvmAuth.authenticate('magicLink');
+      break;
+
     case 'phantom':
       await MoralisClient.SolAuth.authenticate();
       break;
@@ -64,6 +69,10 @@ async function connect(action: string) {
 
     case 'walletConnect':
       await MoralisClient.EvmAuth.connect('walletConnect');
+      break;
+
+    case 'magicLink':
+      await MoralisClient.EvmAuth.connect('magicLink');
       break;
 
     case 'phantom':
@@ -117,6 +126,7 @@ async function init() {
             1: 'https://replace_me/',
           },
         }),
+        MagicLinkEvmConnector.create('MAGIC_CONNECT_PUBLISHABLE_API_KEY'),
       ],
     },
   });
