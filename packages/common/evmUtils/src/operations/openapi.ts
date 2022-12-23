@@ -14,6 +14,15 @@ export interface paths {
      */
     get: operations["getWalletNFTs"];
   };
+  "/nft/getMultipleNFTs": {
+    /**
+     * Returns an array of NFTs specified in the request.
+     * * Note that results will include all indexed NFTs
+     * * Any request that includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
+     * * Only 25 NFTs can be fetched in one API call.
+     */
+    post: operations["getMultipleNFTs"];
+  };
   "/{address}/nft/transfers": {
     /** Get transfers of NFTs given the wallet and other parameters. */
     get: operations["getWalletNFTTransfers"];
@@ -173,11 +182,11 @@ export interface paths {
     get: operations["endpointWeights"];
   };
   "/resolve/{address}/reverse": {
-    /** Resolve an ETH address and find the ENS name. */
+    /** Reverse resolve a given ETH address to its ENS domain. */
     get: operations["resolveAddress"];
   };
   "/resolve/{domain}": {
-    /** Resolve an Unstoppable domain and get the address. */
+    /** Resolve a specific Unstoppable domain to its address. */
     get: operations["resolveDomain"];
   };
   "/{pair_address}/reserves": {
@@ -533,6 +542,43 @@ export interface components {
        * @example {}
        */
       params?: { [key: string]: unknown };
+    };
+    tokenItem: {
+      /**
+       * @description The contract address
+       * @example 0x06012c8cf97bead5deae237070f9587f8e7a266d
+       */
+      token_address?: string;
+      /**
+       * @description The id of the token
+       * @example 100
+       */
+      token_id?: string;
+    };
+    GetMultipleNftsDto: {
+      /**
+       * @description The tokens to be fetched (max 25 tokens)
+       * @example [
+       *   {
+       *     "token_address": "0xa4991609c508b6d4fb7156426db0bd49fe298bd8",
+       *     "token_id": "12"
+       *   },
+       *   {
+       *     "token_address": "0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7",
+       *     "token_id": "1"
+       *   },
+       *   {
+       *     "token_address": "0x3c64dc415ebb4690d1df2b6216148c8de6dd29f7",
+       *     "token_id": "200"
+       *   }
+       * ]
+       */
+      tokens: components["schemas"]["tokenItem"][];
+      /**
+       * @description Should normalized metadata be returned?
+       * @example false
+       */
+      normalizeMetadata?: boolean;
     };
     transactionCollection: {
       /**
@@ -1689,6 +1735,34 @@ export interface operations {
       };
     };
   };
+  /**
+   * Returns an array of NFTs specified in the request.
+   * * Note that results will include all indexed NFTs
+   * * Any request that includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
+   * * Only 25 NFTs can be fetched in one API call.
+   */
+  getMultipleNFTs: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+    };
+    responses: {
+      /** Returns a collection of NFT owners */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftOwner"][];
+        };
+      };
+    };
+    /** Body */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["GetMultipleNftsDto"];
+      };
+    };
+  };
   /** Get transfers of NFTs given the wallet and other parameters. */
   getWalletNFTTransfers: {
     parameters: {
@@ -1826,6 +1900,30 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
+        /**
+         * The minimum block number from where to get the transfers
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_block?: number;
+        /**
+         * The maximum block number from where to get the transfers.
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_block?: number;
+        /**
+         * The date from where to get the transfers (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get transfers up until this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: string;
         /** The format of the token ID */
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
@@ -1900,8 +1998,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /** The desired page size of the result. */
         limit?: number;
         /** The cursor returned in the previous response (used for getting the next page). */
@@ -1947,8 +2043,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** The web3 provider URL to use when using local dev chain */
-        provider_url?: string;
         /** Marketplace from which to get the trades (only OpenSea is supported at the moment) */
         marketplace?: "opensea";
         /** The cursor returned in the previous response (used for getting the next page). */
@@ -2117,7 +2211,7 @@ export interface operations {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
         /** The type of resync to operate */
-        flag?: "URI" | "metadata";
+        flag?: "uri" | "metadata";
         /** To define the behaviour of the endpoint */
         mode?: "async" | "sync";
       };
@@ -2160,8 +2254,6 @@ export interface operations {
          * If not provided 7 days will be the default
          */
         days?: number;
-        /** The web3 provider URL to use when using local dev chain */
-        provider_url?: string;
         /** Marketplace from which to get the trades (only OpenSea is supported at the moment) */
         marketplace?: "opensea";
       };
@@ -2246,8 +2338,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** The factory name or address of the token exchange */
         exchange?: string;
         /** The block number from which the token price should be checked */
@@ -2273,8 +2363,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /** The block number from which the balances should be checked */
         to_block?: number;
         /** The addresses to get balances for (optional) */
@@ -2300,8 +2388,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /**
          * The minimum block number from which to get the transactions
          * * Provide the param 'from_block' or 'from_date'
@@ -2351,10 +2437,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** The addresses to get metadata for */
         addresses: string[];
       };
@@ -2374,8 +2456,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /** The symbols to get metadata for */
         symbols: string[];
       };
@@ -2395,8 +2475,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** The address of the token owner */
         owner_address: string;
         /** The address of the token spender */
@@ -2422,8 +2500,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /**
          * The minimum block number from which to get the transfers
          * * Provide the param 'from_block' or 'from_date'
@@ -2473,8 +2549,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** The block number from which the balances should be checked */
         to_block?: number;
       };
@@ -2498,8 +2572,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /**
          * The minimum block number from which to get the transactions
          * * Provide the param 'from_block' or 'from_date'
@@ -2549,8 +2621,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /**
          * The minimum block number from which to get the transactions
          * * Provide the param 'from_block' or 'from_date'
@@ -2600,8 +2670,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
       };
       path: {
         /** The transaction hash */
@@ -2623,8 +2691,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
       };
       path: {
         /** The block number or block hash */
@@ -2646,8 +2712,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** Unix date in milliseconds or a datestring (any format that is accepted by momentjs) */
         date: string;
       };
@@ -2667,8 +2731,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
         /**
          * The block number
          * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
@@ -2734,10 +2796,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /**
          * The minimum block number from which to get the logs
          * * Provide the param 'from_block' or 'from_date'
@@ -2812,10 +2870,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The subdomain of the Moralis server to use (only use when selecting local devchain as chain) */
-        subdomain?: string;
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** The function name of the contract */
         function_name: string;
       };
@@ -2861,7 +2915,7 @@ export interface operations {
       };
     };
   };
-  /** Resolve an ETH address and find the ENS name. */
+  /** Reverse resolve a given ETH address to its ENS domain. */
   resolveAddress: {
     parameters: {
       path: {
@@ -2878,7 +2932,7 @@ export interface operations {
       };
     };
   };
-  /** Resolve an Unstoppable domain and get the address. */
+  /** Resolve a specific Unstoppable domain to its address. */
   resolveDomain: {
     parameters: {
       query: {
@@ -2919,8 +2973,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** The web3 provider URL to use when using local dev chain */
-        provider_url?: string;
       };
       path: {
         /** The liquidity pair address */

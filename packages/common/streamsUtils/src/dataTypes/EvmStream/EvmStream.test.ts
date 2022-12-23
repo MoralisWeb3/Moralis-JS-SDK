@@ -68,6 +68,7 @@ describe('EvmStream', () => {
         includeContractLogs: false,
         includeInternalTxs: false,
         includeNativeTxs: false,
+        getNativeBalances: undefined,
         status: 'active',
         statusMessage: 'Stream is active',
         tag: 'tag',
@@ -103,6 +104,7 @@ describe('EvmStream', () => {
         tag: 'tag',
         topic0: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'],
         webhookUrl: 'https://webhook.site/c76c6361-960d-4600-8498-9fecba8abb5f',
+        getNativeBalances: undefined,
         triggers: [
           {
             type: 'erc20transfer',
@@ -113,6 +115,95 @@ describe('EvmStream', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('Advanced options', () => {
+    const input = mockEvmStream.ADVANCED_OPTIONS;
+    let stream: EvmStream;
+
+    beforeAll(() => {
+      stream = EvmStream.create(input, core);
+    });
+
+    it('should return correct values advancedOptions getter', () => {
+      expect(stream.advancedOptions).toStrictEqual([
+        {
+          topic0: 'Transfer(address,address,uint256)',
+          filter: {
+            eq: ['tokenId', '1'],
+          },
+          includeNativeTxs: true,
+        },
+      ]);
+    });
+
+    it('should parse the values to JSON correctly', () => {
+      const json = stream.toJSON();
+
+      expect(json.advancedOptions).toStrictEqual([
+        {
+          topic0: 'Transfer(address,address,uint256)',
+          filter: {
+            eq: ['tokenId', '1'],
+          },
+          includeNativeTxs: true,
+        },
+      ]);
+    });
+
+    it('should parse the values to a JSON on format() correctly', () => {
+      const json = stream.format();
+
+      expect(json.advancedOptions).toStrictEqual([
+        {
+          topic0: 'Transfer(address,address,uint256)',
+          filter: {
+            eq: ['tokenId', '1'],
+          },
+          includeNativeTxs: true,
+        },
+      ]);
+    });
+  });
+
+  describe('GetNativeBalances', () => {
+    const input = mockEvmStream.GET_NATIVE_BALANCES;
+    let stream: EvmStream;
+
+    beforeAll(() => {
+      stream = EvmStream.create(input, core);
+    });
+
+    it('should return correct values for getNativeBalances getter', () => {
+      expect(stream.getNativeBalances).toStrictEqual([
+        {
+          selectors: ['$fromAddress', '$toAddress'],
+          type: 'tx',
+        },
+      ]);
+    });
+
+    it('should parse the values to JSON correctly', () => {
+      const json = stream.toJSON();
+
+      expect(json.getNativeBalances).toStrictEqual([
+        {
+          selectors: ['$fromAddress', '$toAddress'],
+          type: 'tx',
+        },
+      ]);
+    });
+
+    it('should parse the values to a JSON on format() correctly', () => {
+      const json = stream.format();
+
+      expect(json.getNativeBalances).toStrictEqual([
+        {
+          selectors: ['$fromAddress', '$toAddress'],
+          type: 'tx',
+        },
+      ]);
     });
   });
 

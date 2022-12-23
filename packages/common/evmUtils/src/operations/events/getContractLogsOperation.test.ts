@@ -22,7 +22,6 @@ describe('getContractLogsOperation', () => {
       toDate: new Date(toDate),
       fromDate: new Date(fromDate),
       address: EvmAddress.create(address, core),
-      subdomain: 'subdomain',
       limit: 100,
       topic0: 'topic0',
       topic1: 'topic1',
@@ -37,7 +36,6 @@ describe('getContractLogsOperation', () => {
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.blockNumber).toBe(request.blockNumber);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.topic0).toBe(request.topic0);
     expect(serializedRequest.topic1).toBe(request.topic1);
@@ -56,8 +54,6 @@ describe('getContractLogsOperation', () => {
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect((deserializedRequest.fromDate as Date | undefined)?.toISOString()).toBe(fromDate);
     expect((deserializedRequest.toDate as Date | undefined)?.toISOString()).toBe(toDate);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.topic0).toBe(request.topic0);

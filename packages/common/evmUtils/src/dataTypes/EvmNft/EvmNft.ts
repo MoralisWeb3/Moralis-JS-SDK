@@ -323,4 +323,15 @@ export class EvmNft implements MoralisDataObject {
   get amount() {
     return this._data.amount;
   }
+
+  /**
+   * @returns the token id
+   * @example
+   * ```
+   * nft.tokenId // '1234'
+   * ```
+   */
+  get tokenId() {
+    return this._data.tokenId;
+  }
 }

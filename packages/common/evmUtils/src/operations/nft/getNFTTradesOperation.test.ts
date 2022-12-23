@@ -17,7 +17,6 @@ describe('getNFTTradesOperation', () => {
 
     const request: Required<GetNFTTradesRequest> = {
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://provider.com/url',
       address: EvmAddress.create(address, core),
       marketplace: 'opensea',
       fromBlock: 10,
@@ -32,7 +31,6 @@ describe('getNFTTradesOperation', () => {
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.marketplace).toBe(request.marketplace);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
@@ -45,7 +43,6 @@ describe('getNFTTradesOperation', () => {
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
     expect(deserializedRequest.marketplace).toBe(request.marketplace);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);

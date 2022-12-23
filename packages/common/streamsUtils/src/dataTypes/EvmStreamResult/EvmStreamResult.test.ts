@@ -62,6 +62,7 @@ describe('EvmStreamResult', () => {
       txsInternal: [],
       streamId: '',
       tag: '',
+      nativeBalances: [],
     });
   });
 

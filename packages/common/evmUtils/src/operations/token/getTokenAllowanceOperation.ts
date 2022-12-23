@@ -43,7 +43,7 @@ export const getTokenAllowanceOperation: Operation<
   groupName: 'token',
   urlPathPattern: '/erc20/{address}/allowance',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'providerUrl', 'ownerAddress', 'spenderAddress'],
+  urlSearchParamNames: ['chain', 'ownerAddress', 'spenderAddress'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -56,7 +56,6 @@ export const getTokenAllowanceOperation: Operation<
 function getRequestUrlParams(request: GetTokenAllowanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    providerUrl: request.providerUrl,
     owner_address: EvmAddress.create(request.ownerAddress, core).lowercase,
     spender_address: EvmAddress.create(request.spenderAddress, core).lowercase,
     address: EvmAddress.create(request.address, core).lowercase,
@@ -72,7 +71,6 @@ function deserializeResponse(jsonResponse: GetTokenAllowanceJSONResponse) {
 function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    providerUrl: request.providerUrl,
     ownerAddress: EvmAddress.create(request.ownerAddress, core).checksum,
     spenderAddress: EvmAddress.create(request.spenderAddress, core).checksum,
     address: EvmAddress.create(request.address, core).checksum,
@@ -82,7 +80,6 @@ function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetTokenAllowanceJSONRequest, core: Core): GetTokenAllowanceRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    providerUrl: jsonRequest.providerUrl,
     ownerAddress: EvmAddress.create(jsonRequest.ownerAddress, core),
     spenderAddress: EvmAddress.create(jsonRequest.spenderAddress, core),
     address: EvmAddress.create(jsonRequest.address, core),
