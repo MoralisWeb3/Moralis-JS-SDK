@@ -1,10 +1,10 @@
 import { Block, Log } from '@moralisweb3/streams-typings';
 
 import { ParsedLog } from './LogParser';
-import { LogDocumentId } from './LogDocumentId';
 import { LogDocumentValueFormatter } from './LogDocumentValueFormatter';
 import { ParamNameResolver } from './ParamNameResolver';
 import { Document } from '../storage/Update';
+import { LogRelatedId } from '../common/LogRelatedId';
 
 interface BaseLogDocument {
   id: string;
@@ -55,7 +55,7 @@ export class LogDocumentBuilder {
     const chain = Number(chainId);
 
     const document: LogDocument = {
-      id: LogDocumentId.create(chain, log.transactionHash, log.logIndex),
+      id: LogRelatedId.create(chain, log.transactionHash, log.logIndex),
       name: parsedLog.name,
       logIndex: parseInt(log.logIndex, 10),
       transactionHash: log.transactionHash,

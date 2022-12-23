@@ -1,7 +1,6 @@
 import { Block, Transaction } from '@moralisweb3/streams-typings';
+import { TxRelatedId } from '../common/TxRelatedId';
 import { Document } from '../storage/Update';
-
-import { TxDocumentId } from './TxDocumentId';
 
 export interface TxDocument extends Document {
   id: string;
@@ -29,7 +28,7 @@ export class TxDocumentBuilder {
   public static build(tx: Transaction, block: Block, confirmed: boolean, chainId: string): TxDocument {
     const chain = Number(chainId);
     return {
-      id: TxDocumentId.create(chain, tx.hash),
+      id: TxRelatedId.create(chain, tx.hash),
       hash: tx.hash,
       chainId: chain,
       transactionIndex: parseInt(tx.transactionIndex, 10),

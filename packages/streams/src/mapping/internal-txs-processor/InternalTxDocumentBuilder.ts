@@ -1,7 +1,6 @@
 import { Block, InternalTransaction } from '@moralisweb3/streams-typings';
+import { TxRelatedId } from '../common/TxRelatedId';
 import { Document } from '../storage/Update';
-
-import { InternalTxDocumentId } from './InternalTxDocumentId';
 
 export interface InternalTxDocument extends Document {
   id: string;
@@ -21,7 +20,7 @@ export class InternalTxDocumentBuilder {
   public static build(tx: InternalTransaction, block: Block, confirmed: boolean, chainId: string): InternalTxDocument {
     const chain = Number(chainId);
     return {
-      id: InternalTxDocumentId.create(chain, tx.transactionHash),
+      id: TxRelatedId.create(chain, tx.transactionHash),
       hash: tx.transactionHash,
       chainId: chain,
       from: tx.from as string,
