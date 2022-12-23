@@ -7770,7 +7770,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/eslint-config@workspace:packages/eslintConfig"
   dependencies:
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.26.0
@@ -10464,7 +10464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.12.0, @typescript-eslint/eslint-plugin@npm:^5.45.1, @typescript-eslint/eslint-plugin@npm:^5.5.0":
+"@typescript-eslint/eslint-plugin@npm:^5.47.0, @typescript-eslint/eslint-plugin@npm:^5.5.0":
   version: 5.47.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.47.0"
   dependencies:
@@ -15353,7 +15353,7 @@ __metadata:
   dependencies:
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/node": ^18.11.11
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     dotenv: ^16.0.1
     eslint: ^8.29.0
@@ -15374,7 +15374,7 @@ __metadata:
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
     "@types/node": ^18.11.11
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     cors: ^2.8.5
     dotenv: ^16.0.1
@@ -15397,7 +15397,7 @@ __metadata:
   dependencies:
     "@firebase/app-types": ^0.8.1
     "@moralisweb3/eslint-config": ^1.0.1
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
@@ -15472,7 +15472,7 @@ __metadata:
   dependencies:
     "@firebase/app-types": ^0.7.0
     "@moralisweb3/eslint-config": ^1.0.1
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
@@ -15492,7 +15492,7 @@ __metadata:
   dependencies:
     "@firebase/app-types": ^0.8.1
     "@moralisweb3/eslint-config": ^1.0.1
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
@@ -15513,7 +15513,7 @@ __metadata:
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
     "@types/node": 18.11.11
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     cors: ^2.8.5
     dotenv: ^16.0.1
@@ -15543,7 +15543,7 @@ __metadata:
     "@types/node": 18.11.11
     "@types/react": ^18.0.18
     "@types/react-dom": ^18.0.6
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": 5.45.1
     axios: ^1.2.1
     eslint: ^8.22.0
@@ -15570,7 +15570,7 @@ __metadata:
     "@moralisweb3/parse-server": 2.10.3
     "@types/cors": ^2.8.13
     "@types/node": ^18.11.11
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     axios: ^1.2.1
     cors: ^2.8.5
@@ -15602,7 +15602,7 @@ __metadata:
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/cors": ^2.8.13
     "@types/node": ^18.11.11
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     cors: ^2.8.5
     dotenv: ^16.0.1
@@ -15635,7 +15635,7 @@ __metadata:
     "@types/express": ^4.17.14
     "@types/jsonwebtoken": ^8.5.8
     "@types/node": ^18.11.11
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     cors: ^2.8.5
     dotenv: ^16.0.1
@@ -18927,7 +18927,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "functions@workspace:demos/firebase-streams-monitor/functions"
   dependencies:
-    "@typescript-eslint/eslint-plugin": ^5.12.0
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.12.0
     eslint: ^8.9.0
     eslint-config-google: ^0.14.0
@@ -24451,7 +24451,7 @@ __metadata:
     "@types/estree": ^1.0.0
     "@types/jest": ^29.2.4
     "@types/node": ^18.11.13
-    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.45.1
     archiver: ^5.3.1
     cross-env: ^7.0.3
