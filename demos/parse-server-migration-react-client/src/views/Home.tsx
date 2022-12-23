@@ -6,7 +6,7 @@ const Home = () => {
   const { data } = useMoralisCloudFunction('moralis', {
     moduleName: 'evmApi',
     operationName: 'getNativeBalance',
-    request: {
+    operationParams: {
       chain: '0x1',
       address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     },

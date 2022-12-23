@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { EvmApi } from '@moralisweb3/evm-api';
 import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
@@ -7,6 +8,7 @@ import { operations as authOperations } from '@moralisweb3/common-auth-utils';
 import { Auth } from '@moralisweb3/auth';
 import { SolApi } from '@moralisweb3/sol-api';
 import Moralis from 'moralis';
+import type { Cloud } from 'parse';
 
 type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
 
@@ -35,17 +37,23 @@ const modules: Module[] = [
 ];
 
 export class MoralisCloudResolver {
-  public static tryResolve(moduleName: string, operationName: string) {
+  public static async tryResolve<OperationRequest>(
+    request: Cloud.FunctionRequest<{
+      moduleName: string;
+      operationName: string;
+      operationParams: OperationRequest;
+    }>,
+  ) {
+    const { moduleName, operationName, operationParams } = request.params;
     const module = modules.find((mod) => mod.name === moduleName);
     if (!module) {
       return null;
     }
-
     const operation = module.operations.find((op) => op.name === operationName);
     if (!operation) {
       return null;
     }
 
-    return new OperationResolver(operation, module.baseUrl, Moralis.Core);
+    return new OperationResolver(operation, module.baseUrl, Moralis.Core).fetch(operationParams);
   }
 }

@@ -10059,6 +10059,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/parse@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@types/parse@npm:3.0.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 61af0199924bcd6534018023950f6725a73f532c98a7e1c9c9bb9a0141ec04fa1bd15fab465666eba5bdc6e7969da1707092f509ec8e011e8242ea4f38fd0944
+  languageName: node
+  linkType: hard
+
 "@types/pbkdf2@npm:^3.0.0":
   version: 3.1.0
   resolution: "@types/pbkdf2@npm:3.1.0"
@@ -25967,6 +25976,7 @@ __metadata:
     "@moralisweb3/parse-server": 2.10.2
     "@types/cors": ^2.8.13
     "@types/node": ^18.11.11
+    "@types/parse": ^3.0.1
     "@typescript-eslint/eslint-plugin": ^5.45.1
     "@typescript-eslint/parser": ^5.45.1
     axios: ^1.2.1
