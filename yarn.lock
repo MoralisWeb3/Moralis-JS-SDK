@@ -7631,7 +7631,6 @@ __metadata:
     "@babel/core": ^7.20.5
     "@babel/plugin-transform-react-jsx": ^7.19.0
     "@moralisweb3/client-evm-auth": ^2.9.0
-    "@walletconnect/types": 1.8.0
     "@walletconnect/web3-provider": ^1.8.0
     prettier: ^2.5.1
     typescript: ^4.9.3
@@ -10893,7 +10892,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/types@npm:1.8.0, @walletconnect/types@npm:^1.8.0, @walletconnect/types@npm:~1.8.0":
+"@walletconnect/types@npm:^1.8.0, @walletconnect/types@npm:~1.8.0":
   version: 1.8.0
   resolution: "@walletconnect/types@npm:1.8.0"
   checksum: 194d615888068030183489222641332987846aa5c6bcf0a62fa60ca7a282b9f94932c49fcd2b293a859e98624fe3e7a2d3c5fb66545fe30d3391e7ac91a99e34
