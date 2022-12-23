@@ -8505,6 +8505,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@parse/react-base@npm:^0.0.1-alpha.18":
+  version: 0.0.1-alpha.18
+  resolution: "@parse/react-base@npm:0.0.1-alpha.18"
+  dependencies:
+    tslib: 2.3.1
+  checksum: f1dd818a73b2ba3338abc190478d35158185bfd266d16f3f9ad0a940746d1506210570278a643bd819bab0895bc663aad5cf5525dead58e3c04e8aefae0887ee
+  languageName: node
+  linkType: hard
+
+"@parse/react@npm:^0.0.1-alpha.18":
+  version: 0.0.1-alpha.18
+  resolution: "@parse/react@npm:0.0.1-alpha.18"
+  dependencies:
+    "@parse/react-base": ^0.0.1-alpha.18
+  checksum: 87e4d87924afcddc6a4c16bab340f1965b30b52f0f0166bbbbc7877e7a87de1a790392ce814106416f4ce8c5ca5b7745d141a261ef6499051711518c10602979
+  languageName: node
+  linkType: hard
+
 "@pedrouid/environment@npm:^1.0.1":
   version: 1.0.1
   resolution: "@pedrouid/environment@npm:1.0.1"
@@ -25899,6 +25917,7 @@ __metadata:
     "@emotion/react": ^11
     "@emotion/styled": ^11
     "@moralisweb3/eslint-config": ^1.0.1
+    "@parse/react": ^0.0.1-alpha.18
     "@testing-library/dom": ^8.19.0
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
@@ -25922,6 +25941,7 @@ __metadata:
     magic-sdk: ^9.0.0
     moralis-v1: ^1.11.0
     os-browserify: ^0.3.0
+    parse: ^3.5.1
     process: ^0.11.10
     react: ^18.2.0
     react-app-rewired: ^2.2.1
@@ -25934,6 +25954,39 @@ __metadata:
     typescript: ^4.9.3
     url: ^0.11.0
     web-vitals: ^2.1.4
+  languageName: unknown
+  linkType: soft
+
+"parse-server-sdk@workspace:demos/parse-server-sdk":
+  version: 0.0.0-use.local
+  resolution: "parse-server-sdk@workspace:demos/parse-server-sdk"
+  dependencies:
+    "@codemirror/language": ^0.20.0
+    "@moralisweb3/common-core": ^2.10.2
+    "@moralisweb3/eslint-config": ^1.0.1
+    "@moralisweb3/parse-server": 2.10.2
+    "@types/cors": ^2.8.13
+    "@types/node": ^18.11.11
+    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/parser": ^5.45.1
+    axios: ^1.2.1
+    cors: ^2.8.5
+    dotenv: ^16.0.1
+    envalid: 7.3.1
+    eslint: ^8.29.0
+    eslint-plugin-etc: ^2.0.2
+    eslint-plugin-import: ^2.26.0
+    express: ^4.18.1
+    express-rate-limit: ^6.5.1
+    graphql: ^16.6.0
+    graphql-ws: ^5.10.1
+    mongodb-runner: ^4.9.0
+    moralis: ^2.10.2
+    ngrok: ^4.3.3
+    parse-server: ^5.2.7
+    prettier: ^2.8.0
+    ts-node: ^10.9.1
+    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -26050,6 +26103,25 @@ __metadata:
     crypto-js:
       optional: true
   checksum: c5a689d5bc4ebeb91aee6db53c2e4755c27cc928b5fc92202c5e4dc82b5d95f6f4f9fbc7edf8162433ba5079397a4b5d0d4f14ae3ea266ef6f42e52407717933
+  languageName: node
+  linkType: hard
+
+"parse@npm:^3.5.1":
+  version: 3.5.1
+  resolution: "parse@npm:3.5.1"
+  dependencies:
+    "@babel/runtime": 7.18.0
+    "@babel/runtime-corejs3": 7.17.8
+    crypto-js: 4.1.1
+    idb-keyval: 6.0.3
+    react-native-crypto-js: 1.0.0
+    uuid: 3.4.0
+    ws: 8.6.0
+    xmlhttprequest: 1.8.0
+  dependenciesMeta:
+    crypto-js:
+      optional: true
+  checksum: 06a4dd3774e55705320443c9cedbc5a65fe85097f32f23652e1aebe8e352a659cafcbfce978aa50142e934a9e1280079168fe86352d16fe44746945ee7019caa
   languageName: node
   linkType: hard
 
