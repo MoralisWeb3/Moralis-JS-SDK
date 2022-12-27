@@ -46,7 +46,9 @@ describe('InternalTxsProcessor', () => {
       ERC1155: [],
       ERC721: [],
     },
+    nftTokenApprovals: [],
     nftTransfers: [],
+    nativeBalances: [],
   };
 
   it('processes correctly', () => {
