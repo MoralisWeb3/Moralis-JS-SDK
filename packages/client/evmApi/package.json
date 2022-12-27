@@ -21,7 +21,11 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@moralisweb3/client-backend-adapter-utils": "^2.10.3",
+=======
+    "@moralisweb3/client-api-utils": "^2.10.3",
+>>>>>>> main
     "@moralisweb3/common-core": "^2.10.3",
     "@moralisweb3/common-evm-utils": "^2.10.3"
   }
