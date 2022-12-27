@@ -51,6 +51,10 @@ describe('StreamEvmTransaction', () => {
       expect(transaction.s).toBe('0x7727e1707d90e4e09eff56bbb045d3278c418d2111fb687f536a9766764f9c41');
       expect(transaction.v).toBe(1);
       expect(transaction.type).toBe(2);
+      expect(transaction.triggers?.map((trigger) => trigger.format())).toStrictEqual([
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200000000000000000' },
+      ]);
     });
 
     it('should parse correctly to JSON', () => {
@@ -76,6 +80,10 @@ describe('StreamEvmTransaction', () => {
         s: '0x7727e1707d90e4e09eff56bbb045d3278c418d2111fb687f536a9766764f9c41',
         v: 1,
         type: 2,
+        triggers: [
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
+        ],
       });
     });
 
@@ -102,6 +110,10 @@ describe('StreamEvmTransaction', () => {
         s: '0x7727e1707d90e4e09eff56bbb045d3278c418d2111fb687f536a9766764f9c41',
         v: 1,
         type: 2,
+        triggers: [
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
+        ],
       });
     });
   });
@@ -137,6 +149,7 @@ describe('StreamEvmTransaction', () => {
       expect(transaction.s).toBeUndefined();
       expect(transaction.v).toBeUndefined();
       expect(transaction.type).toBeUndefined();
+      expect(transaction.triggers).toBeUndefined();
     });
 
     it('should parse correctly to JSON', () => {
@@ -162,6 +175,7 @@ describe('StreamEvmTransaction', () => {
         s: undefined,
         v: undefined,
         type: undefined,
+        triggers: undefined,
       });
     });
 
@@ -188,11 +202,12 @@ describe('StreamEvmTransaction', () => {
         s: undefined,
         v: undefined,
         type: undefined,
+        triggers: undefined,
       });
     });
   });
 
-  it('should return return true for .equals() on equality match', () => {
+  it('should return true for .equals() on equality match', () => {
     const input = mockStreamEvmTransactionInput.FULL_1;
     const transaction = StreamEvmTransaction.create(input, core);
     const isEqual = transaction.equals({
@@ -202,7 +217,7 @@ describe('StreamEvmTransaction', () => {
     expect(isEqual).toBe(true);
   });
 
-  it('should return return false for .equals() on mismatching chain', () => {
+  it('should return false for .equals() on mismatching chain', () => {
     const input = mockStreamEvmTransactionInput.FULL_1;
     const transaction = StreamEvmTransaction.create(input, core);
     const isEqual = transaction.equals({
@@ -213,12 +228,37 @@ describe('StreamEvmTransaction', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching hash', () => {
+  it('should return false for .equals() on mismatching hash', () => {
     const input = mockStreamEvmTransactionInput.FULL_1;
     const transaction = StreamEvmTransaction.create(input, core);
     const isEqual = transaction.equals({
       ...input,
       hash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching trigger results length', () => {
+    const input = mockStreamEvmTransactionInput.FULL_1;
+    const transaction = StreamEvmTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+      triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching trigger results', () => {
+    const input = mockStreamEvmTransactionInput.FULL_1;
+    const transaction = StreamEvmTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+      triggers: [
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200' },
+      ],
     });
 
     expect(isEqual).toBe(false);

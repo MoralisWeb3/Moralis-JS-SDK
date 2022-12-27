@@ -39,7 +39,7 @@ export const runContractFunctionOperation: Operation<
   id: 'runContractFunction',
   groupName: 'utils',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'functionName', 'providerUrl', 'subdomain'],
+  urlSearchParamNames: ['chain', 'functionName'],
   urlPathPattern: '/{address}/function',
   bodyType: 'properties',
   bodyParamNames: ['abi', 'params'],
@@ -58,8 +58,6 @@ function getRequestUrlParams(request: RunContractFunctionRequest, core: Core) {
     address: EvmAddress.create(request.address, core).lowercase,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     function_name: request.functionName,
-    providerUrl: request.providerUrl,
-    subdomain: request.subdomain,
   };
 }
 
@@ -79,8 +77,6 @@ function serializeRequest(request: RunContractFunctionRequest, core: Core) {
     address: EvmAddress.create(request.address, core).checksum,
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     functionName: request.functionName,
-    providerUrl: request.providerUrl,
-    subdomain: request.subdomain,
     abi: request.abi,
     params: request.params,
   };
@@ -91,8 +87,6 @@ function deserializeRequest(jsonRequest: RunContractFunctionJSONRequest, core: C
     address: EvmAddress.create(jsonRequest.address, core),
     chain: EvmChain.create(jsonRequest.chain, core),
     functionName: jsonRequest.functionName,
-    providerUrl: jsonRequest.providerUrl,
-    subdomain: jsonRequest.subdomain,
     abi: jsonRequest.abi,
     params: jsonRequest.params,
   };

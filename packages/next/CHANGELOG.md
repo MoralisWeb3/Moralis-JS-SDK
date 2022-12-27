@@ -1,5 +1,66 @@
 # @moralisweb3/next
 
+## 2.10.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.10.3
+  - @moralisweb3/auth@2.10.3
+  - @moralisweb3/common-auth-utils@2.10.3
+  - @moralisweb3/evm-api@2.10.3
+  - @moralisweb3/sol-api@2.10.3
+  - moralis@2.10.3
+
+## 2.10.2
+
+### Patch Changes
+
+- [#912](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/912) [`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types to include latest features and fixes of evmApi and streams. This includes:
+
+  - removal of deprecated `subdomain` and `providerUrl` params
+  - evm endpooint for `getMultipleNFTs`
+  - evm endpoint updated for `getNFTContractTransfers` to include `fromBlock`, `toBlock`, `fromDate` and `toDate` params
+  - streams support for `getNativeBalances`
+
+- Updated dependencies [[`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b)]:
+  - @moralisweb3/api-utils@2.10.2
+  - @moralisweb3/auth@2.10.2
+  - @moralisweb3/common-auth-utils@2.10.2
+  - @moralisweb3/evm-api@2.10.2
+  - moralis@2.10.2
+  - @moralisweb3/sol-api@2.10.2
+
+## 2.10.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.10.1
+  - @moralisweb3/auth@2.10.1
+  - @moralisweb3/common-auth-utils@2.10.1
+  - @moralisweb3/evm-api@2.10.1
+  - @moralisweb3/sol-api@2.10.1
+  - moralis@2.10.1
+
+## 2.10.0
+
+### Patch Changes
+
+- [#901](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/901) [`ee6440fed`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ee6440fed0a51fa689c7b7f927b90023af1678e7) Thanks [@Y0moo](https://github.com/Y0moo)! - Improved Error handling for MoralisNextAuthProvider
+
+- [#899](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/899) [`328f8ecda`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/328f8ecda00ba239bfec1bcabb3b05f52303e071) Thanks [@Y0moo](https://github.com/Y0moo)! - Fixed infinite rerender when provide Moralis DataTypes as a hook param
+
+- [#898](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/898) [`2dcf75f8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2dcf75f8abffe617c90a32cc9f207a5a2575adc1) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated `axios` dependency to 1.2.x.
+
+- Updated dependencies [[`2dcf75f8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2dcf75f8abffe617c90a32cc9f207a5a2575adc1), [`b703c5517`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b703c551735ba3a5cc318c7b2d01d954ce48bf5d)]:
+  - @moralisweb3/api-utils@2.10.0
+  - @moralisweb3/evm-api@2.10.0
+  - @moralisweb3/auth@2.10.0
+  - @moralisweb3/common-auth-utils@2.10.0
+  - @moralisweb3/sol-api@2.10.0
+  - moralis@2.10.0
+
 ## 2.9.0
 
 ### Patch Changes

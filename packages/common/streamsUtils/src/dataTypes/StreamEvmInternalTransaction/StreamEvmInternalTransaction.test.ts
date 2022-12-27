@@ -35,6 +35,10 @@ describe('StreamEvmInternalTransaction', () => {
       expect(transaction.to?.lowercase).toBe('0xee010a7476bc5adc88f1befc68c3b58f27f90419');
       expect(transaction.value?.toString()).toBe('12345');
       expect(transaction.gas?.toString()).toBe('100');
+      expect(transaction.triggers?.map((trigger) => trigger.toJSON())).toStrictEqual([
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200000000000000000' },
+      ]);
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -47,6 +51,10 @@ describe('StreamEvmInternalTransaction', () => {
         to: '0xee010a7476bc5adc88f1befc68c3b58f27f90419',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
+        triggers: [
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
+        ],
       });
     });
 
@@ -60,6 +68,10 @@ describe('StreamEvmInternalTransaction', () => {
         to: '0xee010a7476bc5adc88f1befc68c3b58f27f90419',
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: '12345',
+        triggers: [
+          { name: 'fromBalance', value: '6967063534600021400000' },
+          { name: 'toBalance', value: '200000000000000000' },
+        ],
       });
     });
   });
@@ -80,6 +92,7 @@ describe('StreamEvmInternalTransaction', () => {
       expect(transaction.to).toBeUndefined();
       expect(transaction.value).toBeUndefined();
       expect(transaction.gas).toBeUndefined();
+      expect(transaction.triggers).toBeUndefined();
     });
 
     it('should parse the values to JSON correctly', () => {
@@ -92,6 +105,7 @@ describe('StreamEvmInternalTransaction', () => {
         to: undefined,
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: undefined,
+        triggers: undefined,
       });
     });
 
@@ -105,11 +119,12 @@ describe('StreamEvmInternalTransaction', () => {
         to: undefined,
         transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7',
         value: undefined,
+        triggers: undefined,
       });
     });
   });
 
-  it('should return return true for .equals() on equality match', () => {
+  it('should return true for .equals() on equality match', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
     const transaction = StreamEvmInternalTransaction.create(input, core);
     const isEqual = transaction.equals({
@@ -119,7 +134,7 @@ describe('StreamEvmInternalTransaction', () => {
     expect(isEqual).toBe(true);
   });
 
-  it('should return return false for .equals() on mismatchin chain', () => {
+  it('should return false for .equals() on mismatchin chain', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
     const transaction = StreamEvmInternalTransaction.create(input, core);
     const isEqual = transaction.equals({
@@ -130,12 +145,37 @@ describe('StreamEvmInternalTransaction', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatchin transactionHash', () => {
+  it('should return false for .equals() on mismatchin transactionHash', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
     const transaction = StreamEvmInternalTransaction.create(input, core);
     const isEqual = transaction.equals({
       ...input,
       transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching trigger results length', () => {
+    const input = mockStreamEvmInternalTransaction.FULL;
+    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+      triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
+    });
+
+    expect(isEqual).toBe(false);
+  });
+
+  it('should return false for .equals() on mismatching trigger results', () => {
+    const input = mockStreamEvmInternalTransaction.FULL;
+    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const isEqual = transaction.equals({
+      ...input,
+      triggers: [
+        { name: 'fromBalance', value: '6967063534600021400000' },
+        { name: 'toBalance', value: '200' },
+      ],
     });
 
     expect(isEqual).toBe(false);

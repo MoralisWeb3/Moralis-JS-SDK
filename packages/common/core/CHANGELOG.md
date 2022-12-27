@@ -1,5 +1,32 @@
 # @moralisweb3/core
 
+## 2.10.3
+
+## 2.10.2
+
+### Patch Changes
+
+- [#912](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/912) [`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types to include latest features and fixes of evmApi and streams. This includes:
+
+  - removal of deprecated `subdomain` and `providerUrl` params
+  - evm endpooint for `getMultipleNFTs`
+  - evm endpoint updated for `getNFTContractTransfers` to include `fromBlock`, `toBlock`, `fromDate` and `toDate` params
+  - streams support for `getNativeBalances`
+
+## 2.10.1
+
+## 2.10.0
+
+### Minor Changes
+
+- [#879](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/879) [`52a8160d9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/52a8160d9ef2db824f943cc4034b9dd83335e0cc) Thanks [@FedericoAmura](https://github.com/FedericoAmura)! - Add support for stream triggers
+
+### Patch Changes
+
+- [#896](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/896) [`439d6e564`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/439d6e56487cfc6e559f91f06039a5f2567125e5) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `maxRetries` parameter to the Core config.
+
+- [#898](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/898) [`2dcf75f8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2dcf75f8abffe617c90a32cc9f207a5a2575adc1) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated `axios` dependency to 1.2.x.
+
 ## 2.9.0
 
 ### Patch Changes

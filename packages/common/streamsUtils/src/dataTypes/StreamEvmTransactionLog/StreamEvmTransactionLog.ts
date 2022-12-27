@@ -1,5 +1,6 @@
 import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmTransactionLogData, StreamEvmTransactionLogInput, StreamEvmTransactionLogJSON } from './types';
 
 type StreamEvmTransactionLogish = StreamEvmTransactionLog | StreamEvmTransactionLogInput;
@@ -45,6 +46,9 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       topic1: maybe(data.topic1),
       topic2: maybe(data.topic2),
       topic3: maybe(data.topic3),
+      triggers: maybe(data.triggers, (triggers) =>
+        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
+      ),
     };
   }
 
@@ -74,6 +78,13 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       return false;
     }
 
+    if (
+      transactionLogA.triggers?.length !== transactionLogB.triggers?.length ||
+      !StreamTriggerOutput.arrayEquals(transactionLogA.triggers || [], transactionLogB.triggers || [])
+    ) {
+      return false;
+    }
+
     return true;
   }
 
@@ -96,12 +107,13 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
    * @example `transactionLog.toJSON()`
    */
   toJSON(): StreamEvmTransactionLogJSON {
-    const { chain, address, ...data } = this._data;
+    const { chain, address, triggers, ...data } = this._data;
 
     return {
       ...data,
       chain: chain.format(),
       address: address.format(),
+      triggers: triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -148,5 +160,9 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
 
   get topic3() {
     return this._data.topic3;
+  }
+
+  get triggers() {
+    return this._data.triggers;
   }
 }

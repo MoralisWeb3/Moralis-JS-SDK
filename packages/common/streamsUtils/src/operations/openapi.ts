@@ -67,7 +67,12 @@ export interface components {
       hash: string;
       timestamp: string;
     };
+    TriggerOutput: {
+      value: unknown;
+      name: string;
+    };
     Log: {
+      triggers?: components["schemas"]["TriggerOutput"][];
       logIndex: string;
       transactionHash: string;
       address: string;
@@ -78,6 +83,7 @@ export interface components {
       topic3: string | null;
     };
     Transaction: {
+      triggers?: components["schemas"]["TriggerOutput"][];
       hash: string;
       gas: string | null;
       gasPrice: string | null;
@@ -287,6 +293,17 @@ export interface components {
      * @enum {string}
      */
     StreamsStatus: "active" | "paused" | "error" | "terminated";
+    getNativeBalances: {
+      selectors: string[];
+      /** @enum {string} */
+      type:
+        | "tx"
+        | "log"
+        | "erc20transfer"
+        | "erc20approval"
+        | "nfttransfer"
+        | "internalTx";
+    };
     /**
      * @description The filter object for the topic0
      * https://docs.moralis.io/docs/filter-streams
@@ -298,6 +315,16 @@ export interface components {
       topic0: string;
       filter?: components["schemas"]["StreamsFilter"];
       includeNativeTxs?: boolean;
+    };
+    /** @description Trigger */
+    StreamsTrigger: {
+      /** @enum {string} */
+      type: "tx" | "log" | "erc20transfer" | "erc20approval" | "nfttransfer";
+      contractAddress: string;
+      inputs?: (Partial<string> & Partial<unknown[]>)[];
+      functionAbi: components["schemas"]["AbiItem"];
+      topic0?: string;
+      callFrom?: string;
     };
     StreamsModel: {
       /** @description Webhook URL where moralis will send the POST request. */
@@ -316,12 +343,16 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
       /** @description The unique uuid of the stream */
       id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -357,12 +388,16 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
       /** @description The unique uuid of the stream */
       id: components["schemas"]["UUID"];
       /** @description The status of the stream. */
@@ -387,12 +422,16 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
     };
     /** @description Make all properties in T optional */
     "Partial_streamsTypes.StreamsModelCreate_": {
@@ -412,12 +451,16 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include native balances for each address in the webhook */
+      getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
       advancedOptions?: components["schemas"]["advancedOptions"][] | null;
       /** @description The ids of the chains for this stream in hex Ex: ["0x1","0x38"] */
       chainIds?: string[];
       /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description triggers */
+      triggers?: components["schemas"]["StreamsTrigger"][] | null;
     };
     "streamsTypes.StreamsStatusUpdate": {
       /** @description The status of the stream. */

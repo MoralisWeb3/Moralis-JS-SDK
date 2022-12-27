@@ -10,7 +10,9 @@ const config = {
   title: 'Moralis SDK (JavaSDKScript / TypeScript)',
   tagline: 'A library that gives you access to the powerful Moralis Server backend from your JavaScript app.',
   url: 'https://docs.moralis.io/',
-  baseUrl: '/',
+  baseUrl: '/Moralis-JS-SDK',
+  // Use for serving locally:
+  // baseUrl: '/docs-build/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
@@ -59,12 +61,13 @@ const config = {
           alt: 'Moralis',
           src: 'img/moralis-logo.svg',
         },
+
         items: [
           {
             type: 'doc',
-            docId: 'nodejs-sdk-references',
+            docId: 'api/modules',
             position: 'left',
-            label: 'Technical Docs',
+            label: 'Modules',
           },
           {
             type: 'doc',
@@ -72,15 +75,35 @@ const config = {
             position: 'left',
             label: 'Demos',
           },
+
           {
-            href: 'https://docs.moralis.io/',
-            label: 'Moralis Docs',
             position: 'right',
+            label: 'Moralis docs',
+            items: [
+              {
+                href: 'https://docs.moralis.io/docs',
+                label: 'Tutorials',
+              },
+              {
+                href: 'https://docs.moralis.io/reference/introduction',
+                label: 'API references',
+              },
+              {
+                label: 'Javascript SDK',
+                docId: 'api/modules',
+                type: 'doc',
+              },
+              {
+                label: 'Python SDK',
+                href: 'https://moralisweb3.github.io/Moralis-Python-SDK/',
+              },
+            ],
           },
           {
             href: 'https://github.com/MoralisWeb3/Moralis-JS-SDK',
-            label: 'GitHub',
             position: 'right',
+            'aria-label': 'GitHub repository',
+            className: 'header-github-link',
           },
         ],
       },
@@ -94,20 +117,24 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Support',
             items: [
               {
-                label: 'NodeJS SDK',
-                to: '/nodejs-sdk-references',
+                label: 'Join Forum',
+                href: 'https://forum.moralis.io/',
               },
               {
-                label: 'Demos',
-                to: '/demos/express-proxy',
+                label: 'Join Discord',
+                href: 'https://moralis.io/joindiscord/',
+              },
+              {
+                label: 'Contact 24/7 Support',
+                href: 'https://moralis.io/support',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Social',
             items: [
               {
                 label: 'Youtube',
@@ -118,12 +145,8 @@ const config = {
                 href: 'https://twitter.com/MoralisWeb3',
               },
               {
-                label: 'Linked in',
+                label: 'LinkedIn',
                 href: 'https://www.linkedin.com/company/moralisweb3/',
-              },
-              {
-                label: 'Discord',
-                href: 'https://moralis.io/joindiscord/',
               },
             ],
           },
@@ -149,7 +172,7 @@ const config = {
             ],
           },
         ],
-        copyright: `© Moralis Copyright ${new Date().getFullYear()}. Built with Docusaurus.`,
+        copyright: `© Moralis Copyright ${new Date().getFullYear()}. All rights reserved`,
       },
       prism: {
         theme: lightCodeTheme,

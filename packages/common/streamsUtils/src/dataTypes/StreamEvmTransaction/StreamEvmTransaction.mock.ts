@@ -20,6 +20,10 @@ const full1: StreamEvmTransactionInput = {
   receiptGasUsed: '500',
   receiptCumulativeGasUsed: '600',
   receiptContractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+  triggers: [
+    { name: 'fromBalance', value: '6967063534600021400000' },
+    { name: 'toBalance', value: '200000000000000000' },
+  ],
 };
 
 const full2: StreamEvmTransactionInput = {
@@ -43,6 +47,7 @@ const full2: StreamEvmTransactionInput = {
   receiptContractAddress: null,
   receiptRoot: null,
   receiptStatus: '1',
+  triggers: [],
 };
 
 const full3: StreamEvmTransactionInput = {

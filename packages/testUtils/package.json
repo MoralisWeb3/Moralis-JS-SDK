@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/test-utils",
   "author": "Moralis",
-  "version": "2.9.0",
+  "version": "2.10.3",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",

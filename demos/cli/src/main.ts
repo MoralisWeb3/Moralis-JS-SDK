@@ -9,7 +9,7 @@ function readEnv(): { [key: string]: string } {
 
 async function main() {
   const env = readEnv();
-  console.info('🔥 test-node');
+  console.info('🔥 CLI demo');
 
   Moralis.start({
     apiKey: env['MORALIS_API_KEY'],

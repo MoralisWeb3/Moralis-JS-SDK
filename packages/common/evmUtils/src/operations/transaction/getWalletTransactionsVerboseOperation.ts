@@ -64,7 +64,7 @@ export const getWalletTransactionsVerboseOperation: PaginatedOperation<
   groupName: 'transaction',
   urlPathPattern: '/{address}/verbose',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -78,7 +78,6 @@ export const getWalletTransactionsVerboseOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -92,7 +91,6 @@ function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core:
 function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
@@ -109,7 +107,6 @@ function deserializeRequest(
 ): GetWalletTransactionsVerboseRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,

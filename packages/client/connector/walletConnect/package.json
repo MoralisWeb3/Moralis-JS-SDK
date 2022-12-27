@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-connector-wallet-connect",
   "author": "Moralis",
-  "version": "2.9.0",
+  "version": "2.10.3",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@babel/core": "^7.20.5",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
-    "@moralisweb3/client-evm-auth": "^2.9.0",
+    "@moralisweb3/client-evm-auth": "^2.10.3",
     "@walletconnect/web3-provider": "^1.8.0"
   }
 }

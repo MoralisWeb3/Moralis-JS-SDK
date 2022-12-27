@@ -1,8 +1,16 @@
 import Moralis from 'moralis';
 
+interface StreamTriggerOptions {
+  type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
+  contractAddress: string;
+  functionAbi: any;
+  inputs?: string[];
+}
+
 interface StreamOptions {
   networkType: 'evm';
   webhookUrl: string;
+  triggers: StreamTriggerOptions[];
 }
 
 const DESCRIPTION = 'some description';
@@ -10,7 +18,7 @@ const TAG = 'transactions';
 const CHAINIDS = ['0x3', '0x4'];
 
 export async function addStream(options: StreamOptions) {
-  const { networkType, webhookUrl } = options;
+  const { networkType, webhookUrl, triggers } = options;
   const result = await Moralis.Streams.add({
     networkType,
     webhookUrl,
@@ -18,6 +26,7 @@ export async function addStream(options: StreamOptions) {
     tag: TAG,
     description: DESCRIPTION,
     includeNativeTxs: true,
+    triggers,
   });
 
   return result.raw;
@@ -42,7 +51,7 @@ export async function deleteStream(id: string) {
 }
 
 export async function updateStream(id: string, options: StreamOptions) {
-  const { networkType, webhookUrl } = options;
+  const { networkType, webhookUrl, triggers } = options;
   const result = await Moralis.Streams.update({
     id,
     networkType,
@@ -51,6 +60,7 @@ export async function updateStream(id: string, options: StreamOptions) {
     tag: TAG,
     description: DESCRIPTION,
     includeNativeTxs: true,
+    triggers,
   });
 
   return result.raw;

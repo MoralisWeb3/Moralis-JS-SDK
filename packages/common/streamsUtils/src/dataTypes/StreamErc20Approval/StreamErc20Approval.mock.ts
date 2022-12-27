@@ -12,6 +12,10 @@ const full: StreamErc20ApprovalInput = {
   tokenSymbol: 'STREAMS',
   tokenDecimals: '6',
   valueWithDecimals: '0.012345',
+  triggers: [
+    { name: 'ownerBalance', value: '6967063534600021400000' },
+    { name: 'spenderBalance', value: '200000000000000000' },
+  ],
 };
 
 const noMetadata: StreamErc20ApprovalInput = {

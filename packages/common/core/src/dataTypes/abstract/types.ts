@@ -6,6 +6,7 @@ export type MoralisDataObjectValue =
         | Primitive
         | MoralisDataObjectValue
         | Primitive[]
+        | (Primitive | Primitive[])[]
         | MoralisDataObjectValue[]
         | ArrayLike<Primitive>
         | ArrayLike<MoralisDataObjectValue>

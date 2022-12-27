@@ -5,11 +5,12 @@ import {
   Block,
   IERC20Approval,
   IERC20Transfer,
-  INFTApproval,
   INFTTransfer,
   InternalTransaction,
+  IOldNFTApproval,
   Log,
   Transaction,
+  INativeBalance,
 } from '@moralisweb3/streams-typings';
 import { StreamErc1155Approval } from '../StreamErc1155Approval/StreamErc1155Approval';
 import { StreamErc20Approval } from '../StreamErc20Approval/StreamErc20Approval';
@@ -19,6 +20,7 @@ import { StreamEvmInternalTransaction } from '../StreamEvmInternalTransaction/St
 import { StreamEvmNftTransfer } from '../StreamEvmNftTransfer/StreamEvmNftTransfer';
 import { StreamEvmTransaction } from '../StreamEvmTransaction/StreamEvmTransaction';
 import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTransactionLog';
+import { StreamNativeBalance } from '../StreamNativeBalance';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
 
 export class EvmStreamResultParser {
@@ -30,6 +32,10 @@ export class EvmStreamResultParser {
       erc20Transfers: this.parseErc20Transfers(value.erc20Transfers, chain),
       erc20Approvals: this.parseErc20Approvals(value.erc20Approvals, chain),
       nftTransfers: this.parseNftTransfers(value.nftTransfers, chain),
+
+      /**
+       * @deprecated Will be removed. Use nftTokenApprovals
+       */
       nftApprovals: this.parseNftApprovals(value.nftApprovals, chain),
       block: this.parseBlock(value.block, chain),
       logs: this.parseLogs(value.logs, chain),
@@ -40,6 +46,7 @@ export class EvmStreamResultParser {
       confirmed: value.confirmed,
       streamId: value.streamId,
       tag: value.tag,
+      nativeBalances: this.parseNativeBalances(value.nativeBalances),
     };
   };
 
@@ -75,7 +82,7 @@ export class EvmStreamResultParser {
     );
   }
 
-  static parseNftApprovals(value: INFTApproval, chain: EvmChain) {
+  static parseNftApprovals(value: IOldNFTApproval, chain: EvmChain) {
     return {
       ERC721: value.ERC721.map((approval) =>
         StreamErc721Approval.create({
@@ -132,5 +139,9 @@ export class EvmStreamResultParser {
         ...transaction,
       }),
     );
+  }
+
+  static parseNativeBalances(value: INativeBalance[]) {
+    return value.map((nativeBalance) => StreamNativeBalance.create(nativeBalance));
   }
 }

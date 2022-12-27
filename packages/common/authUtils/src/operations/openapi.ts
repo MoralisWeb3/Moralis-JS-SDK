@@ -76,8 +76,7 @@ export interface components {
        */
       notBefore?: string;
       /**
-       * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by `
-       * - `.
+       * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by new lines.
        * @example [
        *   "https://docs.moralis.io/"
        * ]
@@ -121,8 +120,23 @@ export interface components {
       profileId: string;
     };
     EvmCompleteChallengeRequestDto: {
+      /**
+       * @description Message that needs to be signed by the end user.
+       * @example defi.finance wants you to sign in with your Ethereum account:
+       * 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
+       *
+       *
+       * URI: https://defi.finance
+       * Version: 1
+       * Chain ID: 1
+       * Nonce: Px7Nh1RPzlCLwqgOb
+       * Issued At: 2022-11-30T10:20:00.262Z
+       */
       message: string;
-      /** @example 0x1234567890abcdef0123456789abcdef1234567890abcdef */
+      /**
+       * @description EIP-191 compliant signature signed by the Ethereum account address requesting authentication.
+       * @example 0xa8f89a58bf9b433d3100f9e41ee35b5e31fb8c7cd62547acb113162ec6f2e4140207e2dfbd4e387e1801ebc7f08a9dd105ac1d22b2e2ff0df5fa8b6d9bdcfe491c
+       */
       signature: string;
     };
     EvmCompleteChallengeResponseDto: {
@@ -249,8 +263,7 @@ export interface components {
        */
       notBefore?: string;
       /**
-       * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by `
-       * - `.
+       * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by new lines.
        * @example [
        *   "https://docs.moralis.io/"
        * ]

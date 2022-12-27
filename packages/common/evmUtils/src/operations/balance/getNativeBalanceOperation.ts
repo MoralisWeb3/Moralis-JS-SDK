@@ -40,7 +40,7 @@ export const getNativeBalanceOperation: Operation<
   groupName: 'balance',
   urlPathPattern: '/{address}/balance',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'providerUrl', 'toBlock'],
+  urlSearchParamNames: ['chain', 'toBlock'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -53,7 +53,6 @@ export const getNativeBalanceOperation: Operation<
 function getRequestUrlParams(request: GetNativeBalanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    providerUrl: request.providerUrl,
     to_block: maybe(request.toBlock, String),
     address: EvmAddress.create(request.address, core).checksum,
   };
@@ -68,7 +67,6 @@ function deserializeResponse(jsonResponse: GetNativeBalanceJSONResponse) {
 function serializeRequest(request: GetNativeBalanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    providerUrl: request.providerUrl,
     toBlock: request.toBlock,
     address: EvmAddress.create(request.address, core).lowercase,
   };
@@ -77,7 +75,6 @@ function serializeRequest(request: GetNativeBalanceRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetNativeBalanceJSONRequest, core: Core): GetNativeBalanceRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    providerUrl: jsonRequest.providerUrl,
     toBlock: jsonRequest.toBlock,
     address: EvmAddress.create(jsonRequest.address, core),
   };
