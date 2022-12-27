@@ -79,9 +79,13 @@ const output = `
 
 import { ${[...sourcePackageImports].join(', ')} } from '${sourcePackageName}';
 import { ${[...apiUtilsPackageImports].join(', ')} } from '@moralisweb3/api-utils';
-import { ApiModule, ${[...corePackageImports].join(', ')} } from '@moralisweb3/common-core';
+import { ApiModule, Core, ModuleType, ${[...corePackageImports].join(', ')} } from '@moralisweb3/common-core';
 
-export abstract class ${outputClassName} extends ApiModule {
+export abstract class ${outputClassName} implements ApiModule {
+  protected abstract core: Core;
+  public abstract baseUrl: string;
+  public abstract name: string;
+  public readonly type = ModuleType.API;
 
   ${bodyOutput}
 }

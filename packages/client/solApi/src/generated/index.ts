@@ -1,1 +1,1 @@
-export * from './ClientSolApi';
+export * from './SolApiClient';

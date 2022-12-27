@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useFirebase } from '../components/FirebaseInitializer';
 
 export default function Home() {
-  const { auth, moralisAuth } = useFirebase();
+  const { auth, moralisEvmAuth } = useFirebase();
   const [currentUser, setCurrentUser] = useState<string | null | undefined>(() => auth.currentUser?.displayName);
 
   async function signInByMetaMask() {
-    await signInWithMoralis(moralisAuth);
+    await signInWithMoralis(moralisEvmAuth);
     setCurrentUser(auth.currentUser?.displayName);
   }
 

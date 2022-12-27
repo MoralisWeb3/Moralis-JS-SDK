@@ -56,6 +56,8 @@
       "packages/*",
       "packages/common/*",
       "packages/client/*",
+      "packages/client/backendAdapter/*",
+      "packages/client/connector/*",
       "packages/common/*",
       "packages/create-moralis-dapp/*",
       "demos/*",

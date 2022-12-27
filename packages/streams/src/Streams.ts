@@ -3,6 +3,7 @@ import {
   ApiModule,
   Core,
   CoreProvider,
+  ModuleType,
   Operation,
   PaginatedOperation,
   PaginatedRequest,
@@ -30,16 +31,16 @@ import {
 
 const BASE_URL = 'https://api.moralis-streams.com';
 
-export class Streams extends ApiModule {
-  public static readonly moduleName = 'streams';
-
+export class Streams implements ApiModule {
   public static create(core?: Core): Streams {
     return new Streams(core ?? CoreProvider.getDefault());
   }
 
-  private constructor(core: Core) {
-    super(Streams.moduleName, core, BASE_URL);
-  }
+  public readonly name = 'streams';
+  public readonly type = ModuleType.API;
+  public readonly baseUrl = BASE_URL;
+
+  private constructor(private readonly core: Core) {}
 
   public setup() {
     // Nothing

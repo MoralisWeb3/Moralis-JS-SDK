@@ -6,12 +6,6 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
-  "moralis": {
-    "name": "Solana Api logic for client-side",
-    "type": "utils",
-    "scope": "client",
-    "description": "Client-side logic for making Solana Api calls"
-  },
   "files": [
     "lib/*"
   ],
@@ -20,13 +14,14 @@
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch",
-    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientSolApi.ts @moralisweb3/common-sol-utils"
+    "gen:client": "node ../backendAdapter/utils/scripts/generate-client.js ./src/generated/SolApiClient.ts @moralisweb3/common-sol-utils sol-api"
   },
   "devDependencies": {
+    "prettier": "^2.5.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@moralisweb3/client-api-utils": "^2.10.3",
+    "@moralisweb3/client-backend-adapter-utils": "^2.10.3",
     "@moralisweb3/common-core": "^2.10.3",
     "@moralisweb3/common-sol-utils": "^2.10.3"
   }

@@ -4,14 +4,15 @@ import { Core } from '../Core';
 import { ApiModule } from './ApiModule';
 import { Module } from './Module';
 import { Modules } from './Modules';
+import { ModuleType } from './ModuleType';
 
 const TEST_MODULE_NAME = 'test';
 const TEST_API_MODULE_NAME = 'testApiModule';
 
-class TestModule extends Module {
-  public constructor(core: Core) {
-    super(TEST_MODULE_NAME, core);
-  }
+class TestModule implements Module {
+  public readonly name = 'test';
+
+  public constructor(protected readonly core: Core) {}
   public setup() {
     // Nothing
   }
@@ -20,10 +21,12 @@ class TestModule extends Module {
   }
 }
 
-class TestApiModule extends ApiModule {
-  public constructor(core: Core) {
-    super(TEST_API_MODULE_NAME, core, 'http://foo');
-  }
+class TestApiModule implements ApiModule {
+  public readonly name = 'testApiModule';
+  public readonly baseUrl = 'http://foo';
+  public readonly type = ModuleType.API;
+
+  public constructor(protected readonly core: Core) {}
   public setup(): void {
     // Nothing
   }

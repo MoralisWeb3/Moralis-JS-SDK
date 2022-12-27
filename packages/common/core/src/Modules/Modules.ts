@@ -31,7 +31,9 @@ export class Modules {
     }
 
     this.modules.set(module.name, module);
-    module.setup();
+    if (module.setup) {
+      module.setup();
+    }
   }
 
   /**

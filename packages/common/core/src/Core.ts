@@ -72,7 +72,7 @@ export class Core {
    *
    * This will call `start()` on every registered module
    */
-  public start = async (providedConfig?: Partial<MoralisCoreConfigValues>) => {
+  public start = (providedConfig?: Partial<MoralisCoreConfigValues>) => {
     if (this._isStarted) {
       throw new MoralisError({
         message: 'Modules are started already. This method should be called only one time.',
@@ -81,8 +81,6 @@ export class Core {
     }
     this._isStarted = true;
 
-    const allModules = this.modules.list();
-
     if (providedConfig) {
       this.config.merge(providedConfig);
     }
@@ -90,8 +88,6 @@ export class Core {
     this.logger.verbose('Starting all registered modules', {
       moduleNames: this.modules.listNames(),
     });
-
-    await Promise.all(allModules.map((module) => module.start()));
 
     this.logger.verbose('Finished starting all registered modules', {
       moduleNames: this.modules.listNames(),

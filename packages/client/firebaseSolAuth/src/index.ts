@@ -1,2 +1,2 @@
+export * from './getMoralisSolAuth';
 export * from './signInWithMoralis';
-export * from './SolanaProvider';
