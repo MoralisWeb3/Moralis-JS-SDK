@@ -20,8 +20,10 @@ export const initialTest: EvmStreamResultInput = {
     ERC1155: [],
   },
   nftTransfers: [],
+  nativeBalances: [],
   tag: '',
   streamId: '',
+  nftTokenApprovals: [],
 };
 
 const nativeTransaction: EvmStreamResultInput = {
@@ -66,7 +68,9 @@ const nativeTransaction: EvmStreamResultInput = {
     ERC1155: [],
     ERC721: [],
   },
+  nftTokenApprovals: [],
   nftTransfers: [],
+  nativeBalances: [],
 };
 
 const erc1155SingleTransfer: EvmStreamResultInput = {
@@ -139,6 +143,7 @@ const erc1155SingleTransfer: EvmStreamResultInput = {
     ERC1155: [],
     ERC721: [],
   },
+  nftTokenApprovals: [],
   nftTransfers: [
     {
       operator: '0x804159144aefb1dc17b171afcefa5b33746c722f',
@@ -154,6 +159,7 @@ const erc1155SingleTransfer: EvmStreamResultInput = {
       tokenSymbol: '',
     },
   ],
+  nativeBalances: [],
 };
 
 const erc721Transfer: EvmStreamResultInput = {
@@ -282,6 +288,7 @@ const erc721Transfer: EvmStreamResultInput = {
     ERC1155: [],
     ERC721: [],
   },
+  nftTokenApprovals: [],
   nftTransfers: [
     {
       operator: null,
@@ -323,6 +330,7 @@ const erc721Transfer: EvmStreamResultInput = {
       tokenContractType: 'ERC721',
     },
   ],
+  nativeBalances: [],
 };
 
 const erc20LinkTransfer: EvmStreamResultInput = {
@@ -393,7 +401,9 @@ const erc20LinkTransfer: EvmStreamResultInput = {
     ERC1155: [],
     ERC721: [],
   },
+  nftTokenApprovals: [],
   nftTransfers: [],
+  nativeBalances: [],
 };
 
 const erc20USDCTransfers: EvmStreamResultInput = {
@@ -662,7 +672,9 @@ const erc20USDCTransfers: EvmStreamResultInput = {
     ERC1155: [],
     ERC721: [],
   },
+  nftTokenApprovals: [],
   nftTransfers: [],
+  nativeBalances: [],
 };
 
 const wethEvents: EvmStreamResultInput = {
@@ -2070,7 +2082,9 @@ const wethEvents: EvmStreamResultInput = {
     ERC1155: [],
     ERC721: [],
   },
+  nftTokenApprovals: [],
   nftTransfers: [],
+  nativeBalances: [],
 };
 
 const erc721Approval: EvmStreamResultInput = {
@@ -2193,7 +2207,11 @@ const erc721Approval: EvmStreamResultInput = {
       },
     ],
   },
+  nftTokenApprovals: [
+    // TODO
+  ],
   nftTransfers: [],
+  nativeBalances: [],
 };
 
 const erc1155Approval: EvmStreamResultInput = {
@@ -2359,7 +2377,11 @@ const erc1155Approval: EvmStreamResultInput = {
     ],
     ERC721: [],
   },
+  nftTokenApprovals: [
+    // TODO
+  ],
   nftTransfers: [],
+  nativeBalances: [],
 };
 
 export const mockEvmStreamResult = {

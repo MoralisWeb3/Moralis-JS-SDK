@@ -5,9 +5,9 @@ import {
   Block,
   IERC20Approval,
   IERC20Transfer,
-  INFTApproval,
   INFTTransfer,
   InternalTransaction,
+  IOldNFTApproval,
   Log,
   Transaction,
 } from '@moralisweb3/streams-typings';
@@ -75,7 +75,7 @@ export class EvmStreamResultParser {
     );
   }
 
-  static parseNftApprovals(value: INFTApproval, chain: EvmChain) {
+  static parseNftApprovals(value: IOldNFTApproval, chain: EvmChain) {
     return {
       ERC721: value.ERC721.map((approval) =>
         StreamErc721Approval.create({
