@@ -1,8 +1,11 @@
 import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
+import { EvmConnector } from '@moralisweb3/client-evm-auth';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
+
+const MAGIC_CONNECT_PUBLISHABLE_API_KEY = 'pk_live_C5C14BF0761663FC';
 
 async function reloadCurrentUser() {
   const userAddress = document.getElementById('userAddress') as HTMLElement;
@@ -115,19 +118,44 @@ async function onButtonClicked(e: Event) {
 }
 
 async function init() {
+  const connectors: EvmConnector[] = [
+    WalletConnectEvmConnector.create({
+      rpc: {
+        1: 'https://replace_me/',
+      },
+    }),
+  ];
+  if (MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
+    // Add magic link auth button
+    const authenticateButtonBar = document.getElementById('authenticate')!;
+    const magicLinkAuthButton = document.createElement('button');
+    magicLinkAuthButton.setAttribute('class', 'button');
+    magicLinkAuthButton.setAttribute('data-action', 'authenticate');
+    magicLinkAuthButton.setAttribute('data-wallet', 'magicLink');
+    magicLinkAuthButton.innerText = 'Authenticate by MagicLink 🏐';
+    authenticateButtonBar.innerHTML = authenticateButtonBar?.innerHTML + ' | ';
+    authenticateButtonBar.appendChild(magicLinkAuthButton);
+
+    // Add magic link connect button
+    const connectButtonBar = document.getElementById('connect')!;
+    const magicLinkConnectButton = document.createElement('button');
+    magicLinkConnectButton.setAttribute('class', 'button');
+    magicLinkConnectButton.setAttribute('data-action', 'connect');
+    magicLinkConnectButton.setAttribute('data-wallet', 'magicLink');
+    magicLinkConnectButton.innerText = 'Connect by MagicLink 🏐';
+    connectButtonBar.innerHTML = connectButtonBar?.innerHTML + ' | ';
+    connectButtonBar.appendChild(magicLinkConnectButton);
+
+    // Add magic link connector
+    connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY));
+  }
+
   MoralisClient.start({
     backendAdapter: FrontEndOnlyBackendAdapter.create({
       publicApiKey: 'TODO_TODO',
     }),
     evmAuth: {
-      connectors: [
-        WalletConnectEvmConnector.create({
-          rpc: {
-            1: 'https://replace_me/',
-          },
-        }),
-        MagicLinkEvmConnector.create('MAGIC_CONNECT_PUBLISHABLE_API_KEY'),
-      ],
+      connectors,
     },
   });
 

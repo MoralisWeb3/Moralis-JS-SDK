@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { EvmConnection, EvmConnector } from '@moralisweb3/client-evm-auth';
 import { WalletDetails } from '@moralisweb3/client-auth-utils';
-import { Magic, MagicSDKAdditionalConfiguration } from 'magic-sdk';
+import { Magic, MagicSDKAdditionalConfiguration, MagicSDKExtensionsOption } from 'magic-sdk';
 import { ConnectExtension } from '@magic-ext/connect';
 
 export interface MagicLinkEvmConnectorOptions extends MagicSDKAdditionalConfiguration {}
@@ -12,7 +12,7 @@ export class MagicLinkEvmConnector implements EvmConnector {
   }
 
   public readonly name = 'magicLink';
-  private readonly magic: Magic;
+  private readonly magic: Magic<MagicSDKExtensionsOption<ConnectExtension['name']>>;
   private readonly options: MagicLinkEvmConnectorOptions;
 
   public constructor(apiKey: string, options: MagicLinkEvmConnectorOptions = {}) {
@@ -22,22 +22,25 @@ export class MagicLinkEvmConnector implements EvmConnector {
       extensions: [new ConnectExtension(), ...(options.extensions ?? [])],
     };
 
-    this.magic = new Magic(apiKey, this.options);
+    this.magic = new Magic<ConnectExtension['name'], MagicSDKExtensionsOption<ConnectExtension['name']>>(
+      apiKey,
+      this.options,
+    );
   }
 
   public async connect(): Promise<EvmConnection> {
     const provider = this.magic.rpcProvider;
     await provider.enable();
-    // @ts-ignore
-    return new MagicLinkEvmConnection(this.name, new Web3Provider(provider), this.magic);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return new MagicLinkEvmConnection(this.name, new Web3Provider(provider as any), this.magic);
   }
 }
 
 class MagicLinkEvmConnection implements EvmConnection {
   public constructor(
     public readonly connectorName: string,
-    public readonly provider: Web3Provider,
-    private readonly magic: Magic,
+    public readonly provider: typeof Magic.prototype.rpcProvider,
+    private readonly magic: Magic<MagicSDKExtensionsOption<ConnectExtension['name']>>,
   ) {}
 
   public async readWallet(): Promise<WalletDetails> {
