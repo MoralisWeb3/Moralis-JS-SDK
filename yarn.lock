@@ -7516,6 +7516,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@moralisweb3/client-api-utils@npm:^2.10.3":
+  version: 2.10.3
+  resolution: "@moralisweb3/client-api-utils@npm:2.10.3"
+  dependencies:
+    "@moralisweb3/common-core": ^2.10.3
+  checksum: 0968a60b6e7b9cf2316b6eaf2ff89255c5a210d0a064e2f50bdf49fab76747fc3364d82424ab8a736c5d6b6df5d274e2c8f02d14fb3b5c3f7d78b6b7f55b332c
+  languageName: node
+  linkType: hard
+
 "@moralisweb3/client-auth-utils@^2.10.3, @moralisweb3/client-auth-utils@workspace:packages/client/authUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-auth-utils@workspace:packages/client/authUtils"
@@ -7593,6 +7602,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-evm-api@workspace:packages/client/evmApi"
   dependencies:
+    "@moralisweb3/client-api-utils": ^2.10.3
     "@moralisweb3/client-backend-adapter-utils": ^2.10.3
     "@moralisweb3/common-core": ^2.10.3
     "@moralisweb3/common-evm-utils": ^2.10.3
