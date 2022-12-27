@@ -1,13 +1,16 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
 import { Auth, browserSessionPersistence, getAuth } from 'firebase/auth';
 import { connectFunctionsEmulator, Functions, getFunctions } from 'firebase/functions';
-import { getMoralisAuth, MoralisAuth } from '@moralisweb3/client-firebase-auth-utils';
+import { getMoralis, MoralisFirebase } from '@moralisweb3/client-firebase-utils';
+import { getMoralisEvmAuth } from '@moralisweb3/client-firebase-evm-auth';
+import { EvmAuthClient } from '@moralisweb3/client-evm-auth';
 
 export interface Firebase {
   app: FirebaseApp;
   auth: Auth;
   functions: Functions;
-  moralisAuth: MoralisAuth;
+  moralis: MoralisFirebase;
+  moralisEvmAuth: EvmAuthClient;
 }
 
 export async function initializeFirebase(): Promise<Firebase> {
@@ -28,10 +31,16 @@ export async function initializeFirebase(): Promise<Firebase> {
     connectFunctionsEmulator(functions, 'localhost', 5001);
   }
 
-  const moralisAuth = getMoralisAuth(app, {
-    auth,
-    functions,
+  const moralis = getMoralis(app, {
+    defaultBackendAdapter: {
+      auth: {
+        auth,
+        functions,
+      },
+    },
   });
 
-  return { app, auth, functions, moralisAuth };
+  const moralisEvmAuth = getMoralisEvmAuth(moralis);
+
+  return { app, auth, functions, moralis, moralisEvmAuth };
 }
