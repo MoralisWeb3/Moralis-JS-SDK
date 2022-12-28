@@ -5,7 +5,7 @@ import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
 
-const MAGIC_CONNECT_PUBLISHABLE_API_KEY = '';
+const MAGIC_CONNECT_PUBLISHABLE_API_KEY = process.env.MAGIC_CONNECT_PUBLISHABLE_API_KEY;
 
 async function reloadCurrentUser() {
   const userAddress = document.getElementById('userAddress') as HTMLElement;
