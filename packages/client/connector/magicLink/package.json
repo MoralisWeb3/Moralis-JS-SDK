@@ -23,8 +23,8 @@
     "@babel/core": "^7.20.5",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
     "@magic-ext/connect": "^4.0.0",
-    "@moralisweb3/client-auth-utils": "workspace:^",
-    "@moralisweb3/client-evm-auth": "workspace:^",
+    "@moralisweb3/client-auth-utils": "^2.9.0",
+    "@moralisweb3/client-evm-auth": "^2.9.0",
     "magic-sdk": "^11.0.0"
   }
 }

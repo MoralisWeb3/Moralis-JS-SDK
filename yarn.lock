@@ -7591,7 +7591,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-auth-utils@^2.9.0, @moralisweb3/client-auth-utils@workspace:^, @moralisweb3/client-auth-utils@workspace:packages/client/authUtils":
+"@moralisweb3/client-auth-utils@^2.9.0, @moralisweb3/client-auth-utils@workspace:packages/client/authUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-auth-utils@workspace:packages/client/authUtils"
   dependencies:
@@ -7658,8 +7658,8 @@ __metadata:
     "@babel/core": ^7.20.5
     "@babel/plugin-transform-react-jsx": ^7.19.0
     "@magic-ext/connect": ^4.0.0
-    "@moralisweb3/client-auth-utils": "workspace:^"
-    "@moralisweb3/client-evm-auth": "workspace:^"
+    "@moralisweb3/client-auth-utils": ^2.9.0
+    "@moralisweb3/client-evm-auth": ^2.9.0
     magic-sdk: ^11.0.0
     prettier: ^2.5.1
     typescript: ^4.9.3
@@ -7691,7 +7691,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-evm-auth@^2.9.0, @moralisweb3/client-evm-auth@workspace:^, @moralisweb3/client-evm-auth@workspace:packages/client/evmAuth":
+"@moralisweb3/client-evm-auth@^2.9.0, @moralisweb3/client-evm-auth@workspace:packages/client/evmAuth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-evm-auth@workspace:packages/client/evmAuth"
   dependencies:
