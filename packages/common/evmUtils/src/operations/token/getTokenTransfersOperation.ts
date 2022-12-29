@@ -50,7 +50,17 @@ export const getTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/erc20/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'offset', 'limit', 'cursor', 'disableTotal'],
+  urlSearchParamNames: [
+    'chain',
+    'fromBlock',
+    'toBlock',
+    'fromDate',
+    'toDate',
+    'offset',
+    'limit',
+    'cursor',
+    'disableTotal',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
