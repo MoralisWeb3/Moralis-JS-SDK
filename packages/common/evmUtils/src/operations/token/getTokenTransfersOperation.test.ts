@@ -24,6 +24,8 @@ describe('getTokenTransfersOperation', () => {
       toDate: new Date(toDate),
       offset: 0,
       limit: 100,
+      cursor: 'CURSOR',
+      disableTotal: true,
     };
 
     const serializedRequest = getTokenTransfersOperation.serializeRequest(request, core);
@@ -35,7 +37,8 @@ describe('getTokenTransfersOperation', () => {
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.offset).toBe(request.offset);
-    expect(serializedRequest.limit).toBe(request.limit);
+    expect(serializedRequest.cursor).toBe(request.cursor);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getTokenTransfersOperation.deserializeRequest(serializedRequest, core);
 
@@ -47,5 +50,7 @@ describe('getTokenTransfersOperation', () => {
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.offset).toBe(request.offset);
     expect(deserializedRequest.limit).toBe(request.limit);
+    expect(deserializedRequest.cursor).toBe(request.cursor);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

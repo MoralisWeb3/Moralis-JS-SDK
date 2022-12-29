@@ -51,7 +51,17 @@ export const getContractEventsOperation: PaginatedOperation<
   groupName: 'events',
   urlPathPattern: '/{address}/events',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'topic', 'offset', 'limit'],
+  urlSearchParamNames: [
+    'chain',
+    'fromBlock',
+    'toBlock',
+    'fromDate',
+    'toDate',
+    'topic',
+    'offset',
+    'limit',
+    'disableTotal',
+  ],
   bodyParamNames: ['abi'],
   bodyType: 'raw',
   firstPageIndex: 0,
@@ -76,6 +86,7 @@ function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).lowercase,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -120,6 +131,7 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
     limit: request.limit,
     address: EvmAddress.create(request.address, core).lowercase,
     abi: request.abi,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -135,5 +147,6 @@ function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Cor
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
     abi: jsonRequest.abi,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

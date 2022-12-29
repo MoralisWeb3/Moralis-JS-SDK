@@ -53,7 +53,7 @@ export const getWalletTransactionsOperation: PaginatedOperation<
   groupName: 'transaction',
   urlPathPattern: '/{address}',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -74,6 +74,7 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
     cursor: request.cursor,
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).lowercase,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -87,6 +88,7 @@ function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
     cursor: request.cursor,
     limit: request.limit,
     address: EvmAddress.create(request.address, core).checksum,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -100,6 +102,7 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core:
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }
 

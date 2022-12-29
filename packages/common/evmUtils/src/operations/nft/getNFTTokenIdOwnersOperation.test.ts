@@ -21,6 +21,7 @@ describe('getNFTTokenIdOwnersOperation', () => {
       cursor: 'CURSOR1',
       limit: 333,
       normalizeMetadata: false,
+      disableTotal: true,
     };
 
     const serializedRequest = getNFTTokenIdOwnersOperation.serializeRequest(request, core);
@@ -32,6 +33,7 @@ describe('getNFTTokenIdOwnersOperation', () => {
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getNFTTokenIdOwnersOperation.deserializeRequest(serializedRequest, core);
 
@@ -42,5 +44,6 @@ describe('getNFTTokenIdOwnersOperation', () => {
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

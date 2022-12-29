@@ -50,7 +50,7 @@ export const getNFTTokenIdOwnersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/{tokenId}/owners',
   urlPathParamNames: ['address', 'tokenId'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'normalizeMetadata'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'normalizeMetadata', 'disableTotal'],
   firstPageIndex: 1,
 
   getRequestUrlParams,
@@ -70,6 +70,7 @@ function getRequestUrlParams(request: GetNFTTokenIdOwnersRequest, core: Core) {
     cursor: request.cursor,
     tokenId: request.tokenId,
     normalizeMetadata: request.normalizeMetadata,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -98,6 +99,7 @@ function serializeRequest(request: GetNFTTokenIdOwnersRequest, core: Core) {
     address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
     normalizeMetadata: request.normalizeMetadata,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -110,5 +112,6 @@ function deserializeRequest(jsonRequest: GetNFTTokenIdOwnersJSONRequest, core: C
     address: EvmAddress.create(jsonRequest.address, core),
     tokenId: jsonRequest.tokenId,
     normalizeMetadata: jsonRequest.normalizeMetadata,
+    disableTotal: jsonRequest.disableTotal,
   };
 }
