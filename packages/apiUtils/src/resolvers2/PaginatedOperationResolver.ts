@@ -40,7 +40,7 @@ export class PaginatedOperationResolver<Request extends PaginatedRequest, JSONRe
     });
 
     const pagination = PaginationReader.read(jsonResponse);
-    const nextRequest = NextPaginatedRequestResolver.resolve(this.operation, request, pagination);
+    const nextRequest = NextPaginatedRequestResolver.resolve(this.operation.firstPageIndex, request, pagination);
 
     return new PaginatedResponseAdapter<Result, JSONResult>(
       pagination,

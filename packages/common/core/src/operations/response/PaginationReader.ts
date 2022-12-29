@@ -6,7 +6,7 @@ export class PaginationReader {
     return {
       page: jsonResponse.page ?? 0,
       pageSize: jsonResponse.page_size ?? 0,
-      total: jsonResponse.total ?? 0,
+      total: jsonResponse.total,
       cursor: jsonResponse.cursor,
     };
   }
