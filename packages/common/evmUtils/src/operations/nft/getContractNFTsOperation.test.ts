@@ -22,6 +22,7 @@ describe('getContractNfTsOperation', () => {
       range: 20,
       totalRanges: 10,
       normalizeMetadata: false,
+      disableTotal: true,
     };
 
     const serializedRequest = getContractNFTsOperation.serializeRequest(request, core);
@@ -34,6 +35,7 @@ describe('getContractNfTsOperation', () => {
     expect(serializedRequest.range).toBe(request.range);
     expect(serializedRequest.totalRanges).toBe(request.totalRanges);
     expect(serializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getContractNFTsOperation.deserializeRequest(serializedRequest, core);
 
@@ -45,5 +47,6 @@ describe('getContractNfTsOperation', () => {
     expect(deserializedRequest.range).toBe(request.range);
     expect(deserializedRequest.totalRanges).toBe(request.totalRanges);
     expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

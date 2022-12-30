@@ -50,7 +50,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/{address}/erc20/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -71,6 +71,7 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -102,6 +103,7 @@ function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
     toDate: request.toDate,
     limit: request.limit,
     cursor: request.cursor,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -118,5 +120,6 @@ function deserializeRequest(
     toDate: jsonRequest.toDate,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

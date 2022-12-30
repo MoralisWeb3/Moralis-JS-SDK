@@ -524,7 +524,7 @@ export interface components {
        * @description The block hash
        * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
        */
-      block_hash?: string;
+      hash?: string;
       /**
        * @description The block hash of the parent block
        * @example 0x011d1fc45839de975cc55d758943f9f1d204f80a90eb631f3bf064b80d53e045
@@ -1714,6 +1714,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The addresses to get balances for (optional) */
         token_addresses?: string[];
         /** The cursor returned in the previous response (used for getting the next page). */
@@ -1783,6 +1785,8 @@ export interface operations {
         to_block?: string;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -1808,6 +1812,8 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -1843,6 +1849,8 @@ export interface operations {
         totalRanges?: number;
         /** The desired subrange to query */
         range?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** Should normalized metadata be returned? */
@@ -1875,6 +1883,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** Should normalized metadata be returned? */
@@ -1928,6 +1938,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -1979,6 +1991,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (for getting the next page) */
         cursor?: string;
       };
@@ -2000,6 +2014,8 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -2049,6 +2065,8 @@ export interface operations {
         cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
       };
       path: {
         /** The address of the NFT contract */
@@ -2128,6 +2146,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -2160,6 +2180,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** Should normalized metadata be returned? */
@@ -2321,6 +2343,8 @@ export interface operations {
         cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
       };
     };
     responses: {
@@ -2414,6 +2438,8 @@ export interface operations {
         to_date?: string;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -2528,6 +2554,10 @@ export interface operations {
         offset?: number;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
+        /** The cursor returned in the previous response (used for getting the next page). */
+        cursor?: string;
       };
       path: {
         /** The address of the token contract */
@@ -2598,6 +2628,8 @@ export interface operations {
         to_date?: string;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The desired page size of the result. */
         limit?: number;
       };
@@ -2647,6 +2679,8 @@ export interface operations {
         to_date?: string;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The desired page size of the result. */
         limit?: number;
       };
@@ -2773,6 +2807,8 @@ export interface operations {
         topic3?: string;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -2824,6 +2860,8 @@ export interface operations {
         topic: string;
         /** offset */
         offset?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The desired page size of the result. */
         limit?: number;
       };

@@ -49,7 +49,7 @@ export const getWalletNFTTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/{address}/nft/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'direction', 'fromBlock', 'toBlock', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'format', 'direction', 'fromBlock', 'toBlock', 'limit', 'cursor', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -70,6 +70,7 @@ function getRequestUrlParams(request: GetWalletNFTTransfersRequest, core: Core) 
     to_block: request.toBlock,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -105,6 +106,7 @@ function serializeRequest(request: GetWalletNFTTransfersRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -118,5 +120,6 @@ function deserializeRequest(jsonRequest: GetWalletNFTTransfersJSONRequest, core:
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }

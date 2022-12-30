@@ -51,7 +51,16 @@ export const getContractNFTsOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'totalRanges', 'range', 'cursor', 'normalizeMetadata'],
+  urlSearchParamNames: [
+    'chain',
+    'format',
+    'limit',
+    'totalRanges',
+    'range',
+    'cursor',
+    'normalizeMetadata',
+    'disableTotal',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -71,6 +80,7 @@ function getRequestUrlParams(request: GetContractNFTsRequest, core: Core) {
     range: maybe(request.range, String),
     cursor: request.cursor,
     normalizeMetadata: request.normalizeMetadata,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -99,6 +109,7 @@ function serializeRequest(request: GetContractNFTsRequest, core: Core) {
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
     normalizeMetadata: request.normalizeMetadata,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -112,5 +123,6 @@ function deserializeRequest(jsonRequest: GetContractNFTsJSONRequest, core: Core)
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
     normalizeMetadata: jsonRequest.normalizeMetadata,
+    disableTotal: jsonRequest.disableTotal,
   };
 }
