@@ -30,6 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_ENABLE_IMMUTABLE_INSTALLS: false
       - name: Notify Slack
         id: slack
         if: steps.changesets.outputs.published == 'true'
