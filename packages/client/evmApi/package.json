@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-evm-api",
   "author": "Moralis",
-  "version": "2.10.3",
+  "version": "2.10.4",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@moralisweb3/client-api-utils": "^2.10.3",
-    "@moralisweb3/client-backend-adapter-utils": "^2.10.3",
-    "@moralisweb3/common-core": "^2.10.3",
-    "@moralisweb3/common-evm-utils": "^2.10.3"
+    "@moralisweb3/client-backend-adapter-utils": "^2.10.4",
+    "@moralisweb3/common-core": "^2.10.4",
+    "@moralisweb3/common-evm-utils": "^2.10.4"
   }
 }
