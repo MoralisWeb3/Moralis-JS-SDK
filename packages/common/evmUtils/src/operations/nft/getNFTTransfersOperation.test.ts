@@ -20,6 +20,7 @@ describe('getNFTTransfersOperation', () => {
       limit: 100,
       cursor: 'CURSOR1',
       tokenId: '123',
+      disableTotal: true,
     };
 
     const serializedRequest = getNFTTransfersOperation.serializeRequest(request, core);
@@ -30,6 +31,7 @@ describe('getNFTTransfersOperation', () => {
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.tokenId).toBe(request.tokenId);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getNFTTransfersOperation.deserializeRequest(serializedRequest, core);
 
@@ -39,5 +41,6 @@ describe('getNFTTransfersOperation', () => {
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.tokenId).toBe(request.tokenId);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

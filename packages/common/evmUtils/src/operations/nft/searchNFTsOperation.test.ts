@@ -27,6 +27,7 @@ describe('searchNFTsOperation', () => {
       toBlock: 20,
       fromDate: new Date(fromDate),
       toDate: new Date(toDate),
+      disableTotal: true,
     };
 
     const serializedRequest = searchNFTsOperation.serializeRequest(request, core);
@@ -45,6 +46,7 @@ describe('searchNFTsOperation', () => {
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = searchNFTsOperation.deserializeRequest(serializedRequest, core);
 
@@ -64,5 +66,6 @@ describe('searchNFTsOperation', () => {
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect(deserializedRequest.fromDate).toBe(request.fromDate);
     expect(deserializedRequest.toDate).toBe(request.toDate);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

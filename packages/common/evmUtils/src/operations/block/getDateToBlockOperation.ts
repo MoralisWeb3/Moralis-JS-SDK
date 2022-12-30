@@ -1,5 +1,5 @@
 import { Core, Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish } from '../../dataTypes';
+import { EvmBlockDate, EvmChain, EvmChainish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -57,10 +57,7 @@ function getRequestUrlParams(request: GetDateToBlockRequest, core: Core) {
 }
 
 function deserializeResponse(jsonResponse: GetDateToBlockJSONResponse) {
-  return {
-    ...jsonResponse,
-    date: new Date(jsonResponse.date),
-  };
+  return EvmBlockDate.create(jsonResponse);
 }
 
 function serializeRequest(request: GetDateToBlockRequest, core: Core) {

@@ -64,6 +64,7 @@ export const getContractLogsOperation: PaginatedOperation<
     'topic3',
     'limit',
     'cursor',
+    'disableTotal',
   ],
   firstPageIndex: 0,
 
@@ -90,6 +91,7 @@ function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).lowercase,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -108,6 +110,7 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).lowercase,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -126,6 +129,7 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core)
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }
 

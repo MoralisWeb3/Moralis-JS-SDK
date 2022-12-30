@@ -85,7 +85,7 @@ export class FirebaseClientRequestHandler implements ClientRequestHandler {
     const jsonResponse = response.data;
 
     const pagination = PaginationReader.read(jsonResponse);
-    const nextRequest = NextPaginatedRequestResolver.resolve(operation, request, pagination);
+    const nextRequest = NextPaginatedRequestResolver.resolve(operation.firstPageIndex, request, pagination);
 
     return new PaginatedResponseAdapter<Result, JSONResult>(
       pagination,
