@@ -1,5 +1,15 @@
 # @moralisweb3/client-firebase-evm-auth
 
+## 2.10.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/client-auth-utils@2.10.4
+  - @moralisweb3/client-backend-adapter-utils@2.10.4
+  - @moralisweb3/client-evm-auth@2.10.4
+  - @moralisweb3/client-firebase-utils@2.10.4
+
 ## 2.10.3
 
 ### Patch Changes

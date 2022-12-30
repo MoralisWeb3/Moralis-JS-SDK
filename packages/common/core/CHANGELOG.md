@@ -1,5 +1,13 @@
 # @moralisweb3/core
 
+## 2.10.4
+
+### Patch Changes
+
+- [#893](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/893) [`bb5fd88a0`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/bb5fd88a01f8b46b4248890c6b69c190a1e6e4a4) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The `start()` method of the `Core` class doesn't return a promise anymore.
+
+- [#926](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/926) [`2676501b8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2676501b89d2163825255014b83f563e7cab8b65) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated the `NextPaginatedRequestResolver` class to support responses with no `total` field.
+
 ## 2.10.3
 
 ## 2.10.2
