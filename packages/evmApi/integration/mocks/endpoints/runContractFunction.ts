@@ -8,8 +8,6 @@ export const mockRunContractFunction = MockScenarios.create(
         address: req.params.address,
         chain: req.url.searchParams.get('chain'),
         function_name: req.url.searchParams.get('function_name'),
-        subdomain: req.url.searchParams.get('subdomain'),
-        providerUrl: req.url.searchParams.get('providerUrl'),
         abi: reqBody?.abi,
         params: reqBody?.params,
       };
@@ -23,8 +21,6 @@ export const mockRunContractFunction = MockScenarios.create(
         address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
         chain: '0x1',
         function_name: 'name',
-        subdomain: 'foo.com',
-        providerUrl: 'https://url',
         abi: [
           {
             constant: true,

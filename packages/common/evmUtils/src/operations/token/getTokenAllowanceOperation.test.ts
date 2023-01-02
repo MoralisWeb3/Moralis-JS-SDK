@@ -17,7 +17,6 @@ describe('getTokenAllowanceOperation', () => {
 
     const request: Required<GetTokenAllowanceRequest> = {
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://provider.com/url',
       address: EvmAddress.create(address, core),
       ownerAddress: EvmAddress.create(ownerAddress, core),
       spenderAddress: EvmAddress.create(spenderAddress, core),
@@ -27,7 +26,6 @@ describe('getTokenAllowanceOperation', () => {
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.ownerAddress).toBe(ownerAddress);
     expect(serializedRequest.spenderAddress).toBe(spenderAddress);
 
@@ -35,7 +33,6 @@ describe('getTokenAllowanceOperation', () => {
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
     expect((deserializedRequest.ownerAddress as EvmAddress).checksum).toBe(ownerAddress);
     expect((deserializedRequest.spenderAddress as EvmAddress).checksum).toBe(spenderAddress);
   });

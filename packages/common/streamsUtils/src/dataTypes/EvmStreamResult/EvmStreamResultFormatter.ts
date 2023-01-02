@@ -17,6 +17,7 @@ export class EvmStreamResultFormatter {
       txs: data.txs.map((value) => value.toJSON()),
       txsInternal: data.txsInternal.map((value) => value.toJSON()),
       abi: data.abi,
+      nativeBalances: data.nativeBalances.map((nativeBalance) => nativeBalance.toJSON()),
     };
   }
 }

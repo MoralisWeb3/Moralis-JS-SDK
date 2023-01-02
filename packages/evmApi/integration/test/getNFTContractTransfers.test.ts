@@ -44,5 +44,41 @@ describe('getNFTContractTransfers', () => {
         }),
       ).rejects.toThrowError('[C0005] Invalid address provided');
     });
+
+    it('should get the contract transfers of NFTs for a given contract, fromBlock and toBlock', async () => {
+      const { result, pagination } = await EvmApi.nft.getNFTContractTransfers({
+        address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+        fromBlock: 16220200,
+        toBlock: 16220260,
+        limit: 5,
+      });
+
+      expect(result).toBeDefined();
+      expect(pagination.total).toBe(14);
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(result[0].tokenId).toBe('6955');
+      expect(result[1].tokenId).toBe('6955');
+      expect(result[2].tokenId).toBe('4221');
+      expect(result[3].tokenId).toBe('4221');
+      expect(result[4].tokenId).toBe('4221');
+    });
+
+    it('should get the contract transfers of NFTs for a given contract, fromDate and toDate', async () => {
+      const { result, pagination } = await EvmApi.nft.getNFTContractTransfers({
+        address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+        fromDate: '2022-12-10',
+        toDate: '2022-12-11',
+        limit: 5,
+      });
+
+      expect(result).toBeDefined();
+      expect(pagination.total).toBe(534);
+      expect(result).toEqual(expect.objectContaining({}));
+      expect(result[0].tokenId).toBe('2387');
+      expect(result[1].tokenId).toBe('2387');
+      expect(result[2].tokenId).toBe('7022');
+      expect(result[3].tokenId).toBe('5655');
+      expect(result[4].tokenId).toBe('3704');
+    });
   });
 });

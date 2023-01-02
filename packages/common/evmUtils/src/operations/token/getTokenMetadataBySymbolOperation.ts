@@ -37,7 +37,7 @@ export const getTokenMetadataBySymbolOperation: Operation<
   id: 'getTokenMetadataBySymbol',
   groupName: 'token',
   urlPathPattern: '/erc20/metadata/symbols',
-  urlSearchParamNames: ['chain', 'subdomain', 'symbols'],
+  urlSearchParamNames: ['chain', 'symbols'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -50,7 +50,6 @@ export const getTokenMetadataBySymbolOperation: Operation<
 function getRequestUrlParams(request: GetTokenMetadataBySymbolRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     symbols: request.symbols,
   };
 }
@@ -79,7 +78,6 @@ function deserializeResponse(
 function serializeRequest(request: GetTokenMetadataBySymbolRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     symbols: request.symbols,
   };
 }
@@ -90,7 +88,6 @@ function deserializeRequest(
 ): GetTokenMetadataBySymbolRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     symbols: jsonRequest.symbols,
   };
 }

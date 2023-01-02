@@ -55,7 +55,7 @@ export const getWalletNFTsOperation: PaginatedOperation<
   firstPageIndex: 1,
   urlPathPattern: '/{address}/nft',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'tokenAddresses', 'cursor', 'normalizeMetadata'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'tokenAddresses', 'cursor', 'normalizeMetadata', 'disableTotal'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -74,6 +74,7 @@ function getRequestUrlParams(request: GetWalletNFTsRequest, core: Core) {
     token_addresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
     normalizeMetadata: request.normalizeMetadata,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -107,6 +108,8 @@ function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
     tokenAddresses: request.tokenAddresses?.map((address) => EvmAddress.create(address, core).checksum),
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
+    normalizeMetadata: request.normalizeMetadata,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -120,5 +123,7 @@ function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest, core: Core): 
     ),
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    normalizeMetadata: jsonRequest.normalizeMetadata,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

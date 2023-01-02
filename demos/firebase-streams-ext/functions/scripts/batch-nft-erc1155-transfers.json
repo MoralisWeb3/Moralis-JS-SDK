@@ -1,0 +1,61 @@
+{
+  "confirmed": false,
+  "chainId": "0x1",
+  "abi": [],
+  "streamId": "c02cfe80-72f8-40ba-afa5-e07c3c842045",
+  "tag": "Open Sea",
+  "retries": 0,
+  "block": {
+    "number": "16225720",
+    "hash": "0x03b784499c2e3b74fa5a10a88c28dc221673f05f487d7f9d27d6dfd91512e51b",
+    "timestamp": "1671537047"
+  },
+  "logs": [
+    {
+      "logIndex": "133",
+      "transactionHash": "0x839606e97ec0e0bae7ff0ad60ebc8ff2bcbfde4653f0164cefdd00b2a871989e",
+      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e",
+      "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "topic0": "0x17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31",
+      "topic1": "0x000000000000000000000000e2ef9190bd7327178a6ef875440f85b403dfb2b8",
+      "topic2": "0x0000000000000000000000001e0049783f008a0085193e00003d00cd54003c71",
+      "topic3": null
+    }
+  ],
+  "txs": [],
+  "txsInternal": [],
+  "erc20Transfers": [],
+  "erc20Approvals": [],
+  "nftTokenApprovals": [
+    {
+      "transactionHash": "0x839606e97ec0e0bae7ff0ad60ebc8ff2bcbfde4653f0164cefdd00b2a871989e",
+      "logIndex": "133",
+      "contract": "0x495f947276749ce646f68ac8c248420045cb7b5e",
+      "account": "0xe2ef9190bd7327178a6ef875440f85b403dfb2b8",
+      "operator": "0x1e0049783f008a0085193e00003d00cd54003c71",
+      "approvedAll": true,
+      "tokenId": null,
+      "tokenName": "OpenSea Shared Storefront",
+      "tokenSymbol": "OPENSTORE",
+      "tokenContractType": "ERC1155"
+    }
+  ],
+  "nftApprovals": {
+    "ERC721": [],
+    "ERC1155": [
+      {
+        "transactionHash": "0x839606e97ec0e0bae7ff0ad60ebc8ff2bcbfde4653f0164cefdd00b2a871989e",
+        "logIndex": "133",
+        "contract": "0x495f947276749ce646f68ac8c248420045cb7b5e",
+        "account": "0xe2ef9190bd7327178a6ef875440f85b403dfb2b8",
+        "operator": "0x1e0049783f008a0085193e00003d00cd54003c71",
+        "approved": true,
+        "tokenName": "OpenSea Shared Storefront",
+        "tokenSymbol": "OPENSTORE",
+        "tokenContractType": "ERC1155"
+      }
+    ]
+  },
+  "nftTransfers": [],
+  "nativeBalances": []
+}

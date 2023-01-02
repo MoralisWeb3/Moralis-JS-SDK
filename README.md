@@ -3,7 +3,7 @@
   To adjust it, change the sdk-readme code generator or its template
 -->
 <div align="center">
-    <a href="https://moralis.io" target="_blank">
+    <a align="center" href="https://moralis.io" target="_blank">
       <img src="https://github.com/MoralisWeb3/Moralis-JS-SDK/raw/main/assets/moralis-logo.svg" alt="Moralis JS SDK" height=200/>
     </a>
     <h1 align="center">Moralis SDK (JavaScript / TypeScript)</h1>

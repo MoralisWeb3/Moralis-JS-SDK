@@ -17,20 +17,17 @@ describe('getTokenMetadataBySymbolOperation', () => {
 
     const request: Required<GetTokenMetadataBySymbolRequest> = {
       chain: EvmChain.create(chain, core),
-      subdomain: 'my-domain.com',
       symbols: ['SHIBA INU'],
     };
 
     const serializedRequest = getTokenMetadataBySymbolOperation.serializeRequest(request, core);
 
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.symbols).toBe(request.symbols);
 
     const deserializedRequest = getTokenMetadataBySymbolOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.symbols).toBe(request.symbols);
   });
 });

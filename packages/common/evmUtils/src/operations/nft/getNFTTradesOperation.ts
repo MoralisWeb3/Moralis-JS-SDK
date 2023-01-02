@@ -57,10 +57,10 @@ export const getNFTTradesOperation: PaginatedOperation<
     'toBlock',
     'fromDate',
     'toDate',
-    'providerUrl',
     'marketplace',
     'cursor',
     'limit',
+    'disableTotal',
   ],
   firstPageIndex: 0,
 
@@ -80,10 +80,10 @@ function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
-    provider_url: request.providerUrl,
     marketplace: request.marketplace,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
+    disable_total: request.disableTotal,
   };
 }
 
@@ -110,11 +110,11 @@ function serializeRequest(request: GetNFTTradesRequest, core: Core) {
     toBlock: request.toBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
-    providerUrl: request.providerUrl,
     marketplace: request.marketplace,
     cursor: request.cursor,
     limit: request.limit,
     address: EvmAddress.create(request.address, core).checksum,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -125,10 +125,10 @@ function deserializeRequest(jsonRequest: GetNFTTradesJSONRequest, core: Core): G
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
-    providerUrl: jsonRequest.providerUrl,
     marketplace: jsonRequest.marketplace,
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }

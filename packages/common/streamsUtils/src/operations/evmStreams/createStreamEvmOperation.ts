@@ -1,6 +1,6 @@
 import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
-import { EvmStream } from '../../dataTypes';
+import { EvmStream, StreamTrigger, StreamTriggerish } from '../../dataTypes';
 import { operations } from '../openapi';
 
 type OperationId = 'CreateStream';
@@ -12,8 +12,9 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface CreateStreamEvmRequest extends Camelize<Omit<RequestParams, 'chainIds'>> {
+export interface CreateStreamEvmRequest extends Camelize<Omit<RequestParams, 'chainIds' | 'triggers'>> {
   chains: EvmChainish[];
+  triggers?: StreamTriggerish[];
 }
 
 export type CreateStreamEvmJSONRequest = ReturnType<typeof serializeRequest>;
@@ -45,9 +46,12 @@ export const createStreamEvmOperation: Operation<
     'includeNativeTxs',
     'includeContractLogs',
     'includeInternalTxs',
+    'getNativeBalances',
     'chains',
     'abi',
     'advancedOptions',
+    'demo',
+    'triggers',
   ],
   bodyType: 'properties',
 
@@ -74,9 +78,12 @@ function getRequestBody(request: CreateStreamEvmRequest, core: Core) {
     includeNativeTxs: request.includeNativeTxs,
     includeContractLogs: request.includeContractLogs,
     includeInternalTxs: request.includeInternalTxs,
+    getNativeBalances: request.getNativeBalances,
     chainIds: request.chains.map((chain) => EvmChain.create(chain, core).apiHex),
     abi: request.abi,
     advancedOptions: request.advancedOptions,
+    demo: request.demo,
+    triggers: request.triggers?.map((trigger) => StreamTrigger.create(trigger, core).format()),
   };
 }
 
@@ -97,6 +104,8 @@ function serializeRequest(request: CreateStreamEvmRequest, core: Core) {
     chainIds: request.chains.map((chain) => EvmChain.create(chain, core).apiHex),
     abi: request.abi,
     advancedOptions: request.advancedOptions,
+    demo: request.demo,
+    triggers: request.triggers?.map((trigger) => StreamTrigger.create(trigger, core).format()),
   };
 }
 
@@ -113,5 +122,7 @@ function deserializeRequest(jsonRequest: CreateStreamEvmJSONRequest, core: Core)
     chains: jsonRequest.chainIds.map((chainId) => EvmChain.create(chainId, core)),
     abi: jsonRequest.abi,
     advancedOptions: jsonRequest.advancedOptions,
+    demo: jsonRequest.demo,
+    triggers: jsonRequest.triggers?.map((trigger) => StreamTrigger.create(trigger, core)),
   };
 }

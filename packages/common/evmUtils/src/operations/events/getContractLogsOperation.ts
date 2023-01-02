@@ -53,7 +53,6 @@ export const getContractLogsOperation: PaginatedOperation<
   urlPathParamNames: ['address'],
   urlSearchParamNames: [
     'chain',
-    'subdomain',
     'blockNumber',
     'fromBlock',
     'toBlock',
@@ -65,6 +64,7 @@ export const getContractLogsOperation: PaginatedOperation<
     'topic3',
     'limit',
     'cursor',
+    'disableTotal',
   ],
   firstPageIndex: 0,
 
@@ -79,7 +79,6 @@ export const getContractLogsOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     block_number: request.blockNumber,
     from_block: request.fromBlock,
     to_block: request.toBlock,
@@ -92,13 +91,13 @@ function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).lowercase,
+    disable_total: request.disableTotal,
   };
 }
 
 function serializeRequest(request: GetContractLogsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     blockNumber: request.blockNumber,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
@@ -111,13 +110,13 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).lowercase,
+    disableTotal: request.disableTotal,
   };
 }
 
 function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core): GetContractLogsRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     blockNumber: jsonRequest.blockNumber,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
@@ -130,6 +129,7 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core)
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }
 

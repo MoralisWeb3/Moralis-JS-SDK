@@ -17,7 +17,6 @@ describe('getNFTTradesOperation', () => {
 
     const request: Required<GetNFTTradesRequest> = {
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://provider.com/url',
       address: EvmAddress.create(address, core),
       marketplace: 'opensea',
       fromBlock: 10,
@@ -26,13 +25,13 @@ describe('getNFTTradesOperation', () => {
       toDate: new Date(toDate),
       cursor: 'CURSOR1',
       limit: 333,
+      disableTotal: true,
     };
 
     const serializedRequest = getNFTTradesOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.marketplace).toBe(request.marketplace);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
@@ -40,12 +39,12 @@ describe('getNFTTradesOperation', () => {
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getNFTTradesOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
     expect(deserializedRequest.marketplace).toBe(request.marketplace);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
@@ -53,5 +52,6 @@ describe('getNFTTradesOperation', () => {
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

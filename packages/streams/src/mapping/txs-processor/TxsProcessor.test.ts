@@ -1,5 +1,5 @@
 import { IWebhook } from '@moralisweb3/streams-typings';
-import { CollectionNameBuilder } from '../core/CollectionNameBuilder';
+import { CollectionNameBuilder } from '../common/CollectionNameBuilder';
 import { TxsProcessor } from './TxsProcessor';
 
 const batch: IWebhook = {
@@ -105,6 +105,8 @@ const batch: IWebhook = {
     ERC1155: [],
     ERC721: [],
   },
+  nativeBalances: [],
+  nftTokenApprovals: [],
   nftTransfers: [],
   tag: 'Transaction',
   streamId: 'ba3b3c52-3dd3-4eb7-a2b7-4b61d3439c5e',

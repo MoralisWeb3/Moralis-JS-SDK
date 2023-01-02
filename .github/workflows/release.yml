@@ -25,10 +25,12 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
+          version: scripts/changesetRelease.sh
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          YARN_ENABLE_IMMUTABLE_INSTALLS: true
       - name: Notify Slack
         id: slack
         if: steps.changesets.outputs.published == 'true'

@@ -51,7 +51,17 @@ export const getNFTTransfersFromToBlockOperation: PaginatedOperation<
   id: 'getNFTTransfersFromToBlock',
   groupName: 'nft',
   urlPathPattern: '/nft/transfers',
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'format', 'limit', 'cursor'],
+  urlSearchParamNames: [
+    'chain',
+    'fromBlock',
+    'toBlock',
+    'fromDate',
+    'toDate',
+    'format',
+    'limit',
+    'cursor',
+    'disableTotal',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -72,6 +82,7 @@ function getRequestUrlParams(request: GetNFTTransfersFromToBlockRequest, core: C
     format: request.format,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -104,6 +115,7 @@ function serializeRequest(request: GetNFTTransfersFromToBlockRequest, core: Core
     format: request.format,
     limit: request.limit,
     cursor: request.cursor,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -120,5 +132,6 @@ function deserializeRequest(
     format: jsonRequest.format,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

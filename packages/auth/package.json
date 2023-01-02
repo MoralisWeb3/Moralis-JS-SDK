@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/auth",
   "author": "Moralis",
-  "version": "2.9.0",
+  "version": "2.10.4",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -30,10 +30,10 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.9.0",
-    "@moralisweb3/common-auth-utils": "^2.9.0",
-    "@moralisweb3/common-core": "^2.9.0",
-    "@moralisweb3/common-evm-utils": "^2.9.0",
-    "@moralisweb3/common-sol-utils": "^2.9.0"
+    "@moralisweb3/api-utils": "^2.10.4",
+    "@moralisweb3/common-auth-utils": "^2.10.4",
+    "@moralisweb3/common-core": "^2.10.4",
+    "@moralisweb3/common-evm-utils": "^2.10.4",
+    "@moralisweb3/common-sol-utils": "^2.10.4"
   }
 }

@@ -46,13 +46,6 @@ describe('EvmAddress', () => {
     expect(addressA).toBe(addressB);
   });
 
-  it('should return the same EvmAddress on calling create with an EvmAddress', () => {
-    const addressA = EvmAddress.create(TEST_ADDRESS_CHECKSUM);
-    const addressB = EvmAddress.create(addressA);
-
-    expect(addressA).toBe(addressB);
-  });
-
   /**
    * Formatting
    */
@@ -115,7 +108,7 @@ describe('EvmAddress', () => {
     expect(EvmAddress.equals(addressA, addressB)).toBeTruthy();
   });
 
-  it('should check inequality of 2 addresses of the same value', () => {
+  it('should check inequality of 2 addresses of different value', () => {
     const addressA = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
     const addressB = EvmAddress.create(TEST_ADDRESS_CHECKSUM2);
 

@@ -4,6 +4,10 @@
 # Production
 /build
 
+# Generated docs
+docs/api
+docs/demos
+
 # Generated files
 .docusaurus
 .cache-loader

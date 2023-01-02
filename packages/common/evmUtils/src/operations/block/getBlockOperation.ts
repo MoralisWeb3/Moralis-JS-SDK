@@ -39,7 +39,7 @@ export const getBlockOperation: Operation<
   isNullable: true,
   urlPathPattern: '/block/{blockNumberOrHash}',
   urlPathParamNames: ['blockNumberOrHash'],
-  urlSearchParamNames: ['chain', 'subdomain'],
+  urlSearchParamNames: ['chain'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -52,7 +52,6 @@ export const getBlockOperation: Operation<
 function getRequestUrlParams(request: GetBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     blockNumberOrHash: request.blockNumberOrHash,
   };
 }
@@ -116,7 +115,6 @@ function deserializeResponse(jsonResponse: GetBlockJSONResponse, request: GetBlo
 function serializeRequest(request: GetBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     blockNumberOrHash: request.blockNumberOrHash,
   };
 }
@@ -124,7 +122,6 @@ function serializeRequest(request: GetBlockRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetBlockJSONRequest, core: Core): GetBlockRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     blockNumberOrHash: jsonRequest.blockNumberOrHash,
   };
 }
