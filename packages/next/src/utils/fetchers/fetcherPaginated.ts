@@ -3,7 +3,7 @@ import Moralis from 'moralis';
 import { PaginatedJSONResponse, PaginatedOperation, PaginatedRequest, PaginationReader } from 'moralis/common-core';
 
 export interface FetcherPaginatedResponse<Response> {
-  total: number;
+  total?: number;
   page: number;
   pageSize: number;
   cursor?: string | undefined;

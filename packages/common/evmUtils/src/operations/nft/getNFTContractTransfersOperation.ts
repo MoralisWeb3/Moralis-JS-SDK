@@ -5,6 +5,7 @@ import {
   toCamelCase,
   maybe,
   PaginatedResponseAdapter,
+  DateInput,
 } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNftTransfer, EvmNative } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
@@ -20,9 +21,12 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetNFTContractTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetNFTContractTransfersRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetNFTContractTransfersJSONRequest = ReturnType<typeof serializeRequest>;
@@ -47,9 +51,18 @@ export const getNFTContractTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor'],
+  urlSearchParamNames: [
+    'chain',
+    'format',
+    'limit',
+    'cursor',
+    'fromBlock',
+    'fromDate',
+    'toBlock',
+    'toDate',
+    'disableTotal',
+  ],
   firstPageIndex: 0,
-
   getRequestUrlParams,
   serializeRequest,
   deserializeRequest,
@@ -64,7 +77,12 @@ function getRequestUrlParams(request: GetNFTContractTransfersRequest, core: Core
     address: EvmAddress.create(request.address, core).lowercase,
     format: request.format,
     limit: maybe(request.limit, String),
+    from_block: maybe(request.fromBlock, String),
+    from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    to_block: maybe(request.toBlock, String),
+    to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -74,16 +92,19 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    EvmNftTransfer.create({
-      ...toCamelCase(transfer),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      tokenAddress: EvmAddress.create(transfer.to_address),
-      toAddress: EvmAddress.create(transfer.to_address),
-      operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
-      fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
-      value: transfer.value ? EvmNative.create(transfer.value) : null,
-      blockTimestamp: new Date(transfer.block_timestamp),
-    }),
+    EvmNftTransfer.create(
+      {
+        ...toCamelCase(transfer),
+        chain: EvmChainResolver.resolve(request.chain, core),
+        tokenAddress: EvmAddress.create(transfer.to_address, core),
+        toAddress: EvmAddress.create(transfer.to_address, core),
+        operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
+        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
+        value: transfer.value ? EvmNative.create(transfer.value) : null,
+        blockTimestamp: new Date(transfer.block_timestamp),
+      },
+      core,
+    ),
   );
 }
 
@@ -94,6 +115,11 @@ function serializeRequest(request: GetNFTContractTransfersRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
+    fromBlock: request.fromBlock,
+    toBlock: request.toBlock,
+    fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
+    toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -107,5 +133,10 @@ function deserializeRequest(
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    fromBlock: jsonRequest.fromBlock,
+    toBlock: jsonRequest.toBlock,
+    fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
+    toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

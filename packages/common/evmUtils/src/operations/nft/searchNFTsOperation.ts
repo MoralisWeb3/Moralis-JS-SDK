@@ -61,6 +61,7 @@ export const searchNFTsOperation: PaginatedOperation<
     'addresses',
     'cursor',
     'limit',
+    'disableTotal',
   ],
   firstPageIndex: 0,
 
@@ -85,6 +86,7 @@ function getRequestUrlParams(request: SearchNFTsRequest, core: Core) {
     addresses: request.addresses?.map((address) => EvmAddress.create(address, core).lowercase),
     cursor: request.cursor,
     limit: maybe(request.limit, String),
+    disable_total: request.disableTotal,
   };
 }
 
@@ -131,6 +133,7 @@ function serializeRequest(request: SearchNFTsRequest, core: Core) {
     addresses: request.addresses?.map((address) => EvmAddress.create(address, core).checksum),
     cursor: request.cursor,
     limit: request.limit,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -149,5 +152,6 @@ function deserializeRequest(jsonRequest: SearchNFTsJSONRequest, core: Core): Sea
     ),
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

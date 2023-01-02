@@ -1,12 +1,19 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "out": "documentation/docs",
+  "out": "documentation/docs/api",
   "media": "./assets",
   "plugin": ["typedoc-plugin-markdown", "@moralisweb3/typedoc-readme-theme"],
   "theme": "readme",
-  "entryDocument": "/nodejs-sdk-references.md",
-  "entryPoints": ["packages/**"],
-  "exclude": ["packages/eslintConfig", "packages/codegen"],
+  "entryDocument": "/modules.md",
+  "entryPoints": [
+    "packages/common/core",
+    "packages/common/evmUtils",
+    "packages/common/solUtils",
+    "packages/common/streamsUtils",
+    "packages/common/authUtils",
+    "packages/evmApi",
+    "packages/solApi"
+  ],
   "entryPointStrategy": "packages",
   "includeVersion": false,
   "logLevel": "Verbose",

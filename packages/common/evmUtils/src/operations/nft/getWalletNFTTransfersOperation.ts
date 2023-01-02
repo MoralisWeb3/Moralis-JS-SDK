@@ -49,7 +49,7 @@ export const getWalletNFTTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/{address}/nft/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'direction', 'fromBlock', 'toBlock', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'format', 'direction', 'fromBlock', 'toBlock', 'limit', 'cursor', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -70,6 +70,7 @@ function getRequestUrlParams(request: GetWalletNFTTransfersRequest, core: Core) 
     to_block: request.toBlock,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -79,16 +80,19 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    EvmNftTransfer.create({
-      ...toCamelCase(transfer),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      tokenAddress: EvmAddress.create(transfer.token_address),
-      toAddress: EvmAddress.create(transfer.to_address),
-      operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
-      fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
-      value: transfer.value ? EvmNative.create(transfer.value) : null,
-      blockTimestamp: new Date(transfer.block_timestamp),
-    }),
+    EvmNftTransfer.create(
+      {
+        ...toCamelCase(transfer),
+        chain: EvmChainResolver.resolve(request.chain, core),
+        tokenAddress: EvmAddress.create(transfer.token_address, core),
+        toAddress: EvmAddress.create(transfer.to_address, core),
+        operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
+        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
+        value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
+        blockTimestamp: new Date(transfer.block_timestamp),
+      },
+      core,
+    ),
   );
 }
 
@@ -102,6 +106,7 @@ function serializeRequest(request: GetWalletNFTTransfersRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address, core).checksum,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -115,5 +120,6 @@ function deserializeRequest(jsonRequest: GetWalletNFTTransfersJSONRequest, core:
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }

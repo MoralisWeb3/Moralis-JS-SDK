@@ -17,22 +17,18 @@ describe('getNativeBalanceOperation', () => {
       address: EvmAddress.create(address, core),
       chain: EvmChain.create(chain, core),
       toBlock: 123,
-      providerUrl: 'https://provider.com/url',
     };
 
     const serializedRequest = getNativeBalanceOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
 
     const deserializedRequest = getNativeBalanceOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).lowercase).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
   });
 });

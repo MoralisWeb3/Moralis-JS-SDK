@@ -53,8 +53,6 @@ export const getContractEventsOperation: PaginatedOperation<
   urlPathParamNames: ['address'],
   urlSearchParamNames: [
     'chain',
-    'subdomain',
-    'providerUrl',
     'fromBlock',
     'toBlock',
     'fromDate',
@@ -62,6 +60,7 @@ export const getContractEventsOperation: PaginatedOperation<
     'topic',
     'offset',
     'limit',
+    'disableTotal',
   ],
   bodyParamNames: ['abi'],
   bodyType: 'raw',
@@ -79,8 +78,6 @@ export const getContractEventsOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
-    providerUrl: request.providerUrl,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -89,6 +86,7 @@ function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).lowercase,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -124,8 +122,6 @@ function deserializeResponse(
 function serializeRequest(request: GetContractEventsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
-    providerUrl: request.providerUrl,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -135,14 +131,13 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
     limit: request.limit,
     address: EvmAddress.create(request.address, core).lowercase,
     abi: request.abi,
+    disableTotal: request.disableTotal,
   };
 }
 
 function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Core): GetContractEventsRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
-    providerUrl: jsonRequest.providerUrl,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
@@ -152,5 +147,6 @@ function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Cor
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
     abi: jsonRequest.abi,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

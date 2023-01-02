@@ -1,6 +1,6 @@
 import { IWebhook } from '@moralisweb3/streams-typings';
 
-import { CollectionNameBuilder } from '../core/CollectionNameBuilder';
+import { CollectionNameBuilder } from '../common/CollectionNameBuilder';
 import { LogParser } from './LogParser';
 import { LogDocument, LogDocumentBuilder } from './LogDocumentBuilder';
 import { Update } from '../storage/Update';
@@ -31,7 +31,4 @@ export class LogsProcessor {
   }
 }
 
-export interface LogDocumentUpdate extends Update<LogDocument> {
-  collectionName: string;
-  document: LogDocument;
-}
+export interface LogDocumentUpdate extends Update<LogDocument> {}

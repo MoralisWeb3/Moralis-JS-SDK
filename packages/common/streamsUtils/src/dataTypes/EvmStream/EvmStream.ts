@@ -1,5 +1,6 @@
 import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmChain } from '@moralisweb3/common-evm-utils';
+import { StreamTrigger } from '../StreamTrigger';
 import { EvmStreamData, EvmStreamInput, EvmStreamJSON } from './types';
 
 export type EvmStreamish = EvmStreamInput | EvmStream;
@@ -46,6 +47,8 @@ export class EvmStream implements MoralisDataObject {
       includeNativeTxs: data.includeNativeTxs ?? false,
       advancedOptions: maybe(data.advancedOptions),
       abi: maybe(data.abi),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTrigger.create(trigger, core))),
+      getNativeBalances: maybe(data.getNativeBalances),
     };
   };
 
@@ -64,6 +67,13 @@ export class EvmStream implements MoralisDataObject {
     const evmStreamB = EvmStream.create(valueB);
 
     if (evmStreamA.id !== evmStreamB.id) {
+      return false;
+    }
+
+    if (
+      evmStreamA.triggers?.length !== evmStreamB.triggers?.length ||
+      !StreamTrigger.arrayEquals(evmStreamA.triggers || [], evmStreamB.triggers || [])
+    ) {
       return false;
     }
 
@@ -89,11 +99,12 @@ export class EvmStream implements MoralisDataObject {
    * @example `evmStream.toJSON()`
    */
   toJSON(): EvmStreamJSON {
-    const { chains, ...data } = this._data;
+    const { chains, triggers, ...data } = this._data;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
       chainIds: chains.map((chain) => chain.format()),
+      triggers: triggers?.map((trigger) => trigger.format()),
     };
   }
 
@@ -164,5 +175,13 @@ export class EvmStream implements MoralisDataObject {
 
   get statusMessage() {
     return this._data.statusMessage;
+  }
+
+  get triggers() {
+    return this._data.triggers;
+  }
+
+  get getNativeBalances() {
+    return this._data.getNativeBalances;
   }
 }

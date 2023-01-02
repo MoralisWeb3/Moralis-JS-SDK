@@ -16,19 +16,16 @@ describe('getDateToBlockOperation', () => {
     const request: Required<GetDateToBlockRequest> = {
       chain: EvmChain.create(chain, core),
       date: new Date(date),
-      providerUrl: 'https://provider.com/url',
     };
 
     const serializedRequest = getDateToBlockOperation.serializeRequest(request, core);
 
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.date).toBe(date);
 
     const deserializedRequest = getDateToBlockOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect((deserializedRequest.date as Date).toISOString()).toBe(date);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
   });
 });

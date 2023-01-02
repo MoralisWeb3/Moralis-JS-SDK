@@ -17,7 +17,7 @@ describe('getNFTTransfersByBlockOperation', () => {
       blockNumberOrHash: '0x123',
       limit: 100,
       cursor: 'CURSOR1',
-      subdomain: 'test.com',
+      disableTotal: true,
     };
 
     const serializedRequest = getNFTTransfersByBlockOperation.serializeRequest(request, core);
@@ -26,7 +26,7 @@ describe('getNFTTransfersByBlockOperation', () => {
     expect(serializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getNFTTransfersByBlockOperation.deserializeRequest(serializedRequest, core);
 
@@ -34,6 +34,6 @@ describe('getNFTTransfersByBlockOperation', () => {
     expect(deserializedRequest.blockNumberOrHash).toBe(request.blockNumberOrHash);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

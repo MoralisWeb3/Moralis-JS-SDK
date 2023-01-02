@@ -50,7 +50,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/{address}/erc20/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -65,13 +65,13 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
-    subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -97,13 +97,13 @@ function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).checksum,
-    subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
     toDate: request.toDate,
     limit: request.limit,
     cursor: request.cursor,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -114,12 +114,12 @@ function deserializeRequest(
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     address: EvmAddress.create(jsonRequest.address, core),
-    subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

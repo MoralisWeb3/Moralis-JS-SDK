@@ -62,6 +62,7 @@ describe('EvmStreamResult', () => {
       txsInternal: [],
       streamId: '',
       tag: '',
+      nativeBalances: [],
     });
   });
 
@@ -93,7 +94,7 @@ describe('EvmStreamResult', () => {
     });
   });
 
-  it('should return return true for .equals() on equality match', () => {
+  it('should return true for .equals() on equality match', () => {
     const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
     const isEqual = streamResult.equals({
@@ -103,7 +104,7 @@ describe('EvmStreamResult', () => {
     expect(isEqual).toBe(true);
   });
 
-  it('should return return false for .equals() on mismatching chain', () => {
+  it('should return false for .equals() on mismatching chain', () => {
     const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
     const isEqual = streamResult.equals({
@@ -114,7 +115,7 @@ describe('EvmStreamResult', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching tag', () => {
+  it('should return false for .equals() on mismatching tag', () => {
     const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
     const isEqual = streamResult.equals({
@@ -125,7 +126,7 @@ describe('EvmStreamResult', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching streamId', () => {
+  it('should return false for .equals() on mismatching streamId', () => {
     const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
     const isEqual = streamResult.equals({
@@ -136,7 +137,7 @@ describe('EvmStreamResult', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching confirmed', () => {
+  it('should return false for .equals() on mismatching confirmed', () => {
     const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
     const isEqual = streamResult.equals({
@@ -147,7 +148,7 @@ describe('EvmStreamResult', () => {
     expect(isEqual).toBe(false);
   });
 
-  it('should return return false for .equals() on mismatching block', () => {
+  it('should return false for .equals() on mismatching block', () => {
     const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
 
     const isEqual = streamResult.equals({

@@ -22,6 +22,7 @@ describe('getWalletNFTsOperation', () => {
       tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address, core)),
       cursor: 'CURSOR1',
       normalizeMetadata: false,
+      disableTotal: true,
     };
 
     const serializedRequest = getWalletNFTsOperation.serializeRequest(request, core);
@@ -35,6 +36,8 @@ describe('getWalletNFTsOperation', () => {
       expect((serializedRequest.tokenAddresses ?? [])[i]).toBe(tokenAddresses[i]);
     }
     expect(serializedRequest.cursor).toBe(request.cursor);
+    expect(serializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getWalletNFTsOperation.deserializeRequest(serializedRequest, core);
 
@@ -48,5 +51,7 @@ describe('getWalletNFTsOperation', () => {
       expect(EvmAddress.equals(tokenAddress, requestAddress)).toBeTruthy();
     }
     expect(deserializedRequest.cursor).toBe(request.cursor);
+    expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

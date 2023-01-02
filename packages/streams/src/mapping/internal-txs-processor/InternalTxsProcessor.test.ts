@@ -1,5 +1,5 @@
 import { IWebhook } from '@moralisweb3/streams-typings';
-import { CollectionNameBuilder } from '../core/CollectionNameBuilder';
+import { CollectionNameBuilder } from '../common/CollectionNameBuilder';
 import { InternalTxsProcessor } from './InternalTxsProcessor';
 
 describe('InternalTxsProcessor', () => {
@@ -46,9 +46,9 @@ describe('InternalTxsProcessor', () => {
       ERC1155: [],
       ERC721: [],
     },
-    nftTokenApprovals: [],
     nftTransfers: [],
     nativeBalances: [],
+    nftTokenApprovals: [],
   };
 
   it('processes correctly', () => {
