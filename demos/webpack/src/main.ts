@@ -7,6 +7,15 @@ import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-
 
 const MAGIC_CONNECT_PUBLISHABLE_API_KEY = process.env.MAGIC_CONNECT_PUBLISHABLE_API_KEY;
 
+function validateMagicLinkApiKey() {
+  if (!MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
+    alert('Please set MAGIC_CONNECT_PUBLISHABLE_API_KEY in .env file');
+    return false;
+  }
+
+  return true;
+}
+
 async function reloadCurrentUser() {
   const userAddress = document.getElementById('userAddress') as HTMLElement;
   const userBalance = document.getElementById('userBalance') as HTMLElement;
@@ -55,7 +64,9 @@ async function authenticate(wallet: string) {
       break;
 
     case 'magicLink':
-      await MoralisClient.EvmAuth.authenticate('magicLink');
+      if (validateMagicLinkApiKey()) {
+        await MoralisClient.EvmAuth.authenticate('magicLink');
+      }
       break;
 
     case 'phantom':
@@ -75,7 +86,9 @@ async function connect(action: string) {
       break;
 
     case 'magicLink':
-      await MoralisClient.EvmAuth.connect('magicLink');
+      if (validateMagicLinkApiKey()) {
+        await MoralisClient.EvmAuth.connect('magicLink');
+      }
       break;
 
     case 'phantom':
@@ -126,26 +139,6 @@ async function init() {
     }),
   ];
   if (MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
-    // Add magic link auth button
-    const authenticateButtonBar = document.getElementById('authenticate')!;
-    const magicLinkAuthButton = document.createElement('button');
-    magicLinkAuthButton.setAttribute('class', 'button');
-    magicLinkAuthButton.setAttribute('data-action', 'authenticate');
-    magicLinkAuthButton.setAttribute('data-wallet', 'magicLink');
-    magicLinkAuthButton.innerText = 'Authenticate by MagicLink 🏐';
-    authenticateButtonBar.innerHTML = authenticateButtonBar?.innerHTML + ' | ';
-    authenticateButtonBar.appendChild(magicLinkAuthButton);
-
-    // Add magic link connect button
-    const connectButtonBar = document.getElementById('connect')!;
-    const magicLinkConnectButton = document.createElement('button');
-    magicLinkConnectButton.setAttribute('class', 'button');
-    magicLinkConnectButton.setAttribute('data-action', 'connect');
-    magicLinkConnectButton.setAttribute('data-wallet', 'magicLink');
-    magicLinkConnectButton.innerText = 'Connect by MagicLink 🏐';
-    connectButtonBar.innerHTML = connectButtonBar?.innerHTML + ' | ';
-    connectButtonBar.appendChild(magicLinkConnectButton);
-
     // Add magic link connector
     connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY));
   }
