@@ -41,7 +41,7 @@ export const getNFTLowestPriceOperation: Operation<
   isNullable: true,
   urlPathPattern: '/nft/{address}/lowestprice',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'days', 'providerUrl', 'marketplace'],
+  urlSearchParamNames: ['chain', 'days', 'marketplace'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -56,7 +56,6 @@ function getRequestUrlParams(request: GetNFTLowestPriceRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     address: EvmAddress.create(request.address, core).lowercase,
     days: maybe(request.days, String),
-    provider_url: request.providerUrl,
     marketplace: request.marketplace,
   };
 }
@@ -83,7 +82,6 @@ function serializeRequest(request: GetNFTLowestPriceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     days: request.days,
-    providerUrl: request.providerUrl,
     marketplace: request.marketplace,
     address: EvmAddress.create(request.address, core).checksum,
   };
@@ -93,7 +91,6 @@ function deserializeRequest(jsonRequest: GetNFTLowestPriceJSONRequest, core: Cor
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     days: jsonRequest.days,
-    providerUrl: jsonRequest.providerUrl,
     marketplace: jsonRequest.marketplace,
     address: EvmAddress.create(jsonRequest.address, core),
   };

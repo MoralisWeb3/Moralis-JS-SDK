@@ -18,37 +18,39 @@ describe('getTokenTransfersOperation', () => {
     const request: Required<GetTokenTransfersRequest> = {
       address: EvmAddress.create(address, core),
       chain: EvmChain.create(chain, core),
-      subdomain: 'my-domain.com',
       fromBlock: 10,
       toBlock: 20,
       fromDate: new Date(fromDate),
       toDate: new Date(toDate),
       offset: 0,
       limit: 100,
+      cursor: 'CURSOR',
+      disableTotal: true,
     };
 
     const serializedRequest = getTokenTransfersOperation.serializeRequest(request, core);
 
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.offset).toBe(request.offset);
-    expect(serializedRequest.limit).toBe(request.limit);
+    expect(serializedRequest.cursor).toBe(request.cursor);
+    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getTokenTransfersOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect(deserializedRequest.fromDate).toBe(request.fromDate);
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.offset).toBe(request.offset);
     expect(deserializedRequest.limit).toBe(request.limit);
+    expect(deserializedRequest.cursor).toBe(request.cursor);
+    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

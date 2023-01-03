@@ -1,0 +1,85 @@
+{
+  "confirmed": false,
+  "chainId": "0x1",
+  "abi": [],
+  "streamId": "6c86e9ed-0a93-4f8f-af4d-929ee8918bbb",
+  "tag": "Bored Ape",
+  "retries": 0,
+  "block": {
+    "number": "16225662",
+    "hash": "0x36a8359fa2eaff57364158247dff17d80c053096ad9c54d1c27f4768974f552b",
+    "timestamp": "1671536351"
+  },
+  "logs": [
+    {
+      "logIndex": "361",
+      "transactionHash": "0x8b7ed07563c2e679b9b49e2e0b62d1fe8a37c2f6c6d43a6ed072d1fc9ac15a22",
+      "address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "data": "0x",
+      "topic0": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+      "topic1": "0x0000000000000000000000000a1ad77312d36459179ad622c2a8a6280cc79419",
+      "topic2": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "topic3": "0x0000000000000000000000000000000000000000000000000000000000000b83"
+    },
+    {
+      "logIndex": "362",
+      "transactionHash": "0x8b7ed07563c2e679b9b49e2e0b62d1fe8a37c2f6c6d43a6ed072d1fc9ac15a22",
+      "address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "data": "0x",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000000a1ad77312d36459179ad622c2a8a6280cc79419",
+      "topic2": "0x000000000000000000000000c5b4ffe6e645fa7ae5c8bb061870907e5f314c14",
+      "topic3": "0x0000000000000000000000000000000000000000000000000000000000000b83"
+    }
+  ],
+  "txs": [],
+  "txsInternal": [],
+  "erc20Transfers": [],
+  "erc20Approvals": [],
+  "nftTokenApprovals": [
+    {
+      "transactionHash": "0x8b7ed07563c2e679b9b49e2e0b62d1fe8a37c2f6c6d43a6ed072d1fc9ac15a22",
+      "logIndex": "361",
+      "contract": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "account": "0x0a1ad77312d36459179ad622c2a8a6280cc79419",
+      "operator": "0x0000000000000000000000000000000000000000",
+      "approvedAll": false,
+      "tokenId": "2947",
+      "tokenName": "BoredApeYachtClub",
+      "tokenSymbol": "BAYC",
+      "tokenContractType": "ERC721"
+    }
+  ],
+  "nftApprovals": {
+    "ERC721": [
+      {
+        "transactionHash": "0x8b7ed07563c2e679b9b49e2e0b62d1fe8a37c2f6c6d43a6ed072d1fc9ac15a22",
+        "logIndex": "361",
+        "contract": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+        "owner": "0x0a1ad77312d36459179ad622c2a8a6280cc79419",
+        "approved": "0x0000000000000000000000000000000000000000",
+        "tokenId": "2947",
+        "tokenName": "BoredApeYachtClub",
+        "tokenSymbol": "BAYC",
+        "tokenContractType": "ERC721"
+      }
+    ],
+    "ERC1155": []
+  },
+  "nftTransfers": [
+    {
+      "operator": null,
+      "from": "0x0a1ad77312d36459179ad622c2a8a6280cc79419",
+      "to": "0xc5b4ffe6e645fa7ae5c8bb061870907e5f314c14",
+      "tokenId": "2947",
+      "amount": "1",
+      "transactionHash": "0x8b7ed07563c2e679b9b49e2e0b62d1fe8a37c2f6c6d43a6ed072d1fc9ac15a22",
+      "logIndex": "362",
+      "contract": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "tokenName": "BoredApeYachtClub",
+      "tokenSymbol": "BAYC",
+      "tokenContractType": "ERC721"
+    }
+  ],
+  "nativeBalances": []
+}

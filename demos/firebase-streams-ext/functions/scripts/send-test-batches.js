@@ -44,8 +44,11 @@ async function main() {
   }
 
   await send(webhookUrl, './batch-usdc-erc20-transfers.json', apiKey);
+  await send(webhookUrl, './batch-usdc-erc20-transfers-2.json', apiKey);
   await send(webhookUrl, './batch-binance-transactions.json', apiKey);
   await send(webhookUrl, './batch-uniswap-internal-transactions.json', apiKey);
+  await send(webhookUrl, './batch-nft-erc721-transfers.json', apiKey);
+  await send(webhookUrl, './batch-nft-erc1155-transfers.json', apiKey);
 }
 
 main();

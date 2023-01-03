@@ -1,3 +1,4 @@
+import Moralis from 'moralis';
 import { Operation } from 'moralis/common-core';
 import { useCallback } from 'react';
 import useSWR from 'swr';
@@ -21,7 +22,7 @@ const useResolver = <Request, Response, JSONResponse>({
   Request
 >) => {
   const { data, error, mutate, isValidating } = useSWR<Response>(
-    [endpoint, request ? { operation, request } : null],
+    [endpoint, request ? { operation, request: operation.serializeRequest(request, Moralis.Core) } : null],
     fetcher,
     {
       revalidateOnFocus: false,

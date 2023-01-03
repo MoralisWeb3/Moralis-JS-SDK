@@ -8,7 +8,6 @@ export const mockGetTransaction = MockScenarios.create(
     url: '/transaction/:transactionHash',
     getParams: ({ req }) => ({
       transactionHash: req.params.transactionHash,
-      subdomain: req.url.searchParams.get('subdomain'),
       chain: req.url.searchParams.get('chain'),
     }),
   },

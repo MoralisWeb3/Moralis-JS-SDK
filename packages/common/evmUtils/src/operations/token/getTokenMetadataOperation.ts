@@ -38,7 +38,7 @@ export const getTokenMetadataOperation: Operation<
   id: 'getTokenMetadata',
   groupName: 'token',
   urlPathPattern: '/erc20/metadata',
-  urlSearchParamNames: ['chain', 'subdomain', 'providerUrl', 'addresses'],
+  urlSearchParamNames: ['chain', 'addresses'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -52,8 +52,6 @@ function getRequestUrlParams(request: GetTokenMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     addresses: request.addresses.map((address) => EvmAddress.create(address, core).lowercase),
-    subdomain: request.subdomain,
-    providerUrl: request.providerUrl,
   };
 }
 
@@ -77,8 +75,6 @@ function deserializeResponse(jsonResponse: GetTokenMetadataJSONResponse, request
 function serializeRequest(request: GetTokenMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
-    providerUrl: request.providerUrl,
     addresses: request.addresses.map((address) => EvmAddress.create(address, core).checksum),
   };
 }
@@ -86,8 +82,6 @@ function serializeRequest(request: GetTokenMetadataRequest, core: Core) {
 function deserializeRequest(jsonRequest: GetTokenMetadataJSONRequest, core: Core): GetTokenMetadataRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
-    providerUrl: jsonRequest.providerUrl,
     addresses: jsonRequest.addresses.map((address) => EvmAddress.create(address, core)),
   };
 }

@@ -1,11 +1,17 @@
 {
   "name": "@moralisweb3/client-evm-api",
   "author": "Moralis",
-  "version": "2.9.0",
+  "version": "2.11.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "sideEffects": false,
+  "moralis": {
+    "name": "Evm Api logic for client-side",
+    "type": "utils",
+    "scope": "client",
+    "description": "Client-side logic for making Evm Api calls"
+  },
   "files": [
     "lib/*"
   ],
@@ -14,15 +20,14 @@
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc",
     "dev": "tsc --watch",
-    "gen:client": "node ../backendAdapter/utils/scripts/generate-client.js ./src/generated/EvmApiClient.ts @moralisweb3/common-evm-utils evm-api"
+    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "@moralisweb3/client-backend-adapter-utils": "^2.9.0",
-    "@moralisweb3/common-core": "^2.9.0",
-    "@moralisweb3/common-evm-utils": "^2.9.0"
+    "@moralisweb3/client-api-utils": "^2.11.0",
+    "@moralisweb3/common-core": "^2.11.0",
+    "@moralisweb3/common-evm-utils": "^2.11.0"
   }
 }

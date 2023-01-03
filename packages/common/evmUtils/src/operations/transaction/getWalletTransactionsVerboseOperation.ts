@@ -64,7 +64,7 @@ export const getWalletTransactionsVerboseOperation: PaginatedOperation<
   groupName: 'transaction',
   urlPathPattern: '/{address}/verbose',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -78,7 +78,6 @@ export const getWalletTransactionsVerboseOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -86,13 +85,13 @@ function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core:
     cursor: request.cursor,
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).lowercase,
+    disable_total: request.disableTotal,
   };
 }
 
 function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
@@ -100,6 +99,7 @@ function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Co
     cursor: request.cursor,
     limit: request.limit,
     address: EvmAddress.create(request.address, core).checksum,
+    disableTotal: request.disableTotal,
   };
 }
 
@@ -109,7 +109,6 @@ function deserializeRequest(
 ): GetWalletTransactionsVerboseRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
@@ -117,6 +116,7 @@ function deserializeRequest(
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
+    disableTotal: jsonRequest.disableTotal,
   };
 }
 

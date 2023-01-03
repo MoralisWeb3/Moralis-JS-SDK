@@ -3,6 +3,7 @@ export * from './Erc20Transfer';
 export * from './Erc20Value';
 export * from './EvmAddress';
 export * from './EvmBlock';
+export * from './EvmBlockDate';
 export * from './EvmChain';
 export * from './EvmEvent';
 export * from './EvmNative';

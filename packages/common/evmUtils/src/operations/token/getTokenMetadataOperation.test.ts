@@ -16,22 +16,16 @@ describe('getTokenMetadataOperation', () => {
     const request: Required<GetTokenMetadataRequest> = {
       addresses: addresses.map((address) => EvmAddress.create(address, core)),
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://provider.com/url',
-      subdomain: 'my-domain.com',
     };
 
     const serializedRequest = getTokenMetadataOperation.serializeRequest(request, core);
 
     expect(serializedRequest.addresses[0]).toBe(addresses[0]);
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
-    expect(serializedRequest.subdomain).toBe(request.subdomain);
 
     const deserializedRequest = getTokenMetadataOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.addresses as EvmAddress[])[0].checksum).toBe(addresses[0]);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
-    expect(deserializedRequest.subdomain).toBe(request.subdomain);
   });
 });

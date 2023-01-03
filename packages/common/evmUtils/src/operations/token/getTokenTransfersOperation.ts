@@ -50,7 +50,17 @@ export const getTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/erc20/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'subdomain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'offset', 'limit'],
+  urlSearchParamNames: [
+    'chain',
+    'fromBlock',
+    'toBlock',
+    'fromDate',
+    'toDate',
+    'offset',
+    'limit',
+    'cursor',
+    'disableTotal',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -64,7 +74,6 @@ export const getTokenTransfersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -72,6 +81,8 @@ function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).lowercase,
+    cursor: request.cursor,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -96,7 +107,6 @@ function deserializeResponse(
 function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
@@ -104,13 +114,14 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
     offset: request.offset,
     limit: request.limit,
     address: EvmAddress.create(request.address, core).checksum,
+    cursor: request.cursor,
+    disableTotal: request.disableTotal,
   };
 }
 
 function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Core): GetTokenTransfersRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
@@ -118,5 +129,7 @@ function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Cor
     offset: jsonRequest.offset,
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
+    cursor: jsonRequest.cursor,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

@@ -46,7 +46,7 @@ export const getNFTTransfersByBlockOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/block/{blockNumberOrHash}/nft/transfers',
   urlPathParamNames: ['blockNumberOrHash'],
-  urlSearchParamNames: ['chain', 'subdomain', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'limit', 'cursor', 'disableTotal'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -60,10 +60,10 @@ export const getNFTTransfersByBlockOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetNFTTransfersByBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     blockNumberOrHash: request.blockNumberOrHash,
+    disable_total: request.disableTotal,
   };
 }
 
@@ -89,19 +89,19 @@ function deserializeResponse(
 function serializeRequest(request: GetNFTTransfersByBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    subdomain: request.subdomain,
     limit: request.limit,
     cursor: request.cursor,
     blockNumberOrHash: request.blockNumberOrHash,
+    disableTotal: request.disableTotal,
   };
 }
 
 function deserializeRequest(jsonRequest: GetNFTTransfersByBlockJSONRequest, core: Core): GetNFTTransfersByBlockRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    subdomain: jsonRequest.subdomain,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     blockNumberOrHash: jsonRequest.blockNumberOrHash,
+    disableTotal: jsonRequest.disableTotal,
   };
 }

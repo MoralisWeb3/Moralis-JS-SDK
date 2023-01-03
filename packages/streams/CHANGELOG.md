@@ -1,5 +1,64 @@
 # @moralisweb3/streams
 
+## 2.11.0
+
+### Patch Changes
+
+- Updated dependencies [[`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf), [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf), [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf)]:
+  - @moralisweb3/common-evm-utils@2.11.0
+  - @moralisweb3/common-core@2.11.0
+  - @moralisweb3/api-utils@2.11.0
+  - @moralisweb3/common-streams-utils@2.11.0
+
+## 2.10.3
+
+### Patch Changes
+
+- [#916](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/916) [`744d12930`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/744d12930b37fe7448e25e62a42dc1b44a2d816b) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added support for `erc20Approvals`, `erc20Transfers`, `nftTokenApprovals` and `nftTransfers` to the mapper.
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.10.3
+  - @moralisweb3/common-core@2.10.3
+  - @moralisweb3/common-evm-utils@2.10.3
+  - @moralisweb3/common-streams-utils@2.10.3
+
+## 2.10.2
+
+### Patch Changes
+
+- [#912](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/912) [`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b) Thanks [@ErnoW](https://github.com/ErnoW)! - Update api types to include latest features and fixes of evmApi and streams. This includes:
+
+  - removal of deprecated `subdomain` and `providerUrl` params
+  - evm endpooint for `getMultipleNFTs`
+  - evm endpoint updated for `getNFTContractTransfers` to include `fromBlock`, `toBlock`, `fromDate` and `toDate` params
+  - streams support for `getNativeBalances`
+
+- Updated dependencies [[`26848dc2d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26848dc2d5c836e3d2cbbc171b4b247d2222869b)]:
+  - @moralisweb3/api-utils@2.10.2
+  - @moralisweb3/common-core@2.10.2
+  - @moralisweb3/common-evm-utils@2.10.2
+  - @moralisweb3/common-streams-utils@2.10.2
+
+## 2.10.1
+
+### Patch Changes
+
+- Updated dependencies [[`33230c43c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/33230c43c4a100f400fb862718e21ef487ca656c)]:
+  - @moralisweb3/common-evm-utils@2.10.1
+  - @moralisweb3/api-utils@2.10.1
+  - @moralisweb3/common-core@2.10.1
+  - @moralisweb3/common-streams-utils@2.10.1
+
+## 2.10.0
+
+### Patch Changes
+
+- Updated dependencies [[`439d6e564`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/439d6e56487cfc6e559f91f06039a5f2567125e5), [`2dcf75f8a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2dcf75f8abffe617c90a32cc9f207a5a2575adc1), [`52a8160d9`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/52a8160d9ef2db824f943cc4034b9dd83335e0cc), [`b703c5517`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b703c551735ba3a5cc318c7b2d01d954ce48bf5d)]:
+  - @moralisweb3/common-core@2.10.0
+  - @moralisweb3/api-utils@2.10.0
+  - @moralisweb3/common-evm-utils@2.10.0
+  - @moralisweb3/common-streams-utils@2.10.0
+
 ## 2.9.0
 
 ### Patch Changes
