@@ -34,12 +34,12 @@ export async function initializeFirebase(): Promise<Firebase> {
     defaultBackendAdapter: {
       auth: {
         auth,
-        functions
+        functions,
       },
       api: {
-        functions
-      }
-    }
+        functions,
+      },
+    },
   });
 
   const moralisEvmAuth = getMoralisEvmAuth(moralis);
