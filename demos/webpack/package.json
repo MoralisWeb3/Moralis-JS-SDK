@@ -9,8 +9,8 @@
     "serve": "http-server ./ -p 7777"
   },
   "dependencies": {
-    "@moralisweb3/client": "^2.9.0",
-    "@moralisweb3/client-connector-wallet-connect": "^2.9.0"
+    "@moralisweb3/client": "^2.11.0",
+    "@moralisweb3/client-connector-wallet-connect": "^2.11.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1",

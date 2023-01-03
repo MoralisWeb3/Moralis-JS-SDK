@@ -23,7 +23,10 @@
     "@firebase/app": "^0.8.4",
     "@firebase/auth": "^0.20.11",
     "@metamask/detect-provider": "^1.2.0",
+    "@moralisweb3/client-auth-utils": "^2.11.0",
+    "@moralisweb3/client-evm-auth": "^2.11.0",
     "@moralisweb3/client-firebase-auth-utils": "^2.11.0",
+    "@moralisweb3/client-firebase-utils": "^2.11.0",
     "firebase": "^9.10.0"
   }
 }

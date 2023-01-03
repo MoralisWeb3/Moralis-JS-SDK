@@ -23,7 +23,7 @@
     "@firebase/app": "^0.8.4",
     "@firebase/app-types": "^0.8.1",
     "@firebase/functions": "^0.8.8",
-    "@moralisweb3/client-firebase-api-utils": "^2.11.0",
+    "@moralisweb3/client-backend-adapter-utils": "^2.11.0",
     "@moralisweb3/client-sol-api": "^2.11.0",
     "@moralisweb3/common-core": "^2.11.0",
     "@moralisweb3/common-sol-utils": "^2.11.0",
