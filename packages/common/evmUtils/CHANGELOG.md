@@ -1,5 +1,18 @@
 # @moralisweb3/evm-utils
 
+## 2.11.0
+
+### Minor Changes
+
+- [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Renamed the `block_hash` field to `hash` for the response of the `getDateToBlock()` method (according to the API changes). Introduced the `EvmBlockDate` class as a response of the `getDateToBlock()` method.
+
+### Patch Changes
+
+- [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `disableTotal` parameter to requests of paginated methods.
+
+- Updated dependencies [[`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf)]:
+  - @moralisweb3/common-core@2.11.0
+
 ## 2.10.3
 
 ### Patch Changes
