@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.11.0
+
+### Patch Changes
+
+- [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `disableTotal` parameter to requests of paginated methods.
+
+- Updated dependencies [[`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf), [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf), [`98bd66b8e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98bd66b8e4a64795a5ed95434201f6c7fbb068bf)]:
+  - @moralisweb3/common-evm-utils@2.11.0
+  - @moralisweb3/common-core@2.11.0
+  - @moralisweb3/api-utils@2.11.0
+
 ## 2.10.3
 
 ### Patch Changes
