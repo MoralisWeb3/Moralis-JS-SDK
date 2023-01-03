@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@moralisweb3/client": "^2.10.4",
-    "@moralisweb3/client-connector-wallet-connect": "^2.10.4"
+    "@moralisweb3/client-connector-magic-link": "^2.10.4",
+    "@moralisweb3/client-connector-wallet-connect": "^2.10.4",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "http-server": "^14.1.1",

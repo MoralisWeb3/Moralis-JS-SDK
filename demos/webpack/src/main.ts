@@ -1,7 +1,20 @@
 import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
+import { EvmConnector } from '@moralisweb3/client-evm-auth';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
+import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
+
+const MAGIC_CONNECT_PUBLISHABLE_API_KEY = process.env.MAGIC_CONNECT_PUBLISHABLE_API_KEY;
+
+function validateMagicLinkApiKey() {
+  if (!MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
+    alert('Please set MAGIC_CONNECT_PUBLISHABLE_API_KEY in .env file');
+    return false;
+  }
+
+  return true;
+}
 
 async function reloadCurrentUser() {
   const userAddress = document.getElementById('userAddress') as HTMLElement;
@@ -50,6 +63,12 @@ async function authenticate(wallet: string) {
       await MoralisClient.EvmAuth.authenticate('walletConnect');
       break;
 
+    case 'magicLink':
+      if (validateMagicLinkApiKey()) {
+        await MoralisClient.EvmAuth.authenticate('magicLink');
+      }
+      break;
+
     case 'phantom':
       await MoralisClient.SolAuth.authenticate();
       break;
@@ -64,6 +83,12 @@ async function connect(action: string) {
 
     case 'walletConnect':
       await MoralisClient.EvmAuth.connect('walletConnect');
+      break;
+
+    case 'magicLink':
+      if (validateMagicLinkApiKey()) {
+        await MoralisClient.EvmAuth.connect('magicLink');
+      }
       break;
 
     case 'phantom':
@@ -106,18 +131,24 @@ async function onButtonClicked(e: Event) {
 }
 
 async function init() {
+  const connectors: EvmConnector[] = [
+    WalletConnectEvmConnector.create({
+      rpc: {
+        1: 'https://replace_me/',
+      },
+    }),
+  ];
+  if (MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
+    // Add magic link connector
+    connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY));
+  }
+
   MoralisClient.start({
     backendAdapter: FrontEndOnlyBackendAdapter.create({
       publicApiKey: 'TODO_TODO',
     }),
     evmAuth: {
-      connectors: [
-        WalletConnectEvmConnector.create({
-          rpc: {
-            1: 'https://replace_me/',
-          },
-        }),
-      ],
+      connectors,
     },
   });
 

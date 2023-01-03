@@ -7,7 +7,7 @@
       document.write(`<script src="../lib/main.js?_=${salt}"><\/script>`);
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>🦊 Simple Webpack Page</title>
+    <title>🔒 Simple Webpack Page with Auth</title>
 
     <style>
       body {
@@ -28,7 +28,7 @@
     </style>
   </head>
   <body>
-    <h1>🦊 Simple Webpack Page</h1>
+    <h1>🔒 Simple Webpack Page with Auth</h1>
 
     <p>
       👨‍🦱 Current user:
@@ -36,26 +36,29 @@
     </p>
 
     <p>
-      🏦 Ballance:
+      🏦 Balance:
       <strong id="userBalance"></strong>
     </p>
 
     <h4>Authenticate</h4>
 
-    <p>
+    <p id="authenticate">
       <button class="button" data-action="authenticate" data-wallet="metaMask">Authenticate by MetaMask ⚽</button> |
       <button class="button" data-action="authenticate" data-wallet="walletConnect">
         Authenticate by WalletConnect ⚾
       </button>
+      |
+      <button class="button" data-action="authenticate" data-wallet="magicLink">Authenticate by MagicLink 🏐</button>
       |
       <button class="button" data-action="authenticate" data-wallet="phantom">Authenticate by Phantom 🥎</button>
     </p>
 
     <h4>Connect</h4>
 
-    <p>
+    <p id="connect">
       <button class="button" data-action="connect" data-wallet="metaMask">Connect by MetaMask ⚽</button> |
       <button class="button" data-action="connect" data-wallet="walletConnect">Connect by WalletConnect ⚾</button> |
+      <button class="button" data-action="connect" data-wallet="magicLink">Connect by MagicLink 🏐</button> |
       <button class="button" data-action="connect" data-wallet="phantom">Connect by Phantom 🥎</button>
     </p>
 
