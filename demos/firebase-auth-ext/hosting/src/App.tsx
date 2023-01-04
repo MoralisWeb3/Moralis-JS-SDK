@@ -1,7 +1,7 @@
 import { signInWithMoralis as signInWithMoralisByEvm } from '@moralisweb3/client-firebase-evm-auth';
 import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/client-firebase-sol-auth';
-import { httpsCallable } from '@firebase/functions';
-import { User } from '@firebase/auth';
+import { httpsCallable } from 'firebase/functions';
+import { User } from 'firebase/auth';
 import { Fragment, useState } from 'react';
 import { auth, functions, moralisAuth } from './firebase';
 import WalletConnectProvider from '@walletconnect/web3-provider';

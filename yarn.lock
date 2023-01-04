@@ -5849,13 +5849,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/app-check-interop-types@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@firebase/app-check-interop-types@npm:0.1.1"
-  checksum: 5076d155e1912b570d06d492a0b30455e557b4a9da748d81fb2b7d130b20b61e9bf24a068f8a513108c1b2132a0afdc5018690ac2840c04441fc0e949648d78a
-  languageName: node
-  linkType: hard
-
 "@firebase/app-check-interop-types@npm:0.2.0":
   version: 0.2.0
   resolution: "@firebase/app-check-interop-types@npm:0.2.0"
@@ -5931,19 +5924,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/app@npm:^0.8.4":
-  version: 0.8.4
-  resolution: "@firebase/app@npm:0.8.4"
-  dependencies:
-    "@firebase/component": 0.5.21
-    "@firebase/logger": 0.3.4
-    "@firebase/util": 1.7.3
-    idb: 7.0.1
-    tslib: ^2.1.0
-  checksum: ae56afebfc25d886f6ee27990c5fad78c365442b7a115d83d7aef9d9cbcc95e5a8725c4a014ece978d2b26431423d5313f5c6f7ed952aae43d9dade379704902
-  languageName: node
-  linkType: hard
-
 "@firebase/auth-compat@npm:0.3.0":
   version: 0.3.0
   resolution: "@firebase/auth-compat@npm:0.3.0"
@@ -6002,22 +5982,6 @@ __metadata:
   peerDependencies:
     "@firebase/app": 0.x
   checksum: a1d8e008197c2773e400607a5b43c479ac50279beafad79c77712fd5f029c82d5bf3eb43d85c08dbe4f76f9125f8e9514236b0cfe8e172237032d7d29b9b1eb3
-  languageName: node
-  linkType: hard
-
-"@firebase/auth@npm:^0.20.11":
-  version: 0.20.11
-  resolution: "@firebase/auth@npm:0.20.11"
-  dependencies:
-    "@firebase/component": 0.5.21
-    "@firebase/logger": 0.3.4
-    "@firebase/util": 1.7.3
-    node-fetch: 2.6.7
-    selenium-webdriver: 4.5.0
-    tslib: ^2.1.0
-  peerDependencies:
-    "@firebase/app": 0.x
-  checksum: 4e2c801efaa9f345cc79f97113de59f7bfdec6e6947fd01aba0e9b15537e7d8fa3afe06ab9bf4eb119f8ff11c30a192198e4906d7f987664a94b74b55e4f261e
   languageName: node
   linkType: hard
 
@@ -6199,23 +6163,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/functions@npm:^0.8.8":
-  version: 0.8.8
-  resolution: "@firebase/functions@npm:0.8.8"
-  dependencies:
-    "@firebase/app-check-interop-types": 0.1.1
-    "@firebase/auth-interop-types": 0.1.7
-    "@firebase/component": 0.5.21
-    "@firebase/messaging-interop-types": 0.1.1
-    "@firebase/util": 1.7.3
-    node-fetch: 2.6.7
-    tslib: ^2.1.0
-  peerDependencies:
-    "@firebase/app": 0.x
-  checksum: 7e54f286a57f13cd0edce96bf31fd07cc6602e69db731385514471f9d406868e5aa6a1574cde081586000fffc576c03f15c8c237714036ec94fca2545be8b638
-  languageName: node
-  linkType: hard
-
 "@firebase/installations-compat@npm:0.2.0":
   version: 0.2.0
   resolution: "@firebase/installations-compat@npm:0.2.0"
@@ -6283,13 +6230,6 @@ __metadata:
   peerDependencies:
     "@firebase/app-compat": 0.x
   checksum: 63a021faae6ad35f91666818919968ca5d703bead60450663f1c985653fb9d6ed31369522eba698eebf7fe59e574593968d43f1b098030d9d55ad4f7bc4df7d3
-  languageName: node
-  linkType: hard
-
-"@firebase/messaging-interop-types@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@firebase/messaging-interop-types@npm:0.1.1"
-  checksum: f5750f1318b3c0d8afe990bff87bcaebfcd18d83ebb69ae3c2d2226496f7b3fd4c40f8ef366c50604260caaf917d1deece64061e3cc7132bf3b22a0a1d41f8bc
   languageName: node
   linkType: hard
 
@@ -7571,12 +7511,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-api-utils@workspace:packages/client/firebaseApiUtils"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/functions": ^0.8.8
     "@moralisweb3/client-api-utils": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
-    firebase: ^9.13.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7585,11 +7522,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/auth": ^0.20.11
-    "@firebase/functions": ^0.8.8
-    firebase: ^9.13.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7598,14 +7531,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-evm-api@workspace:packages/client/firebaseEvmApi"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/functions": ^0.8.8
     "@moralisweb3/client-evm-api": ^2.11.0
     "@moralisweb3/client-firebase-api-utils": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
     "@moralisweb3/common-evm-utils": ^2.11.0
-    firebase: ^9.13.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7615,11 +7545,9 @@ __metadata:
   resolution: "@moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth"
   dependencies:
     "@ethersproject/providers": ^5.7.1
-    "@firebase/app": ^0.8.4
-    "@firebase/auth": ^0.20.11
     "@metamask/detect-provider": ^1.2.0
     "@moralisweb3/client-firebase-auth-utils": ^2.11.0
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7628,14 +7556,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-sol-api@workspace:packages/client/firebaseSolApi"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/functions": ^0.8.8
     "@moralisweb3/client-firebase-api-utils": ^2.11.0
     "@moralisweb3/client-sol-api": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
     "@moralisweb3/common-sol-utils": ^2.11.0
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7644,12 +7569,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-sol-auth@workspace:packages/client/firebaseSolAuth"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/auth": ^0.20.11
     "@moralisweb3/client-firebase-auth-utils": ^2.11.0
     bs58: ^5.0.0
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -15434,7 +15356,7 @@ __metadata:
     cross-env: ^7.0.3
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     react: ^18.2.0
     react-app-rewired: ^2.2.1
     react-dom: ^18.2.0
@@ -18507,7 +18429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase@npm:^9.10.0, firebase@npm:^9.13.0, firebase@npm:^9.15.0":
+"firebase@npm:^9.15.0":
   version: 9.15.0
   resolution: "firebase@npm:9.15.0"
   dependencies:
@@ -22665,18 +22587,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jszip@npm:^3.10.0":
-  version: 3.10.1
-  resolution: "jszip@npm:3.10.1"
-  dependencies:
-    lie: ~3.3.0
-    pako: ~1.0.2
-    readable-stream: ~2.3.6
-    setimmediate: ^1.0.5
-  checksum: abc77bfbe33e691d4d1ac9c74c8851b5761fba6a6986630864f98d876f3fcc2d36817dfc183779f32c00157b5d53a016796677298272a714ae096dfe6b1c8b60
-  languageName: node
-  linkType: hard
-
 "jwa@npm:^1.4.1":
   version: 1.4.1
   resolution: "jwa@npm:1.4.1"
@@ -23008,15 +22918,6 @@ __metadata:
   dependencies:
     immediate: ~3.0.5
   checksum: 6da9f2121d2dbd15f1eca44c0c7e211e66a99c7b326ec8312645f3648935bc3a658cf0e9fa7b5f10144d9e2641500b4f55bd32754607c3de945b5f443e50ddd1
-  languageName: node
-  linkType: hard
-
-"lie@npm:~3.3.0":
-  version: 3.3.0
-  resolution: "lie@npm:3.3.0"
-  dependencies:
-    immediate: ~3.0.5
-  checksum: 33102302cf19766f97919a6a98d481e01393288b17a6aa1f030a3542031df42736edde8dab29ffdbf90bebeffc48c761eb1d064dc77592ca3ba3556f9fe6d2a8
   languageName: node
   linkType: hard
 
@@ -25968,7 +25869,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pako@npm:~1.0.2, pako@npm:~1.0.5":
+"pako@npm:~1.0.5":
   version: 1.0.11
   resolution: "pako@npm:1.0.11"
   checksum: 1be2bfa1f807608c7538afa15d6f25baa523c30ec870a3228a89579e474a4d992f4293859524e46d5d87fd30fa17c5edf34dbef0671251d9749820b488660b16
@@ -29870,17 +29771,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selenium-webdriver@npm:4.5.0":
-  version: 4.5.0
-  resolution: "selenium-webdriver@npm:4.5.0"
-  dependencies:
-    jszip: ^3.10.0
-    tmp: ^0.2.1
-    ws: ">=8.7.0"
-  checksum: 00efa4b3c5b476e73d5a0044945674fb99c60cab8bb1aa3fb609a5ac4b54c931b8dea81a26cd53633b02da357fd60f60c1d427849986b9283fa08ed39ae6b196
-  languageName: node
-  linkType: hard
-
 "selfsigned@npm:^2.1.1":
   version: 2.1.1
   resolution: "selfsigned@npm:2.1.1"
@@ -31654,7 +31544,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tmp@npm:^0.2.0, tmp@npm:^0.2.1, tmp@npm:~0.2.1":
+"tmp@npm:^0.2.0, tmp@npm:~0.2.1":
   version: 0.2.1
   resolution: "tmp@npm:0.2.1"
   dependencies:
@@ -34042,21 +33932,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:>=8.7.0, ws@npm:^8.3.0, ws@npm:^8.4.2, ws@npm:^8.5.0":
-  version: 8.11.0
-  resolution: "ws@npm:8.11.0"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ^5.0.2
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 316b33aba32f317cd217df66dbfc5b281a2f09ff36815de222bc859e3424d83766d9eb2bd4d667de658b6ab7be151f258318fb1da812416b30be13103e5b5c67
-  languageName: node
-  linkType: hard
-
 "ws@npm:^5.1.1":
   version: 5.2.3
   resolution: "ws@npm:5.2.3"
@@ -34078,6 +33953,21 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: c3c100a181b731f40b7f2fddf004aa023f79d64f489706a28bc23ff88e87f6a64b3c6651fbec3a84a53960b75159574d7a7385709847a62ddb7ad6af76f49138
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.3.0, ws@npm:^8.4.2, ws@npm:^8.5.0":
+  version: 8.11.0
+  resolution: "ws@npm:8.11.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 316b33aba32f317cd217df66dbfc5b281a2f09ff36815de222bc859e3424d83766d9eb2bd4d667de658b6ab7be151f258318fb1da812416b30be13103e5b5c67
   languageName: node
   linkType: hard
 

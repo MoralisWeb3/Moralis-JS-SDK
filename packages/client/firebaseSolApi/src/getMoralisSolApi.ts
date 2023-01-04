@@ -1,6 +1,6 @@
-import { FirebaseApp } from '@firebase/app';
+import { FirebaseApp } from 'firebase/app';
+import { Functions, getFunctions } from 'firebase/functions';
 import { ClientSolApi } from '@moralisweb3/client-sol-api';
-import { Functions, getFunctions } from '@firebase/functions';
 import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
 import { Core } from '@moralisweb3/common-core';
 import { FirebaseClientRequestHandler } from '@moralisweb3/client-firebase-api-utils';

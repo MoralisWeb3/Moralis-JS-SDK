@@ -1,6 +1,6 @@
-import { Functions, getFunctions } from '@firebase/functions';
-import { FirebaseApp } from '@firebase/app';
-import { Auth, getAuth } from '@firebase/auth';
+import { Functions, getFunctions } from 'firebase/functions';
+import { FirebaseApp } from 'firebase/app';
+import { Auth, getAuth } from 'firebase/auth';
 
 export interface MoralisAuth {
   auth: Auth;
