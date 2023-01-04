@@ -1,4 +1,4 @@
-import { httpsCallable } from '@firebase/functions';
+import { httpsCallable } from 'firebase/functions';
 import { MoralisAuth } from './getMoralisAuth';
 import { SignInContext } from './requestMessage';
 

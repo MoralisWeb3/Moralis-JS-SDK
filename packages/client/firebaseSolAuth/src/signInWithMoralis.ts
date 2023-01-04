@@ -1,4 +1,4 @@
-import { signInWithCustomToken, UserCredential } from '@firebase/auth';
+import { signInWithCustomToken, UserCredential } from 'firebase/auth';
 import { MoralisAuth, requestMessage, issueToken, SolanaNetwork } from '@moralisweb3/client-firebase-auth-utils';
 import { encode } from 'bs58';
 import { SolanaProvider } from './SolanaProvider';
