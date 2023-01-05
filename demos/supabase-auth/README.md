@@ -4,7 +4,8 @@
 
 1. Create a supabase account here https://app.supabase.com/
 2. Copy `.env.example` to `.env` and fill in the values
-3. Run `yarn dev` to run the server locally
+3. Also fill in the values in `public/script.js`
+4. Run `yarn dev` to run the server locally
 
 Now your server is running locally with the following endpoints:
 

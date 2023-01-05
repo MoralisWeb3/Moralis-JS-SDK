@@ -40,12 +40,14 @@ const getUser = async (providedToken) => {
   _supabase.auth.setAuth(providedToken);
   const { data } = await _supabase.from('users').select('*');
   renderUser(data);
+  renderError();
 };
 
 const getUserAnon = async () => {
   await _supabase.auth.signOut();
   const { data } = await _supabase.from('users').select('*');
   renderUser(data);
+  renderError();
 };
 
 const connectToMetamask = async () => {
@@ -80,6 +82,7 @@ const handleAuth = async () => {
   token = user.token;
 
   renderUser(user);
+  renderError();
 };
 
 const renderUser = (user) => {
