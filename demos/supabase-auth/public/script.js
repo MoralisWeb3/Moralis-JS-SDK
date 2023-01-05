@@ -37,8 +37,18 @@ const verifyMessage = (message, signature) =>
   });
 
 const getUser = async (providedToken) => {
-  _supabase.auth.setAuth(providedToken);
-  const { data } = await _supabase.from('users').select('*');
+  const _supabaseAuth = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLIC_ANON_KEY,
+    {
+      global: {
+        headers: {
+          Authorization: `Bearer ${providedToken}`,
+        },
+      },
+    }
+  )
+  const { data } = await _supabaseAuth.from('users').select('*');
   renderUser(data);
   renderError();
 };
