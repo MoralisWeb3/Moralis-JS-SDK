@@ -33,20 +33,30 @@ const MoralisNextAuthProvider = () =>
         type: 'text',
         placeholder: 'Evm',
       },
+      /**
+       * Some extra information keeping in a session.
+       */
+      payload: {
+        label: 'Payload',
+        type: 'text',
+        placeholder: 'Payload',
+      },
     },
     async authorize(credentials) {
       try {
         /**
-         * Receiving credentials from signIn() payload
+         * Receiving credentials from signIn() data
          */
         const {
           message,
           signature,
           network = 'Evm',
+          payload = null,
         } = credentials as {
           message: string;
           signature: string;
           network: Network;
+          payload: string | null;
         };
 
         const nextAuthUrl = process.env.NEXTAUTH_URL;
@@ -85,7 +95,7 @@ const MoralisNextAuthProvider = () =>
         /**
          * Defining and returning user profile
          */
-        return user;
+        return { ...user, payload };
       } catch (e) {
         const logger = new LoggerController('Next', Moralis.Core.config);
         logger.error(e);

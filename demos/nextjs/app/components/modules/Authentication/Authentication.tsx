@@ -62,7 +62,8 @@ const Authentication = () => {
       }
 
       const signature = await signMessageAsync({ message: challenge.message });
-      await signIn('moralis-auth', { message: challenge.message, signature, redirect: false });
+      const payload = `Authentication time: ${Date.now()}`;
+      await signIn('moralis-auth', { message: challenge.message, signature, payload, redirect: false });
 
       // redirects to main page
       push('/');
