@@ -12,6 +12,7 @@ const Profile: FC = () => {
       <Image src="/assets/mage.svg" width={46} height={46} alt="profile" />
       <h4>{data?.user?.address}</h4>
       <p>Profile ID: {data?.user.profileId}</p>
+      <p>Payload: {data?.user.payload}</p>
       <p>Native Balance: {balance?.balance.ether} Ether</p>
     </div>
   );
