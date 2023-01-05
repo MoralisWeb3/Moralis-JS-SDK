@@ -1,4 +1,4 @@
-import { signInWithCustomToken, UserCredential } from '@firebase/auth';
+import { signInWithCustomToken, UserCredential } from 'firebase/auth';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { MoralisAuth, requestMessage, issueToken } from '@moralisweb3/client-firebase-auth-utils';
 import detectEthereumProvider from '@metamask/detect-provider';

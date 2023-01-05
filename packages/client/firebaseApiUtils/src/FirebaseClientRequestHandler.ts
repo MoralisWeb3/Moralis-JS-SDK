@@ -10,7 +10,7 @@ import {
   PaginationReader,
   ResponseAdapter,
 } from '@moralisweb3/common-core';
-import { httpsCallable, Functions } from '@firebase/functions';
+import { httpsCallable, Functions } from 'firebase/functions';
 
 export class FirebaseClientRequestHandler implements ClientRequestHandler {
   private readonly functionName: string;

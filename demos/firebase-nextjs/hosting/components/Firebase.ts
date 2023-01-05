@@ -20,10 +20,10 @@ export async function initializeFirebase(): Promise<Firebase> {
     appId: String(process.env.NEXT_PUBLIC_FIREBASE_APP_ID),
   });
 
-  const auth = getAuth();
+  const auth = getAuth(app);
   await auth.setPersistence(browserSessionPersistence);
 
-  const functions = getFunctions();
+  const functions = getFunctions(app);
   if (window.location.hostname === 'localhost') {
     connectFunctionsEmulator(functions, 'localhost', 5001);
   }

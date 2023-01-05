@@ -20,10 +20,8 @@
   },
   "dependencies": {
     "@ethersproject/providers": "^5.7.1",
-    "@firebase/app": "^0.8.4",
-    "@firebase/auth": "^0.20.11",
     "@metamask/detect-provider": "^1.2.0",
     "@moralisweb3/client-firebase-auth-utils": "^2.11.0",
-    "firebase": "^9.10.0"
+    "firebase": "^9.15.0"
   }
 }
