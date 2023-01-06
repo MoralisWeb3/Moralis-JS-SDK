@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Moralis from 'moralis'
-import { MoralisError } from '@moralisweb3/common-core';
-import { handleRateLimit } from '../../rateLimit'
-import { AxiosError } from 'axios'
+import { MoralisError, Operation } from '@moralisweb3/common-core';
+import { handleRateLimit } from '../../rateLimit';
+import { upgradeRequest } from '../upgradeRequest'
+import { AxiosError } from 'axios';
+import { operations } from '@moralisweb3/common-sol-utils';
 declare const Parse: any;
 
-const getErrorMessage = (error: Error, name: string) => {
+function getErrorMessage(error: Error, name: string) {
   // Resolve Axios data inside the MoralisError
   if (
     error instanceof MoralisError &&
@@ -25,7 +27,15 @@ const getErrorMessage = (error: Error, name: string) => {
   return `API error while calling ${name}`
 }
 
-const beforeApiRequest = async (user: any, ip: any, name: string) => {
+function getOperation(operationName: string): Operation<unknown, unknown, unknown, unknown> {
+  const operation = operations.find((o) => o.name === operationName);
+  if (!operation) {
+    throw new Error(`Not supported operation ${operationName}`);
+  }
+  return operation as Operation<unknown, unknown, unknown, unknown>;
+}
+
+async function beforeApiRequest(user: any, ip: any, name: string) {
   if (!(await handleRateLimit(user, ip))) {
     throw new Error(
       `Too many requests to ${name} API from this particular client, the clients needs to wait before sending more requests.`
@@ -33,60 +43,78 @@ const beforeApiRequest = async (user: any, ip: any, name: string) => {
   }
 }
 
-Parse.Cloud.define("sol-balance", async ({params, user, ip}: any) => {
+
+const balanceOperation = getOperation('getBalance');
+Parse.Cloud.define("sol-balance", async ({request, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'balance');
-    const result = await Moralis.SolApi.account.getBalance(params);
+    upgradeRequest(request, balanceOperation);
+    const result = await Moralis.SolApi.account.getBalance(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-balance'));
   }
 })
 
-Parse.Cloud.define("sol-getSPL", async ({params, user, ip}: any) => {
+
+const getSPLOperation = getOperation('getSPL');
+Parse.Cloud.define("sol-getSPL", async ({request, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getSPL');
-    const result = await Moralis.SolApi.account.getSPL(params);
+    upgradeRequest(request, getSPLOperation);
+    const result = await Moralis.SolApi.account.getSPL(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getSPL'));
   }
 })
 
-Parse.Cloud.define("sol-getNFTs", async ({params, user, ip}: any) => {
+
+const getNFTsOperation = getOperation('getNFTs');
+Parse.Cloud.define("sol-getNFTs", async ({request, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getNFTs');
-    const result = await Moralis.SolApi.account.getNFTs(params);
+    upgradeRequest(request, getNFTsOperation);
+    const result = await Moralis.SolApi.account.getNFTs(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getNFTs'));
   }
 })
 
-Parse.Cloud.define("sol-getPortfolio", async ({params, user, ip}: any) => {
+
+const getPortfolioOperation = getOperation('getPortfolio');
+Parse.Cloud.define("sol-getPortfolio", async ({request, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getPortfolio');
-    const result = await Moralis.SolApi.account.getPortfolio(params);
+    upgradeRequest(request, getPortfolioOperation);
+    const result = await Moralis.SolApi.account.getPortfolio(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getPortfolio'));
   }
 })
 
-Parse.Cloud.define("sol-getNFTMetadata", async ({params, user, ip}: any) => {
+
+const getNFTMetadataOperation = getOperation('getNFTMetadata');
+Parse.Cloud.define("sol-getNFTMetadata", async ({request, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getNFTMetadata');
-    const result = await Moralis.SolApi.nft.getNFTMetadata(params);
+    upgradeRequest(request, getNFTMetadataOperation);
+    const result = await Moralis.SolApi.nft.getNFTMetadata(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getNFTMetadata'));
   }
 })
 
-Parse.Cloud.define("sol-getTokenPrice", async ({params, user, ip}: any) => {
+
+const getTokenPriceOperation = getOperation('getTokenPrice');
+Parse.Cloud.define("sol-getTokenPrice", async ({request, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getTokenPrice');
-    const result = await Moralis.SolApi.token.getTokenPrice(params);
+    upgradeRequest(request, getTokenPriceOperation);
+    const result = await Moralis.SolApi.token.getTokenPrice(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getTokenPrice'));
