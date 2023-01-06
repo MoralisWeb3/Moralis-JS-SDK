@@ -8,7 +8,8 @@ const elUser = document.getElementById('user');
 const elBtnMetamask = document.getElementById('auth-metamask');
 const elBtnGetUser = document.getElementById('getUser');
 const elBtnGetUserAnon = document.getElementById('getUserAnon');
-const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON_KEY);
+const _supabaseAnon = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON_KEY);
+let _supabaseAuthenticated;
 
 const handleApiPost = async (endpoint, params) => {
   const result = await axios.post(`${AUTH_API_URL}/${endpoint}`, params, {
@@ -19,8 +20,6 @@ const handleApiPost = async (endpoint, params) => {
 
   return result.data;
 };
-
-let token;
 
 const requestMessage = (account, chain) =>
   handleApiPost('request-message', {
@@ -36,22 +35,19 @@ const verifyMessage = (message, signature) =>
     networkType: 'evm',
   });
 
-const getUser = async (providedToken) => {
-  const _supabaseAuth = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON_KEY, {
-    global: {
-      headers: {
-        Authorization: `Bearer ${providedToken}`,
-      },
-    },
-  });
-  const { data } = await _supabaseAuth.from('users').select('*');
+const getUser = async () => {
+  if (!_supabaseAuthenticated) {
+    // eslint-disable-next-line no-alert
+    window.alert('You need to authenticate with Metamask first.');
+    return;
+  }
+  const { data } = await _supabaseAuthenticated.from('users').select('*');
   renderUser(data);
   renderError();
 };
 
 const getUserAnon = async () => {
-  await _supabase.auth.signOut();
-  const { data } = await _supabase.from('users').select('*');
+  const { data } = await _supabaseAnon.from('users').select('*');
   renderUser(data);
   renderError();
 };
@@ -85,7 +81,13 @@ const handleAuth = async () => {
 
   const { user } = await verifyMessage(message, signature);
 
-  token = user.token;
+  _supabaseAuthenticated = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_ANON_KEY, {
+    global: {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    },
+  });
 
   renderUser(user);
   renderError();
@@ -104,7 +106,7 @@ function init() {
     handleAuth().catch((error) => renderError(error));
   });
   elBtnGetUser.addEventListener('click', async () => {
-    getUser(token).catch((error) => renderError(error));
+    getUser().catch((error) => renderError(error));
   });
   elBtnGetUserAnon.addEventListener('click', async () => {
     getUserAnon().catch((error) => renderError(error));
