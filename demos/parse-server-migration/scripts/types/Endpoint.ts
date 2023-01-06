@@ -11,4 +11,5 @@ export interface Endpoint {
   methodName: string;
   url: string;
   bodyParams?: BodyParams[];
+  noArgs: boolean;
 }

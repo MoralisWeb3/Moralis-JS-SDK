@@ -9,7 +9,9 @@ const replacements = {
   'account.balance': 'account.getBalance',
 };
 
+const noArgMethodNames: string[] = [];
+
 export const generateSolApiCloud = async () => {
-  const { endpoints } = await fetchEndpoints(API_SWAGGER_URL, replacements);
+  const { endpoints } = await fetchEndpoints(API_SWAGGER_URL, replacements, noArgMethodNames);
   await createCloudFile(OUTPUT_FILE, 'SolApi', endpoints);
 };
