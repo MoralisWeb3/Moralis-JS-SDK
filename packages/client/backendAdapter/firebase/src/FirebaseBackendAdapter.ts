@@ -1,6 +1,6 @@
-import { FirebaseApp } from '@firebase/app';
-import { Auth, browserSessionPersistence, getAuth } from '@firebase/auth';
-import { Functions, getFunctions } from '@firebase/functions';
+import { FirebaseApp } from 'firebase/app';
+import { Auth, browserSessionPersistence, getAuth } from 'firebase/auth';
+import { Functions, getFunctions } from 'firebase/functions';
 import { ApiClient, Auth as MoralisAuth, BackendAdapter } from '@moralisweb3/client-backend-adapter-utils';
 import { Core } from '@moralisweb3/common-core';
 import { FirebaseApiClient } from './FirebaseApiClient';

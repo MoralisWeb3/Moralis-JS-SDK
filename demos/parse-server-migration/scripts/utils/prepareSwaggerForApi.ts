@@ -59,7 +59,11 @@ const getPathByTag = (swagger: Swagger) => {
   return { pathByTag, pathDetails };
 };
 
-export const fetchEndpoints = async (swaggerUrl: string, replacements: { [oldPath: string]: string }) => {
+export const fetchEndpoints = async (
+  swaggerUrl: string,
+  replacements: { [oldPath: string]: string },
+  noArgMethodNames: string[],
+) => {
   const swagger = await fetchSwaggerJson(swaggerUrl);
   const { pathDetails, pathByTag } = getPathByTag(swagger);
 
@@ -82,6 +86,7 @@ export const fetchEndpoints = async (swaggerUrl: string, replacements: { [oldPat
       name,
       methodName,
       url: item.pathName.split('{').join(':').split('}').join(''),
+      noArgs: noArgMethodNames.includes(methodName),
     };
 
     if (item.data.requestBody) {

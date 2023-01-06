@@ -5911,7 +5911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/app-types@npm:0.9.0, @firebase/app-types@npm:^0.9.0":
+"@firebase/app-types@npm:0.9.0":
   version: 0.9.0
   resolution: "@firebase/app-types@npm:0.9.0"
   checksum: e79bd3c4a8d6b911326fe83fddca8d8922ea5880fcb3ad72d3561b51e3d01f22669cdc6d61d2ec48ac9c5e763e3d44b7b6736cadf36a0827d7f62447bde4b12e
@@ -5938,7 +5938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@firebase/app@npm:^0.8.3, @firebase/app@npm:^0.8.4":
+"@firebase/app@npm:^0.8.4":
   version: 0.8.4
   resolution: "@firebase/app@npm:0.8.4"
   dependencies:
@@ -7616,14 +7616,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-backend-adapter-firebase@workspace:packages/client/backendAdapter/firebase"
   dependencies:
-    "@firebase/app": ^0.8.3
-    "@firebase/app-types": ^0.9.0
-    "@firebase/auth": ^0.20.11
-    "@firebase/functions": ^0.8.8
     "@moralisweb3/client-api-utils": ^2.11.0
     "@moralisweb3/client-backend-adapter-utils": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
-    firebase: ^9.13.0
+    firebase: ^9.15.0
     prettier: ^2.5.1
     typescript: ^4.9.3
   languageName: unknown
@@ -7732,13 +7728,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-evm-api@workspace:packages/client/firebaseEvmApi"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/functions": ^0.8.8
     "@moralisweb3/client-evm-api": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
     "@moralisweb3/common-evm-utils": ^2.11.0
-    firebase: ^9.13.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7748,14 +7741,12 @@ __metadata:
   resolution: "@moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth"
   dependencies:
     "@ethersproject/providers": ^5.7.1
-    "@firebase/app": ^0.8.4
-    "@firebase/auth": ^0.20.11
     "@metamask/detect-provider": ^1.2.0
     "@moralisweb3/client-auth-utils": ^2.11.0
     "@moralisweb3/client-evm-auth": ^2.11.0
     "@moralisweb3/client-firebase-auth-utils": ^2.11.0
     "@moralisweb3/client-firebase-utils": ^2.11.0
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7764,14 +7755,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-sol-api@workspace:packages/client/firebaseSolApi"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/functions": ^0.8.8
     "@moralisweb3/client-backend-adapter-utils": ^2.11.0
     "@moralisweb3/client-sol-api": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
     "@moralisweb3/common-sol-utils": ^2.11.0
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7780,16 +7768,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-sol-auth@workspace:packages/client/firebaseSolAuth"
   dependencies:
-    "@firebase/app": ^0.8.4
-    "@firebase/app-types": ^0.8.1
-    "@firebase/auth": ^0.20.11
     "@moralisweb3/client-auth-utils": ^2.11.0
     "@moralisweb3/client-backend-adapter-utils": ^2.11.0
     "@moralisweb3/client-firebase-auth-utils": ^2.11.0
     "@moralisweb3/client-firebase-utils": ^2.11.0
     "@moralisweb3/client-sol-auth": ^2.11.0
     bs58: ^5.0.0
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     typescript: ^4.9.3
   languageName: unknown
   linkType: soft
@@ -7798,11 +7783,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-utils@workspace:packages/client/firebaseUtils"
   dependencies:
-    "@firebase/app": ^0.8.3
-    "@firebase/app-types": ^0.9.0
     "@moralisweb3/client-backend-adapter-firebase": ^2.11.0
     "@moralisweb3/client-backend-adapter-utils": ^2.11.0
     "@moralisweb3/common-core": ^2.11.0
+    firebase: ^9.15.0
     prettier: ^2.5.1
     typescript: ^4.9.3
   languageName: unknown
@@ -15686,7 +15670,7 @@ __metadata:
     cross-env: ^7.0.3
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
-    firebase: ^9.10.0
+    firebase: ^9.15.0
     react: ^18.2.0
     react-app-rewired: ^2.2.1
     react-dom: ^18.2.0
@@ -18791,7 +18775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase@npm:^9.10.0, firebase@npm:^9.13.0, firebase@npm:^9.15.0":
+"firebase@npm:^9.13.0, firebase@npm:^9.15.0":
   version: 9.15.0
   resolution: "firebase@npm:9.15.0"
   dependencies:
@@ -24808,7 +24792,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"moralis-v1@npm:^1.11.0":
+"moralis-v1@npm:^1.12.0":
   version: 1.12.0
   resolution: "moralis-v1@npm:1.12.0"
   dependencies:
@@ -26480,7 +26464,7 @@ __metadata:
     framer-motion: ^6
     https-browserify: ^1.0.0
     magic-sdk: ^9.0.0
-    moralis-v1: ^1.11.0
+    moralis-v1: ^1.12.0
     os-browserify: ^0.3.0
     process: ^0.11.10
     react: ^18.2.0

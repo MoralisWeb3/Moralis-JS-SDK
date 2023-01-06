@@ -8,6 +8,10 @@ const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules', 'template'];
 
 const IGNORE_DEPENDENCIES = ['path', 'lodash', 'child_process', 'fs'];
 
+const FORBIDDEN_DEPENDENCIES = [
+  /^@firebase\//, // Use root package instead (`import * from 'firebase'`, `import * from 'firebase/auth'`)
+];
+
 function findPackages(dirPath) {
   const result = [];
   fs.readdirSync(dirPath).forEach((fileName) => {
@@ -86,7 +90,10 @@ function findPackageMissingDependencies(packageDirPath) {
     }
     return result;
   }, []);
-  return { missing, total: imports.length };
+  const forbidden = FORBIDDEN_DEPENDENCIES.filter((regexp) => {
+    return imports.some((imp) => regexp.test(imp)) || dependenciesList.some((dep) => regexp.test(dep));
+  });
+  return { missing, forbidden, total: imports.length };
 }
 
 const repositoryPath = path.resolve(__dirname, '..');
@@ -101,8 +108,10 @@ for (const packagePath of allPackagePaths) {
   const result = findPackageMissingDependencies(packagePath);
   if (!result) {
     console.log(`⏩ Package ${packageName} is private`);
-  } else if (result.missing.length > 0) {
-    console.log(`❌ Package ${packageName} has missing dependencies:\n* ${result.missing.join('\n* ')}\n`);
+  } else if (result.missing.length > 0 || result.forbidden.length > 0) {
+    const missing = result.missing.map((d) => `* [missing] ${d}`).join('\n');
+    const forbidden = result.forbidden.map((d) => `* [forbidden] ${d}`).join('\n');
+    console.log(`❌ Package ${packageName} is invalid:\n${missing}\n${forbidden}`);
     exitCode = 1;
   } else {
     console.log(`✅ Package ${packageName} is valid (${result.total} dependencies)`);

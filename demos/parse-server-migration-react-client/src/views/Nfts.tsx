@@ -32,6 +32,10 @@ export const Nfts = () => {
             <FormControl>
               <FormLabel>Address</FormLabel>
               <Input required value={address} onChange={(event) => setAddress(event.target.value)} />
+
+              <small>
+                Example: <code>0x75e3e9c92162e62000425c98769965a76c2e387a</code>
+              </small>
             </FormControl>
             <FormControl>
               <FormLabel>Chain</FormLabel>

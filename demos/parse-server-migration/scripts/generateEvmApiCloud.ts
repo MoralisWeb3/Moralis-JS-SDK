@@ -20,6 +20,7 @@ const replacements = {
   'token.reSyncMetadata': 'nft.reSyncMetadata',
   'token.searchNFTs': 'nft.searchNFTs',
   'token.syncNFTContract': 'nft.syncNFTContract',
+  'token.getMultipleNFTs': 'nft.getMultipleNFTs',
   'account.getNativeBalance': 'balance.getNativeBalance',
   'account.getNFTs': 'nft.getWalletNFTs',
   'account.getNFTsForContract': 'nft.getWalletNFTs',
@@ -28,6 +29,7 @@ const replacements = {
   'account.getTokenTransfers': 'token.getWalletTokenTransfers',
   'account.getTransactions': 'transaction.getWalletTransactions',
   'account.getWalletNFTCollections': 'nft.getWalletNFTCollections',
+  'account.getTransactionsVerbose': 'transaction.getWalletTransactionsVerbose',
   'storage.uploadFolder': 'ipfs.uploadFolder',
   'native.getDateToBlock': 'block.getDateToBlock',
   'native.getBlock': 'block.getBlock',
@@ -41,7 +43,9 @@ const replacements = {
   'contract.syncNFTContract': 'nft.syncNFTContract',
 };
 
+const noArgMethodNames = ['web3ApiVersion', 'endpointWeights'];
+
 export const generateEvmApiCloud = async () => {
-  const { endpoints } = await fetchEndpoints(API_SWAGGER_URL, replacements);
+  const { endpoints } = await fetchEndpoints(API_SWAGGER_URL, replacements, noArgMethodNames);
   await createCloudFile(OUTPUT_FILE, 'EvmApi', endpoints);
 };
