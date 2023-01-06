@@ -1,4 +1,4 @@
-import { Functions, httpsCallable } from '@firebase/functions';
+import { Functions, httpsCallable } from 'firebase/functions';
 import {
   Auth as MoralisAuth,
   AuthSession,
@@ -7,7 +7,7 @@ import {
   NetworkTypeResolver,
   SignInRequest,
 } from '@moralisweb3/client-backend-adapter-utils';
-import { signInWithCustomToken, Auth } from '@firebase/auth';
+import { signInWithCustomToken, Auth } from 'firebase/auth';
 
 export class FirebaseAuth implements MoralisAuth {
   private readonly functionNamePrefix: string;

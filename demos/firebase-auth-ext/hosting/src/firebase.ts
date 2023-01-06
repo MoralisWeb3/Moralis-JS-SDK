@@ -1,5 +1,5 @@
-import { initializeApp } from '@firebase/app';
-import { connectFunctionsEmulator, getFunctions } from '@firebase/functions';
+import { initializeApp } from 'firebase/app';
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 import { getMoralisEvmAuth } from '@moralisweb3/client-firebase-evm-auth';
 import { getMoralisSolAuth } from '@moralisweb3/client-firebase-sol-auth';
 import { getMoralis } from '@moralisweb3/client-firebase-utils';

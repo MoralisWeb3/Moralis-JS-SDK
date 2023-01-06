@@ -1,4 +1,4 @@
-import { FirebaseApp } from '@firebase/app';
+import { FirebaseApp } from 'firebase/app';
 import { BackendAdapter, AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
 import { FirebaseBackendAdapter, FirebaseBackendAdapterOptions } from '@moralisweb3/client-backend-adapter-firebase';
 import { Core } from '@moralisweb3/common-core';

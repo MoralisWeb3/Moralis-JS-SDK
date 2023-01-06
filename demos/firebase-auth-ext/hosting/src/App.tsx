@@ -1,6 +1,6 @@
 import { signInWithMoralis as signInWithMoralisByEvm } from '@moralisweb3/client-firebase-evm-auth';
 import { signInWithMoralis as signInWithMoralisBySolana } from '@moralisweb3/client-firebase-sol-auth';
-import { httpsCallable } from '@firebase/functions';
+import { httpsCallable } from 'firebase/functions';
 import { Fragment, useEffect, useState } from 'react';
 import { evmAuth, functions, solAuth } from './firebase';
 import { User } from '@moralisweb3/client-auth-utils';

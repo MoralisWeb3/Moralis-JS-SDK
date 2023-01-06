@@ -9,7 +9,7 @@ import {
   PaginationReader,
   ResponseAdapter,
 } from '@moralisweb3/common-core';
-import { httpsCallable, Functions } from '@firebase/functions';
+import { httpsCallable, Functions } from 'firebase/functions';
 import { ApiClient } from '@moralisweb3/client-backend-adapter-utils';
 
 export class FirebaseApiClient implements ApiClient {
