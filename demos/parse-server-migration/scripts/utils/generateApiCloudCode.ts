@@ -31,12 +31,12 @@ const generateCloudCode = (module: Module, endpoint: Endpoint) => {
   const varName = `${endpoint.name}Operation`;
   code += `
 const ${varName} = getOperation('${endpoint.methodName}');
-Parse.Cloud.define("${name}", async ({request, user, ip}: any) => {
+Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, '${endpoint.name}');
-    upgradeRequest(request, ${varName});
+    upgradeRequest(params, ${varName});
     const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(${
-    endpoint.noArgs ? '' : 'request'
+    endpoint.noArgs ? '' : 'params'
   });
     return result?.raw;
   } catch (error) {
