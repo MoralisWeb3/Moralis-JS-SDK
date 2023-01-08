@@ -35,9 +35,7 @@ Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, '${endpoint.name}');
     upgradeRequest(params, ${varName});
-    const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(${
-    endpoint.noArgs ? '' : 'params'
-  });
+    const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(${endpoint.noArgs ? '' : 'params'});
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, '${name}'));
