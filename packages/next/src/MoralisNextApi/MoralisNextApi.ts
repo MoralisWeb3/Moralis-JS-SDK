@@ -1,5 +1,4 @@
 import { MoralisNextApiParams, MoralisNextHandlerParams } from './types';
-import { RequestHandlerResolver } from './RequestHandlerResolver';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { authOperationNames, moralisNextAuthHandler } from '../auth/moralisNextAuthHandler';
@@ -11,15 +10,15 @@ async function MoralisNextHandler({ req, res, authentication, core }: MoralisNex
   try {
     const module = getModuleByName(moduleName);
     const operation = module.getOperationByName(operationName);
-    const requestHandler = RequestHandlerResolver.tryResolve(module, operation);
     const deserialisedRequest = operation.deserializeRequest(req.body, core);
+    const requestHandler = module.getRequestHandler(operation, core);
 
     let response;
 
     if (authOperationNames.includes(operationName)) {
       response = await moralisNextAuthHandler({ req, res, authentication, requestHandler, operation, core });
     } else {
-      response = await requestHandler.fetch(deserialisedRequest);
+      response = await requestHandler(deserialisedRequest);
     }
 
     return res.status(200).json(response);

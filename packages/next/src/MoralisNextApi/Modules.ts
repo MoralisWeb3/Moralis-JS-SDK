@@ -1,22 +1,14 @@
 import { EvmApi } from '@moralisweb3/evm-api';
-import { UnknownOperation } from '@moralisweb3/common-core';
+import Core, { UnknownOperation } from '@moralisweb3/common-core';
 import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
 import { operations as authOperations } from '@moralisweb3/common-auth-utils';
 import { Auth } from '@moralisweb3/auth';
 import { SolApi } from '@moralisweb3/sol-api';
-import Moralis from 'moralis';
+import { UnknownOperationResolver } from '@moralisweb3/api-utils';
 
 export class Module {
-  public name: string;
-  public baseUrl: string;
-  public operations: UnknownOperation[];
-
-  constructor({ name, baseUrl, operations }: { name: string; baseUrl: string; operations: UnknownOperation[] }) {
-    this.name = name;
-    this.baseUrl = baseUrl;
-    this.operations = operations;
-  }
+  constructor(public readonly moduleName: string, public readonly operations: UnknownOperation[]) {}
 
   getOperationByName(operationName: string) {
     const operation = this.operations.find((op) => op.name === operationName);
@@ -27,28 +19,37 @@ export class Module {
 
     return operation;
   }
+
+  getRequestHandler(operation: UnknownOperation, core: Core) {
+    const apiModule = core.getModule(this.moduleName) as unknown as Record<
+      string,
+      Record<string, UnknownOperationResolver['fetch']>
+    >;
+
+    const apiGroup = apiModule[operation.groupName];
+
+    if (!apiGroup) {
+      throw new Error(`Operation ${operation.name} has no group name in ${this.moduleName}`);
+    }
+
+    const requestHandler = apiGroup[operation.name];
+
+    if (!requestHandler) {
+      throw new Error(`Operation ${operation.name} has no requestHandler in ${this.moduleName}.${apiGroup}`);
+    }
+
+    return requestHandler;
+  }
 }
 
 const modules: Module[] = [
-  new Module({
-    name: EvmApi.moduleName,
-    baseUrl: Moralis.EvmApi.baseUrl,
-    operations: evmOperations as UnknownOperation[],
-  }),
-  new Module({
-    name: SolApi.moduleName,
-    baseUrl: Moralis.SolApi.baseUrl,
-    operations: solOperations as UnknownOperation[],
-  }),
-  new Module({
-    name: Auth.moduleName,
-    baseUrl: Moralis.Auth.baseUrl,
-    operations: authOperations as UnknownOperation[],
-  }),
+  new Module(EvmApi.moduleName, evmOperations as UnknownOperation[]),
+  new Module(SolApi.moduleName, solOperations as UnknownOperation[]),
+  new Module(Auth.moduleName, authOperations as UnknownOperation[]),
 ];
 
 export function getModuleByName(moduleName: string) {
-  const module = modules.find((mod) => mod.name === moduleName);
+  const module = modules.find((currentModule) => currentModule.moduleName === moduleName);
 
   if (!module) {
     throw new Error(`Module ${moduleName} not found`);

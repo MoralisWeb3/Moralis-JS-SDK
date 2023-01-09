@@ -1,4 +1,4 @@
-import { OperationResolver } from '@moralisweb3/api-utils';
+import { UnknownOperationResolver } from '@moralisweb3/api-utils';
 import { UnknownOperation } from '@moralisweb3/common-core';
 import { MoralisNextHandlerParams } from '../MoralisNextApi/types';
 
@@ -10,7 +10,7 @@ export const authOperationNames = [
 ];
 
 export interface MoralisNextAuthHandler extends MoralisNextHandlerParams {
-  requestHandler: OperationResolver<unknown, unknown, unknown, unknown>;
+  requestHandler: UnknownOperationResolver['fetch'];
   operation: UnknownOperation;
 }
 
@@ -33,10 +33,10 @@ export const moralisNextAuthHandler = async ({
   switch (operationName) {
     case 'requestChallengeEvm':
     case 'requestChallengeSolana':
-      return requestHandler.fetch({ ...deserlialisedRequest, ...authentication });
+      return requestHandler({ ...deserlialisedRequest, ...authentication });
     case 'verifyChallengeEvm':
     case 'verifyChallengeSolana':
-      return requestHandler.fetch(deserlialisedRequest);
+      return requestHandler(deserlialisedRequest);
     default:
       throw new Error(`${operationName} is not supported authentication operation`);
   }
