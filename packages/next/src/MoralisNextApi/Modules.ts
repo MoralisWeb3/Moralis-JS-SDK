@@ -1,13 +1,11 @@
 import { EvmApi } from '@moralisweb3/evm-api';
+import { UnknownOperation } from '@moralisweb3/common-core';
 import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
-import { Operation } from 'moralis/common-core';
 import { operations as authOperations } from '@moralisweb3/common-auth-utils';
 import { Auth } from '@moralisweb3/auth';
 import { SolApi } from '@moralisweb3/sol-api';
 import Moralis from 'moralis';
-
-export type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
 
 export class Module {
   public name: string;

@@ -1,6 +1,4 @@
-import { Operation } from '@moralisweb3/common-core';
-
-type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
+import { UnknownOperation } from '@moralisweb3/common-core';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function upgradeRequest(request: any, operation: UnknownOperation) {

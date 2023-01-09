@@ -1,5 +1,5 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { UnknownOperation } from '../MoralisNextApi/Modules';
+import { UnknownOperation } from '@moralisweb3/common-core';
 import { MoralisNextHandlerParams } from '../MoralisNextApi/types';
 
 export const authOperationNames = [
