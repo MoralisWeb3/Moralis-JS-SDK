@@ -7736,6 +7736,7 @@ __metadata:
     "@moralisweb3/api-utils": ^2.11.0
     "@moralisweb3/auth": ^2.11.0
     "@moralisweb3/common-auth-utils": ^2.11.0
+    "@moralisweb3/common-core": ^2.11.0
     "@moralisweb3/evm-api": ^2.11.0
     "@moralisweb3/sol-api": ^2.11.0
     axios: ^1.2.1
