@@ -10,7 +10,7 @@ async function MoralisNextHandler({ req, res, authentication, core }: MoralisNex
 
   try {
     const module = getModuleByName(moduleName);
-    const operation = module?.getOperationByName(operationName);
+    const operation = module.getOperationByName(operationName);
     const requestHandler = RequestHandlerResolver.tryResolve(module, operation);
     const deserialisedRequest = operation.deserializeRequest(req.body, core);
 
