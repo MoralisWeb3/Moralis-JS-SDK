@@ -45,6 +45,10 @@ export class SolAuthClient implements Module, AuthClient<SolanaProvider> {
     return this.state.logOut();
   }
 
+  public onClientDisconnect(callback: () => void | Promise<void>): void {
+    this.state.onClientDisconnect(callback);
+  }
+
   public restoreProvider(): Promise<SolanaProvider> {
     return this.state.restoreProvider();
   }

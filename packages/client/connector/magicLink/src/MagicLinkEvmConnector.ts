@@ -32,17 +32,17 @@ export class MagicLinkEvmConnector implements EvmConnector {
   public async connect(): Promise<EvmConnection> {
     const provider = this.magic.rpcProvider;
     await provider.enable();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return new MagicLinkEvmConnection(this.name, new Web3Provider(provider as any), this.magic);
+    return new MagicLinkEvmConnection(this.name, this.magic);
   }
 }
 
 class MagicLinkEvmConnection implements EvmConnection {
-  public constructor(
-    public readonly connectorName: string,
-    public readonly provider: Web3Provider,
-    private readonly magic: MagicSDK,
-  ) {}
+  public readonly provider: Web3Provider;
+
+  public constructor(public readonly connectorName: string, private readonly magic: MagicSDK) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.provider = new Web3Provider(magic as any);
+  }
 
   public async readWallet(): Promise<WalletDetails> {
     const [accounts, chain] = await Promise.all([
@@ -62,6 +62,6 @@ class MagicLinkEvmConnection implements EvmConnection {
 
   public async disconnect(): Promise<void> {
     await this.magic.connect.disconnect();
-    localStorage.removeItem('magicLink');
+    localStorage.removeItem(this.connectorName);
   }
 }

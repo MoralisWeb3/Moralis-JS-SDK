@@ -26,12 +26,23 @@ export class MetaMaskEvmConnector implements EvmConnector {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const provider = new Web3Provider(ethereum as any, 'any');
     await provider.send('eth_requestAccounts', []);
-    return new MetaMaskEvmConnection(this.name, provider);
+    return new MetaMaskEvmConnection(this.name, provider, ethereum);
   }
 }
 
 class MetaMaskEvmConnection implements EvmConnection {
-  public constructor(public readonly connectorName: string, public readonly provider: Web3Provider) {}
+  public onClientDisconnect?: () => void | Promise<void>;
+
+  public constructor(
+    public readonly connectorName: string,
+    public readonly provider: Web3Provider,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private readonly ethereum: any,
+  ) {
+    this.ethereum.on('disconnect', () => {
+      this.onClientDisconnect?.();
+    });
+  }
 
   public async readWallet(): Promise<WalletDetails> {
     const [accounts, chain] = await Promise.all([

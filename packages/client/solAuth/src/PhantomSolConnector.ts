@@ -39,11 +39,17 @@ export class PhantomSolConnector implements SolConnector {
 }
 
 class PhantomSolConnection implements SolConnection {
+  public onClientDisconnect?: () => void | Promise<void>;
+
   public constructor(
     public readonly connectorName: string,
     public readonly provider: SolanaProvider,
     private readonly network: string | undefined,
-  ) {}
+  ) {
+    this.provider.on('disconnect', () => {
+      this.onClientDisconnect?.();
+    });
+  }
 
   public async readWallet(): Promise<WalletDetails> {
     const address = this.provider.publicKey.toBase58();

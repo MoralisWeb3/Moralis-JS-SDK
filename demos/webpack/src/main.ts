@@ -4,16 +4,22 @@ import { EvmConnector } from '@moralisweb3/client-evm-auth';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
+import { WalletConnect2EvmConnector } from '@moralisweb3/client-connector-wallet-connect-2';
 
+const WALLET_CONNECT_ETHEREUM_MAINNET_RPC = process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC;
+const WALLET_CONNECT_2_PROJECT_ID = process.env.WALLET_CONNECT_2_PROJECT_ID;
 const MAGIC_CONNECT_PUBLISHABLE_API_KEY = process.env.MAGIC_CONNECT_PUBLISHABLE_API_KEY;
 
-function validateMagicLinkApiKey() {
-  if (!MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
-    alert('Please set MAGIC_CONNECT_PUBLISHABLE_API_KEY in .env file');
-    return false;
-  }
+function validateWalletConnectV1() {
+  return !!WALLET_CONNECT_ETHEREUM_MAINNET_RPC;
+}
 
-  return true;
+function validateWalletConnectV2() {
+  return WALLET_CONNECT_ETHEREUM_MAINNET_RPC && WALLET_CONNECT_2_PROJECT_ID;
+}
+
+function validateMagicLinkApiKey() {
+  return !!MAGIC_CONNECT_PUBLISHABLE_API_KEY;
 }
 
 async function reloadCurrentUser() {
@@ -53,24 +59,53 @@ async function reloadCurrentUser() {
   userBalance.innerText = balance ? balance : 'Unknown';
 }
 
+async function onEvmWalletDisconnected() {
+  await MoralisClient.EvmAuth.logOut(); // Clear session on this side
+  await reloadCurrentUser(); // Update UI
+}
+
+async function onSolWalletDisconnected() {
+  await MoralisClient.SolAuth.logOut(); // Clear session on this side
+  await reloadCurrentUser(); // Update UI
+}
+
 async function authenticate(wallet: string) {
   switch (wallet) {
     case 'metaMask':
       await MoralisClient.EvmAuth.authenticate();
+      MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
       break;
 
     case 'walletConnect':
-      await MoralisClient.EvmAuth.authenticate('walletConnect');
+      if (validateWalletConnectV1()) {
+        await MoralisClient.EvmAuth.authenticate('walletConnect');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Wallet Connect V1 config in .env file to authenticate using it');
+      }
+      break;
+
+    case 'walletConnect2':
+      if (validateWalletConnectV2()) {
+        await MoralisClient.EvmAuth.authenticate('walletConnect2');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Wallet Connect V2 config in .env file to authenticate using it');
+      }
       break;
 
     case 'magicLink':
       if (validateMagicLinkApiKey()) {
         await MoralisClient.EvmAuth.authenticate('magicLink');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set MagicLink config in .env file to authenticate using it');
       }
       break;
 
     case 'phantom':
       await MoralisClient.SolAuth.authenticate();
+      MoralisClient.SolAuth.onClientDisconnect(onSolWalletDisconnected);
       break;
   }
 }
@@ -79,20 +114,39 @@ async function connect(action: string) {
   switch (action) {
     case 'metaMask':
       await MoralisClient.EvmAuth.connect();
+      MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
       break;
 
     case 'walletConnect':
-      await MoralisClient.EvmAuth.connect('walletConnect');
+      if (validateWalletConnectV1()) {
+        await MoralisClient.EvmAuth.connect('walletConnect');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Wallet Connect V1 config in .env file to connect using it');
+      }
+      break;
+
+    case 'walletConnect2':
+      if (validateWalletConnectV2()) {
+        await MoralisClient.EvmAuth.connect('walletConnect2');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Wallet Connect V2 config in .env file to connect using it');
+      }
       break;
 
     case 'magicLink':
       if (validateMagicLinkApiKey()) {
         await MoralisClient.EvmAuth.connect('magicLink');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set MagicLink config in .env file to connect using it');
       }
       break;
 
     case 'phantom':
       await MoralisClient.SolAuth.connect();
+      MoralisClient.SolAuth.onClientDisconnect(onSolWalletDisconnected);
       break;
   }
 }
@@ -131,16 +185,35 @@ async function onButtonClicked(e: Event) {
 }
 
 async function init() {
-  const connectors: EvmConnector[] = [
-    WalletConnectEvmConnector.create({
-      rpc: {
-        1: 'https://replace_me/',
-      },
-    }),
-  ];
-  if (MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
-    // Add magic link connector
-    connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY));
+  const connectors: EvmConnector[] = [];
+  if (validateWalletConnectV1()) {
+    // Add WalletConnect v1 connector
+    connectors.push(
+      WalletConnectEvmConnector.create({
+        rpc: {
+          1: process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
+        },
+      }),
+    );
+  }
+  if (validateWalletConnectV2()) {
+    // Add WalletConnect v2 connector
+    connectors.push(
+      WalletConnect2EvmConnector.create({
+        appMetadata: {
+          name: 'Moralis Webpack App',
+          description: 'Moralis App with WalletConnect V2 Auth',
+          url: 'https://moralis.io/',
+          icons: [],
+        },
+        ethereumRpc: process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
+        projectId: process.env.WALLET_CONNECT_2_PROJECT_ID!,
+      }),
+    );
+  }
+  if (validateMagicLinkApiKey()) {
+    // Add MagicLink connector
+    connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY!));
   }
 
   MoralisClient.start({
