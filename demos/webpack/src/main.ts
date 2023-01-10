@@ -208,6 +208,7 @@ async function init() {
         },
         ethereumRpc: WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
         projectId: WALLET_CONNECT_2_PROJECT_ID!,
+        methods: ['eth_getBalance'],
       }),
     );
   }

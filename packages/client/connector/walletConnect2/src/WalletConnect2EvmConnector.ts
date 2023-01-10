@@ -18,6 +18,7 @@ export interface WalletConnect2EvmConnectorOptions {
   ethereumRpc: string;
   projectId: string;
   relayUrl?: string;
+  methods: string[];
 }
 
 export class WalletConnect2EvmConnector implements EvmConnector {
@@ -56,23 +57,22 @@ export class WalletConnect2EvmConnector implements EvmConnector {
           methods: [
             'eth_accounts',
             'eth_chainId',
-            'eth_getBalance',
             'eth_sendTransaction',
             'eth_signTransaction',
             'eth_sign',
             'personal_sign',
             'eth_signTypedData',
+            ...this.options.methods,
           ],
           chains: [ETHEREUM_MAINNET],
           events: ['chainChanged', 'accountsChanged'],
           rpcMap: {
-            1: this.options.ethereumRpc,
+            '1': this.options.ethereumRpc,
           },
         },
       },
-      // pairingTopic: ...,
     });
-    universalProvider.setDefaultChain(ETHEREUM_MAINNET);
+    universalProvider.setDefaultChain(ETHEREUM_MAINNET, this.options.ethereumRpc);
     await universalProvider.enable();
     web3Modal.closeModal();
 
@@ -100,11 +100,11 @@ class WalletConnect2EvmConnection implements EvmConnection {
   public async readWallet(): Promise<WalletDetails> {
     const [accounts, chain] = await Promise.all([
       this.universalProvider.request<string[]>({ method: 'eth_accounts', params: [] }, ETHEREUM_MAINNET),
-      this.universalProvider.request<{ chainId: string }>({ method: 'eth_chainId', params: [] }, ETHEREUM_MAINNET),
+      this.universalProvider.request<number>({ method: 'eth_chainId', params: [] }, ETHEREUM_MAINNET),
     ]);
     return {
       address: accounts[0],
-      evmChain: String(chain.chainId),
+      evmChain: String(chain),
     };
   }
 
