@@ -1,4 +1,4 @@
-import { VStack, Heading, Button, Textarea } from '@chakra-ui/react';
+import { VStack, Heading, Button, Textarea, List, ListItem } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useMoralisWeb3Api } from 'react-moralis';
 
@@ -69,9 +69,24 @@ const Home = () => {
     <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>
       <Textarea value={output} />
-      <Button onClick={getNFTMetadata}>getNFTMetadata</Button> | <Button onClick={getBlock}>getBlock</Button> |
-      <Button onClick={runContractFunction}>runContractFunction</Button>
-      <Button onClick={resolveDomain}>resolveDomain</Button> |<Button onClick={web3ApiVersion}>web3ApiVersion</Button> |
+
+      <List>
+        <ListItem mb={2}>
+          <Button onClick={getNFTMetadata}>getNFTMetadata</Button>
+        </ListItem>
+        <ListItem mb={2}>
+          <Button onClick={getBlock}>getBlock</Button>
+        </ListItem>
+        <ListItem mb={2}>
+          <Button onClick={runContractFunction}>runContractFunction</Button>
+        </ListItem>
+        <ListItem mb={2}>
+          <Button onClick={resolveDomain}>resolveDomain</Button>
+        </ListItem>
+        <ListItem mb={2}>
+          <Button onClick={web3ApiVersion}>web3ApiVersion</Button>
+        </ListItem>
+      </List>
     </VStack>
   );
 };
