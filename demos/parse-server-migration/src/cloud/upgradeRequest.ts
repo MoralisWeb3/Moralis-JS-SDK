@@ -1,17 +1,22 @@
-import { Operation } from '@moralisweb3/common-core';
+import { Operation, toCamelCase } from '@moralisweb3/common-core';
 
 type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function upgradeRequest(request: any, operation: UnknownOperation) {
-  if (!hasParam(operation, 'address') && request['address']) {
+export function upgradeRequest(params: any, operation: UnknownOperation): any {
+  const request = toCamelCase(params);
+
+  if (request['address'] && !hasParam(operation, 'address')) {
     delete request['address'];
   }
 
   if (request['chain']) {
-    request['chain'] = upgradeChain(request['chain']);
+    if (!hasParam(operation, 'chain')) {
+      delete request['chain'];
+    } else {
+      request['chain'] = upgradeChain(request['chain']);
+    }
   }
-
   return request;
 }
 

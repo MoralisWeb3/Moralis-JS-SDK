@@ -34,8 +34,10 @@ const ${varName} = getOperation('${endpoint.methodName}');
 Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, '${endpoint.name}');
-    upgradeRequest(params, ${varName});
-    const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(${endpoint.noArgs ? '' : 'params'});
+    const request = upgradeRequest(params, ${varName});
+    const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(${
+    endpoint.noArgs ? '' : 'request'
+  });
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, '${name}'));
@@ -49,6 +51,7 @@ const generateAllCloudCode = (module: Module, endpoints: Endpoint[]) => {
   const packageName = getModulePackageName(module);
   let output = `/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Moralis from 'moralis'
 import { MoralisError, Operation } from '@moralisweb3/common-core';
 import { handleRateLimit } from '../../rateLimit';

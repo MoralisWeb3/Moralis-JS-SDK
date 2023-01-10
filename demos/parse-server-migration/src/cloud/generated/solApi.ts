@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Moralis from 'moralis'
 import { MoralisError, Operation } from '@moralisweb3/common-core';
 import { handleRateLimit } from '../../rateLimit';
@@ -48,8 +49,8 @@ const balanceOperation = getOperation('getBalance');
 Parse.Cloud.define("sol-balance", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'balance');
-    upgradeRequest(params, balanceOperation);
-    const result = await Moralis.SolApi.account.getBalance(params);
+    const request = upgradeRequest(params, balanceOperation);
+    const result = await Moralis.SolApi.account.getBalance(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-balance'));
@@ -61,8 +62,8 @@ const getSPLOperation = getOperation('getSPL');
 Parse.Cloud.define("sol-getSPL", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getSPL');
-    upgradeRequest(params, getSPLOperation);
-    const result = await Moralis.SolApi.account.getSPL(params);
+    const request = upgradeRequest(params, getSPLOperation);
+    const result = await Moralis.SolApi.account.getSPL(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getSPL'));
@@ -74,8 +75,8 @@ const getNFTsOperation = getOperation('getNFTs');
 Parse.Cloud.define("sol-getNFTs", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getNFTs');
-    upgradeRequest(params, getNFTsOperation);
-    const result = await Moralis.SolApi.account.getNFTs(params);
+    const request = upgradeRequest(params, getNFTsOperation);
+    const result = await Moralis.SolApi.account.getNFTs(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getNFTs'));
@@ -87,8 +88,8 @@ const getPortfolioOperation = getOperation('getPortfolio');
 Parse.Cloud.define("sol-getPortfolio", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getPortfolio');
-    upgradeRequest(params, getPortfolioOperation);
-    const result = await Moralis.SolApi.account.getPortfolio(params);
+    const request = upgradeRequest(params, getPortfolioOperation);
+    const result = await Moralis.SolApi.account.getPortfolio(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getPortfolio'));
@@ -100,8 +101,8 @@ const getNFTMetadataOperation = getOperation('getNFTMetadata');
 Parse.Cloud.define("sol-getNFTMetadata", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getNFTMetadata');
-    upgradeRequest(params, getNFTMetadataOperation);
-    const result = await Moralis.SolApi.nft.getNFTMetadata(params);
+    const request = upgradeRequest(params, getNFTMetadataOperation);
+    const result = await Moralis.SolApi.nft.getNFTMetadata(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getNFTMetadata'));
@@ -113,8 +114,8 @@ const getTokenPriceOperation = getOperation('getTokenPrice');
 Parse.Cloud.define("sol-getTokenPrice", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, 'getTokenPrice');
-    upgradeRequest(params, getTokenPriceOperation);
-    const result = await Moralis.SolApi.token.getTokenPrice(params);
+    const request = upgradeRequest(params, getTokenPriceOperation);
+    const result = await Moralis.SolApi.token.getTokenPrice(request);
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, 'sol-getTokenPrice'));
