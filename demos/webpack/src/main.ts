@@ -191,7 +191,7 @@ async function init() {
     connectors.push(
       WalletConnectEvmConnector.create({
         rpc: {
-          1: process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
+          1: WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
         },
       }),
     );
@@ -206,8 +206,8 @@ async function init() {
           url: 'https://moralis.io/',
           icons: [],
         },
-        ethereumRpc: process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
-        projectId: process.env.WALLET_CONNECT_2_PROJECT_ID!,
+        ethereumRpc: WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
+        projectId: WALLET_CONNECT_2_PROJECT_ID!,
       }),
     );
   }
