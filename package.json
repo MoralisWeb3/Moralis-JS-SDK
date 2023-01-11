@@ -65,6 +65,7 @@
       "demos/firebase-auth-ext/*",
       "demos/firebase-streams-ext/*",
       "demos/firebase-streams-monitor/*",
+      "demos/firebase-api-ext/*",
       "demos/firebase-nextjs/*"
     ]
   },
