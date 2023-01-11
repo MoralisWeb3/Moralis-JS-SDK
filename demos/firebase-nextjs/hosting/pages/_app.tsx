@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { FirebaseInitializer } from '../components/FirebaseInitializer';
+import { MoralisInitializer } from '../components/Moralis';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -9,11 +9,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="shortcut icon" href="favicon.ico" />
       </Head>
-      <FirebaseInitializer initializing={() => <AppLoading />} initialized={() => <Component {...pageProps} />} />
+      <MoralisInitializer initializing={<AppLoading />} initialized={<Component {...pageProps} />} />
     </>
   );
 }
 
 function AppLoading() {
-  return <p>Loading app...</p>;
+  return <div>Loading app...</div>;
 }

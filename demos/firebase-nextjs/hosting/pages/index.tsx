@@ -1,14 +1,14 @@
 import { signInWithMoralis } from '@moralisweb3/client-firebase-evm-auth';
 import Head from 'next/head';
 import { useState } from 'react';
-import { useFirebase } from '../components/FirebaseInitializer';
+import { useMoralis } from '../components/Moralis';
 
 export default function Home() {
-  const { auth, moralisEvmAuth } = useFirebase();
+  const { auth, evmAuth } = useMoralis();
   const [currentUser, setCurrentUser] = useState<string | null | undefined>(() => auth.currentUser?.displayName);
 
   async function signInByMetaMask() {
-    await signInWithMoralis(moralisEvmAuth);
+    await signInWithMoralis(evmAuth);
     setCurrentUser(auth.currentUser?.displayName);
   }
 

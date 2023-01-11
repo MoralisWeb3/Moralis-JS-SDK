@@ -5,14 +5,14 @@ import { getMoralisEvmAuth } from '@moralisweb3/client-firebase-evm-auth';
 import { getMoralis } from '@moralisweb3/client-firebase-utils';
 import { EvmAuthClient } from '@moralisweb3/client-evm-auth';
 
-export interface Firebase {
+export interface Moralis {
   app: FirebaseApp;
   auth: Auth;
   functions: Functions;
-  moralisEvmAuth: EvmAuthClient;
+  evmAuth: EvmAuthClient;
 }
 
-export async function initializeFirebase(): Promise<Firebase> {
+export async function initializeMoralis(): Promise<Moralis> {
   const app = initializeApp({
     apiKey: String(process.env.NEXT_PUBLIC_FIREBASE_API_KEY),
     authDomain: String(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN),
@@ -26,8 +26,9 @@ export async function initializeFirebase(): Promise<Firebase> {
   await auth.setPersistence(browserSessionPersistence);
 
   const functions = getFunctions(app);
-  if (window.location.hostname === 'localhost') {
-    connectFunctionsEmulator(functions, 'localhost', 5001);
+  const { hostname } = window.location;
+  if (isLocalhost(hostname)) {
+    connectFunctionsEmulator(functions, hostname, 5001);
   }
 
   const moralis = getMoralis(app, {
@@ -42,7 +43,11 @@ export async function initializeFirebase(): Promise<Firebase> {
     },
   });
 
-  const moralisEvmAuth = getMoralisEvmAuth(moralis);
+  const evmAuth = getMoralisEvmAuth(moralis);
 
-  return { app, auth, functions, moralisEvmAuth };
+  return { app, auth, functions, evmAuth };
+}
+
+function isLocalhost(hostname: string): boolean {
+  return hostname === 'localhost' || hostname === '127.0.0.1';
 }
