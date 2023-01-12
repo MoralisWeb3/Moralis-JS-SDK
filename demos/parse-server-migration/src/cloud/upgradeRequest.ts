@@ -1,6 +1,5 @@
-import { Operation, toCamelCase } from '@moralisweb3/common-core';
-
-type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
+import { UnknownOperation } from '@moralisweb3/common-core';
+import { toCamelCase } from '@moralisweb3/common-core';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function upgradeRequest(params: any, operation: UnknownOperation): any {

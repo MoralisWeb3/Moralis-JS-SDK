@@ -19,7 +19,7 @@ async function fetcher<Request, Response, JSONResponse>(
   endpoint = `/api/moralis/${endpoint}`;
 
   try {
-    const { data } = await axios.post<JSONResponse>(endpoint, operation.serializeRequest(request, Moralis.Core));
+    const { data } = await axios.post<JSONResponse>(endpoint, request);
     return operation.deserializeResponse(data, request, Moralis.Core);
   } catch (error) {
     // Overwrite error message if the nextjs api returns additional error details
