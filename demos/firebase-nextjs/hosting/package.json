@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@moralisweb3/client-firebase-auth-utils": "^2.11.0",
-    "@moralisweb3/client-firebase-evm-auth": "^2.11.0",
+    "@moralisweb3/client-firebase-auth-utils": "^2.11.1",
+    "@moralisweb3/client-firebase-evm-auth": "^2.11.1",
     "@next/font": "13.0.7",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",

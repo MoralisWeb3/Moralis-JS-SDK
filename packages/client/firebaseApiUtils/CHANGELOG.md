@@ -1,5 +1,15 @@
 # @moralisweb3/client-firebase-api-utils
 
+## 2.11.1
+
+### Patch Changes
+
+- [#941](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/941) [`11b751d98`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11b751d983adea43b3d9ce2513b3148aca4afa32) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Replaced Firebase dependencies to single root dependency (`firebase`).
+
+- Updated dependencies []:
+  - @moralisweb3/client-api-utils@2.11.1
+  - @moralisweb3/common-core@2.11.1
+
 ## 2.11.0
 
 ### Patch Changes
