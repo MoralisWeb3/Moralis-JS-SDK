@@ -14,6 +14,7 @@ packages/core/src/version.ts
 **/src/operations/openapi.ts
 
 node_modules
+.yarnrc.yml
 
 # Demos
 demos/**/.next
