@@ -26,3 +26,5 @@ export type OperationRequestUrlParams = Record<string, string | string[] | boole
 export type OperationRequestBody = OperationRequestPropertiesBody | OperationRequestRawBody;
 export type OperationRequestPropertiesBody = Record<string, unknown>;
 export type OperationRequestRawBody = string | number | boolean | object;
+
+export type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;

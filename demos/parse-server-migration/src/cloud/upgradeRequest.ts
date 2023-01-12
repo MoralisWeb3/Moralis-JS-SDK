@@ -1,17 +1,26 @@
-import { Operation } from '@moralisweb3/common-core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Operation, toCamel } from '@moralisweb3/common-core';
 
-type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
+// TODO: we need to remove this type and use `UnknownOperation` from `@moralisweb3/common-core`.
+export type UnknownOperation = Operation<unknown, unknown, unknown, unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function upgradeRequest(request: any, operation: UnknownOperation) {
-  if (!hasParam(operation, 'address') && request['address']) {
+export function upgradeRequest(params: any, operation: UnknownOperation): any {
+  const request = Object.keys(params).reduce<Record<string, any>>((value, key) => {
+    value[toCamel(key)] = params[key];
+    return value;
+  }, {});
+
+  if (request['address'] && !hasParam(operation, 'address')) {
     delete request['address'];
   }
 
   if (request['chain']) {
-    request['chain'] = upgradeChain(request['chain']);
+    if (!hasParam(operation, 'chain')) {
+      delete request['chain'];
+    } else {
+      request['chain'] = upgradeChain(request['chain']);
+    }
   }
-
   return request;
 }
 

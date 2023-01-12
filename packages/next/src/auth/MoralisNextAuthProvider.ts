@@ -1,8 +1,9 @@
-import { LoggerController, Network } from 'moralis/common-core';
+import { Network } from 'moralis/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
 import { verifyChallengeEvmOperation, verifyChallengeSolanaOperation } from '@moralisweb3/common-auth-utils';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Moralis from 'moralis';
+import { serverLogger } from '../serverLogger';
 
 const MoralisNextAuthProvider = () =>
   /**
@@ -96,9 +97,9 @@ const MoralisNextAuthProvider = () =>
          * Defining and returning user profile
          */
         return { ...user, payload };
-      } catch (e) {
-        const logger = new LoggerController('Next', Moralis.Core.config);
-        logger.error(e);
+      } catch (error) {
+        serverLogger.error(`Unknown error in MoralisNextAuthProvider authorize ${error.message}`, { error });
+
         return null;
       }
     },
