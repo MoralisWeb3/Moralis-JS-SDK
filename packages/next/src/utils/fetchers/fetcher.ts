@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import Moralis from 'moralis';
 import { Operation } from 'moralis/common-core';
 export interface FetcherParams<TOperation, Request> {
@@ -18,9 +18,20 @@ async function fetcher<Request, Response, JSONResponse>(
 ) {
   endpoint = `/api/moralis/${endpoint}`;
 
-  const { data } = await axios.post<JSONResponse>(endpoint, operation.serializeRequest(request, Moralis.Core));
+  try {
+    const { data } = await axios.post<JSONResponse>(endpoint, request);
+    return operation.deserializeResponse(data, request, Moralis.Core);
+  } catch (error) {
+    // Overwrite error message if the nextjs api returns additional error details
+    if (isAxiosError(error)) {
+      const errorMessage = error.response?.data?.error;
+      if (errorMessage) {
+        error.message = errorMessage;
+      }
+    }
 
-  return operation.deserializeResponse(data, request, Moralis.Core);
+    throw error;
+  }
 }
 
 export default fetcher;

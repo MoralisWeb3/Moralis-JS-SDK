@@ -1,29 +1,51 @@
 import { MoralisNextApiParams, MoralisNextHandlerParams } from './types';
-import { RequestHandlerResolver } from './RequestHandlerResolver';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { authOperationNames, moralisNextAuthHandler } from '../auth/moralisNextAuthHandler';
+import { getModuleByName } from './Modules';
+import { isMoralisError } from '@moralisweb3/common-core';
+import { serverLogger } from '../serverLogger';
 
-async function MoralisNextHandler({ req, res, authentication }: MoralisNextHandlerParams) {
+const FALLBACK_ERROR_MESSAGE = 'Internal Server Error';
+
+async function MoralisNextHandler({ req, res, authentication, core }: MoralisNextHandlerParams) {
   const [moduleName, operationName] = req.query.moralis as string[];
 
   try {
-    const requestHandler = RequestHandlerResolver.tryResolve(moduleName, operationName);
+    const module = getModuleByName(moduleName);
+    const operation = module.getOperationByName(operationName);
+    const deserialisedRequest = operation.deserializeRequest(req.body, core);
+    const requestHandler = module.getRequestHandler(operation, core);
+
     if (!requestHandler) {
-      return res.status(500).json({ error: `Operation ${moduleName}/${operationName} is not supported` });
+      return res.status(400).json({ error: `Operation ${moduleName}/${operationName} is not supported` });
     }
 
     let response;
 
     if (authOperationNames.includes(operationName)) {
-      response = await moralisNextAuthHandler({ req, res, authentication, requestHandler, operationName });
+      response = await moralisNextAuthHandler({ req, res, authentication, requestHandler, operation, core });
     } else {
-      response = await requestHandler.fetch(req.body);
+      response = await requestHandler(deserialisedRequest);
     }
 
     return res.status(200).json(response);
-  } catch (e) {
-    return res.status(500).json({ error: (e as Error).message });
+  } catch (error) {
+    if (!(error instanceof Error)) {
+      return res.status(500).json({ error: FALLBACK_ERROR_MESSAGE });
+    }
+
+    let statusCode = 500;
+    let message = FALLBACK_ERROR_MESSAGE;
+
+    if (isMoralisError(error) && typeof error.details?.status === 'number') {
+      statusCode = error.details.status;
+      message = error.message;
+    }
+
+    serverLogger.error(`Unknown error in MoralisNextApi: ${error.message}`, { error });
+
+    return res.status(statusCode).json({ error: message });
   }
 }
 
@@ -32,7 +54,8 @@ const MoralisNextApi = ({ authentication, ...config }: MoralisNextApiParams) => 
     Moralis.start(config);
   }
 
-  return async (req: NextApiRequest, res: NextApiResponse) => MoralisNextHandler({ req, res, authentication });
+  return async (req: NextApiRequest, res: NextApiResponse) =>
+    MoralisNextHandler({ req, res, authentication, core: Moralis.Core });
 };
 
 export default MoralisNextApi;
