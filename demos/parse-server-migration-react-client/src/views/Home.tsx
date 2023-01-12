@@ -28,24 +28,32 @@ const Home = () => {
   async function runContractFunction() {
     const ABI = [
       {
-        constant: true,
-        inputs: [],
-        name: 'name',
-        outputs: [
+        inputs: [
           {
-            name: '',
-            type: 'string',
+            internalType: 'uint256',
+            name: '_tokenId',
+            type: 'uint256',
           },
         ],
-        payable: false,
+        name: 'ownerOf',
+        outputs: [
+          {
+            internalType: 'address',
+            name: '',
+            type: 'address',
+          },
+        ],
         stateMutability: 'view',
         type: 'function',
       },
     ];
     const options = {
-      address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-      function_name: 'name',
-      chain: '0x1',
+      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+      function_name: 'ownerOf',
+      chain: 'eth',
+      params: {
+        _tokenId: '6651',
+      },
       abi: ABI,
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
