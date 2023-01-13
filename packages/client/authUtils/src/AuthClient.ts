@@ -9,6 +9,7 @@ export interface AuthClient<WalletProvider> {
 
   tryGetUser(): Promise<User | null>;
   logOut(): Promise<void>;
+  onClientDisconnect(callback: () => void | Promise<void>): void;
 
   restoreProvider(): Promise<WalletProvider>;
 }

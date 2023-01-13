@@ -1,5 +1,5 @@
 {
-  "name": "@moralisweb3/client-connector-wallet-connect",
+  "name": "@moralisweb3/client-connector-0xsequence",
   "author": "Moralis",
   "version": "2.11.0",
   "license": "MIT",
@@ -20,10 +20,11 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
+    "0xsequence": "^0.43.7",
     "@babel/core": "^7.20.5",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
+    "@moralisweb3/client-auth-utils": "^2.11.0",
     "@moralisweb3/client-evm-auth": "^2.11.0",
-    "@walletconnect/types": "1.8.0",
-    "@walletconnect/web3-provider": "^1.8.0"
+    "ethers": "^5.7.2"
   }
 }

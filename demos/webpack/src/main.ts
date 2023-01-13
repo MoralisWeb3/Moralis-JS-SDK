@@ -2,18 +2,25 @@ import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
 import { EvmConnector } from '@moralisweb3/client-evm-auth';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
+import { SequenceEvmConnector } from '@moralisweb3/client-connector-0xsequence';
 import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
+import { Web3AuthEvmConnector } from '@moralisweb3/client-connector-web3-auth';
 
+const WALLET_CONNECT_ETHEREUM_MAINNET_RPC = process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC;
 const MAGIC_CONNECT_PUBLISHABLE_API_KEY = process.env.MAGIC_CONNECT_PUBLISHABLE_API_KEY;
+const WEB3AUTH_API_KEY = process.env.WEB3AUTH_API_KEY;
 
-function validateMagicLinkApiKey() {
-  if (!MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
-    alert('Please set MAGIC_CONNECT_PUBLISHABLE_API_KEY in .env file');
-    return false;
-  }
+function validateWalletConnect() {
+  return !!WALLET_CONNECT_ETHEREUM_MAINNET_RPC;
+}
 
-  return true;
+function validateMagicLink() {
+  return !!MAGIC_CONNECT_PUBLISHABLE_API_KEY;
+}
+
+function validateWeb3Auth() {
+  return !!WEB3AUTH_API_KEY;
 }
 
 async function reloadCurrentUser() {
@@ -53,24 +60,58 @@ async function reloadCurrentUser() {
   userBalance.innerText = balance ? balance : 'Unknown';
 }
 
+async function onEvmWalletDisconnected() {
+  await MoralisClient.EvmAuth.logOut(); // Clear session on this side
+  await reloadCurrentUser(); // Update UI
+}
+
+async function onSolWalletDisconnected() {
+  await MoralisClient.SolAuth.logOut(); // Clear session on this side
+  await reloadCurrentUser(); // Update UI
+}
+
 async function authenticate(wallet: string) {
   switch (wallet) {
     case 'metaMask':
       await MoralisClient.EvmAuth.authenticate();
+      MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
       break;
 
     case 'walletConnect':
-      await MoralisClient.EvmAuth.authenticate('walletConnect');
+      if (validateWalletConnect()) {
+        await MoralisClient.EvmAuth.authenticate('walletConnect');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Wallet Connect V1 config in .env file to authenticate using it');
+      }
       break;
 
     case 'magicLink':
-      if (validateMagicLinkApiKey()) {
+      if (validateMagicLink()) {
         await MoralisClient.EvmAuth.authenticate('magicLink');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set MagicLink config in .env file to authenticate using it');
       }
+      break;
+
+    case 'web3Auth':
+      if (validateWeb3Auth()) {
+        await MoralisClient.EvmAuth.authenticate('web3Auth');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set MagicLink config in .env file to authenticate using it');
+      }
+      break;
+
+    case '0xSequence':
+      await MoralisClient.EvmAuth.authenticate('0xSequence');
+      MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
       break;
 
     case 'phantom':
       await MoralisClient.SolAuth.authenticate();
+      MoralisClient.SolAuth.onClientDisconnect(onSolWalletDisconnected);
       break;
   }
 }
@@ -79,20 +120,44 @@ async function connect(action: string) {
   switch (action) {
     case 'metaMask':
       await MoralisClient.EvmAuth.connect();
+      MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
       break;
 
     case 'walletConnect':
-      await MoralisClient.EvmAuth.connect('walletConnect');
+      if (validateWalletConnect()) {
+        await MoralisClient.EvmAuth.connect('walletConnect');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Wallet Connect V1 config in .env file to connect using it');
+      }
       break;
 
     case 'magicLink':
-      if (validateMagicLinkApiKey()) {
+      if (validateMagicLink()) {
         await MoralisClient.EvmAuth.connect('magicLink');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set MagicLink config in .env file to connect using it');
       }
+      break;
+
+    case 'web3Auth':
+      if (validateWeb3Auth()) {
+        await MoralisClient.EvmAuth.connect('web3Auth');
+        MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
+      } else {
+        alert('Please set Web3Auth config in .env file to connect using it');
+      }
+      break;
+
+    case '0xSequence':
+      await MoralisClient.EvmAuth.connect('0xSequence');
+      MoralisClient.EvmAuth.onClientDisconnect(onEvmWalletDisconnected);
       break;
 
     case 'phantom':
       await MoralisClient.SolAuth.connect();
+      MoralisClient.SolAuth.onClientDisconnect(onSolWalletDisconnected);
       break;
   }
 }
@@ -131,17 +196,26 @@ async function onButtonClicked(e: Event) {
 }
 
 async function init() {
-  const connectors: EvmConnector[] = [
-    WalletConnectEvmConnector.create({
-      rpc: {
-        1: 'https://replace_me/',
-      },
-    }),
-  ];
-  if (MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
-    // Add magic link connector
-    connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY));
+  const connectors: EvmConnector[] = [];
+  if (validateWalletConnect()) {
+    // Add WalletConnect connector
+    connectors.push(
+      WalletConnectEvmConnector.create({
+        rpc: {
+          1: WALLET_CONNECT_ETHEREUM_MAINNET_RPC!,
+        },
+      }),
+    );
   }
+  if (validateMagicLink()) {
+    // Add MagicLink connector
+    connectors.push(MagicLinkEvmConnector.create(MAGIC_CONNECT_PUBLISHABLE_API_KEY!));
+  }
+  if (validateWeb3Auth()) {
+    connectors.push(Web3AuthEvmConnector.create(WEB3AUTH_API_KEY!));
+  }
+  // 0xSequence doesn't require any key =D
+  connectors.push(SequenceEvmConnector.create());
 
   MoralisClient.start({
     backendAdapter: FrontEndOnlyBackendAdapter.create({

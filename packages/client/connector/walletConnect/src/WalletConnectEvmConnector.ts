@@ -18,12 +18,24 @@ export class WalletConnectEvmConnector implements EvmConnector {
   public async connect(): Promise<EvmConnection> {
     const provider = new WalletConnectProvider(this.options);
     await provider.enable();
-    return new WalletConnectEvmConnection(this.name, new Web3Provider(provider));
+    return new WalletConnectEvmConnection(this.name, provider);
   }
 }
 
 class WalletConnectEvmConnection implements EvmConnection {
-  public constructor(public readonly connectorName: string, public readonly provider: Web3Provider) {}
+  public provider: Web3Provider;
+  public onClientDisconnect?: () => void | Promise<void>;
+
+  public constructor(
+    public readonly connectorName: string,
+    private readonly walletConnectProvider: WalletConnectProvider,
+  ) {
+    this.provider = new Web3Provider(walletConnectProvider);
+    this.walletConnectProvider.on('disconnect', () => {
+      localStorage.removeItem(this.connectorName);
+      this.onClientDisconnect?.();
+    });
+  }
 
   public async readWallet(): Promise<WalletDetails> {
     const [accounts, chain] = await Promise.all([
@@ -42,6 +54,7 @@ class WalletConnectEvmConnection implements EvmConnection {
   }
 
   public async disconnect(): Promise<void> {
-    localStorage.removeItem('walletconnect');
+    localStorage.removeItem(this.connectorName);
+    await this.walletConnectProvider.disconnect();
   }
 }

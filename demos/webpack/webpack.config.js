@@ -11,11 +11,18 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
     ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     fallback: {
+      crypto: require.resolve('crypto-browserify'),
       url: false,
       assert: require.resolve('assert'),
       buffer: require.resolve('buffer'),

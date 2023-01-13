@@ -9,6 +9,7 @@ export interface Connection<WalletProvider> {
   readWallet(): Promise<WalletDetails>;
   signMessage(message: string): Promise<string>;
   disconnect(): Promise<void>;
+  onClientDisconnect?: () => void | Promise<void>;
 }
 
 /**
@@ -21,13 +22,13 @@ export interface WalletDetails {
   address: string;
 
   /**
-   * @description Chain of an connected EVM wallet.
+   * @description Chain of a connected EVM wallet.
    * @example "0x1"
    */
   evmChain?: string;
 
   /**
-   * @description Network of an connected Solana wallet.
+   * @description Network of a connected Solana wallet.
    * @example "mainnet"
    */
   solNetwork?: string;

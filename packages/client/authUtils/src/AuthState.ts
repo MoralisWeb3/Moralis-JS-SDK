@@ -130,6 +130,12 @@ export class AuthState<WalletProvider> implements AuthClient<WalletProvider> {
     }
   }
 
+  public onClientDisconnect(callback: () => void | Promise<void>): void {
+    if (this.connection) {
+      this.connection.onClientDisconnect = callback;
+    }
+  }
+
   private async initConnector(connectorName: string): Promise<Connection<WalletProvider>> {
     const connector = this.connectorResolver.resolve(connectorName);
     const connection = await connector.connect();

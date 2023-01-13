@@ -45,6 +45,10 @@ export class EvmAuthClient implements Module, AuthClient<Web3Provider | JsonRpcP
     return this.state.logOut();
   }
 
+  public onClientDisconnect(callback: () => void | Promise<void>): void {
+    this.state.onClientDisconnect(callback);
+  }
+
   public restoreProvider(): Promise<Web3Provider | JsonRpcProvider> {
     return this.state.restoreProvider();
   }
