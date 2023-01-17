@@ -15,5 +15,5 @@ export const resCookieJWT = (token: string, res: Response, data: unknown, cookie
       httpOnly: true,
     };
   }
-  res.cookie('moralis_jwt', token, cookieConfig).cookie('moralis_session', JSON.stringify(data)).status(200).json(data);
+  res.cookie('moralis_jwt', token, cookieConfig).status(200).json(data);
 };

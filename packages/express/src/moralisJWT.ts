@@ -21,11 +21,7 @@ export const moralisJWT = (tokenSecret: string) => {
       };
       return next();
     } catch {
-      const dateToExpireCookie = new Date(0);
-      return res
-        .cookie('moralis_session', undefined, { expires: dateToExpireCookie })
-        .status(403)
-        .json({ message: 'Invalid JWT' });
+      return res.status(403).json({ message: 'Invalid JWT' });
     }
   };
   return middleware;
