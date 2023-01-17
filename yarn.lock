@@ -7629,6 +7629,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@moralisweb3/client-backend-adapter-express@workspace:packages/client/backendAdapter/express":
+  version: 0.0.0-use.local
+  resolution: "@moralisweb3/client-backend-adapter-express@workspace:packages/client/backendAdapter/express"
+  dependencies:
+    "@moralisweb3/client-api-utils": ^2.11.0
+    "@moralisweb3/common-core": ^2.11.0
+    firebase: ^9.15.0
+    prettier: ^2.5.1
+    typescript: ^4.9.3
+  languageName: unknown
+  linkType: soft
+
 "@moralisweb3/client-backend-adapter-firebase@^2.11.0, @moralisweb3/client-backend-adapter-firebase@workspace:packages/client/backendAdapter/firebase":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-backend-adapter-firebase@workspace:packages/client/backendAdapter/firebase"
@@ -7990,6 +8002,17 @@ __metadata:
   dependencies:
     "@moralisweb3/common-evm-utils": ^2.11.0
     typescript: ^4.9.3
+  languageName: unknown
+  linkType: soft
+
+"@moralisweb3/express@workspace:packages/express":
+  version: 0.0.0-use.local
+  resolution: "@moralisweb3/express@workspace:packages/express"
+  dependencies:
+    "@moralisweb3/api-utils": ^2.11.0
+    express: ^4.18.2
+    jsonwebtoken: ^9.0.0
+    moralis: ^2.11.0
   languageName: unknown
   linkType: soft
 
@@ -9946,6 +9969,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: fe81351470f2d3165e8b12ce33542eef89ea893e36dd62e8f7d72566dfb7e448376ae962f9f3ea888547ce8b55a40020ca0e01d637fab5d99567673084542641
+  languageName: node
+  linkType: hard
+
+"@types/cookie-parser@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@types/cookie-parser@npm:1.4.3"
+  dependencies:
+    "@types/express": "*"
+  checksum: f390f3af1b1711190dee2c2ecd9af33af81fbde8d81ee820dadb6fe1e0d80c3faba40af37c6ed36fb88b04b64870f6a021f7e9edceecd17c42fe22abe0af5005
   languageName: node
   linkType: hard
 
@@ -14576,6 +14608,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie-parser@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "cookie-parser@npm:1.4.6"
+  dependencies:
+    cookie: 0.4.1
+    cookie-signature: 1.0.6
+  checksum: 1e5a63aa82e8eb4e02d2977c6902983dee87b02e87ec5ec43ac3cb1e72da354003716570cd5190c0ad9e8a454c9d3237f4ad6e2f16d0902205a96a1c72b77ba5
+  languageName: node
+  linkType: hard
+
 "cookie-session@npm:2.0.0":
   version: 2.0.0
   resolution: "cookie-session@npm:2.0.0"
@@ -14599,6 +14641,13 @@ __metadata:
   version: 0.4.0
   resolution: "cookie@npm:0.4.0"
   checksum: 760384ba0aef329c52523747e36a452b5e51bc49b34160363a6934e7b7df3f93fcc88b35e33450361535d40a92a96412da870e1816aba9aa6cc556a9fedd8492
+  languageName: node
+  linkType: hard
+
+"cookie@npm:0.4.1":
+  version: 0.4.1
+  resolution: "cookie@npm:0.4.1"
+  checksum: bd7c47f5d94ab70ccdfe8210cde7d725880d2fcda06d8e375afbdd82de0c8d3b73541996e9ce57d35f67f672c4ee6d60208adec06b3c5fc94cebb85196084cf8
   languageName: node
   linkType: hard
 
@@ -15651,6 +15700,47 @@ __metadata:
     eslint: ^8.29.0
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.26.0
+    moralis: ^2.11.0
+    ts-node: ^10.9.1
+    typescript: ^4.9.3
+  languageName: unknown
+  linkType: soft
+
+"demo-express-fullstack-client@workspace:demos/express-fullstack-client":
+  version: 0.0.0-use.local
+  resolution: "demo-express-fullstack-client@workspace:demos/express-fullstack-client"
+  dependencies:
+    "@moralisweb3/client": ^2.11.0
+    "@moralisweb3/client-connector-wallet-connect": ^2.11.0
+    http-server: ^14.1.1
+    ts-loader: ^9.4.2
+    typescript: ^4.9.3
+    webpack: ^5.75.0
+    webpack-cli: ^5.0.1
+  languageName: unknown
+  linkType: soft
+
+"demo-express-fullstack-server@workspace:demos/express-fullstack-server":
+  version: 0.0.0-use.local
+  resolution: "demo-express-fullstack-server@workspace:demos/express-fullstack-server"
+  dependencies:
+    "@moralisweb3/common-core": ^2.11.0
+    "@moralisweb3/eslint-config": ^1.0.1
+    "@types/cookie-parser": ^1.4.3
+    "@types/cors": ^2.8.12
+    "@types/express": ^4.17.14
+    "@types/node": ^18.11.11
+    "@typescript-eslint/eslint-plugin": ^5.45.1
+    "@typescript-eslint/parser": ^5.45.1
+    cookie-parser: ^1.4.6
+    cors: ^2.8.5
+    dotenv: ^16.0.1
+    envalid: 7.3.1
+    eslint: ^8.29.0
+    eslint-plugin-etc: ^2.0.2
+    eslint-plugin-import: ^2.26.0
+    express: ^4.18.2
+    express-rate-limit: ^6.7.0
     moralis: ^2.11.0
     ts-node: ^10.9.1
     typescript: ^4.9.3
@@ -23088,6 +23178,18 @@ __metadata:
     ms: ^2.1.1
     semver: ^5.6.0
   checksum: 93c9e3f23c59b758ac88ba15f4e4753b3749dfce7a6f7c40fb86663128a1e282db085eec852d4e0cbca4cefdcd3a8275ee255dbd08fcad0df26ad9f6e4cc853a
+  languageName: node
+  linkType: hard
+
+"jsonwebtoken@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "jsonwebtoken@npm:9.0.0"
+  dependencies:
+    jws: ^3.2.2
+    lodash: ^4.17.21
+    ms: ^2.1.1
+    semver: ^7.3.8
+  checksum: b9181cecf9df99f1dc0253f91ba000a1aa4d91f5816d1608c0dba61a5623726a0bfe200b51df25de18c1a6000825d231ad7ce2788aa54fd48dcb760ad9eb9514
   languageName: node
   linkType: hard
 

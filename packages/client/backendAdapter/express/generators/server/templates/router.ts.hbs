@@ -1,0 +1,25 @@
+import { Router } from 'express';
+import { 
+{{#each resolvers}}
+  {{ this.name }},
+{{/each}}
+} from './resolvers';
+import Moralis from 'moralis'
+
+export class {{ name }} {
+  constructor(private apiKey: string) {}
+
+  public getRouter() {
+    if (!Moralis.Core.isStarted){
+      Moralis.start({ apiKey: this.apiKey })
+    }
+
+    const router = Router();
+
+  {{#each resolvers}}
+    router.post('{{ this.urlPath }}', {{ this.name }})
+  {{/each}}
+  
+    return router;
+  }
+}
