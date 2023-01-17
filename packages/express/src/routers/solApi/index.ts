@@ -1,2 +1,2 @@
-export * from './generated/SolApiRouter';
-export * from './generated/resolvers';
+export * from './generated/SolApiRouter'
+export * from './generated/resolvers'

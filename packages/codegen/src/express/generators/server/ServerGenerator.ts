@@ -8,7 +8,6 @@ import path from 'path';
 export class ServerGenerator {
   public dirname = path.dirname(fileURLToPath(import.meta.url));
   public packagesFolder = path.join(this.dirname, '../../../../..');
-  private relativePaths: string[] = [];
 
   private moduleGenerator: ModuleGenerator;
 
@@ -28,73 +27,46 @@ export class ServerGenerator {
     return `${this.module.replace('Api', '')}${_.upperFirst(operationName)}Resolver`;
   }
 
-  private getOperationResolverType(operation: OperationAction) {
+  private getCreateResolverType(operation: OperationAction) {
     let opResolverType;
     if (operation.isNullable) {
-      opResolverType = 'NullableOperationResolver';
+      opResolverType = 'createNullableResolver';
     } else if (operation.firstPageIndex === 0 || operation.firstPageIndex === 1) {
-      opResolverType = 'PaginatedOperationResolver';
+      opResolverType = 'createPaginatedResolver';
     } else {
-      opResolverType = 'OperationResolver';
+      opResolverType = 'createResolver';
     }
     return opResolverType;
   }
 
-  private addResolver(operation: OperationAction) {
-    const resolverName = this.getResolverName(operation.name);
-    const relativePath = `${operation.groupName}/${resolverName}`;
-    this.relativePaths.push(relativePath);
+  private get resolvers() {
+    return this.moduleGenerator.operations.map((operation) => {
+      return {
+        operation: `${operation.name}Operation`,
+        name: this.getResolverName(operation.name),
+        createResolverType: this.getCreateResolverType(operation),
+        module: _.upperFirst(this.module),
+        method: _.lowerCase(operation.method),
+        urlPath: this.urlPathPatternToExpressPath(operation.urlPathPattern),
+      };
+    });
+  }
 
-    let reqIdentifier: 'query' | 'body';
-    switch (operation.method) {
-      case 'GET':
-        reqIdentifier = 'query';
-        break;
-      case 'POST':
-      case 'DELETE':
-      case 'PUT':
-        reqIdentifier = 'body';
-    }
-
+  private get addResolvers(): AddActionConfig {
     return {
       type: 'add',
-      templateFile: path.join(this.dirname, 'templates/resolver.ts.hbs'),
-      path: path.join(packagesPath, `express/src/routers/${this.module}/generated/resolvers/{{ relativePath }}.ts`),
+      templateFile: path.join(this.dirname, 'templates/resolvers.ts.hbs'),
+      path: path.join(packagesPath, `express/src/routers/${this.module}/generated/resolvers.ts`),
       data: {
-        names: {
-          resolver: resolverName,
-          operation: `${operation.name}Operation`,
-          jsonRequest: `${_.upperFirst(operation.name)}JSONRequest`,
-          commonUtils: this.moduleGenerator.operationsPackageName,
-          reqIdentifier,
-          module: _.upperFirst(this.module),
-          opResolverType: this.getOperationResolverType(operation),
-        },
-        params: operation.urlPathParamNames,
-        body: operation.bodyParamNames,
-        query: operation.urlSearchParamNames,
-        hasParams: Boolean(
-          operation.urlPathParamNames?.length ||
-            operation.bodyParamNames?.length ||
-            operation.urlSearchParamNames?.length,
+        resolvers: this.resolvers,
+        operationsPackageName: this.moduleGenerator.operationsPackageName,
+        hasNullable: Boolean(
+          this.resolvers.find(({ createResolverType }) => createResolverType === 'createNullableResolver'),
         ),
-        relativePath,
-        url: `${this.module}/${operation.name}`,
+        hasPaginated: Boolean(
+          this.resolvers.find(({ createResolverType }) => createResolverType === 'createPaginatedResolver'),
+        ),
       },
-      force: true,
-    };
-  }
-
-  private get addResolvers() {
-    return this.moduleGenerator.operations.map((operation) => this.addResolver(operation as OperationAction));
-  }
-
-  private get addResolverExports(): AddActionConfig {
-    return {
-      type: 'add',
-      templateFile: path.join(this.dirname, `templates/index.ts.hbs`),
-      data: { relativePaths: this.relativePaths },
-      path: path.join(packagesPath, `express/src/routers/${this.module}/generated/resolvers/index.ts`),
       force: true,
     };
   }
@@ -108,20 +80,13 @@ export class ServerGenerator {
       force: true,
     };
   }
-
   private get addRouter() {
     return {
       type: 'add',
       templateFile: path.join(this.dirname, `templates/router.ts.hbs`),
       data: {
         name: `${_.upperFirst(this.module)}Router`,
-        resolvers: this.moduleGenerator.operations.map((operation) => {
-          return {
-            name: this.getResolverName(operation.name),
-            method: _.lowerCase(operation.method),
-            urlPath: this.urlPathPatternToExpressPath(operation.urlPathPattern),
-          };
-        }),
+        resolvers: this.resolvers,
       },
       path: path.join(packagesPath, `express/src/routers/${this.module}/generated/${this.routerName}.ts`),
       force: true,
@@ -129,6 +94,6 @@ export class ServerGenerator {
   }
 
   public get actions(): ActionConfig[] {
-    return [...this.addResolvers, this.addResolverExports, this.addRouter, this.addRouterExports];
+    return [this.addResolvers, this.addRouter, this.addRouterExports];
   }
 }

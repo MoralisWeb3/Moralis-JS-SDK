@@ -1,0 +1,19 @@
+{{!--
+// @Example
+import { endpointWeightsOperation } from 'moralis/common-evm-utils';
+import { createResolver } from '../../../genericResolvers';
+import Moralis from 'moralis';
+
+export const endpointWeightsResolver = createResolver(endpointWeightsOperation, Moralis.EvmApi.baseUrl); 
+--}}
+import { 
+{{#each resolvers}}
+  {{ this.operation }},
+{{/each}}
+} from '{{ operationsPackageName }}';
+import { createResolver, {{#if hasNullable}}createNullableResolver,{{/if}} {{#if hasPaginated}}createPaginatedResolver{{/if}} } from '../../../genericResolvers';
+import Moralis from 'moralis';
+
+{{#each resolvers}}
+export const {{ this.name }} = {{ this.createResolverType }}({{ this.operation }}, Moralis.{{ this.module }}.baseUrl);
+{{/each}}

@@ -58,6 +58,6 @@ export class ModuleGenerator {
     if (this.blackListedOperations) {
       return (ops as OperationAction[]).filter((op) => !this.blackListedOperations?.includes(op.name));
     }
-    return ops;
+    return ops as OperationAction[];
   }
 }
