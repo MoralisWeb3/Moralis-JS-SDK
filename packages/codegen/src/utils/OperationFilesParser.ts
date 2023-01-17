@@ -3,7 +3,7 @@ import { ModuleGenerator } from './ModuleGenerator';
 import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
 import prettier from 'prettier';
-import { Module } from '../next/types';
+import { Module } from './types';
 
 export class OperationFilesParser {
   private moduleGenerator: ModuleGenerator;

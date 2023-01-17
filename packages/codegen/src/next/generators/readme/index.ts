@@ -2,6 +2,7 @@ import { NodePlopAPI } from 'plop';
 import { ReadmeGenerator } from './ReadmeGenerator';
 import path from 'node:path';
 import { paths } from './utils/constants';
+import { GeneratedModule } from '../../utils/types';
 
 export default function NextReadmeGenerator(plop: NodePlopAPI) {
   plop.setGenerator('next-readme', {
@@ -15,7 +16,11 @@ export default function NextReadmeGenerator(plop: NodePlopAPI) {
         force: true,
       };
 
-      return [addReadMe, ...new ReadmeGenerator('evmApi').actions, ...new ReadmeGenerator('solApi').actions];
+      return [
+        addReadMe,
+        ...new ReadmeGenerator(GeneratedModule.EVM_API).actions,
+        ...new ReadmeGenerator(GeneratedModule.SOL_API).actions,
+      ];
     },
   });
 }

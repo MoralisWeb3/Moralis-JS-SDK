@@ -4,7 +4,7 @@ import { OperationFilesParser } from '../../../utils/OperationFilesParser';
 import { paths } from './utils/constants';
 import Handlebars from 'handlebars';
 import path from 'node:path';
-import { Module } from '../../types';
+import { Module } from '../../../utils/types';
 
 export class ReadmeGenerator {
   private operationFilesParser: OperationFilesParser;

@@ -2,7 +2,7 @@ import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
 import { operations as authOperations } from 'moralis/common-auth-utils';
 
-import { Module, OperationAction } from '../next/types';
+import { Module, OperationAction } from './types';
 import path from 'node:path';
 import { packagesPath } from './constants';
 
@@ -16,7 +16,7 @@ export class ModuleGenerator {
       case 'solApi':
         return 'moralis/common-sol-utils';
       case 'auth':
-        return '@moralisweb3/auth';
+        return 'moralis/common-auth-utils';
       default:
         throw new Error(`Not implemented ${this.module}`);
     }

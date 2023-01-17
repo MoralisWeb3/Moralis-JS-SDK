@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url';
 import { ModuleGenerator } from '../../../utils/ModuleGenerator';
 import path from 'node:path';
 import { getHookName } from '../../utils/names';
-import { Module } from '../../types';
+import { GeneratedModule } from '../../utils/types';
 
 export class HooksGenerator {
   private moduleGenerator: ModuleGenerator;
 
-  constructor(public module: Module, public blackListedOperations?: string[]) {
+  constructor(public module: GeneratedModule, public blackListedOperations?: string[]) {
     this.moduleGenerator = new ModuleGenerator(module, blackListedOperations);
   }
 
