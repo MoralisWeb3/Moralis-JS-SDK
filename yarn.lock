@@ -15747,9 +15747,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"demo-express-proxy@workspace:demos/express-proxy":
+"demo-express@workspace:demos/express":
   version: 0.0.0-use.local
-  resolution: "demo-express-proxy@workspace:demos/express-proxy"
+  resolution: "demo-express@workspace:demos/express"
   dependencies:
     "@moralisweb3/common-core": ^2.11.0
     "@moralisweb3/eslint-config": ^1.0.1

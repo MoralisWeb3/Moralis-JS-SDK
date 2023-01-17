@@ -1,5 +1,5 @@
-const EVM_PROXY_URL = 'http://localhost:4000/api/evm-api-proxy';
-const SOLANA_PROXY_URL = 'http://localhost:4000/api/solana-api-proxy';
+const EVM_PROXY_URL = 'http://localhost:4000/api/evm-api';
+const SOLANA_PROXY_URL = 'http://localhost:4000/api/solana-api';
 
 const elError = document.getElementById('error');
 const elResult = document.getElementById('result');
