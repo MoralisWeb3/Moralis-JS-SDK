@@ -3,6 +3,7 @@ import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
 import { AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
 import { SolAuthClientOptions } from './SolAuthClientOptions';
 import { AuthClient, AuthState, ConnectorResolver, User } from '@moralisweb3/client-auth-utils';
+import { SolConnector } from './SolConnector';
 import { PhantomSolConnector } from './PhantomSolConnector';
 
 export class SolAuthClient implements Module, AuthClient<SolanaProvider> {
@@ -20,6 +21,14 @@ export class SolAuthClient implements Module, AuthClient<SolanaProvider> {
   public readonly name = 'solAuthClient';
 
   private constructor(private readonly state: AuthState<SolanaProvider>) {}
+
+  hasConnector(connectorName: string): boolean {
+    return this.state.hasConnector(connectorName);
+  }
+
+  registerConnector(connectorName: string, connector: SolConnector) {
+    this.state.registerConnector(connectorName, connector);
+  }
 
   public connect(connectorName?: string): Promise<void> {
     return this.state.connect(connectorName);

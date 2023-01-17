@@ -1,7 +1,7 @@
 import { AuthProvider, AuthSession, NetworkType } from '@moralisweb3/client-backend-adapter-utils';
 import { AuthClient } from './AuthClient';
 import { AuthClientError, AuthClientErrorCode } from './AuthClientError';
-import { Connection } from './Connector';
+import { Connection, Connector } from './Connector';
 import { ConnectorResolver } from './ConnectorResolver';
 import { User } from './User';
 
@@ -16,6 +16,14 @@ export class AuthState<WalletProvider> implements AuthClient<WalletProvider> {
     private readonly storage: AuthStateStorage,
   ) {
     this.storageKey = `authClient${networkType.toUpperCase()}`;
+  }
+
+  public hasConnector(connectorName: string): boolean {
+    return this.connectorResolver.hasConnector(connectorName);
+  }
+
+  public registerConnector(connectorName: string, connector: Connector<WalletProvider>): void {
+    this.connectorResolver.registerConnector(connectorName, connector);
   }
 
   public async connect(connectorName?: string): Promise<void> {

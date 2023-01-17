@@ -1,11 +1,16 @@
+import { Web3Provider } from '@ethersproject/providers';
 import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
+import { EIP1193EvmConnector } from '@moralisweb3/client-connector-eip1193';
 import { EvmConnector } from '@moralisweb3/client-evm-auth';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
 import { WalletConnectEvmConnector } from '@moralisweb3/client-connector-wallet-connect';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import { IWalletConnectProviderOptions } from '@walletconnect/types';
 
 const MAGIC_CONNECT_PUBLISHABLE_API_KEY = process.env.MAGIC_CONNECT_PUBLISHABLE_API_KEY;
+const WALLET_CONNECT_ETHEREUM_MAINNET_RPC = process.env.WALLET_CONNECT_ETHEREUM_MAINNET_RPC;
 
 function validateMagicLinkApiKey() {
   if (!MAGIC_CONNECT_PUBLISHABLE_API_KEY) {
@@ -69,6 +74,10 @@ async function authenticate(wallet: string) {
       }
       break;
 
+    case 'EIP1193':
+      await MoralisClient.EvmAuth.authenticate('EIP1193');
+      break;
+
     case 'phantom':
       await MoralisClient.SolAuth.authenticate();
       break;
@@ -89,6 +98,10 @@ async function connect(action: string) {
       if (validateMagicLinkApiKey()) {
         await MoralisClient.EvmAuth.connect('magicLink');
       }
+      break;
+
+    case 'EIP1193':
+      await MoralisClient.EvmAuth.connect('EIP1193');
       break;
 
     case 'phantom':
@@ -114,6 +127,27 @@ async function logOut() {
 async function onButtonClicked(e: Event) {
   const action = (e.target as HTMLElement).getAttribute('data-action');
   const wallet = (e.target as HTMLElement).getAttribute('data-wallet');
+
+  if (wallet === 'EIP1193') {
+    if (!WALLET_CONNECT_ETHEREUM_MAINNET_RPC) {
+      alert('Please set WALLET_CONNECT_ETHEREUM_MAINNET_RPC in .env file');
+      return;
+    } else if (!MoralisClient.EvmAuth.hasConnector('EIP1193')) {
+      const walletConnectOptions: IWalletConnectProviderOptions = {
+        rpc: {
+          1: WALLET_CONNECT_ETHEREUM_MAINNET_RPC,
+        },
+      };
+      const walletConnectProvider = new WalletConnectProvider(walletConnectOptions);
+      await walletConnectProvider.enable();
+      const eip1193Provider = new Web3Provider(walletConnectProvider);
+      const connector = EIP1193EvmConnector.create({
+        provider: eip1193Provider,
+      });
+      MoralisClient.EvmAuth.registerConnector('EIP1193', connector);
+    }
+  }
+
   switch (action) {
     case 'authenticate':
       await authenticate(wallet as string);

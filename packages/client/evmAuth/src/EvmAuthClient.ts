@@ -3,6 +3,7 @@ import { Core, CoreProvider, Module } from '@moralisweb3/common-core';
 import { AuthProvider } from '@moralisweb3/client-backend-adapter-utils';
 import { EvmAuthClientOptions } from './EvmAuthClientOptions';
 import { AuthClient, AuthState, ConnectorResolver, User } from '@moralisweb3/client-auth-utils';
+import { EvmConnector } from './EvmConnector';
 import { MetaMaskEvmConnector } from './MetaMaskEvmConnector';
 
 export class EvmAuthClient implements Module, AuthClient<Web3Provider | JsonRpcProvider> {
@@ -20,6 +21,14 @@ export class EvmAuthClient implements Module, AuthClient<Web3Provider | JsonRpcP
   public readonly name = 'evmAuthClient';
 
   private constructor(private readonly state: AuthState<Web3Provider | JsonRpcProvider>) {}
+
+  public hasConnector(connectorName: string): boolean {
+    return this.state.hasConnector(connectorName);
+  }
+
+  public registerConnector(connectorName: string, connector: EvmConnector): void {
+    this.state.registerConnector(connectorName, connector);
+  }
 
   public connect(connectorName?: string): Promise<void> {
     return this.state.connect(connectorName);
