@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-backend-adapter-express",
   "author": "Moralis",
-  "version": "2.11.1",
+  "version": "2.11.0",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",

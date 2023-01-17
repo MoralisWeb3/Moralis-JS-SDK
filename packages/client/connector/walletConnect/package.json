@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-connector-wallet-connect",
   "author": "Moralis",
-  "version": "2.11.1",
+  "version": "2.11.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
