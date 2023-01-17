@@ -1,0 +1,27 @@
+import {
+  {{#if hasParams}}{{ names.jsonRequest }},{{/if}}
+  {{ names.operation }},
+} from '{{ names.commonUtils }}';
+import { NextFunction, Response, Request } from 'express';
+import { {{ names.opResolverType }} } from '@moralisweb3/api-utils';
+import Moralis from 'moralis';
+
+{{#if params}}type RequestParams = Pick<{{ names.jsonRequest }}, {{#each params}}| '{{ this }}'{{/each}}>{{/if}}
+{{#if body}}type RequestBody = Pick<{{ names.jsonRequest }}, {{#each body}}| '{{ this }}'{{/each}}>{{/if}}
+{{#if query}}type RequestQuery = Pick<{{ names.jsonRequest }}, {{#each query}}| '{{ this }}'{{/each}}>{{/if}}
+
+export const {{ names.resolver }}  = async (
+  req: Request<{{#if params}}RequestParams{{else}}undefined{{/if}}, undefined, {{#if body}}RequestBody{{else}}undefined{{/if}}, {{#if query}}RequestQuery{{else}}undefined{{/if}}>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await new {{ names.opResolverType }}({{ names.operation }}, Moralis.{{ names.module }}.baseUrl, Moralis.Core).fetch(
+      {{ names.operation }}.deserializeRequest({{#if hasParams}}{ {{#if params}}...req.params,{{/if}} {{#if body}}...req.body,{{/if}} {{#if query}}...req.query,{{/if}} }{{else}}undefined{{/if}}, Moralis.Core),
+    );
+
+    return res.send(data?.raw);
+  } catch (error) {
+    return next(error);
+  }
+};

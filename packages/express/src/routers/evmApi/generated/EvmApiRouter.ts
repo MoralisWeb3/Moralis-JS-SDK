@@ -1,47 +1,8 @@
 import { Router } from 'express';
-import { 
-  evmEndpointWeightsResolver,
-  evmGetBlockResolver,
-  evmGetContractEventsResolver,
-  evmGetContractLogsResolver,
-  evmGetContractNFTsResolver,
-  evmGetDateToBlockResolver,
-  evmGetMultipleNFTsResolver,
-  evmGetNativeBalanceResolver,
-  evmGetNFTContractMetadataResolver,
-  evmGetNFTContractTransfersResolver,
-  evmGetNFTLowestPriceResolver,
-  evmGetNFTMetadataResolver,
-  evmGetNFTOwnersResolver,
-  evmGetNFTTokenIdOwnersResolver,
-  evmGetNFTTradesResolver,
-  evmGetNFTTransfersByBlockResolver,
-  evmGetNFTTransfersFromToBlockResolver,
-  evmGetNFTTransfersResolver,
-  evmGetPairAddressResolver,
-  evmGetPairReservesResolver,
-  evmGetTokenAllowanceResolver,
-  evmGetTokenMetadataBySymbolResolver,
-  evmGetTokenMetadataResolver,
-  evmGetTokenPriceResolver,
-  evmGetTokenTransfersResolver,
-  evmGetTransactionResolver,
-  evmGetWalletNFTCollectionsResolver,
-  evmGetWalletNFTsResolver,
-  evmGetWalletNFTTransfersResolver,
-  evmGetWalletTokenBalancesResolver,
-  evmGetWalletTokenTransfersResolver,
-  evmGetWalletTransactionsResolver,
-  evmGetWalletTransactionsVerboseResolver,
-  evmResolveAddressResolver,
-  evmResolveDomainResolver,
-  evmReSyncMetadataResolver,
-  evmRunContractFunctionResolver,
-  evmSearchNFTsResolver,
-  evmSyncNFTContractResolver,
-  evmUploadFolderResolver,
-  evmWeb3ApiVersionResolver,
-} from './resolvers';
+
+import { createResolver } from '../../../genericResolvers';
+import { endpointWeightsOperation } from 'moralis/common-evm-utils';
+import { endpointWeightsResolver } from './resolvers';
 
 export class EvmApiRouter {
 
@@ -49,7 +10,7 @@ export class EvmApiRouter {
 
     const router = Router();
 
-    router.get('/info/endpointWeights', evmEndpointWeightsResolver)
+    router.get('/info/endpointWeights', endpointWeightsResolver)
     router.get('/block/:blockNumberOrHash', evmGetBlockResolver)
     router.post('/:address/events', evmGetContractEventsResolver)
     router.get('/:address/logs', evmGetContractLogsResolver)
