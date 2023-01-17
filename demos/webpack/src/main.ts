@@ -1,7 +1,6 @@
-import { Web3Provider } from '@ethersproject/providers';
 import { MoralisClient } from '@moralisweb3/client';
 import { FrontEndOnlyBackendAdapter } from '@moralisweb3/client-backend-adapter-frontend-only';
-import { EIP1193EvmConnector } from '@moralisweb3/client-connector-eip1193';
+import { EIP1193EvmConnector, EIP1193Provider } from '@moralisweb3/client-connector-eip1193';
 import { EvmConnector } from '@moralisweb3/client-evm-auth';
 import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 import { MagicLinkEvmConnector } from '@moralisweb3/client-connector-magic-link';
@@ -136,13 +135,29 @@ async function onButtonClicked(e: Event) {
       const walletConnectOptions: IWalletConnectProviderOptions = {
         rpc: {
           1: WALLET_CONNECT_ETHEREUM_MAINNET_RPC,
+          25: 'https://evm-cronos.crypto.org',
+          40: 'https://mainnet.telos.net/evm',
+          56: 'https://rpc.ankr.com/bsc',
+          89: 'https://polygon-rpc.com',
+          42220: 'https://rpc.ankr.com/celo',
+          42161: 'https://rpc.ankr.com/arbitrum',
+          43114: 'https://api.avax.network/ext/bc/C/rpc',
         },
       };
       const walletConnectProvider = new WalletConnectProvider(walletConnectOptions);
       await walletConnectProvider.enable();
-      const eip1193Provider = new Web3Provider(walletConnectProvider);
+
       const connector = EIP1193EvmConnector.create({
-        provider: eip1193Provider,
+        provider: walletConnectProvider as any as EIP1193Provider,
+        onDisconnect: () => {
+          MoralisClient.EvmAuth.logOut().then(reloadCurrentUser).catch(console.error);
+        },
+        onChainChanged: () => {
+          reloadCurrentUser().catch(console.error);
+        },
+        onAccountChanged: () => {
+          reloadCurrentUser().catch(console.error);
+        },
       });
       MoralisClient.EvmAuth.registerConnector('EIP1193', connector);
     }

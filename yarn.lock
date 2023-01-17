@@ -7681,6 +7681,7 @@ __metadata:
     "@babel/core": ^7.20.5
     "@babel/plugin-transform-react-jsx": ^7.19.0
     "@moralisweb3/client-evm-auth": ^2.11.0
+    eip1193-provider: ^1.0.1
     prettier: ^2.5.1
     typescript: ^4.9.3
   languageName: unknown
@@ -16001,6 +16002,7 @@ __metadata:
     "@walletconnect/types": 1.8.0
     "@walletconnect/web3-provider": ^1.8.0
     dotenv: ^16.0.3
+    eip1193-provider: ^1.0.1
     http-server: ^14.1.1
     ts-loader: ^9.4.2
     typescript: ^4.9.3
@@ -16559,7 +16561,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eip1193-provider@npm:1.0.1":
+"eip1193-provider@npm:1.0.1, eip1193-provider@npm:^1.0.1":
   version: 1.0.1
   resolution: "eip1193-provider@npm:1.0.1"
   dependencies:
