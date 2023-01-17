@@ -1,5 +1,5 @@
 import { Request as ExpressRequest, Response as ExpressResponse, NextFunction } from 'express';
-import { PaginatedOperation, PaginatedRequest } from '@moralisweb3/common-core';
+import { PaginatedOperation, PaginatedRequest } from 'moralis/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import Moralis from 'moralis';
 

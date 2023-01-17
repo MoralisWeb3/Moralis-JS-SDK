@@ -1,5 +1,5 @@
 import { Request as ExpressRequest, Response as ExpressResponse, NextFunction } from 'express';
-import { Operation } from '@moralisweb3/common-core';
+import { Operation } from 'moralis/common-core';
 import { NullableOperationResolver } from '@moralisweb3/api-utils';
 import Moralis from 'moralis';
 
