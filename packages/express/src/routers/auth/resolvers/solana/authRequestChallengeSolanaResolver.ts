@@ -20,7 +20,10 @@ export const authRequestChallengeSolanaResolver = async (
     const expirationTime = new Date(Date.now() + ms(authConfig?.sessionMaxAge || '30 days'));
 
     const data = await new OperationResolver(requestChallengeSolanaOperation, Moralis.Auth.baseUrl, Moralis.Core).fetch(
-      requestChallengeSolanaOperation.deserializeRequest({ ...req.body, ...authConfig.challenge, expirationTime }, Moralis.Core),
+      requestChallengeSolanaOperation.deserializeRequest(
+        { ...req.body, ...authConfig.challenge, expirationTime },
+        Moralis.Core,
+      ),
     );
 
     return res.send(data?.raw);
