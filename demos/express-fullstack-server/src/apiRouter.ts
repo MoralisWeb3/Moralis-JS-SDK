@@ -29,6 +29,7 @@ apiRouter.use(
       uri: 'http://127.0.0.1:7777/',
       timeout: 120,
     },
+    sessionMaxAge: '20s',
     secret: config.TOKEN_SECRET,
     cookie: {
       httpOnly: true,

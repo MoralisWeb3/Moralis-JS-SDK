@@ -6,15 +6,9 @@ import {
   NetworkTypeResolver,
   SignInRequest,
 } from '@moralisweb3/client-backend-adapter-utils';
-import { parse } from 'cookie';
 import Core, { RequestController } from '@moralisweb3/common-core';
 
 const storeKey = 'moralis_session';
-
-interface ExpressSession {
-  address: string;
-  profileId: string;
-}
 
 export interface ExpressAuthOptions {
   /**
@@ -88,7 +82,7 @@ export class ExpressAuth implements Auth {
         url = `${this.routerAbsoluteUrl}/challenge/verify/solana`;
     }
 
-    await this.requestController.request({
+    const session: AuthSession = await this.requestController.request({
       method: 'POST',
       url,
       data: {
@@ -97,6 +91,8 @@ export class ExpressAuth implements Auth {
       },
       withCredentials: true,
     });
+
+    writeSession(session);
   }
 
   public async signOut(): Promise<void> {
@@ -104,14 +100,35 @@ export class ExpressAuth implements Auth {
   }
 }
 
-function readSession(): ExpressSession | null {
-  const cookies = parse(document.cookie || '');
-  const moralisSessionCookie = cookies?.['moralis_session'];
+function readSession(): AuthSession | null {
+  const rawSession = localStorage[storeKey];
 
-  return moralisSessionCookie ? JSON.parse(moralisSessionCookie) : null;
+  if (!rawSession) {
+    return null;
+  }
+
+  const session: AuthSession = JSON.parse(rawSession);
+
+  validateSessionExpiration(session);
+
+  return session;
+}
+
+function validateSessionExpiration(session: AuthSession & { expirationTime?: string }) {
+  if (!session?.expirationTime) {
+    return;
+  }
+  const now = new Date();
+  const expirationTime = new Date(session.expirationTime).getTime();
+  if (now.getTime() > expirationTime) {
+    clearSession();
+  }
+}
+
+function writeSession(session: AuthSession) {
+  localStorage[storeKey] = JSON.stringify(session);
 }
 
 function clearSession() {
-  const dateToExpireCookie = new Date(0).toISOString();
-  document.cookie = `${storeKey}=; Path=/; Expires=Thu, ${dateToExpireCookie};`;
+  localStorage.removeItem(storeKey);
 }
