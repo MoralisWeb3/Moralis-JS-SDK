@@ -33,13 +33,15 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/sha2": "^5.7.0",
+    "@ethersproject/strings": "^5.7.0",
     "@moralisweb3/api-utils": "^2.11.1",
     "@moralisweb3/common-core": "^2.11.1",
     "@moralisweb3/common-evm-utils": "^2.11.1",
     "@moralisweb3/common-streams-utils": "^2.11.1",
     "@moralisweb3/streams-typings": "^1.0.6",
     "ethereumjs-util": "^7.1.0",
-    "ethers": "^5.7.1",
     "web3-eth-abi": "^1.8.0"
   }
 }
