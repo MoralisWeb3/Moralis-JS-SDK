@@ -7997,10 +7997,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/font@npm:13.0.7":
-  version: 13.0.7
-  resolution: "@next/font@npm:13.0.7"
-  checksum: 88324e483561ed1372b97d434b98cff3c3adfeafc4217b45ff96f429c42ea4c6eebb089b34d8ef353aaf6413aa5f6d918a2ea83701ad129d2cc6f6751184d82a
+"@next/font@npm:13.1.2":
+  version: 13.1.2
+  resolution: "@next/font@npm:13.1.2"
+  checksum: 36fa827f95076d49b6a7d6e42cea7848412135f880d953d94416eae997d7880e30a88dfab3a4512b2496a4f69b77ce070ab11dc2d7c0f3eab035517de10e1adc
   languageName: node
   linkType: hard
 
@@ -15385,7 +15385,7 @@ __metadata:
   dependencies:
     "@moralisweb3/client-firebase-auth-utils": ^2.11.1
     "@moralisweb3/client-firebase-evm-auth": ^2.11.1
-    "@next/font": 13.0.7
+    "@next/font": 13.1.2
     "@types/node": 18.11.17
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.9
