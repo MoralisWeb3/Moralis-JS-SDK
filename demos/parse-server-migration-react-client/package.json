@@ -25,7 +25,7 @@
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
-    "ethers": "^5.7.0",
+    "ethers": "^5.7.2",
     "framer-motion": "^6",
     "https-browserify": "^1.0.0",
     "magic-sdk": "^9.0.0",
