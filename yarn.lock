@@ -7083,7 +7083,6 @@ __metadata:
     "@moralisweb3/common-evm-utils": ^2.11.1
     axios: ^1.2.1
     jest: 29.3.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7098,7 +7097,6 @@ __metadata:
     "@moralisweb3/common-sol-utils": ^2.11.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7107,7 +7105,6 @@ __metadata:
   resolution: "@moralisweb3/client-api-utils@workspace:packages/client/apiUtils"
   dependencies:
     "@moralisweb3/common-core": ^2.11.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7118,7 +7115,6 @@ __metadata:
     "@moralisweb3/client-api-utils": ^2.11.1
     "@moralisweb3/common-core": ^2.11.1
     "@moralisweb3/common-evm-utils": ^2.11.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7129,7 +7125,6 @@ __metadata:
     "@moralisweb3/client-api-utils": ^2.11.1
     "@moralisweb3/common-core": ^2.11.1
     firebase: ^9.15.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7138,7 +7133,6 @@ __metadata:
   resolution: "@moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils"
   dependencies:
     firebase: ^9.15.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7151,7 +7145,6 @@ __metadata:
     "@moralisweb3/common-core": ^2.11.1
     "@moralisweb3/common-evm-utils": ^2.11.1
     firebase: ^9.15.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7163,7 +7156,6 @@ __metadata:
     "@metamask/detect-provider": ^1.2.0
     "@moralisweb3/client-firebase-auth-utils": ^2.11.1
     firebase: ^9.15.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7176,7 +7168,6 @@ __metadata:
     "@moralisweb3/common-core": ^2.11.1
     "@moralisweb3/common-sol-utils": ^2.11.1
     firebase: ^9.15.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7187,7 +7178,6 @@ __metadata:
     "@moralisweb3/client-firebase-auth-utils": ^2.11.1
     bs58: ^5.0.0
     firebase: ^9.15.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7198,7 +7188,6 @@ __metadata:
     "@moralisweb3/client-api-utils": ^2.11.1
     "@moralisweb3/common-core": ^2.11.1
     "@moralisweb3/common-sol-utils": ^2.11.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7238,7 +7227,6 @@ __metadata:
     eslint: ^8.29.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7253,7 +7241,6 @@ __metadata:
     jest: 29.3.1
     msw: 0.49.1
     typed-emitter: ^2.1.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7269,7 +7256,6 @@ __metadata:
     eslint: ^8.29.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7283,7 +7269,6 @@ __metadata:
     eslint: ^8.29.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7299,7 +7284,6 @@ __metadata:
     eslint: ^8.29.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7311,7 +7295,6 @@ __metadata:
     "@typescript-eslint/parser": ^5.48.2
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.26.0
-    typescript: ^4.9.3
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ^5.13.0
     "@typescript-eslint/parser": ^5.0.0
@@ -7331,7 +7314,6 @@ __metadata:
     "@moralisweb3/common-evm-utils": ^2.11.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7340,7 +7322,6 @@ __metadata:
   resolution: "@moralisweb3/evm-utils@workspace:packages/evmUtils"
   dependencies:
     "@moralisweb3/common-evm-utils": ^2.11.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7383,7 +7364,6 @@ __metadata:
     express: ^4.18.1
     moralis: ^2.11.1
     parse: 3.4.4
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7396,7 +7376,6 @@ __metadata:
     "@moralisweb3/common-sol-utils": ^2.11.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7405,7 +7384,6 @@ __metadata:
   resolution: "@moralisweb3/sol-utils@workspace:packages/solUtils"
   dependencies:
     "@moralisweb3/common-sol-utils": ^2.11.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -7434,7 +7412,6 @@ __metadata:
     ethereumjs-util: ^7.1.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
-    typescript: ^4.9.3
     web3-eth-abi: ^1.8.0
   languageName: unknown
   linkType: soft
@@ -7446,7 +7423,6 @@ __metadata:
     "@types/lodash": ^4.14.186
     lodash: ^4.17.21
     msw: 0.49.1
-    typescript: ^4.9.3
   languageName: unknown
   linkType: soft
 
@@ -9669,17 +9645,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.11.17, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^18.11.11, @types/node@npm:^18.11.13, @types/node@npm:^18.11.15":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
   version: 18.11.17
   resolution: "@types/node@npm:18.11.17"
   checksum: 1933afd068d5c75c068c6c4df6d10edb3b0b2bb6503d544e2f0496ac007c90596e6a5e284a8ef032451bc16f871b7e46719d7d2bea60e9b25d13a77d52161cac
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:18.11.11":
-  version: 18.11.11
-  resolution: "@types/node@npm:18.11.11"
-  checksum: c4b1176a8f1714a3ee3fc2a5e1d568b0cd50209000282db5c68154b3c975952928dbb834ef3a0ce55bd7b345ae29f2cbf4a34635a070294d135a24254231386a
   languageName: node
   linkType: hard
 
@@ -9687,6 +9656,13 @@ __metadata:
   version: 12.20.55
   resolution: "@types/node@npm:12.20.55"
   checksum: e4f86785f4092706e0d3b0edff8dca5a13b45627e4b36700acd8dfe6ad53db71928c8dee914d4276c7fd3b6ccd829aa919811c9eb708a2c8e4c6eb3701178c37
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.11.18":
+  version: 18.11.18
+  resolution: "@types/node@npm:18.11.18"
+  checksum: 03f17f9480f8d775c8a72da5ea7e9383db5f6d85aa5fefde90dd953a1449bd5e4ffde376f139da4f3744b4c83942166d2a7603969a6f8ea826edfb16e6e3b49d
   languageName: node
   linkType: hard
 
@@ -14133,7 +14109,6 @@ __metadata:
   resolution: "create-moralis-dapp@workspace:packages/create-moralis-dapp"
   dependencies:
     "@types/ejs": 3.1.1
-    "@types/node": ^18.11.15
     axios: ^1.2.1
     chalk: ^5.0.1
     copyfiles: 2.4.1
@@ -14143,7 +14118,6 @@ __metadata:
     lodash: ^4.17.21
     ora: ^5.4.1
     ts-node-dev: ^2.0.0
-    typescript: ^4.9.4
   bin:
     create-moralis-dapp: ./lib/index.js
   languageName: unknown
@@ -14960,7 +14934,7 @@ __metadata:
   resolution: "demo-cli@workspace:demos/cli"
   dependencies:
     "@moralisweb3/eslint-config": ^1.0.1
-    "@types/node": ^18.11.11
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     dotenv: ^16.0.1
@@ -14969,7 +14943,7 @@ __metadata:
     eslint-plugin-import: ^2.26.0
     moralis: ^2.11.1
     ts-node: ^10.9.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -14981,7 +14955,7 @@ __metadata:
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
-    "@types/node": ^18.11.11
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     cors: ^2.8.5
@@ -14995,7 +14969,7 @@ __metadata:
     moralis: ^2.11.1
     redis: ^4.2.0
     ts-node: ^10.9.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -15012,7 +14986,7 @@ __metadata:
     firebase-admin: ^10.3.0
     firebase-functions: ^3.18.0
     firebase-functions-test: ^0.2.0
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -15033,7 +15007,7 @@ __metadata:
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^14.4.3
     "@types/jest": ^29.2.4
-    "@types/node": ^18.11.11
+    "@types/node": ^18.11.18
     "@types/react": ^18.0.19
     "@types/react-dom": ^18.0.6
     "@walletconnect/web3-provider": ^1.8.0
@@ -15048,7 +15022,7 @@ __metadata:
     react-dom: ^18.2.0
     react-scripts: 5.0.1
     stream-browserify: ^3.0.0
-    typescript: ^4.9.3
+    typescript: ^4.9.4
     util: ^0.12.4
     web-vitals: ^2.1.4
   languageName: unknown
@@ -15061,7 +15035,7 @@ __metadata:
     "@moralisweb3/client-firebase-auth-utils": ^2.11.1
     "@moralisweb3/client-firebase-evm-auth": ^2.11.1
     "@next/font": 13.1.2
-    "@types/node": 18.11.17
+    "@types/node": ^18.11.18
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.9
     eslint: 8.30.0
@@ -15090,7 +15064,7 @@ __metadata:
     firebase-functions-rate-limiter: ^3.9.1
     firebase-functions-test: ^0.2.0
     moralis: ^2.11.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -15108,7 +15082,7 @@ __metadata:
     firebase-functions: ^3.18.0
     firebase-functions-test: ^0.2.0
     ngrok: ^4.3.3
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -15120,7 +15094,7 @@ __metadata:
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
-    "@types/node": 18.11.11
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     cors: ^2.8.5
@@ -15134,7 +15108,7 @@ __metadata:
     ngrok: ^4.3.3
     redis: ^4.2.0
     ts-node: ^10.9.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
     web3-utils: ^1.7.5
   languageName: unknown
   linkType: soft
@@ -15148,7 +15122,7 @@ __metadata:
     "@moralisweb3/eslint-config": ^1.0.1
     "@moralisweb3/next": ^2.11.1
     "@next/eslint-plugin-next": ^12.2.5
-    "@types/node": 18.11.11
+    "@types/node": ^18.11.18
     "@types/react": ^18.0.18
     "@types/react-dom": ^18.0.6
     "@typescript-eslint/eslint-plugin": ^5.48.2
@@ -15163,7 +15137,7 @@ __metadata:
     next-auth: 4.16.4
     react: ^18.2.0
     react-dom: ^18.2.0
-    typescript: 4.9.3
+    typescript: ^4.9.4
     wagmi: ^0.5.11
   languageName: unknown
   linkType: soft
@@ -15178,7 +15152,7 @@ __metadata:
     "@moralisweb3/parse-server": 2.11.1
     "@types/cors": ^2.8.13
     "@types/jest": ^29.2.5
-    "@types/node": ^18.11.11
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     axios: ^1.2.1
@@ -15200,7 +15174,7 @@ __metadata:
     prettier: ^2.8.0
     ts-jest: ^29.0.4
     ts-node: ^10.9.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -15212,7 +15186,7 @@ __metadata:
     "@moralisweb3/common-core": ^2.11.1
     "@moralisweb3/eslint-config": ^1.0.1
     "@types/cors": ^2.8.13
-    "@types/node": ^18.11.11
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     cors: ^2.8.5
@@ -15231,7 +15205,7 @@ __metadata:
     parse-server: ^5.4.0
     prettier: ^2.8.0
     ts-node: ^10.9.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -15245,7 +15219,7 @@ __metadata:
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
     "@types/jsonwebtoken": ^8.5.8
-    "@types/node": ^18.11.11
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     cors: ^2.8.5
@@ -15258,7 +15232,7 @@ __metadata:
     jsonwebtoken: ^8.5.1
     moralis: ^2.11.1
     ts-node: ^10.9.1
-    typescript: ^4.9.3
+    typescript: ^4.9.4
     uuid: ^9.0.0
   languageName: unknown
   linkType: soft
@@ -18510,7 +18484,7 @@ __metadata:
     firebase-functions-test: ^0.2.0
     moralis: ^2.9.0
     telegraf: ^4.11.2
-    typescript: ^4.5.4
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -24011,7 +23985,7 @@ __metadata:
     "@types/archiver": ^5.3.1
     "@types/estree": ^1.0.0
     "@types/jest": ^29.2.4
-    "@types/node": ^18.11.13
+    "@types/node": ^18.11.18
     "@typescript-eslint/eslint-plugin": ^5.48.2
     "@typescript-eslint/parser": ^5.48.2
     archiver: ^5.3.1
@@ -24030,7 +24004,7 @@ __metadata:
     ts-node: ^10.9.1
     typedoc: ^0.23.21
     typedoc-plugin-markdown: ^3.14.0
-    typescript: ^4.9.3
+    typescript: ^4.9.4
   languageName: unknown
   linkType: soft
 
@@ -25708,7 +25682,7 @@ __metadata:
     react-scripts: 5.0.1
     stream-browserify: ^3.0.0
     stream-http: ^3.2.0
-    typescript: ^4.9.3
+    typescript: ^4.9.4
     url: ^0.11.0
     web-vitals: ^2.1.4
   languageName: unknown
@@ -31834,17 +31808,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.3":
-  version: 4.9.3
-  resolution: "typescript@npm:4.9.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 17b8f816050b412403e38d48eef0e893deb6be522d6dc7caf105e54a72e34daf6835c447735fd2b28b66784e72bfbf87f627abb4818a8e43d1fa8106396128dc
-  languageName: node
-  linkType: hard
-
-"typescript@npm:4.9.4, typescript@npm:^4.5.4, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
+"typescript@npm:4.9.4, typescript@npm:^4.9.4":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
   bin:
@@ -31864,17 +31828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.3#~builtin<compat/typescript>":
-  version: 4.9.3
-  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 67ca21a387c0572f1c04936e638dde7782c5aa520c3754aadc7cc9b7c915da9ebc3e27c601bfff4ccb7d7264e82dce6d277ada82ec09dc75024349e0ef64926d
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@4.9.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.9.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
   version: 4.9.4
   resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=d73830"
   bin:
