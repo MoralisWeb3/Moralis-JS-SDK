@@ -4,7 +4,7 @@ import { EvmAbi } from '../EvmAbi';
 
 export type EvmStreamAdvancedOptions = {
   topic0: string;
-  filter?: Record<string, any>;
+  filter?: Record<string, unknown>;
   includeNativeTxs?: boolean;
 };
 
