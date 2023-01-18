@@ -1,2 +1,2 @@
-export * from './generated/EvmApiRouter'
-export * from './generated/resolvers'
+export * from './generated/EvmApiRouter';
+export * from './generated/resolvers';
