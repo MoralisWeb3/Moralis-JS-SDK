@@ -1,4 +1,4 @@
 export enum StreamNetwork {
   EVM = 'evm',
-  SOLANA = 'solana',
 }
+export type StreamNetworkUnion = `${StreamNetwork}`;
