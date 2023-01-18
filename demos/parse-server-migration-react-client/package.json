@@ -21,7 +21,7 @@
     "@walletconnect/web3-provider": "^1.8.0",
     "@web3auth/web3auth": "^2.0.2",
     "assert": "^2.0.0",
-    "axios": "^1.2.1",
+    "axios": "^1.2.3",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",

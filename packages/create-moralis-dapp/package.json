@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/ejs": "3.1.1",
     "@types/node": "^18.11.15",
-    "axios": "^1.2.1",
+    "axios": "^1.2.3",
     "chalk": "^5.0.1",
     "copyfiles": "2.4.1",
     "ejs": "^3.1.8",
