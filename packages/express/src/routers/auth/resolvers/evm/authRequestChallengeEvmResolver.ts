@@ -1,9 +1,9 @@
 import { AuthConfig } from '../../AuthRouter';
+import { getExpirationTime } from '../../utils';
 import { NextFunction, Response, Request } from 'express';
 import { OperationResolver } from '@moralisweb3/api-utils';
 import { RequestChallengeEvmJSONRequest, requestChallengeEvmOperation } from 'moralis/common-auth-utils';
 import Moralis from 'moralis';
-import ms from 'ms';
 
 type RequestBody = Pick<
   RequestChallengeEvmJSONRequest,
@@ -17,11 +17,9 @@ export const authRequestChallengeEvmResolver = async (
   authConfig: AuthConfig,
 ) => {
   try {
-    const expirationTime = new Date(Date.now() + ms(authConfig?.sessionMaxAge || '30 days'));
-
     const data = await new OperationResolver(requestChallengeEvmOperation, Moralis.Auth.baseUrl, Moralis.Core).fetch(
       requestChallengeEvmOperation.deserializeRequest(
-        { ...req.body, ...authConfig.challenge, expirationTime },
+        { ...req.body, ...authConfig.challenge, expirationTime: getExpirationTime(authConfig.sessionMaxAge) },
         Moralis.Core,
       ),
     );

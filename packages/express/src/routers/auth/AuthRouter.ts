@@ -21,12 +21,13 @@ export interface AuthConfig {
    * @default "30 days"
 
    */
-  sessionMaxAge?: string;
+  sessionMaxAge: string | number;
 }
 
 export class AuthRouter {
-  public static Router(config: AuthConfig) {
+  public static Router(params: Omit<AuthConfig, 'sessionMaxAge'> & { sessionMaxAge?: string | number }) {
     const router = Router();
+    const config: AuthConfig = { ...params, sessionMaxAge: '30d' };
 
     router.post('/challenge/request/solana', (req: any, res, next) =>
       authRequestChallengeSolanaResolver(req, res, next, config),

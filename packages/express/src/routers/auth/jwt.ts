@@ -4,7 +4,7 @@ import { CookieOptions, Response } from 'express';
 export const generateAccessToken = (
   payload: { address: string; signature: string },
   secret: string,
-  expiresIn: string | number | undefined = '365d',
+  expiresIn: string | number | undefined = '30d',
 ) => {
   return jwt.sign(payload, secret, { expiresIn });
 };
