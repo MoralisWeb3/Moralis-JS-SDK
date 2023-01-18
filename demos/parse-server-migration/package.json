@@ -23,7 +23,7 @@
     "@types/cors": "^2.8.13",
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.11",
-    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "axios": "^1.2.1",
     "eslint": "^8.29.0",
