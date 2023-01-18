@@ -15,9 +15,6 @@
     "build": "tsc",
     "dev": "tsc --watch"
   },
-  "devDependencies": {
-    "typescript": "^4.9.3"
-  },
   "dependencies": {
     "@ethersproject/providers": "^5.7.1",
     "@metamask/detect-provider": "^1.2.0",

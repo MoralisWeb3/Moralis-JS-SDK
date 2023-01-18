@@ -16,9 +16,6 @@
     "build": "tsc",
     "dev": "tsc --watch"
   },
-  "devDependencies": {
-    "typescript": "^4.9.3"
-  },
   "dependencies": {
     "@moralisweb3/client-api-utils": "^2.11.1",
     "@moralisweb3/common-core": "^2.11.1",
