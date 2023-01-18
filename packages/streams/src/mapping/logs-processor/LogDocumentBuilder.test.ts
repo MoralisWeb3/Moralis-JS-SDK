@@ -1,5 +1,5 @@
 import { LogDocumentBuilder } from './LogDocumentBuilder';
-import { BigNumber } from 'ethers';
+import { BigNumber } from '@ethersproject/bignumber';
 import { Block, Log } from '@moralisweb3/streams-typings';
 import { ParsedLog } from './LogParser';
 
