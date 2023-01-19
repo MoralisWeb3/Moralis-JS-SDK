@@ -11,6 +11,16 @@ export interface TypeGeneratorNames {
 export class TypeGenerator {
   public constructor(private readonly classNamePrefix: string) {}
 
+  public static toTypeSelector(type: string, isArray: boolean, isRequired: boolean): string {
+    if (isArray) {
+      type = `${type}[]`;
+    }
+    if (!isRequired) {
+      type = `${type} | undefined`;
+    }
+    return type;
+  }
+
   public generateNames(type: TypeMapping): TypeGeneratorNames {
     let typeCode: string;
     let jsonTypeCode: string;
@@ -22,27 +32,13 @@ export class TypeGenerator {
       className = NameFormatter.joinName(this.classNamePrefix, refType.className);
       jsonClassName = className + 'JSON';
 
-      if (refType.isArray) {
-        typeCode = `${className}[]`;
-        jsonTypeCode = `${jsonClassName}[]`;
-      } else {
-        typeCode = className;
-        jsonTypeCode = jsonClassName;
-      }
+      typeCode = TypeGenerator.toTypeSelector(className, type.isArray, type.isRequired);
+      jsonTypeCode = TypeGenerator.toTypeSelector(jsonClassName, type.isArray, type.isRequired);
     } else {
-      let simpleType = type as SimpleTypeMapping;
-      const normalizedType = SimpleTypeNormalizer.normalize(simpleType.type);
-      if (simpleType.isArray) {
-        typeCode = `${normalizedType}[]`;
-      } else {
-        typeCode = normalizedType;
-      }
-      jsonTypeCode = typeCode;
-    }
+      const normalizedType = SimpleTypeNormalizer.normalize((type as SimpleTypeMapping).type);
 
-    if (!refType.isRequired) {
-      typeCode = typeCode + ' | undefined';
-      jsonTypeCode = jsonTypeCode + ' | undefined';
+      typeCode = TypeGenerator.toTypeSelector(normalizedType, type.isArray, type.isRequired);
+      jsonTypeCode = typeCode;
     }
 
     return {

@@ -28,8 +28,11 @@ export class MappingTypeReader {
       }
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
-      if (itemsSchema.type === 'object' || itemsSchema.type === 'array') {
+      if (itemsSchema.type === 'object') {
         return new RefTypeMapping(false, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
+      }
+      if (itemsSchema.type === 'array') {
+        return new RefTypeMapping(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
       }
 
       if (!itemsSchema.type) {

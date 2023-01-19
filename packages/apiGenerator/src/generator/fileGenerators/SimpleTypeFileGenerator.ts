@@ -16,8 +16,14 @@ export class SimpleTypeFileGenerator {
     const typeNames = this.typeGenerator.generateNames(this.info.type);
     const output = new GeneratorOutput();
 
-    const normalizedSimpleType = SimpleTypeNormalizer.normalize(this.info.simpleType);
-    output.write(0, `export type ${typeNames.jsonClassName} = ${normalizedSimpleType};`);
+    const normalizedType = SimpleTypeNormalizer.normalize(this.info.simpleType);
+    const typeSelector = TypeGenerator.toTypeSelector(
+      normalizedType,
+      this.info.type.isArray,
+      this.info.type.isRequired,
+    );
+
+    output.write(0, `export type ${typeNames.jsonClassName} = ${typeSelector};`);
     output.newLine();
 
     output.write(0, `export class ${typeNames.className} {`);
@@ -26,7 +32,7 @@ export class SimpleTypeFileGenerator {
     output.write(1, `}`);
     output.newLine();
 
-    output.write(1, `public constructor(public readonly value: ${normalizedSimpleType}) {}`);
+    output.write(1, `public constructor(public readonly value: ${typeSelector}) {}`);
     output.write(0, `}`);
 
     return { output, className: typeNames.className as string };
