@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-evm-auth",
   "author": "Moralis",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -23,8 +23,8 @@
   "dependencies": {
     "@ethersproject/providers": "^5.7.1",
     "@metamask/detect-provider": "^1.2.0",
-    "@moralisweb3/client-auth-utils": "^2.11.0",
-    "@moralisweb3/client-backend-adapter-utils": "^2.11.0",
-    "@moralisweb3/common-core": "^2.11.0"
+    "@moralisweb3/client-auth-utils": "^2.11.1",
+    "@moralisweb3/client-backend-adapter-utils": "^2.11.1",
+    "@moralisweb3/common-core": "^2.11.1"
   }
 }

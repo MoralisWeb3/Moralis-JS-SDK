@@ -1,5 +1,24 @@
 # @moralisweb3/next
 
+## 2.11.1
+
+### Patch Changes
+
+- [#953](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/953) [`cf2a8e36e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cf2a8e36e277b543cd61eb9a0d10cb496afbc559) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix requests that can return null response
+
+- [#953](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/953) [`fa40ad7b0`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/fa40ad7b06414ac7639d2a429b98d40a066c1920) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix issues related to several NextJS hooks, due to the serialisation of the request
+
+- [#946](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/946) [`dc3f66250`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dc3f6625087f2143c4ab6ef436787ec1c3b32d72) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added a new parameter to the `MoralisNextAuthProvider` class: `payload`. It allows to keep some extra information in the session.
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.11.1
+  - @moralisweb3/auth@2.11.1
+  - @moralisweb3/common-auth-utils@2.11.1
+  - @moralisweb3/common-core@2.11.1
+  - @moralisweb3/evm-api@2.11.1
+  - @moralisweb3/sol-api@2.11.1
+  - moralis@2.11.1
+
 ## 2.11.0
 
 ### Patch Changes

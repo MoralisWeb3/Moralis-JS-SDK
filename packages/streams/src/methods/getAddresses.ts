@@ -7,10 +7,9 @@ import {
   GetAddressesEvmResponseAdapter,
 } from '@moralisweb3/common-streams-utils';
 import Core from '@moralisweb3/common-core';
+import { CommonStreamNetworkOptions } from '../utils/commonNetworkOptions';
 
-export interface GetAddressesEvmOptions extends GetAddressesEvmRequest {
-  networkType?: 'evm';
-}
+export interface GetAddressesEvmOptions extends GetAddressesEvmRequest, CommonStreamNetworkOptions {}
 
 export type GetAddressesOptions = GetAddressesEvmOptions;
 

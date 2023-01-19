@@ -9,9 +9,9 @@
     "serve": "http-server ./ -p 7777"
   },
   "dependencies": {
-    "@moralisweb3/client": "^2.11.0",
-    "@moralisweb3/client-connector-magic-link": "^2.11.0",
-    "@moralisweb3/client-connector-wallet-connect": "^2.11.0",
+    "@moralisweb3/client": "^2.11.1",
+    "@moralisweb3/client-connector-magic-link": "^2.11.1",
+    "@moralisweb3/client-connector-wallet-connect": "^2.11.1",
     "dotenv": "^16.0.3"
   },
   "devDependencies": {

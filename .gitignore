@@ -18,6 +18,9 @@ packages/**/lib.esm
 packages/**/coverage
 coverage/
 
+# Prevent accidental commits of npm lock-file
+package-lock.json
+
 demos/**/lib
 demos/**/build
 demos/**/dist

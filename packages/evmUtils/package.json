@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -20,10 +20,7 @@
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "build": "tsc -p tsconfig.build.json"
   },
-  "devDependencies": {
-    "typescript": "^4.9.3"
-  },
   "dependencies": {
-    "@moralisweb3/common-evm-utils": "^2.11.0"
+    "@moralisweb3/common-evm-utils": "^2.11.1"
   }
 }

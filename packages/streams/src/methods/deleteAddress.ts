@@ -7,23 +7,21 @@ import {
   DeleteAddressEvmRequest,
   DeleteAddressEvmResponseAdapter,
 } from '@moralisweb3/common-streams-utils';
+import { CommonStreamNetworkOptions } from '../utils/commonNetworkOptions';
 
-export interface DeleteAddressEvmOptions extends DeleteAddressEvmRequest {
-  networkType?: 'evm';
-}
-
+export interface DeleteAddressEvmOptions extends DeleteAddressEvmRequest, CommonStreamNetworkOptions {}
 export type DeleteAddressOptions = DeleteAddressEvmOptions;
 
 export const makeDeleteAddress = (core: Core, baseUrl: string) => {
-  const fetcher = new OperationResolver(deleteAddressEvmOperation, baseUrl, core).fetch;
+  const evmFetcher = new OperationResolver(deleteAddressEvmOperation, baseUrl, core).fetch;
 
   return ({ networkType, ...options }: DeleteAddressOptions): Promise<DeleteAddressEvmResponseAdapter> => {
     switch (networkType) {
       case StreamNetwork.EVM:
-        return fetcher({ ...options });
+        return evmFetcher({ ...options });
       default:
         if (networkType === undefined) {
-          return fetcher({ ...options });
+          return evmFetcher({ ...options });
         }
         throw new IncorrectNetworkError(networkType);
     }
