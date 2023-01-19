@@ -1,9 +1,9 @@
-import { GeneratorOutput } from './GeneratorOutput';
+import { GeneratorOutput } from '../GeneratorOutput';
 
 export class IndexFileGenerator {
   public readonly fileNames: string[] = [];
 
-  public addFile(fileName: string) {
+  public add(fileName: string) {
     this.fileNames.push(fileName);
   }
 

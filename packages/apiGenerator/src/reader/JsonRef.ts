@@ -21,10 +21,10 @@ export class JsonRef {
 
     let current = data;
     for (let i = 0; i < parts.length; i++) {
-      const item = parts[i];
-      current = current[item];
+      const part = parts[i];
+      current = current[part];
       if (!current) {
-        throw new Error(`Cannot find node by ref: ${ref} (${item})`);
+        throw new Error(`Cannot find node by ref: ${ref} (${part})`);
       }
     }
     return current as T;

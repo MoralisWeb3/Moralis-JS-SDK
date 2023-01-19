@@ -1,5 +1,5 @@
-import { NameFormatter } from '../reader/NameFormatter';
-import { RefTypeMapping, SimpleTypeMapping, TypeMapping } from '../reader/TypeMapping';
+import { NameFormatter } from '../../reader/NameFormatter';
+import { RefTypeMapping, SimpleTypeMapping, TypeMapping } from '../../reader/TypeMapping';
 
 export interface TypeGeneratorNames {
   typeCode: string; // string, string[], EvmResult, EvmResult[] | undefined
@@ -31,7 +31,7 @@ export class TypeGenerator {
       }
     } else {
       let simpleType = type as SimpleTypeMapping;
-      const normalizedType = normalizeSimpleType(simpleType.type);
+      const normalizedType = SimpleTypeNormalizer.normalize(simpleType.type);
       if (simpleType.isArray) {
         typeCode = `${normalizedType}[]`;
       } else {
@@ -73,10 +73,15 @@ export class TypeGenerator {
   }
 }
 
-function normalizeSimpleType(type: string): string {
-  switch (type) {
-    case 'integer':
-      return 'number';
+export class SimpleTypeNormalizer {
+  public static normalize(type: string): string {
+    switch (type) {
+      case 'integer':
+        return 'number';
+      case 'array':
+      case 'object':
+        throw new Error(`Invalid simple type: ${type}`);
+    }
+    return type;
   }
-  return type;
 }

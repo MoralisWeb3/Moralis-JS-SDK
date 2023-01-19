@@ -1,6 +1,6 @@
-import { NameFormatter } from '../reader/NameFormatter';
-import { OperationInfo } from '../reader/OpenApiReader';
-import { GeneratorOutput } from './GeneratorOutput';
+import { NameFormatter } from '../../reader/NameFormatter';
+import { OperationInfo } from '../../reader/OpenApi3Reader';
+import { GeneratorOutput } from '../GeneratorOutput';
 import { TypeGenerator } from './TypeGenerator';
 
 export interface OperationFileGeneratorResult {
@@ -16,7 +16,8 @@ export class OperationFileGenerator {
   public generate(): OperationFileGeneratorResult {
     const returnTypeNames = this.typeGenerator.generateNames(this.info.returnType);
 
-    const className = NameFormatter.joinName(this.classNamePrefix, this.info.operationId + 'Operation');
+    const normalizedOperationId = NameFormatter.normalize(this.info.operationId);
+    const className = NameFormatter.joinName(this.classNamePrefix, normalizedOperationId + 'Operation');
     const output = new GeneratorOutput();
 
     if (returnTypeNames.className && returnTypeNames.jsonClassName) {

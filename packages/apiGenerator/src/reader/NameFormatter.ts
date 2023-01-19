@@ -1,4 +1,8 @@
 export class NameFormatter {
+  public static normalize(value: string): string {
+    return value.replace(/\//g, '_'); // TODO: more characters
+  }
+
   public static toCamelCase(value: string) {
     return value.replace(/([-_][a-z])/gi, (found) => {
       return found.toUpperCase().replace('-', '').replace('_', '');

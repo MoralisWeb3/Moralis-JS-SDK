@@ -3,20 +3,9 @@ import { JsonRef } from './JsonRef';
 import { MappingTypeReader } from './MappingTypeReader';
 import { RefTypeMapping, TypeMapping } from './TypeMapping';
 import { NameFormatter } from './NameFormatter';
+import { UniqueQueue } from './UniqueQueue';
 
-const httpMethods: OpenAPIV3.HttpMethods[] = [
-  OpenAPIV3.HttpMethods.GET,
-  OpenAPIV3.HttpMethods.POST,
-  OpenAPIV3.HttpMethods.PUT,
-  OpenAPIV3.HttpMethods.DELETE,
-];
-
-const successResponseCodes = ['200', '201'];
-
-interface ReaderQueueItem {
-  done: boolean;
-  type: RefTypeMapping;
-}
+const successResponseCodes = ['200', '201', '202', '203', '204', '205'];
 
 export interface OperationInfo {
   operationId: string;
@@ -37,17 +26,23 @@ export interface TypePropertyInfo {
   type: TypeMapping;
 }
 
-export class OpenApiReader {
-  private readonly queue: { [ref: string]: ReaderQueueItem } = {};
+export interface SimpleTypeInfo {
+  type: TypeMapping;
+  simpleType: string;
+}
+
+export class OpenApi3Reader {
+  private readonly queue = new UniqueQueue<RefTypeMapping>();
 
   public constructor(
     private readonly document: OpenAPIV3.Document,
     private readonly onOperationDiscovered: (info: OperationInfo) => void,
     private readonly onTypeDiscovered: (info: TypeInfo) => void,
+    private readonly onSimpleTypeDiscovered: (info: SimpleTypeInfo) => void,
   ) {}
 
   public read() {
-    if (this.document.openapi !== '3.0.0') {
+    if (!this.document.openapi.startsWith('3.0.')) {
       throw new Error(`Unsupported OpenApi version: ${this.document.openapi}`);
     }
 
@@ -66,17 +61,21 @@ export class OpenApiReader {
         continue;
       }
 
-      for (const httpMethod of httpMethods) {
-        const path = pathGroup[httpMethod];
-        if (!path) {
+      const operationHttpMethods = Object.keys(pathGroup) as OpenAPIV3.HttpMethods[];
+      const hasMultipleHttpMethods = operationHttpMethods.length > 1;
+
+      for (const httpMethod of operationHttpMethods) {
+        const path = pathGroup[httpMethod]!;
+        if (!path.operationId) {
+          console.warn(`Path ${routePattern} does not have operationId`);
           continue;
         }
+
         const responseCode = successResponseCodes.find((code) => path.responses[code]);
         if (!responseCode) {
-          throw new Error(`Path ${routePattern} does not have success response`);
-        }
-        if (!path.operationId) {
-          throw new Error(`Path ${routePattern} does not have operationId`);
+          const supportedCodes = Object.keys(path.responses);
+          console.warn(`Path ${routePattern} does not have any success response (found: ${supportedCodes.join(', ')})`);
+          continue;
         }
 
         let responseRefOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject | null = null;
@@ -89,7 +88,11 @@ export class OpenApiReader {
           }
         }
 
-        const ref = JsonRef.serialize([
+        const normalizedOperationId = NameFormatter.normalize(path.operationId);
+        const defaultClassName = hasMultipleHttpMethods
+          ? NameFormatter.joinName(httpMethod, normalizedOperationId)
+          : normalizedOperationId;
+        const responseRef = JsonRef.serialize([
           'paths',
           routePattern,
           httpMethod,
@@ -99,7 +102,8 @@ export class OpenApiReader {
           'application/json',
           'schema',
         ]);
-        let type = MappingTypeReader.read(true, responseRefOrSchema, ref, path.operationId);
+
+        let type = MappingTypeReader.read(true, responseRefOrSchema, responseRef, defaultClassName);
         let refType = type as RefTypeMapping;
         if (refType.ref) {
           const target = JsonRef.find<OpenAPIV3.SchemaObject>(refType.ref, this.document);
@@ -113,7 +117,7 @@ export class OpenApiReader {
             type = refType;
           }
 
-          this.pushQueue(refType);
+          this.queue.push(refType.ref, refType);
         }
 
         this.onOperationDiscovered({
@@ -126,58 +130,51 @@ export class OpenApiReader {
     }
   }
 
-  private pushQueue(type: RefTypeMapping) {
-    const current = this.queue[type.ref];
-    if (!current) {
-      this.queue[type.ref] = { done: false, type };
-    }
-  }
-
-  private popQueue(): ReaderQueueItem | null {
-    const nextRef = Object.keys(this.queue).find((r) => !this.queue[r].done);
-    if (!nextRef) {
-      return null;
-    }
-    return this.queue[nextRef];
-  }
-
   private processQueue() {
     for (;;) {
-      const item = this.popQueue();
-      if (!item) {
+      const type = this.queue.pop();
+      if (!type) {
         break;
       }
-
-      const scheme = JsonRef.find<OpenAPIV3.SchemaObject>(item.type.ref, this.document);
-      this.processType(item.type, scheme);
-      item.done = true;
+      this.processType(type);
     }
   }
 
-  private processType(type: RefTypeMapping, scheme: OpenAPIV3.SchemaObject) {
-    if (scheme.type && scheme.type === 'array') {
-      throw new Error('Not supported array scheme');
+  private processType(type: RefTypeMapping) {
+    const scheme = JsonRef.find<OpenAPIV3.SchemaObject>(type.ref, this.document);
+
+    if (scheme.type) {
+      if (scheme.type === 'array') {
+        throw new Error('Not supported array scheme');
+      }
+      if (scheme.type !== 'object') {
+        this.onSimpleTypeDiscovered({
+          type,
+          simpleType: scheme.type,
+        });
+        return;
+      }
     }
 
     const properties: TypePropertyInfo[] = [];
     if (scheme.properties) {
-      for (const propertyName of Object.keys(scheme.properties)) {
-        const isRequired = scheme.required?.includes(propertyName) || false;
-        const propertyRefOrSchema = scheme.properties[propertyName];
+      for (const name of Object.keys(scheme.properties)) {
+        const isRequired = scheme.required?.includes(name) || false;
+        const propertyRefOrSchema = scheme.properties[name];
 
-        const defaultClassName = NameFormatter.joinName(type.className, propertyName);
-        const parentRef = JsonRef.extend(type.ref, ['properties', propertyName]);
+        const defaultClassName = NameFormatter.joinName(type.className, name);
+        const parentRef = JsonRef.extend(type.ref, ['properties', name]);
 
         const propertyType = MappingTypeReader.read(isRequired, propertyRefOrSchema, parentRef, defaultClassName);
         const propertyRefType = propertyType as RefTypeMapping;
         if (propertyRefType.ref) {
-          this.pushQueue(propertyRefType);
+          this.queue.push(propertyRefType.ref, propertyRefType);
         }
 
         const description = (propertyRefOrSchema as OpenAPIV3.SchemaObject).description;
 
         properties.push({
-          name: propertyName,
+          name,
           isRequired,
           type: propertyType,
           description,

@@ -1,21 +1,18 @@
 import axios from 'axios';
-import path from 'path';
-import fs from 'fs';
 import { OpenAPIV3 } from 'openapi-types';
-import { OpenApiReader, OperationInfo, TypeInfo } from '../reader/OpenApiReader';
-import { TypeFileGenerator } from './TypeFileGenerator';
-import { OperationFileGenerator } from './OperationFileGenerator';
-import { IndexFileGenerator } from './IndexFileGenerator';
+import { OpenApi3Reader, OperationInfo, SimpleTypeInfo, TypeInfo } from '../reader/OpenApi3Reader';
+import { IndexFileGenerator } from './fileGenerators/IndexFileGenerator';
+import { OperationFileGenerator } from './fileGenerators/OperationFileGenerator';
+import { SimpleTypeFileGenerator } from './fileGenerators/SimpleTypeFileGenerator';
+import { TypeFileGenerator } from './fileGenerators/TypeFileGenerator';
+import { GeneratorWriter } from './GeneratorWriter';
 
 export class Generator {
   public static async create(swaggerUrl: string, classPrefix: string, outputPath: string): Promise<Generator> {
     const response = await axios.get(swaggerUrl);
     const document = response.data as OpenAPIV3.Document;
-    return new Generator(document, classPrefix, outputPath);
+    return new Generator(document, classPrefix, new GeneratorWriter(outputPath));
   }
-
-  private readonly typesPath: string;
-  private readonly operationsPath: string;
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
@@ -23,47 +20,48 @@ export class Generator {
   private constructor(
     private readonly document: OpenAPIV3.Document,
     private readonly classNamePrefix: string,
-    private readonly outputPath: string,
-  ) {
-    this.typesPath = path.join(this.outputPath, 'types');
-    this.operationsPath = path.join(this.outputPath, 'operations');
-  }
+    private readonly writer: GeneratorWriter,
+  ) {}
 
   public generate() {
-    fs.mkdirSync(this.typesPath, {
-      recursive: true,
-    });
-    fs.mkdirSync(this.operationsPath, {
-      recursive: true,
-    });
+    this.writer.prepare();
 
-    const reader = new OpenApiReader(this.document, this.onOperationDiscovered, this.onTypeDiscovered);
+    const reader = new OpenApi3Reader(
+      this.document,
+      this.onOperationDiscovered,
+      this.onTypeDiscovered,
+      this.onSimpleTypeDiscovered,
+    );
     reader.read();
 
-    const typesIndexPath = path.join(this.typesPath, 'index.ts');
-    fs.writeFileSync(typesIndexPath, this.typesIndexGenerator.generate().toString(), 'utf-8');
-
-    const operationsIndexPath = path.join(this.operationsPath, 'index.ts');
-    fs.writeFileSync(operationsIndexPath, this.operationsIndexGenerator.generate().toString(), 'utf-8');
+    this.writer.writeTypesIndex(this.typesIndexGenerator.generate().toString());
+    this.writer.writeOperationsIndex(this.operationsIndexGenerator.generate().toString());
   }
 
   private onOperationDiscovered = (info: OperationInfo) => {
     const generator = new OperationFileGenerator(info, this.classNamePrefix);
     const result = generator.generate();
 
-    const operationPath = path.join(this.operationsPath, result.className + '.ts');
-    fs.writeFileSync(operationPath, result.output.toString(), 'utf-8');
+    this.writer.writeOperation(result.className, result.output.toString());
 
-    this.operationsIndexGenerator.addFile(result.className);
+    this.operationsIndexGenerator.add(result.className);
   };
 
   private onTypeDiscovered = (info: TypeInfo) => {
     const generator = new TypeFileGenerator(info, this.classNamePrefix);
     const result = generator.generate();
 
-    const typePath = path.join(this.typesPath, result.className + '.ts');
-    fs.writeFileSync(typePath, result.output.toString(), 'utf-8');
+    this.writer.writeType(result.className, result.output.toString());
 
-    this.typesIndexGenerator.addFile(result.className);
+    this.typesIndexGenerator.add(result.className);
+  };
+
+  private onSimpleTypeDiscovered = (info: SimpleTypeInfo) => {
+    const generator = new SimpleTypeFileGenerator(info, this.classNamePrefix);
+    const result = generator.generate();
+
+    this.writer.writeType(result.className, result.output.toString());
+
+    this.typesIndexGenerator.add(result.className);
   };
 }
