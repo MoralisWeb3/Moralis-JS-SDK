@@ -65,6 +65,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
    *  StreamEvmNftTransfer.equals(valueA, valueB);
    * ```
    */
+  // eslint-disable-next-line complexity
   static equals(valueA: StreamEvmNftTransferish, valueB: StreamEvmNftTransferish) {
     const transferA = StreamEvmNftTransfer.create(valueA);
     const transferB = StreamEvmNftTransfer.create(valueB);

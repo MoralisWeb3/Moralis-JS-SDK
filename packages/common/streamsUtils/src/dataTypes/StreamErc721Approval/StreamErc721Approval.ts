@@ -62,6 +62,7 @@ export class StreamErc721Approval implements MoralisDataObject {
    *  StreamErc721Approval.equals(valueA, valueB);
    * ```
    */
+  // eslint-disable-next-line complexity
   static equals(valueA: StreamErc721Approvalish, valueB: StreamErc721Approvalish) {
     const evmNftApprovalA = StreamErc721Approval.create(valueA);
     const evmNftApprovalB = StreamErc721Approval.create(valueB);
