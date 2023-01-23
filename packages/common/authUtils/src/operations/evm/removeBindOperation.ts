@@ -1,6 +1,6 @@
 import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
-import { operations } from 'packages/common/authUtils/src/operations/openapi';
+import { operations } from '../openapi';
 
 type OperationId = 'removeBind';
 

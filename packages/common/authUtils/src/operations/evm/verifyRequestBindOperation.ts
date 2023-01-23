@@ -1,5 +1,5 @@
 import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
-import { operations } from 'packages/common/authUtils/src/operations/openapi';
+import { operations } from '../openapi';
 
 type OperationId = 'verifyRequestBind';
 
