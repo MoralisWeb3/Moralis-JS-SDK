@@ -8,7 +8,7 @@ export const mockGetNativeBalancesForAddresses = MockScenarios.create(
     url: '/wallets/balance',
     getParams: ({ req }) => {
       return {
-        walletAddresses: req.url.searchParams.getAll('walletAddresses[]'),
+        walletAddresses: req.url.searchParams.getAll('wallet_addresses[]'),
       };
     },
   },
