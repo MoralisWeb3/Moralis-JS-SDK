@@ -26,7 +26,7 @@ export const getStatsByIdOperation: Operation<
 > = {
   method: 'GET',
   name: 'getStatsById',
-  id: 'getStatsById',
+  id: 'GetStatsByStreamId',
   groupName: 'stats',
   urlPathPattern: '/stats/{streamId}',
   urlPathParamNames: ['streamId'],
