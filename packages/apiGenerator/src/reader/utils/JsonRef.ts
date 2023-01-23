@@ -10,6 +10,9 @@ export class JsonRef {
   }
 
   public static parse(ref: string): string[] {
+    if (!ref) {
+      throw new Error('Ref is empty or null');
+    }
     if (!ref.startsWith('#/')) {
       throw new Error('Not supported ref');
     }
@@ -20,8 +23,8 @@ export class JsonRef {
     const parts = JsonRef.parse(ref);
 
     let current = data;
-    for (let i = 0; i < parts.length; i++) {
-      const part = parts[i];
+    for (let index = 0; index < parts.length; index++) {
+      const part = parts[index];
       current = current[part];
       if (!current) {
         throw new Error(`Cannot find node by ref: ${ref} (${part})`);

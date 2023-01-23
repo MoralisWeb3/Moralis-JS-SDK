@@ -1,6 +1,6 @@
 export class NameFormatter {
   public static normalize(value: string): string {
-    return value.replace(/\//g, '_'); // TODO: more characters
+    return value.replace(/\W+/g, '_');
   }
 
   public static toCamelCase(value: string) {

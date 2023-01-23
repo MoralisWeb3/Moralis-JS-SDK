@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { GeneratorOutput } from './GeneratorOutput';
 
 export class GeneratorWriter {
   private readonly typesPath: string;
@@ -24,23 +25,24 @@ export class GeneratorWriter {
     this.prepareDir(this.operationsPath);
   }
 
-  public writeOperation(className: string, output: string) {
-    const operationPath = path.join(this.operationsPath, className + '.ts');
-    fs.writeFileSync(operationPath, output, 'utf-8');
+  public writeOperation(className: string, output: GeneratorOutput) {
+    this.writeFile(this.operationsPath, className + '.ts', output);
   }
 
-  public writeOperationsIndex(output: string) {
-    const operationsIndexPath = path.join(this.operationsPath, 'index.ts');
-    fs.writeFileSync(operationsIndexPath, output, 'utf-8');
+  public writeOperationsIndex(output: GeneratorOutput) {
+    this.writeFile(this.operationsPath, 'index.ts', output);
   }
 
-  public writeType(className: string, output: string) {
-    const typePath = path.join(this.typesPath, className + '.ts');
-    fs.writeFileSync(typePath, output, 'utf-8');
+  public writeType(className: string, output: GeneratorOutput) {
+    this.writeFile(this.typesPath, className + '.ts', output);
   }
 
-  public writeTypesIndex(output: string) {
-    const typesIndexPath = path.join(this.typesPath, 'index.ts');
-    fs.writeFileSync(typesIndexPath, output, 'utf-8');
+  public writeTypesIndex(output: GeneratorOutput) {
+    this.writeFile(this.typesPath, 'index.ts', output);
+  }
+
+  private writeFile(basePath: string, fileName: string, output: GeneratorOutput) {
+    const finalPath = path.join(basePath, fileName);
+    fs.writeFileSync(finalPath, output.toString(), 'utf-8');
   }
 }

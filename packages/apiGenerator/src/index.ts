@@ -7,11 +7,11 @@ export const GITHUB_URL =
   'https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/dereferenced/api.github.com.deref.json';
 
 async function run() {
-  const swaggerUrl = GITHUB_URL;
+  const swaggerUrl = EVM_URL;
 
   const outputPath = path.join(__dirname, '../../common/aptUtils/src');
 
-  const generator = await Generator.create(swaggerUrl, 'Gh', outputPath);
+  const generator = await Generator.create(swaggerUrl, 'Evm', outputPath);
   generator.generate();
 }
 

@@ -1,20 +1,20 @@
-import { NameFormatter } from '../../reader/NameFormatter';
-import { TypeInfo } from '../../reader/OpenApi3Reader';
+import { ComplexTypeInfo } from 'src/reader/ComplexTypesReader';
+import { NameFormatter } from '../../reader/utils/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
-import { TypeGenerator } from './TypeGenerator';
+import { CodeGenerator } from './CodeGenerator';
 
 export interface TypeClassGeneratorResult {
   className: string;
   output: GeneratorOutput;
 }
 
-export class TypeFileGenerator {
-  private readonly typeGenerator = new TypeGenerator(this.classNamePrefix);
+export class ComplexTypeFileGenerator {
+  private readonly codeGenerator = new CodeGenerator(this.classNamePrefix);
 
-  public constructor(private readonly info: TypeInfo, private readonly classNamePrefix: string) {}
+  public constructor(private readonly info: ComplexTypeInfo, private readonly classNamePrefix: string) {}
 
   public generate(): TypeClassGeneratorResult {
-    const typeNames = this.typeGenerator.generateNames(this.info.type);
+    const typeNames = this.codeGenerator.generateNames(this.info.descriptor);
     const output = new GeneratorOutput();
 
     const properties = this.info.properties.map((property) => {
@@ -27,7 +27,7 @@ export class TypeFileGenerator {
         accessCode: isSafe ? `.${nameCode}` : `[${nameCode}]`,
         camelCasedNameCode,
         camelCasedAccessCode: isSafe ? `.${camelCasedNameCode}` : `[${camelCasedNameCode}]`,
-        names: this.typeGenerator.generateNames(property.type),
+        names: this.codeGenerator.generateNames(property.descriptor),
       };
     });
 
@@ -53,9 +53,9 @@ export class TypeFileGenerator {
 
     for (const p of properties) {
       if (p.property.description) {
-        output.write(1, '/**');
-        output.write(1, ` * @description ${p.property.description}`);
-        output.write(1, ' */');
+        output.writeComment(1, null, {
+          description: p.property.description,
+        });
       }
       output.write(1, `public readonly ${p.camelCasedNameCode}: ${p.names.typeCode};`);
     }
@@ -63,7 +63,7 @@ export class TypeFileGenerator {
 
     output.write(1, `private constructor(private readonly _json: ${typeNames.jsonClassName}) {`);
     for (const p of properties) {
-      const mappingCode = this.typeGenerator.generateMappingCode(p.property.type, '_json' + p.accessCode);
+      const mappingCode = this.codeGenerator.generateJSON2TypeCode(p.property.descriptor, '_json' + p.accessCode);
       output.write(2, `this${p.camelCasedAccessCode} = ${mappingCode};`);
     }
     output.write(1, '}');
@@ -80,5 +80,5 @@ export class TypeFileGenerator {
 }
 
 function isNameSafe(name: string): boolean {
-  return /^[a-zA-Z_][a-zA-Z_]*$/.test(name);
+  return /^[a-zA-Z_][a-zA-Z_0-9]*$/.test(name);
 }

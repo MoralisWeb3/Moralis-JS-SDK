@@ -1,4 +1,5 @@
 const TAB = '  ';
+const EOL = '\r\n';
 
 export class GeneratorOutput {
   private readonly lines: { tabs: number; content: string }[] = [];
@@ -11,6 +12,17 @@ export class GeneratorOutput {
     this.lines.push({ tabs, content });
   }
 
+  public writeComment(tabs: number, comment: string | null, props: { [key: string]: string }) {
+    this.write(tabs, '/**');
+    if (comment) {
+      this.write(tabs, wrapComment(comment));
+    }
+    for (const key of Object.keys(props)) {
+      this.write(tabs, ` * @${key} ${wrapComment(props[key])}`);
+    }
+    this.write(tabs, ' */');
+  }
+
   public toString(): string {
     let output = '';
     for (const line of this.lines) {
@@ -18,8 +30,16 @@ export class GeneratorOutput {
         output += TAB;
       }
       output += line.content;
-      output += '\r\n';
+      output += EOL;
     }
     return output;
   }
+}
+
+function wrapComment(value: string): string {
+  return value
+    .split(/\r|\n/)
+    .filter((line) => !!line)
+    .map((line, index) => (index === 0 ? line : ` * ${line}`))
+    .join(EOL);
 }

@@ -1,22 +1,22 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { JsonRef } from './JsonRef';
-import { RefTypeMapping, SimpleTypeMapping, TypeMapping } from './TypeMapping';
+import { JsonRef } from './utils/JsonRef';
+import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor } from './TypeDescriptor';
 
-export class MappingTypeReader {
+export class TypeDescriptorReader {
   public static read(
     isRequired: boolean,
-    refOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject | null,
+    refOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject | null | undefined,
     parentRef: string,
     defaultClassName: string,
-  ): TypeMapping {
+  ): TypeDescriptor {
     if (!refOrSchema) {
-      return new SimpleTypeMapping(false, isRequired, 'null');
+      return new SimpleTypeDescriptor(false, isRequired, 'null');
     }
 
     const ref = (refOrSchema as OpenAPIV3.ReferenceObject).$ref;
     if (ref) {
       const className = readClassNameFromRef(ref);
-      return new RefTypeMapping(false, isRequired, ref, className);
+      return new ComplexTypeDescriptor(false, isRequired, ref, className);
     }
 
     const schema = refOrSchema as OpenAPIV3.SchemaObject;
@@ -24,15 +24,15 @@ export class MappingTypeReader {
       const itemsRef = (schema.items as OpenAPIV3.ReferenceObject).$ref;
       if (itemsRef) {
         const className = readClassNameFromRef(itemsRef);
-        return new RefTypeMapping(true, isRequired, itemsRef, className);
+        return new ComplexTypeDescriptor(true, isRequired, itemsRef, className);
       }
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
       if (itemsSchema.type === 'object') {
-        return new RefTypeMapping(false, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
+        return new ComplexTypeDescriptor(false, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
       }
       if (itemsSchema.type === 'array') {
-        return new RefTypeMapping(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
+        return new ComplexTypeDescriptor(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
       }
 
       if (!itemsSchema.type) {
@@ -40,18 +40,18 @@ export class MappingTypeReader {
         console.warn(`Items schema has empty type, set string as default (${parentRef})`);
       }
 
-      return new SimpleTypeMapping(true, isRequired, itemsSchema.type);
+      return new SimpleTypeDescriptor(true, isRequired, itemsSchema.type);
     }
 
     if (schema.type === 'object') {
-      return new RefTypeMapping(false, isRequired, parentRef, defaultClassName);
+      return new ComplexTypeDescriptor(false, isRequired, parentRef, defaultClassName);
     }
 
     if (!schema.type) {
       schema.type = 'string';
       console.warn(`Schema has empty type, set string as default (${parentRef})`);
     }
-    return new SimpleTypeMapping(false, isRequired, schema.type);
+    return new SimpleTypeDescriptor(false, isRequired, schema.type);
   }
 }
 

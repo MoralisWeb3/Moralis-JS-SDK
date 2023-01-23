@@ -1,4 +1,4 @@
-export class RefTypeMapping implements TypeMapping {
+export class ComplexTypeDescriptor implements TypeDescriptor {
   public constructor(
     public readonly isArray: boolean,
     public readonly isRequired: boolean,
@@ -7,7 +7,7 @@ export class RefTypeMapping implements TypeMapping {
   ) {}
 }
 
-export class SimpleTypeMapping implements TypeMapping {
+export class SimpleTypeDescriptor implements TypeDescriptor {
   public constructor(
     public readonly isArray: boolean,
     public readonly isRequired: boolean,
@@ -15,7 +15,11 @@ export class SimpleTypeMapping implements TypeMapping {
   ) {}
 }
 
-export interface TypeMapping {
+export interface TypeDescriptor {
   isArray: boolean;
   isRequired: boolean;
+}
+
+export function isComplexTypeDescriptor(descriptor: TypeDescriptor): descriptor is ComplexTypeDescriptor {
+  return !!(descriptor as ComplexTypeDescriptor).ref;
 }
