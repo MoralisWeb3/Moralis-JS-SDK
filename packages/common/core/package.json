@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "axios": "^1.2.1",
-    "eventemitter3": "^4.0.7",
+    "eventemitter3": "^5.0.0",
     "typed-emitter": "^2.1.0"
   }
 }
