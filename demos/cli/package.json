@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
+    "ethers": "^5.7.2",
     "moralis": "^2.11.1"
   },
   "devDependencies": {

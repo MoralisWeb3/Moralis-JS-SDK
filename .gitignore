@@ -32,7 +32,7 @@ logs/
 # Typescript
 packages/**/tsconfig.tsbuildinfo
 demos/**/tsconfig.tsbuildinfo
-packages/**/tsconfig.build.tsbuildinfo
+packages/**/tsconfig.*.tsbuildinfo
 
 # Test coverage
 packages/**/coverage

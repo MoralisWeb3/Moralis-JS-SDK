@@ -1,7 +1,7 @@
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber } from 'ethers';
 
 import { AbiItem, Log } from '@moralisweb3/streams-typings';
-import { JsonFragment, Interface, Indexed } from '@ethersproject/abi';
+import { utils } from 'ethers';
 
 export interface ParsedLog {
   name: string;
@@ -16,10 +16,10 @@ export interface LogParam {
 export type LogParamValue = BigNumber | string;
 
 export class LogParser {
-  private readonly abiInterface: Interface;
+  private readonly abiInterface: utils.Interface;
 
   public constructor(abiItems: AbiItem[]) {
-    this.abiInterface = new Interface(abiItems as JsonFragment[]);
+    this.abiInterface = new utils.Interface(abiItems as utils.Fragment[]);
   }
 
   public read(log: Log): ParsedLog {
@@ -36,7 +36,7 @@ export class LogParser {
 
     for (const input of eventFragment.inputs) {
       let value = args[input.name];
-      if (value instanceof Indexed) {
+      if (value instanceof utils.Indexed) {
         value = value.hash;
       }
       params[input.name] = {

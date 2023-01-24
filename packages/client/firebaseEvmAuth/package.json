@@ -16,9 +16,9 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@ethersproject/providers": "^5.7.2",
     "@metamask/detect-provider": "^1.2.0",
     "@moralisweb3/client-firebase-auth-utils": "^2.11.1",
+    "ethers": "^5.7.2",
     "firebase": "^9.15.0"
   }
 }

@@ -32,9 +32,9 @@
     "openapi-typescript": "^5.2.0"
   },
   "dependencies": {
-    "@ethersproject/abi": "^5.7.0",
     "@moralisweb3/common-core": "^2.11.1",
     "@moralisweb3/common-evm-utils": "^2.11.1",
-    "@moralisweb3/streams-typings": "^1.0.6"
+    "@moralisweb3/streams-typings": "^1.0.6",
+    "ethers": "^5.7.0"
   }
 }

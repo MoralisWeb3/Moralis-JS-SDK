@@ -1,4 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber } from 'ethers';
 import { LogParamValue } from './LogParser';
 import { LogDocumentValueFormatter } from './LogDocumentValueFormatter';
 

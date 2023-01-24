@@ -2,7 +2,7 @@ import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core'
 import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
-import { Interface } from '@ethersproject/abi';
+import { utils } from 'ethers';
 
 export type EvmStreamResultish = EvmStreamResultInput | EvmStreamResult;
 
@@ -112,7 +112,7 @@ export class EvmStreamResult implements MoralisDataObject {
     if (!this.abi || !this.abi.length) {
       return null;
     }
-    return new Interface(this.abi);
+    return new utils.Interface(this.abi);
   }
 
   get decodedLogs() {

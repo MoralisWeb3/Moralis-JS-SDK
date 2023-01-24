@@ -1,6 +1,5 @@
 import { ModuleType } from './ModuleType';
 import { Module } from './Module';
-import { EventMap } from 'typed-emitter';
 import { Core } from '../Core';
 
 /**
@@ -11,7 +10,7 @@ import { Core } from '../Core';
  * - `baseUrl`: the base url where of the api
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class ApiModule<Events extends EventMap = any> extends Module<Events> {
+export abstract class ApiModule extends Module {
   public constructor(name: string, core: Core, public readonly baseUrl: string) {
     super(name, core, ModuleType.API);
   }

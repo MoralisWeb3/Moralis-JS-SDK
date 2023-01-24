@@ -31,9 +31,7 @@
     "openapi-typescript": "^5.2.0"
   },
   "dependencies": {
-    "@ethersproject/address": "^5.7.0",
-    "@ethersproject/bytes": "^5.7.0",
-    "@ethersproject/transactions": "^5.7.0",
-    "@moralisweb3/common-core": "^2.11.1"
+    "@moralisweb3/common-core": "^2.11.1",
+    "ethers": "^5.7.0"
   }
 }

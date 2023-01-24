@@ -1,4 +1,4 @@
-import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumber } from 'ethers';
 
 import { AbiItem, Log } from '@moralisweb3/streams-typings';
 
