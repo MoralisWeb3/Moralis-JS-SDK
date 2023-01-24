@@ -1,5 +1,32 @@
 # @moralisweb3/evm-utils
 
+## 2.12.0
+
+### Minor Changes
+
+- [#980](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/980) [`a16b47566`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a16b47566b4c853421d651072fb01dbbdfe71902) Thanks [@FedericoAmura](https://github.com/FedericoAmura)! - Updated operations to properly support updated endpoints.
+  New endpoint to get the native balance for multiple addresses:
+
+  - added `Moralis.EvmApi.getNativeBalancesForAddresses()`
+
+  Endpoints to get/add/remove addresses to an authenticated profile:
+
+  - added `Moralis.Auth.getAddresses()`
+  - added `Moralis.Auth.requestBind()`
+  - added `Moralis.Auth.verifyRequestBind()`
+  - added `Moralis.Auth.removeBind()`
+  - added `Moralis.Auth.verifyRemoveBind()`
+
+### Patch Changes
+
+- [#986](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/986) [`301490a3d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/301490a3d49aaaaddf1e310024a37d97af29a54f) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix response of `EvmApi.nft.getNFTTransfersByBlock`:
+
+  - `result.value` shows now the value correctly in wei (As a BigNumber)
+  - `result.tokenAddress` shows not the correct token address
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.12.0
+
 ## 2.11.1
 
 ### Patch Changes
