@@ -1,4 +1,4 @@
-import { OperationInfo } from 'src/reader/PathsReader';
+import { OperationInfo } from '../../reader/PathsReader';
 import { NameFormatter } from '../../reader/utils/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { CodeGenerator } from './CodeGenerator';

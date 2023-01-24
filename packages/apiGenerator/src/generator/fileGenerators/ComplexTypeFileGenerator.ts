@@ -32,12 +32,19 @@ export class ComplexTypeFileGenerator {
     });
 
     for (const p of properties) {
+      if (p.names.className === typeNames.className) {
+        // Skips import to self type
+        continue;
+      }
       if (p.names.className && p.names.jsonClassName) {
         output.write(0, `import { ${p.names.className}, ${p.names.jsonClassName} } from './${p.names.className}';`);
       }
     }
     output.newLine();
 
+    output.writeComment(0, null, {
+      path: this.info.descriptor.ref,
+    });
     output.write(0, `export interface ${typeNames.jsonClassName} {`);
     for (const p of properties) {
       output.write(1, `readonly ${p.nameCode}: ${p.names.jsonTypeCode};`);
@@ -52,11 +59,9 @@ export class ComplexTypeFileGenerator {
     output.newLine();
 
     for (const p of properties) {
-      if (p.property.description) {
-        output.writeComment(1, null, {
-          description: p.property.description,
-        });
-      }
+      output.writeComment(1, null, {
+        description: p.property.description,
+      });
       output.write(1, `public readonly ${p.camelCasedNameCode}: ${p.names.typeCode};`);
     }
     output.newLine();

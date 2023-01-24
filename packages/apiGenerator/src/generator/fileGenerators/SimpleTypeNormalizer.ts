@@ -6,7 +6,12 @@ export class SimpleTypeNormalizer {
       case 'array':
       case 'object':
         throw new Error(`Invalid simple type: ${type}`);
+      case 'string':
+      case 'boolean':
+      case 'number':
+      case 'null':
+        return type;
     }
-    return type;
+    throw new Error(`Not supported simple type: ${type}`);
   }
 }

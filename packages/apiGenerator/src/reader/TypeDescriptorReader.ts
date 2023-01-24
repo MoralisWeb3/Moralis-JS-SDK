@@ -1,6 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from './utils/JsonRef';
 import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor } from './TypeDescriptor';
+import { NameFormatter } from './utils/NameFormatter';
 
 export class TypeDescriptorReader {
   public static read(
@@ -29,7 +30,7 @@ export class TypeDescriptorReader {
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
       if (itemsSchema.type === 'object') {
-        return new ComplexTypeDescriptor(false, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
+        return new ComplexTypeDescriptor(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
       }
       if (itemsSchema.type === 'array') {
         return new ComplexTypeDescriptor(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
@@ -58,7 +59,8 @@ export class TypeDescriptorReader {
 function readClassNameFromRef(ref: string): string {
   const prefix = '#/components/schemas/';
   if (ref.startsWith(prefix)) {
-    return ref.substring(prefix.length);
+    const name = ref.substring(prefix.length);
+    return NameFormatter.normalize(name);
   }
   throw new Error(`Not supported ref: ${ref}`);
 }

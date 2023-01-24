@@ -21,5 +21,9 @@ export interface TypeDescriptor {
 }
 
 export function isComplexTypeDescriptor(descriptor: TypeDescriptor): descriptor is ComplexTypeDescriptor {
-  return !!(descriptor as ComplexTypeDescriptor).ref;
+  return !!(descriptor as ComplexTypeDescriptor).className;
+}
+
+export function isSimpleTypeDescriptor(description: TypeDescriptor): description is SimpleTypeDescriptor {
+  return !!(description as SimpleTypeDescriptor).type;
 }

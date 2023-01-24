@@ -43,13 +43,20 @@ export class ComplexTypesReader {
   }
 
   private processDescriptor(descriptor: ComplexTypeDescriptor) {
-    const scheme = JsonRef.find<OpenAPIV3.SchemaObject>(descriptor.ref, this.document);
+    let scheme = JsonRef.find<OpenAPIV3.SchemaObject>(descriptor.ref, this.document);
 
     if (scheme.type) {
       if (scheme.type === 'array') {
-        throw new Error('Not supported array scheme');
+        if ((scheme.items as OpenAPIV3.ReferenceObject).$ref) {
+          throw new Error('Array ref is not supported');
+        }
+        const arrayRef = JsonRef.extend(descriptor.ref, ['items']);
+        descriptor = new ComplexTypeDescriptor(true, descriptor.isRequired, arrayRef, descriptor.className);
+        scheme = scheme.items as OpenAPIV3.SchemaObject;
+
+        console.log(arrayRef, scheme.type, descriptor.className);
       }
-      if (scheme.type !== 'object') {
+      if (scheme.type && scheme.type !== 'object') {
         this.onSimpleTypeDiscovered({
           descriptor,
           simpleType: scheme.type,

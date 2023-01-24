@@ -2,7 +2,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from './utils/JsonRef';
 import { TypeDescriptorReader } from './TypeDescriptorReader';
 import { NameFormatter } from './utils/NameFormatter';
-import { ComplexTypeDescriptor, TypeDescriptor } from './TypeDescriptor';
+import { ComplexTypeDescriptor, isComplexTypeDescriptor, TypeDescriptor } from './TypeDescriptor';
 import { UniqueQueue } from './utils/UniqueQueue';
 
 const successResponseCodes = ['200', '201', '202', '203', '204', '205'];
@@ -89,50 +89,23 @@ export class PathsReader {
           responseRef,
           responseDefaultClassName,
         );
-        let responseRefType = responseDescriptor as ComplexTypeDescriptor;
-        if (responseRefType.ref) {
-          const target = JsonRef.find<OpenAPIV3.SchemaObject>(responseRefType.ref, this.document);
+        if (isComplexTypeDescriptor(responseDescriptor)) {
+          const target = JsonRef.find<OpenAPIV3.SchemaObject>(responseDescriptor.ref, this.document);
           if (target.type === 'array') {
-            responseRefType = new ComplexTypeDescriptor(
+            responseDescriptor = new ComplexTypeDescriptor(
               true,
               responseDescriptor.isRequired,
-              JsonRef.extend(responseRefType.ref, ['items']),
-              responseRefType.className,
+              JsonRef.extend(responseDescriptor.ref, ['items']),
+              responseDescriptor.className,
             );
-            responseDescriptor = responseRefType;
           }
 
-          this.queue.push(responseRefType.ref, responseRefType);
+          const rd = responseDescriptor as ComplexTypeDescriptor;
+          this.queue.push(rd.ref, rd);
         }
 
-        const parameters: ParameterInfo[] = [];
-        if (path.parameters) {
-          for (let index = 0; index < path.parameters.length; index++) {
-            const param = path.parameters[index];
-            if ((param as OpenAPIV3.ReferenceObject).$ref) {
-              throw new Error('Not supported ref parameters');
-            }
-            const parameter = param as OpenAPIV3.ParameterObject;
-
-            const paramRef = JsonRef.extend(responseRef, ['parameters', String(index)]);
-            const paramDefaultClassName = NameFormatter.joinName(path.operationId, parameter.name);
-            const paramDescriptor = TypeDescriptorReader.read(
-              parameter.required || false,
-              parameter.schema,
-              paramRef,
-              paramDefaultClassName,
-            );
-            const paramRefType = paramDescriptor as ComplexTypeDescriptor;
-            if (paramRefType.ref) {
-              this.queue.push(paramRefType.ref, paramRefType);
-            }
-
-            parameters.push({
-              name: parameter.name,
-              descriptor: paramDescriptor,
-            });
-          }
-        }
+        const parametersRef = JsonRef.extend(responseRef, ['parameters']);
+        const parameters = this.processParameters(parametersRef, path.operationId, path.parameters);
 
         this.onOperationDiscovered({
           operationId: path.operationId,
@@ -144,5 +117,41 @@ export class PathsReader {
         });
       }
     }
+  }
+
+  private processParameters(
+    parametersRef: string,
+    operationId: string,
+    parameters?: (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[],
+  ) {
+    const result: ParameterInfo[] = [];
+    if (parameters) {
+      for (let index = 0; index < parameters.length; index++) {
+        const param = parameters[index];
+        if ((param as OpenAPIV3.ReferenceObject).$ref) {
+          throw new Error('Not supported ref parameters');
+        }
+        const parameter = param as OpenAPIV3.ParameterObject;
+
+        const paramRef = JsonRef.extend(parametersRef, [String(index)]);
+        const paramDefaultClassName = NameFormatter.joinName(operationId, parameter.name);
+        const paramDescriptor = TypeDescriptorReader.read(
+          parameter.required || false,
+          parameter.schema,
+          paramRef,
+          paramDefaultClassName,
+        );
+        const paramRefType = paramDescriptor as ComplexTypeDescriptor;
+        if (paramRefType.ref) {
+          this.queue.push(paramRefType.ref, paramRefType);
+        }
+
+        result.push({
+          name: parameter.name,
+          descriptor: paramDescriptor,
+        });
+      }
+    }
+    return result;
   }
 }

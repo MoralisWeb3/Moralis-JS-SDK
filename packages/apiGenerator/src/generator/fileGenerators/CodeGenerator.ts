@@ -69,13 +69,12 @@ export class CodeGenerator {
     if (!isComplexTypeDescriptor(descriptor)) {
       return valueCode;
     }
-
     let code: string;
     if (descriptor.isArray) {
       code = `${valueCode}.map((item) => item.toJSON())`;
     } else {
       code = `${valueCode}.toJSON()`;
     }
-    return descriptor.isRequired ? valueCode : `${valueCode} ? ${code} : undefined`;
+    return descriptor.isRequired ? code : `${valueCode} ? ${code} : undefined`;
   }
 }

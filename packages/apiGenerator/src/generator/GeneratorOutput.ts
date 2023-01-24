@@ -12,13 +12,18 @@ export class GeneratorOutput {
     this.lines.push({ tabs, content });
   }
 
-  public writeComment(tabs: number, comment: string | null, props: { [key: string]: string }) {
+  public writeComment(tabs: number, comment: string | null, props: { [key: string]: string | undefined }) {
+    const notEmptyPropKeys = Object.keys(props).filter((name) => props[name]);
+    if (notEmptyPropKeys.length < 1) {
+      return;
+    }
+
     this.write(tabs, '/**');
     if (comment) {
       this.write(tabs, wrapComment(comment));
     }
-    for (const key of Object.keys(props)) {
-      this.write(tabs, ` * @${key} ${wrapComment(props[key])}`);
+    for (const key of notEmptyPropKeys) {
+      this.write(tabs, ` * @${key} ${wrapComment(props[key] as string)}`);
     }
     this.write(tabs, ' */');
   }
