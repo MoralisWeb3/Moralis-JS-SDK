@@ -1,4 +1,4 @@
-import { getNativeBalanceOperation } from './balance';
+import { getNativeBalanceOperation, getNativeBalancesForAddressesOperation } from './balance';
 import { getBlockOperation, getDateToBlockOperation } from './block';
 import { getPairAddressOperation, getPairReservesOperation } from './defi';
 import { getContractEventsOperation, getContractLogsOperation } from './events';
@@ -50,6 +50,7 @@ export const operations = [
   getDateToBlockOperation,
   getMultipleNFTsOperation,
   getNativeBalanceOperation,
+  getNativeBalancesForAddressesOperation,
   getNFTContractMetadataOperation,
   getNFTContractTransfersOperation,
   getNFTLowestPriceOperation,
