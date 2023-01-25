@@ -22,7 +22,16 @@ export class CodeGenerator {
     return type;
   }
 
-  public generateNames(descriptor: TypeDescriptor, isRequired: boolean): TypeGeneratorNames {
+  public generateNames(descriptor: TypeDescriptor | undefined, isRequired: boolean): TypeGeneratorNames {
+    if (!descriptor) {
+      return {
+        className: 'null',
+        jsonClassName: 'null',
+        jsonTypeCode: 'null',
+        typeCode: 'null',
+      };
+    }
+
     let typeCode: string;
     let jsonTypeCode: string;
     let className: string | null = null;
@@ -49,7 +58,10 @@ export class CodeGenerator {
     };
   }
 
-  public generateJSON2TypeCode(descriptor: TypeDescriptor, valueCode: string, isRequired: boolean) {
+  public generateJSON2TypeCode(descriptor: TypeDescriptor | undefined, valueCode: string, isRequired: boolean) {
+    if (!descriptor) {
+      return 'null';
+    }
     if (!isComplexTypeDescriptor(descriptor)) {
       return valueCode;
     }
@@ -65,7 +77,10 @@ export class CodeGenerator {
     return isRequired ? code : `${valueCode} ? ${code} : undefined`;
   }
 
-  public generateType2JSONCode(descriptor: TypeDescriptor, valueCode: string, isRequired: boolean) {
+  public generateType2JSONCode(descriptor: TypeDescriptor | undefined, valueCode: string, isRequired: boolean) {
+    if (!descriptor) {
+      return 'null';
+    }
     if (!isComplexTypeDescriptor(descriptor)) {
       return valueCode;
     }

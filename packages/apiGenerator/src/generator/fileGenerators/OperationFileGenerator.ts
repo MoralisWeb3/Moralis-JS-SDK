@@ -14,7 +14,7 @@ export class OperationFileGenerator {
   public constructor(private readonly info: OperationInfo, private readonly classNamePrefix: string) {}
 
   public generate(): OperationFileGeneratorResult {
-    const returnTypeNames = this.codeGenerator.generateNames(this.info.response.descriptor, true);
+    const returnTypeNames = this.codeGenerator.generateNames(this.info.response?.descriptor, true);
     const bodyTypeNames = this.info.body
       ? this.codeGenerator.generateNames(this.info.body.descriptor, this.info.body.isRequired)
       : null;
@@ -86,7 +86,10 @@ export class OperationFileGenerator {
     output.newLine();
 
     output.write(1, `parseResponse(json: ${returnTypeNames.jsonTypeCode}): ${returnTypeNames.typeCode} {`);
-    output.write(2, `return ${this.codeGenerator.generateJSON2TypeCode(this.info.response.descriptor, 'json', true)};`);
+    output.write(
+      2,
+      `return ${this.codeGenerator.generateJSON2TypeCode(this.info.response?.descriptor, 'json', true)};`,
+    );
     output.write(1, '},');
     output.newLine();
 

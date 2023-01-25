@@ -8,7 +8,6 @@ export class SimpleTypeNormalizer {
       case 'string':
       case 'boolean':
       case 'number':
-      case 'null':
       case 'object':
         return type;
     }

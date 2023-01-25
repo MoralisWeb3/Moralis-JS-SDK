@@ -32,8 +32,8 @@ export interface OperationInfo {
   httpMethod: string;
   routePattern: string;
   description?: string;
-  response: OperationResponseInfo;
-  body?: OperationBodyInfo;
+  response: OperationResponseInfo | null;
+  body: OperationBodyInfo | null;
   parameters: ParameterInfo[];
 }
 

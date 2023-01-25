@@ -9,55 +9,51 @@ export class TypeDescriptorReader {
   public constructor(private readonly document: OpenAPIV3.Document) {}
 
   public read(
-    refOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject | null | undefined,
-    parentRef: string,
+    $refOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
+    parentRef: JsonRef,
     defaultClassName: string,
   ): TypeDescriptor {
-    if (!refOrSchema) {
-      return new SimpleTypeDescriptor(false, 'null');
+    if (!$refOrSchema) {
+      throw new Error('$refOrSchema is empty');
     }
 
-    const ref = (refOrSchema as OpenAPIV3.ReferenceObject).$ref;
-    if (ref) {
-      const className = readClassNameFromRef(ref);
+    const $ref = ($refOrSchema as OpenAPIV3.ReferenceObject).$ref;
+    if ($ref) {
+      const ref = JsonRef.parse($ref);
+      let className = readClassNameFromRef($ref);
 
-      const targetSchema = JsonRef.find<OpenAPIV3.SchemaObject>(ref, this.document);
+      const targetSchema = ref.find<OpenAPIV3.SchemaObject>(this.document);
       if (targetSchema.type === 'array') {
-        return new ComplexTypeDescriptor(true, JsonRef.extend(ref, ['items']), className + ITEM_CLASS_SUFFIX);
+        const itemClassName = className + ITEM_CLASS_SUFFIX;
+        return new ComplexTypeDescriptor(true, ref.extend(['items']), itemClassName);
       }
 
       return new ComplexTypeDescriptor(false, ref, className);
     }
 
-    const schema = refOrSchema as OpenAPIV3.SchemaObject;
+    const schema = $refOrSchema as OpenAPIV3.SchemaObject;
     if (schema.type === 'array') {
-      const itemsRef = (schema.items as OpenAPIV3.ReferenceObject).$ref;
-      if (itemsRef) {
-        const className = readClassNameFromRef(itemsRef);
+      const items$ref = (schema.items as OpenAPIV3.ReferenceObject).$ref;
+      if (items$ref) {
+        const itemsRef = JsonRef.parse(items$ref);
+        const className = readClassNameFromRef(items$ref);
         return new ComplexTypeDescriptor(true, itemsRef, className);
       }
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
       if (itemsSchema.type === 'object') {
-        return new ComplexTypeDescriptor(
-          true,
-          JsonRef.extend(parentRef, ['items']),
-          defaultClassName + ITEM_CLASS_SUFFIX,
-        );
+        const itemClassName = defaultClassName + ITEM_CLASS_SUFFIX;
+        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemClassName);
       }
       if (itemsSchema.type === 'array') {
-        return new ComplexTypeDescriptor(
-          true,
-          JsonRef.extend(parentRef, ['items']),
-          defaultClassName + ITEM_CLASS_SUFFIX,
-        );
+        const itemClassName = defaultClassName + ITEM_CLASS_SUFFIX;
+        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemClassName);
       }
 
       if (!itemsSchema.type) {
         itemsSchema.type = 'string';
-        console.warn(`Items schema has empty type, set string as default (${parentRef})`);
+        console.warn(`[no-schema-type] Items schema has empty type, set string as default (${parentRef})`);
       }
-
       return new SimpleTypeDescriptor(true, itemsSchema.type);
     }
 
@@ -67,17 +63,17 @@ export class TypeDescriptorReader {
 
     if (!schema.type) {
       schema.type = 'string';
-      console.warn(`Schema has empty type, set string as default (${parentRef})`);
+      console.warn(`[no-schema-type] Schema has empty type, set string as default (${parentRef})`);
     }
     return new SimpleTypeDescriptor(false, schema.type);
   }
 }
 
-function readClassNameFromRef(ref: string): string {
-  const prefix = '#/components/schemas/';
-  if (ref.startsWith(prefix)) {
-    const name = ref.substring(prefix.length);
+function readClassNameFromRef($ref: string): string {
+  const start$ref = '#/components/schemas/';
+  if ($ref.startsWith(start$ref)) {
+    const name = $ref.substring(start$ref.length);
     return NameFormatter.normalize(name);
   }
-  throw new Error(`Not supported ref: ${ref}`);
+  throw new Error(`Not supported $ref: ${$ref}`);
 }

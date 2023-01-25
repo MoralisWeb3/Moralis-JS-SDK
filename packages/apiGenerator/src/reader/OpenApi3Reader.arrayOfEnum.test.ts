@@ -93,10 +93,12 @@ describe('OpenApi3Reader', () => {
     expect(operation.httpMethod).toBe('get');
     expect(operation.routePattern).toBe('/streams/aptos');
 
-    expect(isComplexTypeDescriptor(operation.response.descriptor)).toBe(true);
-    const responseD = operation.response.descriptor as ComplexTypeDescriptor;
+    expect(isComplexTypeDescriptor(operation.response!.descriptor)).toBe(true);
+    const responseD = operation.response!.descriptor as ComplexTypeDescriptor;
     expect(responseD.className).toBe('GetAllStreams');
-    expect(responseD.ref).toBe('#/paths/~1streams~1aptos/get/responses/200/content/application~1json/schema');
+    expect(responseD.ref.toString()).toBe(
+      '#/paths/~1streams~1aptos/get/responses/200/content/application~1json/schema',
+    );
     expect(responseD.isArray).toBe(false);
 
     // complex types
@@ -104,7 +106,9 @@ describe('OpenApi3Reader', () => {
     const complexType1 = result.complexTypes[0];
     const complexType1D = complexType1.descriptor;
     {
-      expect(complexType1D.ref).toBe('#/paths/~1streams~1aptos/get/responses/200/content/application~1json/schema');
+      expect(complexType1D.ref.toString()).toBe(
+        '#/paths/~1streams~1aptos/get/responses/200/content/application~1json/schema',
+      );
       expect(complexType1D.className).toBe('GetAllStreams');
       expect(complexType1D.isArray).toBe(false);
 
@@ -116,7 +120,7 @@ describe('OpenApi3Reader', () => {
       const resultProp = complexType1.properties.find((p) => p.name === 'result')!;
       const resultPropD = resultProp.descriptor as ComplexTypeDescriptor;
       expect(resultPropD.className).toBe('AptosStreamType');
-      expect(resultPropD.ref).toBe('#/components/schemas/AptosStreamType');
+      expect(resultPropD.ref.toString()).toBe('#/components/schemas/AptosStreamType');
       expect(resultPropD.isArray).toBe(true);
     }
 
@@ -124,7 +128,7 @@ describe('OpenApi3Reader', () => {
     const complexType2D = complexType2.descriptor;
     {
       expect(complexType2D.className).toBe('AptosStreamType');
-      expect(complexType2D.ref).toBe('#/components/schemas/AptosStreamType');
+      expect(complexType2D.ref.toString()).toBe('#/components/schemas/AptosStreamType');
       expect(complexType2D.isArray).toBe(false);
 
       const eventsProp = complexType2.properties.find((p) => p.name === 'events')!;
@@ -135,7 +139,7 @@ describe('OpenApi3Reader', () => {
       const networkProp = complexType2.properties.find((p) => p.name === 'network')!;
       const networkPropD = networkProp.descriptor as ComplexTypeDescriptor;
       expect(networkPropD.className).toBe('AptosNetworkItem');
-      expect(networkPropD.ref).toBe('#/components/schemas/AptosNetwork/items');
+      expect(networkPropD.ref.toString()).toBe('#/components/schemas/AptosNetwork/items');
       expect(networkPropD.isArray).toBe(true);
     }
 
@@ -147,7 +151,7 @@ describe('OpenApi3Reader', () => {
     const simpleType1D = simpleType1.descriptor as ComplexTypeDescriptor;
     {
       expect(simpleType1D.className).toBe('AptosNetworkItem');
-      expect(simpleType1D.ref).toBe('#/components/schemas/AptosNetwork/items');
+      expect(simpleType1D.ref.toString()).toBe('#/components/schemas/AptosNetwork/items');
       expect(simpleType1D.isArray).toBe(false);
 
       expect(simpleType1.simpleType).toBe('string');

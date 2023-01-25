@@ -1,12 +1,14 @@
+import { JsonRef } from './utils/JsonRef';
+
 export interface ComplexTypePointer {
-  ref: string;
+  ref: JsonRef;
   className: string;
 }
 
 export class ComplexTypeDescriptor implements TypeDescriptor {
   public constructor(
     public readonly isArray: boolean,
-    public readonly ref: string,
+    public readonly ref: JsonRef,
     public readonly className: string,
   ) {}
 }

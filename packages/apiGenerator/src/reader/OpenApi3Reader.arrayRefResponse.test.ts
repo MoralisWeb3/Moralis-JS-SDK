@@ -58,17 +58,17 @@ describe('OpenApi3Reader', () => {
 
     const operation = result.operations[0];
 
-    expect(isComplexTypeDescriptor(operation.response.descriptor)).toBe(true);
-    const responseD = operation.response.descriptor as ComplexTypeDescriptor;
+    expect(isComplexTypeDescriptor(operation.response!.descriptor)).toBe(true);
+    const responseD = operation.response!.descriptor as ComplexTypeDescriptor;
     expect(responseD.className).toBe('nativeBalancesItem');
-    expect(responseD.ref).toBe('#/components/schemas/nativeBalances/items');
+    expect(responseD.ref.toString()).toBe('#/components/schemas/nativeBalances/items');
     expect(responseD.isArray).toBe(true);
 
     const complexType1 = result.complexTypes[0];
     const complexType1D = complexType1.descriptor;
     {
       expect(complexType1D.className).toBe('nativeBalancesItem');
-      expect(complexType1D.ref).toBe('#/components/schemas/nativeBalances/items');
+      expect(complexType1D.ref.toString()).toBe('#/components/schemas/nativeBalances/items');
       expect(complexType1D.isArray).toBe(false);
 
       const balancesProp = complexType1.properties.find((p) => p.name === 'wallet_balances')!;
@@ -76,7 +76,9 @@ describe('OpenApi3Reader', () => {
       expect(isComplexTypeDescriptor(balancesProp.descriptor)).toBe(true);
       const balancesPropD = balancesProp.descriptor as ComplexTypeDescriptor;
       expect(balancesPropD.className).toBe('nativeBalancesItemWalletBalancesItem');
-      expect(balancesPropD.ref).toBe('#/components/schemas/nativeBalances/items/properties/wallet_balances/items');
+      expect(balancesPropD.ref.toString()).toBe(
+        '#/components/schemas/nativeBalances/items/properties/wallet_balances/items',
+      );
       expect(balancesPropD.isArray).toBe(true);
     }
 
@@ -84,7 +86,9 @@ describe('OpenApi3Reader', () => {
     const complexType2D = complexType2.descriptor;
     {
       expect(complexType2D.className).toBe('nativeBalancesItemWalletBalancesItem');
-      expect(complexType2D.ref).toBe('#/components/schemas/nativeBalances/items/properties/wallet_balances/items');
+      expect(complexType2D.ref.toString()).toBe(
+        '#/components/schemas/nativeBalances/items/properties/wallet_balances/items',
+      );
       expect(complexType2D.isArray).toBe(false);
 
       const addressProp = complexType2.properties.find((p) => p.name === 'address');

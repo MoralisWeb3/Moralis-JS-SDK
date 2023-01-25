@@ -70,8 +70,8 @@ describe('OpenApi3Reader', () => {
 
     const operation = result.operations[0];
 
-    expect(isSimpleTypeDescriptor(operation.response.descriptor)).toBe(true);
-    const responseD = operation.response.descriptor as SimpleTypeDescriptor;
+    expect(isSimpleTypeDescriptor(operation.response!.descriptor)).toBe(true);
+    const responseD = operation.response!.descriptor as SimpleTypeDescriptor;
     expect(responseD.isArray).toBe(false);
     expect(responseD.type).toBe('string');
 
@@ -81,7 +81,7 @@ describe('OpenApi3Reader', () => {
     const complexType1D = complexType1.descriptor;
     {
       expect(complexType1D.className).toBe('RunContractDto');
-      expect(complexType1D.ref).toBe('#/components/schemas/RunContractDto');
+      expect(complexType1D.ref.toString()).toBe('#/components/schemas/RunContractDto');
       expect(complexType1D.isArray).toBe(false);
 
       const abiProp = complexType1.properties[0];
@@ -90,7 +90,7 @@ describe('OpenApi3Reader', () => {
       expect(isComplexTypeDescriptor(abiProp.descriptor)).toBe(true);
       const abiPropD = abiProp.descriptor as ComplexTypeDescriptor;
       expect(abiPropD.isArray).toBe(true);
-      expect(abiPropD.ref).toBe('#/components/schemas/RunContractDto/properties/abi/items');
+      expect(abiPropD.ref.toString()).toBe('#/components/schemas/RunContractDto/properties/abi/items');
       expect(abiPropD.className).toBe('RunContractDtoAbiItem');
 
       const paramsProp = complexType1.properties[1];
@@ -99,7 +99,7 @@ describe('OpenApi3Reader', () => {
       expect(isComplexTypeDescriptor(paramsProp.descriptor)).toBe(true);
       const paramsPropD = paramsProp.descriptor as ComplexTypeDescriptor;
       expect(paramsPropD.isArray).toBe(false);
-      expect(paramsPropD.ref).toBe('#/components/schemas/RunContractDto/properties/params');
+      expect(paramsPropD.ref.toString()).toBe('#/components/schemas/RunContractDto/properties/params');
       expect(paramsPropD.className).toBe('RunContractDtoParams');
     }
 
@@ -109,7 +109,7 @@ describe('OpenApi3Reader', () => {
       expect(simpleType1.simpleType).toBe('object');
       expect(simpleType1D.isArray).toBe(false);
       expect(simpleType1D.className).toBe('RunContractDtoAbiItem');
-      expect(simpleType1D.ref).toBe('#/components/schemas/RunContractDto/properties/abi/items');
+      expect(simpleType1D.ref.toString()).toBe('#/components/schemas/RunContractDto/properties/abi/items');
     }
 
     const simpleType2 = result.simpleTypes[1];
@@ -118,7 +118,7 @@ describe('OpenApi3Reader', () => {
       expect(simpleType2.simpleType).toBe('object');
       expect(simpleType2D.isArray).toBe(false);
       expect(simpleType2D.className).toBe('RunContractDtoParams');
-      expect(simpleType2D.ref).toBe('#/components/schemas/RunContractDto/properties/params');
+      expect(simpleType2D.ref.toString()).toBe('#/components/schemas/RunContractDto/properties/params');
     }
   });
 });

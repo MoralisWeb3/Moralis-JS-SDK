@@ -46,7 +46,7 @@ export class ComplexTypeFileGenerator {
     }
     output.newLine();
 
-    output.write(0, `// ref: ${this.info.descriptor.ref}`);
+    output.write(0, `// ref: ${this.info.descriptor.ref.toString()}`);
     output.newLine();
 
     output.write(0, `export interface ${typeNames.jsonClassName} {`);

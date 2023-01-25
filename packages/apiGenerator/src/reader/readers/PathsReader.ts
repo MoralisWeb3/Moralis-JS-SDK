@@ -4,12 +4,15 @@ import { NameFormatter } from '../utils/NameFormatter';
 import { isComplexTypeDescriptor } from '../TypeDescriptor';
 import { ReadingContext } from './ReadingContext';
 import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApi3Reader';
+import { UniquenessChecker } from '../utils/UniquenessChecker';
 
 const successResponseCodes = ['200', '201', '202', '203', '204', '205'];
 
+const BODY_CLASS_SUFFIX = 'Body';
+
 export class PathsReader {
   public readonly operations: OperationInfo[] = [];
-  private readonly usedOperationIds: string[] = [];
+  private readonly operationIdUniquenessChecker = new UniquenessChecker();
 
   public constructor(private readonly context: ReadingContext) {}
 
@@ -28,23 +31,27 @@ export class PathsReader {
       for (const httpMethod of operationHttpMethods) {
         const path = pathGroup[httpMethod]!;
         if (!path.operationId) {
-          console.warn(`Path ${routePattern} does not have operationId`);
+          console.warn(`[no-operation-id] Path ${routePattern} does not have operationId`);
           continue;
         }
 
-        if (this.usedOperationIds.includes(path.operationId)) {
-          throw new Error(`Operation id ${path.operationId} is duplicated`);
-        }
-        this.usedOperationIds.push(path.operationId);
+        this.operationIdUniquenessChecker.checkAndAdd(
+          path.operationId,
+          () => `Operation id ${path.operationId} is duplicated`,
+        );
 
         const responseCode = successResponseCodes.find((code) => path.responses[code]);
         if (!responseCode) {
           const supportedCodes = Object.keys(path.responses);
-          console.warn(`Path ${routePattern} does not have any success response (found: ${supportedCodes.join(', ')})`);
+          console.warn(
+            `[no-success-response] Path ${routePattern} does not have any success response (found: ${supportedCodes.join(
+              ', ',
+            )})`,
+          );
           continue;
         }
 
-        const operationRef = JsonRef.serialize(['paths', routePattern, httpMethod]);
+        const operationRef = JsonRef.from(['paths', routePattern, httpMethod]);
 
         const responseBody = path.responses[responseCode] as OpenAPIV3.ResponseObject;
         const response = this.processResponse(operationRef, path.operationId, responseCode, responseBody);
@@ -54,9 +61,9 @@ export class PathsReader {
 
         this.operations.push({
           operationId: path.operationId,
+          description: path.description,
           httpMethod,
           routePattern,
-          description: path.description,
           response,
           body,
           parameters,
@@ -66,99 +73,98 @@ export class PathsReader {
   }
 
   private processParameters(
-    operationRef: string,
+    operationRef: JsonRef,
     operationId: string,
     parameters?: (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[],
   ) {
     const result: ParameterInfo[] = [];
-    if (parameters) {
-      for (let index = 0; index < parameters.length; index++) {
-        const param = parameters[index];
-        if ((param as OpenAPIV3.ReferenceObject).$ref) {
-          throw new Error('Not supported ref parameters');
-        }
-        const parameter = param as OpenAPIV3.ParameterObject;
+    if (!parameters) {
+      return result;
+    }
 
-        const paramRef = JsonRef.extend(operationRef, ['parameters', String(index)]);
-        const paramDefaultClassName = NameFormatter.joinName(operationId, parameter.name);
-        const paramDescriptor = this.context.descriptorReader.read(parameter.schema, paramRef, paramDefaultClassName);
-        if (isComplexTypeDescriptor(paramDescriptor)) {
-          this.context.queue.push(paramDescriptor.ref, paramDescriptor);
-        }
-
-        result.push({
-          name: parameter.name,
-          isRequired: parameter.required || false,
-          descriptor: paramDescriptor,
-        });
+    for (let index = 0; index < parameters.length; index++) {
+      const $refOrParameter = parameters[index];
+      if (($refOrParameter as OpenAPIV3.ReferenceObject).$ref) {
+        throw new Error('Not supported $ref parameters');
       }
+
+      const parameter = $refOrParameter as OpenAPIV3.ParameterObject;
+      const schema = parameter.schema;
+      if (!schema) {
+        throw new Error('Parameter does not have schema');
+      }
+
+      const ref = operationRef.extend(['parameters', String(index)]);
+      const defaultClassName = NameFormatter.joinName(operationId, parameter.name);
+      const descriptor = this.context.descriptorReader.read(schema, ref, defaultClassName);
+      if (isComplexTypeDescriptor(descriptor)) {
+        this.context.queue.push(descriptor.ref.toString(), descriptor);
+      }
+
+      result.push({
+        name: parameter.name,
+        isRequired: parameter.required || false,
+        descriptor: descriptor,
+      });
     }
     return result;
   }
 
   private processResponse(
-    operationRef: string,
+    operationRef: JsonRef,
     operationId: string,
     responseCode: string,
     response: OpenAPIV3.ResponseObject,
-  ): OperationResponseInfo {
-    let responseRefOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject | null = null;
-
-    if (response.content) {
-      const json = response.content['application/json'];
-      if (json && json.schema) {
-        responseRefOrSchema = json.schema;
-      }
+  ): OperationResponseInfo | null {
+    const json = response.content ? response.content['application/json'] : null;
+    const $refOrSchema = json ? json.schema : null;
+    if (!$refOrSchema) {
+      console.warn(`[no-response] Operation ${operationId} does not have a response`);
+      return null;
     }
 
-    const responseDefaultClassName = NameFormatter.normalize(operationId);
-    const responseRef = JsonRef.extend(operationRef, [
-      'responses',
-      responseCode,
-      'content',
-      'application/json',
-      'schema',
-    ]);
+    const defaultClassName = NameFormatter.normalize(operationId);
+    const ref = operationRef.extend(['responses', responseCode, 'content', 'application/json', 'schema']);
 
-    const responseDescriptor = this.context.descriptorReader.read(
-      responseRefOrSchema,
-      responseRef,
-      responseDefaultClassName,
-    );
-    if (isComplexTypeDescriptor(responseDescriptor)) {
-      this.context.queue.push(responseDescriptor.ref, responseDescriptor);
+    const descriptor = this.context.descriptorReader.read($refOrSchema, ref, defaultClassName);
+    if (isComplexTypeDescriptor(descriptor)) {
+      this.context.queue.push(descriptor.ref.toString(), descriptor);
     }
 
     return {
-      descriptor: responseDescriptor,
+      descriptor,
     };
   }
 
   private processBody(
-    operationRef: string,
+    operationRef: JsonRef,
     operationId: string,
-    requestBody?: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject,
-  ): OperationBodyInfo | undefined {
-    if (requestBody) {
-      if ((requestBody as OpenAPIV3.ReferenceObject).$ref) {
-        throw new Error('Not supported ref request body');
-      }
-
-      const body = requestBody as OpenAPIV3.RequestBodyObject;
-      const bodyRefOrSchema = body.content['application/json'].schema;
-      const bodyRef = JsonRef.extend(operationRef, ['requestBody', 'content', 'application/json', 'schema']);
-
-      const bodyDefaultClassName = NameFormatter.normalize(operationId) + 'Body';
-      const bodyDescriptor = this.context.descriptorReader.read(bodyRefOrSchema, bodyRef, bodyDefaultClassName);
-      if (isComplexTypeDescriptor(bodyDescriptor)) {
-        this.context.queue.push(bodyDescriptor.ref, bodyDescriptor);
-      }
-
-      return {
-        descriptor: bodyDescriptor,
-        isRequired: body.required || false,
-      };
+    $refOrBody?: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject,
+  ): OperationBodyInfo | null {
+    if (!$refOrBody) {
+      return null;
     }
-    return undefined;
+    if (($refOrBody as OpenAPIV3.ReferenceObject).$ref) {
+      throw new Error('Not supported $ref request body');
+    }
+
+    const body = $refOrBody as OpenAPIV3.RequestBodyObject;
+    const bodyJson = body.content['application/json'];
+    const $refOrSchema = bodyJson ? bodyJson.schema : null;
+    if (!$refOrSchema) {
+      return null;
+    }
+
+    const ref = operationRef.extend(['requestBody', 'content', 'application/json', 'schema']);
+    const defaultClassName = NameFormatter.normalize(operationId) + BODY_CLASS_SUFFIX;
+    const descriptor = this.context.descriptorReader.read($refOrSchema, ref, defaultClassName);
+    if (isComplexTypeDescriptor(descriptor)) {
+      this.context.queue.push(descriptor.ref.toString(), descriptor);
+    }
+
+    return {
+      descriptor,
+      isRequired: body.required || false,
+    };
   }
 }
