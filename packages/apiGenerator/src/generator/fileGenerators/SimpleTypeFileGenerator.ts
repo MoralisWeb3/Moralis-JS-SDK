@@ -1,4 +1,4 @@
-import { SimpleTypeInfo } from 'src/reader/ComplexTypesReader';
+import { SimpleTypeInfo } from 'src/reader/OpenApi3Reader';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { CodeGenerator } from './CodeGenerator';
 import { SimpleTypeNormalizer } from './SimpleTypeNormalizer';
@@ -14,15 +14,11 @@ export class SimpleTypeFileGenerator {
   public constructor(private readonly info: SimpleTypeInfo, private readonly classNamePrefix: string) {}
 
   public generate(): SimpleTypeFileGeneratorResult {
-    const typeNames = this.codeGenerator.generateNames(this.info.descriptor);
+    const typeNames = this.codeGenerator.generateNames(this.info.descriptor, true);
     const output = new GeneratorOutput();
 
     const normalizedType = SimpleTypeNormalizer.normalize(this.info.simpleType);
-    const typeSelector = CodeGenerator.toTypeSelector(
-      normalizedType,
-      this.info.descriptor.isArray,
-      this.info.descriptor.isRequired,
-    );
+    const typeSelector = CodeGenerator.toTypeSelector(normalizedType, this.info.descriptor.isArray, true);
 
     output.write(0, `export type ${typeNames.jsonClassName} = ${typeSelector};`);
     output.newLine();

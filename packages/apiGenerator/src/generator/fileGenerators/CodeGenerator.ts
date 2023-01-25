@@ -22,7 +22,7 @@ export class CodeGenerator {
     return type;
   }
 
-  public generateNames(descriptor: TypeDescriptor): TypeGeneratorNames {
+  public generateNames(descriptor: TypeDescriptor, isRequired: boolean): TypeGeneratorNames {
     let typeCode: string;
     let jsonTypeCode: string;
     let className: string | null = null;
@@ -32,12 +32,12 @@ export class CodeGenerator {
       className = NameFormatter.joinName(this.classNamePrefix, descriptor.className);
       jsonClassName = className + 'JSON';
 
-      typeCode = CodeGenerator.toTypeSelector(className, descriptor.isArray, descriptor.isRequired);
-      jsonTypeCode = CodeGenerator.toTypeSelector(jsonClassName, descriptor.isArray, descriptor.isRequired);
+      typeCode = CodeGenerator.toTypeSelector(className, descriptor.isArray, isRequired);
+      jsonTypeCode = CodeGenerator.toTypeSelector(jsonClassName, descriptor.isArray, isRequired);
     } else {
       const normalizedType = SimpleTypeNormalizer.normalize((descriptor as SimpleTypeDescriptor).type);
 
-      typeCode = CodeGenerator.toTypeSelector(normalizedType, descriptor.isArray, descriptor.isRequired);
+      typeCode = CodeGenerator.toTypeSelector(normalizedType, descriptor.isArray, isRequired);
       jsonTypeCode = typeCode;
     }
 
@@ -49,7 +49,7 @@ export class CodeGenerator {
     };
   }
 
-  public generateJSON2TypeCode(descriptor: TypeDescriptor, valueCode: string) {
+  public generateJSON2TypeCode(descriptor: TypeDescriptor, valueCode: string, isRequired: boolean) {
     if (!isComplexTypeDescriptor(descriptor)) {
       return valueCode;
     }
@@ -62,19 +62,21 @@ export class CodeGenerator {
       code = `${className}.create(${valueCode})`;
     }
 
-    return descriptor.isRequired ? code : `${valueCode} ? ${code} : undefined`;
+    return isRequired ? code : `${valueCode} ? ${code} : undefined`;
   }
 
-  public generateType2JSONCode(descriptor: TypeDescriptor, valueCode: string) {
+  public generateType2JSONCode(descriptor: TypeDescriptor, valueCode: string, isRequired: boolean) {
     if (!isComplexTypeDescriptor(descriptor)) {
       return valueCode;
     }
+
     let code: string;
     if (descriptor.isArray) {
       code = `${valueCode}.map((item) => item.toJSON())`;
     } else {
       code = `${valueCode}.toJSON()`;
     }
-    return descriptor.isRequired ? code : `${valueCode} ? ${code} : undefined`;
+
+    return isRequired ? code : `${valueCode} ? ${code} : undefined`;
   }
 }

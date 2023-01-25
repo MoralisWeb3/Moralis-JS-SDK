@@ -1,4 +1,4 @@
-import { ComplexTypeInfo } from 'src/reader/ComplexTypesReader';
+import { ComplexTypeInfo } from 'src/reader/OpenApi3Reader';
 import { NameFormatter } from '../../reader/utils/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { CodeGenerator } from './CodeGenerator';
@@ -14,7 +14,11 @@ export class ComplexTypeFileGenerator {
   public constructor(private readonly info: ComplexTypeInfo, private readonly classNamePrefix: string) {}
 
   public generate(): TypeClassGeneratorResult {
-    const typeNames = this.codeGenerator.generateNames(this.info.descriptor);
+    if (this.info.descriptor.isArray) {
+      throw new Error(`Array complex type is not supported yet (${this.info.descriptor.ref})`);
+    }
+
+    const typeNames = this.codeGenerator.generateNames(this.info.descriptor, true);
     const output = new GeneratorOutput();
 
     const properties = this.info.properties.map((property) => {
@@ -27,7 +31,7 @@ export class ComplexTypeFileGenerator {
         accessCode: isSafe ? `.${nameCode}` : `[${nameCode}]`,
         camelCasedNameCode,
         camelCasedAccessCode: isSafe ? `.${camelCasedNameCode}` : `[${camelCasedNameCode}]`,
-        names: this.codeGenerator.generateNames(property.descriptor),
+        names: this.codeGenerator.generateNames(property.descriptor, property.isRequired),
       };
     });
 
@@ -42,9 +46,9 @@ export class ComplexTypeFileGenerator {
     }
     output.newLine();
 
-    output.writeComment(0, null, {
-      path: this.info.descriptor.ref,
-    });
+    output.write(0, `// ref: ${this.info.descriptor.ref}`);
+    output.newLine();
+
     output.write(0, `export interface ${typeNames.jsonClassName} {`);
     for (const p of properties) {
       output.write(1, `readonly ${p.nameCode}: ${p.names.jsonTypeCode};`);
@@ -68,7 +72,11 @@ export class ComplexTypeFileGenerator {
 
     output.write(1, `private constructor(private readonly _json: ${typeNames.jsonClassName}) {`);
     for (const p of properties) {
-      const mappingCode = this.codeGenerator.generateJSON2TypeCode(p.property.descriptor, '_json' + p.accessCode);
+      const mappingCode = this.codeGenerator.generateJSON2TypeCode(
+        p.property.descriptor,
+        '_json' + p.accessCode,
+        p.property.isRequired,
+      );
       output.write(2, `this${p.camelCasedAccessCode} = ${mappingCode};`);
     }
     output.write(1, '}');

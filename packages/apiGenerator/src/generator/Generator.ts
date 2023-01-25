@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { OpenAPIV3 } from 'openapi-types';
-import { OperationInfo } from 'src/reader/PathsReader';
-import { SimpleTypeInfo, ComplexTypeInfo } from 'src/reader/ComplexTypesReader';
-import { OpenApi3Reader } from '../reader/OpenApi3Reader';
+import { ComplexTypeInfo, OpenApi3Reader, OperationInfo, SimpleTypeInfo } from '../reader/OpenApi3Reader';
 import { IndexFileGenerator } from './fileGenerators/IndexFileGenerator';
 import { OperationFileGenerator } from './fileGenerators/OperationFileGenerator';
 import { SimpleTypeFileGenerator } from './fileGenerators/SimpleTypeFileGenerator';
@@ -28,42 +26,45 @@ export class Generator {
   public generate() {
     this.writer.prepare();
 
-    const reader = OpenApi3Reader.create(
-      this.document,
-      this.onOperationDiscovered,
-      this.onComplexTypeDiscovered,
-      this.onSimpleTypeDiscovered,
-    );
-    reader.read();
+    const result = OpenApi3Reader.create(this.document).read();
+    for (const operation of result.operations) {
+      this.generateOperation(operation);
+    }
+    for (const simpleType of result.simpleTypes) {
+      this.generateSimpleType(simpleType);
+    }
+    for (const complexType of result.complexTypes) {
+      this.generateComplexType(complexType);
+    }
 
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());
     this.writer.writeOperationsIndex(this.operationsIndexGenerator.generate());
   }
 
-  private onOperationDiscovered = (info: OperationInfo) => {
+  private generateOperation(info: OperationInfo) {
     const generator = new OperationFileGenerator(info, this.classNamePrefix);
     const result = generator.generate();
 
     this.writer.writeOperation(result.className, result.output);
 
     this.operationsIndexGenerator.add(result.className);
-  };
+  }
 
-  private onComplexTypeDiscovered = (info: ComplexTypeInfo) => {
-    const generator = new ComplexTypeFileGenerator(info, this.classNamePrefix);
-    const result = generator.generate();
-
-    this.writer.writeType(result.className, result.output);
-
-    this.typesIndexGenerator.add(result.className);
-  };
-
-  private onSimpleTypeDiscovered = (info: SimpleTypeInfo) => {
+  private generateSimpleType(info: SimpleTypeInfo) {
     const generator = new SimpleTypeFileGenerator(info, this.classNamePrefix);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);
 
     this.typesIndexGenerator.add(result.className);
-  };
+  }
+
+  private generateComplexType(info: ComplexTypeInfo) {
+    const generator = new ComplexTypeFileGenerator(info, this.classNamePrefix);
+    const result = generator.generate();
+
+    this.writer.writeType(result.className, result.output);
+
+    this.typesIndexGenerator.add(result.className);
+  }
 }

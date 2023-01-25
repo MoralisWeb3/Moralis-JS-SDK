@@ -4,12 +4,12 @@ export class SimpleTypeNormalizer {
       case 'integer':
         return 'number';
       case 'array':
-      case 'object':
         throw new Error(`Invalid simple type: ${type}`);
       case 'string':
       case 'boolean':
       case 'number':
       case 'null':
+      case 'object':
         return type;
     }
     throw new Error(`Not supported simple type: ${type}`);

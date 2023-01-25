@@ -1,38 +1,80 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { ComplexTypeDescriptor } from './TypeDescriptor';
-import { UniqueQueue } from './utils/UniqueQueue';
-import { OnOperationDiscoveredHandler, PathsReader } from './PathsReader';
-import {
-  OnSimpleTypeDiscoveredHandler,
-  OnComplexTypeDiscoveredHandler,
-  ComplexTypesReader,
-} from './ComplexTypesReader';
+import { ComplexTypesReader } from './readers/ComplexTypesReader';
+import { PathsReader } from './readers/PathsReader';
+import { ReadingContext } from './readers/ReadingContext';
+import { ComplexTypeDescriptor, TypeDescriptor } from './TypeDescriptor';
+
+export interface ReaderResult {
+  operations: OperationInfo[];
+  complexTypes: ComplexTypeInfo[];
+  simpleTypes: SimpleTypeInfo[];
+}
+
+export interface ComplexTypeInfo {
+  descriptor: ComplexTypeDescriptor;
+  properties: PropertyInfo[];
+}
+
+export interface PropertyInfo {
+  name: string;
+  description?: string;
+  isRequired: boolean;
+  descriptor: TypeDescriptor;
+}
+
+export interface SimpleTypeInfo {
+  descriptor: ComplexTypeDescriptor;
+  simpleType: string;
+}
+
+export interface OperationInfo {
+  operationId: string;
+  httpMethod: string;
+  routePattern: string;
+  description?: string;
+  response: OperationResponseInfo;
+  body?: OperationBodyInfo;
+  parameters: ParameterInfo[];
+}
+
+export interface OperationResponseInfo {
+  descriptor: TypeDescriptor;
+}
+
+export interface OperationBodyInfo {
+  descriptor: TypeDescriptor;
+  isRequired: boolean;
+}
+
+export interface ParameterInfo {
+  name: string;
+  isRequired: boolean;
+  descriptor: TypeDescriptor;
+}
 
 export class OpenApi3Reader {
-  public static create(
-    document: OpenAPIV3.Document,
-    onOperationDiscovered: OnOperationDiscoveredHandler,
-    onComplexTypeDiscovered: OnComplexTypeDiscoveredHandler,
-    onSimpleTypeDiscovered: OnSimpleTypeDiscoveredHandler,
-  ): OpenApi3Reader {
+  public static create(document: OpenAPIV3.Document): OpenApi3Reader {
     if (!document.openapi.startsWith('3.0.')) {
       throw new Error(`Unsupported OpenApi version: ${document.openapi}`);
     }
 
-    const queue = new UniqueQueue<ComplexTypeDescriptor>();
-    return new OpenApi3Reader(
-      new PathsReader(queue, document, onOperationDiscovered),
-      new ComplexTypesReader(queue, document, onComplexTypeDiscovered, onSimpleTypeDiscovered),
-    );
+    return new OpenApi3Reader(document);
   }
 
-  private constructor(
-    private readonly pathsReader: PathsReader,
-    private readonly complexTypesReader: ComplexTypesReader,
-  ) {}
+  private constructor(private readonly document: OpenAPIV3.Document) {}
 
-  public read() {
-    this.pathsReader.process();
-    this.complexTypesReader.process();
+  public read(): ReaderResult {
+    const context = ReadingContext.create(this.document);
+    const pathsReader = new PathsReader(context);
+    const complexTypesReader = new ComplexTypesReader(context);
+
+    pathsReader.process();
+    complexTypesReader.process();
+
+    return {
+      operations: pathsReader.operations,
+      complexTypes: complexTypesReader.complexTypes,
+      simpleTypes: complexTypesReader.simpleTypes,
+    };
   }
 }

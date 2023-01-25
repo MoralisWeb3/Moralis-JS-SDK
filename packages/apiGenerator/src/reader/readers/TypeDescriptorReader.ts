@@ -1,23 +1,32 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { JsonRef } from './utils/JsonRef';
-import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor } from './TypeDescriptor';
-import { NameFormatter } from './utils/NameFormatter';
+import { JsonRef } from '../utils/JsonRef';
+import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor } from '../TypeDescriptor';
+import { NameFormatter } from '../utils/NameFormatter';
+
+const ITEM_CLASS_SUFFIX = 'Item';
 
 export class TypeDescriptorReader {
-  public static read(
-    isRequired: boolean,
+  public constructor(private readonly document: OpenAPIV3.Document) {}
+
+  public read(
     refOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject | null | undefined,
     parentRef: string,
     defaultClassName: string,
   ): TypeDescriptor {
     if (!refOrSchema) {
-      return new SimpleTypeDescriptor(false, isRequired, 'null');
+      return new SimpleTypeDescriptor(false, 'null');
     }
 
     const ref = (refOrSchema as OpenAPIV3.ReferenceObject).$ref;
     if (ref) {
       const className = readClassNameFromRef(ref);
-      return new ComplexTypeDescriptor(false, isRequired, ref, className);
+
+      const targetSchema = JsonRef.find<OpenAPIV3.SchemaObject>(ref, this.document);
+      if (targetSchema.type === 'array') {
+        return new ComplexTypeDescriptor(true, JsonRef.extend(ref, ['items']), className + ITEM_CLASS_SUFFIX);
+      }
+
+      return new ComplexTypeDescriptor(false, ref, className);
     }
 
     const schema = refOrSchema as OpenAPIV3.SchemaObject;
@@ -25,15 +34,23 @@ export class TypeDescriptorReader {
       const itemsRef = (schema.items as OpenAPIV3.ReferenceObject).$ref;
       if (itemsRef) {
         const className = readClassNameFromRef(itemsRef);
-        return new ComplexTypeDescriptor(true, isRequired, itemsRef, className);
+        return new ComplexTypeDescriptor(true, itemsRef, className);
       }
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
       if (itemsSchema.type === 'object') {
-        return new ComplexTypeDescriptor(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
+        return new ComplexTypeDescriptor(
+          true,
+          JsonRef.extend(parentRef, ['items']),
+          defaultClassName + ITEM_CLASS_SUFFIX,
+        );
       }
       if (itemsSchema.type === 'array') {
-        return new ComplexTypeDescriptor(true, true, JsonRef.extend(parentRef, ['items']), defaultClassName);
+        return new ComplexTypeDescriptor(
+          true,
+          JsonRef.extend(parentRef, ['items']),
+          defaultClassName + ITEM_CLASS_SUFFIX,
+        );
       }
 
       if (!itemsSchema.type) {
@@ -41,18 +58,18 @@ export class TypeDescriptorReader {
         console.warn(`Items schema has empty type, set string as default (${parentRef})`);
       }
 
-      return new SimpleTypeDescriptor(true, isRequired, itemsSchema.type);
+      return new SimpleTypeDescriptor(true, itemsSchema.type);
     }
 
     if (schema.type === 'object') {
-      return new ComplexTypeDescriptor(false, isRequired, parentRef, defaultClassName);
+      return new ComplexTypeDescriptor(false, parentRef, defaultClassName);
     }
 
     if (!schema.type) {
       schema.type = 'string';
       console.warn(`Schema has empty type, set string as default (${parentRef})`);
     }
-    return new SimpleTypeDescriptor(false, isRequired, schema.type);
+    return new SimpleTypeDescriptor(false, schema.type);
   }
 }
 

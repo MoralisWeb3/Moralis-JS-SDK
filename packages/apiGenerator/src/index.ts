@@ -8,12 +8,14 @@ export const GITHUB_URL =
 export const APT_URL = 'https://streams-api-stage.aws-prod-streams-master-1.moralis.io/api-docs/swagger.json';
 
 async function run() {
-  const swaggerUrl = EVM_URL;
-
   const outputPath = path.join(__dirname, '../../common/aptUtils/src');
 
-  const generator = await Generator.create(swaggerUrl, 'Evm', outputPath);
-  generator.generate();
+  const urls = [EVM_URL];
+
+  for (const url of urls) {
+    const generator = await Generator.create(url, 'Evm', outputPath);
+    generator.generate();
+  }
 }
 
 run();
