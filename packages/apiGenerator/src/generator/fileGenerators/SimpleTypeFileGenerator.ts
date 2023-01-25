@@ -1,4 +1,4 @@
-import { SimpleTypeInfo } from 'src/reader/OpenApi3Reader';
+import { SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { CodeGenerator } from './CodeGenerator';
 import { SimpleTypeNormalizer } from './SimpleTypeNormalizer';

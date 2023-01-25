@@ -1,4 +1,4 @@
-import { OperationInfo } from 'src/reader/OpenApi3Reader';
+import { OperationInfo } from 'src/reader/OpenApiReaderResult';
 import { NameFormatter } from '../../reader/utils/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { CodeGenerator } from './CodeGenerator';

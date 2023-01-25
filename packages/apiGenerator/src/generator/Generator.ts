@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { OpenAPIV3 } from 'openapi-types';
-import { ComplexTypeInfo, OpenApi3Reader, OperationInfo, SimpleTypeInfo } from '../reader/OpenApi3Reader';
+import { OpenApiReader } from '../reader/OpenApiReader';
 import { IndexFileGenerator } from './fileGenerators/IndexFileGenerator';
 import { OperationFileGenerator } from './fileGenerators/OperationFileGenerator';
 import { SimpleTypeFileGenerator } from './fileGenerators/SimpleTypeFileGenerator';
 import { ComplexTypeFileGenerator } from './fileGenerators/ComplexTypeFileGenerator';
 import { GeneratorWriter } from './GeneratorWriter';
+import { ComplexTypeInfo, OperationInfo, SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
 
 export class Generator {
   public static async create(swaggerUrl: string, classPrefix: string, outputPath: string): Promise<Generator> {
@@ -26,7 +27,7 @@ export class Generator {
   public generate() {
     this.writer.prepare();
 
-    const result = OpenApi3Reader.create(this.document).read();
+    const result = OpenApiReader.create(this.document).read();
     for (const operation of result.operations) {
       this.generateOperation(operation);
     }

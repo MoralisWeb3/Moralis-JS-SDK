@@ -5,7 +5,7 @@ import { NameFormatter } from '../utils/NameFormatter';
 
 const ITEM_CLASS_SUFFIX = 'Item';
 
-export class TypeDescriptorReader {
+export class TypeDescriptorV3Reader {
   public constructor(private readonly document: OpenAPIV3.Document) {}
 
   public read(

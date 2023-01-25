@@ -1,28 +1,33 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
 import { NameFormatter } from '../utils/NameFormatter';
-import { isComplexTypeDescriptor } from '../TypeDescriptor';
-import { ReadingContext } from './ReadingContext';
-import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApi3Reader';
+import { ComplexTypePointer, isComplexTypeDescriptor } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
+import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiReaderResult';
+import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
+import { UniqueQueue } from '../utils/UniqueQueue';
 
 const successResponseCodes = ['200', '201', '202', '203', '204', '205'];
 
 const BODY_CLASS_SUFFIX = 'Body';
 
-export class PathsReader {
+export class OperationsV3Reader {
   public readonly operations: OperationInfo[] = [];
   private readonly operationIdUniquenessChecker = new UniquenessChecker();
 
-  public constructor(private readonly context: ReadingContext) {}
+  public constructor(
+    private readonly document: OpenAPIV3.Document,
+    private readonly typeDescriptorReader: TypeDescriptorV3Reader,
+    private readonly queue: UniqueQueue<ComplexTypePointer>,
+  ) {}
 
-  public process() {
-    if (!this.context.document.paths) {
+  public read() {
+    if (!this.document.paths) {
       return;
     }
 
-    for (const routePattern of Object.keys(this.context.document.paths)) {
-      const pathGroup = this.context.document.paths[routePattern];
+    for (const routePattern of Object.keys(this.document.paths)) {
+      const pathGroup = this.document.paths[routePattern];
       if (!pathGroup) {
         continue;
       }
@@ -54,10 +59,10 @@ export class PathsReader {
         const operationRef = JsonRef.from(['paths', routePattern, httpMethod]);
 
         const responseBody = path.responses[responseCode] as OpenAPIV3.ResponseObject;
-        const response = this.processResponse(operationRef, path.operationId, responseCode, responseBody);
+        const response = this.readResponse(operationRef, path.operationId, responseCode, responseBody);
 
-        const parameters = this.processParameters(operationRef, path.operationId, path.parameters);
-        const body = this.processBody(operationRef, path.operationId, path.requestBody);
+        const parameters = this.readParameters(operationRef, path.operationId, path.parameters);
+        const body = this.readBody(operationRef, path.operationId, path.requestBody);
 
         this.operations.push({
           operationId: path.operationId,
@@ -72,7 +77,7 @@ export class PathsReader {
     }
   }
 
-  private processParameters(
+  private readParameters(
     operationRef: JsonRef,
     operationId: string,
     parameters?: (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[],
@@ -96,9 +101,9 @@ export class PathsReader {
 
       const ref = operationRef.extend(['parameters', String(index)]);
       const defaultClassName = NameFormatter.joinName(operationId, parameter.name);
-      const descriptor = this.context.descriptorReader.read(schema, ref, defaultClassName);
+      const descriptor = this.typeDescriptorReader.read(schema, ref, defaultClassName);
       if (isComplexTypeDescriptor(descriptor)) {
-        this.context.queue.push(descriptor.ref.toString(), descriptor);
+        this.queue.push(descriptor.ref.toString(), descriptor);
       }
 
       result.push({
@@ -110,7 +115,7 @@ export class PathsReader {
     return result;
   }
 
-  private processResponse(
+  private readResponse(
     operationRef: JsonRef,
     operationId: string,
     responseCode: string,
@@ -126,9 +131,9 @@ export class PathsReader {
     const defaultClassName = NameFormatter.normalize(operationId);
     const ref = operationRef.extend(['responses', responseCode, 'content', 'application/json', 'schema']);
 
-    const descriptor = this.context.descriptorReader.read($refOrSchema, ref, defaultClassName);
+    const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultClassName);
     if (isComplexTypeDescriptor(descriptor)) {
-      this.context.queue.push(descriptor.ref.toString(), descriptor);
+      this.queue.push(descriptor.ref.toString(), descriptor);
     }
 
     return {
@@ -136,7 +141,7 @@ export class PathsReader {
     };
   }
 
-  private processBody(
+  private readBody(
     operationRef: JsonRef,
     operationId: string,
     $refOrBody?: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject,
@@ -157,9 +162,9 @@ export class PathsReader {
 
     const ref = operationRef.extend(['requestBody', 'content', 'application/json', 'schema']);
     const defaultClassName = NameFormatter.normalize(operationId) + BODY_CLASS_SUFFIX;
-    const descriptor = this.context.descriptorReader.read($refOrSchema, ref, defaultClassName);
+    const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultClassName);
     if (isComplexTypeDescriptor(descriptor)) {
-      this.context.queue.push(descriptor.ref.toString(), descriptor);
+      this.queue.push(descriptor.ref.toString(), descriptor);
     }
 
     return {

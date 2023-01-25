@@ -1,9 +1,9 @@
-import { OpenApi3Reader } from './OpenApi3Reader';
+import { OpenApiReader } from './OpenApiReader';
 import { ComplexTypeDescriptor, isComplexTypeDescriptor, SimpleTypeDescriptor } from './TypeDescriptor';
 
-describe('OpenApi3Reader', () => {
+describe('OpenApiReader', () => {
   it('array of enum', () => {
-    const result = OpenApi3Reader.create({
+    const result = OpenApiReader.create({
       openapi: '3.0.0',
       info: {
         title: 'test',
@@ -92,6 +92,7 @@ describe('OpenApi3Reader', () => {
     expect(operation.operationId).toBe('GetAllStreams');
     expect(operation.httpMethod).toBe('get');
     expect(operation.routePattern).toBe('/streams/aptos');
+    expect(operation.body).toBeNull();
 
     expect(isComplexTypeDescriptor(operation.response!.descriptor)).toBe(true);
     const responseD = operation.response!.descriptor as ComplexTypeDescriptor;

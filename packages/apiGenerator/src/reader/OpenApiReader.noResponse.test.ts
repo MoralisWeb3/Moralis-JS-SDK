@@ -1,9 +1,9 @@
-import { OpenApi3Reader } from './OpenApi3Reader';
+import { OpenApiReader } from './OpenApiReader';
 import { SimpleTypeDescriptor } from './TypeDescriptor';
 
-describe('OpenApi3Reader', () => {
+describe('OpenApiReader', () => {
   it('no response', () => {
-    const result = OpenApi3Reader.create({
+    const result = OpenApiReader.create({
       openapi: '3.0.0',
       info: {
         title: 'test',

@@ -1,27 +1,32 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo } from '../OpenApi3Reader';
+import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo } from '../OpenApiReaderResult';
 import { ComplexTypeDescriptor, ComplexTypePointer, isComplexTypeDescriptor } from '../TypeDescriptor';
 import { NameFormatter } from '../utils/NameFormatter';
-import { ReadingContext } from './ReadingContext';
+import { UniqueQueue } from '../utils/UniqueQueue';
+import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
 
-export class ComplexTypesReader {
+export class TypesV3Reader {
   public readonly complexTypes: ComplexTypeInfo[] = [];
   public readonly simpleTypes: SimpleTypeInfo[] = [];
 
-  public constructor(private readonly context: ReadingContext) {}
+  public constructor(
+    private readonly document: OpenAPIV3.Document,
+    private readonly typeDescriptorReader: TypeDescriptorV3Reader,
+    private readonly queue: UniqueQueue<ComplexTypePointer>,
+  ) {}
 
-  public process() {
+  public read() {
     let pointer: ComplexTypePointer | null = null;
     do {
-      pointer = this.context.queue.pop();
+      pointer = this.queue.pop();
       if (pointer) {
-        this.processPointer(pointer);
+        this.readPointer(pointer);
       }
     } while (pointer);
   }
 
-  private processPointer(pointer: ComplexTypePointer) {
-    const scheme = pointer.ref.find<OpenAPIV3.SchemaObject>(this.context.document);
+  private readPointer(pointer: ComplexTypePointer) {
+    const scheme = pointer.ref.find<OpenAPIV3.SchemaObject>(this.document);
 
     if (scheme.type && scheme.type === 'array') {
       throw new Error(`Array complex type is not supported yet (${pointer.ref})`);
@@ -54,9 +59,9 @@ export class ComplexTypesReader {
 
       const defaultClassName = NameFormatter.joinName(pointer.className, name);
       const ref = pointer.ref.extend(['properties', name]);
-      const descriptor = this.context.descriptorReader.read(refOrSchema, ref, defaultClassName);
+      const descriptor = this.typeDescriptorReader.read(refOrSchema, ref, defaultClassName);
       if (isComplexTypeDescriptor(descriptor)) {
-        this.context.queue.push(descriptor.ref.toString(), descriptor);
+        this.queue.push(descriptor.ref.toString(), descriptor);
       }
 
       const description = (refOrSchema as OpenAPIV3.SchemaObject).description;
