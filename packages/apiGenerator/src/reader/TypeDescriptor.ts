@@ -5,7 +5,7 @@ export interface ComplexTypePointer {
   className: string;
 }
 
-export class ComplexTypeDescriptor implements TypeDescriptor {
+export class ComplexTypeDescriptor implements TypeDescriptor, ComplexTypePointer {
   public constructor(
     public readonly isArray: boolean,
     public readonly ref: JsonRef,

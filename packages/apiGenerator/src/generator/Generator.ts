@@ -5,8 +5,8 @@ import { OperationFileGenerator } from './fileGenerators/OperationFileGenerator'
 import { SimpleTypeFileGenerator } from './fileGenerators/SimpleTypeFileGenerator';
 import { ComplexTypeFileGenerator } from './fileGenerators/ComplexTypeFileGenerator';
 import { GeneratorWriter } from './GeneratorWriter';
-import { ComplexTypeInfo, OperationInfo, SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
-import { TypesGenerator } from './fileGenerators/TypesGenerator';
+import { ComplexTypeInfo, OperationInfo, SimpleTypeInfo } from '../reader/OpenApiReaderResult';
+import { TypeResolver } from './fileGenerators/TypeResolver';
 
 export class Generator {
   public static async create(
@@ -17,7 +17,7 @@ export class Generator {
     return new Generator(document, classNamePrefix, new GeneratorWriter(outputPath));
   }
 
-  private readonly typesGenerator = new TypesGenerator(this.classNamePrefix);
+  private readonly typeResolver = new TypeResolver(this.classNamePrefix);
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
 
@@ -46,7 +46,7 @@ export class Generator {
   }
 
   private generateOperation(info: OperationInfo) {
-    const generator = new OperationFileGenerator(info, this.typesGenerator);
+    const generator = new OperationFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeOperation(result.className, result.output);
@@ -55,7 +55,7 @@ export class Generator {
   }
 
   private generateSimpleType(info: SimpleTypeInfo) {
-    const generator = new SimpleTypeFileGenerator(info, this.typesGenerator);
+    const generator = new SimpleTypeFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);
@@ -64,7 +64,7 @@ export class Generator {
   }
 
   private generateComplexType(info: ComplexTypeInfo) {
-    const generator = new ComplexTypeFileGenerator(info, this.typesGenerator);
+    const generator = new ComplexTypeFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);
