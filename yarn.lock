@@ -7250,7 +7250,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
+"@moralisweb3/common-aptos-utils@workspace:^, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils"
   dependencies:
@@ -7321,6 +7321,7 @@ __metadata:
   resolution: "@moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils"
   dependencies:
     "@ethersproject/abi": ^5.7.0
+    "@moralisweb3/common-aptos-utils": "workspace:^"
     "@moralisweb3/common-core": ^2.12.0
     "@moralisweb3/common-evm-utils": ^2.12.0
     "@moralisweb3/eslint-config": ^1.0.2
