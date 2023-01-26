@@ -18,17 +18,37 @@ export class HooksGenerator {
 
   private get addHooks() {
     const hooks = this.moduleGenerator.operations.map((operation) => {
-      const hookName = getHookName(operation.name, this.module);
+      const name = getHookName(operation.name, this.module);
       const isPaginated = operation.firstPageIndex === 0 || operation.firstPageIndex === 1;
-      const hasNoParams = !operation.bodyParamNames && !operation.urlPathParamNames && !operation.urlSearchParamNames;
-      return { hookName, isPaginated, hasNoParams };
+      const isNullable = operation?.isNullable;
+      const hasParams = operation.bodyParamNames || operation.urlPathParamNames || operation.urlSearchParamNames;
+
+      let resolverType = '_useResolver';
+      if (isPaginated) {
+        resolverType = '_useResolverPaginated';
+      }
+      if (isNullable) {
+        resolverType = '_useResolverNullable';
+      }
+
+      return {
+        name,
+        resolverType,
+        request: hasParams && `${_.upperFirst(operation.name)}Request`,
+        operation: `${operation.name}Operation`,
+      };
     });
 
     return {
       type: 'add',
-      templateFile: path.join(this.dirname, isPaginated ? 'templates/hook_paginated.ts.hbs' : 'templates/hook.ts.hbs'),
-      path: path.join(this.packagesFolder, `next/src/hooks/${this.module}/generated/{{ relativePath }}.ts`),
-      data: { hooks },
+      templateFile: path.join(this.dirname, 'templates/hooks.ts.hbs'),
+      path: path.join(this.packagesFolder, `react/src/hooks/${this.module}/generated/index.ts`),
+      data: {
+        hooks,
+        commonUtils: this.moduleGenerator.operationsPackageName,
+        resolversToImport: _.uniq(_.map(hooks, 'resolverType')),
+      },
+      force: true,
     };
   }
 
@@ -62,17 +82,17 @@ export class HooksGenerator {
   //   });
   // }
 
-  private get addIndex() {
-    return {
-      type: 'add',
-      templateFile: path.join(this.dirname, `templates/index/${this.module}.ts.hbs`),
-      data: { hookNames: this.addHooks.map((addHookAction) => addHookAction.data.relativePath) },
-      path: path.join(this.packagesFolder, `next/src/hooks/${this.module}/generated/index.ts`),
-      force: true,
-    };
-  }
+  // private get addIndex() {
+  //   return {
+  //     type: 'add',
+  //     templateFile: path.join(this.dirname, `templates/index/${this.module}.ts.hbs`),
+  //     data: { hookNames: this.addHooks.map((addHookAction) => addHookAction.data.relativePath) },
+  //     path: path.join(this.packagesFolder, `next/src/hooks/${this.module}/generated/index.ts`),
+  //     force: true,
+  //   };
+  // }
 
   public get actions(): ActionConfig[] {
-    return [...this.addHooks, this.addIndex];
+    return [this.addHooks];
   }
 }

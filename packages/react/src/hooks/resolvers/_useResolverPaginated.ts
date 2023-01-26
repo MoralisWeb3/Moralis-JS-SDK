@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { _useClient } from '../../context/MoralisProvider';
 import { PaginatedOperation, PaginatedRequest } from '@moralisweb3/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
@@ -18,7 +17,11 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
     return result;
   };
 
-  const { data, error, mutate, isValidating } = useSWR([operation.id, request], request ? fetcher : null, swrConfig);
+  const { data, error, mutate, isValidating } = useSWR<Response>(
+    [operation.id, request],
+    request ? fetcher : null,
+    swrConfig,
+  );
 
   const fetch = useCallback((params?: Request) => {
     const fetchRequest = params ?? request;

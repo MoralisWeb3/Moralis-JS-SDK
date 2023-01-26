@@ -3,8 +3,8 @@ import { Module } from '../../types';
 import { HooksGenerator } from './HooksGenerator';
 
 export default function ReactHooksGenerator(plop: NodePlopAPI) {
-  plop.setGenerator('next-hooks', {
-    description: 'hooks for @moralisweb3/next',
+  plop.setGenerator('react-hooks', {
+    description: 'hooks for @moralisweb3/react',
     prompts: [
       {
         type: 'checkbox',

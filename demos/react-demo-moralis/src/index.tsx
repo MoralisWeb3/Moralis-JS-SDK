@@ -1,14 +1,19 @@
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MoralisProvider } from '@moralisweb3/react';
+import { BrowserRouter } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <MoralisProvider config={{ apiKey: 'IcG2VVd5xU8sse7OOaKlwdtqrxER1uHCxwlXwO0nalTjMjeAEdNY2TNdCx2RkNvn' }}>
-    <App />
-  </MoralisProvider>,
+  <BrowserRouter>
+    <ChakraProvider resetCSS>
+      <MoralisProvider config={{ apiKey: 'IcG2VVd5xU8sse7OOaKlwdtqrxER1uHCxwlXwO0nalTjMjeAEdNY2TNdCx2RkNvn' }}>
+        <App />
+      </MoralisProvider>
+    </ChakraProvider>
+  </BrowserRouter>,
 );
 
 // If you want to start measuring performance in your app, pass a function

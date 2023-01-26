@@ -4,5 +4,5 @@ import ReactReadmeGenerator from './readme';
 
 export default function setReactGenerators(plop: NodePlopAPI) {
   ReactHooksGenerator(plop);
-  // ReactReadmeGenerator(plop);
+  ReactReadmeGenerator(plop);
 }

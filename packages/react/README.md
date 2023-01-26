@@ -1,18 +1,18 @@
 <div align="center">
     <p align="center">
-      <img src="https://raw.githubusercontent.com/MoralisWeb3/Moralis-JS-SDK/main/packages/next/.readme/MoralisLogo.png" alt="Moralis NextJS" />
+      <img src="https://raw.githubusercontent.com/MoralisWeb3/Moralis-JS-SDK/main/packages/react/.readme/MoralisLogo.png" alt="Moralis NextJS" />
     </p>
 </div>
 
 <div align="center">
 
-![npm](https://img.shields.io/npm/v/@moralisweb3/next)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moralisweb3/next)
-![npm type definitions](https://img.shields.io/npm/types/@moralisweb3/next)
+![npm](https://img.shields.io/npm/v/@moralisweb3/react)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moralisweb3/react)
+![npm type definitions](https://img.shields.io/npm/types/@moralisweb3/react)
 
 </div>
 
-# `@moralisweb3/next`
+# `@moralisweb3/react`
 
 > Moralis Hooks for your NextJS project
 
@@ -24,42 +24,44 @@ Please check the [official documentation of Moralis](https://docs.moralis.io/) f
 
 ### 1. Install Dependencies
 
-Make sure to have `next`, `next-auth`, `react` and `react-dom` installed as dependencies, then install `@moralisweb3/next`
+Make sure to have `react` and `react-dom` installed as dependencies, then install `@moralisweb3/react`
 
 In short:
 
 ```sh
-npm install @moralisweb3/next next next-auth react react-dom
+npm install @moralisweb3/react react react-dom
 ```
 
 or
 
 ```sh
-yarn add @moralisweb3/next next next-auth react react-dom
+yarn add  @moralisweb3/react react react-dom
 ```
 
-### 2. Create environment variables file
+### 2. Add MoralisProvider
 
-Add a new file `.env.local` in project's root and provide a new variable with [Moralis API key](https://docs.moralis.io/docs/nextjs-dapp#add-moralis-to-your-nextjs-dapp):
-
-```sh
-MORALIS_API_KEY= ***
-```
-
-### 3. Create API route
-To use Moralis APIs in your NextJs project create a file `pages/api/moralis/[...moralis].ts` with following code:
+Then wrap your app in a <MoralisProvider>, and provide your apiKey to the `config` prop:
 
 ```js
-import { MoralisNextApi } from "@moralisweb3/next";
+import React from "react";
+import ReactDOM from "react-dom";
+import { MoralisProvider } from "@moralisweb3/react";
 
-export default MoralisNextApi({ apiKey: process.env.MORALIS_API_KEY });
+const config = { apiKey: 'YOUR_API_KEY' }
+
+ReactDOM.render(
+  <MoralisProvider config={config}>
+    <App />
+  </MoralisProvider>,
+  document.getElementById("root"),
+);
 ```
 
-You can provide a configuration object to the `MoralisNextApi`.
+TO_DO: You can provide a configuration object to the `MoralisNextApi`.
 
 # ⭐️ Star us
 
-If this "@moralisweb3/next" library helps you build your dapps faster - please star this project, every star makes us very happy!
+If this "@moralisweb3/react" library helps you build your dapps faster - please star this project, every star makes us very happy!
 
 # 🤝 Need help
 
@@ -84,64 +86,13 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useAuthRequestChallengeSolana](#️useAuthRequestChallengeSolana)
   - [useAuthRequestChallengeEvm](#useAuthRequestChallengeEvm)
 - [Evm Api Hooks](#evm-api-hooks)
-  - [useEvmWeb3ApiVersion](#️useEvmWeb3ApiVersion)
-  - [useEvmRunContractFunction](#️useEvmRunContractFunction)
-  - [useEvmEndpointWeights](#️useEvmEndpointWeights)
-  - [useEvmWalletTransactions](#️useEvmWalletTransactions)
-  - [useEvmTransaction](#️useEvmTransaction)
-  - [useEvmWalletTokenTransfers](#️useEvmWalletTokenTransfers)
-  - [useEvmWalletTokenBalances](#️useEvmWalletTokenBalances)
-  - [useEvmTokenTransfers](#️useEvmTokenTransfers)
-  - [useEvmTokenPrice](#️useEvmTokenPrice)
-  - [useEvmTokenMetadata](#️useEvmTokenMetadata)
-  - [useEvmTokenMetadataBySymbol](#️useEvmTokenMetadataBySymbol)
-  - [useEvmTokenAllowance](#️useEvmTokenAllowance)
-  - [useEvmResolveDomain](#️useEvmResolveDomain)
-  - [useEvmResolveAddress](#️useEvmResolveAddress)
-  - [useEvmSyncNFTContract](#️useEvmSyncNFTContract)
-  - [useEvmSearchNFTs](#️useEvmSearchNFTs)
-  - [useEvmReSyncMetadata](#️useEvmReSyncMetadata)
-  - [useEvmWalletNFTs](#️useEvmWalletNFTs)
-  - [useEvmWalletNFTTransfers](#️useEvmWalletNFTTransfers)
-  - [useEvmWalletNFTCollections](#️useEvmWalletNFTCollections)
-  - [useEvmNFTTransfers](#️useEvmNFTTransfers)
-  - [useEvmNFTTransfersFromToBlock](#️useEvmNFTTransfersFromToBlock)
-  - [useEvmNFTTransfersByBlock](#️useEvmNFTTransfersByBlock)
-  - [useEvmNFTTrades](#️useEvmNFTTrades)
-  - [useEvmNFTTokenIdOwners](#️useEvmNFTTokenIdOwners)
-  - [useEvmNFTOwners](#️useEvmNFTOwners)
-  - [useEvmNFTMetadata](#️useEvmNFTMetadata)
-  - [useEvmNFTLowestPrice](#️useEvmNFTLowestPrice)
-  - [useEvmNFTContractTransfers](#️useEvmNFTContractTransfers)
-  - [useEvmNFTContractMetadata](#️useEvmNFTContractMetadata)
-  - [useEvmContractNFTs](#️useEvmContractNFTs)
-  - [useEvmUploadFolder](#️useEvmUploadFolder)
-  - [useEvmContractLogs](#️useEvmContractLogs)
-  - [useEvmContractEvents](#️useEvmContractEvents)
-  - [useEvmPairReserves](#️useEvmPairReserves)
-  - [useEvmPairAddress](#️useEvmPairAddress)
-  - [useEvmDateToBlock](#️useEvmDateToBlock)
-  - [useEvmBlock](#️useEvmBlock)
-  - [useEvmNativeBalance](#️useEvmNativeBalance)
 - [Solana Api Hooks](#solana-api-hooks)
-  - [useSolTokenPrice](#️useSolTokenPrice)
-  - [useSolNFTMetadata](#️useSolNFTMetadata)
-  - [useSolSPL](#️useSolSPL)
-  - [useSolPortfolio](#️useSolPortfolio)
-  - [useSolNFTs](#️useSolNFTs)
-  - [useSolBalance](#️useSolBalance)
 - [🧙‍♂️ Community](#️-community)
-
-# 🔐 Authentication and Session Management with NextAuth
-
-The `@moralisweb3/next` library provides first class tools for web3 authentication. Using the [NextAuth.js](https://next-auth.js.org/) and our custom `MoralisNextAuthProvider()` you can implement web3 authentication you can create web3 authentication for any web3 wallet.
-
-Please follow [Sign In with MetaMask](https://docs.moralis.io/docs/sign-in-with-metamask) Tutorial for NextJS.
 
 # ✨ Hook Usage Examples
 
 ```jsx
-import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+import { useEvmWalletTokenBalances } from '@moralisweb3/react'
 
 const App = () => {
   const { data: balance, error, fetch, isFetching } = useEvmWalletTokenBalances({ address: '0x...' })
@@ -157,12 +108,12 @@ const App = () => {
 }
 ```
 
-Basically, there are three options how to fetch data with `@moralisweb3/next` hooks:
+Basically, there are three options how to fetch data with `@moralisweb3/react` hooks:
 
 ## 1. Provide params directly to the hook
 In case all required params for the hook are defined you can provide them directly to the hook params. Data fetching in this case will be triggered automatically:
 ```jsx
-import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+import { useEvmWalletTokenBalances } from '@moralisweb3/react'
 
 const App = () => {
   const { data: balance } = useEvmWalletTokenBalances({ address: '0x...' })
@@ -177,7 +128,7 @@ const App = () => {
 Sometimes you need to fetch data somewhere in your code or even fetch it twice with different variables. You can provide params to the `fetch()` function:
 ```jsx
 import { useState } from 'react';
-import { useEvmNativeBalance } from '@moralisweb3/next'
+import { useEvmNativeBalance } from '@moralisweb3/react'
 import { EvmChain } from 'moralis/common-evm-utils';
 
 const App = () => {
@@ -213,7 +164,7 @@ const App = () => {
 To disable auto data fetching after your component has been mounted you can set `revalidateOnMount = false`. Example:
 
 ```jsx
-import { useEvmWalletTokenBalances } from '@moralisweb3/next'
+import { useEvmWalletTokenBalances } from '@moralisweb3/react'
 
 const App = () => {
   const { data: balance, fetch } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnMount: false })
@@ -227,116 +178,25 @@ const App = () => {
 }
 ```
 
-# ⚙️ Hook Advanced Config
+# EvmApi Hooks
 
-The `@moralisweb3/next` hooks use [SWR](https://swr.vercel.app/) for a better developer experience. You can provide [config object](https://swr.vercel.app/docs/options#options) to the hooks as it's shown bellow:
+## `useEvmNativeBalance()` 
 
-```jsx
-const { data } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnFocus: true })
-```
-
-# Authentication Api Hooks
-
-## `useAuthRequestChallengeSolana()` 
-
-The back channel challenge containing the id to store on the api and the message to be signed by the user
+Get the native balance for a specific wallet address.
 
 ### Params:
 ```ts
-{
-  address: SolAddressish;
-  network: SolNetworkish;
-  expirationTime?: DateInput;
-  notBefore?: DateInput;
-}; 
+{ chain?: EvmChainish; address: EvmAddressish }; 
 ```
 
 ### Response:
 ```ts
-{ id: string; message: string; profileId: string }; 
+{ balance: EvmNative }; 
 ```
 
-## `useAuthRequestChallengeEvm()` 
+## `useEvmBlock()` 
 
-The back channel challenge containing the id to store on the api and the message to be signed by the user
-
-### Params:
-```ts
-{
-  address: EvmAddressish;
-  chainId: EvmChainish;
-  expirationTime?: DateInput;
-  notBefore?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-{ id: string; message: string; profileId: string }; 
-```
-
-# Evm Api Hooks
-## `useEvmWeb3ApiVersion()` 
-
-Get the current version of the Moralis Web3 API.
-
-
-### Response:
-```ts
-{ version: string }; 
-```
-
-## `useEvmRunContractFunction()` 
-
-Run a given function of a contract ABI and retrieve readonly data.
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish; abi: unknown }; 
-```
-
-### Response:
-```ts
-string
-```
-
-## `useEvmEndpointWeights()` 
-
-Get the endpoint price list for rate limits and cost.
-
-
-### Response:
-```ts
-{
-  endpoint: string;
-  path: string;
-  rateLimitWeight: string;
-  price: string;
-}[]; 
-```
-
-## `useEvmWalletTransactions()` 
-
-Get native transactions ordered by block number in descending order.
-
-### Params:
-```ts
-{
-  chain?: EvmChainish;
-  address: EvmAddressish;
-  fromDate?: DateInput;
-  toDate?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-EvmTransaction[]
-```
-
-## `useEvmTransaction()` 
-
-Get the contents of a transaction by the given transaction hash.
+Get the contents of a block given the block hash.
 
 ### Params:
 ```ts
@@ -345,12 +205,99 @@ Get the contents of a transaction by the given transaction hash.
 
 ### Response:
 ```ts
-EvmTransaction
+EvmBlock
 ```
 
-## `useEvmWalletTokenTransfers()` 
+## `useEvmDateToBlock()` 
 
-Get ERC20 token transactions ordered by block number in descending order.
+Get the closest block given the date.
+
+### Params:
+```ts
+{ chain?: EvmChainish; date: DateInput }; 
+```
+
+### Response:
+```ts
+EvmBlockDate
+```
+
+## `useEvmPairAddress()` 
+
+
+Fetch the pair data of the provided token0+token1 combination.
+The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  token0Address: EvmAddressish;
+  token1Address: EvmAddressish;
+  toDate?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+{
+  token0: {
+    token: Erc20Token;
+    blockNumber: string | undefined;
+    validated: number | undefined;
+    createdAt: Date | undefined;
+  };
+  token1: {
+    token: Erc20Token;
+    blockNumber: string | undefined;
+    validated: number | undefined;
+    createdAt: Date | undefined;
+  };
+  pairAddress: EvmAddress | undefined;
+}; 
+```
+
+## `useEvmPairReserves()` 
+
+Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment.
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  pairAddress: EvmAddressish;
+  toDate?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+{ reserve0?: string | undefined; reserve1?: string | undefined }; 
+```
+
+## `useEvmContractEvents()` 
+
+Get events for a contract ordered by block number in descending order.
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  abi: EvmAbiItem;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+EvmEvent[]
+```
+
+## `useEvmContractLogs()` 
+
+Get the logs for a contract.
 
 ### Params:
 ```ts
@@ -364,49 +311,34 @@ Get ERC20 token transactions ordered by block number in descending order.
 
 ### Response:
 ```ts
-Erc20Transfer[]
+EvmTransactionLog[]
 ```
 
-## `useEvmWalletTokenBalances()` 
+## `useEvmUploadFolder()` 
 
-Get token balances for a specific wallet address.
+Upload multiple files to IPFS and place them in a folder directory.
 
 ### Params:
 ```ts
 {
-  chain?: EvmChainish;
-  tokenAddresses?: EvmAddressish[];
-  address: EvmAddressish;
+  abi: {
+    path: string;
+    content: string;
+  }[];
 }; 
 ```
 
 ### Response:
 ```ts
-Erc20Value[]
+{ path: string }[]; 
 ```
 
-## `useEvmTokenTransfers()` 
+## `useEvmContractNFTs()` 
 
-Get ERC20 token transactions from a contract ordered by block number in descending order.
 
-### Params:
-```ts
-{
-  chain?: EvmChainish;
-  address: EvmAddressish;
-  fromDate?: DateInput;
-  toDate?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-Erc20Transfer[]
-```
-
-## `useEvmTokenPrice()` 
-
-Get the token price denominated in the blockchains native token and USD.
+Get NFTs for a given contract address, including metadata for all NFTs (where available).
+* Results are limited to 100 per page by default
+* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
 
 ### Params:
 ```ts
@@ -415,35 +347,151 @@ Get the token price denominated in the blockchains native token and USD.
 
 ### Response:
 ```ts
-{
-  nativePrice: EvmNative | null;
-  exchangeAddress: EvmAddress | null;
-  usdPrice: number;
-  exchangeName?: string | undefined;
-}; 
+EvmNft[]
 ```
 
-## `useEvmTokenMetadata()` 
+## `useEvmMultipleNFTs()` 
 
-Get the metadata for a given token contract address (name, symbol, decimals, logo).
+
+Get NFTs for a given contract address, including metadata for all NFTs (where available).
+* Results are limited to 100 per page by default
+* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; addresses: EvmAddressish[] }; 
+{
+  chain?: EvmChainish;
+  tokens: {
+    tokenAddress: EvmAddressish;
+    tokenId: string;
+  }[];
+}; 
 ```
 
 ### Response:
 ```ts
-{
-  token: Erc20Token;
-  blockNumber: string | undefined;
-  validated: string | undefined;
-}[]; 
+(EvmNft | null)[]
 ```
 
-## `useEvmTokenMetadataBySymbol()` 
+## `useEvmNFTContractMetadata()` 
 
-Get metadata for a list of token symbols (name, symbol, decimals, logo).
+
+Get the collection / contract level metadata for a given contract (name, symbol, base token uri).
+* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNftMetadata
+```
+
+## `useEvmNFTContractTransfers()` 
+
+Get transfers of NFTs for a given contract and other parameters.
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+EvmNftTransfer[]
+```
+
+## `useEvmNFTLowestPrice()` 
+
+Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH).
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNftTrade
+```
+
+## `useEvmNFTMetadata()` 
+
+
+Get NFT data, including metadata (where available), for the given NFT token ID and contract address.
+* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNft
+```
+
+## `useEvmNFTOwners()` 
+
+
+Get owners of NFTs for a given contract.
+* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNft[]
+```
+
+## `useEvmNFTTokenIdOwners()` 
+
+
+Get owners of a specific NFT given the contract address and token ID.
+* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+EvmNft[]
+```
+
+## `useEvmNFTTrades()` 
+
+Get trades of NFTs for a given contract and marketplace.
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+EvmNftTrade[]
+```
+
+## `useEvmNFTTransfersByBlock()` 
+
+Get transfers of NFTs given a block number or block hash.
 
 ### Params:
 ```ts
@@ -452,58 +500,26 @@ Get metadata for a list of token symbols (name, symbol, decimals, logo).
 
 ### Response:
 ```ts
-{
-  token: Erc20Token;
-  blockNumber: string || undefined;
-}[]; 
+EvmNftTransfer[]
 ```
 
-## `useEvmTokenAllowance()` 
+## `useEvmNFTTransfersFromToBlock()` 
 
-Get the amount which the spender is allowed to withdraw on behalf of the owner.
+Get transfers of NFTs from a block number to a block number.
 
 ### Params:
 ```ts
-{
-  chain?: EvmChainish;
-  ownerAddress: EvmAddressish;
-  spenderAddress: EvmAddressish;
-  address: EvmAddressish;
-}; 
+{ chain?: EvmChainish; fromDate?: DateInput; toDate?: DateInput }; 
 ```
 
 ### Response:
 ```ts
-{ allowance: BigNumber }; 
+EvmNftTransfer[]
 ```
 
-## `useEvmResolveDomain()` 
+## `useEvmNFTTransfers()` 
 
-Resolve an Unstoppable domain and get the address.
-
-
-### Response:
-```ts
-{ address: EvmAddress }; 
-```
-
-## `useEvmResolveAddress()` 
-
-Resolve an ETH address and find the ENS name.
-
-### Params:
-```ts
-{ address?: EvmAddressish }; 
-```
-
-### Response:
-```ts
-{ name: string }; 
-```
-
-## `useEvmSyncNFTContract()` 
-
-Initiates a sync of a previously non synced Contract.
+Get transfers of an NFT given a contract address and token ID.
 
 ### Params:
 ```ts
@@ -512,51 +528,12 @@ Initiates a sync of a previously non synced Contract.
 
 ### Response:
 ```ts
-{ success: boolean }; 
+EvmNftTransfer[]
 ```
 
-## `useEvmSearchNFTs()` 
+## `useEvmWalletNFTCollections()` 
 
-Get NFTs that match a given metadata search query.
-
-### Params:
-```ts
-{
-  chain?: EvmChainish;
-  addresses?: EvmAddressish[];
-  fromDate?: DateInput;
-  toDate?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-{
-  token: EvmNft;
-  tokenHash: string;
-  blockNumberMinted: string;
-  lastMetadataSync: Date | undefined;
-  lastTokenUriSync: Date | undefined;
-  batchId: string;
-  frozen: number;
-  frozenLogIndex: { [key: string]: unknown } | undefined;
-  imported: { [key: string]: unknown } | undefined;
-  isValid: number;
-  openseaLookup: { [key: string]: unknown } | undefined;
-  resyncing: number;
-  syncing: number;
-  updatedAt: Date;
-}[]; 
-```
-
-## `useEvmReSyncMetadata()` 
-
-
-ReSync the metadata for an NFT
-* The metadata flag will request a the NFT's metadata from the already existing token_uri
-* The uri(default) flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
-* The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
-* The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
+Get NFT collections owned by a given wallet address.
 
 ### Params:
 ```ts
@@ -565,7 +542,7 @@ ReSync the metadata for an NFT
 
 ### Response:
 ```ts
-{ status: string }; 
+EvmNftCollection[]
 ```
 
 ## `useEvmWalletNFTs()` 
@@ -605,23 +582,14 @@ Get transfers of NFTs given the wallet and other parameters.
 EvmNftTransfer[]
 ```
 
-## `useEvmWalletNFTCollections()` 
+## `useEvmReSyncMetadata()` 
 
-Get NFT collections owned by a given wallet address.
 
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNftCollection[]
-```
-
-## `useEvmNFTTransfers()` 
-
-Get transfers of an NFT given a contract address and token ID.
+ReSync the metadata for an NFT
+* The metadata flag will request a the NFT's metadata from the already existing token_uri
+* The uri(default) flag will fetch the latest token_uri from the given NFT address. In sync mode the metadata will also be fetched
+* The sync mode will make the endpoint synchronous so it will wait for the task to be completed before responding
+* The async mode(default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
 
 ### Params:
 ```ts
@@ -630,26 +598,103 @@ Get transfers of an NFT given a contract address and token ID.
 
 ### Response:
 ```ts
-EvmNftTransfer[]
+{ status: string }; 
 ```
 
-## `useEvmNFTTransfersFromToBlock()` 
+## `useEvmSearchNFTs()` 
 
-Get transfers of NFTs from a block number to a block number.
+Get NFTs that match a given metadata search query.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; fromDate?: DateInput; toDate?: DateInput }; 
+{
+  chain?: EvmChainish;
+  addresses?: EvmAddressish[];
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
 ```
 
 ### Response:
 ```ts
-EvmNftTransfer[]
+{
+  token: EvmNft;
+  tokenHash: string;
+  blockNumberMinted: string;
+  lastMetadataSync: Date | undefined;
+  lastTokenUriSync: Date | undefined;
+  batchId: string;
+  frozen: number;
+  frozenLogIndex: { [key: string]: unknown } | undefined;
+  imported: { [key: string]: unknown } | undefined;
+  isValid: number;
+  openseaLookup: { [key: string]: unknown } | undefined;
+  resyncing: number;
+  syncing: number;
+  updatedAt: Date;
+}[]; 
 ```
 
-## `useEvmNFTTransfersByBlock()` 
+## `useEvmSyncNFTContract()` 
 
-Get transfers of NFTs given a block number or block hash.
+Initiates a sync of a previously non synced Contract.
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+{ success: boolean }; 
+```
+
+## `useEvmResolveAddress()` 
+
+Resolve an ETH address and find the ENS name.
+
+### Params:
+```ts
+{ address?: EvmAddressish }; 
+```
+
+### Response:
+```ts
+{ name: string }; 
+```
+
+## `useEvmResolveDomain()` 
+
+Resolve an Unstoppable domain and get the address.
+
+
+### Response:
+```ts
+{ address: EvmAddress }; 
+```
+
+## `useEvmTokenAllowance()` 
+
+Get the amount which the spender is allowed to withdraw on behalf of the owner.
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  ownerAddress: EvmAddressish;
+  spenderAddress: EvmAddressish;
+  address: EvmAddressish;
+}; 
+```
+
+### Response:
+```ts
+{ allowance: BigNumber }; 
+```
+
+## `useEvmTokenMetadataBySymbol()` 
+
+Get metadata for a list of token symbols (name, symbol, decimals, logo).
 
 ### Params:
 ```ts
@@ -658,12 +703,53 @@ Get transfers of NFTs given a block number or block hash.
 
 ### Response:
 ```ts
-EvmNftTransfer[]
+{
+  token: Erc20Token;
+  blockNumber: string | undefined;
+  validated: string | undefined;
+}[]; 
 ```
 
-## `useEvmNFTTrades()` 
+## `useEvmTokenMetadata()` 
 
-Get trades of NFTs for a given contract and marketplace.
+Get the metadata for a given token contract address (name, symbol, decimals, logo).
+
+### Params:
+```ts
+{ chain?: EvmChainish; addresses: EvmAddressish[] }; 
+```
+
+### Response:
+```ts
+{
+  token: Erc20Token;
+  blockNumber: string | undefined;
+  validated: string | undefined;
+}[]; 
+```
+
+## `useEvmTokenPrice()` 
+
+Get the token price denominated in the blockchains native token and USD.
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish }; 
+```
+
+### Response:
+```ts
+{
+  nativePrice: EvmNative | null;
+  exchangeAddress: EvmAddress | null;
+  usdPrice: number;
+  exchangeName?: string | undefined;
+}; 
+```
+
+## `useEvmTokenTransfers()` 
+
+Get ERC20 token transactions from a contract ordered by block number in descending order.
 
 ### Params:
 ```ts
@@ -677,140 +763,30 @@ Get trades of NFTs for a given contract and marketplace.
 
 ### Response:
 ```ts
-EvmNftTrade[]
+Erc20Transfer[]
 ```
 
-## `useEvmNFTTokenIdOwners()` 
+## `useEvmWalletTokenBalances()` 
 
-
-Get owners of a specific NFT given the contract address and token ID.
-* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNft[]
-```
-
-## `useEvmNFTOwners()` 
-
-
-Get owners of NFTs for a given contract.
-* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNft[]
-```
-
-## `useEvmNFTMetadata()` 
-
-
-Get NFT data, including metadata (where available), for the given NFT token ID and contract address.
-* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNft
-```
-
-## `useEvmNFTLowestPrice()` 
-
-Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH).
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNftTrade
-```
-
-## `useEvmNFTContractTransfers()` 
-
-Get transfers of NFTs for a given contract and other parameters.
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNftTransfer[]
-```
-
-## `useEvmNFTContractMetadata()` 
-
-
-Get the collection / contract level metadata for a given contract (name, symbol, base token uri).
-* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNftMetadata
-```
-
-## `useEvmContractNFTs()` 
-
-
-Get NFTs for a given contract address, including metadata for all NFTs (where available).
-* Results are limited to 100 per page by default
-* Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
-
-### Params:
-```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
-```
-
-### Response:
-```ts
-EvmNft[]
-```
-
-## `useEvmUploadFolder()` 
-
-Upload multiple files to IPFS and place them in a folder directory.
+Get token balances for a specific wallet address.
 
 ### Params:
 ```ts
 {
-  abi: {
-    path: string;
-    content: string;
-  }[];
+  chain?: EvmChainish;
+  tokenAddresses?: EvmAddressish[];
+  address: EvmAddressish;
 }; 
 ```
 
 ### Response:
 ```ts
-{ path: string }[]; 
+Erc20Value[]
 ```
 
-## `useEvmContractLogs()` 
+## `useEvmWalletTokenTransfers()` 
 
-Get the logs for a contract.
+Get ERC20 token transactions ordered by block number in descending order.
 
 ### Params:
 ```ts
@@ -824,98 +800,12 @@ Get the logs for a contract.
 
 ### Response:
 ```ts
-EvmTransactionLog[]
+Erc20Transfer[]
 ```
 
-## `useEvmContractEvents()` 
+## `useEvmTransaction()` 
 
-Get events for a contract ordered by block number in descending order.
-
-### Params:
-```ts
-{
-  chain?: EvmChainish;
-  address: EvmAddressish;
-  abi: unknown;
-  fromDate?: DateInput;
-  toDate?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-EvmEvent[]
-```
-
-## `useEvmPairReserves()` 
-
-Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment.
-
-### Params:
-```ts
-{
-  chain?: EvmChainish;
-  pairAddress: EvmAddressish;
-  toDate?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-{ reserve0?: string | undefined; reserve1?: string | undefined }; 
-```
-
-## `useEvmPairAddress()` 
-
-
-Fetch the pair data of the provided token0+token1 combination.
-The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
-
-### Params:
-```ts
-{
-  chain?: EvmChainish;
-  token0Address: EvmAddressish;
-  token1Address: EvmAddressish;
-  toDate?: DateInput;
-}; 
-```
-
-### Response:
-```ts
-{
-  token0: {
-    token: Erc20Token;
-    blockNumber: string | undefined;
-    validated: number | undefined;
-    createdAt: Date | undefined;
-  };
-  token1: {
-    token: Erc20Token;
-    blockNumber: string | undefined;
-    validated: number | undefined;
-    createdAt: Date | undefined;
-  };
-  pairAddress: EvmAddress | undefined;
-};
-```
-## `useEvmDateToBlock()` 
-
-Get the closest block given the date.
-
-### Params:
-```ts
-{ chain?: EvmChainish; date: DateInput }; 
-```
-
-### Response:
-```ts
-{ date: Date; block: number; timestamp: number }; 
-```
-
-## `useEvmBlock()` 
-
-Get the contents of a block given the block hash.
+Get the contents of a transaction by the given transaction hash.
 
 ### Params:
 ```ts
@@ -924,28 +814,120 @@ Get the contents of a block given the block hash.
 
 ### Response:
 ```ts
-EvmBlock
+EvmTransaction
 ```
 
-## `useEvmNativeBalance()` 
+## `useEvmWalletTransactions()` 
 
-Get the native balance for a specific wallet address.
+Get native transactions ordered by block number in descending order.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
 ```
 
 ### Response:
 ```ts
-{ balance: EvmNative }; 
+EvmTransaction[]
+```
+
+## `useEvmWalletTransactionsVerbose()` 
+
+Get native transactions ordered by block number in descending order.
+
+### Params:
+```ts
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+}; 
+```
+
+### Response:
+```ts
+EvmTransaction[]
+```
+
+## `useEvmEndpointWeights()` 
+
+Get the endpoint price list for rate limits and cost.
+
+
+### Response:
+```ts
+{
+  endpoint: string;
+  path: string;
+  rateLimitCost: string;
+  price: string;
+}[]; 
+```
+
+## `useEvmRunContractFunction()` 
+
+Run a given function of a contract ABI and retrieve readonly data.
+
+### Params:
+```ts
+{ chain?: EvmChainish; address: EvmAddressish; abi: unknown }; 
+```
+
+### Response:
+```ts
+string
+```
+
+## `useEvmWeb3ApiVersion()` 
+
+Get the current version of the Moralis Web3 API.
+
+
+### Response:
+```ts
+{ version: string }; 
 ```
 
 
-# Solana Api Hooks
-## `useSolTokenPrice()` 
+# SolApi Hooks
 
-Gets the token price (usd and native) for a given contract address and network
+## `useSolBalance()` 
+
+Gets native balance owned by the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+SolNative
+```
+
+## `useSolNFTs()` 
+
+Gets NFTs owned by the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{ associatedTokenAddress: SolAddress; mint: SolAddress }[]; 
+```
+
+## `useSolPortfolio()` 
+
+Gets the portfolio of the given network and address
 
 ### Params:
 ```ts
@@ -955,16 +937,32 @@ Gets the token price (usd and native) for a given contract address and network
 ### Response:
 ```ts
 {
-  nativePrice: {
-    value: SolNative;
-    decimals: number;
-    name: string;
-    symbol: string;
-  };
-  usdPrice: number;
-  exchangeAddress: SolAddress;
-  exchangeName: string;
+  nativeBalance: SolNative;
+  nfts: { associatedTokenAddress: SolAddress; mint: SolAddress }[];
+  tokens: {
+    associatedTokenAddress: SolAddress;
+    mint: SolAddress;
+    amount: SolNative;
+  }[];
 }; 
+```
+
+## `useSolSPL()` 
+
+Gets token balances owned by the given network and address
+
+### Params:
+```ts
+{ network?: SolNetworkish; address: SolAddressish }; 
+```
+
+### Response:
+```ts
+{
+  associatedTokenAddress: SolAddress;
+  mint: SolAddress;
+  amount: SolNative;
+}[]; 
 ```
 
 ## `useSolNFTMetadata()` 
@@ -994,27 +992,9 @@ Gets the contract level metadata (mint, standard, name, symbol, metaplex) for th
 }; 
 ```
 
-## `useSolSPL()` 
+## `useSolTokenPrice()` 
 
-Gets token balances owned by the given network and address
-
-### Params:
-```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
-```
-
-### Response:
-```ts
-{
-  associatedTokenAddress: SolAddress;
-  mint: SolAddress;
-  amount: SolNative;
-}[]; 
-```
-
-## `useSolPortfolio()` 
-
-Gets the portfolio of the given network and address
+Gets the token price (usd and native) for a given contract address and network
 
 ### Params:
 ```ts
@@ -1024,44 +1004,27 @@ Gets the portfolio of the given network and address
 ### Response:
 ```ts
 {
-  nativeBalance: SolNative;
-  nfts: { associatedTokenAddress: SolAddress; mint: SolAddress }[];
-  tokens: {
-    associatedTokenAddress: SolAddress;
-    mint: SolAddress;
-    amount: SolNative;
-  }[];
+  nativePrice: {
+    value: SolNative;
+    decimals: number;
+    name: string;
+    symbol: string;
+  };
+  usdPrice: number;
+  exchangeAddress: SolAddress;
+  exchangeName: string;
 }; 
 ```
 
-## `useSolNFTs()` 
 
-Gets NFTs owned by the given network and address
 
-### Params:
-```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+# ⚙️ Advanced Config
+TO_DO:
+The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience. You can provide [config object](https://swr.vercel.app/docs/options#options) to the hooks as it's shown bellow:
+
+```jsx
+const { data } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnFocus: true })
 ```
-
-### Response:
-```ts
-{ associatedTokenAddress: SolAddress; mint: SolAddress }[]; 
-```
-
-## `useSolBalance()` 
-
-Gets native balance owned by the given network and address
-
-### Params:
-```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
-```
-
-### Response:
-```ts
-SolNative
-```
-
 
 # 🧙‍♂️ Community
 

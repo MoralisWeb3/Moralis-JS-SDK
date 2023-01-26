@@ -1,0 +1,17 @@
+/**
+ * @warn This file is auto-generated
+ * Don't modify it
+ */
+import {
+  {{#each hooks}}
+    {{ this.operation }},
+    {{#if this.request}}{{ this.request }},{{/if}}
+  {{/each}}
+} from '{{ commonUtils }}';
+import { {{#each resolversToImport}}{{ this }},{{/each}} } from '../../resolvers';
+
+{{#each hooks}}
+export const {{ this.name }} = ({{#if this.request}}request?: {{ this.request }}{{/if}}) => {
+  return {{ this.resolverType }}({{ this.operation }}, {{#if this.request}}request{{else}}{}{{/if}});
+};
+{{/each}}

@@ -1,78 +1,63 @@
-import { ActionConfig } from 'node-plop';
+import _ from 'lodash';
+import { ActionConfig, AddActionConfig } from 'node-plop';
 import { getHookName } from '../../utils/names';
-import { OperationFilesParser } from '../../../utils/OperationFilesParser';
-import { paths } from './utils/constants';
-import Handlebars from 'handlebars';
-import path from 'node:path';
 import { Module } from '../../types';
+import { OperationFilesParser, ParsedOperation } from '../../../utils/OperationFilesParser';
+import { paths } from './utils/constants';
+import handlebars from 'handlebars';
+import path from 'node:path';
+import fs from 'fs-extra';
 
 export class ReadmeGenerator {
-  private operationFilesParser: OperationFilesParser;
+  constructor(public modules: Module[]) {}
 
-  constructor(public module: Module, public blackListedOperations?: string[]) {
-    this.operationFilesParser = new OperationFilesParser(module, blackListedOperations);
-  }
+  private renderTemplate = (templatePath: string, data: unknown) => {
+    const template = fs.readFileSync(templatePath, 'utf-8');
+    return handlebars.compile(template)(data);
+  };
 
-  private get appendHookDescriptions() {
-    let pattern: string;
-    switch (this.module) {
-      case 'evmApi':
-        pattern = '# Evm Api Hooks';
-        break;
-      case 'solApi':
-        pattern = '# Solana Api Hooks';
-        break;
-      default:
-        throw new Error(`No Pattern for the ${this.module}`);
-    }
-    return this.operationFilesParser.parsedOperations.map((operation) => {
-      const hookName = getHookName(operation.name, this.module);
-      if (hookName === 'useEvmPairAddress') {
-        console.warn('Please add Response for useEvmPairAddress in README manually');
-        console.log(operation.response);
-      }
-      return {
-        type: 'append',
-        templateFile: path.join(paths.templates, 'hook_desc.hbs'),
-        path: path.join(paths.packages, 'next/README.md'),
-        pattern,
-        data: {
-          hookName,
-          request: operation.request,
-          response: operation.response,
-          description: new Handlebars.SafeString(operation.description || 'Description will be added later 👀'),
-        },
-      };
+  private getHookGuide = (op: ParsedOperation, module: Module) => {
+    const hookName = getHookName(op.name, module);
+    const template = path.join(paths.templates, 'hook_desc.hbs');
+
+    return new handlebars.SafeString(
+      this.renderTemplate(template, {
+        hookName,
+        request: op.request,
+        response: op.response,
+        description: new handlebars.SafeString(op.description || 'Description will be added later 👀'),
+      }),
+    );
+  };
+
+  private getHookGuidesByGroups = () => {
+    return this.modules.map((module) => {
+      const template = path.join(paths.templates, 'hook_group.hbs');
+      const guides = new OperationFilesParser(module).parsedOperations.map((operation) => {
+        return this.getHookGuide(operation, module);
+      });
+      return new handlebars.SafeString(
+        this.renderTemplate(template, {
+          group: _.upperFirst(module),
+          guides,
+        }),
+      );
     });
-  }
+  };
 
-  private get appendHookToTableOfContents() {
-    let pattern: string;
-    switch (this.module) {
-      case 'evmApi':
-        pattern = '- [Evm Api Hooks](#evm-api-hooks)';
-        break;
-      case 'solApi':
-        pattern = '- [Solana Api Hooks](#solana-api-hooks)';
-        break;
-      default:
-        throw new Error(`No Pattern for the ${this.module}`);
-    }
-
-    return this.operationFilesParser.parsedOperations.map((operation) => {
-      return {
-        type: 'append',
-        template: '  - [{{ hookName }}](#️{{ hookName }})',
-        path: path.join(paths.packages, 'next/README.md'),
-        pattern,
-        data: {
-          hookName: getHookName(operation.name, this.module),
-        },
-      };
-    });
+  private generateReadme(): AddActionConfig {
+    return {
+      type: 'add',
+      templateFile: path.join(paths.templates, 'README.md.hbs'),
+      path: path.join(paths.packages, 'react/README.md'),
+      force: true,
+      data: {
+        hookGuides: this.getHookGuidesByGroups(),
+      },
+    };
   }
 
   public get actions(): ActionConfig[] {
-    return [...this.appendHookDescriptions, ...this.appendHookToTableOfContents];
+    return [this.generateReadme()];
   }
 }

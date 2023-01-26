@@ -1,23 +1,23 @@
 import { _useClient } from '../../context/MoralisProvider';
 import { Operation } from '@moralisweb3/common-core';
-import { OperationResolver } from '@moralisweb3/api-utils';
+import { NullableOperationResolver } from '@moralisweb3/api-utils';
 import { useCallback } from 'react';
 import Moralis from 'moralis';
 import useSWR from 'swr';
 
-export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
+export function _useResolverNullable<Request, JSONRequest, Response, JSONResponse>(
   operation: Operation<Request, JSONRequest, Response, JSONResponse>,
   request?: Request,
 ) {
   const { core, swrConfig } = _useClient();
-  const { fetch: resolve } = new OperationResolver(operation, Moralis.EvmApi.baseUrl, core);
+  const { fetch: resolve } = new NullableOperationResolver(operation, Moralis.EvmApi.baseUrl, core);
 
   const fetcher = async (_url: string, req: Request) => {
-    const { result } = await resolve(req);
-    return result;
+    const response = await resolve(req);
+    return response?.result || null;
   };
 
-  const { data, error, mutate, isValidating } = useSWR<Response>(
+  const { data, error, mutate, isValidating } = useSWR<Response | null>(
     [operation.id, request],
     request ? fetcher : null,
     swrConfig,

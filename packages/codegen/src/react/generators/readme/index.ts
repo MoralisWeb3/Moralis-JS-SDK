@@ -1,21 +1,24 @@
 import { NodePlopAPI } from 'plop';
 import { ReadmeGenerator } from './ReadmeGenerator';
-import path from 'node:path';
-import { paths } from './utils/constants';
+
+export enum GeneratedModule {
+  EVM_API = 'evmApi',
+  SOL_API = 'solApi',
+}
 
 export default function ReactReadmeGenerator(plop: NodePlopAPI) {
-  plop.setGenerator('next-readme', {
-    description: 'readme for @moralisweb3/next',
-    prompts: [],
-    actions: () => {
-      const addReadMe = {
-        type: 'add',
-        templateFile: path.join(paths.templates, 'README.md.hbs'),
-        path: path.join(paths.packages, 'next/README.md'),
-        force: true,
-      };
-
-      return [addReadMe, ...new ReadmeGenerator('evmApi').actions, ...new ReadmeGenerator('solApi').actions];
+  plop.setGenerator('react-readme', {
+    description: 'readme for @moralisweb3/react',
+    prompts: [
+      {
+        type: 'checkbox',
+        name: 'modules',
+        message: 'Select modules for readme generating',
+        choices: Object.values(GeneratedModule),
+      },
+    ],
+    actions: (answers) => {
+      return new ReadmeGenerator(answers?.modules).actions;
     },
   });
 }
