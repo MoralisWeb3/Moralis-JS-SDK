@@ -1,5 +1,7 @@
 import { Generator } from './generator/Generator';
 import path from 'path';
+import axios from 'axios';
+import { OpenAPI } from 'openapi-types';
 
 export const SOLANA_URL = 'https://solana-gateway.moralis.io/api-json/';
 export const EVM_URL = 'https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json';
@@ -13,7 +15,9 @@ async function run() {
   const urls = [EVM_URL];
 
   for (const url of urls) {
-    const generator = await Generator.create(url, 'Evm', outputPath);
+    const document = (await axios.get(url)).data as OpenAPI.Document;
+
+    const generator = await Generator.create(document, 'Apt', outputPath);
     generator.generate();
   }
 }

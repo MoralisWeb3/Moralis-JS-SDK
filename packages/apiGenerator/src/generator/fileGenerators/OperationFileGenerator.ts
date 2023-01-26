@@ -1,7 +1,7 @@
-import { OperationInfo } from 'src/reader/OpenApiReaderResult';
+import { OperationInfo } from '../../reader/OpenApiReaderResult';
 import { NameFormatter } from '../../reader/utils/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
-import { CodeGenerator } from './CodeGenerator';
+import { Types, TypesGenerator } from './TypesGenerator';
 
 export interface OperationFileGeneratorResult {
   className: string;
@@ -9,67 +9,74 @@ export interface OperationFileGeneratorResult {
 }
 
 export class OperationFileGenerator {
-  private readonly codeGenerator = new CodeGenerator(this.classNamePrefix);
-
-  public constructor(private readonly info: OperationInfo, private readonly classNamePrefix: string) {}
+  public constructor(private readonly info: OperationInfo, private readonly typesGenerator: TypesGenerator) {}
 
   public generate(): OperationFileGeneratorResult {
-    const returnTypeNames = this.codeGenerator.generateNames(this.info.response?.descriptor, true);
-    const bodyTypeNames = this.info.body
-      ? this.codeGenerator.generateNames(this.info.body.descriptor, this.info.body.isRequired)
+    const returnTypes = this.info.response ? this.typesGenerator.generate(this.info.response.descriptor, true) : null;
+    const bodyTypes = this.info.body
+      ? this.typesGenerator.generate(this.info.body.descriptor, this.info.body.isRequired)
       : null;
 
     const normalizedOperationId = NameFormatter.normalize(this.info.operationId);
-    const className = NameFormatter.joinName(this.classNamePrefix, normalizedOperationId + 'Operation');
+    const className = this.typesGenerator.createClassName(normalizedOperationId + 'Operation');
     const output = new GeneratorOutput();
 
     const parameters = this.info.parameters.map((parameter) => {
       const camelCasedName = NameFormatter.toCamelCase(parameter.name);
-      const names = this.codeGenerator.generateNames(parameter.descriptor, parameter.isRequired);
+      const types = this.typesGenerator.generate(parameter.descriptor, parameter.isRequired);
       return {
         camelCasedName,
-        names,
+        types,
         parameter,
-        importPath: `../types/${names.className}`,
+        input2TypeCode: this.typesGenerator.generateInput2TypeCode(
+          parameter.descriptor,
+          `request.${camelCasedName}`,
+          parameter.isRequired,
+        ),
+        type2JSONCode: this.typesGenerator.generateType2JSONCode(
+          parameter.descriptor,
+          camelCasedName,
+          parameter.isRequired,
+        ),
       };
     });
 
-    if (returnTypeNames.className && returnTypeNames.jsonClassName) {
-      output.write(
-        0,
-        `import { ${returnTypeNames.className}, ${returnTypeNames.jsonClassName} } from '../types/${returnTypeNames.className}';`,
-      );
+    const imports = new Map<string, Types>();
+    parameters.forEach((parameter) => {
+      if (parameter.types.className) {
+        imports.set(parameter.types.className, parameter.types);
+      }
+    });
+    if (returnTypes?.className) {
+      imports.set(returnTypes.className, returnTypes);
+    }
+    if (bodyTypes?.className) {
+      imports.set(bodyTypes.className, bodyTypes);
     }
 
-    if (bodyTypeNames) {
-      output.write(
-        0,
-        `import { ${bodyTypeNames.className}, ${bodyTypeNames.jsonClassName} } from '../types/${bodyTypeNames.className}';`,
-      );
-    }
-    for (const p of parameters) {
-      if (p.names.className && p.names.jsonClassName) {
-        output.write(0, `import { ${p.names.className}, ${p.names.jsonClassName} } from '${p.importPath}';`);
+    if (imports.size > 0) {
+      for (const types of imports.values()) {
+        output.write(
+          0,
+          `import { ${types.className}, ${types.jsonClassName}, ${types.inputClassName} } from '../types/${types.className}';`,
+        );
       }
+      output.newLine();
     }
-    output.newLine();
 
     output.write(0, `export interface ${className}RequestJSON {`);
     for (const p of parameters) {
-      output.write(1, `readonly ${p.parameter.name}: ${p.names.jsonTypeCode};`);
-    }
-    if (bodyTypeNames) {
-      output.write(1, `readonly body: ${bodyTypeNames.jsonClassName};`);
+      output.write(1, `readonly ${p.parameter.name}${p.types.colon} ${p.types.jsonTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
 
     output.write(0, `export interface ${className}Request {`);
     for (const p of parameters) {
-      output.write(1, `readonly ${p.camelCasedName}: ${p.names.typeCode};`);
+      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputTypeCode};`);
     }
-    if (bodyTypeNames) {
-      output.write(1, `readonly body: ${bodyTypeNames.className};`);
+    if (bodyTypes) {
+      output.write(1, `readonly body${bodyTypes.colon} ${bodyTypes.inputTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
@@ -79,44 +86,62 @@ export class OperationFileGenerator {
         description: this.info.description,
       });
     }
+
+    const parameterNames = parameters.map((p) => p.parameter.name);
+
     output.write(0, `export const ${className} = {`);
     output.write(1, `operationId: ${JSON.stringify(this.info.operationId)},`);
     output.write(1, `httpMethod: ${JSON.stringify(this.info.httpMethod)},`);
     output.write(1, `routePattern: ${JSON.stringify(this.info.routePattern)},`);
+    output.write(1, `parameterNames: ${JSON.stringify(parameterNames)},`);
+    output.write(1, `hasResponse: ${JSON.stringify(!!this.info.response)},`);
+    output.write(1, `hasBody: ${JSON.stringify(!!this.info.body)},`);
     output.newLine();
 
-    output.write(1, `parseResponse(json: ${returnTypeNames.jsonTypeCode}): ${returnTypeNames.typeCode} {`);
-    output.write(
-      2,
-      `return ${this.codeGenerator.generateJSON2TypeCode(this.info.response?.descriptor, 'json', true)};`,
-    );
-    output.write(1, '},');
-    output.newLine();
+    if (returnTypes && this.info.response) {
+      const responseJSON2TypeCode = this.typesGenerator.generateJSON2TypeCode(
+        this.info.response.descriptor,
+        'json',
+        true,
+      );
+
+      output.write(1, `parseResponse(json: ${returnTypes.jsonTypeCode}): ${returnTypes.typeCode} {`);
+      output.write(2, `return ${responseJSON2TypeCode};`);
+      output.write(1, '},');
+      output.newLine();
+    }
 
     output.write(1, `serializeRequest(request: ${className}Request): ${className}RequestJSON {`);
+    for (const p of parameters) {
+      output.write(2, `const ${p.camelCasedName} = ${p.input2TypeCode};`);
+    }
+
     output.write(2, 'return {');
     for (const p of parameters) {
-      output.write(
-        3,
-        `${p.parameter.name}: ${this.codeGenerator.generateType2JSONCode(
-          p.parameter.descriptor,
-          `request.${p.camelCasedName}`,
-          p.parameter.isRequired,
-        )},`,
-      );
-    }
-    if (bodyTypeNames) {
-      output.write(
-        3,
-        `body: ${this.codeGenerator.generateType2JSONCode(
-          this.info.body!.descriptor,
-          `request.body`,
-          this.info.body!.isRequired,
-        )}`,
-      );
+      output.write(3, `${p.parameter.name}: ${p.type2JSONCode},`);
     }
     output.write(2, '};');
     output.write(1, '},');
+    output.newLine();
+
+    if (bodyTypes && this.info.body) {
+      const bodyInput2TypeCode = this.typesGenerator.generateInput2TypeCode(
+        this.info.body.descriptor!,
+        'request.body',
+        this.info.body.isRequired,
+      );
+      const bodyType2JSONCode = this.typesGenerator.generateType2JSONCode(
+        this.info.body.descriptor,
+        `body`,
+        this.info.body.isRequired,
+      );
+      const returnType = this.info.body.isRequired ? bodyTypes.jsonTypeCode : `${bodyTypes.jsonTypeCode} | undefined`;
+
+      output.write(1, `serializeBody(request: ${className}Request): ${returnType} {`);
+      output.write(2, `const body = ${bodyInput2TypeCode};`);
+      output.write(2, `return ${bodyType2JSONCode};`);
+      output.write(1, '},');
+    }
 
     output.write(0, '}');
 

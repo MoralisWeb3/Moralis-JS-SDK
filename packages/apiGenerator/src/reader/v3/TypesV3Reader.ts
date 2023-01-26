@@ -38,7 +38,8 @@ export class TypesV3Reader {
       ref: pointer.ref,
     };
 
-    if (!scheme.properties) {
+    const propertyKeys = scheme.properties ? Object.keys(scheme.properties) : [];
+    if (!scheme.properties || propertyKeys.length < 1) {
       let simpleType = scheme.type;
       if (!simpleType) {
         simpleType = 'object';
@@ -48,12 +49,13 @@ export class TypesV3Reader {
       this.simpleTypes.push({
         descriptor,
         simpleType,
+        enum: scheme.enum as string[] | undefined,
       });
       return;
     }
 
     const properties: PropertyInfo[] = [];
-    for (const name of Object.keys(scheme.properties)) {
+    for (const name of propertyKeys) {
       const isRequired = scheme.required?.includes(name) || false;
       const refOrSchema = scheme.properties[name];
 

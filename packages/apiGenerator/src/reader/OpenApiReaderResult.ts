@@ -21,6 +21,7 @@ export interface PropertyInfo {
 export interface SimpleTypeInfo {
   descriptor: ComplexTypeDescriptor;
   simpleType: string;
+  enum?: string[];
 }
 
 export interface OperationInfo {

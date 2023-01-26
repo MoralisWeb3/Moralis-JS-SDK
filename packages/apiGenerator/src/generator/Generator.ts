@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { OpenAPIV3 } from 'openapi-types';
+import { OpenAPI } from 'openapi-types';
 import { OpenApiReader } from '../reader/OpenApiReader';
 import { IndexFileGenerator } from './fileGenerators/IndexFileGenerator';
 import { OperationFileGenerator } from './fileGenerators/OperationFileGenerator';
@@ -7,19 +6,23 @@ import { SimpleTypeFileGenerator } from './fileGenerators/SimpleTypeFileGenerato
 import { ComplexTypeFileGenerator } from './fileGenerators/ComplexTypeFileGenerator';
 import { GeneratorWriter } from './GeneratorWriter';
 import { ComplexTypeInfo, OperationInfo, SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
+import { TypesGenerator } from './fileGenerators/TypesGenerator';
 
 export class Generator {
-  public static async create(swaggerUrl: string, classPrefix: string, outputPath: string): Promise<Generator> {
-    const response = await axios.get(swaggerUrl);
-    const document = response.data as OpenAPIV3.Document;
-    return new Generator(document, classPrefix, new GeneratorWriter(outputPath));
+  public static async create(
+    document: OpenAPI.Document,
+    classNamePrefix: string,
+    outputPath: string,
+  ): Promise<Generator> {
+    return new Generator(document, classNamePrefix, new GeneratorWriter(outputPath));
   }
 
+  private readonly typesGenerator = new TypesGenerator(this.classNamePrefix);
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
 
   private constructor(
-    private readonly document: OpenAPIV3.Document,
+    private readonly document: OpenAPI.Document,
     private readonly classNamePrefix: string,
     private readonly writer: GeneratorWriter,
   ) {}
@@ -43,7 +46,7 @@ export class Generator {
   }
 
   private generateOperation(info: OperationInfo) {
-    const generator = new OperationFileGenerator(info, this.classNamePrefix);
+    const generator = new OperationFileGenerator(info, this.typesGenerator);
     const result = generator.generate();
 
     this.writer.writeOperation(result.className, result.output);
@@ -52,7 +55,7 @@ export class Generator {
   }
 
   private generateSimpleType(info: SimpleTypeInfo) {
-    const generator = new SimpleTypeFileGenerator(info, this.classNamePrefix);
+    const generator = new SimpleTypeFileGenerator(info, this.typesGenerator);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);
@@ -61,7 +64,7 @@ export class Generator {
   }
 
   private generateComplexType(info: ComplexTypeInfo) {
-    const generator = new ComplexTypeFileGenerator(info, this.classNamePrefix);
+    const generator = new ComplexTypeFileGenerator(info, this.typesGenerator);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);
