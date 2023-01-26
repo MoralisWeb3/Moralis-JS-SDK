@@ -1,5 +1,4 @@
-import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
-import { EvmStream } from '../../dataTypes';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
 type OperationId = 'DeleteStream';
@@ -55,8 +54,8 @@ function getRequestBody() {
   return {};
 }
 
-function deserializeResponse(jsonResponse: DeleteStreamEvmJSONResponse, request: DeleteStreamEvmRequest, core: Core) {
-  return EvmStream.create(jsonResponse, core);
+function deserializeResponse(jsonResponse: DeleteStreamEvmJSONResponse) {
+  return jsonResponse;
 }
 
 function serializeRequest(request: DeleteStreamEvmRequest) {
