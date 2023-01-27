@@ -6,10 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <BrowserRouter>
     <ChakraProvider resetCSS>
-      <MoralisProvider config={{ apiKey: 'IcG2VVd5xU8sse7OOaKlwdtqrxER1uHCxwlXwO0nalTjMjeAEdNY2TNdCx2RkNvn' }}>
+      <MoralisProvider config={{ apiKey: process.env.REACT_APP_MORALIS_KEY || '' }}>
         <App />
       </MoralisProvider>
     </ChakraProvider>
