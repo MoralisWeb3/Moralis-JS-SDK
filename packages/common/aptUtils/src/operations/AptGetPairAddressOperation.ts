@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptReservesCollection, AptReservesCollectionJSON, AptReservesCollectionInput } from '../types/AptReservesCollection';
+import {
+  AptReservesCollection,
+  AptReservesCollectionJSON,
+  AptReservesCollectionInput,
+} from '../types/AptReservesCollection';
 
 export interface AptGetPairAddressOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -24,10 +28,10 @@ export interface AptGetPairAddressOperationRequest {
  * The token0 and token1 options are interchangable (ie. there is no different outcome in "token0=WETH and token1=USDT" or "token0=USDT and token1=WETH")
  */
 export const AptGetPairAddressOperation = {
-  operationId: "getPairAddress",
-  httpMethod: "get",
-  routePattern: "/{token0_address}/{token1_address}/pairAddress",
-  parameterNames: ["chain","to_block","to_date","exchange","token0_address","token1_address"],
+  operationId: 'getPairAddress',
+  httpMethod: 'get',
+  routePattern: '/{token0_address}/{token1_address}/pairAddress',
+  parameterNames: ['chain', 'to_block', 'to_date', 'exchange', 'token0_address', 'token1_address'],
   hasResponse: true,
   hasBody: false,
 
@@ -51,5 +55,4 @@ export const AptGetPairAddressOperation = {
       token1_address: token1Address,
     };
   },
-
-}
+};

@@ -25,10 +25,10 @@ export interface AptReSyncMetadataOperationRequest {
  * * The async mode (default) will make the endpoint asynchronous so we will wait for the task to be completed before responding
  */
 export const AptReSyncMetadataOperation = {
-  operationId: "reSyncMetadata",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/{token_id}/metadata/resync",
-  parameterNames: ["chain","address","token_id","flag","mode"],
+  operationId: 'reSyncMetadata',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/{token_id}/metadata/resync',
+  parameterNames: ['chain', 'address', 'token_id', 'flag', 'mode'],
   hasResponse: true,
   hasBody: false,
 
@@ -50,5 +50,4 @@ export const AptReSyncMetadataOperation = {
       mode: mode,
     };
   },
-
-}
+};

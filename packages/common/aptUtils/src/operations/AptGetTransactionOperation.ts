@@ -15,10 +15,10 @@ export interface AptGetTransactionOperationRequest {
  * @description Get the contents of a transaction by the given transaction hash.
  */
 export const AptGetTransactionOperation = {
-  operationId: "getTransaction",
-  httpMethod: "get",
-  routePattern: "/transaction/{transaction_hash}",
-  parameterNames: ["chain","transaction_hash"],
+  operationId: 'getTransaction',
+  httpMethod: 'get',
+  routePattern: '/transaction/{transaction_hash}',
+  parameterNames: ['chain', 'transaction_hash'],
   hasResponse: true,
   hasBody: false,
 
@@ -34,5 +34,4 @@ export const AptGetTransactionOperation = {
       transaction_hash: transactionHash,
     };
   },
-
-}
+};

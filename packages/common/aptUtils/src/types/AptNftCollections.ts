@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/nftCollections
 
 export interface AptNftCollectionsJSON {
@@ -60,6 +59,6 @@ export class AptNftCollections {
       contract_type: this.contractType,
       name: this.name,
       symbol: this.symbol,
-    }
+    };
   }
 }

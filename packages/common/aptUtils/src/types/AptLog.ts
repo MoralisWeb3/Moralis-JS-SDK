@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/log
 
 export interface AptLogJSON {
@@ -114,6 +113,6 @@ export class AptLog {
       block_timestamp: this.blockTimestamp,
       block_number: this.blockNumber,
       block_hash: this.blockHash,
-    }
+    };
   }
 }

@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/blockDate
 
 export interface AptBlockDateJSON {
@@ -78,6 +77,6 @@ export class AptBlockDate {
       block_timestamp: this.blockTimestamp,
       hash: this.hash,
       parent_hash: this.parentHash,
-    }
+    };
   }
 }

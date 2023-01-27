@@ -19,10 +19,10 @@ export interface AptGetTokenAllowanceOperationRequest {
  * @description Get the amount which the spender is allowed to withdraw on behalf of the owner.
  */
 export const AptGetTokenAllowanceOperation = {
-  operationId: "getTokenAllowance",
-  httpMethod: "get",
-  routePattern: "/erc20/{address}/allowance",
-  parameterNames: ["chain","address","owner_address","spender_address"],
+  operationId: 'getTokenAllowance',
+  httpMethod: 'get',
+  routePattern: '/erc20/{address}/allowance',
+  parameterNames: ['chain', 'address', 'owner_address', 'spender_address'],
   hasResponse: true,
   hasBody: false,
 
@@ -42,5 +42,4 @@ export const AptGetTokenAllowanceOperation = {
       spender_address: spenderAddress,
     };
   },
-
-}
+};

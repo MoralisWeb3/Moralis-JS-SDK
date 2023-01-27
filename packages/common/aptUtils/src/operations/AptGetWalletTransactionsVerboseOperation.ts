@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptTransactionCollectionVerbose, AptTransactionCollectionVerboseJSON, AptTransactionCollectionVerboseInput } from '../types/AptTransactionCollectionVerbose';
+import {
+  AptTransactionCollectionVerbose,
+  AptTransactionCollectionVerboseJSON,
+  AptTransactionCollectionVerboseInput,
+} from '../types/AptTransactionCollectionVerbose';
 
 export interface AptGetWalletTransactionsVerboseOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -29,10 +33,20 @@ export interface AptGetWalletTransactionsVerboseOperationRequest {
  * @description Get native transactions and logs ordered by block number in descending order.
  */
 export const AptGetWalletTransactionsVerboseOperation = {
-  operationId: "getWalletTransactionsVerbose",
-  httpMethod: "get",
-  routePattern: "/{address}/verbose",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","cursor","limit","disable_total"],
+  operationId: 'getWalletTransactionsVerbose',
+  httpMethod: 'get',
+  routePattern: '/{address}/verbose',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'address',
+    'cursor',
+    'limit',
+    'disable_total',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -40,7 +54,9 @@ export const AptGetWalletTransactionsVerboseOperation = {
     return AptTransactionCollectionVerbose.fromJSON(json);
   },
 
-  serializeRequest(request: AptGetWalletTransactionsVerboseOperationRequest): AptGetWalletTransactionsVerboseOperationRequestJSON {
+  serializeRequest(
+    request: AptGetWalletTransactionsVerboseOperationRequest,
+  ): AptGetWalletTransactionsVerboseOperationRequestJSON {
     const chain = request.chain ? AptChainList.create(request.chain) : undefined;
     const fromBlock = request.fromBlock;
     const toBlock = request.toBlock;
@@ -62,5 +78,4 @@ export const AptGetWalletTransactionsVerboseOperation = {
       disable_total: disableTotal,
     };
   },
-
-}
+};

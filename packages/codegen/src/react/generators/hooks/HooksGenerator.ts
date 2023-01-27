@@ -47,50 +47,11 @@ export class HooksGenerator {
         hooks,
         commonUtils: this.moduleGenerator.operationsPackageName,
         resolversToImport: _.uniq(_.map(hooks, 'resolverType')),
+        module: _.upperFirst(this.module),
       },
       force: true,
     };
   }
-
-  // private get addHooks() {
-  //   return this.moduleGenerator.operations.map((operation) => {
-  //     const hookName = getHookName(operation.name, this.module);
-
-  //     const urlSearchParamNames: string[] = operation.urlSearchParamNames ?? [];
-  //     const isPaginated = Boolean(urlSearchParamNames.includes('cursor'));
-
-  //     return {
-  //       type: 'add',
-  //       templateFile: path.join(
-  //         this.dirname,
-  //         isPaginated ? 'templates/hook_paginated.ts.hbs' : 'templates/hook.ts.hbs',
-  //       ),
-  //       path: path.join(this.packagesFolder, `next/src/hooks/${this.module}/generated/{{ relativePath }}.ts`),
-  //       data: {
-  //         names: {
-  //           hook: hookName,
-  //           operation: `${operation.name}Operation`,
-  //           request: `${_.upperFirst(operation.name)}Request`,
-  //           response: `${_.upperFirst(operation.name)}Response`,
-  //           commonUtils: this.moduleGenerator.operationsPackageName,
-  //         },
-  //         relativePath: `${operation.groupName}/${hookName}`,
-  //         url: `${this.module}/${operation.name}`,
-  //       },
-  //       force: true,
-  //     };
-  //   });
-  // }
-
-  // private get addIndex() {
-  //   return {
-  //     type: 'add',
-  //     templateFile: path.join(this.dirname, `templates/index/${this.module}.ts.hbs`),
-  //     data: { hookNames: this.addHooks.map((addHookAction) => addHookAction.data.relativePath) },
-  //     path: path.join(this.packagesFolder, `next/src/hooks/${this.module}/generated/index.ts`),
-  //     force: true,
-  //   };
-  // }
 
   public get actions(): ActionConfig[] {
     return [this.addHooks];

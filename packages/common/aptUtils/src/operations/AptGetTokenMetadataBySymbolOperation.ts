@@ -15,10 +15,10 @@ export interface AptGetTokenMetadataBySymbolOperationRequest {
  * @description Get the metadata for a list of token symbols (name, symbol, decimals, logo).
  */
 export const AptGetTokenMetadataBySymbolOperation = {
-  operationId: "getTokenMetadataBySymbol",
-  httpMethod: "get",
-  routePattern: "/erc20/metadata/symbols",
-  parameterNames: ["chain","symbols"],
+  operationId: 'getTokenMetadataBySymbol',
+  httpMethod: 'get',
+  routePattern: '/erc20/metadata/symbols',
+  parameterNames: ['chain', 'symbols'],
   hasResponse: true,
   hasBody: false,
 
@@ -26,7 +26,9 @@ export const AptGetTokenMetadataBySymbolOperation = {
     return json.map((item) => AptErc20Metadata.fromJSON(item));
   },
 
-  serializeRequest(request: AptGetTokenMetadataBySymbolOperationRequest): AptGetTokenMetadataBySymbolOperationRequestJSON {
+  serializeRequest(
+    request: AptGetTokenMetadataBySymbolOperationRequest,
+  ): AptGetTokenMetadataBySymbolOperationRequestJSON {
     const chain = request.chain ? AptChainList.create(request.chain) : undefined;
     const symbols = request.symbols;
     return {
@@ -34,5 +36,4 @@ export const AptGetTokenMetadataBySymbolOperation = {
       symbols: symbols,
     };
   },
-
-}
+};

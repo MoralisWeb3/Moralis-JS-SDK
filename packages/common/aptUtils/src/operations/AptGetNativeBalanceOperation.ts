@@ -17,10 +17,10 @@ export interface AptGetNativeBalanceOperationRequest {
  * @description Get the native balance for a specific wallet address.
  */
 export const AptGetNativeBalanceOperation = {
-  operationId: "getNativeBalance",
-  httpMethod: "get",
-  routePattern: "/{address}/balance",
-  parameterNames: ["chain","address","to_block"],
+  operationId: 'getNativeBalance',
+  httpMethod: 'get',
+  routePattern: '/{address}/balance',
+  parameterNames: ['chain', 'address', 'to_block'],
   hasResponse: true,
   hasBody: false,
 
@@ -38,5 +38,4 @@ export const AptGetNativeBalanceOperation = {
       to_block: toBlock,
     };
   },
-
-}
+};

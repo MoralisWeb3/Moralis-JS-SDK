@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/metadataResync
 
 export interface AptMetadataResyncJSON {
@@ -33,6 +32,6 @@ export class AptMetadataResync {
   public toJSON(): AptMetadataResyncJSON {
     return {
       status: this.status,
-    }
+    };
   }
 }

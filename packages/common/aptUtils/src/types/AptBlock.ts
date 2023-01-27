@@ -178,6 +178,6 @@ export class AptBlock {
       gas_used: this.gasUsed,
       transaction_count: this.transactionCount,
       transactions: this.transactions.map((item) => item.toJSON()),
-    }
+    };
   }
 }

@@ -15,10 +15,10 @@ export interface AptGetDateToBlockOperationRequest {
  * @description Get the closest block given the date.
  */
 export const AptGetDateToBlockOperation = {
-  operationId: "getDateToBlock",
-  httpMethod: "get",
-  routePattern: "/dateToBlock",
-  parameterNames: ["chain","date"],
+  operationId: 'getDateToBlock',
+  httpMethod: 'get',
+  routePattern: '/dateToBlock',
+  parameterNames: ['chain', 'date'],
   hasResponse: true,
   hasBody: false,
 
@@ -34,5 +34,4 @@ export const AptGetDateToBlockOperation = {
       date: date,
     };
   },
-
-}
+};

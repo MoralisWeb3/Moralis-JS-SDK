@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptErc20TransactionCollection, AptErc20TransactionCollectionJSON, AptErc20TransactionCollectionInput } from '../types/AptErc20TransactionCollection';
+import {
+  AptErc20TransactionCollection,
+  AptErc20TransactionCollectionJSON,
+  AptErc20TransactionCollectionInput,
+} from '../types/AptErc20TransactionCollection';
 
 export interface AptGetWalletTokenTransfersOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -29,10 +33,20 @@ export interface AptGetWalletTokenTransfersOperationRequest {
  * @description Get ERC20 token transactions ordered by block number in descending order.
  */
 export const AptGetWalletTokenTransfersOperation = {
-  operationId: "getWalletTokenTransfers",
-  httpMethod: "get",
-  routePattern: "/{address}/erc20/transfers",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","limit","disable_total","cursor"],
+  operationId: 'getWalletTokenTransfers',
+  httpMethod: 'get',
+  routePattern: '/{address}/erc20/transfers',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'address',
+    'limit',
+    'disable_total',
+    'cursor',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -40,7 +54,9 @@ export const AptGetWalletTokenTransfersOperation = {
     return AptErc20TransactionCollection.fromJSON(json);
   },
 
-  serializeRequest(request: AptGetWalletTokenTransfersOperationRequest): AptGetWalletTokenTransfersOperationRequestJSON {
+  serializeRequest(
+    request: AptGetWalletTokenTransfersOperationRequest,
+  ): AptGetWalletTokenTransfersOperationRequestJSON {
     const chain = request.chain ? AptChainList.create(request.chain) : undefined;
     const fromBlock = request.fromBlock;
     const toBlock = request.toBlock;
@@ -62,5 +78,4 @@ export const AptGetWalletTokenTransfersOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

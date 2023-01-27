@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/erc20TokenBalance
 
 export interface AptErc20TokenBalanceJSON {
@@ -87,6 +86,6 @@ export class AptErc20TokenBalance {
       thumbnail: this.thumbnail,
       decimals: this.decimals,
       balance: this.balance,
-    }
+    };
   }
 }

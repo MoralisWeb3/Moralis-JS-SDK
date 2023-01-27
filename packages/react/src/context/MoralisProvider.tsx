@@ -1,4 +1,4 @@
-import Core from '@moralisweb3/common-core';
+import { Core } from 'moralis/common-core';
 import Moralis from 'moralis';
 import { MoralisConfigValues } from 'moralis/lib/config/MoralisConfig';
 import React, { useContext, useMemo } from 'react';
@@ -22,7 +22,7 @@ export interface FetchConfig extends Omit<SWRConfiguration, 'fetcher' | 'revalid
 export const _useClient = () => {
   const context = useContext(MoralisContext);
   if (!context) {
-    throw new Error(`_useMoralis must be used within MoralisProvider`);
+    throw new Error(`Please wrap your application with MoralisProvider`);
   }
   return context;
 };

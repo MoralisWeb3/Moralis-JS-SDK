@@ -39,10 +39,25 @@ export interface AptGetContractLogsOperationRequest {
  * @description Get the logs for a contract.
  */
 export const AptGetContractLogsOperation = {
-  operationId: "getContractLogs",
-  httpMethod: "get",
-  routePattern: "/{address}/logs",
-  parameterNames: ["chain","block_number","from_block","to_block","from_date","to_date","address","topic0","topic1","topic2","topic3","limit","disable_total","cursor"],
+  operationId: 'getContractLogs',
+  httpMethod: 'get',
+  routePattern: '/{address}/logs',
+  parameterNames: [
+    'chain',
+    'block_number',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'address',
+    'topic0',
+    'topic1',
+    'topic2',
+    'topic3',
+    'limit',
+    'disable_total',
+    'cursor',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -82,5 +97,4 @@ export const AptGetContractLogsOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

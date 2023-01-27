@@ -31,10 +31,20 @@ export interface AptGetContractNFTsOperationRequest {
  * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection.
  */
 export const AptGetContractNFTsOperation = {
-  operationId: "getContractNFTs",
-  httpMethod: "get",
-  routePattern: "/nft/{address}",
-  parameterNames: ["chain","address","format","limit","disable_total","totalRanges","range","cursor","normalizeMetadata"],
+  operationId: 'getContractNFTs',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}',
+  parameterNames: [
+    'chain',
+    'address',
+    'format',
+    'limit',
+    'disable_total',
+    'totalRanges',
+    'range',
+    'cursor',
+    'normalizeMetadata',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -64,5 +74,4 @@ export const AptGetContractNFTsOperation = {
       normalizeMetadata: normalizeMetadata,
     };
   },
-
-}
+};

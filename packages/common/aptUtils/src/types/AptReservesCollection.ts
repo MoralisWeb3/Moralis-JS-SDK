@@ -44,6 +44,6 @@ export class AptReservesCollection {
       token0: this.token0 ? this.token0.toJSON() : undefined,
       token1: this.token1 ? this.token1.toJSON() : undefined,
       pairAddress: this.pairAddress,
-    }
+    };
   }
 }

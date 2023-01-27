@@ -53,7 +53,9 @@ export class AptNftOwner {
       blockNumberMinted: json.block_number_minted,
       tokenUri: json.token_uri,
       metadata: json.metadata,
-      normalizedMetadata: json.normalized_metadata ? AptNormalizedMetadata.fromJSON(json.normalized_metadata) : undefined,
+      normalizedMetadata: json.normalized_metadata
+        ? AptNormalizedMetadata.fromJSON(json.normalized_metadata)
+        : undefined,
       amount: json.amount,
       name: json.name,
       symbol: json.symbol,
@@ -160,6 +162,6 @@ export class AptNftOwner {
       token_hash: this.tokenHash,
       last_token_uri_sync: this.lastTokenUriSync,
       last_metadata_sync: this.lastMetadataSync,
-    }
+    };
   }
 }

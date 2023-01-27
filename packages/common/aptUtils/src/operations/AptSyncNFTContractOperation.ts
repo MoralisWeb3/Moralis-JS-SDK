@@ -14,10 +14,10 @@ export interface AptSyncNFTContractOperationRequest {
  * @description Initiates a sync of a previously non synced contract.
  */
 export const AptSyncNFTContractOperation = {
-  operationId: "syncNFTContract",
-  httpMethod: "put",
-  routePattern: "/nft/{address}/sync",
-  parameterNames: ["chain","address"],
+  operationId: 'syncNFTContract',
+  httpMethod: 'put',
+  routePattern: '/nft/{address}/sync',
+  parameterNames: ['chain', 'address'],
   hasResponse: false,
   hasBody: false,
 
@@ -29,5 +29,4 @@ export const AptSyncNFTContractOperation = {
       address: address,
     };
   },
-
-}
+};

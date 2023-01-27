@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/ipfsFile
 
 export interface AptIpfsFileJSON {
@@ -33,6 +32,6 @@ export class AptIpfsFile {
   public toJSON(): AptIpfsFileJSON {
     return {
       path: this.path,
-    }
+    };
   }
 }

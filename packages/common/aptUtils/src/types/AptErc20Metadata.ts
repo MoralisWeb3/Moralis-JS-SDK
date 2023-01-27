@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/erc20Metadata
 
 export interface AptErc20MetadataJSON {
@@ -99,6 +98,6 @@ export class AptErc20Metadata {
       thumbnail: this.thumbnail,
       block_number: this.blockNumber,
       validated: this.validated,
-    }
+    };
   }
 }

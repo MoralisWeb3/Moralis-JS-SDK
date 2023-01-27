@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/nftContractMetadata
 
 export interface AptNftContractMetadataJSON {
@@ -69,6 +68,6 @@ export class AptNftContractMetadata {
       synced_at: this.syncedAt,
       symbol: this.symbol,
       contract_type: this.contractType,
-    }
+    };
   }
 }

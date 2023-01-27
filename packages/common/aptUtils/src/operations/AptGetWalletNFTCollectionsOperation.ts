@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftWalletCollections, AptNftWalletCollectionsJSON, AptNftWalletCollectionsInput } from '../types/AptNftWalletCollections';
+import {
+  AptNftWalletCollections,
+  AptNftWalletCollectionsJSON,
+  AptNftWalletCollectionsInput,
+} from '../types/AptNftWalletCollections';
 
 export interface AptGetWalletNFTCollectionsOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -21,10 +25,10 @@ export interface AptGetWalletNFTCollectionsOperationRequest {
  * @description Get NFT collections owned by a given wallet address.
  */
 export const AptGetWalletNFTCollectionsOperation = {
-  operationId: "getWalletNFTCollections",
-  httpMethod: "get",
-  routePattern: "/{address}/nft/collections",
-  parameterNames: ["chain","address","limit","disable_total","cursor"],
+  operationId: 'getWalletNFTCollections',
+  httpMethod: 'get',
+  routePattern: '/{address}/nft/collections',
+  parameterNames: ['chain', 'address', 'limit', 'disable_total', 'cursor'],
   hasResponse: true,
   hasBody: false,
 
@@ -32,7 +36,9 @@ export const AptGetWalletNFTCollectionsOperation = {
     return AptNftWalletCollections.fromJSON(json);
   },
 
-  serializeRequest(request: AptGetWalletNFTCollectionsOperationRequest): AptGetWalletNFTCollectionsOperationRequestJSON {
+  serializeRequest(
+    request: AptGetWalletNFTCollectionsOperationRequest,
+  ): AptGetWalletNFTCollectionsOperationRequestJSON {
     const chain = request.chain ? AptChainList.create(request.chain) : undefined;
     const address = request.address;
     const limit = request.limit;
@@ -46,5 +52,4 @@ export const AptGetWalletNFTCollectionsOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

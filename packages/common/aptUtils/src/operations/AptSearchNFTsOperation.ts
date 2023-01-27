@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftMetadataCollection, AptNftMetadataCollectionJSON, AptNftMetadataCollectionInput } from '../types/AptNftMetadataCollection';
+import {
+  AptNftMetadataCollection,
+  AptNftMetadataCollectionJSON,
+  AptNftMetadataCollectionInput,
+} from '../types/AptNftMetadataCollection';
 
 export interface AptSearchNFTsOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -35,10 +39,23 @@ export interface AptSearchNFTsOperationRequest {
  * @description Get NFTs that match a given metadata search query.
  */
 export const AptSearchNFTsOperation = {
-  operationId: "searchNFTs",
-  httpMethod: "get",
-  routePattern: "/nft/search",
-  parameterNames: ["chain","format","q","filter","from_block","to_block","from_date","to_date","addresses","cursor","limit","disable_total"],
+  operationId: 'searchNFTs',
+  httpMethod: 'get',
+  routePattern: '/nft/search',
+  parameterNames: [
+    'chain',
+    'format',
+    'q',
+    'filter',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'addresses',
+    'cursor',
+    'limit',
+    'disable_total',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -74,5 +91,4 @@ export const AptSearchNFTsOperation = {
       disable_total: disableTotal,
     };
   },
-
-}
+};

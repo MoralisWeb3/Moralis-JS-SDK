@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptTransactionCollection, AptTransactionCollectionJSON, AptTransactionCollectionInput } from '../types/AptTransactionCollection';
+import {
+  AptTransactionCollection,
+  AptTransactionCollectionJSON,
+  AptTransactionCollectionInput,
+} from '../types/AptTransactionCollection';
 
 export interface AptGetWalletTransactionsOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -29,10 +33,20 @@ export interface AptGetWalletTransactionsOperationRequest {
  * @description Get native transactions ordered by block number in descending order.
  */
 export const AptGetWalletTransactionsOperation = {
-  operationId: "getWalletTransactions",
-  httpMethod: "get",
-  routePattern: "/{address}",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","cursor","limit","disable_total"],
+  operationId: 'getWalletTransactions',
+  httpMethod: 'get',
+  routePattern: '/{address}',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'address',
+    'cursor',
+    'limit',
+    'disable_total',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -62,5 +76,4 @@ export const AptGetWalletTransactionsOperation = {
       disable_total: disableTotal,
     };
   },
-
-}
+};

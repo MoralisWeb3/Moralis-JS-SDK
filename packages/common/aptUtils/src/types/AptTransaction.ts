@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/transaction
 
 export interface AptTransactionJSON {
@@ -177,6 +176,6 @@ export class AptTransaction {
       block_timestamp: this.blockTimestamp,
       block_number: this.blockNumber,
       block_hash: this.blockHash,
-    }
+    };
   }
 }

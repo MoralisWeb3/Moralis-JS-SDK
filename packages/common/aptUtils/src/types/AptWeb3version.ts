@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/web3version
 
 export interface AptWeb3versionJSON {
@@ -33,6 +32,6 @@ export class AptWeb3version {
   public toJSON(): AptWeb3versionJSON {
     return {
       version: this.version,
-    }
+    };
   }
 }

@@ -1,4 +1,7 @@
-import { AptNormalizedMetadataAttributeValue, AptNormalizedMetadataAttributeValueJSON } from '../types/AptNormalizedMetadataAttributeValue';
+import {
+  AptNormalizedMetadataAttributeValue,
+  AptNormalizedMetadataAttributeValueJSON,
+} from '../types/AptNormalizedMetadataAttributeValue';
 
 // $ref: #/components/schemas/normalizedMetadataAttribute
 
@@ -79,6 +82,6 @@ export class AptNormalizedMetadataAttribute {
       max_value: this.maxValue,
       trait_count: this.traitCount,
       order: this.order,
-    }
+    };
   }
 }

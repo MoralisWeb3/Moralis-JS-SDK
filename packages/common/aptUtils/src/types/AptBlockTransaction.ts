@@ -163,6 +163,6 @@ export class AptBlockTransaction {
       block_number: this.blockNumber,
       block_hash: this.blockHash,
       logs: this.logs ? this.logs.map((item) => item.toJSON()) : undefined,
-    }
+    };
   }
 }

@@ -12,10 +12,10 @@ export interface AptResolveAddressOperationRequest {
  * @description Reverse resolve a given ETH address to its ENS domain.
  */
 export const AptResolveAddressOperation = {
-  operationId: "resolveAddress",
-  httpMethod: "get",
-  routePattern: "/resolve/{address}/reverse",
-  parameterNames: ["address"],
+  operationId: 'resolveAddress',
+  httpMethod: 'get',
+  routePattern: '/resolve/{address}/reverse',
+  parameterNames: ['address'],
   hasResponse: true,
   hasBody: false,
 
@@ -29,5 +29,4 @@ export const AptResolveAddressOperation = {
       address: address,
     };
   },
-
-}
+};

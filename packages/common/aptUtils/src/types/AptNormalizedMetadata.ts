@@ -1,4 +1,7 @@
-import { AptNormalizedMetadataAttribute, AptNormalizedMetadataAttributeJSON } from '../types/AptNormalizedMetadataAttribute';
+import {
+  AptNormalizedMetadataAttribute,
+  AptNormalizedMetadataAttributeJSON,
+} from '../types/AptNormalizedMetadataAttribute';
 
 // $ref: #/components/schemas/normalizedMetadata
 
@@ -32,7 +35,9 @@ export class AptNormalizedMetadata {
       image: json.image,
       externalLink: json.external_link,
       animationUrl: json.animation_url,
-      attributes: json.attributes ? json.attributes.map((item) => AptNormalizedMetadataAttribute.fromJSON(item)) : undefined,
+      attributes: json.attributes
+        ? json.attributes.map((item) => AptNormalizedMetadataAttribute.fromJSON(item))
+        : undefined,
     };
     return AptNormalizedMetadata.create(input);
   }
@@ -76,6 +81,6 @@ export class AptNormalizedMetadata {
       external_link: this.externalLink,
       animation_url: this.animationUrl,
       attributes: this.attributes ? this.attributes.map((item) => item.toJSON()) : undefined,
-    }
+    };
   }
 }

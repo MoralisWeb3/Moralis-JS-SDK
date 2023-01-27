@@ -87,127 +87,130 @@ import {
     
 } from 'moralis/common-evm-utils';
 import { _useResolver,_useResolverNullable,_useResolverPaginated, } from '../../resolvers';
+import Moralis from 'moralis'
+
+const { baseUrl } = Moralis.EvmApi;
 
 export const useEvmEndpointWeights = () => {
-  return _useResolver(endpointWeightsOperation, {});
+  return _useResolver(endpointWeightsOperation, baseUrl, {});
 };
 export const useEvmBlock = (request?: GetBlockRequest) => {
-  return _useResolverNullable(getBlockOperation, request);
+  return _useResolverNullable(getBlockOperation, baseUrl, request);
 };
 export const useEvmContractEvents = (request?: GetContractEventsRequest) => {
-  return _useResolverPaginated(getContractEventsOperation, request);
+  return _useResolverPaginated(getContractEventsOperation, baseUrl, request);
 };
 export const useEvmContractLogs = (request?: GetContractLogsRequest) => {
-  return _useResolverPaginated(getContractLogsOperation, request);
+  return _useResolverPaginated(getContractLogsOperation, baseUrl, request);
 };
 export const useEvmContractNFTs = (request?: GetContractNFTsRequest) => {
-  return _useResolverPaginated(getContractNFTsOperation, request);
+  return _useResolverPaginated(getContractNFTsOperation, baseUrl, request);
 };
 export const useEvmDateToBlock = (request?: GetDateToBlockRequest) => {
-  return _useResolver(getDateToBlockOperation, request);
+  return _useResolver(getDateToBlockOperation, baseUrl, request);
 };
 export const useEvmMultipleNFTs = (request?: GetMultipleNFTsRequest) => {
-  return _useResolver(getMultipleNFTsOperation, request);
+  return _useResolver(getMultipleNFTsOperation, baseUrl, request);
 };
 export const useEvmNativeBalance = (request?: GetNativeBalanceRequest) => {
-  return _useResolver(getNativeBalanceOperation, request);
+  return _useResolver(getNativeBalanceOperation, baseUrl, request);
 };
 export const useEvmNFTContractMetadata = (request?: GetNFTContractMetadataRequest) => {
-  return _useResolverNullable(getNFTContractMetadataOperation, request);
+  return _useResolverNullable(getNFTContractMetadataOperation, baseUrl, request);
 };
 export const useEvmNFTContractTransfers = (request?: GetNFTContractTransfersRequest) => {
-  return _useResolverPaginated(getNFTContractTransfersOperation, request);
+  return _useResolverPaginated(getNFTContractTransfersOperation, baseUrl, request);
 };
 export const useEvmNFTLowestPrice = (request?: GetNFTLowestPriceRequest) => {
-  return _useResolverNullable(getNFTLowestPriceOperation, request);
+  return _useResolverNullable(getNFTLowestPriceOperation, baseUrl, request);
 };
 export const useEvmNFTMetadata = (request?: GetNFTMetadataRequest) => {
-  return _useResolverNullable(getNFTMetadataOperation, request);
+  return _useResolverNullable(getNFTMetadataOperation, baseUrl, request);
 };
 export const useEvmNFTOwners = (request?: GetNFTOwnersRequest) => {
-  return _useResolverPaginated(getNFTOwnersOperation, request);
+  return _useResolverPaginated(getNFTOwnersOperation, baseUrl, request);
 };
 export const useEvmNFTTokenIdOwners = (request?: GetNFTTokenIdOwnersRequest) => {
-  return _useResolverPaginated(getNFTTokenIdOwnersOperation, request);
+  return _useResolverPaginated(getNFTTokenIdOwnersOperation, baseUrl, request);
 };
 export const useEvmNFTTrades = (request?: GetNFTTradesRequest) => {
-  return _useResolverPaginated(getNFTTradesOperation, request);
+  return _useResolverPaginated(getNFTTradesOperation, baseUrl, request);
 };
 export const useEvmNFTTransfersByBlock = (request?: GetNFTTransfersByBlockRequest) => {
-  return _useResolverPaginated(getNFTTransfersByBlockOperation, request);
+  return _useResolverPaginated(getNFTTransfersByBlockOperation, baseUrl, request);
 };
 export const useEvmNFTTransfersFromToBlock = (request?: GetNFTTransfersFromToBlockRequest) => {
-  return _useResolverPaginated(getNFTTransfersFromToBlockOperation, request);
+  return _useResolverPaginated(getNFTTransfersFromToBlockOperation, baseUrl, request);
 };
 export const useEvmNFTTransfers = (request?: GetNFTTransfersRequest) => {
-  return _useResolverPaginated(getNFTTransfersOperation, request);
+  return _useResolverPaginated(getNFTTransfersOperation, baseUrl, request);
 };
 export const useEvmPairAddress = (request?: GetPairAddressRequest) => {
-  return _useResolver(getPairAddressOperation, request);
+  return _useResolver(getPairAddressOperation, baseUrl, request);
 };
 export const useEvmPairReserves = (request?: GetPairReservesRequest) => {
-  return _useResolver(getPairReservesOperation, request);
+  return _useResolver(getPairReservesOperation, baseUrl, request);
 };
 export const useEvmTokenAllowance = (request?: GetTokenAllowanceRequest) => {
-  return _useResolver(getTokenAllowanceOperation, request);
+  return _useResolver(getTokenAllowanceOperation, baseUrl, request);
 };
 export const useEvmTokenMetadataBySymbol = (request?: GetTokenMetadataBySymbolRequest) => {
-  return _useResolver(getTokenMetadataBySymbolOperation, request);
+  return _useResolver(getTokenMetadataBySymbolOperation, baseUrl, request);
 };
 export const useEvmTokenMetadata = (request?: GetTokenMetadataRequest) => {
-  return _useResolver(getTokenMetadataOperation, request);
+  return _useResolver(getTokenMetadataOperation, baseUrl, request);
 };
 export const useEvmTokenPrice = (request?: GetTokenPriceRequest) => {
-  return _useResolver(getTokenPriceOperation, request);
+  return _useResolver(getTokenPriceOperation, baseUrl, request);
 };
 export const useEvmTokenTransfers = (request?: GetTokenTransfersRequest) => {
-  return _useResolverPaginated(getTokenTransfersOperation, request);
+  return _useResolverPaginated(getTokenTransfersOperation, baseUrl, request);
 };
 export const useEvmTransaction = (request?: GetTransactionRequest) => {
-  return _useResolverNullable(getTransactionOperation, request);
+  return _useResolverNullable(getTransactionOperation, baseUrl, request);
 };
 export const useEvmWalletNFTCollections = (request?: GetWalletNFTCollectionsRequest) => {
-  return _useResolverPaginated(getWalletNFTCollectionsOperation, request);
+  return _useResolverPaginated(getWalletNFTCollectionsOperation, baseUrl, request);
 };
 export const useEvmWalletNFTs = (request?: GetWalletNFTsRequest) => {
-  return _useResolverPaginated(getWalletNFTsOperation, request);
+  return _useResolverPaginated(getWalletNFTsOperation, baseUrl, request);
 };
 export const useEvmWalletNFTTransfers = (request?: GetWalletNFTTransfersRequest) => {
-  return _useResolverPaginated(getWalletNFTTransfersOperation, request);
+  return _useResolverPaginated(getWalletNFTTransfersOperation, baseUrl, request);
 };
 export const useEvmWalletTokenBalances = (request?: GetWalletTokenBalancesRequest) => {
-  return _useResolver(getWalletTokenBalancesOperation, request);
+  return _useResolver(getWalletTokenBalancesOperation, baseUrl, request);
 };
 export const useEvmWalletTokenTransfers = (request?: GetWalletTokenTransfersRequest) => {
-  return _useResolverPaginated(getWalletTokenTransfersOperation, request);
+  return _useResolverPaginated(getWalletTokenTransfersOperation, baseUrl, request);
 };
 export const useEvmWalletTransactions = (request?: GetWalletTransactionsRequest) => {
-  return _useResolverPaginated(getWalletTransactionsOperation, request);
+  return _useResolverPaginated(getWalletTransactionsOperation, baseUrl, request);
 };
 export const useEvmWalletTransactionsVerbose = (request?: GetWalletTransactionsVerboseRequest) => {
-  return _useResolverPaginated(getWalletTransactionsVerboseOperation, request);
+  return _useResolverPaginated(getWalletTransactionsVerboseOperation, baseUrl, request);
 };
 export const useEvmResolveAddress = (request?: ResolveAddressRequest) => {
-  return _useResolverNullable(resolveAddressOperation, request);
+  return _useResolverNullable(resolveAddressOperation, baseUrl, request);
 };
 export const useEvmResolveDomain = (request?: ResolveDomainRequest) => {
-  return _useResolverNullable(resolveDomainOperation, request);
+  return _useResolverNullable(resolveDomainOperation, baseUrl, request);
 };
 export const useEvmReSyncMetadata = (request?: ReSyncMetadataRequest) => {
-  return _useResolver(reSyncMetadataOperation, request);
+  return _useResolver(reSyncMetadataOperation, baseUrl, request);
 };
 export const useEvmRunContractFunction = (request?: RunContractFunctionRequest) => {
-  return _useResolver(runContractFunctionOperation, request);
+  return _useResolver(runContractFunctionOperation, baseUrl, request);
 };
 export const useEvmSearchNFTs = (request?: SearchNFTsRequest) => {
-  return _useResolverPaginated(searchNFTsOperation, request);
+  return _useResolverPaginated(searchNFTsOperation, baseUrl, request);
 };
 export const useEvmSyncNFTContract = (request?: SyncNFTContractRequest) => {
-  return _useResolver(syncNFTContractOperation, request);
+  return _useResolver(syncNFTContractOperation, baseUrl, request);
 };
 export const useEvmUploadFolder = (request?: UploadFolderRequest) => {
-  return _useResolver(uploadFolderOperation, request);
+  return _useResolver(uploadFolderOperation, baseUrl, request);
 };
 export const useEvmWeb3ApiVersion = () => {
-  return _useResolver(web3ApiVersionOperation, {});
+  return _useResolver(web3ApiVersionOperation, baseUrl, {});
 };

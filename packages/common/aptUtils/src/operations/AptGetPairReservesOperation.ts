@@ -19,10 +19,10 @@ export interface AptGetPairReservesOperationRequest {
  * @description Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment.
  */
 export const AptGetPairReservesOperation = {
-  operationId: "getPairReserves",
-  httpMethod: "get",
-  routePattern: "/{pair_address}/reserves",
-  parameterNames: ["chain","to_block","to_date","pair_address"],
+  operationId: 'getPairReserves',
+  httpMethod: 'get',
+  routePattern: '/{pair_address}/reserves',
+  parameterNames: ['chain', 'to_block', 'to_date', 'pair_address'],
   hasResponse: true,
   hasBody: false,
 
@@ -42,5 +42,4 @@ export const AptGetPairReservesOperation = {
       pair_address: pairAddress,
     };
   },
-
-}
+};

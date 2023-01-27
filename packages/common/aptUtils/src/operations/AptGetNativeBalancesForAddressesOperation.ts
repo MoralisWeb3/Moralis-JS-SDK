@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNativeBalancesItem, AptNativeBalancesItemJSON, AptNativeBalancesItemInput } from '../types/AptNativeBalancesItem';
+import {
+  AptNativeBalancesItem,
+  AptNativeBalancesItemJSON,
+  AptNativeBalancesItemInput,
+} from '../types/AptNativeBalancesItem';
 
 export interface AptGetNativeBalancesForAddressesOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -19,10 +23,10 @@ export interface AptGetNativeBalancesForAddressesOperationRequest {
  * @description Get the native balances for a set of specific addresses
  */
 export const AptGetNativeBalancesForAddressesOperation = {
-  operationId: "getNativeBalancesForAddresses",
-  httpMethod: "get",
-  routePattern: "/wallets/balances",
-  parameterNames: ["chain","providerUrl","to_block","wallet_addresses"],
+  operationId: 'getNativeBalancesForAddresses',
+  httpMethod: 'get',
+  routePattern: '/wallets/balances',
+  parameterNames: ['chain', 'providerUrl', 'to_block', 'wallet_addresses'],
   hasResponse: true,
   hasBody: false,
 
@@ -30,7 +34,9 @@ export const AptGetNativeBalancesForAddressesOperation = {
     return json.map((item) => AptNativeBalancesItem.fromJSON(item));
   },
 
-  serializeRequest(request: AptGetNativeBalancesForAddressesOperationRequest): AptGetNativeBalancesForAddressesOperationRequestJSON {
+  serializeRequest(
+    request: AptGetNativeBalancesForAddressesOperationRequest,
+  ): AptGetNativeBalancesForAddressesOperationRequestJSON {
     const chain = request.chain ? AptChainList.create(request.chain) : undefined;
     const providerUrl = request.providerUrl;
     const toBlock = request.toBlock;
@@ -42,5 +48,4 @@ export const AptGetNativeBalancesForAddressesOperation = {
       wallet_addresses: walletAddresses,
     };
   },
-
-}
+};

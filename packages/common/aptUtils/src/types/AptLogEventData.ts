@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/logEvent/properties/data
 
 export interface AptLogEventDataJSON {
@@ -42,6 +41,6 @@ export class AptLogEventData {
       from: this.from,
       to: this.to,
       value: this.value,
-    }
+    };
   }
 }

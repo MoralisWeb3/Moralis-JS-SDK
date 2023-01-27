@@ -15,10 +15,10 @@ export interface AptGetBlockOperationRequest {
  * @description Get the contents of a block given the block hash.
  */
 export const AptGetBlockOperation = {
-  operationId: "getBlock",
-  httpMethod: "get",
-  routePattern: "/block/{block_number_or_hash}",
-  parameterNames: ["chain","block_number_or_hash"],
+  operationId: 'getBlock',
+  httpMethod: 'get',
+  routePattern: '/block/{block_number_or_hash}',
+  parameterNames: ['chain', 'block_number_or_hash'],
   hasResponse: true,
   hasBody: false,
 
@@ -34,5 +34,4 @@ export const AptGetBlockOperation = {
       block_number_or_hash: blockNumberOrHash,
     };
   },
-
-}
+};

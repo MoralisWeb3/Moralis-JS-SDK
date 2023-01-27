@@ -1,4 +1,7 @@
-import { AptNativeBalancesItemWalletBalancesItem, AptNativeBalancesItemWalletBalancesItemJSON } from '../types/AptNativeBalancesItemWalletBalancesItem';
+import {
+  AptNativeBalancesItemWalletBalancesItem,
+  AptNativeBalancesItemWalletBalancesItemJSON,
+} from '../types/AptNativeBalancesItemWalletBalancesItem';
 
 // $ref: #/components/schemas/nativeBalances/items
 
@@ -85,6 +88,6 @@ export class AptNativeBalancesItem {
       block_timestamp: this.blockTimestamp,
       total_balance_formatted: this.totalBalanceFormatted,
       wallet_balances: this.walletBalances.map((item) => item.toJSON()),
-    }
+    };
   }
 }

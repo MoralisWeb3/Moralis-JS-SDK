@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftOwnerCollection, AptNftOwnerCollectionJSON, AptNftOwnerCollectionInput } from '../types/AptNftOwnerCollection';
+import {
+  AptNftOwnerCollection,
+  AptNftOwnerCollectionJSON,
+  AptNftOwnerCollectionInput,
+} from '../types/AptNftOwnerCollection';
 
 export interface AptGetWalletNFTsOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -31,10 +35,19 @@ export interface AptGetWalletNFTsOperationRequest {
  * * Any request that includes the token_address param will start the indexing process for that NFT collection the very first time it is requested.
  */
 export const AptGetWalletNFTsOperation = {
-  operationId: "getWalletNFTs",
-  httpMethod: "get",
-  routePattern: "/{address}/nft",
-  parameterNames: ["chain","address","format","limit","disable_total","token_addresses","cursor","normalizeMetadata"],
+  operationId: 'getWalletNFTs',
+  httpMethod: 'get',
+  routePattern: '/{address}/nft',
+  parameterNames: [
+    'chain',
+    'address',
+    'format',
+    'limit',
+    'disable_total',
+    'token_addresses',
+    'cursor',
+    'normalizeMetadata',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -62,5 +75,4 @@ export const AptGetWalletNFTsOperation = {
       normalizeMetadata: normalizeMetadata,
     };
   },
-
-}
+};

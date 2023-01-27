@@ -44,6 +44,6 @@ export class AptRunContractDto {
     return {
       abi: this.abi.map((item) => item.toJSON()),
       params: this.params ? this.params.toJSON() : undefined,
-    }
+    };
   }
 }

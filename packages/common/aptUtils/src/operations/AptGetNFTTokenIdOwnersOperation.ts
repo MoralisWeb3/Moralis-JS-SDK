@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftOwnerCollection, AptNftOwnerCollectionJSON, AptNftOwnerCollectionInput } from '../types/AptNftOwnerCollection';
+import {
+  AptNftOwnerCollection,
+  AptNftOwnerCollectionJSON,
+  AptNftOwnerCollectionInput,
+} from '../types/AptNftOwnerCollection';
 
 export interface AptGetNFTTokenIdOwnersOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -24,14 +28,14 @@ export interface AptGetNFTTokenIdOwnersOperationRequest {
 }
 
 /**
- * @description Get owners of a specific NFT given the contract address and token ID. 
+ * @description Get owners of a specific NFT given the contract address and token ID.
  * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
  */
 export const AptGetNFTTokenIdOwnersOperation = {
-  operationId: "getNFTTokenIdOwners",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/{token_id}/owners",
-  parameterNames: ["chain","address","token_id","format","limit","disable_total","cursor","normalizeMetadata"],
+  operationId: 'getNFTTokenIdOwners',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/{token_id}/owners',
+  parameterNames: ['chain', 'address', 'token_id', 'format', 'limit', 'disable_total', 'cursor', 'normalizeMetadata'],
   hasResponse: true,
   hasBody: false,
 
@@ -59,5 +63,4 @@ export const AptGetNFTTokenIdOwnersOperation = {
       normalizeMetadata: normalizeMetadata,
     };
   },
-
-}
+};

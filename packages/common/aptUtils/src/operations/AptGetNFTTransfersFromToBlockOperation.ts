@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftTransferCollection, AptNftTransferCollectionJSON, AptNftTransferCollectionInput } from '../types/AptNftTransferCollection';
+import {
+  AptNftTransferCollection,
+  AptNftTransferCollectionJSON,
+  AptNftTransferCollectionInput,
+} from '../types/AptNftTransferCollection';
 
 export interface AptGetNFTTransfersFromToBlockOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -29,10 +33,20 @@ export interface AptGetNFTTransfersFromToBlockOperationRequest {
  * @description Get transfers of NFTs from a block number to a block number.
  */
 export const AptGetNFTTransfersFromToBlockOperation = {
-  operationId: "getNFTTransfersFromToBlock",
-  httpMethod: "get",
-  routePattern: "/nft/transfers",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","format","limit","disable_total","cursor"],
+  operationId: 'getNFTTransfersFromToBlock',
+  httpMethod: 'get',
+  routePattern: '/nft/transfers',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'format',
+    'limit',
+    'disable_total',
+    'cursor',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -40,7 +54,9 @@ export const AptGetNFTTransfersFromToBlockOperation = {
     return AptNftTransferCollection.fromJSON(json);
   },
 
-  serializeRequest(request: AptGetNFTTransfersFromToBlockOperationRequest): AptGetNFTTransfersFromToBlockOperationRequestJSON {
+  serializeRequest(
+    request: AptGetNFTTransfersFromToBlockOperationRequest,
+  ): AptGetNFTTransfersFromToBlockOperationRequestJSON {
     const chain = request.chain ? AptChainList.create(request.chain) : undefined;
     const fromBlock = request.fromBlock;
     const toBlock = request.toBlock;
@@ -62,5 +78,4 @@ export const AptGetNFTTransfersFromToBlockOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

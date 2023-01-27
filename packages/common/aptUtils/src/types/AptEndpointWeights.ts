@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/endpointWeights
 
 export interface AptEndpointWeightsJSON {
@@ -60,6 +59,6 @@ export class AptEndpointWeights {
       path: this.path,
       rateLimitCost: this.rateLimitCost,
       price: this.price,
-    }
+    };
   }
 }

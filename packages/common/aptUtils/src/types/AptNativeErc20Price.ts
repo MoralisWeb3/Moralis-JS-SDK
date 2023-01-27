@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/nativeErc20Price
 
 export interface AptNativeErc20PriceJSON {
@@ -60,6 +59,6 @@ export class AptNativeErc20Price {
       decimals: this.decimals,
       name: this.name,
       symbol: this.symbol,
-    }
+    };
   }
 }

@@ -192,6 +192,6 @@ export class AptNftMetadata {
       last_metadata_sync: this.lastMetadataSync,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-    }
+    };
   }
 }

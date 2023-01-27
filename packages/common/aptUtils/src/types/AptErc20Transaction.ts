@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/erc20Transaction
 
 export interface AptErc20TransactionJSON {
@@ -114,6 +113,6 @@ export class AptErc20Transaction {
       value: this.value,
       transaction_index: this.transactionIndex,
       log_index: this.logIndex,
-    }
+    };
   }
 }

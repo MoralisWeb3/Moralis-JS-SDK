@@ -58,6 +58,6 @@ export class AptGetContractEvents {
       page: this.page,
       page_size: this.pageSize,
       result: this.result ? this.result.map((item) => item.toJSON()) : undefined,
-    }
+    };
   }
 }

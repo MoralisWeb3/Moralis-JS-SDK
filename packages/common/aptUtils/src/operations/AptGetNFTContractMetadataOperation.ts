@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftContractMetadata, AptNftContractMetadataJSON, AptNftContractMetadataInput } from '../types/AptNftContractMetadata';
+import {
+  AptNftContractMetadata,
+  AptNftContractMetadataJSON,
+  AptNftContractMetadataInput,
+} from '../types/AptNftContractMetadata';
 
 export interface AptGetNFTContractMetadataOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -16,10 +20,10 @@ export interface AptGetNFTContractMetadataOperationRequest {
  * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
  */
 export const AptGetNFTContractMetadataOperation = {
-  operationId: "getNFTContractMetadata",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/metadata",
-  parameterNames: ["chain","address"],
+  operationId: 'getNFTContractMetadata',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/metadata',
+  parameterNames: ['chain', 'address'],
   hasResponse: true,
   hasBody: false,
 
@@ -35,5 +39,4 @@ export const AptGetNFTContractMetadataOperation = {
       address: address,
     };
   },
-
-}
+};

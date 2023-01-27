@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/erc20Allowance
 
 export interface AptErc20AllowanceJSON {
@@ -33,6 +32,6 @@ export class AptErc20Allowance {
   public toJSON(): AptErc20AllowanceJSON {
     return {
       allowance: this.allowance,
-    }
+    };
   }
 }

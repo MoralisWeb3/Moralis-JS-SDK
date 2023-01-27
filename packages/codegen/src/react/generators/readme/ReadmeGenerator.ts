@@ -45,6 +45,19 @@ export class ReadmeGenerator {
     });
   };
 
+  private getHookGuideLinks = () => {
+    return this.modules.map((module) => {
+      const links = new OperationFilesParser(module).parsedOperations.map((op) => {
+        const hookName = getHookName(op.name, module);
+        return `- [${hookName}](#${hookName})`;
+      });
+      return {
+        group: `- [${_.upperFirst(module)} Hooks](#${_.upperFirst(module)}-hooks)`,
+        links,
+      };
+    });
+  };
+
   private generateReadme(): AddActionConfig {
     return {
       type: 'add',
@@ -53,6 +66,7 @@ export class ReadmeGenerator {
       force: true,
       data: {
         hookGuides: this.getHookGuidesByGroups(),
+        hookLinks: this.getHookGuideLinks(),
       },
     };
   }

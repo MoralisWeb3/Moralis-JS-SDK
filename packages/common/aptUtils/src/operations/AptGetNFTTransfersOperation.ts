@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftTransferCollection, AptNftTransferCollectionJSON, AptNftTransferCollectionInput } from '../types/AptNftTransferCollection';
+import {
+  AptNftTransferCollection,
+  AptNftTransferCollectionJSON,
+  AptNftTransferCollectionInput,
+} from '../types/AptNftTransferCollection';
 
 export interface AptGetNFTTransfersOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -25,10 +29,10 @@ export interface AptGetNFTTransfersOperationRequest {
  * @description Get transfers of an NFT given a contract address and token ID.
  */
 export const AptGetNFTTransfersOperation = {
-  operationId: "getNFTTransfers",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/{token_id}/transfers",
-  parameterNames: ["chain","address","token_id","format","limit","disable_total","cursor"],
+  operationId: 'getNFTTransfers',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/{token_id}/transfers',
+  parameterNames: ['chain', 'address', 'token_id', 'format', 'limit', 'disable_total', 'cursor'],
   hasResponse: true,
   hasBody: false,
 
@@ -54,5 +58,4 @@ export const AptGetNFTTransfersOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

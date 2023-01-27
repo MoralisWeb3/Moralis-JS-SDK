@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/tokenItem
 
 export interface AptTokenItemJSON {
@@ -42,6 +41,6 @@ export class AptTokenItem {
     return {
       token_address: this.tokenAddress,
       token_id: this.tokenId,
-    }
+    };
   }
 }

@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/nativeBalance
 
 export interface AptNativeBalanceJSON {
@@ -33,6 +32,6 @@ export class AptNativeBalance {
   public toJSON(): AptNativeBalanceJSON {
     return {
       balance: this.balance,
-    }
+    };
   }
 }

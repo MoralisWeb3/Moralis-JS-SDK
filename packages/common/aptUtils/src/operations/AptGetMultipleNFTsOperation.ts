@@ -1,6 +1,10 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
 import { AptNftOwner, AptNftOwnerJSON, AptNftOwnerInput } from '../types/AptNftOwner';
-import { AptGetMultipleNftsDto, AptGetMultipleNftsDtoJSON, AptGetMultipleNftsDtoInput } from '../types/AptGetMultipleNftsDto';
+import {
+  AptGetMultipleNftsDto,
+  AptGetMultipleNftsDtoJSON,
+  AptGetMultipleNftsDtoInput,
+} from '../types/AptGetMultipleNftsDto';
 
 export interface AptGetMultipleNFTsOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -18,10 +22,10 @@ export interface AptGetMultipleNFTsOperationRequest {
  * * Only 25 NFTs can be fetched in one API call.
  */
 export const AptGetMultipleNFTsOperation = {
-  operationId: "getMultipleNFTs",
-  httpMethod: "post",
-  routePattern: "/nft/getMultipleNFTs",
-  parameterNames: ["chain"],
+  operationId: 'getMultipleNFTs',
+  httpMethod: 'post',
+  routePattern: '/nft/getMultipleNFTs',
+  parameterNames: ['chain'],
   hasResponse: true,
   hasBody: true,
 
@@ -40,4 +44,4 @@ export const AptGetMultipleNFTsOperation = {
     const body = AptGetMultipleNftsDto.create(request.body);
     return body.toJSON();
   },
-}
+};

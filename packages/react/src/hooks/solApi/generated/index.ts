@@ -17,22 +17,25 @@ import {
     GetTokenPriceRequest,
 } from 'moralis/common-sol-utils';
 import { _useResolver, } from '../../resolvers';
+import Moralis from 'moralis'
+
+const { baseUrl } = Moralis.SolApi;
 
 export const useSolBalance = (request?: GetBalanceRequest) => {
-  return _useResolver(getBalanceOperation, request);
+  return _useResolver(getBalanceOperation, baseUrl, request);
 };
 export const useSolNFTs = (request?: GetNFTsRequest) => {
-  return _useResolver(getNFTsOperation, request);
+  return _useResolver(getNFTsOperation, baseUrl, request);
 };
 export const useSolPortfolio = (request?: GetPortfolioRequest) => {
-  return _useResolver(getPortfolioOperation, request);
+  return _useResolver(getPortfolioOperation, baseUrl, request);
 };
 export const useSolSPL = (request?: GetSPLRequest) => {
-  return _useResolver(getSPLOperation, request);
+  return _useResolver(getSPLOperation, baseUrl, request);
 };
 export const useSolNFTMetadata = (request?: GetNFTMetadataRequest) => {
-  return _useResolver(getNFTMetadataOperation, request);
+  return _useResolver(getNFTMetadataOperation, baseUrl, request);
 };
 export const useSolTokenPrice = (request?: GetTokenPriceRequest) => {
-  return _useResolver(getTokenPriceOperation, request);
+  return _useResolver(getTokenPriceOperation, baseUrl, request);
 };

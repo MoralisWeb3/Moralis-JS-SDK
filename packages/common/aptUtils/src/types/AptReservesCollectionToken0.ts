@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/reservesCollection/properties/token0
 
 export interface AptReservesCollectionToken0JSON {
@@ -84,6 +83,6 @@ export class AptReservesCollectionToken0 {
       block_number: this.blockNumber,
       validated: this.validated,
       created_at: this.createdAt,
-    }
+    };
   }
 }

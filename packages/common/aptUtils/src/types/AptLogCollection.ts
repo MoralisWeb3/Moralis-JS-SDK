@@ -67,6 +67,6 @@ export class AptLogCollection {
       page_size: this.pageSize,
       cursor: this.cursor,
       result: this.result ? this.result.map((item) => item.toJSON()) : undefined,
-    }
+    };
   }
 }

@@ -1,6 +1,14 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptGetContractEvents, AptGetContractEventsJSON, AptGetContractEventsInput } from '../types/AptGetContractEvents';
-import { AptGetContractEventsBody, AptGetContractEventsBodyJSON, AptGetContractEventsBodyInput } from '../types/AptGetContractEventsBody';
+import {
+  AptGetContractEvents,
+  AptGetContractEventsJSON,
+  AptGetContractEventsInput,
+} from '../types/AptGetContractEvents';
+import {
+  AptGetContractEventsBody,
+  AptGetContractEventsBodyJSON,
+  AptGetContractEventsBodyInput,
+} from '../types/AptGetContractEventsBody';
 
 export interface AptGetContractEventsOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -33,10 +41,21 @@ export interface AptGetContractEventsOperationRequest {
  * @description Get events for a contract ordered by block number in descending order. [Try it with Swagger](https://deep-index.moralis.io/api-docs-2.1/#/Events/getContractEvents).
  */
 export const AptGetContractEventsOperation = {
-  operationId: "getContractEvents",
-  httpMethod: "post",
-  routePattern: "/{address}/events",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","topic","offset","limit","disable_total"],
+  operationId: 'getContractEvents',
+  httpMethod: 'post',
+  routePattern: '/{address}/events',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'address',
+    'topic',
+    'offset',
+    'limit',
+    'disable_total',
+  ],
   hasResponse: true,
   hasBody: true,
 
@@ -73,4 +92,4 @@ export const AptGetContractEventsOperation = {
     const body = request.body ? AptGetContractEventsBody.create(request.body) : undefined;
     return body ? body.toJSON() : undefined;
   },
-}
+};

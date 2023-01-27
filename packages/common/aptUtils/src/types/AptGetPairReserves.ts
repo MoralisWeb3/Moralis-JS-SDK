@@ -1,4 +1,3 @@
-
 // $ref: #/paths/~1{pair_address}~1reserves/get/responses/200/content/application~1json/schema
 
 export interface AptGetPairReservesJSON {
@@ -36,6 +35,6 @@ export class AptGetPairReserves {
     return {
       reserve0: this.reserve0,
       reserve1: this.reserve1,
-    }
+    };
   }
 }

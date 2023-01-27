@@ -1,18 +1,16 @@
 import { AptEndpointWeights, AptEndpointWeightsJSON, AptEndpointWeightsInput } from '../types/AptEndpointWeights';
 
-export interface AptEndpointWeightsOperationRequestJSON {
-}
+export interface AptEndpointWeightsOperationRequestJSON {}
 
-export interface AptEndpointWeightsOperationRequest {
-}
+export interface AptEndpointWeightsOperationRequest {}
 
 /**
  * @description Get the cost and rate limit for each API endpoint.
  */
 export const AptEndpointWeightsOperation = {
-  operationId: "endpointWeights",
-  httpMethod: "get",
-  routePattern: "/info/endpointWeights",
+  operationId: 'endpointWeights',
+  httpMethod: 'get',
+  routePattern: '/info/endpointWeights',
   parameterNames: [],
   hasResponse: true,
   hasBody: false,
@@ -22,8 +20,6 @@ export const AptEndpointWeightsOperation = {
   },
 
   serializeRequest(request: AptEndpointWeightsOperationRequest): AptEndpointWeightsOperationRequestJSON {
-    return {
-    };
+    return {};
   },
-
-}
+};

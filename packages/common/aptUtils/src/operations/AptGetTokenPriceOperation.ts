@@ -19,10 +19,10 @@ export interface AptGetTokenPriceOperationRequest {
  * @description Get the token price denominated in the blockchain's native token and USD.
  */
 export const AptGetTokenPriceOperation = {
-  operationId: "getTokenPrice",
-  httpMethod: "get",
-  routePattern: "/erc20/{address}/price",
-  parameterNames: ["chain","address","exchange","to_block"],
+  operationId: 'getTokenPrice',
+  httpMethod: 'get',
+  routePattern: '/erc20/{address}/price',
+  parameterNames: ['chain', 'address', 'exchange', 'to_block'],
   hasResponse: true,
   hasBody: false,
 
@@ -42,5 +42,4 @@ export const AptGetTokenPriceOperation = {
       to_block: toBlock,
     };
   },
-
-}
+};

@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/nativeBalances/items/properties/wallet_balances/items
 
 export interface AptNativeBalancesItemWalletBalancesItemJSON {
@@ -51,6 +50,6 @@ export class AptNativeBalancesItemWalletBalancesItem {
       address: this.address,
       balance: this.balance,
       balance_formatted: this.balanceFormatted,
-    }
+    };
   }
 }

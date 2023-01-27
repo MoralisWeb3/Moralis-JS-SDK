@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/nftTransfer
 
 export interface AptNftTransferJSON {
@@ -159,6 +158,6 @@ export class AptNftTransfer {
       transaction_index: this.transactionIndex,
       log_index: this.logIndex,
       operator: this.operator,
-    }
+    };
   }
 }

@@ -77,13 +77,56 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [✨ Hook Usage Examples](#️-hook-usage-examples)
   - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
   - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
-  - [3. Disable Auto Data Fetching](#3-disable-auto-data-fetching)
-- [⚙️ Hook Advanced Config](#️-hook-advanced-config)
-- [Authentication Api Hooks](#authentication-api-hooks)
-  - [useAuthRequestChallengeSolana](#️useAuthRequestChallengeSolana)
-  - [useAuthRequestChallengeEvm](#useAuthRequestChallengeEvm)
-- [Evm Api Hooks](#evm-api-hooks)
-- [Solana Api Hooks](#solana-api-hooks)
+- [EvmApi Hooks](#EvmApi-hooks)
+  - [useEvmNativeBalance](#useEvmNativeBalance)
+  - [useEvmBlock](#useEvmBlock)
+  - [useEvmDateToBlock](#useEvmDateToBlock)
+  - [useEvmPairAddress](#useEvmPairAddress)
+  - [useEvmPairReserves](#useEvmPairReserves)
+  - [useEvmContractEvents](#useEvmContractEvents)
+  - [useEvmContractLogs](#useEvmContractLogs)
+  - [useEvmUploadFolder](#useEvmUploadFolder)
+  - [useEvmContractNFTs](#useEvmContractNFTs)
+  - [useEvmMultipleNFTs](#useEvmMultipleNFTs)
+  - [useEvmNFTContractMetadata](#useEvmNFTContractMetadata)
+  - [useEvmNFTContractTransfers](#useEvmNFTContractTransfers)
+  - [useEvmNFTLowestPrice](#useEvmNFTLowestPrice)
+  - [useEvmNFTMetadata](#useEvmNFTMetadata)
+  - [useEvmNFTOwners](#useEvmNFTOwners)
+  - [useEvmNFTTokenIdOwners](#useEvmNFTTokenIdOwners)
+  - [useEvmNFTTrades](#useEvmNFTTrades)
+  - [useEvmNFTTransfersByBlock](#useEvmNFTTransfersByBlock)
+  - [useEvmNFTTransfersFromToBlock](#useEvmNFTTransfersFromToBlock)
+  - [useEvmNFTTransfers](#useEvmNFTTransfers)
+  - [useEvmWalletNFTCollections](#useEvmWalletNFTCollections)
+  - [useEvmWalletNFTs](#useEvmWalletNFTs)
+  - [useEvmWalletNFTTransfers](#useEvmWalletNFTTransfers)
+  - [useEvmReSyncMetadata](#useEvmReSyncMetadata)
+  - [useEvmSearchNFTs](#useEvmSearchNFTs)
+  - [useEvmSyncNFTContract](#useEvmSyncNFTContract)
+  - [useEvmResolveAddress](#useEvmResolveAddress)
+  - [useEvmResolveDomain](#useEvmResolveDomain)
+  - [useEvmTokenAllowance](#useEvmTokenAllowance)
+  - [useEvmTokenMetadataBySymbol](#useEvmTokenMetadataBySymbol)
+  - [useEvmTokenMetadata](#useEvmTokenMetadata)
+  - [useEvmTokenPrice](#useEvmTokenPrice)
+  - [useEvmTokenTransfers](#useEvmTokenTransfers)
+  - [useEvmWalletTokenBalances](#useEvmWalletTokenBalances)
+  - [useEvmWalletTokenTransfers](#useEvmWalletTokenTransfers)
+  - [useEvmTransaction](#useEvmTransaction)
+  - [useEvmWalletTransactions](#useEvmWalletTransactions)
+  - [useEvmWalletTransactionsVerbose](#useEvmWalletTransactionsVerbose)
+  - [useEvmEndpointWeights](#useEvmEndpointWeights)
+  - [useEvmRunContractFunction](#useEvmRunContractFunction)
+  - [useEvmWeb3ApiVersion](#useEvmWeb3ApiVersion)
+- [SolApi Hooks](#SolApi-hooks)
+  - [useSolBalance](#useSolBalance)
+  - [useSolNFTs](#useSolNFTs)
+  - [useSolPortfolio](#useSolPortfolio)
+  - [useSolSPL](#useSolSPL)
+  - [useSolNFTMetadata](#useSolNFTMetadata)
+  - [useSolTokenPrice](#useSolTokenPrice)
+- [⚙️ Advanced Config](#️-hook-advanced-config)
 - [🧙‍♂️ Community](#️-community)
 
 # ✨ Hook Usage Examples
@@ -154,23 +197,6 @@ const App = () => {
       <p>Ethereum Balance: {ethBalance} Ether</p>
       <p>Binance Balance: {bnbBalance} BNB</p>
     </div>
-  )
-}
-```
-## 3. Disable Auto Data Fetching
-To disable auto data fetching after your component has been mounted you can set `revalidateOnMount = false`. Example:
-
-```jsx
-import { useEvmWalletTokenBalances } from '@moralisweb3/react'
-
-const App = () => {
-  const { data: balance, fetch } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnMount: false })
-
-  return (
-    <>
-      <button onClick={fetch}>Fetch Balance Manually</button>
-      <div>{JSON.stringify(balance, null, 2)}</div>
-    </>
   )
 }
 ```
@@ -1049,6 +1075,7 @@ Below, you can find the possible options for the `config`:
 | `defaultSolNetwork`| 	Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
 | `defaultEvmApiChain`| 	Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
 
+
 The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls. You can provide [config object](https://swr.vercel.app/docs/options#options) as a `fetchConfig` prop to the `MoralisProvider` as it's shown bellow:
 
 ```js
@@ -1063,7 +1090,7 @@ const fetchConfig = {
 
 <MoralisProvider config={config} fetchConfig={fetchConfig}>
   <App />
-</MoralisProvider>,
+</MoralisProvider>
 ```
 
 # 🧙‍♂️ Community

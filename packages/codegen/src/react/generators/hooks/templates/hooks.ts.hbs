@@ -9,9 +9,12 @@ import {
   {{/each}}
 } from '{{ commonUtils }}';
 import { {{#each resolversToImport}}{{ this }},{{/each}} } from '../../resolvers';
+import Moralis from 'moralis'
+
+const { baseUrl } = Moralis.{{ module }};
 
 {{#each hooks}}
 export const {{ this.name }} = ({{#if this.request}}request?: {{ this.request }}{{/if}}) => {
-  return {{ this.resolverType }}({{ this.operation }}, {{#if this.request}}request{{else}}{}{{/if}});
+  return {{ this.resolverType }}({{ this.operation }}, baseUrl, {{#if this.request}}request{{else}}{}{{/if}});
 };
 {{/each}}

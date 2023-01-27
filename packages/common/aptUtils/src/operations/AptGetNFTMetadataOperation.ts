@@ -22,10 +22,10 @@ export interface AptGetNFTMetadataOperationRequest {
  * * Requests for contract addresses not yet indexed will automatically start the indexing process for that NFT collection
  */
 export const AptGetNFTMetadataOperation = {
-  operationId: "getNFTMetadata",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/{token_id}",
-  parameterNames: ["chain","address","token_id","format","normalizeMetadata"],
+  operationId: 'getNFTMetadata',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/{token_id}',
+  parameterNames: ['chain', 'address', 'token_id', 'format', 'normalizeMetadata'],
   hasResponse: true,
   hasBody: false,
 
@@ -47,5 +47,4 @@ export const AptGetNFTMetadataOperation = {
       normalizeMetadata: normalizeMetadata,
     };
   },
-
-}
+};

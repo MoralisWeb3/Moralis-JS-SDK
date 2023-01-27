@@ -15,10 +15,10 @@ export interface AptGetTokenMetadataOperationRequest {
  * @description Get the metadata for a given token contract address (name, symbol, decimals, logo).
  */
 export const AptGetTokenMetadataOperation = {
-  operationId: "getTokenMetadata",
-  httpMethod: "get",
-  routePattern: "/erc20/metadata",
-  parameterNames: ["chain","addresses"],
+  operationId: 'getTokenMetadata',
+  httpMethod: 'get',
+  routePattern: '/erc20/metadata',
+  parameterNames: ['chain', 'addresses'],
   hasResponse: true,
   hasBody: false,
 
@@ -34,5 +34,4 @@ export const AptGetTokenMetadataOperation = {
       addresses: addresses,
     };
   },
-
-}
+};

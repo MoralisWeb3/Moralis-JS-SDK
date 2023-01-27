@@ -56,7 +56,9 @@ export class AptNft {
       contractType: json.contract_type,
       tokenUri: json.token_uri,
       metadata: json.metadata,
-      normalizedMetadata: json.normalized_metadata ? AptNormalizedMetadata.fromJSON(json.normalized_metadata) : undefined,
+      normalizedMetadata: json.normalized_metadata
+        ? AptNormalizedMetadata.fromJSON(json.normalized_metadata)
+        : undefined,
       minterAddress: json.minter_address,
       lastTokenUriSync: json.last_token_uri_sync,
       lastMetadataSync: json.last_metadata_sync,
@@ -169,6 +171,6 @@ export class AptNft {
       amount: this.amount,
       name: this.name,
       symbol: this.symbol,
-    }
+    };
   }
 }

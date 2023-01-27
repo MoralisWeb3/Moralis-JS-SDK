@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptNftTransferCollection, AptNftTransferCollectionJSON, AptNftTransferCollectionInput } from '../types/AptNftTransferCollection';
+import {
+  AptNftTransferCollection,
+  AptNftTransferCollectionJSON,
+  AptNftTransferCollectionInput,
+} from '../types/AptNftTransferCollection';
 
 export interface AptGetWalletNFTTransfersOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -29,10 +33,20 @@ export interface AptGetWalletNFTTransfersOperationRequest {
  * @description Get transfers of NFTs given the wallet and other parameters.
  */
 export const AptGetWalletNFTTransfersOperation = {
-  operationId: "getWalletNFTTransfers",
-  httpMethod: "get",
-  routePattern: "/{address}/nft/transfers",
-  parameterNames: ["chain","address","format","direction","from_block","to_block","limit","disable_total","cursor"],
+  operationId: 'getWalletNFTTransfers',
+  httpMethod: 'get',
+  routePattern: '/{address}/nft/transfers',
+  parameterNames: [
+    'chain',
+    'address',
+    'format',
+    'direction',
+    'from_block',
+    'to_block',
+    'limit',
+    'disable_total',
+    'cursor',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -62,5 +76,4 @@ export const AptGetWalletNFTTransfersOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

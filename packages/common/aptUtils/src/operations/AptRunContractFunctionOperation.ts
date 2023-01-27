@@ -18,10 +18,10 @@ export interface AptRunContractFunctionOperationRequest {
  * @description Run a given function of a contract ABI and retrieve readonly data. [Try it with Swagger](https://deep-index.moralis.io/api-docs-2.1/#/Utils/runContractFunction).
  */
 export const AptRunContractFunctionOperation = {
-  operationId: "runContractFunction",
-  httpMethod: "post",
-  routePattern: "/{address}/function",
-  parameterNames: ["chain","address","function_name"],
+  operationId: 'runContractFunction',
+  httpMethod: 'post',
+  routePattern: '/{address}/function',
+  parameterNames: ['chain', 'address', 'function_name'],
   hasResponse: true,
   hasBody: true,
 
@@ -44,4 +44,4 @@ export const AptRunContractFunctionOperation = {
     const body = AptRunContractDto.create(request.body);
     return body.toJSON();
   },
-}
+};

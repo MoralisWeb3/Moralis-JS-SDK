@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptErc20TokenBalance, AptErc20TokenBalanceJSON, AptErc20TokenBalanceInput } from '../types/AptErc20TokenBalance';
+import {
+  AptErc20TokenBalance,
+  AptErc20TokenBalanceJSON,
+  AptErc20TokenBalanceInput,
+} from '../types/AptErc20TokenBalance';
 
 export interface AptGetWalletTokenBalancesOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -19,10 +23,10 @@ export interface AptGetWalletTokenBalancesOperationRequest {
  * @description Get token balances for a specific wallet address.
  */
 export const AptGetWalletTokenBalancesOperation = {
-  operationId: "getWalletTokenBalances",
-  httpMethod: "get",
-  routePattern: "/{address}/erc20",
-  parameterNames: ["chain","address","to_block","token_addresses"],
+  operationId: 'getWalletTokenBalances',
+  httpMethod: 'get',
+  routePattern: '/{address}/erc20',
+  parameterNames: ['chain', 'address', 'to_block', 'token_addresses'],
   hasResponse: true,
   hasBody: false,
 
@@ -42,5 +46,4 @@ export const AptGetWalletTokenBalancesOperation = {
       token_addresses: tokenAddresses,
     };
   },
-
-}
+};

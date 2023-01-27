@@ -7408,7 +7408,6 @@ __metadata:
     "@moralisweb3/common-core": ^2.11.1
     "@moralisweb3/evm-api": ^2.11.1
     "@moralisweb3/sol-api": ^2.11.1
-    axios: ^1.2.1
     moralis: ^2.11.1
     react: ^18.2.0
     react-dom: ^18.2.0

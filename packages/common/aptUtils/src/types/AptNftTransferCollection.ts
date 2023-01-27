@@ -85,6 +85,6 @@ export class AptNftTransferCollection {
       result: this.result.map((item) => item.toJSON()),
       block_exists: this.blockExists,
       index_complete: this.indexComplete,
-    }
+    };
   }
 }

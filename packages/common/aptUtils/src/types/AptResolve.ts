@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/resolve
 
 export interface AptResolveJSON {
@@ -33,6 +32,6 @@ export class AptResolve {
   public toJSON(): AptResolveJSON {
     return {
       address: this.address,
-    }
+    };
   }
 }

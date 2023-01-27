@@ -19,10 +19,10 @@ export interface AptGetNFTLowestPriceOperationRequest {
  * @description Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH).
  */
 export const AptGetNFTLowestPriceOperation = {
-  operationId: "getNFTLowestPrice",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/lowestprice",
-  parameterNames: ["chain","days","marketplace","address"],
+  operationId: 'getNFTLowestPrice',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/lowestprice',
+  parameterNames: ['chain', 'days', 'marketplace', 'address'],
   hasResponse: true,
   hasBody: false,
 
@@ -42,5 +42,4 @@ export const AptGetNFTLowestPriceOperation = {
       address: address,
     };
   },
-
-}
+};

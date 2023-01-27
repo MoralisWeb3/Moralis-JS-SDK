@@ -79,6 +79,6 @@ export class AptLogEvent {
       block_number: this.blockNumber,
       block_hash: this.blockHash,
       data: this.data.toJSON(),
-    }
+    };
   }
 }

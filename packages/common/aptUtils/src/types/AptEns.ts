@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/ens
 
 export interface AptEnsJSON {
@@ -33,6 +32,6 @@ export class AptEns {
   public toJSON(): AptEnsJSON {
     return {
       name: this.name,
-    }
+    };
   }
 }

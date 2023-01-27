@@ -1,4 +1,3 @@
-
 // $ref: #/components/schemas/logEventByAddress
 
 export interface AptLogEventByAddressJSON {
@@ -120,6 +119,6 @@ export class AptLogEventByAddress {
       topic3: this.topic3,
       transaction_index: this.transactionIndex,
       log_index: this.logIndex,
-    }
+    };
   }
 }

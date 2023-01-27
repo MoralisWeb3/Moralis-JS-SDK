@@ -58,6 +58,6 @@ export class AptErc20Price {
       usdPrice: this.usdPrice,
       exchangeAddress: this.exchangeAddress,
       exchangeName: this.exchangeName,
-    }
+    };
   }
 }

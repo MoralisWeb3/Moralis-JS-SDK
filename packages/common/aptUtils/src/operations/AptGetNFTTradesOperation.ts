@@ -31,10 +31,21 @@ export interface AptGetNFTTradesOperationRequest {
  * @description Get trades of NFTs for a given contract and marketplace.
  */
 export const AptGetNFTTradesOperation = {
-  operationId: "getNFTTrades",
-  httpMethod: "get",
-  routePattern: "/nft/{address}/trades",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","marketplace","cursor","limit","disable_total","address"],
+  operationId: 'getNFTTrades',
+  httpMethod: 'get',
+  routePattern: '/nft/{address}/trades',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'marketplace',
+    'cursor',
+    'limit',
+    'disable_total',
+    'address',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -66,5 +77,4 @@ export const AptGetNFTTradesOperation = {
       address: address,
     };
   },
-
-}
+};

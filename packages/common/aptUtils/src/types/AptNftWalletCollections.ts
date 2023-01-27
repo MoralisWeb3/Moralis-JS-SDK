@@ -76,6 +76,6 @@ export class AptNftWalletCollections {
       page_size: this.pageSize,
       cursor: this.cursor,
       result: this.result ? this.result.map((item) => item.toJSON()) : undefined,
-    }
+    };
   }
 }

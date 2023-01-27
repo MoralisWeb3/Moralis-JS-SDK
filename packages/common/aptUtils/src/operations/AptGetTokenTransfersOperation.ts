@@ -1,5 +1,9 @@
 import { AptChainList, AptChainListJSON, AptChainListInput } from '../types/AptChainList';
-import { AptErc20TransactionCollection, AptErc20TransactionCollectionJSON, AptErc20TransactionCollectionInput } from '../types/AptErc20TransactionCollection';
+import {
+  AptErc20TransactionCollection,
+  AptErc20TransactionCollectionJSON,
+  AptErc20TransactionCollectionInput,
+} from '../types/AptErc20TransactionCollection';
 
 export interface AptGetTokenTransfersOperationRequestJSON {
   readonly chain?: AptChainListJSON;
@@ -29,10 +33,20 @@ export interface AptGetTokenTransfersOperationRequest {
  * @description Get ERC20 token transactions from a contract ordered by block number in descending order.
  */
 export const AptGetTokenTransfersOperation = {
-  operationId: "getTokenTransfers",
-  httpMethod: "get",
-  routePattern: "/erc20/{address}/transfers",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","limit","disable_total","cursor"],
+  operationId: 'getTokenTransfers',
+  httpMethod: 'get',
+  routePattern: '/erc20/{address}/transfers',
+  parameterNames: [
+    'chain',
+    'from_block',
+    'to_block',
+    'from_date',
+    'to_date',
+    'address',
+    'limit',
+    'disable_total',
+    'cursor',
+  ],
   hasResponse: true,
   hasBody: false,
 
@@ -62,5 +76,4 @@ export const AptGetTokenTransfersOperation = {
       cursor: cursor,
     };
   },
-
-}
+};

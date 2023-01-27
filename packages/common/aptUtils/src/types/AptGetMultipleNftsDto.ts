@@ -43,6 +43,6 @@ export class AptGetMultipleNftsDto {
     return {
       tokens: this.tokens.map((item) => item.toJSON()),
       normalizeMetadata: this.normalizeMetadata,
-    }
+    };
   }
 }

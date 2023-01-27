@@ -14,10 +14,10 @@ export interface AptResolveDomainOperationRequest {
  * @description Resolve a specific Unstoppable domain to its address.
  */
 export const AptResolveDomainOperation = {
-  operationId: "resolveDomain",
-  httpMethod: "get",
-  routePattern: "/resolve/{domain}",
-  parameterNames: ["currency","domain"],
+  operationId: 'resolveDomain',
+  httpMethod: 'get',
+  routePattern: '/resolve/{domain}',
+  parameterNames: ['currency', 'domain'],
   hasResponse: true,
   hasBody: false,
 
@@ -33,5 +33,4 @@ export const AptResolveDomainOperation = {
       domain: domain,
     };
   },
-
-}
+};
