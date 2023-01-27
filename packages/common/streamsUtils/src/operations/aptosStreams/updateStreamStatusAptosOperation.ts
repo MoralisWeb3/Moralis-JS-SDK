@@ -4,7 +4,11 @@ import { operations } from '../openapi';
 type OperationId = 'aptosStreamsUpdateStatus';
 
 type PathParams = operations[OperationId]['parameters']['path'];
-type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
+// TODO openapi spec has an impossible type for this operation (it should be UNION, not INTERSECTION)
+// type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
+type BodyParams = {
+  status: 'active' | 'paused';
+};
 type RequestParams = PathParams & BodyParams;
 
 type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
