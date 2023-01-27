@@ -27928,9 +27928,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-demo-moralis@workspace:demos/react-demo-moralis":
+"react-demo@workspace:demos/react":
   version: 0.0.0-use.local
-  resolution: "react-demo-moralis@workspace:demos/react-demo-moralis"
+  resolution: "react-demo@workspace:demos/react"
   dependencies:
     "@chakra-ui/react": ^2.3.1
     "@chakra-ui/styled-system": ^2.3.1

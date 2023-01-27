@@ -69,8 +69,7 @@ If you need help with setting up the boilerplate or have other questions - don't
 
 - [🚀 Quick start](#-quick-start)
   - [1. Install Dependencies](#1-install-dependencies)
-  - [2. Create environment variables file](#2-create-environment-variables-file)
-  - [3. Create API route](#2-create-api-route)
+  - [2. Add MoralisProvider](#2-add-moralisprovider)
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
@@ -79,6 +78,7 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
 - [EvmApi Hooks](#EvmApi-hooks)
   - [useEvmNativeBalance](#useEvmNativeBalance)
+  - [useEvmNativeBalancesForAddresses](#useEvmNativeBalancesForAddresses)
   - [useEvmBlock](#useEvmBlock)
   - [useEvmDateToBlock](#useEvmDateToBlock)
   - [useEvmPairAddress](#useEvmPairAddress)
@@ -127,6 +127,9 @@ If you need help with setting up the boilerplate or have other questions - don't
   - [useSolNFTMetadata](#useSolNFTMetadata)
   - [useSolTokenPrice](#useSolTokenPrice)
 - [⚙️ Advanced Config](#️-hook-advanced-config)
+- [📦 Webpack v5 support](#️-webpack-v5-support)
+  - [Configuring Webpack v5](#configuring-webpack-v5)
+  - [create-react-app](#create-react-app)
 - [🧙‍♂️ Community](#️-community)
 
 # ✨ Hook Usage Examples
@@ -215,6 +218,26 @@ Get the native balance for a specific wallet address.
 ### Response:
 ```ts
 { balance: EvmNative }; 
+```
+
+## `useEvmNativeBalancesForAddresses()` 
+
+Get the native balances for a set of specific addresses
+
+### Params:
+```ts
+{ chain?: EvmChainish; walletAddresses: EvmAddressish[] }; 
+```
+
+### Response:
+```ts
+{
+  chain: import(&quot;E:/Work/Moralis/Moralis-JS-SDK/packages/common/evmUtils/src/dataTypes/index&quot;).EvmChain;
+  blockNumber: string;
+  blockTimestamp: string;
+  totalBalance: EvmNative;
+  walletBalances: { address: EvmAddress; balance: EvmNative }[];
+}[]; 
 ```
 
 ## `useEvmBlock()` 
@@ -1091,6 +1114,70 @@ const fetchConfig = {
 <MoralisProvider config={config} fetchConfig={fetchConfig}>
   <App />
 </MoralisProvider>
+```
+
+# 📦 Webpack v5 support
+
+You may see the following error in your project:
+
+```js
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+```
+
+There are a lot of breaking changes in Webpack v5. Set up your project to work with `react-moralis`:
+
+## Configuring Webpack v5
+
+```js
+module.exports = {
+    resolve: {
+        fallback: {
+            assert: require.resolve('assert'),
+            crypto: require.resolve('crypto-browserify'),
+            http: require.resolve('stream-http'),
+            https: require.resolve('https-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            stream: require.resolve('stream-browserify'),
+        },
+    },
+};
+```
+
+## create-react-app
+
+To be able to work with react-moralis on the create-react-app project you need to override default webpack config by using libraries like [react-app-rewired](https://www.npmjs.com/package/react-app-rewired).
+
+Create `config-overrides.js` file at your root with  following content:
+```js
+const webpack = require('webpack');
+module.exports = function override(config) {
+  const fallback = config.resolve.fallback || {};
+  Object.assign(fallback, {
+    crypto: require.resolve('crypto-browserify'),
+    stream: require.resolve('stream-browserify'),
+    assert: require.resolve('assert'),
+    http: require.resolve('stream-http'),
+    https: require.resolve('https-browserify'),
+    os: require.resolve('os-browserify'),
+    url: require.resolve('url'),
+    zlib: require.resolve('browserify-zlib'),
+  });
+  config.resolve.fallback = fallback;
+  config.module.rules = config.module.rules.map((rule) => {
+    if (rule.oneOf instanceof Array) {
+      rule.oneOf[rule.oneOf.length - 1].exclude = [/\.(js|mjs|jsx|cjs|ts|tsx)$/, /\.html$/, /\.json$/];
+    }
+    return rule;
+  });
+  config.plugins = (config.plugins || []).concat([
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js',
+      Buffer: ['buffer', 'Buffer'],
+    }),
+  ]);
+  return config;
+};
 ```
 
 # 🧙‍♂️ Community
