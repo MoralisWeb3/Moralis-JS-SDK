@@ -7111,7 +7111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@moralisweb3/api-utils@^2.12.0, @moralisweb3/api-utils@workspace:packages/apiUtils":
+"@moralisweb3/api-utils@^2.11.1, @moralisweb3/api-utils@^2.12.0, @moralisweb3/api-utils@workspace:packages/apiUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/api-utils@workspace:packages/apiUtils"
   dependencies:
@@ -7122,7 +7122,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/auth@^2.12.0, @moralisweb3/auth@workspace:packages/auth":
+"@moralisweb3/auth@^2.11.1, @moralisweb3/auth@^2.12.0, @moralisweb3/auth@workspace:packages/auth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/auth@workspace:packages/auth"
   dependencies:
@@ -7250,7 +7250,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-auth-utils@^2.12.0, @moralisweb3/common-auth-utils@workspace:packages/common/authUtils":
+"@moralisweb3/common-auth-utils@^2.11.1, @moralisweb3/common-auth-utils@^2.12.0, @moralisweb3/common-auth-utils@workspace:packages/common/authUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-auth-utils@workspace:packages/common/authUtils"
   dependencies:
@@ -7265,7 +7265,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-core@^2.12.0, @moralisweb3/common-core@workspace:packages/common/core":
+"@moralisweb3/common-core@^2.11.1, @moralisweb3/common-core@^2.12.0, @moralisweb3/common-core@workspace:packages/common/core":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-core@workspace:packages/common/core"
   dependencies:
@@ -7336,7 +7336,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/evm-api@^2.12.0, @moralisweb3/evm-api@workspace:packages/evmApi":
+"@moralisweb3/evm-api@^2.11.1, @moralisweb3/evm-api@^2.12.0, @moralisweb3/evm-api@workspace:packages/evmApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/evm-api@workspace:packages/evmApi"
   dependencies:
@@ -7418,7 +7418,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/sol-api@^2.11.1, @moralisweb3/sol-api@workspace:packages/solApi":
+"@moralisweb3/sol-api@^2.11.1, @moralisweb3/sol-api@^2.12.0, @moralisweb3/sol-api@workspace:packages/solApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/sol-api@workspace:packages/solApi"
   dependencies:
@@ -24156,7 +24156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moralis@^2.12.0, moralis@^2.9.0, moralis@workspace:packages/moralis":
+"moralis@^2.11.1, moralis@^2.12.0, moralis@^2.9.0, moralis@workspace:packages/moralis":
   version: 0.0.0-use.local
   resolution: "moralis@workspace:packages/moralis"
   dependencies:
