@@ -1,26 +1,34 @@
 import { OpenApiReader } from './OpenApiReader';
+import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
 import { ComplexTypeDescriptor, isComplexTypeDescriptor } from './TypeDescriptor';
 
 describe('OpenApiReader', () => {
   it('array ref response', () => {
-    const result = OpenApiReader.create({
-      openapi: '3.0.0',
-      info: {
-        title: 'test',
-        version: '1',
+    const configuration: OpenApiReaderConfiguration = {
+      v3: {
+        group$ref: '#/operationId',
       },
-      paths: {
-        '/wallets/balances': {
-          get: {
-            operationId: 'getNativeBalancesForAddresses',
-            parameters: [],
-            responses: {
-              '200': {
-                description: '',
-                content: {
-                  'application/json': {
-                    schema: {
-                      $ref: '#/components/schemas/nativeBalances',
+    };
+    const result = OpenApiReader.create(
+      {
+        openapi: '3.0.0',
+        info: {
+          title: 'test',
+          version: '1',
+        },
+        paths: {
+          '/wallets/balances': {
+            get: {
+              operationId: 'getNativeBalancesForAddresses',
+              parameters: [],
+              responses: {
+                '200': {
+                  description: '',
+                  content: {
+                    'application/json': {
+                      schema: {
+                        $ref: '#/components/schemas/nativeBalances',
+                      },
                     },
                   },
                 },
@@ -28,23 +36,23 @@ describe('OpenApiReader', () => {
             },
           },
         },
-      },
-      components: {
-        schemas: {
-          nativeBalances: {
-            type: 'array',
-            items: {
-              type: 'object',
-              required: ['wallet_balances'],
-              properties: {
-                wallet_balances: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    required: ['address'],
-                    properties: {
-                      address: {
-                        type: 'string',
+        components: {
+          schemas: {
+            nativeBalances: {
+              type: 'array',
+              items: {
+                type: 'object',
+                required: ['wallet_balances'],
+                properties: {
+                  wallet_balances: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      required: ['address'],
+                      properties: {
+                        address: {
+                          type: 'string',
+                        },
                       },
                     },
                   },
@@ -54,20 +62,21 @@ describe('OpenApiReader', () => {
           },
         },
       },
-    }).read();
+      configuration,
+    ).read();
 
     const operation = result.operations[0];
 
     expect(isComplexTypeDescriptor(operation.response!.descriptor)).toBe(true);
     const responseD = operation.response!.descriptor as ComplexTypeDescriptor;
-    expect(responseD.className).toBe('nativeBalancesItem');
+    expect(responseD.typeName.toString()).toBe('nativeBalances_Item');
     expect(responseD.ref.toString()).toBe('#/components/schemas/nativeBalances/items');
     expect(responseD.isArray).toBe(true);
 
     const complexType1 = result.complexTypes[0];
     const complexType1D = complexType1.descriptor;
     {
-      expect(complexType1D.className).toBe('nativeBalancesItem');
+      expect(complexType1D.typeName.toString()).toBe('nativeBalances_Item');
       expect(complexType1D.ref.toString()).toBe('#/components/schemas/nativeBalances/items');
       expect(complexType1D.isArray).toBe(false);
 
@@ -75,7 +84,7 @@ describe('OpenApiReader', () => {
       expect(balancesProp).toBeDefined();
       expect(isComplexTypeDescriptor(balancesProp.descriptor)).toBe(true);
       const balancesPropD = balancesProp.descriptor as ComplexTypeDescriptor;
-      expect(balancesPropD.className).toBe('nativeBalancesItemWalletBalancesItem');
+      expect(balancesPropD.typeName.toString()).toBe('nativeBalances_Item_wallet_balances_Item');
       expect(balancesPropD.ref.toString()).toBe(
         '#/components/schemas/nativeBalances/items/properties/wallet_balances/items',
       );
@@ -85,7 +94,7 @@ describe('OpenApiReader', () => {
     const complexType2 = result.complexTypes[1];
     const complexType2D = complexType2.descriptor;
     {
-      expect(complexType2D.className).toBe('nativeBalancesItemWalletBalancesItem');
+      expect(complexType2D.typeName.toString()).toBe('nativeBalances_Item_wallet_balances_Item');
       expect(complexType2D.ref.toString()).toBe(
         '#/components/schemas/nativeBalances/items/properties/wallet_balances/items',
       );

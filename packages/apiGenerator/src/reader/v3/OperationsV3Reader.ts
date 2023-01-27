@@ -1,15 +1,15 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
-import { NameFormatter } from '../utils/NameFormatter';
 import { ComplexTypePointer, isComplexTypeDescriptor } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiReaderResult';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
 import { UniqueQueue } from '../utils/UniqueQueue';
+import { TypeName } from '../utils/TypeName';
+import { OpenApiV3ReaderConfiguration } from './OpenApiV3ReaderConfiguration';
 
-const successResponseCodes = ['200', '201', '202', '203', '204', '205'];
-
-const BODY_CLASS_SUFFIX = 'Body';
+const SUCCESS_RESPONSE_CODES = ['200', '201', '202', '203', '204', '205'];
+const BODY_TYPE_NAME_SUFFIX = 'Body';
 
 export class OperationsV3Reader {
   public readonly operations: OperationInfo[] = [];
@@ -19,6 +19,7 @@ export class OperationsV3Reader {
     private readonly document: OpenAPIV3.Document,
     private readonly typeDescriptorReader: TypeDescriptorV3Reader,
     private readonly queue: UniqueQueue<ComplexTypePointer>,
+    private readonly configuration: OpenApiV3ReaderConfiguration,
   ) {}
 
   public read() {
@@ -45,13 +46,11 @@ export class OperationsV3Reader {
           () => `Operation id ${path.operationId} is duplicated`,
         );
 
-        const responseCode = successResponseCodes.find((code) => path.responses[code]);
+        const responseCode = SUCCESS_RESPONSE_CODES.find((code) => path.responses[code]);
         if (!responseCode) {
-          const supportedCodes = Object.keys(path.responses);
+          const supportedCodes = Object.keys(path.responses).join(', ');
           console.warn(
-            `[no-success-response] Path ${routePattern} does not have any success response (found: ${supportedCodes.join(
-              ', ',
-            )})`,
+            `[no-success-response] Path ${routePattern} does not have any success response (found: ${supportedCodes})`,
           );
           continue;
         }
@@ -64,8 +63,11 @@ export class OperationsV3Reader {
         const parameters = this.readParameters(operationRef, path.operationId, path.parameters);
         const body = this.readBody(operationRef, path.operationId, path.requestBody);
 
+        const groupName = JsonRef.parse(this.configuration.group$ref).find<string>(path);
+
         this.operations.push({
           operationId: path.operationId,
+          groupName,
           description: path.description,
           httpMethod,
           routePattern,
@@ -100,8 +102,8 @@ export class OperationsV3Reader {
       }
 
       const ref = operationRef.extend(['parameters', String(index)]);
-      const defaultClassName = NameFormatter.joinName(operationId, parameter.name);
-      const descriptor = this.typeDescriptorReader.read(schema, ref, defaultClassName);
+      const defaultTypeName = TypeName.from(operationId).add(parameter.name);
+      const descriptor = this.typeDescriptorReader.read(schema, ref, defaultTypeName);
       if (isComplexTypeDescriptor(descriptor)) {
         this.queue.push(descriptor.ref.toString(), descriptor);
       }
@@ -128,10 +130,10 @@ export class OperationsV3Reader {
       return null;
     }
 
-    const defaultClassName = NameFormatter.normalize(operationId);
+    const defaultTypeName = TypeName.from(operationId);
     const ref = operationRef.extend(['responses', responseCode, 'content', 'application/json', 'schema']);
 
-    const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultClassName);
+    const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultTypeName);
     if (isComplexTypeDescriptor(descriptor)) {
       this.queue.push(descriptor.ref.toString(), descriptor);
     }
@@ -161,8 +163,8 @@ export class OperationsV3Reader {
     }
 
     const ref = operationRef.extend(['requestBody', 'content', 'application/json', 'schema']);
-    const defaultClassName = NameFormatter.normalize(operationId) + BODY_CLASS_SUFFIX;
-    const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultClassName);
+    const defaultTypeName = TypeName.from(operationId).add(BODY_TYPE_NAME_SUFFIX);
+    const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultTypeName);
     if (isComplexTypeDescriptor(descriptor)) {
       this.queue.push(descriptor.ref.toString(), descriptor);
     }

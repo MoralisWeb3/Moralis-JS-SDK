@@ -1,37 +1,46 @@
 import { OpenApiReader } from './OpenApiReader';
+import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
 import { SimpleTypeDescriptor } from './TypeDescriptor';
 
 describe('OpenApiReader', () => {
   it('no response', () => {
-    const result = OpenApiReader.create({
-      openapi: '3.0.0',
-      info: {
-        title: 'test',
-        version: '1',
+    const configuration: OpenApiReaderConfiguration = {
+      v3: {
+        group$ref: '#/operationId',
       },
-      paths: {
-        '/nft/{address}/sync': {
-          put: {
-            operationId: 'syncNFTContract',
-            parameters: [
-              {
-                in: 'path',
-                name: 'address',
-                required: true,
-                schema: {
-                  type: 'string',
+    };
+    const result = OpenApiReader.create(
+      {
+        openapi: '3.0.0',
+        info: {
+          title: 'test',
+          version: '1',
+        },
+        paths: {
+          '/nft/{address}/sync': {
+            put: {
+              operationId: 'syncNFTContract',
+              parameters: [
+                {
+                  in: 'path',
+                  name: 'address',
+                  required: true,
+                  schema: {
+                    type: 'string',
+                  },
                 },
-              },
-            ],
-            responses: {
-              '201': {
-                description: 'Contract address was triggered for index.',
+              ],
+              responses: {
+                '201': {
+                  description: 'Contract address was triggered for index.',
+                },
               },
             },
           },
         },
       },
-    }).read();
+      configuration,
+    ).read();
 
     const operation = result.operations[0];
 
@@ -47,7 +56,7 @@ describe('OpenApiReader', () => {
       expect(parameter1.name).toBe('address');
       expect(parameter1.isRequired).toBe(true);
       expect(parameter1D.isArray).toBe(false);
-      expect(parameter1D.type).toBe('string');
+      expect(parameter1D.simpleType).toBe('string');
     }
 
     expect(result.complexTypes.length).toBe(0);

@@ -41,6 +41,10 @@ export class GeneratorWriter {
     this.writeFile(this.typesPath, 'index.ts', output);
   }
 
+  public writeAbstractClient(output: GeneratorOutput) {
+    this.writeFile(this.outputPath, 'abstractClient.ts', output);
+  }
+
   private writeFile(basePath: string, fileName: string, output: GeneratorOutput) {
     const finalPath = path.join(basePath, fileName);
     fs.writeFileSync(finalPath, output.toString(), 'utf-8');

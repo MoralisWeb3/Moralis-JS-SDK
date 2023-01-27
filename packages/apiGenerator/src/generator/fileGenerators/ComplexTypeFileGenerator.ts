@@ -1,5 +1,5 @@
 import { ComplexTypeInfo } from 'src/reader/OpenApiReaderResult';
-import { NameFormatter } from '../../reader/utils/NameFormatter';
+import { NameFormatter } from './codeGenerators/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { MappingCodeGenerator } from './codeGenerators/MappingCodeGenerator';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
@@ -10,6 +10,8 @@ export interface TypeClassGeneratorResult {
   output: GeneratorOutput;
 }
 
+const BASE_PATH = '../';
+
 export class ComplexTypeFileGenerator {
   public constructor(private readonly info: ComplexTypeInfo, private readonly typeResolver: TypeResolver) {}
 
@@ -18,7 +20,7 @@ export class ComplexTypeFileGenerator {
       throw new Error(`Array complex type is not supported yet (${this.info.descriptor.ref})`);
     }
 
-    const resolvedType = this.typeResolver.resolve(this.info.descriptor);
+    const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor, BASE_PATH);
     const typeCodes = TypeCodesGenerator.generate(resolvedType, true);
     if (!typeCodes.complexType) {
       throw new Error('Invalid descriptor type');
@@ -27,10 +29,10 @@ export class ComplexTypeFileGenerator {
     const output = new GeneratorOutput();
 
     const properties = this.info.properties.map((property) => {
-      const resolvedPropertyType = this.typeResolver.resolve(property.descriptor);
+      const resolvedPropertyType = this.typeResolver.resolve(property.descriptor, BASE_PATH);
       const isSafe = isNameSafe(property.name);
       const nameCode = isSafe ? property.name : `'${property.name}'`;
-      const camelCasedNameCode = isSafe ? NameFormatter.toCamelCase(property.name) : `'${property.name}'`;
+      const camelCasedNameCode = isSafe ? NameFormatter.getParameterName(property.name) : `'${property.name}'`;
       const accessCode = isSafe ? `.${nameCode}` : `[${nameCode}]`;
       return {
         property,
@@ -58,15 +60,17 @@ export class ComplexTypeFileGenerator {
           // Skips import to self type
           continue;
         }
-        output.write(
-          0,
-          `import { ${p.types.complexType.className}, ${p.types.complexType.jsonClassName} } from '${p.types.complexType.importPath}';`,
+        output.addImport(
+          [p.types.complexType.className, p.types.complexType.jsonClassName],
+          p.types.complexType.importPath,
         );
       }
     }
+    output.commitImports();
     output.newLine();
 
     output.write(0, `// $ref: ${this.info.descriptor.ref.toString()}`);
+    output.write(0, `// typeName: ${this.info.descriptor.typeName.toString()}`);
     output.newLine();
 
     output.write(0, `export interface ${typeCodes.complexType.jsonClassName} {`);
@@ -87,8 +91,11 @@ export class ComplexTypeFileGenerator {
 
     output.write(
       1,
-      `public static create(input: ${typeCodes.complexType.inputClassName}): ${typeCodes.complexType.className} {`,
+      `public static create(input: ${typeCodes.complexType.inputClassName} | ${typeCodes.complexType.className}): ${typeCodes.complexType.className} {`,
     );
+    output.write(2, `if (input instanceof ${typeCodes.complexType.className}) {`);
+    output.write(3, `return input;`);
+    output.write(2, `}`);
     output.write(2, `return new ${typeCodes.complexType.className}(input);`);
     output.write(1, '}');
     output.newLine();

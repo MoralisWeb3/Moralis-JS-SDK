@@ -1,9 +1,10 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
 import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor } from '../TypeDescriptor';
-import { NameFormatter } from '../utils/NameFormatter';
+import { TypeName } from '../utils/TypeName';
 
-const ITEM_CLASS_SUFFIX = 'Item';
+const ITEM_TYPE_NAME_SUFFIX = 'Item';
+const COMPONENT_SCHEMA_$REF_PREFIX = '#/components/schemas/';
 
 export class TypeDescriptorV3Reader {
   public constructor(private readonly document: OpenAPIV3.Document) {}
@@ -11,24 +12,20 @@ export class TypeDescriptorV3Reader {
   public read(
     $refOrSchema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
     parentRef: JsonRef,
-    defaultClassName: string,
+    defaultTypeName: TypeName,
   ): TypeDescriptor {
-    if (!$refOrSchema) {
-      throw new Error('$refOrSchema is empty');
-    }
-
     const $ref = ($refOrSchema as OpenAPIV3.ReferenceObject).$ref;
     if ($ref) {
       const ref = JsonRef.parse($ref);
-      let className = readClassNameFromRef($ref);
+      let typeName = readTypeNameFromRef($ref);
 
       const targetSchema = ref.find<OpenAPIV3.SchemaObject>(this.document);
       if (targetSchema.type === 'array') {
-        const itemClassName = className + ITEM_CLASS_SUFFIX;
-        return new ComplexTypeDescriptor(true, ref.extend(['items']), itemClassName);
+        const itemTypeName = typeName.add(ITEM_TYPE_NAME_SUFFIX);
+        return new ComplexTypeDescriptor(true, ref.extend(['items']), itemTypeName);
       }
 
-      return new ComplexTypeDescriptor(false, ref, className);
+      return new ComplexTypeDescriptor(false, ref, typeName);
     }
 
     const schema = $refOrSchema as OpenAPIV3.SchemaObject;
@@ -36,44 +33,43 @@ export class TypeDescriptorV3Reader {
       const items$ref = (schema.items as OpenAPIV3.ReferenceObject).$ref;
       if (items$ref) {
         const itemsRef = JsonRef.parse(items$ref);
-        const className = readClassNameFromRef(items$ref);
-        return new ComplexTypeDescriptor(true, itemsRef, className);
+        const typeName = readTypeNameFromRef(items$ref);
+        return new ComplexTypeDescriptor(true, itemsRef, typeName);
       }
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
       if (itemsSchema.type === 'object') {
-        const itemClassName = defaultClassName + ITEM_CLASS_SUFFIX;
-        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemClassName);
+        const itemTypeName = defaultTypeName.add(ITEM_TYPE_NAME_SUFFIX);
+        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
       if (itemsSchema.type === 'array') {
-        const itemClassName = defaultClassName + ITEM_CLASS_SUFFIX;
-        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemClassName);
+        const itemTypeName = defaultTypeName.add(ITEM_TYPE_NAME_SUFFIX);
+        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
 
       if (!itemsSchema.type) {
         itemsSchema.type = 'string';
         console.warn(`[no-schema-type] Items schema has empty type, set string as default (${parentRef})`);
       }
-      return new SimpleTypeDescriptor(true, itemsSchema.type);
+      return new SimpleTypeDescriptor(true, parentRef, itemsSchema.type);
     }
 
     if (schema.type === 'object') {
-      return new ComplexTypeDescriptor(false, parentRef, defaultClassName);
+      return new ComplexTypeDescriptor(false, parentRef, defaultTypeName);
     }
 
     if (!schema.type) {
       schema.type = 'string';
       console.warn(`[no-schema-type] Schema has empty type, set string as default (${parentRef})`);
     }
-    return new SimpleTypeDescriptor(false, schema.type);
+    return new SimpleTypeDescriptor(false, parentRef, schema.type);
   }
 }
 
-function readClassNameFromRef($ref: string): string {
-  const start$ref = '#/components/schemas/';
-  if ($ref.startsWith(start$ref)) {
-    const name = $ref.substring(start$ref.length);
-    return NameFormatter.normalize(name);
+function readTypeNameFromRef($ref: string): TypeName {
+  if ($ref.startsWith(COMPONENT_SCHEMA_$REF_PREFIX)) {
+    const name = $ref.substring(COMPONENT_SCHEMA_$REF_PREFIX.length);
+    return TypeName.from(name);
   }
   throw new Error(`Not supported $ref: ${$ref}`);
 }

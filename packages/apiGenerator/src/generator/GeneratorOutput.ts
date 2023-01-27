@@ -3,6 +3,25 @@ const EOL = '\r\n';
 
 export class GeneratorOutput {
   private readonly lines: { tabs: number; content: string }[] = [];
+  private readonly imports = new Map<string, Set<string>>();
+
+  public addImport(types: string[], path: string) {
+    let items = this.imports.get(path);
+    if (items) {
+      for (const type of types) {
+        items.add(type);
+      }
+    } else {
+      this.imports.set(path, new Set(types));
+    }
+  }
+
+  public commitImports() {
+    for (const path of this.imports.keys()) {
+      const types = [...(this.imports.get(path) as Set<string>)];
+      this.write(0, `import { ${types.join(', ')} } from '${path}';`);
+    }
+  }
 
   public newLine() {
     this.lines.push({ tabs: 0, content: '' });

@@ -1,9 +1,11 @@
 import { OperationInfo } from '../../reader/OpenApiReaderResult';
-import { NameFormatter } from '../../reader/utils/NameFormatter';
+import { NameFormatter } from './codeGenerators/NameFormatter';
 import { GeneratorOutput } from '../GeneratorOutput';
 import { MappingCodeGenerator } from './codeGenerators/MappingCodeGenerator';
-import { TypeCodes, TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
+import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeResolver } from './TypeResolver';
+
+const BASE_PATH = '../';
 
 export interface OperationFileGeneratorResult {
   className: string;
@@ -14,22 +16,23 @@ export class OperationFileGenerator {
   public constructor(private readonly info: OperationInfo, private readonly typeResolver: TypeResolver) {}
 
   public generate(): OperationFileGeneratorResult {
-    const resolvedResponseType = this.info.response ? this.typeResolver.resolve(this.info.response.descriptor) : null;
+    const resolvedResponseType = this.info.response
+      ? this.typeResolver.resolve(this.info.response.descriptor, BASE_PATH)
+      : null;
     const responseTypeCodes = resolvedResponseType ? TypeCodesGenerator.generate(resolvedResponseType, true) : null;
 
-    const resolvedBodyType = this.info.body ? this.typeResolver.resolve(this.info.body.descriptor) : null;
+    const resolvedBodyType = this.info.body ? this.typeResolver.resolve(this.info.body.descriptor, BASE_PATH) : null;
     const bodyTypeCodes =
       resolvedBodyType && this.info.body
         ? TypeCodesGenerator.generate(resolvedBodyType, this.info.body.isRequired)
         : null;
 
-    const normalizedOperationId = NameFormatter.normalize(this.info.operationId);
-    const className = this.typeResolver.createClassName(normalizedOperationId + 'Operation');
+    const className = NameFormatter.getOperationClassName(this.info.operationId);
     const output = new GeneratorOutput();
 
     const parameters = this.info.parameters.map((parameter) => {
-      const camelCasedName = NameFormatter.toCamelCase(parameter.name);
-      const resolvedParamType = this.typeResolver.resolve(parameter.descriptor);
+      const camelCasedName = NameFormatter.getParameterName(parameter.name);
+      const resolvedParamType = this.typeResolver.resolve(parameter.descriptor, BASE_PATH);
       const types = TypeCodesGenerator.generate(resolvedParamType, parameter.isRequired);
       return {
         camelCasedName,
@@ -48,44 +51,57 @@ export class OperationFileGenerator {
       };
     });
 
-    const imports = new Map<string, TypeCodes>();
     parameters.forEach((parameter) => {
       if (parameter.types.complexType) {
-        imports.set(parameter.types.complexType.className, parameter.types);
+        output.addImport(
+          [
+            parameter.types.complexType.className,
+            parameter.types.complexType.inputClassName,
+            parameter.types.complexType.jsonClassName,
+          ],
+          parameter.types.complexType.importPath,
+        );
       }
     });
     if (responseTypeCodes?.complexType) {
-      imports.set(responseTypeCodes.complexType.className, responseTypeCodes);
+      output.addImport(
+        [
+          responseTypeCodes.complexType.className,
+          responseTypeCodes.complexType.inputClassName,
+          responseTypeCodes.complexType.jsonClassName,
+        ],
+        responseTypeCodes.complexType.importPath,
+      );
     }
     if (bodyTypeCodes?.complexType) {
-      imports.set(bodyTypeCodes.complexType.className, bodyTypeCodes);
+      output.addImport(
+        [
+          bodyTypeCodes.complexType.className,
+          bodyTypeCodes.complexType.inputClassName,
+          bodyTypeCodes.complexType.jsonClassName,
+        ],
+        bodyTypeCodes.complexType.importPath,
+      );
     }
+    output.commitImports();
 
-    if (imports.size > 0) {
-      for (const types of imports.values()) {
-        if (types.complexType) {
-          output.write(
-            0,
-            `import { ${types.complexType.className}, ${types.complexType.jsonClassName}, ${types.complexType.inputClassName} } from '${types.complexType.importPath}';`,
-          );
-        }
-      }
-      output.newLine();
-    }
-
-    output.write(0, `export interface ${className}RequestJSON {`);
+    output.write(0, `export interface ${className}Request {`);
     for (const p of parameters) {
-      output.write(1, `readonly ${p.parameter.name}${p.types.colon} ${p.types.jsonTypeCode};`);
+      const paramTypeCode =
+        p.types.inputTypeCode !== p.types.typeCode
+          ? `${p.types.inputTypeCode} | ${p.types.typeCode}`
+          : p.types.inputTypeCode;
+      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${paramTypeCode};`);
+    }
+    if (bodyTypeCodes) {
+      output.write(1, `readonly body${bodyTypeCodes.colon} ${bodyTypeCodes.inputTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
 
-    output.write(0, `export interface ${className}Request {`);
+    output.write(0, `export interface ${className}RequestJSON {`);
     for (const p of parameters) {
-      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputTypeCode};`);
-    }
-    if (bodyTypeCodes) {
-      output.write(1, `readonly body${bodyTypeCodes.colon} ${bodyTypeCodes.inputTypeCode};`);
+      output.write(1, `readonly ${p.parameter.name}${p.types.colon} ${p.types.jsonTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
@@ -100,6 +116,7 @@ export class OperationFileGenerator {
 
     output.write(0, `export const ${className} = {`);
     output.write(1, `operationId: ${JSON.stringify(this.info.operationId)},`);
+    output.write(1, `groupName: ${JSON.stringify(this.info.groupName)},`);
     output.write(1, `httpMethod: ${JSON.stringify(this.info.httpMethod)},`);
     output.write(1, `routePattern: ${JSON.stringify(this.info.routePattern)},`);
     output.write(1, `parameterNames: ${JSON.stringify(parameterNames)},`);

@@ -26,6 +26,7 @@ export interface SimpleTypeInfo {
 
 export interface OperationInfo {
   operationId: string;
+  groupName: string;
   httpMethod: string;
   routePattern: string;
   description?: string;

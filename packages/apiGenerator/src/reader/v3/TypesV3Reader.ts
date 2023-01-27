@@ -1,13 +1,14 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo } from '../OpenApiReaderResult';
 import { ComplexTypeDescriptor, ComplexTypePointer, isComplexTypeDescriptor } from '../TypeDescriptor';
-import { NameFormatter } from '../utils/NameFormatter';
+import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { UniqueQueue } from '../utils/UniqueQueue';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
 
 export class TypesV3Reader {
   public readonly complexTypes: ComplexTypeInfo[] = [];
   public readonly simpleTypes: SimpleTypeInfo[] = [];
+  private readonly typeNameUniquenessChecker = new UniquenessChecker();
 
   public constructor(
     private readonly document: OpenAPIV3.Document,
@@ -32,9 +33,12 @@ export class TypesV3Reader {
       throw new Error(`Array complex type is not supported yet (${pointer.ref})`);
     }
 
+    const typeName = pointer.typeName.toString();
+    this.typeNameUniquenessChecker.checkAndAdd(typeName, () => `Type name ${typeName} is duplicated`);
+
     const descriptor: ComplexTypeDescriptor = {
       isArray: false,
-      className: pointer.className,
+      typeName: pointer.typeName,
       ref: pointer.ref,
     };
 
@@ -59,9 +63,9 @@ export class TypesV3Reader {
       const isRequired = scheme.required?.includes(name) || false;
       const refOrSchema = scheme.properties[name];
 
-      const defaultClassName = NameFormatter.joinName(pointer.className, name);
+      const defaultTypeName = pointer.typeName.add(name);
       const ref = pointer.ref.extend(['properties', name]);
-      const descriptor = this.typeDescriptorReader.read(refOrSchema, ref, defaultClassName);
+      const descriptor = this.typeDescriptorReader.read(refOrSchema, ref, defaultTypeName);
       if (isComplexTypeDescriptor(descriptor)) {
         this.queue.push(descriptor.ref.toString(), descriptor);
       }
