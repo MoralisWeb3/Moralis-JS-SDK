@@ -618,30 +618,52 @@ export interface components {
       amountOfAddresses: number;
     };
     AptosCreateStreamType: {
+      /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl: string;
+      /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag: string;
+      /** @description An Array of events in string-signature format ex: ['0x1::aptos_account::transfer'] */
       functions?: string[];
+      /** @description An Array of events in string-signature format ex: ['0x1::coin::WithdrawEvent'] */
       events?: string[];
+      /** @description The network to listen to */
       network: components["schemas"]["AptosNetwork"];
+      /** @description Include or not payload for every transaction in webhook defaults to false */
       includePayload?: boolean;
+      /** @description Include or not events in webhook defaults to false */
       includeEvents?: boolean;
+      /** @description Include or not raw changes for every transaction in webhook defaults to false */
       includeChanges?: boolean;
+      /** @description A description for this stream */
       description: string;
+      /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description Include events for all addresses (only applied when at least one event or function is provided) */
       allAddresses?: boolean;
     };
     /** @description Make all properties in T optional */
     Partial_AptosCreateStreamType_: {
+      /** @description Include events for all addresses (only applied when at least one event or function is provided) */
       allAddresses?: boolean;
+      /** @description Indicator if it is a demo stream */
       demo?: boolean;
+      /** @description A description for this stream */
       description?: string;
+      /** @description Include or not raw changes for every transaction in webhook defaults to false */
       includeChanges?: boolean;
+      /** @description Include or not events in webhook defaults to false */
       includeEvents?: boolean;
+      /** @description Include or not payload for every transaction in webhook defaults to false */
       includePayload?: boolean;
+      /** @description The network to listen to */
       network?: components["schemas"]["AptosNetwork"];
+      /** @description An Array of events in string-signature format ex: ['0x1::coin::WithdrawEvent'] */
       events?: string[];
+      /** @description An Array of events in string-signature format ex: ['0x1::aptos_account::transfer'] */
       functions?: string[];
+      /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
       tag?: string;
+      /** @description Webhook URL where moralis will send the POST request. */
       webhookUrl?: string;
     };
     /** @description From T, pick a set of properties whose keys are in the union K */
