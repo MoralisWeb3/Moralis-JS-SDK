@@ -1,19 +1,28 @@
 import Core from '@moralisweb3/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
-import { getStreamsEvmOperation, GetStreamsEvmRequest } from '@moralisweb3/common-streams-utils';
+import {
+  getStreamsAptosOperation,
+  getStreamsEvmOperation,
+  GetStreamsAptosRequest,
+  GetStreamsEvmRequest,
+} from '@moralisweb3/common-streams-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import { CommonStreamNetworkOptions } from '../utils/commonNetworkOptions';
+import { AptosStreamNetworkOptions, EvmStreamNetworkOptions } from '../utils/commonNetworkOptions';
 
-export interface GetStreamsEvmOptions extends GetStreamsEvmRequest, CommonStreamNetworkOptions {}
+export interface GetStreamsAptosOptions extends GetStreamsAptosRequest, AptosStreamNetworkOptions {}
+export interface GetStreamsEvmOptions extends GetStreamsEvmRequest, EvmStreamNetworkOptions {}
 
-export type GetStreamsOptions = GetStreamsEvmOptions;
+export type GetStreamsOptions = GetStreamsAptosOptions | GetStreamsEvmOptions;
 
 export const makeGetStreams = (core: Core, baseUrl: string) => {
+  const aptosFetcher = new PaginatedOperationResolver(getStreamsAptosOperation, baseUrl, core).fetch;
   const evmFetcher = new PaginatedOperationResolver(getStreamsEvmOperation, baseUrl, core).fetch;
 
   return ({ networkType, ...options }: GetStreamsOptions) => {
     switch (networkType) {
+      case StreamNetwork.APTOS:
+        return aptosFetcher({ ...options });
       case StreamNetwork.EVM:
         return evmFetcher({ ...options });
       default:

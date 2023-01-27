@@ -1,12 +1,12 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createErrorResponse } from '../response/errorResponse';
-import { createSimpleStreamResponse } from '../response/simpleStreamResponse';
+import { createErrorResponse } from '../../response/errorResponse';
+import { createSimpleStreamResponse } from '../../response/simpleStreamResponse';
 
-export const mockDeleteAddressEvm = MockScenarios.create(
+export const mockDeleteAddressAptos = MockScenarios.create(
   {
     method: 'delete',
-    name: 'mockDeleteAddressEvm',
-    url: `/streams/evm/:id/address`,
+    name: 'mockDeleteAddressAptos',
+    url: `/streams/aptos/:id/address`,
     getParams: ({ req, reqBody }) => {
       return {
         id: req.params.id,
@@ -18,9 +18,12 @@ export const mockDeleteAddressEvm = MockScenarios.create(
     {
       condition: {
         id: 'VALID_RESPONSE',
-        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
+        address: '0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b',
       },
-      response: createSimpleStreamResponse('VALID_RESPONSE', '0x992eccc191d6f74e8be187ed6b6ac196b08314f7'),
+      response: createSimpleStreamResponse(
+        'VALID_RESPONSE',
+        '0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b',
+      ),
     },
     {
       condition: {
@@ -33,7 +36,7 @@ export const mockDeleteAddressEvm = MockScenarios.create(
     {
       condition: {
         id: 'STREAM_NOT_FOUND',
-        address: '0x992eccc191d6f74e8be187ed6b6ac196b08314f7',
+        address: '0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b',
       },
       responseStatus: 404,
       response: createErrorResponse('Stream not found'),
@@ -41,7 +44,7 @@ export const mockDeleteAddressEvm = MockScenarios.create(
     {
       condition: {
         id: 'ADDRESS_NOT_FOUND',
-        address: '0x295522b61890c3672d12efbff4358a6411ce996f',
+        address: '0x19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c',
       },
       responseStatus: 404,
       response: createErrorResponse('Address not found'),

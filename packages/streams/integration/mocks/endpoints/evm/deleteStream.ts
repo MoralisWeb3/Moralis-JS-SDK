@@ -1,11 +1,11 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createErrorResponse } from '../response/errorResponse';
-import { createStreamResponse } from '../response/streamResponse';
+import { createErrorResponse } from '../../response/errorResponse';
+import { createEvmStreamResponse } from '../../response/evmStreamResponse';
 
-export const mockDeleteStream = MockScenarios.create(
+export const mockDeleteStreamEvm = MockScenarios.create(
   {
     method: 'delete',
-    name: 'mockDeleteStream',
+    name: 'mockDeleteStreamEvm',
     url: `/streams/evm/:id`,
     getParams: ({ req, reqBody }) => {
       return {
@@ -19,7 +19,7 @@ export const mockDeleteStream = MockScenarios.create(
       condition: {
         id: 'VALID_RESPONSE',
       },
-      response: createStreamResponse('valid-response'),
+      response: createEvmStreamResponse('valid-response'),
     },
     {
       condition: {
