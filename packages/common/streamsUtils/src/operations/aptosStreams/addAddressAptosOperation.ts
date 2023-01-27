@@ -33,7 +33,7 @@ export const addAddressAptosOperation: Operation<
 > = {
   method: 'POST',
   name: 'addAddressAptos',
-  id: 'AddAddressToStream',
+  id: 'aptosStreamsAddAddresses',
   groupName: 'aptosStreams',
   urlPathPattern: '/streams/aptos/{id}/address',
   bodyParamNames: ['address'],

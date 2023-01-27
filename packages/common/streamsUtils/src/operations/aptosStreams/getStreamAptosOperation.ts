@@ -30,7 +30,7 @@ export const getStreamAptosOperation: Operation<
 > = {
   method: 'GET',
   name: 'getStreamAptos',
-  id: 'GetStream',
+  id: 'aptosStreamsGet',
   groupName: 'aptosStreams',
   urlPathPattern: '/streams/aptos/{id}',
   urlPathParamNames: ['id'],

@@ -33,7 +33,7 @@ export const deleteAddressAptosOperation: Operation<
 > = {
   method: 'DELETE',
   name: 'deleteAddressAptos',
-  id: 'DeleteAddressFromStream',
+  id: 'aptosStreamsDeleteAddresses',
   groupName: 'aptosStreams',
   urlPathParamNames: ['id'],
   urlPathPattern: `/streams/aptos/{id}/address`,

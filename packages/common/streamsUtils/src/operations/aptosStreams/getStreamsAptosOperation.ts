@@ -30,7 +30,7 @@ export const getStreamsAptosOperation: PaginatedOperation<
 > = {
   method: 'GET',
   name: 'getStreamsAptos',
-  id: 'GetStreams',
+  id: 'aptosStreamsGetAll',
   groupName: 'aptosStreams',
   urlSearchParamNames: ['cursor', 'limit'],
   urlPathPattern: '/streams/aptos',
