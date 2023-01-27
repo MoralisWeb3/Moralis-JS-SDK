@@ -1,13 +1,14 @@
+import { AptosAddress } from '@moralisweb3/common-aptos-utils';
 import { Camelize, maybe, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
-type OperationId = 'GetAddresses';
+type OperationId = 'aptosStreamsGetAddresses';
 
 type PathParams = operations[OperationId]['parameters']['path'];
 type QueryParams = operations[OperationId]['parameters']['query'];
 type RequestParams = PathParams & QueryParams;
 
-type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
+// type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -17,7 +18,15 @@ export interface GetAddressesAptosRequest extends Camelize<Omit<RequestParams, '
 
 export type GetAddressesAptosJSONRequest = ReturnType<typeof serializeRequest>;
 
-export type GetAddressesAptosJSONResponse = SuccessResponse;
+// export type GetAddressesAptosJSONResponse = SuccessResponse;
+// TODO temporary fix. The openapi spec says that the response is an array of strings, but the actual response is a paginated array of objects with a single string property called "address"
+type Address = {
+  address: string;
+};
+export type GetAddressesAptosJSONResponse = {
+  total: number;
+  result: Address[];
+};
 
 export type GetAddressesAptosResponse = ReturnType<typeof deserializeResponse>;
 
@@ -32,7 +41,7 @@ export const getAddressesAptosOperation: Operation<
 > = {
   method: 'GET',
   name: 'getAddressesAptos',
-  id: 'GetAddresses',
+  id: 'aptosStreamsGetAddresses',
   groupName: 'aptosStreams',
   urlPathParamNames: ['id'],
   urlSearchParamNames: ['cursor', 'limit'],
@@ -56,7 +65,10 @@ function getRequestUrlParams(request: GetAddressesAptosRequest) {
 }
 
 function deserializeResponse(jsonResponse: GetAddressesAptosJSONResponse) {
-  return jsonResponse;
+  return {
+    result: (jsonResponse.result ?? []).map((address) => AptosAddress.create(address.address)),
+    total: jsonResponse.total,
+  };
 }
 
 function serializeRequest(request: GetAddressesAptosRequest) {

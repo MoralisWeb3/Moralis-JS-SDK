@@ -1,7 +1,7 @@
 import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
-type OperationId = 'UpdateStreamStatus';
+type OperationId = 'aptosStreamsUpdateStatus';
 
 type PathParams = operations[OperationId]['parameters']['path'];
 type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
@@ -30,7 +30,7 @@ export const updateStreamStatusAptosOperation: Operation<
 > = {
   method: 'POST',
   name: 'updateStreamStatusAptos',
-  id: 'UpdateStreamStatus',
+  id: 'aptosStreamsUpdateStatus',
   groupName: 'aptosStreams',
   urlPathParamNames: ['id'],
   urlPathPattern: '/streams/aptos/{id}/status',

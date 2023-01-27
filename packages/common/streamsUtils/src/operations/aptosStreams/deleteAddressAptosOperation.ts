@@ -3,6 +3,7 @@ import { AptosAddress, AptosAddressish } from '@moralisweb3/common-aptos-utils';
 import { operations } from '../openapi';
 
 type OperationId = 'aptosStreamsDeleteAddresses';
+
 type PathParams = operations[OperationId]['parameters']['path'];
 type BodyParams = operations[OperationId]['requestBody']['content']['application/json'];
 type RequestParams = PathParams & BodyParams;

@@ -1,7 +1,7 @@
 import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
-type OperationId = 'DeleteStream';
+type OperationId = 'aptosStreamsDelete';
 type PathParams = operations[OperationId]['parameters']['path'];
 type RequestParams = PathParams;
 
@@ -28,7 +28,7 @@ export const deleteStreamAptosOperation: Operation<
 > = {
   method: 'DELETE',
   name: 'deleteStreamAptos',
-  id: 'DeleteStream',
+  id: 'aptosStreamsDelete',
   groupName: 'aptosStreams',
   urlPathParamNames: ['id'],
   urlPathPattern: `/streams/aptos/{id}`,
