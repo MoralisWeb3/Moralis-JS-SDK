@@ -1,6 +1,6 @@
 <div align="center">
     <p align="center">
-      <img src="https://raw.githubusercontent.com/MoralisWeb3/Moralis-JS-SDK/main/packages/react/.readme/MoralisLogo.png" alt="Moralis NextJS" />
+      <img src="https://raw.githubusercontent.com/MoralisWeb3/Moralis-JS-SDK/main/packages/react/.readme/MoralisLogo.png" alt="Moralis React" />
     </p>
 </div>
 
@@ -14,9 +14,9 @@
 
 # `@moralisweb3/react`
 
-> Moralis Hooks for your NextJS project
+> Moralis Hooks for your React project
 
-This project is a thin NextJS wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data. It  serves as a proxy, to allow users to access Moralis APIs in client-side.
+This project is a thin React wrapper around [Moralis](https://moralis.io/), to easily call functionalities and display data. It  serves as a proxy, to allow users to access Moralis APIs in client-side.
 
 Please check the [official documentation of Moralis](https://docs.moralis.io/) for all the functionalities of Moralis.
 
@@ -57,8 +57,6 @@ ReactDOM.render(
 );
 ```
 
-TO_DO: You can provide a configuration object to the `MoralisNextApi`.
-
 # ⭐️ Star us
 
 If this "@moralisweb3/react" library helps you build your dapps faster - please star this project, every star makes us very happy!
@@ -76,7 +74,6 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [⭐️ Star us](#️-star-us)
 - [🤝 Need help](#-need-help)
 - [🧭 Table of Contents](#-table-of-contents)
-- [🔐 Authentication and Session Management with NextAuth](#️-authentication-and-session-management-with-nextauth)
 - [✨ Hook Usage Examples](#️-hook-usage-examples)
   - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
   - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
@@ -1019,11 +1016,54 @@ Gets the token price (usd and native) for a given contract address and network
 
 
 # ⚙️ Advanced Config
-TO_DO:
-The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience. You can provide [config object](https://swr.vercel.app/docs/options#options) to the hooks as it's shown bellow:
+The `config` property for `MoralisProvider` can be used not only to specify the API key, but also for additional Moralis instance settings. Example:
 
-```jsx
-const { data } = useEvmWalletTokenBalances({ address: '0x...' }, { revalidateOnFocus: true })
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+import { MoralisProvider } from "@moralisweb3/react";
+
+const config = { 
+  apiKey: 'YOUR_API_KEY',
+  formatEvmAddress: 'checksum',
+  formatEvmChainId: 'decimal',
+  logLevel: 'verbose'
+}
+
+ReactDOM.render(
+  <MoralisProvider config={config}>
+    <App />
+  </MoralisProvider>,
+  document.getElementById("root"),
+);
+```
+
+Below, you can find the possible options for the `config`:
+
+| Option             | Description                                                          | Default     | Required |
+| -------------------| ---------------------------------------------------------------------|-------------|-------------------|
+| `apiKey`           | Your Moralis ApiKey	                                                | `null`      |  yes  | 
+| `formatEvmAddress` | Format style for evm addresses. Possible values: `'lowercase'`, `'checksum'`|`'lowercase'`|  no  | 
+| `formatEvmChainId` | 	Format style for chains. Possible values: `'decimal'`, `'hex'`      |`'hex'`      |  no  | 
+| `logLevel`         | 	Level of detail for log messages. Possible values: `'verbose'`, `'debug'`, `'info'`, `'warning'`, `'error'`, `'off'`|`'info'`|  no  | 
+| `defaultSolNetwork`| 	Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
+| `defaultEvmApiChain`| 	Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
+
+The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls. You can provide [config object](https://swr.vercel.app/docs/options#options) as a `fetchConfig` prop to the `MoralisProvider` as it's shown bellow:
+
+```js
+const config = { 
+  apiKey: 'YOUR_API_KEY',
+}
+
+const fetchConfig = {
+  refreshInterval: 3000,
+  revalidateOnFocus: true,
+}
+
+<MoralisProvider config={config} fetchConfig={fetchConfig}>
+  <App />
+</MoralisProvider>,
 ```
 
 # 🧙‍♂️ Community

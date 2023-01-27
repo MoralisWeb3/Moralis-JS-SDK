@@ -10,7 +10,10 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <BrowserRouter>
     <ChakraProvider resetCSS>
-      <MoralisProvider config={{ apiKey: process.env.REACT_APP_MORALIS_KEY || '' }}>
+      <MoralisProvider
+        config={{ apiKey: process.env.REACT_APP_MORALIS_KEY || '' }}
+        fetchConfig={{ revalidateOnFocus: true }}
+      >
         <App />
       </MoralisProvider>
     </ChakraProvider>
