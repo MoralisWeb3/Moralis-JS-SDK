@@ -16,6 +16,25 @@ export interface paths {
   "/challenge/verify/solana": {
     post: operations["verifyChallengeSolana"];
   };
+  "/profile/{profileId}/addresses": {
+    get: operations["getAddresses"];
+  };
+  "/bind/request": {
+    /**
+     * Request for message to bind profile that is belong to the two addresses<br>
+     *         All profiles under the addresses will be bound and new profile will be generated.
+     */
+    post: operations["requestBind"];
+  };
+  "/bind/request/verify": {
+    post: operations["verifyRequestBind"];
+  };
+  "/bind/remove": {
+    post: operations["removeBind"];
+  };
+  "/bind/remove/verify": {
+    post: operations["verifyRemoveBind"];
+  };
 }
 
 export interface components {
@@ -397,6 +416,117 @@ export interface components {
        */
       profileId: string;
     };
+    AddressInfoDto: {
+      /**
+       * @description The chain in which the address belongs to
+       * @example evm
+       * @enum {string}
+       */
+      blockchainType: "evm" | "solana";
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0x57af6B90c2237d2F888bf4CAe56f25FE1b14e531
+       */
+      address: string;
+    };
+    BindRequestDto: {
+      /** @description An array of addresses that needs to be bind */
+      addresses: components["schemas"]["AddressInfoDto"][];
+    };
+    BindRequestResponseDto: {
+      /**
+       * @description Message that needs to be signed by the end user
+       * @example [
+       *   "Please sign this message to bind:\nProfile Ids:\n- 0x0b2bbac1251651c0cbbdbbb29fed5a03adc8b05a2a9eb10a02aaa489b9c1f8ff\n\nwith\n\nAddress: 0x6ed338bcB610640e81465FCfb9894DDfA354Cc91\nNonce: 5pXWu7aGkY2J7II0X",
+       *   "Please sign this message to bind:\nProfile Ids:\n- 0x0b2bbac1251651c0cbbdbbb29fed5a03adc8b05a2a9eb10a02aaa489b9c1f8ff\n\nwith\n\nAddress: 0x6ed338bcB610640e81465FCfb9894DDfA354Cc91\nNonce: 5pXWu7aGkY2J7II0X"
+       * ]
+       */
+      messages: string[];
+    };
+    VerificationDto: {
+      /**
+       * @description Message that needs to be signed by the end user
+       * @example Please sign this message to bind:
+       * Profile Ids:
+       * - 0x0b2bbac1251651c0cbbdbbb29fed5a03adc8b05a2a9eb10a02aaa489b9c1f8ff
+       *
+       * with
+       *
+       * Address: 0x6ed338bcB610640e81465FCfb9894DDfA354Cc91
+       * Nonce: 5pXWu7aGkY2J7II0X
+       */
+      message: string;
+      /**
+       * @description EIP-191 compliant signature signed by the Ethereum account address requesting authentication.
+       * @example 0xc4f2f59d80e036ecab4eaaac5d4ee713ab94264ca584839c98b5743c4f6777322038225a4bc1e0f13b8382166816737369f26bd66f0479cfa80d4c52c02eb2cb1b
+       */
+      signature: string;
+    };
+    BindVerifyRequestDto: {
+      /** @description Message that needs to be signed by the end user */
+      verifications: components["schemas"]["VerificationDto"][];
+    };
+    BindVerifyRequestResponseDto: {
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
+    };
+    BindRemoveDto: {
+      /**
+       * @description The chain in which the address belongs to
+       * @example evm
+       * @enum {string}
+       */
+      blockchainType: "evm" | "solana";
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0x57af6B90c2237d2F888bf4CAe56f25FE1b14e531
+       */
+      address: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
+    };
+    BindRemoveResponseDto: {
+      /**
+       * @description Message that needs to be signed by the end user
+       * @example Please sign this message to unbind:
+       * Address: 0x6ed338bcB610640e81465FCfb9894DDfA354Cc91
+       * from
+       * Profile Id:
+       * - 0x0b2bbac1251651c0cbbdbbb29fed5a03adc8b05a2a9eb10a02aaa489b9c1f8ff
+       * Nonce: 5pXWu7aGkY2J7II0X
+       */
+      message: string;
+    };
+    BindVerifyRemoveDto: {
+      /**
+       * @description Message that needs to be signed by the end user
+       * @example Please sign this message to unbind:
+       * Address: 0x6ed338bcB610640e81465FCfb9894DDfA354Cc91
+       * from
+       * Profile Id:
+       * - 0x0b2bbac1251651c0cbbdbbb29fed5a03adc8b05a2a9eb10a02aaa489b9c1f8ff
+       * Nonce: 5pXWu7aGkY2J7II0X
+       */
+      message: string;
+      /**
+       * @description EIP-191 compliant signature signed by the Ethereum account address requesting authentication.
+       * @example 0xc4f2f59d80e036ecab4eaaac5d4ee713ab94264ca584839c98b5743c4f6777322038225a4bc1e0f13b8382166816737369f26bd66f0479cfa80d4c52c02eb2cb1b
+       */
+      signature: string;
+    };
+    BindVerifyRemoveResponseDto: {
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
+    };
   };
 }
 
@@ -466,6 +596,94 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["SolanaCompleteChallengeRequestDto"];
+      };
+    };
+  };
+  getAddresses: {
+    parameters: {
+      path: {
+        /** Unique identifier with a length of 66 characters */
+        profileId: string;
+      };
+    };
+    responses: {
+      /** The addresses that are bound to the speicifc profileId */
+      201: {
+        content: {
+          "application/json": string[];
+        };
+      };
+    };
+  };
+  /**
+   * Request for message to bind profile that is belong to the two addresses<br>
+   *         All profiles under the addresses will be bound and new profile will be generated.
+   */
+  requestBind: {
+    parameters: {};
+    responses: {
+      /** The messages that is required to be signed by each of the address */
+      201: {
+        content: {
+          "application/json": components["schemas"]["BindRequestResponseDto"];
+        };
+      };
+    };
+    /** The two addresses that are required to be bind. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BindRequestDto"];
+      };
+    };
+  };
+  verifyRequestBind: {
+    parameters: {};
+    responses: {
+      /** The profileId that all the addresses have been bind into. */
+      201: {
+        content: {
+          "application/json": components["schemas"]["BindVerifyRequestResponseDto"];
+        };
+      };
+    };
+    /** Messages and its signatures that is used for verification */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BindVerifyRequestDto"];
+      };
+    };
+  };
+  removeBind: {
+    parameters: {};
+    responses: {
+      /** The messages that is required to be signed by each of the address */
+      201: {
+        content: {
+          "application/json": components["schemas"]["BindRemoveResponseDto"];
+        };
+      };
+    };
+    /** The address that is required to be removed from the bind of the profileId. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BindRemoveDto"];
+      };
+    };
+  };
+  verifyRemoveBind: {
+    parameters: {};
+    responses: {
+      /** The new profileId that is being generated for this address. */
+      201: {
+        content: {
+          "application/json": components["schemas"]["BindVerifyRemoveResponseDto"];
+        };
+      };
+    };
+    /** Messages and its signatures that is used for verification */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BindVerifyRemoveDto"];
       };
     };
   };

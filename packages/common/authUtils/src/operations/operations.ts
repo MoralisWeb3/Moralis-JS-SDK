@@ -1,4 +1,12 @@
-import { requestChallengeEvmOperation, verifyChallengeEvmOperation } from './evm';
+import {
+  getAddressesOperation,
+  removeBindOperation,
+  requestBindOperation,
+  requestChallengeEvmOperation,
+  verifyChallengeEvmOperation,
+  verifyRemoveBindOperation,
+  verifyRequestBindOperation,
+} from './evm';
 import { requestChallengeSolanaOperation, verifyChallengeSolanaOperation } from './solana';
 
 export const operations = [
@@ -6,4 +14,9 @@ export const operations = [
   requestChallengeEvmOperation,
   verifyChallengeSolanaOperation,
   verifyChallengeEvmOperation,
+  getAddressesOperation,
+  removeBindOperation,
+  requestBindOperation,
+  verifyRemoveBindOperation,
+  verifyRequestBindOperation,
 ];

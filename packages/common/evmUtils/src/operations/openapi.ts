@@ -141,6 +141,10 @@ export interface paths {
     /** Get the native balance for a specific wallet address. */
     get: operations["getNativeBalance"];
   };
+  "/wallets/balances": {
+    /** Get the native balances for a set of specific addresses */
+    get: operations["getNativeBalancesForAddresses"];
+  };
   "/{address}": {
     /** Get native transactions ordered by block number in descending order. */
     get: operations["getWalletTransactions"];
@@ -517,9 +521,9 @@ export interface components {
       timestamp: number;
       /**
        * @description The timestamp of the block
-       * @example 2022-01-03T22:59:39.000Z
+       * @example 2019-12-31T23:59:45.000Z
        */
-      block_timestamp?: number;
+      block_timestamp?: string;
       /**
        * @description The block hash
        * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
@@ -536,7 +540,7 @@ export interface components {
        * @description The contract ABI
        * @example []
        */
-      abi: { [key: string]: unknown };
+      abi: { [key: string]: unknown }[];
       /**
        * @description The params for the given function
        * @example {}
@@ -1694,6 +1698,55 @@ export interface components {
        */
       price: string;
     };
+    nativeBalances: {
+      /**
+       * @description The chain
+       * @example eth_mainnet
+       */
+      chain: string;
+      /**
+       * @description The chain id
+       * @example 2
+       */
+      chain_id: string;
+      /**
+       * @description The total balances for all the walttes
+       * @example 57499206466583095
+       */
+      total_balance: string;
+      /**
+       * @description The block Number
+       * @example 123456789
+       */
+      block_number: string;
+      /**
+       * @description The block timestamp
+       * @example 0.057
+       */
+      block_timestamp: string;
+      /**
+       * @description The total balances for all the walttes formatted
+       * @example 123456789
+       */
+      total_balance_formatted: string;
+      wallet_balances: {
+        /**
+         * @description address
+         * @example 0x123
+         */
+        address: string;
+        /**
+         * @description balance
+         * @example 28499206466583095
+         */
+        balance: string;
+        /**
+         * @description balance formatted
+         * @example 0.0285
+         */
+        balance_formatted: string;
+      }[];
+    }[];
   };
 }
 
@@ -1845,12 +1898,12 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
         /** The number of subranges to split the results into */
         totalRanges?: number;
         /** The desired subrange to query */
         range?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** Should normalized metadata be returned? */
@@ -2550,8 +2603,6 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
-        /** offset */
-        offset?: number;
         /** The desired page size of the result. */
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
@@ -2596,6 +2647,29 @@ export interface operations {
       };
     };
   };
+  /** Get the native balances for a set of specific addresses */
+  getNativeBalancesForAddresses: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The web3 provider URL to use when using local dev chain */
+        providerUrl?: string;
+        /** The block number on which the balances should be checked */
+        to_block?: number;
+        /** The addresses to get metadata for */
+        wallet_addresses: string[];
+      };
+    };
+    responses: {
+      /** Returns a collection of balances */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nativeBalances"];
+        };
+      };
+    };
+  };
   /** Get native transactions ordered by block number in descending order. */
   getWalletTransactions: {
     parameters: {
@@ -2628,10 +2702,10 @@ export interface operations {
         to_date?: string;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
       };
       path: {
         /** The address of the wallet */
@@ -2679,10 +2753,10 @@ export interface operations {
         to_date?: string;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
       };
       path: {
         /** The address of the wallet */
@@ -2860,10 +2934,10 @@ export interface operations {
         topic: string;
         /** offset */
         offset?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The desired page size of the result. */
         limit?: number;
+        /** If the result should skip returning the total count (Improves performance). */
+        disable_total?: boolean;
       };
       path: {
         /** The address of the contract */
