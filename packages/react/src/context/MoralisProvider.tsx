@@ -36,6 +36,10 @@ export interface MoralisProviderProps {
 const MoralisProvider: React.FC<MoralisProviderProps> = ({ children, config, fetchConfig }) => {
   const swrConfig = {
     revalidateOnFocus: false,
+    // revalidateIfStale: false,
+    // revalidateOnMount: false
+    // revalidateOnFocus: false,
+    // revalidateOnReconnect: false,
     ...fetchConfig,
   };
   const core = useMemo(() => {

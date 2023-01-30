@@ -1,7 +1,7 @@
 import { _useClient } from '../../context/MoralisProvider';
 import { Operation } from 'moralis/common-core';
 import { NullableOperationResolver } from '@moralisweb3/api-utils';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 
 export function _useResolverNullable<Request, JSONRequest, Response, JSONResponse>(
@@ -10,7 +10,10 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
   request?: Request,
 ) {
   const { core, swrConfig } = _useClient();
-  const { fetch: resolve } = new NullableOperationResolver(operation, baseUrl, core);
+  const { fetch: resolve } = useMemo(
+    () => new NullableOperationResolver(operation, baseUrl, core),
+    [operation, baseUrl, core],
+  );
 
   const fetcher = async (_url: string, req: Request) => {
     const response = await resolve(req);
@@ -23,13 +26,16 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
     swrConfig,
   );
 
-  const fetch = useCallback((params?: Request) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new Error('No fetchRequest params');
-    }
-    return mutate(fetcher(operation.id, fetchRequest));
-  }, []);
+  const fetch = useCallback(
+    (params?: Request) => {
+      const fetchRequest = params ?? request;
+      if (!fetchRequest) {
+        throw new Error('No fetchRequest params');
+      }
+      return mutate(fetcher(operation.id, fetchRequest));
+    },
+    [request],
+  );
 
   return {
     data,

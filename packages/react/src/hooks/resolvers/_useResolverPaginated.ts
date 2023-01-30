@@ -1,7 +1,7 @@
 import { _useClient } from '../../context/MoralisProvider';
 import { PaginatedOperation, PaginatedRequest } from 'moralis/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 
 export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>(
@@ -10,7 +10,10 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
   request?: Request,
 ) {
   const { core, swrConfig } = _useClient();
-  const { fetch: resolve } = new PaginatedOperationResolver(operation, baseUrl, core);
+  const { fetch: resolve } = useMemo(
+    () => new PaginatedOperationResolver(operation, baseUrl, core),
+    [operation, baseUrl, core],
+  );
 
   const fetcher = async (_url: string, req: Request) => {
     const { result } = await resolve(req);
@@ -23,13 +26,16 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
     swrConfig,
   );
 
-  const fetch = useCallback((params?: Request) => {
-    const fetchRequest = params ?? request;
-    if (!fetchRequest) {
-      throw new Error('No fetchRequest params');
-    }
-    return mutate(fetcher(operation.id, fetchRequest));
-  }, []);
+  const fetch = useCallback(
+    (params?: Request) => {
+      const fetchRequest = params ?? request;
+      if (!fetchRequest) {
+        throw new Error('No fetchRequest params');
+      }
+      return mutate(fetcher(operation.id, fetchRequest));
+    },
+    [request],
+  );
 
   return {
     data,
