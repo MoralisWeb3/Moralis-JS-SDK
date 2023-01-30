@@ -1,6 +1,5 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
 import { createErrorResponse } from '../../response/errorResponse';
-import { createAptosStreamResponse } from '../../response/aptosStreamResponse';
 
 export const mockDeleteStreamAptos = MockScenarios.create(
   {
@@ -19,7 +18,7 @@ export const mockDeleteStreamAptos = MockScenarios.create(
       condition: {
         id: 'VALID_RESPONSE',
       },
-      response: createAptosStreamResponse('valid-response'),
+      response: true,
     },
     {
       condition: {

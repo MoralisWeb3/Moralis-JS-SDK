@@ -21,7 +21,7 @@ describe('Delete stream', () => {
       })) as DeleteStreamAptosResponseAdapter;
 
       expect(result).toBeDefined();
-      expect(result.result.tag).toContain('valid-response');
+      expect(result.result).toBe(true);
     });
 
     it('should throw an error on non-found stream', async () => {
