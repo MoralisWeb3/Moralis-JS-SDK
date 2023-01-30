@@ -1,23 +1,8 @@
-import { Core } from 'moralis/common-core';
 import Moralis from 'moralis';
-import { MoralisConfigValues } from 'moralis/lib/config/MoralisConfig';
-import React, { useContext, useMemo } from 'react';
-import { SWRConfiguration } from 'swr';
+import React, { FC, createContext, useContext, useMemo } from 'react';
+import { FetchConfig, MoralisConfig, MoralisContextValue, MoralisProviderProps } from './types';
 
-export interface MoralisContextValue {
-  core: Core;
-  swrConfig?: FetchConfig;
-}
-
-export const MoralisContext = React.createContext<MoralisContextValue | null>(null);
-
-export interface FetchConfig extends Omit<SWRConfiguration, 'fetcher' | 'revalidateOnMount'> {
-  /**
-   * Enable or disable automatic data fetching when component is mounted.
-   * Use `fetch` returned from the hook to trigger data fetch manually
-   */
-  revalidateOnMount?: boolean;
-}
+export const MoralisContext = createContext<MoralisContextValue | null>(null);
 
 export const _useClient = () => {
   const context = useContext(MoralisContext);
@@ -27,27 +12,48 @@ export const _useClient = () => {
   return context;
 };
 
-export interface MoralisProviderProps {
-  children?: React.ReactNode;
-  config: MoralisConfigValues;
-  fetchConfig?: FetchConfig;
-}
+export const createMoralisConfig = (config: MoralisConfig) => config;
 
-const MoralisProvider: React.FC<MoralisProviderProps> = ({ children, config, fetchConfig }) => {
-  const swrConfig = {
-    revalidateOnFocus: false,
-    // revalidateIfStale: false,
-    // revalidateOnMount: false
-    // revalidateOnFocus: false,
-    // revalidateOnReconnect: false,
-    ...fetchConfig,
+const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
+  const {
+    revalidateOnMount,
+    revalidateIfStale,
+    revalidateOnFocus,
+    revalidateOnReconnect,
+    refreshInterval,
+    refreshWhenHidden,
+    refreshWhenOffline,
+    shouldRetryOnError,
+    dedupingInterval,
+    focusThrottleInterval,
+    loadingTimeout,
+    errorRetryInterval,
+    errorRetryCount,
+    ...moralisConfig
+  } = config;
+
+  const swrConfig: FetchConfig = {
+    revalidateOnFocus: revalidateOnFocus ?? false,
+    revalidateOnMount,
+    revalidateIfStale,
+    revalidateOnReconnect,
+    refreshInterval,
+    refreshWhenHidden,
+    refreshWhenOffline,
+    shouldRetryOnError,
+    dedupingInterval,
+    focusThrottleInterval,
+    loadingTimeout,
+    errorRetryInterval,
+    errorRetryCount,
   };
+
   const core = useMemo(() => {
     if (!Moralis.Core.isStarted) {
-      Moralis.start(config);
+      Moralis.start(moralisConfig);
     }
     return Moralis.Core;
-  }, [config]);
+  }, [moralisConfig]);
 
   return <MoralisContext.Provider value={{ core, swrConfig }}>{children}</MoralisContext.Provider>;
 };

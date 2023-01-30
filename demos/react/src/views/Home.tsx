@@ -6,7 +6,7 @@ import {
   useEvmRunContractFunction,
   useEvmWeb3ApiVersion,
 } from '@moralisweb3/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ABI = [
   {
@@ -33,30 +33,40 @@ const ABI = [
 const Home = () => {
   const [output, setOutput] = useState<string>();
 
-  const { fetch: getNFTMetadata } = useEvmNFTContractMetadata({
-    address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-  });
-  const { fetch: getBlock } = useEvmBlock({ chain: '0x13881', blockNumberOrHash: '10000' });
-
-  const { fetch: runContractFunction } = useEvmRunContractFunction({
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    functionName: 'ownerOf',
-    chain: '0x1',
-    params: {
-      _tokenId: '6651',
+  const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(
+    {
+      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     },
-    abi: ABI,
-  });
+    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  );
+  const { fetch: getBlock } = useEvmBlock(
+    { chain: '0x13881', blockNumberOrHash: '10000' },
+    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  );
 
-  const { fetch: resolveDomain } = useEvmResolveDomain({
-    domain: 'brad.crypto',
+  const { fetch: runContractFunction } = useEvmRunContractFunction(
+    {
+      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+      functionName: 'ownerOf',
+      chain: '0x1',
+      params: {
+        _tokenId: '6651',
+      },
+      abi: ABI,
+    },
+    { revalidateOnMount: false, onSuccess: (res) => setOutput(res) },
+  );
+  useEffect(() => console.log('+page_render'), []);
+  const { fetch: resolveDomain } = useEvmResolveDomain(
+    {
+      domain: 'brad.crypto',
+    },
+    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  );
+  const { fetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
+    revalidateOnMount: false,
+    onSuccess: (res) => setOutput(JSON.stringify(res)),
   });
-  const { fetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion();
-
-  async function awaitAndPrint(operation: () => Promise<unknown>) {
-    const res = await operation();
-    setOutput(JSON.stringify(res));
-  }
 
   return (
     <VStack alignItems={'start'}>
@@ -65,19 +75,19 @@ const Home = () => {
 
       <List>
         <ListItem mb={2}>
-          <Button onClick={() => awaitAndPrint(getNFTMetadata)}>getNFTMetadata</Button>
+          <Button onClick={() => getNFTMetadata()}>getNFTMetadata</Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => awaitAndPrint(getBlock)}>getBlock</Button>
+          <Button onClick={() => getBlock()}>getBlock</Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => awaitAndPrint(runContractFunction)}>runContractFunction</Button>
+          <Button onClick={() => runContractFunction()}>runContractFunction</Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => awaitAndPrint(resolveDomain)}>resolveDomain</Button>
+          <Button onClick={() => resolveDomain()}>resolveDomain</Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => awaitAndPrint(getWeb3ApiVersion)}>web3ApiVersion</Button>
+          <Button onClick={() => getWeb3ApiVersion()}>web3ApiVersion</Button>
         </ListItem>
       </List>
     </VStack>

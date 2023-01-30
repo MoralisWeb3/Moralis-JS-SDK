@@ -1,1 +1,2 @@
-export { default as MoralisProvider } from './MoralisProvider';
+export { default as MoralisProvider, createMoralisConfig } from './MoralisProvider';
+export * from './types';

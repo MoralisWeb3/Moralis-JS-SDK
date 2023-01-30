@@ -35,7 +35,9 @@ export class HooksGenerator {
         name,
         resolverType,
         request: hasParams && `${_.upperFirst(operation.name)}Request`,
+        response: `${_.upperFirst(operation.name)}Response`,
         operation: `${operation.name}Operation`,
+        isNullable,
       };
     });
 
