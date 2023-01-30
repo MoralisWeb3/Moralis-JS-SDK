@@ -671,10 +671,6 @@ export interface components {
       status: components["schemas"]["StreamsStatus"];
       statusMessage: string;
     };
-    /** @enum {string} */
-    "streamsTypes.StreamsStatus.active": "active";
-    /** @enum {string} */
-    "streamsTypes.StreamsStatus.paused": "paused";
   };
   responses: {};
   parameters: {};
@@ -1165,12 +1161,7 @@ export interface operations {
     /** Provide an object with the status to update can be 'active' or 'paused' */
     requestBody: {
       content: {
-        "application/json": {
-          status: Partial<
-            components["schemas"]["streamsTypes.StreamsStatus.active"]
-          > &
-            Partial<components["schemas"]["streamsTypes.StreamsStatus.paused"]>;
-        };
+        "application/json": components["schemas"]["streamsTypes.StreamsStatusUpdate"];
       };
     };
   };
