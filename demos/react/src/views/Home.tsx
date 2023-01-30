@@ -2,11 +2,12 @@ import { VStack, Heading, Button, Textarea, List, ListItem } from '@chakra-ui/re
 import {
   useEvmBlock,
   useEvmNFTContractMetadata,
+  useEvmNativeBalance,
   useEvmResolveDomain,
   useEvmRunContractFunction,
   useEvmWeb3ApiVersion,
 } from '@moralisweb3/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const ABI = [
   {
@@ -33,6 +34,8 @@ const ABI = [
 const Home = () => {
   const [output, setOutput] = useState<string>();
 
+  const { data: vitalikBalance } = useEvmNativeBalance({ address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045' });
+
   const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(
     {
       address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
@@ -56,7 +59,7 @@ const Home = () => {
     },
     { revalidateOnMount: false, onSuccess: (res) => setOutput(res) },
   );
-  useEffect(() => console.log('+page_render'), []);
+
   const { fetch: resolveDomain } = useEvmResolveDomain(
     {
       domain: 'brad.crypto',
@@ -71,6 +74,8 @@ const Home = () => {
   return (
     <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>
+      <Heading fontSize="lg">Vitalik's ETH Balance: {vitalikBalance?.balance.ether} ETH</Heading>
+      <Heading fontSize="lg">Fetched manually data:</Heading>
       <Textarea value={output} />
 
       <List>
