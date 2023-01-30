@@ -1,6 +1,6 @@
 # react-demo-moralis
 
-Example react app for `@moralisweb3/react` package.
+Example react app for `@moralisweb3/react` package. This app is bootstrapped using create-react-app (check [their documentation](https://create-react-app.dev/) for more info)
 
 ## Getting started locally
 
