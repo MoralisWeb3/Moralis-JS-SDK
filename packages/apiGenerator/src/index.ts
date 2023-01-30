@@ -3,10 +3,15 @@ import { ConfigurationReader } from './configuration/ConfigurationReader';
 import { OpenApiDownloader } from './reader/OpenApiDownloader';
 import path from 'path';
 
-async function run() {
-  const outputPath = path.join(__dirname, '../../common/aptUtils/src');
+async function run(outputPath: string) {
+  if (!outputPath) {
+    throw new Error('Invalid usage');
+  }
+  outputPath = path.join(__dirname, outputPath);
 
   const configuration = ConfigurationReader.read(outputPath);
+  console.log(`📔 Swagger: ${configuration.url}`);
+
   const document = await OpenApiDownloader.download(configuration.url);
   const generator = Generator.create(document, configuration, outputPath);
   generator.generate();
@@ -14,4 +19,4 @@ async function run() {
   console.log('✅ Done');
 }
 
-run();
+run(process.argv[2]);

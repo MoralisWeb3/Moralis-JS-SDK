@@ -1,7 +1,8 @@
 import { NameFormatter } from './codeGenerators/NameFormatter';
 import { isComplexTypeDescriptor, isSimpleTypeDescriptor, TypeDescriptor } from '../../reader/TypeDescriptor';
-import { TypeMappings } from '../GeneratorConfiguration';
+import { MappingTarget } from '../GeneratorConfiguration';
 import { TypeName } from 'src/reader/utils/TypeName';
+import { MappingResolver } from './MappingResolver';
 
 export interface ResolvedType {
   isArray: boolean;
@@ -15,7 +16,7 @@ export interface ResolvedComplexType {
 }
 
 export class TypeResolver {
-  public constructor(private readonly classNamePrefix: string, private readonly typeMappings: TypeMappings) {}
+  public constructor(private readonly classNamePrefix: string, private readonly mappingResolver: MappingResolver) {}
 
   public createClassName(className: TypeName): string {
     return NameFormatter.getClassName(className.unshift(this.classNamePrefix));
@@ -44,20 +45,25 @@ export class TypeResolver {
   }
 
   public resolve(descriptor: TypeDescriptor, basePath: string): ResolvedType {
+    let target: MappingTarget | undefined = undefined;
+
     if (isComplexTypeDescriptor(descriptor)) {
-      const typeName = descriptor.typeName.toString();
-      const mapping = this.typeMappings.classMappings.find((m) => m.typeName === typeName);
-      if (mapping && mapping.customClassName) {
-        return {
-          isArray: descriptor.isArray,
-          complexType: {
-            className: mapping.customClassName,
-            importPath: `${basePath}customTypes/${mapping.customClassName}`,
-          },
-        };
-      }
+      target = this.mappingResolver.tryResolveByTypeName(descriptor.typeName.toString());
+    }
+    if (!target) {
+      target = this.mappingResolver.tryResolveBy$ref(descriptor.ref.toString());
     }
 
+    if (target && target.customClassName) {
+      const importPath = target.customImport ? target.customImport : `${basePath}customTypes/${target.customClassName}`;
+      return {
+        isArray: descriptor.isArray,
+        complexType: {
+          className: target.customClassName,
+          importPath,
+        },
+      };
+    }
     return this.resolveWithNoMapping(descriptor, basePath);
   }
 }

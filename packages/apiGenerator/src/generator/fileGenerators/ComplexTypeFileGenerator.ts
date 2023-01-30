@@ -67,10 +67,13 @@ export class ComplexTypeFileGenerator {
       }
     }
     output.commitImports();
-    output.newLine();
 
     output.write(0, `// $ref: ${this.info.descriptor.ref.toString()}`);
-    output.write(0, `// typeName: ${this.info.descriptor.typeName.toString()}`);
+    output.write(0, `// type: ${this.info.descriptor.typeName.toString()}`);
+    output.write(0, `// properties:`);
+    for (const p of properties) {
+      output.write(0, `// - ${p.property.name} ($ref: ${p.property.descriptor.ref})`);
+    }
     output.newLine();
 
     output.write(0, `export interface ${typeCodes.complexType.jsonClassName} {`);

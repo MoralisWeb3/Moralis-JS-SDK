@@ -1,13 +1,22 @@
 export interface GeneratorConfiguration {
   classNamePrefix: string;
-  mappings: TypeMappings;
+  mappings: Mappings;
 }
 
-export interface TypeMappings {
-  classMappings: ClassMapping[];
+export interface Mappings {
+  types: TypeMapping[];
+  refs: RefMapping[];
 }
 
-export interface ClassMapping {
-  typeName: string;
+export interface MappingTarget {
   customClassName?: string;
+  customImport?: string;
+}
+
+export interface TypeMapping extends MappingTarget {
+  typeName: string;
+}
+
+export interface RefMapping extends MappingTarget {
+  $ref: string;
 }

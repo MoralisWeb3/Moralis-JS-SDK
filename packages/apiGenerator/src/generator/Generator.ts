@@ -9,10 +9,12 @@ import { ComplexTypeInfo, OperationInfo, SimpleTypeInfo } from '../reader/OpenAp
 import { TypeResolver } from './fileGenerators/TypeResolver';
 import { Configuration } from '../configuration/Configuration';
 import { AbstractClientFileGenerator } from './fileGenerators/AbstractClientFileGenerator';
+import { MappingResolver } from './fileGenerators/MappingResolver';
 
 export class Generator {
   public static create(document: OpenAPI.Document, configuration: Configuration, outputPath: string): Generator {
-    const typeResolver = new TypeResolver(configuration.generator.classNamePrefix, configuration.generator.mappings);
+    const mappingResolver = new MappingResolver(configuration.generator.mappings);
+    const typeResolver = new TypeResolver(configuration.generator.classNamePrefix, mappingResolver);
     const generatorWriter = new GeneratorWriter(outputPath);
     return new Generator(document, configuration, typeResolver, generatorWriter);
   }

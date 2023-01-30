@@ -17,9 +17,14 @@ export class GeneratorOutput {
   }
 
   public commitImports() {
+    let count = 0;
     for (const path of this.imports.keys()) {
       const types = [...(this.imports.get(path) as Set<string>)];
       this.write(0, `import { ${types.join(', ')} } from '${path}';`);
+      count++;
+    }
+    if (count > 0) {
+      this.newLine();
     }
   }
 

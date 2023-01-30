@@ -65,11 +65,7 @@ export class OperationFileGenerator {
     });
     if (responseTypeCodes?.complexType) {
       output.addImport(
-        [
-          responseTypeCodes.complexType.className,
-          responseTypeCodes.complexType.inputClassName,
-          responseTypeCodes.complexType.jsonClassName,
-        ],
+        [responseTypeCodes.complexType.className, responseTypeCodes.complexType.jsonClassName],
         responseTypeCodes.complexType.importPath,
       );
     }
@@ -84,6 +80,12 @@ export class OperationFileGenerator {
       );
     }
     output.commitImports();
+
+    output.write(0, '// request parameters:');
+    for (const p of parameters) {
+      output.write(0, `// - ${p.parameter.name} ($ref: ${p.parameter.descriptor.ref})`);
+    }
+    output.newLine();
 
     output.write(0, `export interface ${className}Request {`);
     for (const p of parameters) {

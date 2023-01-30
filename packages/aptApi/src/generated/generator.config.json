@@ -1,15 +1,19 @@
 {
   "url": "https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json",
-  "url_solana": "https://solana-gateway.moralis.io/api-json/",
-  "url_apt_streams": "https://streams-api-stage.aws-prod-streams-master-1.moralis.io/api-docs/swagger.json",
 
   "generator": {
     "classNamePrefix": "Evm",
     "mappings": {
-      "classMappings": [
+      "types": [
         {
           "typeName": "chainList",
           "customClassName": "EvmChain"
+        }
+      ],
+      "refs": [
+        {
+          "$ref": "#/components/schemas/blockTransaction/properties/value",
+          "customClassName": "AptNative"
         }
       ]
     }

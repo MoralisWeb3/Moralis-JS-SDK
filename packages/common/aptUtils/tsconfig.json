@@ -1,7 +1,0 @@
-{
-  "extends": "../../../tsconfig.package.json",
-  "compilerOptions": {
-    "noUnusedLocals": false
-  },
-  "include": ["src/**/*", "types/**/*", "integration/**/*"]
-}
