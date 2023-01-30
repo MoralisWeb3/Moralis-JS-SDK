@@ -1080,8 +1080,13 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            address: Partial<string> & Partial<string[]>;
-          }[];
+            cursor?: string;
+            /** Format: double */
+            total: number;
+            result: {
+              address: Partial<string> & Partial<string[]>;
+            }[];
+          };
         };
       };
     };

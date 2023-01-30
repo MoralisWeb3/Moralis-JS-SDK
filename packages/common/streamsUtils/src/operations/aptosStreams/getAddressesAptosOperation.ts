@@ -8,7 +8,7 @@ type PathParams = operations[OperationId]['parameters']['path'];
 type QueryParams = operations[OperationId]['parameters']['query'];
 type RequestParams = PathParams & QueryParams;
 
-// type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -18,15 +18,7 @@ export interface GetAddressesAptosRequest extends Camelize<Omit<RequestParams, '
 
 export type GetAddressesAptosJSONRequest = ReturnType<typeof serializeRequest>;
 
-// export type GetAddressesAptosJSONResponse = SuccessResponse;
-// TODO temporary fix. The openapi spec says that the response is an array of strings, but the actual response is a paginated array of objects with a single string property called "address"
-type Address = {
-  address: string;
-};
-export type GetAddressesAptosJSONResponse = {
-  total: number;
-  result: Address[];
-};
+export type GetAddressesAptosJSONResponse = SuccessResponse;
 
 export type GetAddressesAptosResponse = ReturnType<typeof deserializeResponse>;
 
