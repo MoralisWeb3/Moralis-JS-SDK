@@ -3,15 +3,20 @@ import { AptosAddress } from './AptosAddress';
 describe('AptosAddress', () => {
   const ADDRESS = '0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b'; // account
 
-  const addresses = [
+  const validAddresses = [
     ADDRESS,
     '0x19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c',
     '0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b', // no 0x
-    '0x357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b', // no leading 0s
+    '0x357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b', // shorter, completes leading 0s
     '0x0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b',
   ];
 
-  for (const address of addresses) {
+  const invalidAddresses = [
+    'invalid',
+    '0x19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c', // super long
+  ];
+
+  for (const address of validAddresses) {
     it(`creates an instance for ${address}`, () => {
       const aptos = AptosAddress.create(address);
 
@@ -22,9 +27,11 @@ describe('AptosAddress', () => {
     });
   }
 
-  it('create() throws an error when a passed address is invalid', () => {
-    expect(() => AptosAddress.create('invalid')).toThrowError('[C0005] Invalid address provided: invalid');
-  });
+  for (const address of invalidAddresses) {
+    it('create() throws an error when a passed address is invalid', () => {
+      expect(() => AptosAddress.create(address)).toThrowError(`[C0005] Invalid address provided: ${address}`);
+    });
+  }
 
   it('create() does not create a new instance when AptosAddress passed', () => {
     const address1 = AptosAddress.create(ADDRESS);
@@ -53,7 +60,7 @@ describe('AptosAddress', () => {
 
   it('should check inequality of 2 addresses of different value', () => {
     const addressA = AptosAddress.create(ADDRESS);
-    const addressB = AptosAddress.create(addresses[1]);
+    const addressB = AptosAddress.create(validAddresses[1]);
 
     expect(addressA.equals(addressB)).toBeFalsy();
   });
