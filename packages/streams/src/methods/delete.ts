@@ -7,6 +7,8 @@ import {
   deleteStreamEvmOperation,
   DeleteStreamAptosRequest,
   DeleteStreamEvmRequest,
+  DeleteStreamAptosResponseAdapter,
+  DeleteStreamEvmResponseAdapter,
 } from '@moralisweb3/common-streams-utils';
 import { AptosStreamNetworkOptions, EvmStreamNetworkOptions } from '../utils/commonNetworkOptions';
 
@@ -14,22 +16,33 @@ export interface DeleteStreamAptosOptions extends DeleteStreamAptosRequest, Apto
 export interface DeleteStreamEvmOptions extends DeleteStreamEvmRequest, EvmStreamNetworkOptions {}
 
 export type DeleteStreamOptions = DeleteStreamAptosOptions | DeleteStreamEvmOptions;
+export type MakeDeleteAptosStream = (
+  deleteStreamOptions: DeleteStreamAptosOptions,
+) => Promise<DeleteStreamAptosResponseAdapter>;
+export type MakeDeleteEvmStream = (
+  deleteStreamOptions: DeleteStreamEvmOptions,
+) => Promise<DeleteStreamEvmResponseAdapter>;
+
+const makeDeleteAptosStream = (core: Core, baseUrl: string, { networkType, ...options }: DeleteStreamAptosOptions) => {
+  return new OperationResolver(deleteStreamAptosOperation, baseUrl, core).fetch(options);
+};
+
+const makeDeleteEvmStream = (core: Core, baseUrl: string, { networkType, ...options }: DeleteStreamEvmOptions) => {
+  return new OperationResolver(deleteStreamEvmOperation, baseUrl, core).fetch(options);
+};
 
 export const makeDeleteStream = (core: Core, baseUrl: string) => {
-  const aptosFetcher = new OperationResolver(deleteStreamAptosOperation, baseUrl, core).fetch;
-  const evmFetcher = new OperationResolver(deleteStreamEvmOperation, baseUrl, core).fetch;
-
-  return ({ networkType, ...options }: DeleteStreamOptions) => {
-    switch (networkType) {
+  return ((deleteStreamOptions: DeleteStreamOptions) => {
+    switch (deleteStreamOptions.networkType) {
       case StreamNetwork.APTOS:
-        return aptosFetcher({ ...options });
+        return makeDeleteAptosStream(core, baseUrl, deleteStreamOptions);
       case StreamNetwork.EVM:
-        return evmFetcher({ ...options });
+        return makeDeleteEvmStream(core, baseUrl, deleteStreamOptions);
       default:
-        if (networkType === undefined) {
-          return evmFetcher({ ...options });
+        if (deleteStreamOptions.networkType === undefined) {
+          return makeDeleteEvmStream(core, baseUrl, deleteStreamOptions);
         }
-        throw new IncorrectNetworkError(networkType);
+        throw new IncorrectNetworkError(deleteStreamOptions.networkType);
     }
-  };
+  }) as MakeDeleteAptosStream & MakeDeleteEvmStream;
 };

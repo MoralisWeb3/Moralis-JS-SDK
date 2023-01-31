@@ -16,25 +16,41 @@ export interface DeleteAddressAptosOptions extends DeleteAddressAptosRequest, Ap
 export interface DeleteAddressEvmOptions extends DeleteAddressEvmRequest, EvmStreamNetworkOptions {}
 
 export type DeleteAddressOptions = DeleteAddressAptosOptions | DeleteAddressEvmOptions;
+export type MakeDeleteAddressAptosStream = (
+  deleteAddressOptions: DeleteAddressAptosOptions,
+) => Promise<DeleteAddressAptosResponseAdapter>;
+export type MakeDeleteAddressEvmStream = (
+  deleteAddressOptions: DeleteAddressEvmOptions,
+) => Promise<DeleteAddressEvmResponseAdapter>;
+
+const makeDeleteAddressAptosStream = (
+  core: Core,
+  baseUrl: string,
+  { networkType, ...options }: DeleteAddressAptosOptions,
+) => {
+  return new OperationResolver(deleteAddressAptosOperation, baseUrl, core).fetch(options);
+};
+
+const makeDeleteAddressEvmStream = (
+  core: Core,
+  baseUrl: string,
+  { networkType, ...options }: DeleteAddressEvmOptions,
+) => {
+  return new OperationResolver(deleteAddressEvmOperation, baseUrl, core).fetch(options);
+};
 
 export const makeDeleteAddress = (core: Core, baseUrl: string) => {
-  const aptosFetcher = new OperationResolver(deleteAddressAptosOperation, baseUrl, core).fetch;
-  const evmFetcher = new OperationResolver(deleteAddressEvmOperation, baseUrl, core).fetch;
-
-  return ({
-    networkType,
-    ...options
-  }: DeleteAddressOptions): Promise<DeleteAddressAptosResponseAdapter | DeleteAddressEvmResponseAdapter> => {
-    switch (networkType) {
+  return ((deleteAddressOptions: DeleteAddressOptions) => {
+    switch (deleteAddressOptions.networkType) {
       case StreamNetwork.APTOS:
-        return aptosFetcher({ ...(options as DeleteAddressAptosRequest) });
+        return makeDeleteAddressAptosStream(core, baseUrl, deleteAddressOptions);
       case StreamNetwork.EVM:
-        return evmFetcher({ ...(options as DeleteAddressEvmRequest) });
+        return makeDeleteAddressEvmStream(core, baseUrl, deleteAddressOptions);
       default:
-        if (networkType === undefined) {
-          return evmFetcher({ ...(options as DeleteAddressEvmRequest) });
+        if (deleteAddressOptions.networkType === undefined) {
+          return makeDeleteAddressEvmStream(core, baseUrl, deleteAddressOptions);
         }
-        throw new IncorrectNetworkError(networkType);
+        throw new IncorrectNetworkError(deleteAddressOptions.networkType);
     }
-  };
+  }) as MakeDeleteAddressAptosStream & MakeDeleteAddressEvmStream;
 };

@@ -5,6 +5,8 @@ import {
   UpdateStreamStatusAptosRequest,
   updateStreamStatusEvmOperation,
   UpdateStreamStatusEvmRequest,
+  UpdateStreamStatusAptosResponseAdapter,
+  UpdateStreamStatusEvmResponseAdapter,
 } from '@moralisweb3/common-streams-utils';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import { StreamNetwork } from '../utils/StreamNetwork';
@@ -14,22 +16,41 @@ export interface UpdateStreamAptosStatusOptions extends UpdateStreamStatusAptosR
 export interface UpdateStreamEvmStatusOptions extends UpdateStreamStatusEvmRequest, EvmStreamNetworkOptions {}
 
 export type UpdateStreamStatusOptions = UpdateStreamAptosStatusOptions | UpdateStreamEvmStatusOptions;
+export type MakeUpdateAptosStreamStatus = (
+  updateStreamOptions: UpdateStreamAptosStatusOptions,
+) => Promise<UpdateStreamStatusAptosResponseAdapter>;
+export type MakeUpdateEvmStreamStatus = (
+  updateStreamOptions: UpdateStreamEvmStatusOptions,
+) => Promise<UpdateStreamStatusEvmResponseAdapter>;
+
+const makeUpdateAptosStreamStatus = (
+  core: Core,
+  baseUrl: string,
+  { networkType, ...options }: UpdateStreamAptosStatusOptions,
+) => {
+  return new OperationResolver(updateStreamStatusAptosOperation, baseUrl, core).fetch(options);
+};
+
+const makeUpdateEvmStreamStatus = (
+  core: Core,
+  baseUrl: string,
+  { networkType, ...options }: UpdateStreamEvmStatusOptions,
+) => {
+  return new OperationResolver(updateStreamStatusEvmOperation, baseUrl, core).fetch(options);
+};
 
 export const makeUpdateStreamStatus = (core: Core, baseUrl: string) => {
-  const aptosFetcher = new OperationResolver(updateStreamStatusAptosOperation, baseUrl, core).fetch;
-  const evmFetcher = new OperationResolver(updateStreamStatusEvmOperation, baseUrl, core).fetch;
-
-  return ({ networkType, ...options }: UpdateStreamStatusOptions) => {
-    switch (networkType) {
+  return ((updateStreamOptions: UpdateStreamStatusOptions) => {
+    switch (updateStreamOptions.networkType) {
       case StreamNetwork.APTOS:
-        return aptosFetcher({ ...options });
+        return makeUpdateAptosStreamStatus(core, baseUrl, updateStreamOptions);
       case StreamNetwork.EVM:
-        return evmFetcher({ ...options });
+        return makeUpdateEvmStreamStatus(core, baseUrl, updateStreamOptions);
       default:
-        if (networkType === undefined) {
-          return evmFetcher({ ...options });
+        if (updateStreamOptions.networkType === undefined) {
+          return makeUpdateEvmStreamStatus(core, baseUrl, updateStreamOptions);
         }
-        throw new IncorrectNetworkError(networkType);
+        throw new IncorrectNetworkError(updateStreamOptions.networkType);
     }
-  };
+  }) as MakeUpdateAptosStreamStatus & MakeUpdateEvmStreamStatus;
 };

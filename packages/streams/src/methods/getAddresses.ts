@@ -16,25 +16,33 @@ export interface GetAddressesAptosOptions extends GetAddressesAptosRequest, Apto
 export interface GetAddressesEvmOptions extends GetAddressesEvmRequest, EvmStreamNetworkOptions {}
 
 export type GetAddressesOptions = GetAddressesAptosOptions | GetAddressesEvmOptions;
+export type MakeGetAddressesAptos = (
+  getAddressesOptions: GetAddressesAptosOptions,
+) => Promise<GetAddressesAptosResponseAdapter>;
+export type MakeGetAddressesEvm = (
+  getAddressesOptions: GetAddressesEvmOptions,
+) => Promise<GetAddressesEvmResponseAdapter>;
+
+const makeGetAptosAddresses = (core: Core, baseUrl: string, { networkType, ...options }: GetAddressesAptosOptions) => {
+  return new OperationResolver(getAddressesAptosOperation, baseUrl, core).fetch(options);
+};
+
+const makeGetEvmAddresses = (core: Core, baseUrl: string, { networkType, ...options }: GetAddressesEvmOptions) => {
+  return new PaginatedOperationResolver(getAddressesEvmOperation, baseUrl, core).fetch(options);
+};
 
 export const makeGetAddresses = (core: Core, baseUrl: string) => {
-  const aptosFetcher = new OperationResolver(getAddressesAptosOperation, baseUrl, core).fetch;
-  const evmFetcher = new PaginatedOperationResolver(getAddressesEvmOperation, baseUrl, core).fetch;
-
-  return ({
-    networkType,
-    ...options
-  }: GetAddressesOptions): Promise<GetAddressesAptosResponseAdapter | GetAddressesEvmResponseAdapter> => {
-    switch (networkType) {
+  return ((getAddressesOptions: GetAddressesOptions) => {
+    switch (getAddressesOptions.networkType) {
       case StreamNetwork.APTOS:
-        return aptosFetcher({ ...options });
+        return makeGetAptosAddresses(core, baseUrl, getAddressesOptions);
       case StreamNetwork.EVM:
-        return evmFetcher({ ...options });
+        return makeGetEvmAddresses(core, baseUrl, getAddressesOptions);
       default:
-        if (networkType === undefined) {
-          return evmFetcher({ ...options });
+        if (getAddressesOptions.networkType === undefined) {
+          return makeGetEvmAddresses(core, baseUrl, getAddressesOptions);
         }
-        throw new IncorrectNetworkError(networkType);
+        throw new IncorrectNetworkError(getAddressesOptions.networkType);
     }
-  };
+  }) as MakeGetAddressesAptos & MakeGetAddressesEvm;
 };

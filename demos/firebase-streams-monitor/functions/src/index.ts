@@ -138,7 +138,7 @@ bot.command('/add', async (ctx) => {
     if (watchTowerStreamIndex < 0) {
       functions.logger.log('Creating monitor stream', { structuredData: true });
       const creation = await Moralis.Streams.add(STREAM_CONFIG);
-      monitorStream = creation.result as EvmStream;
+      monitorStream = creation.result;
       functions.logger.log('Created monitor stream', { structuredData: true });
     } else {
       functions.logger.log('Monitor stream already in existence', { structuredData: true });

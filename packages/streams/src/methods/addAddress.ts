@@ -16,25 +16,37 @@ export interface AddAddressAptosOptions extends AddAddressAptosRequest, AptosStr
 export interface AddAddressEvmOptions extends AddAddressEvmRequest, EvmStreamNetworkOptions {}
 
 export type AddAddressOptions = AddAddressAptosOptions | AddAddressEvmOptions;
+export type MakeAddAddressAptosStream = (
+  addAddressOptions: AddAddressAptosOptions,
+) => Promise<AddAddressAptosResponseAdapter>;
+export type MakeAddAddressEvmStream = (
+  addAddressOptions: AddAddressEvmOptions,
+) => Promise<AddAddressEvmResponseAdapter>;
+
+const makeAddAddressAptosStream = (
+  core: Core,
+  baseUrl: string,
+  { networkType, ...options }: AddAddressAptosOptions,
+) => {
+  return new OperationResolver(addAddressAptosOperation, baseUrl, core).fetch(options);
+};
+
+const makeAddAddressEvmStream = (core: Core, baseUrl: string, { networkType, ...options }: AddAddressEvmOptions) => {
+  return new OperationResolver(addAddressEvmOperation, baseUrl, core).fetch(options);
+};
 
 export const makeAddAddress = (core: Core, baseUrl: string) => {
-  const aptosFetcher = new OperationResolver(addAddressAptosOperation, baseUrl, core).fetch;
-  const evmFetcher = new OperationResolver(addAddressEvmOperation, baseUrl, core).fetch;
-
-  return ({
-    networkType,
-    ...options
-  }: AddAddressOptions): Promise<AddAddressAptosResponseAdapter | AddAddressEvmResponseAdapter> => {
-    switch (networkType) {
+  return ((addAddressOptions: AddAddressOptions) => {
+    switch (addAddressOptions.networkType) {
       case StreamNetwork.APTOS:
-        return aptosFetcher({ ...(options as AddAddressAptosRequest) });
+        return makeAddAddressAptosStream(core, baseUrl, addAddressOptions);
       case StreamNetwork.EVM:
-        return evmFetcher({ ...(options as AddAddressEvmOptions) });
+        return makeAddAddressEvmStream(core, baseUrl, addAddressOptions);
       default:
-        if (networkType === undefined) {
-          return evmFetcher({ ...(options as AddAddressEvmOptions) });
+        if (addAddressOptions.networkType === undefined) {
+          return makeAddAddressEvmStream(core, baseUrl, addAddressOptions);
         }
-        throw new IncorrectNetworkError(networkType);
+        throw new IncorrectNetworkError(addAddressOptions.networkType);
     }
-  };
+  }) as MakeAddAddressAptosStream & MakeAddAddressEvmStream;
 };
