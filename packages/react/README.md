@@ -40,17 +40,19 @@ yarn add  @moralisweb3/react react react-dom
 
 ### 2. Add MoralisProvider
 
-Then wrap your app in a <MoralisProvider>, and provide your apiKey to the `config` prop:
+Then wrap your app in a <MoralisProvider>, and prepare a config object with your apiKey using `createMoralisConfig`. Pass the config as a prop to the `MoralisProvider`
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import { MoralisProvider } from "@moralisweb3/react";
+import { MoralisProvider, createMoralisConfig } from "@moralisweb3/react";
 
-const config = { apiKey: 'YOUR_API_KEY' }
+const moralisConfig = createMoralisConfig({
+  apiKey: "MORALIS_API_KEY",
+});
 
 ReactDOM.render(
-  <MoralisProvider config={config}>
+  <MoralisProvider config={moralisConfig}>
     <App />
   </MoralisProvider>,
   document.getElementById("root"),
@@ -76,6 +78,7 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [✨ Hook Usage Examples](#️-hook-usage-examples)
   - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
   - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
+  - [3. Provide fetching options](#3-provide-fetching-options)
 - [EvmApi Hooks](#EvmApi-hooks)
   - [useEvmNativeBalance](#useEvmNativeBalance)
   - [useEvmNativeBalancesForAddresses](#useEvmNativeBalancesForAddresses)
@@ -180,7 +183,7 @@ const App = () => {
   const [bnbBalance, setBnbBalance] = useState('');
 
   const fetchBalanceForEthereum = async () => {
-    const response = await fetch({ address: '0x...', chain: EvmChain.ETHEREUM });
+    const response = await fetch({ address: '0x...', chain: EvmChain.ETHEREUM.hex });
     if (response?.balance) {
       setEthBalance(response.balance.ether);
     }
@@ -203,6 +206,33 @@ const App = () => {
   )
 }
 ```
+
+## 3. Provide fetching options
+It's possible to set fallbacks or change settings of data fetching per hook. These options will override `config` provided to `MoralisProvider`.
+
+```jsx
+import { useEvmNativeBalance } from '@moralisweb3/react'
+import { EvmChain } from 'moralis/common-evm-utils';
+
+const App = () => {
+  const { fetch, ethBalance } = useEvmNativeBalance(
+    {
+      address: '0x...',
+    },
+    {
+      onSuccess: (res) => console.log(res),
+      refreshInterval: 3000,
+    },
+  );
+
+  return (
+    <div>
+      <p>Ethereum Balance: {ethBalance} Ether</p>
+    </div>
+  )
+}
+```
+You can find more fetch data options in [Data fetching config](#️data-fetching-config) section.
 
 # EvmApi Hooks
 
@@ -1065,22 +1095,24 @@ Gets the token price (usd and native) for a given contract address and network
 
 
 # ⚙️ Advanced Config
-The `config` property for `MoralisProvider` can be used not only to specify the API key, but also for additional Moralis instance settings. Example:
+The `config` property for `MoralisProvider` can be used not only to specify the API key, but also for additional Moralis instance settings and request fetching settings. Example:
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import { MoralisProvider } from "@moralisweb3/react";
+import { MoralisProvider, createMoralisConfig } from "@moralisweb3/react";
 
-const config = { 
+const moralisConfig = createMoralisConfig({ 
   apiKey: 'YOUR_API_KEY',
   formatEvmAddress: 'checksum',
   formatEvmChainId: 'decimal',
-  logLevel: 'verbose'
-}
+  logLevel: 'verbose',
+  refreshInterval: 3000,
+  revalidateOnFocus: true,
+})
 
 ReactDOM.render(
-  <MoralisProvider config={config}>
+  <MoralisProvider config={moralisConfig}>
     <App />
   </MoralisProvider>,
   document.getElementById("root"),
@@ -1088,6 +1120,8 @@ ReactDOM.render(
 ```
 
 Below, you can find the possible options for the `config`:
+
+### Moralis instance config:
 
 | Option             | Description                                                          | Default     | Required |
 | -------------------| ---------------------------------------------------------------------|-------------|-------------------|
@@ -1098,11 +1132,36 @@ Below, you can find the possible options for the `config`:
 | `defaultSolNetwork`| 	Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
 | `defaultEvmApiChain`| 	Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
 
+### Data fetching config:
 
-The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls. You can provide [config object](https://swr.vercel.app/docs/options#options) as a `fetchConfig` prop to the `MoralisProvider` as it's shown bellow:
+| Option             | Description                                                          | Default     | Required |
+| -------------------| ---------------------------------------------------------------------|-------------|-------------------|
+| `onSuccess(data, key, config)`| Callback function when a request finishes successfully	       | `null`      |  no  | 
+| `onError(err, key, config)`| 	Callback function when a request returns an error       | `null`      |  no  | 
+| `onErrorRetry(err, key, config, revalidate, revalidateOps)`| Handler for error retry	       | `null`      |  no  | 
+| `onDiscarded(key)`|  Callback function when a request is ignored due to race conditions	       | `null`      |  no  | 
+| `revalidateIfStale`| 	Automatically revalidate even if there is stale data       | `true`      |  no  | 
+| `revalidateOnMount`| 	Enable or disable automatic revalidation when component is mounted       | `null`      |  no  | 
+| `revalidateOnFocus `| Automatically revalidate when window gets focused	       | `false`      |  no  | 
+| `revalidateOnReconnect`| Automatically revalidate when the browser regains a network connection	       | `true`      |  no  | 
+| `refreshInterval`| 	Disabled by default: refreshInterval = 0. If set to a number, polling interval in milliseconds. If set to a function, the function will receive the latest data and should return the interval in milliseconds       | `0`      |  no  | 
+| `refreshWhenHidden`| 	Polling when the window is invisible (if refreshInterval is enabled)       | `false`      |  no  | 
+| `refreshWhenOffline`| Polling when the browser is offline	       | `false`      |  no  | 
+| `shouldRetryOnError`| Retry when fetcher has an error	       | `true`      |  no  | 
+| `dedupingInterval`| Dedupe requests with the same key in this time span in milliseconds	       | `2000`      |  no  | 
+| `focusThrottleInterval `| Only revalidate once during a time span in milliseconds	       | `5000`      |  no  | 
+| `loadingTimeout `| 	Timeout to trigger the onLoadingSlow event in milliseconds       | `3000`      |  no  | 
+| `errorRetryInterval `|  Error retry interval in milliseconds	       | `5000`      |  no  | 
+| `errorRetryCount`| 	Mxx error retry count       | `null`      |  no  | 
+| `fallback`|  A key-value object of multiple fallback data	       | `null`      |  no  | 
+| `fallbackData`| Initial data to be returned (note: This is per-hook)	       | `null`      |  no  | 
+| `keepPreviousData`| Return the previous key's data until the new data has been loaded	       | `false`      |  no  | 
+
+
+The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls.
 
 ```js
-const config = { 
+const moralisConfig = { 
   apiKey: 'YOUR_API_KEY',
 }
 
