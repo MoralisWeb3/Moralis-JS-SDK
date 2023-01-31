@@ -1162,21 +1162,6 @@ Below, you can find the possible options for the `config`:
 
 The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls.
 
-```js
-const moralisConfig = { 
-  apiKey: 'YOUR_API_KEY',
-}
-
-const fetchConfig = {
-  refreshInterval: 3000,
-  revalidateOnFocus: true,
-}
-
-<MoralisProvider config={config} fetchConfig={fetchConfig}>
-  <App />
-</MoralisProvider>
-```
-
 # 📦 Webpack v5 support
 
 You may see the following error in your project:
