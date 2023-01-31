@@ -7,7 +7,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const moralisConfig = createMoralisConfig({ apiKey: process.env.REACT_APP_MORALIS_KEY || '' });
+const moralisConfig = createMoralisConfig({
+  apiKey: process.env.REACT_APP_MORALIS_KEY || '',
+});
 
 root.render(
   <BrowserRouter>

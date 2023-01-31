@@ -31,7 +31,7 @@ export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
     (params?: Request) => {
       const fetchRequest = params ?? request;
       if (!fetchRequest) {
-        throw new Error('No fetchRequest params');
+        throw new Error('No params provided to the hook');
       }
       return mutate(fetcher(operation.id, fetchRequest));
     },

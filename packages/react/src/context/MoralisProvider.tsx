@@ -18,7 +18,7 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
   const {
     revalidateOnMount,
     revalidateIfStale,
-    revalidateOnFocus,
+    revalidateOnFocus = false,
     revalidateOnReconnect,
     refreshInterval,
     refreshWhenHidden,
@@ -29,11 +29,15 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
     loadingTimeout,
     errorRetryInterval,
     errorRetryCount,
+    onDiscarded,
+    onError,
+    onErrorRetry,
+    onSuccess,
     ...moralisConfig
   } = config;
 
   const swrConfig: FetchConfig = {
-    revalidateOnFocus: revalidateOnFocus ?? false,
+    revalidateOnFocus,
     revalidateOnMount,
     revalidateIfStale,
     revalidateOnReconnect,
@@ -46,6 +50,10 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
     loadingTimeout,
     errorRetryInterval,
     errorRetryCount,
+    onDiscarded,
+    onError,
+    onErrorRetry,
+    onSuccess,
   };
 
   const core = useMemo(() => {

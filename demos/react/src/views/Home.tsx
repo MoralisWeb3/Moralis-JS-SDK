@@ -34,14 +34,17 @@ const ABI = [
 const Home = () => {
   const [output, setOutput] = useState<string>();
 
-  const { data: vitalikBalance } = useEvmNativeBalance({ address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045' });
-
-  const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(
+  const { data: vitalikBalance, isFetching } = useEvmNativeBalance(
     {
-      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+      address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
     },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+    { revalidateOnFocus: true },
   );
+
+  const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(undefined, {
+    revalidateOnMount: false,
+    onSuccess: (res) => setOutput(JSON.stringify(res)),
+  });
   const { fetch: getBlock } = useEvmBlock(
     { chain: '0x13881', blockNumberOrHash: '10000' },
     { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
@@ -74,13 +77,17 @@ const Home = () => {
   return (
     <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>
-      <Heading fontSize="lg">Vitalik's ETH Balance: {vitalikBalance?.balance.ether} ETH</Heading>
+      <Heading fontSize="lg">
+        Vitalik's ETH Balance: {isFetching ? 'Fetching...' : vitalikBalance?.balance.ether} ETH
+      </Heading>
       <Heading fontSize="lg">Fetched manually data:</Heading>
       <Textarea value={output} />
 
       <List>
         <ListItem mb={2}>
-          <Button onClick={() => getNFTMetadata()}>getNFTMetadata</Button>
+          <Button onClick={() => getNFTMetadata({
+      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+    })}>getNFTMetadata</Button>
         </ListItem>
         <ListItem mb={2}>
           <Button onClick={() => getBlock()}>getBlock</Button>
