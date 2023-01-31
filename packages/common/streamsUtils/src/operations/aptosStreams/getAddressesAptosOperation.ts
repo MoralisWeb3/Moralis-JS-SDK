@@ -1,5 +1,5 @@
 import { AptosAddress } from '@moralisweb3/common-aptos-utils';
-import { Camelize, maybe, Operation, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, maybe, PaginatedOperation, PaginatedResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
 type OperationId = 'aptosStreamsGetAddresses';
@@ -23,13 +23,13 @@ export type GetAddressesAptosJSONResponse = SuccessResponse;
 export type GetAddressesAptosResponse = ReturnType<typeof deserializeResponse>;
 
 export interface GetAddressesAptosResponseAdapter
-  extends ResponseAdapter<GetAddressesAptosResponse, GetAddressesAptosJSONResponse> {}
+  extends PaginatedResponseAdapter<GetAddressesAptosResponse, GetAddressesAptosJSONResponse> {}
 
-export const getAddressesAptosOperation: Operation<
+export const getAddressesAptosOperation: PaginatedOperation<
   GetAddressesAptosRequest,
   GetAddressesAptosJSONRequest,
   GetAddressesAptosResponse,
-  GetAddressesAptosJSONResponse
+  GetAddressesAptosJSONResponse['result']
 > = {
   method: 'GET',
   name: 'getAddressesAptos',

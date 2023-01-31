@@ -1,4 +1,4 @@
-import { OperationResolver, PaginatedOperationResolver } from '@moralisweb3/api-utils';
+import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
 import {
@@ -24,7 +24,7 @@ export type MakeGetAddressesEvm = (
 ) => Promise<GetAddressesEvmResponseAdapter>;
 
 const makeGetAptosAddresses = (core: Core, baseUrl: string, { networkType, ...options }: GetAddressesAptosOptions) => {
-  return new OperationResolver(getAddressesAptosOperation, baseUrl, core).fetch(options);
+  return new PaginatedOperationResolver(getAddressesAptosOperation, baseUrl, core).fetch(options);
 };
 
 const makeGetEvmAddresses = (core: Core, baseUrl: string, { networkType, ...options }: GetAddressesEvmOptions) => {
