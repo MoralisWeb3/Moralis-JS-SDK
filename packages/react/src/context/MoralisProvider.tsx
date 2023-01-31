@@ -29,10 +29,10 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
     loadingTimeout,
     errorRetryInterval,
     errorRetryCount,
-    onDiscarded,
-    onError,
-    onErrorRetry,
-    onSuccess,
+    onDiscarded = () => undefined,
+    onError = () => undefined,
+    onErrorRetry = () => undefined,
+    onSuccess = () => undefined,
     ...moralisConfig
   } = config;
 

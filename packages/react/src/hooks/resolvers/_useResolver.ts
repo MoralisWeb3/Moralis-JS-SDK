@@ -22,7 +22,7 @@ export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
     [resolve],
   );
 
-  const { data, error, mutate, isValidating } = useSWR<Response>([operation.id, request], request ? fetcher : null, {
+  const { data, error, mutate, isValidating } = useSWR<Response>([request ? operation.id : null, request], fetcher, {
     ...swrConfig,
     ...fetchParams,
   });
