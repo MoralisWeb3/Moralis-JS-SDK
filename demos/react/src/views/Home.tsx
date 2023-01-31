@@ -34,12 +34,9 @@ const ABI = [
 const Home = () => {
   const [output, setOutput] = useState<string>();
 
-  const { data: vitalikBalance, isFetching } = useEvmNativeBalance(
-    {
-      address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
-    },
-    { revalidateOnFocus: true },
-  );
+  const { data: vitalikBalance, isFetching } = useEvmNativeBalance({
+    address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+  });
 
   const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(undefined, {
     revalidateOnMount: false,
@@ -85,9 +82,15 @@ const Home = () => {
 
       <List>
         <ListItem mb={2}>
-          <Button onClick={() => getNFTMetadata({
-      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-    })}>getNFTMetadata</Button>
+          <Button
+            onClick={() =>
+              getNFTMetadata({
+                address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+              })
+            }
+          >
+            getNFTMetadata
+          </Button>
         </ListItem>
         <ListItem mb={2}>
           <Button onClick={() => getBlock()}>getBlock</Button>
