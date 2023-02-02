@@ -2,6 +2,9 @@ import { ApiModule, Core, CoreProvider } from '@moralisweb3/common-core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
 import { makeVerify, VerifyEvmOptions, VerifyOptions, VerifySolOptions } from './methods/verify';
 import {
+  getAddressesOperation,
+  GetAddressesRequest,
+  GetAddressesResponseAdapter,
   VerifyChallengeSolanaResponseAdapter,
   VerifyChallengeEvmResponseAdapter,
   RequestChallengeEvmResponseAdapter,
@@ -10,6 +13,18 @@ import {
   RequestChallengeSolanaResponseAdapter,
   requestChallengeSolanaOperation,
   RequestChallengeSolanaRequest,
+  removeBindOperation,
+  RemoveBindResponseAdapter,
+  RemoveBindRequest,
+  RequestBindRequest,
+  RequestBindResponseAdapter,
+  requestBindOperation,
+  VerifyRemoveBindRequest,
+  VerifyRemoveBindResponseAdapter,
+  verifyRemoveBindOperation,
+  VerifyRequestBindRequest,
+  VerifyRequestBindResponseAdapter,
+  verifyRequestBindOperation,
 } from '@moralisweb3/common-auth-utils';
 import { OperationResolver } from '@moralisweb3/api-utils';
 
@@ -37,13 +52,28 @@ export class Auth extends ApiModule {
   // Client-side compatible operation, structured in a predictable way as defined in the operation
   // TODO: generate in seperate package "client-evm-auth" (similar to client-evm-auth)
   public readonly evm = {
+    getAddresses: (request: GetAddressesRequest): Promise<GetAddressesResponseAdapter> => {
+      return new OperationResolver(getAddressesOperation, this.baseUrl, this.core).fetch(request);
+    },
+    removeBind: (request: RemoveBindRequest): Promise<RemoveBindResponseAdapter> => {
+      return new OperationResolver(removeBindOperation, this.baseUrl, this.core).fetch(request);
+    },
+    requestBind: (request: RequestBindRequest): Promise<RequestBindResponseAdapter> => {
+      return new OperationResolver(requestBindOperation, this.baseUrl, this.core).fetch(request);
+    },
     requestChallengeEvm: (request: RequestChallengeEvmRequest): Promise<RequestChallengeEvmResponseAdapter> => {
       return new OperationResolver(requestChallengeEvmOperation, this.baseUrl, this.core).fetch(request);
+    },
+    verifyRemoveBind: (request: VerifyRemoveBindRequest): Promise<VerifyRemoveBindResponseAdapter> => {
+      return new OperationResolver(verifyRemoveBindOperation, this.baseUrl, this.core).fetch(request);
+    },
+    verifyRequestBind: (request: VerifyRequestBindRequest): Promise<VerifyRequestBindResponseAdapter> => {
+      return new OperationResolver(verifyRequestBindOperation, this.baseUrl, this.core).fetch(request);
     },
   };
 
   // Client-side compatible operation, structured in a predictable way as defined in the operation
-  // TODO: generate in seperate package "client-evm-auth" (similar to client-evm-auth)
+  // TODO: generate in separate package "client-evm-auth" (similar to client-evm-auth)
   public readonly solana = {
     requestChallengeSol: (request: RequestChallengeSolanaRequest): Promise<RequestChallengeSolanaResponseAdapter> => {
       return new OperationResolver(requestChallengeSolanaOperation, this.baseUrl, this.core).fetch(request);

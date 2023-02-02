@@ -5,6 +5,7 @@ import { mockGetContractEvents } from './endpoints/getContractEvents';
 import { mockGetDateToBlock } from './endpoints/getDateToBlock';
 import { mockGetContractLogs } from './endpoints/getContractLogs';
 import { mockGetNativeBalance } from './endpoints/getNativeBalance';
+import { mockGetNativeBalancesForAddresses } from './endpoints/getNativeBalancesForAddresses';
 import { mockGetPairAddress } from './endpoints/getPairAddress';
 import { mockGetPairReserves } from './endpoints/getPairReserves';
 import { mockGetTokenAllowance } from './endpoints/getTokenAllowance';
@@ -52,6 +53,7 @@ const handler = [
   mockGetContractLogs,
   mockGetBlock,
   mockUploadFolder,
+  mockGetNativeBalancesForAddresses,
   mockGetNativeBalance,
   mockGetTokenAllowance,
   mockGetTokenPrice,

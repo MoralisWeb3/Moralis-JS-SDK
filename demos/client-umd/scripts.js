@@ -1,7 +1,7 @@
 // Replace with yout Moralis API key (make sure to set up the roles correctly, as it is accessible from the client)
 const MORALIS_API_KEY = '';
 
-// References to the HTML elements that we need
+// References to the HTML elements that we need (make sure the script is executed after the DOM elements are loaded)
 const elements = {
   wrapperEvmToken: document.querySelector('[data-request=evm-token]'),
   wrapperSolanaToken: document.querySelector('[data-request=solana-token]'),
@@ -53,5 +53,5 @@ async function handleSolanaTokenForm(event) {
   }
 }
 
-// Initialise the app only when the DOM is readt to have access to the HTML elements and loaded scripts
-document.addEventListener('DOMContentLoaded', initialise);
+// Initialise the app when the script is loaded
+initialise();

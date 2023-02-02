@@ -1,5 +1,9 @@
-import { StreamNetworkUnion } from '../utils/StreamNetwork';
+import { AptosStreamNetwork, EvmStreamNetwork } from '../utils/StreamNetwork';
 
-export interface CommonStreamNetworkOptions {
-  networkType?: StreamNetworkUnion;
+export interface AptosStreamNetworkOptions {
+  networkType: AptosStreamNetwork;
+}
+
+export interface EvmStreamNetworkOptions {
+  networkType?: EvmStreamNetwork;
 }

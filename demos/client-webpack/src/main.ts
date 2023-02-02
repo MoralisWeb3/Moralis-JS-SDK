@@ -1,6 +1,6 @@
 import Moralis from 'moralis';
 
-// References to the HTML elements that we need
+// References to the HTML elements that we need (make sure the script is executed after the DOM elements are loaded)
 const elements = {
   wrapperEvmToken: document.querySelector('[data-request=evm-token]') as HTMLElement,
   wrapperSolanaToken: document.querySelector('[data-request=solana-token]') as HTMLElement,
@@ -56,5 +56,5 @@ async function handleSolanaTokenForm(event: SubmitEvent) {
   }
 }
 
-// Initialise the app only when the DOM is readt to have access to the HTML elements and loaded scripts
-document.addEventListener('DOMContentLoaded', initialise);
+// Initialise the app when the script is loaded
+initialise();

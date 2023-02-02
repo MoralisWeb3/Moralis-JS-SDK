@@ -89,15 +89,16 @@ export class OpenApiInterfaceReader {
       'content',
       'application/json',
     ]);
-    if (
-      body &&
-      body.type &&
-      isIndexedAccessTypeNode(body.type) &&
-      isLiteralTypeNode(body.type.indexType) &&
-      isLiteralExpression(body.type.indexType.literal)
-    ) {
-      const schemaName = body.type.indexType.literal.text;
-      return this.readPropertyNamesOfInterface('components', ['schemas', schemaName]);
+    if (body && body.type) {
+      const valIsIndexedAccessTypeNode = isIndexedAccessTypeNode(body.type);
+      if (valIsIndexedAccessTypeNode) {
+        if (isLiteralTypeNode(body.type.indexType) && isLiteralExpression(body.type.indexType.literal)) {
+          const schemaName = body.type.indexType.literal.text;
+          return this.readPropertyNamesOfInterface('components', ['schemas', schemaName]);
+        }
+      } else {
+        return this.readPropertyNames(body.type);
+      }
     }
     return null;
   }
