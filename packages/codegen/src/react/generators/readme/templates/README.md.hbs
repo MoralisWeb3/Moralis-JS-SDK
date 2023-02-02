@@ -20,6 +20,16 @@ This project is a thin React wrapper around [Moralis](https://moralis.io/), to e
 
 Please check the [official documentation of Moralis](https://docs.moralis.io/) for all the functionalities of Moralis.
 
+# 💥 Features
+
+- 45+ hooks for easy and fast blockchain data accessing.
+- NFT, Balance, Events, DeFi, Token, Transaction, Block, Resolve and more react hooks.
+- [Cross-chain compatible](#supported-chains).
+- Optimized, Lightweight, supports Cache persistence and Request duplication safe.
+- TypeScript support out-of-box.
+- Easy setup, but with a lot of [configuration options](#️-advanced-config).
+...and more.
+
 # 🚀 Quick start
 
 ### 1. Install Dependencies
@@ -88,6 +98,9 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [⚙️ Advanced Config](#️-advanced-config)
   - [Moralis instance config](#moralis-instance-config)
   - [Data fetching config](#data-fetching-config)
+- [Supported Chains](#supported-chains)
+  - [EVM Chains](#evm-chains)
+  - [Solana Chains](#solana-chains)
 - [📦 Webpack v5 support](#️-webpack-v5-support)
   - [Configuring Webpack v5](#configuring-webpack-v5)
   - [create-react-app](#create-react-app)
@@ -261,6 +274,39 @@ Below, you can find the possible options for the `config`:
 
 
 The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls.
+
+# Supported Chains
+
+Moralis continuously adding new chains and integrations. Our current supported chains include:
+
+## EVM Chains
+
+| Name                            | Chain id    | EvmChain                  | Type    |
+| ------------------------------- | ----------- | ------------------------- | ------- |
+| Ethereum Mainnet                | 1           | `EvmChain.ETHEREUM`       | Mainnet |
+| Ethereum Ropsten _(deprecated)_ | 3           | `EvmChain.ROPSTEN`        | Testnet |
+| Ethereum Rinkeby _(deprecated)_ | 4           | `EvmChain.RINKEBY`        | Testnet |
+| Ethereum Görli                  | 5           | `EvmChain.GOERLI`         | Testnet |
+| Ethereum Kovan _(deprecated)_   | 42          | `EvmChain.KOVAN`          | Testnet |
+| Ethereum Sepolia                | 11155111    | `EvmChain.SEPOLIA`        | Testnet |
+| Polygon Mainnet                 | 137         | `EvmChain.POLYGON`        | Mainnet |
+| Polygon Mumbai                  | 80001       | `EvmChain.MUMBAI`         | Testnet |
+| Binance Smart Chain Mainnet     | 56          | `EvmChain.BSC`            | Mainnet |
+| Binance Smart Chain Testnet     | 97          | `EvmChain.BSC_TESTNET`    | Testnet |
+| Avalanche C-Chain               | 43114       | `EvmChain.AVALANCHE`      | Mainnet |
+| Avalanche Fuji Testnet          | 43113       | `EvmChain.FUJI`           | Testnet |
+| Fantom                          | 250         | `EvmChain.FANTOM`         | Mainnet |
+| Cronos Mainnet                  | 25          | `EvmChain.CRONOS`         | Mainnet |
+| Cronos Testnet                  | 338         | `EvmChain.CRONOS_TESTNET` | Testnet |
+| Palm                            | 11297108109 | `EvmChain.PALM`           | Mainnet |
+| Arbitrum                        | 42161       | `EvmChain.ARBITRUM`       | Mainnet |
+
+## Solana Chains
+
+| Name           | SolNetwork           | Type    |
+| -------------- | -------------------- | ------- |
+| Solana mainnet | `SolNetwork.MAINNET` | Mainnet |
+| Solana devnet  | `SolNetwork.DEVNET`  | Testnet  |
 
 # 📦 Webpack v5 support
 
