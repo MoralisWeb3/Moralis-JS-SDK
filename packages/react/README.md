@@ -71,7 +71,7 @@ ReactDOM.render(
 
 # ⭐️ Star us
 
-If this "@moralisweb3/react" library helps you build your dapps faster - please star this project, every star makes us very happy!
+If this `@moralisweb3/react` library helps you build your dapps faster - please star this project, every star makes us very happy!
 
 # 🤝 Need help
 
@@ -79,6 +79,7 @@ If you need help with setting up the boilerplate or have other questions - don't
 
 # 🧭 Table of Contents
 
+- [💥 Features](#️-features)
 - [🚀 Quick start](#-quick-start)
   - [1. Install Dependencies](#1-install-dependencies)
   - [2. Add MoralisProvider](#2-add-moralisprovider)
