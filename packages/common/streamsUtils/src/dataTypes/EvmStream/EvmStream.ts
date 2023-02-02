@@ -6,7 +6,7 @@ import { EvmStreamData, EvmStreamInput, EvmStreamJSON } from './types';
 export type EvmStreamish = EvmStreamInput | EvmStream;
 
 /**
- * The EvmStream class is a representation of a erc20 transfer that is returned by the Moralis Stream API
+ * The EvmStream class is a representation of Moralis Stream that is returned by the Moralis Stream API
  *
  * @category DataType
  */

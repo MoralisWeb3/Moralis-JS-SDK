@@ -1,3 +1,4 @@
+export * from './AptosStream';
 export * from './EvmStream';
 export * from './EvmStreamResult';
 export * from './StreamErc1155Approval';

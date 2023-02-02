@@ -1,5 +1,5 @@
 export const paginatedAddressesResponse = (
-  addresses: { address: string; id: string }[],
+  addresses: { address: string; id?: string }[],
   total: number,
   cursor?: string,
 ) => ({

@@ -1,11 +1,11 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createErrorResponse } from '../response/errorResponse';
-import { createStreamResponse } from '../response/streamResponse';
+import { createErrorResponse } from '../../response/errorResponse';
+import { createEvmStreamResponse } from '../../response/evmStreamResponse';
 
-export const mockCreateStream = MockScenarios.create(
+export const mockCreateStreamEvm = MockScenarios.create(
   {
     method: 'put',
-    name: 'mockCreateStream',
+    name: 'mockCreateStreamEvm',
     url: `/streams/evm`,
     getParams: ({ reqBody }) => {
       return {
@@ -33,7 +33,7 @@ export const mockCreateStream = MockScenarios.create(
         chainIds: ['0x3'],
         includeNativeTxs: true,
       },
-      response: createStreamResponse('test-1'),
+      response: createEvmStreamResponse('test-1'),
     },
     {
       condition: {
@@ -50,7 +50,7 @@ export const mockCreateStream = MockScenarios.create(
         ],
         topic0: ['SomeEvent(address,uint256)'],
       },
-      response: createStreamResponse('test-2'),
+      response: createEvmStreamResponse('test-2'),
     },
     {
       condition: {
@@ -72,7 +72,7 @@ export const mockCreateStream = MockScenarios.create(
         includeInternalTxs: true,
         includeNativeTxs: true,
       },
-      response: createStreamResponse('test-3'),
+      response: createEvmStreamResponse('test-3'),
     },
     {
       condition: {
@@ -88,7 +88,7 @@ export const mockCreateStream = MockScenarios.create(
           },
         ],
       },
-      response: createStreamResponse('test-4'),
+      response: createEvmStreamResponse('test-4'),
     },
 
     {

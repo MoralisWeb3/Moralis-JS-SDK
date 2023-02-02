@@ -52,6 +52,32 @@ export interface paths {
     /** Deletes an address from a Stream. */
     delete: operations["DeleteAddressFromStream"];
   };
+  "/streams/aptos": {
+    /** Get all aptos streams. */
+    get: operations["aptosStreamsGetAll"];
+    /** Creates a new aptos stream. */
+    put: operations["aptosStreamsCreate"];
+  };
+  "/streams/aptos/{id}": {
+    /** Get a specific aptos stream. */
+    get: operations["aptosStreamsGet"];
+    /** Updates a new aptos stream. */
+    post: operations["aptosStreamsUpdate"];
+    /** Deletes a aptos stream. */
+    delete: operations["aptosStreamsDelete"];
+  };
+  "/streams/aptos/{id}/address": {
+    /** Get all addresses associated with a specific aptos stream. */
+    get: operations["aptosStreamsGetAddresses"];
+    /** Adds addresses to an existing aptos stream */
+    post: operations["aptosStreamsAddAddresses"];
+    /** Deletes addresses of an existing aptos stream */
+    delete: operations["aptosStreamsDeleteAddresses"];
+  };
+  "/streams/aptos/{id}/status": {
+    /** Update a Stream Status */
+    post: operations["aptosStreamsUpdateStatus"];
+  };
 }
 
 export interface components {
@@ -152,6 +178,69 @@ export interface components {
       tag: string;
       streamId: string;
     };
+    AptosBlock: {
+      lastVersion: string;
+      firstVersion: string;
+      hash: string;
+      timestamp: string;
+      number: string;
+    };
+    AptosCoin: {
+      symbol: string;
+      /** Format: double */
+      decimals: number;
+      name: string;
+    };
+    AptosCoinDeposit: {
+      sequenceNumber: string;
+      valueWithDecimals: string;
+      coin: components["schemas"]["AptosCoin"];
+      address: string;
+      value: string;
+    };
+    AptosCoinTransfer: {
+      transaction: string;
+      /** Format: double */
+      valueWithDecimals: number;
+      from: string;
+      value: string;
+      to: string;
+      coin: components["schemas"]["AptosCoin"];
+    };
+    AptosCoinWithdrawal: {
+      sequenceNumber: string;
+      valueWithDecimals: string;
+      coin: components["schemas"]["AptosCoin"];
+      address: string;
+      value: string;
+    };
+    AptosTransaction: {
+      gasUnitPrice: string;
+      type: string;
+      gasUsed: string;
+      eventChangeHash: string;
+      stateChangeHash: string;
+      gasLimit: string;
+      sender: string;
+      success: boolean;
+      hash: string;
+    };
+    "webhookTypes.AptosWebhook": {
+      block: components["schemas"]["AptosBlock"];
+      changes: unknown[];
+      coinDeposits: components["schemas"]["AptosCoinDeposit"][];
+      coinTransfers: components["schemas"]["AptosCoinTransfer"][];
+      coinWithdrawals: components["schemas"]["AptosCoinWithdrawal"][];
+      events: unknown[];
+      /** @enum {string} */
+      network: "mainnet" | "testnet" | "devnet";
+      payloads: unknown[];
+      /** Format: double */
+      retries: number;
+      streamId: string;
+      tag: string;
+      transactions: components["schemas"]["AptosTransaction"][];
+    };
     "webhookTypes.ITinyPayload": {
       chainId: string;
       confirmed: boolean;
@@ -165,7 +254,10 @@ export interface components {
       id: components["schemas"]["UUID"];
       /** Format: date-time */
       date: string;
-      payload?: components["schemas"]["webhookTypes.IWebhookUnParsed"];
+      payload?: Partial<
+        components["schemas"]["webhookTypes.IWebhookUnParsed"]
+      > &
+        Partial<components["schemas"]["webhookTypes.AptosWebhook"]>;
       tinyPayload: components["schemas"]["webhookTypes.ITinyPayload"];
       errorMessage: string;
       webhookUrl: string;
@@ -182,7 +274,10 @@ export interface components {
       id: components["schemas"]["UUID"];
       /** Format: date-time */
       date: string;
-      payload?: components["schemas"]["webhookTypes.IWebhookUnParsed"];
+      payload?: Partial<
+        components["schemas"]["webhookTypes.IWebhookUnParsed"]
+      > &
+        Partial<components["schemas"]["webhookTypes.AptosWebhook"]>;
       tinyPayload: components["schemas"]["webhookTypes.ITinyPayload"];
       errorMessage: string;
       webhookUrl: string;
@@ -337,7 +432,7 @@ export interface components {
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
-      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
+      /** @description Include or not native transactions defaults to false */
       includeNativeTxs?: boolean;
       /** @description Include or not logs of contract interactions defaults to false */
       includeContractLogs?: boolean;
@@ -382,7 +477,7 @@ export interface components {
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
-      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
+      /** @description Include or not native transactions defaults to false */
       includeNativeTxs?: boolean;
       /** @description Include or not logs of contract interactions defaults to false */
       includeContractLogs?: boolean;
@@ -416,7 +511,7 @@ export interface components {
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
-      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
+      /** @description Include or not native transactions defaults to false */
       includeNativeTxs?: boolean;
       /** @description Include or not logs of contract interactions defaults to false */
       includeContractLogs?: boolean;
@@ -445,7 +540,7 @@ export interface components {
       topic0?: string[] | null;
       /** @description Include events for all addresses (only applied when abi and topic0 is provided) */
       allAddresses?: boolean;
-      /** @description Include or not native transactions defaults to false (only applied when type:contract) */
+      /** @description Include or not native transactions defaults to false */
       includeNativeTxs?: boolean;
       /** @description Include or not logs of contract interactions defaults to false */
       includeContractLogs?: boolean;
@@ -500,6 +595,81 @@ export interface components {
     "addressesTypes.AddressesRemove": {
       /** @description The address or a list of addresses to be removed from the Stream. */
       address: Partial<string> & Partial<string[]>;
+    };
+    AptosNetwork: ("mainnet" | "testnet" | "devnet")[];
+    AptosStreamType: {
+      id: string;
+      allAddresses: boolean;
+      demo: boolean;
+      description: string;
+      includeChanges: boolean;
+      includeEvents: boolean;
+      includePayload: boolean;
+      /** Format: date-time */
+      isErrorSince: string | null;
+      network: components["schemas"]["AptosNetwork"];
+      status: components["schemas"]["StreamsStatus"];
+      statusMessage: string;
+      events: string[];
+      functions: string[];
+      tag: string;
+      webhookUrl: string;
+      /** Format: double */
+      amountOfAddresses: number;
+    };
+    AptosCreateStreamType: {
+      /** @description Webhook URL where moralis will send the POST request. */
+      webhookUrl: string;
+      /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
+      tag: string;
+      /** @description An Array of events in string-signature format ex: ['0x1::aptos_account::transfer'] */
+      functions?: string[];
+      /** @description An Array of events in string-signature format ex: ['0x1::coin::WithdrawEvent'] */
+      events?: string[];
+      /** @description The network to listen to */
+      network: components["schemas"]["AptosNetwork"];
+      /** @description Include or not payload for every transaction in webhook defaults to false */
+      includePayload?: boolean;
+      /** @description Include or not events in webhook defaults to false */
+      includeEvents?: boolean;
+      /** @description Include or not raw changes for every transaction in webhook defaults to false */
+      includeChanges?: boolean;
+      /** @description A description for this stream */
+      description: string;
+      /** @description Indicator if it is a demo stream */
+      demo?: boolean;
+      /** @description Include events for all addresses (only applied when at least one event or function is provided) */
+      allAddresses?: boolean;
+    };
+    /** @description Make all properties in T optional */
+    Partial_AptosCreateStreamType_: {
+      /** @description Include events for all addresses (only applied when at least one event or function is provided) */
+      allAddresses?: boolean;
+      /** @description Indicator if it is a demo stream */
+      demo?: boolean;
+      /** @description A description for this stream */
+      description?: string;
+      /** @description Include or not raw changes for every transaction in webhook defaults to false */
+      includeChanges?: boolean;
+      /** @description Include or not events in webhook defaults to false */
+      includeEvents?: boolean;
+      /** @description Include or not payload for every transaction in webhook defaults to false */
+      includePayload?: boolean;
+      /** @description The network to listen to */
+      network?: components["schemas"]["AptosNetwork"];
+      /** @description An Array of events in string-signature format ex: ['0x1::coin::WithdrawEvent'] */
+      events?: string[];
+      /** @description An Array of events in string-signature format ex: ['0x1::aptos_account::transfer'] */
+      functions?: string[];
+      /** @description A user-provided tag that will be send along the webhook, the user can use this tag to identify the specific stream if multiple streams are present */
+      tag?: string;
+      /** @description Webhook URL where moralis will send the POST request. */
+      webhookUrl?: string;
+    };
+    /** @description From T, pick a set of properties whose keys are in the union K */
+    "Pick_AptosStreamType.status-or-statusMessage_": {
+      status: components["schemas"]["StreamsStatus"];
+      statusMessage: string;
     };
   };
   responses: {};
@@ -787,6 +957,211 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["addressesTypes.AddressesRemove"];
+      };
+    };
+  };
+  /** Get all aptos streams. */
+  aptosStreamsGetAll: {
+    parameters: {
+      query: {
+        /** Limit response results max value 100 */
+        limit: number;
+        /** Cursor for fetching next page */
+        cursor?: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": {
+            /** Format: double */
+            total: number;
+            result: components["schemas"]["AptosStreamType"][];
+          };
+        };
+      };
+    };
+  };
+  /** Creates a new aptos stream. */
+  aptosStreamsCreate: {
+    parameters: {};
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AptosStreamType"];
+        };
+      };
+    };
+    /** Provide a valid Aptos Stream Model */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AptosCreateStreamType"];
+      };
+    };
+  };
+  /** Get a specific aptos stream. */
+  aptosStreamsGet: {
+    parameters: {
+      path: {
+        /** The id of the stream to get */
+        id: components["schemas"]["streamsTypes.UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AptosStreamType"];
+        };
+      };
+    };
+  };
+  /** Updates a new aptos stream. */
+  aptosStreamsUpdate: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AptosStreamType"];
+        };
+      };
+    };
+    /** Provide valid values of a Aptos Stream Model */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Partial_AptosCreateStreamType_"];
+      };
+    };
+  };
+  /** Deletes a aptos stream. */
+  aptosStreamsDelete: {
+    parameters: {
+      path: {
+        /** the id of the aptos stream to delete */
+        id: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": boolean;
+        };
+      };
+    };
+  };
+  /** Get all addresses associated with a specific aptos stream. */
+  aptosStreamsGetAddresses: {
+    parameters: {
+      path: {
+        /** the id of the aptos stream to get the addresses from */
+        id: components["schemas"]["streamsTypes.UUID"];
+      };
+      query: {
+        /** Limit response results max value 100 */
+        limit: number;
+        /** Cursor for fetching next page */
+        cursor?: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": {
+            cursor?: string;
+            /** Format: double */
+            total: number;
+            result: {
+              address: Partial<string> & Partial<string[]>;
+            }[];
+          };
+        };
+      };
+    };
+  };
+  /** Adds addresses to an existing aptos stream */
+  aptosStreamsAddAddresses: {
+    parameters: {
+      path: {
+        /** the id of the aptos stream to get the addresses from */
+        id: components["schemas"]["streamsTypes.UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": {
+            address: Partial<string> & Partial<string[]>;
+            streamId: string;
+          };
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": {
+          address: Partial<string> & Partial<string[]>;
+        };
+      };
+    };
+  };
+  /** Deletes addresses of an existing aptos stream */
+  aptosStreamsDeleteAddresses: {
+    parameters: {
+      path: {
+        /** the id of the aptos stream to get the addresses from */
+        id: components["schemas"]["streamsTypes.UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": {
+            address: Partial<string> & Partial<string[]>;
+            streamId: string;
+          };
+        };
+      };
+    };
+    /** Provide a list of valid Aptos addresses, or a single address */
+    requestBody: {
+      content: {
+        "application/json": {
+          address: Partial<string> & Partial<string[]>;
+        };
+      };
+    };
+  };
+  /** Update a Stream Status */
+  aptosStreamsUpdateStatus: {
+    parameters: {
+      path: {
+        /** the id of the aptos stream to update the status */
+        id: components["schemas"]["streamsTypes.UUID"];
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Pick_AptosStreamType.status-or-statusMessage_"];
+        };
+      };
+    };
+    /** Provide an object with the status to update can be 'active' or 'paused' */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["streamsTypes.StreamsStatusUpdate"];
       };
     };
   };

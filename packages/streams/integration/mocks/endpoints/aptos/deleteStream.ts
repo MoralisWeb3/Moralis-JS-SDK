@@ -1,12 +1,11 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createErrorResponse } from '../response/errorResponse';
-import { createStreamResponse } from '../response/streamResponse';
+import { createErrorResponse } from '../../response/errorResponse';
 
-export const mockDeleteStream = MockScenarios.create(
+export const mockDeleteStreamAptos = MockScenarios.create(
   {
     method: 'delete',
-    name: 'mockDeleteStream',
-    url: `/streams/evm/:id`,
+    name: 'mockDeleteStreamAptos',
+    url: `/streams/aptos/:id`,
     getParams: ({ req, reqBody }) => {
       return {
         id: req.params.id,
@@ -19,7 +18,7 @@ export const mockDeleteStream = MockScenarios.create(
       condition: {
         id: 'VALID_RESPONSE',
       },
-      response: createStreamResponse('valid-response'),
+      response: true,
     },
     {
       condition: {
