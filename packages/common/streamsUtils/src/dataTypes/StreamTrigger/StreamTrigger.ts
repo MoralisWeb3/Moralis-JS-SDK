@@ -51,6 +51,7 @@ export class StreamTrigger implements MoralisDataObject {
     };
   };
 
+  // eslint-disable-next-line complexity
   static equals(valueA: StreamTriggerish, valueB: StreamTriggerish) {
     const streamTriggerA = StreamTrigger.create(valueA);
     const streamTriggerB = StreamTrigger.create(valueB);
@@ -70,14 +71,14 @@ export class StreamTrigger implements MoralisDataObject {
 
     if (streamTriggerA.inputs?.length !== streamTriggerB.inputs?.length) {
       return false;
-    } else {
-      const triggerInputsA = streamTriggerA.inputs || [];
-      const triggerInputsB = streamTriggerB.inputs || [];
+    }
 
-      for (let i = 0; i < triggerInputsA?.length; i++) {
-        if (triggerInputsA[i] !== triggerInputsB[i]) {
-          return false;
-        }
+    const triggerInputsA = streamTriggerA.inputs || [];
+    const triggerInputsB = streamTriggerB.inputs || [];
+
+    for (let i = 0; i < triggerInputsA?.length; i++) {
+      if (triggerInputsA[i] !== triggerInputsB[i]) {
+        return false;
       }
     }
 

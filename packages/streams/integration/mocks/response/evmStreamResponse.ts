@@ -15,12 +15,12 @@ const defaultMockStream = {
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
 };
 
-export const createStreamResponse = (tag: string) => ({
+export const createEvmStreamResponse = (tag: string) => ({
   ...defaultMockStream,
   tag,
 });
 
-export const createPaginatedStreamResponse = (tags: string[], total: number, cursor?: string) => ({
+export const createPaginatedEvmStreamResponse = (tags: string[], total: number, cursor?: string) => ({
   result: tags.map((tag) => ({ ...defaultMockStream, tag })),
   total,
   cursor,

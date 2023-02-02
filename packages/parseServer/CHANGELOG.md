@@ -1,5 +1,15 @@
 # @moralisweb3/parse-server
 
+## 2.12.0
+
+### Patch Changes
+
+- Updated dependencies [[`e79cccf53`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e79cccf530fb04f2f4f3307af07872fdd3e2e253)]:
+  - @moralisweb3/streams@2.12.0
+  - @moralisweb3/api-utils@2.12.0
+  - @moralisweb3/common-core@2.12.0
+  - moralis@2.12.0
+
 ## 2.11.1
 
 ### Patch Changes

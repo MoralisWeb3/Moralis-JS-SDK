@@ -109,6 +109,7 @@ jobs:
             auth, ./packages/auth/coverage/coverage-summary.json
             core, ./packages/core/coverage/coverage-summary.json
             evm-api, ./packages/evmApi/coverage/coverage-summary.json
+            common-aptos-utils, ./packages/common/aptosUtils/coverage/coverage-summary.json
             common-evm-utils, ./packages/common/evmUtils/coverage/coverage-summary.json
             sol-api, ./packages/solApi/coverage/coverage-summary.json
             common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json

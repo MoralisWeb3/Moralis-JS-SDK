@@ -4,5 +4,6 @@ module.exports = {
   ignorePatterns: ['**/lib/**/*', '**/*.test.ts', '**/dist/**/*', '**/build/**/*', '**/generated/**/*'],
   rules: {
     'no-console': 'off',
+    'no-html-link-for-pages': 'off',
   },
 };

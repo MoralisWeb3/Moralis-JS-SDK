@@ -4,7 +4,7 @@ import { StreamSelector, StreamSelectorish } from '../StreamSelector';
 export interface StreamTriggerInput {
   type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
   contractAddress: StreamSelectorish | EvmAddressish;
-  functionAbi: any;
+  functionAbi: unknown;
   inputs?: (string | string[])[];
   topic0?: string;
   callFrom?: StreamSelectorish | EvmAddressish;
@@ -13,7 +13,7 @@ export interface StreamTriggerInput {
 export interface StreamTriggerData {
   type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
   contractAddress: StreamSelector | EvmAddress;
-  functionAbi: any;
+  functionAbi: unknown;
   inputs?: (string | string[])[];
   topic0?: string;
   callFrom?: StreamSelector | EvmAddress;

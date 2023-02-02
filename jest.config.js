@@ -5,6 +5,7 @@ module.exports = {
   moduleNameMapper: {
     '^@moralisweb3/evm-api': path.join(__dirname, 'packages/evmApi/src'),
     '^@moralisweb3/sol-api': path.join(__dirname, 'packages/solApi/src'),
+    '^@moralisweb3/common-aptos-utils': path.join(__dirname, 'packages/common/aptosUtils/src'),
     '^@moralisweb3/common-sol-utils': path.join(__dirname, 'packages/common/solUtils/src'),
     '^@moralisweb3/common-evm-utils': path.join(__dirname, 'packages/common/evmUtils/src'),
     '^@moralisweb3/api-utils': path.join(__dirname, 'packages/apiUtils/src'),

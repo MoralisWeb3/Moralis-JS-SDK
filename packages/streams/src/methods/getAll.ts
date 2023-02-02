@@ -1,27 +1,44 @@
 import Core from '@moralisweb3/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
-import { getStreamsEvmOperation, GetStreamsEvmRequest } from '@moralisweb3/common-streams-utils';
+import {
+  getStreamsAptosOperation,
+  getStreamsEvmOperation,
+  GetStreamsAptosRequest,
+  GetStreamsEvmRequest,
+  GetStreamsAptosResponseAdapter,
+  GetStreamsEvmResponseAdapter,
+} from '@moralisweb3/common-streams-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
+import { AptosStreamNetworkOptions, EvmStreamNetworkOptions } from '../utils/commonNetworkOptions';
 
-export interface GetStreamsEvmOptions extends GetStreamsEvmRequest {
-  networkType?: 'evm';
-}
+export interface GetStreamsAptosOptions extends GetStreamsAptosRequest, AptosStreamNetworkOptions {}
+export interface GetStreamsEvmOptions extends GetStreamsEvmRequest, EvmStreamNetworkOptions {}
 
-export type GetStreamsOptions = GetStreamsEvmOptions;
+export type GetStreamsOptions = GetStreamsAptosOptions | GetStreamsEvmOptions;
+export type MakeGetAptosStream = (getStreamOptions: GetStreamsAptosOptions) => Promise<GetStreamsAptosResponseAdapter>;
+export type MakeGetEvmStream = (getStreamOptions: GetStreamsEvmOptions) => Promise<GetStreamsEvmResponseAdapter>;
+
+const makeGetAptosStream = (core: Core, baseUrl: string, { networkType, ...options }: GetStreamsAptosOptions) => {
+  return new PaginatedOperationResolver(getStreamsAptosOperation, baseUrl, core).fetch(options);
+};
+
+const makeGetEvmStream = (core: Core, baseUrl: string, { networkType, ...options }: GetStreamsEvmOptions) => {
+  return new PaginatedOperationResolver(getStreamsEvmOperation, baseUrl, core).fetch(options);
+};
 
 export const makeGetStreams = (core: Core, baseUrl: string) => {
-  const evmFetcher = new PaginatedOperationResolver(getStreamsEvmOperation, baseUrl, core).fetch;
-
-  return ({ networkType, ...options }: GetStreamsOptions) => {
-    switch (networkType) {
+  return ((getStreamsOptions: GetStreamsOptions) => {
+    switch (getStreamsOptions.networkType) {
+      case StreamNetwork.APTOS:
+        return makeGetAptosStream(core, baseUrl, getStreamsOptions);
       case StreamNetwork.EVM:
-        return evmFetcher({ ...options });
+        return makeGetEvmStream(core, baseUrl, getStreamsOptions);
       default:
-        if (networkType === undefined) {
-          return evmFetcher({ ...options });
+        if (getStreamsOptions.networkType === undefined) {
+          return makeGetEvmStream(core, baseUrl, getStreamsOptions);
         }
-        throw new IncorrectNetworkError(networkType);
+        throw new IncorrectNetworkError(getStreamsOptions.networkType);
     }
-  };
+  }) as MakeGetAptosStream & MakeGetEvmStream;
 };

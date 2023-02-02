@@ -4,6 +4,8 @@ import { EvmAbi } from '../EvmAbi';
 
 export type EvmStreamAdvancedOptions = {
   topic0: string;
+  // TODO: add better typings to help devs create a filter
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filter?: Record<string, any>;
   includeNativeTxs?: boolean;
 };

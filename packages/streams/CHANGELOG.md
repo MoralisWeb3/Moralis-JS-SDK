@@ -1,5 +1,17 @@
 # @moralisweb3/streams
 
+## 2.12.0
+
+### Patch Changes
+
+- [#967](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/967) [`e79cccf53`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e79cccf530fb04f2f4f3307af07872fdd3e2e253) Thanks [@ErnoW](https://github.com/ErnoW)! - Make networkType behaviour consistent for all streams endpoints. For endpoints that accept a networkType, it will default to 'evm' when none is provided.
+
+- Updated dependencies [[`a16b47566`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a16b47566b4c853421d651072fb01dbbdfe71902), [`301490a3d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/301490a3d49aaaaddf1e310024a37d97af29a54f)]:
+  - @moralisweb3/common-evm-utils@2.12.0
+  - @moralisweb3/api-utils@2.12.0
+  - @moralisweb3/common-core@2.12.0
+  - @moralisweb3/common-streams-utils@2.12.0
+
 ## 2.11.1
 
 ### Patch Changes

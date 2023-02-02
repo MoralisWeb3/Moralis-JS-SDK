@@ -1,4 +1,6 @@
 export enum StreamNetwork {
+  APTOS = 'aptos',
   EVM = 'evm',
-  SOLANA = 'solana',
 }
+export type AptosStreamNetwork = `${StreamNetwork.APTOS}`;
+export type EvmStreamNetwork = `${StreamNetwork.EVM}`;
