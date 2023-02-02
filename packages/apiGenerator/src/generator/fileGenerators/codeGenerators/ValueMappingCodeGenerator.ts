@@ -1,6 +1,6 @@
 import { ResolvedType } from '../TypeResolver';
 
-export class MappingCodeGenerator {
+export class ValueMappingCodeGenerator {
   public static generateJSON2TypeCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
     if (resolvedType.complexType) {
       let code: string;

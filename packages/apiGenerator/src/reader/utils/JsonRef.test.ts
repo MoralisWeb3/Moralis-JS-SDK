@@ -12,4 +12,21 @@ describe('JsonRef', () => {
     expect(ref.parts[1]).toBe('b');
     expect(ref.parts[2]).toBe('c');
   });
+
+  it('extends correctly', () => {
+    const ref = JsonRef.parse('#/a');
+    expect(ref.extend(['b', 'c']).toString()).toBe('#/a/b/c');
+  });
+
+  it('reads a child from object', () => {
+    const obj = {
+      A: {
+        B: {
+          C: 10,
+        },
+      },
+    };
+
+    expect(JsonRef.parse('#/A/B/C').find(obj)).toBe(10);
+  });
 });

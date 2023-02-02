@@ -1,27 +1,24 @@
 import { SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
-import { GeneratorOutput } from '../GeneratorOutput';
+import { Output } from '../output/Output';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { SimpleTypeNormalizer } from './codeGenerators/SimpleTypeNormalizer';
 import { TypeResolver } from './TypeResolver';
-
-const BASE_PATH = '../';
+import { TypeScriptOutput } from '../output/TypeScriptOutput';
 
 export interface SimpleTypeFileGeneratorResult {
   className: string;
-  output: GeneratorOutput;
+  output: Output;
 }
 
 export class SimpleTypeFileGenerator {
   public constructor(private readonly info: SimpleTypeInfo, private readonly typeResolver: TypeResolver) {}
 
   public generate(): SimpleTypeFileGeneratorResult {
-    const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor, BASE_PATH);
-    const { complexType: complexTypeCodes } = TypeCodesGenerator.generate(resolvedType, true);
+    const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor);
+    const { complexType: complexTypeCodes, inputUnionTypeCode } = TypeCodesGenerator.generate(resolvedType, true);
     if (!complexTypeCodes) {
       throw new Error('Complex type is only supported');
     }
-
-    const output = new GeneratorOutput();
 
     const normalizedType = SimpleTypeNormalizer.normalize(this.info.simpleType);
     let typeCode: string;
@@ -30,6 +27,10 @@ export class SimpleTypeFileGenerator {
     } else {
       typeCode = TypeCodesGenerator.getTypeCode(normalizedType, this.info.descriptor.isArray);
     }
+
+    // view:
+
+    const output = new TypeScriptOutput();
 
     output.write(0, `// $ref: ${this.info.descriptor.ref.toString()}`);
     output.write(0, `// typeName: ${this.info.descriptor.typeName.toString()}`);
@@ -41,10 +42,7 @@ export class SimpleTypeFileGenerator {
 
     output.write(0, `export class ${complexTypeCodes.className} {`);
 
-    output.write(
-      1,
-      `public static create(input: ${complexTypeCodes.inputClassName} | ${complexTypeCodes.className}) {`,
-    );
+    output.write(1, `public static create(input: ${inputUnionTypeCode}) {`);
     output.write(2, `if (input instanceof ${complexTypeCodes.className}) {`);
     output.write(3, `return input;`);
     output.write(2, `}`);

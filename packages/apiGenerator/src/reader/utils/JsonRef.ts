@@ -20,8 +20,7 @@ export class JsonRef {
   }
 
   public extend(newParts: string[]): JsonRef {
-    const p = this.parts.concat(newParts);
-    return new JsonRef(p);
+    return new JsonRef(this.parts.concat(newParts));
   }
 
   public find<T>(data: any): T {

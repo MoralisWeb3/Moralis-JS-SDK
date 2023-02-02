@@ -5,7 +5,7 @@ export class TypeName {
 
   private constructor(public readonly parts: string[]) {}
 
-  public unshift(part: string): TypeName {
+  public addPrefix(part: string): TypeName {
     return new TypeName([part].concat(this.parts));
   }
 

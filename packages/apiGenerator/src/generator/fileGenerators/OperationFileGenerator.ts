@@ -1,55 +1,56 @@
 import { OperationInfo } from '../../reader/OpenApiReaderResult';
 import { NameFormatter } from './codeGenerators/NameFormatter';
-import { GeneratorOutput } from '../GeneratorOutput';
-import { MappingCodeGenerator } from './codeGenerators/MappingCodeGenerator';
+import { Output } from '../output/Output';
+import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGenerator';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeResolver } from './TypeResolver';
-
-const BASE_PATH = '../';
+import { TypeScriptOutput } from '../output/TypeScriptOutput';
 
 export interface OperationFileGeneratorResult {
   className: string;
-  output: GeneratorOutput;
+  output: Output;
 }
 
 export class OperationFileGenerator {
   public constructor(private readonly info: OperationInfo, private readonly typeResolver: TypeResolver) {}
 
   public generate(): OperationFileGeneratorResult {
-    const resolvedResponseType = this.info.response
-      ? this.typeResolver.resolve(this.info.response.descriptor, BASE_PATH)
-      : null;
+    const resolvedResponseType = this.info.response ? this.typeResolver.resolve(this.info.response.descriptor) : null;
     const responseTypeCodes = resolvedResponseType ? TypeCodesGenerator.generate(resolvedResponseType, true) : null;
 
-    const resolvedBodyType = this.info.body ? this.typeResolver.resolve(this.info.body.descriptor, BASE_PATH) : null;
+    const resolvedBodyType = this.info.body ? this.typeResolver.resolve(this.info.body.descriptor) : null;
     const bodyTypeCodes =
       resolvedBodyType && this.info.body
         ? TypeCodesGenerator.generate(resolvedBodyType, this.info.body.isRequired)
         : null;
 
-    const className = NameFormatter.getOperationClassName(this.info.operationId);
-    const output = new GeneratorOutput();
+    const className = NameFormatter.getClassName(this.info.operationId) + 'Operation';
+    const output = new TypeScriptOutput();
 
     const parameters = this.info.parameters.map((parameter) => {
       const camelCasedName = NameFormatter.getParameterName(parameter.name);
-      const resolvedParamType = this.typeResolver.resolve(parameter.descriptor, BASE_PATH);
+      const resolvedParamType = this.typeResolver.resolveForOperationParameter(parameter.descriptor, parameter.name);
       const types = TypeCodesGenerator.generate(resolvedParamType, parameter.isRequired);
       return {
         camelCasedName,
         types,
         parameter,
-        input2TypeCode: MappingCodeGenerator.generateInput2TypeCode(
+        input2TypeCode: ValueMappingCodeGenerator.generateInput2TypeCode(
           resolvedParamType,
           `request.${camelCasedName}`,
           parameter.isRequired,
         ),
-        type2JSONCode: MappingCodeGenerator.generateType2JSONCode(
+        type2JSONCode: ValueMappingCodeGenerator.generateType2JSONCode(
           resolvedParamType,
           camelCasedName,
           parameter.isRequired,
         ),
       };
     });
+
+    const parameterNames = parameters.map((p) => p.parameter.name);
+
+    // view:
 
     parameters.forEach((parameter) => {
       if (parameter.types.complexType) {
@@ -89,14 +90,7 @@ export class OperationFileGenerator {
 
     output.write(0, `export interface ${className}Request {`);
     for (const p of parameters) {
-      const paramTypeCode =
-        p.types.inputTypeCode !== p.types.typeCode
-          ? `${p.types.inputTypeCode} | ${p.types.typeCode}`
-          : p.types.inputTypeCode;
-      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${paramTypeCode};`);
-    }
-    if (bodyTypeCodes) {
-      output.write(1, `readonly body${bodyTypeCodes.colon} ${bodyTypeCodes.inputTypeCode};`);
+      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputUnionTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
@@ -114,8 +108,6 @@ export class OperationFileGenerator {
       });
     }
 
-    const parameterNames = parameters.map((p) => p.parameter.name);
-
     output.write(0, `export const ${className} = {`);
     output.write(1, `operationId: ${JSON.stringify(this.info.operationId)},`);
     output.write(1, `groupName: ${JSON.stringify(this.info.groupName)},`);
@@ -127,7 +119,7 @@ export class OperationFileGenerator {
     output.newLine();
 
     if (resolvedResponseType && responseTypeCodes && this.info.response) {
-      const responseJSON2TypeCode = MappingCodeGenerator.generateJSON2TypeCode(resolvedResponseType, 'json', true);
+      const responseJSON2TypeCode = ValueMappingCodeGenerator.generateJSON2TypeCode(resolvedResponseType, 'json', true);
 
       output.write(1, `parseResponse(json: ${responseTypeCodes.jsonTypeCode}): ${responseTypeCodes.typeCode} {`);
       output.write(2, `return ${responseJSON2TypeCode};`);
@@ -149,22 +141,27 @@ export class OperationFileGenerator {
     output.newLine();
 
     if (resolvedBodyType && bodyTypeCodes && this.info.body) {
-      const bodyInput2TypeCode = MappingCodeGenerator.generateInput2TypeCode(
+      const bodyInput2TypeCode = ValueMappingCodeGenerator.generateInput2TypeCode(
         resolvedBodyType,
-        'request.body',
+        'body',
         this.info.body.isRequired,
       );
-      const bodyType2JSONCode = MappingCodeGenerator.generateType2JSONCode(
+      const bodyType2JSONCode = ValueMappingCodeGenerator.generateType2JSONCode(
         resolvedBodyType,
-        `body`,
+        `value`,
         this.info.body.isRequired,
       );
-      const returnType = this.info.body.isRequired
-        ? bodyTypeCodes.jsonTypeCode
-        : `${bodyTypeCodes.jsonTypeCode} | undefined`;
 
-      output.write(1, `serializeBody(request: ${className}Request): ${returnType} {`);
-      output.write(2, `const body = ${bodyInput2TypeCode};`);
+      output.write(
+        1,
+        `serializeBody(body: ${bodyTypeCodes.inputUnionTypeCode}${bodyTypeCodes.undefinedSuffix}): ${bodyTypeCodes.jsonTypeCode}${bodyTypeCodes.undefinedSuffix} {`,
+      );
+      if (!this.info.body.isRequired) {
+        output.write(1, 'if (!body) {');
+        output.write(2, 'return undefined;');
+        output.write(1, '}');
+      }
+      output.write(2, `const value = ${bodyInput2TypeCode};`);
       output.write(2, `return ${bodyType2JSONCode};`);
       output.write(1, '},');
     }

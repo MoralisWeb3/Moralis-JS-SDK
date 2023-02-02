@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { GeneratorOutput } from './GeneratorOutput';
+import { Output } from './output/Output';
 
 export class GeneratorWriter {
   private readonly typesPath: string;
@@ -25,27 +25,27 @@ export class GeneratorWriter {
     this.prepareDir(this.operationsPath);
   }
 
-  public writeOperation(className: string, output: GeneratorOutput) {
+  public writeOperation(className: string, output: Output) {
     this.writeFile(this.operationsPath, className + '.ts', output);
   }
 
-  public writeOperationsIndex(output: GeneratorOutput) {
+  public writeOperationsIndex(output: Output) {
     this.writeFile(this.operationsPath, 'index.ts', output);
   }
 
-  public writeType(className: string, output: GeneratorOutput) {
+  public writeType(className: string, output: Output) {
     this.writeFile(this.typesPath, className + '.ts', output);
   }
 
-  public writeTypesIndex(output: GeneratorOutput) {
+  public writeTypesIndex(output: Output) {
     this.writeFile(this.typesPath, 'index.ts', output);
   }
 
-  public writeAbstractClient(output: GeneratorOutput) {
+  public writeAbstractClient(output: Output) {
     this.writeFile(this.outputPath, 'abstractClient.ts', output);
   }
 
-  private writeFile(basePath: string, fileName: string, output: GeneratorOutput) {
+  private writeFile(basePath: string, fileName: string, output: Output) {
     const finalPath = path.join(basePath, fileName);
     fs.writeFileSync(finalPath, output.toString(), 'utf-8');
   }

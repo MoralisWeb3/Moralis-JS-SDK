@@ -34,7 +34,7 @@ export class TypesV3Reader {
     }
 
     const typeName = pointer.typeName.toString();
-    this.typeNameUniquenessChecker.checkAndAdd(typeName, () => `Type name ${typeName} is duplicated`);
+    this.typeNameUniquenessChecker.check(typeName, () => `Type name ${typeName} is duplicated`);
 
     const descriptor: ComplexTypeDescriptor = {
       isArray: false,
@@ -58,13 +58,17 @@ export class TypesV3Reader {
       return;
     }
 
+    const propertyNameUniquenessChecker = new UniquenessChecker();
     const properties: PropertyInfo[] = [];
     for (const name of propertyKeys) {
+      const ref = pointer.ref.extend(['properties', name]);
+
+      propertyNameUniquenessChecker.check(name, () => `Parameter name ${name} is duplicated (${ref.toString()})`);
+
       const isRequired = scheme.required?.includes(name) || false;
       const refOrSchema = scheme.properties[name];
 
       const defaultTypeName = pointer.typeName.add(name);
-      const ref = pointer.ref.extend(['properties', name]);
       const descriptor = this.typeDescriptorReader.read(refOrSchema, ref, defaultTypeName);
       if (isComplexTypeDescriptor(descriptor)) {
         this.queue.push(descriptor.ref.toString(), descriptor);

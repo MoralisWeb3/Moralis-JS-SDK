@@ -1,7 +1,10 @@
 import { TypeName } from '../../../reader/utils/TypeName';
 
 export class NameFormatter {
-  public static getClassName(className: TypeName): string {
+  public static getClassName(className: TypeName | string): string {
+    if (typeof className === 'string') {
+      className = TypeName.from(className);
+    }
     return className.parts
       .map((part) => {
         part = normalize(part);
@@ -16,10 +19,6 @@ export class NameFormatter {
     name = normalize(name);
     name = toCamelCase(name);
     return lowercaseFirst(name);
-  }
-
-  public static getOperationClassName(operationId: string): string {
-    return NameFormatter.getClassName(TypeName.from(operationId).add('Operation'));
   }
 }
 

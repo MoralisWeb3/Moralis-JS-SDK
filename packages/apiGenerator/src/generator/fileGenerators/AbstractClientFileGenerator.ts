@@ -1,59 +1,85 @@
 import { OperationInfo } from '../../reader/OpenApiReaderResult';
 import { NameFormatter } from './codeGenerators/NameFormatter';
-import { GeneratorOutput } from '../GeneratorOutput';
 import { TypeName } from '../../reader/utils/TypeName';
 import { TypeResolver } from './TypeResolver';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
-
-const BASE_PATH = './';
+import { TypeScriptOutput } from '../output/TypeScriptOutput';
+import { Output } from '../output/Output';
 
 export class AbstractClientFileGenerator {
   public constructor(private readonly operations: OperationInfo[], private readonly typeResolver: TypeResolver) {}
 
-  public generate(): GeneratorOutput {
-    const output = new GeneratorOutput();
+  public generate(): Output {
+    const output = new TypeScriptOutput();
 
     const groupNames = [...new Set(this.operations.map((o) => o.groupName))];
     groupNames.sort();
 
     const operations = this.operations.map((operation) => {
-      const resolvedResponseType = operation.response
-        ? this.typeResolver.resolve(operation.response.descriptor, BASE_PATH)
-        : null;
+      const className = NameFormatter.getClassName(operation.operationId) + 'Operation';
 
-      const className = NameFormatter.getOperationClassName(operation.operationId);
+      const resolvedResponseType = operation.response ? this.typeResolver.resolve(operation.response.descriptor) : null;
       const responseTypeCodes = resolvedResponseType
         ? TypeCodesGenerator.generate(resolvedResponseType, true)
-        : {
-            colon: ':',
-            typeCode: 'null',
-            inputTypeCode: 'null',
-            jsonTypeCode: 'null',
-            complexType: null,
-          };
+        : TypeCodesGenerator.generateNull();
+
+      const resolvedBodyType = operation.body ? this.typeResolver.resolve(operation.body.descriptor) : null;
+      const bodyTypeCodes =
+        resolvedBodyType && operation.body
+          ? TypeCodesGenerator.generate(resolvedBodyType, operation.body.isRequired)
+          : null;
+
+      const parameterName = NameFormatter.getParameterName(
+        NameFormatter.getClassName(TypeName.from(operation.operationId)),
+      );
 
       return {
         groupName: operation.groupName,
         className,
         resolvedResponseType,
         responseTypeCodes,
-        parameterName: NameFormatter.getParameterName(NameFormatter.getClassName(TypeName.from(operation.operationId))),
+        resolvedBodyType,
+        bodyTypeCodes,
+        parameterName,
       };
     });
+
+    const groups = groupNames.map((name) => {
+      const safeName = NameFormatter.getParameterName(name);
+      const groupOperations = operations.filter((o) => o.groupName === name);
+      return {
+        safeName: safeName,
+        operations: groupOperations,
+      };
+    });
+
+    // view:
 
     for (const operation of operations) {
       output.addImport(
         [operation.className, `${operation.className}Request`, `${operation.className}RequestJSON`],
         `./operations/${operation.className}`,
       );
-      if (operation.resolvedResponseType && operation.resolvedResponseType.complexType) {
-        const className = operation.resolvedResponseType.complexType.className;
-        output.addImport([className, `${className}JSON`], operation.resolvedResponseType.complexType.importPath);
+      if (operation.resolvedResponseType?.complexType && operation.responseTypeCodes.complexType) {
+        output.addImport(
+          [operation.responseTypeCodes.complexType.className, operation.responseTypeCodes.complexType.jsonClassName],
+          operation.resolvedResponseType.complexType.importPath,
+        );
+      }
+      if (operation.resolvedBodyType?.complexType && operation.bodyTypeCodes?.complexType) {
+        output.addImport(
+          [
+            operation.bodyTypeCodes.complexType.className,
+            operation.bodyTypeCodes.complexType.inputClassName,
+            operation.bodyTypeCodes.complexType.jsonClassName,
+          ],
+          operation.resolvedBodyType.complexType.importPath,
+        );
       }
     }
     output.commitImports();
 
-    output.write(0, `export interface OperationV3<Request, RequestJSON, Response, ResponseJSON> {`);
+    output.write(0, `export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {`);
     output.write(1, `operationId: string;`);
     output.write(1, `groupName: string;`);
     output.write(1, `httpMethod: string;`);
@@ -63,27 +89,38 @@ export class AbstractClientFileGenerator {
     output.write(1, `hasBody: boolean;`);
     output.write(1, `serializeRequest?: (request: Request) => RequestJSON;`);
     output.write(1, `parseResponse?: (json: ResponseJSON) => Response;`);
+    output.write(1, `serializeBody?: (body: Body) => BodyJSON;`);
     output.write(0, `}`);
     output.newLine();
 
     output.write(0, `export abstract class AbstractClient {`);
+
+    output.write(1, `protected abstract createEndpoint<Request, RequestJSON, Response, ResponseJSON>(`);
+    output.write(2, `operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, null, null>`);
+    output.write(1, `): (request: Request) => Promise<Response>;`);
+
     output.write(
       1,
-      `protected abstract createEndpoint<Request, RequestJSON, Response, ResponseJSON>(operation: OperationV3<Request, RequestJSON, Response, ResponseJSON>): (request: Request) => Promise<Response>;`,
+      'protected abstract createEndpointWithBody<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>(',
     );
+    output.write(2, `operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>`);
+    output.write(1, `): (request: Request, body: Body) => Promise<Response>;`);
+
     output.newLine();
 
-    for (const groupName of groupNames) {
-      const safeGroupName = NameFormatter.getParameterName(groupName);
-      const groupOperations = operations.filter((o) => o.groupName === groupName);
-
-      output.write(1, `public readonly ${safeGroupName} = {`);
-      for (const operation of groupOperations) {
-        output.write(2, `${operation.parameterName}: this.createEndpoint<`);
-        output.write(3, `${operation.className}Request,`);
-        output.write(3, `${operation.className}RequestJSON,`);
-        output.write(3, `${operation.responseTypeCodes.typeCode},`);
-        output.write(3, `${operation.responseTypeCodes.jsonTypeCode}`);
+    for (const group of groups) {
+      output.write(1, `public readonly ${group.safeName} = {`);
+      for (const operation of group.operations) {
+        const factoryMethodName = operation.bodyTypeCodes ? 'createEndpointWithBody' : 'createEndpoint';
+        output.write(2, `${operation.parameterName}: this.${factoryMethodName}<`);
+        output.write(3, `${operation.className}Request`);
+        output.write(3, `, ${operation.className}RequestJSON`);
+        output.write(3, `, ${operation.responseTypeCodes.typeCode}`);
+        output.write(3, `, ${operation.responseTypeCodes.jsonTypeCode}`);
+        if (operation.bodyTypeCodes) {
+          output.write(3, `, ${operation.bodyTypeCodes.inputUnionTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`);
+          output.write(3, `, ${operation.bodyTypeCodes.jsonTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`);
+        }
         output.write(2, `>(${operation.className}),`);
       }
       output.write(1, '};');

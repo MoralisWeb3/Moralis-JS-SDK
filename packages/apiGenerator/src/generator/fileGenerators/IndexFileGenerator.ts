@@ -1,4 +1,5 @@
-import { GeneratorOutput } from '../GeneratorOutput';
+import { MemoryOutput } from '../output/MemoryOutput';
+import { Output } from '../output/Output';
 
 export class IndexFileGenerator {
   public readonly fileNames: string[] = [];
@@ -7,8 +8,8 @@ export class IndexFileGenerator {
     this.fileNames.push(fileName);
   }
 
-  public generate(): GeneratorOutput {
-    const output = new GeneratorOutput();
+  public generate(): Output {
+    const output = new MemoryOutput();
 
     for (const fileName of this.fileNames) {
       output.write(0, `export * from './${fileName}';`);

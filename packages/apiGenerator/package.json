@@ -2,7 +2,7 @@
   "name": "@moralisweb3/api-generator",
   "private": true,
   "scripts": {
-    "gen:apt": "ts-node src/index.ts ../../aptApi/src/generated",
+    "gen:aptos": "ts-node src/index.ts ../../aptosApi/src/generated",
     "test": "jest",
     "test:watch": "jest --watch"
   },

@@ -13,7 +13,6 @@ const BODY_TYPE_NAME_SUFFIX = 'Body';
 
 export class OperationsV3Reader {
   public readonly operations: OperationInfo[] = [];
-  private readonly operationIdUniquenessChecker = new UniquenessChecker();
 
   public constructor(
     private readonly document: OpenAPIV3.Document,
@@ -26,6 +25,9 @@ export class OperationsV3Reader {
     if (!this.document.paths) {
       return;
     }
+
+    const operationIdUniquenessChecker = new UniquenessChecker();
+    const groupRef = JsonRef.parse(this.configuration.group$ref);
 
     for (const routePattern of Object.keys(this.document.paths)) {
       const pathGroup = this.document.paths[routePattern];
@@ -41,10 +43,7 @@ export class OperationsV3Reader {
           continue;
         }
 
-        this.operationIdUniquenessChecker.checkAndAdd(
-          path.operationId,
-          () => `Operation id ${path.operationId} is duplicated`,
-        );
+        operationIdUniquenessChecker.check(path.operationId, () => `Operation id ${path.operationId} is duplicated`);
 
         const responseCode = SUCCESS_RESPONSE_CODES.find((code) => path.responses[code]);
         if (!responseCode) {
@@ -63,7 +62,7 @@ export class OperationsV3Reader {
         const parameters = this.readParameters(operationRef, path.operationId, path.parameters);
         const body = this.readBody(operationRef, path.operationId, path.requestBody);
 
-        const groupName = JsonRef.parse(this.configuration.group$ref).find<string>(path);
+        const groupName = groupRef.find<string>(path);
 
         this.operations.push({
           operationId: path.operationId,
@@ -89,6 +88,7 @@ export class OperationsV3Reader {
       return result;
     }
 
+    const parameterNameUniquenessChecker = new UniquenessChecker();
     for (let index = 0; index < parameters.length; index++) {
       const $refOrParameter = parameters[index];
       if (($refOrParameter as OpenAPIV3.ReferenceObject).$ref) {
@@ -100,6 +100,11 @@ export class OperationsV3Reader {
       if (!schema) {
         throw new Error('Parameter does not have schema');
       }
+
+      parameterNameUniquenessChecker.check(
+        parameter.name,
+        () => `Parameter name ${parameter.name} is duplicated (${operationRef.toString()})`,
+      );
 
       const ref = operationRef.extend(['parameters', String(index)]);
       const defaultTypeName = TypeName.from(operationId).add(parameter.name);

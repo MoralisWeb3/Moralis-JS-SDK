@@ -15,7 +15,9 @@
           "$ref": "#/components/schemas/blockTransaction/properties/value",
           "customClassName": "AptNative"
         }
-      ]
+      ],
+      "complexTypeProperties": [],
+      "operationParameters": []
     }
   },
   "openApiReader": {

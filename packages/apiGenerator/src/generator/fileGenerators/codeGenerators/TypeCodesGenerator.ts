@@ -4,8 +4,9 @@ import { ResolvedType } from '../TypeResolver';
 export interface TypeCodes {
   colon: string;
   typeCode: string;
-  inputTypeCode: string;
+  inputUnionTypeCode: string;
   jsonTypeCode: string;
+  undefinedSuffix: string;
   complexType: ComplexTypeCodes | null;
 }
 
@@ -21,22 +22,22 @@ export class TypeCodesGenerator {
     return isArray ? `${type}[]` : type;
   }
 
-  public static getColon(isRequired: boolean): string {
-    return isRequired ? ':' : '?:';
-  }
-
   public static generate(resolvedType: ResolvedType, isRequired: boolean): TypeCodes {
-    const colon = TypeCodesGenerator.getColon(isRequired);
+    const colon = isRequired ? ':' : '?:';
+    const undefinedSuffix = isRequired ? '' : ' | undefined';
 
     if (resolvedType.complexType) {
       const jsonClassName = resolvedType.complexType.className + 'JSON';
       const inputClassName = resolvedType.complexType.className + 'Input';
+      const typeCode = TypeCodesGenerator.getTypeCode(resolvedType.complexType.className, resolvedType.isArray);
+      const inputTypeCode = TypeCodesGenerator.getTypeCode(inputClassName, resolvedType.isArray);
 
       return {
         colon,
-        typeCode: TypeCodesGenerator.getTypeCode(resolvedType.complexType.className, resolvedType.isArray),
-        inputTypeCode: TypeCodesGenerator.getTypeCode(inputClassName, resolvedType.isArray),
+        typeCode,
+        inputUnionTypeCode: `${inputTypeCode} | ${typeCode}`,
         jsonTypeCode: TypeCodesGenerator.getTypeCode(jsonClassName, resolvedType.isArray),
+        undefinedSuffix,
         complexType: {
           className: resolvedType.complexType.className,
           inputClassName,
@@ -53,12 +54,24 @@ export class TypeCodesGenerator {
       return {
         colon,
         typeCode,
-        inputTypeCode: typeCode,
+        inputUnionTypeCode: typeCode,
         jsonTypeCode: typeCode,
+        undefinedSuffix,
         complexType: null,
       };
     }
 
     throw new Error('Unknown descriptor type');
+  }
+
+  public static generateNull(): TypeCodes {
+    return {
+      colon: ':',
+      typeCode: 'null',
+      inputUnionTypeCode: 'null',
+      jsonTypeCode: 'null',
+      undefinedSuffix: '',
+      complexType: null,
+    };
   }
 }

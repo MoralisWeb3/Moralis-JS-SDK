@@ -6,6 +6,8 @@ export interface GeneratorConfiguration {
 export interface Mappings {
   types: TypeMapping[];
   refs: RefMapping[];
+  complexTypeProperties: ComplexTypePropertyMapping[];
+  operationParameters: OperationParameterMapping[];
 }
 
 export interface MappingTarget {
@@ -19,4 +21,12 @@ export interface TypeMapping extends MappingTarget {
 
 export interface RefMapping extends MappingTarget {
   $ref: string;
+}
+
+export interface ComplexTypePropertyMapping extends MappingTarget {
+  propertyName: string;
+}
+
+export interface OperationParameterMapping extends MappingTarget {
+  parameterName: string;
 }

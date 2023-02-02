@@ -9,9 +9,10 @@ export class OperationV3Resolver {
     private readonly requestController: RequestController,
   ) {}
 
-  public async resolve<Request, RequestJSON, Response, ResponseJSON>(
+  public async resolve<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>(
     request: Request,
-    operation: OperationV3<Request, RequestJSON, Response, ResponseJSON>,
+    body: Body | null,
+    operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>,
   ): Promise<Response> {
     const urlParamNames = operation.parameterNames.filter((name) => operation.routePattern.includes(`{${name}}`));
     const requestJSON: Record<string, unknown> = operation.serializeRequest
@@ -26,11 +27,15 @@ export class OperationV3Resolver {
 
     const searchParams = operation.parameterNames
       .filter((name) => !urlParamNames.includes(name))
-      .map((name) => {
-        return requestJSON[name];
-      });
+      .reduce((current, name) => {
+        current[name] = requestJSON[name];
+        return current;
+      }, {} as Record<string, unknown>);
 
-    const bodyJSON = operation.hasBody ? (request as { body: { toJSON(): unknown } }).body.toJSON() : undefined;
+    const bodyJSON = body && operation.serializeBody ? operation.serializeBody(body) : undefined;
+    console.log('url', url);
+    console.log('searchParams', searchParams);
+    console.log('bodyJSON', bodyJSON);
 
     const responseJSON = await this.requestController.request<unknown, ResponseJSON>({
       url,
