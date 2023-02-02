@@ -1,4 +1,4 @@
-import { _useClient } from '../../context/MoralisProvider';
+import { _useMoralisContext } from '../../context/MoralisProvider';
 import { PaginatedOperation, PaginatedRequest } from 'moralis/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import { ResolverFetchParams } from './types';
@@ -11,7 +11,7 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
   request?: Request,
   fetchParams?: ResolverFetchParams<Response>,
 ) {
-  const { core, swrConfig } = _useClient();
+  const { core, fetchConfig } = _useMoralisContext();
   const { fetch: resolve } = useMemo(
     () => new PaginatedOperationResolver(operation, baseUrl, core),
     [operation, baseUrl, core],
@@ -26,7 +26,7 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
   );
 
   const { data, error, mutate, isValidating } = useSWR<Response>([request ? operation.id : null, request], fetcher, {
-    ...swrConfig,
+    ...fetchConfig,
     ...fetchParams,
   });
 

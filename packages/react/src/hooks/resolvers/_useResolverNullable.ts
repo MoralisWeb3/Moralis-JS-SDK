@@ -1,4 +1,4 @@
-import { _useClient } from '../../context/MoralisProvider';
+import { _useMoralisContext } from '../../context/MoralisProvider';
 import { NullableOperationResolver } from '@moralisweb3/api-utils';
 import { Operation } from 'moralis/common-core';
 import { ResolverFetchParams } from './types';
@@ -11,7 +11,7 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
   request?: Request,
   fetchParams?: ResolverFetchParams<Response | null>,
 ) {
-  const { core, swrConfig } = _useClient();
+  const { core, fetchConfig } = _useMoralisContext();
   const { fetch: resolve } = useMemo(
     () => new NullableOperationResolver(operation, baseUrl, core),
     [operation, baseUrl, core],
@@ -29,7 +29,7 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
     [request ? operation.id : null, request],
     fetcher,
     {
-      ...swrConfig,
+      ...fetchConfig,
       ...fetchParams,
     },
   );

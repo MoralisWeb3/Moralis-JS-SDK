@@ -4,7 +4,7 @@ import { FetchConfig, MoralisConfig, MoralisContextValue, MoralisProviderProps }
 
 export const MoralisContext = createContext<MoralisContextValue | null>(null);
 
-export const _useClient = () => {
+export const _useMoralisContext = () => {
   const context = useContext(MoralisContext);
   if (!context) {
     throw new Error(`Please wrap your application with MoralisProvider`);
@@ -36,7 +36,7 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
     ...moralisConfig
   } = config;
 
-  const swrConfig: FetchConfig = {
+  const fetchConfig: FetchConfig = {
     revalidateOnFocus,
     revalidateOnMount,
     revalidateIfStale,
@@ -63,7 +63,7 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
     return Moralis.Core;
   }, [moralisConfig]);
 
-  return <MoralisContext.Provider value={{ core, swrConfig }}>{children}</MoralisContext.Provider>;
+  return <MoralisContext.Provider value={{ core, fetchConfig }}>{children}</MoralisContext.Provider>;
 };
 
 export default MoralisProvider;

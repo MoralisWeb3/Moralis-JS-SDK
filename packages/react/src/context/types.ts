@@ -27,7 +27,7 @@ export interface FetchConfig
 
 export interface MoralisContextValue {
   core: Core;
-  swrConfig?: FetchConfig;
+  fetchConfig?: FetchConfig;
 }
 
 export type MoralisConfig = MoralisConfigValues & FetchConfig;

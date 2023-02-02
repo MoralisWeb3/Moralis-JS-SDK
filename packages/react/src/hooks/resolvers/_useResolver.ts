@@ -1,4 +1,4 @@
-import { _useClient } from '../../context/MoralisProvider';
+import { _useMoralisContext } from '../../context/MoralisProvider';
 import { Operation } from 'moralis/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
 import { ResolverFetchParams } from './types';
@@ -11,7 +11,7 @@ export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
   request?: Request,
   fetchParams?: ResolverFetchParams<Response>,
 ) {
-  const { core, swrConfig } = _useClient();
+  const { core, fetchConfig } = _useMoralisContext();
   const { fetch: resolve } = useMemo(() => new OperationResolver(operation, baseUrl, core), [operation, baseUrl, core]);
 
   const fetcher = useCallback(
@@ -23,7 +23,7 @@ export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
   );
 
   const { data, error, mutate, isValidating } = useSWR<Response>([request ? operation.id : null, request], fetcher, {
-    ...swrConfig,
+    ...fetchConfig,
     ...fetchParams,
   });
 
