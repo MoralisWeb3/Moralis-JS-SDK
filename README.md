@@ -222,11 +222,12 @@ Core modules are the building blocks of Moralis.
 Utilities, types, operations and datatypes related used by other modules.
 
 | package                                                                     | changelog                                          | description                                                   |
-| --------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
+|-----------------------------------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------|
 | [@moralisweb3/api-utils](packages/apiUtils/README.md)                       | [2.8.2](packages/apiUtils/CHANGELOG.md)            | Utilities and types to handle logic for api calls             |
 | [@moralisweb3/client-api-utils](packages/client/apiUtils/README.md)         | [2.8.2](packages/client/apiUtils/CHANGELOG.md)     | Client-side utilities for api calls                           |
 | [@moralisweb3/client-evm-api](packages/client/evmApi/README.md)             | [2.8.2](packages/client/evmApi/CHANGELOG.md)       | Client-side logic for making Evm Api calls                    |
 | [@moralisweb3/client-sol-api](packages/client/solApi/README.md)             | [2.8.2](packages/client/solApi/CHANGELOG.md)       | Client-side logic for making Solana Api calls                 |
+| [@moralisweb3/common-aptos-utils](packages/common/aptosUtils/README.md)     | [2.8.2](packages/common/aptosUtils/CHANGELOG.md)   | Utilities, operations, datatypes and types related to Aptos   |
 | [@moralisweb3/common-auth-utils](packages/common/authUtils/README.md)       | [2.8.2](packages/common/authUtils/CHANGELOG.md)    | Utilities, operations, datatypes, and types related to Auth   |
 | [@moralisweb3/common-evm-utils](packages/common/evmUtils/README.md)         | [2.8.2](packages/common/evmUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Evm     |
 | [@moralisweb3/common-sol-utils](packages/common/solUtils/README.md)         | [2.8.2](packages/common/solUtils/CHANGELOG.md)     | Utilities, operations, datatypes and types related to Solana  |

@@ -1,6 +1,6 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createErrorResponse } from '../response/errorResponse';
-import { paginatedAddressesResponse } from '../response/paginatedAddressesResponse';
+import { createErrorResponse } from '../../response/errorResponse';
+import { paginatedAddressesResponse } from '../../response/paginatedAddressesResponse';
 
 export const mockGetAddressesEvm = MockScenarios.create(
   {

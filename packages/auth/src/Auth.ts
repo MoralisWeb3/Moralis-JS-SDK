@@ -73,7 +73,7 @@ export class Auth extends ApiModule {
   };
 
   // Client-side compatible operation, structured in a predictable way as defined in the operation
-  // TODO: generate in seperate package "client-evm-auth" (similar to client-evm-auth)
+  // TODO: generate in separate package "client-evm-auth" (similar to client-evm-auth)
   public readonly solana = {
     requestChallengeSol: (request: RequestChallengeSolanaRequest): Promise<RequestChallengeSolanaResponseAdapter> => {
       return new OperationResolver(requestChallengeSolanaOperation, this.baseUrl, this.core).fetch(request);

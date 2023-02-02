@@ -1,6 +1,6 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
-import { createErrorResponse } from '../response/errorResponse';
-import { createSimpleStreamResponse } from '../response/simpleStreamResponse';
+import { createErrorResponse } from '../../response/errorResponse';
+import { createSimpleStreamResponse } from '../../response/simpleStreamResponse';
 
 export const mockAddAddressEvm = MockScenarios.create(
   {
