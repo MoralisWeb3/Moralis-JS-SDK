@@ -22,13 +22,14 @@ Please check the [official documentation of Moralis](https://docs.moralis.io/) f
 
 # 💥 Features
 
-- 45+ hooks for easy and fast blockchain data accessing.
-- NFT, Balance, Events, DeFi, Token, Transaction, Block, Resolve and more react hooks.
-- [Cross-chain compatible](#supported-chains).
-- Optimized, Lightweight, supports Cache persistence and Request duplication safe.
-- TypeScript support out-of-box.
-- Easy setup, but with a lot of [configuration options](#️-advanced-config).
-...and more.
+- 45+ hooks for easy and fast blockchain data accessing
+- NFT, Balance, Events, DeFi, Token, Transaction, Block, Resolve and more react hooks
+- [Cross-chain compatible](#supported-chains)
+- Optimized, Lightweight, supports Cache persistence and Request duplication safe
+- TypeScript support out-of-box
+- Easy setup, but with a lot of [configuration options](#️-advanced-config)
+
+...and more
 
 # 🚀 Quick start
 
