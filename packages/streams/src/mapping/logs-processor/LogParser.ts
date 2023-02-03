@@ -1,7 +1,6 @@
-import { BigNumber } from 'ethers';
-
+import { BigNumber, type utils as Utils } from 'ethers';
 import { AbiItem, Log } from '@moralisweb3/streams-typings';
-import { utils } from 'ethers';
+import { getEthers } from '@moralisweb3/common-evm-utils';
 
 export interface ParsedLog {
   name: string;
@@ -16,13 +15,16 @@ export interface LogParam {
 export type LogParamValue = BigNumber | string;
 
 export class LogParser {
-  private readonly abiInterface: utils.Interface;
+  private readonly abiInterface: Utils.Interface;
 
   public constructor(abiItems: AbiItem[]) {
-    this.abiInterface = new utils.Interface(abiItems as utils.Fragment[]);
+    const { utils } = getEthers();
+    this.abiInterface = new utils.Interface(abiItems as Utils.Fragment[]);
   }
 
   public read(log: Log): ParsedLog {
+    const { utils } = getEthers();
+
     // Solidity supports max 3 topics. https://docs.soliditylang.org/en/latest/contracts.html#events
     const topics = [log.topic0, log.topic1, log.topic2, log.topic3].filter((t) => t !== null) as string[];
 

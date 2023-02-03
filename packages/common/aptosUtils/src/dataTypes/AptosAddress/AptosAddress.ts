@@ -1,7 +1,6 @@
 import { CoreErrorCode, CoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/common-core';
-import { TxnBuilderTypes } from 'aptos';
+import { getAptos } from '../../utils/getAptos';
 
-const { AccountAddress } = TxnBuilderTypes;
 /**
  * Valid input for a new AptosAddress instance.
  * This can be an existing AptosAddress or a valid address string.
@@ -30,6 +29,10 @@ export class AptosAddress implements MoralisData {
   }
 
   private static parse(address: string): string {
+    const {
+      TxnBuilderTypes: { AccountAddress },
+    } = getAptos();
+
     try {
       if (!AccountAddress.isValid(address)) {
         // Throw and catch locally to resolve the same way if it is invalid and if it cannot be parsed

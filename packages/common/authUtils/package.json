@@ -34,7 +34,6 @@
     "@moralisweb3/common-core": "^2.12.0",
     "@moralisweb3/common-evm-utils": "^2.12.0",
     "@moralisweb3/common-sol-utils": "^2.12.0",
-    "@moralisweb3/streams-typings": "^1.0.6",
-    "ethers": "^5.7.0"
+    "@moralisweb3/streams-typings": "^1.0.6"
   }
 }

@@ -1,5 +1,5 @@
 import { CoreErrorCode, CoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/common-core';
-import { PublicKey } from '@solana/web3.js';
+import { getSolanaWeb3 } from '../../utils/getSolanaWeb3';
 
 /**
  * Valid input for a new SolAddress instance.
@@ -29,6 +29,8 @@ export class SolAddress implements MoralisData {
   }
 
   private static parse(address: string): string {
+    const {PublicKey} = getSolanaWeb3()
+    
     try {
       const publicKey = new PublicKey(address);
       return publicKey.toBase58();

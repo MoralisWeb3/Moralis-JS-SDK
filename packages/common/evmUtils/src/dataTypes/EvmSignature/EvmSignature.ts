@@ -1,5 +1,6 @@
 import { BigNumber, MoralisDataObject, MoralisDataObjectValue } from '@moralisweb3/common-core';
-import { utils, Signature as EthersSignature } from 'ethers';
+import { type Signature as EthersSignature } from 'ethers';
+import { getEthers } from '../../utils/getEthers';
 import { EvmSignatureInput } from './types';
 
 type EvmSignatureData = EthersSignature;
@@ -25,6 +26,7 @@ export class EvmSignature implements MoralisDataObject {
   }
 
   static parse = (data: EvmSignatureInput): EvmSignatureData => {
+    const { utils } = getEthers();
     if (typeof data === 'string') {
       return utils.splitSignature(data);
     }
@@ -66,6 +68,7 @@ export class EvmSignature implements MoralisDataObject {
   }
 
   get serialized(): string {
+    const { utils } = getEthers();
     return utils.joinSignature(this._data);
   }
 

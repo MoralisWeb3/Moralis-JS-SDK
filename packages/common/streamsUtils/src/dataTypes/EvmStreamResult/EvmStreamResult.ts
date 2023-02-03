@@ -1,8 +1,8 @@
 import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { getEthers } from '@moralisweb3/common-evm-utils';
 import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
-import { utils } from 'ethers';
 
 export type EvmStreamResultish = EvmStreamResultInput | EvmStreamResult;
 
@@ -112,6 +112,7 @@ export class EvmStreamResult implements MoralisDataObject {
     if (!this.abi || !this.abi.length) {
       return null;
     }
+    const { utils } = getEthers();
     return new utils.Interface(this.abi);
   }
 
