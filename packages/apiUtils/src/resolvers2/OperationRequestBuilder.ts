@@ -23,7 +23,7 @@ export class OperationRequestBuilder<Request> {
 
     for (const paramName of this.operation.urlPathParamNames ?? []) {
       const paramValue = urlParams[paramName as string];
-      if (!paramValue) {
+      if (paramValue === undefined || paramValue === null) {
         throw new Error(`Param ${paramName as string} is required`);
       }
       urlPath = urlPath.replace(`{${paramName as string}}`, paramValue as string);
@@ -35,7 +35,7 @@ export class OperationRequestBuilder<Request> {
       .filter((paramName) => !this.operation.urlPathParamNames?.includes(paramName as keyof Request))
       .forEach((paramName) => {
         const paramValue = urlParams[paramName];
-        if (paramValue) {
+        if (paramValue !== undefined && paramValue !== null) {
           urlSearchParams[paramName] = paramValue;
         }
       });
