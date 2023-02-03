@@ -29,8 +29,8 @@ export class SolAddress implements MoralisData {
   }
 
   private static parse(address: string): string {
-    const {PublicKey} = getSolanaWeb3()
-    
+    const { PublicKey } = getSolanaWeb3();
+
     try {
       const publicKey = new PublicKey(address);
       return publicKey.toBase58();

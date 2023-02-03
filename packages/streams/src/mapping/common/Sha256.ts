@@ -1,4 +1,4 @@
-import { getEthers } from "@moralisweb3/common-evm-utils";
+import { getEthers } from '@moralisweb3/common-evm-utils';
 
 export class Sha256 {
   public static hash(value: string): string {

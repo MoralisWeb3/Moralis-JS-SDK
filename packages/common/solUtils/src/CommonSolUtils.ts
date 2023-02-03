@@ -22,14 +22,14 @@ export class CommonSolUtils extends Module {
   }
 
   public get SolAddress() {
-    return dataTypes.SolAddress
+    return dataTypes.SolAddress;
   }
 
   public get SolNative() {
-    return dataTypes.SolNative
+    return dataTypes.SolNative;
   }
 
   public get SolNetwork() {
-    return dataTypes.SolNetwork
+    return dataTypes.SolNetwork;
   }
 }

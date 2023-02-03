@@ -16,5 +16,5 @@ export function getSolanaWeb3() {
     });
   }
 
-  return solanaWeb3
+  return solanaWeb3;
 }

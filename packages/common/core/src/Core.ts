@@ -100,6 +100,6 @@ export class Core {
   };
 
   public get BigNumber() {
-    return BigNumber
+    return BigNumber;
   }
 }

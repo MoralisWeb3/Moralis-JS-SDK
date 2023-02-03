@@ -22,14 +22,14 @@ export class CommonAptosUtils extends Module {
   }
 
   get AptosAddress() {
-    return dataTypes.AptosAddress
+    return dataTypes.AptosAddress;
   }
 
   get AptosNative() {
-    return dataTypes.AptosNative
+    return dataTypes.AptosNative;
   }
 
   get AptosNetwork() {
-    return dataTypes.AptosNetwork
+    return dataTypes.AptosNetwork;
   }
 }

@@ -16,5 +16,5 @@ export function getAptos() {
     });
   }
 
-  return aptos
+  return aptos;
 }
