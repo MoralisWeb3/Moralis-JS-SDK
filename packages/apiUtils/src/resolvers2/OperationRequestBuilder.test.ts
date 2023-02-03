@@ -6,6 +6,7 @@ export interface TestRequest {
   userId: number;
   traceId: number;
   password: string;
+  flag: boolean;
 }
 
 const operation: Operation<TestRequest, unknown, unknown, unknown> = {
@@ -14,7 +15,7 @@ const operation: Operation<TestRequest, unknown, unknown, unknown> = {
   groupName: 'test',
   method: 'POST',
   urlPathParamNames: ['userId'],
-  urlSearchParamNames: ['traceId'],
+  urlSearchParamNames: ['traceId', 'flag'],
   urlPathPattern: '/api/{userId}',
   bodyParamNames: ['password'],
   bodyType: 'properties',
@@ -23,6 +24,7 @@ const operation: Operation<TestRequest, unknown, unknown, unknown> = {
       userId: String(request.userId),
       trace_id: String(request.traceId),
       extraSearchParam: '100',
+      flag: request.flag,
     };
   },
   getRequestBody: (request) => {
@@ -61,12 +63,25 @@ describe('OperationRequestBuilder', () => {
         userId: 100,
         traceId: 200,
         password: 'foo',
+        flag: true,
       });
 
       expect(url).toBe('https://localhost/api/100');
-      expect(Object.keys(urlSearchParams).length).toBe(2);
+      expect(Object.keys(urlSearchParams).length).toBe(3);
       expect(urlSearchParams['trace_id']).toBe('200');
       expect(urlSearchParams['extraSearchParam']).toBe('100');
+      expect(urlSearchParams['flag']).toBe(true);
+    });
+
+    it('keeps false value', () => {
+      const { urlSearchParams } = builder.prepareUrl('https://localhost', {
+        userId: 1,
+        traceId: 1,
+        password: '1',
+        flag: false,
+      });
+
+      expect(urlSearchParams['flag']).toBe(false);
     });
   });
 
@@ -76,6 +91,7 @@ describe('OperationRequestBuilder', () => {
         userId: 100,
         traceId: 200,
         password: 'foo',
+        flag: true,
       }) as OperationRequestPropertiesBody;
 
       expect(Object.keys(body).length).toBe(2);
