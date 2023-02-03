@@ -1,0 +1,38 @@
+{
+  "name": "@create-moralis-dapp/toolkit",
+  "author": "Moralis",
+  "version": "2.12.0",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "type": "commonjs",
+  "files": [
+    "lib/*"
+  ],
+  "bin": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc",
+    "postbuild": "npm run copy-files",
+    "copy-files": "copyfiles -u 1 -a src/generators/*/template/** lib",
+    "dev": "ts-node-dev src/index.ts"
+  },
+  "dependencies": {
+    "axios": "^1.2.1",
+    "chalk": "^5.0.1",
+    "copyfiles": "2.4.1",
+    "ejs": "^3.1.8",
+    "fs-extra": "^11.0.1",
+    "inquirer": "^8.0.0",
+    "lodash": "^4.17.21",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/ejs": "3.1.1",
+    "@types/fs-extra": "^11.0.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
