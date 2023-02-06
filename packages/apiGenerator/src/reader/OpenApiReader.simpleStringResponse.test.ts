@@ -12,6 +12,7 @@ describe('OpenApiReader', () => {
     const configuration: OpenApiReaderConfiguration = {
       v3: {
         group$ref: '#/operationId',
+        isEnabled$ref: '#/operationId',
       },
     };
     const result = OpenApiReader.create(

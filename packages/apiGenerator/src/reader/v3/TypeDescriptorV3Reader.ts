@@ -47,6 +47,9 @@ export class TypeDescriptorV3Reader {
         return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
 
+      if (itemsSchema.oneOf || itemsSchema.allOf || itemsSchema.anyOf) {
+        throw new Error(`oneOf, allOf and anyOf is not supported (${parentRef})`);
+      }
       if (!itemsSchema.type) {
         itemsSchema.type = 'string';
         console.warn(`[no-schema-type] Items schema has empty type, set string as default (${parentRef})`);
@@ -58,9 +61,22 @@ export class TypeDescriptorV3Reader {
       return new ComplexTypeDescriptor(false, parentRef, defaultTypeName);
     }
 
+    if (schema.allOf) {
+      if (schema.allOf.length !== 1) {
+        throw new Error(`Supported only single allOf (${parentRef})`);
+      }
+      const allOf$refOrSchema = schema.allOf[0];
+      return this.read(allOf$refOrSchema, parentRef.extend(['allOf', '0']), defaultTypeName);
+    }
+
+    if (schema.oneOf || schema.anyOf) {
+      throw new Error(`oneOf and anyOf is not supported (${parentRef})`);
+    }
     if (!schema.type) {
       schema.type = 'string';
-      console.warn(`[no-schema-type] Schema has empty type, set string as default (${parentRef})`);
+      console.warn(
+        `[no-schema-type] Schema has empty type, set string as default (${parentRef}) [${Object.keys(schema)}]`,
+      );
     }
     return new SimpleTypeDescriptor(false, parentRef, schema.type);
   }

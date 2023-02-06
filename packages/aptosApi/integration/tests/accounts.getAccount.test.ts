@@ -1,7 +1,7 @@
 import { AptosApi } from '../../src/AptosApi';
 import { cleanAptosApi, setupAptosApi } from '../setup';
 
-describe('Moralis SolApi', () => {
+describe('Moralis AptosApi', () => {
   let aptosApi: AptosApi;
 
   beforeAll(() => {
@@ -12,7 +12,7 @@ describe('Moralis SolApi', () => {
     cleanAptosApi();
   });
 
-  it('returns a balance', async () => {
+  it('returns an info', async () => {
     const response = await aptosApi.accounts.getAccount({
       address: '0x7abf3bc917c75e13b2225417aa1b008a4c1b1a6b487739ad0a39ef847b9c2f8e',
     });

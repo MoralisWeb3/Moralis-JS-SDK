@@ -28,6 +28,7 @@ export class OperationsV3Reader {
 
     const operationIdUniquenessChecker = new UniquenessChecker();
     const groupRef = JsonRef.parse(this.configuration.group$ref);
+    const isEnabledRef = JsonRef.parse(this.configuration.isEnabled$ref);
 
     for (const routePattern of Object.keys(this.document.paths)) {
       const pathGroup = this.document.paths[routePattern];
@@ -54,6 +55,11 @@ export class OperationsV3Reader {
           continue;
         }
 
+        const isEnabled = isEnabledRef.tryFind<unknown>(path);
+        if (!isEnabled) {
+          continue;
+        }
+
         const operationRef = JsonRef.from(['paths', routePattern, httpMethod]);
 
         const responseBody = path.responses[responseCode] as OpenAPIV3.ResponseObject;
@@ -62,11 +68,7 @@ export class OperationsV3Reader {
         const parameters = this.readParameters(operationRef, path.operationId, path.parameters);
         const body = this.readBody(operationRef, path.operationId, path.requestBody);
 
-        const groupName = groupRef.tryFind<string>(path);
-        if (!groupName) {
-          console.warn(`[no-group] Cannot read group name for ${path.operationId} (${groupRef.toString()})`);
-          continue;
-        }
+        const groupName = groupRef.find<string>(path);
 
         this.operations.push({
           operationId: path.operationId,
@@ -110,7 +112,7 @@ export class OperationsV3Reader {
         () => `Parameter name ${parameter.name} is duplicated (${operationRef.toString()})`,
       );
 
-      const ref = operationRef.extend(['parameters', String(index)]);
+      const ref = operationRef.extend(['parameters', String(index), 'schema']);
       const defaultTypeName = TypeName.from(operationId).add(parameter.name);
       const descriptor = this.typeDescriptorReader.read(schema, ref, defaultTypeName);
       if (isComplexTypeDescriptor(descriptor)) {

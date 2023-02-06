@@ -4,7 +4,7 @@ export const mockGetAccount = MockScenarios.create(
   {
     method: 'get',
     name: 'mockGetAccount',
-    url: `/aptos-api/accounts/:address`,
+    url: `/accounts/:address`,
     getParams: ({ req }) => ({
       address: req.params.address,
     }),

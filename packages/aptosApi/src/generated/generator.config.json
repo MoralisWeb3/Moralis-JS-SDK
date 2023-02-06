@@ -1,5 +1,5 @@
 {
-  "url": "https://aptos-mainnet.aws-prod-api-1.moralis.io/aptos-api/swagger-json",
+  "url": "https://mainnet-aptos-api.moralis.io/aptos-api/swagger-json",
 
   "generator": {
     "classNamePrefix": "Aptos",
@@ -62,7 +62,8 @@
   },
   "openApiReader": {
     "v3": {
-      "group$ref": "#/x-tag-sdk"
+      "group$ref": "#/tags/0",
+      "isEnabled$ref": "#/x-tag-sdk"
     }
   }
 }

@@ -50,7 +50,7 @@ export class AptosNative implements MoralisData {
   }
 
   public static fromJSON(json: AptosNativeJSON): AptosNative {
-    return AptosNative.create(json);
+    return AptosNative.create(json, 'octas');
   }
 
   private static parse(value: BigNumberish, unit: AptosNativeUnit = 'aptos'): BigNumber {

@@ -33,9 +33,6 @@ export class OperationV3Resolver {
       }, {} as Record<string, unknown>);
 
     const bodyJSON = body && operation.serializeBody ? operation.serializeBody(body) : undefined;
-    console.log('url', url);
-    console.log('searchParams', searchParams);
-    console.log('bodyJSON', bodyJSON);
 
     const responseJSON = await this.requestController.request<unknown, ResponseJSON>({
       url,
@@ -45,6 +42,7 @@ export class OperationV3Resolver {
       data: bodyJSON,
       headers: this.prepareHeaders(),
     });
+
     if (!responseJSON || !operation.parseResponse) {
       if (operation.hasResponse) {
         throw new Error('Expected response, but API has returned empty response');
@@ -66,7 +64,7 @@ export class OperationV3Resolver {
     }
 
     const headers = getCommonHeaders();
-    headers['x-api-key'] = apiKey;
+    headers['Authorization'] = `Bearer ${apiKey}`;
     if (product) {
       headers['x-moralis-product'] = product;
     }

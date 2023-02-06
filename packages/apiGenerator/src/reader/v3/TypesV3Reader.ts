@@ -44,6 +44,10 @@ export class TypesV3Reader {
 
     const propertyKeys = scheme.properties ? Object.keys(scheme.properties) : [];
     if (!scheme.properties || propertyKeys.length < 1) {
+      if (scheme.anyOf || scheme.allOf || scheme.anyOf) {
+        throw new Error(`anyOf, allOf and anyOf is not supported (${pointer.ref})`);
+      }
+
       let simpleType = scheme.type;
       if (!simpleType) {
         simpleType = 'object';
