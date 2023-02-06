@@ -16,7 +16,9 @@ export type AptosNativeUnit = 'aptos' | 'octas' | number;
  * Valid input for a new AptosNative instance.
  * This can be an existing {@link AptosNative} or a valid {@link @moralisweb3/common-core!BigNumberish} type
  */
-export type AptosNativeish = AptosNative | BigNumberish;
+export type AptosNativeInput = AptosNative | BigNumberish;
+
+export type AptosNativeJSON = string;
 
 const unitToDecimals: Record<AptosNativeUnit, number> = {
   aptos: 8,
@@ -30,7 +32,7 @@ const unitToDecimals: Record<AptosNativeUnit, number> = {
  */
 export class AptosNative implements MoralisData {
   /**
-   * Create a new instance of AptosNative from any valid {@link AptosNativeish} value.
+   * Create a new instance of AptosNative from any valid {@link AptosNativeInput} value.
    * @param value - the value to create the AptosNative from
    * @param unit - the unit of the value (optional), defaults to `aptos`
    * @returns a new instance of AptosNative
@@ -40,11 +42,15 @@ export class AptosNative implements MoralisData {
    * const native = AptosNative.create(2);
    *```
    */
-  public static create(value: AptosNativeish, unit?: AptosNativeUnit): AptosNative {
+  public static create(value: AptosNativeInput, unit?: AptosNativeUnit): AptosNative {
     if (value instanceof AptosNative) {
       return value;
     }
     return new AptosNative(AptosNative.parse(value, unit));
+  }
+
+  public static fromJSON(json: AptosNativeJSON): AptosNative {
+    return AptosNative.create(json);
   }
 
   private static parse(value: BigNumberish, unit: AptosNativeUnit = 'aptos'): BigNumber {
@@ -74,7 +80,7 @@ export class AptosNative implements MoralisData {
    * AptosNative.equals(AptosNative.create(1), AptosNative.create(1)); // true
    * ```
    */
-  public static equals(valueA: AptosNativeish, valueB: AptosNativeish): boolean {
+  public static equals(valueA: AptosNativeInput, valueB: AptosNativeInput): boolean {
     const aptosNativeA = AptosNative.create(valueA);
     const aptosNativeB = AptosNative.create(valueB);
 
@@ -110,7 +116,7 @@ export class AptosNative implements MoralisData {
    * @returns the value of the AptosNative as a string
    * @example `native.toJSON()`
    */
-  public toJSON(): string {
+  public toJSON(): AptosNativeJSON {
     return this.octas;
   }
 

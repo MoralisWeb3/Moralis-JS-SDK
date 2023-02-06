@@ -1,8 +1,8 @@
 {
-  "url": "https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json",
+  "url": "https://aptos-mainnet.aws-prod-api-1.moralis.io/aptos-api/swagger-json",
 
   "generator": {
-    "classNamePrefix": "Evm",
+    "classNamePrefix": "Aptos",
     "mappings": {
       "types": [
         {
@@ -13,11 +13,51 @@
       "refs": [
         {
           "$ref": "#/components/schemas/blockTransaction/properties/value",
-          "customClassName": "AptNative"
+          "className": "AptNative"
         }
       ],
-      "complexTypeProperties": [],
-      "operationParameters": []
+      "complexTypeProperties": [
+        {
+          "names": [
+            "creator_address",
+            "owner_address",
+            "sender",
+            "payee_address",
+            "from_address",
+            "to_address"
+          ],
+          "className": "AptosAddress",
+          "import": "@moralisweb3/common-aptos-utils"
+        },
+        {
+          "names": [
+            "amount",
+            "coin_amount",
+            "token_amount"
+          ],
+          "className": "AptosNative",
+          "import": "@moralisweb3/common-aptos-utils"
+        }
+      ],
+      "operationParameters": [
+        {
+          "names": [
+            "owner_addresses",
+            "creator_addresses",
+            "creator_address",
+            "wallet_addresses"
+          ],
+          "className": "AptosAddress",
+          "import": "@moralisweb3/common-aptos-utils"
+        },
+        {
+          "names": [
+            "min_amount"
+          ],
+          "className": "AptosNative",
+          "import": "@moralisweb3/common-aptos-utils"
+        }
+      ]
     }
   },
   "openApiReader": {

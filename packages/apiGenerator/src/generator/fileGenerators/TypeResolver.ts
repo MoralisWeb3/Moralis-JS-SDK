@@ -81,17 +81,15 @@ export class TypeResolver {
   }
 
   private resolveTarget(descriptor: TypeDescriptor, target: MappingTarget): ResolvedType {
-    if (!target.customClassName) {
+    if (!target.className) {
       throw new Error('Not supported mapping target');
     }
 
-    const importPath = target.customImport
-      ? target.customImport
-      : `${this.basePath}customTypes/${target.customClassName}`;
+    const importPath = target.import ? target.import : `${this.basePath}customTypes/${target.className}`;
     return {
       isArray: descriptor.isArray,
       complexType: {
-        className: target.customClassName,
+        className: target.className,
         importPath,
       },
     };

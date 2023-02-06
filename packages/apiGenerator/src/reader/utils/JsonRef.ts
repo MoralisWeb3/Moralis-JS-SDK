@@ -24,12 +24,20 @@ export class JsonRef {
   }
 
   public find<T>(data: any): T {
+    const found = this.tryFind<T>(data);
+    if (found === undefined) {
+      throw new Error(`Cannot find node by ref: ${this.toString()}`);
+    }
+    return found;
+  }
+
+  public tryFind<T>(data: any): T | undefined {
     let current = data;
     for (let index = 0; index < this.parts.length; index++) {
       const part = this.parts[index];
       current = current[part];
       if (!current) {
-        throw new Error(`Cannot find node by ref: ${this.toString()} (${part})`);
+        return undefined;
       }
     }
     return current as T;

@@ -11,8 +11,8 @@ export interface Mappings {
 }
 
 export interface MappingTarget {
-  customClassName?: string;
-  customImport?: string;
+  className?: string;
+  import?: string;
 }
 
 export interface TypeMapping extends MappingTarget {
@@ -24,9 +24,9 @@ export interface RefMapping extends MappingTarget {
 }
 
 export interface ComplexTypePropertyMapping extends MappingTarget {
-  propertyName: string;
+  names: string[];
 }
 
 export interface OperationParameterMapping extends MappingTarget {
-  parameterName: string;
+  names: string[];
 }

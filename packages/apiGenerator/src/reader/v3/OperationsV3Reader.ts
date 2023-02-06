@@ -62,7 +62,11 @@ export class OperationsV3Reader {
         const parameters = this.readParameters(operationRef, path.operationId, path.parameters);
         const body = this.readBody(operationRef, path.operationId, path.requestBody);
 
-        const groupName = groupRef.find<string>(path);
+        const groupName = groupRef.tryFind<string>(path);
+        if (!groupName) {
+          console.warn(`[no-group] Cannot read group name for ${path.operationId} (${groupRef.toString()})`);
+          continue;
+        }
 
         this.operations.push({
           operationId: path.operationId,

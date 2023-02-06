@@ -18,10 +18,10 @@ export class MappingResolver {
   }
 
   public tryResolveByOperationParameterName(name: string): OperationParameterMapping | undefined {
-    return this.mappings.operationParameters.find((p) => p.parameterName === name);
+    return this.mappings.operationParameters.find((p) => p.names.includes(name));
   }
 
   public tryResolveByComplexTypePropertyName(name: string): ComplexTypePropertyMapping | undefined {
-    return this.mappings.complexTypeProperties.find((p) => p.propertyName === name);
+    return this.mappings.complexTypeProperties.find((p) => p.names.includes(name));
   }
 }

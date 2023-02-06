@@ -2,7 +2,7 @@ import { Core, CoreProvider, RequestController } from '@moralisweb3/common-core'
 import { AbstractClient, OperationV3 } from './generated/abstractClient';
 import { OperationV3Resolver } from './OperationV3Resolver';
 
-const BASE_URL = 'https://deep-index.moralis.io/api/v2';
+const BASE_URL = 'https://aptos-mainnet.aws-prod-api-1.moralis.io';
 
 export class AptosApi extends AbstractClient {
   public static readonly moduleName = 'aptApi';
