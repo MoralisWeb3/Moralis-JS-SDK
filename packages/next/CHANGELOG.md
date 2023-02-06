@@ -1,5 +1,20 @@
 # @moralisweb3/next
 
+## 2.13.0
+
+### Patch Changes
+
+- [#1001](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1001) [`5876132c3`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5876132c3c300ec831fb8f1ba67df99d25d09a0d) Thanks [@Y0moo](https://github.com/Y0moo)! - Fix: unexpected missing chainId errors
+
+- Updated dependencies [[`abb77d713`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/abb77d713daccc0c0f872c2143a2f441afb0a2c9)]:
+  - @moralisweb3/api-utils@2.13.0
+  - @moralisweb3/auth@2.13.0
+  - @moralisweb3/common-auth-utils@2.13.0
+  - @moralisweb3/common-core@2.13.0
+  - @moralisweb3/evm-api@2.13.0
+  - @moralisweb3/sol-api@2.13.0
+  - moralis@2.13.0
+
 ## 2.12.0
 
 ### Patch Changes

@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "moralis": "^2.12.0"
+    "moralis": "^2.13.0"
   },
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.2",
