@@ -1,15 +1,15 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { MoralisProvider, createMoralisConfig } from '@moralisweb3/react';
+import { MoralisProvider, MoralisConfig } from '@moralisweb3/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const moralisConfig = createMoralisConfig({
+const moralisConfig: MoralisConfig = {
   apiKey: process.env.REACT_APP_MORALIS_KEY || '',
-});
+};
 
 root.render(
   <BrowserRouter>

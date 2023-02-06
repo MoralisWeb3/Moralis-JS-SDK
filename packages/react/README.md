@@ -51,16 +51,16 @@ yarn add  @moralisweb3/react react react-dom
 
 ### 2. Add MoralisProvider
 
-Then wrap your app in a <MoralisProvider>, and prepare a config object with your apiKey using `createMoralisConfig`. Pass the config as a prop to the `MoralisProvider`
+Then wrap your app in a <MoralisProvider>, and pass the config as a prop to the `MoralisProvider`
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import { MoralisProvider, createMoralisConfig } from "@moralisweb3/react";
+import { MoralisProvider, MoralisConfig } from "@moralisweb3/react";
 
-const moralisConfig = createMoralisConfig({
+const moralisConfig: MoralisConfig = {
   apiKey: "MORALIS_API_KEY",
-});
+};
 
 ReactDOM.render(
   <MoralisProvider config={moralisConfig}>
@@ -1117,16 +1117,16 @@ The `config` property for `MoralisProvider` can be used not only to specify the 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import { MoralisProvider, createMoralisConfig } from "@moralisweb3/react";
+import { MoralisProvider, MoralisConfig } from "@moralisweb3/react";
 
-const moralisConfig = createMoralisConfig({ 
+const moralisConfig: MoralisConfig = { 
   apiKey: 'YOUR_API_KEY',
   formatEvmAddress: 'checksum',
   formatEvmChainId: 'decimal',
   logLevel: 'verbose',
   refreshInterval: 3000,
   revalidateOnFocus: true,
-})
+};
 
 ReactDOM.render(
   <MoralisProvider config={moralisConfig}>

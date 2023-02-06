@@ -1,6 +1,6 @@
 import Moralis from 'moralis';
 import React, { FC, createContext, useContext, useMemo } from 'react';
-import { FetchConfig, MoralisConfig, MoralisContextValue, MoralisProviderProps } from './types';
+import { FetchConfig, MoralisContextValue, MoralisProviderProps } from './types';
 
 export const MoralisContext = createContext<MoralisContextValue | null>(null);
 
@@ -11,8 +11,6 @@ export const _useMoralisContext = () => {
   }
   return context;
 };
-
-export const createMoralisConfig = (config: MoralisConfig) => config;
 
 const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
   const {
