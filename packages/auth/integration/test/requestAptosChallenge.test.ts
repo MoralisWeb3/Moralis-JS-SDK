@@ -29,7 +29,9 @@ describe('requestEvmChallenge', () => {
       });
       expect(result).toBeDefined();
       expect(result.result.id).toEqual('Mk5deGOhekYev18pJ');
-      expect(result.result.message).toEqual("defi.finance wants you to sign in with your Aptos account:\n0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d\n\nPlease confirm\n\nURI: https://defi.finance/\nVersion: 1\nChain ID: 1\nNonce: 3c00srSBbEfdOwn4M\nIssued At: 2023-02-06T08:38:56.456Z\nExpiration Time: 2020-01-01T00:00:00.000Z\nNot Before: 2020-01-01T00:00:00.000Z\nResources:\n- https://docs.moralis.io/");
+      expect(result.result.message).toEqual(
+        'defi.finance wants you to sign in with your Aptos account:\n0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d\n\nPlease confirm\n\nURI: https://defi.finance/\nVersion: 1\nChain ID: 1\nNonce: 3c00srSBbEfdOwn4M\nIssued At: 2023-02-06T08:38:56.456Z\nExpiration Time: 2020-01-01T00:00:00.000Z\nNot Before: 2020-01-01T00:00:00.000Z\nResources:\n- https://docs.moralis.io/',
+      );
       expect(result.result.profileId).toEqual('0x13e04b6cd6f84deef360a444499cbaccae717624f96cfa6dfe7cb250eced74eb');
     });
 

@@ -4,7 +4,11 @@ import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core'
 import { EvmAddress, EvmAddressish, EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { BASE_URL } from '../Auth';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
-import { requestChallengeSolanaOperation, requestChallengeEvmOperation, requestChallengeAptosOperation } from '@moralisweb3/common-auth-utils';
+import {
+  requestChallengeSolanaOperation,
+  requestChallengeEvmOperation,
+  requestChallengeAptosOperation,
+} from '@moralisweb3/common-auth-utils';
 import { AptosAddress, AptosAddressish, AptosNetwork, AptosNetworkish } from '@moralisweb3/common-aptos-utils';
 
 // Imported from Swagger and adjusted for better types for Evm
@@ -62,7 +66,7 @@ export interface RequestMessageAptosOptions {
   timeout: number;
 }
 
-export type RequestMessageOptions = RequestMessageEvmOptions | RequestMessageSolOptions | RequestMessageAptosOptions
+export type RequestMessageOptions = RequestMessageEvmOptions | RequestMessageSolOptions | RequestMessageAptosOptions;
 
 const makeEvmRequestMessage = (
   core: Core,
@@ -86,7 +90,6 @@ const makeSolRequestMessage = (
   });
 };
 
-
 const makeAptosRequestMessage = (
   core: Core,
   { address, networkType, chain, ...options }: RequestMessageAptosOptions,
@@ -97,7 +100,6 @@ const makeAptosRequestMessage = (
     ...options,
   });
 };
-
 
 export const makeRequestMessage = (core: Core) => async (options: RequestMessageOptions) => {
   // Backwards compatibility for the 'network' parameter
@@ -111,7 +113,7 @@ export const makeRequestMessage = (core: Core) => async (options: RequestMessage
     case AuthNetworkType.SOLANA:
       return makeSolRequestMessage(core, options);
     case AuthNetworkType.APTOS:
-      return makeAptosRequestMessage(core,options)
+      return makeAptosRequestMessage(core, options);
     default:
       if (!options.networkType) {
         return makeEvmRequestMessage(core, options);

@@ -1,7 +1,11 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
 import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { BASE_URL } from '../Auth';
-import { verifyChallengeSolanaOperation, verifyChallengeEvmOperation, verifyChallengeAptosOperation } from '@moralisweb3/common-auth-utils';
+import {
+  verifyChallengeSolanaOperation,
+  verifyChallengeEvmOperation,
+  verifyChallengeAptosOperation,
+} from '@moralisweb3/common-auth-utils';
 import { AuthNetworkType } from '../utils/AuthNetworkType';
 
 export interface VerifyEvmOptions {
@@ -30,7 +34,7 @@ export interface VerifyAptosOptions {
   signature: string;
 }
 
-export type VerifyOptions = VerifyEvmOptions | VerifySolOptions | VerifyAptosOptions
+export type VerifyOptions = VerifyEvmOptions | VerifySolOptions | VerifyAptosOptions;
 
 const makeEvmVerify = (core: Core, { networkType, network, ...options }: VerifyEvmOptions) => {
   return new OperationResolver(verifyChallengeEvmOperation, BASE_URL, core).fetch({
@@ -53,7 +57,6 @@ const makeAptosVerify = (core: Core, { networkType, ...options }: VerifyAptosOpt
   });
 };
 
-
 export const makeVerify = (core: Core) => async (options: VerifyOptions) => {
   // Backwards compatibility for the 'network' parameter
   if (!options.networkType && options.network) {
@@ -66,7 +69,7 @@ export const makeVerify = (core: Core) => async (options: VerifyOptions) => {
     case AuthNetworkType.SOLANA:
       return makeSolVerify(core, options);
     case AuthNetworkType.APTOS:
-      return makeAptosVerify(core, options)
+      return makeAptosVerify(core, options);
     default:
       if (!options.networkType) {
         return makeEvmVerify(core, options);

@@ -23,5 +23,5 @@ export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: AUT
   mockVerifyRequestBind,
   mockVerifySolanaChallenge,
   mockRequestAptosChallenge,
-  mockVerifyAptosChallenge
+  mockVerifyAptosChallenge,
 ]).start();

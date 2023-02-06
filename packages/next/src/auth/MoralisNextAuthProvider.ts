@@ -1,6 +1,10 @@
 import { Network } from 'moralis/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { verifyChallengeAptosOperation, verifyChallengeEvmOperation, verifyChallengeSolanaOperation } from '@moralisweb3/common-auth-utils';
+import {
+  verifyChallengeAptosOperation,
+  verifyChallengeEvmOperation,
+  verifyChallengeSolanaOperation,
+} from '@moralisweb3/common-auth-utils';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Moralis from 'moralis';
 import { serverLogger } from '../serverLogger';

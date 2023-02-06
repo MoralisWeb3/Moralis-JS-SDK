@@ -60,7 +60,7 @@ function getRequestBody(request: VerifyChallengeAptosRequest) {
 function deserializeResponse({ chainId, ...jsonResponse }: VerifyChallengeAptosJSONResponse) {
   return {
     ...jsonResponse,
-    chain:  AptosNetwork.create(chainId),
+    chain: AptosNetwork.create(chainId),
     address: AptosAddress.create(jsonResponse.address),
     expirationTime: maybe(jsonResponse.expirationTime, (value) => new Date(value)),
     notBefore: maybe(jsonResponse.notBefore, (value) => new Date(value)),

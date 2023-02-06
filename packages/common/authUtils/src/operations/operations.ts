@@ -13,7 +13,7 @@ import { requestChallengeAptosOperation, verifyChallengeAptosOperation } from '.
 export const operations = [
   requestChallengeSolanaOperation,
   requestChallengeEvmOperation,
-  requestChallengeAptosOperation, 
+  requestChallengeAptosOperation,
   verifyChallengeSolanaOperation,
   verifyChallengeEvmOperation,
   verifyChallengeAptosOperation,

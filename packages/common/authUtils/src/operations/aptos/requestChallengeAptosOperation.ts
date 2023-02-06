@@ -51,7 +51,7 @@ export const requestChallengeAptosOperation: Operation<
     'notBefore',
     'resources',
     'timeout',
-    'publicKey'
+    'publicKey',
   ],
   bodyType: 'properties',
 

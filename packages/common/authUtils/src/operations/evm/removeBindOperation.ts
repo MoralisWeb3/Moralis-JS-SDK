@@ -14,7 +14,7 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 export interface RemoveBindRequest extends Camelize<Omit<RequestParams, 'address' | 'publicKey'>> {
   address: EvmAddressish;
   // TODO: remove this after has been fixed in the swagger (publicKey is only required for Aptos)
-  publicKey?: string
+  publicKey?: string;
 }
 
 export type RemoveBindJSONRequest = ReturnType<typeof serializeRequest>;
@@ -57,7 +57,7 @@ function getRequestBody(request: RemoveBindRequest, core: Core) {
     blockchainType: request.blockchainType,
     address: EvmAddress.create(request.address, core).checksum,
     profileId: request.profileId,
-    publicKey: request.publicKey
+    publicKey: request.publicKey,
   };
 }
 
@@ -70,7 +70,7 @@ function serializeRequest(request: RemoveBindRequest, core: Core) {
     blockchainType: request.blockchainType,
     address: EvmAddress.create(request.address, core).checksum,
     profileId: request.profileId,
-    publicKey: request.publicKey
+    publicKey: request.publicKey,
   };
 }
 
@@ -79,6 +79,6 @@ function deserializeRequest(jsonRequest: RemoveBindJSONRequest, core: Core): Rem
     blockchainType: jsonRequest.blockchainType,
     address: EvmAddress.create(jsonRequest.address, core),
     profileId: jsonRequest.profileId,
-    publicKey: jsonRequest.publicKey
+    publicKey: jsonRequest.publicKey,
   };
 }
