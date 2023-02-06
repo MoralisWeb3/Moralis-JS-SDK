@@ -7,43 +7,36 @@ import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
 import cleaner from 'rollup-plugin-cleaner';
 
-/**
- * Generate UMD build, based on the input file.
- * 'input' should be preferably an ESM build.
- * Any packages configured in `globalsMapping` are excluded from the build (see rollup docs on how to use 'globals' )
- */
-const getUMDConfig = ({ input, name, moduleName, outFolder, globalsMapping }) => {
-  const globalPackages = Object.keys(globalsMapping);
-  const outputFiles = [
-    `${outFolder}/${moduleName}.js`,
-    `${outFolder}/${moduleName}.js.map`,
-    `${outFolder}/${moduleName}.min.js`,
-    `${outFolder}/${moduleName}.min.js.map`,
-  ];
-
+const getUMDConfig = () => {
   return {
-    input,
-    external: globalPackages,
+    input: 'lib.esm/index.js',
+    external: ['ethers', '@solana/web3.js'],
     output: [
       {
-        file: `${outFolder}/${moduleName}.js`,
-        name,
+        file: 'dist/moralis.js',
+        name: `Moralis`,
         format: 'umd',
         sourcemap: true,
-        globals: globalsMapping,
+        globals: {
+          '@solana/web3.js': 'solanaWeb3',
+          ethers: 'ethers',
+        },
       },
       {
-        file: `${outFolder}/${moduleName}.min.js`,
-        name,
+        file: 'dist/moralis.min.js',
+        name: `Moralis`,
         format: 'umd',
         sourcemap: true,
-        globals: globalsMapping,
+        globals: {
+          '@solana/web3.js': 'solanaWeb3',
+          ethers: 'ethers',
+        },
         plugins: [terser()],
       },
     ],
     plugins: [
       cleaner({
-        targets: outputFiles,
+        targets: ['dist/moralis.js', 'dist/moralis.js.map'],
       }),
       nodePolyfills(),
       peerDepsExternal(),
@@ -51,7 +44,7 @@ const getUMDConfig = ({ input, name, moduleName, outFolder, globalsMapping }) =>
       nodeResolve({
         browser: true,
         preferBuiltins: false,
-        resolveOnly: (module) => !globalPackages.includes(module),
+        resolveOnly: (module) => !['ethers', '@solana/web3.js'].includes(module),
       }),
       json(),
       globals({}),
@@ -59,16 +52,4 @@ const getUMDConfig = ({ input, name, moduleName, outFolder, globalsMapping }) =>
   };
 };
 
-export default [
-  getUMDConfig({
-    input: 'lib.esm/index.js',
-    name: 'Moralis',
-    moduleName: 'moralis',
-    outFolder: 'dist',
-    globalsMapping: {
-      '@solana/web3.js': 'solanaWeb3',
-      ethers: 'ethers',
-      aptos: 'aptosSDK',
-    },
-  }),
-];
+export default [getUMDConfig()];

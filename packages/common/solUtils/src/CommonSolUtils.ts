@@ -1,7 +1,6 @@
 import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonSolUtilsConfigSetup } from './config';
 import * as dataTypes from './dataTypes';
-
 export class CommonSolUtils extends Module {
   public static readonly moduleName = 'solUtils';
 

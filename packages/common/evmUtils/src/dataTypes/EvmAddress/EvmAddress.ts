@@ -7,8 +7,8 @@ import {
   CoreError,
   MoralisData,
 } from '@moralisweb3/common-core';
+import { utils } from 'ethers';
 import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
-import { getEthers } from '../../utils/getEthers';
 
 /**
  * This can be any valid EVM address, formatted as lowercase or checksum.
@@ -68,7 +68,6 @@ export class EvmAddress implements MoralisData {
   }
 
   private static parse(address: EvmAddressInput) {
-    const { utils } = getEthers();
     if (!utils.isAddress(address)) {
       throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
