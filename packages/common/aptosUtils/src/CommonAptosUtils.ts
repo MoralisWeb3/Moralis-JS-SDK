@@ -1,6 +1,6 @@
 import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonAptosUtilsConfigSetup } from './config';
-import * as dataTypes from './dataTypes'
+import * as dataTypes from './dataTypes';
 
 export class CommonAptosUtils extends Module {
   public static readonly moduleName = 'aptosUtils';

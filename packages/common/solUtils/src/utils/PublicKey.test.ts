@@ -1,3 +1,9 @@
+/**
+ * Copied (and remove obsolete functionalities) from https://github.com/solana-labs/solana-web3.js/blob/master/test/publickey.test.ts because
+ * - We only care about address validation and conversion
+ * - Resolving this dependency in UMD gives dependency errors
+ */
+
 import { PublicKey } from './PublicKey';
 
 describe('PublicKey', function () {

@@ -1,10 +1,10 @@
 /**
- * Copied (and remove obsolete functionalities) from https://github.com/solana-labs/solana-web3.js/blob/master/src/publickey.ts because
+ * Copied (and remove obsolete functionalities) from https://github.com/aptos-labs/aptos-core/blob/main/ecosystem/typescript/sdk/src/aptos_types/account_address.ts because
  * - We only care about address validation and conversion
  * - Resolving this dependency in UMD gives dependency errors
  */
 
-import { HexString, MaybeHexString } from "./HexString";
+import { HexString, MaybeHexString } from './HexString';
 
 type Bytes = Uint8Array;
 
@@ -13,11 +13,11 @@ export class AccountAddress {
 
   readonly address: Bytes;
 
-  static CORE_CODE_ADDRESS: AccountAddress = AccountAddress.fromHex("0x1");
+  static CORE_CODE_ADDRESS: AccountAddress = AccountAddress.fromHex('0x1');
 
   constructor(address: Bytes) {
     if (address.length !== AccountAddress.LENGTH) {
-      throw new Error("Expected address of length 32");
+      throw new Error('Expected address of length 32');
     }
     this.address = address;
   }
@@ -58,7 +58,7 @@ export class AccountAddress {
    */
   static isValid(addr: MaybeHexString): boolean {
     // At least one zero is required
-    if (addr === "") {
+    if (addr === '') {
       return false;
     }
 

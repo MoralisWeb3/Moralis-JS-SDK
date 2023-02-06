@@ -1,7 +1,10 @@
-// Copyright (c) Aptos
-// SPDX-License-Identifier: Apache-2.0
+/**
+ * Copied (and remove obsolete functionalities) from https://github.com/aptos-labs/aptos-core/blob/main/ecosystem/typescript/sdk/src/hex_string.ts because
+ * - We only care about address validation and conversion, this is a dependency for AccountAddress
+ * - Resolving this dependency in UMD gives dependency errors
+ */
 
-import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
 
 // eslint-disable-next-line no-use-before-define
 export type MaybeHexString = HexString | string;
@@ -45,7 +48,7 @@ export class HexString {
    * ```
    */
   static ensure(hexString: MaybeHexString): HexString {
-    if (typeof hexString === "string") {
+    if (typeof hexString === 'string') {
       return new HexString(hexString);
     }
     return hexString;
@@ -62,7 +65,7 @@ export class HexString {
    * ```
    */
   constructor(hexString: string) {
-    if (hexString.startsWith("0x")) {
+    if (hexString.startsWith('0x')) {
       this.hexString = hexString;
     } else {
       this.hexString = `0x${hexString}`;
@@ -107,7 +110,7 @@ export class HexString {
    * ```
    */
   toShortString(): string {
-    const trimmed = this.hexString.replace(/^0x0*/, "");
+    const trimmed = this.hexString.replace(/^0x0*/, '');
     return `0x${trimmed}`;
   }
 

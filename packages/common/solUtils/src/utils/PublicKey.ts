@@ -3,6 +3,7 @@
  * - We only care about address validation and conversion
  * - Resolving this dependency in UMD gives dependency errors
  */
+
 import BN from 'bn.js';
 import bs58 from 'bs58';
 import { Buffer } from 'buffer';
