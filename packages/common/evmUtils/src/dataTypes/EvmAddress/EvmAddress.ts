@@ -7,7 +7,7 @@ import {
   CoreError,
   MoralisData,
 } from '@moralisweb3/common-core';
-import { utils } from 'ethers';
+import { isAddress, getAddress } from '@ethersproject/address';
 import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
 /**
@@ -68,13 +68,13 @@ export class EvmAddress implements MoralisData {
   }
 
   private static parse(address: EvmAddressInput) {
-    if (!utils.isAddress(address)) {
+    if (!isAddress(address)) {
       throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
         message: 'Invalid address provided',
       });
     }
-    return utils.getAddress(address);
+    return getAddress(address);
   }
 
   /**

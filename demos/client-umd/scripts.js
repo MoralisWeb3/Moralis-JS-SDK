@@ -1,4 +1,4 @@
-// Replace with yout Moralis API key (make sure to set up the roles correctly, as it is accessible from the client)
+// Replace with your Moralis API key (make sure to set up the roles correctly, as it is accessible from the client)
 const MORALIS_API_KEY = '';
 
 // References to the HTML elements that we need (make sure the script is executed after the DOM elements are loaded)

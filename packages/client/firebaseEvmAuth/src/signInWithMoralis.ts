@@ -1,5 +1,5 @@
 import { signInWithCustomToken, UserCredential } from 'firebase/auth';
-import { providers } from 'ethers';
+import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { MoralisAuth, requestMessage, issueToken } from '@moralisweb3/client-firebase-auth-utils';
 import detectEthereumProvider from '@metamask/detect-provider';
 
@@ -7,11 +7,11 @@ export interface SignInWithMoralisOptions {
   /**
    * @description Custom Ethereum provider.
    */
-  provider?: providers.JsonRpcProvider | providers.Web3Provider;
+  provider?: JsonRpcProvider | Web3Provider;
 }
 
 export interface SignInWithMoralisResponse {
-  provider: providers.JsonRpcProvider;
+  provider: JsonRpcProvider;
   credentials: UserCredential;
 }
 
@@ -44,13 +44,13 @@ export async function signInWithMoralis(
   };
 }
 
-async function getDefaultProvider(): Promise<providers.JsonRpcProvider> {
+async function getDefaultProvider(): Promise<JsonRpcProvider> {
   const ethereum = await detectEthereumProvider();
   if (!ethereum) {
     throw new Error('Ethereum provider not found');
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const provider = new providers.Web3Provider(ethereum as any, 'any');
+  const provider = new Web3Provider(ethereum as any, 'any');
   await provider.send('eth_requestAccounts', []);
   return provider;
 }
