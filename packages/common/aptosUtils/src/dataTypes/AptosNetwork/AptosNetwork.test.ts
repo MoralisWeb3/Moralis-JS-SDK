@@ -37,11 +37,33 @@ describe('AptosNetwork', () => {
     expect(network.format()).toEqual('devnet');
   });
 
+  it('creates an mainnet instance based on network number input', () => {
+    const network = AptosNetwork.create('1');
+
+    expect(network.network).toEqual('mainnet');
+    expect(network.toJSON()).toEqual('mainnet');
+    expect(network.toString()).toEqual('mainnet');
+    expect(network.format()).toEqual('mainnet');
+  });
+
+  it('creates an testnet instance based on network number input', () => {
+    const network = AptosNetwork.create('2');
+
+    expect(network.network).toEqual('testnet');
+    expect(network.toJSON()).toEqual('testnet');
+    expect(network.toString()).toEqual('testnet');
+    expect(network.format()).toEqual('testnet');
+  });
+
   it('throws an error when a network is not supported', () => {
     expect(() => AptosNetwork.create('UNKNOWN')).toThrowError('Aptos network is not supported');
   });
 
-  it('create() does not create a new instance when AptosAddress passed', () => {
+  it('throws an error when a network based on id is not supported', () => {
+    expect(() => AptosNetwork.create('999')).toThrowError('Aptos network is not supported');
+  });
+
+  it('create() does not create a new instance when AptosNetwork passed', () => {
     const network1 = AptosNetwork.create('mainnet');
     const network2 = AptosNetwork.create(network1);
 

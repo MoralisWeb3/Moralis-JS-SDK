@@ -1,6 +1,6 @@
 import { ApiModule, Core, CoreProvider } from '@moralisweb3/common-core';
 import { makeRequestMessage, RequestMessageOptions } from './methods/requestMessage';
-import { makeVerify, VerifyEvmOptions, VerifyOptions, VerifySolOptions } from './methods/verify';
+import { makeVerify, VerifyEvmOptions, VerifyOptions, VerifySolOptions, VerifyAptosOptions } from './methods/verify';
 import {
   getAddressesOperation,
   GetAddressesRequest,
@@ -25,6 +25,7 @@ import {
   VerifyRequestBindRequest,
   VerifyRequestBindResponseAdapter,
   verifyRequestBindOperation,
+  VerifyChallengeAptosResponseAdapter,
 } from '@moralisweb3/common-auth-utils';
 import { OperationResolver } from '@moralisweb3/api-utils';
 
@@ -86,6 +87,7 @@ export class Auth extends ApiModule {
   // Function overloading to make typescript happy
   public verify(options: VerifyEvmOptions): Promise<VerifyChallengeEvmResponseAdapter>;
   public verify(options: VerifySolOptions): Promise<VerifyChallengeSolanaResponseAdapter>;
+  public verify(options: VerifyAptosOptions): Promise<VerifyChallengeAptosResponseAdapter>;
   public verify(options: VerifyOptions) {
     return makeVerify(this.core)(options);
   }

@@ -7127,6 +7127,7 @@ __metadata:
   resolution: "@moralisweb3/auth@workspace:packages/auth"
   dependencies:
     "@moralisweb3/api-utils": ^2.12.0
+    "@moralisweb3/common-aptos-utils": "workspace:^"
     "@moralisweb3/common-auth-utils": ^2.12.0
     "@moralisweb3/common-core": ^2.12.0
     "@moralisweb3/common-evm-utils": ^2.12.0
@@ -7250,7 +7251,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-aptos-utils@^2.12.0, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
+"@moralisweb3/common-aptos-utils@^2.12.0, @moralisweb3/common-aptos-utils@workspace:^, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils"
   dependencies:
@@ -7267,6 +7268,7 @@ __metadata:
   resolution: "@moralisweb3/common-auth-utils@workspace:packages/common/authUtils"
   dependencies:
     "@ethersproject/abi": ^5.7.0
+    "@moralisweb3/common-aptos-utils": "workspace:^"
     "@moralisweb3/common-core": ^2.12.0
     "@moralisweb3/common-evm-utils": ^2.12.0
     "@moralisweb3/common-sol-utils": ^2.12.0
