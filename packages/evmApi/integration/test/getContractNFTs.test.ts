@@ -16,6 +16,7 @@ describe('getContractNFTs', () => {
     it('should get NFTs for a given contract address', async () => {
       const result = await EvmApi.nft.getContractNFTs({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+        disableTotal: false,
       });
 
       const response = result.raw.result?.at(0);
@@ -33,6 +34,7 @@ describe('getContractNFTs', () => {
       const failedResult = await EvmApi.nft
         .getContractNFTs({
           address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+          disableTotal: true,
         })
         .then()
         .catch((err) => {
