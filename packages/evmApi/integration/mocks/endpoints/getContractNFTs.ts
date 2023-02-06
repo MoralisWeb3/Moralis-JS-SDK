@@ -8,12 +8,14 @@ export const mockGetContractNFTs = MockScenarios.create(
     url: `/nft/:address`,
     getParams: ({ req }) => ({
       address: req.params.address,
+      disable_total: req.url.searchParams.get('disable_total'),
     }),
   },
   [
     {
       condition: {
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
+        disable_total: 'false',
       },
       response: {
         status: 'SYNCING',
@@ -63,6 +65,7 @@ export const mockGetContractNFTs = MockScenarios.create(
     {
       condition: {
         address: '0x75e3e9c92162e62000425c98769965a76c2e387',
+        disable_total: 'true',
       },
       responseStatus: 400,
       response: createErrorResponse('[C0005] Invalid address provided'),
