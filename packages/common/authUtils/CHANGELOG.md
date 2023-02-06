@@ -1,5 +1,14 @@
 # @moralisweb3/common-auth-utils
 
+## 2.13.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.13.0
+  - @moralisweb3/common-evm-utils@2.13.0
+  - @moralisweb3/common-sol-utils@2.13.0
+
 ## 2.12.0
 
 ### Minor Changes

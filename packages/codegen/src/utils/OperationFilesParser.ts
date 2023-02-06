@@ -5,6 +5,14 @@ import path from 'node:path';
 import prettier from 'prettier';
 import { Module } from '../next/types';
 
+export interface ParsedOperation {
+  name: string;
+  id: string;
+  request?: string;
+  response?: string;
+  description?: string;
+}
+
 export class OperationFilesParser {
   private moduleGenerator: ModuleGenerator;
 
@@ -20,7 +28,7 @@ export class OperationFilesParser {
     return type;
   }
 
-  public get parsedOperations() {
+  public get parsedOperations(): ParsedOperation[] {
     const project = new Project({
       tsConfigFilePath: 'tsconfig.json',
     });
