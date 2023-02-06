@@ -2,6 +2,7 @@ import { NodePlopAPI } from 'plop';
 import autocompletePrompt from 'inquirer-autocomplete-prompt';
 import setNextGenerators from './next/generators';
 import setSdkGenerators from './sdk/generators';
+import setReactGenerators from './react/generators';
 
 // == Types ================================================================
 
@@ -14,4 +15,5 @@ export default function (plop: NodePlopAPI) {
 
   setNextGenerators(plop);
   setSdkGenerators(plop);
+  setReactGenerators(plop);
 }
