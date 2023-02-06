@@ -1,5 +1,18 @@
 # @moralisweb3/common-streams-utils
 
+## 2.13.0
+
+### Minor Changes
+
+- [#989](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/989) [`cdd111033`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cdd1110331bca1f4fbde75b1e2975ce31aa15e46) Thanks [@FedericoAmura](https://github.com/FedericoAmura)! - Added support for new Aptos streams endpoints
+
+### Patch Changes
+
+- Updated dependencies [[`cdd111033`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cdd1110331bca1f4fbde75b1e2975ce31aa15e46)]:
+  - @moralisweb3/common-aptos-utils@2.13.0
+  - @moralisweb3/common-core@2.13.0
+  - @moralisweb3/common-evm-utils@2.13.0
+
 ## 2.12.0
 
 ### Patch Changes
