@@ -1,6 +1,6 @@
 import { Network } from 'moralis/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
-import { verifyChallengeEvmOperation, verifyChallengeSolanaOperation } from '@moralisweb3/common-auth-utils';
+import { verifyChallengeAptosOperation, verifyChallengeEvmOperation, verifyChallengeSolanaOperation } from '@moralisweb3/common-auth-utils';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Moralis from 'moralis';
 import { serverLogger } from '../serverLogger';
@@ -81,6 +81,14 @@ const MoralisNextAuthProvider = () =>
           case 'Solana':
             user = (
               await new OperationResolver(verifyChallengeSolanaOperation, baseUrl, Moralis.Core).fetch({
+                message,
+                signature,
+              })
+            ).raw;
+            break;
+          case 'Aptos':
+            user = (
+              await new OperationResolver(verifyChallengeAptosOperation, baseUrl, Moralis.Core).fetch({
                 message,
                 signature,
               })
