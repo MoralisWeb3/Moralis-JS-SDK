@@ -7433,7 +7433,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-firebase-auth-utils@^2.11.1, @moralisweb3/client-firebase-auth-utils@^2.12.0, @moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils":
+"@moralisweb3/client-firebase-auth-utils@^2.12.0, @moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils"
   dependencies:
@@ -7453,25 +7453,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-firebase-evm-auth@npm:^2.12.0":
-  version: 2.12.0
-  resolution: "@moralisweb3/client-firebase-evm-auth@npm:2.12.0"
-  dependencies:
-    "@ethersproject/providers": ^5.7.2
-    "@metamask/detect-provider": ^1.2.0
-    "@moralisweb3/client-firebase-auth-utils": ^2.12.0
-    firebase: ^9.15.0
-  checksum: abea36a0c0e5e37353f4eb66f11882d22bcd6500bed860f9339a95674e14b1711fcbd6435c88bcc8fb4c464d72264c58d4863576e3b24dd688cf8dd28f0a2df8
-  languageName: node
-  linkType: hard
-
-"@moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth":
+"@moralisweb3/client-firebase-evm-auth@^2.12.0, @moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth"
   dependencies:
     "@ethersproject/providers": ^5.7.2
     "@metamask/detect-provider": ^1.2.0
-    "@moralisweb3/client-firebase-auth-utils": ^2.11.1
+    "@moralisweb3/client-firebase-auth-utils": ^2.12.0
     firebase: ^9.15.0
   languageName: unknown
   linkType: soft
@@ -15685,7 +15673,6 @@ __metadata:
     eslint: ^8.32.0
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.27.5
-    ethers: ^5.7.2
     moralis: ^2.12.0
     ts-node: ^10.9.1
     typescript: ^4.9.4
