@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-aptos-utils",
   "author": "Moralis",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -30,7 +30,7 @@
     "openapi-typescript": "^5.2.0"
   },
   "dependencies": {
-    "@moralisweb3/common-core": "^2.13.0",
+    "@moralisweb3/common-core": "^2.14.0",
     "@noble/hashes": "^1.2.0"
   }
 }

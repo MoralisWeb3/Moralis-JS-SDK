@@ -1,5 +1,14 @@
 # @moralisweb3/sol-api
 
+## 2.14.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.14.0
+  - @moralisweb3/common-core@2.14.0
+  - @moralisweb3/common-sol-utils@2.14.0
+
 ## 2.13.0
 
 ### Patch Changes
