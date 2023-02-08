@@ -17,9 +17,15 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+.logo.moralis:hover {
+  filter: drop-shadow(0 0 2em #1df7f7);
+}
 
 .card {
-  padding: 2em;
+  padding: 1em;
+}
+
+.v_stack {
 }
 
 .read-the-docs {

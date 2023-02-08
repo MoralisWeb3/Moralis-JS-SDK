@@ -12,7 +12,7 @@ function App() {
           <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
         <a href="https://moralis.io" target="_blank">
-          <img src="/moralis.svg" className="logo" alt="Moralis logo" />
+          <img src="/moralis.svg" className="logo moralis" alt="Moralis logo" />
         </a>
         <a href="https://reactjs.org" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
@@ -20,14 +20,15 @@ function App() {
       </div>
       <h1>Moralis + Vite React</h1>
       <div className="card">
-        <div className="card">
-          <button>💸 Fetch Native Balance</button>
-          <button>💸 Fetch Native Balance</button>
-        </div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button>💸 Fetch Native Balance</button>
       </div>
+      <div className="card">
+        <button>💸 Fetch Native Balance</button>
+      </div>
+      <p>
+        Edit <code>src/App.tsx</code> and save to test HMR
+      </p>
+
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </div>
   );
