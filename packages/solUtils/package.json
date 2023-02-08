@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/sol-utils",
   "author": "Moralis",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -21,6 +21,6 @@
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "@moralisweb3/common-sol-utils": "^2.13.0"
+    "@moralisweb3/common-sol-utils": "^2.14.0"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-firebase-evm-auth",
   "author": "Moralis",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -18,7 +18,7 @@
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
     "@metamask/detect-provider": "^1.2.0",
-    "@moralisweb3/client-firebase-auth-utils": "^2.13.0",
+    "@moralisweb3/client-firebase-auth-utils": "^2.14.0",
     "firebase": "^9.15.0"
   }
 }
