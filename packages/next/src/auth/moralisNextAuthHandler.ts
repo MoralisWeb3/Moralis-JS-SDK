@@ -5,8 +5,10 @@ import { MoralisNextHandlerParams } from '../MoralisNextApi/types';
 export const authOperationNames = [
   'requestChallengeEvm',
   'requestChallengeSolana',
+  'requestChallengeAptos',
   'verifyChallengeEvm',
   'verifyChallengeSolana',
+  'verifyChallengeAptos',
 ];
 
 export interface MoralisNextAuthHandler extends MoralisNextHandlerParams {
@@ -33,9 +35,11 @@ export const moralisNextAuthHandler = async ({
   switch (operationName) {
     case 'requestChallengeEvm':
     case 'requestChallengeSolana':
+    case 'requestChallengeAptos':
       return requestHandler({ ...deserlialisedRequest, ...authentication });
     case 'verifyChallengeEvm':
     case 'verifyChallengeSolana':
+    case 'verifyChallengeAptos':
       return requestHandler(deserlialisedRequest);
     default:
       throw new Error(`${operationName} is not supported authentication operation`);
