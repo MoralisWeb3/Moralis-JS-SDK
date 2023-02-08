@@ -9,7 +9,7 @@ const elements = {
 // Initialise moralis and all eventListeners
 function initialise() {
   Moralis.start({
-    apiKey: process.env.MORALIS_API_KEY,
+    apiKey: process.env.PUBLIC_MORALIS_API_KEY,
   });
 
   elements.wrapperEvmToken.getElementsByTagName('form')[0].addEventListener('submit', handleEvmTokenForm);

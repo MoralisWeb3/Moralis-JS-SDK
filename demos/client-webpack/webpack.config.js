@@ -2,6 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 require('dotenv').config({ path: './.env' });
 
+// All .env variables prefixed with this value are included in the build
+const publicEnvPrefix = 'PUBLIC_'
+
+function filterEnv(env){
+  return Object.entries(env)
+    .filter(([key, value]) => key.startsWith(publicEnvPrefix))
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+}
+
 module.exports = {
   entry: './src/main.ts',
   module: {
@@ -37,7 +46,7 @@ module.exports = {
       Buffer: ['buffer', 'Buffer'],
     }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env),
+      'process.env': JSON.stringify(filterEnv(process.env)),
     }),
   ],
   output: {
