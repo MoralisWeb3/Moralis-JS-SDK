@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
+    "@moralisweb3/common-aptos-utils": "^2.13.0",
     "@moralisweb3/common-core": "^2.13.0",
     "@moralisweb3/common-evm-utils": "^2.13.0",
     "@moralisweb3/common-sol-utils": "^2.13.0",
