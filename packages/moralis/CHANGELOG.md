@@ -1,5 +1,23 @@
 # moralis
 
+## 2.14.1
+
+### Patch Changes
+
+- [`3838ea2c8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3838ea2c8eafe2429508f369705a42ca06599ab6) Thanks [@ErnoW](https://github.com/ErnoW)! - export esm and dist files
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.14.1
+  - @moralisweb3/auth@2.14.1
+  - @moralisweb3/common-auth-utils@2.14.1
+  - @moralisweb3/common-core@2.14.1
+  - @moralisweb3/common-evm-utils@2.14.1
+  - @moralisweb3/common-sol-utils@2.14.1
+  - @moralisweb3/common-streams-utils@2.14.1
+  - @moralisweb3/evm-api@2.14.1
+  - @moralisweb3/sol-api@2.14.1
+  - @moralisweb3/streams@2.14.1
+
 ## 2.14.0
 
 ### Patch Changes
