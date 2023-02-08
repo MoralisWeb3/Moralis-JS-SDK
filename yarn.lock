@@ -15678,6 +15678,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-react-vite@workspace:demos/react-vite"
   dependencies:
+    "@moralisweb3/react": ^2.11.1
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
     "@vitejs/plugin-react-swc": ^3.0.0
