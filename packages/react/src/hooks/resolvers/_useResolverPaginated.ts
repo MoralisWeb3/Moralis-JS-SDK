@@ -25,7 +25,7 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
     [resolve],
   );
 
-  const { data, error, mutate, isValidating } = useSWR<Response>([request ? operation.id : null, request], fetcher, {
+  const { data, error, mutate, isValidating } = useSWR<Response>([operation.id, request], request ? fetcher : null, {
     ...fetchConfig,
     ...fetchParams,
   });

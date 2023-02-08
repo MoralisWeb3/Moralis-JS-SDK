@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@moralisweb3/react": "^2.11.1",
+    "@moralisweb3/react": "^2.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
