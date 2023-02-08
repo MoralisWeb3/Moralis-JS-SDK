@@ -1,7 +1,6 @@
 import { CoreErrorCode, CoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/common-core';
-import { TxnBuilderTypes } from 'aptos';
+import { AccountAddress } from '../../utils/AccountAddress';
 
-const { AccountAddress } = TxnBuilderTypes;
 /**
  * Valid input for a new AptosAddress instance.
  * This can be an existing AptosAddress or a valid address string.

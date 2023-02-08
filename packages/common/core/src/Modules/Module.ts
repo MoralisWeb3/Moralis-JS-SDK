@@ -1,8 +1,6 @@
-import EventEmitter from 'eventemitter3';
 import { Core } from '../Core';
 import { LoggerController } from '../controllers/LoggerController';
 import { ModuleType } from './ModuleType';
-import TypedEmitter, { EventMap } from 'typed-emitter';
 
 /**
  * The base class of every Moralis class that gets registered as a module via MoralisModules
@@ -14,9 +12,8 @@ import TypedEmitter, { EventMap } from 'typed-emitter';
  * When creating an api, or network module, you should use the ApiModule or NetworkModule
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class Module<Events extends EventMap = any> {
+export abstract class Module {
   protected readonly logger = LoggerController.create(this.name, this.core);
-  protected readonly emitter = new EventEmitter<Events>() as unknown as TypedEmitter<Events>;
 
   public constructor(
     public readonly name: string,
@@ -38,14 +35,6 @@ export abstract class Module<Events extends EventMap = any> {
    */
   public cleanUp() {
     this.core.modules.remove(this.name);
-  }
-
-  /**
-   * Listen to an event, and returns a cleanup function
-   */
-  public listen<Event extends keyof Events>(eventName: Event, listener: Events[Event]) {
-    this.emitter.on(eventName, listener);
-    return () => this.emitter.removeListener(eventName, listener);
   }
 }
 

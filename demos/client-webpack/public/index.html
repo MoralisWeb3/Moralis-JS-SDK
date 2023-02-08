@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- The compiled main script file -->
+    <script defer type="text/javascript" src="../build/main.js"></script>
+
+    <title>Moralis Client Demo (Webpack)</title>
+  </head>
+  <body>
+    <header>
+      <img src="./assets/moralis-logo.svg" alt="Moralis" />
+      <h1>Moralis Client Demo (Webpack)</h1>
+    </header>
+
+    <main>
+      <section data-request="evm-token">
+        <h2>Get EVM tokens</h2>
+        <form>
+          <div class="form-input">
+            <label for="address"> Address: </label>
+            <input name="address" value="" />
+            <span class="hint">Example: 0x75e3e9c92162e62000425c98769965a76c2e387a</span>
+          </div>
+          <input type="submit" class="btn" value="Get token data" />
+        </form>
+        <h3>Result</h3>
+        <pre data-out>Click the button to fetch data</pre>
+      </section>
+
+      <section data-request="solana-token">
+        <h2>Get Solana tokens</h2>
+        <form>
+          <div class="form-input">
+            <label for="address"> Address: </label>
+            <input name="address" value="" />
+            <span class="hint">Example: BWeBmN8zYDXgx2tnGj72cA533GZEWAVeqR9Eu29txaen</span>
+          </div>
+          <input type="submit" class="btn" value="Get token data" />
+        </form>
+        <h3>Result</h3>
+        <pre data-out>Click the button to fetch data</pre>
+      </section>
+    </main>
+
+    <footer>
+      <a href="http://moralis.io"><img src="assets/powered-by-moralis.svg" alt="powered by Moralis" /></a>
+    </footer>
+  </body>
+</html>

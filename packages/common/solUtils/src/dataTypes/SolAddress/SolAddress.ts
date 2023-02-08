@@ -1,5 +1,5 @@
 import { CoreErrorCode, CoreError, MoralisData, MoralisDataFormatted } from '@moralisweb3/common-core';
-import { PublicKey } from '@solana/web3.js';
+import { PublicKey } from '../../utils/PublicKey';
 
 /**
  * Valid input for a new SolAddress instance.
