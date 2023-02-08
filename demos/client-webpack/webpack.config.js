@@ -3,12 +3,12 @@ const webpack = require('webpack');
 require('dotenv').config({ path: './.env' });
 
 // All .env variables prefixed with this value are included in the build
-const publicEnvPrefix = 'PUBLIC_'
+const publicEnvPrefix = 'PUBLIC_';
 
-function filterEnv(env){
+function filterEnv(env) {
   return Object.entries(env)
     .filter(([key, value]) => key.startsWith(publicEnvPrefix))
-    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 }
 
 module.exports = {
