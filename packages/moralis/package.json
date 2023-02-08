@@ -1,7 +1,7 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "license": "MIT",
   "description": "Moralis SDK for JavaScript and TypeScript",
   "keywords": [
@@ -91,16 +91,16 @@
     }
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.13.0",
-    "@moralisweb3/auth": "^2.13.0",
-    "@moralisweb3/common-auth-utils": "^2.13.0",
-    "@moralisweb3/common-core": "^2.13.0",
-    "@moralisweb3/common-evm-utils": "^2.13.0",
-    "@moralisweb3/common-sol-utils": "^2.13.0",
-    "@moralisweb3/common-streams-utils": "^2.13.0",
-    "@moralisweb3/evm-api": "^2.13.0",
-    "@moralisweb3/sol-api": "^2.13.0",
-    "@moralisweb3/streams": "^2.13.0",
+    "@moralisweb3/api-utils": "^2.14.0",
+    "@moralisweb3/auth": "^2.14.0",
+    "@moralisweb3/common-auth-utils": "^2.14.0",
+    "@moralisweb3/common-core": "^2.14.0",
+    "@moralisweb3/common-evm-utils": "^2.14.0",
+    "@moralisweb3/common-sol-utils": "^2.14.0",
+    "@moralisweb3/common-streams-utils": "^2.14.0",
+    "@moralisweb3/evm-api": "^2.14.0",
+    "@moralisweb3/sol-api": "^2.14.0",
+    "@moralisweb3/streams": "^2.14.0",
     "@moralisweb3/streams-typings": "^1.0.6"
   },
   "devDependencies": {

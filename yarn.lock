@@ -7380,7 +7380,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@moralisweb3/api-utils@^2.13.0, @moralisweb3/api-utils@^2.14.0, @moralisweb3/api-utils@workspace:packages/apiUtils":
+"@moralisweb3/api-utils@^2.14.0, @moralisweb3/api-utils@workspace:packages/apiUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/api-utils@workspace:packages/apiUtils"
   dependencies:
@@ -7391,7 +7391,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/auth@^2.13.0, @moralisweb3/auth@^2.14.0, @moralisweb3/auth@workspace:packages/auth":
+"@moralisweb3/auth@^2.14.0, @moralisweb3/auth@workspace:packages/auth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/auth@workspace:packages/auth"
   dependencies:
@@ -7532,7 +7532,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-auth-utils@^2.13.0, @moralisweb3/common-auth-utils@^2.14.0, @moralisweb3/common-auth-utils@workspace:packages/common/authUtils":
+"@moralisweb3/common-auth-utils@^2.14.0, @moralisweb3/common-auth-utils@workspace:packages/common/authUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-auth-utils@workspace:packages/common/authUtils"
   dependencies:
@@ -7548,7 +7548,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-core@^2.13.0, @moralisweb3/common-core@^2.14.0, @moralisweb3/common-core@workspace:packages/common/core":
+"@moralisweb3/common-core@^2.14.0, @moralisweb3/common-core@workspace:packages/common/core":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-core@workspace:packages/common/core"
   dependencies:
@@ -7559,7 +7559,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-evm-utils@^2.13.0, @moralisweb3/common-evm-utils@^2.14.0, @moralisweb3/common-evm-utils@workspace:packages/common/evmUtils":
+"@moralisweb3/common-evm-utils@^2.14.0, @moralisweb3/common-evm-utils@workspace:packages/common/evmUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-evm-utils@workspace:packages/common/evmUtils"
   dependencies:
@@ -7573,7 +7573,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-sol-utils@^2.13.0, @moralisweb3/common-sol-utils@^2.14.0, @moralisweb3/common-sol-utils@workspace:packages/common/solUtils":
+"@moralisweb3/common-sol-utils@^2.14.0, @moralisweb3/common-sol-utils@workspace:packages/common/solUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-sol-utils@workspace:packages/common/solUtils"
   dependencies:
@@ -7587,7 +7587,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-streams-utils@^2.13.0, @moralisweb3/common-streams-utils@^2.14.0, @moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils":
+"@moralisweb3/common-streams-utils@^2.14.0, @moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils"
   dependencies:
@@ -7620,7 +7620,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/evm-api@^2.13.0, @moralisweb3/evm-api@^2.14.0, @moralisweb3/evm-api@workspace:packages/evmApi":
+"@moralisweb3/evm-api@^2.14.0, @moralisweb3/evm-api@workspace:packages/evmApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/evm-api@workspace:packages/evmApi"
   dependencies:
@@ -7702,7 +7702,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/sol-api@^2.13.0, @moralisweb3/sol-api@^2.14.0, @moralisweb3/sol-api@workspace:packages/solApi":
+"@moralisweb3/sol-api@^2.14.0, @moralisweb3/sol-api@workspace:packages/solApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/sol-api@workspace:packages/solApi"
   dependencies:
@@ -7729,7 +7729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@moralisweb3/streams@^2.13.0, @moralisweb3/streams@^2.14.0, @moralisweb3/streams@workspace:packages/streams":
+"@moralisweb3/streams@^2.14.0, @moralisweb3/streams@workspace:packages/streams":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/streams@workspace:packages/streams"
   dependencies:
@@ -25459,36 +25459,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moralis@^2.9.0, moralis@workspace:packages/moralis":
+"moralis@^2.14.0, moralis@^2.9.0, moralis@workspace:packages/moralis":
   version: 0.0.0-use.local
   resolution: "moralis@workspace:packages/moralis"
-  dependencies:
-    "@moralisweb3/api-utils": ^2.13.0
-    "@moralisweb3/auth": ^2.13.0
-    "@moralisweb3/common-auth-utils": ^2.13.0
-    "@moralisweb3/common-core": ^2.13.0
-    "@moralisweb3/common-evm-utils": ^2.13.0
-    "@moralisweb3/common-sol-utils": ^2.13.0
-    "@moralisweb3/common-streams-utils": ^2.13.0
-    "@moralisweb3/evm-api": ^2.13.0
-    "@moralisweb3/sol-api": ^2.13.0
-    "@moralisweb3/streams": ^2.13.0
-    "@moralisweb3/streams-typings": ^1.0.6
-    "@rollup/plugin-commonjs": ^24.0.1
-    "@rollup/plugin-json": ^6.0.0
-    "@rollup/plugin-node-resolve": ^15.0.1
-    "@rollup/plugin-terser": ^0.3.0
-    rollup: ^3.10.1
-    rollup-plugin-cleaner: ^1.0.0
-    rollup-plugin-node-globals: ^1.4.0
-    rollup-plugin-node-polyfills: ^0.2.1
-    rollup-plugin-peer-deps-external: ^2.2.4
-  languageName: unknown
-  linkType: soft
-
-"moralis@npm:^2.14.0":
-  version: 2.14.0
-  resolution: "moralis@npm:2.14.0"
   dependencies:
     "@moralisweb3/api-utils": ^2.14.0
     "@moralisweb3/auth": ^2.14.0
@@ -25501,9 +25474,17 @@ __metadata:
     "@moralisweb3/sol-api": ^2.14.0
     "@moralisweb3/streams": ^2.14.0
     "@moralisweb3/streams-typings": ^1.0.6
-  checksum: 3bb90d0421601793f8682dfa5ebaa2a02fd126294575f36e97df2d6dc8427450428d3f2c0007121546b39dfceba68734e546bd7a581e9bb9fe9b921fb7b1c189
-  languageName: node
-  linkType: hard
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-json": ^6.0.0
+    "@rollup/plugin-node-resolve": ^15.0.1
+    "@rollup/plugin-terser": ^0.3.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-node-globals: ^1.4.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-peer-deps-external: ^2.2.4
+  languageName: unknown
+  linkType: soft
 
 "mri@npm:^1.2.0":
   version: 1.2.0
