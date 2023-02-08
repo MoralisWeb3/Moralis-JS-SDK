@@ -6,4 +6,7 @@ module.exports = {
     'no-console': 'off',
     'no-html-link-for-pages': 'off',
   },
+  globals: {
+    NodeJS: true,
+  },
 };

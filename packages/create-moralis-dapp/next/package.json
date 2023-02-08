@@ -1,7 +1,7 @@
 {
   "name": "@create-moralis-dapp/next",
   "author": "Moralis",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -15,21 +15,24 @@
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format": "prettier --write 'src/**/*.{js,ts}'",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc",
+    "build": "tsc && npm run postbuild",
     "postbuild": "npm run copy-files",
-    "copy-files": "copyfiles -u 1 -a src/generators/*/template/** lib",
-    "dev": "ts-node-dev src/index.ts"
+    "copy-files": "copyfiles -u 1 -a src/template/** lib",
+    "dev": "ts-node-dev src/generate.ts"
+  },
+  "dependencies": {
+    "@create-moralis-dapp/toolkit": "^2.13.0"
   },
   "devDependencies": {
-    "@types/ejs": "3.1.1",
+    "@types/ejs": "^3.1.1",
     "axios": "^1.2.1",
     "chalk": "^5.0.1",
-    "copyfiles": "2.4.1",
+    "copyfiles": "^2.4.1",
     "ejs": "^3.1.8",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
-    "ora": "^5.4.1",
+    "ora": "^6.1.2",
     "ts-node-dev": "^2.0.0"
   }
 }
