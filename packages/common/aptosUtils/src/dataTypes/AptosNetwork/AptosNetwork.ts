@@ -1,6 +1,10 @@
 import { MoralisData, MoralisDataFormatted, CoreErrorCode, CoreError } from '@moralisweb3/common-core';
 
 const aptosNetworkNames = ['mainnet', 'testnet', 'devnet'] as const;
+const aptosChainIdToNetworkNames: Record<string, AptosNetworkName> = {
+  '1': 'mainnet',
+  '2': 'testnet',
+};
 
 /**
  * A name of Aptos network.
@@ -71,15 +75,23 @@ export class AptosNetwork implements MoralisData {
   }
 
   private static parse(network: AptosNetworkNameish): AptosNetworkName {
-    if (typeof network === 'string') {
-      if (!aptosNetworkNames.includes(network as AptosNetworkName)) {
-        throw new CoreError({
-          code: CoreErrorCode.INVALID_ARGUMENT,
-          message: `Aptos network is not supported: ${network}`,
-        });
-      }
+    if (typeof network !== 'string') {
+      throw new CoreError({
+        code: CoreErrorCode.INVALID_ARGUMENT,
+        message: `Aptos network is not supported: ${network}`,
+      });
     }
-    return network as AptosNetworkName;
+
+    const networkName = aptosChainIdToNetworkNames[network] ?? network;
+
+    if (!aptosNetworkNames.includes(networkName as AptosNetworkName)) {
+      throw new CoreError({
+        code: CoreErrorCode.INVALID_ARGUMENT,
+        message: `Aptos network is not supported: ${network}`,
+      });
+    }
+
+    return networkName as AptosNetworkName;
   }
 
   private constructor(public readonly network: AptosNetworkName) {}

@@ -6,6 +6,7 @@ import { CoreConfigSetup } from './Config/CoreConfigSetup';
 import { MoralisCoreConfigValues } from './Config';
 import { LIB_VERSION } from './version';
 import { CoreErrorCode, MoralisError } from './Error';
+import { BigNumber } from './dataTypes';
 
 /**
  * Core is used in all Moralis applications
@@ -97,4 +98,8 @@ export class Core {
       moduleNames: this.modules.listNames(),
     });
   };
+
+  public get BigNumber() {
+    return BigNumber;
+  }
 }
