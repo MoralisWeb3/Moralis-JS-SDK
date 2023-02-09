@@ -16,6 +16,12 @@ export interface paths {
   "/challenge/verify/solana": {
     post: operations["verifyChallengeSolana"];
   };
+  "/challenge/request/aptos": {
+    post: operations["requestChallengeAptos"];
+  };
+  "/challenge/verify/aptos": {
+    post: operations["verifyChallengeAptos"];
+  };
   "/profile/{profileId}/addresses": {
     get: operations["getAddresses"];
   };
@@ -46,30 +52,6 @@ export interface components {
        * @example defi.finance
        */
       domain: string;
-      /**
-       * @description EIP-155 Chain ID to which the session is bound, and the network where Contract Accounts must be resolved.
-       * @example 1
-       * @enum {string}
-       */
-      chainId:
-        | "1"
-        | "5"
-        | "25"
-        | "56"
-        | "97"
-        | "137"
-        | "250"
-        | "338"
-        | "1337"
-        | "43113"
-        | "43114"
-        | "80001"
-        | "11155111";
-      /**
-       * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
-       * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
-       */
-      address: string;
       /**
        * @description Human-readable ASCII assertion that the user will sign, and it must not contain `
        * `.
@@ -107,6 +89,30 @@ export interface components {
        * @example 15
        */
       timeout: number;
+      /**
+       * @description EIP-155 Chain ID to which the session is bound, and the network where Contract Accounts must be resolved.
+       * @example 1
+       * @enum {string}
+       */
+      chainId:
+        | "1"
+        | "5"
+        | "25"
+        | "56"
+        | "97"
+        | "137"
+        | "250"
+        | "338"
+        | "1337"
+        | "43113"
+        | "43114"
+        | "80001"
+        | "11155111";
+      /**
+       * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
+       */
+      address: string;
     };
     EvmChallengeResponseDto: {
       /**
@@ -114,6 +120,11 @@ export interface components {
        * @example fRyt67D3eRss3RrXa
        */
       id: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
       /**
        * @description Message that needs to be signed by the end user
        * @example defi.finance wants you to sign in with your Ethereum account:
@@ -132,11 +143,6 @@ export interface components {
        * - https://docs.moralis.io/
        */
       message: string;
-      /**
-       * @description Unique identifier with a length of 66 characters
-       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
-       */
-      profileId: string;
     };
     EvmCompleteChallengeRequestDto: {
       /**
@@ -170,30 +176,6 @@ export interface components {
        * @example defi.finance
        */
       domain: string;
-      /**
-       * @description EIP-155 Chain ID to which the session is bound, and the network where Contract Accounts must be resolved.
-       * @example 1
-       * @enum {string}
-       */
-      chainId:
-        | "1"
-        | "5"
-        | "25"
-        | "56"
-        | "97"
-        | "137"
-        | "250"
-        | "338"
-        | "1337"
-        | "43113"
-        | "43114"
-        | "80001"
-        | "11155111";
-      /**
-       * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
-       * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
-       */
-      address: string;
       /**
        * @description Human-readable ASCII assertion that the user will sign, and it must not contain `
        * `.
@@ -238,6 +220,30 @@ export interface components {
        * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
        */
       profileId: string;
+      /**
+       * @description EIP-155 Chain ID to which the session is bound, and the network where Contract Accounts must be resolved.
+       * @example 1
+       * @enum {string}
+       */
+      chainId:
+        | "1"
+        | "5"
+        | "25"
+        | "56"
+        | "97"
+        | "137"
+        | "250"
+        | "338"
+        | "1337"
+        | "43113"
+        | "43114"
+        | "80001"
+        | "11155111";
+      /**
+       * @description Ethereum address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B
+       */
+      address: string;
     };
     SolanaChallengeRequestDto: {
       /**
@@ -246,17 +252,6 @@ export interface components {
        * @example defi.finance
        */
       domain: string;
-      /**
-       * @description The network where Contract Accounts must be resolved.
-       * @example mainnet
-       * @enum {string}
-       */
-      network: "mainnet" | "testnet" | "devnet";
-      /**
-       * @description Solana public key with a length of 32 - 44 characters that is used to perform the signing
-       * @example 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo
-       */
-      address: string;
       /**
        * @description Human-readable ASCII assertion that the user will sign, and it must not contain `
        * `.
@@ -294,13 +289,29 @@ export interface components {
        * @example 15
        */
       timeout: number;
+      /**
+       * @description The network where Contract Accounts must be resolved.
+       * @example mainnet
+       * @enum {string}
+       */
+      network: "mainnet" | "testnet" | "devnet";
+      /**
+       * @description Solana address with a length of 32 - 44 characters that is used to perform the signing
+       * @example 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo
+       */
+      address: string;
     };
     SolanaChallengeResponseDto: {
       /**
        * @description 17-characters Alphanumeric string Secret Challenge ID used to identify this particular request. Is should be used at the backend of the calling service to identify the completed request.
-       * @example fRyt67D3eRss3RrX
+       * @example fRyt67D3eRss3RrXa
        */
       id: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
       /**
        * @description Message that needs to be signed by the end user
        * @example defi.finance wants you to sign in with your Solana account:
@@ -318,11 +329,6 @@ export interface components {
        * - https://docs.moralis.io/
        */
       message: string;
-      /**
-       * @description Unique identifier with a length of 66 characters
-       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
-       */
-      profileId: string;
     };
     SolanaCompleteChallengeRequestDto: {
       /**
@@ -361,16 +367,184 @@ export interface components {
        */
       domain: string;
       /**
+       * @description Human-readable ASCII assertion that the user will sign, and it must not contain `
+       * `.
+       * @example Please confirm
+       */
+      statement?: string;
+      /**
+       * Format: uri
+       * @description RFC 3986 URI referring to the resource that is the subject of the signing (as in the __subject__ of a claim).
+       * @example https://defi.finance/
+       */
+      uri: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime string that, if present, indicates when the signed authentication message is no longer valid.
+       * @example 2020-01-01T00:00:00.000Z
+       */
+      expirationTime?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime string that, if present, indicates when the signed authentication message will become valid.
+       * @example 2020-01-01T00:00:00.000Z
+       */
+      notBefore?: string;
+      /**
+       * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by `
+       * - `.
+       * @example [
+       *   "https://docs.moralis.io/"
+       * ]
+       */
+      resources?: string[];
+      /**
+       * @description EIP-155 Chain ID to which the session is bound, and the network where Contract Accounts must be resolved.
+       * @example 1.0
+       */
+      version: string;
+      /** @example 0x1234567890abcdef0123456789abcdef1234567890abcdef */
+      nonce: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
+      /**
        * @description The network where Contract Accounts must be resolved.
        * @example mainnet
        * @enum {string}
        */
       network: "mainnet" | "testnet" | "devnet";
       /**
-       * @description Solana public key with a length of 32 - 44 characters that is used to perform the signing
+       * @description Solana address with a length of 32 - 44 characters that is used to perform the signing
        * @example 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo
        */
       address: string;
+    };
+    AptosChallengeRequestDto: {
+      /**
+       * Format: hostname
+       * @description RFC 4501 dns authority that is requesting the signing.
+       * @example defi.finance
+       */
+      domain: string;
+      /**
+       * @description Human-readable ASCII assertion that the user will sign, and it must not contain `
+       * `.
+       * @example Please confirm
+       */
+      statement?: string;
+      /**
+       * Format: uri
+       * @description RFC 3986 URI referring to the resource that is the subject of the signing (as in the __subject__ of a claim).
+       * @example https://defi.finance/
+       */
+      uri: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime string that, if present, indicates when the signed authentication message is no longer valid.
+       * @example 2020-01-01T00:00:00.000Z
+       */
+      expirationTime?: string;
+      /**
+       * Format: date-time
+       * @description ISO 8601 datetime string that, if present, indicates when the signed authentication message will become valid.
+       * @example 2020-01-01T00:00:00.000Z
+       */
+      notBefore?: string;
+      /**
+       * @description List of information or references to information the user wishes to have resolved as part of authentication by the relying party. They are expressed as RFC 3986 URIs separated by new lines.
+       * @example [
+       *   "https://docs.moralis.io/"
+       * ]
+       */
+      resources?: string[];
+      /**
+       * @description Time in seconds before the challenge is expired
+       * @default 15
+       * @example 15
+       */
+      timeout: number;
+      /**
+       * @description An identifier that distinguishes the Aptos network deployments (to prevent cross-network attacks).
+       * @example 1
+       * @enum {string}
+       */
+      chainId: "1" | "2" | "3";
+      /**
+       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       */
+      address: string;
+      /**
+       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       */
+      publicKey: string;
+    };
+    AptosChallengeResponseDto: {
+      /**
+       * @description 17-characters Alphanumeric string Secret Challenge ID used to identify this particular request. Is should be used at the backend of the calling service to identify the completed request.
+       * @example fRyt67D3eRss3RrXa
+       */
+      id: string;
+      /**
+       * @description Unique identifier with a length of 66 characters
+       * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
+       */
+      profileId: string;
+      /**
+       * @description Message that needs to be signed by the end user
+       * @example defi.finance wants you to sign in with your Aptos account:
+       * 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       *
+       * Please confirm
+       *
+       * URI: https://defi.finance/
+       * Version: 1
+       * Chain ID: 1
+       * Nonce: DbU1DCTmdzR4lg3wi
+       * Issued At: 2022-06-12T12:15:31.290Z
+       * Expiration Time: 2020-01-01T00:00:00.000Z
+       * Not Before: 2020-01-01T00:00:00.000Z
+       * Resources:
+       * - https://docs.moralis.io/
+       */
+      message: string;
+    };
+    AptosCompleteChallengeRequestDto: {
+      /**
+       * @description Message that needs to be signed by the end user.
+       * @example defi.finance wants you to sign in with your Aptos account:
+       * 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       *
+       *
+       * URI: https://defi.finance
+       * Version: 1
+       * Chain ID: 1
+       * Nonce: Px7Nh1RPzlCLwqgOb
+       * Issued At: 2022-11-30T10:20:00.262Z
+       */
+      message: string;
+      /**
+       * @description EIP-191 compliant signature signed by the Aptos account address requesting authentication.
+       * @example 0xa8f89a58bf9b433d3100f9e41ee35b5e31fb8c7cd62547acb113162ec6f2e4140207e2dfbd4e387e1801ebc7f08a9dd105ac1d22b2e2ff0df5fa8b6d9bdcfe491c
+       */
+      signature: string;
+    };
+    AptosCompleteChallengeResponseDto: {
+      /**
+       * @description 17-characters Alphanumeric string Secret Challenge ID used to identify this particular request. Is should be used at the backend of the calling service to identify the completed request.
+       * @example fRyt67D3eRss3RrX
+       */
+      id: string;
+      /**
+       * Format: hostname
+       * @description RFC 4501 dns authority that is requesting the signing.
+       * @example defi.finance
+       */
+      domain: string;
       /**
        * @description Human-readable ASCII assertion that the user will sign, and it must not contain `
        * `.
@@ -415,6 +589,22 @@ export interface components {
        * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
        */
       profileId: string;
+      /**
+       * @description An identifier that distinguishes the Aptos network deployments (to prevent cross-network attacks).
+       * @example 1
+       * @enum {string}
+       */
+      chainId: "1" | "2" | "3";
+      /**
+       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       */
+      address: string;
+      /**
+       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       */
+      publicKey: string;
     };
     AddressInfoDto: {
       /**
@@ -422,12 +612,17 @@ export interface components {
        * @example evm
        * @enum {string}
        */
-      blockchainType: "evm" | "solana";
+      blockchainType: "evm" | "solana" | "aptos";
       /**
        * @description Unique identifier with a length of 66 characters
        * @example 0x57af6B90c2237d2F888bf4CAe56f25FE1b14e531
        */
       address: string;
+      /**
+       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       */
+      publicKey: string;
     };
     BindRequestDto: {
       /** @description An array of addresses that needs to be bind */
@@ -479,12 +674,17 @@ export interface components {
        * @example evm
        * @enum {string}
        */
-      blockchainType: "evm" | "solana";
+      blockchainType: "evm" | "solana" | "aptos";
       /**
        * @description Unique identifier with a length of 66 characters
        * @example 0x57af6B90c2237d2F888bf4CAe56f25FE1b14e531
        */
       address: string;
+      /**
+       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
+       */
+      publicKey: string;
       /**
        * @description Unique identifier with a length of 66 characters
        * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
@@ -596,6 +796,40 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["SolanaCompleteChallengeRequestDto"];
+      };
+    };
+  };
+  requestChallengeAptos: {
+    parameters: {};
+    responses: {
+      /** The back channel challenge containing the id to store on the api and the message to be signed by the user */
+      201: {
+        content: {
+          "application/json": components["schemas"]["AptosChallengeResponseDto"];
+        };
+      };
+    };
+    /** Request Aptos challenge message. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AptosChallengeRequestDto"];
+      };
+    };
+  };
+  verifyChallengeAptos: {
+    parameters: {};
+    responses: {
+      /** The token to be used to call the third party API from the client */
+      201: {
+        content: {
+          "application/json": components["schemas"]["AptosCompleteChallengeResponseDto"];
+        };
+      };
+    };
+    /** Verify Aptos challenge message. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AptosCompleteChallengeRequestDto"];
       };
     };
   };

@@ -8,11 +8,7 @@
       "source": "functions",
       "codebase": "default",
       "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"],
-      "predeploy": [
-        "yarn --cwd \"$RESOURCE_DIR\" install",
-        "yarn --cwd \"$RESOURCE_DIR\" run lint",
-        "yarn --cwd \"$RESOURCE_DIR\" run build"
-      ]
+      "predeploy": ["cd functions && yarn install && yarn run build"]
     }
   ],
   "hosting": {

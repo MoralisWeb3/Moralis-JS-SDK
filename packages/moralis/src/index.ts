@@ -39,6 +39,9 @@ const Moralis = {
   SolApi: solApi,
   AptosApi: aptosApi,
 
+  EvmUtils: commonEvmUtils,
+  SolUtils: commonSolUtils,
+
   start: (config?: Partial<MoralisConfigValues>) => {
     return core.start(config);
   },

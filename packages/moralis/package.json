@@ -1,7 +1,7 @@
 {
   "name": "moralis",
   "author": "Moralis",
-  "version": "2.13.0",
+  "version": "2.14.1",
   "license": "MIT",
   "description": "Moralis SDK for JavaScript and TypeScript",
   "keywords": [
@@ -34,16 +34,25 @@
     "description": "The main package of Moralis containing all features. You probably are looking for this one."
   },
   "files": [
-    "lib/*"
+    "lib/*",
+    "lib.esm/*",
+    "dist/*"
   ],
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc",
+    "build": "yarn build:cjs && yarn build:esm && yarn build-dist",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.json",
+    "build-dist": "rollup -c",
     "dev": "tsc --watch"
   },
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "import": "./lib.esm/index.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
     "./common-core": "./lib/commonCore/index.js",
     "./streams-typings": "./lib/streamsTypings/index.js",
     "./common-evm-utils": "./lib/commonEvmUtils/index.js",
@@ -82,16 +91,27 @@
     }
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.13.0",
-    "@moralisweb3/auth": "^2.13.0",
-    "@moralisweb3/common-auth-utils": "^2.13.0",
-    "@moralisweb3/common-core": "^2.13.0",
-    "@moralisweb3/common-evm-utils": "^2.13.0",
-    "@moralisweb3/common-sol-utils": "^2.13.0",
-    "@moralisweb3/common-streams-utils": "^2.13.0",
-    "@moralisweb3/evm-api": "^2.13.0",
-    "@moralisweb3/sol-api": "^2.13.0",
-    "@moralisweb3/streams": "^2.13.0",
+    "@moralisweb3/api-utils": "^2.14.1",
+    "@moralisweb3/auth": "^2.14.1",
+    "@moralisweb3/common-auth-utils": "^2.14.1",
+    "@moralisweb3/common-core": "^2.14.1",
+    "@moralisweb3/common-evm-utils": "^2.14.1",
+    "@moralisweb3/common-sol-utils": "^2.14.1",
+    "@moralisweb3/common-streams-utils": "^2.14.1",
+    "@moralisweb3/evm-api": "^2.14.1",
+    "@moralisweb3/sol-api": "^2.14.1",
+    "@moralisweb3/streams": "^2.14.1",
     "@moralisweb3/streams-typings": "^1.0.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.3.0",
+    "rollup": "^3.10.1",
+    "rollup-plugin-cleaner": "^1.0.0",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
   }
 }

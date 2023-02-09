@@ -1,5 +1,29 @@
 # @moralisweb3/common-auth-utils
 
+## 2.14.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-aptos-utils@2.14.1
+  - @moralisweb3/common-core@2.14.1
+  - @moralisweb3/common-evm-utils@2.14.1
+  - @moralisweb3/common-sol-utils@2.14.1
+
+## 2.14.0
+
+### Minor Changes
+
+- [#1003](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1003) [`055f0f47a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/055f0f47a63212fea12bde20eece97f7fce15dad) Thanks [@ErnoW](https://github.com/ErnoW)! - Add Aptos support for Moralis.Auth
+
+### Patch Changes
+
+- Updated dependencies [[`055f0f47a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/055f0f47a63212fea12bde20eece97f7fce15dad)]:
+  - @moralisweb3/common-aptos-utils@2.14.0
+  - @moralisweb3/common-core@2.14.0
+  - @moralisweb3/common-evm-utils@2.14.0
+  - @moralisweb3/common-sol-utils@2.14.0
+
 ## 2.13.0
 
 ### Patch Changes

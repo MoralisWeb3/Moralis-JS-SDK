@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-core",
   "author": "Moralis",
-  "version": "2.13.0",
+  "version": "2.14.1",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -31,8 +31,6 @@
     "msw": "0.49.1"
   },
   "dependencies": {
-    "axios": "^1.2.1",
-    "eventemitter3": "^4.0.7",
-    "typed-emitter": "^2.1.0"
+    "axios": "^1.2.1"
   }
 }

@@ -1,5 +1,4 @@
 import { BigNumber } from '@ethersproject/bignumber';
-
 import { AbiItem, Log } from '@moralisweb3/streams-typings';
 import { JsonFragment, Interface, Indexed } from '@ethersproject/abi';
 

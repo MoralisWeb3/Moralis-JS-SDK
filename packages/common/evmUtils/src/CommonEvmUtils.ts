@@ -1,6 +1,6 @@
 import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfigSetup } from './config/CommonEvmUtilsConfigSetup';
-
+import * as dataTypes from './dataTypes';
 export class CommonEvmUtils extends Module {
   public static readonly moduleName = 'evmUtils';
 
@@ -18,5 +18,17 @@ export class CommonEvmUtils extends Module {
 
   public start() {
     // Nothing
+  }
+
+  public get EvmAddress() {
+    return dataTypes.EvmAddress;
+  }
+
+  public get EvmChain() {
+    return dataTypes.EvmChain;
+  }
+
+  public get EvmNative() {
+    return dataTypes.EvmNative;
   }
 }
