@@ -22,12 +22,12 @@ Required Google Cloud services:
 9. Copy `hosting/.env.example` to `hosting/.env` and set all variables.
 10. Build the functions project:
    * `cd functions`
-   * `npm install`
-   * `npm run build`
+   * `yarn install`
+   * `yarn run build`
 11. Build the hosting project:
    * `cd hosting`
-   * `npm install`
-   * `npm run build`
+   * `yarn install`
+   * `yarn run build`
 12. Activate the `Authentication` feature in the Firebase Console. Go to the Firebase Console > Your Project > Build > Authentication and click the Get Started button.
 
 ### 🔌 Run Locally
