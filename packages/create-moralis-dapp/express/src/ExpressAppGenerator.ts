@@ -1,5 +1,11 @@
-import { TemplateProcessor, AppGenerator, Inquirer, DependenciesManager } from '@create-moralis-dapp/toolkit';
-import { ListQuestion, Question } from 'inquirer';
+import {
+  TemplateProcessor,
+  AppGenerator,
+  Inquirer,
+  DependenciesManager,
+  Question,
+  ListQuestion,
+} from '@create-moralis-dapp/toolkit';
 import path from 'path';
 
 export class ExpressAppGenerator implements AppGenerator {

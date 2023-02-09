@@ -1,6 +1,12 @@
-import { AppGenerator, DependenciesManager, Inquirer, TemplateProcessor } from '@create-moralis-dapp/toolkit';
+import {
+  AppGenerator,
+  DependenciesManager,
+  Inquirer,
+  TemplateProcessor,
+  ListQuestion,
+  Question,
+} from '@create-moralis-dapp/toolkit';
 import crypto from 'crypto';
-import { ListQuestion, Question } from 'inquirer';
 import path from 'path';
 import { web3LibSchema } from './web3LibSchema';
 

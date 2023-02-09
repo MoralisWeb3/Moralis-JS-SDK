@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const ts = require('typescript');
 
-const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client'];
+const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client', 'packages/create-moralis-dapp'];
 
 const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules', 'template'];
 
-const IGNORE_DEPENDENCIES = ['path', 'lodash', 'child_process', 'fs'];
+const IGNORE_DEPENDENCIES = ['path', 'lodash', 'child_process', 'fs', 'crypto'];
 
 const FORBIDDEN_DEPENDENCIES = [
   /^@firebase\//, // Use root package instead (`import * from 'firebase'`, `import * from 'firebase/auth'`)
