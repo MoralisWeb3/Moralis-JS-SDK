@@ -22,7 +22,7 @@
     "gen:api-types": "openapi-typescript https://authapi.moralis.io/api-docs-json --output src/operations/openapi.ts",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "yarn run -T tsc -p tsconfig.build.json",
     "dev": "tsc --watch"
   },
   "devDependencies": {

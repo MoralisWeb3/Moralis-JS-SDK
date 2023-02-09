@@ -1,6 +1,6 @@
 import { AptosNetwork, AptosNetworkish, AptosNetworkResolver } from '@moralisweb3/common-aptos-utils';
 import { Core, Camelize, Operation, DateInput, ResponseAdapter } from '@moralisweb3/common-core';
-import { AptosAddress, AptosAddressish } from '@moralisweb3/common-aptos-utils';
+import { AptosAddress, AptosAddressInput } from '@moralisweb3/common-aptos-utils';
 import { operations } from '../openapi';
 
 type OperationId = 'requestChallengeAptos';
@@ -14,7 +14,7 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 export interface RequestChallengeAptosRequest
   extends Camelize<Omit<RequestParams, 'address' | 'chainId' | 'expirationTime' | 'notBefore'>> {
-  address: AptosAddressish;
+  address: AptosAddressInput;
   chainId: AptosNetworkish;
   expirationTime?: DateInput;
   notBefore?: DateInput;
