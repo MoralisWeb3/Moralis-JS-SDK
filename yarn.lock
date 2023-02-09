@@ -4152,7 +4152,6 @@ __metadata:
   resolution: "@create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit"
   dependencies:
     "@types/ejs": 3.1.1
-    axios: ^1.2.1
     chalk: ^5.0.1
     copyfiles: 2.4.1
     ejs: ^3.1.8
