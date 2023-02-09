@@ -6,7 +6,11 @@ import { useEvmWalletTokenBalances, useSolPortfolio } from '@moralisweb3/react';
 function App() {
   const [evmAddress, setEvmAddress] = useState('0x75e3e9c92162e62000425c98769965a76c2e387a');
   const [solAddress, setSolAddress] = useState('BWeBmN8zYDXgx2tnGj72cA533GZEWAVeqR9Eu29txaen');
-  const { data: evmBalance, fetch: fetchErc20, error: errorErc20 } = useEvmWalletTokenBalances();
+  const {
+    data: evmBalance,
+    fetch: fetchErc20,
+    error: errorErc20,
+  } = useEvmWalletTokenBalances({ address: evmAddress }, { revalidateOnMount: false });
   const { data: solPortfolio, fetch: fetchSol, error: errorSol } = useSolPortfolio();
 
   return (
@@ -28,7 +32,7 @@ function App() {
         <h4>Get Ethereum Token Balance</h4>
         <div className="form-input">
           <input name="address" value={evmAddress} onChange={(e) => setEvmAddress(e.target.value)} />
-          <button className="search_btn" onClick={() => fetchErc20({ address: evmAddress })}>
+          <button className="search_btn" onClick={() => fetchErc20()}>
             🔎
           </button>
         </div>
