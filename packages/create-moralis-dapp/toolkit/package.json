@@ -18,10 +18,10 @@
     "build": "tsc"
   },
   "dependencies": {
+    "ejs": "^3.1.8",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.0.0",
-    "ora": "^5.4.1",
-    "ejs": "^3.1.8"
+    "ora": "^5.4.1"
   },
   "devDependencies": {
     "@types/ejs": "3.1.1"

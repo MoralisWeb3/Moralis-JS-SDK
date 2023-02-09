@@ -14,8 +14,7 @@ export class DependenciesManager {
 
   public async addToPackageJson(dependencies: Dependency[]) {
     const packageJsonPath = path.join(this.destination, 'package.json');
-    const packageJson = fs.readJsonSync(packageJsonPath);
-
+    const packageJson = await fs.readJSON(packageJsonPath);
     dependencies.forEach(({ name, version }) => {
       packageJson.dependencies[name] = version;
     });

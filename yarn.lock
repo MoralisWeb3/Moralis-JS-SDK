@@ -4072,16 +4072,7 @@ __metadata:
   resolution: "@create-moralis-dapp/express@workspace:packages/create-moralis-dapp/express"
   dependencies:
     "@create-moralis-dapp/toolkit": ^2.13.0
-    "@types/ejs": ^3.1.1
-    axios: ^1.2.1
-    chalk: ^5.0.1
     copyfiles: ^2.4.1
-    ejs: ^3.1.8
-    fs-extra: ^10.1.0
-    inquirer: ^8.0.0
-    lodash: ^4.17.21
-    ora: ^5.4.1
-    ts-node-dev: ^2.0.0
   bin:
     express: ./lib/index.js
   languageName: unknown
@@ -4092,16 +4083,7 @@ __metadata:
   resolution: "@create-moralis-dapp/next@workspace:packages/create-moralis-dapp/next"
   dependencies:
     "@create-moralis-dapp/toolkit": ^2.13.0
-    "@types/ejs": ^3.1.1
-    axios: ^1.2.1
-    chalk: ^5.0.1
     copyfiles: ^2.4.1
-    ejs: ^3.1.8
-    fs-extra: ^10.1.0
-    inquirer: ^8.0.0
-    lodash: ^4.17.21
-    ora: ^5.4.1
-    ts-node-dev: ^2.0.0
   bin:
     next: ./lib/index.js
   languageName: unknown
@@ -4112,14 +4094,10 @@ __metadata:
   resolution: "@create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit"
   dependencies:
     "@types/ejs": 3.1.1
-    chalk: ^5.0.1
-    copyfiles: 2.4.1
     ejs: ^3.1.8
     fs-extra: ^10.1.0
     inquirer: ^8.0.0
-    lodash: ^4.17.21
     ora: ^5.4.1
-    ts-node-dev: ^2.0.0
   bin:
     toolkit: ./lib/index.js
   languageName: unknown
@@ -9828,7 +9806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ejs@npm:3.1.1, @types/ejs@npm:^3.1.1":
+"@types/ejs@npm:3.1.1":
   version: 3.1.1
   resolution: "@types/ejs@npm:3.1.1"
   checksum: 12fa444920aaa70af2fae4424fa62b49c23b31a37129c428b7c9f9068e58c0696b4e5601b0449f87bae8794e039c679a43651c356c34f17d1bb460456dd41441
@@ -10462,20 +10440,6 @@ __metadata:
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 205fdbe3326b7046d7eaf5e494d8084f2659086a266f3f9cf00bccc549c8e36e407f88168ad4383c8b07099957ad669f75f2532ed4bc70be2b037330f7bae019
-  languageName: node
-  linkType: hard
-
-"@types/strip-bom@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@types/strip-bom@npm:3.0.0"
-  checksum: cb165d0c2ce6abbef95506ebee25be02bd453600ef1792dc1754236e5d6f9c830d52bdb85978d0b08ea1f36b96a61235ac5ad99e0f4c2767fb4ea004e141d2df
-  languageName: node
-  linkType: hard
-
-"@types/strip-json-comments@npm:0.0.30":
-  version: 0.0.30
-  resolution: "@types/strip-json-comments@npm:0.0.30"
-  checksum: 829ddd389645073f347c5b1924a8c34b8813af29756576e511c46f40e218193cf93ccbade62661d47fc70f707e98f410331729b8c20edfcb2e807d51df1ad4b7
   languageName: node
   linkType: hard
 
@@ -14754,7 +14718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copyfiles@npm:2.4.1, copyfiles@npm:^2.4.1":
+"copyfiles@npm:^2.4.1":
   version: 2.4.1
   resolution: "copyfiles@npm:2.4.1"
   dependencies:
@@ -14929,16 +14893,7 @@ __metadata:
     "@create-moralis-dapp/express": ^2.13.0
     "@create-moralis-dapp/next": ^2.13.0
     "@create-moralis-dapp/toolkit": ^2.13.0
-    "@types/ejs": 3.1.1
-    axios: ^1.2.1
-    chalk: ^5.0.1
-    copyfiles: 2.4.1
-    ejs: ^3.1.8
-    fs-extra: ^10.1.0
     inquirer: ^8.0.0
-    lodash: ^4.17.21
-    ora: ^5.4.1
-    ts-node-dev: ^2.0.0
   bin:
     create-moralis-dapp: ./lib/index.js
   languageName: unknown
@@ -16566,15 +16521,6 @@ __metadata:
     readable-stream: ^3.1.1
     stream-shift: ^1.0.0
   checksum: 964376c61c0e92f6ed0694b3ba97c84f199413dc40ab8dfdaef80b7a7f4982fcabf796214e28ed614a5bc1ec45488a29b81e7d46fa3f5ddf65bcb118c20145ad
-  languageName: node
-  linkType: hard
-
-"dynamic-dedupe@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "dynamic-dedupe@npm:0.3.0"
-  dependencies:
-    xtend: ^4.0.0
-  checksum: 5178b99ad30a59234c63b38b453183cfd0a6cb7acbe7b94b7aea9bf0f75376fdaab6e2ea7922931cfc0152390ccb20bd024d8d80b4fc8c3c3255a2fcadf2cafb
   languageName: node
   linkType: hard
 
@@ -30479,7 +30425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.0.0, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.1":
+"resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.1":
   version: 1.22.1
   resolution: "resolve@npm:1.22.1"
   dependencies:
@@ -30505,7 +30451,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.0.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
+"resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
   resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
@@ -30620,7 +30566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^2.5.2, rimraf@npm:^2.6.1, rimraf@npm:^2.6.3":
+"rimraf@npm:^2.5.2, rimraf@npm:^2.6.3":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
   dependencies:
@@ -31678,7 +31624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.12, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.20":
+"source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.20":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
@@ -32225,17 +32171,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-json-comments@npm:^2.0.0, strip-json-comments@npm:~2.0.1":
-  version: 2.0.1
-  resolution: "strip-json-comments@npm:2.0.1"
-  checksum: 1074ccb63270d32ca28edfb0a281c96b94dc679077828135141f27d52a5a398ef5e78bcf22809d23cadc2b81dfbe345eb5fd8699b385c8b1128907dec4a7d1e1
-  languageName: node
-  linkType: hard
-
 "strip-json-comments@npm:^3.1.0, strip-json-comments@npm:^3.1.1":
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: 492f73e27268f9b1c122733f28ecb0e7e8d8a531a6662efbd08e22cccb3f9475e90a1b82cab06a392f6afae6d2de636f977e231296400d0ec5304ba70f166443
+  languageName: node
+  linkType: hard
+
+"strip-json-comments@npm:~2.0.1":
+  version: 2.0.1
+  resolution: "strip-json-comments@npm:2.0.1"
+  checksum: 1074ccb63270d32ca28edfb0a281c96b94dc679077828135141f27d52a5a398ef5e78bcf22809d23cadc2b81dfbe345eb5fd8699b385c8b1128907dec4a7d1e1
   languageName: node
   linkType: hard
 
@@ -33053,15 +32999,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tree-kill@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "tree-kill@npm:1.2.2"
-  bin:
-    tree-kill: cli.js
-  checksum: 49117f5f410d19c84b0464d29afb9642c863bc5ba40fcb9a245d474c6d5cc64d1b177a6e6713129eb346b40aebb9d4631d967517f9fbe8251c35b21b13cd96c7
-  languageName: node
-  linkType: hard
-
 "trim-newlines@npm:^3.0.0":
   version: 3.0.1
   resolution: "trim-newlines@npm:3.0.1"
@@ -33190,34 +33127,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node-dev@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "ts-node-dev@npm:2.0.0"
-  dependencies:
-    chokidar: ^3.5.1
-    dynamic-dedupe: ^0.3.0
-    minimist: ^1.2.6
-    mkdirp: ^1.0.4
-    resolve: ^1.0.0
-    rimraf: ^2.6.1
-    source-map-support: ^0.5.12
-    tree-kill: ^1.2.2
-    ts-node: ^10.4.0
-    tsconfig: ^7.0.0
-  peerDependencies:
-    node-notifier: "*"
-    typescript: "*"
-  peerDependenciesMeta:
-    node-notifier:
-      optional: true
-  bin:
-    ts-node-dev: lib/bin.js
-    tsnd: lib/bin.js
-  checksum: d654b401de3d13c167981481be2a375229f6bfd2aeedf43bc0b6816e57676fcbfba3afdcf209c7a06fb6bd8768ca548c2eb0a0c9d38fa42246be3f50df1b28fb
-  languageName: node
-  linkType: hard
-
-"ts-node@npm:^10.4.0, ts-node@npm:^10.9.1":
+"ts-node@npm:^10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
   dependencies:
@@ -33264,18 +33174,6 @@ __metadata:
     minimist: ^1.2.6
     strip-bom: ^3.0.0
   checksum: 8afa01c673ebb4782ba53d3a12df97fa837ce524f8ad38ee4e2b2fd57f5ac79abc21c574e9e9eb014d93efe7fe8214001b96233b5c6ea75bd1ea82afe17a4c6d
-  languageName: node
-  linkType: hard
-
-"tsconfig@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "tsconfig@npm:7.0.0"
-  dependencies:
-    "@types/strip-bom": ^3.0.0
-    "@types/strip-json-comments": 0.0.30
-    strip-bom: ^3.0.0
-    strip-json-comments: ^2.0.0
-  checksum: 8bce05e93c673defd56d93d83d4055e49651d3947c076339c4bc15d47b7eb5029bed194087e568764213a2e4bf45c477ba9f4da16adfd92cd901af7c09e4517e
   languageName: node
   linkType: hard
 
