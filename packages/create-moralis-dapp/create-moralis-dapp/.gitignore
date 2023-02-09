@@ -1,0 +1,12 @@
+# Ignore everything to save us from pushing created apps during dev tests:
+*
+
+# Except for the themes directories:
+
+!./src/**
+!.eslintrc.js
+!.gitignore
+!CHANGELOG.md
+!package.json
+!README.md
+!tsconfig.json
