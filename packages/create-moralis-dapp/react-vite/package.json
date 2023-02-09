@@ -1,5 +1,5 @@
 {
-  "name": "@create-moralis-dapp/next",
+  "name": "@create-moralis-dapp/react-vite",
   "author": "Moralis",
   "version": "2.13.0",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "dev": "ts-node src/generate.ts"
   },
   "dependencies": {
-    "@create-moralis-dapp/toolkit": "^2.13.0"
+    "@create-moralis-dapp/toolkit": "file:../toolkit"
   },
   "devDependencies": {
     "@types/ejs": "^3.1.1",

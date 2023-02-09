@@ -4107,6 +4107,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite":
+  version: 0.0.0-use.local
+  resolution: "@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite"
+  dependencies:
+    "@create-moralis-dapp/toolkit": "file:../toolkit"
+    "@types/ejs": ^3.1.1
+    axios: ^1.2.1
+    chalk: ^5.0.1
+    copyfiles: ^2.4.1
+    ejs: ^3.1.8
+    fs-extra: ^10.1.0
+    inquirer: ^8.0.0
+    lodash: ^4.17.21
+    ora: ^6.1.2
+    ts-node-dev: ^2.0.0
+  bin:
+    react-vite: ./lib/index.js
+  languageName: unknown
+  linkType: soft
+
 "@create-moralis-dapp/toolkit@^2.13.0, @create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit"
@@ -4125,6 +4145,15 @@ __metadata:
     toolkit: ./lib/index.js
   languageName: unknown
   linkType: soft
+
+"@create-moralis-dapp/toolkit@file:../toolkit::locator=%40create-moralis-dapp%2Freact-vite%40workspace%3Apackages%2Fcreate-moralis-dapp%2Freact-vite":
+  version: 2.13.0
+  resolution: "@create-moralis-dapp/toolkit@file:../toolkit#../toolkit::hash=e094fe&locator=%40create-moralis-dapp%2Freact-vite%40workspace%3Apackages%2Fcreate-moralis-dapp%2Freact-vite"
+  bin:
+    toolkit: ./lib/index.js
+  checksum: 177119b95e1ed74bd79fe77e56f682758346045eb05c08c09d19d8c56518447eca12c8e647fec69069f22eb043c65d22c5edc23f9b8c42f05aae96f440f86af9
+  languageName: node
+  linkType: hard
 
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1

@@ -24,17 +24,13 @@
   filter: drop-shadow(0 0 2em #1df7f7);
 }
 
-.card {
-  padding: 1em;
-}
-
 footer {
   margin-top: 2em;
   color: #a09f9f;
   text-align: center;
 }
 
-.form-input {
+.address-input {
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -56,7 +52,7 @@ pre {
   border-radius: 0.375rem;
 }
 
-.form-input input {
+.address-input input {
   background-color: #19212c;
   border-radius: 0.375rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -71,21 +67,11 @@ pre {
   height: 40px;
 }
 
-.form-input input:focus {
+.address-input input:focus {
   border-color: #63b3ed;
   padding: 0 15px;
   border-width: 2px;
   outline: none;
-}
-
-.form-input .hint {
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
-.form-input label {
-  display: inline-block;
-  margin-bottom: 0.5em;
 }
 
 .header {

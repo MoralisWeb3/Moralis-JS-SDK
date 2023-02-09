@@ -1,23 +1,20 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
+import viteLogo from './assets/vite.svg';
 import './App.css';
 import { useEvmWalletTokenBalances, useSolPortfolio } from '@moralisweb3/react';
 
 function App() {
   const [evmAddress, setEvmAddress] = useState('0x75e3e9c92162e62000425c98769965a76c2e387a');
   const [solAddress, setSolAddress] = useState('BWeBmN8zYDXgx2tnGj72cA533GZEWAVeqR9Eu29txaen');
-  const {
-    data: evmBalance,
-    fetch: fetchErc20,
-    error: errorErc20,
-  } = useEvmWalletTokenBalances({ address: evmAddress }, { revalidateOnMount: false });
+  const { data: evmBalance, fetch: fetchErc20, error: errorErc20 } = useEvmWalletTokenBalances();
   const { data: solPortfolio, fetch: fetchSol, error: errorSol } = useSolPortfolio();
 
   return (
     <div className="App">
       <div className="header">
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
+          <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://moralis.io" target="_blank">
           <img src="/moralis.svg" className="logo moralis" alt="Moralis logo" />
@@ -30,9 +27,9 @@ function App() {
 
       <div>
         <h4>Get Ethereum Token Balance</h4>
-        <div className="form-input">
-          <input name="address" value={evmAddress} onChange={(e) => setEvmAddress(e.target.value)} />
-          <button className="search_btn" onClick={() => fetchErc20()}>
+        <div className="address-input">
+          <input name="evmAddress" value={evmAddress} onChange={(e) => setEvmAddress(e.target.value)} />
+          <button className="search_btn" onClick={() => fetchErc20({ address: evmAddress })}>
             🔎
           </button>
         </div>
@@ -46,8 +43,8 @@ function App() {
 
       <div>
         <h4>Get Solana Portfolio</h4>
-        <div className="form-input">
-          <input name="address" value={solAddress} onChange={(e) => setSolAddress(e.target.value)} />
+        <div className="address-input">
+          <input name="solAddress" value={solAddress} onChange={(e) => setSolAddress(e.target.value)} />
           <button className="search_btn" onClick={() => fetchSol({ address: solAddress })}>
             🔎
           </button>
@@ -67,10 +64,7 @@ function App() {
           🙋 You have questions? Ask them on the <a href="https://forum.moralis.io/">Moralis forum</a>
         </p>
         <p>
-          📖 Read more about{' '}
-          <a href="https://moralis.io/?utm_source=boilerplatehosted&utm_medium=todo&utm_campaign=ethereum-boilerplate">
-            Moralis
-          </a>
+          📖 Read more about <a href="https://moralis.io/">Moralis</a>
         </p>
       </footer>
     </div>
