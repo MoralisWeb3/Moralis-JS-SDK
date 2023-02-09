@@ -1,7 +1,7 @@
 import { AptosApi } from '../../src/AptosApi';
 import { cleanAptosApi, setupAptosApi } from '../setup';
 
-describe('Moralis AptosApi', () => {
+describe('getNFTCollections', () => {
   let aptosApi: AptosApi;
 
   beforeAll(() => {
@@ -12,8 +12,8 @@ describe('Moralis AptosApi', () => {
     cleanAptosApi();
   });
 
-  it('returns collection', async () => {
-    const response = await aptosApi.nFTCollections.getNFTCollections({
+  it('returns collections', async () => {
+    const response = await aptosApi.collections.getNFTCollections({
       limit: 1,
     });
 

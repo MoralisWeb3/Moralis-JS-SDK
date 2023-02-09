@@ -1,7 +1,7 @@
 import { AptosApi } from '../../src/AptosApi';
 import { cleanAptosApi, setupAptosApi } from '../setup';
 
-describe('Moralis AptosApi', () => {
+describe('getAccountModule', () => {
   let aptosApi: AptosApi;
 
   beforeAll(() => {
@@ -26,7 +26,7 @@ describe('Moralis AptosApi', () => {
     expect(exposedFunction.name).toBe('string');
     expect(exposedFunction.visibility).toBe('private');
     expect(exposedFunction.isEntry).toBe(true);
-    expect(exposedFunction.genericTypeParams[0]).toContain('todo_x1');
+    expect(exposedFunction.genericTypeParams[0].constraints).toContain('todo_x1');
     expect(exposedFunction.params).toContain('string');
     expect(exposedFunction.return).toContain('string');
   });

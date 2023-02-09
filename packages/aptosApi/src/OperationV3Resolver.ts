@@ -1,6 +1,6 @@
 import { ApiUtilsConfig, getCommonHeaders } from '@moralisweb3/api-utils';
 import { ApiErrorCode, Config, CoreConfig, MoralisApiError, RequestController } from '@moralisweb3/common-core';
-import { OperationV3 } from './generated/abstractClient';
+import { OperationV3 } from '@moralisweb3/common-aptos-utils';
 
 export class OperationV3Resolver {
   public constructor(
@@ -64,6 +64,7 @@ export class OperationV3Resolver {
     }
 
     const headers = getCommonHeaders();
+    headers['x-api-key'] = `${apiKey}`;
     headers['Authorization'] = `Bearer ${apiKey}`;
     if (product) {
       headers['x-moralis-product'] = product;

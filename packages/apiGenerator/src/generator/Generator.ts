@@ -10,14 +10,13 @@ import { TypeResolver } from './fileGenerators/TypeResolver';
 import { Configuration } from '../configuration/Configuration';
 import { AbstractClientFileGenerator } from './fileGenerators/AbstractClientFileGenerator';
 import { MappingResolver } from './fileGenerators/MappingResolver';
-import { TypeResolverFactory } from './fileGenerators/TypeResolverFactory';
 
 export class Generator {
   public static create(document: OpenAPI.Document, configuration: Configuration, outputPath: string): Generator {
     const mappingResolver = new MappingResolver(configuration.generator.mappings);
-    const typeResolverFactory = new TypeResolverFactory(configuration.generator.classNamePrefix, mappingResolver);
+    const typeResolver = new TypeResolver(configuration.generator.classNamePrefix, mappingResolver, '../');
     const generatorWriter = new GeneratorWriter(outputPath);
-    return new Generator(document, configuration, typeResolverFactory, generatorWriter);
+    return new Generator(document, configuration, typeResolver, generatorWriter);
   }
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
@@ -26,7 +25,7 @@ export class Generator {
   private constructor(
     private readonly document: OpenAPI.Document,
     private readonly configuration: Configuration,
-    private readonly typeResolverFactory: TypeResolverFactory,
+    private readonly typeResolver: TypeResolver,
     private readonly writer: GeneratorWriter,
   ) {}
 
@@ -44,8 +43,7 @@ export class Generator {
       this.generateComplexType(complexType);
     }
 
-    const abstractClientTypeResolver = this.typeResolverFactory.create('./');
-    const abstractClientFileGenerator = new AbstractClientFileGenerator(result.operations, abstractClientTypeResolver);
+    const abstractClientFileGenerator = new AbstractClientFileGenerator(result.operations, this.typeResolver);
     this.writer.writeAbstractClient(abstractClientFileGenerator.generate());
 
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());
@@ -53,8 +51,7 @@ export class Generator {
   }
 
   private generateOperation(info: OperationInfo) {
-    const typeResolver = this.typeResolverFactory.create('../');
-    const generator = new OperationFileGenerator(info, typeResolver);
+    const generator = new OperationFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeOperation(result.className, result.output);
@@ -63,8 +60,7 @@ export class Generator {
   }
 
   private generateSimpleType(info: SimpleTypeInfo) {
-    const typeResolver = this.typeResolverFactory.create('../');
-    const generator = new SimpleTypeFileGenerator(info, typeResolver);
+    const generator = new SimpleTypeFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);
@@ -73,8 +69,7 @@ export class Generator {
   }
 
   private generateComplexType(info: ComplexTypeInfo) {
-    const typeResolver = this.typeResolverFactory.create('../');
-    const generator = new ComplexTypeFileGenerator(info, typeResolver);
+    const generator = new ComplexTypeFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);

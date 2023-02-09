@@ -58,7 +58,7 @@ export class AbstractClientFileGenerator {
     for (const operation of operations) {
       output.addImport(
         [operation.className, `${operation.className}Request`, `${operation.className}RequestJSON`],
-        `./operations/${operation.className}`,
+        `../operations/${operation.className}`,
       );
       if (operation.resolvedResponseType?.complexType && operation.responseTypeCodes.complexType) {
         output.addImport(

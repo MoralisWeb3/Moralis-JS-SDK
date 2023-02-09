@@ -1,7 +1,7 @@
 import { AptosApi } from '../../src/AptosApi';
 import { cleanAptosApi, setupAptosApi } from '../setup';
 
-describe('Moralis AptosApi', () => {
+describe('getCoinBalancesByWallets', () => {
   let aptosApi: AptosApi;
 
   beforeAll(() => {
@@ -12,7 +12,7 @@ describe('Moralis AptosApi', () => {
     cleanAptosApi();
   });
 
-  it('returns an info', async () => {
+  it('returns balances', async () => {
     const response = await aptosApi.wallets.getCoinBalancesByWallets({
       ownerAddresses: ['0xbc4bd90ad3ff96a2172307622764ee5950790ae85f2db147f4cb8ce72dd9d13f'],
       limit: 10,

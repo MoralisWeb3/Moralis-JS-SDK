@@ -5,10 +5,12 @@ import { Output } from './output/Output';
 export class GeneratorWriter {
   private readonly typesPath: string;
   private readonly operationsPath: string;
+  private readonly clientPath: string;
 
   public constructor(private readonly outputPath: string) {
     this.typesPath = path.join(this.outputPath, 'types');
     this.operationsPath = path.join(this.outputPath, 'operations');
+    this.clientPath = path.join(this.outputPath, 'client');
   }
 
   private prepareDir(path: string) {
@@ -23,6 +25,7 @@ export class GeneratorWriter {
   public prepare() {
     this.prepareDir(this.typesPath);
     this.prepareDir(this.operationsPath);
+    this.prepareDir(this.clientPath);
   }
 
   public writeOperation(className: string, output: Output) {
@@ -42,7 +45,7 @@ export class GeneratorWriter {
   }
 
   public writeAbstractClient(output: Output) {
-    this.writeFile(this.outputPath, 'abstractClient.ts', output);
+    this.writeFile(this.clientPath, 'abstractClient.ts', output);
   }
 
   private writeFile(basePath: string, fileName: string, output: Output) {

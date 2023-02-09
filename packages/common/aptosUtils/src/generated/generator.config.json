@@ -1,21 +1,10 @@
 {
   "url": "https://mainnet-aptos-api.moralis.io/aptos-api/swagger-json",
-
   "generator": {
     "classNamePrefix": "Aptos",
     "mappings": {
-      "types": [
-        {
-          "typeName": "chainList",
-          "customClassName": "EvmChain"
-        }
-      ],
-      "refs": [
-        {
-          "$ref": "#/components/schemas/blockTransaction/properties/value",
-          "className": "AptNative"
-        }
-      ],
+      "types": [],
+      "refs": [],
       "complexTypeProperties": [
         {
           "names": [
@@ -27,7 +16,7 @@
             "to_address"
           ],
           "className": "AptosAddress",
-          "import": "@moralisweb3/common-aptos-utils"
+          "import": "../../dataTypes"
         },
         {
           "names": [
@@ -36,7 +25,7 @@
             "token_amount"
           ],
           "className": "AptosNative",
-          "import": "@moralisweb3/common-aptos-utils"
+          "import": "../../dataTypes"
         }
       ],
       "operationParameters": [
@@ -48,21 +37,21 @@
             "wallet_addresses"
           ],
           "className": "AptosAddress",
-          "import": "@moralisweb3/common-aptos-utils"
+          "import": "../../dataTypes"
         },
         {
           "names": [
             "min_amount"
           ],
           "className": "AptosNative",
-          "import": "@moralisweb3/common-aptos-utils"
+          "import": "../../dataTypes"
         }
       ]
     }
   },
   "openApiReader": {
     "v3": {
-      "group$ref": "#/tags/0",
+      "group$ref": "#/x-tag-sdk",
       "isEnabled$ref": "#/x-tag-sdk"
     }
   }

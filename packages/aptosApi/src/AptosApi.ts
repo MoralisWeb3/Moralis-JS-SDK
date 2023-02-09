@@ -1,5 +1,5 @@
 import { Core, CoreProvider, RequestController } from '@moralisweb3/common-core';
-import { AbstractClient, OperationV3 } from './generated/abstractClient';
+import { AbstractClient, OperationV3 } from '@moralisweb3/common-aptos-utils';
 import { OperationV3Resolver } from './OperationV3Resolver';
 
 const BASE_URL = 'https://aptos-mainnet.aws-prod-api-1.moralis.io';

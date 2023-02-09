@@ -27,7 +27,7 @@ export const mockGetAccountModule = MockScenarios.create(
               name: 'string',
               visibility: 'private',
               is_entry: true,
-              generic_type_params: ['todo_x1'],
+              generic_type_params: [{ constraints: ['todo_x1'] }],
               params: ['string'],
               return: ['string'],
             },
@@ -37,11 +37,7 @@ export const mockGetAccountModule = MockScenarios.create(
               name: 'string',
               is_native: true,
               abilities: ['string'],
-              generic_type_params: [
-                {
-                  constraints: ['string'],
-                },
-              ],
+              generic_type_params: [{ constraints: ['todo_x1'] }],
               fields: [
                 {
                   name: 'string',

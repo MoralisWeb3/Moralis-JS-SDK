@@ -15,8 +15,7 @@ export const mockGetNFTCollections = MockScenarios.create(
         limit: '1',
       },
       response: {
-        cursor:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2IjoiIiwibyI6MiwiaWF0IjoxNjc1Njg3MzIxfQ.woxpGRvXos6xOGAQKrkqISSwN0NhnNiRMdssy0NGVMA',
+        cursor: 'c.u.r.s.o.r',
         result: [
           {
             collection_data_id_hash: 'f5220e2d492bfce726c26086e7ba6948a4604fa22af736df1705d49937fe0114',

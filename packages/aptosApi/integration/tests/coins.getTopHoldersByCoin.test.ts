@@ -1,7 +1,7 @@
 import { AptosApi } from '../../src/AptosApi';
 import { cleanAptosApi, setupAptosApi } from '../setup';
 
-describe('Moralis AptosApi', () => {
+describe('getTopHoldersByCoin', () => {
   let aptosApi: AptosApi;
 
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('Moralis AptosApi', () => {
   });
 
   it('returns top holders', async () => {
-    const response = await aptosApi.coinBalances.getTopHoldersByCoin({
+    const response = await aptosApi.coins.getTopHoldersByCoin({
       coinTypeHash: '91ceb1308a98389691e05158b07ed5f079ab78461a6bb8d5a4054b1bb5cb8bb6',
       limit: 2,
     });

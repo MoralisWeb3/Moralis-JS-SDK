@@ -1,7 +1,7 @@
 import { AptosApi } from '../../src/AptosApi';
 import { cleanAptosApi, setupAptosApi } from '../setup';
 
-describe('Moralis AptosApi', () => {
+describe('getAccount', () => {
   let aptosApi: AptosApi;
 
   beforeAll(() => {

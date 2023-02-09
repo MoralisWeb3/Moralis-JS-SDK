@@ -166,6 +166,9 @@ describe('OpenApiReader', () => {
       expect(simpleType1D.isArray).toBe(false);
 
       expect(simpleType1.simpleType).toBe('string');
+      expect(simpleType1.enum).toContain('mainnet');
+      expect(simpleType1.enum).toContain('testnet');
+      expect(simpleType1.enum).toContain('devnet');
     }
   });
 });
