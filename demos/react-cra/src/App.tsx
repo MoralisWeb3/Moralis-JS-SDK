@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/vite.svg';
 import './App.css';
 import { useEvmWalletTokenBalances, useSolPortfolio } from '@moralisweb3/react';
+import { CraLogo, MoralisLogo, ReactLogo } from './assets';
 
 function App() {
   const [evmAddress, setEvmAddress] = useState('0x75e3e9c92162e62000425c98769965a76c2e387a');
@@ -13,16 +12,16 @@ function App() {
   return (
     <div className="App">
       <div className="header">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+        <a href="https://create-react-app.dev/" target="_blank" rel="noreferrer">
+          <CraLogo />
         </a>
-        <a href="https://moralis.io" target="_blank">
-          <img src="/moralis.svg" className="logo moralis" alt="Moralis logo" />
+        <a href="https://moralis.io" target="_blank" rel="noreferrer">
+          <MoralisLogo />
         </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
+          <ReactLogo />
         </a>
-        <h1>Vite React Moralis Template</h1>
+        <h1>Moralis create-react-app Template</h1>
       </div>
 
       <div>

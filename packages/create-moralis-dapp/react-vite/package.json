@@ -21,7 +21,7 @@
     "dev": "ts-node src/generate.ts"
   },
   "dependencies": {
-    "@create-moralis-dapp/toolkit": "file:../toolkit"
+    "@create-moralis-dapp/toolkit": "^2.13.0"
   },
   "devDependencies": {
     "@types/ejs": "^3.1.1",
@@ -32,7 +32,7 @@
     "fs-extra": "^10.1.0",
     "inquirer": "^8.0.0",
     "lodash": "^4.17.21",
-    "ora": "^6.1.2",
+    "ora": "^5.4.1",
     "ts-node-dev": "^2.0.0"
   }
 }

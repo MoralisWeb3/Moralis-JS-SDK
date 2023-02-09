@@ -23,6 +23,9 @@
 .logo.moralis:hover {
   filter: drop-shadow(0 0 2em #1df7f7);
 }
+.logo.cra:hover {
+  filter: drop-shadow(0 0 2em #0AAE8F);
+}
 
 footer {
   margin-top: 2em;

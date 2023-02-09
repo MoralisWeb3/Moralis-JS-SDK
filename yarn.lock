@@ -4080,7 +4080,7 @@ __metadata:
     fs-extra: ^10.1.0
     inquirer: ^8.0.0
     lodash: ^4.17.21
-    ora: ^6.1.2
+    ora: ^5.4.1
     ts-node-dev: ^2.0.0
   bin:
     express: ./lib/index.js
@@ -4100,18 +4100,18 @@ __metadata:
     fs-extra: ^10.1.0
     inquirer: ^8.0.0
     lodash: ^4.17.21
-    ora: ^6.1.2
+    ora: ^5.4.1
     ts-node-dev: ^2.0.0
   bin:
     next: ./lib/index.js
   languageName: unknown
   linkType: soft
 
-"@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite":
+"@create-moralis-dapp/react-cra@workspace:packages/create-moralis-dapp/react-cra":
   version: 0.0.0-use.local
-  resolution: "@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite"
+  resolution: "@create-moralis-dapp/react-cra@workspace:packages/create-moralis-dapp/react-cra"
   dependencies:
-    "@create-moralis-dapp/toolkit": "file:../toolkit"
+    "@create-moralis-dapp/toolkit": ^2.13.0
     "@types/ejs": ^3.1.1
     axios: ^1.2.1
     chalk: ^5.0.1
@@ -4120,7 +4120,27 @@ __metadata:
     fs-extra: ^10.1.0
     inquirer: ^8.0.0
     lodash: ^4.17.21
-    ora: ^6.1.2
+    ora: ^5.4.1
+    ts-node-dev: ^2.0.0
+  bin:
+    react-cra: ./lib/index.js
+  languageName: unknown
+  linkType: soft
+
+"@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite":
+  version: 0.0.0-use.local
+  resolution: "@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite"
+  dependencies:
+    "@create-moralis-dapp/toolkit": ^2.13.0
+    "@types/ejs": ^3.1.1
+    axios: ^1.2.1
+    chalk: ^5.0.1
+    copyfiles: ^2.4.1
+    ejs: ^3.1.8
+    fs-extra: ^10.1.0
+    inquirer: ^8.0.0
+    lodash: ^4.17.21
+    ora: ^5.4.1
     ts-node-dev: ^2.0.0
   bin:
     react-vite: ./lib/index.js
@@ -4139,21 +4159,12 @@ __metadata:
     fs-extra: ^10.1.0
     inquirer: ^8.0.0
     lodash: ^4.17.21
-    ora: ^6.1.2
+    ora: ^5.4.1
     ts-node-dev: ^2.0.0
   bin:
     toolkit: ./lib/index.js
   languageName: unknown
   linkType: soft
-
-"@create-moralis-dapp/toolkit@file:../toolkit::locator=%40create-moralis-dapp%2Freact-vite%40workspace%3Apackages%2Fcreate-moralis-dapp%2Freact-vite":
-  version: 2.13.0
-  resolution: "@create-moralis-dapp/toolkit@file:../toolkit#../toolkit::hash=e094fe&locator=%40create-moralis-dapp%2Freact-vite%40workspace%3Apackages%2Fcreate-moralis-dapp%2Freact-vite"
-  bin:
-    toolkit: ./lib/index.js
-  checksum: 177119b95e1ed74bd79fe77e56f682758346045eb05c08c09d19d8c56518447eca12c8e647fec69069f22eb043c65d22c5edc23f9b8c42f05aae96f440f86af9
-  languageName: node
-  linkType: hard
 
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
@@ -15241,7 +15252,7 @@ __metadata:
     fs-extra: ^10.1.0
     inquirer: ^8.0.0
     lodash: ^4.17.21
-    ora: ^6.1.2
+    ora: ^5.4.1
     ts-node-dev: ^2.0.0
   bin:
     create-moralis-dapp: ./lib/index.js
@@ -27191,7 +27202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora@npm:^6.0.1, ora@npm:^6.1.2":
+"ora@npm:^6.0.1":
   version: 6.1.2
   resolution: "ora@npm:6.1.2"
   dependencies:
@@ -29762,6 +29773,39 @@ __metadata:
   checksum: 7db6110027a51458b1a46109d2b63dd822825f483c71afef7c0c0a671f3b1aa155049dbd8651c9d536ffac83601f8823b7c3f8916b4f4ee5c3cb7647a85cce4e
   languageName: node
   linkType: hard
+
+"react-cra-demo@workspace:demos/react-cra":
+  version: 0.0.0-use.local
+  resolution: "react-cra-demo@workspace:demos/react-cra"
+  dependencies:
+    "@chakra-ui/react": ^2.3.1
+    "@chakra-ui/styled-system": ^2.3.1
+    "@emotion/react": ^11
+    "@emotion/styled": ^11
+    "@moralisweb3/react": ^2.11.1
+    "@types/node": ^16.18.11
+    "@types/react": ^18.0.27
+    "@types/react-dom": ^18.0.10
+    assert: ^2.0.0
+    browserify-zlib: ^0.2.0
+    buffer: ^6.0.3
+    cross-env: ^7.0.3
+    crypto-browserify: ^3.12.0
+    https-browserify: ^1.0.0
+    os-browserify: ^0.3.0
+    process: ^0.11.10
+    react: ^18.2.0
+    react-app-rewired: ^2.2.1
+    react-dom: ^18.2.0
+    react-router-dom: ^6.3.0
+    react-scripts: 5.0.1
+    stream-browserify: ^3.0.0
+    stream-http: ^3.2.0
+    typescript: ^4.9.4
+    url: ^0.11.0
+    web-vitals: ^2.1.4
+  languageName: unknown
+  linkType: soft
 
 "react-demo@workspace:demos/react":
   version: 0.0.0-use.local

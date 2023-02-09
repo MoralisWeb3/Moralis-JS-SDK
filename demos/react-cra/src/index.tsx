@@ -4,7 +4,7 @@ import './index.css';
 import { MoralisConfig, MoralisProvider } from '@moralisweb3/react';
 
 const moralisConfig: MoralisConfig = {
-  apiKey: import.meta.env.VITE_APP_MORALIS_API,
+  apiKey: process.env.REACT_APP_MORALIS_KEY || '',
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

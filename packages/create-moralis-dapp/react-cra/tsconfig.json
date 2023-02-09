@@ -4,12 +4,12 @@
     "outDir": "./lib",
     "declarationDir": "./lib/",
     "rootDir": "./src",
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src/**/*",
   ],
   "exclude": [
     "src/template/**"
-  ],
+  ]
 }
