@@ -92,6 +92,7 @@
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.14.1",
+    "@moralisweb3/aptos-api": "^2.14.1",
     "@moralisweb3/auth": "^2.14.1",
     "@moralisweb3/common-auth-utils": "^2.14.1",
     "@moralisweb3/common-core": "^2.14.1",

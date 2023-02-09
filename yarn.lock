@@ -7404,11 +7404,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/aptos-api@workspace:packages/aptosApi":
+"@moralisweb3/aptos-api@^2.14.1, @moralisweb3/aptos-api@workspace:packages/aptosApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/aptos-api@workspace:packages/aptosApi"
   dependencies:
     "@moralisweb3/api-utils": ^2.11.1
+    "@moralisweb3/common-aptos-utils": ^2.11.1
     "@moralisweb3/common-core": ^2.11.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
@@ -7545,7 +7546,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-aptos-utils@^2.14.1, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
+"@moralisweb3/common-aptos-utils@^2.11.1, @moralisweb3/common-aptos-utils@^2.14.1, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils"
   dependencies:
@@ -25500,6 +25501,7 @@ __metadata:
   resolution: "moralis@workspace:packages/moralis"
   dependencies:
     "@moralisweb3/api-utils": ^2.14.1
+    "@moralisweb3/aptos-api": ^2.14.1
     "@moralisweb3/auth": ^2.14.1
     "@moralisweb3/common-auth-utils": ^2.14.1
     "@moralisweb3/common-core": ^2.14.1
