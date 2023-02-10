@@ -1,1 +1,1 @@
-export * from './ExpressAppGenerator';
+export * from './AppGenerator/ExpressAppGenerator';

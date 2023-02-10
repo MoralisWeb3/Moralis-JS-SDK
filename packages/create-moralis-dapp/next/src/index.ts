@@ -1,1 +1,1 @@
-export * from './NextAppGenerator';
+export * from './AppGenerator/NextAppGenerator';
