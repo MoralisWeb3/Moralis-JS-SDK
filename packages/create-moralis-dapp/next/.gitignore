@@ -4,6 +4,7 @@
 # Except for the themes directories:
 
 !src/
+!jest.config.js
 !.eslintrc.js
 !.gitignore
 !CHANGELOG.md
