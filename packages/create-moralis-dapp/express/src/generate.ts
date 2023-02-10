@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { ExpressAppGenerator } from './AppGenerator';
+import { ExpressAppGenerator } from './ExpressAppGenerator';
 
 const expressAppGenerator = new ExpressAppGenerator();
 expressAppGenerator.generate();

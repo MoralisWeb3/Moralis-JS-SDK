@@ -7,7 +7,7 @@ export class TemplateProcessor {
 
   constructor(private templatePath: string, private destination: string) {}
 
-  public async normalizeFiles(data: Answers) {
+  public async normalizeFiles(data?: Answers) {
     const filePaths = await this.fsProcessor.getAllFilesPathsInDir(this.destination);
     for (const filePath of filePaths) {
       if (filePath.includes('.tmpl')) {

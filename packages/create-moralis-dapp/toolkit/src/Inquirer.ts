@@ -19,6 +19,7 @@ export class Inquirer {
         message: 'Input your Moralis Api key. You can find it on https://admin.moralis.io/web3apis',
         type: 'password',
         prefix: '🧙 :',
+        default: null,
       },
       packageManager: {
         type: 'list',
