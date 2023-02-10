@@ -13,7 +13,6 @@
   "bin": "./lib/index.js",
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
-    "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format": "prettier --write 'src/**/*.{js,ts}'",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
