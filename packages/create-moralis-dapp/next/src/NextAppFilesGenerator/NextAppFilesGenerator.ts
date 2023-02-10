@@ -1,6 +1,6 @@
 import { TemplateProcessor } from '@create-moralis-dapp/toolkit';
 
-export class ExpressFileGenerator {
+export class NextAppFilesGenerator {
   private readonly templateProcessor: TemplateProcessor;
 
   constructor(templatePath: string, destination: string) {

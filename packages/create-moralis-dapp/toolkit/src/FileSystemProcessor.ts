@@ -1,33 +1,33 @@
 /* eslint-disable no-await-in-loop */
-import fs from 'fs-extra';
+import fs, { ReadOptions, WriteOptions } from 'fs-extra';
 import { join } from 'path';
 
 export class FileSystemProcessor {
-  public async copy(source: string, destination: string) {
+  public static async copy(source: string, destination: string) {
     return fs.copy(source, destination);
   }
 
-  public async removeDir(path: string) {
-    return fs.rmdir(path);
+  public static async removeDir(path: string) {
+    return fs.remove(path);
   }
 
-  public async readdir(path: string) {
+  public static async readdir(path: string) {
     return fs.readdir(path);
   }
 
-  public async writeFile(path: string, data: string | NodeJS.ArrayBufferView) {
+  public static async writeFile(path: string, data: string | NodeJS.ArrayBufferView) {
     return fs.writeFile(path, data);
   }
 
-  public async rename(oldPath: string, newPath: string) {
+  public static async rename(oldPath: string, newPath: string) {
     return fs.rename(oldPath, newPath);
   }
 
-  public async stat(path: string) {
+  public static async stat(path: string) {
     return fs.stat(path);
   }
 
-  public async getAllFilesPathsInDir(dir: string) {
+  public static async getAllFilesPathsInDir(dir: string) {
     let res: string[] = [];
 
     const paths = await this.readdir(dir);
@@ -43,5 +43,13 @@ export class FileSystemProcessor {
     }
 
     return res;
+  }
+
+  public static async readJSON(file: string, options?: ReadOptions | BufferEncoding | string) {
+    return fs.readJSON(file, options);
+  }
+
+  public static async writeJSON(file: string, object: any, options?: WriteOptions | BufferEncoding | string) {
+    return fs.writeJSON(file, object, options);
   }
 }

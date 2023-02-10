@@ -1,24 +1,24 @@
 import path from 'path';
-import { ExpressAppInquirer } from '../ExpressAppInquirer';
-import { ExpressFileGenerator } from './ExpressFileGenerator';
+import { NextAppInquirer } from '../NextAppInquirer';
+import { NextAppFilesGenerator } from './NextAppFilesGenerator';
 import { FileSystemProcessor } from '@create-moralis-dapp/toolkit';
 
-describe('ExpressFileGenerator', () => {
+describe('NextAppFilesGenerator', () => {
   const appName = 'moralis-dapp';
   const templatePath = path.join(__dirname, '../template');
   const destination = path.join(__dirname, appName);
   jest.setTimeout(60000);
 
   beforeAll(async () => {
-    const fileGenerator = new ExpressFileGenerator(templatePath, destination);
+    const fileGenerator = new NextAppFilesGenerator(templatePath, destination);
 
     let data: Record<string, any> = {};
 
-    for (let question of ExpressAppInquirer.questions) {
+    for (let question of NextAppInquirer.questions) {
       data[question.name] = question?.default;
     }
 
-    await fileGenerator.generate(data);
+    await fileGenerator.generate({ ...data, nextAuthSecret: '' });
   });
   afterAll(async () => {
     await FileSystemProcessor.removeDir(destination);

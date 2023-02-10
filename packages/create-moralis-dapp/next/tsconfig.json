@@ -7,5 +7,5 @@
     "resolveJsonModule": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/template/**"]
+  "exclude": ["src/template/**", "src/**/*.test.ts"]
 }

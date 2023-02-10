@@ -12,5 +12,5 @@ export class ExpressAppInquirer {
     this.commonQuestions.name,
     this.commonQuestions.moralisApiKey,
     this.commonQuestions.packageManager,
-  ] as const;
+  ];
 }

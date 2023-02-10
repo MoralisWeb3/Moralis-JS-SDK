@@ -1,22 +1,22 @@
-import { AppGenerator, DependenciesManager, TemplateProcessor } from '@create-moralis-dapp/toolkit';
+import { AppGenerator, DependenciesManager } from '@create-moralis-dapp/toolkit';
 import crypto from 'crypto';
 import path from 'path';
-import { NextInquirer } from '../NextInquirer';
+import { NextAppFilesGenerator } from './NextAppFilesGenerator';
+import { NextAppInquirer } from './NextAppInquirer';
 
 export class NextAppGenerator implements AppGenerator {
   private readonly templatePath = path.join(__dirname, './template');
   public readonly name = 'NextJS            [only frontend]';
 
   public async generate() {
-    const answers = await NextInquirer.inquire();
+    const answers = await NextAppInquirer.inquire();
 
     const data = { ...answers, nextAuthSecret: this.generateSecret() };
 
     const destination = this.getDestination(answers.name);
 
-    const tmplProcessor = new TemplateProcessor(this.templatePath, destination);
-    await tmplProcessor.copyTemplate();
-    await tmplProcessor.normalizeFiles(data);
+    const fileGenerator = new NextAppFilesGenerator(this.templatePath, destination);
+    await fileGenerator.generate(data);
 
     const depManager = new DependenciesManager(destination);
     await depManager.addToPackageJson(answers.web3Lib.dependencies);

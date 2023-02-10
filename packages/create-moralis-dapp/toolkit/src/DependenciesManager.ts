@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
 import path from 'path';
 import { Executer } from './Executer';
+import { FileSystemProcessor } from './FileSystemProcessor';
 
 export type Dependency = {
   name: string;
@@ -14,12 +14,12 @@ export class DependenciesManager {
 
   public async addToPackageJson(dependencies: Dependency[]) {
     const packageJsonPath = path.join(this.destination, 'package.json');
-    const packageJson = await fs.readJSON(packageJsonPath);
+    const packageJson = await FileSystemProcessor.readJSON(packageJsonPath);
     dependencies.forEach(({ name, version }) => {
       packageJson.dependencies[name] = version;
     });
 
-    return fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
+    return FileSystemProcessor.writeJSON(packageJsonPath, packageJson, { spaces: 2 });
   }
 
   public async install(packageManager?: PackageManager) {

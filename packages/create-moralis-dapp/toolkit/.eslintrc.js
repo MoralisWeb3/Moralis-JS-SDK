@@ -8,5 +8,6 @@ module.exports = {
   },
   globals: {
     NodeJS: true,
+    BufferEncoding: 'readonly',
   },
 };
