@@ -26,8 +26,8 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
   );
 
   const { data, error, mutate, isValidating } = useSWR<Response | null>(
-    [request ? operation.id : null, request],
-    fetcher,
+    [`${baseUrl}/${operation.id}`, request],
+    request ? fetcher : null,
     {
       ...fetchConfig,
       ...fetchParams,

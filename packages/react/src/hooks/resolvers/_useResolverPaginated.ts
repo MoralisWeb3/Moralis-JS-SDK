@@ -25,10 +25,14 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
     [resolve],
   );
 
-  const { data, error, mutate, isValidating } = useSWR<Response>([request ? operation.id : null, request], fetcher, {
-    ...fetchConfig,
-    ...fetchParams,
-  });
+  const { data, error, mutate, isValidating } = useSWR<Response>(
+    [`${baseUrl}/${operation.id}`, request],
+    request ? fetcher : null,
+    {
+      ...fetchConfig,
+      ...fetchParams,
+    },
+  );
 
   const fetch = useCallback(
     (params?: Request) => {
