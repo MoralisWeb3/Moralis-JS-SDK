@@ -21,6 +21,7 @@
   "dependencies": {
     "@create-moralis-dapp/express": "^2.13.0",
     "@create-moralis-dapp/next": "^2.13.0",
+    "@create-moralis-dapp/react-vite": "^2.13.0",
     "@create-moralis-dapp/toolkit": "^2.13.0",
     "inquirer": "^8.0.0"
   }
