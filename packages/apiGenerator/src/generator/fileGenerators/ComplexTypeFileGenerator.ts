@@ -21,7 +21,7 @@ export class ComplexTypeFileGenerator {
 
     const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor);
     const typeCodes = TypeCodesGenerator.generate(resolvedType, true);
-    if (!typeCodes.complexType) {
+    if (!typeCodes.referenceType) {
       throw new Error('Invalid descriptor type');
     }
 
@@ -55,20 +55,20 @@ export class ComplexTypeFileGenerator {
     // view:
 
     for (const p of properties) {
-      if (!p.typeCodes.complexType) {
+      if (!p.typeCodes.referenceType) {
         continue;
       }
-      if (p.typeCodes.complexType.className === typeCodes.complexType.className) {
+      if (p.typeCodes.referenceType.className === typeCodes.referenceType.className) {
         // Skips import to self type
         continue;
       }
       output.addImport(
         [
-          p.typeCodes.complexType.className,
-          p.typeCodes.complexType.inputClassName,
-          p.typeCodes.complexType.jsonClassName,
+          p.typeCodes.referenceType.className,
+          p.typeCodes.referenceType.inputClassName,
+          p.typeCodes.referenceType.jsonClassName,
         ],
-        p.typeCodes.complexType.importPath,
+        p.typeCodes.referenceType.importPath,
       );
     }
     output.commitImports();
@@ -81,14 +81,14 @@ export class ComplexTypeFileGenerator {
     }
     output.newLine();
 
-    output.write(0, `export interface ${typeCodes.complexType.jsonClassName} {`);
+    output.write(0, `export interface ${typeCodes.referenceType.jsonClassName} {`);
     for (const p of properties) {
       output.write(1, `readonly ${p.propertyNameCodes.nameCode}${p.typeCodes.colon} ${p.typeCodes.jsonTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
 
-    output.write(0, `export interface ${typeCodes.complexType.inputClassName} {`);
+    output.write(0, `export interface ${typeCodes.referenceType.inputClassName} {`);
     for (const p of properties) {
       output.write(
         1,
@@ -98,29 +98,29 @@ export class ComplexTypeFileGenerator {
     output.write(0, '}');
     output.newLine();
 
-    output.write(0, `export class ${typeCodes.complexType.className} {`);
+    output.write(0, `export class ${typeCodes.referenceType.className} {`);
 
     output.write(
       1,
-      `public static create(input: ${typeCodes.inputUnionTypeCode}): ${typeCodes.complexType.className} {`,
+      `public static create(input: ${typeCodes.inputUnionTypeCode}): ${typeCodes.referenceType.className} {`,
     );
-    output.write(2, `if (input instanceof ${typeCodes.complexType.className}) {`);
+    output.write(2, `if (input instanceof ${typeCodes.referenceType.className}) {`);
     output.write(3, `return input;`);
     output.write(2, `}`);
-    output.write(2, `return new ${typeCodes.complexType.className}(input);`);
+    output.write(2, `return new ${typeCodes.referenceType.className}(input);`);
     output.write(1, '}');
     output.newLine();
 
     output.write(
       1,
-      `public static fromJSON(json: ${typeCodes.complexType.jsonClassName}): ${typeCodes.complexType.className} {`,
+      `public static fromJSON(json: ${typeCodes.referenceType.jsonClassName}): ${typeCodes.referenceType.className} {`,
     );
-    output.write(2, `const input: ${typeCodes.complexType.inputClassName} = {`);
+    output.write(2, `const input: ${typeCodes.referenceType.inputClassName} = {`);
     for (const p of properties) {
       output.write(3, `${p.propertyNameCodes.camelCasedNameCode}: ${p.json2TypeCode},`);
     }
     output.write(2, `};`);
-    output.write(2, `return ${typeCodes.complexType.className}.create(input);`);
+    output.write(2, `return ${typeCodes.referenceType.className}.create(input);`);
     output.write(1, `}`);
     output.newLine();
 
@@ -135,14 +135,14 @@ export class ComplexTypeFileGenerator {
     }
     output.newLine();
 
-    output.write(1, `private constructor(input: ${typeCodes.complexType.inputClassName}) {`);
+    output.write(1, `private constructor(input: ${typeCodes.referenceType.inputClassName}) {`);
     for (const p of properties) {
       output.write(2, `this${p.propertyNameCodes.camelCasedAccessCode} = ${p.input2typeCode};`);
     }
     output.write(1, '}');
     output.newLine();
 
-    output.write(1, `public toJSON(): ${typeCodes.complexType.jsonClassName} {`);
+    output.write(1, `public toJSON(): ${typeCodes.referenceType.jsonClassName} {`);
     output.write(2, 'return {');
     for (const p of properties) {
       output.write(3, `${p.propertyNameCodes.nameCode}: ${p.type2jsonCode},`);
@@ -152,6 +152,6 @@ export class ComplexTypeFileGenerator {
 
     output.write(0, `}`);
 
-    return { output, className: typeCodes.complexType.className as string };
+    return { output, className: typeCodes.referenceType.className as string };
   }
 }

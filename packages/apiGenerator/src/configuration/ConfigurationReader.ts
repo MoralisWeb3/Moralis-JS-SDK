@@ -3,8 +3,8 @@ import fs from 'fs';
 import { Configuration } from './Configuration';
 
 export class ConfigurationReader {
-  public static read(outputPath: string): Configuration {
-    const jsonPath = path.join(outputPath, 'generator.config.json');
+  public static read(projectPath: string): Configuration {
+    const jsonPath = path.join(projectPath, 'generator.config.json');
     if (!fs.existsSync(jsonPath)) {
       throw new Error(`Cannot open ${jsonPath} file`);
     }

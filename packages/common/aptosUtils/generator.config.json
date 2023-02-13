@@ -1,48 +1,31 @@
 {
   "url": "https://mainnet-aptos-api.moralis.io/aptos-api/swagger-json",
   "generator": {
+    "outputDir": "src/generated",
     "classNamePrefix": "Aptos",
     "mappings": {
       "types": [],
       "refs": [],
       "complexTypeProperties": [
         {
-          "names": [
-            "creator_address",
-            "owner_address",
-            "sender",
-            "payee_address",
-            "from_address",
-            "to_address"
-          ],
+          "names": ["creator_address", "owner_address", "sender", "payee_address", "from_address", "to_address"],
           "className": "AptosAddress",
           "import": "../../dataTypes"
         },
         {
-          "names": [
-            "amount",
-            "coin_amount",
-            "token_amount"
-          ],
+          "names": ["amount", "coin_amount", "token_amount"],
           "className": "AptosNative",
           "import": "../../dataTypes"
         }
       ],
       "operationParameters": [
         {
-          "names": [
-            "owner_addresses",
-            "creator_addresses",
-            "creator_address",
-            "wallet_addresses"
-          ],
+          "names": ["owner_addresses", "creator_addresses", "creator_address", "wallet_addresses"],
           "className": "AptosAddress",
           "import": "../../dataTypes"
         },
         {
-          "names": [
-            "min_amount"
-          ],
+          "names": ["min_amount"],
           "className": "AptosNative",
           "import": "../../dataTypes"
         }

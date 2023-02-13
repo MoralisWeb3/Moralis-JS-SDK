@@ -2,12 +2,12 @@ import { ResolvedType } from '../TypeResolver';
 
 export class ValueMappingCodeGenerator {
   public static generateJSON2TypeCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
-    if (resolvedType.complexType) {
+    if (resolvedType.referenceType) {
       let code: string;
       if (resolvedType.isArray) {
-        code = `${valueCode}.map((item) => ${resolvedType.complexType.className}.fromJSON(item))`;
+        code = `${valueCode}.map((item) => ${resolvedType.referenceType.className}.fromJSON(item))`;
       } else {
-        code = `${resolvedType.complexType.className}.fromJSON(${valueCode})`;
+        code = `${resolvedType.referenceType.className}.fromJSON(${valueCode})`;
       }
       return isRequired ? code : `${valueCode} ? ${code} : undefined`;
     }
@@ -16,7 +16,7 @@ export class ValueMappingCodeGenerator {
   }
 
   public static generateType2JSONCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
-    if (resolvedType.complexType) {
+    if (resolvedType.referenceType) {
       let code: string;
       if (resolvedType.isArray) {
         code = `${valueCode}.map((item) => item.toJSON())`;
@@ -30,8 +30,8 @@ export class ValueMappingCodeGenerator {
   }
 
   public static generateInput2TypeCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
-    if (resolvedType.complexType) {
-      const { className } = resolvedType.complexType;
+    if (resolvedType.referenceType) {
+      const { className } = resolvedType.referenceType;
       let code: string;
       if (resolvedType.isArray) {
         code = `${valueCode}.map((item) => ${className}.create(item))`;

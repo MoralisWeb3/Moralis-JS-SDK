@@ -1,19 +1,21 @@
 import { Generator } from './generator/Generator';
 import { ConfigurationReader } from './configuration/ConfigurationReader';
 import { OpenApiDownloader } from './reader/OpenApiDownloader';
+import { OpenApiReader } from './reader/OpenApiReader';
 import path from 'path';
 
-async function run(outputPath: string) {
-  if (!outputPath) {
+async function run(projectPath: string) {
+  if (!projectPath) {
     throw new Error('Invalid usage');
   }
-  outputPath = path.join(__dirname, outputPath);
+  projectPath = path.join(__dirname, projectPath);
 
-  const configuration = ConfigurationReader.read(outputPath);
+  const configuration = ConfigurationReader.read(projectPath);
   console.log(`📔 Swagger: ${configuration.url}`);
 
   const document = await OpenApiDownloader.download(configuration.url);
-  const generator = Generator.create(document, configuration, outputPath);
+  const readerResult = OpenApiReader.create(document, configuration.openApiReader).read();
+  const generator = Generator.create(readerResult, configuration, projectPath);
   generator.generate();
 
   console.log('✅ Done');

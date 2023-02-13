@@ -1,30 +1,38 @@
-import { OpenAPI } from 'openapi-types';
-import { OpenApiReader } from '../reader/OpenApiReader';
 import { IndexFileGenerator } from './fileGenerators/IndexFileGenerator';
 import { OperationFileGenerator } from './fileGenerators/OperationFileGenerator';
 import { SimpleTypeFileGenerator } from './fileGenerators/SimpleTypeFileGenerator';
 import { ComplexTypeFileGenerator } from './fileGenerators/ComplexTypeFileGenerator';
 import { GeneratorWriter } from './GeneratorWriter';
-import { ComplexTypeInfo, OperationInfo, SimpleTypeInfo } from '../reader/OpenApiReaderResult';
+import {
+  ComplexTypeInfo,
+  OpenApiReaderResult,
+  OperationInfo,
+  SimpleTypeInfo,
+  UnionTypeInfo,
+} from '../reader/OpenApiReaderResult';
 import { TypeResolver } from './fileGenerators/TypeResolver';
 import { Configuration } from '../configuration/Configuration';
 import { AbstractClientFileGenerator } from './fileGenerators/AbstractClientFileGenerator';
 import { MappingResolver } from './fileGenerators/MappingResolver';
+import { UnionTypeFileGenerator } from './fileGenerators/UnionTypeFileGenerator';
 
 export class Generator {
-  public static create(document: OpenAPI.Document, configuration: Configuration, outputPath: string): Generator {
+  public static create(
+    readerResult: OpenApiReaderResult,
+    configuration: Configuration,
+    projectPath: string,
+  ): Generator {
     const mappingResolver = new MappingResolver(configuration.generator.mappings);
     const typeResolver = new TypeResolver(configuration.generator.classNamePrefix, mappingResolver, '../');
-    const generatorWriter = new GeneratorWriter(outputPath);
-    return new Generator(document, configuration, typeResolver, generatorWriter);
+    const generatorWriter = new GeneratorWriter(projectPath, configuration.generator.outputDir);
+    return new Generator(readerResult, typeResolver, generatorWriter);
   }
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
 
   private constructor(
-    private readonly document: OpenAPI.Document,
-    private readonly configuration: Configuration,
+    private readonly readerResult: OpenApiReaderResult,
     private readonly typeResolver: TypeResolver,
     private readonly writer: GeneratorWriter,
   ) {}
@@ -32,18 +40,23 @@ export class Generator {
   public generate() {
     this.writer.prepare();
 
-    const result = OpenApiReader.create(this.document, this.configuration.openApiReader).read();
-    for (const operation of result.operations) {
+    for (const operation of this.readerResult.operations) {
       this.generateOperation(operation);
     }
-    for (const simpleType of result.simpleTypes) {
+    for (const simpleType of this.readerResult.simpleTypes) {
       this.generateSimpleType(simpleType);
     }
-    for (const complexType of result.complexTypes) {
+    for (const complexType of this.readerResult.complexTypes) {
       this.generateComplexType(complexType);
     }
+    for (const unionType of this.readerResult.unionTypes) {
+      this.generateUnionType(unionType);
+    }
 
-    const abstractClientFileGenerator = new AbstractClientFileGenerator(result.operations, this.typeResolver);
+    const abstractClientFileGenerator = new AbstractClientFileGenerator(
+      this.readerResult.operations,
+      this.typeResolver,
+    );
     this.writer.writeAbstractClient(abstractClientFileGenerator.generate());
 
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());
@@ -70,6 +83,15 @@ export class Generator {
 
   private generateComplexType(info: ComplexTypeInfo) {
     const generator = new ComplexTypeFileGenerator(info, this.typeResolver);
+    const result = generator.generate();
+
+    this.writer.writeType(result.className, result.output);
+
+    this.typesIndexGenerator.add(result.className);
+  }
+
+  private generateUnionType(info: UnionTypeInfo) {
+    const generator = new UnionTypeFileGenerator(info, this.typeResolver);
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);

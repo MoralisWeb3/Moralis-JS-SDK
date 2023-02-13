@@ -3,11 +3,13 @@ import fs from 'fs';
 import { Output } from './output/Output';
 
 export class GeneratorWriter {
+  private readonly outputPath: string;
   private readonly typesPath: string;
   private readonly operationsPath: string;
   private readonly clientPath: string;
 
-  public constructor(private readonly outputPath: string) {
+  public constructor(projectPath: string, outputDir: string) {
+    this.outputPath = path.join(projectPath, outputDir);
     this.typesPath = path.join(this.outputPath, 'types');
     this.operationsPath = path.join(this.outputPath, 'operations');
     this.clientPath = path.join(this.outputPath, 'client');

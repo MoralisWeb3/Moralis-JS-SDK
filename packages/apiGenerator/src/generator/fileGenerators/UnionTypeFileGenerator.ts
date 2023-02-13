@@ -1,32 +1,42 @@
-import { SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
+import { UnionTypeInfo } from '../../reader/OpenApiReaderResult';
 import { Output } from '../output/Output';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
-import { SimpleTypeNormalizer } from './codeGenerators/SimpleTypeNormalizer';
 import { TypeResolver } from './TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
+import { isSimpleTypeDescriptor, UnionType } from '../../reader/TypeDescriptor';
 
-export interface SimpleTypeFileGeneratorResult {
+export interface UnionTypeFileGeneratorResult {
   className: string;
   output: Output;
 }
 
-export class SimpleTypeFileGenerator {
-  public constructor(private readonly info: SimpleTypeInfo, private readonly typeResolver: TypeResolver) {}
+export class UnionTypeFileGenerator {
+  public constructor(private readonly info: UnionTypeInfo, private readonly typeResolver: TypeResolver) {}
 
-  public generate(): SimpleTypeFileGeneratorResult {
+  public generate(): UnionTypeFileGeneratorResult {
+    if (this.info.descriptor.unionType !== UnionType.oneOf) {
+      throw new Error(`Generator supports only oneOf union type, but got ${this.info.descriptor.unionType}`);
+    }
+
     const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor);
     const { referenceType: referenceTypeCodes, inputUnionTypeCode } = TypeCodesGenerator.generate(resolvedType, true);
     if (!referenceTypeCodes) {
-      throw new Error('Complex type is only supported');
+      throw new Error('Reference type is only supported');
     }
 
-    const normalizedType = SimpleTypeNormalizer.normalize(this.info.simpleType);
-    let typeCode: string;
-    if (this.info.enum) {
-      typeCode = this.info.enum.map((value) => JSON.stringify(value)).join(' | ');
-    } else {
-      typeCode = TypeCodesGenerator.getTypeCode(normalizedType, this.info.descriptor.isArray);
-    }
+    const unionTypes = this.info.unionDescriptors.map((descriptor) => {
+      if (!isSimpleTypeDescriptor(descriptor)) {
+        throw new Error('Generator supports only simple types');
+      }
+
+      const unionResolvedType = this.typeResolver.resolveWithNoMapping(descriptor);
+      return {
+        typeCodes: TypeCodesGenerator.generate(unionResolvedType, true),
+      };
+    });
+
+    const unionJsonTypeCode = unionTypes.map((unionType) => unionType.typeCodes.jsonTypeCode).join(' | ');
+    const unionInputTypeCode = unionTypes.map((unionType) => unionType.typeCodes.inputUnionTypeCode).join(' | ');
 
     // view:
 
@@ -36,8 +46,8 @@ export class SimpleTypeFileGenerator {
     output.write(0, `// typeName: ${this.info.descriptor.typeName.toString()}`);
     output.newLine();
 
-    output.write(0, `export type ${referenceTypeCodes.jsonClassName} = ${typeCode};`);
-    output.write(0, `export type ${referenceTypeCodes.inputClassName} = ${referenceTypeCodes.jsonClassName};`);
+    output.write(0, `export type ${referenceTypeCodes.jsonClassName} = ${unionJsonTypeCode};`);
+    output.write(0, `export type ${referenceTypeCodes.inputClassName} = ${unionInputTypeCode};`);
     output.newLine();
 
     output.write(0, `export class ${referenceTypeCodes.className} {`);

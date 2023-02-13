@@ -9,6 +9,7 @@ export class SimpleTypeNormalizer {
       case 'boolean':
       case 'number':
       case 'object':
+      case 'null':
         return simpleType;
     }
     throw new Error(`Not supported simple type: ${simpleType}`);

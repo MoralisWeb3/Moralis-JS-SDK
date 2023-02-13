@@ -1,7 +1,8 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
-import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor } from '../TypeDescriptor';
+import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor, UnionTypeDescriptor } from '../TypeDescriptor';
 import { TypeName } from '../utils/TypeName';
+import { UnionV3Reader } from './UnionV3Reader';
 
 const ITEM_TYPE_NAME_SUFFIX = 'Item';
 const COMPONENT_SCHEMA_$REF_PREFIX = '#/components/schemas/';
@@ -47,9 +48,12 @@ export class TypeDescriptorV3Reader {
         return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
 
-      if (itemsSchema.oneOf || itemsSchema.allOf || itemsSchema.anyOf) {
-        throw new Error(`oneOf, allOf and anyOf is not supported (${parentRef})`);
+      const itemsUnion = UnionV3Reader.tryRead(itemsSchema);
+      if (itemsUnion) {
+        const itemTypeName = defaultTypeName.add(ITEM_TYPE_NAME_SUFFIX);
+        return new UnionTypeDescriptor(true, parentRef.extend(['items']), itemTypeName, itemsUnion.unionType);
       }
+
       if (!itemsSchema.type) {
         itemsSchema.type = 'string';
         console.warn(`[no-schema-type] Items schema has empty type, set string as default (${parentRef})`);
@@ -61,17 +65,16 @@ export class TypeDescriptorV3Reader {
       return new ComplexTypeDescriptor(false, parentRef, defaultTypeName);
     }
 
-    if (schema.allOf) {
-      if (schema.allOf.length !== 1) {
-        throw new Error(`Supported only single allOf (${parentRef})`);
+    const union = UnionV3Reader.tryRead(schema);
+    if (union) {
+      if (union.$refsOrSchemas.length === 1) {
+        // We reduce single union to single type.
+        const itemRef = parentRef.extend([union.unionType, '0']);
+        return this.read(union.$refsOrSchemas[0], itemRef, defaultTypeName);
       }
-      const allOf$refOrSchema = schema.allOf[0];
-      return this.read(allOf$refOrSchema, parentRef.extend(['allOf', '0']), defaultTypeName);
+      return new UnionTypeDescriptor(false, parentRef, defaultTypeName, union.unionType);
     }
 
-    if (schema.oneOf || schema.anyOf) {
-      throw new Error(`oneOf and anyOf is not supported (${parentRef})`);
-    }
     if (!schema.type) {
       schema.type = 'string';
       console.warn(

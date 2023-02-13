@@ -1,16 +1,21 @@
 import { NameFormatter } from './codeGenerators/NameFormatter';
-import { isComplexTypeDescriptor, isSimpleTypeDescriptor, TypeDescriptor } from '../../reader/TypeDescriptor';
+import {
+  isComplexTypeDescriptor,
+  isSimpleTypeDescriptor,
+  isUnionTypeDescriptor,
+  TypeDescriptor,
+} from '../../reader/TypeDescriptor';
 import { MappingTarget } from '../GeneratorConfiguration';
 import { TypeName } from 'src/reader/utils/TypeName';
 import { MappingResolver } from './MappingResolver';
 
 export interface ResolvedType {
   isArray: boolean;
-  complexType?: ComplexResolvedType;
   simpleType?: string;
+  referenceType?: ReferenceResolvedType;
 }
 
-export interface ComplexResolvedType {
+export interface ReferenceResolvedType {
   className: string;
   importPath: string;
 }
@@ -23,11 +28,11 @@ export class TypeResolver {
   ) {}
 
   public resolveWithNoMapping(descriptor: TypeDescriptor): ResolvedType {
-    if (isComplexTypeDescriptor(descriptor)) {
+    if (isComplexTypeDescriptor(descriptor) || isUnionTypeDescriptor(descriptor)) {
       const className = this.createClassName(descriptor.typeName);
       return {
         isArray: descriptor.isArray,
-        complexType: {
+        referenceType: {
           className,
           importPath: `${this.basePath}types/${className}`,
         },
@@ -88,7 +93,7 @@ export class TypeResolver {
     const importPath = target.import ? target.import : `${this.basePath}customTypes/${target.className}`;
     return {
       isArray: descriptor.isArray,
-      complexType: {
+      referenceType: {
         className: target.className,
         importPath,
       },

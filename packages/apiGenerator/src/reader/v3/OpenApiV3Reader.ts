@@ -1,8 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { OpenApiVersionReader } from '../OpenApiReader';
 import { OpenApiReaderResult } from '../OpenApiReaderResult';
-import { ComplexTypePointer } from '../TypeDescriptor';
-import { UniqueQueue } from '../utils/UniqueQueue';
+import { TypesQueue } from '../utils/TypesQueue';
 import { OpenApiV3ReaderConfiguration } from './OpenApiV3ReaderConfiguration';
 import { OperationsV3Reader } from './OperationsV3Reader';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
@@ -19,7 +18,7 @@ export class OpenApiV3Reader implements OpenApiVersionReader {
   ) {}
 
   public read(): OpenApiReaderResult {
-    const queue = new UniqueQueue<ComplexTypePointer>();
+    const queue = new TypesQueue();
     const typeDescriptorReader = new TypeDescriptorV3Reader(this.document);
     const operationsReader = new OperationsV3Reader(this.document, typeDescriptorReader, queue, this.configuration);
     const typesReader = new TypesV3Reader(this.document, typeDescriptorReader, queue);
@@ -31,6 +30,7 @@ export class OpenApiV3Reader implements OpenApiVersionReader {
       operations: operationsReader.operations,
       complexTypes: typesReader.complexTypes,
       simpleTypes: typesReader.simpleTypes,
+      unionTypes: typesReader.unionTypes,
     };
   }
 }

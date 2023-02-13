@@ -36,9 +36,7 @@ export class AbstractClientFileGenerator {
       return {
         groupName: operation.groupName,
         className,
-        resolvedResponseType,
         responseTypeCodes,
-        resolvedBodyType,
         bodyTypeCodes,
         parameterName,
       };
@@ -60,20 +58,23 @@ export class AbstractClientFileGenerator {
         [operation.className, `${operation.className}Request`, `${operation.className}RequestJSON`],
         `../operations/${operation.className}`,
       );
-      if (operation.resolvedResponseType?.complexType && operation.responseTypeCodes.complexType) {
-        output.addImport(
-          [operation.responseTypeCodes.complexType.className, operation.responseTypeCodes.complexType.jsonClassName],
-          operation.resolvedResponseType.complexType.importPath,
-        );
-      }
-      if (operation.resolvedBodyType?.complexType && operation.bodyTypeCodes?.complexType) {
+      if (operation.responseTypeCodes.referenceType) {
         output.addImport(
           [
-            operation.bodyTypeCodes.complexType.className,
-            operation.bodyTypeCodes.complexType.inputClassName,
-            operation.bodyTypeCodes.complexType.jsonClassName,
+            operation.responseTypeCodes.referenceType.className,
+            operation.responseTypeCodes.referenceType.jsonClassName,
           ],
-          operation.resolvedBodyType.complexType.importPath,
+          operation.responseTypeCodes.referenceType.importPath,
+        );
+      }
+      if (operation.bodyTypeCodes?.referenceType) {
+        output.addImport(
+          [
+            operation.bodyTypeCodes.referenceType.className,
+            operation.bodyTypeCodes.referenceType.inputClassName,
+            operation.bodyTypeCodes.referenceType.jsonClassName,
+          ],
+          operation.bodyTypeCodes.referenceType.importPath,
         );
       }
     }

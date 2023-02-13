@@ -1,23 +1,25 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo } from '../OpenApiReaderResult';
-import { ComplexTypeDescriptor, ComplexTypePointer, isComplexTypeDescriptor } from '../TypeDescriptor';
+import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo, UnionTypeInfo } from '../OpenApiReaderResult';
+import { ComplexTypeDescriptor, ReferenceTypePointer, isReferencePointer } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
-import { UniqueQueue } from '../utils/UniqueQueue';
+import { TypesQueue } from '../utils/TypesQueue';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
+import { UnionInfo, UnionV3Reader } from './UnionV3Reader';
 
 export class TypesV3Reader {
   public readonly complexTypes: ComplexTypeInfo[] = [];
   public readonly simpleTypes: SimpleTypeInfo[] = [];
+  public readonly unionTypes: UnionTypeInfo[] = [];
   private readonly typeNameUniquenessChecker = new UniquenessChecker();
 
   public constructor(
     private readonly document: OpenAPIV3.Document,
     private readonly typeDescriptorReader: TypeDescriptorV3Reader,
-    private readonly queue: UniqueQueue<ComplexTypePointer>,
+    private readonly queue: TypesQueue,
   ) {}
 
   public read() {
-    let pointer: ComplexTypePointer | null = null;
+    let pointer: ReferenceTypePointer | null = null;
     do {
       pointer = this.queue.pop();
       if (pointer) {
@@ -26,7 +28,7 @@ export class TypesV3Reader {
     } while (pointer);
   }
 
-  private readPointer(pointer: ComplexTypePointer) {
+  private readPointer(pointer: ReferenceTypePointer) {
     const scheme = pointer.ref.find<OpenAPIV3.SchemaObject>(this.document);
 
     if (scheme.type && scheme.type === 'array') {
@@ -36,6 +38,37 @@ export class TypesV3Reader {
     const typeName = pointer.typeName.toString();
     this.typeNameUniquenessChecker.check(typeName, () => `Type name ${typeName} is duplicated`);
 
+    const union = UnionV3Reader.tryRead(scheme);
+    if (union) {
+      this.readUnionType(pointer, union);
+    } else {
+      this.readComplexType(scheme, pointer);
+    }
+  }
+
+  private readUnionType(pointer: ReferenceTypePointer, union: UnionInfo) {
+    const unionDescriptors = union.$refsOrSchemas.map(($ros, index) => {
+      const itemRef = pointer.ref.extend([union.unionType, String(index)]);
+      const itemDefaultName = pointer.typeName.add(String(index));
+      const descriptor = this.typeDescriptorReader.read($ros, itemRef, itemDefaultName);
+      if (isReferencePointer(descriptor)) {
+        this.queue.push(descriptor);
+      }
+      return descriptor;
+    });
+
+    this.unionTypes.push({
+      descriptor: {
+        isArray: false,
+        ref: pointer.ref,
+        typeName: pointer.typeName,
+        unionType: union.unionType,
+      },
+      unionDescriptors,
+    });
+  }
+
+  private readComplexType(scheme: OpenAPIV3.SchemaObject, pointer: ReferenceTypePointer) {
     const descriptor: ComplexTypeDescriptor = {
       isArray: false,
       typeName: pointer.typeName,
@@ -74,8 +107,8 @@ export class TypesV3Reader {
 
       const defaultTypeName = pointer.typeName.add(name);
       const descriptor = this.typeDescriptorReader.read(refOrSchema, ref, defaultTypeName);
-      if (isComplexTypeDescriptor(descriptor)) {
-        this.queue.push(descriptor.ref.toString(), descriptor);
+      if (isReferencePointer(descriptor)) {
+        this.queue.push(descriptor);
       }
 
       const description = (refOrSchema as OpenAPIV3.SchemaObject).description;

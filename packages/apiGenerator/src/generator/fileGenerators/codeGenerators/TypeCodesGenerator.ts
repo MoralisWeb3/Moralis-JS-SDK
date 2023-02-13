@@ -7,10 +7,10 @@ export interface TypeCodes {
   inputUnionTypeCode: string;
   jsonTypeCode: string;
   undefinedSuffix: string;
-  complexType: ComplexTypeCodes | null;
+  referenceType: ReferenceTypeCodes | null;
 }
 
-export interface ComplexTypeCodes {
+export interface ReferenceTypeCodes {
   className: string;
   inputClassName: string;
   jsonClassName: string;
@@ -26,10 +26,10 @@ export class TypeCodesGenerator {
     const colon = isRequired ? ':' : '?:';
     const undefinedSuffix = isRequired ? '' : ' | undefined';
 
-    if (resolvedType.complexType) {
-      const jsonClassName = resolvedType.complexType.className + 'JSON';
-      const inputClassName = resolvedType.complexType.className + 'Input';
-      const typeCode = TypeCodesGenerator.getTypeCode(resolvedType.complexType.className, resolvedType.isArray);
+    if (resolvedType.referenceType) {
+      const jsonClassName = resolvedType.referenceType.className + 'JSON';
+      const inputClassName = resolvedType.referenceType.className + 'Input';
+      const typeCode = TypeCodesGenerator.getTypeCode(resolvedType.referenceType.className, resolvedType.isArray);
       const inputTypeCode = TypeCodesGenerator.getTypeCode(inputClassName, resolvedType.isArray);
 
       return {
@@ -38,11 +38,11 @@ export class TypeCodesGenerator {
         inputUnionTypeCode: `${inputTypeCode} | ${typeCode}`,
         jsonTypeCode: TypeCodesGenerator.getTypeCode(jsonClassName, resolvedType.isArray),
         undefinedSuffix,
-        complexType: {
-          className: resolvedType.complexType.className,
+        referenceType: {
+          className: resolvedType.referenceType.className,
           inputClassName,
           jsonClassName,
-          importPath: resolvedType.complexType.importPath,
+          importPath: resolvedType.referenceType.importPath,
         },
       };
     }
@@ -57,7 +57,7 @@ export class TypeCodesGenerator {
         inputUnionTypeCode: typeCode,
         jsonTypeCode: typeCode,
         undefinedSuffix,
-        complexType: null,
+        referenceType: null,
       };
     }
 
@@ -71,7 +71,7 @@ export class TypeCodesGenerator {
       inputUnionTypeCode: 'null',
       jsonTypeCode: 'null',
       undefinedSuffix: '',
-      complexType: null,
+      referenceType: null,
     };
   }
 }

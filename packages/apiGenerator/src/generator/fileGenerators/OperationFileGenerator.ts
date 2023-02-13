@@ -53,31 +53,31 @@ export class OperationFileGenerator {
     // view:
 
     parameters.forEach((parameter) => {
-      if (parameter.types.complexType) {
+      if (parameter.types.referenceType) {
         output.addImport(
           [
-            parameter.types.complexType.className,
-            parameter.types.complexType.inputClassName,
-            parameter.types.complexType.jsonClassName,
+            parameter.types.referenceType.className,
+            parameter.types.referenceType.inputClassName,
+            parameter.types.referenceType.jsonClassName,
           ],
-          parameter.types.complexType.importPath,
+          parameter.types.referenceType.importPath,
         );
       }
     });
-    if (responseTypeCodes?.complexType) {
+    if (responseTypeCodes?.referenceType) {
       output.addImport(
-        [responseTypeCodes.complexType.className, responseTypeCodes.complexType.jsonClassName],
-        responseTypeCodes.complexType.importPath,
+        [responseTypeCodes.referenceType.className, responseTypeCodes.referenceType.jsonClassName],
+        responseTypeCodes.referenceType.importPath,
       );
     }
-    if (bodyTypeCodes?.complexType) {
+    if (bodyTypeCodes?.referenceType) {
       output.addImport(
         [
-          bodyTypeCodes.complexType.className,
-          bodyTypeCodes.complexType.inputClassName,
-          bodyTypeCodes.complexType.jsonClassName,
+          bodyTypeCodes.referenceType.className,
+          bodyTypeCodes.referenceType.inputClassName,
+          bodyTypeCodes.referenceType.jsonClassName,
         ],
-        bodyTypeCodes.complexType.importPath,
+        bodyTypeCodes.referenceType.importPath,
       );
     }
     output.commitImports();

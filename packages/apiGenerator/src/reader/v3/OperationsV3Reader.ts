@@ -1,10 +1,10 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
-import { ComplexTypePointer, isComplexTypeDescriptor } from '../TypeDescriptor';
+import { isReferencePointer } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiReaderResult';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
-import { UniqueQueue } from '../utils/UniqueQueue';
+import { TypesQueue } from '../utils/TypesQueue';
 import { TypeName } from '../utils/TypeName';
 import { OpenApiV3ReaderConfiguration } from './OpenApiV3ReaderConfiguration';
 
@@ -17,7 +17,7 @@ export class OperationsV3Reader {
   public constructor(
     private readonly document: OpenAPIV3.Document,
     private readonly typeDescriptorReader: TypeDescriptorV3Reader,
-    private readonly queue: UniqueQueue<ComplexTypePointer>,
+    private readonly queue: TypesQueue,
     private readonly configuration: OpenApiV3ReaderConfiguration,
   ) {}
 
@@ -115,8 +115,8 @@ export class OperationsV3Reader {
       const ref = operationRef.extend(['parameters', String(index), 'schema']);
       const defaultTypeName = TypeName.from(operationId).add(parameter.name);
       const descriptor = this.typeDescriptorReader.read(schema, ref, defaultTypeName);
-      if (isComplexTypeDescriptor(descriptor)) {
-        this.queue.push(descriptor.ref.toString(), descriptor);
+      if (isReferencePointer(descriptor)) {
+        this.queue.push(descriptor);
       }
 
       result.push({
@@ -145,8 +145,8 @@ export class OperationsV3Reader {
     const ref = operationRef.extend(['responses', responseCode, 'content', 'application/json', 'schema']);
 
     const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultTypeName);
-    if (isComplexTypeDescriptor(descriptor)) {
-      this.queue.push(descriptor.ref.toString(), descriptor);
+    if (isReferencePointer(descriptor)) {
+      this.queue.push(descriptor);
     }
 
     return {
@@ -176,8 +176,8 @@ export class OperationsV3Reader {
     const ref = operationRef.extend(['requestBody', 'content', 'application/json', 'schema']);
     const defaultTypeName = TypeName.from(operationId).add(BODY_TYPE_NAME_SUFFIX);
     const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultTypeName);
-    if (isComplexTypeDescriptor(descriptor)) {
-      this.queue.push(descriptor.ref.toString(), descriptor);
+    if (isReferencePointer(descriptor)) {
+      this.queue.push(descriptor);
     }
 
     return {

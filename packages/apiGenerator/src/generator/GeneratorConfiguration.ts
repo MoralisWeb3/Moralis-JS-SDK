@@ -1,4 +1,5 @@
 export interface GeneratorConfiguration {
+  outputDir: string;
   classNamePrefix: string;
   mappings: Mappings;
 }
