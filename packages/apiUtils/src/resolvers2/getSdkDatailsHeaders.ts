@@ -42,20 +42,20 @@ function getEnvironment() {
  * Gets the platform name, this is the name of the SDK,
  * Note: previously this was always named 'JS SDK', now we separate by environment / package-origin
  */
-function getSdkName(environment: Environment, product?:string){
+function getSdkName(environment: Environment, product?: string) {
   // If the product is set in the config, we use this as a name, this is done in the SDKs like React/Next etc.
-  if(product){
-    return product
+  if (product) {
+    return product;
   }
 
   // For browser environment we name it Javascript SDK
-  if(environment === Environment.BROWSER){
-    return 'Javascript SDK'
+  if (environment === Environment.BROWSER) {
+    return 'Javascript SDK';
   }
 
   // Otherwise we use NodeJs SDK as default
   // (in theory this will also account for other environments like webworker etc. but we don't support this at the moment)
-  return "NodeJS SDK"
+  return 'NodeJS SDK';
 }
 
 /**
