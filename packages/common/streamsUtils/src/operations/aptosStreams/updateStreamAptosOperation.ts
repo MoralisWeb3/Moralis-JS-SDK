@@ -1,5 +1,5 @@
 import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
-import { AptosNetwork, AptosNetworkish } from '@moralisweb3/common-aptos-utils';
+import { AptosNetwork, AptosNetworkInput } from '@moralisweb3/common-aptos-utils';
 import { AptosStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
@@ -14,7 +14,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 // Exports
 
 export interface UpdateStreamAptosRequest extends Camelize<Omit<RequestParams, 'network'>> {
-  network: AptosNetworkish[];
+  network: AptosNetworkInput[];
 }
 
 export type UpdateStreamAptosJSONRequest = ReturnType<typeof serializeRequest>;
