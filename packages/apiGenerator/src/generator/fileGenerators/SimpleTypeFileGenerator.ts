@@ -2,7 +2,7 @@ import { SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
 import { Output } from '../output/Output';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { SimpleTypeNormalizer } from './codeGenerators/SimpleTypeNormalizer';
-import { TypeResolver } from './TypeResolver';
+import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 
 export interface SimpleTypeFileGeneratorResult {

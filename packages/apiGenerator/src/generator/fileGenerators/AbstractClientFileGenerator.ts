@@ -1,7 +1,7 @@
 import { OperationInfo } from '../../reader/OpenApiReaderResult';
 import { NameFormatter } from './codeGenerators/NameFormatter';
 import { TypeName } from '../../reader/utils/TypeName';
-import { TypeResolver } from './TypeResolver';
+import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 import { Output } from '../output/Output';

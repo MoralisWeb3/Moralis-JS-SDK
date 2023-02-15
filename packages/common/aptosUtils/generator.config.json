@@ -20,6 +20,11 @@
       ],
       "operationParameters": [
         {
+          "names": ["network"],
+          "className": "AptosNetwork",
+          "import": "../../dataTypes"
+        },
+        {
           "names": ["owner_addresses", "creator_addresses", "creator_address", "wallet_addresses"],
           "className": "AptosAddress",
           "import": "../../dataTypes"
@@ -30,12 +35,49 @@
           "import": "../../dataTypes"
         }
       ]
-    }
+    },
+    "typeDeterminants": [
+      {
+        "typeName": "BlockMetadataTransaction",
+        "isInputCode": "input.type === 'block_metadata_transaction'",
+        "isJSONCode": "json.type === 'block_metadata_transaction'"
+      },
+      {
+        "typeName": "UserTransaction",
+        "isInputCode": "input.type === 'user_transaction'",
+        "isJSONCode": "json.type === 'user_transaction'"
+      },
+      {
+        "typeName": "GenesisTransaction",
+        "isInputCode": "input.type === 'genesis_transaction'",
+        "isJSONCode": "json.type === 'genesis_transaction'"
+      },
+      {
+        "typeName": "PendingTransaction",
+        "isInputCode": "input.type && input.type.includes('pending')",
+        "isJSONCode": "json.type && json.type.includes('pending')"
+      },
+      {
+        "typeName": "StateCheckpointTransaction",
+        "isInputCode": "input.type && input.type.includes('checkpoint')",
+        "isJSONCode": "json.type && json.type.includes('checkpoint')"
+      }
+    ]
   },
   "openApiReader": {
     "v3": {
-      "group$ref": "#/x-tag-sdk",
-      "isEnabled$ref": "#/x-tag-sdk"
+      "operations": {
+        "groupRef": "#/x-tag-sdk",
+        "isEnabledRef": "#/x-tag-sdk",
+        "virtualParameters": [
+          {
+            "name": "network",
+            "isRequired": false,
+            "simpleType": "string",
+            "description": "The network of query. Defaults to mainnet."
+          }
+        ]
+      }
     }
   }
 }

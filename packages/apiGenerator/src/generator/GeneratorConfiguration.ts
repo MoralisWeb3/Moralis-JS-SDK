@@ -2,6 +2,7 @@ export interface GeneratorConfiguration {
   outputDir: string;
   classNamePrefix: string;
   mappings: Mappings;
+  typeDeterminants: TypeDeterminant[];
 }
 
 export interface Mappings {
@@ -30,4 +31,10 @@ export interface ComplexTypePropertyMapping extends MappingTarget {
 
 export interface OperationParameterMapping extends MappingTarget {
   names: string[];
+}
+
+export interface TypeDeterminant {
+  typeName: string;
+  isInputCode: string;
+  isJSONCode: string;
 }

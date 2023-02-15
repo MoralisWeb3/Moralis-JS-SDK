@@ -1,4 +1,4 @@
-import { AptosNative, AptosNativeInput, AptosNativeJSON } from '../../dataTypes';
+import { AptosNative, AptosNativeInput, AptosNativeJSON, AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
 import { AptosGetTopHoldersByCoinResponse, AptosGetTopHoldersByCoinResponseJSON } from '../types/AptosGetTopHoldersByCoinResponse';
 
 // request parameters:
@@ -10,16 +10,45 @@ import { AptosGetTopHoldersByCoinResponse, AptosGetTopHoldersByCoinResponseJSON 
 // - min_version ($ref: #/paths/~1coins~1owners~1{coin_type_hash}~1top-holders/get/parameters/5/schema)
 // - wallet_blacklist ($ref: #/paths/~1coins~1owners~1{coin_type_hash}~1top-holders/get/parameters/6/schema)
 // - wallet_whitelist ($ref: #/paths/~1coins~1owners~1{coin_type_hash}~1top-holders/get/parameters/7/schema)
+// - network ($ref: #/virtualParameter/network)
 
 export interface GetTopHoldersByCoinOperationRequest {
+  /**
+   * @description The coin type hash to fetch info about
+   */
   readonly coinTypeHash: string;
+  /**
+   * @description The number of results to return
+   */
   readonly limit: number;
+  /**
+   * @description The number of results to skip
+   */
   readonly offset?: number;
+  /**
+   * @description The cursor to use for getting the next page
+   */
   readonly cursor?: string;
+  /**
+   * @description The minimum amount of coins required for a wallet to be included in the results
+   */
   readonly minAmount?: AptosNativeInput | AptosNative;
+  /**
+   * @description The minimum version on when the balance was last updated
+   */
   readonly minVersion?: number;
+  /**
+   * @description The addresses of the wallets to blacklist
+   */
   readonly walletBlacklist?: string[];
+  /**
+   * @description The addresses of the wallets to whitelist
+   */
   readonly walletWhitelist?: string[];
+  /**
+   * @description The network of query. Defaults to mainnet.
+   */
+  readonly network?: AptosNetworkInput | AptosNetwork;
 }
 
 export interface GetTopHoldersByCoinOperationRequestJSON {
@@ -31,6 +60,7 @@ export interface GetTopHoldersByCoinOperationRequestJSON {
   readonly min_version?: number;
   readonly wallet_blacklist?: string[];
   readonly wallet_whitelist?: string[];
+  readonly network?: AptosNetworkJSON;
 }
 
 export const GetTopHoldersByCoinOperation = {
@@ -38,7 +68,7 @@ export const GetTopHoldersByCoinOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/owners/{coin_type_hash}/top-holders",
-  parameterNames: ["coin_type_hash","limit","offset","cursor","min_amount","min_version","wallet_blacklist","wallet_whitelist"],
+  parameterNames: ["coin_type_hash","limit","offset","cursor","min_amount","min_version","wallet_blacklist","wallet_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 
@@ -55,6 +85,7 @@ export const GetTopHoldersByCoinOperation = {
     const minVersion = request.minVersion;
     const walletBlacklist = request.walletBlacklist;
     const walletWhitelist = request.walletWhitelist;
+    const network = request.network ? AptosNetwork.create(request.network) : undefined;
     return {
       coin_type_hash: coinTypeHash,
       limit: limit,
@@ -64,6 +95,7 @@ export const GetTopHoldersByCoinOperation = {
       min_version: minVersion,
       wallet_blacklist: walletBlacklist,
       wallet_whitelist: walletWhitelist,
+      network: network ? network.toJSON() : undefined,
     };
   },
 

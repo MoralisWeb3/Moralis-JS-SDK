@@ -6,8 +6,10 @@ describe('OpenApiReader', () => {
   it('array ref response', () => {
     const configuration: OpenApiReaderConfiguration = {
       v3: {
-        group$ref: '#/operationId',
-        isEnabled$ref: '#/operationId',
+        operations: {
+          groupRef: '#/operationId',
+          isEnabledRef: '#/operationId',
+        },
       },
     };
     const result = OpenApiReader.create(

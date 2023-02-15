@@ -2,9 +2,11 @@ import { ComplexTypeInfo } from 'src/reader/OpenApiReaderResult';
 import { Output } from '../output/Output';
 import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGenerator';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
-import { TypeResolver } from './TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 import { PropertyNameCodeGenerator } from './codeGenerators/PropertyNameCodeGenerator';
+import { TypeDeterminantResolver } from './resolvers/TypeComparisonResolver';
+import { TypeUsageResolver } from './resolvers/TypeUsageResolver';
+import { TypeResolver } from './resolvers/TypeResolver';
 
 export interface TypeClassGeneratorResult {
   className: string;
@@ -12,7 +14,12 @@ export interface TypeClassGeneratorResult {
 }
 
 export class ComplexTypeFileGenerator {
-  public constructor(private readonly info: ComplexTypeInfo, private readonly typeResolver: TypeResolver) {}
+  public constructor(
+    private readonly info: ComplexTypeInfo,
+    private readonly typeResolver: TypeResolver,
+    private readonly typeDeterminantResolver: TypeDeterminantResolver,
+    private readonly typeUsageResolver: TypeUsageResolver,
+  ) {}
 
   public generate(): TypeClassGeneratorResult {
     if (this.info.descriptor.isArray) {
@@ -51,6 +58,16 @@ export class ComplexTypeFileGenerator {
         ),
       };
     });
+
+    const customTypeDeterminant = this.typeDeterminantResolver.tryResolve(this.info.descriptor.typeName);
+    const requiredInputFieldNames = properties
+      .filter((property) => property.property.isRequired)
+      .map((property) => property.propertyNameCodes.camelCasedNameCode);
+    const requiredJSONFieldNames = properties
+      .filter((property) => property.property.isRequired)
+      .map((property) => property.propertyNameCodes.nameCode);
+
+    const isUsedByUnions = this.typeUsageResolver.isUsedByUnions(this.info.descriptor);
 
     // view:
 
@@ -123,6 +140,29 @@ export class ComplexTypeFileGenerator {
     output.write(2, `return ${typeCodes.referenceType.className}.create(input);`);
     output.write(1, `}`);
     output.newLine();
+
+    if (isUsedByUnions) {
+      output.write(1, `public static isInput(input: any): input is ${typeCodes.referenceType.inputClassName} {`);
+      if (customTypeDeterminant) {
+        output.write(2, `return ${customTypeDeterminant.isInputCode};`);
+      } else {
+        output.write(
+          2,
+          `return ${JSON.stringify(requiredInputFieldNames)}.every((name) => input[name] !== undefined);`,
+        );
+      }
+      output.write(1, `}`);
+      output.newLine();
+
+      output.write(1, `public static isJSON(json: any): json is ${typeCodes.referenceType.jsonClassName} {`);
+      if (customTypeDeterminant) {
+        output.write(2, `return ${customTypeDeterminant.isJSONCode};`);
+      } else {
+        output.write(2, `return ${JSON.stringify(requiredJSONFieldNames)}.every((name) => json[name] !== undefined);`);
+      }
+      output.write(1, `}`);
+      output.newLine();
+    }
 
     for (const p of properties) {
       output.writeComment(1, null, {

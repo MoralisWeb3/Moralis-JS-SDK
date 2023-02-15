@@ -2,9 +2,13 @@ import { ApiUtilsConfig, getCommonHeaders } from '@moralisweb3/api-utils';
 import { ApiErrorCode, Config, CoreConfig, MoralisApiError, RequestController } from '@moralisweb3/common-core';
 import { OperationV3 } from '@moralisweb3/common-aptos-utils';
 
+export interface OperationV3UrlBaseResolver {
+  resolve(request: unknown): string;
+}
+
 export class OperationV3Resolver {
   public constructor(
-    private readonly baseUrl: string,
+    private readonly baseUrlResolver: OperationV3UrlBaseResolver,
     private readonly config: Config,
     private readonly requestController: RequestController,
   ) {}
@@ -37,7 +41,7 @@ export class OperationV3Resolver {
     const responseJSON = await this.requestController.request<unknown, ResponseJSON>({
       url,
       params: searchParams,
-      baseURL: this.baseUrl,
+      baseURL: this.baseUrlResolver.resolve(request),
       method: operation.httpMethod,
       data: bodyJSON,
       headers: this.prepareHeaders(),

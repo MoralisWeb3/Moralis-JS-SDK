@@ -1,4 +1,4 @@
-import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
+import { AptosAddress, AptosAddressInput, AptosAddressJSON, AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
 import { AptosGetCoinTransfersByOwnerAddressesResponse, AptosGetCoinTransfersByOwnerAddressesResponseJSON } from '../types/AptosGetCoinTransfersByOwnerAddressesResponse';
 
 // request parameters:
@@ -10,16 +10,45 @@ import { AptosGetCoinTransfersByOwnerAddressesResponse, AptosGetCoinTransfersByO
 // - to_date ($ref: #/paths/~1coins~1transfers~1wallets/get/parameters/5/schema)
 // - coin_type_blacklist ($ref: #/paths/~1coins~1transfers~1wallets/get/parameters/6/schema)
 // - coin_type_whitelist ($ref: #/paths/~1coins~1transfers~1wallets/get/parameters/7/schema)
+// - network ($ref: #/virtualParameter/network)
 
 export interface GetCoinTransfersByOwnerAddressesOperationRequest {
+  /**
+   * @description The number of results to return
+   */
   readonly limit: number;
+  /**
+   * @description The number of results to skip
+   */
   readonly offset?: number;
+  /**
+   * @description The cursor to use for getting the next page
+   */
   readonly cursor?: string;
+  /**
+   * @description The addresses of the owners to get tokens for
+   */
   readonly ownerAddresses: AptosAddressInput[] | AptosAddress[];
+  /**
+   * @description The date from which to fetch coin transfers
+   */
   readonly fromDate?: string;
+  /**
+   * @description The date to which to fetch coin transfers
+   */
   readonly toDate?: string;
+  /**
+   * @description The coin types of the coins to whitelist
+   */
   readonly coinTypeBlacklist?: string[];
+  /**
+   * @description The coin types of the coins to whitelist
+   */
   readonly coinTypeWhitelist?: string[];
+  /**
+   * @description The network of query. Defaults to mainnet.
+   */
+  readonly network?: AptosNetworkInput | AptosNetwork;
 }
 
 export interface GetCoinTransfersByOwnerAddressesOperationRequestJSON {
@@ -31,6 +60,7 @@ export interface GetCoinTransfersByOwnerAddressesOperationRequestJSON {
   readonly to_date?: string;
   readonly coin_type_blacklist?: string[];
   readonly coin_type_whitelist?: string[];
+  readonly network?: AptosNetworkJSON;
 }
 
 export const GetCoinTransfersByOwnerAddressesOperation = {
@@ -38,7 +68,7 @@ export const GetCoinTransfersByOwnerAddressesOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/transfers/wallets",
-  parameterNames: ["limit","offset","cursor","owner_addresses","from_date","to_date","coin_type_blacklist","coin_type_whitelist"],
+  parameterNames: ["limit","offset","cursor","owner_addresses","from_date","to_date","coin_type_blacklist","coin_type_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 
@@ -55,6 +85,7 @@ export const GetCoinTransfersByOwnerAddressesOperation = {
     const toDate = request.toDate;
     const coinTypeBlacklist = request.coinTypeBlacklist;
     const coinTypeWhitelist = request.coinTypeWhitelist;
+    const network = request.network ? AptosNetwork.create(request.network) : undefined;
     return {
       limit: limit,
       offset: offset,
@@ -64,6 +95,7 @@ export const GetCoinTransfersByOwnerAddressesOperation = {
       to_date: toDate,
       coin_type_blacklist: coinTypeBlacklist,
       coin_type_whitelist: coinTypeWhitelist,
+      network: network ? network.toJSON() : undefined,
     };
   },
 

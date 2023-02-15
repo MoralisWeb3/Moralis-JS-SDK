@@ -1,4 +1,4 @@
-import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
+import { AptosAddress, AptosAddressInput, AptosAddressJSON, AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
 import { AptosNFTsByOwnersResponse, AptosNFTsByOwnersResponseJSON } from '../types/AptosNFTsByOwnersResponse';
 
 // request parameters:
@@ -8,14 +8,37 @@ import { AptosNFTsByOwnersResponse, AptosNFTsByOwnersResponseJSON } from '../typ
 // - owner_addresses ($ref: #/paths/~1wallets~1nfts/get/parameters/3/schema)
 // - collection_blacklist ($ref: #/paths/~1wallets~1nfts/get/parameters/4/schema)
 // - collection_whitelist ($ref: #/paths/~1wallets~1nfts/get/parameters/5/schema)
+// - network ($ref: #/virtualParameter/network)
 
 export interface GetNFTByOwnersOperationRequest {
+  /**
+   * @description The number of results to return
+   */
   readonly limit: number;
+  /**
+   * @description The number of results to skip
+   */
   readonly offset?: number;
+  /**
+   * @description The cursor to use for getting the next page
+   */
   readonly cursor?: string;
+  /**
+   * @description The addresses of the owners to get tokens for
+   */
   readonly ownerAddresses: AptosAddressInput[] | AptosAddress[];
+  /**
+   * @description The collection data id hashes of the collections to whitelist
+   */
   readonly collectionBlacklist?: string[];
+  /**
+   * @description The collection data id hashes of the collections to whitelist
+   */
   readonly collectionWhitelist?: string[];
+  /**
+   * @description The network of query. Defaults to mainnet.
+   */
+  readonly network?: AptosNetworkInput | AptosNetwork;
 }
 
 export interface GetNFTByOwnersOperationRequestJSON {
@@ -25,6 +48,7 @@ export interface GetNFTByOwnersOperationRequestJSON {
   readonly owner_addresses: AptosAddressJSON[];
   readonly collection_blacklist?: string[];
   readonly collection_whitelist?: string[];
+  readonly network?: AptosNetworkJSON;
 }
 
 export const GetNFTByOwnersOperation = {
@@ -32,7 +56,7 @@ export const GetNFTByOwnersOperation = {
   groupName: "wallets",
   httpMethod: "get",
   routePattern: "/wallets/nfts",
-  parameterNames: ["limit","offset","cursor","owner_addresses","collection_blacklist","collection_whitelist"],
+  parameterNames: ["limit","offset","cursor","owner_addresses","collection_blacklist","collection_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 
@@ -47,6 +71,7 @@ export const GetNFTByOwnersOperation = {
     const ownerAddresses = request.ownerAddresses.map((item) => AptosAddress.create(item));
     const collectionBlacklist = request.collectionBlacklist;
     const collectionWhitelist = request.collectionWhitelist;
+    const network = request.network ? AptosNetwork.create(request.network) : undefined;
     return {
       limit: limit,
       offset: offset,
@@ -54,6 +79,7 @@ export const GetNFTByOwnersOperation = {
       owner_addresses: ownerAddresses.map((item) => item.toJSON()),
       collection_blacklist: collectionBlacklist,
       collection_whitelist: collectionWhitelist,
+      network: network ? network.toJSON() : undefined,
     };
   },
 

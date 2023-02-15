@@ -1,4 +1,15 @@
 export interface OpenApiV3ReaderConfiguration {
-  group$ref: string;
-  isEnabled$ref: string;
+  operations: {
+    groupRef: string;
+    isEnabledRef: string;
+    virtualParameters?: VirtualParameter[];
+  };
+}
+
+export interface VirtualParameter {
+  operationId?: string;
+  name: string;
+  isRequired: boolean;
+  simpleType: string;
+  description?: string;
 }

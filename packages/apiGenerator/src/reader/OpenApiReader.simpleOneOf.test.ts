@@ -12,8 +12,10 @@ describe('OpenApiReader', () => {
   it('response with simple oneOf', () => {
     const configuration: OpenApiReaderConfiguration = {
       v3: {
-        group$ref: '#/operationId',
-        isEnabled$ref: '#/operationId',
+        operations: {
+          groupRef: '#/operationId',
+          isEnabledRef: '#/operationId',
+        },
       },
     };
     const result = OpenApiReader.create(

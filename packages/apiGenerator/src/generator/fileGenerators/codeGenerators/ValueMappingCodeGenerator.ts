@@ -1,4 +1,4 @@
-import { ResolvedType } from '../TypeResolver';
+import { ResolvedType } from '../resolvers/TypeResolver';
 
 export class ValueMappingCodeGenerator {
   public static generateJSON2TypeCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {

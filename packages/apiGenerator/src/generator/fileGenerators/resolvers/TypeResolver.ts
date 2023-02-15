@@ -1,11 +1,11 @@
-import { NameFormatter } from './codeGenerators/NameFormatter';
+import { NameFormatter } from '../codeGenerators/NameFormatter';
 import {
   isComplexTypeDescriptor,
   isSimpleTypeDescriptor,
   isUnionTypeDescriptor,
   TypeDescriptor,
-} from '../../reader/TypeDescriptor';
-import { MappingTarget } from '../GeneratorConfiguration';
+} from '../../../reader/TypeDescriptor';
+import { MappingTarget } from '../../GeneratorConfiguration';
 import { TypeName } from 'src/reader/utils/TypeName';
 import { MappingResolver } from './MappingResolver';
 

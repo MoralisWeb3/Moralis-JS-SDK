@@ -8,12 +8,15 @@
       "refs": [],
       "complexTypeProperties": [],
       "operationParameters": []
-    }
+    },
+    "typeDeterminants": []
   },
   "openApiReader": {
     "v3": {
-      "group$ref": "#/x-tag-sdk",
-      "isEnabled$ref": "#/x-tag-sdk"
+      "operations": {
+        "groupRef": "#/x-tag-sdk",
+        "isEnabledRef": "#/x-tag-sdk"
+      }
     }
   }
 }

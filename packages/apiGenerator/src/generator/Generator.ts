@@ -10,22 +10,26 @@ import {
   SimpleTypeInfo,
   UnionTypeInfo,
 } from '../reader/OpenApiReaderResult';
-import { TypeResolver } from './fileGenerators/TypeResolver';
-import { Configuration } from '../configuration/Configuration';
+import { TypeResolver } from './fileGenerators/resolvers/TypeResolver';
 import { AbstractClientFileGenerator } from './fileGenerators/AbstractClientFileGenerator';
-import { MappingResolver } from './fileGenerators/MappingResolver';
+import { MappingResolver } from './fileGenerators/resolvers/MappingResolver';
 import { UnionTypeFileGenerator } from './fileGenerators/UnionTypeFileGenerator';
+import { GeneratorConfiguration } from './GeneratorConfiguration';
+import { TypeDeterminantResolver } from './fileGenerators/resolvers/TypeComparisonResolver';
+import { TypeUsageResolver } from './fileGenerators/resolvers/TypeUsageResolver';
 
 export class Generator {
   public static create(
     readerResult: OpenApiReaderResult,
-    configuration: Configuration,
+    configuration: GeneratorConfiguration,
     projectPath: string,
   ): Generator {
-    const mappingResolver = new MappingResolver(configuration.generator.mappings);
-    const typeResolver = new TypeResolver(configuration.generator.classNamePrefix, mappingResolver, '../');
-    const generatorWriter = new GeneratorWriter(projectPath, configuration.generator.outputDir);
-    return new Generator(readerResult, typeResolver, generatorWriter);
+    const mappingResolver = new MappingResolver(configuration.mappings);
+    const typeResolver = new TypeResolver(configuration.classNamePrefix, mappingResolver, '../');
+    const typeDeterminantResolver = new TypeDeterminantResolver(configuration.typeDeterminants);
+    const typeUsageResolver = new TypeUsageResolver(readerResult);
+    const generatorWriter = new GeneratorWriter(projectPath, configuration.outputDir);
+    return new Generator(readerResult, typeResolver, typeDeterminantResolver, typeUsageResolver, generatorWriter);
   }
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
@@ -34,6 +38,8 @@ export class Generator {
   private constructor(
     private readonly readerResult: OpenApiReaderResult,
     private readonly typeResolver: TypeResolver,
+    private readonly typeDeterminantResolver: TypeDeterminantResolver,
+    private readonly typeUsageResolver: TypeUsageResolver,
     private readonly writer: GeneratorWriter,
   ) {}
 
@@ -82,7 +88,12 @@ export class Generator {
   }
 
   private generateComplexType(info: ComplexTypeInfo) {
-    const generator = new ComplexTypeFileGenerator(info, this.typeResolver);
+    const generator = new ComplexTypeFileGenerator(
+      info,
+      this.typeResolver,
+      this.typeDeterminantResolver,
+      this.typeUsageResolver,
+    );
     const result = generator.generate();
 
     this.writer.writeType(result.className, result.output);

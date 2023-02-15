@@ -1,9 +1,10 @@
 import { SimpleTypeNormalizer } from './SimpleTypeNormalizer';
-import { ResolvedType } from '../TypeResolver';
+import { ResolvedType } from '../resolvers/TypeResolver';
 
 export interface TypeCodes {
   colon: string;
   typeCode: string;
+  inputTypeCode: string;
   inputUnionTypeCode: string;
   jsonTypeCode: string;
   undefinedSuffix: string;
@@ -35,6 +36,7 @@ export class TypeCodesGenerator {
       return {
         colon,
         typeCode,
+        inputTypeCode,
         inputUnionTypeCode: `${inputTypeCode} | ${typeCode}`,
         jsonTypeCode: TypeCodesGenerator.getTypeCode(jsonClassName, resolvedType.isArray),
         undefinedSuffix,
@@ -54,6 +56,7 @@ export class TypeCodesGenerator {
       return {
         colon,
         typeCode,
+        inputTypeCode: typeCode,
         inputUnionTypeCode: typeCode,
         jsonTypeCode: typeCode,
         undefinedSuffix,
@@ -68,6 +71,7 @@ export class TypeCodesGenerator {
     return {
       colon: ':',
       typeCode: 'null',
+      inputTypeCode: 'null',
       inputUnionTypeCode: 'null',
       jsonTypeCode: 'null',
       undefinedSuffix: '',

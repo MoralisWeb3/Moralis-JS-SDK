@@ -4,7 +4,7 @@ import {
   OperationParameterMapping,
   RefMapping,
   TypeMapping,
-} from '../GeneratorConfiguration';
+} from '../../GeneratorConfiguration';
 
 export class MappingResolver {
   public constructor(private readonly mappings: Mappings) {}

@@ -15,7 +15,7 @@ async function run(projectPath: string) {
 
   const document = await OpenApiDownloader.download(configuration.url);
   const readerResult = OpenApiReader.create(document, configuration.openApiReader).read();
-  const generator = Generator.create(readerResult, configuration, projectPath);
+  const generator = Generator.create(readerResult, configuration.generator, projectPath);
   generator.generate();
 
   console.log('✅ Done');

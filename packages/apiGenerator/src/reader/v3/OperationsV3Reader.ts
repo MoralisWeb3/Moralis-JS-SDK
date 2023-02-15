@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
-import { isReferencePointer } from '../TypeDescriptor';
+import { isReferencePointer, SimpleTypeDescriptor } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiReaderResult';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
@@ -27,8 +27,8 @@ export class OperationsV3Reader {
     }
 
     const operationIdUniquenessChecker = new UniquenessChecker();
-    const groupRef = JsonRef.parse(this.configuration.group$ref);
-    const isEnabledRef = JsonRef.parse(this.configuration.isEnabled$ref);
+    const groupRef = JsonRef.parse(this.configuration.operations.groupRef);
+    const isEnabledRef = JsonRef.parse(this.configuration.operations.isEnabledRef);
 
     for (const routePattern of Object.keys(this.document.paths)) {
       const pathGroup = this.document.paths[routePattern];
@@ -123,7 +123,33 @@ export class OperationsV3Reader {
         name: parameter.name,
         isRequired: parameter.required || false,
         descriptor: descriptor,
+        description: parameter.description,
       });
+    }
+
+    if (this.configuration.operations.virtualParameters) {
+      for (const virtualParameter of this.configuration.operations.virtualParameters) {
+        if (virtualParameter.operationId && virtualParameter.operationId !== operationId) {
+          continue;
+        }
+
+        parameterNameUniquenessChecker.check(
+          virtualParameter.name,
+          () => `Virtual parameter name ${virtualParameter.name} is duplicated (${operationRef.toString()})`,
+        );
+
+        const virtualDescriptor: SimpleTypeDescriptor = {
+          ref: JsonRef.from(['virtualParameter', virtualParameter.name]),
+          isArray: false,
+          simpleType: virtualParameter.simpleType,
+        };
+        result.push({
+          name: virtualParameter.name,
+          isRequired: virtualParameter.isRequired,
+          descriptor: virtualDescriptor,
+          description: virtualParameter.description,
+        });
+      }
     }
     return result;
   }

@@ -54,4 +54,5 @@ export interface ParameterInfo {
   name: string;
   isRequired: boolean;
   descriptor: TypeDescriptor;
+  description?: string;
 }

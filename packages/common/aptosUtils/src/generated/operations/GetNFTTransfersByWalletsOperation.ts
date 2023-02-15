@@ -1,4 +1,4 @@
-import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
+import { AptosAddress, AptosAddressInput, AptosAddressJSON, AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
 import { AptosNFTTransfersByWalletsResponse, AptosNFTTransfersByWalletsResponseJSON } from '../types/AptosNFTTransfersByWalletsResponse';
 
 // request parameters:
@@ -8,14 +8,37 @@ import { AptosNFTTransfersByWalletsResponse, AptosNFTTransfersByWalletsResponseJ
 // - wallet_addresses ($ref: #/paths/~1nfts~1transfers~1wallets/get/parameters/3/schema)
 // - collection_blacklist ($ref: #/paths/~1nfts~1transfers~1wallets/get/parameters/4/schema)
 // - collection_whitelist ($ref: #/paths/~1nfts~1transfers~1wallets/get/parameters/5/schema)
+// - network ($ref: #/virtualParameter/network)
 
 export interface GetNFTTransfersByWalletsOperationRequest {
+  /**
+   * @description The number of tokens to return
+   */
   readonly limit: number;
+  /**
+   * @description The number of results to skip
+   */
   readonly offset?: number;
+  /**
+   * @description The cursor to use for getting the next page
+   */
   readonly cursor?: string;
+  /**
+   * @description The addresses of the wallets to get transfers for
+   */
   readonly walletAddresses: AptosAddressInput[] | AptosAddress[];
+  /**
+   * @description The ids of the collections to whitelist
+   */
   readonly collectionBlacklist?: string[];
+  /**
+   * @description The ids of the collections to whitelist
+   */
   readonly collectionWhitelist?: string[];
+  /**
+   * @description The network of query. Defaults to mainnet.
+   */
+  readonly network?: AptosNetworkInput | AptosNetwork;
 }
 
 export interface GetNFTTransfersByWalletsOperationRequestJSON {
@@ -25,6 +48,7 @@ export interface GetNFTTransfersByWalletsOperationRequestJSON {
   readonly wallet_addresses: AptosAddressJSON[];
   readonly collection_blacklist?: string[];
   readonly collection_whitelist?: string[];
+  readonly network?: AptosNetworkJSON;
 }
 
 export const GetNFTTransfersByWalletsOperation = {
@@ -32,7 +56,7 @@ export const GetNFTTransfersByWalletsOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/transfers/wallets",
-  parameterNames: ["limit","offset","cursor","wallet_addresses","collection_blacklist","collection_whitelist"],
+  parameterNames: ["limit","offset","cursor","wallet_addresses","collection_blacklist","collection_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 
@@ -47,6 +71,7 @@ export const GetNFTTransfersByWalletsOperation = {
     const walletAddresses = request.walletAddresses.map((item) => AptosAddress.create(item));
     const collectionBlacklist = request.collectionBlacklist;
     const collectionWhitelist = request.collectionWhitelist;
+    const network = request.network ? AptosNetwork.create(request.network) : undefined;
     return {
       limit: limit,
       offset: offset,
@@ -54,6 +79,7 @@ export const GetNFTTransfersByWalletsOperation = {
       wallet_addresses: walletAddresses.map((item) => item.toJSON()),
       collection_blacklist: collectionBlacklist,
       collection_whitelist: collectionWhitelist,
+      network: network ? network.toJSON() : undefined,
     };
   },
 

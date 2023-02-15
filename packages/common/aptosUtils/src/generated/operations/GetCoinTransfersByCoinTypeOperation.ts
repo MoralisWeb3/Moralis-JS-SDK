@@ -1,3 +1,4 @@
+import { AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
 import { AptosGetCoinTransfersByCoinTypeResponse, AptosGetCoinTransfersByCoinTypeResponseJSON } from '../types/AptosGetCoinTransfersByCoinTypeResponse';
 
 // request parameters:
@@ -7,14 +8,37 @@ import { AptosGetCoinTransfersByCoinTypeResponse, AptosGetCoinTransfersByCoinTyp
 // - cursor ($ref: #/paths/~1coins~1transfers~1{coin_type}/get/parameters/3/schema)
 // - from_date ($ref: #/paths/~1coins~1transfers~1{coin_type}/get/parameters/4/schema)
 // - to_date ($ref: #/paths/~1coins~1transfers~1{coin_type}/get/parameters/5/schema)
+// - network ($ref: #/virtualParameter/network)
 
 export interface GetCoinTransfersByCoinTypeOperationRequest {
+  /**
+   * @description The coin type to fetch info about
+   */
   readonly coinType: string;
+  /**
+   * @description The number of results to return
+   */
   readonly limit: number;
+  /**
+   * @description The number of results to skip
+   */
   readonly offset?: number;
+  /**
+   * @description The cursor to use for getting the next page
+   */
   readonly cursor?: string;
+  /**
+   * @description The date from which to fetch coin transfers
+   */
   readonly fromDate?: string;
+  /**
+   * @description The date to which to fetch coin transfers
+   */
   readonly toDate?: string;
+  /**
+   * @description The network of query. Defaults to mainnet.
+   */
+  readonly network?: AptosNetworkInput | AptosNetwork;
 }
 
 export interface GetCoinTransfersByCoinTypeOperationRequestJSON {
@@ -24,6 +48,7 @@ export interface GetCoinTransfersByCoinTypeOperationRequestJSON {
   readonly cursor?: string;
   readonly from_date?: string;
   readonly to_date?: string;
+  readonly network?: AptosNetworkJSON;
 }
 
 export const GetCoinTransfersByCoinTypeOperation = {
@@ -31,7 +56,7 @@ export const GetCoinTransfersByCoinTypeOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/transfers/{coin_type}",
-  parameterNames: ["coin_type","limit","offset","cursor","from_date","to_date"],
+  parameterNames: ["coin_type","limit","offset","cursor","from_date","to_date","network"],
   hasResponse: true,
   hasBody: false,
 
@@ -46,6 +71,7 @@ export const GetCoinTransfersByCoinTypeOperation = {
     const cursor = request.cursor;
     const fromDate = request.fromDate;
     const toDate = request.toDate;
+    const network = request.network ? AptosNetwork.create(request.network) : undefined;
     return {
       coin_type: coinType,
       limit: limit,
@@ -53,6 +79,7 @@ export const GetCoinTransfersByCoinTypeOperation = {
       cursor: cursor,
       from_date: fromDate,
       to_date: toDate,
+      network: network ? network.toJSON() : undefined,
     };
   },
 

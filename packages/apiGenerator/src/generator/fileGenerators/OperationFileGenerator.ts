@@ -3,7 +3,7 @@ import { NameFormatter } from './codeGenerators/NameFormatter';
 import { Output } from '../output/Output';
 import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGenerator';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
-import { TypeResolver } from './TypeResolver';
+import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 
 export interface OperationFileGeneratorResult {
@@ -90,6 +90,9 @@ export class OperationFileGenerator {
 
     output.write(0, `export interface ${className}Request {`);
     for (const p of parameters) {
+      output.writeComment(1, null, {
+        description: p.parameter.description,
+      });
       output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputUnionTypeCode};`);
     }
     output.write(0, '}');
