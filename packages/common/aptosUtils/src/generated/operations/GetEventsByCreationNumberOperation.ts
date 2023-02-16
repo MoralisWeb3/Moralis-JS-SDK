@@ -21,7 +21,7 @@ export interface GetEventsByCreationNumberOperationRequest {
    * @description Max number of account resources to retrieve.
    * If not provided, defaults to default page size.
    */
-  readonly limit?: string;
+  readonly limit?: number;
   /**
    * @description Starting sequence number of events.
    * If unspecified, by default will retrieve the most recent events
@@ -36,7 +36,7 @@ export interface GetEventsByCreationNumberOperationRequest {
 export interface GetEventsByCreationNumberOperationRequestJSON {
   readonly address: string;
   readonly creation_number: string;
-  readonly limit?: string;
+  readonly limit?: number;
   readonly start?: string;
   readonly network?: AptosNetworkJSON;
 }

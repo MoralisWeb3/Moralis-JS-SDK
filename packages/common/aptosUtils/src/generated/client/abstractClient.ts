@@ -62,8 +62,28 @@ import { GetEventsByCreationNumberOperation, GetEventsByCreationNumberOperationR
 import { AptosGetEventsByCreationNumberResponse, AptosGetEventsByCreationNumberResponseJSON } from '../types/AptosGetEventsByCreationNumberResponse';
 import { GetEventsByEventHandleOperation, GetEventsByEventHandleOperationRequest, GetEventsByEventHandleOperationRequestJSON } from '../operations/GetEventsByEventHandleOperation';
 import { AptosGetEventsByEventHandleResponse, AptosGetEventsByEventHandleResponseJSON } from '../types/AptosGetEventsByEventHandleResponse';
+import { GetTransactionsOperation, GetTransactionsOperationRequest, GetTransactionsOperationRequestJSON } from '../operations/GetTransactionsOperation';
+import { AptosGetTransactionsItem, AptosGetTransactionsItemJSON } from '../types/AptosGetTransactionsItem';
+import { SubmitTransactionOperation, SubmitTransactionOperationRequest, SubmitTransactionOperationRequestJSON } from '../operations/SubmitTransactionOperation';
+import { AptosPendingTransaction, AptosPendingTransactionJSON } from '../types/AptosPendingTransaction';
+import { AptosSubmitTransactionRequest, AptosSubmitTransactionRequestInput, AptosSubmitTransactionRequestJSON } from '../types/AptosSubmitTransactionRequest';
+import { GetTransactionByHashOperation, GetTransactionByHashOperationRequest, GetTransactionByHashOperationRequestJSON } from '../operations/GetTransactionByHashOperation';
+import { AptosGetTransactionByHash, AptosGetTransactionByHashJSON } from '../types/AptosGetTransactionByHash';
+import { GetTransactionByVersionOperation, GetTransactionByVersionOperationRequest, GetTransactionByVersionOperationRequestJSON } from '../operations/GetTransactionByVersionOperation';
+import { AptosGetTransactionByVersion, AptosGetTransactionByVersionJSON } from '../types/AptosGetTransactionByVersion';
+import { GetAccountTransactionsOperation, GetAccountTransactionsOperationRequest, GetAccountTransactionsOperationRequestJSON } from '../operations/GetAccountTransactionsOperation';
+import { AptosGetAccountTransactionsItem, AptosGetAccountTransactionsItemJSON } from '../types/AptosGetAccountTransactionsItem';
+import { SubmitBatchTransactionsOperation, SubmitBatchTransactionsOperationRequest, SubmitBatchTransactionsOperationRequestJSON } from '../operations/SubmitBatchTransactionsOperation';
+import { AptosSubmitBatchTransactionResult, AptosSubmitBatchTransactionResultJSON } from '../types/AptosSubmitBatchTransactionResult';
+import { SimulateTransactionOperation, SimulateTransactionOperationRequest, SimulateTransactionOperationRequestJSON } from '../operations/SimulateTransactionOperation';
+import { AptosSimulateTransaction, AptosSimulateTransactionJSON } from '../types/AptosSimulateTransaction';
+import { EncodeSubmissionOperation, EncodeSubmissionOperationRequest, EncodeSubmissionOperationRequestJSON } from '../operations/EncodeSubmissionOperation';
+import { AptosEncodeSubmissionRequest, AptosEncodeSubmissionRequestInput, AptosEncodeSubmissionRequestJSON } from '../types/AptosEncodeSubmissionRequest';
 import { EstimateGasPriceOperation, EstimateGasPriceOperationRequest, EstimateGasPriceOperationRequestJSON } from '../operations/EstimateGasPriceOperation';
 import { AptosEstimateGasPriceResult, AptosEstimateGasPriceResultJSON } from '../types/AptosEstimateGasPriceResult';
+import { GetBlockByHeightOperation, GetBlockByHeightOperationRequest, GetBlockByHeightOperationRequestJSON } from '../operations/GetBlockByHeightOperation';
+import { AptosBlock, AptosBlockJSON } from '../types/AptosBlock';
+import { GetBlockByVersionOperation, GetBlockByVersionOperationRequest, GetBlockByVersionOperationRequestJSON } from '../operations/GetBlockByVersionOperation';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -129,6 +149,20 @@ export abstract class AbstractClient {
       , AptosGetEventsByEventHandleResponse[]
       , AptosGetEventsByEventHandleResponseJSON[]
     >(GetEventsByEventHandleOperation),
+  };
+  public readonly blocks = {
+    getBlockByHeight: this.createEndpoint<
+      GetBlockByHeightOperationRequest
+      , GetBlockByHeightOperationRequestJSON
+      , AptosBlock
+      , AptosBlockJSON
+    >(GetBlockByHeightOperation),
+    getBlockByVersion: this.createEndpoint<
+      GetBlockByVersionOperationRequest
+      , GetBlockByVersionOperationRequestJSON
+      , AptosBlock
+      , AptosBlockJSON
+    >(GetBlockByVersionOperation),
   };
   public readonly coins = {
     getCoinInfoByCoinTypeHashes: this.createEndpoint<
@@ -269,6 +303,62 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByWalletsOperation),
   };
   public readonly transactions = {
+    getTransactions: this.createEndpoint<
+      GetTransactionsOperationRequest
+      , GetTransactionsOperationRequestJSON
+      , AptosGetTransactionsItem[]
+      , AptosGetTransactionsItemJSON[]
+    >(GetTransactionsOperation),
+    submitTransaction: this.createEndpointWithBody<
+      SubmitTransactionOperationRequest
+      , SubmitTransactionOperationRequestJSON
+      , AptosPendingTransaction
+      , AptosPendingTransactionJSON
+      , AptosSubmitTransactionRequestInput | AptosSubmitTransactionRequest
+      , AptosSubmitTransactionRequestJSON
+    >(SubmitTransactionOperation),
+    getTransactionByHash: this.createEndpoint<
+      GetTransactionByHashOperationRequest
+      , GetTransactionByHashOperationRequestJSON
+      , AptosGetTransactionByHash
+      , AptosGetTransactionByHashJSON
+    >(GetTransactionByHashOperation),
+    getTransactionByVersion: this.createEndpoint<
+      GetTransactionByVersionOperationRequest
+      , GetTransactionByVersionOperationRequestJSON
+      , AptosGetTransactionByVersion
+      , AptosGetTransactionByVersionJSON
+    >(GetTransactionByVersionOperation),
+    getAccountTransactions: this.createEndpoint<
+      GetAccountTransactionsOperationRequest
+      , GetAccountTransactionsOperationRequestJSON
+      , AptosGetAccountTransactionsItem[]
+      , AptosGetAccountTransactionsItemJSON[]
+    >(GetAccountTransactionsOperation),
+    submitBatchTransactions: this.createEndpointWithBody<
+      SubmitBatchTransactionsOperationRequest
+      , SubmitBatchTransactionsOperationRequestJSON
+      , AptosSubmitBatchTransactionResult
+      , AptosSubmitBatchTransactionResultJSON
+      , AptosSubmitTransactionRequestInput[] | AptosSubmitTransactionRequest[]
+      , AptosSubmitTransactionRequestJSON[]
+    >(SubmitBatchTransactionsOperation),
+    simulateTransaction: this.createEndpointWithBody<
+      SimulateTransactionOperationRequest
+      , SimulateTransactionOperationRequestJSON
+      , AptosSimulateTransaction
+      , AptosSimulateTransactionJSON
+      , AptosSubmitTransactionRequestInput | AptosSubmitTransactionRequest
+      , AptosSubmitTransactionRequestJSON
+    >(SimulateTransactionOperation),
+    encodeSubmission: this.createEndpointWithBody<
+      EncodeSubmissionOperationRequest
+      , EncodeSubmissionOperationRequestJSON
+      , string
+      , string
+      , AptosEncodeSubmissionRequestInput | AptosEncodeSubmissionRequest
+      , AptosEncodeSubmissionRequestJSON
+    >(EncodeSubmissionOperation),
     estimateGasPrice: this.createEndpoint<
       EstimateGasPriceOperationRequest
       , EstimateGasPriceOperationRequestJSON

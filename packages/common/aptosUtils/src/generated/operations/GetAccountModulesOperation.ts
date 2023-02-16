@@ -22,7 +22,7 @@ export interface GetAccountModulesOperationRequest {
    * @description Max number of account resources to retrieve.
    * If not provided, defaults to default page size.
    */
-  readonly limit?: string;
+  readonly limit?: number;
   /**
    * @description Cursor specifying where to start for pagination
    * This cursor cannot be derived manually client-side. Instead, you must call this endpoint once without this query parameter specified, and then use the cursor returned in the X-Aptos-Cursor header in the response.
@@ -37,7 +37,7 @@ export interface GetAccountModulesOperationRequest {
 export interface GetAccountModulesOperationRequestJSON {
   readonly address: string;
   readonly ledger_version?: string;
-  readonly limit?: string;
+  readonly limit?: number;
   readonly start?: string;
   readonly network?: AptosNetworkJSON;
 }
