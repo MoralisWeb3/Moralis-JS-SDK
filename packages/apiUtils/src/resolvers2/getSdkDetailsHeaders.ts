@@ -8,7 +8,7 @@ enum Environment {
   OTHER = 'other',
 }
 
-const currentEnvironment = getEnvironment()
+const currentEnvironment = getEnvironment();
 
 function detectIsNode() {
   try {
