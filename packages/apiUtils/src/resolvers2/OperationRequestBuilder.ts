@@ -8,7 +8,7 @@ import Core, {
   OperationRequestRawBody,
 } from '@moralisweb3/common-core';
 import { ApiUtilsConfig } from '../config';
-import { getSdkDatailsHeaders } from './getSdkDatailsHeaders';
+import { getSdkDetailsHeaders } from './getSdkDetailsHeaders';
 
 export class OperationRequestBuilder<Request> {
   public constructor(
@@ -77,7 +77,7 @@ export class OperationRequestBuilder<Request> {
       });
     }
 
-    const headers = getSdkDatailsHeaders(product);
+    const headers = getSdkDetailsHeaders(product);
     headers['x-api-key'] = apiKey;
 
     return headers;

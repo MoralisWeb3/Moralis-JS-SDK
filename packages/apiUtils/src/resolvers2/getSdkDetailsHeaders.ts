@@ -1,13 +1,14 @@
 import Core from '@moralisweb3/common-core';
 
 export type Headers = { [key: string]: string };
-
 enum Environment {
   BROWSER = 'browser',
   NODE = 'node',
   // webworker, jsdom, deno etc.
   OTHER = 'other',
 }
+
+const currentEnvironment = getEnvironment()
 
 function detectIsNode() {
   try {
@@ -61,13 +62,12 @@ function getSdkName(environment: Environment, product?: string) {
 /**
  * Additional data for the api to specify SDK details of the request
  */
-export const getSdkDatailsHeaders = (product?: string): Headers => {
-  const environment = getEnvironment();
-  const sdkName = getSdkName(environment, product);
+export const getSdkDetailsHeaders = (product?: string): Headers => {
+  const sdkName = getSdkName(currentEnvironment, product);
 
   return {
     'x-moralis-platform': sdkName,
     'x-moralis-platform-version': Core.libVersion,
-    'x-moralis-build-target': environment,
+    'x-moralis-build-target': currentEnvironment,
   };
 };
