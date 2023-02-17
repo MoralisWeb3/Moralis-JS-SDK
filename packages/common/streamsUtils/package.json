@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-streams-utils",
   "author": "Moralis",
-  "version": "2.14.1",
+  "version": "2.14.2",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
-    "@moralisweb3/common-aptos-utils": "^2.14.1",
-    "@moralisweb3/common-core": "^2.14.1",
-    "@moralisweb3/common-evm-utils": "^2.14.1",
+    "@moralisweb3/common-aptos-utils": "^2.14.2",
+    "@moralisweb3/common-core": "^2.14.2",
+    "@moralisweb3/common-evm-utils": "^2.14.2",
     "@moralisweb3/streams-typings": "^1.0.6"
   }
 }
