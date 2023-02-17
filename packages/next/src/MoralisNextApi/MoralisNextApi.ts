@@ -6,6 +6,8 @@ import { getModuleByName } from './Modules';
 import { isMoralisError } from '@moralisweb3/common-core';
 import { serverLogger } from '../serverLogger';
 
+Moralis.Core.config.set('product', 'NextJS SDK');
+
 const FALLBACK_ERROR_MESSAGE = 'Internal Server Error';
 
 async function MoralisNextHandler({ req, res, authentication, core }: MoralisNextHandlerParams) {
