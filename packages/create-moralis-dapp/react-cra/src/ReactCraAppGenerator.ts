@@ -5,7 +5,7 @@ import { ReactCraFileGenerator } from './ReactCraFileGenerator';
 
 export class ReactCraAppGenerator implements AppGenerator {
   private readonly templatePath = path.join(__dirname, 'template');
-  public readonly name = 'express-server      [no frontend]';
+  public readonly name = 'React CRA         [only frontend]';
 
   public async generate() {
     const answers = await ReactCraAppInquirer.inquire();
