@@ -97,6 +97,11 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
+      - name: Cypress run
+        uses: cypress-io/github-action@v5.x.x # use the explicit version number
+        with:
+          build: yarn build
+          start: yarn start
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
