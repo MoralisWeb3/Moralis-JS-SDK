@@ -36,7 +36,9 @@ export class LogParser {
     for (const input of eventFragment.inputs) {
       const {type, name} = input;
       let value = args[name];
-      if (!(value instanceof Indexed)) {
+      if (value instanceof Indexed) {
+        value = value.hash;
+      } else {
         // If the value is not indexed, we cannot access it by name
         const index = eventFragment.inputs.indexOf(input);
         value = args[index];
