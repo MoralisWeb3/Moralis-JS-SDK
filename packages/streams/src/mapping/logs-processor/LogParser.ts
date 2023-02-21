@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { BigNumber } from '@ethersproject/bignumber';
 import { AbiItem, Log } from '@moralisweb3/streams-typings';
 import { JsonFragment, Interface, Indexed } from '@ethersproject/abi';
@@ -13,7 +12,7 @@ export interface LogParam {
   type: string;
 }
 
-export type LogParamValue = BigNumber | string | BigNumber[];
+export type LogParamValue = BigNumber | string;
 
 export class LogParser {
   private readonly abiInterface: Interface;
@@ -23,27 +22,25 @@ export class LogParser {
   }
 
   public read(log: Log): ParsedLog {
-    console.log("the log is", log)
     // Solidity supports max 3 topics. https://docs.soliditylang.org/en/latest/contracts.html#events
     const topics = [log.topic0, log.topic1, log.topic2, log.topic3].filter((t) => t !== null) as string[];
 
-    const result = this.abiInterface.parseLog({
-      data: log.data,
-      topics,
-    });
+    // Do not call the `this.abiInterface.parseLog()` method here! The @ethersproject/abi package (5.7.0) has a bug,
+    // that doesn't return `args` with named keys in a specific case. That problem doesn't occur when we call directly the decodeEventLog() method.
+
+    const eventFragment = this.abiInterface.getEvent(topics[0]);
+    const args = this.abiInterface.decodeEventLog(eventFragment, log.data, topics);
 
     const params: Record<string, LogParam> = {};
 
-    for (const input of result.eventFragment.inputs) {
+    for (const input of eventFragment.inputs) {
       const {type, name} = input;
-      let value = result.args[name];
-  
+      let value = args[name];
       if (!(value instanceof Indexed)) {
         // If the value is not found and the parameter is not indexed, get the value from the result.args array
-        const index = result.eventFragment.inputs.indexOf(input);
-        value = result.args[index];
+        const index = eventFragment.inputs.indexOf(input);
+        value = args[index];
       }
-  
       params[name] = {
         type,
         value,
@@ -51,7 +48,7 @@ export class LogParser {
     }
 
     return {
-      name: result.name,
+      name: eventFragment.name,
       params,
     };
   }
