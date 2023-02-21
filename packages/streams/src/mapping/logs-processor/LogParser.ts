@@ -37,7 +37,7 @@ export class LogParser {
       const {type, name} = input;
       let value = args[name];
       if (!(value instanceof Indexed)) {
-        // If the value is not found and the parameter is not indexed, get the value from the result.args array
+        // If the value is not indexed, we cannot access it by name
         const index = eventFragment.inputs.indexOf(input);
         value = args[index];
       }
