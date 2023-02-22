@@ -1,4 +1,4 @@
-describe('Should run the Application', () => {
+describe('Moralis React Demo Test', () => {
   beforeEach(() => {
     cy.visit('/');
   });

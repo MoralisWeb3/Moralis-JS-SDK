@@ -1,0 +1,31 @@
+{
+  "name": "client-umd-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "yarn cy:run:chrome && yarn cy:run:firefox",
+    "test:ci": "start-server-and-test 'ts-node liveServer.ts' http://localhost:8080 test",
+    "cy:open": "cypress open",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/live-server": "^1.2.1",
+    "cypress": "^12.6.0",
+    "live-server": "^1.2.2",
+    "start-server-and-test": "^1.15.4",
+    "typescript": "^4.9.4"
+  }
+}
