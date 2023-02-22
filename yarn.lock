@@ -7734,7 +7734,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/react@^2.11.1, @moralisweb3/react@workspace:packages/react":
+"@moralisweb3/react@^2.14.2, @moralisweb3/react@workspace:packages/react":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/react@workspace:packages/react"
   dependencies:
@@ -30381,7 +30381,7 @@ __metadata:
     "@chakra-ui/styled-system": ^2.3.1
     "@emotion/react": ^11
     "@emotion/styled": ^11
-    "@moralisweb3/react": ^2.11.1
+    "@moralisweb3/react": ^2.14.2
     "@types/node": ^16.18.11
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10

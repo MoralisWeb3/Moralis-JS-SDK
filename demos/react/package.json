@@ -7,7 +7,7 @@
     "@chakra-ui/styled-system": "^2.3.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@moralisweb3/react": "^2.11.1",
+    "@moralisweb3/react": "^2.14.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
@@ -16,7 +16,7 @@
   "scripts": {
     "start": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false BROWSER=none react-app-rewired start",
     "test": "yarn cy:run:chrome && yarn cy:run:firefox",
-    "test:ci": "start-server-and-test start http://localhost:3000 test",
+    "test:ci": "start-server-and-test start http-get://localhost:3000 test",
     "build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-app-rewired build",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
