@@ -48,7 +48,7 @@
     "test": "yarn nx run-many --target=test --all",
     "test:watch": "yarn nx run-many --target=test:watch --all",
     "test:coverage": "yarn nx run-many --target=test:coverage --all",
-    "test:demos": "yarn nx run-many --target=test:ci --projects=react-demo,client-umd-e2e",
+    "test:demos": "yarn nx run-many --target=test:ci --projects=react-demo,client-umd-e2e,demo-webpack-client",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
     "release": "yarn build && changeset publish",

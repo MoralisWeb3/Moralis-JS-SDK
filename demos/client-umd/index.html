@@ -1,62 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
+    <!-- Import Moralis -->
+    <!-- TODO: Use the published moralis.min.js file once it's uploaded -->
+    <script defer type="text/javascript" src="../../packages/moralis/dist/moralis.min.js"></script>
 
-  <!-- Import Moralis -->
-  <!-- TODO: Use the published moralis.min.js file once it's uploaded -->
-  <script defer type="text/javascript" src="../../packages/moralis/dist/moralis.min.js"></script>
+    <!-- Make sure to load the local script after the Moralis dependency is loaded -->
+    <script defer type="text/javascript" src="scripts.js"></script>
 
-  <!-- Make sure to load the local script after the Moralis dependency is loaded -->
-  <script defer type="text/javascript" src="scripts.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Moralis Client Demo (UMD)</title>
+  </head>
+  <body>
+    <header>
+      <img src="./assets/moralis-logo.svg" alt="Moralis" />
+      <h1>Moralis Client Demo (UMD)</h1>
+    </header>
 
-  <link rel="stylesheet" href="style.css" />
-  <title>Moralis Client Demo (UMD)</title>
-</head>
+    <main>
+      <section data-request="evm-token">
+        <h2>Get EVM tokens</h2>
+        <form>
+          <div class="form-input">
+            <label for="address"> Address: </label>
+            <input name="address" value="" />
+            <span class="hint">Example: 0x75e3e9c92162e62000425c98769965a76c2e387a</span>
+          </div>
+          <input type="submit" class="btn" value="Get token data" />
+        </form>
+        <h3>Result</h3>
+        <pre data-out>Click the button to fetch data</pre>
+      </section>
 
-<body>
-  <header>
-    <img src="./assets/moralis-logo.svg" alt="Moralis" />
-    <h1>Moralis Client Demo (UMD)</h1>
-  </header>
+      <section data-request="solana-token">
+        <h2>Get Solana tokens</h2>
+        <form>
+          <div class="form-input">
+            <label for="address"> Address: </label>
+            <input name="address" value="" />
+            <span class="hint">Example: BWeBmN8zYDXgx2tnGj72cA533GZEWAVeqR9Eu29txaen</span>
+          </div>
+          <input type="submit" class="btn" value="Get token data" />
+        </form>
+        <h3>Result</h3>
+        <pre data-out>Click the button to fetch data</pre>
+      </section>
+    </main>
 
-  <main>
-    <section data-request="evm-token">
-      <h2>Get EVM tokens</h2>
-      <form>
-        <div class="form-input">
-          <label for="address"> Address: </label>
-          <input name="address" value="" id="eth-address-input" />
-          <span class="hint">Example: 0x75e3e9c92162e62000425c98769965a76c2e387a</span>
-        </div>
-        <input type="submit" class="btn" value="Get token data" id="eth-btn-submit" />
-      </form>
-      <h3>Result</h3>
-      <pre data-out id="eth-result">Click the button to fetch data</pre>
-    </section>
-
-    <section data-request="solana-token">
-      <h2>Get Solana tokens</h2>
-      <form>
-        <div class="form-input">
-          <label for="address"> Address: </label>
-          <input name="address" value="" id="sol-address-input" />
-          <span class="hint">Example: BWeBmN8zYDXgx2tnGj72cA533GZEWAVeqR9Eu29txaen</span>
-        </div>
-        <input type="submit" class="btn" value="Get token data" id="sol-btn-submit" />
-      </form>
-      <h3>Result</h3>
-      <pre data-out id="sol-result">Click the button to fetch data</pre>
-    </section>
-  </main>
-
-  <footer>
-    <a href="http://moralis.io"><img src="assets/powered-by-moralis.svg" alt="powered by Moralis" /></a>
-  </footer>
-</body>
-
+    <footer>
+      <a href="http://moralis.io"><img src="assets/powered-by-moralis.svg" alt="powered by Moralis" /></a>
+    </footer>
+  </body>
 </html>

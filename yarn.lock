@@ -16478,10 +16478,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-webpack-client@workspace:demos/client-webpack"
   dependencies:
+    cypress: ^12.6.0
     dotenv: ^16.0.3
     http-server: ^14.1.1
     moralis: ^2.14.2
     source-map-loader: ^4.0.1
+    start-server-and-test: ^1.15.4
     ts-loader: ^9.4.2
     typescript: ^4.9.3
     webpack: ^5.75.0

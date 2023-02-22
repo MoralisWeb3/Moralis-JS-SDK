@@ -4,17 +4,24 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode production",
     "build:watch": "webpack --mode development --watch",
-    "serve": "http-server ./ -p 7777"
+    "build": "webpack --mode production",
+    "cy:open": "cypress open",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox",
+    "serve": "http-server ./ -p 7777",
+    "test:ci": "start-server-and-test serve http://127.0.0.1:7777 test",
+    "test": "yarn cy:run:chrome && yarn cy:run:firefox"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
     "moralis": "^2.14.2"
   },
   "devDependencies": {
+    "cypress": "^12.6.0",
     "http-server": "^14.1.1",
     "source-map-loader": "^4.0.1",
+    "start-server-and-test": "^1.15.4",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.3",
     "webpack": "^5.75.0",
