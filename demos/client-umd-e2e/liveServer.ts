@@ -5,5 +5,5 @@ start({
   host: 'localhost',
   root: '../client-umd',
   open: false,
-  mount: [['/packages/moralis/dist/moralis.min.js', '../../packages/moralis/dist/moralis.min.js']],
+  mount: [['/packages/moralis/dist/moralis.min.js', '../../node_modules/moralis/dist/moralis.min.js']],
 });
