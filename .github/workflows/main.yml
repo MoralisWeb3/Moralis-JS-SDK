@@ -97,8 +97,6 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
-      - name: Test demos
-        run: yarn test:demos
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
@@ -117,5 +115,8 @@ jobs:
             common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
             common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
+            
+      - name: Test demos
+        run: yarn test:demos
       - name: Find missing dependencies
         run: node scripts/findMissingDependencies.js
