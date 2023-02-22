@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/live-server": "^1.2.1",
-    "cypress": "^12.6.0",
+    "cypress": "^12.0.2",
     "live-server": "^1.2.2",
     "start-server-and-test": "^1.15.4",
     "typescript": "^4.9.4"

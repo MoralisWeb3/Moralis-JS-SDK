@@ -14438,7 +14438,7 @@ __metadata:
   resolution: "client-umd-e2e@workspace:demos/client-umd-e2e"
   dependencies:
     "@types/live-server": ^1.2.1
-    cypress: ^12.6.0
+    cypress: ^12.0.2
     live-server: ^1.2.2
     start-server-and-test: ^1.15.4
     typescript: ^4.9.4
@@ -15741,7 +15741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^12.6.0":
+"cypress@npm:^12.0.2":
   version: 12.6.0
   resolution: "cypress@npm:12.6.0"
   dependencies:
@@ -16478,7 +16478,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-webpack-client@workspace:demos/client-webpack"
   dependencies:
-    cypress: ^12.6.0
+    cypress: ^12.0.2
     dotenv: ^16.0.3
     http-server: ^14.1.1
     moralis: ^2.14.2
@@ -26361,7 +26361,6 @@ __metadata:
     "@typescript-eslint/parser": ^5.48.2
     archiver: ^5.3.1
     cross-env: ^7.0.3
-    cypress: ^12.6.0
     eslint: ^8.32.0
     eslint-plugin-import: ^2.27.5
     eslint-plugin-jest: ^27.2.1
@@ -30390,7 +30389,7 @@ __metadata:
     buffer: ^6.0.3
     cross-env: ^7.0.3
     crypto-browserify: ^3.12.0
-    cypress: ^12.6.0
+    cypress: ^12.0.2
     https-browserify: ^1.0.0
     os-browserify: ^0.3.0
     process: ^0.11.10
