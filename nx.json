@@ -11,6 +11,9 @@
     "test": {
       "dependsOn": ["build", "^build"]
     },
+    "test:demos": {
+      "dependsOn": ["build", "^build"]
+    },
     "test:coverage": {
       "dependsOn": ["build", "^build"]
     },
@@ -27,7 +30,7 @@
   "tasksRunnerOptions": {
     "default": {
       "options": {
-        "cacheableOperations": ["build", "format", "lint", "test", "test:coverage", "test:ci"]
+        "cacheableOperations": ["build", "format", "lint", "test", "test:coverage"]
       }
     }
   }
