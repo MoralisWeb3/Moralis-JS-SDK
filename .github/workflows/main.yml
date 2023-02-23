@@ -115,7 +115,7 @@ jobs:
             common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
             common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
-            
+
       - name: Test demos
         run: yarn test:demos
       - name: Find missing dependencies

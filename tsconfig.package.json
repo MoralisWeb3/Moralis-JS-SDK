@@ -26,5 +26,6 @@
     "target": "es5",
     "useUnknownInCatchVariables": false
   },
-  "exclude": ["node_modules", "**/node_modules/*", "**/*/lib", "**/*/lib.esm", "**/*/dist", "*.d.ts"]
+  "exclude": ["node_modules", "**/node_modules/*", "**/*/lib", "**/*/lib.esm", "**/*/dist", "*.d.ts"],
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
 }
