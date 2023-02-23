@@ -27,7 +27,7 @@
   "tasksRunnerOptions": {
     "default": {
       "options": {
-        "cacheableOperations": ["build", "format", "lint", "test", "test:coverage"]
+        "cacheableOperations": ["build", "format", "lint", "test", "test:coverage", "test:ci"]
       }
     }
   }

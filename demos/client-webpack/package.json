@@ -10,8 +10,7 @@
     "cy:run:chrome": "cypress run --browser chrome",
     "cy:run:firefox": "cypress run --browser firefox",
     "serve": "http-server ./ -p 7777",
-    "test:ci": "start-server-and-test serve http://127.0.0.1:7777 test",
-    "test": "yarn cy:run:chrome && yarn cy:run:firefox"
+    "test": "start-server-and-test 'yarn serve' http://127.0.0.1:7777 'yarn cy:run:chrome & yarn cy:run:firefox'"
   },
   "dependencies": {
     "dotenv": "^16.0.3",

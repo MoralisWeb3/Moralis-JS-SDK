@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "yarn cy:run:chrome && yarn cy:run:firefox",
-    "test:ci": "start-server-and-test 'ts-node liveServer.ts' http://localhost:8080 test",
+    "test": "start-server-and-test 'ts-node liveServer.ts' http-get://192.168.1.4:8080 'yarn cy:run:chrome & yarn cy:run:firefox'",
     "cy:open": "cypress open",
     "cy:run:chrome": "cypress run --browser chrome",
     "cy:run:firefox": "cypress run --browser firefox"

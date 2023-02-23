@@ -14,9 +14,8 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false BROWSER=none react-app-rewired start",
-    "test": "yarn cy:run:chrome && yarn cy:run:firefox",
-    "test:ci": "start-server-and-test start http-get://localhost:3000 test",
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false BROWSER=none PORT=3000 react-app-rewired start",
+    "test": "start-server-and-test 'yarn start' http-get://192.168.1.4:3000 'yarn cy:run:chrome & yarn cy:run:firefox'",
     "build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-app-rewired build",
     "eject": "react-scripts eject",
     "cy:open": "cypress open",
