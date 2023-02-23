@@ -44,6 +44,7 @@
     "lint": "yarn nx run-many --target=lint --all",
     "clean": "yarn nx run-many --target=clean --all",
     "test": "yarn nx run-many --target=test --all",
+    "test:demos": "yarn nx run-many --target=test:ci --projects=client-umd-e2e",
     "test:watch": "yarn nx run-many --target=test:watch --all",
     "test:coverage": "yarn nx run-many --target=test:coverage --all",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
