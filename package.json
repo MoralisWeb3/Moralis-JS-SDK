@@ -37,7 +37,7 @@
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "build": "yarn nx affected:build",
+    "build": "yarn nx run-many --target=build --all",
     "build:docs": "ts-node ./scripts/buildDocs",
     "gen:api-types": "yarn nx run-many --target=gen:api-types --all",
     "build:clean": "nx reset && yarn clean && yarn build",
