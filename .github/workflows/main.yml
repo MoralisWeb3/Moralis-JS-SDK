@@ -97,6 +97,7 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
+      - uses: "git branch --track main origin/main" 
       - uses: nrwl/nx-set-shas@v3
       - name: Test
         run: yarn nx affected --target=test:coverage
