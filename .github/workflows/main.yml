@@ -97,8 +97,10 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
+      - name: Fetch main origin
+        run: git fetch --no-tags --prune --depth=1 origin main
       - name: Test
-        run: yarn test:coverage
+        run: yarn nx affected --target=test:coverage --base=origin/master
       - name: Test coverage comment
         uses: MishaKav/jest-coverage-comment@main
         with:
