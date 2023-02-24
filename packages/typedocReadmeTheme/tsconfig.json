@@ -13,5 +13,12 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false
   },
-  "exclude": ["./dist", "./test", "**/*.spec.ts"]
+  "exclude": [
+    "./dist",
+    "./test",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "**/*"
+  ]
 }
