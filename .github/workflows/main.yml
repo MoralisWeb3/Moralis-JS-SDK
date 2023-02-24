@@ -110,4 +110,7 @@ jobs:
         with:
           node-version: '16'
           cache: 'yarn'
-      - run: node scripts/findMissingDependencies.js
+      - name: Install packages
+        uses: ./.github/actions/yarn-monorepo-install
+      - name: Run Missing Dependencies script
+        run: node scripts/findMissingDependencies.js
