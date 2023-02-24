@@ -103,4 +103,11 @@ jobs:
         os: [ubuntu-latest]
         node: [16]
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
       - run: node scripts/findMissingDependencies.js
