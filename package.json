@@ -46,7 +46,7 @@
     "clean": "yarn nx run-many --target=clean --all",
     "test": "yarn nx affected:test",
     "test:watch": "yarn nx run-many --target=test:watch --all",
-    "test:coverage": "yarn nx affected:test:coverage",
+    "test:coverage": "yarn nx affected --target=test:coverage",
     "test:demos": "yarn nx run-many --target=test --projects=react-demo,client-umd-e2e,demo-webpack-client",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
