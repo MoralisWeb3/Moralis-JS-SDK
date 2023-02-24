@@ -97,6 +97,8 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
+      - name: Build
+        run: yarn nx affected --target=build
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
