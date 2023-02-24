@@ -77,7 +77,7 @@ jobs:
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
       - name: Test
-        run: yarn test:coverage
+        run: yarn nx affected --target=test:coverage
       - name: Test coverage comment
         uses: MishaKav/jest-coverage-comment@main
         with:
