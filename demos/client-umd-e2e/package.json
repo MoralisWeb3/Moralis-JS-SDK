@@ -26,5 +26,8 @@
     "live-server": "^1.2.2",
     "start-server-and-test": "^1.15.4",
     "typescript": "^4.9.4"
+  },
+  "nx": {
+    "implicitDependencies": ["moralis"]
   }
 }
