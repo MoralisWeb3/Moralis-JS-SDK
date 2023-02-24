@@ -100,7 +100,7 @@ jobs:
       - name: Fetch main origin
         run: git fetch --no-tags --prune --depth=1 origin main
       - name: Test
-        run: yarn nx affected --target=test:coverage --base=origin/master
+        run: yarn nx affected --target=test:coverage --base=origin/main
       - name: Test coverage comment
         uses: MishaKav/jest-coverage-comment@main
         with:
