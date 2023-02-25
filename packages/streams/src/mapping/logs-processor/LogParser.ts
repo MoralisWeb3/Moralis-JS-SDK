@@ -34,7 +34,7 @@ export class LogParser {
     const params: Record<string, LogParam> = {};
 
     eventFragment.inputs.forEach((input, i) => {
-      const {type, name} = input;
+      const { type, name } = input;
       let value = args[name];
       if (value instanceof Indexed) {
         value = value.hash;
