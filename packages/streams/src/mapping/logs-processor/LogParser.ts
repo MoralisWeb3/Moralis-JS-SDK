@@ -33,15 +33,13 @@ export class LogParser {
 
     const params: Record<string, LogParam> = {};
 
-    eventFragment.inputs.forEach((input, i) => {
+    eventFragment.inputs.forEach((input, index) => {
       const { type, name } = input;
-      let value = args[name];
+      let value = args[index];
       if (value instanceof Indexed) {
         value = value.hash;
-      } else {
-        // If the value is not indexed, we cannot access it by name
-        value = args[i];
       }
+
       params[name] = {
         type,
         value,

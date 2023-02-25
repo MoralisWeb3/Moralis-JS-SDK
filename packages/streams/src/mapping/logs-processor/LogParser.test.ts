@@ -276,7 +276,7 @@ describe('LogParser', () => {
     expect(params['rewardNFT'].value).toBe('0xdd59c5286381d1e7091e99aa5732fa35b875b732751f8764ff13f675c48acb25');
   });
 
-  it('reads log correctly when one of input is int192[]', () => {
+  it('reads log correctly when one of input is unindexed int192[]', () => {
     const log: Log = {
       logIndex: '102',
       transactionHash: '0xa6fcc35012aea45aff1dd89a5d330f33a52b62dcaa580285d759276fcc8b0d95',
@@ -347,5 +347,111 @@ describe('LogParser', () => {
     expect(observations[0].toString()).toBe('8093755');
     expect(observations[5].toString()).toBe('8098119');
     expect(observations[10].toString()).toBe('8105467');
+  });
+
+  it('reads log correctly when one input contains unindexed arrays', () => {
+    const log: Log = {
+      logIndex: '107',
+      transactionHash: '0x13ff9847e889923ac0b4e6a2e62508825293f744e856dddda441732e28498029',
+      address: '0x55ab03c0576734fe57f699a047818f350c91296d',
+      data: '0x1f1576e54d7fa84f0e0013adc2d466303528062a834faaf8419acf584ee8b374000000000000000000000000dbf1d38b8590c13237fbd1730c7993ffdcb0cf0c0000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000822c7b0000000000000000000000000000000000000000000000000000000000822ca800000000000000000000000000000000000000000000000000000000000002c0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000005f4071079b4eb137ef727494c9feee367e051130000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004419f101fa000000000000000000000000aa500e8c59078478b87a62258f6d8fa5934a4db800000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000196177346531326431647731323331323361736461736461736400000000000000',
+      topic0: '0x7d84a6263ae0d98d3329bd7b46bb4e8d6f98cd35a7adb45c274c8b7fd5ebd5e0',
+      topic1: null,
+      topic2: null,
+      topic3: null,
+    };
+    const abiItems: AbiItem[] = [
+      {
+        anonymous: false,
+        inputs: [
+          {
+            indexed: false,
+            internalType: 'uint256',
+            name: 'proposalId',
+            type: 'uint256',
+          },
+          {
+            indexed: false,
+            internalType: 'address',
+            name: 'proposer',
+            type: 'address',
+          },
+          {
+            indexed: false,
+            internalType: 'address[]',
+            name: 'targets',
+            type: 'address[]',
+          },
+          {
+            indexed: false,
+            internalType: 'uint256[]',
+            name: 'values',
+            type: 'uint256[]',
+          },
+          {
+            indexed: false,
+            internalType: 'string[]',
+            name: 'signatures',
+            type: 'string[]',
+          },
+          {
+            indexed: false,
+            internalType: 'bytes[]',
+            name: 'calldatas',
+            type: 'bytes[]',
+          },
+          {
+            indexed: false,
+            internalType: 'uint256',
+            name: 'startBlock',
+            type: 'uint256',
+          },
+          {
+            indexed: false,
+            internalType: 'uint256',
+            name: 'endBlock',
+            type: 'uint256',
+          },
+          {
+            indexed: false,
+            internalType: 'string',
+            name: 'description',
+            type: 'string',
+          },
+        ],
+        name: 'ProposalCreated',
+        type: 'event',
+      },
+    ];
+
+    const { name, params } = new LogParser(abiItems).read(log);
+
+    expect(name).toBe('ProposalCreated');
+    expect(params['proposalId'].value.toString()).toBe(
+      '14059622682499873864517339130691773252195357415328316295124254320423739110260',
+    );
+    expect(params['proposer'].value).toBe('0xdbf1D38B8590c13237FBd1730C7993ffdCb0cF0c');
+
+    const targets = params['targets'].value as any as string[];
+    expect(targets.length).toBe(1);
+    expect(targets[0]).toBe('0x05F4071079b4eB137ef727494C9FEEE367e05113');
+
+    const values = params['values'].value as any as BigNumber[];
+    expect(values.length).toBe(1);
+    expect(values[0].toString()).toBe('0');
+
+    const signatures = params['signatures'].value as any as string[];
+    expect(signatures.length).toBe(1);
+    expect(signatures[0]).toBe('');
+
+    const calldatas = params['calldatas'].value as any as string[];
+    expect(calldatas.length).toBe(1);
+    expect(calldatas[0]).toBe(
+      '0x19f101fa000000000000000000000000aa500e8c59078478b87a62258f6d8fa5934a4db80000000000000000000000000000000000000000000000000000000000000005',
+    );
+
+    expect(params['startBlock'].value.toString()).toBe('8531067');
+    expect(params['endBlock'].value.toString()).toBe('8531112');
+    expect(params['description'].value).toBe('aw4e12d1dw123123asdasdasd');
   });
 });
