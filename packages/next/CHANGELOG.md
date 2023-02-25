@@ -1,5 +1,18 @@
 # @moralisweb3/next
 
+## 2.14.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.14.3
+  - @moralisweb3/auth@2.14.3
+  - @moralisweb3/common-auth-utils@2.14.3
+  - @moralisweb3/common-core@2.14.3
+  - @moralisweb3/evm-api@2.14.3
+  - @moralisweb3/sol-api@2.14.3
+  - moralis@2.14.3
+
 ## 2.14.2
 
 ### Patch Changes
