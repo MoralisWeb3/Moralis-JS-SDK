@@ -20,9 +20,9 @@ jobs:
         node: [16]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Setup Node 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'yarn'
@@ -48,9 +48,9 @@ jobs:
         node: [16]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Setup Node 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'yarn'
@@ -68,18 +68,18 @@ jobs:
         node: [16]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Setup Node 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
-      - name: Prepare repo
-        uses: nrwl/nx-set-shas@v3
+      - name: Set the BASE and HEAD SHAs
+        uses: nrwl/nx-set-shas@v2
       - name: Build
         run: yarn nx affected --target=build
       - name: Test
@@ -110,13 +110,11 @@ jobs:
         node: [16]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Setup Node 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'yarn'
-      - name: Install packages
-        uses: ./.github/actions/yarn-monorepo-install
       - name: Run Missing Dependencies script
         run: node scripts/findMissingDependencies.js
