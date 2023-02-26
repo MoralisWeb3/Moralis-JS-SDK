@@ -78,6 +78,8 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
+      - name: Find missing dependencies
+        run: node scripts/findMissingDependencies.js
       - name: Set the BASE and HEAD SHAs
         uses: nrwl/nx-set-shas@v2
       - name: Build
@@ -100,21 +102,3 @@ jobs:
             common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
             common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
-
-  check_dependencies:
-    name: Find missing dependencies
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Setup Node 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          cache: 'yarn'
-      - name: Run Missing Dependencies script
-        run: node scripts/findMissingDependencies.js
