@@ -2,7 +2,7 @@
   "name": "@moralisweb3/react",
   "description": "Moralis Evm and Solana Hooks for React",
   "author": "Moralis",
-  "version": "2.14.2",
+  "version": "2.14.3",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -21,13 +21,13 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.14.2",
-    "@moralisweb3/auth": "^2.14.2",
-    "@moralisweb3/common-auth-utils": "^2.14.2",
-    "@moralisweb3/common-core": "^2.14.2",
-    "@moralisweb3/evm-api": "^2.14.2",
-    "@moralisweb3/sol-api": "^2.14.2",
-    "moralis": "^2.14.2",
+    "@moralisweb3/api-utils": "^2.14.3",
+    "@moralisweb3/auth": "^2.14.3",
+    "@moralisweb3/common-auth-utils": "^2.14.3",
+    "@moralisweb3/common-core": "^2.14.3",
+    "@moralisweb3/evm-api": "^2.14.3",
+    "@moralisweb3/sol-api": "^2.14.3",
+    "moralis": "^2.14.3",
     "swr": "^1.3.0"
   },
   "peerDependencies": {

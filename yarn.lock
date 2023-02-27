@@ -7432,61 +7432,61 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@moralisweb3/api-utils@^2.14.2, @moralisweb3/api-utils@workspace:packages/apiUtils":
+"@moralisweb3/api-utils@^2.14.3, @moralisweb3/api-utils@workspace:packages/apiUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/api-utils@workspace:packages/apiUtils"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
     axios: ^1.2.1
     jest: 29.3.1
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/auth@^2.14.2, @moralisweb3/auth@workspace:packages/auth":
+"@moralisweb3/auth@^2.14.3, @moralisweb3/auth@workspace:packages/auth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/auth@workspace:packages/auth"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/common-aptos-utils": ^2.14.2
-    "@moralisweb3/common-auth-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
-    "@moralisweb3/common-sol-utils": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/common-aptos-utils": ^2.14.3
+    "@moralisweb3/common-auth-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
+    "@moralisweb3/common-sol-utils": ^2.14.3
     jest: 29.3.1
     openapi-typescript: ^5.2.0
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-api-utils@^2.14.2, @moralisweb3/client-api-utils@workspace:packages/client/apiUtils":
+"@moralisweb3/client-api-utils@^2.14.3, @moralisweb3/client-api-utils@workspace:packages/client/apiUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-api-utils@workspace:packages/client/apiUtils"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-evm-api@^2.14.2, @moralisweb3/client-evm-api@workspace:packages/client/evmApi":
+"@moralisweb3/client-evm-api@^2.14.3, @moralisweb3/client-evm-api@workspace:packages/client/evmApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-evm-api@workspace:packages/client/evmApi"
   dependencies:
-    "@moralisweb3/client-api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
+    "@moralisweb3/client-api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-firebase-api-utils@^2.14.2, @moralisweb3/client-firebase-api-utils@workspace:packages/client/firebaseApiUtils":
+"@moralisweb3/client-firebase-api-utils@^2.14.3, @moralisweb3/client-firebase-api-utils@workspace:packages/client/firebaseApiUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-api-utils@workspace:packages/client/firebaseApiUtils"
   dependencies:
-    "@moralisweb3/client-api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/client-api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
     firebase: ^9.15.0
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-firebase-auth-utils@^2.14.2, @moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils":
+"@moralisweb3/client-firebase-auth-utils@^2.14.3, @moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-auth-utils@workspace:packages/client/firebaseAuthUtils"
   dependencies:
@@ -7498,21 +7498,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-evm-api@workspace:packages/client/firebaseEvmApi"
   dependencies:
-    "@moralisweb3/client-evm-api": ^2.14.2
-    "@moralisweb3/client-firebase-api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
+    "@moralisweb3/client-evm-api": ^2.14.3
+    "@moralisweb3/client-firebase-api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
     firebase: ^9.15.0
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-firebase-evm-auth@^2.14.2, @moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth":
+"@moralisweb3/client-firebase-evm-auth@^2.14.3, @moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth"
   dependencies:
     "@ethersproject/providers": ^5.7.2
     "@metamask/detect-provider": ^1.2.0
-    "@moralisweb3/client-firebase-auth-utils": ^2.14.2
+    "@moralisweb3/client-firebase-auth-utils": ^2.14.3
     firebase: ^9.15.0
   languageName: unknown
   linkType: soft
@@ -7521,31 +7521,31 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-sol-api@workspace:packages/client/firebaseSolApi"
   dependencies:
-    "@moralisweb3/client-firebase-api-utils": ^2.14.2
-    "@moralisweb3/client-sol-api": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-sol-utils": ^2.14.2
+    "@moralisweb3/client-firebase-api-utils": ^2.14.3
+    "@moralisweb3/client-sol-api": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-sol-utils": ^2.14.3
     firebase: ^9.15.0
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-firebase-sol-auth@^2.14.2, @moralisweb3/client-firebase-sol-auth@workspace:packages/client/firebaseSolAuth":
+"@moralisweb3/client-firebase-sol-auth@^2.14.3, @moralisweb3/client-firebase-sol-auth@workspace:packages/client/firebaseSolAuth":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-firebase-sol-auth@workspace:packages/client/firebaseSolAuth"
   dependencies:
-    "@moralisweb3/client-firebase-auth-utils": ^2.14.2
+    "@moralisweb3/client-firebase-auth-utils": ^2.14.3
     bs58: ^5.0.0
     firebase: ^9.15.0
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/client-sol-api@^2.14.2, @moralisweb3/client-sol-api@workspace:packages/client/solApi":
+"@moralisweb3/client-sol-api@^2.14.3, @moralisweb3/client-sol-api@workspace:packages/client/solApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/client-sol-api@workspace:packages/client/solApi"
   dependencies:
-    "@moralisweb3/client-api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-sol-utils": ^2.14.2
+    "@moralisweb3/client-api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-sol-utils": ^2.14.3
   languageName: unknown
   linkType: soft
 
@@ -7572,11 +7572,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-aptos-utils@^2.14.2, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
+"@moralisweb3/common-aptos-utils@^2.14.3, @moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-aptos-utils@workspace:packages/common/aptosUtils"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@noble/hashes": ^1.2.0
     jest: 29.3.1
@@ -7584,15 +7584,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-auth-utils@^2.14.2, @moralisweb3/common-auth-utils@workspace:packages/common/authUtils":
+"@moralisweb3/common-auth-utils@^2.14.3, @moralisweb3/common-auth-utils@workspace:packages/common/authUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-auth-utils@workspace:packages/common/authUtils"
   dependencies:
     "@ethersproject/abi": ^5.7.0
-    "@moralisweb3/common-aptos-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
-    "@moralisweb3/common-sol-utils": ^2.14.2
+    "@moralisweb3/common-aptos-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
+    "@moralisweb3/common-sol-utils": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@moralisweb3/streams-typings": ^1.0.6
     jest: 29.3.1
@@ -7600,7 +7600,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-core@^2.14.2, @moralisweb3/common-core@workspace:packages/common/core":
+"@moralisweb3/common-core@^2.14.3, @moralisweb3/common-core@workspace:packages/common/core":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-core@workspace:packages/common/core"
   dependencies:
@@ -7611,25 +7611,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-evm-utils@^2.14.2, @moralisweb3/common-evm-utils@workspace:packages/common/evmUtils":
+"@moralisweb3/common-evm-utils@^2.14.3, @moralisweb3/common-evm-utils@workspace:packages/common/evmUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-evm-utils@workspace:packages/common/evmUtils"
   dependencies:
     "@ethersproject/address": ^5.7.0
     "@ethersproject/bytes": ^5.7.0
     "@ethersproject/transactions": ^5.7.0
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     jest: 29.3.1
     openapi-typescript: ^5.2.0
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-sol-utils@^2.14.2, @moralisweb3/common-sol-utils@workspace:packages/common/solUtils":
+"@moralisweb3/common-sol-utils@^2.14.3, @moralisweb3/common-sol-utils@workspace:packages/common/solUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-sol-utils@workspace:packages/common/solUtils"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     bn.js: ^5.2.1
     bs58: ^5.0.0
@@ -7639,14 +7639,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/common-streams-utils@^2.14.2, @moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils":
+"@moralisweb3/common-streams-utils@^2.14.3, @moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/common-streams-utils@workspace:packages/common/streamsUtils"
   dependencies:
     "@ethersproject/abi": ^5.7.0
-    "@moralisweb3/common-aptos-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
+    "@moralisweb3/common-aptos-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@moralisweb3/streams-typings": ^1.0.6
     jest: 29.3.1
@@ -7672,13 +7672,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/evm-api@^2.14.2, @moralisweb3/evm-api@workspace:packages/evmApi":
+"@moralisweb3/evm-api@^2.14.3, @moralisweb3/evm-api@workspace:packages/evmApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/evm-api@workspace:packages/evmApi"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
     jest: 29.3.1
     openapi-typescript: ^5.2.0
   languageName: unknown
@@ -7688,22 +7688,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/evm-utils@workspace:packages/evmUtils"
   dependencies:
-    "@moralisweb3/common-evm-utils": ^2.14.2
+    "@moralisweb3/common-evm-utils": ^2.14.3
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/next@^2.14.2, @moralisweb3/next@workspace:packages/next":
+"@moralisweb3/next@^2.14.3, @moralisweb3/next@workspace:packages/next":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/next@workspace:packages/next"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/auth": ^2.14.2
-    "@moralisweb3/common-auth-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/evm-api": ^2.14.2
-    "@moralisweb3/sol-api": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/auth": ^2.14.3
+    "@moralisweb3/common-auth-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/evm-api": ^2.14.3
+    "@moralisweb3/sol-api": ^2.14.3
     axios: ^1.2.1
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     next: ^13.0.3
     next-auth: ^4.16.4
     react: ^18.2.0
@@ -7717,19 +7717,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/parse-server@2.14.2, @moralisweb3/parse-server@workspace:packages/parseServer":
+"@moralisweb3/parse-server@2.14.3, @moralisweb3/parse-server@workspace:packages/parseServer":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/parse-server@workspace:packages/parseServer"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/streams": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/streams": ^2.14.3
     "@moralisweb3/streams-typings": ^1.0.6
     "@types/express": 4.17.14
     "@types/parse": ^2.18.18
     body-parser: ^1.20.0
     express: ^4.18.1
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     parse: 3.4.4
   languageName: unknown
   linkType: soft
@@ -7738,13 +7738,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/react@workspace:packages/react"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/auth": ^2.14.2
-    "@moralisweb3/common-auth-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/evm-api": ^2.14.2
-    "@moralisweb3/sol-api": ^2.14.2
-    moralis: ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/auth": ^2.14.3
+    "@moralisweb3/common-auth-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/evm-api": ^2.14.3
+    "@moralisweb3/sol-api": ^2.14.3
+    moralis: ^2.14.3
     react: ^18.2.0
     react-dom: ^18.2.0
     swr: ^1.3.0
@@ -7754,13 +7754,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/sol-api@^2.14.2, @moralisweb3/sol-api@workspace:packages/solApi":
+"@moralisweb3/sol-api@^2.14.3, @moralisweb3/sol-api@workspace:packages/solApi":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/sol-api@workspace:packages/solApi"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-sol-utils": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-sol-utils": ^2.14.3
     jest: 29.3.1
     openapi-typescript: ^5.2.0
   languageName: unknown
@@ -7770,7 +7770,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@moralisweb3/sol-utils@workspace:packages/solUtils"
   dependencies:
-    "@moralisweb3/common-sol-utils": ^2.14.2
+    "@moralisweb3/common-sol-utils": ^2.14.3
   languageName: unknown
   linkType: soft
 
@@ -7781,7 +7781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@moralisweb3/streams@^2.14.2, @moralisweb3/streams@workspace:packages/streams":
+"@moralisweb3/streams@^2.14.3, @moralisweb3/streams@workspace:packages/streams":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/streams@workspace:packages/streams"
   dependencies:
@@ -7789,12 +7789,12 @@ __metadata:
     "@ethersproject/bignumber": ^5.7.0
     "@ethersproject/sha2": ^5.7.0
     "@ethersproject/strings": ^5.7.0
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
-    "@moralisweb3/common-streams-utils": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
+    "@moralisweb3/common-streams-utils": ^2.14.3
     "@moralisweb3/streams-typings": ^1.0.6
-    "@moralisweb3/test-utils": 2.14.2
+    "@moralisweb3/test-utils": 2.14.3
     "@types/ethereumjs-util": 5.2.0
     ethereumjs-util: ^7.1.0
     jest: 29.3.1
@@ -7803,7 +7803,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@moralisweb3/test-utils@2.14.2, @moralisweb3/test-utils@workspace:packages/testUtils":
+"@moralisweb3/test-utils@2.14.3, @moralisweb3/test-utils@workspace:packages/testUtils":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/test-utils@workspace:packages/testUtils"
   dependencies:
@@ -16178,7 +16178,7 @@ __metadata:
     eslint: ^8.32.0
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.27.5
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     ts-node: ^10.9.1
     typescript: ^4.9.4
   languageName: unknown
@@ -16188,7 +16188,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-express-proxy@workspace:demos/express-proxy"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
@@ -16203,7 +16203,7 @@ __metadata:
     eslint-plugin-import: ^2.27.5
     express: ^4.18.2
     express-rate-limit: ^6.7.0
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     redis: ^4.2.0
     ts-node: ^10.9.1
     typescript: ^4.9.4
@@ -16235,9 +16235,9 @@ __metadata:
     "@babel/plugin-syntax-flow": 7.18.6
     "@babel/plugin-transform-react-jsx": 7.20.7
     "@ethersproject/providers": ^5.7.2
-    "@moralisweb3/client-firebase-auth-utils": ^2.14.2
-    "@moralisweb3/client-firebase-evm-auth": ^2.14.2
-    "@moralisweb3/client-firebase-sol-auth": ^2.14.2
+    "@moralisweb3/client-firebase-auth-utils": ^2.14.3
+    "@moralisweb3/client-firebase-evm-auth": ^2.14.3
+    "@moralisweb3/client-firebase-sol-auth": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@testing-library/dom": 8.19.0
     "@testing-library/jest-dom": ^5.16.5
@@ -16269,8 +16269,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-firebase-nextjs@workspace:demos/firebase-nextjs/hosting"
   dependencies:
-    "@moralisweb3/client-firebase-auth-utils": ^2.14.2
-    "@moralisweb3/client-firebase-evm-auth": ^2.14.2
+    "@moralisweb3/client-firebase-auth-utils": ^2.14.3
+    "@moralisweb3/client-firebase-evm-auth": ^2.14.3
     "@next/font": 13.1.2
     "@types/node": ^18.11.18
     "@types/react": 18.0.26
@@ -16300,7 +16300,7 @@ __metadata:
     firebase-functions: ^3.18.0
     firebase-functions-rate-limiter: ^3.9.1
     firebase-functions-test: ^0.2.0
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     typescript: ^4.9.4
   languageName: unknown
   linkType: soft
@@ -16327,7 +16327,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-moralis-stream@workspace:demos/moralis-stream"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.14
@@ -16341,7 +16341,7 @@ __metadata:
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.27.5
     express: ^4.18.1
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     ngrok: ^4.3.3
     redis: ^4.2.0
     ts-node: ^10.9.1
@@ -16357,7 +16357,7 @@ __metadata:
     "@babel/core": ^7.20.12
     "@babel/plugin-transform-react-jsx": ^7.20.7
     "@moralisweb3/eslint-config": ^1.0.2
-    "@moralisweb3/next": ^2.14.2
+    "@moralisweb3/next": ^2.14.3
     "@next/eslint-plugin-next": ^12.2.5
     "@types/node": ^18.11.18
     "@types/react": ^18.0.18
@@ -16369,7 +16369,7 @@ __metadata:
     eslint-config-next: 13.1.2
     eslint-plugin-etc: ^2.0.2
     ethers: ^5.7.2
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     next: 12.2.5
     next-auth: 4.16.4
     react: ^18.2.0
@@ -16384,9 +16384,9 @@ __metadata:
   resolution: "demo-parse-server-migration@workspace:demos/parse-server-migration"
   dependencies:
     "@codemirror/language": ^0.20.0
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
-    "@moralisweb3/parse-server": 2.14.2
+    "@moralisweb3/parse-server": 2.14.3
     "@types/cors": ^2.8.13
     "@types/jest": ^29.2.5
     "@types/node": ^18.11.18
@@ -16405,7 +16405,7 @@ __metadata:
     graphql-ws: ^5.10.1
     jest: ^29.3.1
     mongodb-runner: ^4.9.0
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     ngrok: ^4.3.3
     parse-server: ^5.4.0
     prettier: ^2.8.0
@@ -16420,7 +16420,7 @@ __metadata:
   resolution: "demo-parse-server@workspace:demos/parse-server"
   dependencies:
     "@codemirror/language": ^0.20.0
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@types/cors": ^2.8.13
     "@types/node": ^18.11.18
@@ -16437,7 +16437,7 @@ __metadata:
     graphql: ^16.6.0
     graphql-ws: ^5.10.1
     mongodb-runner: ^4.9.0
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     parse-dashboard: ^4.1.4
     parse-server: ^5.4.0
     prettier: ^2.8.0
@@ -16450,7 +16450,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo-supabase-auth@workspace:demos/supabase-auth"
   dependencies:
-    "@moralisweb3/common-core": ^2.14.2
+    "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@supabase/supabase-js": ^1.35.4
     "@types/cors": ^2.8.12
@@ -16467,7 +16467,7 @@ __metadata:
     eslint-plugin-import: ^2.27.5
     express: ^4.18.1
     jsonwebtoken: ^9.0.0
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     ts-node: ^10.9.1
     typescript: ^4.9.4
     uuid: ^9.0.0
@@ -16481,7 +16481,7 @@ __metadata:
     cypress: ^12.0.2
     dotenv: ^16.0.3
     http-server: ^14.1.1
-    moralis: ^2.14.2
+    moralis: ^2.14.3
     source-map-loader: ^4.0.1
     start-server-and-test: ^1.15.4
     ts-loader: ^9.4.2
@@ -26401,20 +26401,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moralis@^2.14.2, moralis@^2.9.0, moralis@workspace:packages/moralis":
+"moralis@^2.14.3, moralis@^2.9.0, moralis@workspace:packages/moralis":
   version: 0.0.0-use.local
   resolution: "moralis@workspace:packages/moralis"
   dependencies:
-    "@moralisweb3/api-utils": ^2.14.2
-    "@moralisweb3/auth": ^2.14.2
-    "@moralisweb3/common-auth-utils": ^2.14.2
-    "@moralisweb3/common-core": ^2.14.2
-    "@moralisweb3/common-evm-utils": ^2.14.2
-    "@moralisweb3/common-sol-utils": ^2.14.2
-    "@moralisweb3/common-streams-utils": ^2.14.2
-    "@moralisweb3/evm-api": ^2.14.2
-    "@moralisweb3/sol-api": ^2.14.2
-    "@moralisweb3/streams": ^2.14.2
+    "@moralisweb3/api-utils": ^2.14.3
+    "@moralisweb3/auth": ^2.14.3
+    "@moralisweb3/common-auth-utils": ^2.14.3
+    "@moralisweb3/common-core": ^2.14.3
+    "@moralisweb3/common-evm-utils": ^2.14.3
+    "@moralisweb3/common-sol-utils": ^2.14.3
+    "@moralisweb3/common-streams-utils": ^2.14.3
+    "@moralisweb3/evm-api": ^2.14.3
+    "@moralisweb3/sol-api": ^2.14.3
+    "@moralisweb3/streams": ^2.14.3
     "@moralisweb3/streams-typings": ^1.0.6
     "@rollup/plugin-commonjs": ^24.0.1
     "@rollup/plugin-json": ^6.0.0
