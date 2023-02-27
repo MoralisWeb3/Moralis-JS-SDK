@@ -1,5 +1,23 @@
 # @moralisweb3/api-utils
 
+## 2.14.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.14.3
+  - @moralisweb3/common-evm-utils@2.14.3
+
+## 2.14.2
+
+### Patch Changes
+
+- [#1014](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1014) [`7949ea1fe`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7949ea1fe17c6e505bc95e5cc1cc6bb4913c69cc) Thanks [@ErnoW](https://github.com/ErnoW)! - Seperate sdk headers based on sdk type
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.14.2
+  - @moralisweb3/common-evm-utils@2.14.2
+
 ## 2.14.1
 
 ### Patch Changes
