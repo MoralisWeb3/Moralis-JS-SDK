@@ -73,7 +73,7 @@
           {
             "name": "network",
             "isRequired": false,
-            "simpleType": "string",
+            "nativeType": "string",
             "description": "The network of query. Defaults to mainnet."
           }
         ]

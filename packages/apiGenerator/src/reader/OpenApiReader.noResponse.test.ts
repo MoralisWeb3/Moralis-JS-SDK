@@ -1,6 +1,6 @@
 import { OpenApiReader } from './OpenApiReader';
 import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
-import { SimpleTypeDescriptor } from './TypeDescriptor';
+import { NativeTypeDescriptor } from './TypeDescriptor';
 
 describe('OpenApiReader', () => {
   it('no response', () => {
@@ -54,12 +54,12 @@ describe('OpenApiReader', () => {
     expect(operation.body).toBeNull();
 
     const parameter1 = operation.parameters[0];
-    const parameter1D = parameter1.descriptor as SimpleTypeDescriptor;
+    const parameter1D = parameter1.descriptor as NativeTypeDescriptor;
     {
       expect(parameter1.name).toBe('address');
       expect(parameter1.isRequired).toBe(true);
       expect(parameter1D.isArray).toBe(false);
-      expect(parameter1D.simpleType).toBe('string');
+      expect(parameter1D.nativeType).toBe('string');
     }
 
     expect(result.complexTypes.length).toBe(0);

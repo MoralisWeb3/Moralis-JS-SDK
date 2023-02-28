@@ -20,7 +20,7 @@ export class SimpleTypeFileGenerator {
       throw new Error('Complex type is only supported');
     }
 
-    const normalizedType = SimpleTypeNormalizer.normalize(this.info.simpleType);
+    const normalizedType = SimpleTypeNormalizer.normalize(this.info.nativeType);
     let typeCode: string;
     if (this.info.enum) {
       typeCode = this.info.enum.map((value) => JSON.stringify(value)).join(' | ');

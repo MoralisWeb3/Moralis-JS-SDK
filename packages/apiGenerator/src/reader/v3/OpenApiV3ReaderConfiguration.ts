@@ -10,6 +10,6 @@ export interface VirtualParameter {
   operationId?: string;
   name: string;
   isRequired: boolean;
-  simpleType: string;
+  nativeType: string;
   description?: string;
 }

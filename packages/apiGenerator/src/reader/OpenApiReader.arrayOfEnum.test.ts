@@ -1,6 +1,6 @@
 import { OpenApiReader } from './OpenApiReader';
 import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
-import { ComplexTypeDescriptor, isComplexTypeDescriptor, SimpleTypeDescriptor } from './TypeDescriptor';
+import { ReferenceTypeDescriptor, isReferenceTypeDescriptor, NativeTypeDescriptor } from './TypeDescriptor';
 
 describe('OpenApiReader', () => {
   it('array of enum', () => {
@@ -106,8 +106,8 @@ describe('OpenApiReader', () => {
     expect(operation.routePattern).toBe('/streams/aptos');
     expect(operation.body).toBeNull();
 
-    expect(isComplexTypeDescriptor(operation.response!.descriptor)).toBe(true);
-    const responseD = operation.response!.descriptor as ComplexTypeDescriptor;
+    expect(isReferenceTypeDescriptor(operation.response!.descriptor)).toBe(true);
+    const responseD = operation.response!.descriptor as ReferenceTypeDescriptor;
     expect(responseD.typeName.toString()).toBe('GetAllStreams');
     expect(responseD.ref.toString()).toBe(
       '#/paths/~1streams~1aptos/get/responses/200/content/application~1json/schema',
@@ -126,12 +126,12 @@ describe('OpenApiReader', () => {
       expect(complexType1D.isArray).toBe(false);
 
       const totalProp = complexType1.properties.find((p) => p.name === 'total')!;
-      const totalPropD = totalProp.descriptor as SimpleTypeDescriptor;
-      expect(totalPropD.simpleType).toBe('number');
+      const totalPropD = totalProp.descriptor as NativeTypeDescriptor;
+      expect(totalPropD.nativeType).toBe('number');
       expect(totalPropD.isArray).toBe(false);
 
       const resultProp = complexType1.properties.find((p) => p.name === 'result')!;
-      const resultPropD = resultProp.descriptor as ComplexTypeDescriptor;
+      const resultPropD = resultProp.descriptor as ReferenceTypeDescriptor;
       expect(resultPropD.typeName.toString()).toBe('AptosStreamType');
       expect(resultPropD.ref.toString()).toBe('#/components/schemas/AptosStreamType');
       expect(resultPropD.isArray).toBe(true);
@@ -145,12 +145,12 @@ describe('OpenApiReader', () => {
       expect(complexType2D.isArray).toBe(false);
 
       const eventsProp = complexType2.properties.find((p) => p.name === 'events')!;
-      const eventsPropD = eventsProp.descriptor as SimpleTypeDescriptor;
-      expect(eventsPropD.simpleType).toBe('string');
+      const eventsPropD = eventsProp.descriptor as NativeTypeDescriptor;
+      expect(eventsPropD.nativeType).toBe('string');
       expect(eventsPropD.isArray).toBe(true);
 
       const networkProp = complexType2.properties.find((p) => p.name === 'network')!;
-      const networkPropD = networkProp.descriptor as ComplexTypeDescriptor;
+      const networkPropD = networkProp.descriptor as ReferenceTypeDescriptor;
       expect(networkPropD.typeName.toString()).toBe('AptosNetwork_Item');
       expect(networkPropD.ref.toString()).toBe('#/components/schemas/AptosNetwork/items');
       expect(networkPropD.isArray).toBe(true);
@@ -161,13 +161,13 @@ describe('OpenApiReader', () => {
     // simple types
 
     const simpleType1 = result.simpleTypes[0];
-    const simpleType1D = simpleType1.descriptor as ComplexTypeDescriptor;
+    const simpleType1D = simpleType1.descriptor as ReferenceTypeDescriptor;
     {
       expect(simpleType1D.typeName.toString()).toBe('AptosNetwork_Item');
       expect(simpleType1D.ref.toString()).toBe('#/components/schemas/AptosNetwork/items');
       expect(simpleType1D.isArray).toBe(false);
 
-      expect(simpleType1.simpleType).toBe('string');
+      expect(simpleType1.nativeType).toBe('string');
       expect(simpleType1.enum).toContain('mainnet');
       expect(simpleType1.enum).toContain('testnet');
       expect(simpleType1.enum).toContain('devnet');

@@ -6,11 +6,12 @@ export interface TypeDescriptor {
   isArray: boolean;
 }
 
-export interface ReferenceTypePointer extends TypeDescriptor {
+export interface ReferenceTypePointer {
+  ref: JsonRef;
   typeName: TypeName;
 }
 
-export class ComplexTypeDescriptor implements TypeDescriptor, ReferenceTypePointer {
+export class ReferenceTypeDescriptor implements TypeDescriptor, ReferenceTypePointer {
   public constructor(
     public readonly isArray: boolean,
     public readonly ref: JsonRef,
@@ -18,20 +19,11 @@ export class ComplexTypeDescriptor implements TypeDescriptor, ReferenceTypePoint
   ) {}
 }
 
-export class SimpleTypeDescriptor implements TypeDescriptor {
+export class NativeTypeDescriptor implements TypeDescriptor {
   public constructor(
     public readonly isArray: boolean,
     public readonly ref: JsonRef,
-    public readonly simpleType: string,
-  ) {}
-}
-
-export class UnionTypeDescriptor implements TypeDescriptor, ReferenceTypePointer {
-  public constructor(
-    public readonly isArray: boolean,
-    public readonly ref: JsonRef,
-    public readonly typeName: TypeName,
-    public readonly unionType: UnionType,
+    public readonly nativeType: string,
   ) {}
 }
 
@@ -41,18 +33,10 @@ export enum UnionType {
   oneOf = 'oneOf',
 }
 
-export function isComplexTypeDescriptor(descriptor: TypeDescriptor): descriptor is ComplexTypeDescriptor {
-  return !!(descriptor as ComplexTypeDescriptor).typeName && !(descriptor as UnionTypeDescriptor).unionType;
+export function isReferenceTypeDescriptor(descriptor: TypeDescriptor): descriptor is ReferenceTypeDescriptor {
+  return Boolean((descriptor as ReferenceTypeDescriptor).typeName);
 }
 
-export function isSimpleTypeDescriptor(descriptor: TypeDescriptor): descriptor is SimpleTypeDescriptor {
-  return !!(descriptor as SimpleTypeDescriptor).simpleType;
-}
-
-export function isUnionTypeDescriptor(descriptor: TypeDescriptor): descriptor is UnionTypeDescriptor {
-  return !!(descriptor as UnionTypeDescriptor).unionType;
-}
-
-export function isReferencePointer(descriptor: TypeDescriptor): descriptor is ReferenceTypePointer {
-  return isComplexTypeDescriptor(descriptor) || isUnionTypeDescriptor(descriptor);
+export function isNativeTypeDescriptor(descriptor: TypeDescriptor): descriptor is NativeTypeDescriptor {
+  return Boolean((descriptor as NativeTypeDescriptor).nativeType);
 }

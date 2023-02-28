@@ -1,4 +1,4 @@
-import { ComplexTypeDescriptor, TypeDescriptor, UnionTypeDescriptor } from './TypeDescriptor';
+import { ReferenceTypeDescriptor, TypeDescriptor, UnionType } from './TypeDescriptor';
 
 export interface OpenApiReaderResult {
   operations: OperationInfo[];
@@ -8,7 +8,7 @@ export interface OpenApiReaderResult {
 }
 
 export interface ComplexTypeInfo {
-  descriptor: ComplexTypeDescriptor;
+  descriptor: ReferenceTypeDescriptor;
   properties: PropertyInfo[];
 }
 
@@ -20,13 +20,14 @@ export interface PropertyInfo {
 }
 
 export interface SimpleTypeInfo {
-  descriptor: ComplexTypeDescriptor;
-  simpleType: string;
+  descriptor: ReferenceTypeDescriptor;
+  nativeType: string; // 'string', 'number', 'object'...
   enum?: string[];
 }
 
 export interface UnionTypeInfo {
-  descriptor: UnionTypeDescriptor;
+  descriptor: ReferenceTypeDescriptor;
+  unionType: UnionType;
   unionDescriptors: TypeDescriptor[];
 }
 

@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo, UnionTypeInfo } from '../OpenApiReaderResult';
-import { ComplexTypeDescriptor, ReferenceTypePointer, isReferencePointer } from '../TypeDescriptor';
+import { isReferenceTypeDescriptor, ReferenceTypeDescriptor, ReferenceTypePointer } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { TypesQueue } from '../utils/TypesQueue';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
@@ -51,7 +51,7 @@ export class TypesV3Reader {
       const itemRef = pointer.ref.extend([union.unionType, String(index)]);
       const itemDefaultName = pointer.typeName.add(String(index));
       const descriptor = this.typeDescriptorReader.read($ros, itemRef, itemDefaultName);
-      if (isReferencePointer(descriptor)) {
+      if (isReferenceTypeDescriptor(descriptor)) {
         this.queue.push(descriptor);
       }
       return descriptor;
@@ -62,14 +62,14 @@ export class TypesV3Reader {
         isArray: false,
         ref: pointer.ref,
         typeName: pointer.typeName,
-        unionType: union.unionType,
       },
+      unionType: union.unionType,
       unionDescriptors,
     });
   }
 
   private readComplexType(scheme: OpenAPIV3.SchemaObject, pointer: ReferenceTypePointer) {
-    const descriptor: ComplexTypeDescriptor = {
+    const descriptor: ReferenceTypeDescriptor = {
       isArray: false,
       typeName: pointer.typeName,
       ref: pointer.ref,
@@ -89,7 +89,7 @@ export class TypesV3Reader {
 
       this.simpleTypes.push({
         descriptor,
-        simpleType,
+        nativeType: simpleType,
         enum: scheme.enum as string[] | undefined,
       });
       return;
@@ -107,7 +107,7 @@ export class TypesV3Reader {
 
       const defaultTypeName = pointer.typeName.add(name);
       const descriptor = this.typeDescriptorReader.read(refOrSchema, ref, defaultTypeName);
-      if (isReferencePointer(descriptor)) {
+      if (isReferenceTypeDescriptor(descriptor)) {
         this.queue.push(descriptor);
       }
 

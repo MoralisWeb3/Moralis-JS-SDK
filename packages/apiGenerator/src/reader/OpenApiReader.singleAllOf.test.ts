@@ -1,6 +1,6 @@
 import { OpenApiReader } from './OpenApiReader';
 import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
-import { ComplexTypeDescriptor, isComplexTypeDescriptor } from './TypeDescriptor';
+import { ReferenceTypeDescriptor, isReferenceTypeDescriptor } from './TypeDescriptor';
 
 describe('OpenApiReader', () => {
   it('response with single allOf', () => {
@@ -75,8 +75,8 @@ describe('OpenApiReader', () => {
 
     const operation = result.operations[0];
 
-    expect(isComplexTypeDescriptor(operation.response!.descriptor)).toBe(true);
-    const responseD = operation.response!.descriptor as ComplexTypeDescriptor;
+    expect(isReferenceTypeDescriptor(operation.response!.descriptor)).toBe(true);
+    const responseD = operation.response!.descriptor as ReferenceTypeDescriptor;
     expect(responseD.isArray).toBe(true);
     expect(responseD.typeName.toString()).toBe('GetAccountModuleResponse');
     expect(responseD.ref.toString()).toBe('#/components/schemas/GetAccountModuleResponse');
@@ -89,7 +89,7 @@ describe('OpenApiReader', () => {
       expect(complexType1D.ref.toString()).toBe('#/components/schemas/GetAccountModuleResponse');
 
       const abiProp = complexType1.properties.find((p) => p.name === 'abi')!;
-      const abiPropD = abiProp.descriptor as ComplexTypeDescriptor;
+      const abiPropD = abiProp.descriptor as ReferenceTypeDescriptor;
       expect(abiPropD.isArray).toBe(false);
       expect(abiPropD.typeName.toString()).toBe('MoveModuleAbi');
       expect(abiPropD.ref.toString()).toBe('#/components/schemas/MoveModuleAbi');

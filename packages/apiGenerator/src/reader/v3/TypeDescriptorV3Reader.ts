@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
-import { ComplexTypeDescriptor, SimpleTypeDescriptor, TypeDescriptor, UnionTypeDescriptor } from '../TypeDescriptor';
+import { ReferenceTypeDescriptor, NativeTypeDescriptor, TypeDescriptor } from '../TypeDescriptor';
 import { TypeName } from '../utils/TypeName';
 import { UnionV3Reader } from './UnionV3Reader';
 
@@ -23,10 +23,10 @@ export class TypeDescriptorV3Reader {
       const targetSchema = ref.find<OpenAPIV3.SchemaObject>(this.document);
       if (targetSchema.type === 'array') {
         const itemTypeName = typeName.add(ITEM_TYPE_NAME_SUFFIX);
-        return new ComplexTypeDescriptor(true, ref.extend(['items']), itemTypeName);
+        return new ReferenceTypeDescriptor(true, ref.extend(['items']), itemTypeName);
       }
 
-      return new ComplexTypeDescriptor(false, ref, typeName);
+      return new ReferenceTypeDescriptor(false, ref, typeName);
     }
 
     const schema = $refOrSchema as OpenAPIV3.SchemaObject;
@@ -35,34 +35,34 @@ export class TypeDescriptorV3Reader {
       if (items$ref) {
         const itemsRef = JsonRef.parse(items$ref);
         const typeName = readTypeNameFromRef(items$ref);
-        return new ComplexTypeDescriptor(true, itemsRef, typeName);
+        return new ReferenceTypeDescriptor(true, itemsRef, typeName);
       }
 
       const itemsSchema = schema.items as OpenAPIV3.SchemaObject;
       if (itemsSchema.type === 'object') {
         const itemTypeName = defaultTypeName.add(ITEM_TYPE_NAME_SUFFIX);
-        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
+        return new ReferenceTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
       if (itemsSchema.type === 'array') {
         const itemTypeName = defaultTypeName.add(ITEM_TYPE_NAME_SUFFIX);
-        return new ComplexTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
+        return new ReferenceTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
 
       const itemsUnion = UnionV3Reader.tryRead(itemsSchema);
       if (itemsUnion) {
         const itemTypeName = defaultTypeName.add(ITEM_TYPE_NAME_SUFFIX);
-        return new UnionTypeDescriptor(true, parentRef.extend(['items']), itemTypeName, itemsUnion.unionType);
+        return new ReferenceTypeDescriptor(true, parentRef.extend(['items']), itemTypeName);
       }
 
       if (!itemsSchema.type) {
         itemsSchema.type = 'string';
         console.warn(`[no-schema-type] Items schema has empty type, set string as default (${parentRef})`);
       }
-      return new SimpleTypeDescriptor(true, parentRef, itemsSchema.type);
+      return new NativeTypeDescriptor(true, parentRef, itemsSchema.type);
     }
 
     if (schema.type === 'object') {
-      return new ComplexTypeDescriptor(false, parentRef, defaultTypeName);
+      return new ReferenceTypeDescriptor(false, parentRef, defaultTypeName);
     }
 
     const union = UnionV3Reader.tryRead(schema);
@@ -72,7 +72,7 @@ export class TypeDescriptorV3Reader {
         const itemRef = parentRef.extend([union.unionType, '0']);
         return this.read(union.$refsOrSchemas[0], itemRef, defaultTypeName);
       }
-      return new UnionTypeDescriptor(false, parentRef, defaultTypeName, union.unionType);
+      return new ReferenceTypeDescriptor(false, parentRef, defaultTypeName);
     }
 
     if (!schema.type) {
@@ -81,7 +81,7 @@ export class TypeDescriptorV3Reader {
         `[no-schema-type] Schema has empty type, set string as default (${parentRef}) [${Object.keys(schema)}]`,
       );
     }
-    return new SimpleTypeDescriptor(false, parentRef, schema.type);
+    return new NativeTypeDescriptor(false, parentRef, schema.type);
   }
 }
 

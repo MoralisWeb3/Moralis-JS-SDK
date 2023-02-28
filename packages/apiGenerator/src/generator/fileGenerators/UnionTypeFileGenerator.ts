@@ -14,7 +14,7 @@ export class UnionTypeFileGenerator {
   public constructor(private readonly info: UnionTypeInfo, private readonly typeResolver: TypeResolver) {}
 
   public generate(): UnionTypeFileGeneratorResult {
-    if (this.info.descriptor.unionType === UnionType.allOf) {
+    if (this.info.unionType === UnionType.allOf) {
       throw new Error(`Generator doesn't support allOf union type`);
     }
 
@@ -56,7 +56,7 @@ export class UnionTypeFileGenerator {
 
     output.write(0, `// $ref: ${this.info.descriptor.ref.toString()}`);
     output.write(0, `// typeName: ${this.info.descriptor.typeName.toString()}`);
-    output.write(0, `// unionType: ${this.info.descriptor.unionType}`);
+    output.write(0, `// unionType: ${this.info.unionType}`);
     output.newLine();
 
     output.write(0, `export type ${typeCodes.jsonClassName} = ${unionJsonTypeCode};`);

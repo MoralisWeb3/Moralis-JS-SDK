@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
-import { isReferencePointer, SimpleTypeDescriptor } from '../TypeDescriptor';
+import { isReferenceTypeDescriptor, NativeTypeDescriptor } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiReaderResult';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
@@ -115,7 +115,7 @@ export class OperationsV3Reader {
       const ref = operationRef.extend(['parameters', String(index), 'schema']);
       const defaultTypeName = TypeName.from(operationId).add(parameter.name);
       const descriptor = this.typeDescriptorReader.read(schema, ref, defaultTypeName);
-      if (isReferencePointer(descriptor)) {
+      if (isReferenceTypeDescriptor(descriptor)) {
         this.queue.push(descriptor);
       }
 
@@ -138,10 +138,10 @@ export class OperationsV3Reader {
           () => `Virtual parameter name ${virtualParameter.name} is duplicated (${operationRef.toString()})`,
         );
 
-        const virtualDescriptor: SimpleTypeDescriptor = {
+        const virtualDescriptor: NativeTypeDescriptor = {
           ref: JsonRef.from(['virtualParameter', virtualParameter.name]),
           isArray: false,
-          simpleType: virtualParameter.simpleType,
+          nativeType: virtualParameter.nativeType,
         };
         result.push({
           name: virtualParameter.name,
@@ -171,7 +171,7 @@ export class OperationsV3Reader {
     const ref = operationRef.extend(['responses', responseCode, 'content', 'application/json', 'schema']);
 
     const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultTypeName);
-    if (isReferencePointer(descriptor)) {
+    if (isReferenceTypeDescriptor(descriptor)) {
       this.queue.push(descriptor);
     }
 
@@ -202,7 +202,7 @@ export class OperationsV3Reader {
     const ref = operationRef.extend(['requestBody', 'content', 'application/json', 'schema']);
     const defaultTypeName = TypeName.from(operationId).add(BODY_TYPE_NAME_SUFFIX);
     const descriptor = this.typeDescriptorReader.read($refOrSchema, ref, defaultTypeName);
-    if (isReferencePointer(descriptor)) {
+    if (isReferenceTypeDescriptor(descriptor)) {
       this.queue.push(descriptor);
     }
 

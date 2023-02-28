@@ -1,12 +1,6 @@
 import { OpenApiReader } from './OpenApiReader';
 import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
-import {
-  ComplexTypeDescriptor,
-  isUnionTypeDescriptor,
-  SimpleTypeDescriptor,
-  UnionType,
-  UnionTypeDescriptor,
-} from './TypeDescriptor';
+import { ReferenceTypeDescriptor, NativeTypeDescriptor, UnionType } from './TypeDescriptor';
 
 describe('OpenApiReader', () => {
   it('response with simple oneOf', () => {
@@ -70,7 +64,7 @@ describe('OpenApiReader', () => {
 
     const operation = result.operations[0];
 
-    const responseD = operation.response!.descriptor as ComplexTypeDescriptor;
+    const responseD = operation.response!.descriptor as ReferenceTypeDescriptor;
     expect(responseD.isArray).toBe(false);
     expect(responseD.typeName.toString()).toBe('blockTransaction');
     expect(responseD.ref.toString()).toBe('#/components/schemas/blockTransaction');
@@ -83,10 +77,8 @@ describe('OpenApiReader', () => {
       expect(complexType1D.ref.toString()).toBe('#/components/schemas/blockTransaction');
 
       const toAddressProp = complexType1.properties[0];
-      const toAddressPropD = toAddressProp.descriptor as UnionTypeDescriptor;
+      const toAddressPropD = toAddressProp.descriptor as ReferenceTypeDescriptor;
       {
-        expect(isUnionTypeDescriptor(toAddressPropD)).toBe(true);
-        expect(toAddressPropD.unionType).toBe(UnionType.oneOf);
         expect(toAddressPropD.isArray).toBe(false);
         expect(toAddressPropD.ref.toString()).toBe('#/components/schemas/blockTransaction/properties/to_address');
         expect(toAddressPropD.typeName.toString()).toBe('blockTransaction_to_address');
@@ -96,21 +88,21 @@ describe('OpenApiReader', () => {
     const unionType1 = result.unionTypes[0];
     const unionType1D = unionType1.descriptor;
     {
-      expect(unionType1D.unionType).toBe(UnionType.oneOf);
+      expect(unionType1.unionType).toBe(UnionType.oneOf);
       expect(unionType1D.isArray).toBe(false);
       expect(unionType1D.isArray).toBe(false);
       expect(unionType1D.ref.toString()).toBe('#/components/schemas/blockTransaction/properties/to_address');
       expect(unionType1D.typeName.toString()).toBe('blockTransaction_to_address');
 
-      const union1D = unionType1.unionDescriptors[0] as SimpleTypeDescriptor;
+      const union1D = unionType1.unionDescriptors[0] as NativeTypeDescriptor;
       expect(union1D.isArray).toBe(false);
       expect(union1D.ref.toString()).toBe('#/components/schemas/blockTransaction/properties/to_address/oneOf/0');
-      expect(union1D.simpleType).toBe('string');
+      expect(union1D.nativeType).toBe('string');
 
-      const union2D = unionType1.unionDescriptors[1] as SimpleTypeDescriptor;
+      const union2D = unionType1.unionDescriptors[1] as NativeTypeDescriptor;
       expect(union2D.isArray).toBe(false);
       expect(union2D.ref.toString()).toBe('#/components/schemas/blockTransaction/properties/to_address/oneOf/1');
-      expect(union2D.simpleType).toBe('null');
+      expect(union2D.nativeType).toBe('null');
     }
   });
 });

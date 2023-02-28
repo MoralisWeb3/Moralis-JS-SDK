@@ -1,10 +1,5 @@
 import { NameFormatter } from '../codeGenerators/NameFormatter';
-import {
-  isComplexTypeDescriptor,
-  isSimpleTypeDescriptor,
-  isUnionTypeDescriptor,
-  TypeDescriptor,
-} from '../../../reader/TypeDescriptor';
+import { isReferenceTypeDescriptor, isNativeTypeDescriptor, TypeDescriptor } from '../../../reader/TypeDescriptor';
 import { MappingTarget } from '../../GeneratorConfiguration';
 import { TypeName } from 'src/reader/utils/TypeName';
 import { MappingResolver } from './MappingResolver';
@@ -28,7 +23,7 @@ export class TypeResolver {
   ) {}
 
   public resolveWithNoMapping(descriptor: TypeDescriptor): ResolvedType {
-    if (isComplexTypeDescriptor(descriptor) || isUnionTypeDescriptor(descriptor)) {
+    if (isReferenceTypeDescriptor(descriptor)) {
       const className = this.createClassName(descriptor.typeName);
       return {
         isArray: descriptor.isArray,
@@ -38,10 +33,10 @@ export class TypeResolver {
         },
       };
     }
-    if (isSimpleTypeDescriptor(descriptor)) {
+    if (isNativeTypeDescriptor(descriptor)) {
       return {
         isArray: descriptor.isArray,
-        simpleType: descriptor.simpleType,
+        simpleType: descriptor.nativeType,
       };
     }
     throw new Error('Unsupported descriptor type');
@@ -66,7 +61,7 @@ export class TypeResolver {
   public resolve(descriptor: TypeDescriptor): ResolvedType {
     let target: MappingTarget | undefined = undefined;
 
-    if (isComplexTypeDescriptor(descriptor)) {
+    if (isReferenceTypeDescriptor(descriptor)) {
       target = this.mappingResolver.tryResolveByTypeName(descriptor.typeName.toString());
     }
     if (!target) {
