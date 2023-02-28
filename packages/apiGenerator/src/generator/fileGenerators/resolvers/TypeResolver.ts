@@ -6,7 +6,7 @@ import { MappingResolver } from './MappingResolver';
 
 export interface ResolvedType {
   isArray: boolean;
-  simpleType?: string;
+  nativeType?: string;
   referenceType?: ReferenceResolvedType;
 }
 
@@ -36,7 +36,7 @@ export class TypeResolver {
     if (isNativeTypeDescriptor(descriptor)) {
       return {
         isArray: descriptor.isArray,
-        simpleType: descriptor.nativeType,
+        nativeType: descriptor.nativeType,
       };
     }
     throw new Error('Unsupported descriptor type');

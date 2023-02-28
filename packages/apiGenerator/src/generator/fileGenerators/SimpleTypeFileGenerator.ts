@@ -1,7 +1,7 @@
 import { SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
 import { Output } from '../output/Output';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
-import { SimpleTypeNormalizer } from './codeGenerators/SimpleTypeNormalizer';
+import { NativeTypeNormalizer } from './codeGenerators/NativeTypeNormalizer';
 import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 
@@ -20,12 +20,12 @@ export class SimpleTypeFileGenerator {
       throw new Error('Complex type is only supported');
     }
 
-    const normalizedType = SimpleTypeNormalizer.normalize(this.info.nativeType);
+    const normalizedNativeType = NativeTypeNormalizer.normalize(this.info.nativeType);
     let typeCode: string;
     if (this.info.enum) {
       typeCode = this.info.enum.map((value) => JSON.stringify(value)).join(' | ');
     } else {
-      typeCode = TypeCodesGenerator.getTypeCode(normalizedType, this.info.descriptor.isArray);
+      typeCode = TypeCodesGenerator.getTypeCode(normalizedNativeType, this.info.descriptor.isArray);
     }
 
     // view:
