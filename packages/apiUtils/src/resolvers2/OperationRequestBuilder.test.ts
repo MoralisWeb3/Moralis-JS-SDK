@@ -105,9 +105,18 @@ describe('OperationRequestBuilder', () => {
       const headers = builder.prepareHeaders();
 
       expect(headers['x-api-key']).toBe(API_KEY);
-      expect(headers['x-moralis-platform']).toBe('JS SDK');
+      expect(headers['x-moralis-platform']).toBe('NodeJS SDK');
       expect(headers['x-moralis-platform-version']).toBeDefined();
       expect(headers['x-moralis-build-target']).toBe('node');
+    });
+  });
+
+  describe('prepareHeaders() for custom product', () => {
+    it('returns headers', () => {
+      core.config.set('product', 'Test SDK');
+      const headers = builder.prepareHeaders();
+
+      expect(headers['x-moralis-platform']).toBe('Test SDK');
     });
   });
 });
