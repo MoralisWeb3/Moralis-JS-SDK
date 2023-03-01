@@ -1,4 +1,4 @@
-import { ApiUtilsConfig, getCommonHeaders } from '@moralisweb3/api-utils';
+import { ApiUtilsConfig, getSdkDetailsHeaders } from '@moralisweb3/api-utils';
 import { ApiErrorCode, Config, CoreConfig, MoralisApiError, RequestController } from '@moralisweb3/common-core';
 import { OperationV3 } from '@moralisweb3/common-aptos-utils';
 
@@ -67,7 +67,7 @@ export class OperationV3Resolver {
       });
     }
 
-    const headers = getCommonHeaders();
+    const headers = getSdkDetailsHeaders();
     headers['x-api-key'] = `${apiKey}`;
     headers['Authorization'] = `Bearer ${apiKey}`;
     if (product) {
