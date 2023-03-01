@@ -1,4 +1,4 @@
-import { AptosScriptPayloadRequestCode, AptosScriptPayloadRequestCodeInput, AptosScriptPayloadRequestCodeJSON } from '../types/AptosScriptPayloadRequestCode';
+import { AptosScriptPayloadRequestCode, AptosScriptPayloadRequestCodeValue, AptosScriptPayloadRequestCodeInput, AptosScriptPayloadRequestCodeJSON } from '../types/AptosScriptPayloadRequestCode';
 
 // $ref: #/components/schemas/ScriptPayloadRequest
 // type: ScriptPayloadRequest
@@ -17,7 +17,7 @@ export interface AptosScriptPayloadRequestJSON {
 
 export interface AptosScriptPayloadRequestInput {
   readonly type: string;
-  readonly code: AptosScriptPayloadRequestCodeInput | AptosScriptPayloadRequestCode;
+  readonly code: AptosScriptPayloadRequestCodeInput | AptosScriptPayloadRequestCodeValue;
   readonly typeArguments: string[];
   readonly arguments: string[];
 }
@@ -55,7 +55,7 @@ export class AptosScriptPayloadRequest {
   /**
    * @description Move script bytecode
    */
-  public readonly code: AptosScriptPayloadRequestCode;
+  public readonly code: AptosScriptPayloadRequestCodeValue;
   /**
    * @description Type arguments of the function
    */
@@ -75,7 +75,7 @@ export class AptosScriptPayloadRequest {
   public toJSON(): AptosScriptPayloadRequestJSON {
     return {
       type: this.type,
-      code: this.code.toJSON(),
+      code: this.code,
       type_arguments: this.typeArguments,
       arguments: this.arguments,
     }

@@ -1,4 +1,4 @@
-import { AptosBlockMetadataTransactionChanges, AptosBlockMetadataTransactionChangesInput, AptosBlockMetadataTransactionChangesJSON } from '../types/AptosBlockMetadataTransactionChanges';
+import { AptosBlockMetadataTransactionChanges, AptosBlockMetadataTransactionChangesValue, AptosBlockMetadataTransactionChangesInput, AptosBlockMetadataTransactionChangesJSON } from '../types/AptosBlockMetadataTransactionChanges';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
 
 // $ref: #/components/schemas/BlockMetadataTransaction
@@ -57,7 +57,7 @@ export interface AptosBlockMetadataTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosBlockMetadataTransactionChangesInput | AptosBlockMetadataTransactionChanges;
+  readonly changes: AptosBlockMetadataTransactionChangesInput | AptosBlockMetadataTransactionChangesValue;
   readonly id: string;
   readonly epoch: string;
   readonly round: string;
@@ -131,7 +131,7 @@ export class AptosBlockMetadataTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosBlockMetadataTransactionChanges;
+  public readonly changes: AptosBlockMetadataTransactionChangesValue;
   public readonly id: string;
   /**
    * @description A string containing a 64-bit unsigned integer.

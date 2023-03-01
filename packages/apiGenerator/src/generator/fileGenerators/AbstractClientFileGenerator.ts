@@ -1,4 +1,4 @@
-import { OperationInfo } from '../../reader/OpenApiReaderResult';
+import { OperationInfo } from '../../reader/OpenApiContract';
 import { NameFormatter } from './codeGenerators/NameFormatter';
 import { TypeName } from '../../reader/utils/TypeName';
 import { TypeResolver } from './resolvers/TypeResolver';
@@ -61,7 +61,7 @@ export class AbstractClientFileGenerator {
       if (operation.responseTypeCodes.referenceType) {
         output.addImport(
           [
-            operation.responseTypeCodes.referenceType.className,
+            operation.responseTypeCodes.referenceType.valueClassName,
             operation.responseTypeCodes.referenceType.jsonClassName,
           ],
           operation.responseTypeCodes.referenceType.importPath,
@@ -70,7 +70,7 @@ export class AbstractClientFileGenerator {
       if (operation.bodyTypeCodes?.referenceType) {
         output.addImport(
           [
-            operation.bodyTypeCodes.referenceType.className,
+            operation.bodyTypeCodes.referenceType.valueClassName,
             operation.bodyTypeCodes.referenceType.inputClassName,
             operation.bodyTypeCodes.referenceType.jsonClassName,
           ],
@@ -116,10 +116,13 @@ export class AbstractClientFileGenerator {
         output.write(2, `${operation.parameterName}: this.${factoryMethodName}<`);
         output.write(3, `${operation.className}Request`);
         output.write(3, `, ${operation.className}RequestJSON`);
-        output.write(3, `, ${operation.responseTypeCodes.typeCode}`);
+        output.write(3, `, ${operation.responseTypeCodes.valueTypeCode}`);
         output.write(3, `, ${operation.responseTypeCodes.jsonTypeCode}`);
         if (operation.bodyTypeCodes) {
-          output.write(3, `, ${operation.bodyTypeCodes.inputUnionTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`);
+          output.write(
+            3,
+            `, ${operation.bodyTypeCodes.inputOrValueTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`,
+          );
           output.write(3, `, ${operation.bodyTypeCodes.jsonTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`);
         }
         output.write(2, `>(${operation.className}),`);

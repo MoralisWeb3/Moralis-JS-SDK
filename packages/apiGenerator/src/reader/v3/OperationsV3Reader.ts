@@ -2,7 +2,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import { JsonRef } from '../utils/JsonRef';
 import { isReferenceTypeDescriptor, NativeTypeDescriptor } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
-import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiReaderResult';
+import { OperationBodyInfo, OperationInfo, OperationResponseInfo, ParameterInfo } from '../OpenApiContract';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
 import { TypesQueue } from '../utils/TypesQueue';
 import { TypeName } from '../utils/TypeName';

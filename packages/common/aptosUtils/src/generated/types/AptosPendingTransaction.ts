@@ -1,6 +1,6 @@
 import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
-import { AptosPendingTransactionPayload, AptosPendingTransactionPayloadInput, AptosPendingTransactionPayloadJSON } from '../types/AptosPendingTransactionPayload';
-import { AptosPendingTransactionSignature, AptosPendingTransactionSignatureInput, AptosPendingTransactionSignatureJSON } from '../types/AptosPendingTransactionSignature';
+import { AptosPendingTransactionPayload, AptosPendingTransactionPayloadValue, AptosPendingTransactionPayloadInput, AptosPendingTransactionPayloadJSON } from '../types/AptosPendingTransactionPayload';
+import { AptosPendingTransactionSignature, AptosPendingTransactionSignatureValue, AptosPendingTransactionSignatureInput, AptosPendingTransactionSignatureJSON } from '../types/AptosPendingTransactionSignature';
 
 // $ref: #/components/schemas/PendingTransaction
 // type: PendingTransaction
@@ -32,8 +32,8 @@ export interface AptosPendingTransactionInput {
   readonly maxGasAmount: string;
   readonly gasUnitPrice: string;
   readonly expirationTimestampSecs: string;
-  readonly payload: AptosPendingTransactionPayloadInput | AptosPendingTransactionPayload;
-  readonly signature: AptosPendingTransactionSignatureInput | AptosPendingTransactionSignature;
+  readonly payload: AptosPendingTransactionPayloadInput | AptosPendingTransactionPayloadValue;
+  readonly signature: AptosPendingTransactionSignatureInput | AptosPendingTransactionSignatureValue;
 }
 
 export class AptosPendingTransaction {
@@ -87,8 +87,8 @@ export class AptosPendingTransaction {
    * @description A string containing a 64-bit unsigned integer.
    */
   public readonly expirationTimestampSecs: string;
-  public readonly payload: AptosPendingTransactionPayload;
-  public readonly signature: AptosPendingTransactionSignature;
+  public readonly payload: AptosPendingTransactionPayloadValue;
+  public readonly signature: AptosPendingTransactionSignatureValue;
 
   private constructor(input: AptosPendingTransactionInput) {
     this.hash = input.hash;

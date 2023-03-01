@@ -10,67 +10,44 @@ import { AptosStateCheckpointTransaction, AptosStateCheckpointTransactionJSON, A
 
 export type AptosGetTransactionsItemJSON = AptosPendingTransactionJSON | AptosUserTransactionJSON | AptosGenesisTransactionJSON | AptosBlockMetadataTransactionJSON | AptosStateCheckpointTransactionJSON;
 export type AptosGetTransactionsItemInput = AptosPendingTransactionInput | AptosUserTransactionInput | AptosGenesisTransactionInput | AptosBlockMetadataTransactionInput | AptosStateCheckpointTransactionInput;
+export type AptosGetTransactionsItemValue = AptosPendingTransaction | AptosUserTransaction | AptosGenesisTransaction | AptosBlockMetadataTransaction | AptosStateCheckpointTransaction;
 
-export class AptosGetTransactionsItem {
-  public static create(input: AptosGetTransactionsItemInput | AptosGetTransactionsItem): AptosGetTransactionsItem {
-    if (input instanceof AptosGetTransactionsItem) {
-      return input;
-    }
+export abstract class AptosGetTransactionsItem {
+  public static create(input: AptosGetTransactionsItemInput): AptosGetTransactionsItemValue {
     if (AptosPendingTransaction.isInput(input)) {
-      return new AptosGetTransactionsItem(AptosPendingTransaction.create(input));
+      return AptosPendingTransaction.create(input);
     }
     if (AptosUserTransaction.isInput(input)) {
-      return new AptosGetTransactionsItem(AptosUserTransaction.create(input));
+      return AptosUserTransaction.create(input);
     }
     if (AptosGenesisTransaction.isInput(input)) {
-      return new AptosGetTransactionsItem(AptosGenesisTransaction.create(input));
+      return AptosGenesisTransaction.create(input);
     }
     if (AptosBlockMetadataTransaction.isInput(input)) {
-      return new AptosGetTransactionsItem(AptosBlockMetadataTransaction.create(input));
+      return AptosBlockMetadataTransaction.create(input);
     }
     if (AptosStateCheckpointTransaction.isInput(input)) {
-      return new AptosGetTransactionsItem(AptosStateCheckpointTransaction.create(input));
+      return AptosStateCheckpointTransaction.create(input);
     }
     throw new Error('Invalid input');
   }
 
-  public static fromJSON(json: AptosGetTransactionsItemJSON): AptosGetTransactionsItem {
+  public static fromJSON(json: AptosGetTransactionsItemJSON): AptosGetTransactionsItemValue {
     if (AptosPendingTransaction.isJSON(json)) {
-      return new AptosGetTransactionsItem(AptosPendingTransaction.fromJSON(json));
+      return AptosPendingTransaction.fromJSON(json);
     }
     if (AptosUserTransaction.isJSON(json)) {
-      return new AptosGetTransactionsItem(AptosUserTransaction.fromJSON(json));
+      return AptosUserTransaction.fromJSON(json);
     }
     if (AptosGenesisTransaction.isJSON(json)) {
-      return new AptosGetTransactionsItem(AptosGenesisTransaction.fromJSON(json));
+      return AptosGenesisTransaction.fromJSON(json);
     }
     if (AptosBlockMetadataTransaction.isJSON(json)) {
-      return new AptosGetTransactionsItem(AptosBlockMetadataTransaction.fromJSON(json));
+      return AptosBlockMetadataTransaction.fromJSON(json);
     }
     if (AptosStateCheckpointTransaction.isJSON(json)) {
-      return new AptosGetTransactionsItem(AptosStateCheckpointTransaction.fromJSON(json));
+      return AptosStateCheckpointTransaction.fromJSON(json);
     }
     throw new Error(`Cannot resolve union for AptosGetTransactionsItem (keys: ${Object.keys(json).join(',') })`);
-  }
-
-  public constructor(public readonly value: AptosPendingTransaction | AptosUserTransaction | AptosGenesisTransaction | AptosBlockMetadataTransaction | AptosStateCheckpointTransaction) {}
-
-  public toJSON(): AptosGetTransactionsItemJSON {
-    if (this.value instanceof AptosPendingTransaction) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosUserTransaction) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosGenesisTransaction) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosBlockMetadataTransaction) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosStateCheckpointTransaction) {
-      return this.value.toJSON();
-    }
-    throw new Error('Invalid value');
   }
 }

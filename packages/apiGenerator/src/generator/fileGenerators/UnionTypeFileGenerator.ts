@@ -1,9 +1,8 @@
-import { UnionTypeInfo } from '../../reader/OpenApiReaderResult';
+import { UnionTypeInfo } from '../../reader/OpenApiContract';
 import { Output } from '../output/Output';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
-import { UnionType } from '../../reader/TypeDescriptor';
 
 export interface UnionTypeFileGeneratorResult {
   className: string;
@@ -14,12 +13,11 @@ export class UnionTypeFileGenerator {
   public constructor(private readonly info: UnionTypeInfo, private readonly typeResolver: TypeResolver) {}
 
   public generate(): UnionTypeFileGeneratorResult {
-    if (this.info.unionType === UnionType.allOf) {
-      throw new Error(`Generator doesn't support allOf union type`);
-    }
-
     const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor);
-    const { referenceType: typeCodes, inputUnionTypeCode } = TypeCodesGenerator.generate(resolvedType, true);
+    const { referenceType: typeCodes, inputOrValueTypeCode: inputUnionTypeCode } = TypeCodesGenerator.generate(
+      resolvedType,
+      true,
+    );
     if (!typeCodes) {
       throw new Error('Reference type is only supported');
     }
@@ -33,7 +31,7 @@ export class UnionTypeFileGenerator {
 
     const unionJsonTypeCode = unionTypes.map((unionType) => unionType.typeCodes.jsonTypeCode).join(' | ');
     const unionInputTypeCode = unionTypes.map((unionType) => unionType.typeCodes.inputTypeCode).join(' | ');
-    const unionValueTypeCode = unionTypes.map((unionType) => unionType.typeCodes.typeCode).join(' | ');
+    const unionValueTypeCode = unionTypes.map((unionType) => unionType.typeCodes.valueTypeCode).join(' | ');
     const hasAnySimpleType = unionTypes.some((unionType) => !unionType.typeCodes.referenceType);
 
     // view:
@@ -44,7 +42,8 @@ export class UnionTypeFileGenerator {
       if (unionType.typeCodes.referenceType) {
         output.addImport(
           [
-            unionType.typeCodes.referenceType.className,
+            unionType.typeCodes.referenceType.factoryClassName,
+            unionType.typeCodes.referenceType.valueClassName,
             unionType.typeCodes.referenceType.jsonClassName,
             unionType.typeCodes.referenceType.inputClassName,
           ],
@@ -61,81 +60,51 @@ export class UnionTypeFileGenerator {
 
     output.write(0, `export type ${typeCodes.jsonClassName} = ${unionJsonTypeCode};`);
     output.write(0, `export type ${typeCodes.inputClassName} = ${unionInputTypeCode};`);
+    output.write(0, `export type ${typeCodes.valueClassName} = ${unionValueTypeCode};`);
     output.newLine();
 
-    output.write(0, `export class ${typeCodes.className} {`);
+    output.write(0, `export abstract class ${typeCodes.factoryClassName} {`);
 
-    output.write(1, `public static create(input: ${inputUnionTypeCode}): ${typeCodes.className} {`);
-    output.write(2, `if (input instanceof ${typeCodes.className}) {`);
-    output.write(3, `return input;`);
-    output.write(2, `}`);
-
+    output.write(1, `public static create(input: ${typeCodes.inputClassName}): ${typeCodes.valueClassName} {`);
     for (const unionType of unionTypes) {
       if (!unionType.typeCodes.referenceType) {
         continue;
       }
-      output.write(2, `if (${unionType.typeCodes.referenceType.className}.isInput(input)) {`);
-      output.write(
-        3,
-        `return new ${typeCodes.className}(${unionType.typeCodes.referenceType.className}.create(input));`,
-      );
+      output.write(2, `if (${unionType.typeCodes.referenceType.factoryClassName}.isInput(input)) {`);
+      output.write(3, `return ${unionType.typeCodes.referenceType.factoryClassName}.create(input);`);
       output.write(2, '}');
     }
 
     if (hasAnySimpleType) {
-      output.write(2, `return new ${typeCodes.className}(input);`);
+      output.write(2, `return new ${typeCodes.factoryClassName}(input);`);
     } else {
       output.write(2, `throw new Error('Invalid input');`);
     }
     output.write(1, `}`);
     output.newLine();
 
-    output.write(1, `public static fromJSON(json: ${typeCodes.jsonClassName}): ${typeCodes.className} {`);
+    output.write(1, `public static fromJSON(json: ${typeCodes.jsonClassName}): ${typeCodes.valueClassName} {`);
     for (const unionType of unionTypes) {
       if (!unionType.typeCodes.referenceType) {
         continue;
       }
-      output.write(2, `if (${unionType.typeCodes.referenceType.className}.isJSON(json)) {`);
-      output.write(
-        3,
-        `return new ${typeCodes.className}(${unionType.typeCodes.referenceType.className}.fromJSON(json));`,
-      );
+      output.write(2, `if (${unionType.typeCodes.referenceType.factoryClassName}.isJSON(json)) {`);
+      output.write(3, `return ${unionType.typeCodes.referenceType.factoryClassName}.fromJSON(json);`);
       output.write(2, '}');
     }
 
     if (hasAnySimpleType) {
-      output.write(2, `return new ${typeCodes.className}(json);`);
+      output.write(2, `return new ${typeCodes.factoryClassName}(json);`);
     } else {
       output.write(
         2,
-        `throw new Error(\`Cannot resolve union for ${typeCodes.className} (keys: \${Object.keys(json).join(',') })\`);`,
+        `throw new Error(\`Cannot resolve union for ${typeCodes.factoryClassName} (keys: \${Object.keys(json).join(',') })\`);`,
       );
     }
     output.write(1, `}`);
-    output.newLine();
-
-    output.write(1, `public constructor(public readonly value: ${unionValueTypeCode}) {}`);
-    output.newLine();
-
-    output.write(1, `public toJSON(): ${typeCodes.jsonClassName} {`);
-    for (const unionType of unionTypes) {
-      if (!unionType.typeCodes.referenceType) {
-        continue;
-      }
-      output.write(2, `if (this.value instanceof ${unionType.typeCodes.referenceType.className}) {`);
-      output.write(3, `return this.value.toJSON();`);
-      output.write(2, '}');
-    }
-
-    if (hasAnySimpleType) {
-      output.write(2, `return this.value;`);
-    } else {
-      output.write(2, `throw new Error('Invalid value');`);
-    }
-    output.write(1, '}');
 
     output.write(0, `}`);
 
-    return { output, className: typeCodes.className as string };
+    return { output, className: typeCodes.factoryClassName as string };
   }
 }

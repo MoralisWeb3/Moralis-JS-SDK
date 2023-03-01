@@ -1,4 +1,4 @@
-import { AptosWriteOrUpdateModuleChangeAddress, AptosWriteOrUpdateModuleChangeAddressInput, AptosWriteOrUpdateModuleChangeAddressJSON } from '../types/AptosWriteOrUpdateModuleChangeAddress';
+import { AptosWriteOrUpdateModuleChangeAddress, AptosWriteOrUpdateModuleChangeAddressValue, AptosWriteOrUpdateModuleChangeAddressInput, AptosWriteOrUpdateModuleChangeAddressJSON } from '../types/AptosWriteOrUpdateModuleChangeAddress';
 import { AptosWriteModuleData, AptosWriteModuleDataInput, AptosWriteModuleDataJSON } from '../types/AptosWriteModuleData';
 
 // $ref: #/components/schemas/WriteOrUpdateModuleChange
@@ -18,7 +18,7 @@ export interface AptosWriteOrUpdateModuleChangeJSON {
 
 export interface AptosWriteOrUpdateModuleChangeInput {
   readonly type: string;
-  readonly address: AptosWriteOrUpdateModuleChangeAddressInput | AptosWriteOrUpdateModuleChangeAddress;
+  readonly address: AptosWriteOrUpdateModuleChangeAddressInput | AptosWriteOrUpdateModuleChangeAddressValue;
   readonly stateKeyHash: string;
   readonly data: AptosWriteModuleDataInput | AptosWriteModuleData;
 }
@@ -53,7 +53,7 @@ export class AptosWriteOrUpdateModuleChange {
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: AptosWriteOrUpdateModuleChangeAddress;
+  public readonly address: AptosWriteOrUpdateModuleChangeAddressValue;
   /**
    * @description State key hash
    */
@@ -70,7 +70,7 @@ export class AptosWriteOrUpdateModuleChange {
   public toJSON(): AptosWriteOrUpdateModuleChangeJSON {
     return {
       type: this.type,
-      address: this.address.toJSON(),
+      address: this.address,
       state_key_hash: this.stateKeyHash,
       data: this.data.toJSON(),
     }

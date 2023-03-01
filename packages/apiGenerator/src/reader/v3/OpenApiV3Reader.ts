@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { OpenApiVersionReader } from '../OpenApiReader';
-import { OpenApiReaderResult } from '../OpenApiReaderResult';
+import { OpenApiContract } from '../OpenApiContract';
 import { TypesQueue } from '../utils/TypesQueue';
 import { OpenApiV3ReaderConfiguration } from './OpenApiV3ReaderConfiguration';
 import { OperationsV3Reader } from './OperationsV3Reader';
@@ -17,7 +17,7 @@ export class OpenApiV3Reader implements OpenApiVersionReader {
     private readonly configuration: OpenApiV3ReaderConfiguration,
   ) {}
 
-  public read(): OpenApiReaderResult {
+  public read(): OpenApiContract {
     const queue = new TypesQueue();
     const typeDescriptorReader = new TypeDescriptorV3Reader(this.document);
     const operationsReader = new OperationsV3Reader(this.document, typeDescriptorReader, queue, this.configuration);

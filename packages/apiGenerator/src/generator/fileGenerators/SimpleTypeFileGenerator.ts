@@ -1,4 +1,4 @@
-import { SimpleTypeInfo } from 'src/reader/OpenApiReaderResult';
+import { SimpleTypeInfo } from 'src/reader/OpenApiContract';
 import { Output } from '../output/Output';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { NativeTypeNormalizer } from './codeGenerators/NativeTypeNormalizer';
@@ -15,7 +15,8 @@ export class SimpleTypeFileGenerator {
 
   public generate(): SimpleTypeFileGeneratorResult {
     const resolvedType = this.typeResolver.resolveWithNoMapping(this.info.descriptor);
-    const { referenceType: referenceTypeCodes, inputUnionTypeCode } = TypeCodesGenerator.generate(resolvedType, true);
+    const { referenceType: referenceTypeCodes, inputOrValueTypeCode: inputOrValueTypeCode } =
+      TypeCodesGenerator.generate(resolvedType, true);
     if (!referenceTypeCodes) {
       throw new Error('Complex type is only supported');
     }
@@ -37,33 +38,26 @@ export class SimpleTypeFileGenerator {
     output.newLine();
 
     output.write(0, `export type ${referenceTypeCodes.jsonClassName} = ${typeCode};`);
-    output.write(0, `export type ${referenceTypeCodes.inputClassName} = ${referenceTypeCodes.jsonClassName};`);
+    output.write(0, `export type ${referenceTypeCodes.inputClassName} = ${typeCode};`);
+    output.write(0, `export type ${referenceTypeCodes.valueClassName} = ${typeCode};`);
     output.newLine();
 
-    output.write(0, `export class ${referenceTypeCodes.className} {`);
+    output.write(0, `export abstract class ${referenceTypeCodes.factoryClassName} {`);
 
-    output.write(1, `public static create(input: ${inputUnionTypeCode}) {`);
-    output.write(2, `if (input instanceof ${referenceTypeCodes.className}) {`);
-    output.write(3, `return input;`);
-    output.write(2, `}`);
-    output.write(2, `return new ${referenceTypeCodes.className}(input);`);
+    output.write(1, `public static create(input: ${inputOrValueTypeCode}): ${referenceTypeCodes.valueClassName} {`);
+    output.write(2, `return input;`);
     output.write(1, `}`);
     output.newLine();
 
-    output.write(1, `public static fromJSON(json: ${referenceTypeCodes.jsonClassName}) {`);
-    output.write(2, `return new ${referenceTypeCodes.className}(json);`);
+    output.write(
+      1,
+      `public static fromJSON(json: ${referenceTypeCodes.jsonClassName}): ${referenceTypeCodes.valueClassName} {`,
+    );
+    output.write(2, `return json;`);
     output.write(1, `}`);
-    output.newLine();
-
-    output.write(1, `public constructor(public readonly value: ${referenceTypeCodes.inputClassName}) {}`);
-    output.newLine();
-
-    output.write(1, `public toJSON(): ${referenceTypeCodes.jsonClassName} {`);
-    output.write(2, 'return this.value;');
-    output.write(1, '}');
 
     output.write(0, `}`);
 
-    return { output, className: referenceTypeCodes.className as string };
+    return { output, className: referenceTypeCodes.factoryClassName as string };
   }
 }

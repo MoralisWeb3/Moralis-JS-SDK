@@ -1,6 +1,6 @@
-import { AptosDeleteTableItemChangeAddress, AptosDeleteTableItemChangeAddressInput, AptosDeleteTableItemChangeAddressJSON } from '../types/AptosDeleteTableItemChangeAddress';
-import { AptosDeleteTableItemChangeHandle, AptosDeleteTableItemChangeHandleInput, AptosDeleteTableItemChangeHandleJSON } from '../types/AptosDeleteTableItemChangeHandle';
-import { AptosDeleteTableItemChangeKey, AptosDeleteTableItemChangeKeyInput, AptosDeleteTableItemChangeKeyJSON } from '../types/AptosDeleteTableItemChangeKey';
+import { AptosDeleteTableItemChangeAddress, AptosDeleteTableItemChangeAddressValue, AptosDeleteTableItemChangeAddressInput, AptosDeleteTableItemChangeAddressJSON } from '../types/AptosDeleteTableItemChangeAddress';
+import { AptosDeleteTableItemChangeHandle, AptosDeleteTableItemChangeHandleValue, AptosDeleteTableItemChangeHandleInput, AptosDeleteTableItemChangeHandleJSON } from '../types/AptosDeleteTableItemChangeHandle';
+import { AptosDeleteTableItemChangeKey, AptosDeleteTableItemChangeKeyValue, AptosDeleteTableItemChangeKeyInput, AptosDeleteTableItemChangeKeyJSON } from '../types/AptosDeleteTableItemChangeKey';
 import { AptosDeletedTableData, AptosDeletedTableDataInput, AptosDeletedTableDataJSON } from '../types/AptosDeletedTableData';
 
 // $ref: #/components/schemas/DeleteTableItemChange
@@ -24,10 +24,10 @@ export interface AptosDeleteTableItemChangeJSON {
 
 export interface AptosDeleteTableItemChangeInput {
   readonly type: string;
-  readonly address: AptosDeleteTableItemChangeAddressInput | AptosDeleteTableItemChangeAddress;
+  readonly address: AptosDeleteTableItemChangeAddressInput | AptosDeleteTableItemChangeAddressValue;
   readonly stateKeyHash: string;
-  readonly handle: AptosDeleteTableItemChangeHandleInput | AptosDeleteTableItemChangeHandle;
-  readonly key: AptosDeleteTableItemChangeKeyInput | AptosDeleteTableItemChangeKey;
+  readonly handle: AptosDeleteTableItemChangeHandleInput | AptosDeleteTableItemChangeHandleValue;
+  readonly key: AptosDeleteTableItemChangeKeyInput | AptosDeleteTableItemChangeKeyValue;
   readonly data: AptosDeletedTableDataInput | AptosDeletedTableData;
 }
 
@@ -63,7 +63,7 @@ export class AptosDeleteTableItemChange {
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: AptosDeleteTableItemChangeAddress;
+  public readonly address: AptosDeleteTableItemChangeAddressValue;
   /**
    * @description State key hash
    */
@@ -71,11 +71,11 @@ export class AptosDeleteTableItemChange {
   /**
    * @description All bytes (Vec) data is represented as hex-encoded string prefixed with 0x and fulfilled with two hex digits per byte.
    */
-  public readonly handle: AptosDeleteTableItemChangeHandle;
+  public readonly handle: AptosDeleteTableItemChangeHandleValue;
   /**
    * @description All bytes (Vec) data is represented as hex-encoded string prefixed with 0x and fulfilled with two hex digits per byte.
    */
-  public readonly key: AptosDeleteTableItemChangeKey;
+  public readonly key: AptosDeleteTableItemChangeKeyValue;
   /**
    * @description Deleted table data
    */
@@ -93,10 +93,10 @@ export class AptosDeleteTableItemChange {
   public toJSON(): AptosDeleteTableItemChangeJSON {
     return {
       type: this.type,
-      address: this.address.toJSON(),
+      address: this.address,
       state_key_hash: this.stateKeyHash,
-      handle: this.handle.toJSON(),
-      key: this.key.toJSON(),
+      handle: this.handle,
+      key: this.key,
       data: this.data.toJSON(),
     }
   }

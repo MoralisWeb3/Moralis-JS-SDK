@@ -5,64 +5,61 @@ import { ComplexTypeFileGenerator } from './fileGenerators/ComplexTypeFileGenera
 import { GeneratorWriter } from './GeneratorWriter';
 import {
   ComplexTypeInfo,
-  OpenApiReaderResult,
+  OpenApiContract,
   OperationInfo,
   SimpleTypeInfo,
   UnionTypeInfo,
-} from '../reader/OpenApiReaderResult';
+} from '../reader/OpenApiContract';
 import { TypeResolver } from './fileGenerators/resolvers/TypeResolver';
 import { AbstractClientFileGenerator } from './fileGenerators/AbstractClientFileGenerator';
 import { MappingResolver } from './fileGenerators/resolvers/MappingResolver';
 import { UnionTypeFileGenerator } from './fileGenerators/UnionTypeFileGenerator';
 import { GeneratorConfiguration } from './GeneratorConfiguration';
-import { TypeDeterminantResolver } from './fileGenerators/resolvers/TypeComparisonResolver';
-import { TypeUsageResolver } from './fileGenerators/resolvers/TypeUsageResolver';
+import { TypeDeterminantResolver } from './fileGenerators/resolvers/TypeDeterminantResolver';
+import { TypeInfoResolver } from './fileGenerators/resolvers/TypeInfoResolver';
 
 export class Generator {
   public static create(
-    readerResult: OpenApiReaderResult,
+    contract: OpenApiContract,
     configuration: GeneratorConfiguration,
     projectPath: string,
   ): Generator {
     const mappingResolver = new MappingResolver(configuration.mappings);
-    const typeResolver = new TypeResolver(configuration.classNamePrefix, mappingResolver, '../');
+    const typeInfoResolver = new TypeInfoResolver(contract);
+    const typeResolver = new TypeResolver(configuration.classNamePrefix, mappingResolver, typeInfoResolver);
     const typeDeterminantResolver = new TypeDeterminantResolver(configuration.typeDeterminants);
-    const typeUsageResolver = new TypeUsageResolver(readerResult);
     const generatorWriter = new GeneratorWriter(projectPath, configuration.outputDir);
-    return new Generator(readerResult, typeResolver, typeDeterminantResolver, typeUsageResolver, generatorWriter);
+    return new Generator(contract, typeResolver, typeDeterminantResolver, typeInfoResolver, generatorWriter);
   }
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
 
   private constructor(
-    private readonly readerResult: OpenApiReaderResult,
+    private readonly contract: OpenApiContract,
     private readonly typeResolver: TypeResolver,
     private readonly typeDeterminantResolver: TypeDeterminantResolver,
-    private readonly typeUsageResolver: TypeUsageResolver,
+    private readonly typeInfoResolver: TypeInfoResolver,
     private readonly writer: GeneratorWriter,
   ) {}
 
   public generate() {
     this.writer.prepare();
 
-    for (const operation of this.readerResult.operations) {
+    for (const operation of this.contract.operations) {
       this.generateOperation(operation);
     }
-    for (const simpleType of this.readerResult.simpleTypes) {
+    for (const simpleType of this.contract.simpleTypes) {
       this.generateSimpleType(simpleType);
     }
-    for (const complexType of this.readerResult.complexTypes) {
+    for (const complexType of this.contract.complexTypes) {
       this.generateComplexType(complexType);
     }
-    for (const unionType of this.readerResult.unionTypes) {
+    for (const unionType of this.contract.unionTypes) {
       this.generateUnionType(unionType);
     }
 
-    const abstractClientFileGenerator = new AbstractClientFileGenerator(
-      this.readerResult.operations,
-      this.typeResolver,
-    );
+    const abstractClientFileGenerator = new AbstractClientFileGenerator(this.contract.operations, this.typeResolver);
     this.writer.writeAbstractClient(abstractClientFileGenerator.generate());
 
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());
@@ -92,7 +89,7 @@ export class Generator {
       info,
       this.typeResolver,
       this.typeDeterminantResolver,
-      this.typeUsageResolver,
+      this.typeInfoResolver,
     );
     const result = generator.generate();
 

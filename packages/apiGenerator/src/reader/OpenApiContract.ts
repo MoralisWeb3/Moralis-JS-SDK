@@ -1,6 +1,6 @@
 import { ReferenceTypeDescriptor, TypeDescriptor, UnionType } from './TypeDescriptor';
 
-export interface OpenApiReaderResult {
+export interface OpenApiContract {
   operations: OperationInfo[];
   complexTypes: ComplexTypeInfo[];
   simpleTypes: SimpleTypeInfo[];

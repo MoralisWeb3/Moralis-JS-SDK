@@ -3,16 +3,19 @@ import { ResolvedType } from '../resolvers/TypeResolver';
 
 export interface TypeCodes {
   colon: string;
-  typeCode: string;
+
+  valueTypeCode: string;
   inputTypeCode: string;
-  inputUnionTypeCode: string;
   jsonTypeCode: string;
+  inputOrValueTypeCode: string;
+
   undefinedSuffix: string;
   referenceType: ReferenceTypeCodes | null;
 }
 
 export interface ReferenceTypeCodes {
-  className: string;
+  factoryClassName: string;
+  valueClassName: string;
   inputClassName: string;
   jsonClassName: string;
   importPath: string;
@@ -28,20 +31,25 @@ export class TypeCodesGenerator {
     const undefinedSuffix = isRequired ? '' : ' | undefined';
 
     if (resolvedType.referenceType) {
-      const jsonClassName = resolvedType.referenceType.className + 'JSON';
-      const inputClassName = resolvedType.referenceType.className + 'Input';
-      const typeCode = TypeCodesGenerator.getTypeCode(resolvedType.referenceType.className, resolvedType.isArray);
+      const { className, isSimpleType, isUnionType } = resolvedType.referenceType;
+      const valueClassName = isSimpleType || isUnionType ? `${className}Value` : className;
+      const jsonClassName = className + 'JSON';
+      const inputClassName = className + 'Input';
+      const valueTypeCode = TypeCodesGenerator.getTypeCode(valueClassName, resolvedType.isArray);
       const inputTypeCode = TypeCodesGenerator.getTypeCode(inputClassName, resolvedType.isArray);
 
       return {
         colon,
-        typeCode,
+
+        valueTypeCode,
         inputTypeCode,
-        inputUnionTypeCode: `${inputTypeCode} | ${typeCode}`,
         jsonTypeCode: TypeCodesGenerator.getTypeCode(jsonClassName, resolvedType.isArray),
+        inputOrValueTypeCode: `${inputTypeCode} | ${valueTypeCode}`,
+
         undefinedSuffix,
         referenceType: {
-          className: resolvedType.referenceType.className,
+          factoryClassName: className,
+          valueClassName,
           inputClassName,
           jsonClassName,
           importPath: resolvedType.referenceType.importPath,
@@ -55,10 +63,10 @@ export class TypeCodesGenerator {
 
       return {
         colon,
-        typeCode,
+        valueTypeCode: typeCode,
         inputTypeCode: typeCode,
-        inputUnionTypeCode: typeCode,
         jsonTypeCode: typeCode,
+        inputOrValueTypeCode: typeCode,
         undefinedSuffix,
         referenceType: null,
       };
@@ -70,9 +78,9 @@ export class TypeCodesGenerator {
   public static generateNull(): TypeCodes {
     return {
       colon: ':',
-      typeCode: 'null',
+      valueTypeCode: 'null',
       inputTypeCode: 'null',
-      inputUnionTypeCode: 'null',
+      inputOrValueTypeCode: 'null',
       jsonTypeCode: 'null',
       undefinedSuffix: '',
       referenceType: null,

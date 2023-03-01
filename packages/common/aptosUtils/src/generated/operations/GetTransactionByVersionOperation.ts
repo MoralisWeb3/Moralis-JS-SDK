@@ -1,5 +1,5 @@
 import { AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
-import { AptosGetTransactionByVersion, AptosGetTransactionByVersionJSON } from '../types/AptosGetTransactionByVersion';
+import { AptosGetTransactionByVersion, AptosGetTransactionByVersionValue, AptosGetTransactionByVersionJSON } from '../types/AptosGetTransactionByVersion';
 
 // request parameters:
 // - txn_version ($ref: #/paths/~1transactions~1by_version~1{txn_version}/get/parameters/0/schema)
@@ -30,7 +30,7 @@ export const GetTransactionByVersionOperation = {
   hasResponse: true,
   hasBody: false,
 
-  parseResponse(json: AptosGetTransactionByVersionJSON): AptosGetTransactionByVersion {
+  parseResponse(json: AptosGetTransactionByVersionJSON): AptosGetTransactionByVersionValue {
     return AptosGetTransactionByVersion.fromJSON(json);
   },
 

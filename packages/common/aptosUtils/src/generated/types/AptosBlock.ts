@@ -1,4 +1,4 @@
-import { AptosBlockTransactionsItem, AptosBlockTransactionsItemInput, AptosBlockTransactionsItemJSON } from '../types/AptosBlockTransactionsItem';
+import { AptosBlockTransactionsItem, AptosBlockTransactionsItemValue, AptosBlockTransactionsItemInput, AptosBlockTransactionsItemJSON } from '../types/AptosBlockTransactionsItem';
 
 // $ref: #/components/schemas/Block
 // type: Block
@@ -25,7 +25,7 @@ export interface AptosBlockInput {
   readonly blockTimestamp: string;
   readonly firstVersion: string;
   readonly lastVersion: string;
-  readonly transactions: AptosBlockTransactionsItemInput[] | AptosBlockTransactionsItem[];
+  readonly transactions: AptosBlockTransactionsItemInput[] | AptosBlockTransactionsItemValue[];
 }
 
 export class AptosBlock {
@@ -68,7 +68,7 @@ export class AptosBlock {
   /**
    * @description List of transactions
    */
-  public readonly transactions: AptosBlockTransactionsItem[];
+  public readonly transactions: AptosBlockTransactionsItemValue[];
 
   private constructor(input: AptosBlockInput) {
     this.blockHeight = input.blockHeight;

@@ -1,5 +1,5 @@
 import { AptosTransactionEventGuid, AptosTransactionEventGuidInput, AptosTransactionEventGuidJSON } from '../types/AptosTransactionEventGuid';
-import { AptosGetEventsByCreationNumberResponseData, AptosGetEventsByCreationNumberResponseDataInput, AptosGetEventsByCreationNumberResponseDataJSON } from '../types/AptosGetEventsByCreationNumberResponseData';
+import { AptosGetEventsByCreationNumberResponseData, AptosGetEventsByCreationNumberResponseDataValue, AptosGetEventsByCreationNumberResponseDataInput, AptosGetEventsByCreationNumberResponseDataJSON } from '../types/AptosGetEventsByCreationNumberResponseData';
 
 // $ref: #/components/schemas/GetEventsByCreationNumberResponse
 // type: GetEventsByCreationNumberResponse
@@ -23,7 +23,7 @@ export interface AptosGetEventsByCreationNumberResponseInput {
   readonly guid: AptosTransactionEventGuidInput | AptosTransactionEventGuid;
   readonly sequenceNumber: string;
   readonly type: string;
-  readonly data: AptosGetEventsByCreationNumberResponseDataInput | AptosGetEventsByCreationNumberResponseData;
+  readonly data: AptosGetEventsByCreationNumberResponseDataInput | AptosGetEventsByCreationNumberResponseDataValue;
 }
 
 export class AptosGetEventsByCreationNumberResponse {
@@ -63,7 +63,7 @@ export class AptosGetEventsByCreationNumberResponse {
   /**
    * @description The JSON representation of the event
    */
-  public readonly data: AptosGetEventsByCreationNumberResponseData;
+  public readonly data: AptosGetEventsByCreationNumberResponseDataValue;
 
   private constructor(input: AptosGetEventsByCreationNumberResponseInput) {
     this.version = input.version;
@@ -79,7 +79,7 @@ export class AptosGetEventsByCreationNumberResponse {
       guid: this.guid.toJSON(),
       sequence_number: this.sequenceNumber,
       type: this.type,
-      data: this.data.toJSON(),
+      data: this.data,
     }
   }
 }

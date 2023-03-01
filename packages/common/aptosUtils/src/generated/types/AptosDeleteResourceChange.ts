@@ -1,5 +1,5 @@
-import { AptosDeleteResourceChangeAddress, AptosDeleteResourceChangeAddressInput, AptosDeleteResourceChangeAddressJSON } from '../types/AptosDeleteResourceChangeAddress';
-import { AptosDeleteResourceChangeResource, AptosDeleteResourceChangeResourceInput, AptosDeleteResourceChangeResourceJSON } from '../types/AptosDeleteResourceChangeResource';
+import { AptosDeleteResourceChangeAddress, AptosDeleteResourceChangeAddressValue, AptosDeleteResourceChangeAddressInput, AptosDeleteResourceChangeAddressJSON } from '../types/AptosDeleteResourceChangeAddress';
+import { AptosDeleteResourceChangeResource, AptosDeleteResourceChangeResourceValue, AptosDeleteResourceChangeResourceInput, AptosDeleteResourceChangeResourceJSON } from '../types/AptosDeleteResourceChangeResource';
 
 // $ref: #/components/schemas/DeleteResourceChange
 // type: DeleteResourceChange
@@ -18,9 +18,9 @@ export interface AptosDeleteResourceChangeJSON {
 
 export interface AptosDeleteResourceChangeInput {
   readonly type: string;
-  readonly address: AptosDeleteResourceChangeAddressInput | AptosDeleteResourceChangeAddress;
+  readonly address: AptosDeleteResourceChangeAddressInput | AptosDeleteResourceChangeAddressValue;
   readonly stateKeyHash: string;
-  readonly resource: AptosDeleteResourceChangeResourceInput | AptosDeleteResourceChangeResource;
+  readonly resource: AptosDeleteResourceChangeResourceInput | AptosDeleteResourceChangeResourceValue;
 }
 
 export class AptosDeleteResourceChange {
@@ -53,7 +53,7 @@ export class AptosDeleteResourceChange {
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: AptosDeleteResourceChangeAddress;
+  public readonly address: AptosDeleteResourceChangeAddressValue;
   /**
    * @description State key hash
    */
@@ -61,7 +61,7 @@ export class AptosDeleteResourceChange {
   /**
    * @description String representation of a MoveStructTag (on-chain Move struct type).
    */
-  public readonly resource: AptosDeleteResourceChangeResource;
+  public readonly resource: AptosDeleteResourceChangeResourceValue;
 
   private constructor(input: AptosDeleteResourceChangeInput) {
     this.type = input.type;
@@ -73,9 +73,9 @@ export class AptosDeleteResourceChange {
   public toJSON(): AptosDeleteResourceChangeJSON {
     return {
       type: this.type,
-      address: this.address.toJSON(),
+      address: this.address,
       state_key_hash: this.stateKeyHash,
-      resource: this.resource.toJSON(),
+      resource: this.resource,
     }
   }
 }

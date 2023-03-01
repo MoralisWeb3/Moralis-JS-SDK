@@ -1,5 +1,5 @@
 import { AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
-import { AptosGetTransactionsItem, AptosGetTransactionsItemJSON } from '../types/AptosGetTransactionsItem';
+import { AptosGetTransactionsItem, AptosGetTransactionsItemValue, AptosGetTransactionsItemJSON } from '../types/AptosGetTransactionsItem';
 
 // request parameters:
 // - limit ($ref: #/paths/~1transactions/get/parameters/0/schema)
@@ -38,7 +38,7 @@ export const GetTransactionsOperation = {
   hasResponse: true,
   hasBody: false,
 
-  parseResponse(json: AptosGetTransactionsItemJSON[]): AptosGetTransactionsItem[] {
+  parseResponse(json: AptosGetTransactionsItemJSON[]): AptosGetTransactionsItemValue[] {
     return json.map((item) => AptosGetTransactionsItem.fromJSON(item));
   },
 

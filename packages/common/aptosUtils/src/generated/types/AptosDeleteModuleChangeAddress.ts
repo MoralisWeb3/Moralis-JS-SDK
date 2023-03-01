@@ -2,23 +2,15 @@
 // typeName: DeleteModuleChange_address
 
 export type AptosDeleteModuleChangeAddressJSON = object;
-export type AptosDeleteModuleChangeAddressInput = AptosDeleteModuleChangeAddressJSON;
+export type AptosDeleteModuleChangeAddressInput = object;
+export type AptosDeleteModuleChangeAddressValue = object;
 
-export class AptosDeleteModuleChangeAddress {
-  public static create(input: AptosDeleteModuleChangeAddressInput | AptosDeleteModuleChangeAddress) {
-    if (input instanceof AptosDeleteModuleChangeAddress) {
-      return input;
-    }
-    return new AptosDeleteModuleChangeAddress(input);
+export abstract class AptosDeleteModuleChangeAddress {
+  public static create(input: AptosDeleteModuleChangeAddressInput | AptosDeleteModuleChangeAddressValue): AptosDeleteModuleChangeAddressValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosDeleteModuleChangeAddressJSON) {
-    return new AptosDeleteModuleChangeAddress(json);
-  }
-
-  public constructor(public readonly value: AptosDeleteModuleChangeAddressInput) {}
-
-  public toJSON(): AptosDeleteModuleChangeAddressJSON {
-    return this.value;
+  public static fromJSON(json: AptosDeleteModuleChangeAddressJSON): AptosDeleteModuleChangeAddressValue {
+    return json;
   }
 }

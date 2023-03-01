@@ -1,5 +1,5 @@
 import { AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
-import { AptosSimulateTransaction, AptosSimulateTransactionJSON } from '../types/AptosSimulateTransaction';
+import { AptosSimulateTransaction, AptosSimulateTransactionValue, AptosSimulateTransactionJSON } from '../types/AptosSimulateTransaction';
 import { AptosSubmitTransactionRequest, AptosSubmitTransactionRequestInput, AptosSubmitTransactionRequestJSON } from '../types/AptosSubmitTransactionRequest';
 
 // request parameters:
@@ -25,7 +25,7 @@ export const SimulateTransactionOperation = {
   hasResponse: true,
   hasBody: true,
 
-  parseResponse(json: AptosSimulateTransactionJSON): AptosSimulateTransaction {
+  parseResponse(json: AptosSimulateTransactionJSON): AptosSimulateTransactionValue {
     return AptosSimulateTransaction.fromJSON(json);
   },
 

@@ -2,23 +2,15 @@
 // typeName: NFTTokenResponse_default_properties
 
 export type AptosNFTTokenResponseDefaultPropertiesJSON = object;
-export type AptosNFTTokenResponseDefaultPropertiesInput = AptosNFTTokenResponseDefaultPropertiesJSON;
+export type AptosNFTTokenResponseDefaultPropertiesInput = object;
+export type AptosNFTTokenResponseDefaultPropertiesValue = object;
 
-export class AptosNFTTokenResponseDefaultProperties {
-  public static create(input: AptosNFTTokenResponseDefaultPropertiesInput | AptosNFTTokenResponseDefaultProperties) {
-    if (input instanceof AptosNFTTokenResponseDefaultProperties) {
-      return input;
-    }
-    return new AptosNFTTokenResponseDefaultProperties(input);
+export abstract class AptosNFTTokenResponseDefaultProperties {
+  public static create(input: AptosNFTTokenResponseDefaultPropertiesInput | AptosNFTTokenResponseDefaultPropertiesValue): AptosNFTTokenResponseDefaultPropertiesValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosNFTTokenResponseDefaultPropertiesJSON) {
-    return new AptosNFTTokenResponseDefaultProperties(json);
-  }
-
-  public constructor(public readonly value: AptosNFTTokenResponseDefaultPropertiesInput) {}
-
-  public toJSON(): AptosNFTTokenResponseDefaultPropertiesJSON {
-    return this.value;
+  public static fromJSON(json: AptosNFTTokenResponseDefaultPropertiesJSON): AptosNFTTokenResponseDefaultPropertiesValue {
+    return json;
   }
 }

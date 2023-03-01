@@ -7,40 +7,26 @@ import { AptosDirectWriteSet, AptosDirectWriteSetJSON, AptosDirectWriteSetInput 
 
 export type AptosWriteSetPayloadWriteSetJSON = AptosScriptWriteSetJSON | AptosDirectWriteSetJSON;
 export type AptosWriteSetPayloadWriteSetInput = AptosScriptWriteSetInput | AptosDirectWriteSetInput;
+export type AptosWriteSetPayloadWriteSetValue = AptosScriptWriteSet | AptosDirectWriteSet;
 
-export class AptosWriteSetPayloadWriteSet {
-  public static create(input: AptosWriteSetPayloadWriteSetInput | AptosWriteSetPayloadWriteSet): AptosWriteSetPayloadWriteSet {
-    if (input instanceof AptosWriteSetPayloadWriteSet) {
-      return input;
-    }
+export abstract class AptosWriteSetPayloadWriteSet {
+  public static create(input: AptosWriteSetPayloadWriteSetInput): AptosWriteSetPayloadWriteSetValue {
     if (AptosScriptWriteSet.isInput(input)) {
-      return new AptosWriteSetPayloadWriteSet(AptosScriptWriteSet.create(input));
+      return AptosScriptWriteSet.create(input);
     }
     if (AptosDirectWriteSet.isInput(input)) {
-      return new AptosWriteSetPayloadWriteSet(AptosDirectWriteSet.create(input));
+      return AptosDirectWriteSet.create(input);
     }
     throw new Error('Invalid input');
   }
 
-  public static fromJSON(json: AptosWriteSetPayloadWriteSetJSON): AptosWriteSetPayloadWriteSet {
+  public static fromJSON(json: AptosWriteSetPayloadWriteSetJSON): AptosWriteSetPayloadWriteSetValue {
     if (AptosScriptWriteSet.isJSON(json)) {
-      return new AptosWriteSetPayloadWriteSet(AptosScriptWriteSet.fromJSON(json));
+      return AptosScriptWriteSet.fromJSON(json);
     }
     if (AptosDirectWriteSet.isJSON(json)) {
-      return new AptosWriteSetPayloadWriteSet(AptosDirectWriteSet.fromJSON(json));
+      return AptosDirectWriteSet.fromJSON(json);
     }
     throw new Error(`Cannot resolve union for AptosWriteSetPayloadWriteSet (keys: ${Object.keys(json).join(',') })`);
-  }
-
-  public constructor(public readonly value: AptosScriptWriteSet | AptosDirectWriteSet) {}
-
-  public toJSON(): AptosWriteSetPayloadWriteSetJSON {
-    if (this.value instanceof AptosScriptWriteSet) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosDirectWriteSet) {
-      return this.value.toJSON();
-    }
-    throw new Error('Invalid value');
   }
 }

@@ -1,4 +1,4 @@
-import { AptosGetAccountResourceResponseData, AptosGetAccountResourceResponseDataInput, AptosGetAccountResourceResponseDataJSON } from '../types/AptosGetAccountResourceResponseData';
+import { AptosGetAccountResourceResponseData, AptosGetAccountResourceResponseDataValue, AptosGetAccountResourceResponseDataInput, AptosGetAccountResourceResponseDataJSON } from '../types/AptosGetAccountResourceResponseData';
 
 // $ref: #/components/schemas/GetAccountResourceResponse
 // type: GetAccountResourceResponse
@@ -13,7 +13,7 @@ export interface AptosGetAccountResourceResponseJSON {
 
 export interface AptosGetAccountResourceResponseInput {
   readonly type: string;
-  readonly data: AptosGetAccountResourceResponseDataInput | AptosGetAccountResourceResponseData;
+  readonly data: AptosGetAccountResourceResponseDataInput | AptosGetAccountResourceResponseDataValue;
 }
 
 export class AptosGetAccountResourceResponse {
@@ -39,7 +39,7 @@ export class AptosGetAccountResourceResponse {
   /**
    * @description This is a JSON representation of some data within an account resource. More specifically, it is a map of strings to arbitrary JSON values / objects, where the keys are top level fields within the given resource.
    */
-  public readonly data: AptosGetAccountResourceResponseData;
+  public readonly data: AptosGetAccountResourceResponseDataValue;
 
   private constructor(input: AptosGetAccountResourceResponseInput) {
     this.type = input.type;
@@ -49,7 +49,7 @@ export class AptosGetAccountResourceResponse {
   public toJSON(): AptosGetAccountResourceResponseJSON {
     return {
       type: this.type,
-      data: this.data.toJSON(),
+      data: this.data,
     }
   }
 }

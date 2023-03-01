@@ -1,6 +1,6 @@
 import { OpenAPI, OpenAPIV3, OpenAPIV3_1 } from 'openapi-types';
 import { OpenApiReaderConfiguration } from './OpenApiReaderConfiguration';
-import { OpenApiReaderResult } from './OpenApiReaderResult';
+import { OpenApiContract } from './OpenApiContract';
 import { OpenApiV3Reader } from './v3/OpenApiV3Reader';
 
 export class OpenApiReader {
@@ -20,11 +20,11 @@ export class OpenApiReader {
 
   private constructor(private readonly reader: OpenApiVersionReader) {}
 
-  public read(): OpenApiReaderResult {
+  public read(): OpenApiContract {
     return this.reader.read();
   }
 }
 
 export interface OpenApiVersionReader {
-  read(): OpenApiReaderResult;
+  read(): OpenApiContract;
 }

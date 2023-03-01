@@ -1,5 +1,5 @@
 import { AptosNative, AptosNativeInput, AptosNativeJSON, AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
-import { AptosNFTOwnerResponseTokenProperties, AptosNFTOwnerResponseTokenPropertiesInput, AptosNFTOwnerResponseTokenPropertiesJSON } from '../types/AptosNFTOwnerResponseTokenProperties';
+import { AptosNFTOwnerResponseTokenProperties, AptosNFTOwnerResponseTokenPropertiesValue, AptosNFTOwnerResponseTokenPropertiesInput, AptosNFTOwnerResponseTokenPropertiesJSON } from '../types/AptosNFTOwnerResponseTokenProperties';
 
 // $ref: #/components/schemas/NFTOwnerResponse
 // type: NFTOwnerResponse
@@ -44,7 +44,7 @@ export interface AptosNFTOwnerResponseInput {
   readonly propertyVersion: string;
   readonly tableType: string;
   readonly tokenDataIdHash: string;
-  readonly tokenProperties: AptosNFTOwnerResponseTokenPropertiesInput | AptosNFTOwnerResponseTokenProperties;
+  readonly tokenProperties: AptosNFTOwnerResponseTokenPropertiesInput | AptosNFTOwnerResponseTokenPropertiesValue;
 }
 
 export class AptosNFTOwnerResponse {
@@ -120,7 +120,7 @@ export class AptosNFTOwnerResponse {
   /**
    * @description The properties of the token
    */
-  public readonly tokenProperties: AptosNFTOwnerResponseTokenProperties;
+  public readonly tokenProperties: AptosNFTOwnerResponseTokenPropertiesValue;
 
   private constructor(input: AptosNFTOwnerResponseInput) {
     this.amount = AptosNative.create(input.amount);
@@ -150,7 +150,7 @@ export class AptosNFTOwnerResponse {
       property_version: this.propertyVersion,
       table_type: this.tableType,
       token_data_id_hash: this.tokenDataIdHash,
-      token_properties: this.tokenProperties.toJSON(),
+      token_properties: this.tokenProperties,
     }
   }
 }

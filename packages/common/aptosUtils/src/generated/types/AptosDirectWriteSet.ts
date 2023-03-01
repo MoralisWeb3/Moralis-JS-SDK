@@ -1,4 +1,4 @@
-import { AptosDirectWriteSetChanges, AptosDirectWriteSetChangesInput, AptosDirectWriteSetChangesJSON } from '../types/AptosDirectWriteSetChanges';
+import { AptosDirectWriteSetChanges, AptosDirectWriteSetChangesValue, AptosDirectWriteSetChangesInput, AptosDirectWriteSetChangesJSON } from '../types/AptosDirectWriteSetChanges';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
 
 // $ref: #/components/schemas/DirectWriteSet
@@ -16,7 +16,7 @@ export interface AptosDirectWriteSetJSON {
 
 export interface AptosDirectWriteSetInput {
   readonly type: string;
-  readonly changes: AptosDirectWriteSetChangesInput | AptosDirectWriteSetChanges;
+  readonly changes: AptosDirectWriteSetChangesInput | AptosDirectWriteSetChangesValue;
   readonly events: AptosTransactionEventInput[] | AptosTransactionEvent[];
 }
 
@@ -46,7 +46,7 @@ export class AptosDirectWriteSet {
   }
 
   public readonly type: string;
-  public readonly changes: AptosDirectWriteSetChanges;
+  public readonly changes: AptosDirectWriteSetChangesValue;
   /**
    * @description Events emitted during genesis
    */

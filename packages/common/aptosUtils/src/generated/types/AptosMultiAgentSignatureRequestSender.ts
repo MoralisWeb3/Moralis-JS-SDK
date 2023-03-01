@@ -7,40 +7,26 @@ import { AptosMultiEd25519SignatureRequest, AptosMultiEd25519SignatureRequestJSO
 
 export type AptosMultiAgentSignatureRequestSenderJSON = AptosEd25519SignatureRequestJSON | AptosMultiEd25519SignatureRequestJSON;
 export type AptosMultiAgentSignatureRequestSenderInput = AptosEd25519SignatureRequestInput | AptosMultiEd25519SignatureRequestInput;
+export type AptosMultiAgentSignatureRequestSenderValue = AptosEd25519SignatureRequest | AptosMultiEd25519SignatureRequest;
 
-export class AptosMultiAgentSignatureRequestSender {
-  public static create(input: AptosMultiAgentSignatureRequestSenderInput | AptosMultiAgentSignatureRequestSender): AptosMultiAgentSignatureRequestSender {
-    if (input instanceof AptosMultiAgentSignatureRequestSender) {
-      return input;
-    }
+export abstract class AptosMultiAgentSignatureRequestSender {
+  public static create(input: AptosMultiAgentSignatureRequestSenderInput): AptosMultiAgentSignatureRequestSenderValue {
     if (AptosEd25519SignatureRequest.isInput(input)) {
-      return new AptosMultiAgentSignatureRequestSender(AptosEd25519SignatureRequest.create(input));
+      return AptosEd25519SignatureRequest.create(input);
     }
     if (AptosMultiEd25519SignatureRequest.isInput(input)) {
-      return new AptosMultiAgentSignatureRequestSender(AptosMultiEd25519SignatureRequest.create(input));
+      return AptosMultiEd25519SignatureRequest.create(input);
     }
     throw new Error('Invalid input');
   }
 
-  public static fromJSON(json: AptosMultiAgentSignatureRequestSenderJSON): AptosMultiAgentSignatureRequestSender {
+  public static fromJSON(json: AptosMultiAgentSignatureRequestSenderJSON): AptosMultiAgentSignatureRequestSenderValue {
     if (AptosEd25519SignatureRequest.isJSON(json)) {
-      return new AptosMultiAgentSignatureRequestSender(AptosEd25519SignatureRequest.fromJSON(json));
+      return AptosEd25519SignatureRequest.fromJSON(json);
     }
     if (AptosMultiEd25519SignatureRequest.isJSON(json)) {
-      return new AptosMultiAgentSignatureRequestSender(AptosMultiEd25519SignatureRequest.fromJSON(json));
+      return AptosMultiEd25519SignatureRequest.fromJSON(json);
     }
     throw new Error(`Cannot resolve union for AptosMultiAgentSignatureRequestSender (keys: ${Object.keys(json).join(',') })`);
-  }
-
-  public constructor(public readonly value: AptosEd25519SignatureRequest | AptosMultiEd25519SignatureRequest) {}
-
-  public toJSON(): AptosMultiAgentSignatureRequestSenderJSON {
-    if (this.value instanceof AptosEd25519SignatureRequest) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosMultiEd25519SignatureRequest) {
-      return this.value.toJSON();
-    }
-    throw new Error('Invalid value');
   }
 }

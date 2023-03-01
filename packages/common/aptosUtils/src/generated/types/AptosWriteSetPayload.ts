@@ -1,4 +1,4 @@
-import { AptosWriteSetPayloadWriteSet, AptosWriteSetPayloadWriteSetInput, AptosWriteSetPayloadWriteSetJSON } from '../types/AptosWriteSetPayloadWriteSet';
+import { AptosWriteSetPayloadWriteSet, AptosWriteSetPayloadWriteSetValue, AptosWriteSetPayloadWriteSetInput, AptosWriteSetPayloadWriteSetJSON } from '../types/AptosWriteSetPayloadWriteSet';
 
 // $ref: #/components/schemas/WriteSetPayload
 // type: WriteSetPayload
@@ -13,7 +13,7 @@ export interface AptosWriteSetPayloadJSON {
 
 export interface AptosWriteSetPayloadInput {
   readonly type: string;
-  readonly writeSet: AptosWriteSetPayloadWriteSetInput | AptosWriteSetPayloadWriteSet;
+  readonly writeSet: AptosWriteSetPayloadWriteSetInput | AptosWriteSetPayloadWriteSetValue;
 }
 
 export class AptosWriteSetPayload {
@@ -36,7 +36,7 @@ export class AptosWriteSetPayload {
   /**
    * @description The associated writeset with a payload
    */
-  public readonly writeSet: AptosWriteSetPayloadWriteSet;
+  public readonly writeSet: AptosWriteSetPayloadWriteSetValue;
 
   private constructor(input: AptosWriteSetPayloadInput) {
     this.type = input.type;

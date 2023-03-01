@@ -1,5 +1,5 @@
 import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
-import { AptosMultiAgentSignatureRequestSecondarySigners, AptosMultiAgentSignatureRequestSecondarySignersInput, AptosMultiAgentSignatureRequestSecondarySignersJSON } from '../types/AptosMultiAgentSignatureRequestSecondarySigners';
+import { AptosMultiAgentSignatureRequestSecondarySigners, AptosMultiAgentSignatureRequestSecondarySignersValue, AptosMultiAgentSignatureRequestSecondarySignersInput, AptosMultiAgentSignatureRequestSecondarySignersJSON } from '../types/AptosMultiAgentSignatureRequestSecondarySigners';
 
 // $ref: #/components/schemas/MultiAgentSignatureRequest
 // type: MultiAgentSignatureRequest
@@ -20,7 +20,7 @@ export interface AptosMultiAgentSignatureRequestInput {
   readonly type: string;
   readonly sender: AptosAddressInput | AptosAddress;
   readonly secondarySignerAddresses: string[];
-  readonly secondarySigners: AptosMultiAgentSignatureRequestSecondarySignersInput | AptosMultiAgentSignatureRequestSecondarySigners;
+  readonly secondarySigners: AptosMultiAgentSignatureRequestSecondarySignersInput | AptosMultiAgentSignatureRequestSecondarySignersValue;
 }
 
 export class AptosMultiAgentSignatureRequest {
@@ -55,7 +55,7 @@ export class AptosMultiAgentSignatureRequest {
    * @description The other involved parties addresses
    */
   public readonly secondarySignerAddresses: string[];
-  public readonly secondarySigners: AptosMultiAgentSignatureRequestSecondarySigners;
+  public readonly secondarySigners: AptosMultiAgentSignatureRequestSecondarySignersValue;
 
   private constructor(input: AptosMultiAgentSignatureRequestInput) {
     this.type = input.type;

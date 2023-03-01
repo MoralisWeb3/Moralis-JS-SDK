@@ -34,6 +34,6 @@ describe('getNFTOwnersByCollection', () => {
     expect(item1.propertyVersion).toBe('0');
     expect(item1.tableType).toBe('0x3::token::TokenStore');
     expect(item1.tokenDataIdHash).toBe('301304744b268b2a4ed57333cd8715a84d0f503543ba981d20e6df81d0f46a8b');
-    expect(item1.tokenProperties.value).toMatchObject({});
+    expect(item1.tokenProperties).toMatchObject({});
   });
 });

@@ -3,6 +3,7 @@ import { isReferenceTypeDescriptor, isNativeTypeDescriptor, TypeDescriptor } fro
 import { MappingTarget } from '../../GeneratorConfiguration';
 import { TypeName } from 'src/reader/utils/TypeName';
 import { MappingResolver } from './MappingResolver';
+import { TypeInfoResolver } from './TypeInfoResolver';
 
 export interface ResolvedType {
   isArray: boolean;
@@ -12,14 +13,18 @@ export interface ResolvedType {
 
 export interface ReferenceResolvedType {
   className: string;
+  isSimpleType: boolean;
+  isUnionType: boolean;
   importPath: string;
 }
+
+const BASE_PATH = '../';
 
 export class TypeResolver {
   public constructor(
     private readonly classNamePrefix: string,
     private readonly mappingResolver: MappingResolver,
-    private readonly basePath: string,
+    private readonly typeInfoResolver: TypeInfoResolver,
   ) {}
 
   public resolveWithNoMapping(descriptor: TypeDescriptor): ResolvedType {
@@ -29,7 +34,9 @@ export class TypeResolver {
         isArray: descriptor.isArray,
         referenceType: {
           className,
-          importPath: `${this.basePath}types/${className}`,
+          isSimpleType: this.typeInfoResolver.isSimpleType(descriptor),
+          isUnionType: this.typeInfoResolver.isUnionType(descriptor),
+          importPath: `${BASE_PATH}types/${className}`,
         },
       };
     }
@@ -85,11 +92,13 @@ export class TypeResolver {
       throw new Error('Not supported mapping target');
     }
 
-    const importPath = target.import ? target.import : `${this.basePath}customTypes/${target.className}`;
+    const importPath = target.import ? target.import : `${BASE_PATH}customTypes/${target.className}`;
     return {
       isArray: descriptor.isArray,
       referenceType: {
         className: target.className,
+        isSimpleType: false,
+        isUnionType: false,
         importPath,
       },
     };

@@ -1,11 +1,11 @@
-import { ComplexTypeInfo } from 'src/reader/OpenApiReaderResult';
+import { ComplexTypeInfo } from 'src/reader/OpenApiContract';
 import { Output } from '../output/Output';
 import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGenerator';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 import { PropertyNameCodeGenerator } from './codeGenerators/PropertyNameCodeGenerator';
-import { TypeDeterminantResolver } from './resolvers/TypeComparisonResolver';
-import { TypeUsageResolver } from './resolvers/TypeUsageResolver';
+import { TypeDeterminantResolver } from './resolvers/TypeDeterminantResolver';
+import { TypeInfoResolver } from './resolvers/TypeInfoResolver';
 import { TypeResolver } from './resolvers/TypeResolver';
 
 export interface TypeClassGeneratorResult {
@@ -18,7 +18,7 @@ export class ComplexTypeFileGenerator {
     private readonly info: ComplexTypeInfo,
     private readonly typeResolver: TypeResolver,
     private readonly typeDeterminantResolver: TypeDeterminantResolver,
-    private readonly typeUsageResolver: TypeUsageResolver,
+    private readonly typeInfoResolver: TypeInfoResolver,
   ) {}
 
   public generate(): TypeClassGeneratorResult {
@@ -67,7 +67,7 @@ export class ComplexTypeFileGenerator {
       .filter((property) => property.property.isRequired)
       .map((property) => property.propertyNameCodes.nameCode);
 
-    const isUsedByUnions = this.typeUsageResolver.isUsedByUnions(this.info.descriptor);
+    const isUsedByUnions = this.typeInfoResolver.isUsedByUnions(this.info.descriptor);
 
     // view:
 
@@ -75,13 +75,14 @@ export class ComplexTypeFileGenerator {
       if (!p.typeCodes.referenceType) {
         continue;
       }
-      if (p.typeCodes.referenceType.className === typeCodes.referenceType.className) {
+      if (p.typeCodes.referenceType.factoryClassName === typeCodes.referenceType.factoryClassName) {
         // Skips import to self type
         continue;
       }
       output.addImport(
         [
-          p.typeCodes.referenceType.className,
+          p.typeCodes.referenceType.factoryClassName,
+          p.typeCodes.referenceType.valueClassName,
           p.typeCodes.referenceType.inputClassName,
           p.typeCodes.referenceType.jsonClassName,
         ],
@@ -109,35 +110,35 @@ export class ComplexTypeFileGenerator {
     for (const p of properties) {
       output.write(
         1,
-        `readonly ${p.propertyNameCodes.camelCasedNameCode}${p.typeCodes.colon} ${p.typeCodes.inputUnionTypeCode};`,
+        `readonly ${p.propertyNameCodes.camelCasedNameCode}${p.typeCodes.colon} ${p.typeCodes.inputOrValueTypeCode};`,
       );
     }
     output.write(0, '}');
     output.newLine();
 
-    output.write(0, `export class ${typeCodes.referenceType.className} {`);
+    output.write(0, `export class ${typeCodes.referenceType.factoryClassName} {`);
 
     output.write(
       1,
-      `public static create(input: ${typeCodes.inputUnionTypeCode}): ${typeCodes.referenceType.className} {`,
+      `public static create(input: ${typeCodes.inputOrValueTypeCode}): ${typeCodes.referenceType.factoryClassName} {`,
     );
-    output.write(2, `if (input instanceof ${typeCodes.referenceType.className}) {`);
+    output.write(2, `if (input instanceof ${typeCodes.referenceType.factoryClassName}) {`);
     output.write(3, `return input;`);
     output.write(2, `}`);
-    output.write(2, `return new ${typeCodes.referenceType.className}(input);`);
+    output.write(2, `return new ${typeCodes.referenceType.factoryClassName}(input);`);
     output.write(1, '}');
     output.newLine();
 
     output.write(
       1,
-      `public static fromJSON(json: ${typeCodes.referenceType.jsonClassName}): ${typeCodes.referenceType.className} {`,
+      `public static fromJSON(json: ${typeCodes.referenceType.jsonClassName}): ${typeCodes.referenceType.factoryClassName} {`,
     );
     output.write(2, `const input: ${typeCodes.referenceType.inputClassName} = {`);
     for (const p of properties) {
       output.write(3, `${p.propertyNameCodes.camelCasedNameCode}: ${p.json2TypeCode},`);
     }
     output.write(2, `};`);
-    output.write(2, `return ${typeCodes.referenceType.className}.create(input);`);
+    output.write(2, `return ${typeCodes.referenceType.factoryClassName}.create(input);`);
     output.write(1, `}`);
     output.newLine();
 
@@ -170,7 +171,7 @@ export class ComplexTypeFileGenerator {
       });
       output.write(
         1,
-        `public readonly ${p.propertyNameCodes.camelCasedNameCode}${p.typeCodes.colon} ${p.typeCodes.typeCode};`,
+        `public readonly ${p.propertyNameCodes.camelCasedNameCode}${p.typeCodes.colon} ${p.typeCodes.valueTypeCode};`,
       );
     }
     output.newLine();
@@ -192,6 +193,6 @@ export class ComplexTypeFileGenerator {
 
     output.write(0, `}`);
 
-    return { output, className: typeCodes.referenceType.className as string };
+    return { output, className: typeCodes.referenceType.factoryClassName as string };
   }
 }

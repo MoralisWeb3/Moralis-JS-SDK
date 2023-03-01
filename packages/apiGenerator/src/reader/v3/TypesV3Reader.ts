@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types';
-import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo, UnionTypeInfo } from '../OpenApiReaderResult';
+import { ComplexTypeInfo, PropertyInfo, SimpleTypeInfo, UnionTypeInfo } from '../OpenApiContract';
 import { isReferenceTypeDescriptor, ReferenceTypeDescriptor, ReferenceTypePointer } from '../TypeDescriptor';
 import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { TypesQueue } from '../utils/TypesQueue';

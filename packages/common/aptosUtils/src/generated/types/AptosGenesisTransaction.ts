@@ -1,4 +1,4 @@
-import { AptosGenesisTransactionChanges, AptosGenesisTransactionChangesInput, AptosGenesisTransactionChangesJSON } from '../types/AptosGenesisTransactionChanges';
+import { AptosGenesisTransactionChanges, AptosGenesisTransactionChangesValue, AptosGenesisTransactionChangesInput, AptosGenesisTransactionChangesJSON } from '../types/AptosGenesisTransactionChanges';
 import { AptosWriteSetPayload, AptosWriteSetPayloadInput, AptosWriteSetPayloadJSON } from '../types/AptosWriteSetPayload';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
 
@@ -46,7 +46,7 @@ export interface AptosGenesisTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosGenesisTransactionChangesInput | AptosGenesisTransactionChanges;
+  readonly changes: AptosGenesisTransactionChangesInput | AptosGenesisTransactionChangesValue;
   readonly payload: AptosWriteSetPayloadInput | AptosWriteSetPayload;
   readonly events: AptosTransactionEventInput[] | AptosTransactionEvent[];
 }
@@ -108,7 +108,7 @@ export class AptosGenesisTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosGenesisTransactionChanges;
+  public readonly changes: AptosGenesisTransactionChangesValue;
   /**
    * @description A writeset payload, used only for genesis
    */

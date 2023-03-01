@@ -2,23 +2,15 @@
 // typeName: DeleteTableItemChange_key
 
 export type AptosDeleteTableItemChangeKeyJSON = object;
-export type AptosDeleteTableItemChangeKeyInput = AptosDeleteTableItemChangeKeyJSON;
+export type AptosDeleteTableItemChangeKeyInput = object;
+export type AptosDeleteTableItemChangeKeyValue = object;
 
-export class AptosDeleteTableItemChangeKey {
-  public static create(input: AptosDeleteTableItemChangeKeyInput | AptosDeleteTableItemChangeKey) {
-    if (input instanceof AptosDeleteTableItemChangeKey) {
-      return input;
-    }
-    return new AptosDeleteTableItemChangeKey(input);
+export abstract class AptosDeleteTableItemChangeKey {
+  public static create(input: AptosDeleteTableItemChangeKeyInput | AptosDeleteTableItemChangeKeyValue): AptosDeleteTableItemChangeKeyValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosDeleteTableItemChangeKeyJSON) {
-    return new AptosDeleteTableItemChangeKey(json);
-  }
-
-  public constructor(public readonly value: AptosDeleteTableItemChangeKeyInput) {}
-
-  public toJSON(): AptosDeleteTableItemChangeKeyJSON {
-    return this.value;
+  public static fromJSON(json: AptosDeleteTableItemChangeKeyJSON): AptosDeleteTableItemChangeKeyValue {
+    return json;
   }
 }

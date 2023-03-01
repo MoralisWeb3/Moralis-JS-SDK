@@ -1,5 +1,5 @@
 import { AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
-import { AptosGetAccountTransactionsItem, AptosGetAccountTransactionsItemJSON } from '../types/AptosGetAccountTransactionsItem';
+import { AptosGetAccountTransactionsItem, AptosGetAccountTransactionsItemValue, AptosGetAccountTransactionsItemJSON } from '../types/AptosGetAccountTransactionsItem';
 
 // request parameters:
 // - address ($ref: #/paths/~1accounts~1{address}~1transactions/get/parameters/0/schema)
@@ -44,7 +44,7 @@ export const GetAccountTransactionsOperation = {
   hasResponse: true,
   hasBody: false,
 
-  parseResponse(json: AptosGetAccountTransactionsItemJSON[]): AptosGetAccountTransactionsItem[] {
+  parseResponse(json: AptosGetAccountTransactionsItemJSON[]): AptosGetAccountTransactionsItemValue[] {
     return json.map((item) => AptosGetAccountTransactionsItem.fromJSON(item));
   },
 

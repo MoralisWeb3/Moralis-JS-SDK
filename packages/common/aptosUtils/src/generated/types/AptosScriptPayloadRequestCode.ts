@@ -2,23 +2,15 @@
 // typeName: ScriptPayloadRequest_code
 
 export type AptosScriptPayloadRequestCodeJSON = object;
-export type AptosScriptPayloadRequestCodeInput = AptosScriptPayloadRequestCodeJSON;
+export type AptosScriptPayloadRequestCodeInput = object;
+export type AptosScriptPayloadRequestCodeValue = object;
 
-export class AptosScriptPayloadRequestCode {
-  public static create(input: AptosScriptPayloadRequestCodeInput | AptosScriptPayloadRequestCode) {
-    if (input instanceof AptosScriptPayloadRequestCode) {
-      return input;
-    }
-    return new AptosScriptPayloadRequestCode(input);
+export abstract class AptosScriptPayloadRequestCode {
+  public static create(input: AptosScriptPayloadRequestCodeInput | AptosScriptPayloadRequestCodeValue): AptosScriptPayloadRequestCodeValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosScriptPayloadRequestCodeJSON) {
-    return new AptosScriptPayloadRequestCode(json);
-  }
-
-  public constructor(public readonly value: AptosScriptPayloadRequestCodeInput) {}
-
-  public toJSON(): AptosScriptPayloadRequestCodeJSON {
-    return this.value;
+  public static fromJSON(json: AptosScriptPayloadRequestCodeJSON): AptosScriptPayloadRequestCodeValue {
+    return json;
   }
 }

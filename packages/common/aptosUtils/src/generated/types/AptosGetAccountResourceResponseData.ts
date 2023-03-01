@@ -2,23 +2,15 @@
 // typeName: GetAccountResourceResponse_data
 
 export type AptosGetAccountResourceResponseDataJSON = object;
-export type AptosGetAccountResourceResponseDataInput = AptosGetAccountResourceResponseDataJSON;
+export type AptosGetAccountResourceResponseDataInput = object;
+export type AptosGetAccountResourceResponseDataValue = object;
 
-export class AptosGetAccountResourceResponseData {
-  public static create(input: AptosGetAccountResourceResponseDataInput | AptosGetAccountResourceResponseData) {
-    if (input instanceof AptosGetAccountResourceResponseData) {
-      return input;
-    }
-    return new AptosGetAccountResourceResponseData(input);
+export abstract class AptosGetAccountResourceResponseData {
+  public static create(input: AptosGetAccountResourceResponseDataInput | AptosGetAccountResourceResponseDataValue): AptosGetAccountResourceResponseDataValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosGetAccountResourceResponseDataJSON) {
-    return new AptosGetAccountResourceResponseData(json);
-  }
-
-  public constructor(public readonly value: AptosGetAccountResourceResponseDataInput) {}
-
-  public toJSON(): AptosGetAccountResourceResponseDataJSON {
-    return this.value;
+  public static fromJSON(json: AptosGetAccountResourceResponseDataJSON): AptosGetAccountResourceResponseDataValue {
+    return json;
   }
 }

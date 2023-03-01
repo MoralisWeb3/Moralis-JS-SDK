@@ -1,4 +1,4 @@
-import { OperationInfo } from '../../reader/OpenApiReaderResult';
+import { OperationInfo } from '../../reader/OpenApiContract';
 import { NameFormatter } from './codeGenerators/NameFormatter';
 import { Output } from '../output/Output';
 import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGenerator';
@@ -56,7 +56,8 @@ export class OperationFileGenerator {
       if (parameter.types.referenceType) {
         output.addImport(
           [
-            parameter.types.referenceType.className,
+            parameter.types.referenceType.factoryClassName,
+            parameter.types.referenceType.valueClassName,
             parameter.types.referenceType.inputClassName,
             parameter.types.referenceType.jsonClassName,
           ],
@@ -66,14 +67,19 @@ export class OperationFileGenerator {
     });
     if (responseTypeCodes?.referenceType) {
       output.addImport(
-        [responseTypeCodes.referenceType.className, responseTypeCodes.referenceType.jsonClassName],
+        [
+          responseTypeCodes.referenceType.factoryClassName,
+          responseTypeCodes.referenceType.valueClassName,
+          responseTypeCodes.referenceType.jsonClassName,
+        ],
         responseTypeCodes.referenceType.importPath,
       );
     }
     if (bodyTypeCodes?.referenceType) {
       output.addImport(
         [
-          bodyTypeCodes.referenceType.className,
+          bodyTypeCodes.referenceType.factoryClassName,
+          bodyTypeCodes.referenceType.valueClassName,
           bodyTypeCodes.referenceType.inputClassName,
           bodyTypeCodes.referenceType.jsonClassName,
         ],
@@ -93,7 +99,7 @@ export class OperationFileGenerator {
       output.writeComment(1, null, {
         description: p.parameter.description,
       });
-      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputUnionTypeCode};`);
+      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputOrValueTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
@@ -124,7 +130,7 @@ export class OperationFileGenerator {
     if (resolvedResponseType && responseTypeCodes && this.info.response) {
       const responseJSON2TypeCode = ValueMappingCodeGenerator.generateJSON2TypeCode(resolvedResponseType, 'json', true);
 
-      output.write(1, `parseResponse(json: ${responseTypeCodes.jsonTypeCode}): ${responseTypeCodes.typeCode} {`);
+      output.write(1, `parseResponse(json: ${responseTypeCodes.jsonTypeCode}): ${responseTypeCodes.valueTypeCode} {`);
       output.write(2, `return ${responseJSON2TypeCode};`);
       output.write(1, '},');
       output.newLine();
@@ -157,7 +163,7 @@ export class OperationFileGenerator {
 
       output.write(
         1,
-        `serializeBody(body: ${bodyTypeCodes.inputUnionTypeCode}${bodyTypeCodes.undefinedSuffix}): ${bodyTypeCodes.jsonTypeCode}${bodyTypeCodes.undefinedSuffix} {`,
+        `serializeBody(body: ${bodyTypeCodes.inputOrValueTypeCode}${bodyTypeCodes.undefinedSuffix}): ${bodyTypeCodes.jsonTypeCode}${bodyTypeCodes.undefinedSuffix} {`,
       );
       if (!this.info.body.isRequired) {
         output.write(1, 'if (!body) {');

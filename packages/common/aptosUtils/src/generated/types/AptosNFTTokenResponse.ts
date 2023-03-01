@@ -1,5 +1,5 @@
 import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
-import { AptosNFTTokenResponseDefaultProperties, AptosNFTTokenResponseDefaultPropertiesInput, AptosNFTTokenResponseDefaultPropertiesJSON } from '../types/AptosNFTTokenResponseDefaultProperties';
+import { AptosNFTTokenResponseDefaultProperties, AptosNFTTokenResponseDefaultPropertiesValue, AptosNFTTokenResponseDefaultPropertiesInput, AptosNFTTokenResponseDefaultPropertiesJSON } from '../types/AptosNFTTokenResponseDefaultProperties';
 
 // $ref: #/components/schemas/NFTTokenResponse
 // type: NFTTokenResponse
@@ -54,7 +54,7 @@ export interface AptosNFTTokenResponseInput {
   readonly collectionDataIdHash: string;
   readonly collectionName: string;
   readonly creatorAddress: AptosAddressInput | AptosAddress;
-  readonly defaultProperties: AptosNFTTokenResponseDefaultPropertiesInput | AptosNFTTokenResponseDefaultProperties;
+  readonly defaultProperties: AptosNFTTokenResponseDefaultPropertiesInput | AptosNFTTokenResponseDefaultPropertiesValue;
   readonly description: string;
   readonly descriptionMutable: boolean;
   readonly largestPropertyVersion: string;
@@ -124,7 +124,7 @@ export class AptosNFTTokenResponse {
   /**
    * @description The default properties of the token
    */
-  public readonly defaultProperties: AptosNFTTokenResponseDefaultProperties;
+  public readonly defaultProperties: AptosNFTTokenResponseDefaultPropertiesValue;
   /**
    * @description The description of the collection
    */
@@ -223,7 +223,7 @@ export class AptosNFTTokenResponse {
       collection_data_id_hash: this.collectionDataIdHash,
       collection_name: this.collectionName,
       creator_address: this.creatorAddress.toJSON(),
-      default_properties: this.defaultProperties.toJSON(),
+      default_properties: this.defaultProperties,
       description: this.description,
       description_mutable: this.descriptionMutable,
       largest_property_version: this.largestPropertyVersion,

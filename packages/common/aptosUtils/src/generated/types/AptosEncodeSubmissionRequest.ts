@@ -1,5 +1,5 @@
 import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
-import { AptosEncodeSubmissionRequestPayload, AptosEncodeSubmissionRequestPayloadInput, AptosEncodeSubmissionRequestPayloadJSON } from '../types/AptosEncodeSubmissionRequestPayload';
+import { AptosEncodeSubmissionRequestPayload, AptosEncodeSubmissionRequestPayloadValue, AptosEncodeSubmissionRequestPayloadInput, AptosEncodeSubmissionRequestPayloadJSON } from '../types/AptosEncodeSubmissionRequestPayload';
 
 // $ref: #/components/schemas/EncodeSubmissionRequest
 // type: EncodeSubmissionRequest
@@ -28,7 +28,7 @@ export interface AptosEncodeSubmissionRequestInput {
   readonly maxGasAmount: string;
   readonly gasUnitPrice: string;
   readonly expirationTimestampSecs: string;
-  readonly payload: AptosEncodeSubmissionRequestPayloadInput | AptosEncodeSubmissionRequestPayload;
+  readonly payload: AptosEncodeSubmissionRequestPayloadInput | AptosEncodeSubmissionRequestPayloadValue;
   readonly secondarySigners: string[];
 }
 
@@ -76,7 +76,7 @@ export class AptosEncodeSubmissionRequest {
   /**
    * @description An enum of the possible transaction payloads
    */
-  public readonly payload: AptosEncodeSubmissionRequestPayload;
+  public readonly payload: AptosEncodeSubmissionRequestPayloadValue;
   /**
    * @description Secondary signer accounts of the request for Multi-agent
    */

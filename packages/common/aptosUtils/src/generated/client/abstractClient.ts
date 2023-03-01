@@ -63,20 +63,20 @@ import { AptosGetEventsByCreationNumberResponse, AptosGetEventsByCreationNumberR
 import { GetEventsByEventHandleOperation, GetEventsByEventHandleOperationRequest, GetEventsByEventHandleOperationRequestJSON } from '../operations/GetEventsByEventHandleOperation';
 import { AptosGetEventsByEventHandleResponse, AptosGetEventsByEventHandleResponseJSON } from '../types/AptosGetEventsByEventHandleResponse';
 import { GetTransactionsOperation, GetTransactionsOperationRequest, GetTransactionsOperationRequestJSON } from '../operations/GetTransactionsOperation';
-import { AptosGetTransactionsItem, AptosGetTransactionsItemJSON } from '../types/AptosGetTransactionsItem';
+import { AptosGetTransactionsItemValue, AptosGetTransactionsItemJSON } from '../types/AptosGetTransactionsItem';
 import { SubmitTransactionOperation, SubmitTransactionOperationRequest, SubmitTransactionOperationRequestJSON } from '../operations/SubmitTransactionOperation';
 import { AptosPendingTransaction, AptosPendingTransactionJSON } from '../types/AptosPendingTransaction';
 import { AptosSubmitTransactionRequest, AptosSubmitTransactionRequestInput, AptosSubmitTransactionRequestJSON } from '../types/AptosSubmitTransactionRequest';
 import { GetTransactionByHashOperation, GetTransactionByHashOperationRequest, GetTransactionByHashOperationRequestJSON } from '../operations/GetTransactionByHashOperation';
-import { AptosGetTransactionByHash, AptosGetTransactionByHashJSON } from '../types/AptosGetTransactionByHash';
+import { AptosGetTransactionByHashValue, AptosGetTransactionByHashJSON } from '../types/AptosGetTransactionByHash';
 import { GetTransactionByVersionOperation, GetTransactionByVersionOperationRequest, GetTransactionByVersionOperationRequestJSON } from '../operations/GetTransactionByVersionOperation';
-import { AptosGetTransactionByVersion, AptosGetTransactionByVersionJSON } from '../types/AptosGetTransactionByVersion';
+import { AptosGetTransactionByVersionValue, AptosGetTransactionByVersionJSON } from '../types/AptosGetTransactionByVersion';
 import { GetAccountTransactionsOperation, GetAccountTransactionsOperationRequest, GetAccountTransactionsOperationRequestJSON } from '../operations/GetAccountTransactionsOperation';
-import { AptosGetAccountTransactionsItem, AptosGetAccountTransactionsItemJSON } from '../types/AptosGetAccountTransactionsItem';
+import { AptosGetAccountTransactionsItemValue, AptosGetAccountTransactionsItemJSON } from '../types/AptosGetAccountTransactionsItem';
 import { SubmitBatchTransactionsOperation, SubmitBatchTransactionsOperationRequest, SubmitBatchTransactionsOperationRequestJSON } from '../operations/SubmitBatchTransactionsOperation';
 import { AptosSubmitBatchTransactionResult, AptosSubmitBatchTransactionResultJSON } from '../types/AptosSubmitBatchTransactionResult';
 import { SimulateTransactionOperation, SimulateTransactionOperationRequest, SimulateTransactionOperationRequestJSON } from '../operations/SimulateTransactionOperation';
-import { AptosSimulateTransaction, AptosSimulateTransactionJSON } from '../types/AptosSimulateTransaction';
+import { AptosSimulateTransactionValue, AptosSimulateTransactionJSON } from '../types/AptosSimulateTransaction';
 import { EncodeSubmissionOperation, EncodeSubmissionOperationRequest, EncodeSubmissionOperationRequestJSON } from '../operations/EncodeSubmissionOperation';
 import { AptosEncodeSubmissionRequest, AptosEncodeSubmissionRequestInput, AptosEncodeSubmissionRequestJSON } from '../types/AptosEncodeSubmissionRequest';
 import { EstimateGasPriceOperation, EstimateGasPriceOperationRequest, EstimateGasPriceOperationRequestJSON } from '../operations/EstimateGasPriceOperation';
@@ -306,7 +306,7 @@ export abstract class AbstractClient {
     getTransactions: this.createEndpoint<
       GetTransactionsOperationRequest
       , GetTransactionsOperationRequestJSON
-      , AptosGetTransactionsItem[]
+      , AptosGetTransactionsItemValue[]
       , AptosGetTransactionsItemJSON[]
     >(GetTransactionsOperation),
     submitTransaction: this.createEndpointWithBody<
@@ -320,19 +320,19 @@ export abstract class AbstractClient {
     getTransactionByHash: this.createEndpoint<
       GetTransactionByHashOperationRequest
       , GetTransactionByHashOperationRequestJSON
-      , AptosGetTransactionByHash
+      , AptosGetTransactionByHashValue
       , AptosGetTransactionByHashJSON
     >(GetTransactionByHashOperation),
     getTransactionByVersion: this.createEndpoint<
       GetTransactionByVersionOperationRequest
       , GetTransactionByVersionOperationRequestJSON
-      , AptosGetTransactionByVersion
+      , AptosGetTransactionByVersionValue
       , AptosGetTransactionByVersionJSON
     >(GetTransactionByVersionOperation),
     getAccountTransactions: this.createEndpoint<
       GetAccountTransactionsOperationRequest
       , GetAccountTransactionsOperationRequestJSON
-      , AptosGetAccountTransactionsItem[]
+      , AptosGetAccountTransactionsItemValue[]
       , AptosGetAccountTransactionsItemJSON[]
     >(GetAccountTransactionsOperation),
     submitBatchTransactions: this.createEndpointWithBody<
@@ -346,7 +346,7 @@ export abstract class AbstractClient {
     simulateTransaction: this.createEndpointWithBody<
       SimulateTransactionOperationRequest
       , SimulateTransactionOperationRequestJSON
-      , AptosSimulateTransaction
+      , AptosSimulateTransactionValue
       , AptosSimulateTransactionJSON
       , AptosSubmitTransactionRequestInput | AptosSubmitTransactionRequest
       , AptosSubmitTransactionRequestJSON

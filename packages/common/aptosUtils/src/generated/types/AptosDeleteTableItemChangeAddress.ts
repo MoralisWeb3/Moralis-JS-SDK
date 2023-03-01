@@ -2,23 +2,15 @@
 // typeName: DeleteTableItemChange_address
 
 export type AptosDeleteTableItemChangeAddressJSON = object;
-export type AptosDeleteTableItemChangeAddressInput = AptosDeleteTableItemChangeAddressJSON;
+export type AptosDeleteTableItemChangeAddressInput = object;
+export type AptosDeleteTableItemChangeAddressValue = object;
 
-export class AptosDeleteTableItemChangeAddress {
-  public static create(input: AptosDeleteTableItemChangeAddressInput | AptosDeleteTableItemChangeAddress) {
-    if (input instanceof AptosDeleteTableItemChangeAddress) {
-      return input;
-    }
-    return new AptosDeleteTableItemChangeAddress(input);
+export abstract class AptosDeleteTableItemChangeAddress {
+  public static create(input: AptosDeleteTableItemChangeAddressInput | AptosDeleteTableItemChangeAddressValue): AptosDeleteTableItemChangeAddressValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosDeleteTableItemChangeAddressJSON) {
-    return new AptosDeleteTableItemChangeAddress(json);
-  }
-
-  public constructor(public readonly value: AptosDeleteTableItemChangeAddressInput) {}
-
-  public toJSON(): AptosDeleteTableItemChangeAddressJSON {
-    return this.value;
+  public static fromJSON(json: AptosDeleteTableItemChangeAddressJSON): AptosDeleteTableItemChangeAddressValue {
+    return json;
   }
 }

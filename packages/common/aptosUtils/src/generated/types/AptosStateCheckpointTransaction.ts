@@ -1,4 +1,4 @@
-import { AptosStateCheckpointTransactionChanges, AptosStateCheckpointTransactionChangesInput, AptosStateCheckpointTransactionChangesJSON } from '../types/AptosStateCheckpointTransactionChanges';
+import { AptosStateCheckpointTransactionChanges, AptosStateCheckpointTransactionChangesValue, AptosStateCheckpointTransactionChangesInput, AptosStateCheckpointTransactionChangesJSON } from '../types/AptosStateCheckpointTransactionChanges';
 
 // $ref: #/components/schemas/StateCheckpointTransaction
 // type: StateCheckpointTransaction
@@ -42,7 +42,7 @@ export interface AptosStateCheckpointTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosStateCheckpointTransactionChangesInput | AptosStateCheckpointTransactionChanges;
+  readonly changes: AptosStateCheckpointTransactionChangesInput | AptosStateCheckpointTransactionChangesValue;
   readonly timestamp: string;
 }
 
@@ -102,7 +102,7 @@ export class AptosStateCheckpointTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosStateCheckpointTransactionChanges;
+  public readonly changes: AptosStateCheckpointTransactionChangesValue;
   /**
    * @description A string containing a 64-bit unsigned integer.
    */

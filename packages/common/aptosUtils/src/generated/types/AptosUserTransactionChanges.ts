@@ -10,67 +10,44 @@ import { AptosWriteTableChangeSetChange, AptosWriteTableChangeSetChangeJSON, Apt
 
 export type AptosUserTransactionChangesJSON = AptosDeleteModuleChangeJSON | AptosDeleteResourceChangeJSON | AptosDeleteTableItemChangeJSON | AptosWriteOrUpdateModuleChangeJSON | AptosWriteTableChangeSetChangeJSON;
 export type AptosUserTransactionChangesInput = AptosDeleteModuleChangeInput | AptosDeleteResourceChangeInput | AptosDeleteTableItemChangeInput | AptosWriteOrUpdateModuleChangeInput | AptosWriteTableChangeSetChangeInput;
+export type AptosUserTransactionChangesValue = AptosDeleteModuleChange | AptosDeleteResourceChange | AptosDeleteTableItemChange | AptosWriteOrUpdateModuleChange | AptosWriteTableChangeSetChange;
 
-export class AptosUserTransactionChanges {
-  public static create(input: AptosUserTransactionChangesInput | AptosUserTransactionChanges): AptosUserTransactionChanges {
-    if (input instanceof AptosUserTransactionChanges) {
-      return input;
-    }
+export abstract class AptosUserTransactionChanges {
+  public static create(input: AptosUserTransactionChangesInput): AptosUserTransactionChangesValue {
     if (AptosDeleteModuleChange.isInput(input)) {
-      return new AptosUserTransactionChanges(AptosDeleteModuleChange.create(input));
+      return AptosDeleteModuleChange.create(input);
     }
     if (AptosDeleteResourceChange.isInput(input)) {
-      return new AptosUserTransactionChanges(AptosDeleteResourceChange.create(input));
+      return AptosDeleteResourceChange.create(input);
     }
     if (AptosDeleteTableItemChange.isInput(input)) {
-      return new AptosUserTransactionChanges(AptosDeleteTableItemChange.create(input));
+      return AptosDeleteTableItemChange.create(input);
     }
     if (AptosWriteOrUpdateModuleChange.isInput(input)) {
-      return new AptosUserTransactionChanges(AptosWriteOrUpdateModuleChange.create(input));
+      return AptosWriteOrUpdateModuleChange.create(input);
     }
     if (AptosWriteTableChangeSetChange.isInput(input)) {
-      return new AptosUserTransactionChanges(AptosWriteTableChangeSetChange.create(input));
+      return AptosWriteTableChangeSetChange.create(input);
     }
     throw new Error('Invalid input');
   }
 
-  public static fromJSON(json: AptosUserTransactionChangesJSON): AptosUserTransactionChanges {
+  public static fromJSON(json: AptosUserTransactionChangesJSON): AptosUserTransactionChangesValue {
     if (AptosDeleteModuleChange.isJSON(json)) {
-      return new AptosUserTransactionChanges(AptosDeleteModuleChange.fromJSON(json));
+      return AptosDeleteModuleChange.fromJSON(json);
     }
     if (AptosDeleteResourceChange.isJSON(json)) {
-      return new AptosUserTransactionChanges(AptosDeleteResourceChange.fromJSON(json));
+      return AptosDeleteResourceChange.fromJSON(json);
     }
     if (AptosDeleteTableItemChange.isJSON(json)) {
-      return new AptosUserTransactionChanges(AptosDeleteTableItemChange.fromJSON(json));
+      return AptosDeleteTableItemChange.fromJSON(json);
     }
     if (AptosWriteOrUpdateModuleChange.isJSON(json)) {
-      return new AptosUserTransactionChanges(AptosWriteOrUpdateModuleChange.fromJSON(json));
+      return AptosWriteOrUpdateModuleChange.fromJSON(json);
     }
     if (AptosWriteTableChangeSetChange.isJSON(json)) {
-      return new AptosUserTransactionChanges(AptosWriteTableChangeSetChange.fromJSON(json));
+      return AptosWriteTableChangeSetChange.fromJSON(json);
     }
     throw new Error(`Cannot resolve union for AptosUserTransactionChanges (keys: ${Object.keys(json).join(',') })`);
-  }
-
-  public constructor(public readonly value: AptosDeleteModuleChange | AptosDeleteResourceChange | AptosDeleteTableItemChange | AptosWriteOrUpdateModuleChange | AptosWriteTableChangeSetChange) {}
-
-  public toJSON(): AptosUserTransactionChangesJSON {
-    if (this.value instanceof AptosDeleteModuleChange) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosDeleteResourceChange) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosDeleteTableItemChange) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosWriteOrUpdateModuleChange) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosWriteTableChangeSetChange) {
-      return this.value.toJSON();
-    }
-    throw new Error('Invalid value');
   }
 }

@@ -1,5 +1,5 @@
 import { AptosNetwork, AptosNetworkInput, AptosNetworkJSON } from '../../dataTypes';
-import { AptosGetTransactionByHash, AptosGetTransactionByHashJSON } from '../types/AptosGetTransactionByHash';
+import { AptosGetTransactionByHash, AptosGetTransactionByHashValue, AptosGetTransactionByHashJSON } from '../types/AptosGetTransactionByHash';
 
 // request parameters:
 // - txn_hash ($ref: #/paths/~1transactions~1by_hash~1{txn_hash}/get/parameters/0/schema)
@@ -30,7 +30,7 @@ export const GetTransactionByHashOperation = {
   hasResponse: true,
   hasBody: false,
 
-  parseResponse(json: AptosGetTransactionByHashJSON): AptosGetTransactionByHash {
+  parseResponse(json: AptosGetTransactionByHashJSON): AptosGetTransactionByHashValue {
     return AptosGetTransactionByHash.fromJSON(json);
   },
 

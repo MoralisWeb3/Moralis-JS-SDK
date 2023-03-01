@@ -8,49 +8,32 @@ import { AptosModuleBundlePayloadRequest, AptosModuleBundlePayloadRequestJSON, A
 
 export type AptosEncodeSubmissionRequestPayloadJSON = AptosEntryFunctionPayloadRequestJSON | AptosScriptPayloadRequestJSON | AptosModuleBundlePayloadRequestJSON;
 export type AptosEncodeSubmissionRequestPayloadInput = AptosEntryFunctionPayloadRequestInput | AptosScriptPayloadRequestInput | AptosModuleBundlePayloadRequestInput;
+export type AptosEncodeSubmissionRequestPayloadValue = AptosEntryFunctionPayloadRequest | AptosScriptPayloadRequest | AptosModuleBundlePayloadRequest;
 
-export class AptosEncodeSubmissionRequestPayload {
-  public static create(input: AptosEncodeSubmissionRequestPayloadInput | AptosEncodeSubmissionRequestPayload): AptosEncodeSubmissionRequestPayload {
-    if (input instanceof AptosEncodeSubmissionRequestPayload) {
-      return input;
-    }
+export abstract class AptosEncodeSubmissionRequestPayload {
+  public static create(input: AptosEncodeSubmissionRequestPayloadInput): AptosEncodeSubmissionRequestPayloadValue {
     if (AptosEntryFunctionPayloadRequest.isInput(input)) {
-      return new AptosEncodeSubmissionRequestPayload(AptosEntryFunctionPayloadRequest.create(input));
+      return AptosEntryFunctionPayloadRequest.create(input);
     }
     if (AptosScriptPayloadRequest.isInput(input)) {
-      return new AptosEncodeSubmissionRequestPayload(AptosScriptPayloadRequest.create(input));
+      return AptosScriptPayloadRequest.create(input);
     }
     if (AptosModuleBundlePayloadRequest.isInput(input)) {
-      return new AptosEncodeSubmissionRequestPayload(AptosModuleBundlePayloadRequest.create(input));
+      return AptosModuleBundlePayloadRequest.create(input);
     }
     throw new Error('Invalid input');
   }
 
-  public static fromJSON(json: AptosEncodeSubmissionRequestPayloadJSON): AptosEncodeSubmissionRequestPayload {
+  public static fromJSON(json: AptosEncodeSubmissionRequestPayloadJSON): AptosEncodeSubmissionRequestPayloadValue {
     if (AptosEntryFunctionPayloadRequest.isJSON(json)) {
-      return new AptosEncodeSubmissionRequestPayload(AptosEntryFunctionPayloadRequest.fromJSON(json));
+      return AptosEntryFunctionPayloadRequest.fromJSON(json);
     }
     if (AptosScriptPayloadRequest.isJSON(json)) {
-      return new AptosEncodeSubmissionRequestPayload(AptosScriptPayloadRequest.fromJSON(json));
+      return AptosScriptPayloadRequest.fromJSON(json);
     }
     if (AptosModuleBundlePayloadRequest.isJSON(json)) {
-      return new AptosEncodeSubmissionRequestPayload(AptosModuleBundlePayloadRequest.fromJSON(json));
+      return AptosModuleBundlePayloadRequest.fromJSON(json);
     }
     throw new Error(`Cannot resolve union for AptosEncodeSubmissionRequestPayload (keys: ${Object.keys(json).join(',') })`);
-  }
-
-  public constructor(public readonly value: AptosEntryFunctionPayloadRequest | AptosScriptPayloadRequest | AptosModuleBundlePayloadRequest) {}
-
-  public toJSON(): AptosEncodeSubmissionRequestPayloadJSON {
-    if (this.value instanceof AptosEntryFunctionPayloadRequest) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosScriptPayloadRequest) {
-      return this.value.toJSON();
-    }
-    if (this.value instanceof AptosModuleBundlePayloadRequest) {
-      return this.value.toJSON();
-    }
-    throw new Error('Invalid value');
   }
 }

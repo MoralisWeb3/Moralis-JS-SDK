@@ -1,6 +1,6 @@
 import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
-import { AptosSubmitTransactionRequestPayload, AptosSubmitTransactionRequestPayloadInput, AptosSubmitTransactionRequestPayloadJSON } from '../types/AptosSubmitTransactionRequestPayload';
-import { AptosSubmitTransactionRequestSignature, AptosSubmitTransactionRequestSignatureInput, AptosSubmitTransactionRequestSignatureJSON } from '../types/AptosSubmitTransactionRequestSignature';
+import { AptosSubmitTransactionRequestPayload, AptosSubmitTransactionRequestPayloadValue, AptosSubmitTransactionRequestPayloadInput, AptosSubmitTransactionRequestPayloadJSON } from '../types/AptosSubmitTransactionRequestPayload';
+import { AptosSubmitTransactionRequestSignature, AptosSubmitTransactionRequestSignatureValue, AptosSubmitTransactionRequestSignatureInput, AptosSubmitTransactionRequestSignatureJSON } from '../types/AptosSubmitTransactionRequestSignature';
 
 // $ref: #/components/schemas/SubmitTransactionRequest
 // type: SubmitTransactionRequest
@@ -29,8 +29,8 @@ export interface AptosSubmitTransactionRequestInput {
   readonly maxGasAmount: string;
   readonly gasUnitPrice: string;
   readonly expirationTimestampSecs: string;
-  readonly payload: AptosSubmitTransactionRequestPayloadInput | AptosSubmitTransactionRequestPayload;
-  readonly signature: AptosSubmitTransactionRequestSignatureInput | AptosSubmitTransactionRequestSignature;
+  readonly payload: AptosSubmitTransactionRequestPayloadInput | AptosSubmitTransactionRequestPayloadValue;
+  readonly signature: AptosSubmitTransactionRequestSignatureInput | AptosSubmitTransactionRequestSignatureValue;
 }
 
 export class AptosSubmitTransactionRequest {
@@ -77,8 +77,8 @@ export class AptosSubmitTransactionRequest {
   /**
    * @description An enum of the possible transaction payloads
    */
-  public readonly payload: AptosSubmitTransactionRequestPayload;
-  public readonly signature: AptosSubmitTransactionRequestSignature;
+  public readonly payload: AptosSubmitTransactionRequestPayloadValue;
+  public readonly signature: AptosSubmitTransactionRequestSignatureValue;
 
   private constructor(input: AptosSubmitTransactionRequestInput) {
     this.sender = AptosAddress.create(input.sender);

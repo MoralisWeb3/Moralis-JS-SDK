@@ -2,23 +2,15 @@
 // typeName: GetEventsByCreationNumberResponse_data
 
 export type AptosGetEventsByCreationNumberResponseDataJSON = object;
-export type AptosGetEventsByCreationNumberResponseDataInput = AptosGetEventsByCreationNumberResponseDataJSON;
+export type AptosGetEventsByCreationNumberResponseDataInput = object;
+export type AptosGetEventsByCreationNumberResponseDataValue = object;
 
-export class AptosGetEventsByCreationNumberResponseData {
-  public static create(input: AptosGetEventsByCreationNumberResponseDataInput | AptosGetEventsByCreationNumberResponseData) {
-    if (input instanceof AptosGetEventsByCreationNumberResponseData) {
-      return input;
-    }
-    return new AptosGetEventsByCreationNumberResponseData(input);
+export abstract class AptosGetEventsByCreationNumberResponseData {
+  public static create(input: AptosGetEventsByCreationNumberResponseDataInput | AptosGetEventsByCreationNumberResponseDataValue): AptosGetEventsByCreationNumberResponseDataValue {
+    return input;
   }
 
-  public static fromJSON(json: AptosGetEventsByCreationNumberResponseDataJSON) {
-    return new AptosGetEventsByCreationNumberResponseData(json);
-  }
-
-  public constructor(public readonly value: AptosGetEventsByCreationNumberResponseDataInput) {}
-
-  public toJSON(): AptosGetEventsByCreationNumberResponseDataJSON {
-    return this.value;
+  public static fromJSON(json: AptosGetEventsByCreationNumberResponseDataJSON): AptosGetEventsByCreationNumberResponseDataValue {
+    return json;
   }
 }
