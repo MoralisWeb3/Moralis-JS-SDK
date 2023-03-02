@@ -35,8 +35,5 @@
     "**/*/lib.esm",
     "**/*/dist",
     "*.d.ts"
-  ],
-  "include": [
-    "src/**/*.{js,jsx,ts,tsx}"
   ]
 }
