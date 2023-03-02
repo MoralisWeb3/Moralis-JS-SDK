@@ -26,7 +26,12 @@
     "pretty": false,
     "sourceMap": true,
     "target": "es5",
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "types": [
+      "node",
+      "jest",
+      "cypress"
+    ]
   },
   "exclude": [
     "node_modules",
