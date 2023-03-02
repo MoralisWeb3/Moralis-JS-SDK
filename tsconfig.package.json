@@ -10,7 +10,9 @@
     "declarationDir": "/lib",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "module": "CommonJS",
     "allowJs": true,
     "moduleResolution": "node",
@@ -26,6 +28,15 @@
     "target": "es5",
     "useUnknownInCatchVariables": false
   },
-  "exclude": ["node_modules", "**/node_modules/*", "**/*/lib", "**/*/lib.esm", "**/*/dist", "*.d.ts"],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "**/*/lib",
+    "**/*/lib.esm",
+    "**/*/dist",
+    "*.d.ts"
+  ],
+  "include": [
+    "src/**/*.{js,jsx,ts,tsx}"
+  ]
 }
