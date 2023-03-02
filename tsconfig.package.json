@@ -26,12 +26,7 @@
     "pretty": false,
     "sourceMap": true,
     "target": "es5",
-    "useUnknownInCatchVariables": false,
-    "types": [
-      "node",
-      "jest",
-      "cypress"
-    ]
+    "useUnknownInCatchVariables": false
   },
   "exclude": [
     "node_modules",
@@ -39,7 +34,6 @@
     "**/*/lib",
     "**/*/lib.esm",
     "**/*/dist",
-    "*.d.ts",
-    "cypress"
+    "*.d.ts"
   ]
 }

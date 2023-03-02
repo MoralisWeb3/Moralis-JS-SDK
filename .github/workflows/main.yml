@@ -90,8 +90,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Setup Node 16
         uses: actions/setup-node@v3
         with:
@@ -99,12 +97,8 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
-      - name: Prepare repo
-        uses: nrwl/nx-set-shas@v3
-      - name: Build
-        run: yarn nx affected --target=build
       - name: Test
-        run: yarn nx affected --target=test:coverage
+        run: yarn test:coverage
       - name: Test coverage comment
         uses: MishaKav/jest-coverage-comment@main
         with:
@@ -121,7 +115,6 @@ jobs:
             common-sol-utils, ./packages/common/solUtils/coverage/coverage-summary.json
             common-streams-utils, ./packages/common/streamsUtils/coverage/coverage-summary.json
             streams, ./packages/streams/coverage/coverage-summary.json
-
       - name: Test demos
         run: yarn test:demos
       - name: Find missing dependencies
