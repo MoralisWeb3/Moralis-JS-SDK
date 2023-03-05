@@ -1,0 +1,31 @@
+{
+  "name": "@create-moralis-dapp/next",
+  "author": "Moralis",
+  "version": "2.13.0",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "type": "commonjs",
+  "files": [
+    "lib/*"
+  ],
+  "bin": "./lib/index.js",
+  "scripts": {
+    "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc && npm run postbuild",
+    "postbuild": "npm run copy-files",
+    "copy-files": "copyfiles -u 1 -a src/template/** lib",
+    "dev": "ts-node src/generate.ts"
+  },
+  "dependencies": {
+    "@create-moralis-dapp/toolkit": "^2.13.0"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "jest": "29.3.1"
+  }
+}
