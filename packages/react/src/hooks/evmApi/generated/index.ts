@@ -129,6 +129,7 @@ import {
 } from 'moralis/common-evm-utils';
 import { ResolverFetchParams, _useResolver,_useResolverNullable,_useResolverPaginated, } from '../../resolvers';
 import Moralis from 'moralis'
+import { UseQueryConfig } from '../../useQuery';
 
 const { baseUrl } = Moralis.EvmApi;
 
@@ -147,8 +148,8 @@ export const useEvmContractLogs = (request?: GetContractLogsRequest, fetchParams
 export const useEvmContractNFTs = (request?: GetContractNFTsRequest, fetchParams?: ResolverFetchParams<GetContractNFTsResponse>) => {
   return _useResolverPaginated(getContractNFTsOperation, baseUrl, request, fetchParams);
 };
-export const useEvmDateToBlock = (request?: GetDateToBlockRequest, fetchParams?: ResolverFetchParams<GetDateToBlockResponse>) => {
-  return _useResolver(getDateToBlockOperation, baseUrl, request, fetchParams);
+export const useEvmDateToBlock = (params?: GetDateToBlockRequest & UseQueryConfig<GetDateToBlockResponse>) => {
+  return _useResolver(getDateToBlockOperation, baseUrl, params);
 };
 export const useEvmMultipleNFTs = (request?: GetMultipleNFTsRequest, fetchParams?: ResolverFetchParams<GetMultipleNFTsResponse>) => {
   return _useResolver(getMultipleNFTsOperation, baseUrl, request, fetchParams);
