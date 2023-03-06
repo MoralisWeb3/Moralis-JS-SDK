@@ -2,10 +2,11 @@ import { _useMoralisContext } from '../../context/MoralisProvider';
 import { Operation } from 'moralis/common-core';
 import { OperationResolver } from '@moralisweb3/api-utils';
 import { useMemo } from 'react';
-import { UseQueryConfig } from '../useQuery';
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryConfig, useQuery } from '../useQuery';
+import { QueryKey } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 
-const splitRequestAndQueryConfig = <Request, Response>({
+const splitRequestAndQueryConfig = <Request, Request, TError, TData, TQueryKey extends QueryKey = QueryKey>({
   cacheTime,
   enabled,
   onError,
@@ -14,7 +15,10 @@ const splitRequestAndQueryConfig = <Request, Response>({
   refetchInterval,
   suspense,
   ...request
-}: Request & UseQueryConfig<Response>): { request: Request; queryConfig: UseQueryConfig<Response> } => {
+}: Request & UseQueryConfig<Request, TError, TData, TQueryKey>): {
+  request: Request;
+  queryConfig: UseQueryConfig<Request, TError, TData, TQueryKey>;
+} => {
   return {
     request: request as Request,
     queryConfig: { cacheTime, enabled, onError, onSettled, onSuccess, refetchInterval, suspense },
@@ -24,7 +28,7 @@ const splitRequestAndQueryConfig = <Request, Response>({
 export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
   operation: Operation<Request, JSONRequest, Response, JSONResponse>,
   baseUrl: string,
-  params: Request & UseQueryConfig<Response>,
+  params: Request & UseQueryConfig<Request, TError, TData, TQueryKey>,
 ) {
   const { request, queryConfig } = splitRequestAndQueryConfig<Request, Response>(params);
   const { core } = _useMoralisContext();
