@@ -78,7 +78,7 @@ export class UnionTypeFileGenerator {
     if (hasAnySimpleType) {
       output.write(2, `return new ${typeCodes.factoryClassName}(input);`);
     } else {
-      output.write(2, `throw new Error('Invalid input');`);
+      output.write(2, `throw new Error('Cannot resolve union for input');`);
     }
     output.write(1, `}`);
     output.newLine();
@@ -96,9 +96,11 @@ export class UnionTypeFileGenerator {
     if (hasAnySimpleType) {
       output.write(2, `return new ${typeCodes.factoryClassName}(json);`);
     } else {
+      output.write(2, `const keys = Object.keys(json).join(', ');`);
+      output.write(2, `const type = (json as any).type;`);
       output.write(
         2,
-        `throw new Error(\`Cannot resolve union for ${typeCodes.factoryClassName} (keys: \${Object.keys(json).join(',') })\`);`,
+        `throw new Error(\`Cannot resolve union for ${typeCodes.factoryClassName} (keys: \${keys}, type: \${type})\`);`,
       );
     }
     output.write(1, `}`);

@@ -54,13 +54,53 @@
       },
       {
         "typeName": "PendingTransaction",
-        "isInputCode": "input.type && input.type.includes('pending')",
-        "isJSONCode": "json.type && json.type.includes('pending')"
+        "isInputCode": "input.type === 'TODO'",
+        "isJSONCode": "json.type === 'TODO'"
       },
       {
         "typeName": "StateCheckpointTransaction",
-        "isInputCode": "input.type && input.type.includes('checkpoint')",
-        "isJSONCode": "json.type && json.type.includes('checkpoint')"
+        "isInputCode": "input.type === 'state_checkpoint_transaction'",
+        "isJSONCode": "json.type === 'state_checkpoint_transaction'"
+      },
+      {
+        "typeName": "DeleteModuleChange",
+        "isInputCode": "input.type === 'TODO'",
+        "isJSONCode": "json.type === 'TODO'"
+      },
+      {
+        "typeName": "DeleteResourceChange",
+        "isInputCode": "input.type === 'TODO'",
+        "isJSONCode": "json.type === 'TODO'"
+      },
+      {
+        "typeName": "DeleteTableItemChange",
+        "isInputCode": "input.type === 'delete_table_item'",
+        "isJSONCode": "json.type === 'delete_table_item'"
+      },
+      {
+        "typeName": "WriteOrUpdateModuleChange",
+        "isInputCode": "input.type === 'write_module'",
+        "isJSONCode": "json.type === 'write_module'"
+      },
+      {
+        "typeName": "WriteResourceChange",
+        "isInputCode": "input.type === 'write_resource'",
+        "isJSONCode": "json.type === 'write_resource'"
+      },
+      {
+        "typeName": "WriteTableChangeSetChange",
+        "isInputCode": "input.type === 'write_table_item'",
+        "isJSONCode": "json.type === 'write_table_item'"
+      },
+      {
+        "typeName": "ScriptWriteSet",
+        "isInputCode": "input.type === 'TODO'",
+        "isJSONCode": "json.type === 'TODO'"
+      },
+      {
+        "typeName": "DirectWriteSet",
+        "isInputCode": "input.type === 'direct_write_set'",
+        "isJSONCode": "json.type === 'direct_write_set'"
       }
     ]
   },
