@@ -1,5 +1,19 @@
 # @moralisweb3/evm-utils
 
+## 2.14.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.14.3
+
+## 2.14.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.14.2
+
 ## 2.14.1
 
 ### Patch Changes

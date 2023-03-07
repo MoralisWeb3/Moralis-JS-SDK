@@ -1,1 +1,1 @@
-Run `create-moralis-dapp` in directory where you want to setup dApp
+Toolkit for `create-moralis-dapp`
