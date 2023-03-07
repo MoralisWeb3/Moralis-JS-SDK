@@ -38,7 +38,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "clean": "rm -rf lib && rm -rf lib.esm && rm -rf lib.cjs && rm -rf ./node_modules/.cache/nx",
-    "build": "rollup -c",
+    "build": "yarn prebuild && rollup -c",
     "dev": "tsc --watch"
   },
   "devDependencies": {
