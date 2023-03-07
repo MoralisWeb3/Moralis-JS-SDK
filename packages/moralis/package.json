@@ -24,8 +24,10 @@
     "type": "git",
     "url": "https://github.com/MoralisWeb3/Moralis-JS-SDK"
   },
-  "main": "./lib/index.js",
+  "type": "module",
+  "main": "./lib.esm/index.js",
   "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "sideEffects": false,
   "moralis": {
     "name": "Moralis Umbrella Package",
@@ -35,32 +37,107 @@
   },
   "files": [
     "lib/*",
+    "lib.cjs/*",
     "lib.esm/*",
     "dist/*"
   ],
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "yarn build:cjs && yarn build:esm && yarn build-dist",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "build:cjs": "tsc --project tsconfig.json",
-    "build-dist": "rollup -c",
+    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf lib.cjs && rm -rf ./node_modules/.cache/nx",
+    "build": "rollup -c",
     "dev": "tsc --watch"
   },
   "exports": {
     ".": {
-      "import": "./lib.esm/index.js",
-      "require": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "types": {
+        "require": "./lib/index.d.ts",
+        "default": "./lib/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/index.cjs",
+        "default": "./lib.esm/index.js"
+      }
     },
-    "./common-core": "./lib/commonCore/index.js",
-    "./streams-typings": "./lib/streamsTypings/index.js",
-    "./common-evm-utils": "./lib/commonEvmUtils/index.js",
-    "./common-sol-utils": "./lib/commonSolUtils/index.js",
-    "./common-auth-utils": "./lib/commonAuthUtils/index.js",
-    "./common-streams-utils": "./lib/commonStreamsUtils/index.js",
-    "./auth": "./lib/auth/index.js",
-    "./streams": "./lib/streams/index.js"
+    "./common-core": {
+      "types": {
+        "require": "./lib.cjs/commonCore/index.d.ts",
+        "default": "./lib.esm/commonCore/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/commonCore/index.cjs",
+        "default": "./lib.esm/commonCore/index.js"
+      }
+    },
+    "./streams-typings": {
+      "types": {
+        "require": "./lib.cjs/streamsTypings/index.d.ts",
+        "default": "./lib.esm/streamsTypings/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/streamsTypings/index.cjs",
+        "default": "./lib.esm/streamsTypings/index.js"
+      }
+    },
+    "./common-evm-utils": {
+      "types": {
+        "require": "./lib.cjs/commonEvmUtils/index.d.ts",
+        "default": "./lib.esm/commonEvmUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/commonEvmUtils/index.cjs",
+        "default": "./lib.esm/commonEvmUtils/index.js"
+      }
+    },
+    "./common-sol-utils": {
+      "types": {
+        "require": "./lib.cjs/commonSolUtils/index.d.ts",
+        "default": "./lib.esm/commonSolUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/commonSolUtils/index.cjs",
+        "default": "./lib.esm/commonSolUtils/index.js"
+      }
+    },
+    "./common-auth-utils": {
+      "types": {
+        "require": "./lib.cjs/commonAuthUtils/index.d.ts",
+        "default": "./lib.esm/commonAuthUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/commonAuthUtils/index.cjs",
+        "default": "./lib.esm/commonAuthUtils/index.js"
+      }
+    },
+    "./common-streams-utils": {
+      "types": {
+        "require": "./lib.cjs/commonStreamsUtils/index.d.ts",
+        "default": "./lib.esm/commonStreamsUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/commonStreamsUtils/index.cjs",
+        "default": "./lib.esm/commonStreamsUtils/index.js"
+      }
+    },
+    "./auth": {
+      "types": {
+        "require": "./lib.cjs/auth/index.d.ts",
+        "default": "./lib.esm/auth/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/auth/index.cjs",
+        "default": "./lib.esm/auth/index.js"
+      }
+    },
+    "./streams": {
+      "types": {
+        "require": "./lib.cjs/streams/index.d.ts",
+        "default": "./lib.esm/streams/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/streams/index.cjs",
+        "default": "./lib.esm/streams/index.js"
+      }
+    }
   },
   "typesVersions": {
     "*": {

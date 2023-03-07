@@ -6,6 +6,7 @@ packages/**/lib/**/*
 dist
 coverage/
 lib.esm
+lib.cjs
 
 # Generated files
 packages/**/generated/**/*
@@ -14,6 +15,7 @@ packages/core/src/version.ts
 **/src/operations/openapi.ts
 
 node_modules
+.yarn/
 .yarnrc.yml
 
 # Demos

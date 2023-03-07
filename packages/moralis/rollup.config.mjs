@@ -6,19 +6,16 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
 import cleaner from 'rollup-plugin-cleaner';
+import typescript from 'rollup-plugin-typescript2';
+import fs from 'fs';
+
+const external = Object.keys(JSON.parse(fs.readFileSync('./package.json', 'utf8')).dependencies);
 
 /**
  * Generate UMD build, based on the input file.
  * 'input' should be preferably an ESM build.
  */
-const getUMDConfig = ({ input, name, moduleName, outFolder }) => {
-  const outputFiles = [
-    `${outFolder}/${moduleName}.js`,
-    `${outFolder}/${moduleName}.js.map`,
-    `${outFolder}/${moduleName}.min.js`,
-    `${outFolder}/${moduleName}.min.js.map`,
-  ];
-
+const getUmdConfig = ({ input, name, moduleName, outFolder }) => {
   return {
     input,
     output: [
@@ -37,12 +34,9 @@ const getUMDConfig = ({ input, name, moduleName, outFolder }) => {
       },
     ],
     plugins: [
-      cleaner({
-        targets: outputFiles,
-      }),
+      commonjs(),
       nodePolyfills(),
       peerDepsExternal(),
-      commonjs(),
       nodeResolve({
         browser: true,
         preferBuiltins: false,
@@ -53,8 +47,46 @@ const getUMDConfig = ({ input, name, moduleName, outFolder }) => {
   };
 };
 
+function getLibConfig(clean, input, outputDir) {
+  return {
+    input,
+    plugins: [
+      clean &&
+        cleaner({
+          targets: ['./dist', './lib', './lib.cjs', './lib.esm'],
+        }),
+      typescript({
+        useTsconfigDeclarationDir: true,
+      }),
+      nodeResolve(),
+    ],
+    external,
+    cache: false,
+    output: [
+      {
+        file: `./lib.cjs/${outputDir}index.cjs`,
+        format: 'cjs',
+        exports: 'named',
+      },
+      {
+        file: `./lib.esm/${outputDir}index.js`,
+        format: 'esm',
+      },
+    ],
+  };
+}
+
 export default [
-  getUMDConfig({
+  getLibConfig(true, './src/index.ts', ''),
+  getLibConfig(false, './src/commonCore/index.ts', 'commonCore/'),
+  getLibConfig(false, './src/streamsTypings/index.ts', 'streamsTypings/'),
+  getLibConfig(false, './src/commonEvmUtils/index.ts', 'commonEvmUtils/'),
+  getLibConfig(false, './src/commonSolUtils/index.ts', 'commonSolUtils/'),
+  getLibConfig(false, './src/commonAuthUtils/index.ts', 'commonAuthUtils/'),
+  getLibConfig(false, './src/commonStreamsUtils/index.ts', 'commonStreamsUtils/'),
+  getLibConfig(false, './src/auth/index.ts', 'auth/'),
+  getLibConfig(false, './src/streams/index.ts', 'streams/'),
+  getUmdConfig({
     input: 'lib.esm/index.js',
     name: 'Moralis',
     moduleName: 'moralis',

@@ -7424,8 +7424,15 @@ __metadata:
   dependencies:
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/common-evm-utils": ^2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     axios: ^1.2.1
     jest: 29.3.1
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7439,8 +7446,15 @@ __metadata:
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/common-evm-utils": ^2.14.3
     "@moralisweb3/common-sol-utils": ^2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7565,8 +7579,15 @@ __metadata:
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@noble/hashes": ^1.2.0
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7581,8 +7602,15 @@ __metadata:
     "@moralisweb3/common-sol-utils": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@moralisweb3/streams-typings": ^1.0.6
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7591,9 +7619,16 @@ __metadata:
   resolution: "@moralisweb3/common-core@workspace:packages/common/core"
   dependencies:
     "@moralisweb3/eslint-config": ^1.0.2
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     axios: ^1.2.1
     jest: 29.3.1
     msw: 0.49.1
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7606,8 +7641,15 @@ __metadata:
     "@ethersproject/transactions": ^5.7.0
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7617,11 +7659,18 @@ __metadata:
   dependencies:
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     bn.js: ^5.2.1
     bs58: ^5.0.0
     buffer: ^6.0.3
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7635,8 +7684,15 @@ __metadata:
     "@moralisweb3/common-evm-utils": ^2.14.3
     "@moralisweb3/eslint-config": ^1.0.2
     "@moralisweb3/streams-typings": ^1.0.6
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7665,8 +7721,15 @@ __metadata:
     "@moralisweb3/api-utils": ^2.14.3
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/common-evm-utils": ^2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7675,6 +7738,13 @@ __metadata:
   resolution: "@moralisweb3/evm-utils@workspace:packages/evmUtils"
   dependencies:
     "@moralisweb3/common-evm-utils": ^2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7747,8 +7817,15 @@ __metadata:
     "@moralisweb3/api-utils": ^2.14.3
     "@moralisweb3/common-core": ^2.14.3
     "@moralisweb3/common-sol-utils": ^2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7757,6 +7834,13 @@ __metadata:
   resolution: "@moralisweb3/sol-utils@workspace:packages/solUtils"
   dependencies:
     "@moralisweb3/common-sol-utils": ^2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
   languageName: unknown
   linkType: soft
 
@@ -7781,10 +7865,17 @@ __metadata:
     "@moralisweb3/common-streams-utils": ^2.14.3
     "@moralisweb3/streams-typings": ^1.0.6
     "@moralisweb3/test-utils": 2.14.3
+    "@rollup/plugin-commonjs": ^24.0.1
+    "@rollup/plugin-node-resolve": ^15.0.1
     "@types/ethereumjs-util": 5.2.0
     ethereumjs-util: ^7.1.0
     jest: 29.3.1
     openapi-typescript: ^5.2.0
+    rollup: ^3.10.1
+    rollup-plugin-cleaner: ^1.0.0
+    rollup-plugin-dts: ^5.2.0
+    rollup-plugin-node-polyfills: ^0.2.1
+    rollup-plugin-typescript2: ^0.34.1
     web3-eth-abi: ^1.8.0
   languageName: unknown
   linkType: soft
@@ -8933,6 +9024,16 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
   checksum: 8be16e27863c219edbb25a4e6ec2fe0e1e451d9e917b6a43cf2ae5bc025a6b8faaa40f82a6e53b66d0de37b58ff472c6c3d57a83037ae635041f8df959d6d9aa
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^4.1.2":
+  version: 4.2.1
+  resolution: "@rollup/pluginutils@npm:4.2.1"
+  dependencies:
+    estree-walker: ^2.0.1
+    picomatch: ^2.2.2
+  checksum: 6bc41f22b1a0f1efec3043899e4d3b6b1497b3dea4d94292d8f83b4cf07a1073ecbaedd562a22d11913ff7659f459677b01b09e9598a98936e746780ecc93a12
   languageName: node
   linkType: hard
 
@@ -15709,6 +15810,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"demo-cli-common-js@workspace:demos/cli-common-js":
+  version: 0.0.0-use.local
+  resolution: "demo-cli-common-js@workspace:demos/cli-common-js"
+  dependencies:
+    moralis: ^2.14.3
+  languageName: unknown
+  linkType: soft
+
+"demo-cli-esm-js@workspace:demos/cli-esm-js":
+  version: 0.0.0-use.local
+  resolution: "demo-cli-esm-js@workspace:demos/cli-esm-js"
+  dependencies:
+    moralis: ^2.14.3
+  languageName: unknown
+  linkType: soft
+
 "demo-cli@workspace:demos/cli":
   version: 0.0.0-use.local
   resolution: "demo-cli@workspace:demos/cli"
@@ -17753,7 +17870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-walker@npm:^2.0.2":
+"estree-walker@npm:^2.0.1, estree-walker@npm:^2.0.2":
   version: 2.0.2
   resolution: "estree-walker@npm:2.0.2"
   checksum: 6151e6f9828abe2259e57f5fd3761335bb0d2ebd76dc1a01048ccee22fabcfef3c0859300f6d83ff0d1927849368775ec5a6d265dde2f6de5a1be1721cd94efc
@@ -18796,7 +18913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^3.3.1":
+"find-cache-dir@npm:^3.3.1, find-cache-dir@npm:^3.3.2":
   version: 3.3.2
   resolution: "find-cache-dir@npm:3.3.2"
   dependencies:
@@ -24594,6 +24711,15 @@ __metadata:
   dependencies:
     "@jridgewell/sourcemap-codec": ^1.4.13
   checksum: 273faaa50baadb7a2df6e442eac34ad611304fc08fe16e24fe2e472fd944bfcb73ffb50d2dc972dc04e92784222002af46868cb9698b1be181c81830fd95a13e
+  languageName: node
+  linkType: hard
+
+"magic-string@npm:^0.29.0":
+  version: 0.29.0
+  resolution: "magic-string@npm:0.29.0"
+  dependencies:
+    "@jridgewell/sourcemap-codec": ^1.4.13
+  checksum: 19e5398fcfc44804917127c72ad622c68a19a0a10cbdb8d4f9f9417584a087fe9e117140bfb2463d86743cf1ed9cf4182ae0b0ad1a7536f7fdda257ee4449ffb
   languageName: node
   linkType: hard
 
@@ -30618,6 +30744,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-dts@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "rollup-plugin-dts@npm:5.2.0"
+  dependencies:
+    "@babel/code-frame": ^7.18.6
+    magic-string: ^0.29.0
+  peerDependencies:
+    rollup: ^3.0.0
+    typescript: ^4.1
+  dependenciesMeta:
+    "@babel/code-frame":
+      optional: true
+  checksum: cb4a1ff5307efb9a89edd72b5bd1760d8dd3df7b7c5ea61615755669619ec1441e916fe1452068bc17dbae17efbd4cfe6f55478690eb809800f0ffdb76a52fc9
+  languageName: node
+  linkType: hard
+
 "rollup-plugin-inject@npm:^3.0.0":
   version: 3.0.2
   resolution: "rollup-plugin-inject@npm:3.0.2"
@@ -30672,6 +30814,22 @@ __metadata:
   peerDependencies:
     rollup: ^2.0.0
   checksum: af84bb7a7a894cd00852b6486528dfb8653cf94df4c126f95f389a346f401d054b08c46bee519a2ab6a22b33804d1d6ac6d8c90b1b2bf8fffb097eed73fc3c72
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-typescript2@npm:^0.34.1":
+  version: 0.34.1
+  resolution: "rollup-plugin-typescript2@npm:0.34.1"
+  dependencies:
+    "@rollup/pluginutils": ^4.1.2
+    find-cache-dir: ^3.3.2
+    fs-extra: ^10.0.0
+    semver: ^7.3.7
+    tslib: ^2.4.0
+  peerDependencies:
+    rollup: ">=1.26.3"
+    typescript: ">=2.4.0"
+  checksum: 107e66b9ab1aaf4b237564e500ea9de9f2d3f0a81be5139dc753fc76bbf00a1a2230eb1ec59145d2dfc4c4da9be8211f1f3e1370007efe1e24ce45a00905e558
   languageName: node
   linkType: hard
 

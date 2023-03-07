@@ -3,8 +3,27 @@
   "author": "Moralis",
   "version": "2.14.3",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "type": "module",
+  "main": "./lib.esm/index.js",
   "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./lib/index.d.ts",
+        "default": "./lib/index.d.ts"
+      },
+      "default": {
+        "require": "./lib.cjs/index.cjs",
+        "default": "./lib.esm/index.js"
+      }
+    }
+  },
+  "files": [
+    "lib/*",
+    "lib.cjs/*",
+    "lib.esm/*"
+  ],
   "sideEffects": false,
   "moralis": {
     "name": "Evm Api",
@@ -12,22 +31,26 @@
     "scope": "server",
     "description": "Make calls to the Evm blockchain via Moralis Evm Apis"
   },
-  "files": [
-    "lib/*"
-  ],
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
     "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils",
-    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf lib.cjs && rm -rf ./node_modules/.cache/nx",
+    "build": "rollup -c",
     "dev": "tsc --watch"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "jest": "29.3.1",
-    "openapi-typescript": "^5.2.0"
+    "openapi-typescript": "^5.2.0",
+    "rollup": "^3.10.1",
+    "rollup-plugin-cleaner": "^1.0.0",
+    "rollup-plugin-dts": "^5.2.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rollup-plugin-typescript2": "^0.34.1"
   },
   "dependencies": {
     "@moralisweb3/api-utils": "^2.14.3",
