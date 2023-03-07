@@ -1,33 +1,15 @@
 import Core from '@moralisweb3/common-core';
-import { SWRConfiguration } from 'swr';
+// import { SWRConfiguration } from 'swr';
 import { MoralisConfigValues } from 'moralis/lib/config/MoralisConfig';
 import { ReactNode } from 'react';
+import { QueryObserverOptions } from '@tanstack/react-query';
+import { QueryOptionKeys } from '../hooks/useQuery';
 
-export interface FetchConfig
-  extends Pick<
-    SWRConfiguration,
-    | 'revalidateOnMount'
-    | 'revalidateIfStale'
-    | 'revalidateOnFocus'
-    | 'revalidateOnReconnect'
-    | 'refreshInterval'
-    | 'refreshWhenHidden'
-    | 'refreshWhenOffline'
-    | 'shouldRetryOnError'
-    | 'dedupingInterval'
-    | 'focusThrottleInterval'
-    | 'loadingTimeout'
-    | 'errorRetryInterval'
-    | 'errorRetryCount'
-    | 'onError'
-    | 'onSuccess'
-    | 'onErrorRetry'
-    | 'onDiscarded'
-  > {}
+export interface FetchConfig extends Pick<QueryObserverOptions<unknown, unknown>, QueryOptionKeys> {}
 
 export interface MoralisContextValue {
   core: Core;
-  fetchConfig?: FetchConfig;
+  // fetchConfig?: FetchConfig;
 }
 
 export type MoralisConfig = MoralisConfigValues & FetchConfig;

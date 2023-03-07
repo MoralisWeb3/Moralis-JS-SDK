@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import { ActionConfig } from 'node-plop';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ModuleGenerator } from '../../../utils/ModuleGenerator';
-import path from 'node:path';
-import { getHookName } from '../../utils/names';
 import { Module } from '../../types';
+import { getHookName } from '../../utils/names';
 
 export class HooksGenerator {
   private moduleGenerator: ModuleGenerator;
@@ -21,7 +21,6 @@ export class HooksGenerator {
       const name = getHookName(operation.name, this.module);
       const isPaginated = operation.firstPageIndex === 0 || operation.firstPageIndex === 1;
       const isNullable = operation?.isNullable;
-      const hasParams = operation.bodyParamNames || operation.urlPathParamNames || operation.urlSearchParamNames;
 
       let resolverType = '_useResolver';
       if (isPaginated) {
@@ -34,7 +33,7 @@ export class HooksGenerator {
       return {
         name,
         resolverType,
-        request: hasParams && `${_.upperFirst(operation.name)}Request`,
+        request: `${_.upperFirst(operation.name)}Request`,
         response: `${_.upperFirst(operation.name)}Response`,
         operation: `${operation.name}Operation`,
         isNullable,

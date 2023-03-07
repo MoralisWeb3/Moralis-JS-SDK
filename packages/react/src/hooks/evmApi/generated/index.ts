@@ -2,10 +2,11 @@
  * @warn This file is auto-generated
  * Don't modify it
  */
+import Moralis from 'moralis'
 import {
     endpointWeightsOperation,
     EndpointWeightsResponse,
-    
+    EndpointWeightsRequest,
     getBlockOperation,
     GetBlockResponse,
     GetBlockRequest,
@@ -27,6 +28,9 @@ import {
     getNativeBalanceOperation,
     GetNativeBalanceResponse,
     GetNativeBalanceRequest,
+    getNativeBalancesForAddressesOperation,
+    GetNativeBalancesForAddressesResponse,
+    GetNativeBalancesForAddressesRequest,
     getNFTContractMetadataOperation,
     GetNFTContractMetadataResponse,
     GetNFTContractMetadataRequest,
@@ -125,134 +129,136 @@ import {
     UploadFolderRequest,
     web3ApiVersionOperation,
     Web3ApiVersionResponse,
-    
+    Web3ApiVersionRequest,
 } from 'moralis/common-evm-utils';
-import { ResolverFetchParams, _useResolver,_useResolverNullable,_useResolverPaginated, } from '../../resolvers';
-import Moralis from 'moralis'
-import { UseQueryConfig } from '../../useQuery';
+import { _useResolver,_useResolverNullable,_useResolverPaginated, } from '../../resolvers';
+import { QueryConfig } from '../../useQuery';
 
 const { baseUrl } = Moralis.EvmApi;
 
-export const useEvmEndpointWeights = ( fetchParams?: ResolverFetchParams<EndpointWeightsResponse>) => {
-  return _useResolver(endpointWeightsOperation, baseUrl, {}, fetchParams);
+export const useEvmEndpointWeights = (params?: QueryConfig<EndpointWeightsResponse, Error> & EndpointWeightsRequest) => {
+  return _useResolver(endpointWeightsOperation, baseUrl, params);
 };
-export const useEvmBlock = (request?: GetBlockRequest, fetchParams?: ResolverFetchParams<GetBlockResponse | null>) => {
-  return _useResolverNullable(getBlockOperation, baseUrl, request, fetchParams);
+export const useEvmBlock = (params?: QueryConfig<GetBlockResponse, Error> & GetBlockRequest) => {
+  return _useResolverNullable(getBlockOperation, baseUrl, params);
 };
-export const useEvmContractEvents = (request?: GetContractEventsRequest, fetchParams?: ResolverFetchParams<GetContractEventsResponse>) => {
-  return _useResolverPaginated(getContractEventsOperation, baseUrl, request, fetchParams);
+export const useEvmContractEvents = (params?: QueryConfig<GetContractEventsResponse, Error> & GetContractEventsRequest) => {
+  return _useResolverPaginated(getContractEventsOperation, baseUrl, params);
 };
-export const useEvmContractLogs = (request?: GetContractLogsRequest, fetchParams?: ResolverFetchParams<GetContractLogsResponse>) => {
-  return _useResolverPaginated(getContractLogsOperation, baseUrl, request, fetchParams);
+export const useEvmContractLogs = (params?: QueryConfig<GetContractLogsResponse, Error> & GetContractLogsRequest) => {
+  return _useResolverPaginated(getContractLogsOperation, baseUrl, params);
 };
-export const useEvmContractNFTs = (request?: GetContractNFTsRequest, fetchParams?: ResolverFetchParams<GetContractNFTsResponse>) => {
-  return _useResolverPaginated(getContractNFTsOperation, baseUrl, request, fetchParams);
+export const useEvmContractNFTs = (params?: QueryConfig<GetContractNFTsResponse, Error> & GetContractNFTsRequest) => {
+  return _useResolverPaginated(getContractNFTsOperation, baseUrl, params);
 };
-export const useEvmDateToBlock = (params?: GetDateToBlockRequest & UseQueryConfig<GetDateToBlockResponse>) => {
+export const useEvmDateToBlock = (params?: QueryConfig<GetDateToBlockResponse, Error> & GetDateToBlockRequest) => {
   return _useResolver(getDateToBlockOperation, baseUrl, params);
 };
-export const useEvmMultipleNFTs = (request?: GetMultipleNFTsRequest, fetchParams?: ResolverFetchParams<GetMultipleNFTsResponse>) => {
-  return _useResolver(getMultipleNFTsOperation, baseUrl, request, fetchParams);
+export const useEvmMultipleNFTs = (params?: QueryConfig<GetMultipleNFTsResponse, Error> & GetMultipleNFTsRequest) => {
+  return _useResolver(getMultipleNFTsOperation, baseUrl, params);
 };
-export const useEvmNativeBalance = (request?: GetNativeBalanceRequest, fetchParams?: ResolverFetchParams<GetNativeBalanceResponse>) => {
-  return _useResolver(getNativeBalanceOperation, baseUrl, request, fetchParams);
+export const useEvmNativeBalance = (params?: QueryConfig<GetNativeBalanceResponse, Error> & GetNativeBalanceRequest) => {
+  return _useResolver(getNativeBalanceOperation, baseUrl, params);
 };
-export const useEvmNFTContractMetadata = (request?: GetNFTContractMetadataRequest, fetchParams?: ResolverFetchParams<GetNFTContractMetadataResponse | null>) => {
-  return _useResolverNullable(getNFTContractMetadataOperation, baseUrl, request, fetchParams);
+export const useEvmNativeBalancesForAddresses = (params?: QueryConfig<GetNativeBalancesForAddressesResponse, Error> & GetNativeBalancesForAddressesRequest) => {
+  return _useResolver(getNativeBalancesForAddressesOperation, baseUrl, params);
 };
-export const useEvmNFTContractTransfers = (request?: GetNFTContractTransfersRequest, fetchParams?: ResolverFetchParams<GetNFTContractTransfersResponse>) => {
-  return _useResolverPaginated(getNFTContractTransfersOperation, baseUrl, request, fetchParams);
+export const useEvmNFTContractMetadata = (params?: QueryConfig<GetNFTContractMetadataResponse, Error> & GetNFTContractMetadataRequest) => {
+  return _useResolverNullable(getNFTContractMetadataOperation, baseUrl, params);
 };
-export const useEvmNFTLowestPrice = (request?: GetNFTLowestPriceRequest, fetchParams?: ResolverFetchParams<GetNFTLowestPriceResponse | null>) => {
-  return _useResolverNullable(getNFTLowestPriceOperation, baseUrl, request, fetchParams);
+export const useEvmNFTContractTransfers = (params?: QueryConfig<GetNFTContractTransfersResponse, Error> & GetNFTContractTransfersRequest) => {
+  return _useResolverPaginated(getNFTContractTransfersOperation, baseUrl, params);
 };
-export const useEvmNFTMetadata = (request?: GetNFTMetadataRequest, fetchParams?: ResolverFetchParams<GetNFTMetadataResponse | null>) => {
-  return _useResolverNullable(getNFTMetadataOperation, baseUrl, request, fetchParams);
+export const useEvmNFTLowestPrice = (params?: QueryConfig<GetNFTLowestPriceResponse, Error> & GetNFTLowestPriceRequest) => {
+  return _useResolverNullable(getNFTLowestPriceOperation, baseUrl, params);
 };
-export const useEvmNFTOwners = (request?: GetNFTOwnersRequest, fetchParams?: ResolverFetchParams<GetNFTOwnersResponse>) => {
-  return _useResolverPaginated(getNFTOwnersOperation, baseUrl, request, fetchParams);
+export const useEvmNFTMetadata = (params?: QueryConfig<GetNFTMetadataResponse, Error> & GetNFTMetadataRequest) => {
+  return _useResolverNullable(getNFTMetadataOperation, baseUrl, params);
 };
-export const useEvmNFTTokenIdOwners = (request?: GetNFTTokenIdOwnersRequest, fetchParams?: ResolverFetchParams<GetNFTTokenIdOwnersResponse>) => {
-  return _useResolverPaginated(getNFTTokenIdOwnersOperation, baseUrl, request, fetchParams);
+export const useEvmNFTOwners = (params?: QueryConfig<GetNFTOwnersResponse, Error> & GetNFTOwnersRequest) => {
+  return _useResolverPaginated(getNFTOwnersOperation, baseUrl, params);
 };
-export const useEvmNFTTrades = (request?: GetNFTTradesRequest, fetchParams?: ResolverFetchParams<GetNFTTradesResponse>) => {
-  return _useResolverPaginated(getNFTTradesOperation, baseUrl, request, fetchParams);
+export const useEvmNFTTokenIdOwners = (params?: QueryConfig<GetNFTTokenIdOwnersResponse, Error> & GetNFTTokenIdOwnersRequest) => {
+  return _useResolverPaginated(getNFTTokenIdOwnersOperation, baseUrl, params);
 };
-export const useEvmNFTTransfersByBlock = (request?: GetNFTTransfersByBlockRequest, fetchParams?: ResolverFetchParams<GetNFTTransfersByBlockResponse>) => {
-  return _useResolverPaginated(getNFTTransfersByBlockOperation, baseUrl, request, fetchParams);
+export const useEvmNFTTrades = (params?: QueryConfig<GetNFTTradesResponse, Error> & GetNFTTradesRequest) => {
+  return _useResolverPaginated(getNFTTradesOperation, baseUrl, params);
 };
-export const useEvmNFTTransfersFromToBlock = (request?: GetNFTTransfersFromToBlockRequest, fetchParams?: ResolverFetchParams<GetNFTTransfersFromToBlockResponse>) => {
-  return _useResolverPaginated(getNFTTransfersFromToBlockOperation, baseUrl, request, fetchParams);
+export const useEvmNFTTransfersByBlock = (params?: QueryConfig<GetNFTTransfersByBlockResponse, Error> & GetNFTTransfersByBlockRequest) => {
+  return _useResolverPaginated(getNFTTransfersByBlockOperation, baseUrl, params);
 };
-export const useEvmNFTTransfers = (request?: GetNFTTransfersRequest, fetchParams?: ResolverFetchParams<GetNFTTransfersResponse>) => {
-  return _useResolverPaginated(getNFTTransfersOperation, baseUrl, request, fetchParams);
+export const useEvmNFTTransfersFromToBlock = (params?: QueryConfig<GetNFTTransfersFromToBlockResponse, Error> & GetNFTTransfersFromToBlockRequest) => {
+  return _useResolverPaginated(getNFTTransfersFromToBlockOperation, baseUrl, params);
 };
-export const useEvmPairAddress = (request?: GetPairAddressRequest, fetchParams?: ResolverFetchParams<GetPairAddressResponse>) => {
-  return _useResolver(getPairAddressOperation, baseUrl, request, fetchParams);
+export const useEvmNFTTransfers = (params?: QueryConfig<GetNFTTransfersResponse, Error> & GetNFTTransfersRequest) => {
+  return _useResolverPaginated(getNFTTransfersOperation, baseUrl, params);
 };
-export const useEvmPairReserves = (request?: GetPairReservesRequest, fetchParams?: ResolverFetchParams<GetPairReservesResponse>) => {
-  return _useResolver(getPairReservesOperation, baseUrl, request, fetchParams);
+export const useEvmPairAddress = (params?: QueryConfig<GetPairAddressResponse, Error> & GetPairAddressRequest) => {
+  return _useResolver(getPairAddressOperation, baseUrl, params);
 };
-export const useEvmTokenAllowance = (request?: GetTokenAllowanceRequest, fetchParams?: ResolverFetchParams<GetTokenAllowanceResponse>) => {
-  return _useResolver(getTokenAllowanceOperation, baseUrl, request, fetchParams);
+export const useEvmPairReserves = (params?: QueryConfig<GetPairReservesResponse, Error> & GetPairReservesRequest) => {
+  return _useResolver(getPairReservesOperation, baseUrl, params);
 };
-export const useEvmTokenMetadataBySymbol = (request?: GetTokenMetadataBySymbolRequest, fetchParams?: ResolverFetchParams<GetTokenMetadataBySymbolResponse>) => {
-  return _useResolver(getTokenMetadataBySymbolOperation, baseUrl, request, fetchParams);
+export const useEvmTokenAllowance = (params?: QueryConfig<GetTokenAllowanceResponse, Error> & GetTokenAllowanceRequest) => {
+  return _useResolver(getTokenAllowanceOperation, baseUrl, params);
 };
-export const useEvmTokenMetadata = (request?: GetTokenMetadataRequest, fetchParams?: ResolverFetchParams<GetTokenMetadataResponse>) => {
-  return _useResolver(getTokenMetadataOperation, baseUrl, request, fetchParams);
+export const useEvmTokenMetadataBySymbol = (params?: QueryConfig<GetTokenMetadataBySymbolResponse, Error> & GetTokenMetadataBySymbolRequest) => {
+  return _useResolver(getTokenMetadataBySymbolOperation, baseUrl, params);
 };
-export const useEvmTokenPrice = (request?: GetTokenPriceRequest, fetchParams?: ResolverFetchParams<GetTokenPriceResponse>) => {
-  return _useResolver(getTokenPriceOperation, baseUrl, request, fetchParams);
+export const useEvmTokenMetadata = (params?: QueryConfig<GetTokenMetadataResponse, Error> & GetTokenMetadataRequest) => {
+  return _useResolver(getTokenMetadataOperation, baseUrl, params);
 };
-export const useEvmTokenTransfers = (request?: GetTokenTransfersRequest, fetchParams?: ResolverFetchParams<GetTokenTransfersResponse>) => {
-  return _useResolverPaginated(getTokenTransfersOperation, baseUrl, request, fetchParams);
+export const useEvmTokenPrice = (params?: QueryConfig<GetTokenPriceResponse, Error> & GetTokenPriceRequest) => {
+  return _useResolver(getTokenPriceOperation, baseUrl, params);
 };
-export const useEvmTransaction = (request?: GetTransactionRequest, fetchParams?: ResolverFetchParams<GetTransactionResponse | null>) => {
-  return _useResolverNullable(getTransactionOperation, baseUrl, request, fetchParams);
+export const useEvmTokenTransfers = (params?: QueryConfig<GetTokenTransfersResponse, Error> & GetTokenTransfersRequest) => {
+  return _useResolverPaginated(getTokenTransfersOperation, baseUrl, params);
 };
-export const useEvmWalletNFTCollections = (request?: GetWalletNFTCollectionsRequest, fetchParams?: ResolverFetchParams<GetWalletNFTCollectionsResponse>) => {
-  return _useResolverPaginated(getWalletNFTCollectionsOperation, baseUrl, request, fetchParams);
+export const useEvmTransaction = (params?: QueryConfig<GetTransactionResponse, Error> & GetTransactionRequest) => {
+  return _useResolverNullable(getTransactionOperation, baseUrl, params);
 };
-export const useEvmWalletNFTs = (request?: GetWalletNFTsRequest, fetchParams?: ResolverFetchParams<GetWalletNFTsResponse>) => {
-  return _useResolverPaginated(getWalletNFTsOperation, baseUrl, request, fetchParams);
+export const useEvmWalletNFTCollections = (params?: QueryConfig<GetWalletNFTCollectionsResponse, Error> & GetWalletNFTCollectionsRequest) => {
+  return _useResolverPaginated(getWalletNFTCollectionsOperation, baseUrl, params);
 };
-export const useEvmWalletNFTTransfers = (request?: GetWalletNFTTransfersRequest, fetchParams?: ResolverFetchParams<GetWalletNFTTransfersResponse>) => {
-  return _useResolverPaginated(getWalletNFTTransfersOperation, baseUrl, request, fetchParams);
+export const useEvmWalletNFTs = (params?: QueryConfig<GetWalletNFTsResponse, Error> & GetWalletNFTsRequest) => {
+  return _useResolverPaginated(getWalletNFTsOperation, baseUrl, params);
 };
-export const useEvmWalletTokenBalances = (request?: GetWalletTokenBalancesRequest, fetchParams?: ResolverFetchParams<GetWalletTokenBalancesResponse>) => {
-  return _useResolver(getWalletTokenBalancesOperation, baseUrl, request, fetchParams);
+export const useEvmWalletNFTTransfers = (params?: QueryConfig<GetWalletNFTTransfersResponse, Error> & GetWalletNFTTransfersRequest) => {
+  return _useResolverPaginated(getWalletNFTTransfersOperation, baseUrl, params);
 };
-export const useEvmWalletTokenTransfers = (request?: GetWalletTokenTransfersRequest, fetchParams?: ResolverFetchParams<GetWalletTokenTransfersResponse>) => {
-  return _useResolverPaginated(getWalletTokenTransfersOperation, baseUrl, request, fetchParams);
+export const useEvmWalletTokenBalances = (params?: QueryConfig<GetWalletTokenBalancesResponse, Error> & GetWalletTokenBalancesRequest) => {
+  return _useResolver(getWalletTokenBalancesOperation, baseUrl, params);
 };
-export const useEvmWalletTransactions = (request?: GetWalletTransactionsRequest, fetchParams?: ResolverFetchParams<GetWalletTransactionsResponse>) => {
-  return _useResolverPaginated(getWalletTransactionsOperation, baseUrl, request, fetchParams);
+export const useEvmWalletTokenTransfers = (params?: QueryConfig<GetWalletTokenTransfersResponse, Error> & GetWalletTokenTransfersRequest) => {
+  return _useResolverPaginated(getWalletTokenTransfersOperation, baseUrl, params);
 };
-export const useEvmWalletTransactionsVerbose = (request?: GetWalletTransactionsVerboseRequest, fetchParams?: ResolverFetchParams<GetWalletTransactionsVerboseResponse>) => {
-  return _useResolverPaginated(getWalletTransactionsVerboseOperation, baseUrl, request, fetchParams);
+export const useEvmWalletTransactions = (params?: QueryConfig<GetWalletTransactionsResponse, Error> & GetWalletTransactionsRequest) => {
+  return _useResolverPaginated(getWalletTransactionsOperation, baseUrl, params);
 };
-export const useEvmResolveAddress = (request?: ResolveAddressRequest, fetchParams?: ResolverFetchParams<ResolveAddressResponse | null>) => {
-  return _useResolverNullable(resolveAddressOperation, baseUrl, request, fetchParams);
+export const useEvmWalletTransactionsVerbose = (params?: QueryConfig<GetWalletTransactionsVerboseResponse, Error> & GetWalletTransactionsVerboseRequest) => {
+  return _useResolverPaginated(getWalletTransactionsVerboseOperation, baseUrl, params);
 };
-export const useEvmResolveDomain = (request?: ResolveDomainRequest, fetchParams?: ResolverFetchParams<ResolveDomainResponse | null>) => {
-  return _useResolverNullable(resolveDomainOperation, baseUrl, request, fetchParams);
+export const useEvmResolveAddress = (params?: QueryConfig<ResolveAddressResponse, Error> & ResolveAddressRequest) => {
+  return _useResolverNullable(resolveAddressOperation, baseUrl, params);
 };
-export const useEvmReSyncMetadata = (request?: ReSyncMetadataRequest, fetchParams?: ResolverFetchParams<ReSyncMetadataResponse>) => {
-  return _useResolver(reSyncMetadataOperation, baseUrl, request, fetchParams);
+export const useEvmResolveDomain = (params?: QueryConfig<ResolveDomainResponse, Error> & ResolveDomainRequest) => {
+  return _useResolverNullable(resolveDomainOperation, baseUrl, params);
 };
-export const useEvmRunContractFunction = (request?: RunContractFunctionRequest, fetchParams?: ResolverFetchParams<RunContractFunctionResponse>) => {
-  return _useResolver(runContractFunctionOperation, baseUrl, request, fetchParams);
+export const useEvmReSyncMetadata = (params?: QueryConfig<ReSyncMetadataResponse, Error> & ReSyncMetadataRequest) => {
+  return _useResolver(reSyncMetadataOperation, baseUrl, params);
 };
-export const useEvmSearchNFTs = (request?: SearchNFTsRequest, fetchParams?: ResolverFetchParams<SearchNFTsResponse>) => {
-  return _useResolverPaginated(searchNFTsOperation, baseUrl, request, fetchParams);
+export const useEvmRunContractFunction = (params?: QueryConfig<RunContractFunctionResponse, Error> & RunContractFunctionRequest) => {
+  return _useResolver(runContractFunctionOperation, baseUrl, params);
 };
-export const useEvmSyncNFTContract = (request?: SyncNFTContractRequest, fetchParams?: ResolverFetchParams<SyncNFTContractResponse>) => {
-  return _useResolver(syncNFTContractOperation, baseUrl, request, fetchParams);
+export const useEvmSearchNFTs = (params?: QueryConfig<SearchNFTsResponse, Error> & SearchNFTsRequest) => {
+  return _useResolverPaginated(searchNFTsOperation, baseUrl, params);
 };
-export const useEvmUploadFolder = (request?: UploadFolderRequest, fetchParams?: ResolverFetchParams<UploadFolderResponse>) => {
-  return _useResolver(uploadFolderOperation, baseUrl, request, fetchParams);
+export const useEvmSyncNFTContract = (params?: QueryConfig<SyncNFTContractResponse, Error> & SyncNFTContractRequest) => {
+  return _useResolver(syncNFTContractOperation, baseUrl, params);
 };
-export const useEvmWeb3ApiVersion = ( fetchParams?: ResolverFetchParams<Web3ApiVersionResponse>) => {
-  return _useResolver(web3ApiVersionOperation, baseUrl, {}, fetchParams);
+export const useEvmUploadFolder = (params?: QueryConfig<UploadFolderResponse, Error> & UploadFolderRequest) => {
+  return _useResolver(uploadFolderOperation, baseUrl, params);
+};
+export const useEvmWeb3ApiVersion = (params?: QueryConfig<Web3ApiVersionResponse, Error> & Web3ApiVersionRequest) => {
+  return _useResolver(web3ApiVersionOperation, baseUrl, params);
 };

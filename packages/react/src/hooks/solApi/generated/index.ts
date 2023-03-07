@@ -2,6 +2,7 @@
  * @warn This file is auto-generated
  * Don't modify it
  */
+import Moralis from 'moralis'
 import {
     getBalanceOperation,
     GetBalanceResponse,
@@ -22,26 +23,26 @@ import {
     GetTokenPriceResponse,
     GetTokenPriceRequest,
 } from 'moralis/common-sol-utils';
-import { ResolverFetchParams, _useResolver, } from '../../resolvers';
-import Moralis from 'moralis'
+import { _useResolver, } from '../../resolvers';
+import { QueryConfig } from '../../useQuery';
 
 const { baseUrl } = Moralis.SolApi;
 
-export const useSolBalance = (request?: GetBalanceRequest, fetchParams?: ResolverFetchParams<GetBalanceResponse>) => {
-  return _useResolver(getBalanceOperation, baseUrl, request, fetchParams);
+export const useSolBalance = (params?: QueryConfig<GetBalanceResponse, Error> & GetBalanceRequest) => {
+  return _useResolver(getBalanceOperation, baseUrl, params);
 };
-export const useSolNFTs = (request?: GetNFTsRequest, fetchParams?: ResolverFetchParams<GetNFTsResponse>) => {
-  return _useResolver(getNFTsOperation, baseUrl, request, fetchParams);
+export const useSolNFTs = (params?: QueryConfig<GetNFTsResponse, Error> & GetNFTsRequest) => {
+  return _useResolver(getNFTsOperation, baseUrl, params);
 };
-export const useSolPortfolio = (request?: GetPortfolioRequest, fetchParams?: ResolverFetchParams<GetPortfolioResponse>) => {
-  return _useResolver(getPortfolioOperation, baseUrl, request, fetchParams);
+export const useSolPortfolio = (params?: QueryConfig<GetPortfolioResponse, Error> & GetPortfolioRequest) => {
+  return _useResolver(getPortfolioOperation, baseUrl, params);
 };
-export const useSolSPL = (request?: GetSPLRequest, fetchParams?: ResolverFetchParams<GetSPLResponse>) => {
-  return _useResolver(getSPLOperation, baseUrl, request, fetchParams);
+export const useSolSPL = (params?: QueryConfig<GetSPLResponse, Error> & GetSPLRequest) => {
+  return _useResolver(getSPLOperation, baseUrl, params);
 };
-export const useSolNFTMetadata = (request?: GetNFTMetadataRequest, fetchParams?: ResolverFetchParams<GetNFTMetadataResponse>) => {
-  return _useResolver(getNFTMetadataOperation, baseUrl, request, fetchParams);
+export const useSolNFTMetadata = (params?: QueryConfig<GetNFTMetadataResponse, Error> & GetNFTMetadataRequest) => {
+  return _useResolver(getNFTMetadataOperation, baseUrl, params);
 };
-export const useSolTokenPrice = (request?: GetTokenPriceRequest, fetchParams?: ResolverFetchParams<GetTokenPriceResponse>) => {
-  return _useResolver(getTokenPriceOperation, baseUrl, request, fetchParams);
+export const useSolTokenPrice = (params?: QueryConfig<GetTokenPriceResponse, Error> & GetTokenPriceRequest) => {
+  return _useResolver(getTokenPriceOperation, baseUrl, params);
 };

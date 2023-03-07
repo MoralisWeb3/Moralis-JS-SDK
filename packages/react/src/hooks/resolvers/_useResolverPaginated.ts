@@ -1,50 +1,31 @@
-import { _useMoralisContext } from '../../context/MoralisProvider';
-import { PaginatedOperation, PaginatedRequest } from 'moralis/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
-import { ResolverFetchParams } from './types';
-import { useCallback, useMemo } from 'react';
-import useSWR from 'swr';
+import { PaginatedOperation, PaginatedRequest } from '@moralisweb3/common-core';
+import { useMemo } from 'react';
+import { _useMoralisContext } from '../../context/MoralisProvider';
+import { QueryConfig, useQuery } from '../useQuery';
 
 export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>(
   operation: PaginatedOperation<Request, JSONRequest, Response, JSONResult>,
   baseUrl: string,
-  request?: Request,
-  fetchParams?: ResolverFetchParams<Response>,
+  {
+    cacheTime,
+    enabled,
+    onError,
+    onSettled,
+    onSuccess,
+    refetchInterval,
+    suspense,
+    ...request
+  }: QueryConfig<Response, Error> & Partial<Request> = {},
 ) {
-  const { core, fetchConfig } = _useMoralisContext();
-  const { fetch: resolve } = useMemo(
-    () => new PaginatedOperationResolver(operation, baseUrl, core),
-    [operation, baseUrl, core],
-  );
+  const { core } = _useMoralisContext();
+  const resolver = useMemo(() => new PaginatedOperationResolver(operation, baseUrl, core), [operation, core]);
 
-  const fetcher = useCallback(
-    async (_url: string, req: Request) => {
-      const { result } = await resolve(req);
+  return useQuery({
+    queryKey: [request as Request],
+    queryFn: async ({ queryKey: [req] }) => {
+      const { result } = await resolver.fetch(req);
       return result;
     },
-    [resolve],
-  );
-
-  const { data, error, mutate, isValidating } = useSWR<Response>([request ? operation.id : null, request], fetcher, {
-    ...fetchConfig,
-    ...fetchParams,
   });
-
-  const fetch = useCallback(
-    (params?: Request) => {
-      const fetchRequest = params ?? request;
-      if (!fetchRequest) {
-        throw new Error('No params provided to the hook');
-      }
-      return mutate(fetcher(operation.id, fetchRequest));
-    },
-    [request],
-  );
-
-  return {
-    data,
-    error,
-    fetch,
-    isFetching: isValidating,
-  };
 }

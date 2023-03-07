@@ -1,29 +1,25 @@
 import { QueryKey, UseQueryOptions, useQuery as useReactQuery } from '@tanstack/react-query';
 
-export type UseQueryConfig<TQueryFnData, TError, TData, TQueryKey extends QueryKey = QueryKey> = Pick<
-  UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+export type QueryOptionKeys =
   | 'cacheTime'
   | 'enabled'
   | 'onError'
   | 'onSettled'
   | 'onSuccess'
   | 'refetchInterval'
-  | 'suspense'
-  | 'queryKey'
-  | 'queryFn'
+  | 'suspense';
+
+type UseQueryConfig<TQueryFnData, TError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey> = Pick<
+  UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+  QueryOptionKeys | 'queryKey' | 'queryFn'
 >;
 
-export type QueryConfig<TQueryFnData, TError, TData, TQueryKey extends QueryKey = QueryKey> = Omit<
-  UseQueryConfig<TQueryFnData, TError, TData, TQueryKey>,
+export type QueryConfig<TQueryFnData, TError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey> = Omit<
+  UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
   'queryKey' | 'queryFn'
 >;
 
-export function useQuery<
-  TQueryFnData = unknown,
-  TError = unknown,
-  TData = TQueryFnData,
-  TQueryKey extends QueryKey = QueryKey,
->({
+export function useQuery<TQueryFnData, TError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>({
   cacheTime,
   enabled,
   onError,

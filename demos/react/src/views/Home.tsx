@@ -38,41 +38,34 @@ const Home = () => {
     address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   });
 
-  const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(
-    {
-      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-    },
-    {
-      revalidateOnMount: false,
-      onSuccess: (res) => setOutput(JSON.stringify(res)),
-    },
-  );
-  const { fetch: getBlock } = useEvmBlock(
-    { chain: '0x13881', blockNumberOrHash: '10000' },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
-  );
+  const { refetch: getNFTMetadata } = useEvmNFTContractMetadata({
+    address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+    enabled: false,
+  });
 
-  const { fetch: runContractFunction } = useEvmRunContractFunction(
-    {
-      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-      functionName: 'ownerOf',
-      chain: '0x1',
-      params: {
-        _tokenId: '6651',
-      },
-      abi: ABI,
-    },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(res) },
-  );
+  const { refetch: getBlock } = useEvmBlock({
+    chain: '0x13881',
+    blockNumberOrHash: '10000',
+    onSuccess: (res) => setOutput(JSON.stringify(res)),
+  });
 
-  const { fetch: resolveDomain } = useEvmResolveDomain(
-    {
-      domain: 'brad.crypto',
+  const { refetch: runContractFunction } = useEvmRunContractFunction({
+    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+    functionName: 'ownerOf',
+    chain: '0x1',
+    params: {
+      _tokenId: '6651',
     },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
-  );
-  const { fetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
-    revalidateOnMount: false,
+    abi: ABI,
+    onSuccess: (res) => setOutput(res),
+  });
+
+  const { refetch: resolveDomain } = useEvmResolveDomain({
+    domain: 'brad.crypto',
+    onSuccess: (res) => setOutput(JSON.stringify(res)),
+  });
+
+  const { refetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
     onSuccess: (res) => setOutput(JSON.stringify(res)),
   });
 

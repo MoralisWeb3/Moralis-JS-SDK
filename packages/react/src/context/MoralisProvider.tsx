@@ -1,12 +1,11 @@
 import Moralis from 'moralis';
 import React, { FC, createContext, useContext, useMemo } from 'react';
-import { FetchConfig, MoralisContextValue, MoralisProviderProps } from './types';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { QueryClient } from '@tanstack/react-query';
+import { MoralisContextValue, MoralisProviderProps } from './types';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 Moralis.Core.config.set('product', 'React SDK');
 
-export const MoralisContext = createContext<(MoralisContextValue & QueryClient) | null>(null);
+export const MoralisContext = createContext<MoralisContextValue | null>(null);
 
 export const _useMoralisContext = () => {
   const context = useContext(MoralisContext);
@@ -16,49 +15,12 @@ export const _useMoralisContext = () => {
   return context;
 };
 
-const MoralisProvider: FC<MoralisProviderProps> = ({ children }) => {
-  // const {
-  //   revalidateOnMount,
-  //   revalidateIfStale,
-  //   revalidateOnFocus = false,
-  //   revalidateOnReconnect,
-  //   refreshInterval,
-  //   refreshWhenHidden,
-  //   refreshWhenOffline,
-  //   shouldRetryOnError,
-  //   dedupingInterval,
-  //   focusThrottleInterval,
-  //   loadingTimeout,
-  //   errorRetryInterval,
-  //   errorRetryCount,
-  //   onDiscarded = () => undefined,
-  //   onError = () => undefined,
-  //   onErrorRetry = () => undefined,
-  //   onSuccess = () => undefined,
-  //   ...moralisConfig
-  // } = config;
+const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
+  const { cacheTime, enabled, onError, onSettled, onSuccess, refetchInterval, suspense, ...moralisConfig } = config;
 
-  // const fetchConfig: FetchConfig = {
-  //   revalidateOnFocus,
-  //   revalidateOnMount,
-  //   revalidateIfStale,
-  //   revalidateOnReconnect,
-  //   refreshInterval,
-  //   refreshWhenHidden,
-  //   refreshWhenOffline,
-  //   shouldRetryOnError,
-  //   dedupingInterval,
-  //   focusThrottleInterval,
-  //   loadingTimeout,
-  //   errorRetryInterval,
-  //   errorRetryCount,
-  //   onDiscarded,
-  //   onError,
-  //   onErrorRetry,
-  //   onSuccess,
-  // };
-
-  // const queryClientContext = React.createContext<QueryClient | undefined>(undefined);
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { cacheTime, enabled, onError, onSettled, onSuccess, refetchInterval, suspense } },
+  });
 
   const core = useMemo(() => {
     if (!Moralis.Core.isStarted) {
@@ -66,8 +28,6 @@ const MoralisProvider: FC<MoralisProviderProps> = ({ children }) => {
     }
     return Moralis.Core;
   }, [moralisConfig]);
-
-  const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>

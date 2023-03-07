@@ -2,6 +2,7 @@
  * @warn This file is auto-generated
  * Don't modify it
  */
+import Moralis from 'moralis'
 import {
   {{#each hooks}}
     {{ this.operation }},
@@ -9,13 +10,13 @@ import {
     {{#if this.request}}{{ this.request }},{{/if}}
   {{/each}}
 } from '{{ commonUtils }}';
-import { ResolverFetchParams, {{#each resolversToImport}}{{ this }},{{/each}} } from '../../resolvers';
-import Moralis from 'moralis'
+import { {{#each resolversToImport}}{{ this }},{{/each}} } from '../../resolvers';
+import { QueryConfig } from '../../useQuery';
 
 const { baseUrl } = Moralis.{{ module }};
 
 {{#each hooks}}
-export const {{ this.name }} = ({{#if this.request}}request?: {{ this.request }},{{/if}} fetchParams?: ResolverFetchParams<{{ this.response }}{{#if this.isNullable}} | null{{/if}}>) => {
-  return {{ this.resolverType }}({{ this.operation }}, baseUrl, {{#if this.request}}request{{else}}{}{{/if}}, fetchParams);
+export const {{ this.name }} = (params?: QueryConfig<{{ this.response }}, Error> & {{ this.request }}) => {
+  return {{ this.resolverType }}({{ this.operation }}, baseUrl, params);
 };
 {{/each}}
