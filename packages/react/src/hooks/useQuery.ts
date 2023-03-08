@@ -10,7 +10,7 @@ export type QueryOptionKeys =
   | 'staleTime'
   | 'suspense';
 
-type UseQueryOptions<TQueryFnData, TError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey> = Pick<
+export type UseQueryOptions<TQueryFnData, TError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey> = Pick<
   UseReactQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
   QueryOptionKeys | 'queryKey' | 'queryFn'
 >;

@@ -4,7 +4,22 @@ import { useMemo } from 'react';
 import { _useMoralisContext } from '../../context/MoralisProvider';
 import { QueryOptions, useQuery } from '../useQuery';
 
-export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
+// const areArgsDefined = <Request>(args: Request, requiredArgs: (keyof Request)[]): boolean => {
+//   return requiredArgs.every((arg) => args[arg] !== undefined);
+// };
+
+// export const func = (args: Partial<Args>) => {
+//   const requiredArgs = ['arg1', 'arg2'];
+//   if (areArgsDefined(args, requiredArgs)) {
+//     // eslint-disable-next-line no-console
+//     console.log(args);
+//   }
+// };
+
+export type UseResolverParams<Response, Request> = QueryOptions<Response, Error, Response, [Request]> &
+  Partial<Request>;
+
+export function _useResolver<Request extends object, JSONRequest, Response, JSONResponse>(
   operation: Operation<Request, JSONRequest, Response, JSONResponse>,
   baseUrl: string,
   {
@@ -38,25 +53,3 @@ export function _useResolver<Request, JSONRequest, Response, JSONResponse>(
     suspense,
   });
 }
-
-// interface FuncParams {
-//   arg1?: string;
-//   arg2?: string;
-// }
-// export const func = ({ arg1, arg2 }: FuncParams) => {
-//   console.log(arg1, arg2);
-// };
-
-// type Args = Record<string, unknown>;
-
-// const areArgsDefined = (args: Partial<Args>, requiredArgs: string[]): boolean => {
-//   return requiredArgs.every((arg) => args[arg] !== undefined);
-// };
-
-// export const func = (args: Partial<Args>) => {
-//   const requiredArgs = ['arg1', 'arg2'];
-//   if (areArgsDefined(args, requiredArgs)) {
-//     // eslint-disable-next-line no-console
-//     console.log(args);
-//   }
-// };
