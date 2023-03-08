@@ -63,12 +63,13 @@ export const NftGrid = ({ address, chain }: NftGridProps) => {
   }
 
   if (error) {
+    console.log('error: ', error);
     return (
       <Box>
         <Alert status="error">
           <AlertIcon />
-          <AlertTitle>{error.name}</AlertTitle>
-          <AlertDescription>{error.message}</AlertDescription>
+          <AlertTitle>{'error.name'}</AlertTitle>
+          <AlertDescription>{'error.message'}</AlertDescription>
         </Alert>
       </Box>
     );

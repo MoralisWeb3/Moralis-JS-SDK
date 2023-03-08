@@ -11,12 +11,12 @@ import {
   {{/each}}
 } from '{{ commonUtils }}';
 import { {{#each resolversToImport}}{{ this }},{{/each}} } from '../../resolvers';
-import { QueryConfig } from '../../useQuery';
+import { QueryOptions } from '../../useQuery';
 
 const { baseUrl } = Moralis.{{ module }};
 
 {{#each hooks}}
-export const {{ this.name }} = (params?: QueryConfig<{{ this.response }}, Error> & {{ this.request }}) => {
+export const {{ this.name }} = (params?: QueryOptions<{{ this.response }}, Error> & {{ this.request }}) => {
   return {{ this.resolverType }}({{ this.operation }}, baseUrl, params);
 };
 {{/each}}

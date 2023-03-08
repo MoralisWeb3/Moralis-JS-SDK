@@ -2,7 +2,7 @@ import { NullableOperationResolver } from '@moralisweb3/api-utils';
 import { Operation } from '@moralisweb3/common-core';
 import { useMemo } from 'react';
 import { _useMoralisContext } from '../../context/MoralisProvider';
-import { QueryConfig, useQuery } from '../useQuery';
+import { QueryOptions, useQuery } from '../useQuery';
 
 export function _useResolverNullable<Request, JSONRequest, Response, JSONResponse>(
   operation: Operation<Request, JSONRequest, Response, JSONResponse>,
@@ -16,7 +16,7 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
     refetchInterval,
     suspense,
     ...request
-  }: QueryConfig<Response, Error> & Partial<Request> = {},
+  }: QueryOptions<NonNullable<Response> | null, Error, NonNullable<Response> | null, [Request]> & Partial<Request> = {},
 ) {
   const { core } = _useMoralisContext();
   const resolver = useMemo(() => new NullableOperationResolver(operation, baseUrl, core), [operation, core]);
@@ -27,5 +27,12 @@ export function _useResolverNullable<Request, JSONRequest, Response, JSONRespons
       const response = await resolver.fetch(req);
       return response?.result || null;
     },
+    cacheTime,
+    enabled,
+    onError,
+    onSettled,
+    onSuccess,
+    refetchInterval,
+    suspense,
   });
 }

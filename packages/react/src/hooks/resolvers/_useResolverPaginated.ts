@@ -2,7 +2,7 @@ import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import { PaginatedOperation, PaginatedRequest } from '@moralisweb3/common-core';
 import { useMemo } from 'react';
 import { _useMoralisContext } from '../../context/MoralisProvider';
-import { QueryConfig, useQuery } from '../useQuery';
+import { QueryOptions, useQuery } from '../useQuery';
 
 export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequest, Response, JSONResult>(
   operation: PaginatedOperation<Request, JSONRequest, Response, JSONResult>,
@@ -14,9 +14,10 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
     onSettled,
     onSuccess,
     refetchInterval,
+    staleTime,
     suspense,
     ...request
-  }: QueryConfig<Response, Error> & Partial<Request> = {},
+  }: QueryOptions<Response, Error, Response, [Request]> & Partial<Request> = {},
 ) {
   const { core } = _useMoralisContext();
   const resolver = useMemo(() => new PaginatedOperationResolver(operation, baseUrl, core), [operation, core]);
@@ -27,5 +28,13 @@ export function _useResolverPaginated<Request extends PaginatedRequest, JSONRequ
       const { result } = await resolver.fetch(req);
       return result;
     },
+    cacheTime,
+    enabled,
+    onError,
+    onSettled,
+    onSuccess,
+    staleTime,
+    refetchInterval,
+    suspense,
   });
 }
