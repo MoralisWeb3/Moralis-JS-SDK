@@ -1,4 +1,5 @@
-import { chainList, EvmChainListDataEntry } from '../../data/chaindata';
+import { chainList } from '../../data/chaindata';
+import { EvmChainListDataEntry } from '../../data/types';
 import { EvmChainParser } from './EvmChainParser';
 import { EvmChainish, InputChainId } from './EvmChainish';
 import {
