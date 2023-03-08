@@ -117,3 +117,5 @@ jobs:
             streams, ./packages/streams/coverage/coverage-summary.json
       - name: Find missing dependencies
         run: node scripts/findMissingDependencies.js
+      - name: Find invalid exports
+        run: node scripts/findInvalidExports.js

@@ -60,8 +60,8 @@
     },
     "./common-core": {
       "types": {
-        "require": "./lib.cjs/commonCore/index.d.ts",
-        "default": "./lib.esm/commonCore/index.d.ts"
+        "require": "./lib/commonCore/index.d.ts",
+        "default": "./lib/commonCore/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/commonCore/index.cjs",
@@ -70,8 +70,8 @@
     },
     "./streams-typings": {
       "types": {
-        "require": "./lib.cjs/streamsTypings/index.d.ts",
-        "default": "./lib.esm/streamsTypings/index.d.ts"
+        "require": "./lib/streamsTypings/index.d.ts",
+        "default": "./lib/streamsTypings/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/streamsTypings/index.cjs",
@@ -80,8 +80,8 @@
     },
     "./common-evm-utils": {
       "types": {
-        "require": "./lib.cjs/commonEvmUtils/index.d.ts",
-        "default": "./lib.esm/commonEvmUtils/index.d.ts"
+        "require": "./lib/commonEvmUtils/index.d.ts",
+        "default": "./lib/commonEvmUtils/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/commonEvmUtils/index.cjs",
@@ -90,8 +90,8 @@
     },
     "./common-sol-utils": {
       "types": {
-        "require": "./lib.cjs/commonSolUtils/index.d.ts",
-        "default": "./lib.esm/commonSolUtils/index.d.ts"
+        "require": "./lib/commonSolUtils/index.d.ts",
+        "default": "./lib/commonSolUtils/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/commonSolUtils/index.cjs",
@@ -100,8 +100,8 @@
     },
     "./common-auth-utils": {
       "types": {
-        "require": "./lib.cjs/commonAuthUtils/index.d.ts",
-        "default": "./lib.esm/commonAuthUtils/index.d.ts"
+        "require": "./lib/commonAuthUtils/index.d.ts",
+        "default": "./lib/commonAuthUtils/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/commonAuthUtils/index.cjs",
@@ -110,8 +110,8 @@
     },
     "./common-streams-utils": {
       "types": {
-        "require": "./lib.cjs/commonStreamsUtils/index.d.ts",
-        "default": "./lib.esm/commonStreamsUtils/index.d.ts"
+        "require": "./lib/commonStreamsUtils/index.d.ts",
+        "default": "./lib/commonStreamsUtils/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/commonStreamsUtils/index.cjs",
@@ -120,8 +120,8 @@
     },
     "./auth": {
       "types": {
-        "require": "./lib.cjs/auth/index.d.ts",
-        "default": "./lib.esm/auth/index.d.ts"
+        "require": "./lib/auth/index.d.ts",
+        "default": "./lib/auth/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/auth/index.cjs",
@@ -130,8 +130,8 @@
     },
     "./streams": {
       "types": {
-        "require": "./lib.cjs/streams/index.d.ts",
-        "default": "./lib.esm/streams/index.d.ts"
+        "require": "./lib/streams/index.d.ts",
+        "default": "./lib/streams/index.d.ts"
       },
       "default": {
         "require": "./lib.cjs/streams/index.cjs",
