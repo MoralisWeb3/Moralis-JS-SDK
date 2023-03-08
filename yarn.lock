@@ -4091,6 +4091,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@create-moralis-dapp/react-vite@^2.13.0, @create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite":
+  version: 0.0.0-use.local
+  resolution: "@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite"
+  dependencies:
+    "@create-moralis-dapp/toolkit": ^2.13.0
+    copyfiles: ^2.4.1
+    jest: 29.3.1
+  bin:
+    react-vite: ./lib/index.js
+  languageName: unknown
+  linkType: soft
+
 "@create-moralis-dapp/toolkit@^2.13.0, @create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit"
@@ -14894,6 +14906,7 @@ __metadata:
   dependencies:
     "@create-moralis-dapp/express": ^2.13.0
     "@create-moralis-dapp/next": ^2.13.0
+    "@create-moralis-dapp/react-vite": ^2.13.0
     "@create-moralis-dapp/toolkit": ^2.13.0
     inquirer: ^8.0.0
   bin:
