@@ -14,8 +14,6 @@ yarn-error.log
 packages/**/build
 packages/**/dist
 packages/**/lib
-packages/**/lib.cjs
-packages/**/lib.esm
 packages/**/coverage
 coverage/
 
