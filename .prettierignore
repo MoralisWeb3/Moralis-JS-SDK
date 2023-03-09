@@ -3,10 +3,9 @@ README.md
 
 # Output folders
 packages/**/lib/**/*
+packages/**/build/**/*
 dist
 coverage/
-lib.esm
-lib.cjs
 
 # Generated files
 packages/**/generated/**/*

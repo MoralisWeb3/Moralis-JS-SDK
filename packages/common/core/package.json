@@ -4,25 +4,22 @@
   "version": "2.14.3",
   "license": "MIT",
   "type": "module",
-  "main": "./lib.esm/index.js",
+  "main": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": {
-        "require": "./lib/index.d.ts",
         "default": "./lib/index.d.ts"
       },
       "default": {
-        "require": "./lib.cjs/index.cjs",
-        "default": "./lib.esm/index.js"
+        "require": "./lib/cjs/index.cjs",
+        "default": "./lib/esm/index.js"
       }
     }
   },
   "files": [
-    "lib/*",
-    "lib.cjs/*",
-    "lib.esm/*"
+    "lib/*"
   ],
   "sideEffects": false,
   "moralis": {
@@ -37,7 +34,7 @@
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
-    "clean": "rm -rf lib && rm -rf lib.esm && rm -rf lib.cjs && rm -rf ./node_modules/.cache/nx",
+    "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
     "build": "yarn prebuild && rollup -c",
     "dev": "tsc --watch"
   },
