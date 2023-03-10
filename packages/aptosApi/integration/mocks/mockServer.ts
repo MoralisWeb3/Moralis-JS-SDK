@@ -10,10 +10,12 @@ import { mockEstimateGasPrice } from './endpoints/transactions.estimateGasPrice'
 import { mockGetNFTsByCreators } from './endpoints/nfts.getNFTsByCreators';
 import { mockGetNFTOwnersByCollection } from './endpoints/nfts.getNFTOwnersByCollection';
 import { mockGetCoinInfoByCoinTypeHashes } from './endpoints/coins.getCoinInfoByCoinTypeHashes';
+import { mockGetBlockByHeight } from './endpoints/blocks.getBlockByHeight';
 
 const handlers = [
   mockGetAccount,
   mockGetAccountModule,
+  mockGetBlockByHeight,
   mockGetTopHoldersByCoin,
   mockGetNFTCollections,
   mockGetCoinInfoByCoinTypeHashes,
