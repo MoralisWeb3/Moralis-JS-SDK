@@ -1,4 +1,4 @@
-import { AptosStateCheckpointTransactionChanges, AptosStateCheckpointTransactionChangesValue, AptosStateCheckpointTransactionChangesInput, AptosStateCheckpointTransactionChangesJSON } from '../types/AptosStateCheckpointTransactionChanges';
+import { AptosStateCheckpointTransactionChangesItem, AptosStateCheckpointTransactionChangesItemValue, AptosStateCheckpointTransactionChangesItemInput, AptosStateCheckpointTransactionChangesItemJSON } from '../types/AptosStateCheckpointTransactionChangesItem';
 
 // $ref: #/components/schemas/StateCheckpointTransaction
 // type: StateCheckpointTransaction
@@ -13,7 +13,7 @@ import { AptosStateCheckpointTransactionChanges, AptosStateCheckpointTransaction
 // - success ($ref: #/components/schemas/StateCheckpointTransaction/properties/success)
 // - vm_status ($ref: #/components/schemas/StateCheckpointTransaction/properties/vm_status)
 // - accumulator_root_hash ($ref: #/components/schemas/StateCheckpointTransaction/properties/accumulator_root_hash)
-// - changes ($ref: #/components/schemas/StateCheckpointTransaction/properties/changes)
+// - changes ($ref: #/components/schemas/StateCheckpointTransaction/properties/changes/items)
 // - timestamp ($ref: #/components/schemas/StateCheckpointTransaction/properties/timestamp)
 
 export interface AptosStateCheckpointTransactionJSON {
@@ -27,7 +27,7 @@ export interface AptosStateCheckpointTransactionJSON {
   readonly success: boolean;
   readonly vm_status: string;
   readonly accumulator_root_hash: string;
-  readonly changes: AptosStateCheckpointTransactionChangesJSON;
+  readonly changes: AptosStateCheckpointTransactionChangesItemJSON[];
   readonly timestamp: string;
 }
 
@@ -42,7 +42,7 @@ export interface AptosStateCheckpointTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosStateCheckpointTransactionChangesInput | AptosStateCheckpointTransactionChangesValue;
+  readonly changes: AptosStateCheckpointTransactionChangesItemInput[] | AptosStateCheckpointTransactionChangesItemValue[];
   readonly timestamp: string;
 }
 
@@ -66,18 +66,18 @@ export class AptosStateCheckpointTransaction {
       success: json.success,
       vmStatus: json.vm_status,
       accumulatorRootHash: json.accumulator_root_hash,
-      changes: AptosStateCheckpointTransactionChanges.fromJSON(json.changes),
+      changes: json.changes.map((item) => AptosStateCheckpointTransactionChangesItem.fromJSON(item)),
       timestamp: json.timestamp,
     };
     return AptosStateCheckpointTransaction.create(input);
   }
 
   public static isInput(input: any): input is AptosStateCheckpointTransactionInput {
-    return input.type && input.type.includes('checkpoint');
+    return input.type === 'state_checkpoint_transaction';
   }
 
   public static isJSON(json: any): json is AptosStateCheckpointTransactionJSON {
-    return json.type && json.type.includes('checkpoint');
+    return json.type === 'state_checkpoint_transaction';
   }
 
   public readonly type: string;
@@ -102,7 +102,7 @@ export class AptosStateCheckpointTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosStateCheckpointTransactionChangesValue;
+  public readonly changes: AptosStateCheckpointTransactionChangesItemValue[];
   /**
    * @description A string containing a 64-bit unsigned integer.
    */
@@ -119,7 +119,7 @@ export class AptosStateCheckpointTransaction {
     this.success = input.success;
     this.vmStatus = input.vmStatus;
     this.accumulatorRootHash = input.accumulatorRootHash;
-    this.changes = AptosStateCheckpointTransactionChanges.create(input.changes);
+    this.changes = input.changes.map((item) => AptosStateCheckpointTransactionChangesItem.create(item));
     this.timestamp = input.timestamp;
   }
 
@@ -135,7 +135,7 @@ export class AptosStateCheckpointTransaction {
       success: this.success,
       vm_status: this.vmStatus,
       accumulator_root_hash: this.accumulatorRootHash,
-      changes: this.changes.toJSON(),
+      changes: this.changes.map((item) => item.toJSON()),
       timestamp: this.timestamp,
     }
   }

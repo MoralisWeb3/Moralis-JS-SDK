@@ -1,4 +1,4 @@
-import { AptosUserTransactionChanges, AptosUserTransactionChangesValue, AptosUserTransactionChangesInput, AptosUserTransactionChangesJSON } from '../types/AptosUserTransactionChanges';
+import { AptosUserTransactionChangesItem, AptosUserTransactionChangesItemValue, AptosUserTransactionChangesItemInput, AptosUserTransactionChangesItemJSON } from '../types/AptosUserTransactionChangesItem';
 import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
 import { AptosUserTransactionPayload, AptosUserTransactionPayloadValue, AptosUserTransactionPayloadInput, AptosUserTransactionPayloadJSON } from '../types/AptosUserTransactionPayload';
 import { AptosUserTransactionSignature, AptosUserTransactionSignatureValue, AptosUserTransactionSignatureInput, AptosUserTransactionSignatureJSON } from '../types/AptosUserTransactionSignature';
@@ -17,7 +17,7 @@ import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEven
 // - success ($ref: #/components/schemas/UserTransaction/properties/success)
 // - vm_status ($ref: #/components/schemas/UserTransaction/properties/vm_status)
 // - accumulator_root_hash ($ref: #/components/schemas/UserTransaction/properties/accumulator_root_hash)
-// - changes ($ref: #/components/schemas/UserTransaction/properties/changes)
+// - changes ($ref: #/components/schemas/UserTransaction/properties/changes/items)
 // - sender ($ref: #/components/schemas/UserTransaction/properties/sender)
 // - sequence_number ($ref: #/components/schemas/UserTransaction/properties/sequence_number)
 // - max_gas_amount ($ref: #/components/schemas/UserTransaction/properties/max_gas_amount)
@@ -39,7 +39,7 @@ export interface AptosUserTransactionJSON {
   readonly success: boolean;
   readonly vm_status: string;
   readonly accumulator_root_hash: string;
-  readonly changes: AptosUserTransactionChangesJSON;
+  readonly changes: AptosUserTransactionChangesItemJSON[];
   readonly sender: AptosAddressJSON;
   readonly sequence_number: string;
   readonly max_gas_amount: string;
@@ -62,7 +62,7 @@ export interface AptosUserTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosUserTransactionChangesInput | AptosUserTransactionChangesValue;
+  readonly changes: AptosUserTransactionChangesItemInput[] | AptosUserTransactionChangesItemValue[];
   readonly sender: AptosAddressInput | AptosAddress;
   readonly sequenceNumber: string;
   readonly maxGasAmount: string;
@@ -94,7 +94,7 @@ export class AptosUserTransaction {
       success: json.success,
       vmStatus: json.vm_status,
       accumulatorRootHash: json.accumulator_root_hash,
-      changes: AptosUserTransactionChanges.fromJSON(json.changes),
+      changes: json.changes.map((item) => AptosUserTransactionChangesItem.fromJSON(item)),
       sender: AptosAddress.fromJSON(json.sender),
       sequenceNumber: json.sequence_number,
       maxGasAmount: json.max_gas_amount,
@@ -141,7 +141,7 @@ export class AptosUserTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosUserTransactionChangesValue;
+  public readonly changes: AptosUserTransactionChangesItemValue[];
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
@@ -184,7 +184,7 @@ export class AptosUserTransaction {
     this.success = input.success;
     this.vmStatus = input.vmStatus;
     this.accumulatorRootHash = input.accumulatorRootHash;
-    this.changes = AptosUserTransactionChanges.create(input.changes);
+    this.changes = input.changes.map((item) => AptosUserTransactionChangesItem.create(item));
     this.sender = AptosAddress.create(input.sender);
     this.sequenceNumber = input.sequenceNumber;
     this.maxGasAmount = input.maxGasAmount;
@@ -208,7 +208,7 @@ export class AptosUserTransaction {
       success: this.success,
       vm_status: this.vmStatus,
       accumulator_root_hash: this.accumulatorRootHash,
-      changes: this.changes.toJSON(),
+      changes: this.changes.map((item) => item.toJSON()),
       sender: this.sender.toJSON(),
       sequence_number: this.sequenceNumber,
       max_gas_amount: this.maxGasAmount,

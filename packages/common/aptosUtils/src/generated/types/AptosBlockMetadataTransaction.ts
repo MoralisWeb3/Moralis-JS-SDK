@@ -1,4 +1,4 @@
-import { AptosBlockMetadataTransactionChanges, AptosBlockMetadataTransactionChangesValue, AptosBlockMetadataTransactionChangesInput, AptosBlockMetadataTransactionChangesJSON } from '../types/AptosBlockMetadataTransactionChanges';
+import { AptosBlockMetadataTransactionChangesItem, AptosBlockMetadataTransactionChangesItemValue, AptosBlockMetadataTransactionChangesItemInput, AptosBlockMetadataTransactionChangesItemJSON } from '../types/AptosBlockMetadataTransactionChangesItem';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
 
 // $ref: #/components/schemas/BlockMetadataTransaction
@@ -14,7 +14,7 @@ import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEven
 // - success ($ref: #/components/schemas/BlockMetadataTransaction/properties/success)
 // - vm_status ($ref: #/components/schemas/BlockMetadataTransaction/properties/vm_status)
 // - accumulator_root_hash ($ref: #/components/schemas/BlockMetadataTransaction/properties/accumulator_root_hash)
-// - changes ($ref: #/components/schemas/BlockMetadataTransaction/properties/changes)
+// - changes ($ref: #/components/schemas/BlockMetadataTransaction/properties/changes/items)
 // - id ($ref: #/components/schemas/BlockMetadataTransaction/properties/id)
 // - epoch ($ref: #/components/schemas/BlockMetadataTransaction/properties/epoch)
 // - round ($ref: #/components/schemas/BlockMetadataTransaction/properties/round)
@@ -35,7 +35,7 @@ export interface AptosBlockMetadataTransactionJSON {
   readonly success: boolean;
   readonly vm_status: string;
   readonly accumulator_root_hash: string;
-  readonly changes: AptosBlockMetadataTransactionChangesJSON;
+  readonly changes: AptosBlockMetadataTransactionChangesItemJSON[];
   readonly id: string;
   readonly epoch: string;
   readonly round: string;
@@ -57,7 +57,7 @@ export interface AptosBlockMetadataTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosBlockMetadataTransactionChangesInput | AptosBlockMetadataTransactionChangesValue;
+  readonly changes: AptosBlockMetadataTransactionChangesItemInput[] | AptosBlockMetadataTransactionChangesItemValue[];
   readonly id: string;
   readonly epoch: string;
   readonly round: string;
@@ -88,7 +88,7 @@ export class AptosBlockMetadataTransaction {
       success: json.success,
       vmStatus: json.vm_status,
       accumulatorRootHash: json.accumulator_root_hash,
-      changes: AptosBlockMetadataTransactionChanges.fromJSON(json.changes),
+      changes: json.changes.map((item) => AptosBlockMetadataTransactionChangesItem.fromJSON(item)),
       id: json.id,
       epoch: json.epoch,
       round: json.round,
@@ -131,7 +131,7 @@ export class AptosBlockMetadataTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosBlockMetadataTransactionChangesValue;
+  public readonly changes: AptosBlockMetadataTransactionChangesItemValue[];
   public readonly id: string;
   /**
    * @description A string containing a 64-bit unsigned integer.
@@ -173,7 +173,7 @@ export class AptosBlockMetadataTransaction {
     this.success = input.success;
     this.vmStatus = input.vmStatus;
     this.accumulatorRootHash = input.accumulatorRootHash;
-    this.changes = AptosBlockMetadataTransactionChanges.create(input.changes);
+    this.changes = input.changes.map((item) => AptosBlockMetadataTransactionChangesItem.create(item));
     this.id = input.id;
     this.epoch = input.epoch;
     this.round = input.round;
@@ -196,7 +196,7 @@ export class AptosBlockMetadataTransaction {
       success: this.success,
       vm_status: this.vmStatus,
       accumulator_root_hash: this.accumulatorRootHash,
-      changes: this.changes.toJSON(),
+      changes: this.changes.map((item) => item.toJSON()),
       id: this.id,
       epoch: this.epoch,
       round: this.round,

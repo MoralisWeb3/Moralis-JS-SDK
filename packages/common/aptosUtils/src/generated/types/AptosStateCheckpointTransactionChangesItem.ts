@@ -2,18 +2,19 @@ import { AptosDeleteModuleChange, AptosDeleteModuleChangeJSON, AptosDeleteModule
 import { AptosDeleteResourceChange, AptosDeleteResourceChangeJSON, AptosDeleteResourceChangeInput } from '../types/AptosDeleteResourceChange';
 import { AptosDeleteTableItemChange, AptosDeleteTableItemChangeJSON, AptosDeleteTableItemChangeInput } from '../types/AptosDeleteTableItemChange';
 import { AptosWriteOrUpdateModuleChange, AptosWriteOrUpdateModuleChangeJSON, AptosWriteOrUpdateModuleChangeInput } from '../types/AptosWriteOrUpdateModuleChange';
+import { AptosWriteResourceChange, AptosWriteResourceChangeJSON, AptosWriteResourceChangeInput } from '../types/AptosWriteResourceChange';
 import { AptosWriteTableChangeSetChange, AptosWriteTableChangeSetChangeJSON, AptosWriteTableChangeSetChangeInput } from '../types/AptosWriteTableChangeSetChange';
 
-// $ref: #/components/schemas/UserTransaction/properties/changes
-// typeName: UserTransaction_changes
-// unionType: oneOf
+// $ref: #/components/schemas/StateCheckpointTransaction/properties/changes/items
+// typeName: StateCheckpointTransaction_changes_Item
+// unionType: anyOf
 
-export type AptosUserTransactionChangesJSON = AptosDeleteModuleChangeJSON | AptosDeleteResourceChangeJSON | AptosDeleteTableItemChangeJSON | AptosWriteOrUpdateModuleChangeJSON | AptosWriteTableChangeSetChangeJSON;
-export type AptosUserTransactionChangesInput = AptosDeleteModuleChangeInput | AptosDeleteResourceChangeInput | AptosDeleteTableItemChangeInput | AptosWriteOrUpdateModuleChangeInput | AptosWriteTableChangeSetChangeInput;
-export type AptosUserTransactionChangesValue = AptosDeleteModuleChange | AptosDeleteResourceChange | AptosDeleteTableItemChange | AptosWriteOrUpdateModuleChange | AptosWriteTableChangeSetChange;
+export type AptosStateCheckpointTransactionChangesItemJSON = AptosDeleteModuleChangeJSON | AptosDeleteResourceChangeJSON | AptosDeleteTableItemChangeJSON | AptosWriteOrUpdateModuleChangeJSON | AptosWriteResourceChangeJSON | AptosWriteTableChangeSetChangeJSON;
+export type AptosStateCheckpointTransactionChangesItemInput = AptosDeleteModuleChangeInput | AptosDeleteResourceChangeInput | AptosDeleteTableItemChangeInput | AptosWriteOrUpdateModuleChangeInput | AptosWriteResourceChangeInput | AptosWriteTableChangeSetChangeInput;
+export type AptosStateCheckpointTransactionChangesItemValue = AptosDeleteModuleChange | AptosDeleteResourceChange | AptosDeleteTableItemChange | AptosWriteOrUpdateModuleChange | AptosWriteResourceChange | AptosWriteTableChangeSetChange;
 
-export abstract class AptosUserTransactionChanges {
-  public static create(input: AptosUserTransactionChangesInput): AptosUserTransactionChangesValue {
+export abstract class AptosStateCheckpointTransactionChangesItem {
+  public static create(input: AptosStateCheckpointTransactionChangesItemInput): AptosStateCheckpointTransactionChangesItemValue {
     if (AptosDeleteModuleChange.isInput(input)) {
       return AptosDeleteModuleChange.create(input);
     }
@@ -26,13 +27,16 @@ export abstract class AptosUserTransactionChanges {
     if (AptosWriteOrUpdateModuleChange.isInput(input)) {
       return AptosWriteOrUpdateModuleChange.create(input);
     }
+    if (AptosWriteResourceChange.isInput(input)) {
+      return AptosWriteResourceChange.create(input);
+    }
     if (AptosWriteTableChangeSetChange.isInput(input)) {
       return AptosWriteTableChangeSetChange.create(input);
     }
-    throw new Error('Invalid input');
+    throw new Error('Cannot resolve union for input');
   }
 
-  public static fromJSON(json: AptosUserTransactionChangesJSON): AptosUserTransactionChangesValue {
+  public static fromJSON(json: AptosStateCheckpointTransactionChangesItemJSON): AptosStateCheckpointTransactionChangesItemValue {
     if (AptosDeleteModuleChange.isJSON(json)) {
       return AptosDeleteModuleChange.fromJSON(json);
     }
@@ -45,9 +49,14 @@ export abstract class AptosUserTransactionChanges {
     if (AptosWriteOrUpdateModuleChange.isJSON(json)) {
       return AptosWriteOrUpdateModuleChange.fromJSON(json);
     }
+    if (AptosWriteResourceChange.isJSON(json)) {
+      return AptosWriteResourceChange.fromJSON(json);
+    }
     if (AptosWriteTableChangeSetChange.isJSON(json)) {
       return AptosWriteTableChangeSetChange.fromJSON(json);
     }
-    throw new Error(`Cannot resolve union for AptosUserTransactionChanges (keys: ${Object.keys(json).join(',') })`);
+    const keys = Object.keys(json).join(', ');
+    const type = (json as any).type;
+    throw new Error(`Cannot resolve union for AptosStateCheckpointTransactionChangesItem (keys: ${keys}, type: ${type})`);
   }
 }

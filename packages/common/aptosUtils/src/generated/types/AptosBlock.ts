@@ -16,7 +16,7 @@ export interface AptosBlockJSON {
   readonly block_timestamp: string;
   readonly first_version: string;
   readonly last_version: string;
-  readonly transactions: AptosBlockTransactionsItemJSON[];
+  readonly transactions?: AptosBlockTransactionsItemJSON[];
 }
 
 export interface AptosBlockInput {
@@ -25,7 +25,7 @@ export interface AptosBlockInput {
   readonly blockTimestamp: string;
   readonly firstVersion: string;
   readonly lastVersion: string;
-  readonly transactions: AptosBlockTransactionsItemInput[] | AptosBlockTransactionsItemValue[];
+  readonly transactions?: AptosBlockTransactionsItemInput[] | AptosBlockTransactionsItemValue[];
 }
 
 export class AptosBlock {
@@ -43,7 +43,7 @@ export class AptosBlock {
       blockTimestamp: json.block_timestamp,
       firstVersion: json.first_version,
       lastVersion: json.last_version,
-      transactions: json.transactions.map((item) => AptosBlockTransactionsItem.fromJSON(item)),
+      transactions: json.transactions ? json.transactions.map((item) => AptosBlockTransactionsItem.fromJSON(item)) : undefined,
     };
     return AptosBlock.create(input);
   }
@@ -68,7 +68,7 @@ export class AptosBlock {
   /**
    * @description List of transactions
    */
-  public readonly transactions: AptosBlockTransactionsItemValue[];
+  public readonly transactions?: AptosBlockTransactionsItemValue[];
 
   private constructor(input: AptosBlockInput) {
     this.blockHeight = input.blockHeight;
@@ -76,7 +76,7 @@ export class AptosBlock {
     this.blockTimestamp = input.blockTimestamp;
     this.firstVersion = input.firstVersion;
     this.lastVersion = input.lastVersion;
-    this.transactions = input.transactions.map((item) => AptosBlockTransactionsItem.create(item));
+    this.transactions = input.transactions ? input.transactions.map((item) => AptosBlockTransactionsItem.create(item)) : undefined;
   }
 
   public toJSON(): AptosBlockJSON {
@@ -86,7 +86,7 @@ export class AptosBlock {
       block_timestamp: this.blockTimestamp,
       first_version: this.firstVersion,
       last_version: this.lastVersion,
-      transactions: this.transactions.map((item) => item.toJSON()),
+      transactions: this.transactions ? this.transactions.map((item) => item.toJSON()) : undefined,
     }
   }
 }

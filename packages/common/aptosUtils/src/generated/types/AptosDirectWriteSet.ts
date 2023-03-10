@@ -38,11 +38,11 @@ export class AptosDirectWriteSet {
   }
 
   public static isInput(input: any): input is AptosDirectWriteSetInput {
-    return ["type","changes","events"].every((name) => input[name] !== undefined);
+    return input.type === 'direct_write_set';
   }
 
   public static isJSON(json: any): json is AptosDirectWriteSetJSON {
-    return ["type","changes","events"].every((name) => json[name] !== undefined);
+    return json.type === 'direct_write_set';
   }
 
   public readonly type: string;

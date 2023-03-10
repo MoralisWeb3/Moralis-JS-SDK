@@ -1,4 +1,3 @@
-import { AptosDeleteResourceChangeAddress, AptosDeleteResourceChangeAddressValue, AptosDeleteResourceChangeAddressInput, AptosDeleteResourceChangeAddressJSON } from '../types/AptosDeleteResourceChangeAddress';
 import { AptosDeleteResourceChangeResource, AptosDeleteResourceChangeResourceValue, AptosDeleteResourceChangeResourceInput, AptosDeleteResourceChangeResourceJSON } from '../types/AptosDeleteResourceChangeResource';
 
 // $ref: #/components/schemas/DeleteResourceChange
@@ -11,14 +10,14 @@ import { AptosDeleteResourceChangeResource, AptosDeleteResourceChangeResourceVal
 
 export interface AptosDeleteResourceChangeJSON {
   readonly type: string;
-  readonly address: AptosDeleteResourceChangeAddressJSON;
+  readonly address: string;
   readonly state_key_hash: string;
   readonly resource: AptosDeleteResourceChangeResourceJSON;
 }
 
 export interface AptosDeleteResourceChangeInput {
   readonly type: string;
-  readonly address: AptosDeleteResourceChangeAddressInput | AptosDeleteResourceChangeAddressValue;
+  readonly address: string;
   readonly stateKeyHash: string;
   readonly resource: AptosDeleteResourceChangeResourceInput | AptosDeleteResourceChangeResourceValue;
 }
@@ -34,7 +33,7 @@ export class AptosDeleteResourceChange {
   public static fromJSON(json: AptosDeleteResourceChangeJSON): AptosDeleteResourceChange {
     const input: AptosDeleteResourceChangeInput = {
       type: json.type,
-      address: AptosDeleteResourceChangeAddress.fromJSON(json.address),
+      address: json.address,
       stateKeyHash: json.state_key_hash,
       resource: AptosDeleteResourceChangeResource.fromJSON(json.resource),
     };
@@ -42,18 +41,18 @@ export class AptosDeleteResourceChange {
   }
 
   public static isInput(input: any): input is AptosDeleteResourceChangeInput {
-    return ["type","address","stateKeyHash","resource"].every((name) => input[name] !== undefined);
+    return input.type === 'TODO';
   }
 
   public static isJSON(json: any): json is AptosDeleteResourceChangeJSON {
-    return ["type","address","state_key_hash","resource"].every((name) => json[name] !== undefined);
+    return json.type === 'TODO';
   }
 
   public readonly type: string;
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: AptosDeleteResourceChangeAddressValue;
+  public readonly address: string;
   /**
    * @description State key hash
    */
@@ -65,7 +64,7 @@ export class AptosDeleteResourceChange {
 
   private constructor(input: AptosDeleteResourceChangeInput) {
     this.type = input.type;
-    this.address = AptosDeleteResourceChangeAddress.create(input.address);
+    this.address = input.address;
     this.stateKeyHash = input.stateKeyHash;
     this.resource = AptosDeleteResourceChangeResource.create(input.resource);
   }

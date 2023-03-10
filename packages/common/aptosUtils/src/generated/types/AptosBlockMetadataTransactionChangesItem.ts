@@ -2,18 +2,19 @@ import { AptosDeleteModuleChange, AptosDeleteModuleChangeJSON, AptosDeleteModule
 import { AptosDeleteResourceChange, AptosDeleteResourceChangeJSON, AptosDeleteResourceChangeInput } from '../types/AptosDeleteResourceChange';
 import { AptosDeleteTableItemChange, AptosDeleteTableItemChangeJSON, AptosDeleteTableItemChangeInput } from '../types/AptosDeleteTableItemChange';
 import { AptosWriteOrUpdateModuleChange, AptosWriteOrUpdateModuleChangeJSON, AptosWriteOrUpdateModuleChangeInput } from '../types/AptosWriteOrUpdateModuleChange';
+import { AptosWriteResourceChange, AptosWriteResourceChangeJSON, AptosWriteResourceChangeInput } from '../types/AptosWriteResourceChange';
 import { AptosWriteTableChangeSetChange, AptosWriteTableChangeSetChangeJSON, AptosWriteTableChangeSetChangeInput } from '../types/AptosWriteTableChangeSetChange';
 
-// $ref: #/components/schemas/GenesisTransaction/properties/changes
-// typeName: GenesisTransaction_changes
-// unionType: oneOf
+// $ref: #/components/schemas/BlockMetadataTransaction/properties/changes/items
+// typeName: BlockMetadataTransaction_changes_Item
+// unionType: anyOf
 
-export type AptosGenesisTransactionChangesJSON = AptosDeleteModuleChangeJSON | AptosDeleteResourceChangeJSON | AptosDeleteTableItemChangeJSON | AptosWriteOrUpdateModuleChangeJSON | AptosWriteTableChangeSetChangeJSON;
-export type AptosGenesisTransactionChangesInput = AptosDeleteModuleChangeInput | AptosDeleteResourceChangeInput | AptosDeleteTableItemChangeInput | AptosWriteOrUpdateModuleChangeInput | AptosWriteTableChangeSetChangeInput;
-export type AptosGenesisTransactionChangesValue = AptosDeleteModuleChange | AptosDeleteResourceChange | AptosDeleteTableItemChange | AptosWriteOrUpdateModuleChange | AptosWriteTableChangeSetChange;
+export type AptosBlockMetadataTransactionChangesItemJSON = AptosDeleteModuleChangeJSON | AptosDeleteResourceChangeJSON | AptosDeleteTableItemChangeJSON | AptosWriteOrUpdateModuleChangeJSON | AptosWriteResourceChangeJSON | AptosWriteTableChangeSetChangeJSON;
+export type AptosBlockMetadataTransactionChangesItemInput = AptosDeleteModuleChangeInput | AptosDeleteResourceChangeInput | AptosDeleteTableItemChangeInput | AptosWriteOrUpdateModuleChangeInput | AptosWriteResourceChangeInput | AptosWriteTableChangeSetChangeInput;
+export type AptosBlockMetadataTransactionChangesItemValue = AptosDeleteModuleChange | AptosDeleteResourceChange | AptosDeleteTableItemChange | AptosWriteOrUpdateModuleChange | AptosWriteResourceChange | AptosWriteTableChangeSetChange;
 
-export abstract class AptosGenesisTransactionChanges {
-  public static create(input: AptosGenesisTransactionChangesInput): AptosGenesisTransactionChangesValue {
+export abstract class AptosBlockMetadataTransactionChangesItem {
+  public static create(input: AptosBlockMetadataTransactionChangesItemInput): AptosBlockMetadataTransactionChangesItemValue {
     if (AptosDeleteModuleChange.isInput(input)) {
       return AptosDeleteModuleChange.create(input);
     }
@@ -26,13 +27,16 @@ export abstract class AptosGenesisTransactionChanges {
     if (AptosWriteOrUpdateModuleChange.isInput(input)) {
       return AptosWriteOrUpdateModuleChange.create(input);
     }
+    if (AptosWriteResourceChange.isInput(input)) {
+      return AptosWriteResourceChange.create(input);
+    }
     if (AptosWriteTableChangeSetChange.isInput(input)) {
       return AptosWriteTableChangeSetChange.create(input);
     }
-    throw new Error('Invalid input');
+    throw new Error('Cannot resolve union for input');
   }
 
-  public static fromJSON(json: AptosGenesisTransactionChangesJSON): AptosGenesisTransactionChangesValue {
+  public static fromJSON(json: AptosBlockMetadataTransactionChangesItemJSON): AptosBlockMetadataTransactionChangesItemValue {
     if (AptosDeleteModuleChange.isJSON(json)) {
       return AptosDeleteModuleChange.fromJSON(json);
     }
@@ -45,9 +49,14 @@ export abstract class AptosGenesisTransactionChanges {
     if (AptosWriteOrUpdateModuleChange.isJSON(json)) {
       return AptosWriteOrUpdateModuleChange.fromJSON(json);
     }
+    if (AptosWriteResourceChange.isJSON(json)) {
+      return AptosWriteResourceChange.fromJSON(json);
+    }
     if (AptosWriteTableChangeSetChange.isJSON(json)) {
       return AptosWriteTableChangeSetChange.fromJSON(json);
     }
-    throw new Error(`Cannot resolve union for AptosGenesisTransactionChanges (keys: ${Object.keys(json).join(',') })`);
+    const keys = Object.keys(json).join(', ');
+    const type = (json as any).type;
+    throw new Error(`Cannot resolve union for AptosBlockMetadataTransactionChangesItem (keys: ${keys}, type: ${type})`);
   }
 }

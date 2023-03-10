@@ -1,4 +1,3 @@
-import { AptosDeleteModuleChangeAddress, AptosDeleteModuleChangeAddressValue, AptosDeleteModuleChangeAddressInput, AptosDeleteModuleChangeAddressJSON } from '../types/AptosDeleteModuleChangeAddress';
 import { AptosDeleteModuleChangeModule, AptosDeleteModuleChangeModuleValue, AptosDeleteModuleChangeModuleInput, AptosDeleteModuleChangeModuleJSON } from '../types/AptosDeleteModuleChangeModule';
 
 // $ref: #/components/schemas/DeleteModuleChange
@@ -11,14 +10,14 @@ import { AptosDeleteModuleChangeModule, AptosDeleteModuleChangeModuleValue, Apto
 
 export interface AptosDeleteModuleChangeJSON {
   readonly type: string;
-  readonly address: AptosDeleteModuleChangeAddressJSON;
+  readonly address: string;
   readonly state_key_hash: string;
   readonly module: AptosDeleteModuleChangeModuleJSON;
 }
 
 export interface AptosDeleteModuleChangeInput {
   readonly type: string;
-  readonly address: AptosDeleteModuleChangeAddressInput | AptosDeleteModuleChangeAddressValue;
+  readonly address: string;
   readonly stateKeyHash: string;
   readonly module: AptosDeleteModuleChangeModuleInput | AptosDeleteModuleChangeModuleValue;
 }
@@ -34,7 +33,7 @@ export class AptosDeleteModuleChange {
   public static fromJSON(json: AptosDeleteModuleChangeJSON): AptosDeleteModuleChange {
     const input: AptosDeleteModuleChangeInput = {
       type: json.type,
-      address: AptosDeleteModuleChangeAddress.fromJSON(json.address),
+      address: json.address,
       stateKeyHash: json.state_key_hash,
       module: AptosDeleteModuleChangeModule.fromJSON(json.module),
     };
@@ -42,18 +41,18 @@ export class AptosDeleteModuleChange {
   }
 
   public static isInput(input: any): input is AptosDeleteModuleChangeInput {
-    return ["type","address","stateKeyHash","module"].every((name) => input[name] !== undefined);
+    return input.type === 'TODO';
   }
 
   public static isJSON(json: any): json is AptosDeleteModuleChangeJSON {
-    return ["type","address","state_key_hash","module"].every((name) => json[name] !== undefined);
+    return json.type === 'TODO';
   }
 
   public readonly type: string;
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: AptosDeleteModuleChangeAddressValue;
+  public readonly address: string;
   /**
    * @description State key hash
    */
@@ -65,7 +64,7 @@ export class AptosDeleteModuleChange {
 
   private constructor(input: AptosDeleteModuleChangeInput) {
     this.type = input.type;
-    this.address = AptosDeleteModuleChangeAddress.create(input.address);
+    this.address = input.address;
     this.stateKeyHash = input.stateKeyHash;
     this.module = AptosDeleteModuleChangeModule.create(input.module);
   }

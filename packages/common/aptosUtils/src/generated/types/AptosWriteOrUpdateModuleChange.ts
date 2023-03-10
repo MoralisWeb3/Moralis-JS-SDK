@@ -1,4 +1,3 @@
-import { AptosWriteOrUpdateModuleChangeAddress, AptosWriteOrUpdateModuleChangeAddressValue, AptosWriteOrUpdateModuleChangeAddressInput, AptosWriteOrUpdateModuleChangeAddressJSON } from '../types/AptosWriteOrUpdateModuleChangeAddress';
 import { AptosWriteModuleData, AptosWriteModuleDataInput, AptosWriteModuleDataJSON } from '../types/AptosWriteModuleData';
 
 // $ref: #/components/schemas/WriteOrUpdateModuleChange
@@ -11,14 +10,14 @@ import { AptosWriteModuleData, AptosWriteModuleDataInput, AptosWriteModuleDataJS
 
 export interface AptosWriteOrUpdateModuleChangeJSON {
   readonly type: string;
-  readonly address: AptosWriteOrUpdateModuleChangeAddressJSON;
+  readonly address: string;
   readonly state_key_hash: string;
   readonly data: AptosWriteModuleDataJSON;
 }
 
 export interface AptosWriteOrUpdateModuleChangeInput {
   readonly type: string;
-  readonly address: AptosWriteOrUpdateModuleChangeAddressInput | AptosWriteOrUpdateModuleChangeAddressValue;
+  readonly address: string;
   readonly stateKeyHash: string;
   readonly data: AptosWriteModuleDataInput | AptosWriteModuleData;
 }
@@ -34,7 +33,7 @@ export class AptosWriteOrUpdateModuleChange {
   public static fromJSON(json: AptosWriteOrUpdateModuleChangeJSON): AptosWriteOrUpdateModuleChange {
     const input: AptosWriteOrUpdateModuleChangeInput = {
       type: json.type,
-      address: AptosWriteOrUpdateModuleChangeAddress.fromJSON(json.address),
+      address: json.address,
       stateKeyHash: json.state_key_hash,
       data: AptosWriteModuleData.fromJSON(json.data),
     };
@@ -42,18 +41,18 @@ export class AptosWriteOrUpdateModuleChange {
   }
 
   public static isInput(input: any): input is AptosWriteOrUpdateModuleChangeInput {
-    return ["type","address","stateKeyHash","data"].every((name) => input[name] !== undefined);
+    return input.type === 'write_module';
   }
 
   public static isJSON(json: any): json is AptosWriteOrUpdateModuleChangeJSON {
-    return ["type","address","state_key_hash","data"].every((name) => json[name] !== undefined);
+    return json.type === 'write_module';
   }
 
   public readonly type: string;
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: AptosWriteOrUpdateModuleChangeAddressValue;
+  public readonly address: string;
   /**
    * @description State key hash
    */
@@ -62,7 +61,7 @@ export class AptosWriteOrUpdateModuleChange {
 
   private constructor(input: AptosWriteOrUpdateModuleChangeInput) {
     this.type = input.type;
-    this.address = AptosWriteOrUpdateModuleChangeAddress.create(input.address);
+    this.address = input.address;
     this.stateKeyHash = input.stateKeyHash;
     this.data = AptosWriteModuleData.create(input.data);
   }

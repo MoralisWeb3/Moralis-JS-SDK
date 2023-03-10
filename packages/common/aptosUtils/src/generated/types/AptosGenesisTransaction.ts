@@ -1,4 +1,4 @@
-import { AptosGenesisTransactionChanges, AptosGenesisTransactionChangesValue, AptosGenesisTransactionChangesInput, AptosGenesisTransactionChangesJSON } from '../types/AptosGenesisTransactionChanges';
+import { AptosGenesisTransactionChangesItem, AptosGenesisTransactionChangesItemValue, AptosGenesisTransactionChangesItemInput, AptosGenesisTransactionChangesItemJSON } from '../types/AptosGenesisTransactionChangesItem';
 import { AptosWriteSetPayload, AptosWriteSetPayloadInput, AptosWriteSetPayloadJSON } from '../types/AptosWriteSetPayload';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
 
@@ -15,7 +15,7 @@ import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEven
 // - success ($ref: #/components/schemas/GenesisTransaction/properties/success)
 // - vm_status ($ref: #/components/schemas/GenesisTransaction/properties/vm_status)
 // - accumulator_root_hash ($ref: #/components/schemas/GenesisTransaction/properties/accumulator_root_hash)
-// - changes ($ref: #/components/schemas/GenesisTransaction/properties/changes)
+// - changes ($ref: #/components/schemas/GenesisTransaction/properties/changes/items)
 // - payload ($ref: #/components/schemas/WriteSetPayload)
 // - events ($ref: #/components/schemas/TransactionEvent)
 
@@ -30,7 +30,7 @@ export interface AptosGenesisTransactionJSON {
   readonly success: boolean;
   readonly vm_status: string;
   readonly accumulator_root_hash: string;
-  readonly changes: AptosGenesisTransactionChangesJSON;
+  readonly changes: AptosGenesisTransactionChangesItemJSON[];
   readonly payload: AptosWriteSetPayloadJSON;
   readonly events: AptosTransactionEventJSON[];
 }
@@ -46,7 +46,7 @@ export interface AptosGenesisTransactionInput {
   readonly success: boolean;
   readonly vmStatus: string;
   readonly accumulatorRootHash: string;
-  readonly changes: AptosGenesisTransactionChangesInput | AptosGenesisTransactionChangesValue;
+  readonly changes: AptosGenesisTransactionChangesItemInput[] | AptosGenesisTransactionChangesItemValue[];
   readonly payload: AptosWriteSetPayloadInput | AptosWriteSetPayload;
   readonly events: AptosTransactionEventInput[] | AptosTransactionEvent[];
 }
@@ -71,7 +71,7 @@ export class AptosGenesisTransaction {
       success: json.success,
       vmStatus: json.vm_status,
       accumulatorRootHash: json.accumulator_root_hash,
-      changes: AptosGenesisTransactionChanges.fromJSON(json.changes),
+      changes: json.changes.map((item) => AptosGenesisTransactionChangesItem.fromJSON(item)),
       payload: AptosWriteSetPayload.fromJSON(json.payload),
       events: json.events.map((item) => AptosTransactionEvent.fromJSON(item)),
     };
@@ -108,7 +108,7 @@ export class AptosGenesisTransaction {
    */
   public readonly vmStatus: string;
   public readonly accumulatorRootHash: string;
-  public readonly changes: AptosGenesisTransactionChangesValue;
+  public readonly changes: AptosGenesisTransactionChangesItemValue[];
   /**
    * @description A writeset payload, used only for genesis
    */
@@ -129,7 +129,7 @@ export class AptosGenesisTransaction {
     this.success = input.success;
     this.vmStatus = input.vmStatus;
     this.accumulatorRootHash = input.accumulatorRootHash;
-    this.changes = AptosGenesisTransactionChanges.create(input.changes);
+    this.changes = input.changes.map((item) => AptosGenesisTransactionChangesItem.create(item));
     this.payload = AptosWriteSetPayload.create(input.payload);
     this.events = input.events.map((item) => AptosTransactionEvent.create(item));
   }
@@ -146,7 +146,7 @@ export class AptosGenesisTransaction {
       success: this.success,
       vm_status: this.vmStatus,
       accumulator_root_hash: this.accumulatorRootHash,
-      changes: this.changes.toJSON(),
+      changes: this.changes.map((item) => item.toJSON()),
       payload: this.payload.toJSON(),
       events: this.events.map((item) => item.toJSON()),
     }

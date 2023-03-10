@@ -29,7 +29,7 @@ export abstract class AptosGetAccountTransactionsItem {
     if (AptosStateCheckpointTransaction.isInput(input)) {
       return AptosStateCheckpointTransaction.create(input);
     }
-    throw new Error('Invalid input');
+    throw new Error('Cannot resolve union for input');
   }
 
   public static fromJSON(json: AptosGetAccountTransactionsItemJSON): AptosGetAccountTransactionsItemValue {
@@ -48,6 +48,8 @@ export abstract class AptosGetAccountTransactionsItem {
     if (AptosStateCheckpointTransaction.isJSON(json)) {
       return AptosStateCheckpointTransaction.fromJSON(json);
     }
-    throw new Error(`Cannot resolve union for AptosGetAccountTransactionsItem (keys: ${Object.keys(json).join(',') })`);
+    const keys = Object.keys(json).join(', ');
+    const type = (json as any).type;
+    throw new Error(`Cannot resolve union for AptosGetAccountTransactionsItem (keys: ${keys}, type: ${type})`);
   }
 }

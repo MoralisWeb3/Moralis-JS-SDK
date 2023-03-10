@@ -59,11 +59,11 @@ export class AptosPendingTransaction {
   }
 
   public static isInput(input: any): input is AptosPendingTransactionInput {
-    return input.type && input.type.includes('pending');
+    return input.type === 'TODO';
   }
 
   public static isJSON(json: any): json is AptosPendingTransactionJSON {
-    return json.type && json.type.includes('pending');
+    return json.type === 'TODO';
   }
 
   public readonly hash: string;

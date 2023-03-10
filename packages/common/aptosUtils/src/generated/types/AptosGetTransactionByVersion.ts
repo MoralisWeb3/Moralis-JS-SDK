@@ -29,7 +29,7 @@ export abstract class AptosGetTransactionByVersion {
     if (AptosStateCheckpointTransaction.isInput(input)) {
       return AptosStateCheckpointTransaction.create(input);
     }
-    throw new Error('Invalid input');
+    throw new Error('Cannot resolve union for input');
   }
 
   public static fromJSON(json: AptosGetTransactionByVersionJSON): AptosGetTransactionByVersionValue {
@@ -48,6 +48,8 @@ export abstract class AptosGetTransactionByVersion {
     if (AptosStateCheckpointTransaction.isJSON(json)) {
       return AptosStateCheckpointTransaction.fromJSON(json);
     }
-    throw new Error(`Cannot resolve union for AptosGetTransactionByVersion (keys: ${Object.keys(json).join(',') })`);
+    const keys = Object.keys(json).join(', ');
+    const type = (json as any).type;
+    throw new Error(`Cannot resolve union for AptosGetTransactionByVersion (keys: ${keys}, type: ${type})`);
   }
 }

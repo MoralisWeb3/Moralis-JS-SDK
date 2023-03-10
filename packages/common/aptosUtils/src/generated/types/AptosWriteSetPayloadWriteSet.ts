@@ -17,7 +17,7 @@ export abstract class AptosWriteSetPayloadWriteSet {
     if (AptosDirectWriteSet.isInput(input)) {
       return AptosDirectWriteSet.create(input);
     }
-    throw new Error('Invalid input');
+    throw new Error('Cannot resolve union for input');
   }
 
   public static fromJSON(json: AptosWriteSetPayloadWriteSetJSON): AptosWriteSetPayloadWriteSetValue {
@@ -27,6 +27,8 @@ export abstract class AptosWriteSetPayloadWriteSet {
     if (AptosDirectWriteSet.isJSON(json)) {
       return AptosDirectWriteSet.fromJSON(json);
     }
-    throw new Error(`Cannot resolve union for AptosWriteSetPayloadWriteSet (keys: ${Object.keys(json).join(',') })`);
+    const keys = Object.keys(json).join(', ');
+    const type = (json as any).type;
+    throw new Error(`Cannot resolve union for AptosWriteSetPayloadWriteSet (keys: ${keys}, type: ${type})`);
   }
 }
