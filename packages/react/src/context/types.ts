@@ -1,15 +1,13 @@
 import Core from '@moralisweb3/common-core';
-// import { SWRConfiguration } from 'swr';
+import { QueryObserverOptions } from '@tanstack/react-query';
 import { MoralisConfigValues } from 'moralis/lib/config/MoralisConfig';
 import { ReactNode } from 'react';
-import { QueryObserverOptions } from '@tanstack/react-query';
-import { QueryOptionKeys } from '../hooks/useQuery';
+import { MoralisQueryOptionKeys } from '../hooks/types';
 
-export interface FetchConfig extends Pick<QueryObserverOptions<unknown, unknown>, QueryOptionKeys> {}
+export interface FetchConfig extends Pick<QueryObserverOptions<unknown, unknown>, MoralisQueryOptionKeys> {}
 
 export interface MoralisContextValue {
   core: Core;
-  // fetchConfig?: FetchConfig;
 }
 
 export type MoralisConfig = MoralisConfigValues & FetchConfig;

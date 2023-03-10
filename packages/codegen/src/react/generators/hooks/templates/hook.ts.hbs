@@ -1,0 +1,42 @@
+import Moralis from 'moralis';
+import { {{ requestType }}, {{ responseType }}, {{ operation }} } from '{{ commonUtils }}';
+import { useMemo } from 'react';
+import { UseMoralisQueryParams } from '../../types';
+import { {{ useResolver }}, useQuery } from '../../utils';
+
+export type {{ hookParamsType }} = UseMoralisQueryParams<{{ responseType }}, {{ requestType }}>
+
+export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }},{{/each}}{{/if}} ...queryParams }: {{ hookParamsType }} = {}) {
+  const resolver = {{ useResolver }}({{ operation }}, Moralis.{{ module }}.baseUrl);
+
+  const queryKey: [string, {{ requestType }}] | undefined = useMemo(() => {
+    {{#if requiredParams}}
+    if ({{#each requiredParams}}{{ this }} {{#unless @last}}&&{{/unless}}{{/each}}) {
+      return [
+      {{ operation }}.id,
+      {
+        {{#each allParams}}{{ this }}{{#unless @last}},{{/unless}}{{/each}}
+      },
+    ];
+    }
+      return;
+    {{else}}
+      return [
+      {{ operation }}.id,
+        {
+          {{#if allParams}}{{#each allParams}}{{ this }}{{#unless @last}},{{/unless}}{{/each}}{{else}}{}{{/if}}
+        },
+      ]
+    {{/if}}
+  }, [{{#if allParams}}{{#each allParams}}{{ this }}{{#unless @last}},{{/unless}}{{/each}}{{/if}}]);
+
+  return useQuery({
+    queryKey,
+    queryFn: async ({ queryKey: [_id, request] }) => {
+      const { result } = await resolver.fetch(request);
+      return result;
+    },
+    ...queryParams,
+    enabled: queryKey && queryParams.enabled,
+  });
+}

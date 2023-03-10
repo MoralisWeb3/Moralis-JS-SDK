@@ -22,39 +22,53 @@ export class HooksGenerator {
       const isPaginated = operation.firstPageIndex === 0 || operation.firstPageIndex === 1;
       const isNullable = operation?.isNullable;
 
-      let resolverType = '_useResolver';
+      let useResolver = 'useOperationResolver';
       if (isPaginated) {
-        resolverType = '_useResolverPaginated';
+        useResolver = 'usePaginatedOperationResolver';
       }
       if (isNullable) {
-        resolverType = '_useResolverNullable';
+        useResolver = 'useNullableOperationResolver';
       }
+
+      const { urlPathParamNames = [], bodyParamNames = [], urlSearchParamNames = [] } = operation;
+      const requiredParams = [...urlPathParamNames, ...bodyParamNames];
+      const allParams = [...requiredParams, ...urlSearchParamNames];
 
       return {
         name,
-        resolverType,
-        request: `${_.upperFirst(operation.name)}Request`,
-        response: `${_.upperFirst(operation.name)}Response`,
+        useResolver,
+        requestType: `${_.upperFirst(operation.name)}Request`,
+        responseType: `${_.upperFirst(operation.name)}Response`,
         operation: `${operation.name}Operation`,
         isNullable,
+        requiredParams,
+        allParams,
       };
     });
 
-    return {
-      type: 'add',
-      templateFile: path.join(this.dirname, 'templates/hooks.ts.hbs'),
-      path: path.join(this.packagesFolder, `react/src/hooks/${this.module}/generated/index.ts`),
-      data: {
-        hooks,
-        commonUtils: this.moduleGenerator.operationsPackageName,
-        resolversToImport: _.uniq(_.map(hooks, 'resolverType')),
-        module: _.upperFirst(this.module),
-      },
-      force: true,
-    };
+    return hooks.map((hook) => {
+      return {
+        type: 'add',
+        templateFile: path.join(this.dirname, 'templates/hook.ts.hbs'),
+        path: path.join(this.packagesFolder, `react/src/hooks/${this.module}/generated/{{ name }}.ts`),
+        data: {
+          requestType: hook.requestType,
+          responseType: hook.responseType,
+          name: hook.name,
+          useResolver: hook.useResolver,
+          module: _.upperFirst(this.module),
+          operation: hook.operation,
+          commonUtils: this.moduleGenerator.operationsPackageName,
+          hookParamsType: `${_.upperFirst(hook.name)}Params`,
+          requiredParams: hook.requiredParams,
+          allParams: hook.allParams,
+        },
+        force: true,
+      };
+    });
   }
 
   public get actions(): ActionConfig[] {
-    return [this.addHooks];
+    return this.addHooks;
   }
 }
