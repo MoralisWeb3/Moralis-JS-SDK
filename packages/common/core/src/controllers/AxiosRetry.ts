@@ -1,6 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { isTest } from '../environment/isTest';
-import { noop } from '../utils/noop';
 
 export interface AxiosRetryConfig {
   maxRetries: number;
@@ -18,14 +16,6 @@ export class AxiosRetry {
   ): Promise<AxiosResponse<Response>> {
     for (let attempt = 1; ; attempt++) {
       try {
-        if (isTest()) {
-          /**
-           * Known issue where in Jest, axios.request() will leave open handlers.
-           * See: https://stackoverflow.com/questions/69169492/async-external-function-leaves-open-handles-jest-supertest-express
-           */
-          // eslint-disable-next-line no-await-in-loop -- we have sequential and conditional async requests
-          await process.nextTick(noop);
-        }
         // eslint-disable-next-line no-await-in-loop -- we have sequential and conditional async requests
         const response = await axios.request(requestConfig);
         return response;
