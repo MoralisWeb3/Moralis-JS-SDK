@@ -37,11 +37,11 @@ export class AptosScriptWriteSet {
   }
 
   public static isInput(input: any): input is AptosScriptWriteSetInput {
-    return input.type === 'TODO';
+    return input.type === 'script_write_set';
   }
 
   public static isJSON(json: any): json is AptosScriptWriteSetJSON {
-    return json.type === 'TODO';
+    return json.type === 'script_write_set';
   }
 
   public readonly type: string;

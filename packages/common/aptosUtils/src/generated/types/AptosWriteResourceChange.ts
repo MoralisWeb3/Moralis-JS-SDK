@@ -1,3 +1,4 @@
+import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
 import { AptosWriteResourceData, AptosWriteResourceDataInput, AptosWriteResourceDataJSON } from '../types/AptosWriteResourceData';
 
 // $ref: #/components/schemas/WriteResourceChange
@@ -10,14 +11,14 @@ import { AptosWriteResourceData, AptosWriteResourceDataInput, AptosWriteResource
 
 export interface AptosWriteResourceChangeJSON {
   readonly type: string;
-  readonly address: string;
+  readonly address: AptosAddressJSON;
   readonly state_key_hash: string;
   readonly data: AptosWriteResourceDataJSON;
 }
 
 export interface AptosWriteResourceChangeInput {
   readonly type: string;
-  readonly address: string;
+  readonly address: AptosAddressInput | AptosAddress;
   readonly stateKeyHash: string;
   readonly data: AptosWriteResourceDataInput | AptosWriteResourceData;
 }
@@ -33,7 +34,7 @@ export class AptosWriteResourceChange {
   public static fromJSON(json: AptosWriteResourceChangeJSON): AptosWriteResourceChange {
     const input: AptosWriteResourceChangeInput = {
       type: json.type,
-      address: json.address,
+      address: AptosAddress.fromJSON(json.address),
       stateKeyHash: json.state_key_hash,
       data: AptosWriteResourceData.fromJSON(json.data),
     };
@@ -52,7 +53,7 @@ export class AptosWriteResourceChange {
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: string;
+  public readonly address: AptosAddress;
   /**
    * @description State key hash
    */
@@ -61,7 +62,7 @@ export class AptosWriteResourceChange {
 
   private constructor(input: AptosWriteResourceChangeInput) {
     this.type = input.type;
-    this.address = input.address;
+    this.address = AptosAddress.create(input.address);
     this.stateKeyHash = input.stateKeyHash;
     this.data = AptosWriteResourceData.create(input.data);
   }
@@ -69,7 +70,7 @@ export class AptosWriteResourceChange {
   public toJSON(): AptosWriteResourceChangeJSON {
     return {
       type: this.type,
-      address: this.address,
+      address: this.address.toJSON(),
       state_key_hash: this.stateKeyHash,
       data: this.data.toJSON(),
     }

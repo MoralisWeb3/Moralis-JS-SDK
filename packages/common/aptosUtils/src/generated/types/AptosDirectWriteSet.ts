@@ -1,4 +1,3 @@
-import { AptosDirectWriteSetChanges, AptosDirectWriteSetChangesValue, AptosDirectWriteSetChangesInput, AptosDirectWriteSetChangesJSON } from '../types/AptosDirectWriteSetChanges';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
 
 // $ref: #/components/schemas/DirectWriteSet
@@ -10,13 +9,13 @@ import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEven
 
 export interface AptosDirectWriteSetJSON {
   readonly type: string;
-  readonly changes: AptosDirectWriteSetChangesJSON;
+  readonly changes: string[];
   readonly events: AptosTransactionEventJSON[];
 }
 
 export interface AptosDirectWriteSetInput {
   readonly type: string;
-  readonly changes: AptosDirectWriteSetChangesInput | AptosDirectWriteSetChangesValue;
+  readonly changes: string[];
   readonly events: AptosTransactionEventInput[] | AptosTransactionEvent[];
 }
 
@@ -31,7 +30,7 @@ export class AptosDirectWriteSet {
   public static fromJSON(json: AptosDirectWriteSetJSON): AptosDirectWriteSet {
     const input: AptosDirectWriteSetInput = {
       type: json.type,
-      changes: AptosDirectWriteSetChanges.fromJSON(json.changes),
+      changes: json.changes,
       events: json.events.map((item) => AptosTransactionEvent.fromJSON(item)),
     };
     return AptosDirectWriteSet.create(input);
@@ -46,7 +45,7 @@ export class AptosDirectWriteSet {
   }
 
   public readonly type: string;
-  public readonly changes: AptosDirectWriteSetChangesValue;
+  public readonly changes: string[];
   /**
    * @description Events emitted during genesis
    */
@@ -54,14 +53,14 @@ export class AptosDirectWriteSet {
 
   private constructor(input: AptosDirectWriteSetInput) {
     this.type = input.type;
-    this.changes = AptosDirectWriteSetChanges.create(input.changes);
+    this.changes = input.changes;
     this.events = input.events.map((item) => AptosTransactionEvent.create(item));
   }
 
   public toJSON(): AptosDirectWriteSetJSON {
     return {
       type: this.type,
-      changes: this.changes.toJSON(),
+      changes: this.changes,
       events: this.events.map((item) => item.toJSON()),
     }
   }

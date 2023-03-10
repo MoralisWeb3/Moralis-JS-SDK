@@ -1,4 +1,5 @@
 import { AptosTransactionEventGuid, AptosTransactionEventGuidInput, AptosTransactionEventGuidJSON } from '../types/AptosTransactionEventGuid';
+import { AptosTransactionEventData, AptosTransactionEventDataValue, AptosTransactionEventDataInput, AptosTransactionEventDataJSON } from '../types/AptosTransactionEventData';
 
 // $ref: #/components/schemas/TransactionEvent
 // type: TransactionEvent
@@ -12,14 +13,14 @@ export interface AptosTransactionEventJSON {
   readonly guid: AptosTransactionEventGuidJSON;
   readonly sequence_number: string;
   readonly type: string;
-  readonly data: string;
+  readonly data: AptosTransactionEventDataJSON;
 }
 
 export interface AptosTransactionEventInput {
   readonly guid: AptosTransactionEventGuidInput | AptosTransactionEventGuid;
   readonly sequenceNumber: string;
   readonly type: string;
-  readonly data: string;
+  readonly data: AptosTransactionEventDataInput | AptosTransactionEventDataValue;
 }
 
 export class AptosTransactionEvent {
@@ -35,7 +36,7 @@ export class AptosTransactionEvent {
       guid: AptosTransactionEventGuid.fromJSON(json.guid),
       sequenceNumber: json.sequence_number,
       type: json.type,
-      data: json.data,
+      data: AptosTransactionEventData.fromJSON(json.data),
     };
     return AptosTransactionEvent.create(input);
   }
@@ -52,13 +53,13 @@ export class AptosTransactionEvent {
   /**
    * @description The JSON representation of the event
    */
-  public readonly data: string;
+  public readonly data: AptosTransactionEventDataValue;
 
   private constructor(input: AptosTransactionEventInput) {
     this.guid = AptosTransactionEventGuid.create(input.guid);
     this.sequenceNumber = input.sequenceNumber;
     this.type = input.type;
-    this.data = input.data;
+    this.data = AptosTransactionEventData.create(input.data);
   }
 
   public toJSON(): AptosTransactionEventJSON {

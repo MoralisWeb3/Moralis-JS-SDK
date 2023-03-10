@@ -8,7 +8,17 @@
       "refs": [],
       "complexTypeProperties": [
         {
-          "names": ["creator_address", "owner_address", "sender", "payee_address", "from_address", "to_address"],
+          "names": [
+            "creator_address",
+            "owner_address",
+            "address",
+            "sender",
+            "payee_address",
+            "from_address",
+            "to_address",
+            "proposer",
+            "account_address"
+          ],
           "className": "AptosAddress",
           "import": "../../dataTypes"
         },
@@ -54,8 +64,8 @@
       },
       {
         "typeName": "PendingTransaction",
-        "isInputCode": "input.type === 'TODO'",
-        "isJSONCode": "json.type === 'TODO'"
+        "isInputCode": "input.type === 'pending_transaction'",
+        "isJSONCode": "json.type === 'pending_transaction'"
       },
       {
         "typeName": "StateCheckpointTransaction",
@@ -64,13 +74,13 @@
       },
       {
         "typeName": "DeleteModuleChange",
-        "isInputCode": "input.type === 'TODO'",
-        "isJSONCode": "json.type === 'TODO'"
+        "isInputCode": "input.type === 'delete_module'",
+        "isJSONCode": "json.type === 'delete_module'"
       },
       {
         "typeName": "DeleteResourceChange",
-        "isInputCode": "input.type === 'TODO'",
-        "isJSONCode": "json.type === 'TODO'"
+        "isInputCode": "input.type === 'delete_resource'",
+        "isJSONCode": "json.type === 'delete_resource'"
       },
       {
         "typeName": "DeleteTableItemChange",
@@ -94,8 +104,8 @@
       },
       {
         "typeName": "ScriptWriteSet",
-        "isInputCode": "input.type === 'TODO'",
-        "isJSONCode": "json.type === 'TODO'"
+        "isInputCode": "input.type === 'script_write_set'",
+        "isJSONCode": "json.type === 'script_write_set'"
       },
       {
         "typeName": "DirectWriteSet",

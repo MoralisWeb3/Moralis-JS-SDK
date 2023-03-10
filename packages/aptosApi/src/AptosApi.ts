@@ -45,7 +45,8 @@ class AptosApiBaseUrlResolver implements OperationV3UrlBaseResolver {
   public resolve(request: unknown): string {
     const { network } = request as { network: AptosNetworkInput | undefined };
     if (network) {
-      switch (AptosNetworkResolver.resolve(network, this.core)) {
+      const finalNetwork = AptosNetworkResolver.resolve(network, this.core);
+      switch (finalNetwork) {
         case 'mainnet':
           return MAINNET_BASE_URL;
         case 'testnet':

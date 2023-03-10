@@ -27,7 +27,7 @@ describe('getLatestCoins', () => {
     );
     expect(item1.coinTypeHash).toBe('069476fd0e9663039084fcd721540374c2313c9f0dffe81130970774a22855c3');
     expect(item1.name).toBe('LiquidLP-USDT-APT-U');
-    expect(item1.creatorAddress.address).toBe('0x5a97986a9d031c4567e15b797be516910cfcb4156312482efc6a19c0a30c948');
+    expect(item1.creatorAddress.address).toBe('0x05a97986a9d031c4567e15b797be516910cfcb4156312482efc6a19c0a30c948');
     expect(item1.decimals).toBe(6);
     expect(item1.supplyAggregatorTableHandle).toBeNull();
     expect(item1.supplyAggregatorTableKey).toBeNull();

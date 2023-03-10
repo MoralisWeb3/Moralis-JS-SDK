@@ -19,7 +19,7 @@ describe('getAccountModule', () => {
     });
 
     expect(response.bytecode).toBe('0xbytecode_todo');
-    expect(response.abi.address).toBe('0x88fbd33f54e1126269769780feb24480428179f552e2313fbe571b72e62a1ca1');
+    expect(response.abi.address.address).toBe('0x88fbd33f54e1126269769780feb24480428179f552e2313fbe571b72e62a1ca1');
     expect(response.abi.name).toBe('string');
     expect(response.abi.friends).toContain('0x1::aptos_coin');
     const exposedFunction = response.abi.exposedFunctions[0];

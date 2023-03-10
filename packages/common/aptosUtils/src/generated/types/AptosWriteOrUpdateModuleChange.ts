@@ -1,3 +1,4 @@
+import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
 import { AptosWriteModuleData, AptosWriteModuleDataInput, AptosWriteModuleDataJSON } from '../types/AptosWriteModuleData';
 
 // $ref: #/components/schemas/WriteOrUpdateModuleChange
@@ -10,14 +11,14 @@ import { AptosWriteModuleData, AptosWriteModuleDataInput, AptosWriteModuleDataJS
 
 export interface AptosWriteOrUpdateModuleChangeJSON {
   readonly type: string;
-  readonly address: string;
+  readonly address: AptosAddressJSON;
   readonly state_key_hash: string;
   readonly data: AptosWriteModuleDataJSON;
 }
 
 export interface AptosWriteOrUpdateModuleChangeInput {
   readonly type: string;
-  readonly address: string;
+  readonly address: AptosAddressInput | AptosAddress;
   readonly stateKeyHash: string;
   readonly data: AptosWriteModuleDataInput | AptosWriteModuleData;
 }
@@ -33,7 +34,7 @@ export class AptosWriteOrUpdateModuleChange {
   public static fromJSON(json: AptosWriteOrUpdateModuleChangeJSON): AptosWriteOrUpdateModuleChange {
     const input: AptosWriteOrUpdateModuleChangeInput = {
       type: json.type,
-      address: json.address,
+      address: AptosAddress.fromJSON(json.address),
       stateKeyHash: json.state_key_hash,
       data: AptosWriteModuleData.fromJSON(json.data),
     };
@@ -52,7 +53,7 @@ export class AptosWriteOrUpdateModuleChange {
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: string;
+  public readonly address: AptosAddress;
   /**
    * @description State key hash
    */
@@ -61,7 +62,7 @@ export class AptosWriteOrUpdateModuleChange {
 
   private constructor(input: AptosWriteOrUpdateModuleChangeInput) {
     this.type = input.type;
-    this.address = input.address;
+    this.address = AptosAddress.create(input.address);
     this.stateKeyHash = input.stateKeyHash;
     this.data = AptosWriteModuleData.create(input.data);
   }
@@ -69,7 +70,7 @@ export class AptosWriteOrUpdateModuleChange {
   public toJSON(): AptosWriteOrUpdateModuleChangeJSON {
     return {
       type: this.type,
-      address: this.address,
+      address: this.address.toJSON(),
       state_key_hash: this.stateKeyHash,
       data: this.data.toJSON(),
     }

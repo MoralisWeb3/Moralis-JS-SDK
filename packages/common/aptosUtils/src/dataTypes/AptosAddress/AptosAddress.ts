@@ -5,8 +5,8 @@ import { AccountAddress } from '../../utils/AccountAddress';
  * Valid input for a new AptosAddress instance.
  * This can be an existing AptosAddress or a valid address string.
  *
- * @example "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
- * @example AptosAddress.create("9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM")
+ * @example "0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90"
+ * @example AptosAddress.create("0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90")
  */
 export type AptosAddressInput = AptosAddress | string;
 
@@ -23,11 +23,14 @@ export class AptosAddress implements MoralisData {
   /**
    * Create a new instance of AptosAddress from any valid address input.
    *
-   * @example `const address = AptosAddress.create("0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c")`
+   * @example `const address = AptosAddress.create("0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90")`
    * @throws an error when a passed address is invalid.
    */
   public static create(address: AptosAddressInput): AptosAddress {
-    return address instanceof AptosAddress ? address : new AptosAddress(AptosAddress.parse(address));
+    if (address instanceof AptosAddress) {
+      return address;
+    }
+    return new AptosAddress(AptosAddress.parse(address));
   }
 
   public static fromJSON(json: AptosAddressJSON): AptosAddress {
@@ -37,11 +40,8 @@ export class AptosAddress implements MoralisData {
   private static parse(address: string): string {
     try {
       if (!AccountAddress.isValid(address)) {
-        // Throw and catch locally to resolve the same way if it is invalid and if it cannot be parsed
-        throw new Error();
+        throw new Error('Address is invalid');
       }
-
-      return address;
     } catch (e) {
       throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
@@ -49,6 +49,11 @@ export class AptosAddress implements MoralisData {
         cause: e,
       });
     }
+
+    if (address.startsWith('0x')) {
+      address = address.substring(2);
+    }
+    return '0x' + address.padStart(64, '0');
   }
 
   public constructor(public readonly address: string) {}
@@ -56,7 +61,7 @@ export class AptosAddress implements MoralisData {
   /**
    * Formats the address to hex format.
    * Currently returns a string representing the address.
-   * @example address.format(); // "0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c"
+   * @example address.format(); // "0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90"
    */
   public format(): MoralisDataFormatted {
     // TODO: add `format` argument
@@ -65,7 +70,7 @@ export class AptosAddress implements MoralisData {
 
   /**
    * Check the equality between two Aptos addresses
-   * @example `AptosAddress.equals("0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c", "0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c")`
+   * @example `AptosAddress.equals("0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90", "0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90")`
    */
   static equals(addressA: AptosAddressInput, addressB: AptosAddressInput) {
     return AptosAddress.create(addressA).equals(addressB);
@@ -73,8 +78,8 @@ export class AptosAddress implements MoralisData {
 
   /**
    * Checks the equality of the current address with another Aptos address.
-   * @example `address.equals("0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c")`
-   * @example `address.equals(AptosAddress.create("0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c"))`
+   * @example `address.equals("0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90")`
+   * @example `address.equals(AptosAddress.create("0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90"))`
    */
   public equals(address: AptosAddressInput): boolean {
     return this.address === AptosAddress.create(address).address;
@@ -82,7 +87,7 @@ export class AptosAddress implements MoralisData {
 
   /**
    * @returns a string representing the address.
-   * @example address.toString(); // "0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c"
+   * @example address.toString(); // "0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90"
    */
   public toString(): string {
     return this.address;
@@ -90,7 +95,7 @@ export class AptosAddress implements MoralisData {
 
   /**
    * @returns a string representing the address.
-   * @example address.toJSON(); // "0xcd30fbbda98b2aed026772c13e5ed90a7f056b589ef9e78cd96415e1af12451c"
+   * @example address.toJSON(); // "0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90"
    */
   public toJSON(): AptosAddressJSON {
     return this.address;

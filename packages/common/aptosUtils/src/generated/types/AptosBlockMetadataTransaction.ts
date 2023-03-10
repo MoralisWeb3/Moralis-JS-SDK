@@ -1,5 +1,6 @@
 import { AptosBlockMetadataTransactionChangesItem, AptosBlockMetadataTransactionChangesItemValue, AptosBlockMetadataTransactionChangesItemInput, AptosBlockMetadataTransactionChangesItemJSON } from '../types/AptosBlockMetadataTransactionChangesItem';
 import { AptosTransactionEvent, AptosTransactionEventInput, AptosTransactionEventJSON } from '../types/AptosTransactionEvent';
+import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
 
 // $ref: #/components/schemas/BlockMetadataTransaction
 // type: BlockMetadataTransaction
@@ -41,7 +42,7 @@ export interface AptosBlockMetadataTransactionJSON {
   readonly round: string;
   readonly events: AptosTransactionEventJSON[];
   readonly previous_block_votes_bitvec: string[];
-  readonly proposer: string;
+  readonly proposer: AptosAddressJSON;
   readonly failed_proposer_indices: string[];
   readonly timestamp: string;
 }
@@ -63,7 +64,7 @@ export interface AptosBlockMetadataTransactionInput {
   readonly round: string;
   readonly events: AptosTransactionEventInput[] | AptosTransactionEvent[];
   readonly previousBlockVotesBitvec: string[];
-  readonly proposer: string;
+  readonly proposer: AptosAddressInput | AptosAddress;
   readonly failedProposerIndices: string[];
   readonly timestamp: string;
 }
@@ -94,7 +95,7 @@ export class AptosBlockMetadataTransaction {
       round: json.round,
       events: json.events.map((item) => AptosTransactionEvent.fromJSON(item)),
       previousBlockVotesBitvec: json.previous_block_votes_bitvec,
-      proposer: json.proposer,
+      proposer: AptosAddress.fromJSON(json.proposer),
       failedProposerIndices: json.failed_proposer_indices,
       timestamp: json.timestamp,
     };
@@ -152,7 +153,7 @@ export class AptosBlockMetadataTransaction {
   /**
    * @description A hex encoded 32 byte Aptos account address.S
    */
-  public readonly proposer: string;
+  public readonly proposer: AptosAddress;
   /**
    * @description The indices of the proposers who failed to propose
    */
@@ -179,7 +180,7 @@ export class AptosBlockMetadataTransaction {
     this.round = input.round;
     this.events = input.events.map((item) => AptosTransactionEvent.create(item));
     this.previousBlockVotesBitvec = input.previousBlockVotesBitvec;
-    this.proposer = input.proposer;
+    this.proposer = AptosAddress.create(input.proposer);
     this.failedProposerIndices = input.failedProposerIndices;
     this.timestamp = input.timestamp;
   }
@@ -202,7 +203,7 @@ export class AptosBlockMetadataTransaction {
       round: this.round,
       events: this.events.map((item) => item.toJSON()),
       previous_block_votes_bitvec: this.previousBlockVotesBitvec,
-      proposer: this.proposer,
+      proposer: this.proposer.toJSON(),
       failed_proposer_indices: this.failedProposerIndices,
       timestamp: this.timestamp,
     }

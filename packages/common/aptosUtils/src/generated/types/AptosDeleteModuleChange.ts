@@ -1,3 +1,4 @@
+import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
 import { AptosDeleteModuleChangeModule, AptosDeleteModuleChangeModuleValue, AptosDeleteModuleChangeModuleInput, AptosDeleteModuleChangeModuleJSON } from '../types/AptosDeleteModuleChangeModule';
 
 // $ref: #/components/schemas/DeleteModuleChange
@@ -10,14 +11,14 @@ import { AptosDeleteModuleChangeModule, AptosDeleteModuleChangeModuleValue, Apto
 
 export interface AptosDeleteModuleChangeJSON {
   readonly type: string;
-  readonly address: string;
+  readonly address: AptosAddressJSON;
   readonly state_key_hash: string;
   readonly module: AptosDeleteModuleChangeModuleJSON;
 }
 
 export interface AptosDeleteModuleChangeInput {
   readonly type: string;
-  readonly address: string;
+  readonly address: AptosAddressInput | AptosAddress;
   readonly stateKeyHash: string;
   readonly module: AptosDeleteModuleChangeModuleInput | AptosDeleteModuleChangeModuleValue;
 }
@@ -33,7 +34,7 @@ export class AptosDeleteModuleChange {
   public static fromJSON(json: AptosDeleteModuleChangeJSON): AptosDeleteModuleChange {
     const input: AptosDeleteModuleChangeInput = {
       type: json.type,
-      address: json.address,
+      address: AptosAddress.fromJSON(json.address),
       stateKeyHash: json.state_key_hash,
       module: AptosDeleteModuleChangeModule.fromJSON(json.module),
     };
@@ -41,18 +42,18 @@ export class AptosDeleteModuleChange {
   }
 
   public static isInput(input: any): input is AptosDeleteModuleChangeInput {
-    return input.type === 'TODO';
+    return input.type === 'delete_module';
   }
 
   public static isJSON(json: any): json is AptosDeleteModuleChangeJSON {
-    return json.type === 'TODO';
+    return json.type === 'delete_module';
   }
 
   public readonly type: string;
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: string;
+  public readonly address: AptosAddress;
   /**
    * @description State key hash
    */
@@ -64,7 +65,7 @@ export class AptosDeleteModuleChange {
 
   private constructor(input: AptosDeleteModuleChangeInput) {
     this.type = input.type;
-    this.address = input.address;
+    this.address = AptosAddress.create(input.address);
     this.stateKeyHash = input.stateKeyHash;
     this.module = AptosDeleteModuleChangeModule.create(input.module);
   }
@@ -72,7 +73,7 @@ export class AptosDeleteModuleChange {
   public toJSON(): AptosDeleteModuleChangeJSON {
     return {
       type: this.type,
-      address: this.address,
+      address: this.address.toJSON(),
       state_key_hash: this.stateKeyHash,
       module: this.module,
     }

@@ -1,3 +1,5 @@
+import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
+
 // $ref: #/components/schemas/TransactionEventGuid
 // type: TransactionEventGuid
 // properties:
@@ -6,12 +8,12 @@
 
 export interface AptosTransactionEventGuidJSON {
   readonly creation_number: string;
-  readonly account_address: string;
+  readonly account_address: AptosAddressJSON;
 }
 
 export interface AptosTransactionEventGuidInput {
   readonly creationNumber: string;
-  readonly accountAddress: string;
+  readonly accountAddress: AptosAddressInput | AptosAddress;
 }
 
 export class AptosTransactionEventGuid {
@@ -25,7 +27,7 @@ export class AptosTransactionEventGuid {
   public static fromJSON(json: AptosTransactionEventGuidJSON): AptosTransactionEventGuid {
     const input: AptosTransactionEventGuidInput = {
       creationNumber: json.creation_number,
-      accountAddress: json.account_address,
+      accountAddress: AptosAddress.fromJSON(json.account_address),
     };
     return AptosTransactionEventGuid.create(input);
   }
@@ -39,17 +41,17 @@ export class AptosTransactionEventGuid {
    * @description A hex encoded 32 byte Aptos account address.
    * This is represented in a string as a 64 character hex string, sometimes shortened by stripping leading 0s, and adding a 0x.
    */
-  public readonly accountAddress: string;
+  public readonly accountAddress: AptosAddress;
 
   private constructor(input: AptosTransactionEventGuidInput) {
     this.creationNumber = input.creationNumber;
-    this.accountAddress = input.accountAddress;
+    this.accountAddress = AptosAddress.create(input.accountAddress);
   }
 
   public toJSON(): AptosTransactionEventGuidJSON {
     return {
       creation_number: this.creationNumber,
-      account_address: this.accountAddress,
+      account_address: this.accountAddress.toJSON(),
     }
   }
 }

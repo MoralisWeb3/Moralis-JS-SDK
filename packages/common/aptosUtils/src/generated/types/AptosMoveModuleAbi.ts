@@ -1,3 +1,4 @@
+import { AptosAddress, AptosAddressInput, AptosAddressJSON } from '../../dataTypes';
 import { AptosModuleExposedFunction, AptosModuleExposedFunctionInput, AptosModuleExposedFunctionJSON } from '../types/AptosModuleExposedFunction';
 import { AptosModuleStruct, AptosModuleStructInput, AptosModuleStructJSON } from '../types/AptosModuleStruct';
 
@@ -11,7 +12,7 @@ import { AptosModuleStruct, AptosModuleStructInput, AptosModuleStructJSON } from
 // - structs ($ref: #/components/schemas/ModuleStruct)
 
 export interface AptosMoveModuleAbiJSON {
-  readonly address: string;
+  readonly address: AptosAddressJSON;
   readonly name: string;
   readonly friends: string[];
   readonly exposed_functions: AptosModuleExposedFunctionJSON[];
@@ -19,7 +20,7 @@ export interface AptosMoveModuleAbiJSON {
 }
 
 export interface AptosMoveModuleAbiInput {
-  readonly address: string;
+  readonly address: AptosAddressInput | AptosAddress;
   readonly name: string;
   readonly friends: string[];
   readonly exposedFunctions: AptosModuleExposedFunctionInput[] | AptosModuleExposedFunction[];
@@ -36,7 +37,7 @@ export class AptosMoveModuleAbi {
 
   public static fromJSON(json: AptosMoveModuleAbiJSON): AptosMoveModuleAbi {
     const input: AptosMoveModuleAbiInput = {
-      address: json.address,
+      address: AptosAddress.fromJSON(json.address),
       name: json.name,
       friends: json.friends,
       exposedFunctions: json.exposed_functions.map((item) => AptosModuleExposedFunction.fromJSON(item)),
@@ -48,7 +49,7 @@ export class AptosMoveModuleAbi {
   /**
    * @description A hex encoded 32 byte Aptos account address.
    */
-  public readonly address: string;
+  public readonly address: AptosAddress;
   public readonly name: string;
   /**
    * @description Friends of the module
@@ -64,7 +65,7 @@ export class AptosMoveModuleAbi {
   public readonly structs: AptosModuleStruct[];
 
   private constructor(input: AptosMoveModuleAbiInput) {
-    this.address = input.address;
+    this.address = AptosAddress.create(input.address);
     this.name = input.name;
     this.friends = input.friends;
     this.exposedFunctions = input.exposedFunctions.map((item) => AptosModuleExposedFunction.create(item));
@@ -73,7 +74,7 @@ export class AptosMoveModuleAbi {
 
   public toJSON(): AptosMoveModuleAbiJSON {
     return {
-      address: this.address,
+      address: this.address.toJSON(),
       name: this.name,
       friends: this.friends,
       exposed_functions: this.exposedFunctions.map((item) => item.toJSON()),
