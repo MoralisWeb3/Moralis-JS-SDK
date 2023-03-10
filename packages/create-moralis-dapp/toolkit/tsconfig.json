@@ -5,13 +5,8 @@
     "declarationDir": "./lib/",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "module": "CommonJS",
+    "module": "CommonJS"
   },
-  "include": [
-    "src/**/*",
-    "types/**/*"
-  ],
-  "exclude": [
-    "src/generators/**/template/**"
-  ]
+  "include": ["src/**/*", "types/**/*"],
+  "exclude": ["src/generators/**/template/**"]
 }
