@@ -42,7 +42,9 @@ describe('aptosRequestChallengeOperation', () => {
 
     const deserializedRequest = requestChallengeAptosOperation.deserializeRequest(serializedRequest, core);
 
-    expect((deserializedRequest.address as AptosAddress).toString()).toBe('0x000000000000000000000000fB6916095ca1df60bB79Ce92cE3Ea74c37c5d359');
+    expect((deserializedRequest.address as AptosAddress).toString()).toBe(
+      '0x000000000000000000000000fB6916095ca1df60bB79Ce92cE3Ea74c37c5d359',
+    );
     expect((deserializedRequest.chainId as AptosNetwork).toString()).toBe(chain);
     expect(deserializedRequest.domain).toBe(request.domain);
     expect(deserializedRequest.statement).toBe(request.statement);
