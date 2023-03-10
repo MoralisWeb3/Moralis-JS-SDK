@@ -1,5 +1,5 @@
 ---
-'@moralisweb3/aptos-api': patch
+'@moralisweb3/aptos-api': minor
 ---
 
 Released the SDK for the Aptos API.
