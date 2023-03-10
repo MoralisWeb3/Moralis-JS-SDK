@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 import { ModuleGenerator } from '../../../utils/ModuleGenerator';
 import { Module } from '../../types';
 import { getHookName } from '../../utils/names';
-import { getAllOperationProperties } from '../../../utils/getAllOperationProperties';
 
 export class HooksGenerator {
   private moduleGenerator: ModuleGenerator;
@@ -18,10 +17,6 @@ export class HooksGenerator {
   public packagesFolder = path.join(this.dirname, '../../../../..');
 
   private get addHooks() {
-    const parsedOpProperties = getAllOperationProperties(
-      'E:/Work/Moralis/Moralis-JS-SDK/packages/common/evmUtils/src/operations/openapi.ts',
-    );
-    // console.log('parsedOpProperties: ', parsedOpProperties);
     const hooks = this.moduleGenerator.operations.map((operation) => {
       const name = getHookName(operation.name, this.module);
       const isPaginated = operation.firstPageIndex === 0 || operation.firstPageIndex === 1;
