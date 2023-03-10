@@ -43,8 +43,7 @@ class AptosApiBaseUrlResolver implements OperationV3UrlBaseResolver {
   public constructor(private readonly core: Core) {}
 
   public resolve(request: unknown): string {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const network = (request as any).network as AptosNetworkInput | undefined;
+    const { network } = request as { network: AptosNetworkInput | undefined };
     if (network) {
       switch (AptosNetworkResolver.resolve(network, this.core)) {
         case 'mainnet':
