@@ -7,11 +7,35 @@ Moralis.Core.config.set('product', 'React SDK');
 
 export const MoralisContext = createContext<MoralisContextValue | null>(null);
 
-const MoralisProvider: FC<MoralisProviderProps> = ({ children, config }) => {
-  const { cacheTime, enabled, onError, onSettled, onSuccess, refetchInterval, suspense, ...moralisConfig } = config;
-
+const MoralisProvider: FC<MoralisProviderProps> = ({
+  children,
+  config: {
+    cacheTime,
+    enabled,
+    onError,
+    onSettled,
+    onSuccess,
+    refetchInterval,
+    refetchOnWindowFocus,
+    staleTime,
+    suspense,
+    ...moralisConfig
+  },
+}) => {
   const queryClient = new QueryClient({
-    defaultOptions: { queries: { cacheTime, enabled, onError, onSettled, onSuccess, refetchInterval, suspense } },
+    defaultOptions: {
+      queries: {
+        cacheTime,
+        enabled,
+        onError,
+        onSettled,
+        onSuccess,
+        refetchInterval,
+        refetchOnWindowFocus,
+        staleTime,
+        suspense,
+      },
+    },
   });
 
   const core = useMemo(() => {

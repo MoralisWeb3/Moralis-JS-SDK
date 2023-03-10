@@ -14,7 +14,7 @@ import {
   Tag,
 } from '@chakra-ui/react';
 import { EvmNft } from 'moralis/common-evm-utils';
-// import { useEvmWalletNFTs } from '@moralisweb3/react';
+import { useEvmWalletNFTs } from '@moralisweb3/react';
 
 const Nft = ({
   name,
@@ -52,36 +52,35 @@ interface NftGridProps {
 }
 
 export const NftGrid = ({ address, chain }: NftGridProps) => {
-  // const { data, error, isFetching } = useEvmWalletNFTs({ address, chain });
+  const { data, error, isFetching } = useEvmWalletNFTs({ address, chain });
 
-  // if (isFetching) {
-  //   return (
-  //     <Box>
-  //       <Spinner thickness="4px" color="blue.300" size="xl" />
-  //     </Box>
-  //   );
-  // }
+  if (isFetching) {
+    return (
+      <Box>
+        <Spinner thickness="4px" color="blue.300" size="xl" />
+      </Box>
+    );
+  }
 
-  // if (error) {
-  //   console.log('error: ', error);
-  //   return (
-  //     <Box>
-  //       <Alert status="error">
-  //         <AlertIcon />
-  //         <AlertTitle>{'error.name'}</AlertTitle>
-  //         <AlertDescription>{'error.message'}</AlertDescription>
-  //       </Alert>
-  //     </Box>
-  //   );
-  // }
+  if (error) {
+    return (
+      <Box>
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle>{error.name}</AlertTitle>
+          <AlertDescription>{error.message}</AlertDescription>
+        </Alert>
+      </Box>
+    );
+  }
 
-  // if (!data || data.length === 0) {
-  //   return <Box>No results</Box>;
-  // }
+  if (!data || data.length === 0) {
+    return <Box>No results</Box>;
+  }
 
   return (
     <Grid templateColumns="repeat(auto-fit, minmax(250px, 1fr))" gap={6}>
-      {/* {data.map((nft, key) => (
+      {data.map((nft, key) => (
         <GridItem key={key}>
           <Nft
             name={nft.name}
@@ -91,7 +90,7 @@ export const NftGrid = ({ address, chain }: NftGridProps) => {
             contractType={nft.contractType}
           />
         </GridItem>
-      ))} */}
+      ))}
     </Grid>
   );
 };

@@ -7,6 +7,7 @@ export type MoralisQueryOptionKeys =
   | 'onSettled'
   | 'onSuccess'
   | 'refetchInterval'
+  | 'refetchOnWindowFocus'
   | 'staleTime'
   | 'suspense';
 
