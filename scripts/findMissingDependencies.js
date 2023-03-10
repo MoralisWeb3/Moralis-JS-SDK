@@ -4,7 +4,7 @@ const ts = require('typescript');
 
 const PACKAGE_DIR_PATHS = ['packages', 'packages/common', 'packages/client', 'packages/create-moralis-dapp'];
 
-const SKIP_DIRECTORIES = ['lib', 'integration', 'node_modules', 'template'];
+const SKIP_DIRECTORIES = ['lib', 'build', 'integration', 'node_modules', 'template'];
 
 const IGNORE_DEPENDENCIES = ['path', 'lodash', 'child_process', 'fs', 'crypto'];
 

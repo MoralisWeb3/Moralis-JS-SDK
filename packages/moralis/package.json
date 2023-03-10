@@ -24,8 +24,10 @@
     "type": "git",
     "url": "https://github.com/MoralisWeb3/Moralis-JS-SDK"
   },
-  "main": "./lib/index.js",
+  "type": "module",
+  "main": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "sideEffects": false,
   "moralis": {
     "name": "Moralis Umbrella Package",
@@ -35,32 +37,96 @@
   },
   "files": [
     "lib/*",
-    "lib.esm/*",
     "dist/*"
   ],
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "yarn build:cjs && yarn build:esm && yarn build-dist",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "build:cjs": "tsc --project tsconfig.json",
-    "build-dist": "rollup -c",
+    "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
+    "build": "rollup -c",
     "dev": "tsc --watch"
   },
   "exports": {
     ".": {
-      "import": "./lib.esm/index.js",
-      "require": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "types": {
+        "default": "./lib/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/index.cjs",
+        "default": "./lib/esm/index.js"
+      }
     },
-    "./common-core": "./lib/commonCore/index.js",
-    "./streams-typings": "./lib/streamsTypings/index.js",
-    "./common-evm-utils": "./lib/commonEvmUtils/index.js",
-    "./common-sol-utils": "./lib/commonSolUtils/index.js",
-    "./common-auth-utils": "./lib/commonAuthUtils/index.js",
-    "./common-streams-utils": "./lib/commonStreamsUtils/index.js",
-    "./auth": "./lib/auth/index.js",
-    "./streams": "./lib/streams/index.js"
+    "./common-core": {
+      "types": {
+        "default": "./lib/commonCore/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonCore/index.cjs",
+        "default": "./lib/esm/commonCore/index.js"
+      }
+    },
+    "./streams-typings": {
+      "types": {
+        "default": "./lib/streamsTypings/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/streamsTypings/index.cjs",
+        "default": "./lib/esm/streamsTypings/index.js"
+      }
+    },
+    "./common-evm-utils": {
+      "types": {
+        "default": "./lib/commonEvmUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonEvmUtils/index.cjs",
+        "default": "./lib/esm/commonEvmUtils/index.js"
+      }
+    },
+    "./common-sol-utils": {
+      "types": {
+        "default": "./lib/commonSolUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonSolUtils/index.cjs",
+        "default": "./lib/esm/commonSolUtils/index.js"
+      }
+    },
+    "./common-auth-utils": {
+      "types": {
+        "default": "./lib/commonAuthUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonAuthUtils/index.cjs",
+        "default": "./lib/esm/commonAuthUtils/index.js"
+      }
+    },
+    "./common-streams-utils": {
+      "types": {
+        "default": "./lib/commonStreamsUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonStreamsUtils/index.cjs",
+        "default": "./lib/esm/commonStreamsUtils/index.js"
+      }
+    },
+    "./auth": {
+      "types": {
+        "default": "./lib/auth/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/auth/index.cjs",
+        "default": "./lib/esm/auth/index.js"
+      }
+    },
+    "./streams": {
+      "types": {
+        "default": "./lib/streams/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/streams/index.cjs",
+        "default": "./lib/esm/streams/index.js"
+      }
+    }
   },
   "typesVersions": {
     "*": {
@@ -110,8 +176,10 @@
     "@rollup/plugin-terser": "^0.3.0",
     "rollup": "^3.10.1",
     "rollup-plugin-cleaner": "^1.0.0",
+    "rollup-plugin-dts": "^5.2.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4"
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.34.1"
   }
 }
