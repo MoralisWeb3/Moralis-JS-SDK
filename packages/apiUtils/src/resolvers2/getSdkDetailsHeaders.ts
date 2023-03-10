@@ -4,19 +4,14 @@ export type Headers = { [key: string]: string };
 enum Environment {
   BROWSER = 'browser',
   NODE = 'node',
-  // webworker, jsdom, deno etc.
-  OTHER = 'other',
 }
+
+const sdkNameForEnvironment: { [key in Environment]: string } = {
+  [Environment.BROWSER]: 'Javascript SDK',
+  [Environment.NODE]: 'NodeJS SDK',
+};
 
 const currentEnvironment = getEnvironment();
-
-function detectIsNode() {
-  try {
-    return typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
-  } catch (error) {
-    return false;
-  }
-}
 
 function detectIsBrowser() {
   try {
@@ -29,14 +24,13 @@ function detectIsBrowser() {
 }
 
 function getEnvironment() {
-  if (detectIsNode()) {
-    return Environment.NODE;
-  }
   if (detectIsBrowser()) {
     return Environment.BROWSER;
   }
 
-  return Environment.OTHER;
+  // Otherwise we use NodeJs as default
+  // (in theory this will also account for other environments like webworker etc. but we don't support this at the moment)
+  return Environment.NODE;
 }
 
 /**
@@ -49,14 +43,8 @@ function getSdkName(environment: Environment, product?: string) {
     return product;
   }
 
-  // For browser environment we name it Javascript SDK
-  if (environment === Environment.BROWSER) {
-    return 'Javascript SDK';
-  }
-
-  // Otherwise we use NodeJs SDK as default
-  // (in theory this will also account for other environments like webworker etc. but we don't support this at the moment)
-  return 'NodeJS SDK';
+  // Otherwise we use the name based on the environment
+  return sdkNameForEnvironment[environment];
 }
 
 /**
