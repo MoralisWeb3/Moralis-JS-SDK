@@ -13,6 +13,7 @@ module.exports = {
     '^@moralisweb3/common-streams-utils': path.join(__dirname, 'packages/common/streamsUtils/src'),
     '^@moralisweb3/common-auth-utils': path.join(__dirname, 'packages/common/authUtils/src'),
     '^@moralisweb3/common-core': path.join(__dirname, 'packages/common/core/src'),
+    '^@create-moralis-dapp/toolkit': path.join(__dirname, 'packages/create-moralis-dapp/toolkit/src'),
     '^@moralisweb3/(.*)$': path.join(__dirname, 'packages/$1/src'),
   },
   modulePaths: ['<rootDir>'],

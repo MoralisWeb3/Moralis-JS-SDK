@@ -6,30 +6,67 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 import json from '@rollup/plugin-json';
 import globals from 'rollup-plugin-node-globals';
 import cleaner from 'rollup-plugin-cleaner';
+import typescript from 'rollup-plugin-typescript2';
+import dts from 'rollup-plugin-dts';
+import fs from 'fs';
 
-/**
- * Generate UMD build, based on the input file.
- * 'input' should be preferably an ESM build.
- */
-const getUMDConfig = ({ input, name, moduleName, outFolder }) => {
-  const outputFiles = [
-    `${outFolder}/${moduleName}.js`,
-    `${outFolder}/${moduleName}.js.map`,
-    `${outFolder}/${moduleName}.min.js`,
-    `${outFolder}/${moduleName}.min.js.map`,
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+const external = Object.keys(packageJson.dependencies);
+
+function getCjsEsmConfig(clean, dir) {
+  return [
+    {
+      input: `./src/${dir}index.ts`,
+      plugins: [
+        clean &&
+          cleaner({
+            targets: ['./dist', './lib'],
+          }),
+        typescript({
+          useTsconfigDeclarationDir: true,
+        }),
+        nodeResolve(),
+      ],
+      external,
+      cache: false,
+      output: [
+        {
+          file: `./lib/cjs/${dir}index.cjs`,
+          format: 'cjs',
+          exports: 'named',
+        },
+        {
+          file: `./lib/esm/${dir}index.js`,
+          format: 'esm',
+        },
+      ],
+    },
+    {
+      input: `./build/${dir}index.d.ts`,
+      output: [
+        {
+          file: `./lib/${dir}index.d.ts`,
+          format: 'es',
+        },
+      ],
+      plugins: [dts()],
+    },
   ];
+}
 
+function getUmdConfig() {
+  const name = 'Moralis';
   return {
-    input,
+    input: 'lib/esm/index.js',
     output: [
       {
-        file: `${outFolder}/${moduleName}.js`,
+        file: `dist/moralis.js`,
         name,
         format: 'umd',
         sourcemap: true,
       },
       {
-        file: `${outFolder}/${moduleName}.min.js`,
+        file: `dist/moralis.min.js`,
         name,
         format: 'umd',
         sourcemap: true,
@@ -37,12 +74,9 @@ const getUMDConfig = ({ input, name, moduleName, outFolder }) => {
       },
     ],
     plugins: [
-      cleaner({
-        targets: outputFiles,
-      }),
+      commonjs(),
       nodePolyfills(),
       peerDepsExternal(),
-      commonjs(),
       nodeResolve({
         browser: true,
         preferBuiltins: false,
@@ -51,13 +85,17 @@ const getUMDConfig = ({ input, name, moduleName, outFolder }) => {
       globals({}),
     ],
   };
-};
+}
 
 export default [
-  getUMDConfig({
-    input: 'lib.esm/index.js',
-    name: 'Moralis',
-    moduleName: 'moralis',
-    outFolder: 'dist',
-  }),
+  ...getCjsEsmConfig(true, ''),
+  ...getCjsEsmConfig(false, 'commonCore/'),
+  ...getCjsEsmConfig(false, 'streamsTypings/'),
+  ...getCjsEsmConfig(false, 'commonEvmUtils/'),
+  ...getCjsEsmConfig(false, 'commonSolUtils/'),
+  ...getCjsEsmConfig(false, 'commonAuthUtils/'),
+  ...getCjsEsmConfig(false, 'commonStreamsUtils/'),
+  ...getCjsEsmConfig(false, 'auth/'),
+  ...getCjsEsmConfig(false, 'streams/'),
+  getUmdConfig(),
 ];
