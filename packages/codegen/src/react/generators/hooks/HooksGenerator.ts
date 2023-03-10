@@ -36,8 +36,8 @@ export class HooksGenerator {
       }
 
       const { urlPathParamNames = [], bodyParamNames = [], urlSearchParamNames = [] } = operation;
-      const requiredParams = parsedOpProperties.find((op) => op.name === operation.name)?.requiredParams;
-      const allParams = [...urlPathParamNames, ...bodyParamNames, ...urlSearchParamNames];
+      const requiredParams = [...urlPathParamNames, ...bodyParamNames];
+      const allParams = [...urlPathParamNames, ...bodyParamNames, ...requiredParams, ...urlSearchParamNames];
 
       return {
         name,
@@ -67,7 +67,6 @@ export class HooksGenerator {
           hookParamsType: `${_.upperFirst(hook.name)}Params`,
           requiredParams: hook.requiredParams,
           allParams: hook.allParams,
-          isNullable: hook.isNullable,
         },
         force: true,
       };
