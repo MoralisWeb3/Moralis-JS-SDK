@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmNativeBalancesForAddressesParams = UseMoralisQueryParams<GetNativeBalancesForAddressesResponse, GetNativeBalancesForAddressesRequest>
 
-export function useEvmNativeBalancesForAddresses({ chain,providerUrl,toBlock,walletAddresses, ...queryParams }: UseEvmNativeBalancesForAddressesParams = {}) {
+export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, walletAddresses, ...queryParams }: UseEvmNativeBalancesForAddressesParams = {}) {
   const resolver = useOperationResolver(getNativeBalancesForAddressesOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNativeBalancesForAddressesRequest] | undefined = useMemo(() => {
-    if (walletAddresses ) {
+    if (walletAddresses) {
       return [
       getNativeBalancesForAddressesOperation.id,
       {
-        chain,providerUrl,toBlock,walletAddresses
+        chain, providerUrl, toBlock, walletAddresses
       },
     ];
     }
       return;
-  }, [chain,providerUrl,toBlock,walletAddresses]);
+  }, [chain, providerUrl, toBlock, walletAddresses]);
 
   return useQuery({
     queryKey,

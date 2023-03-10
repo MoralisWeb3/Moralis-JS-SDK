@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmRunContractFunctionParams = UseMoralisQueryParams<RunContractFunctionResponse, RunContractFunctionRequest>
 
-export function useEvmRunContractFunction({ address,abi,params,chain,functionName, ...queryParams }: UseEvmRunContractFunctionParams = {}) {
+export function useEvmRunContractFunction({ address, abi, params, chain, functionName, ...queryParams }: UseEvmRunContractFunctionParams = {}) {
   const resolver = useOperationResolver(runContractFunctionOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, RunContractFunctionRequest] | undefined = useMemo(() => {
-    if (functionName &&address &&abi ) {
+    if (functionName && address && abi) {
       return [
       runContractFunctionOperation.id,
       {
-        address,abi,params,chain,functionName
+        address, abi, params, chain, functionName
       },
     ];
     }
       return;
-  }, [address,abi,params,chain,functionName]);
+  }, [address, abi, params, chain, functionName]);
 
   return useQuery({
     queryKey,

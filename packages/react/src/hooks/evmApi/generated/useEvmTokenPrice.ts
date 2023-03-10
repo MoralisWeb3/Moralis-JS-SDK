@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmTokenPriceParams = UseMoralisQueryParams<GetTokenPriceResponse, GetTokenPriceRequest>
 
-export function useEvmTokenPrice({ address,chain,exchange,toBlock, ...queryParams }: UseEvmTokenPriceParams = {}) {
+export function useEvmTokenPrice({ address, chain, exchange, toBlock, ...queryParams }: UseEvmTokenPriceParams = {}) {
   const resolver = useOperationResolver(getTokenPriceOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetTokenPriceRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getTokenPriceOperation.id,
       {
-        address,chain,exchange,toBlock
+        address, chain, exchange, toBlock
       },
     ];
     }
       return;
-  }, [address,chain,exchange,toBlock]);
+  }, [address, chain, exchange, toBlock]);
 
   return useQuery({
     queryKey,

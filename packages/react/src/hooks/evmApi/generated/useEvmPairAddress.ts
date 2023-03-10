@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmPairAddressParams = UseMoralisQueryParams<GetPairAddressResponse, GetPairAddressRequest>
 
-export function useEvmPairAddress({ token0Address,token1Address,chain,toBlock,toDate,exchange, ...queryParams }: UseEvmPairAddressParams = {}) {
+export function useEvmPairAddress({ token0Address, token1Address, chain, toBlock, toDate, exchange, ...queryParams }: UseEvmPairAddressParams = {}) {
   const resolver = useOperationResolver(getPairAddressOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetPairAddressRequest] | undefined = useMemo(() => {
-    if (exchange &&token0Address &&token1Address ) {
+    if (exchange && token0Address && token1Address) {
       return [
       getPairAddressOperation.id,
       {
-        token0Address,token1Address,chain,toBlock,toDate,exchange
+        token0Address, token1Address, chain, toBlock, toDate, exchange
       },
     ];
     }
       return;
-  }, [token0Address,token1Address,chain,toBlock,toDate,exchange]);
+  }, [token0Address, token1Address, chain, toBlock, toDate, exchange]);
 
   return useQuery({
     queryKey,

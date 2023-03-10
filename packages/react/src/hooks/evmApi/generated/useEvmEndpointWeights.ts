@@ -6,7 +6,7 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmEndpointWeightsParams = UseMoralisQueryParams<EndpointWeightsResponse, EndpointWeightsRequest>
 
-export function useEvmEndpointWeights({  ...queryParams }: UseEvmEndpointWeightsParams = {}) {
+export function useEvmEndpointWeights({ ...queryParams }: UseEvmEndpointWeightsParams = {}) {
   const resolver = useOperationResolver(endpointWeightsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, EndpointWeightsRequest] | undefined = useMemo(() => {

@@ -6,7 +6,7 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmWeb3ApiVersionParams = UseMoralisQueryParams<Web3ApiVersionResponse, Web3ApiVersionRequest>
 
-export function useEvmWeb3ApiVersion({  ...queryParams }: UseEvmWeb3ApiVersionParams = {}) {
+export function useEvmWeb3ApiVersion({ ...queryParams }: UseEvmWeb3ApiVersionParams = {}) {
   const resolver = useOperationResolver(web3ApiVersionOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, Web3ApiVersionRequest] | undefined = useMemo(() => {

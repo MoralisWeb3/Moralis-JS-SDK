@@ -10,7 +10,7 @@ export function useEvmResolveAddress({ address, ...queryParams }: UseEvmResolveA
   const resolver = useNullableOperationResolver(resolveAddressOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, ResolveAddressRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       resolveAddressOperation.id,
       {

@@ -6,20 +6,20 @@ import { useNullableOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmResolveDomainParams = UseMoralisQueryParams<ResolveDomainResponse| null, ResolveDomainRequest>
 
-export function useEvmResolveDomain({ domain,currency, ...queryParams }: UseEvmResolveDomainParams = {}) {
+export function useEvmResolveDomain({ domain, currency, ...queryParams }: UseEvmResolveDomainParams = {}) {
   const resolver = useNullableOperationResolver(resolveDomainOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, ResolveDomainRequest] | undefined = useMemo(() => {
-    if (domain ) {
+    if (domain) {
       return [
       resolveDomainOperation.id,
       {
-        domain,currency
+        domain, currency
       },
     ];
     }
       return;
-  }, [domain,currency]);
+  }, [domain, currency]);
 
   return useQuery({
     queryKey,

@@ -6,17 +6,17 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseSolNFTsParams = UseMoralisQueryParams<GetNFTsResponse, GetNFTsRequest>
 
-export function useSolNFTs({ network,address, ...queryParams }: UseSolNFTsParams = {}) {
+export function useSolNFTs({ network, address, ...queryParams }: UseSolNFTsParams = {}) {
   const resolver = useOperationResolver(getNFTsOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetNFTsRequest] | undefined = useMemo(() => {
       return [
       getNFTsOperation.id,
         {
-          network,address
+          network, address
         },
       ]
-  }, [network,address]);
+  }, [network, address]);
 
   return useQuery({
     queryKey,

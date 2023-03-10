@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmMultipleNFTsParams = UseMoralisQueryParams<GetMultipleNFTsResponse, GetMultipleNFTsRequest>
 
-export function useEvmMultipleNFTs({ tokens,normalizeMetadata,chain, ...queryParams }: UseEvmMultipleNFTsParams = {}) {
+export function useEvmMultipleNFTs({ tokens, normalizeMetadata, chain, ...queryParams }: UseEvmMultipleNFTsParams = {}) {
   const resolver = useOperationResolver(getMultipleNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetMultipleNFTsRequest] | undefined = useMemo(() => {
-    if (tokens ) {
+    if (tokens) {
       return [
       getMultipleNFTsOperation.id,
       {
-        tokens,normalizeMetadata,chain
+        tokens, normalizeMetadata, chain
       },
     ];
     }
       return;
-  }, [tokens,normalizeMetadata,chain]);
+  }, [tokens, normalizeMetadata, chain]);
 
   return useQuery({
     queryKey,

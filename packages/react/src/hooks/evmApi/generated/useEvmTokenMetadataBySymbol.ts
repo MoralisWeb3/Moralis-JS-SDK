@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmTokenMetadataBySymbolParams = UseMoralisQueryParams<GetTokenMetadataBySymbolResponse, GetTokenMetadataBySymbolRequest>
 
-export function useEvmTokenMetadataBySymbol({ chain,symbols, ...queryParams }: UseEvmTokenMetadataBySymbolParams = {}) {
+export function useEvmTokenMetadataBySymbol({ chain, symbols, ...queryParams }: UseEvmTokenMetadataBySymbolParams = {}) {
   const resolver = useOperationResolver(getTokenMetadataBySymbolOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetTokenMetadataBySymbolRequest] | undefined = useMemo(() => {
-    if (symbols ) {
+    if (symbols) {
       return [
       getTokenMetadataBySymbolOperation.id,
       {
-        chain,symbols
+        chain, symbols
       },
     ];
     }
       return;
-  }, [chain,symbols]);
+  }, [chain, symbols]);
 
   return useQuery({
     queryKey,

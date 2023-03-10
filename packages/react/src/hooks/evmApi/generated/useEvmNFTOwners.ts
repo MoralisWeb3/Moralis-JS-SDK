@@ -6,20 +6,20 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmNFTOwnersParams = UseMoralisQueryParams<GetNFTOwnersResponse, GetNFTOwnersRequest>
 
-export function useEvmNFTOwners({ address,chain,format,limit,cursor,normalizeMetadata,disableTotal, ...queryParams }: UseEvmNFTOwnersParams = {}) {
+export function useEvmNFTOwners({ address, chain, format, limit, cursor, normalizeMetadata, disableTotal, ...queryParams }: UseEvmNFTOwnersParams = {}) {
   const resolver = usePaginatedOperationResolver(getNFTOwnersOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNFTOwnersRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getNFTOwnersOperation.id,
       {
-        address,chain,format,limit,cursor,normalizeMetadata,disableTotal
+        address, chain, format, limit, cursor, normalizeMetadata, disableTotal
       },
     ];
     }
       return;
-  }, [address,chain,format,limit,cursor,normalizeMetadata,disableTotal]);
+  }, [address, chain, format, limit, cursor, normalizeMetadata, disableTotal]);
 
   return useQuery({
     queryKey,

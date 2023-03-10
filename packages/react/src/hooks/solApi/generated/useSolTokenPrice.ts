@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseSolTokenPriceParams = UseMoralisQueryParams<GetTokenPriceResponse, GetTokenPriceRequest>
 
-export function useSolTokenPrice({ network,address, ...queryParams }: UseSolTokenPriceParams = {}) {
+export function useSolTokenPrice({ network, address, ...queryParams }: UseSolTokenPriceParams = {}) {
   const resolver = useOperationResolver(getTokenPriceOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetTokenPriceRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getTokenPriceOperation.id,
       {
-        network,address
+        network, address
       },
     ];
     }
       return;
-  }, [network,address]);
+  }, [network, address]);
 
   return useQuery({
     queryKey,

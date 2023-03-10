@@ -6,20 +6,20 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmSearchNFTsParams = UseMoralisQueryParams<SearchNFTsResponse, SearchNFTsRequest>
 
-export function useEvmSearchNFTs({ chain,format,q,filter,fromBlock,toBlock,fromDate,toDate,addresses,cursor,limit,disableTotal, ...queryParams }: UseEvmSearchNFTsParams = {}) {
+export function useEvmSearchNFTs({ chain, format, q, filter, fromBlock, toBlock, fromDate, toDate, addresses, cursor, limit, disableTotal, ...queryParams }: UseEvmSearchNFTsParams = {}) {
   const resolver = usePaginatedOperationResolver(searchNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, SearchNFTsRequest] | undefined = useMemo(() => {
-    if (q ) {
+    if (q) {
       return [
       searchNFTsOperation.id,
       {
-        chain,format,q,filter,fromBlock,toBlock,fromDate,toDate,addresses,cursor,limit,disableTotal
+        chain, format, q, filter, fromBlock, toBlock, fromDate, toDate, addresses, cursor, limit, disableTotal
       },
     ];
     }
       return;
-  }, [chain,format,q,filter,fromBlock,toBlock,fromDate,toDate,addresses,cursor,limit,disableTotal]);
+  }, [chain, format, q, filter, fromBlock, toBlock, fromDate, toDate, addresses, cursor, limit, disableTotal]);
 
   return useQuery({
     queryKey,

@@ -6,20 +6,20 @@ import { useNullableOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmNFTLowestPriceParams = UseMoralisQueryParams<GetNFTLowestPriceResponse| null, GetNFTLowestPriceRequest>
 
-export function useEvmNFTLowestPrice({ address,chain,days,marketplace, ...queryParams }: UseEvmNFTLowestPriceParams = {}) {
+export function useEvmNFTLowestPrice({ address, chain, days, marketplace, ...queryParams }: UseEvmNFTLowestPriceParams = {}) {
   const resolver = useNullableOperationResolver(getNFTLowestPriceOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNFTLowestPriceRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getNFTLowestPriceOperation.id,
       {
-        address,chain,days,marketplace
+        address, chain, days, marketplace
       },
     ];
     }
       return;
-  }, [address,chain,days,marketplace]);
+  }, [address, chain, days, marketplace]);
 
   return useQuery({
     queryKey,

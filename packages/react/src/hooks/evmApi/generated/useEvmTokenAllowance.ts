@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmTokenAllowanceParams = UseMoralisQueryParams<GetTokenAllowanceResponse, GetTokenAllowanceRequest>
 
-export function useEvmTokenAllowance({ address,chain,ownerAddress,spenderAddress, ...queryParams }: UseEvmTokenAllowanceParams = {}) {
+export function useEvmTokenAllowance({ address, chain, ownerAddress, spenderAddress, ...queryParams }: UseEvmTokenAllowanceParams = {}) {
   const resolver = useOperationResolver(getTokenAllowanceOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetTokenAllowanceRequest] | undefined = useMemo(() => {
-    if (ownerAddress &&spenderAddress &&address ) {
+    if (ownerAddress && spenderAddress && address) {
       return [
       getTokenAllowanceOperation.id,
       {
-        address,chain,ownerAddress,spenderAddress
+        address, chain, ownerAddress, spenderAddress
       },
     ];
     }
       return;
-  }, [address,chain,ownerAddress,spenderAddress]);
+  }, [address, chain, ownerAddress, spenderAddress]);
 
   return useQuery({
     queryKey,

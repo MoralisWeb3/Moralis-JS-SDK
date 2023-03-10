@@ -6,20 +6,20 @@ import { useNullableOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmNFTMetadataParams = UseMoralisQueryParams<GetNFTMetadataResponse| null, GetNFTMetadataRequest>
 
-export function useEvmNFTMetadata({ address,tokenId,chain,format,normalizeMetadata, ...queryParams }: UseEvmNFTMetadataParams = {}) {
+export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMetadata, ...queryParams }: UseEvmNFTMetadataParams = {}) {
   const resolver = useNullableOperationResolver(getNFTMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNFTMetadataRequest] | undefined = useMemo(() => {
-    if (address &&tokenId ) {
+    if (address && tokenId) {
       return [
       getNFTMetadataOperation.id,
       {
-        address,tokenId,chain,format,normalizeMetadata
+        address, tokenId, chain, format, normalizeMetadata
       },
     ];
     }
       return;
-  }, [address,tokenId,chain,format,normalizeMetadata]);
+  }, [address, tokenId, chain, format, normalizeMetadata]);
 
   return useQuery({
     queryKey,

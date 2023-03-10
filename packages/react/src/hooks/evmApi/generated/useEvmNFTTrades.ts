@@ -6,20 +6,20 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmNFTTradesParams = UseMoralisQueryParams<GetNFTTradesResponse, GetNFTTradesRequest>
 
-export function useEvmNFTTrades({ address,chain,fromBlock,toBlock,fromDate,toDate,marketplace,cursor,limit,disableTotal, ...queryParams }: UseEvmNFTTradesParams = {}) {
+export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal, ...queryParams }: UseEvmNFTTradesParams = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTradesOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNFTTradesRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getNFTTradesOperation.id,
       {
-        address,chain,fromBlock,toBlock,fromDate,toDate,marketplace,cursor,limit,disableTotal
+        address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal
       },
     ];
     }
       return;
-  }, [address,chain,fromBlock,toBlock,fromDate,toDate,marketplace,cursor,limit,disableTotal]);
+  }, [address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal]);
 
   return useQuery({
     queryKey,

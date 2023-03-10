@@ -6,20 +6,20 @@ import { useNullableOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmBlockParams = UseMoralisQueryParams<GetBlockResponse| null, GetBlockRequest>
 
-export function useEvmBlock({ blockNumberOrHash,chain, ...queryParams }: UseEvmBlockParams = {}) {
+export function useEvmBlock({ blockNumberOrHash, chain, ...queryParams }: UseEvmBlockParams = {}) {
   const resolver = useNullableOperationResolver(getBlockOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetBlockRequest] | undefined = useMemo(() => {
-    if (blockNumberOrHash ) {
+    if (blockNumberOrHash) {
       return [
       getBlockOperation.id,
       {
-        blockNumberOrHash,chain
+        blockNumberOrHash, chain
       },
     ];
     }
       return;
-  }, [blockNumberOrHash,chain]);
+  }, [blockNumberOrHash, chain]);
 
   return useQuery({
     queryKey,

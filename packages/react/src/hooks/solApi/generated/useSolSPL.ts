@@ -6,17 +6,17 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseSolSPLParams = UseMoralisQueryParams<GetSPLResponse, GetSPLRequest>
 
-export function useSolSPL({ network,address, ...queryParams }: UseSolSPLParams = {}) {
+export function useSolSPL({ network, address, ...queryParams }: UseSolSPLParams = {}) {
   const resolver = useOperationResolver(getSPLOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetSPLRequest] | undefined = useMemo(() => {
       return [
       getSPLOperation.id,
         {
-          network,address
+          network, address
         },
       ]
-  }, [network,address]);
+  }, [network, address]);
 
   return useQuery({
     queryKey,

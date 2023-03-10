@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmWalletTokenBalancesParams = UseMoralisQueryParams<GetWalletTokenBalancesResponse, GetWalletTokenBalancesRequest>
 
-export function useEvmWalletTokenBalances({ address,chain,toBlock,tokenAddresses, ...queryParams }: UseEvmWalletTokenBalancesParams = {}) {
+export function useEvmWalletTokenBalances({ address, chain, toBlock, tokenAddresses, ...queryParams }: UseEvmWalletTokenBalancesParams = {}) {
   const resolver = useOperationResolver(getWalletTokenBalancesOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetWalletTokenBalancesRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getWalletTokenBalancesOperation.id,
       {
-        address,chain,toBlock,tokenAddresses
+        address, chain, toBlock, tokenAddresses
       },
     ];
     }
       return;
-  }, [address,chain,toBlock,tokenAddresses]);
+  }, [address, chain, toBlock, tokenAddresses]);
 
   return useQuery({
     queryKey,

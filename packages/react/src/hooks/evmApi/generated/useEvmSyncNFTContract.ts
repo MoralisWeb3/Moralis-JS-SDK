@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmSyncNFTContractParams = UseMoralisQueryParams<SyncNFTContractResponse, SyncNFTContractRequest>
 
-export function useEvmSyncNFTContract({ address,chain, ...queryParams }: UseEvmSyncNFTContractParams = {}) {
+export function useEvmSyncNFTContract({ address, chain, ...queryParams }: UseEvmSyncNFTContractParams = {}) {
   const resolver = useOperationResolver(syncNFTContractOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, SyncNFTContractRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       syncNFTContractOperation.id,
       {
-        address,chain
+        address, chain
       },
     ];
     }
       return;
-  }, [address,chain]);
+  }, [address, chain]);
 
   return useQuery({
     queryKey,

@@ -6,17 +6,17 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseSolPortfolioParams = UseMoralisQueryParams<GetPortfolioResponse, GetPortfolioRequest>
 
-export function useSolPortfolio({ network,address, ...queryParams }: UseSolPortfolioParams = {}) {
+export function useSolPortfolio({ network, address, ...queryParams }: UseSolPortfolioParams = {}) {
   const resolver = useOperationResolver(getPortfolioOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetPortfolioRequest] | undefined = useMemo(() => {
       return [
       getPortfolioOperation.id,
         {
-          network,address
+          network, address
         },
       ]
-  }, [network,address]);
+  }, [network, address]);
 
   return useQuery({
     queryKey,

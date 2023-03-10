@@ -6,20 +6,20 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmWalletNFTsParams = UseMoralisQueryParams<GetWalletNFTsResponse, GetWalletNFTsRequest>
 
-export function useEvmWalletNFTs({ address,chain,format,limit,tokenAddresses,cursor,normalizeMetadata,disableTotal, ...queryParams }: UseEvmWalletNFTsParams = {}) {
+export function useEvmWalletNFTs({ address, chain, format, limit, tokenAddresses, cursor, normalizeMetadata, disableTotal, ...queryParams }: UseEvmWalletNFTsParams = {}) {
   const resolver = usePaginatedOperationResolver(getWalletNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetWalletNFTsRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getWalletNFTsOperation.id,
       {
-        address,chain,format,limit,tokenAddresses,cursor,normalizeMetadata,disableTotal
+        address, chain, format, limit, tokenAddresses, cursor, normalizeMetadata, disableTotal
       },
     ];
     }
       return;
-  }, [address,chain,format,limit,tokenAddresses,cursor,normalizeMetadata,disableTotal]);
+  }, [address, chain, format, limit, tokenAddresses, cursor, normalizeMetadata, disableTotal]);
 
   return useQuery({
     queryKey,

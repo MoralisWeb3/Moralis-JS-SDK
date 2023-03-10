@@ -6,17 +6,17 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseSolBalanceParams = UseMoralisQueryParams<GetBalanceResponse, GetBalanceRequest>
 
-export function useSolBalance({ network,address, ...queryParams }: UseSolBalanceParams = {}) {
+export function useSolBalance({ network, address, ...queryParams }: UseSolBalanceParams = {}) {
   const resolver = useOperationResolver(getBalanceOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetBalanceRequest] | undefined = useMemo(() => {
       return [
       getBalanceOperation.id,
         {
-          network,address
+          network, address
         },
       ]
-  }, [network,address]);
+  }, [network, address]);
 
   return useQuery({
     queryKey,

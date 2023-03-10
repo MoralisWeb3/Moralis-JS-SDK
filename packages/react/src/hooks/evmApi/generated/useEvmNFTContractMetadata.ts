@@ -6,20 +6,20 @@ import { useNullableOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmNFTContractMetadataParams = UseMoralisQueryParams<GetNFTContractMetadataResponse| null, GetNFTContractMetadataRequest>
 
-export function useEvmNFTContractMetadata({ address,chain, ...queryParams }: UseEvmNFTContractMetadataParams = {}) {
+export function useEvmNFTContractMetadata({ address, chain, ...queryParams }: UseEvmNFTContractMetadataParams = {}) {
   const resolver = useNullableOperationResolver(getNFTContractMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNFTContractMetadataRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getNFTContractMetadataOperation.id,
       {
-        address,chain
+        address, chain
       },
     ];
     }
       return;
-  }, [address,chain]);
+  }, [address, chain]);
 
   return useQuery({
     queryKey,

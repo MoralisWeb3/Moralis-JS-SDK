@@ -6,20 +6,20 @@ import { useOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmReSyncMetadataParams = UseMoralisQueryParams<ReSyncMetadataResponse, ReSyncMetadataRequest>
 
-export function useEvmReSyncMetadata({ address,tokenId,chain,flag,mode, ...queryParams }: UseEvmReSyncMetadataParams = {}) {
+export function useEvmReSyncMetadata({ address, tokenId, chain, flag, mode, ...queryParams }: UseEvmReSyncMetadataParams = {}) {
   const resolver = useOperationResolver(reSyncMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, ReSyncMetadataRequest] | undefined = useMemo(() => {
-    if (address &&tokenId ) {
+    if (address && tokenId) {
       return [
       reSyncMetadataOperation.id,
       {
-        address,tokenId,chain,flag,mode
+        address, tokenId, chain, flag, mode
       },
     ];
     }
       return;
-  }, [address,tokenId,chain,flag,mode]);
+  }, [address, tokenId, chain, flag, mode]);
 
   return useQuery({
     queryKey,

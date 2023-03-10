@@ -6,20 +6,20 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmWalletNFTCollectionsParams = UseMoralisQueryParams<GetWalletNFTCollectionsResponse, GetWalletNFTCollectionsRequest>
 
-export function useEvmWalletNFTCollections({ address,chain,limit,cursor,disableTotal, ...queryParams }: UseEvmWalletNFTCollectionsParams = {}) {
+export function useEvmWalletNFTCollections({ address, chain, limit, cursor, disableTotal, ...queryParams }: UseEvmWalletNFTCollectionsParams = {}) {
   const resolver = usePaginatedOperationResolver(getWalletNFTCollectionsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetWalletNFTCollectionsRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getWalletNFTCollectionsOperation.id,
       {
-        address,chain,limit,cursor,disableTotal
+        address, chain, limit, cursor, disableTotal
       },
     ];
     }
       return;
-  }, [address,chain,limit,cursor,disableTotal]);
+  }, [address, chain, limit, cursor, disableTotal]);
 
   return useQuery({
     queryKey,

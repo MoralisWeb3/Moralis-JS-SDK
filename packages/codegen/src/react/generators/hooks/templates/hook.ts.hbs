@@ -6,12 +6,12 @@ import { {{ useResolver }}, useQuery } from '../../utils';
 
 export type {{ hookParamsType }} = UseMoralisQueryParams<{{ responseType }}{{#if isNullable}}| null{{/if}}, {{ requestType }}>
 
-export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }},{{/each}}{{/if}} ...queryParams }: {{ hookParamsType }} = {}) {
+export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}, {{/each}}{{/if}}...queryParams }: {{ hookParamsType }} = {}) {
   const resolver = {{ useResolver }}({{ operation }}, Moralis.{{ module }}.baseUrl);
 
   const queryKey: [string, {{ requestType }}] | undefined = useMemo(() => {
     {{#if requiredParams}}
-    if ({{#each requiredParams}}{{ this }}{{#unless @last}} &&{{/unless}}{{/each}}) {
+    if ({{#each requiredParams}}{{ this }}{{#unless @last}} && {{/unless}}{{/each}}) {
       return [
       {{ operation }}.id,
       {

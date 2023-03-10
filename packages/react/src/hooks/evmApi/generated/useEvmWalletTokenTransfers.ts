@@ -6,20 +6,20 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmWalletTokenTransfersParams = UseMoralisQueryParams<GetWalletTokenTransfersResponse, GetWalletTokenTransfersRequest>
 
-export function useEvmWalletTokenTransfers({ address,chain,fromBlock,toBlock,fromDate,toDate,limit,cursor,disableTotal, ...queryParams }: UseEvmWalletTokenTransfersParams = {}) {
+export function useEvmWalletTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal, ...queryParams }: UseEvmWalletTokenTransfersParams = {}) {
   const resolver = usePaginatedOperationResolver(getWalletTokenTransfersOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetWalletTokenTransfersRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (address) {
       return [
       getWalletTokenTransfersOperation.id,
       {
-        address,chain,fromBlock,toBlock,fromDate,toDate,limit,cursor,disableTotal
+        address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal
       },
     ];
     }
       return;
-  }, [address,chain,fromBlock,toBlock,fromDate,toDate,limit,cursor,disableTotal]);
+  }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal]);
 
   return useQuery({
     queryKey,

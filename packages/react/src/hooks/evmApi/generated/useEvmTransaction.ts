@@ -6,20 +6,20 @@ import { useNullableOperationResolver, useQuery } from '../../utils';
 
 export type UseEvmTransactionParams = UseMoralisQueryParams<GetTransactionResponse| null, GetTransactionRequest>
 
-export function useEvmTransaction({ transactionHash,chain, ...queryParams }: UseEvmTransactionParams = {}) {
+export function useEvmTransaction({ transactionHash, chain, ...queryParams }: UseEvmTransactionParams = {}) {
   const resolver = useNullableOperationResolver(getTransactionOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetTransactionRequest] | undefined = useMemo(() => {
-    if (transactionHash ) {
+    if (transactionHash) {
       return [
       getTransactionOperation.id,
       {
-        transactionHash,chain
+        transactionHash, chain
       },
     ];
     }
       return;
-  }, [transactionHash,chain]);
+  }, [transactionHash, chain]);
 
   return useQuery({
     queryKey,
