@@ -10,12 +10,15 @@ export function useSolSPL({ network, address, ...queryParams }: UseSolSPLParams 
   const resolver = useOperationResolver(getSPLOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetSPLRequest] | undefined = useMemo(() => {
+    if (address) {
       return [
-      getSPLOperation.id,
+        getSPLOperation.id,
         {
           network, address
         },
-      ]
+      ];
+    }
+    return;
   }, [network, address]);
 
   return useQuery({

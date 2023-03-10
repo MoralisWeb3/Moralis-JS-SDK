@@ -10,7 +10,7 @@ export function useEvmContractEvents({ address, abi, chain, fromBlock, toBlock, 
   const resolver = usePaginatedOperationResolver(getContractEventsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetContractEventsRequest] | undefined = useMemo(() => {
-    if (topic && address) {
+    if (topic && address && abi) {
       return [
       getContractEventsOperation.id,
       {

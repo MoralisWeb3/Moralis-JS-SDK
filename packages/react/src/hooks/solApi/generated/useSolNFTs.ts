@@ -10,12 +10,15 @@ export function useSolNFTs({ network, address, ...queryParams }: UseSolNFTsParam
   const resolver = useOperationResolver(getNFTsOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetNFTsRequest] | undefined = useMemo(() => {
+    if (address) {
       return [
-      getNFTsOperation.id,
+        getNFTsOperation.id,
         {
           network, address
         },
-      ]
+      ];
+    }
+    return;
   }, [network, address]);
 
   return useQuery({

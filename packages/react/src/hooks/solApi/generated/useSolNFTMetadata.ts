@@ -10,7 +10,7 @@ export function useSolNFTMetadata({ network, address, ...queryParams }: UseSolNF
   const resolver = useOperationResolver(getNFTMetadataOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetNFTMetadataRequest] | undefined = useMemo(() => {
-    if (address && tokenId) {
+    if (address) {
       return [
       getNFTMetadataOperation.id,
       {

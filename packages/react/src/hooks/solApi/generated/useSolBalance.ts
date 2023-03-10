@@ -10,12 +10,15 @@ export function useSolBalance({ network, address, ...queryParams }: UseSolBalanc
   const resolver = useOperationResolver(getBalanceOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetBalanceRequest] | undefined = useMemo(() => {
+    if (address) {
       return [
-      getBalanceOperation.id,
+        getBalanceOperation.id,
         {
           network, address
         },
-      ]
+      ];
+    }
+    return;
   }, [network, address]);
 
   return useQuery({

@@ -10,12 +10,15 @@ export function useSolPortfolio({ network, address, ...queryParams }: UseSolPort
   const resolver = useOperationResolver(getPortfolioOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetPortfolioRequest] | undefined = useMemo(() => {
+    if (address) {
       return [
-      getPortfolioOperation.id,
+        getPortfolioOperation.id,
         {
           network, address
         },
-      ]
+      ];
+    }
+    return;
   }, [network, address]);
 
   return useQuery({
