@@ -10,19 +10,22 @@ export function useEvmNativeBalancesForAddresses({ chain,providerUrl,toBlock,wal
   const resolver = useOperationResolver(getNativeBalancesForAddressesOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetNativeBalancesForAddressesRequest] | undefined = useMemo(() => {
+    if (walletAddresses ) {
       return [
       getNativeBalancesForAddressesOperation.id,
-        {
-          chain,providerUrl,toBlock,walletAddresses
-        },
-      ]
+      {
+        chain,providerUrl,toBlock,walletAddresses
+      },
+    ];
+    }
+      return;
   }, [chain,providerUrl,toBlock,walletAddresses]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

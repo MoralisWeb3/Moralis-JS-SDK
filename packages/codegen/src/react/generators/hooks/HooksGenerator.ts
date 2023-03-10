@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { ModuleGenerator } from '../../../utils/ModuleGenerator';
 import { Module } from '../../types';
 import { getHookName } from '../../utils/names';
+import { getAllOperationProperties } from '../../../utils/getAllOperationProperties';
 
 export class HooksGenerator {
   private moduleGenerator: ModuleGenerator;
@@ -17,6 +18,10 @@ export class HooksGenerator {
   public packagesFolder = path.join(this.dirname, '../../../../..');
 
   private get addHooks() {
+    const parsedOpProperties = getAllOperationProperties(
+      'E:/Work/Moralis/Moralis-JS-SDK/packages/common/evmUtils/src/operations/openapi.ts',
+    );
+    // console.log('parsedOpProperties: ', parsedOpProperties);
     const hooks = this.moduleGenerator.operations.map((operation) => {
       const name = getHookName(operation.name, this.module);
       const isPaginated = operation.firstPageIndex === 0 || operation.firstPageIndex === 1;
@@ -31,8 +36,8 @@ export class HooksGenerator {
       }
 
       const { urlPathParamNames = [], bodyParamNames = [], urlSearchParamNames = [] } = operation;
-      const requiredParams = [...urlPathParamNames, ...bodyParamNames];
-      const allParams = [...requiredParams, ...urlSearchParamNames];
+      const requiredParams = parsedOpProperties.find((op) => op.name === operation.name)?.requiredParams;
+      const allParams = [...urlPathParamNames, ...bodyParamNames, ...urlSearchParamNames];
 
       return {
         name,
@@ -62,6 +67,7 @@ export class HooksGenerator {
           hookParamsType: `${_.upperFirst(hook.name)}Params`,
           requiredParams: hook.requiredParams,
           allParams: hook.allParams,
+          isNullable: hook.isNullable,
         },
         force: true,
       };
@@ -69,6 +75,7 @@ export class HooksGenerator {
   }
 
   public get actions(): ActionConfig[] {
+    // console.log('d: ', d);
     return this.addHooks;
   }
 }

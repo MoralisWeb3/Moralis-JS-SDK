@@ -10,7 +10,7 @@ export function useEvmRunContractFunction({ address,abi,params,chain,functionNam
   const resolver = useOperationResolver(runContractFunctionOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, RunContractFunctionRequest] | undefined = useMemo(() => {
-    if (address &&abi &&params ) {
+    if (functionName &&address &&abi ) {
       return [
       runContractFunctionOperation.id,
       {
@@ -24,8 +24,8 @@ export function useEvmRunContractFunction({ address,abi,params,chain,functionNam
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

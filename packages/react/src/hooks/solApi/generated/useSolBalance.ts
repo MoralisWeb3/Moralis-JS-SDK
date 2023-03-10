@@ -10,22 +10,19 @@ export function useSolBalance({ network,address, ...queryParams }: UseSolBalance
   const resolver = useOperationResolver(getBalanceOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetBalanceRequest] | undefined = useMemo(() => {
-    if (network &&address ) {
       return [
       getBalanceOperation.id,
-      {
-        network,address
-      },
-    ];
-    }
-      return;
+        {
+          network,address
+        },
+      ]
   }, [network,address]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

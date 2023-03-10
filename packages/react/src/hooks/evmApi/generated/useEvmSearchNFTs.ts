@@ -10,19 +10,22 @@ export function useEvmSearchNFTs({ chain,format,q,filter,fromBlock,toBlock,fromD
   const resolver = usePaginatedOperationResolver(searchNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, SearchNFTsRequest] | undefined = useMemo(() => {
+    if (q ) {
       return [
       searchNFTsOperation.id,
-        {
-          chain,format,q,filter,fromBlock,toBlock,fromDate,toDate,addresses,cursor,limit,disableTotal
-        },
-      ]
+      {
+        chain,format,q,filter,fromBlock,toBlock,fromDate,toDate,addresses,cursor,limit,disableTotal
+      },
+    ];
+    }
+      return;
   }, [chain,format,q,filter,fromBlock,toBlock,fromDate,toDate,addresses,cursor,limit,disableTotal]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 
-export type UseEvmNFTLowestPriceParams = UseMoralisQueryParams<GetNFTLowestPriceResponse, GetNFTLowestPriceRequest>
+export type UseEvmNFTLowestPriceParams = UseMoralisQueryParams<GetNFTLowestPriceResponse| null, GetNFTLowestPriceRequest>
 
 export function useEvmNFTLowestPrice({ address,chain,days,marketplace, ...queryParams }: UseEvmNFTLowestPriceParams = {}) {
   const resolver = useNullableOperationResolver(getNFTLowestPriceOperation, Moralis.EvmApi.baseUrl);
@@ -24,8 +24,8 @@ export function useEvmNFTLowestPrice({ address,chain,days,marketplace, ...queryP
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response?.result || null;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

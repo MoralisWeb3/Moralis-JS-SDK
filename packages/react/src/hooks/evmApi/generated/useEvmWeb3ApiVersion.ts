@@ -13,7 +13,7 @@ export function useEvmWeb3ApiVersion({  ...queryParams }: UseEvmWeb3ApiVersionPa
       return [
       web3ApiVersionOperation.id,
         {
-          {}
+          
         },
       ]
   }, []);
@@ -21,8 +21,8 @@ export function useEvmWeb3ApiVersion({  ...queryParams }: UseEvmWeb3ApiVersionPa
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

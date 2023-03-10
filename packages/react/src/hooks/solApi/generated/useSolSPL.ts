@@ -10,22 +10,19 @@ export function useSolSPL({ network,address, ...queryParams }: UseSolSPLParams =
   const resolver = useOperationResolver(getSPLOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetSPLRequest] | undefined = useMemo(() => {
-    if (network &&address ) {
       return [
       getSPLOperation.id,
-      {
-        network,address
-      },
-    ];
-    }
-      return;
+        {
+          network,address
+        },
+      ]
   }, [network,address]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

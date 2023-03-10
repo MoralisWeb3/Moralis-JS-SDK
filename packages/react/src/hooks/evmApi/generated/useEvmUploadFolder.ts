@@ -10,7 +10,7 @@ export function useEvmUploadFolder({ abi, ...queryParams }: UseEvmUploadFolderPa
   const resolver = useOperationResolver(uploadFolderOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, UploadFolderRequest] | undefined = useMemo(() => {
-    if (abi ) {
+    if (abi) {
       return [
       uploadFolderOperation.id,
       {
@@ -24,8 +24,8 @@ export function useEvmUploadFolder({ abi, ...queryParams }: UseEvmUploadFolderPa
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

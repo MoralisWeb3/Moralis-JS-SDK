@@ -10,7 +10,7 @@ export function useSolTokenPrice({ network,address, ...queryParams }: UseSolToke
   const resolver = useOperationResolver(getTokenPriceOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetTokenPriceRequest] | undefined = useMemo(() => {
-    if (network &&address ) {
+    if (address ) {
       return [
       getTokenPriceOperation.id,
       {
@@ -24,8 +24,8 @@ export function useSolTokenPrice({ network,address, ...queryParams }: UseSolToke
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

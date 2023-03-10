@@ -10,7 +10,7 @@ export function useSolNFTMetadata({ network,address, ...queryParams }: UseSolNFT
   const resolver = useOperationResolver(getNFTMetadataOperation, Moralis.SolApi.baseUrl);
 
   const queryKey: [string, GetNFTMetadataRequest] | undefined = useMemo(() => {
-    if (network &&address ) {
+    if (address &&tokenId ) {
       return [
       getNFTMetadataOperation.id,
       {
@@ -24,8 +24,8 @@ export function useSolNFTMetadata({ network,address, ...queryParams }: UseSolNFT
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

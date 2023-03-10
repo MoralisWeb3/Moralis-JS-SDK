@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 
-export type UseEvmNFTMetadataParams = UseMoralisQueryParams<GetNFTMetadataResponse, GetNFTMetadataRequest>
+export type UseEvmNFTMetadataParams = UseMoralisQueryParams<GetNFTMetadataResponse| null, GetNFTMetadataRequest>
 
 export function useEvmNFTMetadata({ address,tokenId,chain,format,normalizeMetadata, ...queryParams }: UseEvmNFTMetadataParams = {}) {
   const resolver = useNullableOperationResolver(getNFTMetadataOperation, Moralis.EvmApi.baseUrl);
@@ -24,8 +24,8 @@ export function useEvmNFTMetadata({ address,tokenId,chain,format,normalizeMetada
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response?.result || null;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

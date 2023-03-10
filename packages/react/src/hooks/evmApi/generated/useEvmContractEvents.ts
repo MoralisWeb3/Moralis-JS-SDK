@@ -10,7 +10,7 @@ export function useEvmContractEvents({ address,abi,chain,fromBlock,toBlock,fromD
   const resolver = usePaginatedOperationResolver(getContractEventsOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetContractEventsRequest] | undefined = useMemo(() => {
-    if (address &&abi ) {
+    if (topic &&address && abi) {
       return [
       getContractEventsOperation.id,
       {
@@ -24,8 +24,8 @@ export function useEvmContractEvents({ address,abi,chain,fromBlock,toBlock,fromD
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

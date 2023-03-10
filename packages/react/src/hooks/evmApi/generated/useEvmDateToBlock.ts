@@ -10,19 +10,22 @@ export function useEvmDateToBlock({ chain,date, ...queryParams }: UseEvmDateToBl
   const resolver = useOperationResolver(getDateToBlockOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetDateToBlockRequest] | undefined = useMemo(() => {
+    if (date ) {
       return [
       getDateToBlockOperation.id,
-        {
-          chain,date
-        },
-      ]
+      {
+        chain,date
+      },
+    ];
+    }
+      return;
   }, [chain,date]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

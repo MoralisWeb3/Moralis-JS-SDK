@@ -10,7 +10,7 @@ export function useEvmPairAddress({ token0Address,token1Address,chain,toBlock,to
   const resolver = useOperationResolver(getPairAddressOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetPairAddressRequest] | undefined = useMemo(() => {
-    if (token0Address &&token1Address ) {
+    if (exchange &&token0Address &&token1Address ) {
       return [
       getPairAddressOperation.id,
       {
@@ -24,8 +24,8 @@ export function useEvmPairAddress({ token0Address,token1Address,chain,toBlock,to
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

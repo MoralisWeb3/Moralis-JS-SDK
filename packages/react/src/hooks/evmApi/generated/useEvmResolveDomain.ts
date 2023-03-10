@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 
-export type UseEvmResolveDomainParams = UseMoralisQueryParams<ResolveDomainResponse, ResolveDomainRequest>
+export type UseEvmResolveDomainParams = UseMoralisQueryParams<ResolveDomainResponse| null, ResolveDomainRequest>
 
 export function useEvmResolveDomain({ domain,currency, ...queryParams }: UseEvmResolveDomainParams = {}) {
   const resolver = useNullableOperationResolver(resolveDomainOperation, Moralis.EvmApi.baseUrl);
@@ -24,8 +24,8 @@ export function useEvmResolveDomain({ domain,currency, ...queryParams }: UseEvmR
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response?.result || null;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

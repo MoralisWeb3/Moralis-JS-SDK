@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 
-export type UseEvmBlockParams = UseMoralisQueryParams<GetBlockResponse, GetBlockRequest>
+export type UseEvmBlockParams = UseMoralisQueryParams<GetBlockResponse| null, GetBlockRequest>
 
 export function useEvmBlock({ blockNumberOrHash,chain, ...queryParams }: UseEvmBlockParams = {}) {
   const resolver = useNullableOperationResolver(getBlockOperation, Moralis.EvmApi.baseUrl);
@@ -24,8 +24,8 @@ export function useEvmBlock({ blockNumberOrHash,chain, ...queryParams }: UseEvmB
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response?.result || null;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,

@@ -10,7 +10,7 @@ export function useEvmTokenAllowance({ address,chain,ownerAddress,spenderAddress
   const resolver = useOperationResolver(getTokenAllowanceOperation, Moralis.EvmApi.baseUrl);
 
   const queryKey: [string, GetTokenAllowanceRequest] | undefined = useMemo(() => {
-    if (address ) {
+    if (ownerAddress &&spenderAddress &&address ) {
       return [
       getTokenAllowanceOperation.id,
       {
@@ -24,8 +24,8 @@ export function useEvmTokenAllowance({ address,chain,ownerAddress,spenderAddress
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const { result } = await resolver.fetch(request);
-      return result;
+      const response = await resolver.fetch(request);
+      return response.result;
     },
     ...queryParams,
     enabled: queryKey && queryParams.enabled,
