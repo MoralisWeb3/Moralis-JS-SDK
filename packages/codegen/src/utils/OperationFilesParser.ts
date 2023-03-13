@@ -73,9 +73,6 @@ export class OperationFilesParser {
 
       const operationStatement = sourceFile.getVariableStatement(name);
 
-      if (name === 'resolveDomainOperation') {
-        console.log(request);
-      }
       return {
         name: name.replace('Operation', ''),
         id,

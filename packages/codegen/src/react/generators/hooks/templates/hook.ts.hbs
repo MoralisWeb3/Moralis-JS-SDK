@@ -29,7 +29,7 @@ export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       {{#if requiredParams}}
-      const params = validateParams(request, [{{#each requiredParams}}'{{ this }}'{{#unless @last}} , {{/unless}}{{/each}}]);
+      const params = validateParams(request, [{{#each requiredParams}}'{{ this }}'{{#unless @last}}, {{/unless}}{{/each}}]);
       const response = await resolver.fetch(params);
       {{else}}
       const response = await resolver.fetch(request);
