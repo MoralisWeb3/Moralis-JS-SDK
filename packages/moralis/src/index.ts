@@ -8,6 +8,7 @@ import { SolApi } from '@moralisweb3/sol-api';
 import { Core, CoreProvider } from '@moralisweb3/common-core';
 
 import { MoralisConfigValues } from './config/MoralisConfig';
+export * from './config/MoralisConfig';
 
 // Core
 const core = Core.create();

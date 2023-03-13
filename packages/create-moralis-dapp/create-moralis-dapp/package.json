@@ -1,0 +1,28 @@
+{
+  "name": "create-moralis-dapp",
+  "author": "Moralis",
+  "version": "2.13.0",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "type": "commonjs",
+  "files": [
+    "lib/*"
+  ],
+  "bin": "./lib/index.js",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "format": "prettier --write 'src/**/*.{js,ts}'",
+    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
+    "build": "tsc",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@create-moralis-dapp/express": "^2.13.0",
+    "@create-moralis-dapp/next": "^2.13.0",
+    "@create-moralis-dapp/react-vite": "^2.13.0",
+    "@create-moralis-dapp/toolkit": "^2.13.0",
+    "inquirer": "^8.0.0"
+  }
+}

@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc",
+    "build": "yarn run -T tsc",
     "dev": "tsc --watch"
   },
   "devDependencies": {
