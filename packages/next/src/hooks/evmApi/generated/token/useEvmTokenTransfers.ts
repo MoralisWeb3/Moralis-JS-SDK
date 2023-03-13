@@ -3,13 +3,13 @@ import {
   GetTokenTransfersRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
-import { useResolverPaginated } from '../../../resolvers';
+import { useResolver } from '../../../resolvers';
 
 export const useEvmTokenTransfers = (
   request?: GetTokenTransfersRequest, 
   fetchParams?: FetchParams,
 ) => {
-  const { data, error, fetch, isFetching } = useResolverPaginated({
+  const { data, error, fetch, isFetching } = useResolver({
     endpoint: 'evmApi/getTokenTransfers',
     operation,
     request,
@@ -17,11 +17,7 @@ export const useEvmTokenTransfers = (
   });
 
   return {
-    data: data?.data,
-    cursor: data?.cursor,
-    page: data?.page,
-    pageSize: data?.pageSize,
-    total: data?.total,
+    data,
     error,
     fetch,
     /**
