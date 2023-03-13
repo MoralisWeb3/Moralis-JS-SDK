@@ -21,6 +21,7 @@
   export * from './token/useEvmTokenMetadataBySymbol'
   export * from './token/useEvmTokenMetadata'
   export * from './token/useEvmTokenPrice'
+  export * from './token/useEvmTokenTransfers'
   export * from './transaction/useEvmTransaction'
   export * from './nft/useEvmWalletNFTCollections'
   export * from './nft/useEvmWalletNFTs'
