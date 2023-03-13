@@ -3,31 +3,34 @@ import { GetNFTTokenIdOwnersRequest, GetNFTTokenIdOwnersResponse, getNFTTokenIdO
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmNFTTokenIdOwnersParams = UseMoralisQueryParams<GetNFTTokenIdOwnersResponse, GetNFTTokenIdOwnersRequest>
+export type UseEvmNFTTokenIdOwnersParams = UseMoralisQueryParams<GetNFTTokenIdOwnersResponse, Partial<GetNFTTokenIdOwnersRequest>>
 
 export function useEvmNFTTokenIdOwners({ address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal, ...queryParams }: UseEvmNFTTokenIdOwnersParams = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTokenIdOwnersOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetNFTTokenIdOwnersRequest] | undefined = useMemo(() => {
-    if (address && tokenId) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address && tokenId);
+  }, [address , address , tokenId]);
+
+  const queryKey: [string, Partial<GetNFTTokenIdOwnersRequest>] = useMemo(() => {
+    return [
       getNFTTokenIdOwnersOperation.id,
       {
         address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal
       },
     ];
-    }
-      return;
   }, [address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address' , 'tokenId']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

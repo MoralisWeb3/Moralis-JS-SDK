@@ -3,31 +3,34 @@ import { ReSyncMetadataRequest, ReSyncMetadataResponse, reSyncMetadataOperation 
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmReSyncMetadataParams = UseMoralisQueryParams<ReSyncMetadataResponse, ReSyncMetadataRequest>
+export type UseEvmReSyncMetadataParams = UseMoralisQueryParams<ReSyncMetadataResponse, Partial<ReSyncMetadataRequest>>
 
 export function useEvmReSyncMetadata({ address, tokenId, chain, flag, mode, ...queryParams }: UseEvmReSyncMetadataParams = {}) {
   const resolver = useOperationResolver(reSyncMetadataOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, ReSyncMetadataRequest] | undefined = useMemo(() => {
-    if (address && tokenId) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address && tokenId);
+  }, [address , address , tokenId]);
+
+  const queryKey: [string, Partial<ReSyncMetadataRequest>] = useMemo(() => {
+    return [
       reSyncMetadataOperation.id,
       {
         address, tokenId, chain, flag, mode
       },
     ];
-    }
-      return;
   }, [address, tokenId, chain, flag, mode]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address' , 'tokenId']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

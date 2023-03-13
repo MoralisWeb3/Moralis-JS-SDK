@@ -3,31 +3,34 @@ import { GetTokenMetadataRequest, GetTokenMetadataResponse, getTokenMetadataOper
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmTokenMetadataParams = UseMoralisQueryParams<GetTokenMetadataResponse, GetTokenMetadataRequest>
+export type UseEvmTokenMetadataParams = UseMoralisQueryParams<GetTokenMetadataResponse, Partial<GetTokenMetadataRequest>>
 
 export function useEvmTokenMetadata({ chain, addresses, ...queryParams }: UseEvmTokenMetadataParams = {}) {
   const resolver = useOperationResolver(getTokenMetadataOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetTokenMetadataRequest] | undefined = useMemo(() => {
-    if (addresses) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(addresses && addresses);
+  }, [addresses , addresses]);
+
+  const queryKey: [string, Partial<GetTokenMetadataRequest>] = useMemo(() => {
+    return [
       getTokenMetadataOperation.id,
       {
         chain, addresses
       },
     ];
-    }
-      return;
   }, [chain, addresses]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['addresses' , 'addresses']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

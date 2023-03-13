@@ -3,31 +3,34 @@ import { ResolveDomainRequest, ResolveDomainResponse, resolveDomainOperation } f
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmResolveDomainParams = UseMoralisQueryParams<ResolveDomainResponse| null, ResolveDomainRequest>
+export type UseEvmResolveDomainParams = UseMoralisQueryParams<ResolveDomainResponse| null, Partial<ResolveDomainRequest>>
 
 export function useEvmResolveDomain({ domain, currency, ...queryParams }: UseEvmResolveDomainParams = {}) {
   const resolver = useNullableOperationResolver(resolveDomainOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, ResolveDomainRequest] | undefined = useMemo(() => {
-    if (domain) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(domain);
+  }, [domain]);
+
+  const queryKey: [string, Partial<ResolveDomainRequest>] = useMemo(() => {
+    return [
       resolveDomainOperation.id,
       {
         domain, currency
       },
     ];
-    }
-      return;
   }, [domain, currency]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['domain']);
+      const response = await resolver.fetch(params);
       return response?.result || null;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

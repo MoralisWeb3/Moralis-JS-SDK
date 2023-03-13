@@ -3,31 +3,34 @@ import { GetNFTLowestPriceRequest, GetNFTLowestPriceResponse, getNFTLowestPriceO
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmNFTLowestPriceParams = UseMoralisQueryParams<GetNFTLowestPriceResponse| null, GetNFTLowestPriceRequest>
+export type UseEvmNFTLowestPriceParams = UseMoralisQueryParams<GetNFTLowestPriceResponse| null, Partial<GetNFTLowestPriceRequest>>
 
 export function useEvmNFTLowestPrice({ address, chain, days, marketplace, ...queryParams }: UseEvmNFTLowestPriceParams = {}) {
   const resolver = useNullableOperationResolver(getNFTLowestPriceOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetNFTLowestPriceRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetNFTLowestPriceRequest>] = useMemo(() => {
+    return [
       getNFTLowestPriceOperation.id,
       {
         address, chain, days, marketplace
       },
     ];
-    }
-      return;
   }, [address, chain, days, marketplace]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response?.result || null;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

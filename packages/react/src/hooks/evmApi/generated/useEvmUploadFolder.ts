@@ -3,31 +3,34 @@ import { UploadFolderRequest, UploadFolderResponse, uploadFolderOperation } from
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmUploadFolderParams = UseMoralisQueryParams<UploadFolderResponse, UploadFolderRequest>
+export type UseEvmUploadFolderParams = UseMoralisQueryParams<UploadFolderResponse, Partial<UploadFolderRequest>>
 
 export function useEvmUploadFolder({ abi, ...queryParams }: UseEvmUploadFolderParams = {}) {
   const resolver = useOperationResolver(uploadFolderOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, UploadFolderRequest] | undefined = useMemo(() => {
-    if (abi) {
-      return [
-        uploadFolderOperation.id,
-        {
-          abi
-        },
-      ];
-    }
-    return;
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(abi && abi);
+  }, [abi , abi]);
+
+  const queryKey: [string, Partial<UploadFolderRequest>] = useMemo(() => {
+    return [
+      uploadFolderOperation.id,
+      {
+        abi
+      },
+    ];
   }, [abi]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['abi' , 'abi']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

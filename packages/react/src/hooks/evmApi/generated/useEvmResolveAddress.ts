@@ -4,21 +4,20 @@ import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 
+
 export type UseEvmResolveAddressParams = UseMoralisQueryParams<ResolveAddressResponse| null, ResolveAddressRequest>
 
 export function useEvmResolveAddress({ address, ...queryParams }: UseEvmResolveAddressParams = {}) {
   const resolver = useNullableOperationResolver(resolveAddressOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, ResolveAddressRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+
+  const queryKey: [string, ResolveAddressRequest] = useMemo(() => {
+    return [
       resolveAddressOperation.id,
       {
         address
       },
     ];
-    }
-      return;
   }, [address]);
 
   return useQuery({
@@ -28,6 +27,6 @@ export function useEvmResolveAddress({ address, ...queryParams }: UseEvmResolveA
       return response?.result || null;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: queryParams.enabled,
   });
 }

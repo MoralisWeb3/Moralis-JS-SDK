@@ -3,31 +3,34 @@ import { GetContractLogsRequest, GetContractLogsResponse, getContractLogsOperati
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmContractLogsParams = UseMoralisQueryParams<GetContractLogsResponse, GetContractLogsRequest>
+export type UseEvmContractLogsParams = UseMoralisQueryParams<GetContractLogsResponse, Partial<GetContractLogsRequest>>
 
 export function useEvmContractLogs({ address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, topic1, topic2, topic3, limit, cursor, disableTotal, ...queryParams }: UseEvmContractLogsParams = {}) {
   const resolver = usePaginatedOperationResolver(getContractLogsOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetContractLogsRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetContractLogsRequest>] = useMemo(() => {
+    return [
       getContractLogsOperation.id,
       {
         address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, topic1, topic2, topic3, limit, cursor, disableTotal
       },
     ];
-    }
-      return;
   }, [address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, topic1, topic2, topic3, limit, cursor, disableTotal]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

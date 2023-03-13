@@ -3,31 +3,34 @@ import { GetBlockRequest, GetBlockResponse, getBlockOperation } from 'moralis/co
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmBlockParams = UseMoralisQueryParams<GetBlockResponse| null, GetBlockRequest>
+export type UseEvmBlockParams = UseMoralisQueryParams<GetBlockResponse| null, Partial<GetBlockRequest>>
 
 export function useEvmBlock({ blockNumberOrHash, chain, ...queryParams }: UseEvmBlockParams = {}) {
   const resolver = useNullableOperationResolver(getBlockOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetBlockRequest] | undefined = useMemo(() => {
-    if (blockNumberOrHash) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(blockNumberOrHash);
+  }, [blockNumberOrHash]);
+
+  const queryKey: [string, Partial<GetBlockRequest>] = useMemo(() => {
+    return [
       getBlockOperation.id,
       {
         blockNumberOrHash, chain
       },
     ];
-    }
-      return;
   }, [blockNumberOrHash, chain]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['blockNumberOrHash']);
+      const response = await resolver.fetch(params);
       return response?.result || null;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

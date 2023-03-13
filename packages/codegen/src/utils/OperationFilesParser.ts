@@ -1,9 +1,12 @@
 import _ from 'lodash';
-import { ModuleGenerator } from './ModuleGenerator';
-import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
 import prettier from 'prettier';
+import {
+  Project,
+  TypeFormatFlags
+} from 'ts-morph';
 import { Module } from '../next/types';
+import { ModuleGenerator } from './ModuleGenerator';
 
 export interface ParsedOperation {
   name: string;
@@ -50,9 +53,21 @@ export class OperationFilesParser {
 
       const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
       const requestInterface = sourceFile.getInterface(interfaceName);
-      const request = requestInterface?.getProperties().map((p) => {
+      const properties = requestInterface?.getProperties().map((p) => {
         return { name: p.getName(), text: p.getText(), hasQuestionToken: p.hasQuestionToken() };
       });
+
+      const requestInterfaceType = requestInterface?.getType();
+      const baseProps = requestInterfaceType?.getProperties().map((prop) => {
+        const propType = prop.getDeclaredType();
+        return {
+          name: prop.getName(),
+          text: propType.getText(requestInterface, TypeFormatFlags.NoTruncation),
+          hasQuestionToken: prop.isOptional(),
+        };
+      });
+
+      const request = [...(properties ?? []), ...(baseProps ?? [])];
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
       const response = deserializeResponseDeclaration
@@ -61,6 +76,9 @@ export class OperationFilesParser {
 
       const operationStatement = sourceFile.getVariableStatement(name);
 
+      if (name === 'resolveDomainOperation') {
+        console.log(request);
+      }
       return {
         name: name.replace('Operation', ''),
         id,

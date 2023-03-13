@@ -3,31 +3,34 @@ import { GetWalletNFTCollectionsRequest, GetWalletNFTCollectionsResponse, getWal
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmWalletNFTCollectionsParams = UseMoralisQueryParams<GetWalletNFTCollectionsResponse, GetWalletNFTCollectionsRequest>
+export type UseEvmWalletNFTCollectionsParams = UseMoralisQueryParams<GetWalletNFTCollectionsResponse, Partial<GetWalletNFTCollectionsRequest>>
 
 export function useEvmWalletNFTCollections({ address, chain, limit, cursor, disableTotal, ...queryParams }: UseEvmWalletNFTCollectionsParams = {}) {
   const resolver = usePaginatedOperationResolver(getWalletNFTCollectionsOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetWalletNFTCollectionsRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetWalletNFTCollectionsRequest>] = useMemo(() => {
+    return [
       getWalletNFTCollectionsOperation.id,
       {
         address, chain, limit, cursor, disableTotal
       },
     ];
-    }
-      return;
   }, [address, chain, limit, cursor, disableTotal]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

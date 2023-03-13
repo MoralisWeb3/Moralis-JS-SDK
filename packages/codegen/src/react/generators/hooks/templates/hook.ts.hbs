@@ -3,37 +3,37 @@ import { {{ requestType }}, {{ responseType }}, {{ operation }} } from '{{ commo
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { {{ useResolver }}, useQuery } from '../../utils';
+{{#if requiredParams}}import { validateParams } from '../../../utils/validateParams';{{/if}}
 
-export type {{ hookParamsType }} = UseMoralisQueryParams<{{ responseType }}{{#if isNullable}}| null{{/if}}, {{ requestType }}>
+export type {{ hookParamsType }} = UseMoralisQueryParams<{{ responseType }}{{#if isNullable}}| null{{/if}}, {{#if requiredParams}}Partial<{{ requestType }}>{{else}}{{ requestType }}{{/if}}>
 
 export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}, {{/each}}{{/if}}...queryParams }: {{ hookParamsType }} = {}) {
   const resolver = {{ useResolver }}({{ operation }}, Moralis.{{ module }}.baseUrl);
 
-  const queryKey: [string, {{ requestType }}] | undefined = useMemo(() => {
-    {{#if requiredParams}}
-    if ({{#each requiredParams}}{{ this }}{{#unless @last}} && {{/unless}}{{/each}}) {
-      return [
+  {{#if requiredParams}}
+  const hasRequiredParams = useMemo(() => {
+    return Boolean({{#each requiredParams}}{{ this }}{{#unless @last}} && {{/unless}}{{/each}});
+  }, [{{#each requiredParams}}{{ this }}{{#unless @last}} , {{/unless}}{{/each}}]);
+  {{/if}}
+
+  const queryKey: [string, {{#if requiredParams}}Partial<{{ requestType }}>{{else}}{{ requestType }}{{/if}}] = useMemo(() => {
+    return [
       {{ operation }}.id,
       {
         {{#each allParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}
       },
     ];
-    }
-      return;
-    {{else}}
-      return [
-      {{ operation }}.id,
-        {
-          {{#if allParams}}{{#each allParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}{{/if}}
-        },
-      ]
-    {{/if}}
   }, [{{#if allParams}}{{#each allParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}{{/if}}]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
+      {{#if requiredParams}}
+      const params = validateParams(request, [{{#each requiredParams}}'{{ this }}'{{#unless @last}} , {{/unless}}{{/each}}]);
+      const response = await resolver.fetch(params);
+      {{else}}
       const response = await resolver.fetch(request);
+      {{/if}}
       {{#if isNullable}}
       return response?.result || null;
       {{else}}
@@ -41,6 +41,6 @@ export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}
       {{/if}}
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: {{#if requiredParams}}hasRequiredParams && {{/if}}queryParams.enabled,
   });
 }

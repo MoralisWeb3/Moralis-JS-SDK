@@ -3,31 +3,34 @@ import { RunContractFunctionRequest, RunContractFunctionResponse, runContractFun
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmRunContractFunctionParams = UseMoralisQueryParams<RunContractFunctionResponse, RunContractFunctionRequest>
+export type UseEvmRunContractFunctionParams = UseMoralisQueryParams<RunContractFunctionResponse, Partial<RunContractFunctionRequest>>
 
 export function useEvmRunContractFunction({ address, abi, params, chain, functionName, ...queryParams }: UseEvmRunContractFunctionParams = {}) {
   const resolver = useOperationResolver(runContractFunctionOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, RunContractFunctionRequest] | undefined = useMemo(() => {
-    if (functionName && address && abi) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && abi && address && abi && functionName);
+  }, [address , abi , address , abi , functionName]);
+
+  const queryKey: [string, Partial<RunContractFunctionRequest>] = useMemo(() => {
+    return [
       runContractFunctionOperation.id,
       {
         address, abi, params, chain, functionName
       },
     ];
-    }
-      return;
   }, [address, abi, params, chain, functionName]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'abi' , 'address' , 'abi' , 'functionName']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

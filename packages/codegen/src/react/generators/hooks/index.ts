@@ -1,6 +1,6 @@
 import { NodePlopAPI } from 'plop';
 import { Module } from '../../types';
-// import { HooksGenerator } from './HooksGenerator';
+import { HooksGenerator } from './HooksGenerator';
 
 export default function ReactHooksGenerator(plop: NodePlopAPI) {
   plop.setGenerator('react-hooks', {
@@ -13,12 +13,11 @@ export default function ReactHooksGenerator(plop: NodePlopAPI) {
         choices: ['evmApi', 'solApi'] as Module[],
       },
     ],
-    actions: (_answers) => {
-      throw new Error('No auto hook generation implemented');
-      // return [
-      //   ...(answers?.modules.includes('evmApi') ? new HooksGenerator('evmApi').actions : []),
-      //   ...(answers?.modules.includes('solApi') ? new HooksGenerator('solApi').actions : []),
-      // ];
+    actions: (answers) => {
+      return [
+        ...(answers?.modules.includes('evmApi') ? new HooksGenerator('evmApi').actions : []),
+        ...(answers?.modules.includes('solApi') ? new HooksGenerator('solApi').actions : []),
+      ];
     },
   });
 }

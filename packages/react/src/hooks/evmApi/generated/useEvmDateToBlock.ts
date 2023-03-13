@@ -3,31 +3,34 @@ import { GetDateToBlockRequest, GetDateToBlockResponse, getDateToBlockOperation 
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmDateToBlockParams = UseMoralisQueryParams<GetDateToBlockResponse, GetDateToBlockRequest>
+export type UseEvmDateToBlockParams = UseMoralisQueryParams<GetDateToBlockResponse, Partial<GetDateToBlockRequest>>
 
 export function useEvmDateToBlock({ chain, date, ...queryParams }: UseEvmDateToBlockParams = {}) {
   const resolver = useOperationResolver(getDateToBlockOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetDateToBlockRequest] | undefined = useMemo(() => {
-    if (date) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(date && date);
+  }, [date , date]);
+
+  const queryKey: [string, Partial<GetDateToBlockRequest>] = useMemo(() => {
+    return [
       getDateToBlockOperation.id,
       {
         chain, date
       },
     ];
-    }
-      return;
   }, [chain, date]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['date' , 'date']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

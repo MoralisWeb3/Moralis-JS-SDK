@@ -3,31 +3,34 @@ import { GetPairReservesRequest, GetPairReservesResponse, getPairReservesOperati
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmPairReservesParams = UseMoralisQueryParams<GetPairReservesResponse, GetPairReservesRequest>
+export type UseEvmPairReservesParams = UseMoralisQueryParams<GetPairReservesResponse, Partial<GetPairReservesRequest>>
 
 export function useEvmPairReserves({ pairAddress, chain, toBlock, toDate, ...queryParams }: UseEvmPairReservesParams = {}) {
   const resolver = useOperationResolver(getPairReservesOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetPairReservesRequest] | undefined = useMemo(() => {
-    if (pairAddress) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(pairAddress && pairAddress);
+  }, [pairAddress , pairAddress]);
+
+  const queryKey: [string, Partial<GetPairReservesRequest>] = useMemo(() => {
+    return [
       getPairReservesOperation.id,
       {
         pairAddress, chain, toBlock, toDate
       },
     ];
-    }
-      return;
   }, [pairAddress, chain, toBlock, toDate]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['pairAddress' , 'pairAddress']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

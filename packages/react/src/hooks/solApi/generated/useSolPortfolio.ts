@@ -3,31 +3,34 @@ import { GetPortfolioRequest, GetPortfolioResponse, getPortfolioOperation } from
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseSolPortfolioParams = UseMoralisQueryParams<GetPortfolioResponse, GetPortfolioRequest>
+export type UseSolPortfolioParams = UseMoralisQueryParams<GetPortfolioResponse, Partial<GetPortfolioRequest>>
 
 export function useSolPortfolio({ network, address, ...queryParams }: UseSolPortfolioParams = {}) {
   const resolver = useOperationResolver(getPortfolioOperation, Moralis.SolApi.baseUrl);
 
-  const queryKey: [string, GetPortfolioRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
-        getPortfolioOperation.id,
-        {
-          network, address
-        },
-      ];
-    }
-    return;
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetPortfolioRequest>] = useMemo(() => {
+    return [
+      getPortfolioOperation.id,
+      {
+        network, address
+      },
+    ];
   }, [network, address]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

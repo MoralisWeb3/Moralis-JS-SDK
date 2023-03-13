@@ -3,31 +3,34 @@ import { GetNFTsRequest, GetNFTsResponse, getNFTsOperation } from 'moralis/commo
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseSolNFTsParams = UseMoralisQueryParams<GetNFTsResponse, GetNFTsRequest>
+export type UseSolNFTsParams = UseMoralisQueryParams<GetNFTsResponse, Partial<GetNFTsRequest>>
 
 export function useSolNFTs({ network, address, ...queryParams }: UseSolNFTsParams = {}) {
   const resolver = useOperationResolver(getNFTsOperation, Moralis.SolApi.baseUrl);
 
-  const queryKey: [string, GetNFTsRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
-        getNFTsOperation.id,
-        {
-          network, address
-        },
-      ];
-    }
-    return;
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetNFTsRequest>] = useMemo(() => {
+    return [
+      getNFTsOperation.id,
+      {
+        network, address
+      },
+    ];
   }, [network, address]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

@@ -259,7 +259,7 @@ Get the native balance for a specific wallet address.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyany }; 
 ```
 
 ### Response:
@@ -273,7 +273,11 @@ Get the native balances for a set of specific addresses
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; walletAddresses: EvmAddressish[] }; 
+{
+  chain?: EvmChainish;
+  walletAddresses: EvmAddressish[];
+  anyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -293,7 +297,7 @@ Get the contents of a block given the block hash.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyany }; 
 ```
 
 ### Response:
@@ -307,7 +311,7 @@ Get the closest block given the date.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; date: DateInput }; 
+{ chain?: EvmChainish; date: DateInput; anyany }; 
 ```
 
 ### Response:
@@ -328,6 +332,7 @@ The token0 and token1 options are interchangable (ie. there is no different outc
   token0Address: EvmAddressish;
   token1Address: EvmAddressish;
   toDate?: DateInput;
+  anyanyanyanyanyany;
 }; 
 ```
 
@@ -360,6 +365,7 @@ Get the liquidity reserves for a given pair address. Only Uniswap V2 based excha
   chain?: EvmChainish;
   pairAddress: EvmAddressish;
   toDate?: DateInput;
+  anyanyanyany;
 }; 
 ```
 
@@ -380,6 +386,7 @@ Get events for a contract ordered by block number in descending order.
   abi: EvmAbiItem;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -399,6 +406,7 @@ Get the logs for a contract.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -418,6 +426,7 @@ Upload multiple files to IPFS and place them in a folder directory.
     path: string;
     content: string;
   }[];
+  any;
 }; 
 ```
 
@@ -435,7 +444,11 @@ Get NFTs for a given contract address, including metadata for all NFTs (where av
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  anyanyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -458,6 +471,7 @@ Get NFTs for a given contract address, including metadata for all NFTs (where av
     tokenAddress: EvmAddressish;
     tokenId: string;
   }[];
+  anyanyany;
 }; 
 ```
 
@@ -474,7 +488,7 @@ Get the collection / contract level metadata for a given contract (name, symbol,
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyany }; 
 ```
 
 ### Response:
@@ -493,6 +507,7 @@ Get transfers of NFTs for a given contract and other parameters.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -507,7 +522,7 @@ Get the lowest executed price for an NFT contract for the last x days (only trad
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyany }; 
 ```
 
 ### Response:
@@ -523,7 +538,7 @@ Get NFT data, including metadata (where available), for the given NFT token ID a
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -539,7 +554,7 @@ Get owners of NFTs for a given contract.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyanyanyany }; 
 ```
 
 ### Response:
@@ -555,7 +570,11 @@ Get owners of a specific NFT given the contract address and token ID.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  anyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -574,6 +593,7 @@ Get trades of NFTs for a given contract and marketplace.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -588,7 +608,7 @@ Get transfers of NFTs given a block number or block hash.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -602,7 +622,12 @@ Get transfers of NFTs from a block number to a block number.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; fromDate?: DateInput; toDate?: DateInput }; 
+{
+  chain?: EvmChainish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -616,7 +641,7 @@ Get transfers of an NFT given a contract address and token ID.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyanyanyany }; 
 ```
 
 ### Response:
@@ -630,7 +655,7 @@ Get NFT collections owned by a given wallet address.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -653,6 +678,7 @@ Get NFTs owned by a given address.
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address: EvmAddressish;
+  anyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -667,7 +693,11 @@ Get transfers of NFTs given the wallet and other parameters.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  anyanyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -686,7 +716,7 @@ ReSync the metadata for an NFT
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -705,6 +735,7 @@ Get NFTs that match a given metadata search query.
   addresses?: EvmAddressish[];
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -734,7 +765,7 @@ Initiates a sync of a previously non synced Contract.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyany }; 
 ```
 
 ### Response:
@@ -748,7 +779,7 @@ Resolve an ETH address and find the ENS name.
 
 ### Params:
 ```ts
-{ address?: EvmAddressish }; 
+{ address?: EvmAddressish; any }; 
 ```
 
 ### Response:
@@ -760,6 +791,10 @@ Resolve an ETH address and find the ENS name.
 
 Resolve an Unstoppable domain and get the address.
 
+### Params:
+```ts
+{ anyany }; 
+```
 
 ### Response:
 ```ts
@@ -777,6 +812,7 @@ Get the amount which the spender is allowed to withdraw on behalf of the owner.
   ownerAddress: EvmAddressish;
   spenderAddress: EvmAddressish;
   address: EvmAddressish;
+  anyanyanyany;
 }; 
 ```
 
@@ -791,7 +827,7 @@ Get metadata for a list of token symbols (name, symbol, decimals, logo).
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyany }; 
 ```
 
 ### Response:
@@ -809,7 +845,7 @@ Get the metadata for a given token contract address (name, symbol, decimals, log
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; addresses: EvmAddressish[] }; 
+{ chain?: EvmChainish; addresses: EvmAddressish[]; anyany }; 
 ```
 
 ### Response:
@@ -827,7 +863,7 @@ Get the token price denominated in the blockchains native token and USD.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyany }; 
 ```
 
 ### Response:
@@ -851,6 +887,7 @@ Get ERC20 token transactions from a contract ordered by block number in descendi
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -869,6 +906,7 @@ Get token balances for a specific wallet address.
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address: EvmAddressish;
+  anyanyanyany;
 }; 
 ```
 
@@ -888,6 +926,7 @@ Get ERC20 token transactions ordered by block number in descending order.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -902,7 +941,7 @@ Get the contents of a transaction by the given transaction hash.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyany }; 
 ```
 
 ### Response:
@@ -921,6 +960,7 @@ Get native transactions ordered by block number in descending order.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -940,6 +980,7 @@ Get native transactions ordered by block number in descending order.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -969,7 +1010,12 @@ Run a given function of a contract ABI and retrieve readonly data.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish; abi: unknown }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  abi: unknown;
+  anyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -996,7 +1042,7 @@ Gets native balance owned by the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1010,7 +1056,7 @@ Gets NFTs owned by the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1024,7 +1070,7 @@ Gets the portfolio of the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1046,7 +1092,7 @@ Gets token balances owned by the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1064,7 +1110,7 @@ Gets the contract level metadata (mint, standard, name, symbol, metaplex) for th
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1091,7 +1137,7 @@ Gets the token price (usd and native) for a given contract address and network
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:

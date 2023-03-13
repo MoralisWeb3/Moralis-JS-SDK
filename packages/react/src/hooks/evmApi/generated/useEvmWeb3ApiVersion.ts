@@ -4,18 +4,20 @@ import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 
+
 export type UseEvmWeb3ApiVersionParams = UseMoralisQueryParams<Web3ApiVersionResponse, Web3ApiVersionRequest>
 
 export function useEvmWeb3ApiVersion({ ...queryParams }: UseEvmWeb3ApiVersionParams = {}) {
   const resolver = useOperationResolver(web3ApiVersionOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, Web3ApiVersionRequest] | undefined = useMemo(() => {
-      return [
+
+  const queryKey: [string, Web3ApiVersionRequest] = useMemo(() => {
+    return [
       web3ApiVersionOperation.id,
-        {
-          
-        },
-      ]
+      {
+        
+      },
+    ];
   }, []);
 
   return useQuery({
@@ -25,6 +27,6 @@ export function useEvmWeb3ApiVersion({ ...queryParams }: UseEvmWeb3ApiVersionPar
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: queryParams.enabled,
   });
 }

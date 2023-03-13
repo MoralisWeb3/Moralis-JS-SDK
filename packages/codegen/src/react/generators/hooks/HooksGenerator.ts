@@ -5,19 +5,25 @@ import { fileURLToPath } from 'node:url';
 import { ModuleGenerator } from '../../../utils/ModuleGenerator';
 import { Module } from '../../types';
 import { getHookName } from '../../utils/names';
+import { OperationFilesParser } from '../../../utils/OperationFilesParser';
 
 export class HooksGenerator {
   private moduleGenerator: ModuleGenerator;
+  private opFilesParser: OperationFilesParser;
 
   constructor(public module: Module, public blackListedOperations?: string[]) {
     this.moduleGenerator = new ModuleGenerator(module, blackListedOperations);
+    this.opFilesParser = new OperationFilesParser(module, blackListedOperations);
   }
 
   public dirname = path.dirname(fileURLToPath(import.meta.url));
   public packagesFolder = path.join(this.dirname, '../../../../..');
 
   private get addHooks() {
-    const hooks = this.moduleGenerator.operations.map((operation) => {
+    const parsedRequests = this.opFilesParser.parsedOperations.map((op) => {
+      return { name: op.name, request: op.request };
+    });
+    return this.moduleGenerator.operations.map((operation) => {
       const name = getHookName(operation.name, this.module);
       const isPaginated = operation.firstPageIndex === 0 || operation.firstPageIndex === 1;
       const isNullable = operation?.isNullable;
@@ -31,45 +37,35 @@ export class HooksGenerator {
       }
 
       const { urlPathParamNames = [], bodyParamNames = [], urlSearchParamNames = [] } = operation;
-      const requiredParams = [...urlPathParamNames, ...bodyParamNames];
-      const allParams = [...urlPathParamNames, ...bodyParamNames, ...requiredParams, ...urlSearchParamNames];
+      const parsedOp = parsedRequests.find((req) => req.name === operation.name);
+      const requiredParams = parsedOp?.request?.filter((param) => !param.hasQuestionToken).map((param) => param.name);
+      const allParams = [...urlPathParamNames, ...bodyParamNames, ...urlSearchParamNames];
 
-      return {
-        name,
-        useResolver,
+      const templateData = {
         requestType: `${_.upperFirst(operation.name)}Request`,
         responseType: `${_.upperFirst(operation.name)}Response`,
+        name,
+        useResolver,
+        module: _.upperFirst(this.module),
         operation: `${operation.name}Operation`,
-        isNullable,
+        commonUtils: this.moduleGenerator.operationsPackageName,
+        hookParamsType: `${_.upperFirst(name)}Params`,
         requiredParams,
         allParams,
+        isNullable,
       };
-    });
 
-    return hooks.map((hook) => {
       return {
         type: 'add',
         templateFile: path.join(this.dirname, 'templates/hook.ts.hbs'),
         path: path.join(this.packagesFolder, `react/src/hooks/${this.module}/generated/{{ name }}.ts`),
-        data: {
-          requestType: hook.requestType,
-          responseType: hook.responseType,
-          name: hook.name,
-          useResolver: hook.useResolver,
-          module: _.upperFirst(this.module),
-          operation: hook.operation,
-          commonUtils: this.moduleGenerator.operationsPackageName,
-          hookParamsType: `${_.upperFirst(hook.name)}Params`,
-          requiredParams: hook.requiredParams,
-          allParams: hook.allParams,
-        },
+        data: templateData,
         force: true,
       };
     });
   }
 
   public get actions(): ActionConfig[] {
-    // console.log('d: ', d);
     return this.addHooks;
   }
 }

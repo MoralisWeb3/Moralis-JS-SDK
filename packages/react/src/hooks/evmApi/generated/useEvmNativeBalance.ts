@@ -3,31 +3,34 @@ import { GetNativeBalanceRequest, GetNativeBalanceResponse, getNativeBalanceOper
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmNativeBalanceParams = UseMoralisQueryParams<GetNativeBalanceResponse, GetNativeBalanceRequest>
+export type UseEvmNativeBalanceParams = UseMoralisQueryParams<GetNativeBalanceResponse, Partial<GetNativeBalanceRequest>>
 
 export function useEvmNativeBalance({ address, chain, toBlock, ...queryParams }: UseEvmNativeBalanceParams = {}) {
   const resolver = useOperationResolver(getNativeBalanceOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetNativeBalanceRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetNativeBalanceRequest>] = useMemo(() => {
+    return [
       getNativeBalanceOperation.id,
       {
         address, chain, toBlock
       },
     ];
-    }
-      return;
   }, [address, chain, toBlock]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

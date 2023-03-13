@@ -3,31 +3,34 @@ import { GetWalletNFTTransfersRequest, GetWalletNFTTransfersResponse, getWalletN
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmWalletNFTTransfersParams = UseMoralisQueryParams<GetWalletNFTTransfersResponse, GetWalletNFTTransfersRequest>
+export type UseEvmWalletNFTTransfersParams = UseMoralisQueryParams<GetWalletNFTTransfersResponse, Partial<GetWalletNFTTransfersRequest>>
 
 export function useEvmWalletNFTTransfers({ address, chain, format, direction, fromBlock, toBlock, limit, cursor, disableTotal, ...queryParams }: UseEvmWalletNFTTransfersParams = {}) {
   const resolver = usePaginatedOperationResolver(getWalletNFTTransfersOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetWalletNFTTransfersRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetWalletNFTTransfersRequest>] = useMemo(() => {
+    return [
       getWalletNFTTransfersOperation.id,
       {
         address, chain, format, direction, fromBlock, toBlock, limit, cursor, disableTotal
       },
     ];
-    }
-      return;
   }, [address, chain, format, direction, fromBlock, toBlock, limit, cursor, disableTotal]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

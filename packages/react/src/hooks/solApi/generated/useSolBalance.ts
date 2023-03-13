@@ -3,31 +3,34 @@ import { GetBalanceRequest, GetBalanceResponse, getBalanceOperation } from 'mora
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseSolBalanceParams = UseMoralisQueryParams<GetBalanceResponse, GetBalanceRequest>
+export type UseSolBalanceParams = UseMoralisQueryParams<GetBalanceResponse, Partial<GetBalanceRequest>>
 
 export function useSolBalance({ network, address, ...queryParams }: UseSolBalanceParams = {}) {
   const resolver = useOperationResolver(getBalanceOperation, Moralis.SolApi.baseUrl);
 
-  const queryKey: [string, GetBalanceRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
-        getBalanceOperation.id,
-        {
-          network, address
-        },
-      ];
-    }
-    return;
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetBalanceRequest>] = useMemo(() => {
+    return [
+      getBalanceOperation.id,
+      {
+        network, address
+      },
+    ];
   }, [network, address]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

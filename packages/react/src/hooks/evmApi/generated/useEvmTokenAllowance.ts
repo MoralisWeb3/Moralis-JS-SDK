@@ -3,31 +3,34 @@ import { GetTokenAllowanceRequest, GetTokenAllowanceResponse, getTokenAllowanceO
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmTokenAllowanceParams = UseMoralisQueryParams<GetTokenAllowanceResponse, GetTokenAllowanceRequest>
+export type UseEvmTokenAllowanceParams = UseMoralisQueryParams<GetTokenAllowanceResponse, Partial<GetTokenAllowanceRequest>>
 
 export function useEvmTokenAllowance({ address, chain, ownerAddress, spenderAddress, ...queryParams }: UseEvmTokenAllowanceParams = {}) {
   const resolver = useOperationResolver(getTokenAllowanceOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetTokenAllowanceRequest] | undefined = useMemo(() => {
-    if (ownerAddress && spenderAddress && address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(ownerAddress && spenderAddress && address && ownerAddress && spenderAddress && address);
+  }, [ownerAddress , spenderAddress , address , ownerAddress , spenderAddress , address]);
+
+  const queryKey: [string, Partial<GetTokenAllowanceRequest>] = useMemo(() => {
+    return [
       getTokenAllowanceOperation.id,
       {
         address, chain, ownerAddress, spenderAddress
       },
     ];
-    }
-      return;
   }, [address, chain, ownerAddress, spenderAddress]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['ownerAddress' , 'spenderAddress' , 'address' , 'ownerAddress' , 'spenderAddress' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }

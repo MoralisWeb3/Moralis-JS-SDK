@@ -3,31 +3,34 @@ import { GetWalletTransactionsVerboseRequest, GetWalletTransactionsVerboseRespon
 import { useMemo } from 'react';
 import { UseMoralisQueryParams } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
+import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmWalletTransactionsVerboseParams = UseMoralisQueryParams<GetWalletTransactionsVerboseResponse, GetWalletTransactionsVerboseRequest>
+export type UseEvmWalletTransactionsVerboseParams = UseMoralisQueryParams<GetWalletTransactionsVerboseResponse, Partial<GetWalletTransactionsVerboseRequest>>
 
 export function useEvmWalletTransactionsVerbose({ address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit, disableTotal, ...queryParams }: UseEvmWalletTransactionsVerboseParams = {}) {
   const resolver = usePaginatedOperationResolver(getWalletTransactionsVerboseOperation, Moralis.EvmApi.baseUrl);
 
-  const queryKey: [string, GetWalletTransactionsVerboseRequest] | undefined = useMemo(() => {
-    if (address) {
-      return [
+  const hasRequiredParams = useMemo(() => {
+    return Boolean(address && address);
+  }, [address , address]);
+
+  const queryKey: [string, Partial<GetWalletTransactionsVerboseRequest>] = useMemo(() => {
+    return [
       getWalletTransactionsVerboseOperation.id,
       {
         address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit, disableTotal
       },
     ];
-    }
-      return;
   }, [address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit, disableTotal]);
 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const response = await resolver.fetch(request);
+      const params = validateParams(request, ['address' , 'address']);
+      const response = await resolver.fetch(params);
       return response.result;
     },
     ...queryParams,
-    enabled: queryKey && queryParams.enabled,
+    enabled: hasRequiredParams && queryParams.enabled,
   });
 }
