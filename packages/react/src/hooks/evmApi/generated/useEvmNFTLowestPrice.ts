@@ -24,13 +24,13 @@ export function useEvmNFTLowestPrice({ address, chain, days, marketplace, ...que
   }, [address, chain, days, marketplace]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

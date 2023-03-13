@@ -24,13 +24,13 @@ export function useEvmTokenMetadataBySymbol({ chain, symbols, ...queryParams }: 
   }, [chain, symbols]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['symbols']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

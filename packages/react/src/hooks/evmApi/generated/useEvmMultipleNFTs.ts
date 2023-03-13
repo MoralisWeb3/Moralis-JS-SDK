@@ -24,13 +24,13 @@ export function useEvmMultipleNFTs({ tokens, normalizeMetadata, chain, ...queryP
   }, [tokens, normalizeMetadata, chain]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['tokens']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

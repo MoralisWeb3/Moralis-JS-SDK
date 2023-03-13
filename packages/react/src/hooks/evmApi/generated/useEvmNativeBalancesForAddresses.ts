@@ -24,13 +24,13 @@ export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, 
   }, [chain, providerUrl, toBlock, walletAddresses]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['walletAddresses']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

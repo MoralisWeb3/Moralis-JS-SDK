@@ -24,13 +24,13 @@ export function useEvmRunContractFunction({ address, abi, params, chain, functio
   }, [address, abi, params, chain, functionName]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address', 'abi', 'functionName']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

@@ -24,13 +24,13 @@ export function useEvmBlock({ blockNumberOrHash, chain, ...queryParams }: UseEvm
   }, [blockNumberOrHash, chain]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['blockNumberOrHash']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

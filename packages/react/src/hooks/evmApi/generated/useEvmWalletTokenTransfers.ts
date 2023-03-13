@@ -24,13 +24,13 @@ export function useEvmWalletTokenTransfers({ address, chain, fromBlock, toBlock,
   }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

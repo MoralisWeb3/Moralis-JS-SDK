@@ -24,13 +24,13 @@ export function useEvmSearchNFTs({ chain, format, q, filter, fromBlock, toBlock,
   }, [chain, format, q, filter, fromBlock, toBlock, fromDate, toDate, addresses, cursor, limit, disableTotal]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['q']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

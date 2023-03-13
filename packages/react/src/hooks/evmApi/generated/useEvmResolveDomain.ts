@@ -24,13 +24,13 @@ export function useEvmResolveDomain({ domain, currency, ...queryParams }: UseEvm
   }, [domain, currency]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['domain']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

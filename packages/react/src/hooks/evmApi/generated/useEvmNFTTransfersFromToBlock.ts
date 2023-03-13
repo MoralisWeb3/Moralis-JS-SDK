@@ -21,12 +21,12 @@ export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromD
   }, [chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response.result;
     },
-    ...queryParams,
     enabled: queryParams.enabled,
   });
 }

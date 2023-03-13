@@ -21,12 +21,12 @@ export function useEvmResolveAddress({ address, ...queryParams }: UseEvmResolveA
   }, [address]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response?.result || null;
     },
-    ...queryParams,
     enabled: queryParams.enabled,
   });
 }

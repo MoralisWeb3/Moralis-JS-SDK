@@ -21,12 +21,12 @@ export function useEvmEndpointWeights({ ...queryParams }: UseEvmEndpointWeightsP
   }, []);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response.result;
     },
-    ...queryParams,
     enabled: queryParams.enabled,
   });
 }

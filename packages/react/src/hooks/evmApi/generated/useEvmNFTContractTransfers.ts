@@ -24,13 +24,13 @@ export function useEvmNFTContractTransfers({ address, chain, format, limit, curs
   }, [address, chain, format, limit, cursor, fromBlock, fromDate, toBlock, toDate, disableTotal]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

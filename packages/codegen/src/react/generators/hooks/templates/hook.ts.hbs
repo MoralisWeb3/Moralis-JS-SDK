@@ -26,6 +26,7 @@ export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}
   }, [{{#if allParams}}{{#each allParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}{{/if}}]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       {{#if requiredParams}}
@@ -40,7 +41,6 @@ export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}
       return response.result;
       {{/if}}
     },
-    ...queryParams,
     enabled: {{#if requiredParams}}hasRequiredParams && {{/if}}queryParams.enabled,
   });
 }

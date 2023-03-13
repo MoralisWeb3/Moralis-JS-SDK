@@ -24,13 +24,13 @@ export function useEvmTokenAllowance({ address, chain, ownerAddress, spenderAddr
   }, [address, chain, ownerAddress, spenderAddress]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['ownerAddress', 'spenderAddress', 'address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

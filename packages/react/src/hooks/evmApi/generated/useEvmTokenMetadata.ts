@@ -24,13 +24,13 @@ export function useEvmTokenMetadata({ chain, addresses, ...queryParams }: UseEvm
   }, [chain, addresses]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['addresses']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

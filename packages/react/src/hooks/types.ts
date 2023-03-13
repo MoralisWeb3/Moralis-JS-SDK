@@ -21,5 +21,5 @@ export type QueryOptions<TQueryFnData, TError, TQueryKey extends QueryKey = Quer
   'queryKey' | 'queryFn'
 >;
 
-export type UseMoralisQueryParams<Response, Request> = UseQueryOptions<Response, Error, [string, Request]> &
+export type UseMoralisQueryParams<Response, Request> = QueryOptions<Response, Error, [string, Request]> &
   Partial<Request>;

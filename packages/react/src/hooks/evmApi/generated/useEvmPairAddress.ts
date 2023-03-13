@@ -24,13 +24,13 @@ export function useEvmPairAddress({ token0Address, token1Address, chain, toBlock
   }, [token0Address, token1Address, chain, toBlock, toDate, exchange]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['token0Address', 'token1Address', 'exchange']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }

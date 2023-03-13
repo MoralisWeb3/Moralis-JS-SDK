@@ -24,13 +24,13 @@ export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMe
   }, [address, tokenId, chain, format, normalizeMetadata]);
 
   return useQuery({
+    ...queryParams,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address', 'tokenId']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },
-    ...queryParams,
     enabled: hasRequiredParams && queryParams.enabled,
   });
 }
