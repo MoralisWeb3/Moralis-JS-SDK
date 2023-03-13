@@ -71,7 +71,7 @@ const Home = () => {
     enabled: false,
     onSuccess: (res) => setOutput(JSON.stringify(res)),
   });
-console.log('error: ', error)
+  console.log('error: ', error);
   return (
     <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>

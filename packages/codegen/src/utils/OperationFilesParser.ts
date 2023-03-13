@@ -1,10 +1,7 @@
 import _ from 'lodash';
 import path from 'node:path';
 import prettier from 'prettier';
-import {
-  Project,
-  TypeFormatFlags
-} from 'ts-morph';
+import { Project, TypeFormatFlags } from 'ts-morph';
 import { Module } from '../next/types';
 import { ModuleGenerator } from './ModuleGenerator';
 
