@@ -16,7 +16,7 @@ const MoralisProvider: FC<MoralisProviderProps> = ({
     onSettled,
     onSuccess,
     refetchInterval,
-    refetchOnWindowFocus,
+    refetchOnWindowFocus = false,
     staleTime,
     suspense,
     ...moralisConfig

@@ -9,7 +9,6 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const moralisConfig: MoralisConfig = {
   apiKey: process.env.REACT_APP_MORALIS_KEY || '',
-  refetchOnWindowFocus: false,
 };
 
 root.render(
