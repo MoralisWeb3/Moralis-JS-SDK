@@ -4,7 +4,8 @@
     "outDir": "./lib",
     "declarationDir": "./lib/",
     "rootDir": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "module": "CommonJS"
   },
   "include": ["src/**/*"],
   "exclude": ["src/template/**", "src/**/*.test.ts"]
