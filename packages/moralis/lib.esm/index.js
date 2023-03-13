@@ -21,16 +21,16 @@ const solApi = SolApi.create(core);
 core.registerModules([commonEvmUtils, commonSolUtils, auth, apiUtils, evmApi, solApi, streams]);
 CoreProvider.setDefault(core);
 const Moralis = {
-    Core: core,
-    Auth: auth,
-    Streams: streams,
-    EvmApi: evmApi,
-    SolApi: solApi,
-    EvmUtils: commonEvmUtils,
-    SolUtils: commonSolUtils,
-    start: (config) => {
-        return core.start(config);
-    },
+  Core: core,
+  Auth: auth,
+  Streams: streams,
+  EvmApi: evmApi,
+  SolApi: solApi,
+  EvmUtils: commonEvmUtils,
+  SolUtils: commonSolUtils,
+  start: (config) => {
+    return core.start(config);
+  },
 };
 export default Moralis;
 //# sourceMappingURL=index.js.map
