@@ -114,13 +114,26 @@ If you need help with setting up the boilerplate or have other questions - don't
 import { useEvmWalletTokenBalances } from '@moralisweb3/react'
 
 const App = () => {
-  const { data: balance, error, fetch, isFetching } = useEvmWalletTokenBalances({ address: '0x...' })
+  const {
+    data: balance,
+    error,
+    fetchStatus,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isFetching,
+    isLoading,
+    isRefetching,
+    isSuccess,
+    refetch,
+    status,
+  } = useEvmWalletTokenBalances({ address: '0x...' })
 
   if (isFetching) return <div>Fetching/Refreshing balance…</div>
   if (error) return <div>{JSON.stringify(error, null, 2)}</div>
   return (
     <>
-      <button onClick={fetch}>Refetch Balance</button>
+      <button onClick={refetch}>Refetch Balance</button>
       <div>{JSON.stringify(balance, null, 2)}</div>
     </>
   )
@@ -188,7 +201,7 @@ import { useEvmNativeBalance } from '@moralisweb3/react'
 import { EvmChain } from 'moralis/common-evm-utils';
 
 const App = () => {
-  const { fetch, ethBalance } = useEvmNativeBalance(
+  const { refetch, ethBalance } = useEvmNativeBalance(
     {
       address: '0x...',
     },

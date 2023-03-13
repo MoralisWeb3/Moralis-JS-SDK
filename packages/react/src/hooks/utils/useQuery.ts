@@ -5,18 +5,6 @@ export function useQuery<TQueryFnData, TError, TQueryKey extends QueryKey = Quer
   queryOptions: UseQueryOptions<TQueryFnData, TError, TQueryKey>,
 ) {
   const {
-    // dataUpdatedAt,
-    // errorUpdatedAt,
-    // failureCount,
-    // failureReason,
-    // isInitialLoading,
-    // isLoadingError,
-    // isPaused,
-    // isPlaceholderData,
-    // isPreviousData,
-    // isRefetchError,
-    // isStale,
-    // remove,
     data,
     error,
     fetchStatus,
