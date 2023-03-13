@@ -1126,7 +1126,7 @@ const moralisConfig: MoralisConfig = {
   logLevel: 'verbose',
   refreshInterval: 3000,
   revalidateOnFocus: true,
-};
+}
 
 ReactDOM.render(
   <MoralisProvider config={moralisConfig}>

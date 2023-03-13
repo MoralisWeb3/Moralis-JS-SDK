@@ -8,7 +8,12 @@ import { Module } from '../next/types';
 export interface ParsedOperation {
   name: string;
   id: string;
-  request?: string;
+  request?: {
+    name: string;
+    text: string;
+    hasQuestionToken: boolean;
+  }[];
+  requestText?: string;
   response?: string;
   description?: string;
 }
@@ -45,7 +50,9 @@ export class OperationFilesParser {
 
       const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
       const requestInterface = sourceFile.getInterface(interfaceName);
-      const request = requestInterface?.getProperties().map((p) => p.getText());
+      const request = requestInterface?.getProperties().map((p) => {
+        return { name: p.getName(), text: p.getText(), hasQuestionToken: p.hasQuestionToken() };
+      });
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
       const response = deserializeResponseDeclaration
@@ -57,7 +64,8 @@ export class OperationFilesParser {
       return {
         name: name.replace('Operation', ''),
         id,
-        request: request?.length ? this.formatType(`{${request.join('')}}`) : undefined,
+        requestText: request?.length ? this.formatType(`{${request.map((req) => req.text).join('')}}`) : undefined,
+        request,
         response: response ? this.formatType(response) : undefined,
         description: operationStatement?.getJsDocs()?.[0]?.getDescription(),
       };

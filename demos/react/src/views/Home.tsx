@@ -38,8 +38,8 @@ const Home = () => {
     address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   });
 
-  const { refetch: getNFTMetadata } = useEvmNFTContractMetadata({
-    address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+  const { refetch: getNFTMetadata, error } = useEvmNFTContractMetadata({
+    // address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     enabled: false,
     onSuccess: (res) => setOutput(JSON.stringify(res)),
   });
@@ -71,7 +71,7 @@ const Home = () => {
     enabled: false,
     onSuccess: (res) => setOutput(JSON.stringify(res)),
   });
-
+console.log('error: ', error)
   return (
     <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>
