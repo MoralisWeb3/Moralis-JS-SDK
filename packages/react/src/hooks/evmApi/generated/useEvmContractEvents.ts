@@ -11,8 +11,8 @@ export function useEvmContractEvents({ address, abi, chain, fromBlock, toBlock, 
   const resolver = usePaginatedOperationResolver(getContractEventsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && abi && address && abi && topic);
-  }, [address , abi , address , abi , topic]);
+    return Boolean(address && abi && topic);
+  }, [address , abi , topic]);
 
   const queryKey: [string, Partial<GetContractEventsRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmContractEvents({ address, abi, chain, fromBlock, toBlock, 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'abi' , 'address' , 'abi' , 'topic']);
+      const params = validateParams(request, ['address', 'abi', 'topic']);
       const response = await resolver.fetch(params);
       return response.result;
     },

@@ -11,8 +11,8 @@ export function useSolNFTMetadata({ network, address, ...queryParams }: UseSolNF
   const resolver = useOperationResolver(getNFTMetadataOperation, Moralis.SolApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && address);
-  }, [address , address]);
+    return Boolean(address);
+  }, [address]);
 
   const queryKey: [string, Partial<GetNFTMetadataRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useSolNFTMetadata({ network, address, ...queryParams }: UseSolNF
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'address']);
+      const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },

@@ -11,8 +11,8 @@ export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, 
   const resolver = useOperationResolver(getNativeBalancesForAddressesOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(walletAddresses && walletAddresses);
-  }, [walletAddresses , walletAddresses]);
+    return Boolean(walletAddresses);
+  }, [walletAddresses]);
 
   const queryKey: [string, Partial<GetNativeBalancesForAddressesRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, 
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['walletAddresses' , 'walletAddresses']);
+      const params = validateParams(request, ['walletAddresses']);
       const response = await resolver.fetch(params);
       return response.result;
     },

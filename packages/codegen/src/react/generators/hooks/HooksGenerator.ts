@@ -39,6 +39,7 @@ export class HooksGenerator {
       const { urlPathParamNames = [], bodyParamNames = [], urlSearchParamNames = [] } = operation;
       const parsedOp = parsedRequests.find((req) => req.name === operation.name);
       const requiredParams = parsedOp?.request?.filter((param) => !param.hasQuestionToken).map((param) => param.name);
+      console.log(name, parsedOp?.request);
       const allParams = [...urlPathParamNames, ...bodyParamNames, ...urlSearchParamNames];
 
       const templateData = {

@@ -11,8 +11,8 @@ export function useEvmMultipleNFTs({ tokens, normalizeMetadata, chain, ...queryP
   const resolver = useOperationResolver(getMultipleNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(tokens && tokens);
-  }, [tokens , tokens]);
+    return Boolean(tokens);
+  }, [tokens]);
 
   const queryKey: [string, Partial<GetMultipleNFTsRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmMultipleNFTs({ tokens, normalizeMetadata, chain, ...queryP
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['tokens' , 'tokens']);
+      const params = validateParams(request, ['tokens']);
       const response = await resolver.fetch(params);
       return response.result;
     },

@@ -11,8 +11,8 @@ export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromD
   const resolver = usePaginatedOperationResolver(getTokenTransfersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && address);
-  }, [address , address]);
+    return Boolean(address);
+  }, [address]);
 
   const queryKey: [string, Partial<GetTokenTransfersRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromD
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'address']);
+      const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },

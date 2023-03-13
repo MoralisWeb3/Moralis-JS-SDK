@@ -11,8 +11,8 @@ export function useEvmNFTOwners({ address, chain, format, limit, cursor, normali
   const resolver = usePaginatedOperationResolver(getNFTOwnersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && address);
-  }, [address , address]);
+    return Boolean(address);
+  }, [address]);
 
   const queryKey: [string, Partial<GetNFTOwnersRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmNFTOwners({ address, chain, format, limit, cursor, normali
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'address']);
+      const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },

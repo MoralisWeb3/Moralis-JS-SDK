@@ -11,8 +11,8 @@ export function useEvmPairReserves({ pairAddress, chain, toBlock, toDate, ...que
   const resolver = useOperationResolver(getPairReservesOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(pairAddress && pairAddress);
-  }, [pairAddress , pairAddress]);
+    return Boolean(pairAddress);
+  }, [pairAddress]);
 
   const queryKey: [string, Partial<GetPairReservesRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmPairReserves({ pairAddress, chain, toBlock, toDate, ...que
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['pairAddress' , 'pairAddress']);
+      const params = validateParams(request, ['pairAddress']);
       const response = await resolver.fetch(params);
       return response.result;
     },

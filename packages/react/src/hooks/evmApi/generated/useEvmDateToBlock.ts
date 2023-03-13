@@ -11,8 +11,8 @@ export function useEvmDateToBlock({ chain, date, ...queryParams }: UseEvmDateToB
   const resolver = useOperationResolver(getDateToBlockOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(date && date);
-  }, [date , date]);
+    return Boolean(date);
+  }, [date]);
 
   const queryKey: [string, Partial<GetDateToBlockRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmDateToBlock({ chain, date, ...queryParams }: UseEvmDateToB
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['date' , 'date']);
+      const params = validateParams(request, ['date']);
       const response = await resolver.fetch(params);
       return response.result;
     },

@@ -11,8 +11,8 @@ export function useEvmTokenMetadata({ chain, addresses, ...queryParams }: UseEvm
   const resolver = useOperationResolver(getTokenMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(addresses && addresses);
-  }, [addresses , addresses]);
+    return Boolean(addresses);
+  }, [addresses]);
 
   const queryKey: [string, Partial<GetTokenMetadataRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmTokenMetadata({ chain, addresses, ...queryParams }: UseEvm
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['addresses' , 'addresses']);
+      const params = validateParams(request, ['addresses']);
       const response = await resolver.fetch(params);
       return response.result;
     },

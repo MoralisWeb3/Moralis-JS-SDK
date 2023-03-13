@@ -11,8 +11,8 @@ export function useEvmWalletNFTs({ address, chain, format, limit, tokenAddresses
   const resolver = usePaginatedOperationResolver(getWalletNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && address);
-  }, [address , address]);
+    return Boolean(address);
+  }, [address]);
 
   const queryKey: [string, Partial<GetWalletNFTsRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmWalletNFTs({ address, chain, format, limit, tokenAddresses
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'address']);
+      const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },

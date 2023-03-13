@@ -11,8 +11,8 @@ export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMe
   const resolver = useNullableOperationResolver(getNFTMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && address && tokenId);
-  }, [address , address , tokenId]);
+    return Boolean(address && tokenId);
+  }, [address , tokenId]);
 
   const queryKey: [string, Partial<GetNFTMetadataRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMe
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'address' , 'tokenId']);
+      const params = validateParams(request, ['address', 'tokenId']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },

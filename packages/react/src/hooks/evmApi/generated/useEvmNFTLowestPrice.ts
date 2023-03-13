@@ -11,8 +11,8 @@ export function useEvmNFTLowestPrice({ address, chain, days, marketplace, ...que
   const resolver = useNullableOperationResolver(getNFTLowestPriceOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
-    return Boolean(address && address);
-  }, [address , address]);
+    return Boolean(address);
+  }, [address]);
 
   const queryKey: [string, Partial<GetNFTLowestPriceRequest>] = useMemo(() => {
     return [
@@ -26,7 +26,7 @@ export function useEvmNFTLowestPrice({ address, chain, days, marketplace, ...que
   return useQuery({
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
-      const params = validateParams(request, ['address' , 'address']);
+      const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },

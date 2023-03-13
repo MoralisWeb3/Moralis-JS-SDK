@@ -5,14 +5,16 @@ import { Project, TypeFormatFlags } from 'ts-morph';
 import { Module } from '../next/types';
 import { ModuleGenerator } from './ModuleGenerator';
 
+type Request = {
+  name: string;
+  text: string;
+  hasQuestionToken: boolean;
+  base?: boolean;
+};
 export interface ParsedOperation {
   name: string;
   id: string;
-  request?: {
-    name: string;
-    text: string;
-    hasQuestionToken: boolean;
-  }[];
+  request?: Request[];
   requestText?: string;
   response?: string;
   description?: string;
@@ -50,7 +52,7 @@ export class OperationFilesParser {
 
       const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
       const requestInterface = sourceFile.getInterface(interfaceName);
-      const properties = requestInterface?.getProperties().map((p) => {
+      const request = requestInterface?.getProperties().map((p) => {
         return { name: p.getName(), text: p.getText(), hasQuestionToken: p.hasQuestionToken() };
       });
 
@@ -61,10 +63,18 @@ export class OperationFilesParser {
           name: prop.getName(),
           text: propType.getText(requestInterface, TypeFormatFlags.NoTruncation),
           hasQuestionToken: prop.isOptional(),
+          base: true,
         };
       });
 
-      const request = [...(properties ?? []), ...(baseProps ?? [])];
+      if (request && baseProps) {
+        for (const baseProp of baseProps) {
+          const isDuplicate = request?.find((prop) => prop.name === baseProp.name);
+          if (!isDuplicate) {
+            request.push(baseProp);
+          }
+        }
+      }
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
       const response = deserializeResponseDeclaration
