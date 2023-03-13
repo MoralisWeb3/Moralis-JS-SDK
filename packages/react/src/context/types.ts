@@ -1,6 +1,5 @@
-import Core from '@moralisweb3/common-core';
+import Core, { MoralisCoreConfigValues } from '@moralisweb3/common-core';
 import { QueryObserverOptions } from '@tanstack/react-query';
-import { MoralisConfigValues } from 'moralis/lib/config/MoralisConfig';
 import { ReactNode } from 'react';
 import { MoralisQueryOptionKeys } from '../hooks/types';
 
@@ -10,7 +9,7 @@ export interface MoralisContextValue {
   core: Core;
 }
 
-export type MoralisConfig = MoralisConfigValues & FetchConfig;
+export type MoralisConfig = MoralisCoreConfigValues & FetchConfig;
 
 export interface MoralisProviderProps {
   children?: ReactNode;
