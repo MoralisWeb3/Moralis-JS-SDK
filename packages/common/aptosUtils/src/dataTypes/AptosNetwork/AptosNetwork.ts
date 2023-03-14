@@ -20,7 +20,7 @@ export type AptosNetworkName = typeof aptosNetworkNames[number];
  * @example "mainnet"
  * @example "devnet"
  */
-export type AptosNetworkNameish = AptosNetworkName | string;
+export type AptosNetworkJSON = AptosNetworkName | string;
 
 /**
  * Valid input for a new AptosNetwork instance.
@@ -30,7 +30,7 @@ export type AptosNetworkNameish = AptosNetworkName | string;
  * @example "devnet"
  * @example AptosNetwork.create("mainnet")
  */
-export type AptosNetworkish = AptosNetwork | AptosNetworkNameish;
+export type AptosNetworkInput = AptosNetwork | AptosNetworkJSON;
 
 /**
  * A representation of a Aptos network.
@@ -70,11 +70,11 @@ export class AptosNetwork implements MoralisData {
    * @example `const network = AptosNetwork.create("mainnet")`
    * @throws an error when a passed network is invalid.
    */
-  public static create(network: AptosNetworkish): AptosNetwork {
+  public static create(network: AptosNetworkInput): AptosNetwork {
     return network instanceof AptosNetwork ? network : new AptosNetwork(AptosNetwork.parse(network));
   }
 
-  private static parse(network: AptosNetworkNameish): AptosNetworkName {
+  private static parse(network: AptosNetworkJSON): AptosNetworkName {
     if (typeof network !== 'string') {
       throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
@@ -111,7 +111,7 @@ export class AptosNetwork implements MoralisData {
    * @example `network.equals("mainnet")`
    * @example `network.equals(AptosNetwork.create("mainnet"))`
    */
-  public equals(network: AptosNetworkish): boolean {
+  public equals(network: AptosNetworkInput): boolean {
     return this.network === AptosNetwork.create(network).network;
   }
 
