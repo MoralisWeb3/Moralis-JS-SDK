@@ -1,67 +1,60 @@
 import { AptosAddress } from './AptosAddress';
 
 describe('AptosAddress', () => {
-  const ADDRESS = '0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b'; // account
+  describe('equals()', () => {
+    it('returns true for comparison the same address but with trimmed leading 0s', () => {
+      const a = AptosAddress.create('0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b');
+      const b = AptosAddress.create('0x0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b');
+      const c = AptosAddress.create('0x357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b');
 
-  const validAddresses = [
-    ADDRESS,
-    '0x19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c',
-    '0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b', // no 0x
-    '0x357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b', // shorter, completes leading 0s
-    '0x0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b',
-  ];
-
-  const invalidAddresses = [
-    'invalid',
-    '0x19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c', // super long
-  ];
-
-  for (const address of validAddresses) {
-    it(`creates an instance for ${address}`, () => {
-      const aptos = AptosAddress.create(address);
-
-      expect(aptos.address).toEqual(address);
-      expect(aptos.toJSON()).toEqual(address);
-      expect(aptos.toString()).toEqual(address);
-      expect(aptos.format()).toEqual(address);
+      expect(a.equals(b)).toBe(true);
+      expect(b.equals(c)).toBe(true);
     });
-  }
 
-  for (const address of invalidAddresses) {
-    it('create() throws an error when a passed address is invalid', () => {
-      expect(() => AptosAddress.create(address)).toThrowError(`[C0005] Invalid address provided: ${address}`);
+    it('returns false for different addresses', () => {
+      const a = AptosAddress.create('0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90');
+      const b = AptosAddress.create('0x1d8727df513fa2a8785d0834e40b34223daff1affc079574082baadb74b66ee4');
+
+      expect(a.equals(b)).toBe(false);
     });
-  }
 
-  it('create() does not create a new instance when AptosAddress passed', () => {
-    const address1 = AptosAddress.create(ADDRESS);
-    const address2 = AptosAddress.create(address1);
-
-    expect(address1 === address2).toBe(true);
+    it('static equals() method return proper value', () => {
+      expect(AptosAddress.equals('0x1', '0x1')).toBe(true);
+      expect(AptosAddress.equals('0x1', '0x0000000000000000000000000000000000000000000000000000000000000001')).toBe(
+        true,
+      );
+      expect(AptosAddress.equals('0x1', '0x2')).toBe(false);
+      expect(AptosAddress.equals('0x1', '0x00002')).toBe(false);
+    });
   });
 
-  it('equals() returns correct value', () => {
-    const a = AptosAddress.create(ADDRESS);
-    const b = AptosAddress.create(ADDRESS);
-    const c = '0x0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b';
+  describe('normalization', () => {
+    it('returns normalized address', () => {
+      expect(AptosAddress.create('0x1').address).toBe(
+        '0x0000000000000000000000000000000000000000000000000000000000000001',
+      );
+      expect(AptosAddress.create('1').address).toBe(
+        '0x0000000000000000000000000000000000000000000000000000000000000001',
+      );
+    });
 
-    expect(a.equals(b)).toBe(true);
-    expect(b.equals(a)).toBe(true);
-    expect(a.equals(c)).toBe(false);
-    expect(b.equals(c)).toBe(false);
+    it('util methods returns proper value', () => {
+      const foo = AptosAddress.create('0x1');
+
+      expect(foo.address).toBe('0x0000000000000000000000000000000000000000000000000000000000000001');
+      expect(foo.format()).toBe('0x0000000000000000000000000000000000000000000000000000000000000001');
+      expect(foo.toJSON()).toBe('0x0000000000000000000000000000000000000000000000000000000000000001');
+    });
   });
 
-  it('should check equality of 2 addresses of the same value via a static method', () => {
-    const addressA = AptosAddress.create(ADDRESS);
-    const addressB = AptosAddress.create(ADDRESS);
-
-    expect(AptosAddress.equals(addressA, addressB)).toBeTruthy();
-  });
-
-  it('should check inequality of 2 addresses of different value', () => {
-    const addressA = AptosAddress.create(ADDRESS);
-    const addressB = AptosAddress.create(validAddresses[1]);
-
-    expect(addressA.equals(addressB)).toBeFalsy();
+  describe('errors', () => {
+    it('throws an error when address is invalid', () => {
+      expect(() => AptosAddress.create('invalid')).toThrowError('[C0005] Invalid address provided');
+      expect(() =>
+        AptosAddress.create(
+          '0x19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c19aadeca9388e009d136245b9a67423f3eee242b03142849eb4f81a4a409e59c',
+        ),
+      ).toThrowError('[C0005] Invalid address provided');
+    });
   });
 });

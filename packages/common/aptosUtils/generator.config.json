@@ -1,0 +1,133 @@
+{
+  "url": "https://mainnet-aptos-api.moralis.io/aptos-api/swagger-json",
+  "generator": {
+    "outputDir": "src/generated",
+    "classNamePrefix": "Aptos",
+    "mappings": {
+      "types": [],
+      "refs": [],
+      "complexTypeProperties": [
+        {
+          "names": [
+            "creator_address",
+            "owner_address",
+            "address",
+            "sender",
+            "payee_address",
+            "from_address",
+            "to_address",
+            "proposer",
+            "account_address"
+          ],
+          "className": "AptosAddress",
+          "import": "../../dataTypes"
+        },
+        {
+          "names": ["amount", "coin_amount", "token_amount"],
+          "className": "AptosNative",
+          "import": "../../dataTypes"
+        }
+      ],
+      "operationParameters": [
+        {
+          "names": ["network"],
+          "className": "AptosNetwork",
+          "import": "../../dataTypes"
+        },
+        {
+          "names": ["owner_addresses", "creator_addresses", "creator_address", "wallet_addresses"],
+          "className": "AptosAddress",
+          "import": "../../dataTypes"
+        },
+        {
+          "names": ["min_amount"],
+          "className": "AptosNative",
+          "import": "../../dataTypes"
+        }
+      ]
+    },
+    "typeDeterminants": [
+      {
+        "typeName": "BlockMetadataTransaction",
+        "isInputCode": "input.type === 'block_metadata_transaction'",
+        "isJSONCode": "json.type === 'block_metadata_transaction'"
+      },
+      {
+        "typeName": "UserTransaction",
+        "isInputCode": "input.type === 'user_transaction'",
+        "isJSONCode": "json.type === 'user_transaction'"
+      },
+      {
+        "typeName": "GenesisTransaction",
+        "isInputCode": "input.type === 'genesis_transaction'",
+        "isJSONCode": "json.type === 'genesis_transaction'"
+      },
+      {
+        "typeName": "PendingTransaction",
+        "isInputCode": "input.type === 'pending_transaction'",
+        "isJSONCode": "json.type === 'pending_transaction'"
+      },
+      {
+        "typeName": "StateCheckpointTransaction",
+        "isInputCode": "input.type === 'state_checkpoint_transaction'",
+        "isJSONCode": "json.type === 'state_checkpoint_transaction'"
+      },
+      {
+        "typeName": "DeleteModuleChange",
+        "isInputCode": "input.type === 'delete_module'",
+        "isJSONCode": "json.type === 'delete_module'"
+      },
+      {
+        "typeName": "DeleteResourceChange",
+        "isInputCode": "input.type === 'delete_resource'",
+        "isJSONCode": "json.type === 'delete_resource'"
+      },
+      {
+        "typeName": "DeleteTableItemChange",
+        "isInputCode": "input.type === 'delete_table_item'",
+        "isJSONCode": "json.type === 'delete_table_item'"
+      },
+      {
+        "typeName": "WriteOrUpdateModuleChange",
+        "isInputCode": "input.type === 'write_module'",
+        "isJSONCode": "json.type === 'write_module'"
+      },
+      {
+        "typeName": "WriteResourceChange",
+        "isInputCode": "input.type === 'write_resource'",
+        "isJSONCode": "json.type === 'write_resource'"
+      },
+      {
+        "typeName": "WriteTableChangeSetChange",
+        "isInputCode": "input.type === 'write_table_item'",
+        "isJSONCode": "json.type === 'write_table_item'"
+      },
+      {
+        "typeName": "ScriptWriteSet",
+        "isInputCode": "input.type === 'script_write_set'",
+        "isJSONCode": "json.type === 'script_write_set'"
+      },
+      {
+        "typeName": "DirectWriteSet",
+        "isInputCode": "input.type === 'direct_write_set'",
+        "isJSONCode": "json.type === 'direct_write_set'"
+      }
+    ]
+  },
+  "openApiReader": {
+    "v3": {
+      "operations": {
+        "groupRef": "#/x-tag-sdk",
+        "isEnabledRef": "#/x-tag-sdk",
+        "virtualParameters": [
+          {
+            "name": "network",
+            "isRequired": false,
+            "nativeType": "string",
+            "description": "The network of query. Defaults to mainnet."
+          }
+        ]
+      }
+    }
+  }
+}
