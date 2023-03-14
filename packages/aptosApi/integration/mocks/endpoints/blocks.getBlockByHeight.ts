@@ -4,7 +4,7 @@ export const mockGetBlockByHeight = MockScenarios.create(
   {
     method: 'get',
     name: 'mockGetBlockByHeight',
-    url: `/blocks/{block_height}`,
+    url: `/blocks/:block_height`,
     getParams: ({ req }) => ({
       blockHeight: req.params.block_height,
       withTransactions: req.url.searchParams.get('with_transactions'),
@@ -14,7 +14,7 @@ export const mockGetBlockByHeight = MockScenarios.create(
     {
       condition: {
         blockHeight: '499540',
-        withTransactions: true,
+        withTransactions: 'true',
       },
       response: {
         block_height: '499540',

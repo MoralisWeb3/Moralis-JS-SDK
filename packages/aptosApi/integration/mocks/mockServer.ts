@@ -11,6 +11,8 @@ import { mockGetNFTsByCreators } from './endpoints/nfts.getNFTsByCreators';
 import { mockGetNFTOwnersByCollection } from './endpoints/nfts.getNFTOwnersByCollection';
 import { mockGetCoinInfoByCoinTypeHashes } from './endpoints/coins.getCoinInfoByCoinTypeHashes';
 import { mockGetBlockByHeight } from './endpoints/blocks.getBlockByHeight';
+import { mockGetTransactions } from './endpoints/transactions.getTransactions';
+import { mockSimulateTransaction } from './endpoints/transactions.simulateTransaction';
 
 const handlers = [
   mockGetAccount,
@@ -24,6 +26,8 @@ const handlers = [
   mockGetNFTOwnersByCollection,
   mockGetNFTsByCreators,
   mockEstimateGasPrice,
+  mockGetTransactions,
+  mockSimulateTransaction,
 ];
 
 export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: APTOS_API_ROOT }, handlers).start();
