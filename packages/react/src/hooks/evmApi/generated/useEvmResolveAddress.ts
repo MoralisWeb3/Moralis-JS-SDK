@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { ResolveAddressRequest, ResolveAddressResponse, resolveAddressOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 
 
-export type UseEvmResolveAddressParams = UseMoralisQueryParams<ResolveAddressResponse| null, ResolveAddressRequest>
+export type UseEvmResolveAddressParams = ResolveAddressRequest;
+export type UseEvmResolveAddressQueryOptions = QueryOptions<ResolveAddressResponse | null, UseEvmResolveAddressParams>;
 
-export function useEvmResolveAddress({ address, ...queryParams }: UseEvmResolveAddressParams = {}) {
+export function useEvmResolveAddress({ address }: UseEvmResolveAddressParams = {}, queryOptions: UseEvmResolveAddressQueryOptions = {}) {
   const resolver = useNullableOperationResolver(resolveAddressOperation, Moralis.EvmApi.baseUrl);
 
 
@@ -21,12 +22,12 @@ export function useEvmResolveAddress({ address, ...queryParams }: UseEvmResolveA
   }, [address]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response?.result || null;
     },
-    enabled: queryParams.enabled,
+    enabled: queryOptions.enabled,
   });
 }

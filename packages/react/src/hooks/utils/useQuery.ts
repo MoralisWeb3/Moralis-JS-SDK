@@ -2,7 +2,7 @@ import { QueryKey, useQuery as useReactQuery } from '@tanstack/react-query';
 import { UseQueryOptions } from '../types';
 
 export function useQuery<TQueryFnData, TError, TQueryKey extends QueryKey = QueryKey>(
-  queryOptions: UseQueryOptions<TQueryFnData, TError, TQueryKey>,
+  options: UseQueryOptions<TQueryFnData, TError, TQueryKey>,
 ) {
   const {
     data,
@@ -17,7 +17,7 @@ export function useQuery<TQueryFnData, TError, TQueryKey extends QueryKey = Quer
     isSuccess,
     refetch,
     status,
-  } = useReactQuery<TQueryFnData, TError, TQueryFnData, TQueryKey>(queryOptions);
+  } = useReactQuery<TQueryFnData, TError, TQueryFnData, TQueryKey>(options);
 
   return {
     data,

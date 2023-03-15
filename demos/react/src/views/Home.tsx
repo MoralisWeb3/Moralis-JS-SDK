@@ -38,35 +38,39 @@ const Home = () => {
     address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   });
 
-  const { refetch: getNFTMetadata } = useEvmNFTContractMetadata({
-    address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-    enabled: false,
-    onSuccess: (res) => setOutput(JSON.stringify(res)),
-  });
-  const { refetch: getBlock } = useEvmBlock({
-    chain: '0x13881',
-    blockNumberOrHash: '10000',
-    enabled: false,
-    onSuccess: (res) => setOutput(JSON.stringify(res)),
-  });
-
-  const { refetch: runContractFunction } = useEvmRunContractFunction({
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    functionName: 'ownerOf',
-    chain: '0x1',
-    params: {
-      _tokenId: '6651',
+  const { refetch: getNFTMetadata } = useEvmNFTContractMetadata(
+    {
+      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     },
-    abi: ABI,
-    enabled: false,
-    onSuccess: (res) => setOutput(res),
-  });
+    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  );
+  const { refetch: getBlock } = useEvmBlock(
+    {
+      chain: '0x13881',
+      blockNumberOrHash: '10000',
+    },
+    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  );
 
-  const { refetch: resolveDomain } = useEvmResolveDomain({
-    domain: 'brad.crypto',
-    enabled: false,
-    onSuccess: (res) => setOutput(JSON.stringify(res)),
-  });
+  const { refetch: runContractFunction } = useEvmRunContractFunction(
+    {
+      address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
+      functionName: 'ownerOf',
+      chain: '0x1',
+      params: {
+        _tokenId: '6651',
+      },
+      abi: ABI,
+    },
+    { enabled: false, onSuccess: (res) => setOutput(res) },
+  );
+
+  const { refetch: resolveDomain } = useEvmResolveDomain(
+    {
+      domain: 'brad.crypto',
+    },
+    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  );
   const { refetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
     enabled: false,
     onSuccess: (res) => setOutput(JSON.stringify(res)),

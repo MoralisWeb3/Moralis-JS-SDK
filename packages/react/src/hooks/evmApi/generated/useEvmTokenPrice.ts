@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetTokenPriceRequest, GetTokenPriceResponse, getTokenPriceOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmTokenPriceParams = UseMoralisQueryParams<GetTokenPriceResponse, Partial<GetTokenPriceRequest>>
+export type UseEvmTokenPriceParams = Partial<GetTokenPriceRequest>;
+export type UseEvmTokenPriceQueryOptions = QueryOptions<GetTokenPriceResponse, UseEvmTokenPriceParams>;
 
-export function useEvmTokenPrice({ address, chain, exchange, toBlock, ...queryParams }: UseEvmTokenPriceParams = {}) {
+export function useEvmTokenPrice({ address, chain, exchange, toBlock }: UseEvmTokenPriceParams = {}, queryOptions: UseEvmTokenPriceQueryOptions = {}) {
   const resolver = useOperationResolver(getTokenPriceOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useEvmTokenPrice({ address, chain, exchange, toBlock, ...queryPa
   }, [address, chain, exchange, toBlock]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

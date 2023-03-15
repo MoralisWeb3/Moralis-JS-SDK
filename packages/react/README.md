@@ -204,18 +204,19 @@ It's possible to set fallbacks or change settings of data fetching per hook. The
 
 ```jsx
 import { useEvmNativeBalance } from '@moralisweb3/react'
-import { EvmChain } from 'moralis/common-evm-utils';
 
 const App = () => {
   const { refetch, data: ethBalance } = useEvmNativeBalance(
     {
       address: '0x...',
+    },
+    {
       onSuccess: (res) => console.log(res),
       refetchInterval: 3000,
       refetchOnWindowFocus: true,
       // data will be fetched only after refetch() called
       enabled: false,
-    },
+    }
   );
 
   return (

@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetSPLRequest, GetSPLResponse, getSPLOperation } from 'moralis/common-sol-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseSolSPLParams = UseMoralisQueryParams<GetSPLResponse, Partial<GetSPLRequest>>
+export type UseSolSPLParams = Partial<GetSPLRequest>;
+export type UseSolSPLQueryOptions = QueryOptions<GetSPLResponse, UseSolSPLParams>;
 
-export function useSolSPL({ network, address, ...queryParams }: UseSolSPLParams = {}) {
+export function useSolSPL({ network, address }: UseSolSPLParams = {}, queryOptions: UseSolSPLQueryOptions = {}) {
   const resolver = useOperationResolver(getSPLOperation, Moralis.SolApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useSolSPL({ network, address, ...queryParams }: UseSolSPLParams 
   }, [network, address]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

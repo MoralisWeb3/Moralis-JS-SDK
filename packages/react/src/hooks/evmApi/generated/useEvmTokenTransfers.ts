@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetTokenTransfersRequest, GetTokenTransfersResponse, getTokenTransfersOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmTokenTransfersParams = UseMoralisQueryParams<GetTokenTransfersResponse, Partial<GetTokenTransfersRequest>>
+export type UseEvmTokenTransfersParams = Partial<GetTokenTransfersRequest>;
+export type UseEvmTokenTransfersQueryOptions = QueryOptions<GetTokenTransfersResponse, UseEvmTokenTransfersParams>;
 
-export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal, ...queryParams }: UseEvmTokenTransfersParams = {}) {
+export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal }: UseEvmTokenTransfersParams = {}, queryOptions: UseEvmTokenTransfersQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getTokenTransfersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromD
   }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

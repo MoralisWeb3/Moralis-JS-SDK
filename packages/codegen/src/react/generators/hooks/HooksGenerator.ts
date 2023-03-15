@@ -50,6 +50,7 @@ export class HooksGenerator {
         operation: `${operation.name}Operation`,
         commonUtils: this.moduleGenerator.operationsPackageName,
         hookParamsType: `${_.upperFirst(name)}Params`,
+        hookQueryOptionsType: `${_.upperFirst(name)}QueryOptions`,
         requiredParams,
         allParams,
         isNullable,

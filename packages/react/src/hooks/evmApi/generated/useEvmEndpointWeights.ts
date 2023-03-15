@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { EndpointWeightsRequest, EndpointWeightsResponse, endpointWeightsOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 
 
-export type UseEvmEndpointWeightsParams = UseMoralisQueryParams<EndpointWeightsResponse, EndpointWeightsRequest>
+export type UseEvmEndpointWeightsParams = EndpointWeightsRequest;
+export type UseEvmEndpointWeightsQueryOptions = QueryOptions<EndpointWeightsResponse, UseEvmEndpointWeightsParams>;
 
-export function useEvmEndpointWeights({ ...queryParams }: UseEvmEndpointWeightsParams = {}) {
+export function useEvmEndpointWeights(queryOptions: UseEvmEndpointWeightsQueryOptions = {}) {
   const resolver = useOperationResolver(endpointWeightsOperation, Moralis.EvmApi.baseUrl);
 
 
@@ -21,12 +22,12 @@ export function useEvmEndpointWeights({ ...queryParams }: UseEvmEndpointWeightsP
   }, []);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response.result;
     },
-    enabled: queryParams.enabled,
+    enabled: queryOptions.enabled,
   });
 }

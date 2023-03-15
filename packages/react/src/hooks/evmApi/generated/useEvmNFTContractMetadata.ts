@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetNFTContractMetadataRequest, GetNFTContractMetadataResponse, getNFTContractMetadataOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useNullableOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmNFTContractMetadataParams = UseMoralisQueryParams<GetNFTContractMetadataResponse| null, Partial<GetNFTContractMetadataRequest>>
+export type UseEvmNFTContractMetadataParams = Partial<GetNFTContractMetadataRequest>;
+export type UseEvmNFTContractMetadataQueryOptions = QueryOptions<GetNFTContractMetadataResponse | null, UseEvmNFTContractMetadataParams>;
 
-export function useEvmNFTContractMetadata({ address, chain, ...queryParams }: UseEvmNFTContractMetadataParams = {}) {
+export function useEvmNFTContractMetadata({ address, chain }: UseEvmNFTContractMetadataParams = {}, queryOptions: UseEvmNFTContractMetadataQueryOptions = {}) {
   const resolver = useNullableOperationResolver(getNFTContractMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useEvmNFTContractMetadata({ address, chain, ...queryParams }: Us
   }, [address, chain]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response?.result || null;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

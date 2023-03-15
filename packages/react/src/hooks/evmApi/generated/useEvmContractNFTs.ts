@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetContractNFTsRequest, GetContractNFTsResponse, getContractNFTsOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmContractNFTsParams = UseMoralisQueryParams<GetContractNFTsResponse, Partial<GetContractNFTsRequest>>
+export type UseEvmContractNFTsParams = Partial<GetContractNFTsRequest>;
+export type UseEvmContractNFTsQueryOptions = QueryOptions<GetContractNFTsResponse, UseEvmContractNFTsParams>;
 
-export function useEvmContractNFTs({ address, chain, format, limit, totalRanges, range, cursor, normalizeMetadata, disableTotal, ...queryParams }: UseEvmContractNFTsParams = {}) {
+export function useEvmContractNFTs({ address, chain, format, limit, totalRanges, range, cursor, normalizeMetadata, disableTotal }: UseEvmContractNFTsParams = {}, queryOptions: UseEvmContractNFTsQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getContractNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useEvmContractNFTs({ address, chain, format, limit, totalRanges,
   }, [address, chain, format, limit, totalRanges, range, cursor, normalizeMetadata, disableTotal]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

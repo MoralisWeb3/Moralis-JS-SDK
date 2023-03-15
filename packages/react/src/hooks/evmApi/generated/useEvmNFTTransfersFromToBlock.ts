@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetNFTTransfersFromToBlockRequest, GetNFTTransfersFromToBlockResponse, getNFTTransfersFromToBlockOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
 
 
-export type UseEvmNFTTransfersFromToBlockParams = UseMoralisQueryParams<GetNFTTransfersFromToBlockResponse, GetNFTTransfersFromToBlockRequest>
+export type UseEvmNFTTransfersFromToBlockParams = GetNFTTransfersFromToBlockRequest;
+export type UseEvmNFTTransfersFromToBlockQueryOptions = QueryOptions<GetNFTTransfersFromToBlockResponse, UseEvmNFTTransfersFromToBlockParams>;
 
-export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal, ...queryParams }: UseEvmNFTTransfersFromToBlockParams = {}) {
+export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal }: UseEvmNFTTransfersFromToBlockParams = {}, queryOptions: UseEvmNFTTransfersFromToBlockQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTransfersFromToBlockOperation, Moralis.EvmApi.baseUrl);
 
 
@@ -21,12 +22,12 @@ export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromD
   }, [chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response.result;
     },
-    enabled: queryParams.enabled,
+    enabled: queryOptions.enabled,
   });
 }

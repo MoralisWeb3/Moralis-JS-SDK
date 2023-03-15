@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetNFTMetadataRequest, GetNFTMetadataResponse, getNFTMetadataOperation } from 'moralis/common-sol-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseSolNFTMetadataParams = UseMoralisQueryParams<GetNFTMetadataResponse, Partial<GetNFTMetadataRequest>>
+export type UseSolNFTMetadataParams = Partial<GetNFTMetadataRequest>;
+export type UseSolNFTMetadataQueryOptions = QueryOptions<GetNFTMetadataResponse, UseSolNFTMetadataParams>;
 
-export function useSolNFTMetadata({ network, address, ...queryParams }: UseSolNFTMetadataParams = {}) {
+export function useSolNFTMetadata({ network, address }: UseSolNFTMetadataParams = {}, queryOptions: UseSolNFTMetadataQueryOptions = {}) {
   const resolver = useOperationResolver(getNFTMetadataOperation, Moralis.SolApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useSolNFTMetadata({ network, address, ...queryParams }: UseSolNF
   }, [network, address]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

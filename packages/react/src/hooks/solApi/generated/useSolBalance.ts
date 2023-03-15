@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetBalanceRequest, GetBalanceResponse, getBalanceOperation } from 'moralis/common-sol-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseSolBalanceParams = UseMoralisQueryParams<GetBalanceResponse, Partial<GetBalanceRequest>>
+export type UseSolBalanceParams = Partial<GetBalanceRequest>;
+export type UseSolBalanceQueryOptions = QueryOptions<GetBalanceResponse, UseSolBalanceParams>;
 
-export function useSolBalance({ network, address, ...queryParams }: UseSolBalanceParams = {}) {
+export function useSolBalance({ network, address }: UseSolBalanceParams = {}, queryOptions: UseSolBalanceQueryOptions = {}) {
   const resolver = useOperationResolver(getBalanceOperation, Moralis.SolApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useSolBalance({ network, address, ...queryParams }: UseSolBalanc
   }, [network, address]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

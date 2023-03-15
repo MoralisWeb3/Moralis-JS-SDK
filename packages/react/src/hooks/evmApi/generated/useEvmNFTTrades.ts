@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetNFTTradesRequest, GetNFTTradesResponse, getNFTTradesOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { usePaginatedOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmNFTTradesParams = UseMoralisQueryParams<GetNFTTradesResponse, Partial<GetNFTTradesRequest>>
+export type UseEvmNFTTradesParams = Partial<GetNFTTradesRequest>;
+export type UseEvmNFTTradesQueryOptions = QueryOptions<GetNFTTradesResponse, UseEvmNFTTradesParams>;
 
-export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal, ...queryParams }: UseEvmNFTTradesParams = {}) {
+export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal }: UseEvmNFTTradesParams = {}, queryOptions: UseEvmNFTTradesQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTradesOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, 
   }, [address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['address']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }

@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { Web3ApiVersionRequest, Web3ApiVersionResponse, web3ApiVersionOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 
 
-export type UseEvmWeb3ApiVersionParams = UseMoralisQueryParams<Web3ApiVersionResponse, Web3ApiVersionRequest>
+export type UseEvmWeb3ApiVersionParams = Web3ApiVersionRequest;
+export type UseEvmWeb3ApiVersionQueryOptions = QueryOptions<Web3ApiVersionResponse, UseEvmWeb3ApiVersionParams>;
 
-export function useEvmWeb3ApiVersion({ ...queryParams }: UseEvmWeb3ApiVersionParams = {}) {
+export function useEvmWeb3ApiVersion(queryOptions: UseEvmWeb3ApiVersionQueryOptions = {}) {
   const resolver = useOperationResolver(web3ApiVersionOperation, Moralis.EvmApi.baseUrl);
 
 
@@ -21,12 +22,12 @@ export function useEvmWeb3ApiVersion({ ...queryParams }: UseEvmWeb3ApiVersionPar
   }, []);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const response = await resolver.fetch(request);
       return response.result;
     },
-    enabled: queryParams.enabled,
+    enabled: queryOptions.enabled,
   });
 }

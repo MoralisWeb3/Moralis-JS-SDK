@@ -1,19 +1,20 @@
 import Moralis from 'moralis';
 import { {{ requestType }}, {{ responseType }}, {{ operation }} } from '{{ commonUtils }}';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { {{ useResolver }}, useQuery } from '../../utils';
 {{#if requiredParams}}import { validateParams } from '../../../utils/validateParams';{{/if}}
 
-export type {{ hookParamsType }} = UseMoralisQueryParams<{{ responseType }}{{#if isNullable}}| null{{/if}}, {{#if requiredParams}}Partial<{{ requestType }}>{{else}}{{ requestType }}{{/if}}>
+export type {{ hookParamsType }} = {{#if requiredParams}}Partial<{{ requestType }}>{{else}}{{ requestType }}{{/if}};
+export type {{ hookQueryOptionsType }} = QueryOptions<{{ responseType }}{{#if isNullable}} | null{{/if}}, {{ hookParamsType }}>;
 
-export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}, {{/each}}{{/if}}...queryParams }: {{ hookParamsType }} = {}) {
+export function {{ this.name }}({{#if allParams}}{ {{#each allParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}} }: {{ hookParamsType }} = {}, {{/if}}queryOptions: {{ hookQueryOptionsType }} = {}) {
   const resolver = {{ useResolver }}({{ operation }}, Moralis.{{ module }}.baseUrl);
 
   {{#if requiredParams}}
   const hasRequiredParams = useMemo(() => {
     return Boolean({{#each requiredParams}}{{ this }}{{#unless @last}} && {{/unless}}{{/each}});
-  }, [{{#each requiredParams}}{{ this }}{{#unless @last}} , {{/unless}}{{/each}}]);
+  }, [{{#each requiredParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]);
   {{/if}}
 
   const queryKey: [string, {{#if requiredParams}}Partial<{{ requestType }}>{{else}}{{ requestType }}{{/if}}] = useMemo(() => {
@@ -26,7 +27,7 @@ export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}
   }, [{{#if allParams}}{{#each allParams}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}{{/if}}]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       {{#if requiredParams}}
@@ -41,6 +42,6 @@ export function {{ this.name }}({ {{#if allParams}}{{#each allParams}}{{ this }}
       return response.result;
       {{/if}}
     },
-    enabled: {{#if requiredParams}}hasRequiredParams && {{/if}}queryParams.enabled,
+    enabled: {{#if requiredParams}}hasRequiredParams && {{/if}}queryOptions.enabled,
   });
 }

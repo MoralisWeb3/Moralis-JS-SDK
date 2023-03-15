@@ -1,13 +1,14 @@
 import Moralis from 'moralis';
 import { GetNativeBalancesForAddressesRequest, GetNativeBalancesForAddressesResponse, getNativeBalancesForAddressesOperation } from 'moralis/common-evm-utils';
 import { useMemo } from 'react';
-import { UseMoralisQueryParams } from '../../types';
+import { QueryOptions } from '../../types';
 import { useOperationResolver, useQuery } from '../../utils';
 import { validateParams } from '../../../utils/validateParams';
 
-export type UseEvmNativeBalancesForAddressesParams = UseMoralisQueryParams<GetNativeBalancesForAddressesResponse, Partial<GetNativeBalancesForAddressesRequest>>
+export type UseEvmNativeBalancesForAddressesParams = Partial<GetNativeBalancesForAddressesRequest>;
+export type UseEvmNativeBalancesForAddressesQueryOptions = QueryOptions<GetNativeBalancesForAddressesResponse, UseEvmNativeBalancesForAddressesParams>;
 
-export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, walletAddresses, ...queryParams }: UseEvmNativeBalancesForAddressesParams = {}) {
+export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, walletAddresses }: UseEvmNativeBalancesForAddressesParams = {}, queryOptions: UseEvmNativeBalancesForAddressesQueryOptions = {}) {
   const resolver = useOperationResolver(getNativeBalancesForAddressesOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -24,13 +25,13 @@ export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, 
   }, [chain, providerUrl, toBlock, walletAddresses]);
 
   return useQuery({
-    ...queryParams,
+    ...queryOptions,
     queryKey,
     queryFn: async ({ queryKey: [_id, request] }) => {
       const params = validateParams(request, ['walletAddresses']);
       const response = await resolver.fetch(params);
       return response.result;
     },
-    enabled: hasRequiredParams && queryParams.enabled,
+    enabled: hasRequiredParams && queryOptions.enabled,
   });
 }
