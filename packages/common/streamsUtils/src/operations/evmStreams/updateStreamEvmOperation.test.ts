@@ -3,7 +3,7 @@ import { CommonEvmUtils, CommonEvmUtilsConfig, EvmAddress, EvmChain } from '@mor
 import { StreamTrigger } from '../../dataTypes';
 import { updateStreamEvmOperation, UpdateStreamEvmRequest } from './updateStreamEvmOperation';
 
-describe('createStreamEvmOperation', () => {
+describe('updateStreamEvmOperation', () => {
   let core: MoralisCore;
 
   beforeAll(() => {
@@ -101,7 +101,7 @@ describe('createStreamEvmOperation', () => {
     expect(deserializedRequest.includeNativeTxs).toBe(true);
     expect(deserializedRequest.includeContractLogs).toBe(true);
     expect(deserializedRequest.includeInternalTxs).toBe(true);
-    expect((deserializedRequest.chains[0] as EvmChain).apiHex).toContain('0x1');
+    expect((deserializedRequest.chains as EvmChain[])[0].apiHex).toContain('0x1');
     expect(deserializedRequest.abi).toBe(null);
     expect(deserializedRequest.advancedOptions).toBe(null);
     expect(deserializedRequest.demo).toBe(true);

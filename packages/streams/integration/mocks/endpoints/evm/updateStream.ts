@@ -37,7 +37,15 @@ export const mockUpdateStreamEvm = MockScenarios.create(
       },
       response: createEvmStreamResponse('test-1'),
     },
-
+    {
+      condition: {
+        id: 'REQUEST_WITH_NO_CHAINS',
+        tag: 'test-1',
+        description: 'Valid request',
+        webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+      },
+      response: createEvmStreamResponse('test-no-chains'),
+    },
     {
       condition: {
         id: 'VALID_FULL_REQUEST',
