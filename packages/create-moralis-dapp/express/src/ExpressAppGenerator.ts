@@ -19,7 +19,7 @@ export class ExpressAppGenerator implements AppGenerator {
     await depManager.install(answers.packageManager);
   }
 
-  private getDestination(name:  string) {
+  private getDestination(name: string) {
     return path.join(process.cwd(), name);
   }
 }
