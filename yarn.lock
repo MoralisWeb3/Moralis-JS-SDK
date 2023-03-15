@@ -4067,7 +4067,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@create-moralis-dapp/express@^2.14.1, @create-moralis-dapp/express@workspace:packages/create-moralis-dapp/express":
+"@create-moralis-dapp/express@^2.13.0, @create-moralis-dapp/express@workspace:packages/create-moralis-dapp/express":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/express@workspace:packages/create-moralis-dapp/express"
   dependencies:
@@ -4079,7 +4079,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@create-moralis-dapp/next@^2.14.1, @create-moralis-dapp/next@workspace:packages/create-moralis-dapp/next":
+"@create-moralis-dapp/next@^2.13.0, @create-moralis-dapp/next@workspace:packages/create-moralis-dapp/next":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/next@workspace:packages/create-moralis-dapp/next"
   dependencies:
@@ -4091,8 +4091,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-<<<<<<< HEAD
-"@create-moralis-dapp/react-cra@^2.14.1, @create-moralis-dapp/react-cra@workspace:packages/create-moralis-dapp/react-cra":
+"@create-moralis-dapp/react-cra@workspace:packages/create-moralis-dapp/react-cra":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/react-cra@workspace:packages/create-moralis-dapp/react-cra"
   dependencies:
@@ -4104,8 +4103,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@create-moralis-dapp/toolkit@^2.14.1, @create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit":
-=======
 "@create-moralis-dapp/react-vite@^2.13.0, @create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/react-vite@workspace:packages/create-moralis-dapp/react-vite"
@@ -4118,8 +4115,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@create-moralis-dapp/toolkit@^2.13.0, @create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit":
->>>>>>> cf13645d0828429a75d9f745309ea984329bb8e7
+"@create-moralis-dapp/toolkit@^2.13.0, @create-moralis-dapp/toolkit@^2.14.1, @create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit":
   version: 0.0.0-use.local
   resolution: "@create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit"
   dependencies:
@@ -15065,17 +15061,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "create-moralis-dapp@workspace:packages/create-moralis-dapp/create-moralis-dapp"
   dependencies:
-<<<<<<< HEAD
-    "@create-moralis-dapp/express": ^2.14.1
-    "@create-moralis-dapp/next": ^2.14.1
-    "@create-moralis-dapp/react-cra": ^2.14.1
-    "@create-moralis-dapp/toolkit": ^2.14.1
-=======
     "@create-moralis-dapp/express": ^2.13.0
     "@create-moralis-dapp/next": ^2.13.0
     "@create-moralis-dapp/react-vite": ^2.13.0
     "@create-moralis-dapp/toolkit": ^2.13.0
->>>>>>> cf13645d0828429a75d9f745309ea984329bb8e7
     inquirer: ^8.0.0
   bin:
     create-moralis-dapp: ./lib/index.js

@@ -9,6 +9,6 @@ export class ReactCraFileGenerator {
 
   public async generate(data?: Record<string, any>) {
     await this.templateProcessor.copyTemplate();
-    await this.templateProcessor.normalizeFiles(data);
+    await this.templateProcessor.processFiles(data);
   }
 }
