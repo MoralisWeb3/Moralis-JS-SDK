@@ -1,5 +1,5 @@
 import { Camelize, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
-import { AptosAddress, AptosAddressish } from '@moralisweb3/common-aptos-utils';
+import { AptosAddress, AptosAddressInput } from '@moralisweb3/common-aptos-utils';
 import { operations } from '../openapi';
 
 type OperationId = 'aptosStreamsAddAddresses';
@@ -13,7 +13,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 // Exports
 
 export interface AddAddressAptosRequest extends Camelize<Omit<RequestParams, 'address'>> {
-  address: AptosAddressish | AptosAddressish[];
+  address: AptosAddressInput | AptosAddressInput[];
 }
 
 export type AddAddressAptosJSONRequest = ReturnType<typeof serializeRequest>;

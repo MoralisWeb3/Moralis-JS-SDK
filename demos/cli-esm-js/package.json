@@ -1,0 +1,13 @@
+{
+  "name": "demo-cli-esm-js",
+  "author": "Moralis",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "moralis": "^2.14.3"
+  }
+}

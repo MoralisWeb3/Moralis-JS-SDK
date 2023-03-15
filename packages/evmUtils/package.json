@@ -1,10 +1,26 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.14.1",
+  "version": "2.14.3",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "type": "module",
+  "main": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "default": "./lib/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/index.cjs",
+        "default": "./lib/esm/index.js"
+      }
+    }
+  },
+  "files": [
+    "lib/*"
+  ],
   "sideEffects": false,
   "moralis": {
     "name": "Evm Utilities",
@@ -13,14 +29,20 @@
     "deprecated": true,
     "description": "Deprecated: use @moralis/common-evm-utils instead"
   },
-  "files": [
-    "lib/*"
-  ],
   "scripts": {
-    "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf tsconfig.build.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc -p tsconfig.build.json"
+    "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
+    "build": "rollup -c"
   },
   "dependencies": {
-    "@moralisweb3/common-evm-utils": "^2.14.1"
+    "@moralisweb3/common-evm-utils": "^2.14.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "rollup": "^3.10.1",
+    "rollup-plugin-cleaner": "^1.0.0",
+    "rollup-plugin-dts": "^5.2.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rollup-plugin-typescript2": "^0.34.1"
   }
 }

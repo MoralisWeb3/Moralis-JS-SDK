@@ -14,9 +14,9 @@ yarn-error.log
 packages/**/build
 packages/**/dist
 packages/**/lib
-packages/**/lib.esm
 packages/**/coverage
 coverage/
+packages/**/lib.esm
 
 # Prevent accidental commits of npm lock-file
 package-lock.json

@@ -1,9 +1,9 @@
 import { BigNumber } from '@moralisweb3/common-core';
-import { AptosNative, AptosNativeish, AptosNativeUnit } from './AptosNative';
+import { AptosNative, AptosNativeInput, AptosNativeUnit } from './AptosNative';
 
 describe('AptosNative', () => {
   function testUnit(
-    value: AptosNativeish,
+    value: AptosNativeInput,
     unit: AptosNativeUnit | undefined,
     expectedAptos: string,
     expectedOctas: string,

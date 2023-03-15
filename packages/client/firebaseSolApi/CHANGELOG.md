@@ -1,5 +1,25 @@
 # @moralisweb3/client-firebase-sol-api
 
+## 2.14.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/client-firebase-api-utils@2.14.3
+  - @moralisweb3/client-sol-api@2.14.3
+  - @moralisweb3/common-core@2.14.3
+  - @moralisweb3/common-sol-utils@2.14.3
+
+## 2.14.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/client-firebase-api-utils@2.14.2
+  - @moralisweb3/client-sol-api@2.14.2
+  - @moralisweb3/common-core@2.14.2
+  - @moralisweb3/common-sol-utils@2.14.2
+
 ## 2.14.1
 
 ### Patch Changes

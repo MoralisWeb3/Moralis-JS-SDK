@@ -1,4 +1,4 @@
-import { AptosNetwork, AptosNetworkish } from '@moralisweb3/common-aptos-utils';
+import { AptosNetwork, AptosNetworkInput } from '@moralisweb3/common-aptos-utils';
 
 export type StreamStatus = 'active' | 'paused' | 'error' | 'terminated';
 
@@ -11,7 +11,7 @@ export interface AptosStreamInput {
   includeEvents: boolean;
   includePayload: boolean;
   isErrorSince: string | null;
-  network: AptosNetworkish[];
+  network: AptosNetworkInput[];
   status: StreamStatus;
   statusMessage: string;
   events: string[];

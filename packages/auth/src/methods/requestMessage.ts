@@ -9,7 +9,7 @@ import {
   requestChallengeEvmOperation,
   requestChallengeAptosOperation,
 } from '@moralisweb3/common-auth-utils';
-import { AptosAddress, AptosAddressish, AptosNetwork, AptosNetworkish } from '@moralisweb3/common-aptos-utils';
+import { AptosAddress, AptosAddressInput, AptosNetwork, AptosNetworkInput } from '@moralisweb3/common-aptos-utils';
 
 // Imported from Swagger and adjusted for better types for Evm
 // TODO: generalize and extend generated types
@@ -53,8 +53,8 @@ export interface RequestMessageSolOptions {
 export interface RequestMessageAptosOptions {
   networkType: 'aptos';
   domain: string;
-  chain: AptosNetworkish;
-  address: AptosAddressish;
+  chain: AptosNetworkInput;
+  address: AptosAddressInput;
   publicKey: string;
   statement?: string;
   uri: string;

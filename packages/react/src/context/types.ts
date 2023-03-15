@@ -1,6 +1,6 @@
 import Core from '@moralisweb3/common-core';
 import { SWRConfiguration } from 'swr';
-import { MoralisConfigValues } from 'moralis/lib/config/MoralisConfig';
+import { MoralisConfigValues } from 'moralis';
 import { ReactNode } from 'react';
 
 export interface FetchConfig

@@ -97,6 +97,8 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         uses: ./.github/actions/yarn-monorepo-install
+      - name: Build
+        run: yarn build
       - name: Test
         run: yarn test:coverage
       - name: Test coverage comment
@@ -117,3 +119,5 @@ jobs:
             streams, ./packages/streams/coverage/coverage-summary.json
       - name: Find missing dependencies
         run: node scripts/findMissingDependencies.js
+      - name: Find invalid exports
+        run: node scripts/findInvalidExports.js

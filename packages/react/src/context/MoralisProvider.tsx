@@ -2,6 +2,8 @@ import Moralis from 'moralis';
 import React, { FC, createContext, useContext, useMemo } from 'react';
 import { FetchConfig, MoralisContextValue, MoralisProviderProps } from './types';
 
+Moralis.Core.config.set('product', 'React SDK');
+
 export const MoralisContext = createContext<MoralisContextValue | null>(null);
 
 export const _useMoralisContext = () => {
