@@ -89,8 +89,7 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [🧭 Table of Contents](#-table-of-contents)
 - [✨ Hook Usage Examples](#️-hook-usage-examples)
   - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
-  - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
-  - [3. Provide fetching options](#3-provide-fetching-options)
+  - [2. Provide fetching options](#3-provide-fetching-options)
 - [EvmApi Hooks](#EvmApi-hooks)
   - [useEvmNativeBalance](#useEvmNativeBalance)
   - [useEvmNativeBalancesForAddresses](#useEvmNativeBalancesForAddresses)
@@ -158,20 +157,33 @@ If you need help with setting up the boilerplate or have other questions - don't
 import { useEvmWalletTokenBalances } from '@moralisweb3/react'
 
 const App = () => {
-  const { data: balance, error, fetch, isFetching } = useEvmWalletTokenBalances({ address: '0x...' })
+  const {
+    data: balance,
+    error,
+    fetchStatus,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isFetching,
+    isLoading,
+    isRefetching,
+    isSuccess,
+    refetch,
+    status,
+  } = useEvmWalletTokenBalances({ address: '0x...' })
 
   if (isFetching) return <div>Fetching/Refreshing balance…</div>
   if (error) return <div>{JSON.stringify(error, null, 2)}</div>
   return (
     <>
-      <button onClick={fetch}>Refetch Balance</button>
+      <button onClick={refetch}>Refetch Balance</button>
       <div>{JSON.stringify(balance, null, 2)}</div>
     </>
   )
 }
 ```
 
-Basically, there are three options how to fetch data with `@moralisweb3/react` hooks:
+Hooks will not run data fetching until required parameters were provided, although all types are set as `optional`.
 
 ## 1. Provide params directly to the hook
 In case all required params for the hook are defined you can provide them directly to the hook params. Data fetching in this case will be triggered automatically:
@@ -187,64 +199,30 @@ const App = () => {
 }
 ```
 
-## 2. Provide params to the fetch()
-Sometimes you need to fetch data somewhere in your code or even fetch it twice with different variables. You can provide params to the `fetch()` function:
-```jsx
-import { useState } from 'react';
-import { useEvmNativeBalance } from '@moralisweb3/react'
-import { EvmChain } from 'moralis/common-evm-utils';
-
-const App = () => {
-  const { fetch } = useEvmNativeBalance();
-  const [ethBalance, setEthBalance] = useState('');
-  const [bnbBalance, setBnbBalance] = useState('');
-
-  const fetchBalanceForEthereum = async () => {
-    const response = await fetch({ address: '0x...', chain: EvmChain.ETHEREUM.hex });
-    if (response?.balance) {
-      setEthBalance(response.balance.ether);
-    }
-  };
-
-  const fetchBalanceForBsc = async () => {
-    const response = await fetch({ address: '0x...', chain: EvmChain.BSC });
-    if (response?.balance) {
-      setBnbBalance(response.balance.ether);
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={fetchBalanceForEthereum}>Fetch Balance For Ethereum</button>
-      <button onClick={fetchBalanceForBsc}>Fetch Balance For BSC</button>
-      <p>Ethereum Balance: {ethBalance} Ether</p>
-      <p>Binance Balance: {bnbBalance} BNB</p>
-    </div>
-  )
-}
-```
-
-## 3. Provide fetching options
+## 2. Provide fetching options
 It's possible to set fallbacks or change settings of data fetching per hook. These options will override `config` provided to `MoralisProvider`.
 
 ```jsx
 import { useEvmNativeBalance } from '@moralisweb3/react'
-import { EvmChain } from 'moralis/common-evm-utils';
 
 const App = () => {
-  const { fetch, ethBalance } = useEvmNativeBalance(
+  const { refetch, data: ethBalance } = useEvmNativeBalance(
     {
       address: '0x...',
     },
     {
       onSuccess: (res) => console.log(res),
-      refreshInterval: 3000,
-    },
+      refetchInterval: 3000,
+      refetchOnWindowFocus: true,
+      // data will be fetched only after refetch() called
+      enabled: false,
+    }
   );
 
   return (
     <div>
-      <p>Ethereum Balance: {ethBalance} Ether</p>
+      <button onClick={()=> refetch()}>Fetch Ether Balance</button>
+      <p>Ethereum Balance: {JSON.stringify(ethBalance)} Ether</p>
     </div>
   )
 }
@@ -259,7 +237,7 @@ Get the native balance for a specific wallet address.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyany }; 
 ```
 
 ### Response:
@@ -273,7 +251,11 @@ Get the native balances for a set of specific addresses
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; walletAddresses: EvmAddressish[] }; 
+{
+  chain?: EvmChainish;
+  walletAddresses: EvmAddressish[];
+  anyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -293,7 +275,7 @@ Get the contents of a block given the block hash.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyany }; 
 ```
 
 ### Response:
@@ -307,7 +289,7 @@ Get the closest block given the date.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; date: DateInput }; 
+{ chain?: EvmChainish; date: DateInput; anyany }; 
 ```
 
 ### Response:
@@ -328,6 +310,7 @@ The token0 and token1 options are interchangable (ie. there is no different outc
   token0Address: EvmAddressish;
   token1Address: EvmAddressish;
   toDate?: DateInput;
+  anyanyanyanyanyany;
 }; 
 ```
 
@@ -360,6 +343,7 @@ Get the liquidity reserves for a given pair address. Only Uniswap V2 based excha
   chain?: EvmChainish;
   pairAddress: EvmAddressish;
   toDate?: DateInput;
+  anyanyanyany;
 }; 
 ```
 
@@ -380,6 +364,7 @@ Get events for a contract ordered by block number in descending order.
   abi: EvmAbiItem;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -399,6 +384,7 @@ Get the logs for a contract.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -418,6 +404,7 @@ Upload multiple files to IPFS and place them in a folder directory.
     path: string;
     content: string;
   }[];
+  any;
 }; 
 ```
 
@@ -435,7 +422,11 @@ Get NFTs for a given contract address, including metadata for all NFTs (where av
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  anyanyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -458,6 +449,7 @@ Get NFTs for a given contract address, including metadata for all NFTs (where av
     tokenAddress: EvmAddressish;
     tokenId: string;
   }[];
+  anyanyany;
 }; 
 ```
 
@@ -474,7 +466,7 @@ Get the collection / contract level metadata for a given contract (name, symbol,
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyany }; 
 ```
 
 ### Response:
@@ -493,6 +485,7 @@ Get transfers of NFTs for a given contract and other parameters.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -507,7 +500,7 @@ Get the lowest executed price for an NFT contract for the last x days (only trad
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyany }; 
 ```
 
 ### Response:
@@ -523,7 +516,7 @@ Get NFT data, including metadata (where available), for the given NFT token ID a
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -539,7 +532,7 @@ Get owners of NFTs for a given contract.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyanyanyany }; 
 ```
 
 ### Response:
@@ -555,7 +548,11 @@ Get owners of a specific NFT given the contract address and token ID.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  anyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -574,6 +571,7 @@ Get trades of NFTs for a given contract and marketplace.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -588,7 +586,7 @@ Get transfers of NFTs given a block number or block hash.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -602,7 +600,12 @@ Get transfers of NFTs from a block number to a block number.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; fromDate?: DateInput; toDate?: DateInput }; 
+{
+  chain?: EvmChainish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -616,7 +619,7 @@ Get transfers of an NFT given a contract address and token ID.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyanyanyany }; 
 ```
 
 ### Response:
@@ -630,7 +633,7 @@ Get NFT collections owned by a given wallet address.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -653,6 +656,7 @@ Get NFTs owned by a given address.
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address: EvmAddressish;
+  anyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -667,7 +671,11 @@ Get transfers of NFTs given the wallet and other parameters.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  anyanyanyanyanyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -686,7 +694,7 @@ ReSync the metadata for an NFT
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyanyany }; 
 ```
 
 ### Response:
@@ -705,6 +713,7 @@ Get NFTs that match a given metadata search query.
   addresses?: EvmAddressish[];
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -734,7 +743,7 @@ Initiates a sync of a previously non synced Contract.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyany }; 
 ```
 
 ### Response:
@@ -748,7 +757,7 @@ Resolve an ETH address and find the ENS name.
 
 ### Params:
 ```ts
-{ address?: EvmAddressish }; 
+{ address?: EvmAddressish; any }; 
 ```
 
 ### Response:
@@ -760,6 +769,10 @@ Resolve an ETH address and find the ENS name.
 
 Resolve an Unstoppable domain and get the address.
 
+### Params:
+```ts
+{ anyany }; 
+```
 
 ### Response:
 ```ts
@@ -777,6 +790,7 @@ Get the amount which the spender is allowed to withdraw on behalf of the owner.
   ownerAddress: EvmAddressish;
   spenderAddress: EvmAddressish;
   address: EvmAddressish;
+  anyanyanyany;
 }; 
 ```
 
@@ -791,7 +805,7 @@ Get metadata for a list of token symbols (name, symbol, decimals, logo).
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyany }; 
 ```
 
 ### Response:
@@ -809,7 +823,7 @@ Get the metadata for a given token contract address (name, symbol, decimals, log
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; addresses: EvmAddressish[] }; 
+{ chain?: EvmChainish; addresses: EvmAddressish[]; anyany }; 
 ```
 
 ### Response:
@@ -827,7 +841,7 @@ Get the token price denominated in the blockchains native token and USD.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish }; 
+{ chain?: EvmChainish; address: EvmAddressish; anyanyanyany }; 
 ```
 
 ### Response:
@@ -851,6 +865,7 @@ Get ERC20 token transactions from a contract ordered by block number in descendi
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -869,6 +884,7 @@ Get token balances for a specific wallet address.
   chain?: EvmChainish;
   tokenAddresses?: EvmAddressish[];
   address: EvmAddressish;
+  anyanyanyany;
 }; 
 ```
 
@@ -888,6 +904,7 @@ Get ERC20 token transactions ordered by block number in descending order.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -902,7 +919,7 @@ Get the contents of a transaction by the given transaction hash.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish }; 
+{ chain?: EvmChainish; anyany }; 
 ```
 
 ### Response:
@@ -921,6 +938,7 @@ Get native transactions ordered by block number in descending order.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -940,6 +958,7 @@ Get native transactions ordered by block number in descending order.
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  anyanyanyanyanyanyanyanyany;
 }; 
 ```
 
@@ -969,7 +988,12 @@ Run a given function of a contract ABI and retrieve readonly data.
 
 ### Params:
 ```ts
-{ chain?: EvmChainish; address: EvmAddressish; abi: unknown }; 
+{
+  chain?: EvmChainish;
+  address: EvmAddressish;
+  abi: unknown;
+  anyanyanyanyany;
+}; 
 ```
 
 ### Response:
@@ -996,7 +1020,7 @@ Gets native balance owned by the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1010,7 +1034,7 @@ Gets NFTs owned by the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1024,7 +1048,7 @@ Gets the portfolio of the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1046,7 +1070,7 @@ Gets token balances owned by the given network and address
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1064,7 +1088,7 @@ Gets the contract level metadata (mint, standard, name, symbol, metaplex) for th
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1091,7 +1115,7 @@ Gets the token price (usd and native) for a given contract address and network
 
 ### Params:
 ```ts
-{ network?: SolNetworkish; address: SolAddressish }; 
+{ network?: SolNetworkish; address: SolAddressish; anyany }; 
 ```
 
 ### Response:
@@ -1124,9 +1148,9 @@ const moralisConfig: MoralisConfig = {
   formatEvmAddress: 'checksum',
   formatEvmChainId: 'decimal',
   logLevel: 'verbose',
-  refreshInterval: 3000,
-  revalidateOnFocus: true,
-};
+  refetchInterval: 3000,
+  refetchOnWindowFocus: true,
+}
 
 ReactDOM.render(
   <MoralisProvider config={moralisConfig}>
@@ -1140,42 +1164,34 @@ Below, you can find the possible options for the `config`:
 
 ### Moralis instance config:
 
-| Option             | Description                                                          | Default     | Required |
+| Option             |  Description                                                          | Default     | Required |
 | -------------------| ---------------------------------------------------------------------|-------------|-------------------|
-| `apiKey`           | Your Moralis ApiKey	                                                | `null`      |  yes  | 
-| `formatEvmAddress` | Format style for evm addresses. Possible values: `'lowercase'`, `'checksum'`|`'lowercase'`|  no  | 
-| `formatEvmChainId` | 	Format style for chains. Possible values: `'decimal'`, `'hex'`      |`'hex'`      |  no  | 
-| `logLevel`         | 	Level of detail for log messages. Possible values: `'verbose'`, `'debug'`, `'info'`, `'warning'`, `'error'`, `'off'`|`'info'`|  no  | 
-| `defaultSolNetwork`| 	Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
-| `defaultEvmApiChain`| 	Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
+| `apiKey`           |  Your Moralis ApiKey	                                                | `null`      |  yes  | 
+| `formatEvmAddress` |  Format style for evm addresses. Possible values: `'lowercase'`, `'checksum'`|`'lowercase'`|  no  | 
+| `formatEvmChainId` |  Format style for chains. Possible values: `'decimal'`, `'hex'`      |`'hex'`      |  no  | 
+| `logLevel`         |  Level of detail for log messages. Possible values: `'verbose'`, `'debug'`, `'info'`, `'warning'`, `'error'`, `'off'`|`'info'`|  no  | 
+| `defaultSolNetwork`|  Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
+| `defaultEvmApiChain`| Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
+| `defaultEvmApiChain`| Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
 
 ### Data fetching config:
 
+These options can be passed as `MoralisConfig` and be directly provided to any hook.
+
 | Option             | Description                                                          | Default     | Required |
 | -------------------| ---------------------------------------------------------------------|-------------|-------------------|
-| `onSuccess(data, key, config)`| Callback function when a request finishes successfully	       | `null`      |  no  | 
-| `onError(err, key, config)`| 	Callback function when a request returns an error       | `null`      |  no  | 
-| `onErrorRetry(err, key, config, revalidate, revalidateOps)`| Handler for error retry	       | `null`      |  no  | 
-| `onDiscarded(key)`|  Callback function when a request is ignored due to race conditions	       | `null`      |  no  | 
-| `revalidateIfStale`| 	Automatically revalidate even if there is stale data       | `true`      |  no  | 
-| `revalidateOnMount`| 	Enable or disable automatic revalidation when component is mounted       | `null`      |  no  | 
-| `revalidateOnFocus `| Automatically revalidate when window gets focused	       | `false`      |  no  | 
-| `revalidateOnReconnect`| Automatically revalidate when the browser regains a network connection	       | `true`      |  no  | 
-| `refreshInterval`| 	Disabled by default: refreshInterval = 0. If set to a number, polling interval in milliseconds. If set to a function, the function will receive the latest data and should return the interval in milliseconds       | `0`      |  no  | 
-| `refreshWhenHidden`| 	Polling when the window is invisible (if refreshInterval is enabled)       | `false`      |  no  | 
-| `refreshWhenOffline`| Polling when the browser is offline	       | `false`      |  no  | 
-| `shouldRetryOnError`| Retry when fetcher has an error	       | `true`      |  no  | 
-| `dedupingInterval`| Dedupe requests with the same key in this time span in milliseconds	       | `2000`      |  no  | 
-| `focusThrottleInterval `| Only revalidate once during a time span in milliseconds	       | `5000`      |  no  | 
-| `loadingTimeout `| 	Timeout to trigger the onLoadingSlow event in milliseconds       | `3000`      |  no  | 
-| `errorRetryInterval `|  Error retry interval in milliseconds	       | `5000`      |  no  | 
-| `errorRetryCount`| 	Mxx error retry count       | `null`      |  no  | 
-| `fallback`|  A key-value object of multiple fallback data	       | `null`      |  no  | 
-| `fallbackData`| Initial data to be returned (note: This is per-hook)	       | `null`      |  no  | 
-| `keepPreviousData`| Return the previous key's data until the new data has been loaded	       | `false`      |  no  | 
+| `refetchInterval`| If set to a number, all queries will continuously refetch at this frequency in milliseconds. If set to a function, the function will be executed with the latest data and query to compute a frequency	       | `0`      |  no  |  
+| `cacheTime`| The time in milliseconds that unused/inactive cache data remains in memory. When a query's cache becomes unused or inactive, that cache data will be garbage collected after this duration. When different cache times are specified, the longest one will be used. If set to Infinity, will disable garbage collection	       | 5 * 60 * 1000 (5 minutes) or Infinity during SSR      |  no  |  
+| `enabled`| Set this to false to disable this query from automatically running.	       | `true`      |  no  |  
+| `onError`| This function will fire if the query encounters an error and will be passed the error.	       | ``      |  no  |  
+| `onSettled`| This function will fire any time the query is either successfully fetched or errors and be passed either the data or error. 	       | ``      |  no  |  
+| `onSuccess`| This function will fire any time the query successfully fetches new data.	       | ``      |  no  |  
+| `refetchOnWindowFocus` | 	If set to `true`, the query will refetch on window focus if the data is stale. If set to false, the query will not refetch on window focus. If set to "always", the query will always refetch on window focus. If set to a function, the function will be executed with the query to compute the value       | `false`      |  no  |  
+| `staleTime`| The time in milliseconds after data is considered stale. This value only applies to the hook it is defined on. If set to Infinity, the data will never be considered stale	       | `0`      | no   |  
+| `suspense`| Set this to `true` to enable suspense mode. When `true`, `useQuery` will suspend when `status === 'loading'` When `true`, `useQuery` will throw runtime errors when `status === 'error'`	       | `false`      | no  |  
 
 
-The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls.
+The `@moralisweb3/react` hooks use [@tanstack/react-query](https://tanstack.com/query/v4/docs/react) for a better developer experience while using API calls.
 
 # Supported Chains
 
