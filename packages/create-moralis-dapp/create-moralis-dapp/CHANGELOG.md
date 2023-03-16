@@ -1,5 +1,17 @@
 # create-moralis-dapp
 
+## 2.16.0
+
+### Patch Changes
+
+- [#1042](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1042) [`3169924d8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3169924d8df7eaa5b08c52e54e22ae18571f353f) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix version linking between moralis and create-moralis-dapp packages
+
+- Updated dependencies [[`3169924d8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3169924d8df7eaa5b08c52e54e22ae18571f353f)]:
+  - @create-moralis-dapp/react-vite@2.16.0
+  - @create-moralis-dapp/express@2.16.0
+  - @create-moralis-dapp/toolkit@2.16.0
+  - @create-moralis-dapp/next@2.16.0
+
 ## 2.15.0
 
 ### Patch Changes

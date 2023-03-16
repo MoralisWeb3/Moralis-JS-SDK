@@ -1,5 +1,23 @@
 # @moralisweb3/react
 
+## 2.16.0
+
+### Minor Changes
+
+- [#1031](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1031) [`ce4ccac7a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ce4ccac7a662d365f3743bf2d43ced123d2112b9) Thanks [@Y0moo](https://github.com/Y0moo)! - - Switched from `SWR` to `@tanstack/react-query`
+  - Updated `MoralisConfig` options: `cacheTime`, `enabled`, `onError`, `onSettled`, `onSuccess`, `refetchInterval`, `refetchOnWindowFocus`, `staleTime`, `suspense'
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.16.0
+  - @moralisweb3/auth@2.16.0
+  - @moralisweb3/common-auth-utils@2.16.0
+  - @moralisweb3/common-core@2.16.0
+  - @moralisweb3/evm-api@2.16.0
+  - @moralisweb3/sol-api@2.16.0
+  - moralis@2.16.0
+
 ## 2.15.0
 
 ### Patch Changes
