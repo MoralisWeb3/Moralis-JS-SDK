@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/api-utils",
   "author": "Moralis",
-  "version": "2.15.0",
+  "version": "2.16.0",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -38,7 +38,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "@moralisweb3/common-evm-utils": "^2.15.0",
+    "@moralisweb3/common-evm-utils": "^2.16.0",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "jest": "29.3.1",
@@ -49,8 +49,8 @@
     "rollup-plugin-typescript2": "^0.34.1"
   },
   "dependencies": {
-    "@moralisweb3/common-core": "^2.15.0",
-    "@moralisweb3/common-evm-utils": "^2.15.0",
+    "@moralisweb3/common-core": "^2.16.0",
+    "@moralisweb3/common-evm-utils": "^2.16.0",
     "axios": "^1.2.1"
   }
 }

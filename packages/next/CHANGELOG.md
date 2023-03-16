@@ -1,5 +1,22 @@
 # @moralisweb3/next
 
+## 2.16.0
+
+### Patch Changes
+
+- [#1045](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1045) [`f706d2dce`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f706d2dce5c1bf03ff124d76743f73aab66ad9b4) Thanks [@ErnoW](https://github.com/ErnoW)! - Update next-auth dependency to fix potential OAuth vulnerability
+
+- [#1046](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1046) [`95ba96bce`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/95ba96bce2482191d0983b11d7138e1db69bc5bd) Thanks [@Y0moo](https://github.com/Y0moo)! - Fixed Error: "Cannot read properties of null (reading 'operation')"
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.16.0
+  - @moralisweb3/auth@2.16.0
+  - @moralisweb3/common-auth-utils@2.16.0
+  - @moralisweb3/common-core@2.16.0
+  - @moralisweb3/evm-api@2.16.0
+  - @moralisweb3/sol-api@2.16.0
+  - moralis@2.16.0
+
 ## 2.15.0
 
 ### Patch Changes

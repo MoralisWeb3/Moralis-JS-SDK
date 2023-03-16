@@ -8,6 +8,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "moralis": "^2.15.0"
+    "moralis": "^2.16.0"
   }
 }
