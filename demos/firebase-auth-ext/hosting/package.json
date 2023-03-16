@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
-    "@moralisweb3/client-firebase-auth-utils": "^2.14.3",
-    "@moralisweb3/client-firebase-evm-auth": "^2.14.3",
-    "@moralisweb3/client-firebase-sol-auth": "^2.14.3",
+    "@moralisweb3/client-firebase-auth-utils": "^2.15.0",
+    "@moralisweb3/client-firebase-evm-auth": "^2.15.0",
+    "@moralisweb3/client-firebase-sol-auth": "^2.15.0",
     "@walletconnect/web3-provider": "^1.8.0",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",

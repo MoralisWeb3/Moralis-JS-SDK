@@ -116,6 +116,18 @@ describe('Update stream', () => {
       expect(result.result.tag).toEqual('test-1');
     });
 
+    it('updates a stream when chains property is not provided', async () => {
+      const result = (await StreamApi.update({
+        tag: 'test-1',
+        description: 'Valid request',
+        webhookUrl: 'https://webhook.site/4f1b1b1b-1b1b-4f1b-1b1b-1b1b1b1b1b1b',
+        id: 'REQUEST_WITH_NO_CHAINS',
+      })) as UpdateStreamEvmResponseAdapter;
+
+      expect(result).toBeDefined();
+      expect(result.result.tag).toEqual('test-no-chains');
+    });
+
     it('should throw an error on invalid chain', async () => {
       const failedResult = await StreamApi.update({
         chains: ['0x3'],

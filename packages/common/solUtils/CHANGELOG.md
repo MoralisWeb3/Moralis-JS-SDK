@@ -1,5 +1,14 @@
 # @moralisweb3/sol-utils
 
+## 2.15.0
+
+### Patch Changes
+
+- [#1027](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1027) [`521534f81`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/521534f8136327e4ec6372b4a7588d069e16c195) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added ESM build.
+
+- Updated dependencies [[`521534f81`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/521534f8136327e4ec6372b4a7588d069e16c195)]:
+  - @moralisweb3/common-core@2.15.0
+
 ## 2.14.3
 
 ### Patch Changes
