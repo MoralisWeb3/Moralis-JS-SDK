@@ -1,5 +1,5 @@
 {
-  "name": "create-moralis-dapp",
+  "name": "@create-moralis-dapp/react-cra",
   "author": "Moralis",
   "version": "2.14.1",
   "license": "MIT",
@@ -12,17 +12,20 @@
   ],
   "bin": "./lib/index.js",
   "scripts": {
+    "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format": "prettier --write 'src/**/*.{js,ts}'",
     "clean": "rm -rf lib && rm -rf tsconfig.tsbuildinfo && rm -rf ./node_modules/.cache/nx",
-    "build": "tsc",
-    "dev": "ts-node src/index.ts"
+    "build": "tsc && npm run postbuild",
+    "postbuild": "npm run copy-files",
+    "copy-files": "copyfiles -u 1 -a src/template/** lib",
+    "dev": "ts-node src/generate.ts"
   },
   "dependencies": {
-    "@create-moralis-dapp/express": "^2.13.0",
-    "@create-moralis-dapp/next": "^2.13.0",
-    "@create-moralis-dapp/react-vite": "^2.13.0",
-    "@create-moralis-dapp/toolkit": "^2.13.0",
-    "inquirer": "^8.0.0"
+    "@create-moralis-dapp/toolkit": "^2.14.1"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "jest": "29.3.1"
   }
 }
