@@ -14,7 +14,7 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 // Exports
 
 export interface UpdateStreamEvmRequest extends Camelize<Omit<RequestParams, 'chainIds' | 'triggers'>> {
-  chains: EvmChainish[];
+  chains?: EvmChainish[];
   triggers?: StreamTriggerish[];
 }
 
@@ -83,7 +83,7 @@ function getRequestBody(request: UpdateStreamEvmRequest, core: Core) {
     includeContractLogs: request.includeContractLogs,
     includeInternalTxs: request.includeInternalTxs,
     getNativeBalances: request.getNativeBalances,
-    chainIds: request.chains.map((chain) => EvmChain.create(chain, core).apiHex),
+    chainIds: request.chains?.map((chain) => EvmChain.create(chain, core).apiHex),
     abi: request.abi,
     advancedOptions: request.advancedOptions,
     demo: request.demo,
@@ -106,7 +106,7 @@ function serializeRequest(request: UpdateStreamEvmRequest, core: Core) {
     includeNativeTxs: request.includeNativeTxs,
     includeContractLogs: request.includeContractLogs,
     includeInternalTxs: request.includeInternalTxs,
-    chainIds: request.chains.map((chain) => EvmChain.create(chain, core).apiHex),
+    chainIds: request.chains?.map((chain) => EvmChain.create(chain, core).apiHex),
     abi: request.abi,
     advancedOptions: request.advancedOptions,
     demo: request.demo,
@@ -125,7 +125,7 @@ function deserializeRequest(jsonRequest: UpdateStreamEvmJSONRequest, core: Core)
     includeNativeTxs: jsonRequest.includeNativeTxs,
     includeContractLogs: jsonRequest.includeContractLogs,
     includeInternalTxs: jsonRequest.includeInternalTxs,
-    chains: jsonRequest.chainIds.map((chainId) => EvmChain.create(chainId, core)),
+    chains: jsonRequest.chainIds?.map((chainId) => EvmChain.create(chainId, core)),
     abi: jsonRequest.abi,
     advancedOptions: jsonRequest.advancedOptions,
     demo: jsonRequest.demo,
