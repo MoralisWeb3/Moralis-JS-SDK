@@ -12,7 +12,7 @@
 '@moralisweb3/evm-api': patch
 '@moralisweb3/sol-api': patch
 '@moralisweb3/auth': patch
-'@moralisweb3/moralis': patch
+'moralis': patch
 ---
 
 Added ESM build.
