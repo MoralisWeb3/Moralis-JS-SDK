@@ -1,14 +1,21 @@
 import _ from 'lodash';
-import { ModuleGenerator } from './ModuleGenerator';
-import { Project, TypeFormatFlags } from 'ts-morph';
 import path from 'node:path';
 import prettier from 'prettier';
+import { Project, TypeFormatFlags } from 'ts-morph';
 import { Module } from '../next/types';
+import { ModuleGenerator } from './ModuleGenerator';
 
+type Request = {
+  name: string;
+  text: string;
+  hasQuestionToken: boolean;
+  base?: boolean;
+};
 export interface ParsedOperation {
   name: string;
   id: string;
-  request?: string;
+  request?: Request[];
+  requestText?: string;
   response?: string;
   description?: string;
 }
@@ -45,7 +52,29 @@ export class OperationFilesParser {
 
       const interfaceName = `${_.upperFirst(name.replace('Operation', ''))}Request`;
       const requestInterface = sourceFile.getInterface(interfaceName);
-      const request = requestInterface?.getProperties().map((p) => p.getText());
+      const request = requestInterface?.getProperties().map((p) => {
+        return { name: p.getName(), text: p.getText(), hasQuestionToken: p.hasQuestionToken() };
+      });
+
+      const requestInterfaceType = requestInterface?.getType();
+      const baseProps = requestInterfaceType?.getProperties().map((prop) => {
+        const propType = prop.getDeclaredType();
+        return {
+          name: prop.getName(),
+          text: propType.getText(requestInterface, TypeFormatFlags.NoTruncation),
+          hasQuestionToken: prop.isOptional(),
+          base: true,
+        };
+      });
+
+      if (request && baseProps) {
+        for (const baseProp of baseProps) {
+          const isDuplicate = request?.find((prop) => prop.name === baseProp.name);
+          if (!isDuplicate) {
+            request.push(baseProp);
+          }
+        }
+      }
 
       const deserializeResponseDeclaration = sourceFile.getFunction('deserializeResponse');
       const response = deserializeResponseDeclaration
@@ -57,7 +86,8 @@ export class OperationFilesParser {
       return {
         name: name.replace('Operation', ''),
         id,
-        request: request?.length ? this.formatType(`{${request.join('')}}`) : undefined,
+        requestText: request?.length ? this.formatType(`{${request.map((req) => req.text).join('')}}`) : undefined,
+        request,
         response: response ? this.formatType(response) : undefined,
         description: operationStatement?.getJsDocs()?.[0]?.getDescription(),
       };

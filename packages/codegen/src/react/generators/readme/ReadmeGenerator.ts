@@ -1,12 +1,12 @@
+import fs from 'fs-extra';
+import handlebars from 'handlebars';
 import _ from 'lodash';
 import { ActionConfig, AddActionConfig } from 'node-plop';
-import { getHookName } from '../../utils/names';
-import { Module } from '../../types';
-import { OperationFilesParser, ParsedOperation } from '../../../utils/OperationFilesParser';
-import { paths } from './utils/constants';
-import handlebars from 'handlebars';
 import path from 'node:path';
-import fs from 'fs-extra';
+import { OperationFilesParser, ParsedOperation } from '../../../utils/OperationFilesParser';
+import { Module } from '../../types';
+import { getHookName } from '../../utils/names';
+import { paths } from './utils/constants';
 
 export class ReadmeGenerator {
   constructor(public modules: Module[]) {}
@@ -23,7 +23,7 @@ export class ReadmeGenerator {
     return new handlebars.SafeString(
       this.renderTemplate(template, {
         hookName,
-        request: op.request,
+        request: op.requestText,
         response: op.response,
         description: new handlebars.SafeString(op.description || 'Description will be added later 👀'),
       }),

@@ -1,4 +1,4 @@
-import { VStack, Heading, Button, Textarea, List, ListItem } from '@chakra-ui/react';
+import { Button, Heading, List, ListItem, Textarea, VStack } from '@chakra-ui/react';
 import {
   useEvmBlock,
   useEvmNFTContractMetadata,
@@ -34,25 +34,25 @@ const ABI = [
 const Home = () => {
   const [output, setOutput] = useState<string>();
 
-  const { data: vitalikBalance, isFetching } = useEvmNativeBalance({
+  const { data: vitalikBalance } = useEvmNativeBalance({
     address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
   });
 
-  const { fetch: getNFTMetadata } = useEvmNFTContractMetadata(
+  const { refetch: getNFTMetadata } = useEvmNFTContractMetadata(
     {
       address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
     },
-    {
-      revalidateOnMount: false,
-      onSuccess: (res) => setOutput(JSON.stringify(res)),
-    },
+    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
   );
-  const { fetch: getBlock } = useEvmBlock(
-    { chain: '0x13881', blockNumberOrHash: '10000' },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+  const { refetch: getBlock } = useEvmBlock(
+    {
+      chain: '0x13881',
+      blockNumberOrHash: '10000',
+    },
+    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
   );
 
-  const { fetch: runContractFunction } = useEvmRunContractFunction(
+  const { refetch: runContractFunction } = useEvmRunContractFunction(
     {
       address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
       functionName: 'ownerOf',
@@ -62,17 +62,17 @@ const Home = () => {
       },
       abi: ABI,
     },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(res) },
+    { enabled: false, onSuccess: (res) => setOutput(res) },
   );
 
-  const { fetch: resolveDomain } = useEvmResolveDomain(
+  const { refetch: resolveDomain } = useEvmResolveDomain(
     {
       domain: 'brad.crypto',
     },
-    { revalidateOnMount: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
   );
-  const { fetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
-    revalidateOnMount: false,
+  const { refetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
+    enabled: false,
     onSuccess: (res) => setOutput(JSON.stringify(res)),
   });
 
@@ -80,7 +80,7 @@ const Home = () => {
     <VStack alignItems={'start'}>
       <Heading mb={8}>Home</Heading>
       <Heading fontSize="lg">
-        Vitalik's ETH Balance: {isFetching ? 'Fetching...' : vitalikBalance?.balance.ether} ETH
+        Vitalik's ETH Balance: {vitalikBalance ? vitalikBalance?.balance.ether : 'Fetching...'} ETH
       </Heading>
       <Heading fontSize="lg">Fetched manually data:</Heading>
       <Textarea value={output} />

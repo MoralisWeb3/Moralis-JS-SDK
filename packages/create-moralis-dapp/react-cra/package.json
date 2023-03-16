@@ -1,7 +1,7 @@
 {
   "name": "@create-moralis-dapp/react-cra",
   "author": "Moralis",
-  "version": "2.14.2",
+  "version": "2.15.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,7 +22,7 @@
     "dev": "ts-node src/generate.ts"
   },
   "dependencies": {
-    "@create-moralis-dapp/toolkit": "^2.14.4"
+    "@create-moralis-dapp/toolkit": "^2.15.0"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
