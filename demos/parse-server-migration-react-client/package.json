@@ -1,6 +1,6 @@
 {
   "name": "parse-server-react-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.20.12",
@@ -67,7 +67,7 @@
     ]
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^1.0.1",
+    "@moralisweb3/eslint-config": "^1.0.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.32.0",
     "eslint-plugin-etc": "^2.0.2",
