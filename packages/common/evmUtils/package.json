@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-evm-utils",
   "author": "Moralis",
-  "version": "2.16.0",
+  "version": "2.16.1",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -39,7 +39,7 @@
     "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json --output src/operations/openapi.ts"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^1.0.2",
+    "@moralisweb3/eslint-config": "^1.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "jest": "29.3.1",
@@ -54,6 +54,6 @@
     "@ethersproject/address": "^5.7.0",
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/transactions": "^5.7.0",
-    "@moralisweb3/common-core": "^2.16.0"
+    "@moralisweb3/common-core": "^2.16.1"
   }
 }

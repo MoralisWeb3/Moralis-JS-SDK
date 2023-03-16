@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "moralis": "^2.16.0"
+    "moralis": "^2.16.1"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^1.0.2",
+    "@moralisweb3/eslint-config": "^1.0.3",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
