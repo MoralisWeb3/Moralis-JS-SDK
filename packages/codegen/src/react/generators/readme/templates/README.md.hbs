@@ -89,8 +89,7 @@ If you need help with setting up the boilerplate or have other questions - don't
 - [🧭 Table of Contents](#-table-of-contents)
 - [✨ Hook Usage Examples](#️-hook-usage-examples)
   - [1. Provide params directly to the hook](#1-provide-params-directly-to-the-hook)
-  - [2. Provide params to the fetch()](#2-provide-params-to-the-fetch)
-  - [3. Provide fetching options](#3-provide-fetching-options)
+  - [2. Provide fetching options](#3-provide-fetching-options)
 {{#each hookLinks}}
 {{ this.group }}
   {{#each this.links}}
@@ -114,20 +113,33 @@ If you need help with setting up the boilerplate or have other questions - don't
 import { useEvmWalletTokenBalances } from '@moralisweb3/react'
 
 const App = () => {
-  const { data: balance, error, fetch, isFetching } = useEvmWalletTokenBalances({ address: '0x...' })
+  const {
+    data: balance,
+    error,
+    fetchStatus,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isFetching,
+    isLoading,
+    isRefetching,
+    isSuccess,
+    refetch,
+    status,
+  } = useEvmWalletTokenBalances({ address: '0x...' })
 
   if (isFetching) return <div>Fetching/Refreshing balance…</div>
   if (error) return <div>{JSON.stringify(error, null, 2)}</div>
   return (
     <>
-      <button onClick={fetch}>Refetch Balance</button>
+      <button onClick={refetch}>Refetch Balance</button>
       <div>{JSON.stringify(balance, null, 2)}</div>
     </>
   )
 }
 ```
 
-Basically, there are three options how to fetch data with `@moralisweb3/react` hooks:
+Hooks will not run data fetching until required parameters were provided, although all types are set as `optional`.
 
 ## 1. Provide params directly to the hook
 In case all required params for the hook are defined you can provide them directly to the hook params. Data fetching in this case will be triggered automatically:
@@ -143,64 +155,30 @@ const App = () => {
 }
 ```
 
-## 2. Provide params to the fetch()
-Sometimes you need to fetch data somewhere in your code or even fetch it twice with different variables. You can provide params to the `fetch()` function:
-```jsx
-import { useState } from 'react';
-import { useEvmNativeBalance } from '@moralisweb3/react'
-import { EvmChain } from 'moralis/common-evm-utils';
-
-const App = () => {
-  const { fetch } = useEvmNativeBalance();
-  const [ethBalance, setEthBalance] = useState('');
-  const [bnbBalance, setBnbBalance] = useState('');
-
-  const fetchBalanceForEthereum = async () => {
-    const response = await fetch({ address: '0x...', chain: EvmChain.ETHEREUM.hex });
-    if (response?.balance) {
-      setEthBalance(response.balance.ether);
-    }
-  };
-
-  const fetchBalanceForBsc = async () => {
-    const response = await fetch({ address: '0x...', chain: EvmChain.BSC });
-    if (response?.balance) {
-      setBnbBalance(response.balance.ether);
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={fetchBalanceForEthereum}>Fetch Balance For Ethereum</button>
-      <button onClick={fetchBalanceForBsc}>Fetch Balance For BSC</button>
-      <p>Ethereum Balance: {ethBalance} Ether</p>
-      <p>Binance Balance: {bnbBalance} BNB</p>
-    </div>
-  )
-}
-```
-
-## 3. Provide fetching options
+## 2. Provide fetching options
 It's possible to set fallbacks or change settings of data fetching per hook. These options will override `config` provided to `MoralisProvider`.
 
 ```jsx
 import { useEvmNativeBalance } from '@moralisweb3/react'
-import { EvmChain } from 'moralis/common-evm-utils';
 
 const App = () => {
-  const { fetch, ethBalance } = useEvmNativeBalance(
+  const { refetch, data: ethBalance } = useEvmNativeBalance(
     {
       address: '0x...',
     },
     {
       onSuccess: (res) => console.log(res),
-      refreshInterval: 3000,
-    },
+      refetchInterval: 3000,
+      refetchOnWindowFocus: true,
+      // data will be fetched only after refetch() called
+      enabled: false,
+    }
   );
 
   return (
     <div>
-      <p>Ethereum Balance: {ethBalance} Ether</p>
+      <button onClick={()=> refetch()}>Fetch Ether Balance</button>
+      <p>Ethereum Balance: {JSON.stringify(ethBalance)} Ether</p>
     </div>
   )
 }
@@ -224,8 +202,8 @@ const moralisConfig: MoralisConfig = {
   formatEvmAddress: 'checksum',
   formatEvmChainId: 'decimal',
   logLevel: 'verbose',
-  refreshInterval: 3000,
-  revalidateOnFocus: true,
+  refetchInterval: 3000,
+  refetchOnWindowFocus: true,
 }
 
 ReactDOM.render(
@@ -240,42 +218,34 @@ Below, you can find the possible options for the `config`:
 
 ### Moralis instance config:
 
-| Option             | Description                                                          | Default     | Required |
+| Option             |  Description                                                          | Default     | Required |
 | -------------------| ---------------------------------------------------------------------|-------------|-------------------|
-| `apiKey`           | Your Moralis ApiKey	                                                | `null`      |  yes  | 
-| `formatEvmAddress` | Format style for evm addresses. Possible values: `'lowercase'`, `'checksum'`|`'lowercase'`|  no  | 
-| `formatEvmChainId` | 	Format style for chains. Possible values: `'decimal'`, `'hex'`      |`'hex'`      |  no  | 
-| `logLevel`         | 	Level of detail for log messages. Possible values: `'verbose'`, `'debug'`, `'info'`, `'warning'`, `'error'`, `'off'`|`'info'`|  no  | 
-| `defaultSolNetwork`| 	Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
-| `defaultEvmApiChain`| 	Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
+| `apiKey`           |  Your Moralis ApiKey	                                                | `null`      |  yes  | 
+| `formatEvmAddress` |  Format style for evm addresses. Possible values: `'lowercase'`, `'checksum'`|`'lowercase'`|  no  | 
+| `formatEvmChainId` |  Format style for chains. Possible values: `'decimal'`, `'hex'`      |`'hex'`      |  no  | 
+| `logLevel`         |  Level of detail for log messages. Possible values: `'verbose'`, `'debug'`, `'info'`, `'warning'`, `'error'`, `'off'`|`'info'`|  no  | 
+| `defaultSolNetwork`|  Default network for Solana. Possible values: `SolNetworkish` type         |`'mainnet'`|  no  | 
+| `defaultEvmApiChain`| Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
+| `defaultEvmApiChain`| Default chain for Evm. Possible values: `EvmChainish` type        |`'0x1'`      |  no  | 
 
 ### Data fetching config:
 
+These options can be passed as `MoralisConfig` and be directly provided to any hook.
+
 | Option             | Description                                                          | Default     | Required |
 | -------------------| ---------------------------------------------------------------------|-------------|-------------------|
-| `onSuccess(data, key, config)`| Callback function when a request finishes successfully	       | `null`      |  no  | 
-| `onError(err, key, config)`| 	Callback function when a request returns an error       | `null`      |  no  | 
-| `onErrorRetry(err, key, config, revalidate, revalidateOps)`| Handler for error retry	       | `null`      |  no  | 
-| `onDiscarded(key)`|  Callback function when a request is ignored due to race conditions	       | `null`      |  no  | 
-| `revalidateIfStale`| 	Automatically revalidate even if there is stale data       | `true`      |  no  | 
-| `revalidateOnMount`| 	Enable or disable automatic revalidation when component is mounted       | `null`      |  no  | 
-| `revalidateOnFocus `| Automatically revalidate when window gets focused	       | `false`      |  no  | 
-| `revalidateOnReconnect`| Automatically revalidate when the browser regains a network connection	       | `true`      |  no  | 
-| `refreshInterval`| 	Disabled by default: refreshInterval = 0. If set to a number, polling interval in milliseconds. If set to a function, the function will receive the latest data and should return the interval in milliseconds       | `0`      |  no  | 
-| `refreshWhenHidden`| 	Polling when the window is invisible (if refreshInterval is enabled)       | `false`      |  no  | 
-| `refreshWhenOffline`| Polling when the browser is offline	       | `false`      |  no  | 
-| `shouldRetryOnError`| Retry when fetcher has an error	       | `true`      |  no  | 
-| `dedupingInterval`| Dedupe requests with the same key in this time span in milliseconds	       | `2000`      |  no  | 
-| `focusThrottleInterval `| Only revalidate once during a time span in milliseconds	       | `5000`      |  no  | 
-| `loadingTimeout `| 	Timeout to trigger the onLoadingSlow event in milliseconds       | `3000`      |  no  | 
-| `errorRetryInterval `|  Error retry interval in milliseconds	       | `5000`      |  no  | 
-| `errorRetryCount`| 	Mxx error retry count       | `null`      |  no  | 
-| `fallback`|  A key-value object of multiple fallback data	       | `null`      |  no  | 
-| `fallbackData`| Initial data to be returned (note: This is per-hook)	       | `null`      |  no  | 
-| `keepPreviousData`| Return the previous key's data until the new data has been loaded	       | `false`      |  no  | 
+| `refetchInterval`| If set to a number, all queries will continuously refetch at this frequency in milliseconds. If set to a function, the function will be executed with the latest data and query to compute a frequency	       | `0`      |  no  |  
+| `cacheTime`| The time in milliseconds that unused/inactive cache data remains in memory. When a query's cache becomes unused or inactive, that cache data will be garbage collected after this duration. When different cache times are specified, the longest one will be used. If set to Infinity, will disable garbage collection	       | 5 * 60 * 1000 (5 minutes) or Infinity during SSR      |  no  |  
+| `enabled`| Set this to false to disable this query from automatically running.	       | `true`      |  no  |  
+| `onError`| This function will fire if the query encounters an error and will be passed the error.	       | ``      |  no  |  
+| `onSettled`| This function will fire any time the query is either successfully fetched or errors and be passed either the data or error. 	       | ``      |  no  |  
+| `onSuccess`| This function will fire any time the query successfully fetches new data.	       | ``      |  no  |  
+| `refetchOnWindowFocus` | 	If set to `true`, the query will refetch on window focus if the data is stale. If set to false, the query will not refetch on window focus. If set to "always", the query will always refetch on window focus. If set to a function, the function will be executed with the query to compute the value       | `false`      |  no  |  
+| `staleTime`| The time in milliseconds after data is considered stale. This value only applies to the hook it is defined on. If set to Infinity, the data will never be considered stale	       | `0`      | no   |  
+| `suspense`| Set this to `true` to enable suspense mode. When `true`, `useQuery` will suspend when `status === 'loading'` When `true`, `useQuery` will throw runtime errors when `status === 'error'`	       | `false`      | no  |  
 
 
-The `@moralisweb3/react` hooks use [SWR](https://swr.vercel.app/) for a better developer experience while using API calls.
+The `@moralisweb3/react` hooks use [@tanstack/react-query](https://tanstack.com/query/v4/docs/react) for a better developer experience while using API calls.
 
 # Supported Chains
 
