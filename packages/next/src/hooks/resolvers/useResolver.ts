@@ -17,12 +17,12 @@ const useResolver = <Request, Response, JSONResponse>({
   request,
   fetchParams,
 }: useResolverParams<
-  Pick<Operation<Request, unknown, Response, JSONResponse>, 'serializeRequest' | 'deserializeResponse'>,
+  Pick<Operation<Request, unknown, Response, JSONResponse>, 'serializeRequest' | 'deserializeResponse' | 'name'>,
   Request
 >) => {
   const { data, error, mutate, isValidating } = useSWR<Response>(
-    [endpoint, request ? { operation, request } : null],
-    fetcher,
+    [endpoint, { operation, request }],
+    request ? fetcher : null,
     {
       revalidateOnFocus: false,
       ...fetchParams,
@@ -32,7 +32,7 @@ const useResolver = <Request, Response, JSONResponse>({
   const fetch = useCallback((params?: Request) => {
     const fetchRequest = params ?? request;
     if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
+      throw new NoHookParamsError(operation.name);
     }
     return mutate(
       fetcher(endpoint, {

@@ -20,13 +20,13 @@ const useResolverPaginated = <Request, Response, JSONResponse>({
 }: useResolverParams<
   Pick<
     PaginatedOperation<PaginatedRequest, unknown, Response, JSONResponse>,
-    'serializeRequest' | 'deserializeResponse'
+    'serializeRequest' | 'deserializeResponse' | 'name'
   >,
   Request
 >) => {
   const { data, error, mutate, isValidating } = useSWR<FetcherPaginatedResponse<Response>>(
-    [endpoint, request ? { operation, request } : null],
-    fetcherPaginated,
+    [endpoint, { operation, request }],
+    request ? fetcherPaginated : null,
     {
       revalidateOnFocus: false,
       ...fetchParams,
@@ -36,7 +36,7 @@ const useResolverPaginated = <Request, Response, JSONResponse>({
   const fetch = useCallback((params?: Request) => {
     const fetchRequest = params ?? request;
     if (!fetchRequest) {
-      throw new NoHookParamsError('useEvmNativeBalance');
+      throw new NoHookParamsError(operation.name);
     }
     return mutate(
       fetcherPaginated(endpoint, {
