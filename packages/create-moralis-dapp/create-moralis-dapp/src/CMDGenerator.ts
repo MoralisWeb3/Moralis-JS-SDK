@@ -8,14 +8,14 @@ export class CMDGenerator {
     const { stack } = await prompt({
       type: 'list',
       name: 'stack',
-      message: 'Select a core stack for your dApp ...',
+      message: 'Select a core stack for your dApp:',
       choices: this.generators.map((generator) => {
         return {
           name: generator.name,
           value: generator,
         };
       }),
-      prefix: '🧙 :',
+      prefix: '🧙',
     });
     await stack.generate();
   }

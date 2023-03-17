@@ -14,13 +14,13 @@ export class NextAppInquirer {
     {
       type: 'list',
       name: 'web3Lib',
-      message: 'Select a Web3 library ...',
+      message: 'Select a Web3 library:',
       choices: [
         { name: 'wagmi', value: web3LibSchema.wagmi },
         { name: 'useDapp', value: web3LibSchema.useDapp },
         { name: 'web3-react', value: web3LibSchema.web3React },
       ],
-      prefix: '🧙 :',
+      prefix: '🧙',
       default: { name: 'wagmi', value: web3LibSchema.wagmi },
     },
     {
@@ -28,8 +28,9 @@ export class NextAppInquirer {
       message:
         'Input your NextJS app URL. You can use "http://localhost:3000" for development. Change it before go production!',
       default: 'http://localhost:3000',
-      prefix: '🧙 :',
+      prefix: '🧙',
     },
+    this.commonQuestions.isMoralisUser,
     this.commonQuestions.moralisApiKey,
     this.commonQuestions.packageManager,
   ];

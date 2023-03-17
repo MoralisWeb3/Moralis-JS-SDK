@@ -10,6 +10,7 @@ export class ExpressAppInquirer {
   public static questions = [
     this.commonQuestions.confirmBeta,
     this.commonQuestions.name,
+    this.commonQuestions.isMoralisUser,
     this.commonQuestions.moralisApiKey,
     this.commonQuestions.packageManager,
   ];
