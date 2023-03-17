@@ -1,8 +1,8 @@
 name: E2E Tests
 
 on:
-  schedule:
-    - cron: '*/60 * * * *'
+  # schedule:
+  # - cron: '*/60 * * * *'
   push:
     branches:
       - main
@@ -30,3 +30,9 @@ jobs:
         run: yarn build
       - name: E2E Tests
         run: yarn test:e2e
+      - name: Notify Slack If Failed
+        id: slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1.23.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE_URL }}
