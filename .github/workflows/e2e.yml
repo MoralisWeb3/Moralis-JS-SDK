@@ -10,7 +10,7 @@ on:
 
 jobs:
   e2e:
-    name: Setup
+    name: Build and E2E Tests
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -29,4 +29,4 @@ jobs:
       - name: Build
         run: yarn build
       - name: E2E Tests
-        run: yarn tests:e2e
+        run: yarn test:e2e
