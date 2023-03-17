@@ -2,7 +2,7 @@ name: E2E Tests
 
 on:
   schedule:
-    - cron: "*/60 * * * *"
+    - cron: '*/60 * * * *'
   push:
     branches:
       - main
