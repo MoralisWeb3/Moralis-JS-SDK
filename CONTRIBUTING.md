@@ -16,22 +16,29 @@ Make sure to have a ESlint and Prettier plugin installed to check for code-smell
 
 ### Building the SDK
 
-The Moralis JS SDK is built for three platforms:
+This repo is a monorepo and contains several packages. The most important one is the `moralis` package located at `packages/moralis`. This one serves as an umbrella packages and includes all the important functionalities of the other (sub)packages. Other packages are located in the `packages` folder.
 
-- The browser
-- nodejs
-- react-native
+Run `yarn build` to build all the packages.
 
-When developing the SDK you can use `yarn dev` in order to rebuild your changes upon each save.
+### Testing
 
-By default, the watch command will rebuild the SDK for the browser platform. The following commands will rebuild changes for a specific platform.
+You can run all the tests via `yarn test` in the root. Alternatively you can run the tests for a specific package via `yarn test` in the specific package folder.
+
+For manual local testing, you can also use any of the demos in the `demos` folder. You can run them via `yarn start`/`yarn dev` n the specific demo folder. (check the corresponding package.json for available commands, these differ per demo) i
 
 ### Pull Requests
 
+First make sure that:
+- All packages build successfully (`yarn build` in the root)
+- All test pass (`yarn test` in the root)
+- All code is correctly linted (`yarn lint` in the root)
+- All code is correctly formatted (`yarn format` in the root)
+- All code is following code-styling in line with the rest of the code-base
+- All code have correct Typescript definitions
+
+Then:
 1. Fork the repo and create your branch from `main`.
-2. If you've changed APIs, update the documentation.
-3. Make sure your code lints and is correctly formatted.
-4. Make sure Typescript definitions are updated
+2. Create a pull request and describe the changes + why the changes are needed.
 
 ### Known Issues
 
