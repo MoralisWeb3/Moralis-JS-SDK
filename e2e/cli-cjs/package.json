@@ -1,0 +1,16 @@
+{
+  "name": "cli-cjs-e2e",
+  "author": "Moralis",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js",
+    "test:e2e": "yarn run start"
+  },
+  "dependencies": {
+    "moralis": "^2.16.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}

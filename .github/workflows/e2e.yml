@@ -1,0 +1,45 @@
+name: E2E Tests
+
+on:
+  schedule:
+    - cron: "*/60 * * * *"
+  push:
+    branches:
+      - main
+      - feat/e2e
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - name: Install packages
+        uses: ./.github/actions/yarn-monorepo-install
+
+  e2e:
+    name: E2E
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    needs: setup
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Build
+        run: yarn build
+      - name: E2E Tests
+        run: yarn tests:e2e
+        continue-on-error: true

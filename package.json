@@ -46,6 +46,7 @@
     "test": "yarn nx run-many --target=test --all",
     "test:watch": "yarn nx run-many --target=test:watch --all",
     "test:coverage": "yarn nx run-many --target=test:coverage --all",
+    "test:e2e": "yarn nx run-many --target=test:e2e --all",
     "format": "yarn prettier . \"**/*.+(js|ts|json)\" --write",
     "format:check": "yarn prettier . \"**/*.+(js|ts|json)\" --check",
     "release": "yarn build && changeset publish",
@@ -63,7 +64,8 @@
       "demos/firebase-auth-ext/*",
       "demos/firebase-streams-ext/*",
       "demos/firebase-streams-monitor/*",
-      "demos/firebase-nextjs/*"
+      "demos/firebase-nextjs/*",
+      "e2e/*"
     ]
   },
   "resolutions": {

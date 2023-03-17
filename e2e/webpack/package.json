@@ -1,0 +1,27 @@
+{
+  "name": "webpack-e2e",
+  "author": "Moralis",
+  "license": "MIT",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "serve": "http-server -p 9753 -c-1 ../../",
+    "test:e2e": "start-server-and-test serve http://localhost:9753 test:cypress",
+    "test:cypress": "cypress run --browser chrome --headless"
+  },
+  "dependencies": {
+    "moralis": "^2.16.1"
+  },
+  "devDependencies": {
+    "cypress": "^12.8.0",
+    "dotenv": "^16.0.3",
+    "http-server": "^14.1.1",
+    "start-server-and-test": "^2.0.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
