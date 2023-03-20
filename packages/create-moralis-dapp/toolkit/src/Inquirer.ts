@@ -1,37 +1,38 @@
-import { prompt, Answers } from 'inquirer';
-
-export type InquirerAnswers<TQuestions extends ReadonlyArray<Answers>> = Record<TQuestions[number]['name'], any>;
+import prompts, { Choice } from 'prompts';
 export class Inquirer {
-  public static inquire<TQuestions extends ReadonlyArray<Answers>>(questions: TQuestions) {
-    return prompt<InquirerAnswers<TQuestions>>(questions);
+  public static inquire<Question extends string = string>(
+    questions: prompts.PromptObject<Question>[] | prompts.PromptObject<Question>,
+  ) {
+    return prompts(questions);
   }
   public static get commonQuestions() {
     return {
       name: {
-        type: 'input',
         name: 'name',
+        initial: 'moralis-dapp',
         message: 'What name would you like to use for your new project? ...',
-        default: 'moralis-dapp',
-        prefix: '🧙 :',
+        type: 'text',
       },
       moralisApiKey: {
         name: 'moralisApiKey',
         message: 'Input your Moralis Api key. You can find it on https://admin.moralis.io/web3apis',
-        type: 'password',
-        prefix: '🧙 :',
-        default: null,
+        type: 'text',
       },
       packageManager: {
-        type: 'list',
         name: 'packageManager',
-        message: '🧙 : Select a package manager for installing dependencies ...',
-        choices: ['yarn', 'npm', 'pnpm'],
-        default: 'yarn',
+        choices: [
+          { title: 'yarn', value: 'yarn' },
+          { title: 'npm', value: 'npm' },
+          { title: 'pnpm', value: 'pnpm' },
+        ] as Choice[],
+        initial: 0,
+        message: 'Select a package manager for installing dependencies ...',
+        type: 'select',
       },
       confirmBeta: {
         name: 'confirmBeta',
         type: 'confirm',
-        default: true,
+        initial: true,
         message:
           'Note: This tool is still in beta, and in active development.\n Many changes and updates are coming, which may impact your experience.\n Reach out to us in forum.moralis.io or in our discord for any feedback.',
       },
