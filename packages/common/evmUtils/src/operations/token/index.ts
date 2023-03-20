@@ -1,4 +1,4 @@
-export * from './getErc20TransfersOperation'
+export * from './getErc20TransfersOperation';
 export * from './getTokenAllowanceOperation';
 export * from './getTokenMetadataBySymbolOperation';
 export * from './getTokenMetadataOperation';

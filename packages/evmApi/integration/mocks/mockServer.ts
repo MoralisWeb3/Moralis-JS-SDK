@@ -87,7 +87,7 @@ const handler = [
   mockSyncNFTContract,
   mockGetWalletNFTCollections,
   mockGetMultipleNFTs,
-  mockGetErc20Transfers
+  mockGetErc20Transfers,
 ];
 
 export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: EVM_API_ROOT }, handler).start();

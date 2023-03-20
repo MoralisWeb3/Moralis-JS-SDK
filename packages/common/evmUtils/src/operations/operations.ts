@@ -31,7 +31,7 @@ import {
   getTokenPriceOperation,
   getTokenTransfersOperation,
   getWalletTokenBalancesOperation,
-  getErc20TransfersOperation
+  getErc20TransfersOperation,
 } from './token';
 import { getWalletTokenTransfersOperation } from './token/getWalletTokenTransfersOperation';
 import {

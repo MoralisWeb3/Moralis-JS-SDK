@@ -82,7 +82,7 @@ export const mockGetErc20Transfers = MockScenarios.create(
       condition: {
         contract_addresses: ['oops'],
       },
-      response: createErrorResponse("contract_addresses with value ''oops'' is not a valid hex address")
+      response: createErrorResponse("contract_addresses with value ''oops'' is not a valid hex address"),
     },
   ],
 );

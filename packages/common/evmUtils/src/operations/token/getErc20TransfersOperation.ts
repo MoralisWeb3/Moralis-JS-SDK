@@ -43,7 +43,7 @@ export type GetErc20TransfersJSONResponse = SuccessResponse;
 export type GetErc20TransfersResponse = ReturnType<typeof deserializeResponse>;
 
 export interface GetErc20TransfersResponseAdapter
-  extends PaginatedResponseAdapter<GetErc20TransfersResponse, GetErc20TransfersJSONResponse["result"]> {}
+  extends PaginatedResponseAdapter<GetErc20TransfersResponse, GetErc20TransfersJSONResponse['result']> {}
 
 /** Get the amount which the spender is allowed to withdraw on behalf of the owner. */
 export const getErc20TransfersOperation: PaginatedOperation<
