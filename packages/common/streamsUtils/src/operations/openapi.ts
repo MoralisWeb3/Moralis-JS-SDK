@@ -192,6 +192,7 @@ export interface components {
       name: string;
     };
     AptosCoinDeposit: {
+      txHash: string;
       sequenceNumber: string;
       valueWithDecimals: string;
       coin: components["schemas"]["AptosCoin"];
@@ -199,6 +200,7 @@ export interface components {
       value: string;
     };
     AptosCoinTransfer: {
+      txHash: string;
       transaction: string;
       /** Format: double */
       valueWithDecimals: number;
@@ -208,6 +210,7 @@ export interface components {
       coin: components["schemas"]["AptosCoin"];
     };
     AptosCoinWithdrawal: {
+      txHash: string;
       sequenceNumber: string;
       valueWithDecimals: string;
       coin: components["schemas"]["AptosCoin"];
@@ -227,14 +230,20 @@ export interface components {
     };
     "webhookTypes.AptosWebhook": {
       block: components["schemas"]["AptosBlock"];
-      changes: unknown[];
+      changes: ({
+        txHash: string;
+      } & { [key: string]: unknown })[];
       coinDeposits: components["schemas"]["AptosCoinDeposit"][];
       coinTransfers: components["schemas"]["AptosCoinTransfer"][];
       coinWithdrawals: components["schemas"]["AptosCoinWithdrawal"][];
-      events: unknown[];
+      events: ({
+        txHash: string;
+      } & { [key: string]: unknown })[];
       /** @enum {string} */
-      network: "mainnet" | "testnet" | "devnet";
-      payloads: unknown[];
+      network: "mainnet" | "testnet";
+      payloads: ({
+        txHash: string;
+      } & { [key: string]: unknown })[];
       /** Format: double */
       retries: number;
       streamId: string;
@@ -604,7 +613,7 @@ export interface components {
       /** @description The address or a list of addresses to be removed from the Stream. */
       address: Partial<string> & Partial<string[]>;
     };
-    AptosNetwork: ("mainnet" | "testnet" | "devnet")[];
+    AptosNetwork: ("mainnet" | "testnet")[];
     AptosStreamType: {
       id: string;
       allAddresses: boolean;
