@@ -177,7 +177,7 @@ describe('Update stream', () => {
         allAddresses: true,
         includeContractLogs: true,
         includeInternalTxs: true,
-        includeAllTxLogs:false,
+        includeAllTxLogs: false,
         includeNativeTxs: true,
       })) as UpdateStreamEvmResponseAdapter;
 

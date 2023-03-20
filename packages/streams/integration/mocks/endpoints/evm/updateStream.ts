@@ -22,7 +22,7 @@ export const mockUpdateStreamEvm = MockScenarios.create(
         allAddresses: reqBody?.allAddresses,
         includeContractLogs: reqBody?.includeContractLogs,
         includeInternalTxs: reqBody?.includeInternalTxs,
-        includeAllTxLogs: reqBody?.includeAllTxLogs
+        includeAllTxLogs: reqBody?.includeAllTxLogs,
       };
     },
   },
