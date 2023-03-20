@@ -6,6 +6,7 @@ import { mockDeleteAddressEvm } from './endpoints/evm/deleteAddress';
 import { mockDeleteStreamEvm } from './endpoints/evm/deleteStream';
 import { mockGetAddressesEvm } from './endpoints/evm/getAddresses';
 import { mockGetHistory } from './endpoints/getHistory';
+import { mockGetLogs } from './endpoints/getLogs';
 import { mockGetSettings } from './endpoints/getSettings';
 import { mockGetStats } from './endpoints/getStats';
 import { mockGetStatsById } from './endpoints/getStatsById';
@@ -33,6 +34,7 @@ export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: STR
   mockUpdateStreamEvm,
   mockReplayHistory,
   mockGetHistory,
+  mockGetLogs,
   mockGetStats,
   mockGetStatsById,
   mockGetAddressesAptos,
