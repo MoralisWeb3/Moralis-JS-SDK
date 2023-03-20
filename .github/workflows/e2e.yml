@@ -29,4 +29,6 @@ jobs:
       - name: Build
         run: yarn build
       - name: E2E Tests
+        env:
+          MORALIS_API_KEY: ${{ secrets.MORALIS_API_KEY }}
         run: yarn test:e2e
