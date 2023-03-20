@@ -10,10 +10,10 @@ describe('getErc20TransfersOperation', () => {
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {
-    const contractAddresses = '0xA1ec0345033E7817FB532F68ceb83cD43B05A867'
-    const excludeContracts = '0x65d10A783486d778b036E4715ce69e504aC72536'
-    const walletAddresses = '0x80454f1785347e23f8CC232159FF26fB2a4D3F38'
-    const excludeWallets = '0xD667dC4da4469C064c9200C7CdfC3E60f0f22ba2'
+    const contractAddresses = '0xA1ec0345033E7817FB532F68ceb83cD43B05A867';
+    const excludeContracts = '0x65d10A783486d778b036E4715ce69e504aC72536';
+    const walletAddresses = '0x80454f1785347e23f8CC232159FF26fB2a4D3F38';
+    const excludeWallets = '0xD667dC4da4469C064c9200C7CdfC3E60f0f22ba2';
     const chain = '0x10';
 
     const request: Required<GetErc20TransfersRequest> = {
