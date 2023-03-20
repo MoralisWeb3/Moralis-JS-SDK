@@ -408,6 +408,11 @@ export interface components {
        */
       value: string;
     };
+    erc20TransfersResponse: {
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["erc20Transfer"][];
+    };
     blockTransaction: {
       /**
        * @description The hash of the transaction
@@ -2696,7 +2701,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["erc20Transfer"];
+          "application/json": components["schemas"]["erc20TransfersResponse"];
         };
       };
     };

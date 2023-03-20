@@ -1,4 +1,4 @@
-import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
+import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20TransferInput, Erc20TransferData } from './types';
@@ -23,28 +23,28 @@ export class Erc20Transfer implements MoralisDataObject {
    * const transfer = Erc20Transfer.create(data);
    *```
    */
-  static create(data: Erc20Transferish) {
+  static create(data: Erc20Transferish, core?: Core) {
     if (data instanceof Erc20Transfer) {
       return data;
     }
-
-    return new Erc20Transfer(data);
+    const finalCore = core ?? CoreProvider.getDefault();
+    return new Erc20Transfer(data, finalCore);
   }
 
   private _data: Erc20TransferData;
 
-  constructor(data: Erc20TransferInput) {
-    this._data = Erc20Transfer.parse(data);
+  constructor(data: Erc20TransferInput, core: Core) {
+    this._data = Erc20Transfer.parse(data, core);
   }
 
-  static parse = (data: Erc20TransferInput): Erc20TransferData => ({
+  static parse = (data: Erc20TransferInput, core: Core): Erc20TransferData => ({
     ...data,
-    chain: EvmChain.create(data.chain),
-    address: EvmAddress.create(data.address),
+    chain: EvmChain.create(data.chain, core),
+    address: EvmAddress.create(data.address, core),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     blockNumber: BigNumber.create(data.blockNumber),
-    toAddress: EvmAddress.create(data.toAddress),
-    fromAddress: EvmAddress.create(data.fromAddress),
+    toAddress: EvmAddress.create(data.toAddress, core),
+    fromAddress: EvmAddress.create(data.fromAddress, core),
     value: BigNumber.create(data.value),
     transactionIndex: Number(data.transactionIndex),
     logIndex: Number(data.logIndex),
@@ -108,15 +108,23 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the address of the tranfer
+   * @returns the contract address of the transfer
    * @example transfer.address // EvmAddress
    */
   get address() {
     return this._data.address;
   }
+  /**
+   * @returns the contract address of the transfer
+   * @example transfer.contractAddress // EvmAddress
+   */
+  // Used since /erc20/transfers endpoints that return toAddress under a different name
+  get contractAddress() {
+    return this._data.address;
+  }
 
   /**
-   * @returns the block hash of the tranfer
+   * @returns the block hash of the transfer
    * @example transfer.blockHash // "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86"
    */
   get blockHash() {
@@ -124,7 +132,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the block number of the tranfer
+   * @returns the block number of the transfer
    * @example transfer.blockNumber // BigNumber
    */
   get blockNumber() {
@@ -132,7 +140,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the block timestamp of the tranfer
+   * @returns the block timestamp of the transfer
    * @example transfer.blockTimestamp // Date
    */
   get blockTimestamp() {
@@ -140,7 +148,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the chain of the tranfer
+   * @returns the chain of the transfer
    * @example transfer.chain // EvmChain
    */
   get chain() {
@@ -148,7 +156,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the from address of the tranfer
+   * @returns the from address of the transfer
    * @example transfer.fromAddress // EvmAddress
    */
   get fromAddress() {
@@ -156,7 +164,16 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the to address of the tranfer
+   * @returns the from address of the transfer
+   * @example transfer.fromWallet // EvmAddress
+   */
+  // Used since /erc20/transfers endpoints that return toAddress under a different name
+  get fromWallet() {
+    return this._data.fromAddress;
+  }
+
+  /**
+   * @returns the to address of the transfer
    * @example transfer.toAddress // EvmAddress
    */
   get toAddress() {
@@ -164,7 +181,16 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the transaction hash of the tranfer
+   * @returns the to address of the transfer
+   * @example transfer.toWallet // EvmAddress
+   */
+  // Used since /erc20/transfers endpoints that return toAddress under a different name
+  get toWallet() {
+    return this._data.toAddress;
+  }
+
+  /**
+   * @returns the transaction hash of the transfer
    * @example transfer.transactionHash // "0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86"
    */
   get transactionHash() {
@@ -172,7 +198,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the value of the tranfer
+   * @returns the value of the transfer
    * @example transfer.value // BigNumber
    */
   get value() {
@@ -180,7 +206,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the transactionIndex of the tranfer
+   * @returns the transactionIndex of the transfer
    * @example transfer.transactionIndex // 3
    */
   get transactionIndex() {
@@ -188,7 +214,7 @@ export class Erc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * @returns the logIndex of the tranfer
+   * @returns the logIndex of the transfer
    * @example transfer.logIndex // 2
    */
   get logIndex() {

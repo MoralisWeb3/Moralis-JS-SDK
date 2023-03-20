@@ -2,7 +2,6 @@ import {
   Core,
   Camelize,
   PaginatedOperation,
-  BigNumber,
   PaginatedResponseAdapter,
   maybe,
   toCamelCase,
@@ -16,12 +15,7 @@ type OperationId = 'getErc20Transfers';
 type QueryParams = operations[OperationId]['parameters']['query'];
 type RequestParams = QueryParams;
 
-// TODO: remove this overwrite when the swagger is fixxed
-// type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
-type SuccessResponse = {
-  cursor?: string | undefined;
-  result: operations[OperationId]['responses']['200']['content']['application/json'][];
-};
+type SuccessResponse = operations[OperationId]['responses']['200']['content']['application/json'];
 
 // Exports
 
@@ -99,15 +93,16 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    Erc20Transfer.create({
-      ...toCamelCase(transfer),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      address: EvmAddress.create(transfer.contract_address, core),
-      toAddress: EvmAddress.create(transfer.to_wallet, core),
-      fromAddress: EvmAddress.create(transfer.from_wallet, core),
-      value: BigNumber.create(transfer.value),
-      blockTimestamp: new Date(transfer.block_timestamp),
-    }),
+    Erc20Transfer.create(
+      {
+        ...toCamelCase(transfer),
+        chain: EvmChainResolver.resolve(request.chain, core),
+        address: EvmAddress.create(transfer.contract_address, core),
+        toAddress: EvmAddress.create(transfer.to_wallet, core),
+        fromAddress: EvmAddress.create(transfer.from_wallet, core),
+      },
+      core,
+    ),
   );
 }
 
