@@ -4,6 +4,7 @@
   export * from './events/useEvmContractLogs'
   export * from './nft/useEvmContractNFTs'
   export * from './block/useEvmDateToBlock'
+  export * from './token/useEvmErc20Transfers'
   export * from './balance/useEvmNativeBalance'
   export * from './nft/useEvmNFTContractMetadata'
   export * from './nft/useEvmNFTContractTransfers'

@@ -13,11 +13,11 @@ const outputClassName = outputFilePath.split('/').pop().split('.')[0];
 const sourcePackageName = process.argv[3];
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-const package = require(sourcePackageName);
+const sourcePackage = require(sourcePackageName);
 const fs = require('fs');
 const { determineOperationType } = require('@moralisweb3/common-core');
 
-const uniqueGroupNames = new Set(package.operations.map((o) => o.groupName));
+const uniqueGroupNames = new Set(sourcePackage.operations.map((o) => o.groupName));
 const sourcePackageImports = new Set();
 const apiUtilsPackageImports = new Set();
 const corePackageImports = new Set();
@@ -28,7 +28,7 @@ for (const groupName of uniqueGroupNames) {
   public readonly ${groupName} = {
 `;
 
-  for (const operation of package.operations.filter((o) => o.groupName === groupName)) {
+  for (const operation of sourcePackage.operations.filter((o) => o.groupName === groupName)) {
     const operationVarName = `${operation.name}Operation`;
     const requestClassName = `${capitalizeFirst(operation.name)}Request`;
     const responseClassName = `${capitalizeFirst(operation.name)}ResponseAdapter`;

@@ -137,6 +137,9 @@ export interface paths {
     /** Get ERC20 token transactions from a contract ordered by block number in descending order. */
     get: operations["getTokenTransfers"];
   };
+  "/erc20/transfers": {
+    get: operations["getErc20Transfers"];
+  };
   "/{address}/balance": {
     /** Get the native balance for a specific wallet address. */
     get: operations["getNativeBalance"];
@@ -361,6 +364,49 @@ export interface components {
        * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
        */
       block_hash: string;
+    };
+    erc20Transfer: {
+      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
+      contract_address: string;
+      /**
+       * @description The hash of the transaction
+       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
+       */
+      transaction_hash: string;
+      /** @example 204 */
+      transaction_index: number;
+      /** @example 204 */
+      log_index: number;
+      /**
+       * @description The timestamp of the block
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: number;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      from_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      to_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 1234
+       */
+      value: string;
     };
     blockTransaction: {
       /**
@@ -2620,6 +2666,37 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["erc20TransactionCollection"];
+        };
+      };
+    };
+  };
+  getErc20Transfers: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The block number from which the transfers will be returned */
+        from_block?: number;
+        /** The block number to which the transfers will be returned */
+        to_block?: number;
+        /** The desired page size of the result. */
+        limit?: number;
+        /** Contract addresses to only include */
+        contract_addresses?: string[];
+        /** Contract addresses to ignore */
+        exclude_contracts?: string[];
+        /** Wallet addresses to only include */
+        wallet_addresses?: string[];
+        /** Wallet addresses to ignore */
+        exclude_wallets?: string[];
+        /** The cursor returned in the previous response (used to getting the next page). */
+        cursor?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20Transfer"];
         };
       };
     };

@@ -43,8 +43,8 @@ export interface Erc20TransferData {
   chain: EvmChain;
   transactionHash: string;
   address: EvmAddress;
-  blockTimestamp: DateInput;
-  blockNumber: BigNumberish;
+  blockTimestamp: Date;
+  blockNumber: BigNumber;
   blockHash: string;
   toAddress: EvmAddress;
   fromAddress: EvmAddress;
