@@ -9,6 +9,7 @@ const simple: EvmStreamInput = {
   includeNativeTxs: false,
   includeContractLogs: false,
   includeInternalTxs: false,
+  includeAllTxLogs: false,
   abi: null,
   chainIds: ['0x3', '0x4'],
   status: 'active',
@@ -34,6 +35,7 @@ const advancedOptions: EvmStreamInput = {
   includeNativeTxs: false,
   includeContractLogs: false,
   includeInternalTxs: false,
+  includeAllTxLogs: false,
   abi: [
     {
       anonymous: false,
@@ -70,6 +72,7 @@ const getNativeBalances: EvmStreamInput = {
   includeNativeTxs: false,
   includeContractLogs: false,
   includeInternalTxs: false,
+  includeAllTxLogs: false,
   abi: null,
   chainIds: ['0x3', '0x4'],
   status: 'active',

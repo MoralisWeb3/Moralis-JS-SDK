@@ -438,6 +438,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -483,6 +485,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -517,6 +521,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -546,6 +552,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;

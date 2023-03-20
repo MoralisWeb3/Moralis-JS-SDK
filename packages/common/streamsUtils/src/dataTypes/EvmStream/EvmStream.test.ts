@@ -37,6 +37,7 @@ describe('EvmStream', () => {
       expect(stream.includeNativeTxs).toBe(false);
       expect(stream.includeContractLogs).toBe(false);
       expect(stream.includeInternalTxs).toBe(false);
+      expect(stream.includeAllTxLogs).toBe(false);
       expect(stream.abi).toBeUndefined();
       expect(stream.advancedOptions).toBeUndefined();
       expect(stream.id).toBe('3fa85f64-5717-4562-b3fc-2c963f66afa6');
@@ -67,6 +68,7 @@ describe('EvmStream', () => {
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         includeContractLogs: false,
         includeInternalTxs: false,
+        includeAllTxLogs: false,
         includeNativeTxs: false,
         getNativeBalances: undefined,
         status: 'active',
@@ -98,6 +100,7 @@ describe('EvmStream', () => {
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         includeContractLogs: false,
         includeInternalTxs: false,
+        includeAllTxLogs: false,
         includeNativeTxs: false,
         status: 'active',
         statusMessage: 'Stream is active',
