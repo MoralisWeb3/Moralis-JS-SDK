@@ -62,6 +62,7 @@ export const getErc20TransfersOperation: PaginatedOperation<
     'fromBlock',
     'toBlock',
     'limit',
+    'cursor',
     'contractAddresses',
     'excludeContracts',
     'walletAddresses',
