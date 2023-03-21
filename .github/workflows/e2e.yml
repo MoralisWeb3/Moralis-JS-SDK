@@ -3,6 +3,10 @@ name: E2E Tests
 on:
   # schedule:
   # - cron: '*/60 * * * *'
+  pull_request:
+    branches:
+      - main
+      - feat/e2e
   push:
     branches:
       - main
