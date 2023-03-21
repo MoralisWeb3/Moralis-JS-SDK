@@ -1,6 +1,8 @@
 export * from './Erc20';
+export * from './Erc20Mint';
 export * from './Erc20Transfer';
 export * from './Erc20Value';
+export * from './EvmAbiItem';
 export * from './EvmAddress';
 export * from './EvmBlock';
 export * from './EvmBlockDate';
@@ -15,4 +17,3 @@ export * from './EvmNftTransfer';
 export * from './EvmSignature';
 export * from './EvmTransaction';
 export * from './EvmTransactionLog';
-export * from './EvmAbiItem';
