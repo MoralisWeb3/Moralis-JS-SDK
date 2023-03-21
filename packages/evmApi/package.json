@@ -33,7 +33,7 @@
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils",
+    "gen:client": "node ../apiUtils/scripts/generate-client.cjs ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils",
     "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
     "build": "rollup -c",
     "dev": "tsc --watch"

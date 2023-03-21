@@ -196,6 +196,7 @@ export interface components {
       name: string;
     };
     AptosCoinDeposit: {
+      txHash: string;
       sequenceNumber: string;
       valueWithDecimals: string;
       coin: components["schemas"]["AptosCoin"];
@@ -203,6 +204,7 @@ export interface components {
       value: string;
     };
     AptosCoinTransfer: {
+      txHash: string;
       transaction: string;
       /** Format: double */
       valueWithDecimals: number;
@@ -212,6 +214,7 @@ export interface components {
       coin: components["schemas"]["AptosCoin"];
     };
     AptosCoinWithdrawal: {
+      txHash: string;
       sequenceNumber: string;
       valueWithDecimals: string;
       coin: components["schemas"]["AptosCoin"];
@@ -231,14 +234,20 @@ export interface components {
     };
     "webhookTypes.AptosWebhook": {
       block: components["schemas"]["AptosBlock"];
-      changes: unknown[];
+      changes: ({
+        txHash: string;
+      } & { [key: string]: unknown })[];
       coinDeposits: components["schemas"]["AptosCoinDeposit"][];
       coinTransfers: components["schemas"]["AptosCoinTransfer"][];
       coinWithdrawals: components["schemas"]["AptosCoinWithdrawal"][];
-      events: unknown[];
+      events: ({
+        txHash: string;
+      } & { [key: string]: unknown })[];
       /** @enum {string} */
-      network: "mainnet" | "testnet" | "devnet";
-      payloads: unknown[];
+      network: "mainnet" | "testnet";
+      payloads: ({
+        txHash: string;
+      } & { [key: string]: unknown })[];
       /** Format: double */
       retries: number;
       streamId: string;
@@ -466,6 +475,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -511,6 +522,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -545,6 +558,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -574,6 +589,8 @@ export interface components {
       includeContractLogs?: boolean;
       /** @description Include or not include internal transactions defaults to false */
       includeInternalTxs?: boolean;
+      /** @description Include all logs if atleast one value in tx or log matches stream config */
+      includeAllTxLogs?: boolean;
       /** @description Include native balances for each address in the webhook */
       getNativeBalances?: components["schemas"]["getNativeBalances"][];
       abi?: components["schemas"]["AbiItem"][] | null;
@@ -624,7 +641,7 @@ export interface components {
       /** @description The address or a list of addresses to be removed from the Stream. */
       address: Partial<string> & Partial<string[]>;
     };
-    AptosNetwork: ("mainnet" | "testnet" | "devnet")[];
+    AptosNetwork: ("mainnet" | "testnet")[];
     AptosStreamType: {
       id: string;
       allAddresses: boolean;

@@ -42,6 +42,7 @@ import { mockResyncMetadata } from './endpoints/resyncMetadata';
 import { mockSearchNFTs } from './endpoints/searchNFTs';
 import { mockSyncNFTContract } from './endpoints/syncNFTContract';
 import { mockGetMultipleNFTs } from './endpoints/getMultipleNFTs';
+import { mockGetErc20Mints } from './endpoints/getErc20Mints';
 
 const handler = [
   mockGetDateToBlock,
@@ -86,6 +87,7 @@ const handler = [
   mockSyncNFTContract,
   mockGetWalletNFTCollections,
   mockGetMultipleNFTs,
+  mockGetErc20Mints,
 ];
 
 export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: EVM_API_ROOT }, handler).start();
