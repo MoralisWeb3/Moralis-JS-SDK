@@ -1,5 +1,20 @@
 # @moralisweb3/react
 
+## 2.17.0
+
+### Patch Changes
+
+- [#1060](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1060) [`24af1116f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/24af1116f139494c0b26770b0ef0287ab74dd6cc) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Restored CommonJS bundle format.
+
+- Updated dependencies [[`e96c34ab4`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e96c34ab42c4e33fc693ef602f4a586761a01a52)]:
+  - @moralisweb3/api-utils@2.17.0
+  - @moralisweb3/evm-api@2.17.0
+  - @moralisweb3/auth@2.17.0
+  - @moralisweb3/common-auth-utils@2.17.0
+  - @moralisweb3/common-core@2.17.0
+  - @moralisweb3/sol-api@2.17.0
+  - moralis@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes

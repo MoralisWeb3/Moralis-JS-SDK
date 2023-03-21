@@ -1,5 +1,7 @@
 # @moralisweb3/codegen
 
+## 2.17.0
+
 ## 2.16.1
 
 ### Patch Changes
