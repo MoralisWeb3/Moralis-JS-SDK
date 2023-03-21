@@ -161,6 +161,7 @@ describe('Create stream', () => {
         allAddresses: true,
         includeContractLogs: true,
         includeInternalTxs: true,
+        includeAllTxLogs: false,
         includeNativeTxs: true,
       })) as CreateStreamEvmResponseAdapter;
 

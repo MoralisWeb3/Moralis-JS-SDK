@@ -21,6 +21,7 @@ export interface EvmStreamInput {
   includeNativeTxs?: boolean;
   includeContractLogs?: boolean;
   includeInternalTxs?: boolean;
+  includeAllTxLogs?: boolean;
   abi?: EvmAbi | null;
   advancedOptions?: EvmStreamAdvancedOptions[] | null;
   chainIds: EvmChainish[];
@@ -44,6 +45,7 @@ export interface EvmStreamData {
   includeNativeTxs: boolean;
   includeContractLogs: boolean;
   includeInternalTxs: boolean;
+  includeAllTxLogs: boolean;
   abi?: EvmAbi;
   advancedOptions?: EvmStreamAdvancedOptions[];
   chains: EvmChain[];
@@ -66,6 +68,7 @@ export type EvmStreamJSON = {
   includeNativeTxs: boolean;
   includeContractLogs: boolean;
   includeInternalTxs: boolean;
+  includeAllTxLogs: boolean;
   abi?: EvmAbi;
   advancedOptions?: EvmStreamAdvancedOptions[];
   chainIds: (string | number)[];

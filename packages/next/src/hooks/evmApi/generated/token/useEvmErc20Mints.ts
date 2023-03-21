@@ -1,16 +1,16 @@
 import { 
-  getErc20TransfersOperation as operation, 
-  GetErc20TransfersRequest,
+  getErc20MintsOperation as operation, 
+  GetErc20MintsRequest,
 } from 'moralis/common-evm-utils';
 import { FetchParams } from '../../../types';
 import { useResolverPaginated } from '../../../resolvers';
 
-export const useEvmErc20Transfers = (
-  request?: GetErc20TransfersRequest, 
+export const useEvmErc20Mints = (
+  request?: GetErc20MintsRequest, 
   fetchParams?: FetchParams,
 ) => {
   const { data, error, fetch, isFetching } = useResolverPaginated({
-    endpoint: 'evmApi/getErc20Transfers',
+    endpoint: 'evmApi/getErc20Mints',
     operation,
     request,
     fetchParams,

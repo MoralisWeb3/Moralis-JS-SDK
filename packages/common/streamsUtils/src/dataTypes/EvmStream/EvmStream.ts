@@ -44,6 +44,7 @@ export class EvmStream implements MoralisDataObject {
       allAddresses: data.allAddresses ?? false,
       includeContractLogs: data.includeContractLogs ?? false,
       includeInternalTxs: data.includeInternalTxs ?? false,
+      includeAllTxLogs: data.includeAllTxLogs ?? false,
       includeNativeTxs: data.includeNativeTxs ?? false,
       advancedOptions: maybe(data.advancedOptions),
       abi: maybe(data.abi),
@@ -155,6 +156,10 @@ export class EvmStream implements MoralisDataObject {
 
   get includeInternalTxs() {
     return this._data.includeInternalTxs;
+  }
+
+  get includeAllTxLogs() {
+    return this._data.includeAllTxLogs;
   }
 
   get abi() {
