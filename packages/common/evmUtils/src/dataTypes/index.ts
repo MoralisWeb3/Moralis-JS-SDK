@@ -8,6 +8,7 @@ export * from './EvmBlock';
 export * from './EvmBlockDate';
 export * from './EvmChain';
 export * from './EvmEvent';
+export * from './EvmInternalTransaction';
 export * from './EvmNative';
 export * from './EvmNft';
 export * from './EvmNftCollection';

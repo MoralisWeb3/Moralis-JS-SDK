@@ -156,6 +156,10 @@ export interface paths {
     /** Get native transactions and logs ordered by block number in descending order. */
     get: operations["getWalletTransactionsVerbose"];
   };
+  "/transaction/{transaction_hash}/internal-transactions": {
+    /** Get the contents of a internal transaction by transaction hash. */
+    get: operations["getInternalTransactions"];
+  };
   "/transaction/{transaction_hash}": {
     /** Get the contents of a transaction by the given transaction hash. */
     get: operations["getTransaction"];
@@ -472,6 +476,8 @@ export interface components {
       block_hash: string;
       /** @description The logs of the transaction */
       logs?: components["schemas"]["log"][];
+      /** @description The internal transactions of the transaction */
+      internal_transactions?: components["schemas"]["internalTransaction"][];
     };
     block: {
       /**
@@ -741,6 +747,65 @@ export interface components {
        * @example 0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86
        */
       block_hash: string;
+      /** @description The internal transaction */
+      internal_transactions?: components["schemas"]["internalTransaction"][];
+    };
+    internalTransaction: {
+      /**
+       * @description The hash of the transaction
+       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       */
+      transaction_hash: string;
+      /**
+       * @description The block number
+       * @example 12526958
+       */
+      block_number: string;
+      /**
+       * @description The block hash
+       * @example 0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86
+       */
+      block_hash: string;
+      /**
+       * @description Call type
+       * @example CALL
+       */
+      type: string;
+      /**
+       * @description The sender
+       * @example 0xd4a3BebD824189481FC45363602b83C9c7e9cbDf
+       */
+      from: string;
+      /**
+       * @description The recipient
+       * @example 0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef
+       */
+      to: string;
+      /**
+       * @description The value that was transfered (in wei)
+       * @example 650000000000000000
+       */
+      value: string;
+      /**
+       * @description The gas of the transaction
+       * @example 6721975
+       */
+      gas: string;
+      /**
+       * @description The used gas
+       * @example 6721975
+       */
+      gas_used: string;
+      /**
+       * @description The input
+       * @example 0x
+       */
+      input: string;
+      /**
+       * @description The output
+       * @example 0x
+       */
+      output: string;
     };
     erc20Allowance: {
       /** @description The allowance */
@@ -862,6 +927,12 @@ export interface components {
       page_size?: number;
       result?: components["schemas"]["trade"][];
     };
+    /**
+     * @default
+     * @example internal_transactions
+     * @enum {string}
+     */
+    includeList: "internal_transactions";
     /**
      * @default eth
      * @example eth
@@ -2783,6 +2854,8 @@ export interface operations {
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
         disable_total?: boolean;
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
       };
       path: {
         /** The address of the wallet */
@@ -2849,12 +2922,35 @@ export interface operations {
       };
     };
   };
+  /** Get the contents of a internal transaction by transaction hash. */
+  getInternalTransactions: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** The transaction hash */
+        transaction_hash: string;
+      };
+    };
+    responses: {
+      /** Internal Transaction details by transaction hash */
+      200: {
+        content: {
+          "application/json": components["schemas"]["internalTransaction"][];
+        };
+      };
+    };
+  };
   /** Get the contents of a transaction by the given transaction hash. */
   getTransaction: {
     parameters: {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
       };
       path: {
         /** The transaction hash */
@@ -2876,6 +2972,8 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
       };
       path: {
         /** The block number or block hash */

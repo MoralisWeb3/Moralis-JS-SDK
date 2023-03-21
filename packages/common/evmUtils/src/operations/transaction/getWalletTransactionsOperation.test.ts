@@ -25,6 +25,7 @@ describe('getWalletTransactionsOperation', () => {
       cursor: 'CURSOR1',
       limit: 333,
       disableTotal: true,
+      include: 'internal_transactions',
     };
 
     const serializedRequest = getWalletTransactionsOperation.serializeRequest(request, core);

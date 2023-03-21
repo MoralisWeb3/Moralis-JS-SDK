@@ -5,6 +5,7 @@ import { EvmNative } from '../EvmNative';
 import { EvmTransactionLog } from '../EvmTransactionLog';
 import { EvmSignature } from '../EvmSignature/EvmSignature';
 import { EvmTransactionInput, EvmTransactionData } from './types';
+import { EvmInternalTransaction } from '../EvmInternalTransaction';
 
 /**
  * Valid input for a new EvmTransaction instance.
@@ -69,6 +70,9 @@ export class EvmTransaction implements MoralisDataObject {
     receiptStatus: maybe(data.receiptStatus, (status) => +status),
 
     logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
+    internalTransactions: (data.internalTransactions ?? []).map((transaction) =>
+      EvmInternalTransaction.create(transaction),
+    ),
 
     signature: maybe(data.signature, EvmSignature.create),
   });
@@ -124,6 +128,7 @@ export class EvmTransaction implements MoralisDataObject {
       chain: data.chain?.format(),
       contractAddress: data.contractAddress?.format(),
       logs: data.logs.map((log) => log.toJSON()),
+      internalTransactions: data.internalTransactions.map((transaction) => transaction.toJSON()),
       signature: data.signature?.toJSON(),
       blockNumber: data.blockNumber?.toString(),
       blockTimestamp: data.blockTimestamp.toString(),
@@ -271,6 +276,17 @@ export class EvmTransaction implements MoralisDataObject {
    */
   get contractAddress() {
     return this._data.contractAddress;
+  }
+
+  /**
+   * @returns the internal transactions
+   * @example
+   * ```
+   * transaction.logs // EvmInternalTransaction[]
+   * ```
+   */
+  get internalTransactions() {
+    return this._data.internalTransactions;
   }
 
   /**
