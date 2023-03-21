@@ -4129,10 +4129,11 @@ __metadata:
   resolution: "@create-moralis-dapp/toolkit@workspace:packages/create-moralis-dapp/toolkit"
   dependencies:
     "@types/ejs": 3.1.1
+    "@types/prompts": ^2.4.2
     ejs: ^3.1.8
     fs-extra: ^10.1.0
-    inquirer: ^8.0.0
     ora: ^5.4.1
+    prompts: ^2.4.2
   bin:
     toolkit: ./lib/index.js
   languageName: unknown
@@ -10546,6 +10547,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/prompts@npm:^2.4.2":
+  version: 2.4.3
+  resolution: "@types/prompts@npm:2.4.3"
+  dependencies:
+    "@types/node": "*"
+    kleur: ^3.0.3
+  checksum: f3c150132a175d8ae808da64a67638283eb360ecafe0645549a798618dddd66ac2b83d5efac97a6f31494fa08916c355a4c00f0c864cb035faf27dc626c44f9f
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
@@ -15282,7 +15293,6 @@ __metadata:
     "@create-moralis-dapp/next": ^2.16.1
     "@create-moralis-dapp/react-vite": ^2.16.1
     "@create-moralis-dapp/toolkit": ^2.16.1
-    inquirer: ^8.0.0
   bin:
     create-moralis-dapp: ./lib/index.js
   languageName: unknown

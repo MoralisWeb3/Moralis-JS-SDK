@@ -22,7 +22,6 @@
     "@create-moralis-dapp/express": "^2.16.1",
     "@create-moralis-dapp/next": "^2.16.1",
     "@create-moralis-dapp/react-vite": "^2.16.1",
-    "@create-moralis-dapp/toolkit": "^2.16.1",
-    "inquirer": "^8.0.0"
+    "@create-moralis-dapp/toolkit": "^2.16.1"
   }
 }
