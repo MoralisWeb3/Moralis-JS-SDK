@@ -108,7 +108,7 @@ describe('EvmTransaction', () => {
       index: 140,
       blockNumber: '16876068',
       blockHash: '0x4d3d1ef7df947829911570e0bc2137235d2947abf7135a79ce5bbfa3e156740c',
-      blockTimestamp: 'Tue Mar 21 2023 20:39:11 GMT+0800 (Philippine Standard Time)',
+      blockTimestamp: expect.any(String),
       cumulativeGasUsed: '10861916',
       gasUsed: '63209',
       contractAddress: undefined,
