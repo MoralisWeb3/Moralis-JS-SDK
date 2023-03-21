@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@codemirror/language": "^0.20.0",
-    "@moralisweb3/common-core": "^2.16.1",
+    "@moralisweb3/common-core": "^2.17.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "envalid": "7.3.1",
@@ -13,7 +13,7 @@
     "express-rate-limit": "^6.5.1",
     "graphql": "^16.6.0",
     "graphql-ws": "^5.10.1",
-    "moralis": "^2.16.1",
+    "moralis": "^2.17.0",
     "parse-dashboard": "^4.1.4",
     "parse-server": "^5.4.0"
   },
