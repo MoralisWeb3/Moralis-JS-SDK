@@ -1,3 +1,4 @@
+export * from './getErc20ApprovalsOperation';
 export * from './getErc20MintsOperation';
 export * from './getTokenAllowanceOperation';
 export * from './getTokenMetadataBySymbolOperation';
