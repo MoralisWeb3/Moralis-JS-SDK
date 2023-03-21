@@ -37,6 +37,6 @@ jobs:
         if: failure()
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          payload: { "repository_name": "Moralis JS SDK" }
+          payload: { 'repository_name': 'Moralis JS SDK' }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_E2E_TESTS_FAIL_URL }}
