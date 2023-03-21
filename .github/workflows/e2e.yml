@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - main
-      - feat/e2e
 
 jobs:
   e2e:
@@ -43,7 +42,7 @@ jobs:
         with:
           payload: |
             {
-              'repository_name': 'Moralis JS SDK'
+              "repository_name": "Moralis JS SDK"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_E2E_TESTS_FAIL_URL }}
