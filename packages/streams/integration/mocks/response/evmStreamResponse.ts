@@ -7,6 +7,7 @@ const defaultMockStream = {
   includeNativeTxs: false,
   includeContractLogs: false,
   includeInternalTxs: false,
+  includeAllTxLogs: false,
   abi: null,
   chainIds: ['0x3', '0x4'],
   status: 'active',
