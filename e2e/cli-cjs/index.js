@@ -24,6 +24,8 @@ async function test() {
     throw new Error('Invalid block hash');
   }
 
+  throw new Error('Test error');
+
   console.log('Done! 🐝');
 }
 
