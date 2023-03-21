@@ -44,6 +44,7 @@ describe('createStreamEvmOperation', () => {
       includeNativeTxs: true,
       includeContractLogs: true,
       includeInternalTxs: true,
+      includeAllTxLogs: true,
       getNativeBalances: [
         {
           selectors: ['$fromAddress', '$toAddress'],
@@ -77,6 +78,7 @@ describe('createStreamEvmOperation', () => {
     expect(serializedRequest.includeNativeTxs).toBe(true);
     expect(serializedRequest.includeContractLogs).toBe(true);
     expect(serializedRequest.includeInternalTxs).toBe(true);
+    expect(serializedRequest.includeAllTxLogs).toBe(true);
     expect(serializedRequest.chainIds).toContain('0x1');
     expect(serializedRequest.abi).toBe(null);
     expect(serializedRequest.advancedOptions).toBe(null);
@@ -98,6 +100,7 @@ describe('createStreamEvmOperation', () => {
     expect(deserializedRequest.includeNativeTxs).toBe(true);
     expect(deserializedRequest.includeContractLogs).toBe(true);
     expect(deserializedRequest.includeInternalTxs).toBe(true);
+    expect(deserializedRequest.includeAllTxLogs).toBe(true);
     expect((deserializedRequest.chains[0] as EvmChain).apiHex).toContain('0x1');
     expect(deserializedRequest.abi).toBe(null);
     expect(deserializedRequest.advancedOptions).toBe(null);

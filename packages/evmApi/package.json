@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-api",
   "author": "Moralis",
-  "version": "2.16.1",
+  "version": "2.17.0",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -33,7 +33,7 @@
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
     "test:watch": "yarn run test --watch",
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
-    "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils",
+    "gen:client": "node ../apiUtils/scripts/generate-client.cjs ./src/generated/ClientEvmApi.ts @moralisweb3/common-evm-utils",
     "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
     "build": "rollup -c",
     "dev": "tsc --watch"
@@ -50,8 +50,8 @@
     "rollup-plugin-typescript2": "^0.34.1"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.16.1",
-    "@moralisweb3/common-core": "^2.16.1",
-    "@moralisweb3/common-evm-utils": "^2.16.1"
+    "@moralisweb3/api-utils": "^2.17.0",
+    "@moralisweb3/common-core": "^2.17.0",
+    "@moralisweb3/common-evm-utils": "^2.17.0"
   }
 }
