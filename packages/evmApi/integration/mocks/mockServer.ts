@@ -43,10 +43,12 @@ import { mockSearchNFTs } from './endpoints/searchNFTs';
 import { mockSyncNFTContract } from './endpoints/syncNFTContract';
 import { mockGetMultipleNFTs } from './endpoints/getMultipleNFTs';
 import { mockGetErc20Mints } from './endpoints/getErc20Mints';
+import { mockGetTransactionVerbose } from './endpoints/getTransactionVerbose';
 
 const handler = [
   mockGetDateToBlock,
   mockGetNFTContractTransfers,
+  mockGetTransactionVerbose,
   mockGetTransaction,
   mockGetWalletTransactionsVerbose,
   mockGetWalletTransactions,

@@ -24,6 +24,7 @@
   export * from './token/useEvmTokenPrice'
   export * from './token/useEvmTokenTransfers'
   export * from './transaction/useEvmTransaction'
+  export * from './transaction/useEvmTransactionVerbose'
   export * from './nft/useEvmWalletNFTCollections'
   export * from './nft/useEvmWalletNFTs'
   export * from './nft/useEvmWalletNFTTransfers'

@@ -18,7 +18,7 @@ export class EvmNftCollection implements MoralisDataObject {
   /**
    * Create a new instance of EvmNftCollection from any valid transaction input
    * @param data - the EvmNftCollectionish type
-   * @example const collection = EvmTransaction.create(data);
+   * @example const collection = EvmNftCollection.create(data);
    */
   static create(data: EvmNftCollectionish, core?: Core) {
     if (data instanceof EvmNftCollection) {
