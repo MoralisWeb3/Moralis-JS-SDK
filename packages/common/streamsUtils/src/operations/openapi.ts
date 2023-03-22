@@ -12,6 +12,10 @@ export interface paths {
     /** Replay a specific history. */
     post: operations["ReplayHistory"];
   };
+  "/history/logs": {
+    /** get all failed logs */
+    get: operations["GetLogs"];
+  };
   "/settings": {
     /** Get the settings for the current project based on the project api-key. */
     get: operations["GetSettings"];
@@ -305,6 +309,30 @@ export interface components {
      * See [RFC 4112](https://tools.ietf.org/html/rfc4122)
      */
     "historyTypes.UUID": string;
+    IWebhookDeliveryLogsModel: {
+      id: components["schemas"]["UUID"];
+      streamId: string;
+      chain: string;
+      webhookUrl: string;
+      tag: string;
+      /** Format: double */
+      retries: number;
+      /** @enum {string} */
+      deliveryStatus: "failed" | "success";
+      /** Format: double */
+      blockNumber: number;
+      errorMessage: string;
+      /** @enum {string} */
+      type: "evm" | "aptos";
+      /** Format: date-time */
+      createdAt: string;
+    };
+    "historyTypes.IWebhookDeliveryLogsResponse": {
+      result: components["schemas"]["IWebhookDeliveryLogsModel"][];
+      cursor?: string;
+      /** Format: double */
+      total: number;
+    };
     /** @enum {string} */
     SettingsRegion:
       | "us-east-1"
@@ -729,6 +757,23 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["historyTypes.HistoryModel"];
+        };
+      };
+    };
+  };
+  /** get all failed logs */
+  GetLogs: {
+    parameters: {
+      query: {
+        limit: number;
+        cursor?: string;
+      };
+    };
+    responses: {
+      /** Ok */
+      200: {
+        content: {
+          "application/json": components["schemas"]["historyTypes.IWebhookDeliveryLogsResponse"];
         };
       };
     };

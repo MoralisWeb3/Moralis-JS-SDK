@@ -4,6 +4,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
 import { EvmSignature, EvmSignatureish } from '../EvmSignature/EvmSignature';
+import { EvmInternalTransaction, EvmInternalTransactionish } from '../EvmInternalTransaction';
 
 /**
  * This can be any object with valid transaction data.
@@ -28,6 +29,7 @@ import { EvmSignature, EvmSignatureish } from '../EvmSignature/EvmSignature';
           blockTimestamp: new Date("2021-04-02T10:07:54.000Z"),
           gas: "6721975",
           to: "0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef",
+          transferIndex: "0",
           signature: {
             v: 28,
             r: "0xda4429a9e8e6b54cb101b2df002039f2879ab4ca0e8fae64134942cb81f3e581",
@@ -46,8 +48,6 @@ export interface EvmTransactionInput {
   value?: null | EvmNativeish;
   hash: string;
 
-  type?: null | number | string;
-
   gas?: null | BigNumberish;
   gasPrice: BigNumberish;
 
@@ -64,6 +64,7 @@ export interface EvmTransactionInput {
   receiptStatus?: null | string | number;
 
   logs?: EvmTransactionLogish[];
+  internalTransactions?: EvmInternalTransactionish[];
 
   signature?: EvmSignatureish;
 }
@@ -81,8 +82,6 @@ export interface EvmTransactionData {
   value?: EvmNative;
   hash: string;
 
-  type?: number;
-
   gas?: BigNumber;
   gasPrice: BigNumber;
 
@@ -99,6 +98,7 @@ export interface EvmTransactionData {
   receiptStatus?: number;
 
   logs: EvmTransactionLog[];
+  internalTransactions: EvmInternalTransaction[];
 
   signature?: EvmSignature;
 }

@@ -1,5 +1,13 @@
 import { Core, Camelize, Operation, toCamelCase, ResponseAdapter } from '@moralisweb3/common-core';
-import { EvmBlock, EvmChain, EvmChainish, EvmTransaction, EvmTransactionLog, LogTopic } from '../../dataTypes';
+import {
+  EvmBlock,
+  EvmChain,
+  EvmChainish,
+  EvmInternalTransaction,
+  EvmTransaction,
+  EvmTransactionLog,
+  LogTopic,
+} from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -39,7 +47,7 @@ export const getBlockOperation: Operation<
   isNullable: true,
   urlPathPattern: '/block/{blockNumberOrHash}',
   urlPathParamNames: ['blockNumberOrHash'],
-  urlSearchParamNames: ['chain'],
+  urlSearchParamNames: ['chain', 'include'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -53,6 +61,7 @@ function getRequestUrlParams(request: GetBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     blockNumberOrHash: request.blockNumberOrHash,
+    include: request.include,
   };
 }
 
@@ -103,6 +112,13 @@ function deserializeResponse(jsonResponse: GetBlockJSONResponse, request: GetBlo
                 transactionIndex: +log.transactionIndex,
               });
             }),
+            internalTransactions: (transaction.internalTransactions ?? []).map((jsonInternalTransaction) => {
+              const internalTransaction = toCamelCase(jsonInternalTransaction);
+              return EvmInternalTransaction.create({
+                chain,
+                ...internalTransaction,
+              });
+            }),
           },
           core,
         ),
@@ -116,6 +132,7 @@ function serializeRequest(request: GetBlockRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     blockNumberOrHash: request.blockNumberOrHash,
+    include: request.include,
   };
 }
 
@@ -123,5 +140,6 @@ function deserializeRequest(jsonRequest: GetBlockJSONRequest, core: Core): GetBl
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     blockNumberOrHash: jsonRequest.blockNumberOrHash,
+    include: jsonRequest.include,
   };
 }

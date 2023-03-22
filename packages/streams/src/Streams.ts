@@ -26,6 +26,7 @@ import {
   getStatsOperation,
   setSettingsOperation,
   replayHistoryOperation,
+  getLogsOperation,
 } from '@moralisweb3/common-streams-utils';
 
 const BASE_URL = 'https://api.moralis-streams.com';
@@ -61,6 +62,7 @@ export class Streams extends ApiModule {
   public readonly deleteAddress = makeDeleteAddress(this.core, BASE_URL);
 
   public readonly getHistory = this.createPaginatedFetcher(getHistoryOperation);
+  public readonly getLogs = this.createPaginatedFetcher(getLogsOperation);
   public readonly retry = this.createFetcher(replayHistoryOperation);
 
   private readonly _getStats = this.createFetcher(getStatsOperation);

@@ -4,6 +4,9 @@ export * from './useEvmContractLogs';
 export * from './useEvmContractNFTs';
 export * from './useEvmDateToBlock';
 export * from './useEvmEndpointWeights';
+export * from './useEvmErc20Approvals'
+export * from './useEvmErc20Burns'
+export * from './useEvmErc20Transfers';
 export * from './useEvmErc20Mints'
 export * from './useEvmMultipleNFTs';
 export * from './useEvmNativeBalance';
@@ -32,6 +35,7 @@ export * from './useEvmTokenMetadataBySymbol';
 export * from './useEvmTokenPrice';
 export * from './useEvmTokenTransfers';
 export * from './useEvmTransaction';
+export * from './useEvmTransactionVerbose';
 export * from './useEvmUploadFolder';
 export * from './useEvmWalletNFTCollections';
 export * from './useEvmWalletNFTs';

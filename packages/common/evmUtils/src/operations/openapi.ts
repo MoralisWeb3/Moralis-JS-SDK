@@ -137,8 +137,14 @@ export interface paths {
     /** Get ERC20 token transactions from a contract ordered by block number in descending order. */
     get: operations["getTokenTransfers"];
   };
+  "/erc20/transfers": {
+    get: operations["getErc20Transfers"];
+  };
   "/erc20/mints": {
     get: operations["getErc20Mints"];
+  };
+  "/erc20/burns": {
+    get: operations["getErc20Burns"];
   };
   "/{address}/balance": {
     /** Get the native balance for a specific wallet address. */
@@ -156,9 +162,17 @@ export interface paths {
     /** Get native transactions and logs ordered by block number in descending order. */
     get: operations["getWalletTransactionsVerbose"];
   };
+  "/transaction/{transaction_hash}/internal-transactions": {
+    /** Get the contents of a internal transaction by transaction hash. */
+    get: operations["getInternalTransactions"];
+  };
   "/transaction/{transaction_hash}": {
     /** Get the contents of a transaction by the given transaction hash. */
     get: operations["getTransaction"];
+  };
+  "/transaction/{transaction_hash}/verbose": {
+    /** Get the contents of a transaction by the given transaction hash. */
+    get: operations["getTransactionVerbose"];
   };
   "/block/{block_number_or_hash}": {
     /** Get the contents of a block given the block hash. */
@@ -215,6 +229,38 @@ export interface paths {
 
 export interface components {
   schemas: {
+    decodedCall: {
+      /** @example transfer(address,uint256) */
+      signature?: string;
+      /** @example transfer */
+      label?: string;
+      /** @example function */
+      type?: string;
+      params?: {
+        /** @example _to */
+        name?: string;
+        /** @example 0x1CA455A55108874A95C84620dDA2566c54D17953 */
+        value?: string;
+        /** @example address */
+        type?: string;
+      }[];
+    };
+    decodedEvent: {
+      /** @example Transfer(address,address,uint256) */
+      signature?: string;
+      /** @example Transfer */
+      label?: string;
+      /** @example event */
+      type?: string;
+      params?: {
+        /** @example from */
+        name?: string;
+        /** @example 0x26C5011483Add49801eA8E3Ee354fE013895aCe5 */
+        value?: string;
+        /** @example address */
+        type?: string;
+      }[];
+    };
     logCollection: {
       /**
        * @description The total number of matches for this query
@@ -365,6 +411,133 @@ export interface components {
        */
       block_hash: string;
     };
+    logVerbose: {
+      /** @example 273 */
+      log_index: string;
+      /**
+       * @description The hash of the transaction
+       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
+       */
+      transaction_hash: string;
+      /** @example 204 */
+      transaction_index: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      address: string;
+      /**
+       * @description The data of the log
+       * @example 0x00000000000000000000000000000000000000000000000de05239bccd4d537400000000000000000000000000024dbc80a9f80e3d5fc0a0ee30e2693781a443
+       */
+      data: string;
+      /** @example 0x2caecd17d02f56fa897705dcc740da2d237c373f70686f4e0d9bd3bf0400ea7a */
+      topic0: string;
+      /** @example 0x000000000000000000000000031002d15b0d0cd7c9129d6f644446368deae391 */
+      topic1?: string;
+      /** @example 0x000000000000000000000000d25943be09f968ba740e0782a34e710100defae9 */
+      topic2?: string;
+      /** @example null */
+      topic3?: string;
+      /**
+       * @description The timestamp of the block
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: string;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /** @description The decoded data of the log */
+      decoded_event: components["schemas"]["decodedEvent"];
+    };
+    erc20Transfer: {
+      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
+      contract_address: string;
+      /**
+       * @description The hash of the transaction
+       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
+       */
+      transaction_hash: string;
+      /** @example 204 */
+      transaction_index: number;
+      /** @example 204 */
+      log_index: number;
+      /**
+       * @description The timestamp of the block
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: number;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      from_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      to_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 1234
+       */
+      value: string;
+    };
+    erc20Burn: {
+      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
+      contract_address: string;
+      /**
+       * @description The hash of the transaction
+       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
+       */
+      transaction_hash: string;
+      /** @example 204 */
+      transaction_index: number;
+      /** @example 204 */
+      log_index: number;
+      /**
+       * @description The timestamp of the block
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: number;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      from_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 1234
+       */
+      value: string;
+    };
     erc20Mint: {
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
       contract_address: string;
@@ -403,10 +576,73 @@ export interface components {
        */
       value: string;
     };
-    erc20MintResponse: {
+    erc20Approval: {
+      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
+      contract_address: string;
+      /**
+       * @description The hash of the transaction
+       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
+       */
+      transaction_hash: string;
+      /** @example 204 */
+      transaction_index: number;
+      /** @example 204 */
+      log_index: number;
+      /**
+       * @description The timestamp of the block
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: number;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      from_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
+       */
+      to_wallet: string;
+      /**
+       * @description The address of the contract
+       * @example 1234
+       */
+      value: string;
+    };
+    erc20TransfersResponse: {
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["erc20Transfer"][];
+    };
+    erc20MintsResponse: {
       /** @description The cursor to get to the next page */
       cursor?: string;
       result?: components["schemas"]["erc20Mint"][];
+    };
+    erc20BurnsResponse: {
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["erc20Burn"][];
+    };
+    erc20ApprovalsResponse: {
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["erc20Approval"][];
+    };
+    logResponse: {
+      /** @description The cursor to get to the next page */
+      cursor?: string;
+      result?: components["schemas"]["log"][];
     };
     blockTransaction: {
       /**
@@ -472,6 +708,8 @@ export interface components {
       block_hash: string;
       /** @description The logs of the transaction */
       logs?: components["schemas"]["log"][];
+      /** @description The internal transactions of the transaction */
+      internal_transactions?: components["schemas"]["internalTransaction"][];
     };
     block: {
       /**
@@ -548,6 +786,73 @@ export interface components {
       transaction_count: string;
       /** @description The transactions in the block */
       transactions: components["schemas"]["blockTransaction"][];
+    };
+    blockTransactionVerbose: {
+      /**
+       * @description The hash of the transaction
+       * @example 0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed
+       */
+      hash: string;
+      /**
+       * @description The nonce
+       * @example 1848059
+       */
+      nonce: string;
+      /** @example 108 */
+      transaction_index: string;
+      /**
+       * @description The from address
+       * @example 0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0
+       */
+      from_address: string;
+      /**
+       * @description The to address
+       * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
+       */
+      to_address: string;
+      /**
+       * @description The value sent
+       * @example 115580000000000000
+       */
+      value: string;
+      /** @example 30000 */
+      gas?: string;
+      /**
+       * @description The gas price
+       * @example 52500000000
+       */
+      gas_price: string;
+      /** @example 0x */
+      input: string;
+      /** @example 4923073 */
+      receipt_cumulative_gas_used: string;
+      /** @example 21000 */
+      receipt_gas_used: string;
+      /** @example null */
+      receipt_contract_address?: string;
+      /** @example null */
+      receipt_root?: string;
+      /** @example 1 */
+      receipt_status: string;
+      /**
+       * @description The block timestamp
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: string;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /** @description The logs of the transaction */
+      logs: components["schemas"]["logVerbose"][];
+      /** @description The decoded data of the transaction */
+      decoded_call: components["schemas"]["decodedCall"];
     };
     blockDate: {
       /**
@@ -664,7 +969,7 @@ export interface components {
        * @example 100
        */
       page_size?: number;
-      result?: components["schemas"]["blockTransaction"][];
+      result?: components["schemas"]["blockTransactionVerbose"][];
     };
     transaction: {
       /**
@@ -746,6 +1051,65 @@ export interface components {
        * @example 0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86
        */
       block_hash: string;
+      /** @description The internal transaction */
+      internal_transactions?: components["schemas"]["internalTransaction"][];
+    };
+    internalTransaction: {
+      /**
+       * @description The hash of the transaction
+       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
+       */
+      transaction_hash: string;
+      /**
+       * @description The block number
+       * @example 12526958
+       */
+      block_number: string;
+      /**
+       * @description The block hash
+       * @example 0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86
+       */
+      block_hash: string;
+      /**
+       * @description Call type
+       * @example CALL
+       */
+      type: string;
+      /**
+       * @description The sender
+       * @example 0xd4a3BebD824189481FC45363602b83C9c7e9cbDf
+       */
+      from: string;
+      /**
+       * @description The recipient
+       * @example 0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef
+       */
+      to: string;
+      /**
+       * @description The value that was transfered (in wei)
+       * @example 650000000000000000
+       */
+      value: string;
+      /**
+       * @description The gas of the transaction
+       * @example 6721975
+       */
+      gas: string;
+      /**
+       * @description The used gas
+       * @example 6721975
+       */
+      gas_used: string;
+      /**
+       * @description The input
+       * @example 0x
+       */
+      input: string;
+      /**
+       * @description The output
+       * @example 0x
+       */
+      output: string;
     };
     erc20Allowance: {
       /** @description The allowance */
@@ -867,6 +1231,12 @@ export interface components {
       page_size?: number;
       result?: components["schemas"]["trade"][];
     };
+    /**
+     * @default
+     * @example internal_transactions
+     * @enum {string}
+     */
+    includeList: "internal_transactions";
     /**
      * @default eth
      * @example eth
@@ -2719,6 +3089,37 @@ export interface operations {
       };
     };
   };
+  getErc20Transfers: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The block number from which the transfers will be returned */
+        from_block?: number;
+        /** The block number to which the transfers will be returned */
+        to_block?: number;
+        /** The desired page size of the result. */
+        limit?: number;
+        /** Contract addresses to only include */
+        contract_addresses?: string[];
+        /** Contract addresses to ignore */
+        exclude_contracts?: string[];
+        /** Wallet addresses to only include */
+        wallet_addresses?: string[];
+        /** Wallet addresses to ignore */
+        exclude_wallets?: string[];
+        /** The cursor returned in the previous response (used to getting the next page). */
+        cursor?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20TransfersResponse"];
+        };
+      };
+    };
+  };
   getErc20Mints: {
     parameters: {
       query: {
@@ -2745,7 +3146,69 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["erc20MintResponse"];
+          "application/json": components["schemas"]["erc20MintsResponse"];
+        };
+      };
+    };
+  };
+  getErc20Burns: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The block number from which the burns will be returned */
+        from_block?: number;
+        /** The block number to which the burns will be returned */
+        to_block?: number;
+        /** The desired page size of the result. */
+        limit?: number;
+        /** Contract addresses to only include */
+        contract_addresses?: string[];
+        /** Contract addresses to ignore */
+        exclude_contracts?: string[];
+        /** Wallet addresses to only include */
+        wallet_addresses?: string[];
+        /** Wallet addresses to ignore */
+        exclude_wallets?: string[];
+        /** The cursor returned in the previous response (used to getting the next page). */
+        cursor?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20BurnsResponse"];
+        };
+      };
+    };
+  };
+  getErc20Approvals: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** The block number from which the approvals will be returned */
+        from_block?: number;
+        /** The block number to which the approvals will be returned */
+        to_block?: number;
+        /** The desired page size of the result. */
+        limit?: number;
+        /** Contract addresses to only include */
+        contract_addresses?: string[];
+        /** Contract addresses to ignore */
+        exclude_contracts?: string[];
+        /** Wallet addresses to only include */
+        wallet_addresses?: string[];
+        /** Wallet addresses to ignore */
+        exclude_wallets?: string[];
+        /** The cursor returned in the previous response (used to getting the next page). */
+        cursor?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20ApprovalsResponse"];
         };
       };
     };
@@ -2832,6 +3295,8 @@ export interface operations {
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
         disable_total?: boolean;
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
       };
       path: {
         /** The address of the wallet */
@@ -2898,8 +3363,52 @@ export interface operations {
       };
     };
   };
+  /** Get the contents of a internal transaction by transaction hash. */
+  getInternalTransactions: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** The transaction hash */
+        transaction_hash: string;
+      };
+    };
+    responses: {
+      /** Internal Transaction details by transaction hash */
+      200: {
+        content: {
+          "application/json": components["schemas"]["internalTransaction"][];
+        };
+      };
+    };
+  };
   /** Get the contents of a transaction by the given transaction hash. */
   getTransaction: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
+      };
+      path: {
+        /** The transaction hash */
+        transaction_hash: string;
+      };
+    };
+    responses: {
+      /** Transaction details by transaction hash */
+      200: {
+        content: {
+          "application/json": components["schemas"]["blockTransaction"];
+        };
+      };
+    };
+  };
+  /** Get the contents of a transaction by the given transaction hash. */
+  getTransactionVerbose: {
     parameters: {
       query: {
         /** The chain to query */
@@ -2925,6 +3434,8 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
       };
       path: {
         /** The block number or block hash */
