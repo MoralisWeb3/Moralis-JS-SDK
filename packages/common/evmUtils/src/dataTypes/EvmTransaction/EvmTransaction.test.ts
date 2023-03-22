@@ -106,6 +106,7 @@ describe('EvmTransaction', () => {
       gas: '100000',
       gasPrice: '14459046318',
       index: 140,
+      internalTransactions: [],
       blockNumber: '16876068',
       blockHash: '0x4d3d1ef7df947829911570e0bc2137235d2947abf7135a79ce5bbfa3e156740c',
       blockTimestamp: expect.any(String),

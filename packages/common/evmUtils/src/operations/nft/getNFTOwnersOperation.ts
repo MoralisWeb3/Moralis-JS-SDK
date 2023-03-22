@@ -81,7 +81,7 @@ function deserializeResponse(jsonResponse: GetNFTOwnersJSONResponse, request: Ge
 
     return EvmNft.create(
       {
-        ...toCamelCase(nft),
+        ...nft,
         chain: EvmChainResolver.resolve(request.chain, core),
         ownerOf: EvmAddress.create(nft.ownerOf, core),
         lastMetadataSync: new Date(nft.lastMetadataSync),

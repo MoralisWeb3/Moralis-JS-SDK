@@ -84,22 +84,25 @@ function deserializeResponse(
     const chain = EvmChainResolver.resolve(request.chain, core);
     const nft = toCamelCase(data);
 
-    return EvmNft.create({
-      ...toCamelCase(nft),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      ownerOf: EvmAddress.create(nft.ownerOf, core),
-      lastMetadataSync: new Date(nft.lastMetadataSync),
-      lastTokenUriSync: new Date(nft.lastTokenUriSync),
-      media: maybe(nft.media, (media) =>
-        EvmNftMedia.create(
-          {
-            chain,
-            ...toCamelCase(media),
-          },
-          core,
+    return EvmNft.create(
+      {
+        ...toCamelCase(nft),
+        chain: EvmChainResolver.resolve(request.chain, core),
+        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        lastMetadataSync: new Date(nft.lastMetadataSync),
+        lastTokenUriSync: new Date(nft.lastTokenUriSync),
+        media: maybe(nft.media, (media) =>
+          EvmNftMedia.create(
+            {
+              chain,
+              ...toCamelCase(media),
+            },
+            core,
+          ),
         ),
-      ),
-    });
+      },
+      core,
+    );
   });
 }
 

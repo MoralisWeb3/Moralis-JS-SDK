@@ -93,32 +93,35 @@ function deserializeResponse(jsonResponse: GetWalletNFTsJSONResponse, request: G
   return (jsonResponse.result ?? []).map((data) => {
     const nft = toCamelCase(data);
     const chain = EvmChainResolver.resolve(request.chain, core);
-    return EvmNft.create({
-      chain: chain,
-      contractType: nft.contractType,
-      tokenAddress: nft.tokenAddress,
-      tokenId: nft.tokenId,
-      tokenUri: nft.tokenUri,
-      metadata: nft.metadata,
-      name: nft.name,
-      symbol: nft.symbol,
-      amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-      blockNumberMinted: nft.blockNumberMinted,
-      blockNumber: nft.blockNumber,
-      ownerOf: EvmAddress.create(nft.ownerOf, core),
-      tokenHash: nft.tokenHash,
-      lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
-      lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
-      media: maybe(nft.media, (media) =>
-        EvmNftMedia.create(
-          {
-            chain,
-            ...toCamelCase(media),
-          },
-          core,
+    return EvmNft.create(
+      {
+        chain: chain,
+        contractType: nft.contractType,
+        tokenAddress: nft.tokenAddress,
+        tokenId: nft.tokenId,
+        tokenUri: nft.tokenUri,
+        metadata: nft.metadata,
+        name: nft.name,
+        symbol: nft.symbol,
+        amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
+        blockNumberMinted: nft.blockNumberMinted,
+        blockNumber: nft.blockNumber,
+        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        tokenHash: nft.tokenHash,
+        lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
+        lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
+        media: maybe(nft.media, (media) =>
+          EvmNftMedia.create(
+            {
+              chain,
+              ...toCamelCase(media),
+            },
+            core,
+          ),
         ),
-      ),
-    });
+      },
+      core,
+    );
   });
 }
 
