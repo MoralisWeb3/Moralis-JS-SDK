@@ -42,6 +42,7 @@ import { mockResyncMetadata } from './endpoints/resyncMetadata';
 import { mockSearchNFTs } from './endpoints/searchNFTs';
 import { mockSyncNFTContract } from './endpoints/syncNFTContract';
 import { mockGetMultipleNFTs } from './endpoints/getMultipleNFTs';
+import { mockGetErc20Transfers } from './endpoints/getErc20Transfers';
 import { mockGetErc20Mints } from './endpoints/getErc20Mints';
 
 const handler = [
@@ -87,6 +88,7 @@ const handler = [
   mockSyncNFTContract,
   mockGetWalletNFTCollections,
   mockGetMultipleNFTs,
+  mockGetErc20Transfers,
   mockGetErc20Mints,
 ];
 
