@@ -4,6 +4,7 @@ export * from './useEvmContractLogs';
 export * from './useEvmContractNFTs';
 export * from './useEvmDateToBlock';
 export * from './useEvmEndpointWeights';
+export * from './useEvmErc20Burns'
 export * from './useEvmErc20Transfers';
 export * from './useEvmErc20Mints'
 export * from './useEvmMultipleNFTs';
