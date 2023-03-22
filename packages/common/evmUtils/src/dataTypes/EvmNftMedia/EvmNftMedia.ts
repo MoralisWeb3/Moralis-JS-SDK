@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import Core, { MoralisDataObject, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
 import { EvmChain } from '../EvmChain';
 import { EvmNftMediaInput, EvmNftMediaData } from './types';
 

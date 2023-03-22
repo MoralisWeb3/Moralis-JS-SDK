@@ -1,6 +1,7 @@
 import { BigNumber, BigNumberish, DateInput, MoralisDataObjectValue } from '@moralisweb3/common-core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
 import { EvmChain, EvmChainish } from '../EvmChain';
+import { EvmNftMedia, EvmNftMediaInput } from '../EvmNftMedia';
 
 /**
  * This can be any object with valid transaction data.
@@ -43,6 +44,8 @@ export interface EvmNftInput {
   lastTokenUriSync?: null | DateInput;
 
   amount?: null | number | string;
+
+  media?: EvmNftMedia | EvmNftMediaInput;
 }
 
 /**
@@ -66,4 +69,6 @@ export interface EvmNftData {
   lastTokenUriSync?: Date;
 
   amount?: number;
+
+  media?: EvmNftMedia;
 }

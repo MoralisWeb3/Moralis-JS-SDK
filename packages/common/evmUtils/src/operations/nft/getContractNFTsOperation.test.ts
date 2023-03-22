@@ -23,6 +23,7 @@ describe('getContractNfTsOperation', () => {
       totalRanges: 10,
       normalizeMetadata: false,
       disableTotal: true,
+      mediaItems: true,
     };
 
     const serializedRequest = getContractNFTsOperation.serializeRequest(request, core);

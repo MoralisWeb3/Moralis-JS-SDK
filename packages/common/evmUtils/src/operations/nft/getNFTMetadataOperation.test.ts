@@ -19,6 +19,7 @@ describe('getNFTMetadataOperation', () => {
       tokenId: '123',
       format: 'decimal',
       normalizeMetadata: false,
+      mediaItems: true,
     };
 
     const serializedRequest = getNFTMetadataOperation.serializeRequest(request, core);

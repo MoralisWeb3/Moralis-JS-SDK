@@ -18,7 +18,6 @@ export interface EvmNftMediaInput {
   mimetype?: string;
   parentHash?: string;
   mediaCollection?: {
-    original: EvmNftMediaItem;
     low: EvmNftMediaItem;
     medium: EvmNftMediaItem;
     high: EvmNftMediaItem;
@@ -34,7 +33,6 @@ export interface EvmNftMediaData {
   mimetype?: string;
   parentHash?: string;
   mediaCollection?: {
-    original: EvmNftMediaItem;
     low: EvmNftMediaItem;
     medium: EvmNftMediaItem;
     high: EvmNftMediaItem;

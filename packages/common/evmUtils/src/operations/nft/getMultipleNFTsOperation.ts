@@ -1,5 +1,13 @@
-import { Core, Camelize, Operation, ResponseAdapter, dateInputToDate, toCamelCase } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmNft, EvmAddressish } from '../../dataTypes';
+import {
+  Core,
+  Camelize,
+  Operation,
+  ResponseAdapter,
+  dateInputToDate,
+  toCamelCase,
+  maybe,
+} from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmNft, EvmAddressish, EvmNftMedia } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -52,7 +60,7 @@ export const getMultipleNFTsOperation: Operation<
   urlPathPattern: '/nft/getMultipleNFTs',
   urlSearchParamNames: ['chain'],
   bodyType: 'properties',
-  bodyParamNames: ['tokens', 'normalizeMetadata'],
+  bodyParamNames: ['tokens', 'normalizeMetadata', 'mediaItems'],
 
   getRequestUrlParams,
   getRequestBody,
@@ -75,23 +83,36 @@ function getRequestBody(request: GetMultipleNFTsRequest, core: Core) {
       token_id: token.tokenId,
     })),
     normalizeMetadata: request.normalizeMetadata,
+    media_items: request.mediaItems,
   };
 }
 
 function deserializeResponse(jsonResponse: GetMultipleNFTsJSONResponse, request: GetMultipleNFTsRequest, core: Core) {
-  return (jsonResponse ?? []).map((nft) => {
-    if (nft === null) {
+  return (jsonResponse ?? []).map((data) => {
+    if (data === null) {
       return null;
     }
+
+    const chain = EvmChainResolver.resolve(request.chain, core);
+    const nft = toCamelCase(data);
 
     return EvmNft.create(
       {
         ...toCamelCase(nft),
         chain: EvmChainResolver.resolve(request.chain, core),
         amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-        ownerOf: EvmAddress.create(nft.owner_of, core),
-        lastMetadataSync: dateInputToDate(nft.last_metadata_sync),
-        lastTokenUriSync: dateInputToDate(nft.last_token_uri_sync),
+        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
+        lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
+        media: maybe(nft.media, (media) =>
+          EvmNftMedia.create(
+            {
+              chain,
+              ...toCamelCase(media),
+            },
+            core,
+          ),
+        ),
       },
       core,
     );
@@ -106,6 +127,7 @@ function serializeRequest(request: GetMultipleNFTsRequest, core: Core) {
       tokenAddress: EvmAddress.create(token.tokenAddress, core).lowercase,
       tokenId: token.tokenId,
     })),
+    mediaItems: request.mediaItems,
   };
 }
 
@@ -117,5 +139,6 @@ function deserializeRequest(jsonRequest: GetMultipleNFTsJSONRequest, core: Core)
       tokenAddress: EvmAddress.create(token.tokenAddress, core),
       tokenId: token.tokenId,
     })),
+    mediaItems: jsonRequest.mediaItems,
   };
 }

@@ -1651,6 +1651,8 @@ export interface components {
       high: components["schemas"]["mediaItem"];
     };
     media: {
+      status: string;
+      updatedAt: string;
       /** @description The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types] */
       mimetype: string;
       /** @enum {undefined} */
