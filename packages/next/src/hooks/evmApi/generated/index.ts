@@ -5,6 +5,8 @@
   export * from './nft/useEvmContractNFTs'
   export * from './block/useEvmDateToBlock'
   export * from './token/useEvmErc20Approvals'
+  export * from './token/useEvmErc20Burns'
+  export * from './token/useEvmErc20Transfers'
   export * from './token/useEvmErc20Mints'
   export * from './balance/useEvmNativeBalance'
   export * from './nft/useEvmNFTContractMetadata'

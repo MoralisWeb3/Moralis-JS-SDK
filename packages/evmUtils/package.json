@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/evm-utils",
   "author": "Moralis",
-  "version": "2.16.1",
+  "version": "2.17.0",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -34,7 +34,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "@moralisweb3/common-evm-utils": "^2.16.1"
+    "@moralisweb3/common-evm-utils": "^2.17.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",

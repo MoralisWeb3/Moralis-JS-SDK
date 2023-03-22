@@ -1,5 +1,15 @@
 # create-moralis-dapp
 
+## 2.17.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @create-moralis-dapp/express@2.17.0
+  - @create-moralis-dapp/next@2.17.0
+  - @create-moralis-dapp/react-vite@2.17.0
+  - @create-moralis-dapp/toolkit@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes
