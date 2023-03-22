@@ -18,7 +18,7 @@ export class EvmSimpleBlock implements MoralisDataObject {
   /**
    * Create a new instance of EvmSimpleBlock from any valid transaction input
    * @param data - the EvmSimpleBlockish type
-   * @example const transaction = EvmTransaction.create(data);
+   * @example const transaction = EvmSimpleBlock.create(data);
    */
   static create(data: EvmSimpleBlockish, core?: Core) {
     if (data instanceof EvmSimpleBlock) {
@@ -45,7 +45,7 @@ export class EvmSimpleBlock implements MoralisDataObject {
    * Check the equality between two Evm blocks. It compares their hashes and blocks.
    * @param dataA - The first block to compare
    * @param dataB - The second block to compare
-   * @example EvmTransaction.equals(dataA, dataB)
+   * @example EvmSimpleBlock.equals(dataA, dataB)
    */
   static equals(dataA: EvmSimpleBlockish | EvmBlockish, dataB: EvmSimpleBlockish | EvmBlockish) {
     const blockA = EvmSimpleBlock.create(dataA);

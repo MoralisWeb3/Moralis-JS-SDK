@@ -33,11 +33,13 @@ import {
   getWalletTokenBalancesOperation,
   getErc20TransfersOperation,
   getErc20MintsOperation,
+  getErc20ApprovalsOperation,
   getErc20BurnsOperation,
 } from './token';
 import { getWalletTokenTransfersOperation } from './token/getWalletTokenTransfersOperation';
 import {
   getTransactionOperation,
+  getTransactionVerboseOperation,
   getWalletTransactionsOperation,
   getWalletTransactionsVerboseOperation,
 } from './transaction';
@@ -51,6 +53,7 @@ export const operations = [
   getContractLogsOperation,
   getContractNFTsOperation,
   getDateToBlockOperation,
+  getErc20ApprovalsOperation,
   getErc20BurnsOperation,
   getErc20TransfersOperation,
   getErc20MintsOperation,
@@ -75,6 +78,7 @@ export const operations = [
   getTokenPriceOperation,
   getTokenTransfersOperation,
   getTransactionOperation,
+  getTransactionVerboseOperation,
   getWalletNFTCollectionsOperation,
   getWalletNFTsOperation,
   getWalletNFTTransfersOperation,

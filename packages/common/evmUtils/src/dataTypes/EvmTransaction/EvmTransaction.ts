@@ -13,7 +13,7 @@ import { EvmTransactionInput, EvmTransactionData } from './types';
 export type EvmTransactionish = EvmTransactionInput | EvmTransaction;
 
 /**
- * The EvmTranaction is a representation of a published transaction.
+ * The EvmTransaction is a representation of a published transaction.
  *
  * Use this class any time you work with a transaction.
  *
@@ -36,42 +36,42 @@ export class EvmTransaction implements MoralisDataObject {
     return new EvmTransaction(data, finalCore);
   }
 
-  private _data: EvmTransactionData;
+  protected _data: EvmTransactionData;
 
   constructor(data: EvmTransactionInput, core: Core) {
     this._data = EvmTransaction.parse(data, core);
   }
+  static parse(data: EvmTransactionInput, core: Core): EvmTransactionData {
+    return {
+      from: EvmAddress.create(data.from, core),
+      to: maybe(data.to, (to) => EvmAddress.create(to, core)),
+      nonce: maybe(data.nonce, BigNumber.create),
+      data: maybe(data.data),
+      value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
+      hash: data.hash,
 
-  static parse = (data: EvmTransactionInput, core: Core): EvmTransactionData => ({
-    from: EvmAddress.create(data.from, core),
-    to: maybe(data.to, (to) => EvmAddress.create(to, core)),
-    nonce: maybe(data.nonce, BigNumber.create),
-    data: maybe(data.data),
-    value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
-    hash: data.hash,
+      chain: EvmChain.create(data.chain),
 
-    type: maybe(data.type, (value) => +value),
-    chain: EvmChain.create(data.chain),
+      gas: maybe(data.gas, BigNumber.create),
+      gasPrice: BigNumber.create(data.gasPrice),
 
-    gas: maybe(data.gas, BigNumber.create),
-    gasPrice: BigNumber.create(data.gasPrice),
+      index: +data.index,
+      blockNumber: BigNumber.create(data.blockNumber),
+      blockHash: data.blockHash,
+      blockTimestamp: dateInputToDate(data.blockTimestamp),
 
-    index: +data.index,
-    blockNumber: BigNumber.create(data.blockNumber),
-    blockHash: data.blockHash,
-    blockTimestamp: dateInputToDate(data.blockTimestamp),
+      cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
+      gasUsed: BigNumber.create(data.gasUsed),
 
-    cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
-    gasUsed: BigNumber.create(data.gasUsed),
+      contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address, core)),
+      receiptRoot: maybe(data.receiptRoot),
+      receiptStatus: maybe(data.receiptStatus, (status) => +status),
 
-    contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address, core)),
-    receiptRoot: maybe(data.receiptRoot),
-    receiptStatus: maybe(data.receiptStatus, (status) => +status),
+      logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
 
-    logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
-
-    signature: maybe(data.signature, EvmSignature.create),
-  });
+      signature: maybe(data.signature, EvmSignature.create),
+    };
+  }
 
   /**
    * Check the equality between two Evm transactions
@@ -326,17 +326,6 @@ export class EvmTransaction implements MoralisDataObject {
    */
   get hash() {
     return this._data.hash;
-  }
-
-  /**
-   * @returns the transaction type
-   * @example
-   * ```
-   * transaction.type // 1
-   * ```
-   */
-  get type() {
-    return this._data.type;
   }
 
   /**
