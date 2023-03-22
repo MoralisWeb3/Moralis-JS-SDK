@@ -14746,9 +14746,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-cjs-e2e@workspace:e2e/cli-cjs":
+"cli-cjs-e2e@workspace:demos/cli-cjs":
   version: 0.0.0-use.local
-  resolution: "cli-cjs-e2e@workspace:e2e/cli-cjs"
+  resolution: "cli-cjs-e2e@workspace:demos/cli-cjs"
   dependencies:
     dotenv: ^16.0.3
     moralis: ^2.17.0
@@ -14798,9 +14798,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-esm-e2e@workspace:e2e/cli-esm":
+"cli-esm-e2e@workspace:demos/cli-esm":
   version: 0.0.0-use.local
-  resolution: "cli-esm-e2e@workspace:e2e/cli-esm"
+  resolution: "cli-esm-e2e@workspace:demos/cli-esm"
   dependencies:
     dotenv: ^16.0.3
     moralis: ^2.17.0
@@ -36380,9 +36380,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-e2e@workspace:e2e/webpack":
+"webpack-e2e@workspace:demos/webpack":
   version: 0.0.0-use.local
-  resolution: "webpack-e2e@workspace:e2e/webpack"
+  resolution: "webpack-e2e@workspace:demos/webpack"
   dependencies:
     cypress: ^12.8.0
     dotenv: ^16.0.3
