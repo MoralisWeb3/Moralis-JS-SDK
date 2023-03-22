@@ -1,0 +1,37 @@
+{
+    "name": "moralis-next-dapp",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint --ext .js,.ts ."
+    },
+    "dependencies": {
+        "@moralisweb3/react": "^2.16.1",
+        "@rainbow-me/rainbowkit": "^0.12.2",
+        "axios": "^1.2.1",
+        "ethers": "^5.7.2",
+        "lodash.merge": "^4.6.2",
+        "moralis": "^2.7.4",
+        "next": "^13.2.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "wagmi": "^0.12.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.18.13",
+        "@moralisweb3/eslint-config": "^1.0.1",
+        "@next/eslint-plugin-next": "^12.2.5",
+        "@types/lodash.merge": "^4.6.7",
+        "@types/node": "18.0.6",
+        "@types/react": "^18.0.18",
+        "@types/react-dom": "^18.0.6",
+        "@typescript-eslint/eslint-plugin": "^5.38.1",
+        "eslint": "^8.22.0",
+        "eslint-config-next": "^13.2.4",
+        "eslint-plugin-etc": "^2.0.2",
+        "typescript": "4.7.4"
+    }
+}

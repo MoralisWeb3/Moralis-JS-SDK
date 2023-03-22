@@ -1,4 +1,5 @@
-import { renderFile } from 'ejs';
+/* eslint-disable no-await-in-loop */
+import Handlebars from 'handlebars';
 import { Answers } from 'inquirer';
 import { FileSystemProcessor } from './FileSystemProcessor';
 
@@ -8,11 +9,13 @@ export class TemplateProcessor {
   public async processFiles(data?: Answers) {
     const filePaths = await FileSystemProcessor.getAllFilesPathsInDir(this.destination);
     for (const filePath of filePaths) {
-      if (filePath.includes('.tmpl')) {
-        // eslint-disable-next-line no-await-in-loop
-        const newContent = await renderFile(filePath, data);
-        FileSystemProcessor.writeFile(filePath, newContent);
-        FileSystemProcessor.rename(filePath, filePath.replace('.tmpl', ''));
+      if (filePath.includes('.hbs')) {
+        const template = await FileSystemProcessor.readFile(filePath);
+        console.log('template: ', template);
+        const newContent = Handlebars.compile(template.toString())(data);
+        console.log('newContent: ', newContent);
+        await FileSystemProcessor.writeFile(filePath, newContent);
+        await FileSystemProcessor.rename(filePath, filePath.replace('.hbs', ''));
       }
     }
   }

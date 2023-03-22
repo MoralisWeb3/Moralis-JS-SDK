@@ -19,6 +19,10 @@ export class FileSystemProcessor {
     return fs.writeFile(path, data);
   }
 
+  public static async readFile(path: string) {
+    return fs.readFile(path);
+  }
+
   public static async rename(oldPath: string, newPath: string) {
     return fs.rename(oldPath, newPath);
   }

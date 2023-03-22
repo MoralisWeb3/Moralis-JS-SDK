@@ -5,13 +5,21 @@ import { NextAppFilesGenerator } from './NextAppFilesGenerator';
 import { NextAppInquirer } from './NextAppInquirer';
 
 export class NextAppGenerator implements AppGenerator {
-  private readonly templatePath = path.join(__dirname, './template');
+  private readonly templatePath = path.join(__dirname, './template/base-app');
   public readonly name = 'NextJS            [only frontend]';
 
   public async generate() {
     const answers = await NextAppInquirer.inquire();
 
-    const data = { ...answers, nextAuthSecret: this.generateSecret() };
+    const isSolana = answers.network === 'Solana';
+    const isEvm = answers.network === 'Evm';
+
+    const data = {
+      ...answers,
+      nextAuthSecret: this.generateSecret(),
+      isSolana,
+      isEvm,
+    };
 
     const destination = this.getDestination(answers.name);
 
