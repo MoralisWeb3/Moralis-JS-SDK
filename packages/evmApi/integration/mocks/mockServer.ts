@@ -42,13 +42,18 @@ import { mockResyncMetadata } from './endpoints/resyncMetadata';
 import { mockSearchNFTs } from './endpoints/searchNFTs';
 import { mockSyncNFTContract } from './endpoints/syncNFTContract';
 import { mockGetMultipleNFTs } from './endpoints/getMultipleNFTs';
+import { mockGetErc20Transfers } from './endpoints/getErc20Transfers';
 import { mockGetErc20Mints } from './endpoints/getErc20Mints';
 import { mockGetInternalTransaction } from './endpoints/getInternalTransactions';
+import { mockGetTransactionVerbose } from './endpoints/getTransactionVerbose';
+import { mockGetErc20Approvals } from './endpoints/getErc20Approvals';
+import { mockGetErc20Burns } from './endpoints/getErc20Burns';
 
 const handler = [
   mockGetDateToBlock,
   mockGetNFTContractTransfers,
   mockGetInternalTransaction,
+  mockGetTransactionVerbose,
   mockGetTransaction,
   mockGetWalletTransactionsVerbose,
   mockGetWalletTransactions,
@@ -89,7 +94,10 @@ const handler = [
   mockSyncNFTContract,
   mockGetWalletNFTCollections,
   mockGetMultipleNFTs,
+  mockGetErc20Transfers,
   mockGetErc20Mints,
+  mockGetErc20Approvals,
+  mockGetErc20Burns,
 ];
 
 export const mockServer = MockServer.create({ apiKey: MOCK_API_KEY, apiRoot: EVM_API_ROOT }, handler).start();

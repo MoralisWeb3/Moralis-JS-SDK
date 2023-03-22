@@ -1,4 +1,6 @@
 export * from './Erc20';
+export * from './Erc20Approval';
+export * from './Erc20Burn';
 export * from './Erc20Mint';
 export * from './Erc20Transfer';
 export * from './Erc20Value';
@@ -18,3 +20,5 @@ export * from './EvmNftTransfer';
 export * from './EvmSignature';
 export * from './EvmTransaction';
 export * from './EvmTransactionLog';
+export * from './EvmTransactionLogDecoded';
+export * from './EvmTransactionVerbose';
