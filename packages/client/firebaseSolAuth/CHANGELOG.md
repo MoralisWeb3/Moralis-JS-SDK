@@ -1,5 +1,12 @@
 # @moralisweb3/client-firebase-sol-auth
 
+## 2.17.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/client-firebase-auth-utils@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @moralisweb3/evm-api
 
+## 2.17.0
+
+### Minor Changes
+
+- [#1057](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1057) [`e96c34ab4`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e96c34ab42c4e33fc693ef602f4a586761a01a52) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `getErc20Mints` endpoint at `Moralis.EvmApi.token.getErc20Mints()`
+
+### Patch Changes
+
+- Updated dependencies [[`e96c34ab4`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e96c34ab42c4e33fc693ef602f4a586761a01a52)]:
+  - @moralisweb3/common-evm-utils@2.17.0
+  - @moralisweb3/api-utils@2.17.0
+  - @moralisweb3/common-core@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes
