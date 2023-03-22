@@ -1,5 +1,17 @@
 # @moralisweb3/parse-server
 
+## 2.17.0
+
+### Patch Changes
+
+- [#1060](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1060) [`24af1116f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/24af1116f139494c0b26770b0ef0287ab74dd6cc) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Restored CommonJS bundle format.
+
+- Updated dependencies [[`e96c34ab4`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e96c34ab42c4e33fc693ef602f4a586761a01a52), [`d9b9587be`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d9b9587bea378f8871bcfef34122f9692c492821), [`f5d0bdd62`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f5d0bdd62738a0195dc6245031d12394f8f68919)]:
+  - @moralisweb3/api-utils@2.17.0
+  - @moralisweb3/streams@2.17.0
+  - @moralisweb3/common-core@2.17.0
+  - moralis@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "@create-moralis-dapp/toolkit",
   "author": "Moralis",
-  "version": "2.16.1",
+  "version": "2.17.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -20,10 +20,11 @@
   "dependencies": {
     "ejs": "^3.1.8",
     "fs-extra": "^10.1.0",
-    "inquirer": "^8.0.0",
-    "ora": "^5.4.1"
+    "ora": "^5.4.1",
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@types/ejs": "3.1.1"
+    "@types/ejs": "3.1.1",
+    "@types/prompts": "^2.4.2"
   }
 }

@@ -1,12 +1,11 @@
 /* eslint-disable no-await-in-loop */
 import Handlebars from 'handlebars';
-import { Answers } from 'inquirer';
 import { FileSystemProcessor } from './FileSystemProcessor';
 
 export class TemplateProcessor {
   constructor(private templatePath: string, private destination: string) {}
 
-  public async processFiles(data?: Answers) {
+  public async processFiles(data?: Record<string, any>) {
     const filePaths = await FileSystemProcessor.getAllFilesPathsInDir(this.destination);
     for (const filePath of filePaths) {
       if (filePath.includes('.hbs')) {

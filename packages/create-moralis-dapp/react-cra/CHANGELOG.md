@@ -1,5 +1,12 @@
 # @create-moralis-dapp/react-cra
 
+## 2.17.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @create-moralis-dapp/toolkit@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes

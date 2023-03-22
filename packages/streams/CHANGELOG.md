@@ -1,5 +1,19 @@
 # @moralisweb3/streams
 
+## 2.17.0
+
+### Patch Changes
+
+- [#1055](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1055) [`d9b9587be`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d9b9587bea378f8871bcfef34122f9692c492821) Thanks [@ErnoW](https://github.com/ErnoW)! - Update Streams webhook types to reflect api changes
+
+- [#1055](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1055) [`f5d0bdd62`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f5d0bdd62738a0195dc6245031d12394f8f68919) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `includeAllTxLogs` in all relevant Streams models
+
+- Updated dependencies [[`e96c34ab4`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/e96c34ab42c4e33fc693ef602f4a586761a01a52), [`d9b9587be`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d9b9587bea378f8871bcfef34122f9692c492821), [`f5d0bdd62`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f5d0bdd62738a0195dc6245031d12394f8f68919)]:
+  - @moralisweb3/common-evm-utils@2.17.0
+  - @moralisweb3/api-utils@2.17.0
+  - @moralisweb3/common-streams-utils@2.17.0
+  - @moralisweb3/common-core@2.17.0
+
 ## 2.16.1
 
 ### Patch Changes

@@ -29,6 +29,7 @@ For manual local testing, you can also use any of the demos in the `demos` folde
 ### Pull Requests
 
 First make sure that:
+
 - All packages build successfully (`yarn build` in the root)
 - All test pass (`yarn test` in the root)
 - All code is correctly linted (`yarn lint` in the root)
@@ -37,6 +38,7 @@ First make sure that:
 - All code have correct Typescript definitions
 
 Then:
+
 1. Fork the repo and create your branch from `main`.
 2. Create a pull request and describe the changes + why the changes are needed.
 

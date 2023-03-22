@@ -110,3 +110,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp;
 {{/if}}
+
+
+{{ configs }}
+function MyApp({ Component, pageProps }: AppProps) {
+    return (
+        {{ wrappers[0] }}
+            <MoralisProvider config={moralisConfig}>
+                <Component {...pageProps} />
+            </MoralisProvider>
+        {{ wrappers[1] }}
+    );
+}
