@@ -1,5 +1,12 @@
-import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmTransaction, EvmTransactionLog, LogTopic } from '../../dataTypes';
+import { Core, Camelize, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
+import {
+  EvmChain,
+  EvmChainish,
+  EvmInternalTransaction,
+  EvmTransaction,
+  EvmTransactionLog,
+  LogTopic,
+} from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -40,7 +47,7 @@ export const getTransactionOperation: Operation<
   isNullable: true,
   urlPathPattern: '/transaction/{transactionHash}',
   urlPathParamNames: ['transactionHash'],
-  urlSearchParamNames: ['chain'],
+  urlSearchParamNames: ['chain', 'include'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -52,6 +59,7 @@ function getRequestUrlParams(request: GetTransactionRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     transactionHash: request.transactionHash,
+    include: request.include,
   };
 }
 
@@ -59,6 +67,7 @@ function serializeRequest(request: GetTransactionRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     transactionHash: request.transactionHash,
+    include: request.include,
   };
 }
 
@@ -66,10 +75,12 @@ function deserializeRequest(jsonRequest: GetTransactionJSONRequest, core: Core):
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     transactionHash: jsonRequest.transactionHash,
+    include: jsonRequest.include,
   };
 }
 //TODO: I noticed that the docs comes with a type of "string | unknown" which automatically resolves to "unknown". I think we should fix this in the api, casting for now
 function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: GetTransactionJSONRequest, core: Core) {
+  const chain = EvmChainResolver.resolve(request.chain, core);
   return EvmTransaction.create(
     {
       from: jsonResponse.from_address,
@@ -83,7 +94,7 @@ function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: 
       blockNumber: jsonResponse.block_number,
       blockTimestamp: jsonResponse.block_timestamp,
       index: jsonResponse.transaction_index,
-      chain: EvmChainResolver.resolve(request.chain, core),
+      chain,
       hash: jsonResponse.hash,
       gas: jsonResponse.gas,
       cumulativeGasUsed: jsonResponse.receipt_cumulative_gas_used,
@@ -101,11 +112,18 @@ function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: 
             blockTimestamp: log.block_timestamp,
             logIndex: +log.log_index,
             transactionIndex: +log.transaction_index,
-            chain: EvmChainResolver.resolve(request.chain, core),
+            chain,
           },
           core,
         ),
       ),
+      internalTransactions: (jsonResponse.internal_transactions ?? []).map((jsonInternalTransaction) => {
+        const internalTransaction = toCamelCase(jsonInternalTransaction);
+        return EvmInternalTransaction.create({
+          chain,
+          ...internalTransaction,
+        });
+      }),
       receiptRoot: jsonResponse.receipt_root as string,
       receiptStatus: jsonResponse.receipt_status,
     },

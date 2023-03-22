@@ -33,18 +33,18 @@ import {
   getWalletTokenBalancesOperation,
   getErc20TransfersOperation,
   getErc20MintsOperation,
+  getWalletTokenTransfersOperation,
   getErc20ApprovalsOperation,
   getErc20BurnsOperation,
 } from './token';
-import { getWalletTokenTransfersOperation } from './token/getWalletTokenTransfersOperation';
 import {
   getTransactionOperation,
   getTransactionVerboseOperation,
   getWalletTransactionsOperation,
   getWalletTransactionsVerboseOperation,
+  getInternalTransactionsOperation,
 } from './transaction';
-import { endpointWeightsOperation, web3ApiVersionOperation } from './utils';
-import { runContractFunctionOperation } from './utils/runContractFunctionOperation';
+import { endpointWeightsOperation, web3ApiVersionOperation, runContractFunctionOperation } from './utils';
 
 export const operations = [
   endpointWeightsOperation,
@@ -57,6 +57,7 @@ export const operations = [
   getErc20BurnsOperation,
   getErc20TransfersOperation,
   getErc20MintsOperation,
+  getInternalTransactionsOperation,
   getMultipleNFTsOperation,
   getNativeBalanceOperation,
   getNativeBalancesForAddressesOperation,

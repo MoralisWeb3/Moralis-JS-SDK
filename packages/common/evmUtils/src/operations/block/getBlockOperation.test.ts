@@ -15,6 +15,7 @@ describe('getBlockOperation', () => {
     const request: Required<GetBlockRequest> = {
       blockNumberOrHash: '0x123',
       chain: EvmChain.create(chain, core),
+      include: 'internal_transactions',
     };
 
     const serializedRequest = getBlockOperation.serializeRequest(request, core);
