@@ -34,7 +34,7 @@ export class EvmTransactionLog implements MoralisDataObject {
     return new EvmTransactionLog(value, finalCore);
   }
 
-  private _value;
+  protected _value;
 
   constructor(value: EvmTransactionLogInput, core: Core) {
     this._value = EvmTransactionLog.parse(value, core);

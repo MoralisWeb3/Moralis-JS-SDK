@@ -39,6 +39,7 @@ import {
 import { getWalletTokenTransfersOperation } from './token/getWalletTokenTransfersOperation';
 import {
   getTransactionOperation,
+  getTransactionVerboseOperation,
   getWalletTransactionsOperation,
   getWalletTransactionsVerboseOperation,
 } from './transaction';
@@ -77,6 +78,7 @@ export const operations = [
   getTokenPriceOperation,
   getTokenTransfersOperation,
   getTransactionOperation,
+  getTransactionVerboseOperation,
   getWalletNFTCollectionsOperation,
   getWalletNFTsOperation,
   getWalletNFTTransfersOperation,

@@ -35,6 +35,7 @@ export * from './useEvmTokenMetadataBySymbol';
 export * from './useEvmTokenPrice';
 export * from './useEvmTokenTransfers';
 export * from './useEvmTransaction';
+export * from './useEvmTransactionVerbose';
 export * from './useEvmUploadFolder';
 export * from './useEvmWalletNFTCollections';
 export * from './useEvmWalletNFTs';
