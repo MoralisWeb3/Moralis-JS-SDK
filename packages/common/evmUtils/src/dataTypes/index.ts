@@ -1,4 +1,5 @@
 export * from './Erc20';
+export * from './Erc20Approval';
 export * from './Erc20Burn';
 export * from './Erc20Mint';
 export * from './Erc20Transfer';
