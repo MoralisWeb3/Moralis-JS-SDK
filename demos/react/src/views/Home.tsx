@@ -69,7 +69,7 @@ const Home = () => {
     {
       domain: 'brad.crypto',
     },
-    { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
+    { enabled: false, onSuccess: (res) => setOutput(res?.address.checksum) },
   );
   const { refetch: getWeb3ApiVersion } = useEvmWeb3ApiVersion({
     enabled: false,
@@ -83,20 +83,28 @@ const Home = () => {
         Vitalik's ETH Balance: {vitalikBalance ? vitalikBalance?.balance.ether : 'Fetching...'} ETH
       </Heading>
       <Heading fontSize="lg">Fetched manually data:</Heading>
-      <Textarea value={output} />
+      <Textarea value={output} data-testid="outputTextarea" />
 
       <List>
         <ListItem mb={2}>
-          <Button onClick={() => getNFTMetadata()}>getNFTMetadata</Button>
+          <Button onClick={() => getNFTMetadata()} data-testid="getNFTMetadataButton">
+            getNFTMetadata
+          </Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => getBlock()}>getBlock</Button>
+          <Button onClick={() => getBlock()} data-testid="getBlockButton">
+            getBlock
+          </Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => runContractFunction()}>runContractFunction</Button>
+          <Button onClick={() => runContractFunction()} data-testid="runContractFunctionButton">
+            runContractFunction
+          </Button>
         </ListItem>
         <ListItem mb={2}>
-          <Button onClick={() => resolveDomain()}>resolveDomain</Button>
+          <Button onClick={() => resolveDomain()} data-testid="resolveDomainButton">
+            resolveDomain
+          </Button>
         </ListItem>
         <ListItem mb={2}>
           <Button onClick={() => getWeb3ApiVersion()}>web3ApiVersion</Button>
