@@ -6,8 +6,16 @@ import {
   BigNumber,
   DateInput,
   PaginatedResponseAdapter,
+  toCamelCase,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmTransaction } from '../../dataTypes';
+import {
+  EvmChain,
+  EvmChainish,
+  EvmAddress,
+  EvmAddressish,
+  EvmTransaction,
+  EvmInternalTransaction,
+} from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -53,7 +61,17 @@ export const getWalletTransactionsOperation: PaginatedOperation<
   groupName: 'transaction',
   urlPathPattern: '/{address}',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit', 'disableTotal'],
+  urlSearchParamNames: [
+    'chain',
+    'fromBlock',
+    'toBlock',
+    'fromDate',
+    'toDate',
+    'cursor',
+    'limit',
+    'disableTotal',
+    'include',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -75,6 +93,7 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address, core).lowercase,
     disable_total: request.disableTotal,
+    include: request.include,
   };
 }
 
@@ -89,6 +108,7 @@ function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
     limit: request.limit,
     address: EvmAddress.create(request.address, core).checksum,
     disableTotal: request.disableTotal,
+    include: request.include,
   };
 }
 
@@ -103,6 +123,7 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core:
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address, core),
     disableTotal: jsonRequest.disableTotal,
+    include: jsonRequest.include,
   };
 }
 
@@ -111,8 +132,9 @@ function deserializeResponse(
   request: GetWalletTransactionsJSONRequest,
   core: Core,
 ) {
-  return (jsonResponse.result ?? []).map((transfer) =>
-    EvmTransaction.create(
+  return (jsonResponse.result ?? []).map((transfer) => {
+    const chain = EvmChainResolver.resolve(request.chain, core);
+    return EvmTransaction.create(
       {
         cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
         gasPrice: transfer.gas_price,
@@ -132,8 +154,15 @@ function deserializeResponse(
         blockTimestamp: new Date(transfer.block_timestamp),
         gas: transfer.gas ? BigNumber.create(transfer.gas as string) : null,
         to: transfer.to_address ? (transfer.to_address as string) : null,
+        internalTransactions: (transfer.internal_transactions ?? []).map((jsonInternalTransaction) => {
+          const internalTransaction = toCamelCase(jsonInternalTransaction);
+          return EvmInternalTransaction.create({
+            chain,
+            ...internalTransaction,
+          });
+        }),
       },
       core,
-    ),
-  );
+    );
+  });
 }

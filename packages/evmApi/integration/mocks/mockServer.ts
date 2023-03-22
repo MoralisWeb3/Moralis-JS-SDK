@@ -44,6 +44,7 @@ import { mockSyncNFTContract } from './endpoints/syncNFTContract';
 import { mockGetMultipleNFTs } from './endpoints/getMultipleNFTs';
 import { mockGetErc20Transfers } from './endpoints/getErc20Transfers';
 import { mockGetErc20Mints } from './endpoints/getErc20Mints';
+import { mockGetInternalTransaction } from './endpoints/getInternalTransactions';
 import { mockGetTransactionVerbose } from './endpoints/getTransactionVerbose';
 import { mockGetErc20Approvals } from './endpoints/getErc20Approvals';
 import { mockGetErc20Burns } from './endpoints/getErc20Burns';
@@ -51,6 +52,7 @@ import { mockGetErc20Burns } from './endpoints/getErc20Burns';
 const handler = [
   mockGetDateToBlock,
   mockGetNFTContractTransfers,
+  mockGetInternalTransaction,
   mockGetTransactionVerbose,
   mockGetTransaction,
   mockGetWalletTransactionsVerbose,

@@ -4,6 +4,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
 import { EvmNativeish, EvmNative } from '../EvmNative';
 import { EvmTransactionLogish, EvmTransactionLog } from '../EvmTransactionLog';
 import { EvmSignature, EvmSignatureish } from '../EvmSignature/EvmSignature';
+import { EvmInternalTransaction, EvmInternalTransactionish } from '../EvmInternalTransaction';
 
 /**
  * This can be any object with valid transaction data.
@@ -63,6 +64,7 @@ export interface EvmTransactionInput {
   receiptStatus?: null | string | number;
 
   logs?: EvmTransactionLogish[];
+  internalTransactions?: EvmInternalTransactionish[];
 
   signature?: EvmSignatureish;
 }
@@ -96,6 +98,7 @@ export interface EvmTransactionData {
   receiptStatus?: number;
 
   logs: EvmTransactionLog[];
+  internalTransactions: EvmInternalTransaction[];
 
   signature?: EvmSignature;
 }
