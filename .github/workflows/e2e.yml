@@ -20,6 +20,7 @@ jobs:
         node: [16]
     env:
       MORALIS_API_KEY: ${{ secrets.MORALIS_API_KEY }}
+      REACT_APP_MORALIS_API_KEY: ${{ secrets.MORALIS_API_KEY }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
