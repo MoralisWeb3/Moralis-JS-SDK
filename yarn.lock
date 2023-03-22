@@ -14746,15 +14746,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-cjs-e2e@workspace:demos/cli-cjs":
-  version: 0.0.0-use.local
-  resolution: "cli-cjs-e2e@workspace:demos/cli-cjs"
-  dependencies:
-    dotenv: ^16.0.3
-    moralis: ^2.17.0
-  languageName: unknown
-  linkType: soft
-
 "cli-color@npm:0.3.2":
   version: 0.3.2
   resolution: "cli-color@npm:0.3.2"
@@ -14797,15 +14788,6 @@ __metadata:
   checksum: ab3f3ea2076e2176a1da29f9d64f72ec3efad51c0960898b56c8a17671365c26e67b735920530eaf7328d61f8bd41c27f46b9cf6e4e10fe2fa44b5e8c0e392cc
   languageName: node
   linkType: hard
-
-"cli-esm-e2e@workspace:demos/cli-esm":
-  version: 0.0.0-use.local
-  resolution: "cli-esm-e2e@workspace:demos/cli-esm"
-  dependencies:
-    dotenv: ^16.0.3
-    moralis: ^2.17.0
-  languageName: unknown
-  linkType: soft
 
 "cli-spinners@npm:2.6.1":
   version: 2.6.1
@@ -16529,6 +16511,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"demo-cli-cjs@workspace:demos/cli-cjs":
+  version: 0.0.0-use.local
+  resolution: "demo-cli-cjs@workspace:demos/cli-cjs"
+  dependencies:
+    dotenv: ^16.0.3
+    moralis: ^2.17.0
+  languageName: unknown
+  linkType: soft
+
+"demo-cli-esm@workspace:demos/cli-esm":
+  version: 0.0.0-use.local
+  resolution: "demo-cli-esm@workspace:demos/cli-esm"
+  dependencies:
+    dotenv: ^16.0.3
+    moralis: ^2.17.0
+  languageName: unknown
+  linkType: soft
+
 "demo-cli@workspace:demos/cli":
   version: 0.0.0-use.local
   resolution: "demo-cli@workspace:demos/cli"
@@ -16847,6 +16847,22 @@ __metadata:
     source-map-loader: ^4.0.1
     ts-loader: ^9.4.2
     typescript: ^4.9.3
+    webpack: ^5.75.0
+    webpack-cli: ^5.0.1
+  languageName: unknown
+  linkType: soft
+
+"demo-webpack@workspace:demos/webpack":
+  version: 0.0.0-use.local
+  resolution: "demo-webpack@workspace:demos/webpack"
+  dependencies:
+    cypress: ^12.8.0
+    dotenv: ^16.0.3
+    http-server: ^14.1.1
+    moralis: ^2.17.0
+    start-server-and-test: ^2.0.0
+    ts-loader: ^9.4.2
+    typescript: ^4.9.4
     webpack: ^5.75.0
     webpack-cli: ^5.0.1
   languageName: unknown
@@ -36379,22 +36395,6 @@ __metadata:
   checksum: b7601a39ee0f413988259e29a36835b0a68522cfaa161de5b7ec99b3399acdd99d44189add4aaf4a5191258bb130f9cf3e68919324a1955c7557f5fe6ab0d96c
   languageName: node
   linkType: hard
-
-"webpack-e2e@workspace:demos/webpack":
-  version: 0.0.0-use.local
-  resolution: "webpack-e2e@workspace:demos/webpack"
-  dependencies:
-    cypress: ^12.8.0
-    dotenv: ^16.0.3
-    http-server: ^14.1.1
-    moralis: ^2.17.0
-    start-server-and-test: ^2.0.0
-    ts-loader: ^9.4.2
-    typescript: ^4.9.4
-    webpack: ^5.75.0
-    webpack-cli: ^5.0.1
-  languageName: unknown
-  linkType: soft
 
 "webpack-manifest-plugin@npm:^4.0.2":
   version: 4.1.1

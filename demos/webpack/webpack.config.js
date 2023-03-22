@@ -5,6 +5,7 @@ require('dotenv').config({ path: './.env' });
 
 function bundle(fileName) {
   return {
+    cache: false,
     entry: `./src/${fileName}.ts`,
     module: {
       rules: [
