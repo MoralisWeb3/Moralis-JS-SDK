@@ -21,6 +21,7 @@ describe('getNFTOwnersOperation', () => {
       cursor: 'CURSOR1',
       normalizeMetadata: false,
       disableTotal: true,
+      mediaItems: true,
     };
 
     const serializedRequest = getNFTOwnersOperation.serializeRequest(request, core);

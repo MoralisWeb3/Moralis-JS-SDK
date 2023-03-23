@@ -27,6 +27,47 @@ describe('getWalletNFTs', () => {
       expect(response?.token_hash).toBe('502cee781b0fb40ea02508b21d319ced');
     });
 
+    it('should get response when requesting media items (processing)', async () => {
+      const { result } = await EvmApi.nft.getWalletNFTs({
+        address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+        mediaItems: true,
+        limit: 1,
+      });
+
+      const nft = result[0];
+
+      expect(nft.media).toBeDefined();
+      expect(nft.media?.status).toBe('processing');
+      expect(nft.media?.originalMediaUrl).toBe(
+        'https://i.seadn.io/gcs/files/4c1618ad9dfd7bfe280c82354ce07812.png?w=500&auto=format',
+      );
+    });
+
+    it('should get response when requesting media items (success)', async () => {
+      const { result } = await EvmApi.nft.getWalletNFTs({
+        address: '0x00625c59f4a63a1352612663eb2a6717bfa8433b',
+        mediaItems: true,
+        limit: 1,
+      });
+
+      const nft = result[0];
+
+      expect(nft.media).toBeDefined();
+      expect(nft.media?.status).toBe('success');
+      expect(nft.media?.originalMediaUrl).toBe(
+        'https://i.seadn.io/gcs/files/4c1618ad9dfd7bfe280c82354ce07812.png?w=500&auto=format',
+      );
+      expect(nft.media?.category).toBe('image');
+      expect(nft.media?.mimetype).toBe('image/png');
+      expect(nft.media?.parentHash).toBe('0x4df48bc51cd3fecb22c69a79bffc1dbad03def485aa8e0bb3eaabd9d8516e627');
+      expect(nft.media?.updatedAt.toISOString()).toBe('2023-03-22T14:58:14.880Z');
+      expect(nft.media?.mediaCollection?.high.url).toBe(
+        'https://nft-preview-media.s3.us-east-1.amazonaws.com/evm/0x1/0x495f947276749ce646f68ac8c248420045cb7b5e/0x21679e75b63fa1774f87b8a83294991f5b93430566f60f364947b8839b81056d/high.png',
+      );
+      expect(nft.media?.mediaCollection?.high.width).toBe(500);
+      expect(nft.media?.mediaCollection?.high.height).toBe(500);
+    });
+
     it('should not get the NFTs and throw a 400 Error on invalid address', async () => {
       const failedResult = await EvmApi.nft
         .getWalletNFTs({

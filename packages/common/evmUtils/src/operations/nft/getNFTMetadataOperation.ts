@@ -1,5 +1,5 @@
-import { Core, Camelize, Operation, toCamelCase, ResponseAdapter } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
+import { Core, Camelize, Operation, toCamelCase, ResponseAdapter, maybe } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft, EvmNftMedia } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -44,7 +44,7 @@ export const getNFTMetadataOperation: Operation<
   isNullable: true,
   urlPathPattern: '/nft/{address}/{tokenId}',
   urlPathParamNames: ['address', 'tokenId'],
-  urlSearchParamNames: ['chain', 'format', 'normalizeMetadata'],
+  urlSearchParamNames: ['chain', 'format', 'normalizeMetadata', 'mediaItems'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -61,17 +61,30 @@ function getRequestUrlParams(request: GetNFTMetadataRequest, core: Core) {
     tokenId: request.tokenId,
     format: request.format,
     normalizeMetadata: request.normalizeMetadata,
+    media_items: request.mediaItems,
   };
 }
 
 function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse, request: GetNFTMetadataRequest, core: Core) {
+  const chain = EvmChainResolver.resolve(request.chain, core);
+  const nft = toCamelCase(jsonResponse);
+
   return EvmNft.create(
     {
-      ...toCamelCase(jsonResponse),
+      ...nft,
       chain: EvmChainResolver.resolve(request.chain, core),
-      ownerOf: jsonResponse.owner_of ? EvmAddress.create(jsonResponse.owner_of, core) : undefined,
-      lastMetadataSync: jsonResponse.last_metadata_sync ? new Date(jsonResponse.last_metadata_sync) : undefined,
-      lastTokenUriSync: jsonResponse.last_token_uri_sync ? new Date(jsonResponse.last_token_uri_sync) : undefined,
+      ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf, core) : undefined,
+      lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
+      lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
+      media: maybe(nft.media, (media) =>
+        EvmNftMedia.create(
+          {
+            chain,
+            ...toCamelCase(media),
+          },
+          core,
+        ),
+      ),
     },
     core,
   );
@@ -84,6 +97,7 @@ function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
     address: EvmAddress.create(request.address, core).checksum,
     tokenId: request.tokenId,
     normalizeMetadata: request.normalizeMetadata,
+    mediaItems: request.mediaItems,
   };
 }
 
@@ -94,5 +108,6 @@ function deserializeRequest(jsonRequest: GetNFTMetadataJSONRequest, core: Core):
     address: EvmAddress.create(jsonRequest.address, core),
     tokenId: jsonRequest.tokenId,
     normalizeMetadata: jsonRequest.normalizeMetadata,
+    mediaItems: jsonRequest.mediaItems,
   };
 }

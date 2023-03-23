@@ -6,7 +6,7 @@ import {
   maybe,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft, EvmNftMedia } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -50,7 +50,7 @@ export const getNFTOwnersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/owners',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'normalizeMetadata', 'disableTotal'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'normalizeMetadata', 'disableTotal', 'mediaItems'],
   firstPageIndex: 1,
 
   getRequestUrlParams,
@@ -70,22 +70,35 @@ function getRequestUrlParams(request: GetNFTOwnersRequest, core: Core) {
     cursor: request.cursor,
     normalizeMetadata: request.normalizeMetadata,
     disable_total: request.disableTotal,
+    media_items: request.mediaItems,
   };
 }
 
 function deserializeResponse(jsonResponse: GetNFTOwnersJSONResponse, request: GetNFTOwnersRequest, core: Core) {
-  return (jsonResponse.result ?? []).map((nft) =>
-    EvmNft.create(
+  return (jsonResponse.result ?? []).map((data) => {
+    const chain = EvmChainResolver.resolve(request.chain, core);
+    const nft = toCamelCase(data);
+
+    return EvmNft.create(
       {
-        ...toCamelCase(nft),
+        ...nft,
         chain: EvmChainResolver.resolve(request.chain, core),
-        ownerOf: EvmAddress.create(nft.owner_of, core),
-        lastMetadataSync: new Date(nft.last_metadata_sync),
-        lastTokenUriSync: new Date(nft.last_token_uri_sync),
+        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        lastMetadataSync: new Date(nft.lastMetadataSync),
+        lastTokenUriSync: new Date(nft.lastTokenUriSync),
+        media: maybe(nft.media, (media) =>
+          EvmNftMedia.create(
+            {
+              chain,
+              ...toCamelCase(media),
+            },
+            core,
+          ),
+        ),
       },
       core,
-    ),
-  );
+    );
+  });
 }
 
 function serializeRequest(request: GetNFTOwnersRequest, core: Core) {
@@ -97,6 +110,7 @@ function serializeRequest(request: GetNFTOwnersRequest, core: Core) {
     address: EvmAddress.create(request.address, core).checksum,
     normalizeMetadata: request.normalizeMetadata,
     disableTotal: request.disableTotal,
+    mediaItems: request.mediaItems,
   };
 }
 
@@ -109,5 +123,6 @@ function deserializeRequest(jsonRequest: GetNFTOwnersJSONRequest, core: Core): G
     address: EvmAddress.create(jsonRequest.address, core),
     normalizeMetadata: jsonRequest.normalizeMetadata,
     disableTotal: jsonRequest.disableTotal,
+    mediaItems: jsonRequest.mediaItems,
   };
 }

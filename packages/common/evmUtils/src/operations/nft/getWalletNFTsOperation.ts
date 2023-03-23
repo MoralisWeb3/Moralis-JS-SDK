@@ -5,8 +5,9 @@ import {
   dateInputToDate,
   maybe,
   PaginatedResponseAdapter,
+  toCamelCase,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNft, EvmNftMedia } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -55,7 +56,16 @@ export const getWalletNFTsOperation: PaginatedOperation<
   firstPageIndex: 1,
   urlPathPattern: '/{address}/nft',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'tokenAddresses', 'cursor', 'normalizeMetadata', 'disableTotal'],
+  urlSearchParamNames: [
+    'chain',
+    'format',
+    'limit',
+    'tokenAddresses',
+    'cursor',
+    'normalizeMetadata',
+    'disableTotal',
+    'mediaItems',
+  ],
 
   getRequestUrlParams,
   serializeRequest,
@@ -75,29 +85,44 @@ function getRequestUrlParams(request: GetWalletNFTsRequest, core: Core) {
     cursor: request.cursor,
     normalizeMetadata: request.normalizeMetadata,
     disable_total: request.disableTotal,
+    media_items: request.mediaItems,
   };
 }
 
 function deserializeResponse(jsonResponse: GetWalletNFTsJSONResponse, request: GetWalletNFTsRequest, core: Core) {
-  return (jsonResponse.result ?? []).map((nft) =>
-    EvmNft.create({
-      chain: EvmChainResolver.resolve(request.chain, core),
-      contractType: nft.contract_type,
-      tokenAddress: nft.token_address,
-      tokenId: nft.token_id,
-      tokenUri: nft.token_uri,
-      metadata: nft.metadata,
-      name: nft.name,
-      symbol: nft.symbol,
-      amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-      blockNumberMinted: nft.block_number_minted,
-      blockNumber: nft.block_number,
-      ownerOf: EvmAddress.create(nft.owner_of, core),
-      tokenHash: nft.token_hash,
-      lastMetadataSync: dateInputToDate(nft.last_metadata_sync),
-      lastTokenUriSync: dateInputToDate(nft.last_token_uri_sync),
-    }),
-  );
+  return (jsonResponse.result ?? []).map((data) => {
+    const nft = toCamelCase(data);
+    const chain = EvmChainResolver.resolve(request.chain, core);
+    return EvmNft.create(
+      {
+        chain: chain,
+        contractType: nft.contractType,
+        tokenAddress: nft.tokenAddress,
+        tokenId: nft.tokenId,
+        tokenUri: nft.tokenUri,
+        metadata: nft.metadata,
+        name: nft.name,
+        symbol: nft.symbol,
+        amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
+        blockNumberMinted: nft.blockNumberMinted,
+        blockNumber: nft.blockNumber,
+        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        tokenHash: nft.tokenHash,
+        lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
+        lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
+        media: maybe(nft.media, (media) =>
+          EvmNftMedia.create(
+            {
+              chain,
+              ...toCamelCase(media),
+            },
+            core,
+          ),
+        ),
+      },
+      core,
+    );
+  });
 }
 
 function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
@@ -110,6 +135,7 @@ function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
     address: EvmAddress.create(request.address, core).checksum,
     normalizeMetadata: request.normalizeMetadata,
     disableTotal: request.disableTotal,
+    mediaItems: request.mediaItems,
   };
 }
 
@@ -125,5 +151,6 @@ function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest, core: Core): 
     address: EvmAddress.create(jsonRequest.address, core),
     normalizeMetadata: jsonRequest.normalizeMetadata,
     disableTotal: jsonRequest.disableTotal,
+    mediaItems: jsonRequest.mediaItems,
   };
 }

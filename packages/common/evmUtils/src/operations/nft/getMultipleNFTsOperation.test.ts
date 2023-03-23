@@ -29,6 +29,7 @@ describe('getContractNfTsOperation', () => {
           tokenId: tokenId2,
         },
       ],
+      mediaItems: true,
     };
 
     const serializedRequest = getMultipleNFTsOperation.serializeRequest(request, core);

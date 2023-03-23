@@ -14,6 +14,7 @@ export * from './EvmInternalTransaction';
 export * from './EvmNative';
 export * from './EvmNft';
 export * from './EvmNftCollection';
+export * from './EvmNftMedia';
 export * from './EvmNftMetadata';
 export * from './EvmNftTrade';
 export * from './EvmNftTransfer';

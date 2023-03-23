@@ -23,6 +23,7 @@ describe('getWalletNFTsOperation', () => {
       cursor: 'CURSOR1',
       normalizeMetadata: false,
       disableTotal: true,
+      mediaItems: true,
     };
 
     const serializedRequest = getWalletNFTsOperation.serializeRequest(request, core);

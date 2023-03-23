@@ -10,6 +10,7 @@ import Core, {
 } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
+import { EvmNftMedia } from '../EvmNftMedia';
 import { EvmNftData, EvmNftInput } from './types';
 
 /**
@@ -65,6 +66,7 @@ export class EvmNft implements MoralisDataObject {
     lastMetadataSync: maybe(data.lastMetadataSync, dateInputToDate),
     lastTokenUriSync: maybe(data.lastTokenUriSync, dateInputToDate),
     amount: maybe(data.amount, (value) => +value),
+    media: maybe(data.media, (value) => EvmNftMedia.create(value, core)),
   });
 
   /**
@@ -149,6 +151,7 @@ export class EvmNft implements MoralisDataObject {
       ownerOf: data.ownerOf?.format(),
       blockNumberMinted: data.blockNumberMinted?.toString(),
       blockNumber: data.blockNumber?.toString(),
+      media: data.media?.format(),
     };
   }
 
@@ -333,5 +336,16 @@ export class EvmNft implements MoralisDataObject {
    */
   get tokenId() {
     return this._data.tokenId;
+  }
+
+  /**
+   * @returns the processed media of the NFT
+   * @example
+   * ```
+   * nft.media // EvmNftMedia
+   * ```
+   */
+  get media() {
+    return this._data.media;
   }
 }
