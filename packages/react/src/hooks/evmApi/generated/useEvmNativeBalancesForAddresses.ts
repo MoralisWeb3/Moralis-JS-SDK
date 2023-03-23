@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNativeBalancesForAddressesParams = Partial<GetNativeBalancesForAddressesRequest>;
 export type UseEvmNativeBalancesForAddressesQueryOptions = QueryOptions<GetNativeBalancesForAddressesResponse, UseEvmNativeBalancesForAddressesParams>;
 
-export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, walletAddresses }: UseEvmNativeBalancesForAddressesParams = {}, queryOptions: UseEvmNativeBalancesForAddressesQueryOptions = {}) {
+export function useEvmNativeBalancesForAddresses({ chain, toBlock, walletAddresses }: UseEvmNativeBalancesForAddressesParams = {}, queryOptions: UseEvmNativeBalancesForAddressesQueryOptions = {}) {
   const resolver = useOperationResolver(getNativeBalancesForAddressesOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNativeBalancesForAddresses({ chain, providerUrl, toBlock, 
     return [
       getNativeBalancesForAddressesOperation.id,
       {
-        chain, providerUrl, toBlock, walletAddresses
+        chain, toBlock, walletAddresses
       },
     ];
-  }, [chain, providerUrl, toBlock, walletAddresses]);
+  }, [chain, toBlock, walletAddresses]);
 
   return useQuery({
     ...queryOptions,
