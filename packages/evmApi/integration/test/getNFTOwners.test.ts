@@ -29,6 +29,43 @@ describe('getNFTOwners', () => {
       expect(response?.symbol).toBe('RARI');
     });
 
+    it('should get response when requesting media items (processing)', async () => {
+      const { result } = await EvmApi.nft.getNFTOwners({
+        address: '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
+        mediaItems: true,
+        limit: 1,
+      });
+
+      const nft = result[0];
+
+      expect(nft.media).toBeDefined();
+      expect(nft.media?.status).toBe('processing');
+      expect(nft.media?.originalMediaUrl).toBe('https://www.larvalabs.com/cryptopunks/cryptopunk5196.png');
+    });
+
+    it('should get response when requesting media items (success)', async () => {
+      const { result } = await EvmApi.nft.getNFTOwners({
+        address: '0x00625C59F4a63A1352612663eB2a6717bFa8433B',
+        mediaItems: true,
+        limit: 1,
+      });
+
+      const nft = result[0];
+
+      expect(nft.media).toBeDefined();
+      expect(nft.media?.status).toBe('success');
+      expect(nft.media?.originalMediaUrl).toBe('https://www.larvalabs.com/cryptopunks/cryptopunk2318.png');
+      expect(nft.media?.category).toBe('image');
+      expect(nft.media?.mimetype).toBe('image/png');
+      expect(nft.media?.parentHash).toBe('0x214d595a6f82929f2c202ce5ebea95525c2368b8106ffb5b911ef5fa80c63f7a');
+      expect(nft.media?.updatedAt.toISOString()).toBe('2023-03-22T15:51:25.836Z');
+      expect(nft.media?.mediaCollection?.high.url).toBe(
+        'https://nft-preview-media.s3.us-east-1.amazonaws.com/evm/0x1/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/0x07b2dc02b9684b0238e4c00fd4c0a9bb1383ffc2a13adf506c81cc13b5a9787a/high.png',
+      );
+      expect(nft.media?.mediaCollection?.high.width).toBe(500);
+      expect(nft.media?.mediaCollection?.high.height).toBe(500);
+    });
+
     it('should not return a collection of NFT owners when an invalid address is provided', async () => {
       const failedResult = await EvmApi.nft
         .getNFTOwners({

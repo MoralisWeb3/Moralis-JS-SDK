@@ -22,6 +22,7 @@ describe('getNFTTokenIdOwnersOperation', () => {
       limit: 333,
       normalizeMetadata: false,
       disableTotal: true,
+      mediaItems: true,
     };
 
     const serializedRequest = getNFTTokenIdOwnersOperation.serializeRequest(request, core);

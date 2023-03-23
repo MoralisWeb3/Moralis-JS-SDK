@@ -934,6 +934,11 @@ export interface components {
        * @example false
        */
       normalizeMetadata?: boolean;
+      /**
+       * @description Should preview media data be returned?
+       * @example false
+       */
+      media_items?: boolean;
     };
     transactionCollection: {
       /**
@@ -1308,6 +1313,8 @@ export interface components {
       metadata?: string;
       /** @description A normalized metadata version of the NFT's metadata. */
       normalized_metadata?: components["schemas"]["normalizedMetadata"];
+      /** @description A set of links to 'thumbnail / preview' media files */
+      media?: components["schemas"]["media"];
       /**
        * @description The address that minted the NFT
        * @example 0x9c83ff0f1c8924da96cb2fcb7e093f78eb2e316b
@@ -1532,6 +1539,8 @@ export interface components {
       metadata?: string;
       /** @description A normalized metadata version of the NFT's metadata. */
       normalized_metadata?: components["schemas"]["normalizedMetadata"];
+      /** @description A set of links to 'thumbnail / preview' media files */
+      media?: components["schemas"]["media"];
       /**
        * @description The number of this item the user owns (used by ERC1155)
        * @example 1
@@ -1622,6 +1631,38 @@ export interface components {
        */
       animation_url?: string;
       attributes?: components["schemas"]["normalizedMetadataAttribute"][];
+    };
+    mediaItem: {
+      /** @description The width of the preview image. */
+      width: number;
+      /** @description The height of the preview image. */
+      height: number;
+      /** @description The url of the preview file. */
+      url: string;
+    };
+    mediaCollection: {
+      /** @description Information about the original media file */
+      original: components["schemas"]["mediaItem"];
+      /** @description Preview media file, lowest quality (for images 100px x 100px) */
+      low: components["schemas"]["mediaItem"];
+      /** @description Preview media file, medium quality (for images 250px x 250px) */
+      medium: components["schemas"]["mediaItem"];
+      /** @description Preview media file, highest quality (for images 500px x 500px) */
+      high: components["schemas"]["mediaItem"];
+    };
+    media: {
+      status: string;
+      updatedAt: string;
+      /** @description The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types] */
+      mimetype: string;
+      /** @enum {undefined} */
+      category: "image" | "audio" | "video";
+      /** @description The url of the original media file. */
+      original_media_url: string;
+      /** @description Hash value of the original media file. */
+      parent_hash: string;
+      /** @description Preview item associated with the original */
+      media_collection: components["schemas"]["mediaCollection"];
     };
     nftOwnerCollection: {
       /**
@@ -2191,6 +2232,8 @@ export interface operations {
         cursor?: string;
         /** Should normalized metadata be returned? */
         normalizeMetadata?: boolean;
+        /** Should preview media data be returned? */
+        media_items?: boolean;
       };
       path: {
         /** The address of the wallet */
@@ -2324,6 +2367,8 @@ export interface operations {
         cursor?: string;
         /** Should normalized metadata be returned? */
         normalizeMetadata?: boolean;
+        /** Should preview media data be returned? */
+        media_items?: boolean;
       };
       path: {
         /** The address of the NFT contract */
@@ -2358,6 +2403,8 @@ export interface operations {
         cursor?: string;
         /** Should normalized metadata be returned? */
         normalizeMetadata?: boolean;
+        /** Should preview media data be returned? */
+        media_items?: boolean;
       };
       path: {
         /** The address of the NFT contract */
@@ -2588,6 +2635,8 @@ export interface operations {
         format?: "decimal" | "hex";
         /** Should normalized metadata be returned? */
         normalizeMetadata?: boolean;
+        /** Should preview media data be returned? */
+        media_items?: boolean;
       };
       path: {
         /** The address of the NFT contract */
@@ -2655,6 +2704,8 @@ export interface operations {
         cursor?: string;
         /** Should normalized metadata be returned? */
         normalizeMetadata?: boolean;
+        /** Should preview media data be returned? */
+        media_items?: boolean;
       };
       path: {
         /** The address of the NFT contract */
