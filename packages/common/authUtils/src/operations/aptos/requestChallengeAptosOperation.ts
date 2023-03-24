@@ -13,9 +13,9 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 // Exports
 
 export interface RequestChallengeAptosRequest
-  extends Camelize<Omit<RequestParams, 'address' | 'chainId' | 'expirationTime' | 'notBefore'>> {
+  extends Camelize<Omit<RequestParams, 'address' | 'network' | 'expirationTime' | 'notBefore'>> {
   address: AptosAddressInput;
-  chainId: AptosNetworkInput;
+  network: AptosNetworkInput;
   expirationTime?: DateInput;
   notBefore?: DateInput;
 }
@@ -43,7 +43,7 @@ export const requestChallengeAptosOperation: Operation<
   urlPathPattern: '/challenge/request/aptos',
   bodyParamNames: [
     'domain',
-    'chainId',
+    'network',
     'address',
     'statement',
     'uri',
@@ -71,7 +71,7 @@ function getRequestUrlParams() {
 function getRequestBody(request: RequestChallengeAptosRequest) {
   return {
     domain: request.domain,
-    chainId: AptosNetwork.create(request.chainId).toString(),
+    network: AptosNetwork.create(request.network).toString(),
     address: AptosAddress.create(request.address).toString(),
     publicKey: request.publicKey,
     statement: request.statement,
@@ -90,7 +90,7 @@ function deserializeResponse(jsonResponse: RequestChallengeAptosJSONResponse) {
 function serializeRequest(request: RequestChallengeAptosRequest, core: Core) {
   return {
     domain: request.domain,
-    chainId: AptosNetworkResolver.resolve(request.chainId, core),
+    network: AptosNetworkResolver.resolve(request.network, core),
     address: AptosAddress.create(request.address).toString(),
     publicKey: request.publicKey,
     statement: request.statement,
@@ -105,7 +105,7 @@ function serializeRequest(request: RequestChallengeAptosRequest, core: Core) {
 function deserializeRequest(jsonRequest: RequestChallengeAptosJSONRequest): RequestChallengeAptosRequest {
   return {
     domain: jsonRequest.domain,
-    chainId: AptosNetwork.create(jsonRequest.chainId),
+    network: AptosNetwork.create(jsonRequest.network),
     address: AptosAddress.create(jsonRequest.address),
     publicKey: jsonRequest.publicKey,
     statement: jsonRequest.statement,
