@@ -1,6 +1,6 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Image from 'next/image';
 import styles from './Header.module.css';
+import Account from '../Account';
 
 export default function Header() {
     return (
@@ -9,7 +9,7 @@ export default function Header() {
                 <Image width={150} height={45} src="/Moralis.svg" className={styles.logo} alt="Moralis logo" />
             </a>
             <div>
-                <ConnectButton />
+                <Account />
             </div>
         </header>
     );

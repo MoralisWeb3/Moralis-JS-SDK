@@ -1,124 +1,27 @@
-{{!-- Evm Template --}}
-{{#if isEvm}}
-{{#if hasRainbowkit}}
-    import { RainbowKitProvider, Theme, darkTheme, getDefaultWallets } from '@rainbow-me/rainbowkit';
-    import '@rainbow-me/rainbowkit/styles.css';
-    import merge from 'lodash.merge';
-{{/if}}
-
-{{#if hasWagmi}}
-    import { WagmiConfig, configureChains, createClient } from 'wagmi';
-    import { arbitrum, mainnet, optimism, polygon } from 'wagmi/chains';
-    import { publicProvider } from 'wagmi/providers/public';
-{{/if}}
-
-{{#if hasWagmi}}
-    import { InjectedConnector } from 'wagmi/connectors/injected'
-{{/if}}
-
+{{ files._app.imports }}
 import { MoralisConfig, MoralisProvider } from '@moralisweb3/react';
 import type { AppProps } from 'next/app';
 import '../styles/globals.css';
-
 
 const moralisConfig: MoralisConfig = {
     apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY as string,
 };
 
-const { chains, provider } = configureChains([mainnet, polygon, optimism, arbitrum], [publicProvider()]);
-
-{{#if hasRainbowkit}}
-    const { connectors } = getDefaultWallets({
-        appName: 'My RainbowKit App',
-        chains,
-    });
-    const rainbowTheme: Theme = merge(darkTheme(), {
-       colors: {
-           connectButtonBackground: '#19212c',
-        },
-    });
-{{/if}}
-
-{{#if hasWagmi}}{{#unless hasRainbowkit}}
-    const connectors = [new InjectedConnector()];
-{{/if}}
-
-{{#if hasWagmi}}
-    const wagmiClient = createClient({
-        autoConnect: true,
-        connectors,
-        provider,
-    });
-{{/if}}
+{{ files._app.configs }}
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        {{#if hasWagmi}}<WagmiConfig client={wagmiClient}>{{/if}}
-            {{#if hasRainbowkit}}<RainbowKitProvider chains={chains} theme={rainbowTheme}>{{/if}}
+        {{#each files._app.wrappers}}
+            <{{ this.name }}{{#each this.props}} {{ this.name }}={ {{ this.value }} }{{/each}}>
+        {{/each}}
                 <MoralisProvider config={moralisConfig}>
                     <Component {...pageProps} />
                 </MoralisProvider>
-            {{#if hasRainbowkit}}</RainbowKitProvider>{{/if}}
-        {{#if hasWagmi}}</WagmiConfig>{{/if}}
+        {{#each (reverse files._app.wrappers)}}
+            </{{ this.name }}>
+        {{/each}}
     );
 }
 
 export default MyApp;
-{{/if}}
 
-{{!-- Solana Template --}}
-{{#if isSolana}}
-import { MoralisConfig, MoralisProvider } from '@moralisweb3/react';
-import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
-import { FC, ReactNode, useMemo } from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-
-const moralisConfig: MoralisConfig = {
-    apiKey: import.meta.env.VITE_APP_MORALIS_API,
-};
-
-const SolanaAdapterContext: FC<{ children: ReactNode }> = ({ children }) => {
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-    const wallets = useMemo(
-        () => [new UnsafeBurnerWalletAdapter()],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
-    );
-
-    return (
-        <ConnectionProvider endpoint={endpoint}>
-            <WalletProvider wallets={wallets} autoConnect>
-                <WalletModalProvider>{children}</WalletModalProvider>
-            </WalletProvider>
-        </ConnectionProvider>
-    );
-};
-
-function MyApp({ Component, pageProps }: AppProps) {
-    return (
-        <SolanaAdapterContext>
-            <MoralisProvider config={moralisConfig}>
-                <Component {...pageProps} />
-            </MoralisProvider>
-        </SolanaAdapterContext>
-    );
-}
-
-export default MyApp;
-{{/if}}
-
-
-{{ configs }}
-function MyApp({ Component, pageProps }: AppProps) {
-    return (
-        {{ wrappers[0] }}
-            <MoralisProvider config={moralisConfig}>
-                <Component {...pageProps} />
-            </MoralisProvider>
-        {{ wrappers[1] }}
-    );
-}

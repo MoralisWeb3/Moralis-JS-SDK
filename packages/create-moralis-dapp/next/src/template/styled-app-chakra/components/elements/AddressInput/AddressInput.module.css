@@ -1,11 +1,17 @@
 .search_btn {
     border-bottom-right-radius: 0.375rem;
-    border-radius: 0;
     border-top-right-radius: 0.375rem;
+    border: none;
     height: 100%;
     padding: 0 1.2em;
     position: absolute;
     right: 0;
+    background: #00ad96;
+    cursor: pointer;
+}
+
+.search_btn:active {
+    background: #018977;
 }
 
 .address_input {
