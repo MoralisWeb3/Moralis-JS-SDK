@@ -24,6 +24,7 @@ const makeTestToken = (
     decimals: decimals,
     symbol: symbol,
     name: name,
+    possibleSpam: false,
   });
 
   return {
@@ -145,6 +146,7 @@ describe('Erc20Value', () => {
           logo: undefined,
           logoHash: undefined,
           thumbnail: undefined,
+          possibleSpam: false,
         },
       });
     });

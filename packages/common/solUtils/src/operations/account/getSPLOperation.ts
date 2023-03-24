@@ -52,6 +52,8 @@ function deserializeResponse(jsonResponse: GetSPLJSONResponse) {
       associatedTokenAddress: SolAddress.create(token.associatedTokenAddress),
       mint: SolAddress.create(token.mint),
       amount: SolNative.create(token.amountRaw, 'lamports'),
+      name: token.name,
+      symbol: token.symbol,
     };
   });
 }

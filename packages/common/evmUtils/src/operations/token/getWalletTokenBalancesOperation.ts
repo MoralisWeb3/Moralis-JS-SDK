@@ -79,6 +79,7 @@ function deserializeResponse(
           logo: token.logo,
           thumbnail: token.thumbnail,
           chain: EvmChainResolver.resolve(request.chain, core),
+          possibleSpam: token.possible_spam,
         },
       },
       core,

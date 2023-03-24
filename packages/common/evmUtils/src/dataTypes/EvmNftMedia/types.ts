@@ -2,6 +2,13 @@ import { DateInput } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '../EvmChain';
 
 export type EvmNftMediaCategory = 'image' | 'video' | 'audio';
+export type EvmNftMediaStatus =
+  | 'success'
+  | 'processing'
+  | 'unsupported_media'
+  | 'invalid_url'
+  | 'host_unavailable'
+  | 'temporarily_unavailable';
 
 export type EvmNftMediaItem = {
   height: number;
@@ -11,9 +18,9 @@ export type EvmNftMediaItem = {
 
 export interface EvmNftMediaInput {
   chain: EvmChainish;
-  status: string;
-  updatedAt: DateInput;
-  originalMediaUrl: string;
+  status?: EvmNftMediaStatus;
+  updatedAt?: DateInput;
+  originalMediaUrl?: string;
   category?: EvmNftMediaCategory;
   mimetype?: string;
   parentHash?: string;
@@ -26,9 +33,9 @@ export interface EvmNftMediaInput {
 
 export interface EvmNftMediaData {
   chain: EvmChain;
-  status: string;
-  updatedAt: Date;
-  originalMediaUrl: string;
+  status?: EvmNftMediaStatus;
+  updatedAt?: Date;
+  originalMediaUrl?: string;
   category?: EvmNftMediaCategory;
   mimetype?: string;
   parentHash?: string;

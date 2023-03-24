@@ -52,6 +52,7 @@ export const mockGetNFTOwners = MockScenarios.create(
                 },
               ],
             },
+            possible_spam: false,
             amount: '1',
             name: 'CryptoKitties',
             symbol: 'RARI',
@@ -92,6 +93,7 @@ export const mockGetNFTOwners = MockScenarios.create(
             last_token_uri_sync: null,
             last_metadata_sync: '2022-07-24T12:42:58.248Z',
             minter_address: null,
+            possible_spam: false,
             media: {
               original_media_url: 'https://www.larvalabs.com/cryptopunks/cryptopunk5196.png',
               status: 'processing',
@@ -131,6 +133,7 @@ export const mockGetNFTOwners = MockScenarios.create(
             last_token_uri_sync: null,
             last_metadata_sync: '2022-07-24T12:12:27.630Z',
             minter_address: '0xc352b534e8b987e036a93539fd6897f53488e56a',
+            possible_spam: false,
             media: {
               media_collection: {
                 low: {

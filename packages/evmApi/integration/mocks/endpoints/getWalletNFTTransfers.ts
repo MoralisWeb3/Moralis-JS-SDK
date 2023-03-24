@@ -40,6 +40,7 @@ export const mockGetWalletNFTTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
         ],
         block_exists: true,

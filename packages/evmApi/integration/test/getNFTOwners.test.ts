@@ -27,6 +27,7 @@ describe('getNFTOwners', () => {
       expect(response?.name).toBe('CryptoKitties');
       expect(response?.contract_type).toBe('ERC721');
       expect(response?.symbol).toBe('RARI');
+      expect(response?.possible_spam).toBe(false);
     });
 
     it('should get response when requesting media items (processing)', async () => {
@@ -58,7 +59,7 @@ describe('getNFTOwners', () => {
       expect(nft.media?.category).toBe('image');
       expect(nft.media?.mimetype).toBe('image/png');
       expect(nft.media?.parentHash).toBe('0x214d595a6f82929f2c202ce5ebea95525c2368b8106ffb5b911ef5fa80c63f7a');
-      expect(nft.media?.updatedAt.toISOString()).toBe('2023-03-22T15:51:25.836Z');
+      expect(nft.media?.updatedAt?.toISOString()).toBe('2023-03-22T15:51:25.836Z');
       expect(nft.media?.mediaCollection?.high.url).toBe(
         'https://nft-preview-media.s3.us-east-1.amazonaws.com/evm/0x1/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/0x07b2dc02b9684b0238e4c00fd4c0a9bb1383ffc2a13adf506c81cc13b5a9787a/high.png',
       );

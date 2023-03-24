@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmBlockParams = Partial<GetBlockRequest>;
 export type UseEvmBlockQueryOptions = QueryOptions<GetBlockResponse | null, UseEvmBlockParams>;
 
-export function useEvmBlock({ blockNumberOrHash, chain }: UseEvmBlockParams = {}, queryOptions: UseEvmBlockQueryOptions = {}) {
+export function useEvmBlock({ blockNumberOrHash, chain, include }: UseEvmBlockParams = {}, queryOptions: UseEvmBlockQueryOptions = {}) {
   const resolver = useNullableOperationResolver(getBlockOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmBlock({ blockNumberOrHash, chain }: UseEvmBlockParams = {}
     return [
       getBlockOperation.id,
       {
-        blockNumberOrHash, chain
+        blockNumberOrHash, chain, include
       },
     ];
-  }, [blockNumberOrHash, chain]);
+  }, [blockNumberOrHash, chain, include]);
 
   return useQuery({
     ...queryOptions,

@@ -39,6 +39,8 @@ export interface components {
     SPLTokenBalance: {
       associatedTokenAddress: string;
       mint: string;
+      name: string;
+      symbol: string;
       amount: string;
       amountRaw: string;
       decimals: number;
@@ -46,6 +48,8 @@ export interface components {
     SPLNFT: {
       associatedTokenAddress: string;
       mint: string;
+      name: string;
+      symbol: string;
     };
     Portfolio: {
       nativeBalance: components["schemas"]["NativeBalance"];
@@ -87,7 +91,9 @@ export interface operations {
   balance: {
     parameters: {
       path: {
+        /** The network to query */
         network: "mainnet" | "devnet";
+        /** The address for which the native balance will be checked */
         address: string;
       };
     };
@@ -108,7 +114,9 @@ export interface operations {
   getSPL: {
     parameters: {
       path: {
+        /** The network to query */
         network: "mainnet" | "devnet";
+        /** The address for which token balances will be checked */
         address: string;
       };
     };
@@ -129,7 +137,9 @@ export interface operations {
   getNFTs: {
     parameters: {
       path: {
+        /** The network to query */
         network: "mainnet" | "devnet";
+        /** The address of the contract */
         address: string;
       };
     };
@@ -150,8 +160,10 @@ export interface operations {
   getPortfolio: {
     parameters: {
       path: {
-        address: string;
+        /** The network to query */
         network: "mainnet" | "devnet";
+        /** The address of the token contract */
+        address: string;
       };
     };
     responses: {
@@ -171,8 +183,10 @@ export interface operations {
   getNFTMetadata: {
     parameters: {
       path: {
-        address: string;
+        /** The network to query */
         network: "mainnet" | "devnet";
+        /** The address of the contract */
+        address: string;
       };
     };
     responses: {
@@ -192,8 +206,10 @@ export interface operations {
   getTokenPrice: {
     parameters: {
       path: {
-        address: string;
+        /** The network to query */
         network: "mainnet";
+        /** The address of the token contract */
+        address: string;
       };
     };
     responses: {

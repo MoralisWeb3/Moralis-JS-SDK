@@ -15,6 +15,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  * thumbnail: null,
  * decimals: "6",
  * chain: 1,
+ * possibleSpam: false,
  * }
  * ```
  */
@@ -27,6 +28,7 @@ export interface Erc20Input {
   logo?: string | null;
   logoHash?: string | null;
   thumbnail?: string | null;
+  possibleSpam?: boolean;
 }
 
 /**
@@ -41,4 +43,5 @@ export interface Erc20Data {
   logo?: string | null;
   logoHash?: string | null;
   thumbnail?: string | null;
+  possibleSpam?: boolean;
 }

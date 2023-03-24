@@ -5,7 +5,7 @@ import {
 import { FetchParams } from '../types';
 import { useResolver } from '../resolvers';
 
-export type RequestChallengeAptosRequestClient = Pick<RequestChallengeAptosRequest, 'address' | 'chainId'>;
+export type RequestChallengeAptosRequestClient = Pick<RequestChallengeAptosRequest, 'address' | 'network'>;
 
 export const useAuthRequestChallengeAptos = (
   request?: RequestChallengeAptosRequestClient,

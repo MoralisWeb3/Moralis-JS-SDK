@@ -60,6 +60,7 @@ export const mockGetContractNFTs = MockScenarios.create(
             token_hash: '502cee781b0fb40ea02508b21d319ced',
             last_token_uri_sync: '2021-02-24T00:47:26.647Z',
             last_metadata_sync: '2021-02-24T00:47:26.647Z',
+            possible_spam: false,
           },
         ],
       },
@@ -99,6 +100,7 @@ export const mockGetContractNFTs = MockScenarios.create(
               status: 'processing',
               updatedAt: '2023-03-22T14:58:14.245Z',
             },
+            possible_spam: false,
           },
         ],
         status: 'SYNCED',
@@ -133,6 +135,7 @@ export const mockGetContractNFTs = MockScenarios.create(
             last_token_uri_sync: null,
             last_metadata_sync: '2022-10-05T17:55:52.262Z',
             minter_address: null,
+            possible_spam: false,
             media: {
               media_collection: {
                 low: {

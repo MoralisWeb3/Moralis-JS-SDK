@@ -27,6 +27,7 @@ export const mockGetTokenMetadata = MockScenarios.create(
           null,
           null,
           '2022-01-20T10:39:55.818Z',
+          false,
         ),
       ],
     },

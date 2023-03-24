@@ -23,5 +23,6 @@ describe('getTokenMetadata', () => {
     expect(metadata.token.name).toEqual('SHIBA INU');
     expect(metadata.token.symbol).toEqual('SHIB');
     expect(metadata.token.decimals).toEqual(18);
+    expect(metadata.token.possibleSpam).toBe(false);
   });
 });

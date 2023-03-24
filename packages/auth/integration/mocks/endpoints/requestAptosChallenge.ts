@@ -10,7 +10,7 @@ export const mockRequestAptosChallenge = MockScenarios.create(
     getParams: ({ reqBody }) => {
       return {
         domain: reqBody?.domain,
-        chainId: reqBody?.chainId,
+        network: reqBody?.network,
         address: reqBody?.address,
         publicKey: reqBody?.publicKey,
         statement: reqBody?.statement,
@@ -27,7 +27,7 @@ export const mockRequestAptosChallenge = MockScenarios.create(
     {
       condition: {
         domain: 'defi.finance',
-        chainId: 'mainnet',
+        network: 'mainnet',
         address: '0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d',
         publicKey: '0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d',
         statement: 'Please confirm',
@@ -47,7 +47,7 @@ export const mockRequestAptosChallenge = MockScenarios.create(
       condition: {
         statement: 'INVALID_ADDRESS',
         domain: 'defi.finance',
-        chain: 'mainnet',
+        network: 'mainnet',
         address: 'some-address',
         uri: 'https://defi.finance/',
         expirationTime: '2020-01-01T00:00:00.000Z',
@@ -63,7 +63,7 @@ export const mockRequestAptosChallenge = MockScenarios.create(
       condition: {
         statement: 'MULTI_ERROR',
         domain: 'defi.finance',
-        chain: 'mainnet',
+        network: 'mainnet',
         address: 'some-address',
         uri: 'finance',
         expirationTime: '2020-01-01T00:00:00.000Z',

@@ -39,6 +39,7 @@ describe('getWalletNFTTransfers', () => {
       expect(transfer0.toAddress?.lowercase).toBe('0xce5035d51237b4d72f6910d4ecb625e4fd6460ec');
       expect(transfer0.toAddress?.lowercase).toBe('0xce5035d51237b4d72f6910d4ecb625e4fd6460ec');
       expect(transfer0.amount).toBe(1);
+      expect(transfer0.possibleSpam).toBe(false);
     });
 
     it('should throw a 400 Error on invalid address', async () => {

@@ -23,6 +23,7 @@ import { EvmNftMedia, EvmNftMediaInput } from '../EvmNftMedia';
           tokenHash: nft.token_hash,
           lastMetadataSync: "date_string",
           lastTokenUriSync: "date_string",
+          possibleSpam: false
         }
  * ```
  */
@@ -46,6 +47,7 @@ export interface EvmNftInput {
   amount?: null | number | string;
 
   media?: EvmNftMedia | EvmNftMediaInput;
+  possibleSpam: boolean;
 }
 
 /**
@@ -71,4 +73,5 @@ export interface EvmNftData {
   amount?: number;
 
   media?: EvmNftMedia;
+  possibleSpam: boolean;
 }

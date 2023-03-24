@@ -11,10 +11,8 @@ type SuccessResponse = operations[OperationId]['responses']['201']['content']['a
 
 // Exports
 
-export interface RemoveBindRequest extends Camelize<Omit<RequestParams, 'address' | 'publicKey'>> {
+export interface RemoveBindRequest extends Camelize<Omit<RequestParams, 'address'>> {
   address: EvmAddressish;
-  // TODO: remove this after has been fixed in the swagger (publicKey is only required for Aptos)
-  publicKey?: string;
 }
 
 export type RemoveBindJSONRequest = ReturnType<typeof serializeRequest>;

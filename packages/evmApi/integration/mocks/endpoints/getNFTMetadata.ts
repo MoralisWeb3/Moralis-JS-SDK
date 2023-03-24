@@ -28,6 +28,7 @@ export const mockGetNFTMetadata = MockScenarios.create(
         contract_type: 'ERC721',
         token_uri: 'string',
         metadata: 'string',
+        possible_spam: false,
         normalized_metadata: {
           name: 'Moralis Mug',
           description:
@@ -77,6 +78,7 @@ export const mockGetNFTMetadata = MockScenarios.create(
         amount: '1',
         name: 'CryptoKitties',
         symbol: 'RARI',
+        possible_spam: false,
         media: {
           original_media_url: 'https://www.larvalabs.com/cryptopunks/cryptopunk015.png',
           status: 'processing',
@@ -106,6 +108,7 @@ export const mockGetNFTMetadata = MockScenarios.create(
         amount: '1',
         name: 'CryptoKitties',
         symbol: 'RARI',
+        possible_spam: false,
         media: {
           media_collection: {
             low: {

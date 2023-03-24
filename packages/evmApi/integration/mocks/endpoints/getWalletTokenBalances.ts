@@ -24,6 +24,7 @@ export const mockGetWalletTokenBalances = MockScenarios.create(
           'https://cdn.moralis.io/eth/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2_thumb.png',
           18,
           '795917396650797993089',
+          false,
         ),
         createTokenBalanceResponse(
           '0x514910771af9ca656af840dff83e8264ecf986ca',
@@ -33,6 +34,7 @@ export const mockGetWalletTokenBalances = MockScenarios.create(
           'https://cdn.moralis.io/eth/0x514910771af9ca656af840dff83e8264ecf986ca_thumb.png',
           18,
           '155304334804334409393921',
+          false,
         ),
       ],
     },

@@ -52,6 +52,7 @@ export const mockGetWalletNFTs = MockScenarios.create(
                 },
               ],
             },
+            possible_spam: false,
             amount: '1',
             name: 'CryptoKitties',
             symbol: 'RARI',
@@ -93,6 +94,8 @@ export const mockGetWalletNFTs = MockScenarios.create(
             last_token_uri_sync: '2023-03-22T14:57:55.980Z',
             last_metadata_sync: '2023-03-22T14:58:10.199Z',
             minter_address: "ERC1155 tokens don't have a single minter",
+            possible_spam: false,
+
             media: {
               original_media_url: 'https://i.seadn.io/gcs/files/4c1618ad9dfd7bfe280c82354ce07812.png?w=500&auto=format',
               status: 'processing',
@@ -134,6 +137,8 @@ export const mockGetWalletNFTs = MockScenarios.create(
             last_token_uri_sync: '2023-03-22T14:57:55.980Z',
             last_metadata_sync: '2023-03-22T14:58:10.199Z',
             minter_address: "ERC1155 tokens don't have a single minter",
+            possible_spam: false,
+
             media: {
               media_collection: {
                 low: {

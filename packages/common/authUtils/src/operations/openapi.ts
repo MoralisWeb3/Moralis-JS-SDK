@@ -467,18 +467,18 @@ export interface components {
        */
       timeout: number;
       /**
-       * @description An identifier that distinguishes the Aptos network deployments (to prevent cross-network attacks).
-       * @example 1
+       * @description The network where Contract Accounts must be resolved.
+       * @example mainnet
        * @enum {string}
        */
-      chainId: "1" | "2" | "3";
+      network: "mainnet" | "testnet";
       /**
-       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @description Aptos address performing the signing conformant.
        * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
        */
       address: string;
       /**
-       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @description Aptos public key performing the signing conformant.
        * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
        */
       publicKey: string;
@@ -590,18 +590,18 @@ export interface components {
        */
       profileId: string;
       /**
-       * @description An identifier that distinguishes the Aptos network deployments (to prevent cross-network attacks).
-       * @example 1
+       * @description The network where Contract Accounts must be resolved.
+       * @example mainnet
        * @enum {string}
        */
-      chainId: "1" | "2" | "3";
+      network: "mainnet" | "testnet";
       /**
-       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @description Aptos address performing the signing conformant.
        * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
        */
       address: string;
       /**
-       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @description Aptos public key performing the signing conformant.
        * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
        */
       publicKey: string;
@@ -614,15 +614,15 @@ export interface components {
        */
       blockchainType: "evm" | "solana" | "aptos";
       /**
-       * @description Unique identifier with a length of 66 characters
+       * @description Address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
        * @example 0x57af6B90c2237d2F888bf4CAe56f25FE1b14e531
        */
       address: string;
       /**
-       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @description Public key performing the signing conformant. (This is only needed for Aptos address)
        * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
        */
-      publicKey: string;
+      publicKey?: string;
     };
     BindRequestDto: {
       /** @description An array of addresses that needs to be bind */
@@ -676,15 +676,15 @@ export interface components {
        */
       blockchainType: "evm" | "solana" | "aptos";
       /**
-       * @description Unique identifier with a length of 66 characters
+       * @description Address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
        * @example 0x57af6B90c2237d2F888bf4CAe56f25FE1b14e531
        */
       address: string;
       /**
-       * @description Aptos address performing the signing conformant to capitalization encoded checksum specified in EIP-55 where applicable.
+       * @description Public key performing the signing conformant. (This is only needed for Aptos address)
        * @example 0xfb2853744bb8afd58d9386d1856afd8e08de135019961dfa3a10d8c9bf83b99d
        */
-      publicKey: string;
+      publicKey?: string;
       /**
        * @description Unique identifier with a length of 66 characters
        * @example 0xbfbcfab169c67072ff418133124480fea02175f1402aaa497daa4fd09026b0e1
