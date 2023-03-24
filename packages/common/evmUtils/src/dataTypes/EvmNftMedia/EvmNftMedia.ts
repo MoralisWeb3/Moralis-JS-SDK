@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import Core, { MoralisDataObject, dateInputToDate, CoreProvider, maybe } from '@moralisweb3/common-core';
 import { EvmChain } from '../EvmChain';
 import { EvmNftMediaInput, EvmNftMediaData } from './types';
 
@@ -16,7 +16,7 @@ export class EvmNftMedia implements MoralisDataObject {
    * const media = EvmNftMedia.create(data);
    *```
    */
-  static create(data: EvmNftMedia | EvmNftMediaInput, core?: Core) {
+  static create(data: EvmNftMediaInput, core?: Core) {
     if (data instanceof EvmNftMedia) {
       return data;
     }
@@ -34,7 +34,7 @@ export class EvmNftMedia implements MoralisDataObject {
   static parse = (data: EvmNftMediaInput, core: Core): EvmNftMediaData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    updatedAt: dateInputToDate(data.updatedAt),
+    updatedAt: maybe(data.updatedAt, (date) => dateInputToDate(date)),
   });
 
   /**

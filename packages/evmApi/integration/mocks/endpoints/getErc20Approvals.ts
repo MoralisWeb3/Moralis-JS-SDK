@@ -41,6 +41,7 @@ export const mockGetErc20Approvals = MockScenarios.create(
             transaction_index: '148',
             log_index: '356',
             value: '80000000000000000',
+            possible_spam: false,
           },
           {
             from_wallet: '0xbafa44efe7901e04e39dad13167d089c559c1138',
@@ -53,6 +54,7 @@ export const mockGetErc20Approvals = MockScenarios.create(
             transaction_index: '148',
             log_index: '355',
             value: '80000000000000000',
+            possible_spam: false,
           },
           {
             from_wallet: '0xa7ba1c6d5ffa3ce2542e04bc3e4b4021bcc2e134',
@@ -65,6 +67,7 @@ export const mockGetErc20Approvals = MockScenarios.create(
             transaction_index: '141',
             log_index: '340',
             value: '115792089237316195423570985008687907853269984665640563249457584007913129639935',
+            possible_spam: false,
           },
         ],
       },

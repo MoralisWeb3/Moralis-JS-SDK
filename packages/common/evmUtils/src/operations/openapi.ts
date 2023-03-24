@@ -502,6 +502,11 @@ export interface components {
        * @example 1234
        */
       value: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     erc20Burn: {
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
@@ -621,6 +626,11 @@ export interface components {
        * @example 1234
        */
       value: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     erc20TransfersResponse: {
       /** @description The cursor to get to the next page */
@@ -1221,6 +1231,11 @@ export interface components {
        * @example 123456789
        */
       balance: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nativeBalance: {
       /**
@@ -1711,28 +1726,39 @@ export interface components {
       url: string;
     };
     mediaCollection: {
-      /** @description Information about the original media file */
-      original: components["schemas"]["mediaItem"];
       /** @description Preview media file, lowest quality (for images 100px x 100px) */
       low: components["schemas"]["mediaItem"];
       /** @description Preview media file, medium quality (for images 250px x 250px) */
       medium: components["schemas"]["mediaItem"];
       /** @description Preview media file, highest quality (for images 500px x 500px) */
       high: components["schemas"]["mediaItem"];
+    } & {
+      original: unknown;
     };
     media: {
-      status: string;
-      updatedAt: string;
       /** @description The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types] */
-      mimetype: string;
+      mimetype?: string;
       /** @enum {undefined} */
-      category: "image" | "audio" | "video";
+      category?: "image" | "audio" | "video";
+      /**
+       * @description <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+       * @enum {undefined}
+       */
+      status?:
+        | "success"
+        | "processing"
+        | "unsupported_media"
+        | "invalid_url"
+        | "host_unavailable"
+        | "temporarily_unavailable";
       /** @description The url of the original media file. */
-      original_media_url: string;
+      original_media_url?: string;
+      /** @description The timestamp of the last update to this NFT media record. */
+      updatedAt?: string;
       /** @description Hash value of the original media file. */
-      parent_hash: string;
+      parent_hash?: string;
       /** @description Preview item associated with the original */
-      media_collection: components["schemas"]["mediaCollection"];
+      media_collection?: components["schemas"]["mediaCollection"];
     };
     nftOwnerCollection: {
       /**
@@ -1947,6 +1973,11 @@ export interface components {
        * @example 2
        */
       log_index: number;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     historicalNftTransfer: {
       /**
@@ -2032,6 +2063,11 @@ export interface components {
       thumbnail?: string;
       block_number?: string;
       validated?: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     metadataResync: {
       /** @description The status of the resync request */

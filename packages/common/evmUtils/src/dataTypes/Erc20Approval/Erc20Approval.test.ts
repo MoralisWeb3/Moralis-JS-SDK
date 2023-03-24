@@ -14,6 +14,7 @@ const exampleInput: Erc20ApprovalInput = {
   transactionHash: '0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf',
   transactionIndex: 4,
   logIndex: 25,
+  possibleSpam: false,
   value: '100000000000000000000000000000',
 };
 
@@ -43,6 +44,7 @@ describe('Erc20Approval', () => {
     expect(erc20Approval.transactionHash).toBe('0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf');
     expect(erc20Approval.transactionIndex).toBe(4);
     expect(erc20Approval.logIndex).toBe(25);
+    expect(erc20Approval.possibleSpam).toBe(false);
     expect(erc20Approval.value.toString()).toBe('100000000000000000000000000000');
   });
 
@@ -65,6 +67,7 @@ describe('Erc20Approval', () => {
       transactionHash: '0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf',
       transactionIndex: 4,
       logIndex: 25,
+      possibleSpam: false,
       value: '100000000000000000000000000000',
     });
   });

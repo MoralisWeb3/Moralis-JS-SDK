@@ -9,6 +9,7 @@ export const createTokenMetadataResponse = (
   blockNumber: string | null,
   validated: string | null,
   createdAt: string,
+  possibleSpam: false,
 ) => ({
   address,
   name,
@@ -20,4 +21,5 @@ export const createTokenMetadataResponse = (
   block_number: blockNumber,
   validated,
   created_at: createdAt,
+  possible_spam: possibleSpam,
 });
