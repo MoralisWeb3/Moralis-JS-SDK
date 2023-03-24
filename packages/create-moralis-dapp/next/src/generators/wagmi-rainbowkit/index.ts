@@ -1,49 +1,45 @@
-import { TemplateProcessor } from '@create-moralis-dapp/toolkit';
-import { Plugin } from '../../types';
-import { config, imports } from './templates';
+import { AppWrapper, Web3LibraryConfig } from '../../types';
+import { wagmiConfig } from '../wagmi';
 
-export function getRainbowkitPlugin(data: Record<string, any>): Plugin {
-  return {
-    id: 'rainbowkit',
-    files: {
-      _app: {
-        imports: TemplateProcessor.compileTemplate(imports, data),
-        config: TemplateProcessor.compileTemplate(config, data),
-        wrappers: [
-          {
-            name: 'RainbowKitProvider',
-            props: [
-              { name: 'chains', value: 'chains' },
-              { name: 'theme', value: 'rainbowTheme' },
-            ],
-          },
+export const wagmiWithRainbowKitConfig: Web3LibraryConfig = {
+  name: 'wagmi-with-rainbowkit',
+  template: wagmiConfig.template,
+  dependencies: [...(wagmiConfig.dependencies as string[]), 'wagmi', 'lodash.merge', '@rainbow-me/rainbowkit'],
+  _app: {
+    wrappers: [
+      ...(wagmiConfig._app.wrappers as AppWrapper[]),
+      {
+        name: 'RainbowKitProvider',
+        props: [
+          { name: 'chains', value: 'chains' },
+          { name: 'theme', value: 'rainbowTheme' },
         ],
       },
-    },
-    dependencies: ['lodash.merge', '@rainbow-me/rainbowkit'],
-  };
-}
-
-export class RainbowKitPlugin {
-  public static id = 'rainbowkit';
-
-  public static dependencies = ['lodash.merge', '@rainbow-me/rainbowkit'];
-
-  public static getModifications(data: Record<string, any>) {
-    return {
-      _app: {
-        imports: TemplateProcessor.compileTemplate(imports, data),
-        config: TemplateProcessor.compileTemplate(config, data),
-        wrappers: [
-          {
-            name: 'RainbowKitProvider',
-            props: [
-              { name: 'chains', value: 'chains' },
-              { name: 'theme', value: 'rainbowTheme' },
-            ],
-          },
-        ],
-      },
-    };
-  }
-}
+    ],
+    imports: `
+      import { WagmiConfig, configureChains, createClient } from 'wagmi';
+      import { arbitrum, mainnet, optimism, polygon } from 'wagmi/chains';
+      import { publicProvider } from 'wagmi/providers/public';
+      import { RainbowKitProvider, Theme, darkTheme, getDefaultWallets } from '@rainbow-me/rainbowkit';
+      import merge from 'lodash.merge';
+      import '@rainbow-me/rainbowkit/styles.css';
+    `,
+    configs: `
+      const { chains, provider } = configureChains([mainnet, polygon, optimism, arbitrum], [publicProvider()])
+      const { connectors } = getDefaultWallets({
+        appName: 'My RainbowKit App',
+        chains,
+      });
+      const wagmiClient = createClient({
+          autoConnect: true,
+          connectors,
+          provider,
+      });
+      const rainbowTheme: Theme = merge(darkTheme(), {
+        colors: {
+            connectButtonBackground: '#19212c',
+         },
+      });
+    `,
+  },
+};

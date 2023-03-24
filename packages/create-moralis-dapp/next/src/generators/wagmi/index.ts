@@ -1,35 +1,26 @@
-import { TemplateProcessor } from '@create-moralis-dapp/toolkit';
-import { Plugin } from '../../types';
-import { config, example, imports } from './templates';
+import path from 'path';
+import { Web3LibraryConfig } from '../../types';
 
-export function getWagmiPlugin(data: Record<string, any>): Plugin {
-  return {
-    id: 'wagmi',
-    files: {
-      _app: {
-        imports: TemplateProcessor.compileTemplate(imports, data),
-        config: TemplateProcessor.compileTemplate(config, data),
-        wrappers: [{ name: 'WagmiConfig', props: [{ name: 'client', value: 'wagmiClient' }] }],
-      },
-      example: TemplateProcessor.compileTemplate(example, data),
-    },
-    dependencies: ['ethers'],
-  };
-}
-
-export class WagmiPlugin {
-  public static id = 'wagmi';
-
-  public static dependencies = ['ethers'];
-
-  public static getModifications(data: Record<string, any>) {
-    return {
-      _app: {
-        imports: TemplateProcessor.compileTemplate(imports, data),
-        config: TemplateProcessor.compileTemplate(config, data),
-        wrappers: [{ name: 'WagmiConfig', props: [{ name: 'client', value: 'wagmiClient' }] }],
-      },
-      example: TemplateProcessor.compileTemplate(example, data),
-    };
-  }
-}
+export const wagmiConfig: Web3LibraryConfig = {
+  name: 'wagmi',
+  template: path.join(__dirname, 'template'),
+  dependencies: ['ethers'],
+  _app: {
+    wrappers: [{ name: 'WagmiConfig', props: [{ name: 'client', value: 'wagmiClient' }] }],
+    imports: `
+      import { WagmiConfig, configureChains, createClient } from 'wagmi';
+      import { arbitrum, mainnet, optimism, polygon } from 'wagmi/chains';
+      import { publicProvider } from 'wagmi/providers/public';
+      import { InjectedConnector } from 'wagmi/connectors/injected';
+    `,
+    configs: `
+      const connectors = [new InjectedConnector()];
+      const { provider } = configureChains([mainnet, polygon, optimism, arbitrum], [publicProvider()]);
+      const wagmiClient = createClient({
+          autoConnect: true,
+          connectors,
+          provider,
+      });
+    `,
+  },
+};

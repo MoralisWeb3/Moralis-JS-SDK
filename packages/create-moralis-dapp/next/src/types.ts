@@ -13,3 +13,18 @@ export interface Plugin {
   };
   dependencies: string[];
 }
+
+export type AppWrapper = { name: string; props?: { name: string; value: string }[] };
+export interface ModuleConfig {
+  name: string;
+  dependencies?: string[];
+  template: string;
+  _app: {
+    imports: string;
+    configs?: string;
+    wrappers?: AppWrapper[];
+  };
+}
+
+export interface StylingSystemConfig extends ModuleConfig {}
+export interface Web3LibraryConfig extends ModuleConfig {}

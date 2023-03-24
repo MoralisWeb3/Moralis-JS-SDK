@@ -1,26 +1,22 @@
-import { TemplateProcessor } from '@create-moralis-dapp/toolkit';
-import { config, connectWallet, imports } from './templates';
+import path from 'path';
+import { Web3LibraryConfig } from '../../types';
 
-export class Web3ReactPlugin {
-  public static id = 'web3-react';
-
-  public static dependencies = [
-    '@web3-react/core',
-    '@web3-react/injected-connector',
-    '@ethersproject/providers',
-    '@ethersproject/units',
-    '@web3-react/abstract-connector',
-    '@web3-react/injected-connector',
-  ];
-
-  public static getModifications(data: Record<string, any>) {
-    return {
-      _app: {
-        imports: TemplateProcessor.compileTemplate(imports, data),
-        config: TemplateProcessor.compileTemplate(config, data),
-        connectWallet: TemplateProcessor.compileTemplate(connectWallet, data),
-        wrappers: [{ name: 'Web3ReactProvider', props: [{ name: 'getLibrary', value: 'getLibrary' }] }],
-      },
-    };
-  }
-}
+export const web3ReactConfig: Web3LibraryConfig = {
+  name: 'web3-react',
+  template: path.join(__dirname, 'template'),
+  dependencies: ['@web3-react/core', '@web3-react/injected-connector', '@ethersproject/providers'],
+  _app: {
+    wrappers: [{ name: 'Web3ReactProvider', props: [{ name: 'getLibrary', value: 'getLibrary' }] }],
+    imports: `
+      import { Web3ReactProvider } from '@web3-react/core';
+      import { Web3Provider } from '@ethersproject/providers';
+    `,
+    configs: `
+      function getLibrary(provider: any): Web3Provider {
+        const library = new Web3Provider(provider);
+        library.pollingInterval = 12000;
+        return library;
+      }
+    `,
+  },
+};
