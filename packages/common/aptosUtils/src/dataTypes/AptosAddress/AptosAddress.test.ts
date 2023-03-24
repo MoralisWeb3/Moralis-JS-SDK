@@ -47,6 +47,23 @@ describe('AptosAddress', () => {
     });
   });
 
+  describe('shortening', () => {
+    it('returns shortened address', () => {
+      expect(AptosAddress.create('0x0000000000000000000000000000000000000000000000000000000000000001').short).toBe(
+        '0x1',
+      );
+      expect(AptosAddress.create('0000357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b').short).toBe(
+        '0x357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b',
+      );
+    });
+
+    it('does not shorten address if it has a full length', () => {
+      expect(AptosAddress.create('0x1d8727df513fa2a8785d0834e40b34223daff1affc079574082baadb74b66ee4').short).toBe(
+        '0x1d8727df513fa2a8785d0834e40b34223daff1affc079574082baadb74b66ee4',
+      );
+    });
+  });
+
   describe('errors', () => {
     it('throws an error when address is invalid', () => {
       expect(() => AptosAddress.create('invalid')).toThrowError('[C0005] Invalid address provided');

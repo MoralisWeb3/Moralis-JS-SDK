@@ -100,4 +100,12 @@ export class AptosAddress implements MoralisData {
   public toJSON(): AptosAddressJSON {
     return this.address;
   }
+
+  /**
+   * @returns a string representing the address, the leading zeros are removed from the address.
+   * @example address.short; // "0x1"
+   */
+  public get short(): string {
+    return '0x' + this.address.substring(2).replace(/^0+/, '');
+  }
 }
