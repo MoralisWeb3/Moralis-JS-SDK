@@ -12,7 +12,7 @@
     "test:cypress": "cypress run --browser chrome --headless"
   },
   "dependencies": {
-    "moralis": "^2.17.0"
+    "moralis": "^2.18.0"
   },
   "devDependencies": {
     "cypress": "^12.8.0",

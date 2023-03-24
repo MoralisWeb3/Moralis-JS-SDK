@@ -1,5 +1,15 @@
 # @moralisweb3/client-firebase-evm-api
 
+## 2.18.0
+
+### Patch Changes
+
+- Updated dependencies [[`2f102c48c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f102c48c82c3a73801518c6a791dfaf1a9d567e), [`4ad15182b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4ad15182bc56c5166dfda0d7f08f24a161f13008), [`3e031685b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3e031685b2bf1356a56f5131906d8c6408b74ae4), [`2d99b05c7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2d99b05c722b5d869c607dfc43d1b552006c642e), [`9fba6e55a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9fba6e55ab1ae213bba144eede3fccbee8ab5805), [`6d8dbacb7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6d8dbacb7b8833ef5980a4579d7302078d54ed0f), [`ecc414aaf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ecc414aaf1bd05b089d0ac47ac07e480cf29c778)]:
+  - @moralisweb3/common-evm-utils@2.18.0
+  - @moralisweb3/client-evm-api@2.18.0
+  - @moralisweb3/client-firebase-api-utils@2.18.0
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes
