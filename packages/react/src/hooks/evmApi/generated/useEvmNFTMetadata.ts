@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNFTMetadataParams = Partial<GetNFTMetadataRequest>;
 export type UseEvmNFTMetadataQueryOptions = QueryOptions<GetNFTMetadataResponse | null, UseEvmNFTMetadataParams>;
 
-export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMetadata }: UseEvmNFTMetadataParams = {}, queryOptions: UseEvmNFTMetadataQueryOptions = {}) {
+export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMetadata, mediaItems }: UseEvmNFTMetadataParams = {}, queryOptions: UseEvmNFTMetadataQueryOptions = {}) {
   const resolver = useNullableOperationResolver(getNFTMetadataOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNFTMetadata({ address, tokenId, chain, format, normalizeMe
     return [
       getNFTMetadataOperation.id,
       {
-        address, tokenId, chain, format, normalizeMetadata
+        address, tokenId, chain, format, normalizeMetadata, mediaItems
       },
     ];
-  }, [address, tokenId, chain, format, normalizeMetadata]);
+  }, [address, tokenId, chain, format, normalizeMetadata, mediaItems]);
 
   return useQuery({
     ...queryOptions,

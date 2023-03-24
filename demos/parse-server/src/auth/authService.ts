@@ -68,7 +68,7 @@ async function requestMessageSol({ address, networkType }: { address: string; ne
   const result = await Moralis.Auth.requestMessage({
     address,
     networkType,
-    solNetwork: 'devnet',
+    network: 'devnet',
     domain: DOMAIN,
     statement: STATEMENT,
     uri: URI,
