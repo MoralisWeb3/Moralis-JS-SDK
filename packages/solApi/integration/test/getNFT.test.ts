@@ -15,12 +15,16 @@ describe('Moralis SolApi', () => {
   it('should get the NFTs of an account ', async () => {
     const result = await SolApi.account.getNFTs({
       network: 'mainnet',
-      address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
+      address: 'EJpLyTeE8XHG9CeREeHd6pr6hNhaRnTRJx4Z5DPhEJJ6',
     });
     const nfts = result.result;
 
     expect(nfts.length).toBe(2);
-    expect(nfts[0].mint.toString()).toBe('9spQWuJozohLUK1ReyhsWUrkgDfDMS2U8cMwMoxifkxM');
-    expect(nfts[0].associatedTokenAddress.toString()).toBe('DU1MLkMBperU2nmjjZSwhaSDQxxg3Jtu8XPyroM6fkmu');
+    const nft = nfts[0];
+
+    expect(nft.mint.toString()).toBe('9PN8gNqJy5mVnr8PJSaiKULG2inbTZxm4Xwgc2LM6x5Z');
+    expect(nft.associatedTokenAddress.toString()).toBe('Aymvy5sNtxRpUBFT19nNetsGb4VBpmb6qyPs2ybGPUcr');
+    expect(nft.name).toBe('Nug 5585');
+    expect(nft.symbol).toBe('METAWANA');
   });
 });

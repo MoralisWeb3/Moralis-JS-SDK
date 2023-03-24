@@ -13,15 +13,18 @@ describe('Moralis SolApi', () => {
   });
 
   it('returns SPL', async () => {
-    const result = await SolApi.account.getSPL({
+    const { result } = await SolApi.account.getSPL({
       network: 'mainnet',
-      address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
+      address: 'EJpLyTeE8XHG9CeREeHd6pr6hNhaRnTRJx4Z5DPhEJJ6',
     });
-    const spl = result.result;
 
-    expect(spl.length).toBe(2);
-    expect(spl[0].associatedTokenAddress.toString()).toBe('BBsN4yXTFQkmCqiDDUA9VZfsv2xc4BMTan2uk4V9AVvG');
-    expect(spl[0].mint.toString()).toBe('DRQBDBEWmwWGK13fRTLhSPzjbvMSUavhV6nW4RUH8W6T');
-    expect(spl[0].amount.toString()).toBe('10000000000');
+    expect(result.length).toBe(2);
+
+    const token = result[0];
+    expect(token.associatedTokenAddress.toString()).toBe('FaygwmWV2RGQVABXdvaPoa4Kar8EcjpaQcB4czcy4pUJ');
+    expect(token.mint.toString()).toBe('EL4YBAq2vnh2oQe454x64f4WJGxrywtUtxhJpv4cx2ks');
+    expect(token.amount.toString()).toBe('2');
+    expect(token.name).toBe('Cets Ears');
+    expect(token.symbol).toBe('goons');
   });
 });

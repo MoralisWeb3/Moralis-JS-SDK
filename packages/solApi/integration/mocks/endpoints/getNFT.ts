@@ -14,20 +14,22 @@ export const mockGetNFTSol = MockScenarios.create(
     {
       condition: {
         network: 'mainnet',
-        address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
+        address: 'EJpLyTeE8XHG9CeREeHd6pr6hNhaRnTRJx4Z5DPhEJJ6',
       },
       response: [
         {
-          associatedTokenAddress: 'DU1MLkMBperU2nmjjZSwhaSDQxxg3Jtu8XPyroM6fkmu',
-          mint: '9spQWuJozohLUK1ReyhsWUrkgDfDMS2U8cMwMoxifkxM',
+          associatedTokenAddress: 'Aymvy5sNtxRpUBFT19nNetsGb4VBpmb6qyPs2ybGPUcr',
+          mint: '9PN8gNqJy5mVnr8PJSaiKULG2inbTZxm4Xwgc2LM6x5Z',
+          name: 'Nug 5585',
+          symbol: 'METAWANA',
         },
         {
-          associatedTokenAddress: 'GyxpmbNDAfkQ1VF5bAVkx4mu7C6T9jY3aQjAavFrJRei',
-          mint: 'D1Uo5XbWz75TszVLaH7GSttN4x7H4jUEtbmGSEfG3SRz',
+          associatedTokenAddress: 'Gshsqnk1qWDy1PcryceyjQQnSvUzqFnmiE9LLwvFPZdx',
+          mint: '5E56nvwdbFSyT52Wp4Kw3FBHpxdh5szVpvS8ASUX7nn8',
+          name: 'Centaur #105',
+          symbol: 'CREATURE',
         },
-        // TODO: 'any' should be deleted
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ] as any,
+      ],
     },
   ],
 );
