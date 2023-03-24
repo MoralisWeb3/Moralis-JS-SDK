@@ -25,6 +25,7 @@ describe('getNFTContractTransfers', () => {
       expect(result.raw.total).toBe(2000);
       expect(response?.token_address).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
       expect(response?.transaction_hash).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+      expect(response?.possible_spam).toEqual(false);
     });
 
     it('should not get the contract of NFT transfers of an invalid address and throw an error', async () => {

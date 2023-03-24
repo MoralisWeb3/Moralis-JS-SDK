@@ -19,6 +19,9 @@ describe('searchNFTs', () => {
       });
       expect(result).toBeDefined();
       expect(result).toEqual(expect.objectContaining({}));
+
+      const nft = result.raw.result ? result.raw.result[0] : null;
+      expect(nft?.possible_spam).toBe(false);
     });
 
     it('should throw an error when an invalid search parameter is provided', async () => {

@@ -39,6 +39,7 @@ export const mockGetNFTTransfersFromToBlock = MockScenarios.create(
             transaction_index: 0,
             log_index: 0,
             operator: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+            possible_spam: false,
           },
         ],
         block_exists: true,

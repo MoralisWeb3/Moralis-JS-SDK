@@ -262,4 +262,12 @@ export class EvmNftTransfer implements MoralisDataObject {
   get contractType() {
     return this._data.contractType;
   }
+
+  /**
+   * @returns possibility of the token being a spam token
+   * @example transfer.possibleSpam // true
+   */
+  get possibleSpam() {
+    return this._data.possibleSpam;
+  }
 }

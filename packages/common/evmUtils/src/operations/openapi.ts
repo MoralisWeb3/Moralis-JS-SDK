@@ -1424,6 +1424,11 @@ export interface components {
        * @example RARI
        */
       symbol: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nftMetadata: {
       /**
@@ -1501,6 +1506,11 @@ export interface components {
        * @example 2022-04-09T23:56:44.807Z
        */
       updatedAt: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nftWalletCollections: {
       /**
@@ -1656,6 +1666,11 @@ export interface components {
        * @example 2021-02-24T00:47:26.647Z
        */
       last_metadata_sync: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     normalizedMetadataAttribute: {
       /**
@@ -1849,6 +1864,11 @@ export interface components {
        * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
        */
       operator?: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nftTransferCollection: {
       /**
