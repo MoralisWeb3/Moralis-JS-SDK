@@ -48,6 +48,7 @@ export const mockSearchNFTs = MockScenarios.create(
             last_metadata_sync: '2021-02-24T00:47:26.647Z',
             createdAt: '2022-02-24T00:47:26.647Z',
             updatedAt: '2022-04-09T23:56:44.807Z',
+            possible_spam: false,
           },
         ],
       },

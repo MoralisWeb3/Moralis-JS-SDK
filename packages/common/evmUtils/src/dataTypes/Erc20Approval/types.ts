@@ -16,6 +16,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *   transactionHash: "0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf",
  *   transactionIndex: "4",
  *   logIndex: "25",
+ *   possibleSpam: false,
  *   value: "100000000000000000000000000000"
  * }
  * ```
@@ -32,6 +33,7 @@ export interface Erc20ApprovalInput {
   transactionIndex: number;
   logIndex: number;
   value: BigNumberish;
+  possibleSpam: boolean;
 }
 
 /**
@@ -49,4 +51,5 @@ export interface Erc20ApprovalData {
   transactionIndex: number;
   logIndex: number;
   value: BigNumber;
+  possibleSpam: boolean;
 }

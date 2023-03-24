@@ -28,6 +28,7 @@ describe('getNFTTransfersFromToBlock', () => {
       expect(response?.block_number).toBe('88256');
       expect(response?.contract_type).toBe('ERC721');
       expect(response?.token_id).toBe('15');
+      expect(response?.possible_spam).toBe(false);
     });
 
     it('should not get the NFT transfers from to block of an invalid block number and throw an error', async () => {

@@ -55,7 +55,7 @@ describe('EvmNftMedia', () => {
     expect(erc20Mint.mimetype).toBe('image/png');
     expect(erc20Mint.parentHash).toBe('0x21ba1263dd63696f0d9ede101b00a4e2f4985a854483076c92a3415624fca051');
     expect(erc20Mint.status).toBe('success');
-    expect(erc20Mint.updatedAt.toISOString()).toBe('2023-03-17T14:12:24.192Z');
+    expect(erc20Mint.updatedAt?.toISOString()).toBe('2023-03-17T14:12:24.192Z');
     expect(erc20Mint.originalMediaUrl).toBe('original_url');
   });
 

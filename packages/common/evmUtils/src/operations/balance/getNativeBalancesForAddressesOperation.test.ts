@@ -18,7 +18,6 @@ describe('getNativeBalancesForAddressesOperation', () => {
 
     const request: Required<GetNativeBalancesForAddressesRequest> = {
       chain: EvmChain.create(chain, core),
-      providerUrl: 'https://eth.llamarpc.com',
       toBlock: 123,
       walletAddresses: addresses.map((address) => EvmAddress.create(address, core)),
     };
@@ -26,7 +25,6 @@ describe('getNativeBalancesForAddressesOperation', () => {
     const serializedRequest = getNativeBalancesForAddressesOperation.serializeRequest(request, core);
 
     expect(serializedRequest.chain).toBe(chain);
-    expect(serializedRequest.providerUrl).toBe(request.providerUrl);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     for (let i = 0; i < request.walletAddresses.length; i++) {
       expect((serializedRequest.walletAddresses ?? [])[i]).toBe(addresses[i]);
@@ -35,7 +33,6 @@ describe('getNativeBalancesForAddressesOperation', () => {
     const deserializedRequest = getNativeBalancesForAddressesOperation.deserializeRequest(serializedRequest, core);
 
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
-    expect(deserializedRequest.providerUrl).toBe(request.providerUrl);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     for (let i = 0; i < request.walletAddresses.length; i++) {
       const tokenAddress = (deserializedRequest.walletAddresses ?? [])[i];

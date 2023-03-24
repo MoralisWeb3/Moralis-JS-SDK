@@ -110,6 +110,7 @@ function deserializeResponse(jsonResponse: GetWalletNFTsJSONResponse, request: G
         tokenHash: nft.tokenHash,
         lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
         lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
+        possibleSpam: nft.possibleSpam,
         media: maybe(nft.media, (media) =>
           EvmNftMedia.create(
             {

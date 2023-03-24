@@ -189,4 +189,12 @@ export class Erc20Approval implements MoralisDataObject {
   get logIndex() {
     return this._data.logIndex;
   }
+
+  /**
+   * @returns possibility of the token being a spam token
+   * @example transfer.possibleSpam // true
+   */
+  get possibleSpam() {
+    return this._data.possibleSpam;
+  }
 }

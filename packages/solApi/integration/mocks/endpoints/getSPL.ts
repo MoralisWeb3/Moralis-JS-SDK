@@ -14,26 +14,28 @@ export const mockGetSPLSol = MockScenarios.create(
     {
       condition: {
         network: 'mainnet',
-        address: '5xoBq7f7CDgZwqHrDBdRWM84ExRetg4gZq93dyJtoSwp',
+        address: 'EJpLyTeE8XHG9CeREeHd6pr6hNhaRnTRJx4Z5DPhEJJ6',
       },
       response: [
         {
-          associatedTokenAddress: 'BBsN4yXTFQkmCqiDDUA9VZfsv2xc4BMTan2uk4V9AVvG',
-          mint: 'DRQBDBEWmwWGK13fRTLhSPzjbvMSUavhV6nW4RUH8W6T',
-          amountRaw: '10000000000',
-          amount: '100',
-          decimals: '8',
+          associatedTokenAddress: 'FaygwmWV2RGQVABXdvaPoa4Kar8EcjpaQcB4czcy4pUJ',
+          mint: 'EL4YBAq2vnh2oQe454x64f4WJGxrywtUtxhJpv4cx2ks',
+          amountRaw: '2',
+          amount: '2',
+          decimals: '0',
+          name: 'Cets Ears',
+          symbol: 'goons',
         },
         {
-          associatedTokenAddress: 'ETWQorqbccyF5c9cL94yG6aywB3TLi948VoCxg5ug9eb',
-          mint: '4hpngEp1v3CXpeKB81Gw4sv7YvwUVRKvY3SGag9ND8Q4',
-          amountRaw: '2009990',
-          amount: '2009990',
-          decimals: '0',
+          associatedTokenAddress: 'J3sQDCWQQuZRCSgW7BWZ8s8Zoz16mprPxoCuryo6YXUX',
+          mint: 'VVWAy5U2KFd1p8AdchjUxqaJbZPBeP5vUQRZtAy8hyc',
+          amountRaw: '7777000000000',
+          amount: '7777',
+          decimals: '9',
+          name: "Flip.gg | Code:'MARCH23'",
+          symbol: 'Free $0.33',
         },
-        // TODO: 'any' should be deleted
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ] as any,
+      ],
     },
   ],
 );

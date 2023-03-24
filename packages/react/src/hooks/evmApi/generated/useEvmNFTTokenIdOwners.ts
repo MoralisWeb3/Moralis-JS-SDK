@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNFTTokenIdOwnersParams = Partial<GetNFTTokenIdOwnersRequest>;
 export type UseEvmNFTTokenIdOwnersQueryOptions = QueryOptions<GetNFTTokenIdOwnersResponse, UseEvmNFTTokenIdOwnersParams>;
 
-export function useEvmNFTTokenIdOwners({ address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal }: UseEvmNFTTokenIdOwnersParams = {}, queryOptions: UseEvmNFTTokenIdOwnersQueryOptions = {}) {
+export function useEvmNFTTokenIdOwners({ address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal, mediaItems }: UseEvmNFTTokenIdOwnersParams = {}, queryOptions: UseEvmNFTTokenIdOwnersQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTokenIdOwnersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNFTTokenIdOwners({ address, tokenId, chain, format, limit,
     return [
       getNFTTokenIdOwnersOperation.id,
       {
-        address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal
+        address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal, mediaItems
       },
     ];
-  }, [address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal]);
+  }, [address, tokenId, chain, format, limit, cursor, normalizeMetadata, disableTotal, mediaItems]);
 
   return useQuery({
     ...queryOptions,

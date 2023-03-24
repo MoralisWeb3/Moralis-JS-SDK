@@ -20,6 +20,7 @@ describe('getTokenTransfers', () => {
     expect(transfer.value.toString()).toBe('347995260860000000000');
     expect(transfer.fromAddress.checksum).toBe('0xd73a9EAdFff6A332aFDa7dDBB18CFf84bBf6dd0D');
     expect(transfer.toAddress.checksum).toBe('0x72FDD62FbFa2fAa9A8677C58d9992068772e0f7F');
+    expect(transfer.possibleSpam).toBe(false);
   }
 
   it('returns transfers', async () => {

@@ -15,6 +15,7 @@ const exampleInput: Erc20TransferInput = {
   transactionIndex: 4,
   logIndex: 25,
   value: '100000000000000000000000000000',
+  possibleSpam: false,
 };
 
 describe('Erc20Transfer', () => {
@@ -50,6 +51,7 @@ describe('Erc20Transfer', () => {
     expect(erc20Mint.transactionHash).toBe('0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf');
     expect(erc20Mint.transactionIndex).toBe(4);
     expect(erc20Mint.logIndex).toBe(25);
+    expect(erc20Mint.possibleSpam).toBe(false);
     expect(erc20Mint.value.toString()).toBe('100000000000000000000000000000');
   });
 
@@ -72,6 +74,7 @@ describe('Erc20Transfer', () => {
       transactionHash: '0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf',
       transactionIndex: 4,
       logIndex: 25,
+      possibleSpam: false,
       value: '100000000000000000000000000000',
     });
   });

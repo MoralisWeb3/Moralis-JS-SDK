@@ -6,6 +6,7 @@ export const createTokenBalanceResponse = (
   thumbnail: string,
   decimals: number,
   balance: string,
+  possibleSpam: boolean,
 ) => ({
   token_address: tokenAddress,
   name,
@@ -14,4 +15,5 @@ export const createTokenBalanceResponse = (
   thumbnail,
   decimals,
   balance,
+  possible_spam: possibleSpam,
 });

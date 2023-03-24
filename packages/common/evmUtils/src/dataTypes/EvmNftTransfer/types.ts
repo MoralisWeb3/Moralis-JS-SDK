@@ -23,6 +23,7 @@ import { EvmNativeish, EvmNative } from '../EvmNative';
  *  tokenId: "15",
  *  transactionHash: "0x057Ec652A4F150f7FF94f089A38008f49a0DF88e",
  *  transactionType: "1",
+ *  possibleSpam: false
  * }
  * ```
  */
@@ -43,6 +44,7 @@ export interface EvmNftTransferInput {
   transactionIndex?: null | string | number;
   transactionType?: null | string;
   operator?: null | EvmAddressish;
+  possibleSpam: boolean;
 }
 
 /**
@@ -65,4 +67,5 @@ export interface EvmNftTransferData {
   transactionIndex?: number;
   transactionType?: string;
   operator?: EvmAddress;
+  possibleSpam: boolean;
 }

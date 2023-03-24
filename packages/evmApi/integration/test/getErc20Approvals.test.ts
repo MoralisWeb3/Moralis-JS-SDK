@@ -35,6 +35,7 @@ describe('getErc20Approvals', () => {
       expect(transfer.transactionHash).toBe('0x61b87b32196fda49b93998236fa0d51e0a0598ab0a052fa706053391d1950be2');
       expect(transfer.transactionIndex).toBe(148);
       expect(transfer.logIndex).toBe(356);
+      expect(transfer.possibleSpam).toBe(false);
       expect(transfer.value.toString()).toBe('80000000000000000');
     });
 

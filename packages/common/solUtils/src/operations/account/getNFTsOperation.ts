@@ -51,6 +51,8 @@ function deserializeResponse(jsonResponse: GetNFTsJSONResponse) {
     return {
       associatedTokenAddress: SolAddress.create(item.associatedTokenAddress),
       mint: SolAddress.create(item.mint),
+      name: item.name,
+      symbol: item.symbol,
     };
   });
 }

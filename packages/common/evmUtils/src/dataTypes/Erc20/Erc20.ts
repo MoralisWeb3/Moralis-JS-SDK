@@ -48,6 +48,7 @@ export class Erc20Token implements MoralisDataObject {
     logoHash: maybe(value.logoHash),
     thumbnail: maybe(value.thumbnail),
     chain: EvmChain.create(value.chain, core),
+    possibleSpam: value.possibleSpam,
   });
 
   /**
@@ -228,5 +229,13 @@ export class Erc20Token implements MoralisDataObject {
    */
   get thumbnail() {
     return this._value.thumbnail;
+  }
+
+  /**
+   * @returns possibility of the token being a spam token
+   * @example transfer.possibleSpam // true
+   */
+  get possibleSpam() {
+    return this._value.possibleSpam;
   }
 }

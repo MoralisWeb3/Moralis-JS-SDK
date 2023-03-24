@@ -46,6 +46,7 @@ describe('getNFTTransfersByBlock', () => {
       expect(token.transactionIndex).toBe(1);
 
       expect(token.logIndex).toBe(2);
+      expect(token.possibleSpam).toBe(false);
     });
 
     it('should not get transfers of NFTs given an invalid block number or block hash and throw an error', async () => {

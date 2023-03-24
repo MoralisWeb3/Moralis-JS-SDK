@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmTransactionParams = Partial<GetTransactionRequest>;
 export type UseEvmTransactionQueryOptions = QueryOptions<GetTransactionResponse | null, UseEvmTransactionParams>;
 
-export function useEvmTransaction({ transactionHash, chain }: UseEvmTransactionParams = {}, queryOptions: UseEvmTransactionQueryOptions = {}) {
+export function useEvmTransaction({ transactionHash, chain, include }: UseEvmTransactionParams = {}, queryOptions: UseEvmTransactionQueryOptions = {}) {
   const resolver = useNullableOperationResolver(getTransactionOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmTransaction({ transactionHash, chain }: UseEvmTransactionP
     return [
       getTransactionOperation.id,
       {
-        transactionHash, chain
+        transactionHash, chain, include
       },
     ];
-  }, [transactionHash, chain]);
+  }, [transactionHash, chain, include]);
 
   return useQuery({
     ...queryOptions,

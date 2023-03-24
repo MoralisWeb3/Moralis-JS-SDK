@@ -39,7 +39,7 @@ export const getNativeBalancesForAddressesOperation: Operation<
   id: 'getNativeBalancesForAddresses',
   groupName: 'balance',
   urlPathPattern: '/wallets/balance',
-  urlSearchParamNames: ['chain', 'providerUrl', 'toBlock', 'walletAddresses'],
+  urlSearchParamNames: ['chain', 'toBlock', 'walletAddresses'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -52,7 +52,6 @@ export const getNativeBalancesForAddressesOperation: Operation<
 function getRequestUrlParams(request: GetNativeBalancesForAddressesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    providerUrl: request.providerUrl,
     to_block: maybe(request.toBlock, String),
     wallet_addresses: request.walletAddresses?.map((address) => EvmAddress.create(address, core).checksum),
   };
@@ -78,7 +77,6 @@ function deserializeResponse(
 function serializeRequest(request: GetNativeBalancesForAddressesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    providerUrl: request.providerUrl,
     toBlock: request.toBlock,
     walletAddresses: request.walletAddresses?.map((address) => EvmAddress.create(address, core).checksum),
   };
@@ -90,7 +88,6 @@ function deserializeRequest(
 ): GetNativeBalancesForAddressesRequest {
   return {
     chain: EvmChainResolver.resolve(jsonRequest.chain, core),
-    providerUrl: jsonRequest.providerUrl,
     toBlock: jsonRequest.toBlock,
     walletAddresses: jsonRequest.walletAddresses?.map((address) => EvmAddress.create(address, core)),
   };

@@ -53,6 +53,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
                 },
               ],
             },
+            possible_spam: false,
             amount: '1',
             name: 'CryptoKitties',
             symbol: 'RARI',
@@ -85,6 +86,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
             block_number_minted: '88256',
             token_uri: 'string',
             metadata: '"{}"',
+            possible_spam: false,
             normalized_metadata: {
               name: 'Moralis Mug',
               description:
@@ -160,6 +162,7 @@ export const mockGetNFTTokenIdOwners = MockScenarios.create(
                 },
               ],
             },
+            possible_spam: false,
             amount: '1',
             name: 'CryptoKitties',
             symbol: 'RARI',

@@ -146,6 +146,9 @@ export interface paths {
   "/erc20/burns": {
     get: operations["getErc20Burns"];
   };
+  "/erc20/approvals": {
+    get: operations["getErc20Approvals"];
+  };
   "/{address}/balance": {
     /** Get the native balance for a specific wallet address. */
     get: operations["getNativeBalance"];
@@ -499,6 +502,11 @@ export interface components {
        * @example 1234
        */
       value: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     erc20Burn: {
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
@@ -618,6 +626,11 @@ export interface components {
        * @example 1234
        */
       value: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     erc20TransfersResponse: {
       /** @description The cursor to get to the next page */
@@ -710,6 +723,73 @@ export interface components {
       logs?: components["schemas"]["log"][];
       /** @description The internal transactions of the transaction */
       internal_transactions?: components["schemas"]["internalTransaction"][];
+    };
+    blockTransactionDecoded: {
+      /**
+       * @description The hash of the transaction
+       * @example 0x1ed85b3757a6d31d01a4d6677fc52fd3911d649a0af21fe5ca3f886b153773ed
+       */
+      hash: string;
+      /**
+       * @description The nonce
+       * @example 1848059
+       */
+      nonce: string;
+      /** @example 108 */
+      transaction_index: string;
+      /**
+       * @description The from address
+       * @example 0x267be1c1d684f78cb4f6a176c4911b741e4ffdc0
+       */
+      from_address: string;
+      /**
+       * @description The to address
+       * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
+       */
+      to_address: string;
+      /**
+       * @description The value sent
+       * @example 115580000000000000
+       */
+      value: string;
+      /** @example 30000 */
+      gas?: string;
+      /**
+       * @description The gas price
+       * @example 52500000000
+       */
+      gas_price: string;
+      /** @example 0x */
+      input: string;
+      /** @example 4923073 */
+      receipt_cumulative_gas_used: string;
+      /** @example 21000 */
+      receipt_gas_used: string;
+      /** @example null */
+      receipt_contract_address?: string;
+      /** @example null */
+      receipt_root?: string;
+      /** @example 1 */
+      receipt_status: string;
+      /**
+       * @description The block timestamp
+       * @example 2021-05-07T11:08:35.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The block number
+       * @example 12386788
+       */
+      block_number: string;
+      /**
+       * @description The hash of the block
+       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
+       */
+      block_hash: string;
+      /** @description The logs of the transaction */
+      logs: components["schemas"]["logVerbose"][];
+      /** @description The decoded data of the transaction */
+      decoded_call: components["schemas"]["decodedCall"];
     };
     block: {
       /**
@@ -1151,6 +1231,11 @@ export interface components {
        * @example 123456789
        */
       balance: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nativeBalance: {
       /**
@@ -1339,6 +1424,11 @@ export interface components {
        * @example RARI
        */
       symbol: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nftMetadata: {
       /**
@@ -1416,6 +1506,11 @@ export interface components {
        * @example 2022-04-09T23:56:44.807Z
        */
       updatedAt: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nftWalletCollections: {
       /**
@@ -1571,6 +1666,11 @@ export interface components {
        * @example 2021-02-24T00:47:26.647Z
        */
       last_metadata_sync: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     normalizedMetadataAttribute: {
       /**
@@ -1641,28 +1741,39 @@ export interface components {
       url: string;
     };
     mediaCollection: {
-      /** @description Information about the original media file */
-      original: components["schemas"]["mediaItem"];
       /** @description Preview media file, lowest quality (for images 100px x 100px) */
       low: components["schemas"]["mediaItem"];
       /** @description Preview media file, medium quality (for images 250px x 250px) */
       medium: components["schemas"]["mediaItem"];
       /** @description Preview media file, highest quality (for images 500px x 500px) */
       high: components["schemas"]["mediaItem"];
+    } & {
+      original: unknown;
     };
     media: {
-      status: string;
-      updatedAt: string;
       /** @description The mimetype of the media file [see https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types] */
-      mimetype: string;
+      mimetype?: string;
       /** @enum {undefined} */
-      category: "image" | "audio" | "video";
+      category?: "image" | "audio" | "video";
+      /**
+       * @description <table><tr><td>success</td><td>The NFT Preview was created / retrieved successfully</td></tr><tr><td>processing</td><td>The NFT Preview was not found and has been submitted for generation.</td></tr><tr><td>unsupported_media</td><td>The mime-type of the NFT's media file indicates a type not currently supported.</td></tr><tr><td>invalid_url</td><td>The 'image' URL from the NFT's metadata is not a valid URL and cannot be processed.</td></tr><tr><td>host_unavailable</td><td>The 'image' URL from the NFT's metadata returned an HttpCode indicating the host / file is not available.</td></tr><tr><td>temporarily_unavailable</td><td>The attempt to load / parse the NFT media file failed (usually due to rate limiting) and will be tried again at next request.</td></tr></table>
+       * @enum {undefined}
+       */
+      status?:
+        | "success"
+        | "processing"
+        | "unsupported_media"
+        | "invalid_url"
+        | "host_unavailable"
+        | "temporarily_unavailable";
       /** @description The url of the original media file. */
-      original_media_url: string;
+      original_media_url?: string;
+      /** @description The timestamp of the last update to this NFT media record. */
+      updatedAt?: string;
       /** @description Hash value of the original media file. */
-      parent_hash: string;
+      parent_hash?: string;
       /** @description Preview item associated with the original */
-      media_collection: components["schemas"]["mediaCollection"];
+      media_collection?: components["schemas"]["mediaCollection"];
     };
     nftOwnerCollection: {
       /**
@@ -1753,6 +1864,11 @@ export interface components {
        * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
        */
       operator?: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     nftTransferCollection: {
       /**
@@ -1877,6 +1993,11 @@ export interface components {
        * @example 2
        */
       log_index: number;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     historicalNftTransfer: {
       /**
@@ -1962,6 +2083,11 @@ export interface components {
       thumbnail?: string;
       block_number?: string;
       validated?: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
     };
     metadataResync: {
       /** @description The status of the resync request */
@@ -3244,8 +3370,6 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
-        /** The web3 provider URL to use when using local dev chain */
-        providerUrl?: string;
         /** The block number on which the balances should be checked */
         to_block?: number;
         /** The addresses to get metadata for */

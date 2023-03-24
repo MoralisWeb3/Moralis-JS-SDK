@@ -10,8 +10,7 @@ export const mockRequestSolanaChallenge = MockScenarios.create(
     getParams: ({ reqBody }) => {
       return {
         domain: reqBody?.domain,
-        networkType: reqBody?.networkType,
-        solNetwork: reqBody?.solNetwork,
+        network: reqBody?.network,
         address: reqBody?.address,
         statement: reqBody?.statement,
         uri: reqBody?.uri,
@@ -33,6 +32,7 @@ export const mockRequestSolanaChallenge = MockScenarios.create(
         notBefore: '2020-01-01T00:00:00.000Z',
         resources: ['https://docs.moralis.io/'],
         timeout: 15,
+        network: 'mainnet',
       },
       response: createSimpleAuthResponse(
         'fRyt67D3eRss3RrX',
@@ -50,6 +50,7 @@ export const mockRequestSolanaChallenge = MockScenarios.create(
         notBefore: '2020-01-01T00:00:00.000Z',
         resources: ['https://docs.moralis.io/'],
         timeout: 15,
+        network: 'mainnet',
       },
       responseStatus: 400,
       response: createErrorResponse('INVALID_ADDRESS: some-address'),
@@ -64,6 +65,7 @@ export const mockRequestSolanaChallenge = MockScenarios.create(
         notBefore: '2020-01-01T00:00:00.000Z',
         resources: ['https://docs.moralis.io/'],
         timeout: 15,
+        network: 'mainnet',
       },
       responseStatus: 400,
       response: createErrorResponse('MULTI_ERROR'),

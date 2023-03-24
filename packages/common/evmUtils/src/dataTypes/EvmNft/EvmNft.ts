@@ -348,4 +348,12 @@ export class EvmNft implements MoralisDataObject {
   get media() {
     return this._data.media;
   }
+
+  /**
+   * @returns possibility of the token being a spam token
+   * @example transfer.possibleSpam // true
+   */
+  get possibleSpam() {
+    return this._data.possibleSpam;
+  }
 }

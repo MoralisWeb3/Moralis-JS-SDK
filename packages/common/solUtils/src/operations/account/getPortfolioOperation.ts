@@ -58,6 +58,8 @@ function deserializeResponse(jsonResponse: GetPortfolioJSONResponse) {
       return {
         associatedTokenAddress: SolAddress.create(nft.associatedTokenAddress),
         mint: SolAddress.create(nft.mint),
+        name: nft.name,
+        symbol: nft.symbol,
       };
     }),
     tokens: jsonResponse.tokens.map((token) => {
@@ -65,6 +67,8 @@ function deserializeResponse(jsonResponse: GetPortfolioJSONResponse) {
         associatedTokenAddress: SolAddress.create(token.associatedTokenAddress),
         mint: SolAddress.create(token.mint),
         amount: SolNative.create(token.amountRaw, 'lamports'),
+        name: token.name,
+        symbol: token.symbol,
       };
     }),
   };

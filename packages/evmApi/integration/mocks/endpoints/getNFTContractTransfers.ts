@@ -42,6 +42,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             transaction_index: 0,
             log_index: 0,
             operator: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+            possible_spam: false,
           },
         ],
         block_exists: true,
@@ -79,6 +80,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16220233',
@@ -97,6 +99,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16220229',
@@ -115,6 +118,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16220229',
@@ -133,6 +137,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16220229',
@@ -151,6 +156,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
         ],
         block_exists: true,
@@ -187,6 +193,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16157714',
@@ -205,6 +212,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16157606',
@@ -223,6 +231,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16157559',
@@ -241,6 +250,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
           {
             block_number: '16157556',
@@ -259,6 +269,7 @@ export const mockGetNFTContractTransfers = MockScenarios.create(
             amount: '1',
             verified: 1,
             operator: null,
+            possible_spam: false,
           },
         ],
         block_exists: true,

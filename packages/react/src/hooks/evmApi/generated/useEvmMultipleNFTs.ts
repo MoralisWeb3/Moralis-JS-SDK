@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmMultipleNFTsParams = Partial<GetMultipleNFTsRequest>;
 export type UseEvmMultipleNFTsQueryOptions = QueryOptions<GetMultipleNFTsResponse, UseEvmMultipleNFTsParams>;
 
-export function useEvmMultipleNFTs({ tokens, normalizeMetadata, chain }: UseEvmMultipleNFTsParams = {}, queryOptions: UseEvmMultipleNFTsQueryOptions = {}) {
+export function useEvmMultipleNFTs({ tokens, normalizeMetadata, mediaItems, chain }: UseEvmMultipleNFTsParams = {}, queryOptions: UseEvmMultipleNFTsQueryOptions = {}) {
   const resolver = useOperationResolver(getMultipleNFTsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmMultipleNFTs({ tokens, normalizeMetadata, chain }: UseEvmM
     return [
       getMultipleNFTsOperation.id,
       {
-        tokens, normalizeMetadata, chain
+        tokens, normalizeMetadata, mediaItems, chain
       },
     ];
-  }, [tokens, normalizeMetadata, chain]);
+  }, [tokens, normalizeMetadata, mediaItems, chain]);
 
   return useQuery({
     ...queryOptions,

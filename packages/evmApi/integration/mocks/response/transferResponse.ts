@@ -7,6 +7,7 @@ export const createTransferResponse = (
   fromAddress: string,
   toAddress: string,
   value: string,
+  possibleSpam: boolean,
 ) => ({
   transaction_hash,
   address,
@@ -16,4 +17,5 @@ export const createTransferResponse = (
   from_address: fromAddress,
   to_address: toAddress,
   value,
+  possible_spam: possibleSpam,
 });
