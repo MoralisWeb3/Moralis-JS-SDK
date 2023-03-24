@@ -1,13 +1,17 @@
 {
-  "name": "demo-cli-esm-js",
+  "name": "demo-cli-esm",
   "author": "Moralis",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test:e2e": "yarn run start"
   },
   "dependencies": {
     "moralis": "^2.17.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
   }
 }

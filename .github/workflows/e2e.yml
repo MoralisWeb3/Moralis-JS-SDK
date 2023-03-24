@@ -1,0 +1,43 @@
+name: E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  e2e:
+    name: Build and E2E Tests
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    env:
+      MORALIS_API_KEY: ${{ secrets.MORALIS_API_KEY }}
+      REACT_APP_MORALIS_API_KEY: ${{ secrets.MORALIS_API_KEY }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - name: Install packages
+        uses: ./.github/actions/yarn-monorepo-install
+      - name: Build
+        run: yarn build
+      - name: E2E Tests
+        run: yarn test:e2e
+      - name: Notify Slack if failed
+        id: slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "repository_name": "Moralis JS SDK"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_E2E_TESTS_FAIL_URL }}
