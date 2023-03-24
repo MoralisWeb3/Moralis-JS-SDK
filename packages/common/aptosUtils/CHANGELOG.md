@@ -1,5 +1,14 @@
 # @moralisweb3/aptos-utils
 
+## 2.18.0
+
+### Patch Changes
+
+- [#1067](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1067) [`44971d0f8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/44971d0f8bf34b137db843203b8b629ef4f52b20) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `short` property to the `AptosAddress` class.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes

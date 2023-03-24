@@ -1,5 +1,28 @@
 # @moralisweb3/evm-utils
 
+## 2.18.0
+
+### Minor Changes
+
+- [#1063](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1063) [`2f102c48c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f102c48c82c3a73801518c6a791dfaf1a9d567e) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `getTransactionVerbose` endpoint at `Moralis.EvmApi.transaction.getTransactionVerbose()`
+
+- [#1062](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1062) [`4ad15182b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4ad15182bc56c5166dfda0d7f08f24a161f13008) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `getErc20Approvals` endpoint at `Moralis.EvmApi.token.getErc20Approvals()`
+
+- [#1056](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1056) [`3e031685b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3e031685b2bf1356a56f5131906d8c6408b74ae4) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `getErc20Transfers` endpoint at `Moralis.EvmApi.token.getErc20Transfers()`
+
+- [#1061](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1061) [`2d99b05c7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2d99b05c722b5d869c607dfc43d1b552006c642e) Thanks [@ErnoW](https://github.com/ErnoW)! - Add `getErc20Burns` endpoint at `Moralis.EvmApi.token.getErc20Burns()`
+
+- [#1066](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1066) [`9fba6e55a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9fba6e55ab1ae213bba144eede3fccbee8ab5805) Thanks [@ErnoW](https://github.com/ErnoW)! - Add processed media for nfts
+
+- [#1064](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1064) [`6d8dbacb7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6d8dbacb7b8833ef5980a4579d7302078d54ed0f) Thanks [@ErnoW](https://github.com/ErnoW)! - Add internal transactions param to several operations and `Moralis.Evm.transaction.getInternalTransactions()`
+
+- [#1068](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1068) [`ecc414aaf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ecc414aaf1bd05b089d0ac47ac07e480cf29c778) Thanks [@ErnoW](https://github.com/ErnoW)! - Add spam detection
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Minor Changes

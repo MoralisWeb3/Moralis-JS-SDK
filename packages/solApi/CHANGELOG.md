@@ -1,5 +1,16 @@
 # @moralisweb3/sol-api
 
+## 2.18.0
+
+### Patch Changes
+
+- [#1068](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1068) [`ff40a18f1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ff40a18f1ff930b6377bd4f3474014c7a28bb071) Thanks [@ErnoW](https://github.com/ErnoW)! - Sync SolApi with the api, adding name and symbol properties
+
+- Updated dependencies [[`3e031685b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3e031685b2bf1356a56f5131906d8c6408b74ae4), [`ff40a18f1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ff40a18f1ff930b6377bd4f3474014c7a28bb071)]:
+  - @moralisweb3/api-utils@2.18.0
+  - @moralisweb3/common-sol-utils@2.18.0
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes

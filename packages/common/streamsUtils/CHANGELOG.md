@@ -1,5 +1,20 @@
 # @moralisweb3/common-streams-utils
 
+## 2.18.0
+
+### Minor Changes
+
+- [#1054](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1054) [`121a903de`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/121a903de0cb2b06e7aa6fa9e6aa6c30c106ff2b) Thanks [@ErnoW](https://github.com/ErnoW)! - Implement getLogs endpoint at `Streams.getLogs`
+
+- [#1066](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1066) [`9fba6e55a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9fba6e55ab1ae213bba144eede3fccbee8ab5805) Thanks [@ErnoW](https://github.com/ErnoW)! - Add processed media for nfts
+
+### Patch Changes
+
+- Updated dependencies [[`2f102c48c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f102c48c82c3a73801518c6a791dfaf1a9d567e), [`4ad15182b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4ad15182bc56c5166dfda0d7f08f24a161f13008), [`44971d0f8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/44971d0f8bf34b137db843203b8b629ef4f52b20), [`3e031685b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3e031685b2bf1356a56f5131906d8c6408b74ae4), [`2d99b05c7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2d99b05c722b5d869c607dfc43d1b552006c642e), [`9fba6e55a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9fba6e55ab1ae213bba144eede3fccbee8ab5805), [`6d8dbacb7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6d8dbacb7b8833ef5980a4579d7302078d54ed0f), [`ecc414aaf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ecc414aaf1bd05b089d0ac47ac07e480cf29c778)]:
+  - @moralisweb3/common-evm-utils@2.18.0
+  - @moralisweb3/common-aptos-utils@2.18.0
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes

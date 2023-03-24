@@ -1,5 +1,12 @@
 # @create-moralis-dapp/react-vite
 
+## 2.18.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @create-moralis-dapp/toolkit@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes

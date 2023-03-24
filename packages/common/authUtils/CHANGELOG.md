@@ -1,5 +1,19 @@
 # @moralisweb3/common-auth-utils
 
+## 2.18.0
+
+### Minor Changes
+
+- [#1068](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1068) [`957587789`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9575877898ae4fa2ccb392c9495f25e2c8c65267) Thanks [@ErnoW](https://github.com/ErnoW)! - Update `network` param for auth methods. We deprecared `solNetwork` in favour of `network`. With `networkType` you specify evm/solana/aptos. With chain (evm) you specify the chain. With network (solana,aptos) you specify the network (mainnet/testnet)
+
+### Patch Changes
+
+- Updated dependencies [[`2f102c48c`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2f102c48c82c3a73801518c6a791dfaf1a9d567e), [`4ad15182b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4ad15182bc56c5166dfda0d7f08f24a161f13008), [`44971d0f8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/44971d0f8bf34b137db843203b8b629ef4f52b20), [`3e031685b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3e031685b2bf1356a56f5131906d8c6408b74ae4), [`2d99b05c7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/2d99b05c722b5d869c607dfc43d1b552006c642e), [`9fba6e55a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9fba6e55ab1ae213bba144eede3fccbee8ab5805), [`6d8dbacb7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6d8dbacb7b8833ef5980a4579d7302078d54ed0f), [`ff40a18f1`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ff40a18f1ff930b6377bd4f3474014c7a28bb071), [`ecc414aaf`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ecc414aaf1bd05b089d0ac47ac07e480cf29c778)]:
+  - @moralisweb3/common-evm-utils@2.18.0
+  - @moralisweb3/common-aptos-utils@2.18.0
+  - @moralisweb3/common-sol-utils@2.18.0
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes

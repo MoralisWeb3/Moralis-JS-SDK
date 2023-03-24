@@ -1,7 +1,7 @@
 {
   "name": "@create-moralis-dapp/next",
   "author": "Moralis",
-  "version": "2.17.0",
+  "version": "2.18.0",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,7 +22,7 @@
     "dev": "ts-node src/generate.ts"
   },
   "dependencies": {
-    "@create-moralis-dapp/toolkit": "^2.17.0"
+    "@create-moralis-dapp/toolkit": "^2.18.0"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",

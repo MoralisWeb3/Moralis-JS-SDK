@@ -1,5 +1,14 @@
 # @moralisweb3/aptos-api
 
+## 2.18.0
+
+### Patch Changes
+
+- Updated dependencies [[`44971d0f8`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/44971d0f8bf34b137db843203b8b629ef4f52b20), [`3e031685b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3e031685b2bf1356a56f5131906d8c6408b74ae4)]:
+  - @moralisweb3/common-aptos-utils@2.18.0
+  - @moralisweb3/api-utils@2.18.0
+  - @moralisweb3/common-core@2.18.0
+
 ## 2.17.0
 
 ### Patch Changes
