@@ -28,6 +28,9 @@
     "scope": "common",
     "description": "All core logic related to the SDK"
   },
+  "typedoc": {
+    "entryPoint": "./src/index.ts"
+  },
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test  --coverage",

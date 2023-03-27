@@ -28,6 +28,9 @@
     "scope": "server",
     "description": "Make calls to the Solana blockchain via Moralis Solana Apis"
   },
+  "typedoc": {
+    "entryPoint": "./src/index.ts"
+  },
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
