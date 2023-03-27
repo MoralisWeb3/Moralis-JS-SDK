@@ -28,6 +28,9 @@
     "scope": "server",
     "description": "Subscribe to realtime data from the blockchain"
   },
+  "typedoc": {
+    "entryPoint": "./src/index.ts"
+  },
   "scripts": {
     "test": "yarn jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",

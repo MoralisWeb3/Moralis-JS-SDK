@@ -13,7 +13,8 @@
     "packages/common/streamsUtils",
     "packages/common/authUtils",
     "packages/evmApi",
-    "packages/solApi"
+    "packages/solApi",
+    "packages/aptosApi"
   ],
   "entryPointStrategy": "packages",
   "includeVersion": false,

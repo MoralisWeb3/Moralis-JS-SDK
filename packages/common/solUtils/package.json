@@ -28,6 +28,9 @@
     "scope": "common",
     "description": "Utilities, operations, datatypes and types related to Solana"
   },
+  "typedoc": {
+    "entryPoint": "./src/index.ts"
+  },
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test --coverage --coverageReporters json-summary",
