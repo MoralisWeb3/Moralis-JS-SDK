@@ -20,10 +20,13 @@ module.exports = {
   preset: 'ts-jest/presets/default',
   collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
   coverageThreshold: null,
-  globals: {
-    'ts-jest': {
-      tsConfig: path.join(__dirname, 'tsconfig.package.json'),
-    },
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: path.join(__dirname, 'tsconfig.package.json'),
+      },
+    ],
   },
   verbose: true,
   coverageReporters: ['clover', 'json', 'lcov', 'text', 'json-summary'],
