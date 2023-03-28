@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-api-utils",
   "author": "Moralis",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -22,6 +22,6 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@moralisweb3/common-core": "^2.18.0"
+    "@moralisweb3/common-core": "^2.18.1"
   }
 }

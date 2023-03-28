@@ -1,5 +1,12 @@
 # @create-moralis-dapp/next
 
+## 2.18.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @create-moralis-dapp/toolkit@2.18.1
+
 ## 2.18.0
 
 ### Patch Changes
