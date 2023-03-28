@@ -156,10 +156,13 @@ function deserializeResponse(
         to: transfer.to_address ? (transfer.to_address as string) : null,
         internalTransactions: (transfer.internal_transactions ?? []).map((jsonInternalTransaction) => {
           const internalTransaction = toCamelCase(jsonInternalTransaction);
-          return EvmInternalTransaction.create({
-            chain,
-            ...internalTransaction,
-          });
+          return EvmInternalTransaction.create(
+            {
+              chain,
+              ...internalTransaction,
+            },
+            core,
+          );
         }),
       },
       core,

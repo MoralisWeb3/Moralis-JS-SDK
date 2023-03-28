@@ -25,6 +25,9 @@ describe('getWalletTransactions', () => {
     expect(result[0].blockNumber.toString()).toBe('12526958');
     expect(result[0].from.format()).toBe('0xd4a3bebd824189481fc45363602b83c9c7e9cbdf');
     expect(result[0].gas?.toString()).toBe('6721975');
+
+    expect(result[0].internalTransactions.length).toBe(1);
+    expect(result[0].internalTransactions[0].type).toBe('CALL');
   });
 
   it('should not get the transactions of an invalid account and throw an error ', async () => {
