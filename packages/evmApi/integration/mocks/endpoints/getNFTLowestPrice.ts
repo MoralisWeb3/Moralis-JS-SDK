@@ -17,7 +17,7 @@ export const mockGetNFTLowestPrice = MockScenarios.create(
       },
       response: {
         transaction_hash: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
-        transaction_index: 'string',
+        transaction_index: '1',
         token_ids: ['15', '54'],
         seller_address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
         buyer_address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',

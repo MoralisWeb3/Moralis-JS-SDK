@@ -71,7 +71,7 @@ function deserializeResponse(
     sellerAddress: EvmAddress.create(jsonResponse.seller_address, core),
     buyerAddress: EvmAddress.create(jsonResponse.buyer_address, core),
     marketplaceAddress: EvmAddress.create(jsonResponse.marketplace_address, core),
-    tokenAddress: EvmAddress.create(jsonResponse.token_address as string, core),
+    tokenAddress: EvmAddress.create(request.address, core),
     price: EvmNative.create(jsonResponse.price, 'wei'),
     blockTimestamp: new Date(jsonResponse.block_timestamp),
     tokenIds: jsonResponse.token_ids as string[],

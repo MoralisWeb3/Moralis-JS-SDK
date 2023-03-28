@@ -14,21 +14,21 @@ describe('getNFTTransfers', () => {
 
   describe('Get NFT Transfers', () => {
     it('should get the transfers of an NFT given a valid contract address and token ID', async () => {
-      const result = await EvmApi.nft.getNFTTransfers({
+      const { result, pagination } = await EvmApi.nft.getNFTTransfers({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
         tokenId: '15',
       });
 
-      const response = result.raw.result?.at(0);
+      const nft = result[0]!;
 
       expect(result).toBeDefined();
-      expect(result).toEqual(expect.objectContaining({}));
-      expect(result.raw.total).toBe(2000);
-      expect(response?.amount).toEqual('1');
-      expect(response?.block_number).toBe('88256');
-      expect(response?.contract_type).toBe('ERC721');
-      expect(response?.token_id).toBe('15');
-      expect(response?.possible_spam).toBe(false);
+      expect(pagination.total).toBe(2000);
+      expect(nft.amount).toEqual(1);
+      expect(nft.blockNumber.toString()).toBe('88256');
+      expect(nft.contractType).toBe('ERC721');
+      expect(nft.tokenId).toBe('15');
+      expect(nft.possibleSpam).toBe(false);
+      expect(nft.value?.wei).toBe('1000000000000000');
     });
 
     it('should not get the transfers of an NFT given an invalid contract address and a valid token ID', async () => {

@@ -14,21 +14,21 @@ describe('getNFTTransfersFromToBlock', () => {
 
   describe('Get NFTs Transfers From block to block', () => {
     it('should get transfers of NFTs from a block number to a block number', async () => {
-      const result = await EvmApi.nft.getNFTTransfersFromToBlock({
+      const { result, pagination } = await EvmApi.nft.getNFTTransfersFromToBlock({
         fromBlock: 1,
         toBlock: 2,
       });
 
-      const response = result.raw.result?.at(0);
+      const transfer = result[0]!;
 
-      expect(result).toBeDefined();
-      expect(result).toEqual(expect.objectContaining({}));
-      expect(result.raw.total).toBe(2000);
-      expect(response?.amount).toEqual('1');
-      expect(response?.block_number).toBe('88256');
-      expect(response?.contract_type).toBe('ERC721');
-      expect(response?.token_id).toBe('15');
-      expect(response?.possible_spam).toBe(false);
+      expect(transfer).toBeDefined();
+      expect(pagination.total).toBe(2000);
+      expect(transfer.amount).toEqual(1);
+      expect(transfer.blockNumber.toString()).toBe('88256');
+      expect(transfer.contractType).toBe('ERC721');
+      expect(transfer.tokenId).toBe('15');
+      expect(transfer.possibleSpam).toBe(false);
+      expect(transfer.value?.wei).toBe('1000000000000000');
     });
 
     it('should not get the NFT transfers from to block of an invalid block number and throw an error', async () => {

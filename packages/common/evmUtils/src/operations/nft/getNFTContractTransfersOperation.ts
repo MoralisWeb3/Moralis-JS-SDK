@@ -100,7 +100,7 @@ function deserializeResponse(
         toAddress: EvmAddress.create(transfer.to_address, core),
         operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
         fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
-        value: transfer.value ? EvmNative.create(transfer.value) : null,
+        value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
         blockTimestamp: new Date(transfer.block_timestamp),
       },
       core,
