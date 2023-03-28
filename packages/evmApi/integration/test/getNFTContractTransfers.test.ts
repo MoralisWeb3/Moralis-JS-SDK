@@ -14,18 +14,18 @@ describe('getNFTContractTransfers', () => {
 
   describe('Get NFT Contract Transfers', () => {
     it('should get the contract transfers of NFTs for a given contract', async () => {
-      const result = await EvmApi.nft.getNFTContractTransfers({
+      const { result, pagination } = await EvmApi.nft.getNFTContractTransfers({
         address: '0x75e3e9c92162e62000425c98769965a76c2e387a',
       });
 
-      const response = result.raw.result?.at(0);
+      const nft = result[0]!;
 
-      expect(result).toBeDefined();
-      expect(result).toEqual(expect.objectContaining({}));
-      expect(result.raw.total).toBe(2000);
-      expect(response?.token_address).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
-      expect(response?.transaction_hash).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
-      expect(response?.possible_spam).toEqual(false);
+      expect(nft).toBeDefined();
+      expect(pagination.total).toBe(2000);
+      expect(nft.tokenAddress.checksum).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+      expect(nft.transactionHash).toEqual('0x057Ec652A4F150f7FF94f089A38008f49a0DF88e');
+      expect(nft.possibleSpam).toEqual(false);
+      expect(nft.value?.wei).toEqual('1000000000000000');
     });
 
     it('should not get the contract of NFT transfers of an invalid address and throw an error', async () => {

@@ -51,7 +51,7 @@ describe('getContractEvents', () => {
   });
 
   it('returns events', async () => {
-    const response = await evmApi.events.getContractEvents({
+    const { result, pagination } = await evmApi.events.getContractEvents({
       chain: 137, // Polygon
       address: '0x2953399124f0cbb46d2cbacd8a89cf0599974963',
       abi: ERC721_ABI_ITEM,
@@ -62,10 +62,12 @@ describe('getContractEvents', () => {
       toDate: '2022-03-05T13:45:42.000Z',
     });
 
-    const result = response.result;
-    expect(response).toBeDefined();
-    expect(response.raw.total).toBe(12);
-    expect(result[0].address.lowercase).toBe('0x2953399124f0cbb46d2cbacd8a89cf0599974963');
-    expect(result[0].blockNumber.toString()).toBe('14327217');
+    const event = result[0]!;
+
+    expect(event).toBeDefined();
+    expect(pagination.total).toBe(12);
+    expect(event.address.lowercase).toBe('0x2953399124f0cbb46d2cbacd8a89cf0599974963');
+    expect(event.blockNumber.toString()).toBe('14327217');
+    expect(event.data.value?.wei).toBe('878000000');
   });
 });

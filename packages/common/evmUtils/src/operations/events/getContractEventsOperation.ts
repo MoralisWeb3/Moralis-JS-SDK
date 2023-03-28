@@ -6,7 +6,7 @@ import {
   DateInput,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmEvent, EvmAbiItem } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmEvent, EvmAbiItem, EvmNative } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -111,7 +111,7 @@ function deserializeResponse(
         data: {
           to: event.data.to,
           from: event.data.from,
-          value: event.data.value,
+          value: maybe(event.data.value, (value) => EvmNative.create(value, 'wei')),
         },
       },
       core,
