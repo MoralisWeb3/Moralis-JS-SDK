@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/streams",
   "author": "Moralis",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -41,7 +41,7 @@
     "dev": "tsc --watch"
   },
   "devDependencies": {
-    "@moralisweb3/test-utils": "2.18.0",
+    "@moralisweb3/test-utils": "2.18.1",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/ethereumjs-util": "5.2.0",
@@ -58,10 +58,10 @@
     "@ethersproject/bignumber": "^5.7.0",
     "@ethersproject/sha2": "^5.7.0",
     "@ethersproject/strings": "^5.7.0",
-    "@moralisweb3/api-utils": "^2.18.0",
-    "@moralisweb3/common-core": "^2.18.0",
-    "@moralisweb3/common-evm-utils": "^2.18.0",
-    "@moralisweb3/common-streams-utils": "^2.18.0",
+    "@moralisweb3/api-utils": "^2.18.1",
+    "@moralisweb3/common-core": "^2.18.1",
+    "@moralisweb3/common-evm-utils": "^2.18.1",
+    "@moralisweb3/common-streams-utils": "^2.18.1",
     "@moralisweb3/streams-typings": "^1.0.6",
     "ethereumjs-util": "^7.1.0",
     "web3-eth-abi": "^1.8.0"

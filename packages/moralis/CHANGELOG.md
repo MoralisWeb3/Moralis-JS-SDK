@@ -1,5 +1,22 @@
 # moralis
 
+## 2.18.1
+
+### Patch Changes
+
+- Updated dependencies [[`98a35355f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98a35355fd7ddde5545c3f882aebb7cc5f869fad)]:
+  - @moralisweb3/common-evm-utils@2.18.1
+  - @moralisweb3/evm-api@2.18.1
+  - @moralisweb3/api-utils@2.18.1
+  - @moralisweb3/aptos-api@2.18.1
+  - @moralisweb3/auth@2.18.1
+  - @moralisweb3/common-auth-utils@2.18.1
+  - @moralisweb3/common-core@2.18.1
+  - @moralisweb3/common-sol-utils@2.18.1
+  - @moralisweb3/common-streams-utils@2.18.1
+  - @moralisweb3/sol-api@2.18.1
+  - @moralisweb3/streams@2.18.1
+
 ## 2.18.0
 
 ### Patch Changes

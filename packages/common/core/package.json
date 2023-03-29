@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-core",
   "author": "Moralis",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",

@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.18.1
+
+### Patch Changes
+
+- [#1071](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1071) [`98a35355f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98a35355fd7ddde5545c3f882aebb7cc5f869fad) Thanks [@ErnoW](https://github.com/ErnoW)! - Fix parsing of some values to wei from API
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.18.1
+
 ## 2.18.0
 
 ### Minor Changes
