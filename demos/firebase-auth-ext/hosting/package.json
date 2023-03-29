@@ -10,7 +10,7 @@
     "@walletconnect/web3-provider": "^1.8.0",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
-    "firebase": "^9.15.0",
+    "firebase": "^9.18.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

@@ -19,6 +19,6 @@
   "dependencies": {
     "@moralisweb3/client-api-utils": "^2.18.1",
     "@moralisweb3/common-core": "^2.18.1",
-    "firebase": "^9.15.0"
+    "firebase": "^9.18.0"
   }
 }

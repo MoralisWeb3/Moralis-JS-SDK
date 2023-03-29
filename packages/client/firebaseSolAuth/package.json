@@ -18,6 +18,6 @@
   "dependencies": {
     "@moralisweb3/client-firebase-auth-utils": "^2.18.1",
     "bs58": "^5.0.0",
-    "firebase": "^9.15.0"
+    "firebase": "^9.18.0"
   }
 }
