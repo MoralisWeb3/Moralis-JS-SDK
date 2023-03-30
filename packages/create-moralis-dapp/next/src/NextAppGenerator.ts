@@ -34,6 +34,7 @@ export class NextAppGenerator implements AppGenerator {
       },
       example: [],
     };
+
     answers.plugins.forEach((AppPlugin) => {
       console.log('AppPlugin: ', AppPlugin);
       const modifications = AppPlugin.getModifications(answers);
