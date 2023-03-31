@@ -24,6 +24,7 @@ demos/**/build/**/*
 
 # Docs
 docs/**/*
+docs-build/**/*
 
 #Template files
 packages/**/src/**/*.hbs
