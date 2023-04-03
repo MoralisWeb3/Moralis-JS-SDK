@@ -39,5 +39,6 @@ describe('Erc20TransferDocumentBuilder', () => {
     expect(doc.blockNumber).toBe(16225618);
     expect(doc.confirmed).toBe(false);
     expect(doc.chainId).toBe(1);
+    expect(doc.triggers).toBeUndefined();
   });
 });

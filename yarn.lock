@@ -7802,7 +7802,7 @@ __metadata:
     "@moralisweb3/common-core": ^2.18.1
     "@moralisweb3/common-evm-utils": ^2.18.1
     "@moralisweb3/common-streams-utils": ^2.18.1
-    "@moralisweb3/streams-typings": ^1.0.6
+    "@moralisweb3/streams-typings": ^1.0.7
     "@moralisweb3/test-utils": 2.18.1
     "@rollup/plugin-commonjs": ^24.0.1
     "@rollup/plugin-node-resolve": ^15.0.1
@@ -25734,7 +25734,7 @@ __metadata:
     "@moralisweb3/evm-api": ^2.18.1
     "@moralisweb3/sol-api": ^2.18.1
     "@moralisweb3/streams": ^2.18.1
-    "@moralisweb3/streams-typings": ^1.0.6
+    "@moralisweb3/streams-typings": ^1.0.7
     "@rollup/plugin-commonjs": ^24.0.1
     "@rollup/plugin-json": ^6.0.0
     "@rollup/plugin-node-resolve": ^15.0.1

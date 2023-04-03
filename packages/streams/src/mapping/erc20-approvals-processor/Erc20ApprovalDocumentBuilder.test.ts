@@ -1,5 +1,6 @@
 import { Block, IERC20Approval } from '@moralisweb3/streams-typings';
 import { Erc20ApprovalDocumentBuilder } from './Erc20ApprovalDocumentBuilder';
+import { TriggerItem } from '../storage';
 
 describe('Erc20ApprovalDocumentBuilder', () => {
   it('builds correctly', () => {
@@ -14,6 +15,12 @@ describe('Erc20ApprovalDocumentBuilder', () => {
       tokenSymbol: 'USDC',
       tokenDecimals: '6',
       valueWithDecimals: '1.15792089237316195423570985008687907853269984665640564039457584007913129639935e+71',
+      triggers: [
+        {
+          name: 'output1',
+          value: '26349457150230',
+        },
+      ],
     };
     const block: Block = {
       number: '16225618',
@@ -39,5 +46,8 @@ describe('Erc20ApprovalDocumentBuilder', () => {
     expect(doc.blockNumber).toBe(16225618);
     expect(doc.confirmed).toBe(false);
     expect(doc.chainId).toBe(1);
+    const trigger0 = (doc.triggers as TriggerItem[])[0];
+    expect(trigger0.name).toBe('output1');
+    expect(trigger0.value).toBe('26349457150230');
   });
 });

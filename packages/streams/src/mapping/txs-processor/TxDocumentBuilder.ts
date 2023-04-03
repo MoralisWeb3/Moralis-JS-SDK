@@ -1,6 +1,7 @@
 import { Block, Transaction } from '@moralisweb3/streams-typings';
 import { TxRelatedId } from '../common/TxRelatedId';
-import { Document } from '../storage/Update';
+import { Document, TriggerItem } from '../storage/Update';
+import { TriggerItemsBuilder } from '../common/TriggerItemsBuilder';
 
 export interface TxDocument extends Document {
   id: string;
@@ -22,6 +23,7 @@ export interface TxDocument extends Document {
   blockTimestamp: number;
   blockNumber: number;
   confirmed: boolean;
+  triggers: TriggerItem[] | undefined;
 }
 
 export class TxDocumentBuilder {
@@ -47,6 +49,7 @@ export class TxDocumentBuilder {
       blockTimestamp: parseInt(block.timestamp, 10),
       blockNumber: parseInt(block.number, 10),
       confirmed,
+      triggers: TriggerItemsBuilder.build(tx.triggers),
     };
   }
 }

@@ -15,6 +15,7 @@ describe('NftTransferDocumentBuilder', () => {
       tokenName: 'BoredApeYachtClub',
       tokenSymbol: 'BAYC',
       tokenContractType: 'ERC721',
+      triggers: [],
     };
     const block: Block = {
       number: '16225662',
@@ -42,5 +43,6 @@ describe('NftTransferDocumentBuilder', () => {
     expect(doc.blockNumber).toBe(16225662);
     expect(doc.confirmed).toBe(false);
     expect(doc.chainId).toBe(32);
+    expect(doc.triggers).toBeUndefined();
   });
 });

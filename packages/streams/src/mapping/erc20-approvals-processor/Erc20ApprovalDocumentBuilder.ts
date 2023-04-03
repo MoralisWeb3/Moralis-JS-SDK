@@ -1,6 +1,7 @@
 import { Block, IERC20Approval } from '@moralisweb3/streams-typings';
 import { LogRelatedId } from '../common/LogRelatedId';
-import { Document } from '../storage';
+import { Document, TriggerItem } from '../storage';
+import { TriggerItemsBuilder } from '../common/TriggerItemsBuilder';
 
 export interface Erc20ApprovalDocument extends Document {
   id: string;
@@ -21,6 +22,7 @@ export interface Erc20ApprovalDocument extends Document {
   blockNumber: number;
   confirmed: boolean;
   chainId: number;
+  triggers: TriggerItem[] | undefined;
 }
 
 export class Erc20ApprovalDocumentBuilder {
@@ -51,6 +53,7 @@ export class Erc20ApprovalDocumentBuilder {
       blockNumber: parseInt(block.number, 10),
       confirmed,
       chainId: chain,
+      triggers: TriggerItemsBuilder.build(approval.triggers),
     };
     return document;
   }
