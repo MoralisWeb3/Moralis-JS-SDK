@@ -168,7 +168,7 @@
     "@moralisweb3/evm-api": "^2.18.1",
     "@moralisweb3/sol-api": "^2.18.1",
     "@moralisweb3/streams": "^2.18.1",
-    "@moralisweb3/streams-typings": "^1.0.6"
+    "@moralisweb3/streams-typings": "^1.0.7"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",

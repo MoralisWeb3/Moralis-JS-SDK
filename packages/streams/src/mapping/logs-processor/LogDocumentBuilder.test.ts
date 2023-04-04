@@ -2,6 +2,7 @@ import { LogDocumentBuilder } from './LogDocumentBuilder';
 import { BigNumber } from '@ethersproject/bignumber';
 import { Block, Log } from '@moralisweb3/streams-typings';
 import { ParsedLog } from './LogParser';
+import { TriggerItem } from '../storage';
 
 describe('LogDocumentBuilder', () => {
   it('builds row correctly', () => {
@@ -14,6 +15,12 @@ describe('LogDocumentBuilder', () => {
       topic1: '0x0000000000000000000000006d17cc023df5156efbc726946ce5d04fe484ef39',
       topic2: '0x00000000000000000000000034189c75cbb13bdb4f5953cda6c3045cfca84a9e',
       topic3: null,
+      triggers: [
+        {
+          name: 'output1',
+          value: '26349457150230',
+        },
+      ],
     };
     const parsedLog: ParsedLog = {
       name: 'Transfer',
@@ -52,5 +59,8 @@ describe('LogDocumentBuilder', () => {
     expect(doc['from']).toBe('0x6d17cc023df5156efbc726946ce5d04fe484ef39');
     expect(doc['to']).toBe('0x34189c75cbb13bdb4f5953cda6c3045cfca84a9e');
     expect(doc['value']).toBe('17969119000000000000000000');
+    const trigger0 = (doc.triggers as TriggerItem[])[0];
+    expect(trigger0.name).toBe('output1');
+    expect(trigger0.value).toBe('26349457150230');
   });
 });

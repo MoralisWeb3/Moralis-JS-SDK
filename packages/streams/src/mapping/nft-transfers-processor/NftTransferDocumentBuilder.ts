@@ -1,6 +1,7 @@
 import { Block, INFTTransfer } from '@moralisweb3/streams-typings';
 import { LogRelatedId } from '../common/LogRelatedId';
-import { Document } from '../storage';
+import { Document, TriggerItem } from '../storage';
+import { TriggerItemsBuilder } from '../common/TriggerItemsBuilder';
 
 export interface NftTransferDocument extends Document {
   id: string;
@@ -24,6 +25,7 @@ export interface NftTransferDocument extends Document {
   blockNumber: number;
   confirmed: boolean;
   chainId: number;
+  triggers: TriggerItem[] | undefined;
 }
 
 export class NftTransferDocumentBuilder {
@@ -52,6 +54,7 @@ export class NftTransferDocumentBuilder {
       blockNumber: parseInt(block.number, 10),
       confirmed,
       chainId: chain,
+      triggers: TriggerItemsBuilder.build(transfer.triggers),
     };
     return document;
   }

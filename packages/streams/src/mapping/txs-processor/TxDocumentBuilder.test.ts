@@ -51,5 +51,6 @@ describe('TxDocumentBuilder', () => {
     expect(doc.blockTimestamp).toBe(1664791547);
     expect(doc.blockNumber).toBe(15666916);
     expect(doc.confirmed).toBe(false);
+    expect(doc.triggers).toBeUndefined();
   });
 });
