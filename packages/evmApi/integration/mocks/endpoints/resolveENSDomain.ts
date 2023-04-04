@@ -1,11 +1,11 @@
 import { MockScenarios } from '@moralisweb3/test-utils';
 import { createErrorResponse } from '../response/errorResponse';
 
-export const mockResolveDomain = MockScenarios.create(
+export const mockResolveENSDomain = MockScenarios.create(
   {
-    name: 'mockResolveDomain',
+    name: 'mockResolveENSDomain',
     method: 'get',
-    url: '/resolve/:domain',
+    url: '/resolve/ens/:domain',
     getParams: ({ req }) => ({
       domain: req.params.domain,
     }),
@@ -13,15 +13,15 @@ export const mockResolveDomain = MockScenarios.create(
   [
     {
       condition: {
-        domain: 'brad.crypto',
+        domain: 'nick.eth',
       },
       response: {
-        address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        address: '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
       },
     },
     {
       condition: {
-        domain: 'notfound.crypto',
+        domain: 'unknown.eth',
       },
       responseStatus: 404,
       response: createErrorResponse('null'),

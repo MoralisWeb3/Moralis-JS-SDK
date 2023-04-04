@@ -213,6 +213,10 @@ export interface paths {
     /** Resolve a specific Unstoppable domain to its address. */
     get: operations["resolveDomain"];
   };
+  "/resolve/ens/{domain}": {
+    /** Resolve a specific ENS domain to its address. */
+    get: operations["resolveENSDomain"];
+  };
   "/{pair_address}/reserves": {
     /** Get the liquidity reserves for a given pair address. Only Uniswap V2 based exchanges supported at the moment. */
     get: operations["getPairReserves"];
@@ -1318,7 +1322,7 @@ export interface components {
     };
     /**
      * @default
-     * @example internal_transactions
+     * @example
      * @enum {string}
      */
     includeList: "internal_transactions";
@@ -3814,6 +3818,29 @@ export interface operations {
         /** The currency to query */
         currency?: "eth" | "0x1";
       };
+      path: {
+        /** The domain to be resolved */
+        domain: string;
+      };
+    };
+    responses: {
+      /** Returns an address */
+      200: {
+        content: {
+          "application/json": components["schemas"]["resolve"];
+        };
+      };
+      /** Returns an address */
+      404: {
+        content: {
+          "application/json": { [key: string]: unknown };
+        };
+      };
+    };
+  };
+  /** Resolve a specific ENS domain to its address. */
+  resolveENSDomain: {
+    parameters: {
       path: {
         /** The domain to be resolved */
         domain: string;

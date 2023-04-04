@@ -48,6 +48,7 @@ import { mockGetInternalTransaction } from './endpoints/getInternalTransactions'
 import { mockGetTransactionVerbose } from './endpoints/getTransactionVerbose';
 import { mockGetErc20Approvals } from './endpoints/getErc20Approvals';
 import { mockGetErc20Burns } from './endpoints/getErc20Burns';
+import { mockResolveENSDomain } from './endpoints/resolveENSDomain';
 
 const handler = [
   mockGetDateToBlock,
@@ -72,6 +73,7 @@ const handler = [
   mockGetWalletTokenTransfers,
   mockResolveAddress,
   mockResolveDomain,
+  mockResolveENSDomain,
   mockGetPairAddress,
   mockGetPairReserves,
   mockRunContractFunction,

@@ -23,7 +23,7 @@ import {
   searchNFTsOperation,
   syncNFTContractOperation,
 } from './nft';
-import { resolveAddressOperation, resolveDomainOperation } from './resolve';
+import { resolveAddressOperation, resolveDomainOperation, resolveENSDomainOperation } from './resolve';
 import {
   getTokenAllowanceOperation,
   getTokenMetadataBySymbolOperation,
@@ -89,6 +89,7 @@ export const operations = [
   getWalletTransactionsVerboseOperation,
   resolveAddressOperation,
   resolveDomainOperation,
+  resolveENSDomainOperation,
   reSyncMetadataOperation,
   runContractFunctionOperation,
   searchNFTsOperation,
