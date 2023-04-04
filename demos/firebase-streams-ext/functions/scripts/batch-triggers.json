@@ -1,0 +1,439 @@
+{
+  "confirmed": true,
+  "chainId": "0x38",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "approved",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "ApprovalForAll",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "controller",
+          "type": "address"
+        }
+      ],
+      "name": "ControllerAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "controller",
+          "type": "address"
+        }
+      ],
+      "name": "ControllerRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "expires",
+          "type": "uint256"
+        }
+      ],
+      "name": "NameMigrated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "expires",
+          "type": "uint256"
+        }
+      ],
+      "name": "NameRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "expires",
+          "type": "uint256"
+        }
+      ],
+      "name": "NameRenewed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    }
+  ],
+  "streamId": "65f5eb7f-5a11-4cba-bbfe-3525dc8ff783",
+  "tag": "triggers",
+  "retries": 0,
+  "block": {
+    "number": "27050305",
+    "hash": "0xc273443939a7c55d4047936a1c03edbead75d4f46652c9e884234d4b96c75b12",
+    "timestamp": "1680595022"
+  },
+  "logs": [
+    {
+      "logIndex": "91",
+      "transactionHash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "address": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "data": "0x",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "topic2": "0x000000000000000000000000d9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "topic3": "0x394e1a80f2b0557f11d3af699558be72b68b5b401eb546ed25dfb6a8d6b51868"
+    },
+    {
+      "logIndex": "99",
+      "transactionHash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "address": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "data": "0x",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000d9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "topic2": "0x000000000000000000000000c9fd5718fd22b700741380676991f6fa65918427",
+      "topic3": "0x394e1a80f2b0557f11d3af699558be72b68b5b401eb546ed25dfb6a8d6b51868"
+    },
+    {
+      "logIndex": "136",
+      "transactionHash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "address": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "data": "0x",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "topic2": "0x000000000000000000000000d9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "topic3": "0x92ce9609d509dc30ff962b8d2a24495e332056000ea4f44686909d58f95ded8c"
+    },
+    {
+      "logIndex": "144",
+      "transactionHash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "address": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "data": "0x",
+      "topic0": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+      "topic1": "0x000000000000000000000000d9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "topic2": "0x000000000000000000000000d57bbe0a5b2187dac9ed3bb2cfd2504084a34426",
+      "topic3": "0x92ce9609d509dc30ff962b8d2a24495e332056000ea4f44686909d58f95ded8c"
+    }
+  ],
+  "txs": [
+    {
+      "hash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "gas": "695632",
+      "gasPrice": "5000000000",
+      "nonce": "1",
+      "input": "0x6c24945a00000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000c9fd5718fd22b700741380676991f6fa659184270000000000000000000000000000000000000000000000000000000001e18558b85bf3b269db4beba9c925d0779756217e4f1d1e3476b568a061947001b38c770000000000000000000000007a18768edb2619e73c4d5067b90fd84a71993c1d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000664696e68637500000000000000000000000000000000000000000000000000000000000000000000000000000fdaf4a69402fa579d9a63c6ce10a400f02138cec59d4ef9084d575611df6854f0bf3f6e6ebd4d5922b88640e0b6ebab4036ba14000000000000000000000000000000000000000000000000000000000000026000000000000000000000000000000000000000000000000000000000642bd97300000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000041d48f9ffac9d3c7b00d4d9f4a8037cfeb7bbd8e6f4358e5448eec292bc9e3def769b8c2a58dc9298fb3d85358924dce5842051222948224a5f1839f39d720743b1c00000000000000000000000000000000000000000000000000000000000000",
+      "transactionIndex": "65",
+      "fromAddress": "0xc9fd5718fd22b700741380676991f6fa65918427",
+      "toAddress": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "value": "17742915599088148",
+      "type": "0",
+      "v": "147",
+      "r": "115525045602829008448443605763390591357100698528178957906208320040364159171927",
+      "s": "47839751273062914065826447358767191131536714167841260570191545112111437022842",
+      "receiptCumulativeGasUsed": "4775445",
+      "receiptGasUsed": "459095",
+      "receiptContractAddress": null,
+      "receiptRoot": null,
+      "receiptStatus": "1",
+      "triggers": [
+        {
+          "name": "output1",
+          "value": "SPACE ID"
+        }
+      ]
+    },
+    {
+      "hash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "gas": "697910",
+      "gasPrice": "5000000000",
+      "nonce": "1",
+      "input": "0x6c24945a00000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000d57bbe0a5b2187dac9ed3bb2cfd2504084a344260000000000000000000000000000000000000000000000000000000001e185588ee13a62fb4e3b0ad286a321a4122c7c13f71027d8d4f5395d5e273f4d1a5b1b0000000000000000000000007a18768edb2619e73c4d5067b90fd84a71993c1d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000086e756f636361616d0000000000000000000000000000000000000000000000000000000000000000000000000fdaf4a69402fa579d9a63c6ce10a400f02138cec59d4ef9084d575611df6854f0bf3f6e6ebd4d5922b88640e0b6ebab4036ba14000000000000000000000000000000000000000000000000000000000000026000000000000000000000000000000000000000000000000000000000642bd97400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000041da3f26cfc1375212882085d30e9e59384e738e98db370d1cce2c5848acdc46d773b9626a5572cd519ca50c9facc8f1b2dada0a65abf37d9bfccd6822caa28cae1c00000000000000000000000000000000000000000000000000000000000000",
+      "transactionIndex": "106",
+      "fromAddress": "0xd57bbe0a5b2187dac9ed3bb2cfd2504084a34426",
+      "toAddress": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "value": "17742915599088148",
+      "type": "0",
+      "v": "147",
+      "r": "6936781613014738245341222619210300447022780759459034105540330864631494541751",
+      "s": "7869332494516780539680680832923286269230974135191901435363650925551627913573",
+      "receiptCumulativeGasUsed": "7477726",
+      "receiptGasUsed": "460993",
+      "receiptContractAddress": null,
+      "receiptRoot": null,
+      "receiptStatus": "1",
+      "triggers": [
+        {
+          "name": "output1",
+          "value": "SPACE ID"
+        }
+      ]
+    }
+  ],
+  "txsInternal": [
+    {
+      "from": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "to": "0xe230e8ab92577a2b74c781c0c9614b9474ab3acb",
+      "value": "2419488490784747",
+      "gas": "212199",
+      "transactionHash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "internalTransactionIndex": "0"
+    },
+    {
+      "from": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "to": "0xc9fd5718fd22b700741380676991f6fa65918427",
+      "value": "1612992327189832",
+      "gas": "195178",
+      "transactionHash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "internalTransactionIndex": "1"
+    },
+    {
+      "from": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "to": "0xe230e8ab92577a2b74c781c0c9614b9474ab3acb",
+      "value": "2419488490784747",
+      "gas": "212573",
+      "transactionHash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "internalTransactionIndex": "0"
+    },
+    {
+      "from": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "to": "0xd57bbe0a5b2187dac9ed3bb2cfd2504084a34426",
+      "value": "1612992327189832",
+      "gas": "195552",
+      "transactionHash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "internalTransactionIndex": "1"
+    }
+  ],
+  "erc20Transfers": [],
+  "erc20Approvals": [],
+  "nftTokenApprovals": [],
+  "nftApprovals": {
+    "ERC721": [],
+    "ERC1155": []
+  },
+  "nftTransfers": [
+    {
+      "operator": null,
+      "from": "0x0000000000000000000000000000000000000000",
+      "to": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "tokenId": "25919829362135202236603110213606158089555548263069249591451856556460885743720",
+      "amount": "1",
+      "transactionHash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "logIndex": "91",
+      "contract": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "tokenName": "SPACE ID",
+      "tokenSymbol": "SID",
+      "tokenContractType": "ERC721",
+      "possibleScam": false,
+      "triggers": [
+        {
+          "name": "output1",
+          "value": "0"
+        },
+        {
+          "name": "output1",
+          "value": "662099"
+        }
+      ]
+    },
+    {
+      "operator": null,
+      "from": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "to": "0xc9fd5718fd22b700741380676991f6fa65918427",
+      "tokenId": "25919829362135202236603110213606158089555548263069249591451856556460885743720",
+      "amount": "1",
+      "transactionHash": "0xeec62d5617c049e52226b49d9dc5b5c8d474ec983e4f9db4c73c692522835626",
+      "logIndex": "99",
+      "contract": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "tokenName": "SPACE ID",
+      "tokenSymbol": "SID",
+      "tokenContractType": "ERC721",
+      "possibleScam": false,
+      "triggers": [
+        {
+          "name": "output1",
+          "value": "1"
+        },
+        {
+          "name": "output1",
+          "value": "662099"
+        }
+      ]
+    },
+    {
+      "operator": null,
+      "from": "0x0000000000000000000000000000000000000000",
+      "to": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "tokenId": "66402681915528352807917599041926311154722729857889411993564605069195585908108",
+      "amount": "1",
+      "transactionHash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "logIndex": "136",
+      "contract": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "tokenName": "SPACE ID",
+      "tokenSymbol": "SID",
+      "tokenContractType": "ERC721",
+      "possibleScam": false,
+      "triggers": [
+        {
+          "name": "output1",
+          "value": "0"
+        },
+        {
+          "name": "output1",
+          "value": "662099"
+        }
+      ]
+    },
+    {
+      "operator": null,
+      "from": "0xd9a99ae1f5d173ccf36e19777aca5b8268b5f291",
+      "to": "0xd57bbe0a5b2187dac9ed3bb2cfd2504084a34426",
+      "tokenId": "66402681915528352807917599041926311154722729857889411993564605069195585908108",
+      "amount": "1",
+      "transactionHash": "0xd90a687421a8d2f60393d7a25f940d88cce9c8272bac43345f31464a5979141e",
+      "logIndex": "144",
+      "contract": "0xe3b1d32e43ce8d658368e2cbff95d57ef39be8a6",
+      "tokenName": "SPACE ID",
+      "tokenSymbol": "SID",
+      "tokenContractType": "ERC721",
+      "possibleScam": false,
+      "triggers": [
+        {
+          "name": "output1",
+          "value": "1"
+        },
+        {
+          "name": "output1",
+          "value": "662099"
+        }
+      ]
+    }
+  ],
+  "nativeBalances": []
+}

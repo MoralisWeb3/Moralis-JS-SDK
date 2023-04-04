@@ -1,4 +1,4 @@
-const request = require('request');
+const axios = require('axios');
 const util = require('ethereumjs-util');
 
 function generateSignature(data, apiKey) {
@@ -7,30 +7,14 @@ function generateSignature(data, apiKey) {
   return util.bufferToHex(util.keccak256(buffer));
 }
 
-function send(url, fileName, apiKey) {
+async function send(url, fileName, apiKey) {
   const data = require(fileName);
   const signature = generateSignature(data, apiKey);
 
-  return new Promise((resolve, reject) => {
-    request.post(
-      {
-        url,
-        json: true,
-        body: data,
-        headers: {
-          'x-signature': signature,
-        },
-      },
-      (error, response) => {
-        if (error) {
-          console.error(error);
-          reject(error);
-        } else {
-          console.log(`statusCode: ${response.statusCode}`);
-          resolve(response);
-        }
-      },
-    );
+  await axios.post(url, data, {
+    headers: {
+      'x-signature': signature,
+    },
   });
 }
 
@@ -49,6 +33,7 @@ async function main() {
   await send(webhookUrl, './batch-uniswap-internal-transactions.json', apiKey);
   await send(webhookUrl, './batch-nft-erc721-transfers.json', apiKey);
   await send(webhookUrl, './batch-nft-erc1155-transfers.json', apiKey);
+  await send(webhookUrl, './batch-triggers.json', apiKey);
 }
 
 main();
