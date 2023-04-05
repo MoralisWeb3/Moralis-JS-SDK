@@ -7287,6 +7287,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/detect-provider@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@metamask/detect-provider@npm:2.0.0"
+  checksum: 45d3128069310e6cdb9a572b31da88b3fddb0aa78f94deba71657efd7e40d0680912a4ee0291a7a0e9ab66681aba271e74de87c5464d979f115726c740db641b
+  languageName: node
+  linkType: hard
+
 "@metamask/eth-sig-util@npm:^4.0.1":
   version: 4.0.1
   resolution: "@metamask/eth-sig-util@npm:4.0.1"
@@ -7443,7 +7450,7 @@ __metadata:
   resolution: "@moralisweb3/client-firebase-evm-auth@workspace:packages/client/firebaseEvmAuth"
   dependencies:
     "@ethersproject/providers": ^5.7.2
-    "@metamask/detect-provider": ^1.2.0
+    "@metamask/detect-provider": ^2.0.0
     "@moralisweb3/client-firebase-auth-utils": ^2.18.2
     firebase: ^9.15.0
   languageName: unknown
