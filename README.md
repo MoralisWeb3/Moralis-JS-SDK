@@ -16,7 +16,7 @@
     <a href="https://forum.moralis.io" target="_blank">
       <img alt="Discourse posts" src="https://img.shields.io/discourse/posts?color=B7E803&label=Forum&logo=discourse&server=https%3A%2F%2Fforum.moralis.io">
     </a><br/>
-    <img alt="npm" src="https://img.shields.io/npm/v/moralis?label=version">
+    <a href="https://www.npmjs.com/package/moralis"><img alt="npm" src="https://img.shields.io/npm/v/moralis?label=version"></a>
     <img src="https://img.shields.io/github/last-commit/MoralisWeb3/Moralis-JS-SDK">
     <img src="https://img.shields.io/bundlephobia/minzip/moralis">
     <img src="https://img.shields.io/npm/types/moralis">
