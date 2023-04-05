@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/auth",
   "author": "Moralis",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -49,11 +49,11 @@
     "rollup-plugin-typescript2": "^0.34.1"
   },
   "dependencies": {
-    "@moralisweb3/api-utils": "^2.18.1",
-    "@moralisweb3/common-aptos-utils": "^2.18.1",
-    "@moralisweb3/common-auth-utils": "^2.18.1",
-    "@moralisweb3/common-core": "^2.18.1",
-    "@moralisweb3/common-evm-utils": "^2.18.1",
-    "@moralisweb3/common-sol-utils": "^2.18.1"
+    "@moralisweb3/api-utils": "^2.18.2",
+    "@moralisweb3/common-aptos-utils": "^2.18.2",
+    "@moralisweb3/common-auth-utils": "^2.18.2",
+    "@moralisweb3/common-core": "^2.18.2",
+    "@moralisweb3/common-evm-utils": "^2.18.2",
+    "@moralisweb3/common-sol-utils": "^2.18.2"
   }
 }

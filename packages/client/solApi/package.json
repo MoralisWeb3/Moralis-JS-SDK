@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-sol-api",
   "author": "Moralis",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -23,8 +23,8 @@
     "gen:client": "node ../apiUtils/scripts/generate-client.js ./src/generated/ClientSolApi.ts @moralisweb3/common-sol-utils"
   },
   "dependencies": {
-    "@moralisweb3/client-api-utils": "^2.18.1",
-    "@moralisweb3/common-core": "^2.18.1",
-    "@moralisweb3/common-sol-utils": "^2.18.1"
+    "@moralisweb3/client-api-utils": "^2.18.2",
+    "@moralisweb3/common-core": "^2.18.2",
+    "@moralisweb3/common-sol-utils": "^2.18.2"
   }
 }

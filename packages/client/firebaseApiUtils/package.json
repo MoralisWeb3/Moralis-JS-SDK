@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/client-firebase-api-utils",
   "author": "Moralis",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.js",
@@ -17,8 +17,8 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "@moralisweb3/client-api-utils": "^2.18.1",
-    "@moralisweb3/common-core": "^2.18.1",
+    "@moralisweb3/client-api-utils": "^2.18.2",
+    "@moralisweb3/common-core": "^2.18.2",
     "firebase": "^9.15.0"
   }
 }
