@@ -9,10 +9,10 @@
     "lint": "eslint --ext .js,.ts ."
   },
   "dependencies": {
-    "@moralisweb3/next": "^2.18.1",
+    "@moralisweb3/next": "^2.18.2",
     "axios": "^1.2.1",
     "ethers": "^5.7.2",
-    "moralis": "^2.18.1",
+    "moralis": "^2.18.2",
     "next": "12.2.5",
     "next-auth": "4.20.1",
     "react": "^18.2.0",

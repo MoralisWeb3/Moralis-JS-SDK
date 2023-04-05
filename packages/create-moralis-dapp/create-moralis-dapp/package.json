@@ -1,7 +1,7 @@
 {
   "name": "create-moralis-dapp",
   "author": "Moralis",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -19,9 +19,9 @@
     "dev": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@create-moralis-dapp/express": "^2.18.1",
-    "@create-moralis-dapp/next": "^2.18.1",
-    "@create-moralis-dapp/react-vite": "^2.18.1",
-    "@create-moralis-dapp/toolkit": "^2.18.1"
+    "@create-moralis-dapp/express": "^2.18.2",
+    "@create-moralis-dapp/next": "^2.18.2",
+    "@create-moralis-dapp/react-vite": "^2.18.2",
+    "@create-moralis-dapp/toolkit": "^2.18.2"
   }
 }

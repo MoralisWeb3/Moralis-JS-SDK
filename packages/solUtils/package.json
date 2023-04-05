@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/sol-utils",
   "author": "Moralis",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -34,7 +34,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
-    "@moralisweb3/common-sol-utils": "^2.18.1"
+    "@moralisweb3/common-sol-utils": "^2.18.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",

@@ -1,5 +1,12 @@
 # @create-moralis-dapp/express
 
+## 2.18.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @create-moralis-dapp/toolkit@2.18.2
+
 ## 2.18.1
 
 ### Patch Changes
