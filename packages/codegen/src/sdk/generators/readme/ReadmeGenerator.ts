@@ -2,7 +2,7 @@
 import { ActionType } from 'node-plop';
 import { paths } from './constants';
 import path from 'node:path';
-import { PackageData, PackageInfo } from 'packages/codegen/src/utils/PackageInfo';
+import { PackageData, PackageInfo } from '../../../utils/PackageInfo';
 import { markdownTable } from 'markdown-table';
 import { packageTypeTitles } from './config';
 

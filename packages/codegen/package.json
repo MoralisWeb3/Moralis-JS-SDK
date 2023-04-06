@@ -5,11 +5,12 @@
   "license": "MIT",
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx,jsx",
     "format": "prettier --write 'src/**/*.{js,ts}'",
-    "generate": "yarn esmo src/index.ts",
-    "debug": "yarn esmo src/test.ts"
+    "generate": "ts-node --esm --experimentalSpecifierResolution node src/index.ts",
+    "debug": "ts-node --esm --experimentalSpecifierResolution src/test.ts"
   },
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.3",
@@ -19,7 +20,6 @@
     "@types/markdown-table": "^3.0.0",
     "@types/minimist": "^1.2.2",
     "eslint": "^8.32.0",
-    "esmo": "^0.14.1",
     "glob": "^8.0.3",
     "handlebars": "^4.7.7",
     "inquirer": "^8.0.0",
@@ -27,6 +27,7 @@
     "lodash": "^4.17.21",
     "markdown-table": "^3.0.2",
     "plop": "3.1.1",
-    "ts-morph": "16.0.0"
+    "ts-morph": "16.0.0",
+    "ts-node": "^10.9.1"
   }
 }
