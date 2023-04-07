@@ -56,7 +56,7 @@ export const GetNFTByOwnersOperation = {
   groupName: "wallets",
   httpMethod: "get",
   routePattern: "/wallets/nfts",
-  parameterNames: ["limit","offset","cursor","owner_addresses","collection_blacklist","collection_whitelist","network"],
+  parameterNames: ["limit","offset","cursor","ownerAddresses","collectionBlacklist","collectionWhitelist","network"],
   hasResponse: true,
   hasBody: false,
 

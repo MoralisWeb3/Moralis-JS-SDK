@@ -1,5 +1,5 @@
-import { ReferenceTypePointer } from '../../../reader/TypeDescriptor';
-import { OpenApiContract } from '../../../reader/OpenApiContract';
+import { ReferenceTypePointer, TypeDescriptor } from '../../../reader/TypeDescriptor';
+import { ComplexTypeInfo, OpenApiContract } from '../../../reader/OpenApiContract';
 
 export class TypeInfoResolver {
   public constructor(private readonly contract: OpenApiContract) {}
@@ -22,5 +22,14 @@ export class TypeInfoResolver {
   public isUnionType(pointer: ReferenceTypePointer): boolean {
     const $ref = pointer.ref.toString();
     return this.contract.unionTypes.some((type) => type.descriptor.ref.toString() === $ref);
+  }
+
+  public getComplexType(pointer: TypeDescriptor): ComplexTypeInfo {
+    const $ref = pointer.ref.toString();
+    const result = this.contract.complexTypes.find((type) => type.descriptor.ref.toString() === $ref);
+    if (!result) {
+      throw new Error(`Complex type not found: ${$ref}`);
+    }
+    return result;
   }
 }

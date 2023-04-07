@@ -1,5 +1,6 @@
 import { EOL, MemoryOutput } from './MemoryOutput';
 import { Output } from './Output';
+import { TypeScriptCommentBuilder } from './TypeScriptCommentBuilder';
 
 export class TypeScriptOutput implements Output {
   private readonly output = new MemoryOutput();
@@ -28,20 +29,8 @@ export class TypeScriptOutput implements Output {
     }
   }
 
-  public writeComment(tabs: number, comment: string | null, props: { [key: string]: string | undefined }) {
-    const notEmptyPropKeys = Object.keys(props).filter((name) => props[name]);
-    if (notEmptyPropKeys.length < 1) {
-      return;
-    }
-
-    this.write(tabs, '/**');
-    if (comment) {
-      this.write(tabs, ' * ' + wrapComment(tabs, comment));
-    }
-    for (const key of notEmptyPropKeys) {
-      this.write(tabs, ` * @${key} ${wrapComment(tabs, props[key] as string)}`);
-    }
-    this.write(tabs, ' */');
+  public createComment(tabs: number): TypeScriptCommentBuilder {
+    return new TypeScriptCommentBuilder(this.output, tabs);
   }
 
   public newLine() {

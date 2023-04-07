@@ -56,7 +56,7 @@ export const GetNFTTransfersByCreatorsOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/transfers/creators",
-  parameterNames: ["limit","offset","cursor","creator_addresses","collection_blacklist","collection_whitelist","network"],
+  parameterNames: ["limit","offset","cursor","creatorAddresses","collectionBlacklist","collectionWhitelist","network"],
   hasResponse: true,
   hasBody: false,
 

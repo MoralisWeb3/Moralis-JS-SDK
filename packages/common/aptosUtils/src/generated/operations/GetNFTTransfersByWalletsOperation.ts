@@ -56,7 +56,7 @@ export const GetNFTTransfersByWalletsOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/transfers/wallets",
-  parameterNames: ["limit","offset","cursor","wallet_addresses","collection_blacklist","collection_whitelist","network"],
+  parameterNames: ["limit","offset","cursor","walletAddresses","collectionBlacklist","collectionWhitelist","network"],
   hasResponse: true,
   hasBody: false,
 

@@ -44,7 +44,7 @@ export const GetNFTCollectionsByCreatorOperation = {
   groupName: "collections",
   httpMethod: "get",
   routePattern: "/collections/creators",
-  parameterNames: ["limit","offset","cursor","creator_address","network"],
+  parameterNames: ["limit","offset","cursor","creatorAddress","network"],
   hasResponse: true,
   hasBody: false,
 

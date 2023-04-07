@@ -56,7 +56,7 @@ export const GetNFTOwnersByCollectionOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/collections/{collection_data_id_hash}/owners",
-  parameterNames: ["collection_data_id_hash","limit","offset","cursor","wallet_blacklist","wallet_whitelist","network"],
+  parameterNames: ["collectionDataIdHash","limit","offset","cursor","walletBlacklist","walletWhitelist","network"],
   hasResponse: true,
   hasBody: false,
 

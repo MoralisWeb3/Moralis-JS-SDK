@@ -46,7 +46,7 @@ export const GetEventsByCreationNumberOperation = {
   groupName: "accounts",
   httpMethod: "get",
   routePattern: "/accounts/{address}/events/{creation_number}",
-  parameterNames: ["address","creation_number","limit","start","network"],
+  parameterNames: ["address","creationNumber","limit","start","network"],
   hasResponse: true,
   hasBody: false,
 

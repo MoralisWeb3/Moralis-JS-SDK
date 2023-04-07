@@ -73,7 +73,7 @@ export class OperationsV3Reader {
         this.operations.push({
           operationId: path.operationId,
           groupName,
-          description: path.description,
+          description: path.description || path.summary,
           httpMethod,
           routePattern,
           response,

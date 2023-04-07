@@ -56,7 +56,7 @@ export const GetCoinTransfersByCoinTypeOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/transfers/{coin_type}",
-  parameterNames: ["coin_type","limit","offset","cursor","from_date","to_date","network"],
+  parameterNames: ["coinType","limit","offset","cursor","fromDate","toDate","network"],
   hasResponse: true,
   hasBody: false,
 

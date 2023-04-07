@@ -52,7 +52,7 @@ export const GetEventsByEventHandleOperation = {
   groupName: "accounts",
   httpMethod: "get",
   routePattern: "/accounts/{address}/events/{event_handle}/{field_name}",
-  parameterNames: ["address","event_handle","field_name","limit","start","network"],
+  parameterNames: ["address","eventHandle","fieldName","limit","start","network"],
   hasResponse: true,
   hasBody: false,
 

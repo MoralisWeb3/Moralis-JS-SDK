@@ -44,7 +44,7 @@ export const GetCoinsByCreatorsOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/creators",
-  parameterNames: ["limit","offset","cursor","creator_addresses","network"],
+  parameterNames: ["limit","offset","cursor","creatorAddresses","network"],
   hasResponse: true,
   hasBody: false,
 

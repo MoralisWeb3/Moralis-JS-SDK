@@ -59,7 +59,11 @@ export class Generator {
       this.generateUnionType(unionType);
     }
 
-    const abstractClientFileGenerator = new AbstractClientFileGenerator(this.contract.operations, this.typeResolver);
+    const abstractClientFileGenerator = new AbstractClientFileGenerator(
+      this.contract.operations,
+      this.typeResolver,
+      this.typeInfoResolver,
+    );
     this.writer.writeAbstractClient(abstractClientFileGenerator.generate());
 
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());

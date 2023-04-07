@@ -26,7 +26,7 @@ export const GetTransactionByVersionOperation = {
   groupName: "transactions",
   httpMethod: "get",
   routePattern: "/transactions/by_version/{txn_version}",
-  parameterNames: ["txn_version","network"],
+  parameterNames: ["txnVersion","network"],
   hasResponse: true,
   hasBody: false,
 

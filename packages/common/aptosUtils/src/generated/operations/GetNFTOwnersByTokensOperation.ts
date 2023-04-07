@@ -44,7 +44,7 @@ export const GetNFTOwnersByTokensOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/owners",
-  parameterNames: ["limit","offset","cursor","token_ids","network"],
+  parameterNames: ["limit","offset","cursor","tokenIds","network"],
   hasResponse: true,
   hasBody: false,
 

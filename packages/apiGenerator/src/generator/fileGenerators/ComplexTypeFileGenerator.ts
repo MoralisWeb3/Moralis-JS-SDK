@@ -1,12 +1,11 @@
 import { ComplexTypeInfo } from 'src/reader/OpenApiContract';
 import { Output } from '../output/Output';
-import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGenerator';
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
-import { PropertyNameCodeGenerator } from './codeGenerators/PropertyNameCodeGenerator';
 import { TypeDeterminantResolver } from './resolvers/TypeDeterminantResolver';
 import { TypeInfoResolver } from './resolvers/TypeInfoResolver';
 import { TypeResolver } from './resolvers/TypeResolver';
+import { ComplexTypePropertyModelBuilder } from './modelBuilders/ComplexTypePropertyModelBuilder';
 
 export interface TypeClassGeneratorResult {
   className: string;
@@ -14,6 +13,8 @@ export interface TypeClassGeneratorResult {
 }
 
 export class ComplexTypeFileGenerator {
+  private readonly complexTypePropertyModelBuilder = new ComplexTypePropertyModelBuilder(this.typeResolver);
+
   public constructor(
     private readonly info: ComplexTypeInfo,
     private readonly typeResolver: TypeResolver,
@@ -34,38 +35,15 @@ export class ComplexTypeFileGenerator {
 
     const output = new TypeScriptOutput();
 
-    const properties = this.info.properties.map((property) => {
-      const resolvedPropertyType = this.typeResolver.resolveForComplexTypeProperty(property.descriptor, property.name);
-      const propertyNameCodes = PropertyNameCodeGenerator.generate(property.name);
-      return {
-        property,
-        propertyNameCodes,
-        typeCodes: TypeCodesGenerator.generate(resolvedPropertyType, property.isRequired),
-        json2TypeCode: ValueMappingCodeGenerator.generateJSON2TypeCode(
-          resolvedPropertyType,
-          `json${propertyNameCodes.accessCode}`,
-          property.isRequired,
-        ),
-        type2jsonCode: ValueMappingCodeGenerator.generateType2JSONCode(
-          resolvedPropertyType,
-          `this${propertyNameCodes.camelCasedAccessCode}`,
-          property.isRequired,
-        ),
-        input2typeCode: ValueMappingCodeGenerator.generateInput2TypeCode(
-          resolvedPropertyType,
-          `input${propertyNameCodes.camelCasedAccessCode}`,
-          property.isRequired,
-        ),
-      };
-    });
+    const properties = this.complexTypePropertyModelBuilder.build(this.info.properties);
 
     const customTypeDeterminant = this.typeDeterminantResolver.tryResolve(this.info.descriptor.typeName);
     const requiredInputFieldNames = properties
-      .filter((property) => property.property.isRequired)
-      .map((property) => property.propertyNameCodes.camelCasedNameCode);
+      .filter((property) => property.isRequired)
+      .map((property) => property.name.normalizedNameCode);
     const requiredJSONFieldNames = properties
-      .filter((property) => property.property.isRequired)
-      .map((property) => property.propertyNameCodes.nameCode);
+      .filter((property) => property.isRequired)
+      .map((property) => property.name.rawNameCode);
 
     const isUsedByUnions = this.typeInfoResolver.isUsedByUnions(this.info.descriptor);
 
@@ -95,23 +73,20 @@ export class ComplexTypeFileGenerator {
     output.write(0, `// type: ${this.info.descriptor.typeName.toString()}`);
     output.write(0, `// properties:`);
     for (const p of properties) {
-      output.write(0, `// - ${p.property.name} ($ref: ${p.property.descriptor.ref})`);
+      output.write(0, `// - ${p.name.rawName} ($ref: ${p.ref})`);
     }
     output.newLine();
 
     output.write(0, `export interface ${typeCodes.referenceType.jsonClassName} {`);
     for (const p of properties) {
-      output.write(1, `readonly ${p.propertyNameCodes.nameCode}${p.typeCodes.colon} ${p.typeCodes.jsonTypeCode};`);
+      output.write(1, `readonly ${p.name.rawNameCode}${p.typeCodes.colon} ${p.typeCodes.jsonTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
 
     output.write(0, `export interface ${typeCodes.referenceType.inputClassName} {`);
     for (const p of properties) {
-      output.write(
-        1,
-        `readonly ${p.propertyNameCodes.camelCasedNameCode}${p.typeCodes.colon} ${p.typeCodes.inputOrValueTypeCode};`,
-      );
+      output.write(1, `readonly ${p.name.normalizedNameCode}${p.typeCodes.colon} ${p.typeCodes.inputOrValueTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
@@ -135,7 +110,7 @@ export class ComplexTypeFileGenerator {
     );
     output.write(2, `const input: ${typeCodes.referenceType.inputClassName} = {`);
     for (const p of properties) {
-      output.write(3, `${p.propertyNameCodes.camelCasedNameCode}: ${p.json2TypeCode},`);
+      output.write(3, `${p.name.normalizedNameCode}: ${p.json2typeCode},`);
     }
     output.write(2, `};`);
     output.write(2, `return ${typeCodes.referenceType.factoryClassName}.create(input);`);
@@ -166,19 +141,14 @@ export class ComplexTypeFileGenerator {
     }
 
     for (const p of properties) {
-      output.writeComment(1, null, {
-        description: p.property.description,
-      });
-      output.write(
-        1,
-        `public readonly ${p.propertyNameCodes.camelCasedNameCode}${p.typeCodes.colon} ${p.typeCodes.valueTypeCode};`,
-      );
+      output.createComment(1).description(p.description).apply();
+      output.write(1, `public readonly ${p.name.normalizedNameCode}${p.typeCodes.colon} ${p.typeCodes.valueTypeCode};`);
     }
     output.newLine();
 
     output.write(1, `private constructor(input: ${typeCodes.referenceType.inputClassName}) {`);
     for (const p of properties) {
-      output.write(2, `this${p.propertyNameCodes.camelCasedAccessCode} = ${p.input2typeCode};`);
+      output.write(2, `this${p.name.normalizedAccessCode} = ${p.input2typeCode};`);
     }
     output.write(1, '}');
     output.newLine();
@@ -186,7 +156,7 @@ export class ComplexTypeFileGenerator {
     output.write(1, `public toJSON(): ${typeCodes.referenceType.jsonClassName} {`);
     output.write(2, 'return {');
     for (const p of properties) {
-      output.write(3, `${p.propertyNameCodes.nameCode}: ${p.type2jsonCode},`);
+      output.write(3, `${p.name.rawNameCode}: ${p.type2jsonCode},`);
     }
     output.write(2, '}');
     output.write(1, '}');
