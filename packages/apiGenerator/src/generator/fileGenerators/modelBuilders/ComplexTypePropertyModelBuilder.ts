@@ -15,6 +15,7 @@ export class ComplexTypePropertyModelBuilder {
   private readonly buildProperty = (property: PropertyInfo): ComplexTypePropertyModel => {
     const resolvedPropertyType = this.typeResolver.resolveForComplexTypeProperty(property.descriptor, property.name);
     const propertyNameCodes = PropertyNameModelBuilder.build(property.name);
+
     return {
       ref: property.descriptor.ref.toString(),
       description: property.description,

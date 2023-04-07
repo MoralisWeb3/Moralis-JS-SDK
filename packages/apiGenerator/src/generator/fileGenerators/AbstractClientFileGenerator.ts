@@ -41,8 +41,10 @@ export class AbstractClientFileGenerator {
         bodyTypeCodes = TypeCodesGenerator.generate(resolvedBodyType, operation.body.isRequired);
 
         if (isReferenceTypeDescriptor(operation.body.descriptor)) {
-          const bodyTypeInfo = this.typeInfoResolver.getComplexType(operation.body.descriptor);
-          bodyProperties = this.complexTypePropertyModelBuilder.build(bodyTypeInfo.properties);
+          const bodyComplexTypeInfo = this.typeInfoResolver.tryGetComplexType(operation.body.descriptor);
+          if (bodyComplexTypeInfo) {
+            bodyProperties = this.complexTypePropertyModelBuilder.build(bodyComplexTypeInfo.properties);
+          }
         }
       }
 
@@ -139,14 +141,17 @@ export class AbstractClientFileGenerator {
         const comment = output
           .createComment(2)
           .description(operation.description)
-          .param(null, 'request', true, 'Request parameters');
+          .param(null, 'request', true, 'Request parameters.');
         for (const parameter of operation.parameters) {
           comment.param(
             parameter.jsdocType,
             `request${parameter.name.normalizedAccessCode}`,
             parameter.isRequired,
-            parameter.description || '',
+            parameter.description,
           );
+        }
+        if (operation.bodyTypeCodes) {
+          comment.param(null, 'body', true, 'Request body.');
         }
         if (operation.bodyProperties) {
           for (const bodyProperty of operation.bodyProperties) {
@@ -154,7 +159,7 @@ export class AbstractClientFileGenerator {
               bodyProperty.jsdocType,
               `body${bodyProperty.name.normalizedAccessCode}`,
               bodyProperty.isRequired,
-              bodyProperty.description || '',
+              bodyProperty.description,
             );
           }
         }

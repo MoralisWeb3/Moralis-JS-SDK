@@ -24,12 +24,8 @@ export class TypeInfoResolver {
     return this.contract.unionTypes.some((type) => type.descriptor.ref.toString() === $ref);
   }
 
-  public getComplexType(pointer: TypeDescriptor): ComplexTypeInfo {
+  public tryGetComplexType(pointer: TypeDescriptor): ComplexTypeInfo | undefined {
     const $ref = pointer.ref.toString();
-    const result = this.contract.complexTypes.find((type) => type.descriptor.ref.toString() === $ref);
-    if (!result) {
-      throw new Error(`Complex type not found: ${$ref}`);
-    }
-    return result;
+    return this.contract.complexTypes.find((type) => type.descriptor.ref.toString() === $ref);
   }
 }

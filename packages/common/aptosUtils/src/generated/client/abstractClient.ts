@@ -109,7 +109,7 @@ export abstract class AbstractClient {
   public readonly accounts = {
     /**
      * @description Get account
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
      * If not provided, it will be the latest version
@@ -123,7 +123,7 @@ export abstract class AbstractClient {
     >(GetAccountOperation),
     /**
      * @description Get account resources
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
      * If not provided, it will be the latest version
@@ -141,7 +141,7 @@ export abstract class AbstractClient {
     >(GetAccountResourcesOperation),
     /**
      * @description Get account modules
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
      * If not provided, it will be the latest version
@@ -159,7 +159,7 @@ export abstract class AbstractClient {
     >(GetAccountModulesOperation),
     /**
      * @description Get account resource
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} request.resourceType Name of struct to retrieve e.g. 0x1::account::Account
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
@@ -174,7 +174,7 @@ export abstract class AbstractClient {
     >(GetAccountResourceOperation),
     /**
      * @description Get account module
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} request.moduleName Name of module to retrieve
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
@@ -189,7 +189,7 @@ export abstract class AbstractClient {
     >(GetAccountModuleOperation),
     /**
      * @description Get events by creation number
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} request.creationNumber Creation number corresponding to the event stream originating from the given account.
      * @param {Number} [request.limit] Max number of account resources to retrieve.
@@ -206,7 +206,7 @@ export abstract class AbstractClient {
     >(GetEventsByCreationNumberOperation),
     /**
      * @description Get events by event handle
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Hex-encoded 32 byte Aptos account, with or without a 0x prefix, for which events are queried. This refers to the account that events were emitted to, not the account hosting the move module that emits that event type.
      * @param {String} request.eventHandle Name of struct to lookup event handle.
      * @param {String} request.fieldName Name of field to lookup event handle.
@@ -226,7 +226,7 @@ export abstract class AbstractClient {
   public readonly blocks = {
     /**
      * @description Get block by height
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.blockHeight Block height to lookup. Starts at 0
      * @param {Boolean} [request.withTransactions] If set to true, include all transactions in the block
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
@@ -239,7 +239,7 @@ export abstract class AbstractClient {
     >(GetBlockByHeightOperation),
     /**
      * @description Get block by version
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.version Ledger version to lookup block information for.
      * @param {Boolean} [request.withTransactions] If set to true, include all transactions in the block
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
@@ -254,7 +254,7 @@ export abstract class AbstractClient {
   public readonly coins = {
     /**
      * @description Get Coin Metadata by Coin Type Hashes
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String[]} request.coinTypeHashes The coin type hashes to fetch info about
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
      */
@@ -266,7 +266,7 @@ export abstract class AbstractClient {
     >(GetCoinInfoByCoinTypeHashesOperation),
     /**
      * @description Get latest deployed coins
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -280,7 +280,7 @@ export abstract class AbstractClient {
     >(GetLatestCoinsOperation),
     /**
      * @description Get Coin Metadata by name range
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -296,7 +296,7 @@ export abstract class AbstractClient {
     >(GetCoinsByNameRangeOperation),
     /**
      * @description Get Coin Metadata by symbol range
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -312,7 +312,7 @@ export abstract class AbstractClient {
     >(GetCoinsBySymbolRangeOperation),
     /**
      * @description Get Coin Metadata by creator addresses
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -327,7 +327,7 @@ export abstract class AbstractClient {
     >(GetCoinsByCreatorsOperation),
     /**
      * @description Get Coin Transfers by wallet addresses
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -346,7 +346,7 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByOwnerAddressesOperation),
     /**
      * @description Get Coin Transfers by block heights
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -361,7 +361,7 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByBlockHeightsOperation),
     /**
      * @description Get Coin Transfers by Coin Type
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.coinType The coin type to fetch info about
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
@@ -378,7 +378,7 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByCoinTypeOperation),
     /**
      * @description Get top Holders of Coin
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.coinTypeHash The coin type hash to fetch info about
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
@@ -399,7 +399,7 @@ export abstract class AbstractClient {
   public readonly collections = {
     /**
      * @description Get NFT Collections
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -415,7 +415,7 @@ export abstract class AbstractClient {
     >(GetNFTCollectionsOperation),
     /**
      * @description Get NFT Collections by ids
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String[]} request.ids The identifiers of the collections to get
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
      */
@@ -427,7 +427,7 @@ export abstract class AbstractClient {
     >(GetNFTCollectionsByIdsOperation),
     /**
      * @description Get NFT Collections by creator
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -444,7 +444,7 @@ export abstract class AbstractClient {
   public readonly nfts = {
     /**
      * @description Get NFTs by ids
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String[]} request.tokenIds The identifiers of the tokens to get
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
      */
@@ -456,7 +456,7 @@ export abstract class AbstractClient {
     >(GetNFTsByIdsOperation),
     /**
      * @description Get NFTs by Collection
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.collectionDataIdHash The collection data id hash of the collection
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
@@ -471,7 +471,7 @@ export abstract class AbstractClient {
     >(GetNFTsByCollectionOperation),
     /**
      * @description Get NFTs by creators
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of tokens to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -486,7 +486,7 @@ export abstract class AbstractClient {
     >(GetNFTsByCreatorsOperation),
     /**
      * @description Get NFT Owners by tokens
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -501,7 +501,7 @@ export abstract class AbstractClient {
     >(GetNFTOwnersByTokensOperation),
     /**
      * @description Get NFT Owners by Collection
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.collectionDataIdHash The id of the token
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
@@ -518,7 +518,7 @@ export abstract class AbstractClient {
     >(GetNFTOwnersByCollectionOperation),
     /**
      * @description Get NFT Owners of Collection
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.collectionDataIdHash The id of the token
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
@@ -533,7 +533,7 @@ export abstract class AbstractClient {
     >(GetNFTOwnersOfCollectionOperation),
     /**
      * @description Get NFT Transfers by Token ids
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of tokens to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -550,7 +550,7 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByIdsOperation),
     /**
      * @description Get NFT Transfers by Collection
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.collectionDataIdHash The collection data id hash of the token
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
@@ -567,7 +567,7 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByCollectionOperation),
     /**
      * @description Get NFT Transfers by creators
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -584,7 +584,7 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByCreatorsOperation),
     /**
      * @description Get NFT Transfers by wallets
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of tokens to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -603,7 +603,7 @@ export abstract class AbstractClient {
   public readonly transactions = {
     /**
      * @description Get transactions
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} [request.limit] Max number of transactions to retrieve.
      * If not provided, defaults to default page size
      * @param {String} [request.start] Account sequence number to start list of transactions.
@@ -618,8 +618,9 @@ export abstract class AbstractClient {
     >(GetTransactionsOperation),
     /**
      * @description Submit transaction
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
      * @param {String} body.maxGasAmount A string containing a 64-bit unsigned integer.
@@ -638,7 +639,7 @@ export abstract class AbstractClient {
     >(SubmitTransactionOperation),
     /**
      * @description Get transaction by hash
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.txnHash Hash of transaction to retrieve
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
      */
@@ -650,7 +651,7 @@ export abstract class AbstractClient {
     >(GetTransactionByHashOperation),
     /**
      * @description Get transaction by version
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.txnVersion Version of transaction to retrieve
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
      */
@@ -662,7 +663,7 @@ export abstract class AbstractClient {
     >(GetTransactionByVersionOperation),
     /**
      * @description Get account transactions
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {Number} [request.limit] Max number of transactions to retrieve.
      * If not provided, defaults to default page size
@@ -678,8 +679,9 @@ export abstract class AbstractClient {
     >(GetAccountTransactionsOperation),
     /**
      * @description Submit batch transactions
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
      * @param {String} body.maxGasAmount A string containing a 64-bit unsigned integer.
@@ -698,8 +700,9 @@ export abstract class AbstractClient {
     >(SubmitBatchTransactionsOperation),
     /**
      * @description Simulate transaction
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
      * @param {String} body.maxGasAmount A string containing a 64-bit unsigned integer.
@@ -718,8 +721,9 @@ export abstract class AbstractClient {
     >(SimulateTransactionOperation),
     /**
      * @description Encode submission
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
      * @param {String} body.maxGasAmount A string containing a 64-bit unsigned integer.
@@ -738,7 +742,7 @@ export abstract class AbstractClient {
     >(EncodeSubmissionOperation),
     /**
      * @description Estimate gas price
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Object} [request.network] The network of query. Defaults to mainnet.
      */
     estimateGasPrice: this.createEndpoint<
@@ -751,7 +755,7 @@ export abstract class AbstractClient {
   public readonly wallets = {
     /**
      * @description Get Coin Balances by wallet addresses
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -768,7 +772,7 @@ export abstract class AbstractClient {
     >(GetCoinBalancesByWalletsOperation),
     /**
      * @description Get Historical Coin Balances by wallet addresses
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -785,7 +789,7 @@ export abstract class AbstractClient {
     >(GetHistoricalCoinBalancesByWalletsOperation),
     /**
      * @description Get Coin Transfers by wallet addresses
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -804,7 +808,7 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByWalletAddressesOperation),
     /**
      * @description Get NFTs by wallet addresses
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of results to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page
@@ -821,7 +825,7 @@ export abstract class AbstractClient {
     >(GetNFTByOwnersOperation),
     /**
      * @description Get NFT Transfers by wallets
-     * @param request Request parameters
+     * @param request Request parameters.
      * @param {Number} request.limit The number of tokens to return
      * @param {Number} [request.offset] The number of results to skip
      * @param {String} [request.cursor] The cursor to use for getting the next page

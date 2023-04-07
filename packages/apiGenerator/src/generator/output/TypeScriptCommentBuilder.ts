@@ -13,10 +13,10 @@ export class TypeScriptCommentBuilder {
     return this;
   }
 
-  public param(type: string | null, paramName: string, isRequired: boolean, description: string): this {
+  public param(type: string | null, paramName: string, isRequired: boolean, description: string | undefined): this {
     const name = isRequired ? paramName : `[${paramName}]`;
     const typeStr = type ? `{${type}} ` : '';
-    this.lines.push(` * @param ${typeStr}${name} ${this.wrap(description)}`);
+    this.lines.push(` * @param ${typeStr}${name} ${description && this.wrap(description)}`);
     return this;
   }
 
