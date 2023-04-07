@@ -66,7 +66,21 @@ export class HooksGenerator {
     });
   }
 
+  private get addHooksIndex() {
+    const hookNames = this.moduleGenerator.operations.map((operation) => {
+      return getHookName(operation.name, this.module);
+    });
+
+    return {
+      type: 'add',
+      templateFile: path.join(this.dirname, 'templates/index.ts.hbs'),
+      path: path.join(this.packagesFolder, `react/src/hooks/${this.module}/generated/index.ts`),
+      data: { hookNames },
+      force: true,
+    };
+  }
+
   public get actions(): ActionConfig[] {
-    return this.addHooks;
+    return [...this.addHooks, this.addHooksIndex];
   }
 }

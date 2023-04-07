@@ -40,6 +40,7 @@
   export * from './transaction/useEvmWalletTransactionsVerbose'
   export * from './resolve/useEvmResolveAddress'
   export * from './resolve/useEvmResolveDomain'
+  export * from './resolve/useEvmResolveENSDomain'
   export * from './nft/useEvmReSyncMetadata'
   export * from './utils/useEvmRunContractFunction'
   export * from './nft/useEvmSearchNFTs'
