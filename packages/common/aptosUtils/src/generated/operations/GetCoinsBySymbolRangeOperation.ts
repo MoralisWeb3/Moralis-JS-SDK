@@ -50,7 +50,7 @@ export const GetCoinsBySymbolRangeOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/symbols",
-  parameterNames: ["limit","offset","cursor","fromSymbol","toSymbol","network"],
+  parameterNames: ["limit","offset","cursor","from_symbol","to_symbol","network"],
   hasResponse: true,
   hasBody: false,
 

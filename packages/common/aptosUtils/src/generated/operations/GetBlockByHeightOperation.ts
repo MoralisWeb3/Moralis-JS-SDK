@@ -32,7 +32,7 @@ export const GetBlockByHeightOperation = {
   groupName: "blocks",
   httpMethod: "get",
   routePattern: "/blocks/{block_height}",
-  parameterNames: ["blockHeight","withTransactions","network"],
+  parameterNames: ["block_height","with_transactions","network"],
   hasResponse: true,
   hasBody: false,
 

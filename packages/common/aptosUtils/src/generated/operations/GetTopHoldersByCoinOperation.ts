@@ -68,7 +68,7 @@ export const GetTopHoldersByCoinOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/owners/{coin_type_hash}/top-holders",
-  parameterNames: ["coinTypeHash","limit","offset","cursor","minAmount","minVersion","walletBlacklist","walletWhitelist","network"],
+  parameterNames: ["coin_type_hash","limit","offset","cursor","min_amount","min_version","wallet_blacklist","wallet_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 

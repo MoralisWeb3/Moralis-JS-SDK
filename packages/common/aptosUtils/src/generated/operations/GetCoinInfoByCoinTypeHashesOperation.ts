@@ -26,7 +26,7 @@ export const GetCoinInfoByCoinTypeHashesOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins",
-  parameterNames: ["coinTypeHashes","network"],
+  parameterNames: ["coin_type_hashes","network"],
   hasResponse: true,
   hasBody: false,
 

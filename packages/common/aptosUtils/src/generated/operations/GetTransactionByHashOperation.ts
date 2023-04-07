@@ -26,7 +26,7 @@ export const GetTransactionByHashOperation = {
   groupName: "transactions",
   httpMethod: "get",
   routePattern: "/transactions/by_hash/{txn_hash}",
-  parameterNames: ["txnHash","network"],
+  parameterNames: ["txn_hash","network"],
   hasResponse: true,
   hasBody: false,
 

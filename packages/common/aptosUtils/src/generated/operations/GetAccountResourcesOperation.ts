@@ -47,7 +47,7 @@ export const GetAccountResourcesOperation = {
   groupName: "accounts",
   httpMethod: "get",
   routePattern: "/accounts/{address}/resources",
-  parameterNames: ["address","ledgerVersion","limit","start","network"],
+  parameterNames: ["address","ledger_version","limit","start","network"],
   hasResponse: true,
   hasBody: false,
 

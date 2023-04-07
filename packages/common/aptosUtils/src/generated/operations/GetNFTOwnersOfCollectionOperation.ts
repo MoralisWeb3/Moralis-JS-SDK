@@ -44,7 +44,7 @@ export const GetNFTOwnersOfCollectionOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/collections/{collection_data_id_hash}/owners/list",
-  parameterNames: ["collectionDataIdHash","limit","offset","cursor","network"],
+  parameterNames: ["collection_data_id_hash","limit","offset","cursor","network"],
   hasResponse: true,
   hasBody: false,
 

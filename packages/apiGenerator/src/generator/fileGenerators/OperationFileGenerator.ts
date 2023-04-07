@@ -32,7 +32,7 @@ export class OperationFileGenerator {
 
     const parameters = this.operationParameterModelBuilder.build(this.info.parameters);
 
-    const parameterNames = parameters.map((p) => p.name.normalizedName);
+    const parameterRawNames = parameters.map((p) => p.name.rawName);
 
     // view:
 
@@ -98,7 +98,7 @@ export class OperationFileGenerator {
     output.write(1, `groupName: ${JSON.stringify(this.info.groupName)},`);
     output.write(1, `httpMethod: ${JSON.stringify(this.info.httpMethod)},`);
     output.write(1, `routePattern: ${JSON.stringify(this.info.routePattern)},`);
-    output.write(1, `parameterNames: ${JSON.stringify(parameterNames)},`);
+    output.write(1, `parameterNames: ${JSON.stringify(parameterRawNames)},`);
     output.write(1, `hasResponse: ${JSON.stringify(!!this.info.response)},`);
     output.write(1, `hasBody: ${JSON.stringify(!!this.info.body)},`);
     output.newLine();

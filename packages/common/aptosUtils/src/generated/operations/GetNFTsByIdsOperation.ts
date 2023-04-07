@@ -26,7 +26,7 @@ export const GetNFTsByIdsOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts",
-  parameterNames: ["tokenIds","network"],
+  parameterNames: ["token_ids","network"],
   hasResponse: true,
   hasBody: false,
 

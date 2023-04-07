@@ -47,7 +47,7 @@ export const GetAccountModulesOperation = {
   groupName: "accounts",
   httpMethod: "get",
   routePattern: "/accounts/{address}/modules",
-  parameterNames: ["address","ledgerVersion","limit","start","network"],
+  parameterNames: ["address","ledger_version","limit","start","network"],
   hasResponse: true,
   hasBody: false,
 

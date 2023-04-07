@@ -39,7 +39,7 @@ export const GetAccountModuleOperation = {
   groupName: "accounts",
   httpMethod: "get",
   routePattern: "/accounts/{address}/resource/{module_name}",
-  parameterNames: ["address","moduleName","ledgerVersion","network"],
+  parameterNames: ["address","module_name","ledger_version","network"],
   hasResponse: true,
   hasBody: false,
 

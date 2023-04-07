@@ -33,7 +33,7 @@ export const GetAccountOperation = {
   groupName: "accounts",
   httpMethod: "get",
   routePattern: "/accounts/{address}",
-  parameterNames: ["address","ledgerVersion","network"],
+  parameterNames: ["address","ledger_version","network"],
   hasResponse: true,
   hasBody: false,
 

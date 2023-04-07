@@ -68,7 +68,7 @@ export const GetCoinTransfersByWalletAddressesOperation = {
   groupName: "wallets",
   httpMethod: "get",
   routePattern: "/wallets/coins/transfers",
-  parameterNames: ["limit","offset","cursor","ownerAddresses","fromDate","toDate","coinTypeBlacklist","coinTypeWhitelist","network"],
+  parameterNames: ["limit","offset","cursor","owner_addresses","from_date","to_date","coin_type_blacklist","coin_type_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 

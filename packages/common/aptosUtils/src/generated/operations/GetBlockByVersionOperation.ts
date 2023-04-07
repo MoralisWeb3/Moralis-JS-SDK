@@ -32,7 +32,7 @@ export const GetBlockByVersionOperation = {
   groupName: "blocks",
   httpMethod: "get",
   routePattern: "/blocks/by_version/{version}",
-  parameterNames: ["version","withTransactions","network"],
+  parameterNames: ["version","with_transactions","network"],
   hasResponse: true,
   hasBody: false,
 

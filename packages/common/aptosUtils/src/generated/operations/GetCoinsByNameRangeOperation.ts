@@ -50,7 +50,7 @@ export const GetCoinsByNameRangeOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/names",
-  parameterNames: ["limit","offset","cursor","fromName","toName","network"],
+  parameterNames: ["limit","offset","cursor","from_name","to_name","network"],
   hasResponse: true,
   hasBody: false,
 

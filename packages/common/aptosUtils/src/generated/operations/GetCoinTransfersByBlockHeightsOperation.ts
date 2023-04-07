@@ -44,7 +44,7 @@ export const GetCoinTransfersByBlockHeightsOperation = {
   groupName: "coins",
   httpMethod: "get",
   routePattern: "/coins/transfers/blocks",
-  parameterNames: ["limit","offset","cursor","blockHeights","network"],
+  parameterNames: ["limit","offset","cursor","block_heights","network"],
   hasResponse: true,
   hasBody: false,
 

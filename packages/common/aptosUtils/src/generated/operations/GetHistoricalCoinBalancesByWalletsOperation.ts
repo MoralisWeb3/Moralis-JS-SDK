@@ -56,7 +56,7 @@ export const GetHistoricalCoinBalancesByWalletsOperation = {
   groupName: "wallets",
   httpMethod: "get",
   routePattern: "/wallets/coins/history",
-  parameterNames: ["limit","offset","cursor","ownerAddresses","coinTypeHashBlacklist","coinTypeHashWhitelist","network"],
+  parameterNames: ["limit","offset","cursor","owner_addresses","coin_type_hash_blacklist","coin_type_hash_whitelist","network"],
   hasResponse: true,
   hasBody: false,
 

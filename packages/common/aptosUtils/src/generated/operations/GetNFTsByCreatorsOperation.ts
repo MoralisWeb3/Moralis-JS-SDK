@@ -44,7 +44,7 @@ export const GetNFTsByCreatorsOperation = {
   groupName: "nfts",
   httpMethod: "get",
   routePattern: "/nfts/creators",
-  parameterNames: ["limit","offset","cursor","creatorAddresses","network"],
+  parameterNames: ["limit","offset","cursor","creator_addresses","network"],
   hasResponse: true,
   hasBody: false,
 
