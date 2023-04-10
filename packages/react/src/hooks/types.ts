@@ -3,6 +3,7 @@ import { QueryKey, UseQueryOptions as UseReactQueryOptions } from '@tanstack/rea
 export type MoralisQueryOptionKeys =
   | 'cacheTime'
   | 'enabled'
+  | 'keepPreviousData'
   | 'onError'
   | 'onSettled'
   | 'onSuccess'
