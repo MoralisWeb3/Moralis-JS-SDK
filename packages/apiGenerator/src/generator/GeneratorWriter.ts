@@ -38,6 +38,10 @@ export class GeneratorWriter {
     this.writeFile(this.operationsPath, 'index.ts', output);
   }
 
+  public writeOperationsArray(output: Output) {
+    this.writeFile(this.operationsPath, 'operations.ts', output);
+  }
+
   public writeType(className: string, output: Output) {
     this.writeFile(this.typesPath, className + '.ts', output);
   }

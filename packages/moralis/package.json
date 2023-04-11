@@ -139,6 +139,9 @@
       "common-evm-utils": [
         "lib/commonEvmUtils/index.d.ts"
       ],
+      "common-aptos-utils": [
+        "lib/commonAptosUtils/index.d.ts"
+      ],
       "common-sol-utils": [
         "lib/commonSolUtils/index.d.ts"
       ],
