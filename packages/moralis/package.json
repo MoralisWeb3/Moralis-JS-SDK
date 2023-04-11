@@ -91,6 +91,15 @@
         "default": "./lib/esm/commonSolUtils/index.js"
       }
     },
+    "./common-aptos-utils": {
+      "types": {
+        "default": "./lib/commonAptosUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonAptosUtils/index.cjs",
+        "default": "./lib/esm/commonAptosUtils/index.js"
+      }
+    },
     "./common-auth-utils": {
       "types": {
         "default": "./lib/commonAuthUtils/index.d.ts"
@@ -139,6 +148,9 @@
       "common-evm-utils": [
         "lib/commonEvmUtils/index.d.ts"
       ],
+      "common-aptos-utils": [
+        "lib/commonAptosUtils/index.d.ts"
+      ],
       "common-sol-utils": [
         "lib/commonSolUtils/index.d.ts"
       ],
@@ -160,6 +172,7 @@
     "@moralisweb3/api-utils": "^2.18.2",
     "@moralisweb3/aptos-api": "^2.18.2",
     "@moralisweb3/auth": "^2.18.2",
+    "@moralisweb3/common-aptos-utils": "^2.18.2",
     "@moralisweb3/common-auth-utils": "^2.18.2",
     "@moralisweb3/common-core": "^2.18.2",
     "@moralisweb3/common-evm-utils": "^2.18.2",
