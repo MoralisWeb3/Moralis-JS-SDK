@@ -38,7 +38,7 @@ export class GeneratorWriter {
     this.writeFile(this.operationsPath, 'index.ts', output);
   }
 
-  public writeOperationsArray(output: Output) {
+  public writeOperationList(output: Output) {
     this.writeFile(this.operationsPath, 'operations.ts', output);
   }
 

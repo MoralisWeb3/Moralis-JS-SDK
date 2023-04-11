@@ -1,7 +1,7 @@
 import { MemoryOutput } from '../output/MemoryOutput';
 import { Output } from '../output/Output';
 
-export class OperationsArrayFileGenerator {
+export class OperationListFileGenerator {
   public readonly fileNames: string[] = [];
 
   public add(fileName: string) {
