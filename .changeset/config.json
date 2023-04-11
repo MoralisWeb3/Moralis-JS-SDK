@@ -2,9 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
   "changelog": ["@changesets/changelog-github", { "repo": "MoralisWeb3/Moralis-JS-SDK" }],
   "commit": false,
-  "fixed": [
-    ["@moralisweb3/!(eslint-config|typedoc-readme-theme)", "@create-moralis-dapp/*", "moralis", "create-moralis-dapp"]
-  ],
+  "fixed": [["@moralisweb3/!(eslint-config|typedoc-readme-theme)", "moralis"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
