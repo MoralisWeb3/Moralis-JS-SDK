@@ -54,10 +54,14 @@ export class AbstractClientFileGenerator {
         NameFormatter.getClassName(TypeName.from(operation.operationId)),
       );
 
+      const parameters = this.operationParameterModelBuilder
+        .build(operation.parameters)
+        .sort((a, b) => Number(b.isRequired) - Number(a.isRequired));
+
       return {
         groupName: operation.groupName,
         description: operation.description,
-        parameters: this.operationParameterModelBuilder.build(operation.parameters),
+        parameters,
         className,
         responseTypeCodes,
         responseJsdocType,

@@ -327,9 +327,9 @@ export abstract class AbstractClient {
      * @description Get Coin Metadata by creator addresses
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.creatorAddresses The addresses of the creators
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.creatorAddresses The addresses of the creators
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @returns {Object} Response for the request.
      */
@@ -343,9 +343,9 @@ export abstract class AbstractClient {
      * @description Get Coin Transfers by wallet addresses
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
      * @param {String} [request.fromDate] The date from which to fetch coin transfers (optional)
      * @param {String} [request.toDate] The date to which to fetch coin transfers (optional)
      * @param {String[]} [request.coinTypeBlacklist] The coin types of the coins to whitelist (optional)
@@ -363,9 +363,9 @@ export abstract class AbstractClient {
      * @description Get Coin Transfers by block heights
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {String[]} request.blockHeights The coin types to fetch info about
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {String[]} request.blockHeights The coin types to fetch info about
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @returns {Object} Response for the request.
      */
@@ -449,9 +449,9 @@ export abstract class AbstractClient {
      * @description Get NFT Collections by creator
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object} request.creatorAddress The address of the creator
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object} request.creatorAddress The address of the creator
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @returns {Object} Response for the request.
      */
@@ -496,9 +496,9 @@ export abstract class AbstractClient {
      * @description Get NFTs by creators
      * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
+     * @param {Object[]} request.creatorAddresses The addresses of the creators
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.creatorAddresses The addresses of the creators
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @returns {Object} Response for the request.
      */
@@ -512,9 +512,9 @@ export abstract class AbstractClient {
      * @description Get NFT Owners by tokens
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {String[]} request.tokenIds The identifiers of the tokens to get owners for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {String[]} request.tokenIds The identifiers of the tokens to get owners for
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @returns {Object} Response for the request.
      */
@@ -562,11 +562,11 @@ export abstract class AbstractClient {
      * @description Get NFT Transfers by Token ids
      * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
+     * @param {String[]} request.tokenIds The identifiers of the tokens to get
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist (optional)
      * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist (optional)
-     * @param {String[]} request.tokenIds The identifiers of the tokens to get
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @returns {Object[]} Response for the request.
      */
@@ -598,9 +598,9 @@ export abstract class AbstractClient {
      * @description Get NFT Transfers by creators
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.creatorAddresses The addresses of the creators
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.creatorAddresses The addresses of the creators
      * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist (optional)
      * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
@@ -616,9 +616,9 @@ export abstract class AbstractClient {
      * @description Get NFT Transfers by wallets
      * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
+     * @param {Object[]} request.walletAddresses The addresses of the wallets to get transfers for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.walletAddresses The addresses of the wallets to get transfers for
      * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist (optional)
      * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
@@ -797,9 +797,9 @@ export abstract class AbstractClient {
      * @description Get Coin Balances by wallet addresses
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.ownerAddresses The addresses of the owners to get coin balances for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.ownerAddresses The addresses of the owners to get coin balances for
      * @param {String[]} [request.coinTypeHashBlacklist] The coin type hashes of the coins to whitelist (optional)
      * @param {String[]} [request.coinTypeHashWhitelist] The coin type hashes of the coins to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
@@ -815,9 +815,9 @@ export abstract class AbstractClient {
      * @description Get Historical Coin Balances by wallet addresses
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.ownerAddresses The addresses of the owner addresses to get historical balances for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.ownerAddresses The addresses of the owner addresses to get historical balances for
      * @param {String[]} [request.coinTypeHashBlacklist] The coin type hash of the coins to whitelist (optional)
      * @param {String[]} [request.coinTypeHashWhitelist] The coin type hash of the coins to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
@@ -833,9 +833,9 @@ export abstract class AbstractClient {
      * @description Get Coin Transfers by wallet addresses
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
      * @param {String} [request.fromDate] The date from which to fetch coin transfers (optional)
      * @param {String} [request.toDate] The date to which to fetch coin transfers (optional)
      * @param {String[]} [request.coinTypeBlacklist] The coin types of the coins to whitelist (optional)
@@ -853,9 +853,9 @@ export abstract class AbstractClient {
      * @description Get NFTs by wallet addresses
      * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
+     * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
      * @param {String[]} [request.collectionBlacklist] The collection data id hashes of the collections to whitelist (optional)
      * @param {String[]} [request.collectionWhitelist] The collection data id hashes of the collections to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
@@ -871,9 +871,9 @@ export abstract class AbstractClient {
      * @description Get NFT Transfers by wallets
      * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
+     * @param {Object[]} request.walletAddresses The addresses of the wallets to get transfers for
      * @param {Number} [request.offset] The number of results to skip (optional)
      * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
-     * @param {Object[]} request.walletAddresses The addresses of the wallets to get transfers for
      * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist (optional)
      * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
