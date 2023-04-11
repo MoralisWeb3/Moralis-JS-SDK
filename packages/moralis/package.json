@@ -91,6 +91,15 @@
         "default": "./lib/esm/commonSolUtils/index.js"
       }
     },
+    "./common-aptos-utils": {
+      "types": {
+        "default": "./lib/commonAptosUtils/index.d.ts"
+      },
+      "default": {
+        "require": "./lib/cjs/commonAptosUtils/index.cjs",
+        "default": "./lib/esm/commonAptosUtils/index.js"
+      }
+    },
     "./common-auth-utils": {
       "types": {
         "default": "./lib/commonAuthUtils/index.d.ts"
