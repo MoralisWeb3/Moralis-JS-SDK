@@ -93,6 +93,7 @@ export default [
   ...getCjsEsmConfig(false, 'streamsTypings/'),
   ...getCjsEsmConfig(false, 'commonEvmUtils/'),
   ...getCjsEsmConfig(false, 'commonSolUtils/'),
+  ...getCjsEsmConfig(false, 'commonAptosUtils/'),
   ...getCjsEsmConfig(false, 'commonAuthUtils/'),
   ...getCjsEsmConfig(false, 'commonStreamsUtils/'),
   ...getCjsEsmConfig(false, 'auth/'),

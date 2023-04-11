@@ -5,6 +5,7 @@ import Footer from './layout/Footer';
 import Header from './layout/Header';
 import Home from './views/Home';
 import Main from './layout/Main';
+import d from 'moralis/common-auth-utils';
 
 function App() {
   return (
