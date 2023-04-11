@@ -1,44 +1,73 @@
 import { OperationInfo } from '../../reader/OpenApiContract';
 import { NameFormatter } from './codeGenerators/NameFormatter';
 import { TypeName } from '../../reader/utils/TypeName';
-import { TypeResolver } from './resolvers/TypeResolver';
-import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
+import { ResolvedType, TypeResolver } from './resolvers/TypeResolver';
+import { TypeCodes, TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 import { Output } from '../output/Output';
+import { OperationParameterModelBuilder } from './modelBuilders/OperationParameterModelBuilder';
+import { TypeInfoResolver } from './resolvers/TypeInfoResolver';
+import { isReferenceTypeDescriptor } from '../../reader/TypeDescriptor';
+import { ComplexTypePropertyModelBuilder } from './modelBuilders/ComplexTypePropertyModelBuilder';
+import { ComplexTypePropertyModel } from './modelBuilders/ComplexTypePropertyModelBuilder';
+import { JSDocTypeResolver } from './codeGenerators/JSDocTypeResolver';
 
 export class AbstractClientFileGenerator {
-  public constructor(private readonly operations: OperationInfo[], private readonly typeResolver: TypeResolver) {}
+  private readonly operationParameterModelBuilder = new OperationParameterModelBuilder(this.typeResolver);
+  private readonly complexTypePropertyModelBuilder = new ComplexTypePropertyModelBuilder(this.typeResolver);
+
+  public constructor(
+    private readonly operations: OperationInfo[],
+    private readonly typeResolver: TypeResolver,
+    private readonly typeInfoResolver: TypeInfoResolver,
+  ) {}
 
   public generate(): Output {
-    const output = new TypeScriptOutput();
-
     const groupNames = [...new Set(this.operations.map((o) => o.groupName))];
     groupNames.sort();
 
-    const operations = this.operations.map((operation) => {
+    const operations = this.operations.map((operation: OperationInfo) => {
       const className = NameFormatter.getClassName(operation.operationId) + 'Operation';
 
       const resolvedResponseType = operation.response ? this.typeResolver.resolve(operation.response.descriptor) : null;
       const responseTypeCodes = resolvedResponseType
         ? TypeCodesGenerator.generate(resolvedResponseType, true)
         : TypeCodesGenerator.generateNull();
+      const responseJsdocType = resolvedResponseType ? JSDocTypeResolver.resolve(resolvedResponseType) : null;
 
-      const resolvedBodyType = operation.body ? this.typeResolver.resolve(operation.body.descriptor) : null;
-      const bodyTypeCodes =
-        resolvedBodyType && operation.body
-          ? TypeCodesGenerator.generate(resolvedBodyType, operation.body.isRequired)
-          : null;
+      let resolvedBodyType: ResolvedType | null = null;
+      let bodyTypeCodes: TypeCodes | null = null;
+      let bodyProperties: ComplexTypePropertyModel[] | null = null;
+      if (operation.body) {
+        resolvedBodyType = this.typeResolver.resolve(operation.body.descriptor);
+        bodyTypeCodes = TypeCodesGenerator.generate(resolvedBodyType, operation.body.isRequired);
 
-      const parameterName = NameFormatter.getParameterName(
+        if (isReferenceTypeDescriptor(operation.body.descriptor)) {
+          const bodyComplexTypeInfo = this.typeInfoResolver.tryGetComplexType(operation.body.descriptor);
+          if (bodyComplexTypeInfo) {
+            bodyProperties = this.complexTypePropertyModelBuilder.build(bodyComplexTypeInfo.properties);
+          }
+        }
+      }
+
+      const endpointNormalizedName = NameFormatter.getParameterName(
         NameFormatter.getClassName(TypeName.from(operation.operationId)),
       );
 
+      const parameters = this.operationParameterModelBuilder
+        .build(operation.parameters)
+        .sort((a, b) => Number(b.isRequired) - Number(a.isRequired));
+
       return {
         groupName: operation.groupName,
+        description: operation.description,
+        parameters,
         className,
         responseTypeCodes,
+        responseJsdocType,
         bodyTypeCodes,
-        parameterName,
+        bodyProperties,
+        endpointNormalizedName,
       };
     });
 
@@ -52,6 +81,8 @@ export class AbstractClientFileGenerator {
     });
 
     // view:
+
+    const output = new TypeScriptOutput();
 
     for (const operation of operations) {
       output.addImport(
@@ -113,17 +144,45 @@ export class AbstractClientFileGenerator {
       output.write(1, `public readonly ${group.safeName} = {`);
       for (const operation of group.operations) {
         const factoryMethodName = operation.bodyTypeCodes ? 'createEndpointWithBody' : 'createEndpoint';
-        output.write(2, `${operation.parameterName}: this.${factoryMethodName}<`);
-        output.write(3, `${operation.className}Request`);
-        output.write(3, `, ${operation.className}RequestJSON`);
-        output.write(3, `, ${operation.responseTypeCodes.valueTypeCode}`);
-        output.write(3, `, ${operation.responseTypeCodes.jsonTypeCode}`);
-        if (operation.bodyTypeCodes) {
-          output.write(
-            3,
-            `, ${operation.bodyTypeCodes.inputOrValueTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`,
+
+        const comment = output
+          .createComment(2)
+          .description(operation.description)
+          .param(null, 'request', true, 'Request with parameters.');
+        for (const parameter of operation.parameters) {
+          comment.param(
+            parameter.jsdocType,
+            `request${parameter.name.normalizedAccessCode}`,
+            parameter.isRequired,
+            parameter.description,
           );
-          output.write(3, `, ${operation.bodyTypeCodes.jsonTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`);
+        }
+        if (operation.bodyTypeCodes) {
+          comment.param(null, 'body', true, 'Request body.');
+        }
+        if (operation.bodyProperties) {
+          for (const bodyProperty of operation.bodyProperties) {
+            comment.param(
+              bodyProperty.jsdocType,
+              `body${bodyProperty.name.normalizedAccessCode}`,
+              bodyProperty.isRequired,
+              bodyProperty.description,
+            );
+          }
+        }
+        if (operation.responseJsdocType) {
+          comment.returns(operation.responseJsdocType, 'Response for the request.');
+        }
+        comment.apply();
+
+        output.write(2, `${operation.endpointNormalizedName}: this.${factoryMethodName}<`);
+        output.write(3, `${operation.className}Request,`);
+        output.write(3, `${operation.className}RequestJSON,`);
+        output.write(3, `${operation.responseTypeCodes.valueTypeCode},`);
+        output.write(3, `${operation.responseTypeCodes.jsonTypeCode}` + (operation.bodyTypeCodes ? ',' : ''));
+        if (operation.bodyTypeCodes) {
+          output.write(3, `${operation.bodyTypeCodes.inputOrValueTypeCode}${operation.bodyTypeCodes.undefinedSuffix},`);
+          output.write(3, `${operation.bodyTypeCodes.jsonTypeCode}${operation.bodyTypeCodes.undefinedSuffix}`);
         }
         output.write(2, `>(${operation.className}),`);
       }

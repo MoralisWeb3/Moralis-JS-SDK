@@ -5,6 +5,7 @@ import { ValueMappingCodeGenerator } from './codeGenerators/ValueMappingCodeGene
 import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
+import { OperationParameterModelBuilder } from './modelBuilders/OperationParameterModelBuilder';
 
 export interface OperationFileGeneratorResult {
   className: string;
@@ -12,6 +13,8 @@ export interface OperationFileGeneratorResult {
 }
 
 export class OperationFileGenerator {
+  private readonly operationParameterModelBuilder = new OperationParameterModelBuilder(this.typeResolver);
+
   public constructor(private readonly info: OperationInfo, private readonly typeResolver: TypeResolver) {}
 
   public generate(): OperationFileGeneratorResult {
@@ -27,28 +30,9 @@ export class OperationFileGenerator {
     const className = NameFormatter.getClassName(this.info.operationId) + 'Operation';
     const output = new TypeScriptOutput();
 
-    const parameters = this.info.parameters.map((parameter) => {
-      const camelCasedName = NameFormatter.getParameterName(parameter.name);
-      const resolvedParamType = this.typeResolver.resolveForOperationParameter(parameter.descriptor, parameter.name);
-      const types = TypeCodesGenerator.generate(resolvedParamType, parameter.isRequired);
-      return {
-        camelCasedName,
-        types,
-        parameter,
-        input2TypeCode: ValueMappingCodeGenerator.generateInput2TypeCode(
-          resolvedParamType,
-          `request.${camelCasedName}`,
-          parameter.isRequired,
-        ),
-        type2JSONCode: ValueMappingCodeGenerator.generateType2JSONCode(
-          resolvedParamType,
-          camelCasedName,
-          parameter.isRequired,
-        ),
-      };
-    });
+    const parameters = this.operationParameterModelBuilder.build(this.info.parameters);
 
-    const parameterNames = parameters.map((p) => p.parameter.name);
+    const parameterRawNames = parameters.map((p) => p.name.rawName);
 
     // view:
 
@@ -90,39 +74,31 @@ export class OperationFileGenerator {
 
     output.write(0, '// request parameters:');
     for (const p of parameters) {
-      output.write(0, `// - ${p.parameter.name} ($ref: ${p.parameter.descriptor.ref})`);
+      output.write(0, `// - ${p.name.rawName} ($ref: ${p.ref})`);
     }
     output.newLine();
 
     output.write(0, `export interface ${className}Request {`);
     for (const p of parameters) {
-      output.writeComment(1, null, {
-        description: p.parameter.description,
-      });
-      output.write(1, `readonly ${p.camelCasedName}${p.types.colon} ${p.types.inputOrValueTypeCode};`);
+      output.createComment(1).description(p.description).apply();
+      output.write(1, `readonly ${p.name.normalizedNameCode}${p.types.colon} ${p.types.inputOrValueTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
 
     output.write(0, `export interface ${className}RequestJSON {`);
     for (const p of parameters) {
-      output.write(1, `readonly ${p.parameter.name}${p.types.colon} ${p.types.jsonTypeCode};`);
+      output.write(1, `readonly ${p.name.rawNameCode}${p.types.colon} ${p.types.jsonTypeCode};`);
     }
     output.write(0, '}');
     output.newLine();
-
-    if (this.info.description) {
-      output.writeComment(0, null, {
-        description: this.info.description,
-      });
-    }
 
     output.write(0, `export const ${className} = {`);
     output.write(1, `operationId: ${JSON.stringify(this.info.operationId)},`);
     output.write(1, `groupName: ${JSON.stringify(this.info.groupName)},`);
     output.write(1, `httpMethod: ${JSON.stringify(this.info.httpMethod)},`);
     output.write(1, `routePattern: ${JSON.stringify(this.info.routePattern)},`);
-    output.write(1, `parameterNames: ${JSON.stringify(parameterNames)},`);
+    output.write(1, `parameterNames: ${JSON.stringify(parameterRawNames)},`);
     output.write(1, `hasResponse: ${JSON.stringify(!!this.info.response)},`);
     output.write(1, `hasBody: ${JSON.stringify(!!this.info.body)},`);
     output.newLine();
@@ -138,12 +114,12 @@ export class OperationFileGenerator {
 
     output.write(1, `serializeRequest(request: ${className}Request): ${className}RequestJSON {`);
     for (const p of parameters) {
-      output.write(2, `const ${p.camelCasedName} = ${p.input2TypeCode};`);
+      output.write(2, `const ${p.name.normalizedName} = ${p.input2typeCode};`);
     }
 
     output.write(2, 'return {');
     for (const p of parameters) {
-      output.write(3, `${p.parameter.name}: ${p.type2JSONCode},`);
+      output.write(3, `${p.name.rawNameCode}: ${p.type2jsonCode},`);
     }
     output.write(2, '};');
     output.write(1, '},');
