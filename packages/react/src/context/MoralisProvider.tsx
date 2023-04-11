@@ -12,6 +12,7 @@ const MoralisProvider: FC<MoralisProviderProps> = ({
   config: {
     cacheTime,
     enabled,
+    keepPreviousData = true,
     onError,
     onSettled,
     onSuccess,
@@ -27,6 +28,7 @@ const MoralisProvider: FC<MoralisProviderProps> = ({
       queries: {
         cacheTime,
         enabled,
+        keepPreviousData,
         onError,
         onSettled,
         onSuccess,
