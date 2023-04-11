@@ -43,3 +43,4 @@ export * from './EncodeSubmissionOperation';
 export * from './EstimateGasPriceOperation';
 export * from './GetBlockByHeightOperation';
 export * from './GetBlockByVersionOperation';
+export * from './operations';
