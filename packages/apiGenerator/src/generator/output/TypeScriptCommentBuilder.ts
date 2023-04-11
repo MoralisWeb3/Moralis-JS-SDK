@@ -16,7 +16,14 @@ export class TypeScriptCommentBuilder {
   public param(type: string | null, paramName: string, isRequired: boolean, description: string | undefined): this {
     const name = isRequired ? paramName : `[${paramName}]`;
     const typeStr = type ? `{${type}} ` : '';
-    this.lines.push(` * @param ${typeStr}${name} ${description && this.wrap(description)}`);
+    const optional = isRequired ? '' : ' (optional)';
+    this.lines.push(` * @param ${typeStr}${name} ${description && this.wrap(description)}${optional}`);
+    return this;
+  }
+
+  public returns(type: string | null, description: string | undefined): this {
+    const typeStr = type ? `{${type}} ` : '';
+    this.lines.push(` * @returns ${typeStr}${description && this.wrap(description)}`);
     return this;
   }
 

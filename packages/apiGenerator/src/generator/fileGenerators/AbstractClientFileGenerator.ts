@@ -10,6 +10,7 @@ import { TypeInfoResolver } from './resolvers/TypeInfoResolver';
 import { isReferenceTypeDescriptor } from '../../reader/TypeDescriptor';
 import { ComplexTypePropertyModelBuilder } from './modelBuilders/ComplexTypePropertyModelBuilder';
 import { ComplexTypePropertyModel } from './modelBuilders/ComplexTypePropertyModelBuilder';
+import { JSDocTypeResolver } from './codeGenerators/JSDocTypeResolver';
 
 export class AbstractClientFileGenerator {
   private readonly operationParameterModelBuilder = new OperationParameterModelBuilder(this.typeResolver);
@@ -32,6 +33,7 @@ export class AbstractClientFileGenerator {
       const responseTypeCodes = resolvedResponseType
         ? TypeCodesGenerator.generate(resolvedResponseType, true)
         : TypeCodesGenerator.generateNull();
+      const responseJsdocType = resolvedResponseType ? JSDocTypeResolver.resolve(resolvedResponseType) : null;
 
       let resolvedBodyType: ResolvedType | null = null;
       let bodyTypeCodes: TypeCodes | null = null;
@@ -58,6 +60,7 @@ export class AbstractClientFileGenerator {
         parameters: this.operationParameterModelBuilder.build(operation.parameters),
         className,
         responseTypeCodes,
+        responseJsdocType,
         bodyTypeCodes,
         bodyProperties,
         endpointNormalizedName,
@@ -141,7 +144,7 @@ export class AbstractClientFileGenerator {
         const comment = output
           .createComment(2)
           .description(operation.description)
-          .param(null, 'request', true, 'Request parameters.');
+          .param(null, 'request', true, 'Request with parameters.');
         for (const parameter of operation.parameters) {
           comment.param(
             parameter.jsdocType,
@@ -162,6 +165,9 @@ export class AbstractClientFileGenerator {
               bodyProperty.description,
             );
           }
+        }
+        if (operation.responseJsdocType) {
+          comment.returns(operation.responseJsdocType, 'Response for the request.');
         }
         comment.apply();
 

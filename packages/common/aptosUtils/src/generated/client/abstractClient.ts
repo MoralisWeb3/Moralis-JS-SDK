@@ -109,11 +109,12 @@ export abstract class AbstractClient {
   public readonly accounts = {
     /**
      * @description Get account
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
-     * If not provided, it will be the latest version
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If not provided, it will be the latest version (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getAccount: this.createEndpoint<
       GetAccountOperationRequest,
@@ -123,15 +124,16 @@ export abstract class AbstractClient {
     >(GetAccountOperation),
     /**
      * @description Get account resources
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
-     * If not provided, it will be the latest version
+     * If not provided, it will be the latest version (optional)
      * @param {Number} [request.limit] Max number of account resources to retrieve.
-     * If not provided, defaults to default page size.
+     * If not provided, defaults to default page size. (optional)
      * @param {String} [request.start] Cursor specifying where to start for pagination
-     * This cursor cannot be derived manually client-side. Instead, you must call this endpoint once without this query parameter specified, and then use the cursor returned in the X-Aptos-Cursor header in the response.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * This cursor cannot be derived manually client-side. Instead, you must call this endpoint once without this query parameter specified, and then use the cursor returned in the X-Aptos-Cursor header in the response. (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getAccountResources: this.createEndpoint<
       GetAccountResourcesOperationRequest,
@@ -141,15 +143,16 @@ export abstract class AbstractClient {
     >(GetAccountResourcesOperation),
     /**
      * @description Get account modules
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
-     * If not provided, it will be the latest version
+     * If not provided, it will be the latest version (optional)
      * @param {Number} [request.limit] Max number of account resources to retrieve.
-     * If not provided, defaults to default page size.
+     * If not provided, defaults to default page size. (optional)
      * @param {String} [request.start] Cursor specifying where to start for pagination
-     * This cursor cannot be derived manually client-side. Instead, you must call this endpoint once without this query parameter specified, and then use the cursor returned in the X-Aptos-Cursor header in the response.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * This cursor cannot be derived manually client-side. Instead, you must call this endpoint once without this query parameter specified, and then use the cursor returned in the X-Aptos-Cursor header in the response. (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getAccountModules: this.createEndpoint<
       GetAccountModulesOperationRequest,
@@ -159,12 +162,13 @@ export abstract class AbstractClient {
     >(GetAccountModulesOperation),
     /**
      * @description Get account resource
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} request.resourceType Name of struct to retrieve e.g. 0x1::account::Account
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
-     * If not provided, it will be the latest version
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If not provided, it will be the latest version (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getAccountResource: this.createEndpoint<
       GetAccountResourceOperationRequest,
@@ -174,12 +178,13 @@ export abstract class AbstractClient {
     >(GetAccountResourceOperation),
     /**
      * @description Get account module
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} request.moduleName Name of module to retrieve
      * @param {String} [request.ledgerVersion] Ledger version to get state of account.
-     * If not provided, it will be the latest version
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If not provided, it will be the latest version (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getAccountModule: this.createEndpoint<
       GetAccountModuleOperationRequest,
@@ -189,14 +194,15 @@ export abstract class AbstractClient {
     >(GetAccountModuleOperation),
     /**
      * @description Get events by creation number
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {String} request.creationNumber Creation number corresponding to the event stream originating from the given account.
      * @param {Number} [request.limit] Max number of account resources to retrieve.
-     * If not provided, defaults to default page size.
+     * If not provided, defaults to default page size. (optional)
      * @param {String} [request.start] Starting sequence number of events.
-     * If unspecified, by default will retrieve the most recent events
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If unspecified, by default will retrieve the most recent events (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getEventsByCreationNumber: this.createEndpoint<
       GetEventsByCreationNumberOperationRequest,
@@ -206,15 +212,16 @@ export abstract class AbstractClient {
     >(GetEventsByCreationNumberOperation),
     /**
      * @description Get events by event handle
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Hex-encoded 32 byte Aptos account, with or without a 0x prefix, for which events are queried. This refers to the account that events were emitted to, not the account hosting the move module that emits that event type.
      * @param {String} request.eventHandle Name of struct to lookup event handle.
      * @param {String} request.fieldName Name of field to lookup event handle.
      * @param {Number} [request.limit] Max number of account resources to retrieve.
-     * If not provided, defaults to default page size.
+     * If not provided, defaults to default page size. (optional)
      * @param {String} [request.start] Starting sequence number of events.
-     * If unspecified, by default will retrieve the most recent events
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If unspecified, by default will retrieve the most recent events (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getEventsByEventHandle: this.createEndpoint<
       GetEventsByEventHandleOperationRequest,
@@ -226,10 +233,11 @@ export abstract class AbstractClient {
   public readonly blocks = {
     /**
      * @description Get block by height
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.blockHeight Block height to lookup. Starts at 0
-     * @param {Boolean} [request.withTransactions] If set to true, include all transactions in the block
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Boolean} [request.withTransactions] If set to true, include all transactions in the block (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getBlockByHeight: this.createEndpoint<
       GetBlockByHeightOperationRequest,
@@ -239,10 +247,11 @@ export abstract class AbstractClient {
     >(GetBlockByHeightOperation),
     /**
      * @description Get block by version
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.version Ledger version to lookup block information for.
-     * @param {Boolean} [request.withTransactions] If set to true, include all transactions in the block
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Boolean} [request.withTransactions] If set to true, include all transactions in the block (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getBlockByVersion: this.createEndpoint<
       GetBlockByVersionOperationRequest,
@@ -254,9 +263,10 @@ export abstract class AbstractClient {
   public readonly coins = {
     /**
      * @description Get Coin Metadata by Coin Type Hashes
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String[]} request.coinTypeHashes The coin type hashes to fetch info about
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getCoinInfoByCoinTypeHashes: this.createEndpoint<
       GetCoinInfoByCoinTypeHashesOperationRequest,
@@ -266,11 +276,12 @@ export abstract class AbstractClient {
     >(GetCoinInfoByCoinTypeHashesOperation),
     /**
      * @description Get latest deployed coins
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getLatestCoins: this.createEndpoint<
       GetLatestCoinsOperationRequest,
@@ -280,13 +291,14 @@ export abstract class AbstractClient {
     >(GetLatestCoinsOperation),
     /**
      * @description Get Coin Metadata by name range
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String} [request.fromName] The name of the coin to start from (inclusive and case sensitive)
-     * @param {String} [request.toName] The name of the coin to end at (inclusive and case sensitive)
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String} [request.fromName] The name of the coin to start from (inclusive and case sensitive) (optional)
+     * @param {String} [request.toName] The name of the coin to end at (inclusive and case sensitive) (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinsByNameRange: this.createEndpoint<
       GetCoinsByNameRangeOperationRequest,
@@ -296,13 +308,14 @@ export abstract class AbstractClient {
     >(GetCoinsByNameRangeOperation),
     /**
      * @description Get Coin Metadata by symbol range
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String} [request.fromSymbol] The name of the coin to start from (inclusive and case sensitive)
-     * @param {String} [request.toSymbol] The name of the coin to end at (inclusive and case sensitive)
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String} [request.fromSymbol] The name of the coin to start from (inclusive and case sensitive) (optional)
+     * @param {String} [request.toSymbol] The name of the coin to end at (inclusive and case sensitive) (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinsBySymbolRange: this.createEndpoint<
       GetCoinsBySymbolRangeOperationRequest,
@@ -312,12 +325,13 @@ export abstract class AbstractClient {
     >(GetCoinsBySymbolRangeOperation),
     /**
      * @description Get Coin Metadata by creator addresses
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.creatorAddresses The addresses of the creators
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinsByCreators: this.createEndpoint<
       GetCoinsByCreatorsOperationRequest,
@@ -327,16 +341,17 @@ export abstract class AbstractClient {
     >(GetCoinsByCreatorsOperation),
     /**
      * @description Get Coin Transfers by wallet addresses
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
-     * @param {String} [request.fromDate] The date from which to fetch coin transfers
-     * @param {String} [request.toDate] The date to which to fetch coin transfers
-     * @param {String[]} [request.coinTypeBlacklist] The coin types of the coins to whitelist
-     * @param {String[]} [request.coinTypeWhitelist] The coin types of the coins to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String} [request.fromDate] The date from which to fetch coin transfers (optional)
+     * @param {String} [request.toDate] The date to which to fetch coin transfers (optional)
+     * @param {String[]} [request.coinTypeBlacklist] The coin types of the coins to whitelist (optional)
+     * @param {String[]} [request.coinTypeWhitelist] The coin types of the coins to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinTransfersByOwnerAddresses: this.createEndpoint<
       GetCoinTransfersByOwnerAddressesOperationRequest,
@@ -346,12 +361,13 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByOwnerAddressesOperation),
     /**
      * @description Get Coin Transfers by block heights
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {String[]} request.blockHeights The coin types to fetch info about
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinTransfersByBlockHeights: this.createEndpoint<
       GetCoinTransfersByBlockHeightsOperationRequest,
@@ -361,14 +377,15 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByBlockHeightsOperation),
     /**
      * @description Get Coin Transfers by Coin Type
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.coinType The coin type to fetch info about
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String} [request.fromDate] The date from which to fetch coin transfers
-     * @param {String} [request.toDate] The date to which to fetch coin transfers
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String} [request.fromDate] The date from which to fetch coin transfers (optional)
+     * @param {String} [request.toDate] The date to which to fetch coin transfers (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinTransfersByCoinType: this.createEndpoint<
       GetCoinTransfersByCoinTypeOperationRequest,
@@ -378,16 +395,17 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByCoinTypeOperation),
     /**
      * @description Get top Holders of Coin
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.coinTypeHash The coin type hash to fetch info about
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {Object} [request.minAmount] The minimum amount of coins required for a wallet to be included in the results
-     * @param {Number} [request.minVersion] The minimum version on when the balance was last updated
-     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist
-     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {Object} [request.minAmount] The minimum amount of coins required for a wallet to be included in the results (optional)
+     * @param {Number} [request.minVersion] The minimum version on when the balance was last updated (optional)
+     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist (optional)
+     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getTopHoldersByCoin: this.createEndpoint<
       GetTopHoldersByCoinOperationRequest,
@@ -399,13 +417,14 @@ export abstract class AbstractClient {
   public readonly collections = {
     /**
      * @description Get NFT Collections
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String} [request.fromName] The name of the collection to start from (inclusive and case sensitive)
-     * @param {String} [request.toName] The name of the collection to end at (inclusive and case sensitive)
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String} [request.fromName] The name of the collection to start from (inclusive and case sensitive) (optional)
+     * @param {String} [request.toName] The name of the collection to end at (inclusive and case sensitive) (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTCollections: this.createEndpoint<
       GetNFTCollectionsOperationRequest,
@@ -415,9 +434,10 @@ export abstract class AbstractClient {
     >(GetNFTCollectionsOperation),
     /**
      * @description Get NFT Collections by ids
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String[]} request.ids The identifiers of the collections to get
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getNFTCollectionsByIds: this.createEndpoint<
       GetNFTCollectionsByIdsOperationRequest,
@@ -427,12 +447,13 @@ export abstract class AbstractClient {
     >(GetNFTCollectionsByIdsOperation),
     /**
      * @description Get NFT Collections by creator
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object} request.creatorAddress The address of the creator
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTCollectionsByCreator: this.createEndpoint<
       GetNFTCollectionsByCreatorOperationRequest,
@@ -444,9 +465,10 @@ export abstract class AbstractClient {
   public readonly nfts = {
     /**
      * @description Get NFTs by ids
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String[]} request.tokenIds The identifiers of the tokens to get
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getNFTsByIds: this.createEndpoint<
       GetNFTsByIdsOperationRequest,
@@ -456,12 +478,13 @@ export abstract class AbstractClient {
     >(GetNFTsByIdsOperation),
     /**
      * @description Get NFTs by Collection
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.collectionDataIdHash The collection data id hash of the collection
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTsByCollection: this.createEndpoint<
       GetNFTsByCollectionOperationRequest,
@@ -471,12 +494,13 @@ export abstract class AbstractClient {
     >(GetNFTsByCollectionOperation),
     /**
      * @description Get NFTs by creators
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.creatorAddresses The addresses of the creators
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTsByCreators: this.createEndpoint<
       GetNFTsByCreatorsOperationRequest,
@@ -486,12 +510,13 @@ export abstract class AbstractClient {
     >(GetNFTsByCreatorsOperation),
     /**
      * @description Get NFT Owners by tokens
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {String[]} request.tokenIds The identifiers of the tokens to get owners for
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTOwnersByTokens: this.createEndpoint<
       GetNFTOwnersByTokensOperationRequest,
@@ -501,14 +526,15 @@ export abstract class AbstractClient {
     >(GetNFTOwnersByTokensOperation),
     /**
      * @description Get NFT Owners by Collection
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.collectionDataIdHash The id of the token
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist
-     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist (optional)
+     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTOwnersByCollection: this.createEndpoint<
       GetNFTOwnersByCollectionOperationRequest,
@@ -518,12 +544,13 @@ export abstract class AbstractClient {
     >(GetNFTOwnersByCollectionOperation),
     /**
      * @description Get NFT Owners of Collection
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.collectionDataIdHash The id of the token
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTOwnersOfCollection: this.createEndpoint<
       GetNFTOwnersOfCollectionOperationRequest,
@@ -533,14 +560,15 @@ export abstract class AbstractClient {
     >(GetNFTOwnersOfCollectionOperation),
     /**
      * @description Get NFT Transfers by Token ids
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist
-     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist (optional)
+     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist (optional)
      * @param {String[]} request.tokenIds The identifiers of the tokens to get
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getNFTTransfersByIds: this.createEndpoint<
       GetNFTTransfersByIdsOperationRequest,
@@ -550,14 +578,15 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByIdsOperation),
     /**
      * @description Get NFT Transfers by Collection
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.collectionDataIdHash The collection data id hash of the token
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
-     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist
-     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
+     * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist (optional)
+     * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTTransfersByCollection: this.createEndpoint<
       GetNFTTransfersByCollectionOperationRequest,
@@ -567,14 +596,15 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByCollectionOperation),
     /**
      * @description Get NFT Transfers by creators
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.creatorAddresses The addresses of the creators
-     * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist
-     * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist (optional)
+     * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTTransfersByCreators: this.createEndpoint<
       GetNFTTransfersByCreatorsOperationRequest,
@@ -584,14 +614,15 @@ export abstract class AbstractClient {
     >(GetNFTTransfersByCreatorsOperation),
     /**
      * @description Get NFT Transfers by wallets
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.walletAddresses The addresses of the wallets to get transfers for
-     * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist
-     * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist (optional)
+     * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTTransfersByWallets: this.createEndpoint<
       GetNFTTransfersByWalletsOperationRequest,
@@ -603,12 +634,13 @@ export abstract class AbstractClient {
   public readonly transactions = {
     /**
      * @description Get transactions
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} [request.limit] Max number of transactions to retrieve.
-     * If not provided, defaults to default page size
+     * If not provided, defaults to default page size (optional)
      * @param {String} [request.start] Account sequence number to start list of transactions.
-     * If not provided, defaults to showing the latest transactions
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If not provided, defaults to showing the latest transactions (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getTransactions: this.createEndpoint<
       GetTransactionsOperationRequest,
@@ -618,8 +650,8 @@ export abstract class AbstractClient {
     >(GetTransactionsOperation),
     /**
      * @description Submit transaction
-     * @param request Request parameters.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param request Request with parameters.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
@@ -628,6 +660,7 @@ export abstract class AbstractClient {
      * @param {String} body.expirationTimestampSecs A string containing a 64-bit unsigned integer.
      * @param {Object} body.payload An enum of the possible transaction payloads
      * @param {Object} body.signature 
+     * @returns {Object} Response for the request.
      */
     submitTransaction: this.createEndpointWithBody<
       SubmitTransactionOperationRequest,
@@ -639,9 +672,10 @@ export abstract class AbstractClient {
     >(SubmitTransactionOperation),
     /**
      * @description Get transaction by hash
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.txnHash Hash of transaction to retrieve
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getTransactionByHash: this.createEndpoint<
       GetTransactionByHashOperationRequest,
@@ -651,9 +685,10 @@ export abstract class AbstractClient {
     >(GetTransactionByHashOperation),
     /**
      * @description Get transaction by version
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.txnVersion Version of transaction to retrieve
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getTransactionByVersion: this.createEndpoint<
       GetTransactionByVersionOperationRequest,
@@ -663,13 +698,14 @@ export abstract class AbstractClient {
     >(GetTransactionByVersionOperation),
     /**
      * @description Get account transactions
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {String} request.address Address of account with or without a 0x prefix
      * @param {Number} [request.limit] Max number of transactions to retrieve.
-     * If not provided, defaults to default page size
+     * If not provided, defaults to default page size (optional)
      * @param {String} [request.start] Account sequence number to start list of transactions.
-     * If not provided, defaults to showing the latest transactions
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * If not provided, defaults to showing the latest transactions (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object[]} Response for the request.
      */
     getAccountTransactions: this.createEndpoint<
       GetAccountTransactionsOperationRequest,
@@ -679,8 +715,8 @@ export abstract class AbstractClient {
     >(GetAccountTransactionsOperation),
     /**
      * @description Submit batch transactions
-     * @param request Request parameters.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param request Request with parameters.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
@@ -689,6 +725,7 @@ export abstract class AbstractClient {
      * @param {String} body.expirationTimestampSecs A string containing a 64-bit unsigned integer.
      * @param {Object} body.payload An enum of the possible transaction payloads
      * @param {Object} body.signature 
+     * @returns {Object} Response for the request.
      */
     submitBatchTransactions: this.createEndpointWithBody<
       SubmitBatchTransactionsOperationRequest,
@@ -700,8 +737,8 @@ export abstract class AbstractClient {
     >(SubmitBatchTransactionsOperation),
     /**
      * @description Simulate transaction
-     * @param request Request parameters.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param request Request with parameters.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
@@ -710,6 +747,7 @@ export abstract class AbstractClient {
      * @param {String} body.expirationTimestampSecs A string containing a 64-bit unsigned integer.
      * @param {Object} body.payload An enum of the possible transaction payloads
      * @param {Object} body.signature 
+     * @returns {Object} Response for the request.
      */
     simulateTransaction: this.createEndpointWithBody<
       SimulateTransactionOperationRequest,
@@ -721,8 +759,8 @@ export abstract class AbstractClient {
     >(SimulateTransactionOperation),
     /**
      * @description Encode submission
-     * @param request Request parameters.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param request Request with parameters.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
      * @param body Request body.
      * @param {Object} body.sender A hex encoded 32 byte Aptos account address.
      * @param {String} body.sequenceNumber A string containing a 64-bit unsigned integer.
@@ -731,6 +769,7 @@ export abstract class AbstractClient {
      * @param {String} body.expirationTimestampSecs A string containing a 64-bit unsigned integer.
      * @param {Object} body.payload An enum of the possible transaction payloads
      * @param {String[]} body.secondarySigners Secondary signer accounts of the request for Multi-agent
+     * @returns {String} Response for the request.
      */
     encodeSubmission: this.createEndpointWithBody<
       EncodeSubmissionOperationRequest,
@@ -742,8 +781,9 @@ export abstract class AbstractClient {
     >(EncodeSubmissionOperation),
     /**
      * @description Estimate gas price
-     * @param request Request parameters.
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param request Request with parameters.
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     estimateGasPrice: this.createEndpoint<
       EstimateGasPriceOperationRequest,
@@ -755,14 +795,15 @@ export abstract class AbstractClient {
   public readonly wallets = {
     /**
      * @description Get Coin Balances by wallet addresses
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.ownerAddresses The addresses of the owners to get coin balances for
-     * @param {String[]} [request.coinTypeHashBlacklist] The coin type hashes of the coins to whitelist
-     * @param {String[]} [request.coinTypeHashWhitelist] The coin type hashes of the coins to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String[]} [request.coinTypeHashBlacklist] The coin type hashes of the coins to whitelist (optional)
+     * @param {String[]} [request.coinTypeHashWhitelist] The coin type hashes of the coins to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinBalancesByWallets: this.createEndpoint<
       GetCoinBalancesByWalletsOperationRequest,
@@ -772,14 +813,15 @@ export abstract class AbstractClient {
     >(GetCoinBalancesByWalletsOperation),
     /**
      * @description Get Historical Coin Balances by wallet addresses
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.ownerAddresses The addresses of the owner addresses to get historical balances for
-     * @param {String[]} [request.coinTypeHashBlacklist] The coin type hash of the coins to whitelist
-     * @param {String[]} [request.coinTypeHashWhitelist] The coin type hash of the coins to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String[]} [request.coinTypeHashBlacklist] The coin type hash of the coins to whitelist (optional)
+     * @param {String[]} [request.coinTypeHashWhitelist] The coin type hash of the coins to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getHistoricalCoinBalancesByWallets: this.createEndpoint<
       GetHistoricalCoinBalancesByWalletsOperationRequest,
@@ -789,16 +831,17 @@ export abstract class AbstractClient {
     >(GetHistoricalCoinBalancesByWalletsOperation),
     /**
      * @description Get Coin Transfers by wallet addresses
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
-     * @param {String} [request.fromDate] The date from which to fetch coin transfers
-     * @param {String} [request.toDate] The date to which to fetch coin transfers
-     * @param {String[]} [request.coinTypeBlacklist] The coin types of the coins to whitelist
-     * @param {String[]} [request.coinTypeWhitelist] The coin types of the coins to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String} [request.fromDate] The date from which to fetch coin transfers (optional)
+     * @param {String} [request.toDate] The date to which to fetch coin transfers (optional)
+     * @param {String[]} [request.coinTypeBlacklist] The coin types of the coins to whitelist (optional)
+     * @param {String[]} [request.coinTypeWhitelist] The coin types of the coins to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getCoinTransfersByWalletAddresses: this.createEndpoint<
       GetCoinTransfersByWalletAddressesOperationRequest,
@@ -808,14 +851,15 @@ export abstract class AbstractClient {
     >(GetCoinTransfersByWalletAddressesOperation),
     /**
      * @description Get NFTs by wallet addresses
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of results to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.ownerAddresses The addresses of the owners to get tokens for
-     * @param {String[]} [request.collectionBlacklist] The collection data id hashes of the collections to whitelist
-     * @param {String[]} [request.collectionWhitelist] The collection data id hashes of the collections to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String[]} [request.collectionBlacklist] The collection data id hashes of the collections to whitelist (optional)
+     * @param {String[]} [request.collectionWhitelist] The collection data id hashes of the collections to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getNFTByOwners: this.createEndpoint<
       GetNFTByOwnersOperationRequest,
@@ -825,14 +869,15 @@ export abstract class AbstractClient {
     >(GetNFTByOwnersOperation),
     /**
      * @description Get NFT Transfers by wallets
-     * @param request Request parameters.
+     * @param request Request with parameters.
      * @param {Number} request.limit The number of tokens to return
-     * @param {Number} [request.offset] The number of results to skip
-     * @param {String} [request.cursor] The cursor to use for getting the next page
+     * @param {Number} [request.offset] The number of results to skip (optional)
+     * @param {String} [request.cursor] The cursor to use for getting the next page (optional)
      * @param {Object[]} request.walletAddresses The addresses of the wallets to get transfers for
-     * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist
-     * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist
-     * @param {Object} [request.network] The network of query. Defaults to mainnet.
+     * @param {String[]} [request.collectionBlacklist] The ids of the collections to whitelist (optional)
+     * @param {String[]} [request.collectionWhitelist] The ids of the collections to whitelist (optional)
+     * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
+     * @returns {Object} Response for the request.
      */
     getWalletsNFTTransfers: this.createEndpoint<
       GetWalletsNFTTransfersOperationRequest,

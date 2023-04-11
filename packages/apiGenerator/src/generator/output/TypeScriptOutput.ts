@@ -1,4 +1,4 @@
-import { EOL, MemoryOutput } from './MemoryOutput';
+import { MemoryOutput } from './MemoryOutput';
 import { Output } from './Output';
 import { TypeScriptCommentBuilder } from './TypeScriptCommentBuilder';
 
@@ -44,12 +44,4 @@ export class TypeScriptOutput implements Output {
   public toString(): string {
     return this.output.toString();
   }
-}
-
-function wrapComment(tabs: number, value: string): string {
-  return value
-    .split(/\r|\n/)
-    .filter((line) => !!line)
-    .map((line, index) => (index === 0 ? line : `${MemoryOutput.createTabs(tabs)} * ${line}`))
-    .join(EOL);
 }
