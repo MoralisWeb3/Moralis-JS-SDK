@@ -17,6 +17,7 @@ import { UnionTypeFileGenerator } from './fileGenerators/UnionTypeFileGenerator'
 import { GeneratorConfiguration } from './GeneratorConfiguration';
 import { TypeDeterminantResolver } from './fileGenerators/resolvers/TypeDeterminantResolver';
 import { TypeInfoResolver } from './fileGenerators/resolvers/TypeInfoResolver';
+import { OperationsArrayFileGenerator } from './fileGenerators/OperationsArrayFileGenerator';
 
 export class Generator {
   public static create(
@@ -34,6 +35,7 @@ export class Generator {
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
+  private readonly operationsArrayGenerator = new OperationsArrayFileGenerator();
 
   private constructor(
     private readonly contract: OpenApiContract,
@@ -62,8 +64,11 @@ export class Generator {
     const abstractClientFileGenerator = new AbstractClientFileGenerator(this.contract.operations, this.typeResolver);
     this.writer.writeAbstractClient(abstractClientFileGenerator.generate());
 
+    this.operationsIndexGenerator.add('operations');
+
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());
     this.writer.writeOperationsIndex(this.operationsIndexGenerator.generate());
+    this.writer.writeOperationsArray(this.operationsArrayGenerator.generate());
   }
 
   private generateOperation(info: OperationInfo) {
@@ -73,6 +78,7 @@ export class Generator {
     this.writer.writeOperation(result.className, result.output);
 
     this.operationsIndexGenerator.add(result.className);
+    this.operationsArrayGenerator.add(result.className);
   }
 
   private generateSimpleType(info: SimpleTypeInfo) {
