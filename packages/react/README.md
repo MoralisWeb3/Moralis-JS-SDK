@@ -166,6 +166,7 @@ const App = () => {
     isFetchedAfterMount,
     isFetching,
     isLoading,
+    isPreviousData,
     isRefetching,
     isSuccess,
     refetch,
@@ -1188,7 +1189,8 @@ These options can be passed as `MoralisConfig` and be directly provided to any h
 | `onSuccess`| This function will fire any time the query successfully fetches new data.	       | ``      |  no  |  
 | `refetchOnWindowFocus` | 	If set to `true`, the query will refetch on window focus if the data is stale. If set to false, the query will not refetch on window focus. If set to "always", the query will always refetch on window focus. If set to a function, the function will be executed with the query to compute the value       | `false`      |  no  |  
 | `staleTime`| The time in milliseconds after data is considered stale. This value only applies to the hook it is defined on. If set to Infinity, the data will never be considered stale	       | `0`      | no   |  
-| `suspense`| Set this to `true` to enable suspense mode. When `true`, `useQuery` will suspend when `status === 'loading'` When `true`, `useQuery` will throw runtime errors when `status === 'error'`	       | `false`      | no  |  
+| `suspense`| Set this to `true` to enable suspense mode. When `true`, `useQuery` will suspend when `status === 'loading'` When `true`, `useQuery` will throw runtime errors when `status === 'error'`	       | `false`      | no  | 
+| `keepPreviousData` | If set, any previous data will be kept when fetching new data because the query key changed. | `true` | no | 
 
 
 The `@moralisweb3/react` hooks use [@tanstack/react-query](https://tanstack.com/query/v4/docs/react) for a better developer experience while using API calls.
