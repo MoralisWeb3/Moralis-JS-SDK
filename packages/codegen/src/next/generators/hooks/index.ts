@@ -10,14 +10,11 @@ export default function NextHooksGenerator(plop: NodePlopAPI) {
         type: 'checkbox',
         name: 'modules',
         message: 'Select modules for hooks generating',
-        choices: ['evmApi', 'solApi'] as Module[],
+        choices: ['evmApi', 'solApi', 'aptos'] as Module[],
       },
     ],
     actions: (answers) => {
-      return [
-        ...(answers?.modules.includes('evmApi') ? new HooksGenerator('evmApi').actions : []),
-        ...(answers?.modules.includes('solApi') ? new HooksGenerator('solApi').actions : []),
-      ];
+      return answers?.modules.map((module: Module) => new HooksGenerator(module).actions);
     },
   });
 }

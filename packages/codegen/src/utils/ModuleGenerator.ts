@@ -1,6 +1,7 @@
 import { operations as evmOperations } from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
 import { operations as authOperations } from 'moralis/common-auth-utils';
+// import { operations as aptosOperations } from 'moralis/common-aptos-utils';
 
 import { Module, OperationAction } from '../next/types';
 import path from 'node:path';
@@ -52,6 +53,9 @@ export class ModuleGenerator {
       case 'auth':
         ops = authOperations;
         break;
+      // case 'aptos':
+      //   ops = aptosOperations;
+      //   break;
       default:
         throw new Error('Module does not exist');
     }
