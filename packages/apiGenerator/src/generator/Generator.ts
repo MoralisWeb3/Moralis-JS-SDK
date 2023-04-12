@@ -17,7 +17,7 @@ import { UnionTypeFileGenerator } from './fileGenerators/UnionTypeFileGenerator'
 import { GeneratorConfiguration } from './GeneratorConfiguration';
 import { TypeDeterminantResolver } from './fileGenerators/resolvers/TypeDeterminantResolver';
 import { TypeInfoResolver } from './fileGenerators/resolvers/TypeInfoResolver';
-import { OperationsArrayFileGenerator } from './fileGenerators/OperationsArrayFileGenerator';
+import { OperationListFileGenerator } from './fileGenerators/OperationListFileGenerator';
 
 export class Generator {
   public static create(
@@ -35,7 +35,7 @@ export class Generator {
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
   private readonly operationsIndexGenerator = new IndexFileGenerator();
-  private readonly operationsArrayGenerator = new OperationsArrayFileGenerator();
+  private readonly operationListGenerator = new OperationListFileGenerator();
 
   private constructor(
     private readonly contract: OpenApiContract,
@@ -61,14 +61,18 @@ export class Generator {
       this.generateUnionType(unionType);
     }
 
-    const abstractClientFileGenerator = new AbstractClientFileGenerator(this.contract.operations, this.typeResolver);
+    const abstractClientFileGenerator = new AbstractClientFileGenerator(
+      this.contract.operations,
+      this.typeResolver,
+      this.typeInfoResolver,
+    );
     this.writer.writeAbstractClient(abstractClientFileGenerator.generate());
 
     this.operationsIndexGenerator.add('operations');
 
     this.writer.writeTypesIndex(this.typesIndexGenerator.generate());
     this.writer.writeOperationsIndex(this.operationsIndexGenerator.generate());
-    this.writer.writeOperationsArray(this.operationsArrayGenerator.generate());
+    this.writer.writeOperationList(this.operationListGenerator.generate());
   }
 
   private generateOperation(info: OperationInfo) {
@@ -78,7 +82,7 @@ export class Generator {
     this.writer.writeOperation(result.className, result.output);
 
     this.operationsIndexGenerator.add(result.className);
-    this.operationsArrayGenerator.add(result.className);
+    this.operationListGenerator.add(result.className);
   }
 
   private generateSimpleType(info: SimpleTypeInfo) {
