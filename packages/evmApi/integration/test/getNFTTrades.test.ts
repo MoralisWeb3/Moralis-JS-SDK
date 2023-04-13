@@ -32,6 +32,7 @@ describe('getNFTTrades', () => {
       expect(trade.sellerAddress.lowercase).toBe('0xc970bd05d27466f10e0d1c8653d6bca217ef04f2');
       expect(trade.buyerAddress.lowercase).toBe('0x9f7509cdc8b846c65482f5d2829ab47360095d82');
       expect(trade.tokenAddress.lowercase).toBe('0x9c57d0278199c931cf149cc769f37bb7847091e7');
+      expect(trade.priceTokenAddress?.lowercase).toBe('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2');
       expect(trade.marketplaceAddress.lowercase).toBe('0x00000000006c3852cbef3e08e8df289169ede581');
       expect(trade.price.wei).toBe('69990000000000000');
       expect(trade.blockTimestamp.getTime()).toBe(1670286731000);

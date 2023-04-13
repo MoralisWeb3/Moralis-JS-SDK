@@ -1280,6 +1280,11 @@ export interface components {
        */
       marketplace_address: string;
       /**
+       * @description The address of the token used to pay for the NFT
+       * @example 0x60e4d786628fea6478f785a6d7e704777c86a7c6
+       */
+      price_token_address?: string;
+      /**
        * @description The value that was sent in the transaction (ETH/BNB/etc..)
        * @example 1000000000000000
        */

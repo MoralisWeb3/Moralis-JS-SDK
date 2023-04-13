@@ -33,7 +33,7 @@ export interface EvmNftTradeInput {
   tokenAddress: EvmAddressish;
   marketplaceAddress: EvmAddressish;
   price: EvmNativeish;
-  priceTokenAddress?: null | EvmAddressish;
+  priceTokenAddress?: EvmAddressish;
   blockTimestamp: DateInput;
   blockNumber: BigNumberish;
   blockHash: string;
