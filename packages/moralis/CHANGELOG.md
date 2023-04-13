@@ -1,5 +1,25 @@
 # moralis
 
+## 2.18.3
+
+### Patch Changes
+
+- [#1091](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1091) [`a3c5e35fe`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a3c5e35feb01c3b7c56643c4e512faaff40a2fa9) Thanks [@Y0moo](https://github.com/Y0moo)! - Import available from "moralis/common-aptos-utils"
+
+- Updated dependencies [[`6e1fc78fd`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6e1fc78fd9b4a215046cc96e6b6686ae05a8bd86), [`27d62491b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/27d62491b3ea92206984f720e1d8392ea70e45c5), [`a3c5e35fe`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a3c5e35feb01c3b7c56643c4e512faaff40a2fa9)]:
+  - @moralisweb3/common-evm-utils@2.18.3
+  - @moralisweb3/evm-api@2.18.3
+  - @moralisweb3/common-aptos-utils@2.18.3
+  - @moralisweb3/aptos-api@2.18.3
+  - @moralisweb3/api-utils@2.18.3
+  - @moralisweb3/auth@2.18.3
+  - @moralisweb3/common-auth-utils@2.18.3
+  - @moralisweb3/common-core@2.18.3
+  - @moralisweb3/common-sol-utils@2.18.3
+  - @moralisweb3/common-streams-utils@2.18.3
+  - @moralisweb3/sol-api@2.18.3
+  - @moralisweb3/streams@2.18.3
+
 ## 2.18.2
 
 ### Patch Changes

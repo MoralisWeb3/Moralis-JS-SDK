@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-aptos-utils",
   "author": "Moralis",
-  "version": "2.18.2",
+  "version": "2.18.3",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -53,7 +53,7 @@
     "rollup-plugin-typescript2": "^0.34.1"
   },
   "dependencies": {
-    "@moralisweb3/common-core": "^2.18.2",
+    "@moralisweb3/common-core": "^2.18.3",
     "@noble/hashes": "^1.2.0"
   }
 }

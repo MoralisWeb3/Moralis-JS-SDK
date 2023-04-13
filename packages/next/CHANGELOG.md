@@ -1,5 +1,20 @@
 # @moralisweb3/next
 
+## 2.18.3
+
+### Patch Changes
+
+- [#1085](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1085) [`700ce4b4e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/700ce4b4e8de9af1b23e33e1ff6392f98801209e) Thanks [@Y0moo](https://github.com/Y0moo)! - useEvmResolveENSDomain hook added
+
+- Updated dependencies [[`6e1fc78fd`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6e1fc78fd9b4a215046cc96e6b6686ae05a8bd86), [`a3c5e35fe`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a3c5e35feb01c3b7c56643c4e512faaff40a2fa9)]:
+  - @moralisweb3/evm-api@2.18.3
+  - moralis@2.18.3
+  - @moralisweb3/api-utils@2.18.3
+  - @moralisweb3/auth@2.18.3
+  - @moralisweb3/common-auth-utils@2.18.3
+  - @moralisweb3/common-core@2.18.3
+  - @moralisweb3/sol-api@2.18.3
+
 ## 2.18.2
 
 ### Patch Changes
