@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/common-auth-utils",
   "author": "Moralis",
-  "version": "2.18.2",
+  "version": "2.18.3",
   "license": "MIT",
   "type": "module",
   "main": "./lib/esm/index.js",
@@ -55,10 +55,10 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
-    "@moralisweb3/common-aptos-utils": "^2.18.2",
-    "@moralisweb3/common-core": "^2.18.2",
-    "@moralisweb3/common-evm-utils": "^2.18.2",
-    "@moralisweb3/common-sol-utils": "^2.18.2",
+    "@moralisweb3/common-aptos-utils": "^2.18.3",
+    "@moralisweb3/common-core": "^2.18.3",
+    "@moralisweb3/common-evm-utils": "^2.18.3",
+    "@moralisweb3/common-sol-utils": "^2.18.3",
     "@moralisweb3/streams-typings": "^1.0.6"
   }
 }
