@@ -32,7 +32,7 @@ export const mockGetNFTTrades = MockScenarios.create(
             token_address: '0x9c57d0278199c931cf149cc769f37bb7847091e7',
             marketplace_address: '0x00000000006c3852cbef3e08e8df289169ede581',
             price: '69990000000000000',
-            price_token_address: null,
+            price_token_address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
             block_timestamp: '2022-12-06T00:32:11.000Z',
             block_number: '16122185',
             block_hash: '0xd01990eb290c77fe3e7db77a83c0ff465cc3dd5f74b9eb53d9b2c2ea178c7009',
