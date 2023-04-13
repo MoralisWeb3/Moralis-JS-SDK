@@ -29,7 +29,7 @@ export abstract class AptosGetAccountTransactionsItem {
     if (AptosStateCheckpointTransaction.isInput(input)) {
       return AptosStateCheckpointTransaction.create(input);
     }
-    throw new Error('Cannot resolve union for input');
+    throw new Error('Cannot resolve union from AptosGetAccountTransactionsItemInput');
   }
 
   public static fromJSON(json: AptosGetAccountTransactionsItemJSON): AptosGetAccountTransactionsItemValue {
@@ -50,6 +50,25 @@ export abstract class AptosGetAccountTransactionsItem {
     }
     const keys = Object.keys(json).join(', ');
     const type = (json as any).type;
-    throw new Error(`Cannot resolve union for AptosGetAccountTransactionsItem (keys: ${keys}, type: ${type})`);
+    throw new Error(`Cannot resolve union from AptosGetAccountTransactionsItemJSON (keys: ${keys}, type: ${type})`);
+  }
+
+  public static toJSON(value: AptosGetAccountTransactionsItemValue): AptosGetAccountTransactionsItemJSON {
+    if (value instanceof AptosPendingTransaction) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosUserTransaction) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosGenesisTransaction) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosBlockMetadataTransaction) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosStateCheckpointTransaction) {
+      return value.toJSON();
+    }
+    throw new Error('Cannot resolve union from AptosGetAccountTransactionsItemValue');
   }
 }

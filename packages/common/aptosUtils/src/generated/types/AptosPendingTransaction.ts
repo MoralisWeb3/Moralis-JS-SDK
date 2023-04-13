@@ -109,8 +109,8 @@ export class AptosPendingTransaction {
       max_gas_amount: this.maxGasAmount,
       gas_unit_price: this.gasUnitPrice,
       expiration_timestamp_secs: this.expirationTimestampSecs,
-      payload: this.payload.toJSON(),
-      signature: this.signature.toJSON(),
+      payload: AptosPendingTransactionPayload.toJSON(this.payload),
+      signature: AptosPendingTransactionSignature.toJSON(this.signature),
     }
   }
 }
