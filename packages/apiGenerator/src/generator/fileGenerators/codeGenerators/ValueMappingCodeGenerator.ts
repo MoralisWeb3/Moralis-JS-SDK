@@ -17,17 +17,23 @@ export class ValueMappingCodeGenerator {
 
   public static generateType2JSONCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
     if (resolvedType.referenceType) {
-      let code: string;
+      let toJsonCode: string;
       if (resolvedType.referenceType.isSimpleType) {
-        code = valueCode;
-      } else if (resolvedType.isArray) {
-        code = `${valueCode}.map((item) => item.toJSON())`;
+        toJsonCode = `%`;
+      } else if (resolvedType.referenceType.isUnionType) {
+        toJsonCode = `${resolvedType.referenceType.className}.toJSON(%)`;
       } else {
-        code = `${valueCode}.toJSON()`;
+        toJsonCode = `%.toJSON()`;
+      }
+
+      let code: string;
+      if (resolvedType.isArray) {
+        code = `${valueCode}.map((item) => ${toJsonCode.replace('%', 'item')})`;
+      } else {
+        code = toJsonCode.replace('%', valueCode);
       }
       return isRequired ? code : `${valueCode} ? ${code} : undefined`;
     }
-
     return valueCode;
   }
 

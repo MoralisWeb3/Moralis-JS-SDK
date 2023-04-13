@@ -1,4 +1,3 @@
-import { NativeTypeNormalizer } from './NativeTypeNormalizer';
 import { ResolvedType } from '../resolvers/TypeResolver';
 
 export interface TypeCodes {
@@ -58,8 +57,7 @@ export class TypeCodesGenerator {
     }
 
     if (resolvedType.nativeType) {
-      const normalizedNativeType = NativeTypeNormalizer.normalize(resolvedType.nativeType);
-      const typeCode = TypeCodesGenerator.getTypeCode(normalizedNativeType, resolvedType.isArray);
+      const typeCode = TypeCodesGenerator.getTypeCode(resolvedType.nativeType, resolvedType.isArray);
 
       return {
         colon,

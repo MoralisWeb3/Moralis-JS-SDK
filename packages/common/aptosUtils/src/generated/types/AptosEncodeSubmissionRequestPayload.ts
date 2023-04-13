@@ -21,7 +21,7 @@ export abstract class AptosEncodeSubmissionRequestPayload {
     if (AptosModuleBundlePayloadRequest.isInput(input)) {
       return AptosModuleBundlePayloadRequest.create(input);
     }
-    throw new Error('Cannot resolve union for input');
+    throw new Error('Cannot resolve union from AptosEncodeSubmissionRequestPayloadInput');
   }
 
   public static fromJSON(json: AptosEncodeSubmissionRequestPayloadJSON): AptosEncodeSubmissionRequestPayloadValue {
@@ -36,6 +36,19 @@ export abstract class AptosEncodeSubmissionRequestPayload {
     }
     const keys = Object.keys(json).join(', ');
     const type = (json as any).type;
-    throw new Error(`Cannot resolve union for AptosEncodeSubmissionRequestPayload (keys: ${keys}, type: ${type})`);
+    throw new Error(`Cannot resolve union from AptosEncodeSubmissionRequestPayloadJSON (keys: ${keys}, type: ${type})`);
+  }
+
+  public static toJSON(value: AptosEncodeSubmissionRequestPayloadValue): AptosEncodeSubmissionRequestPayloadJSON {
+    if (value instanceof AptosEntryFunctionPayloadRequest) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosScriptPayloadRequest) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosModuleBundlePayloadRequest) {
+      return value.toJSON();
+    }
+    throw new Error('Cannot resolve union from AptosEncodeSubmissionRequestPayloadValue');
   }
 }

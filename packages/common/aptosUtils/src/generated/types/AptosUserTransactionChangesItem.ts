@@ -33,7 +33,7 @@ export abstract class AptosUserTransactionChangesItem {
     if (AptosWriteTableChangeSetChange.isInput(input)) {
       return AptosWriteTableChangeSetChange.create(input);
     }
-    throw new Error('Cannot resolve union for input');
+    throw new Error('Cannot resolve union from AptosUserTransactionChangesItemInput');
   }
 
   public static fromJSON(json: AptosUserTransactionChangesItemJSON): AptosUserTransactionChangesItemValue {
@@ -57,6 +57,28 @@ export abstract class AptosUserTransactionChangesItem {
     }
     const keys = Object.keys(json).join(', ');
     const type = (json as any).type;
-    throw new Error(`Cannot resolve union for AptosUserTransactionChangesItem (keys: ${keys}, type: ${type})`);
+    throw new Error(`Cannot resolve union from AptosUserTransactionChangesItemJSON (keys: ${keys}, type: ${type})`);
+  }
+
+  public static toJSON(value: AptosUserTransactionChangesItemValue): AptosUserTransactionChangesItemJSON {
+    if (value instanceof AptosDeleteModuleChange) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosDeleteResourceChange) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosDeleteTableItemChange) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosWriteOrUpdateModuleChange) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosWriteResourceChange) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosWriteTableChangeSetChange) {
+      return value.toJSON();
+    }
+    throw new Error('Cannot resolve union from AptosUserTransactionChangesItemValue');
   }
 }

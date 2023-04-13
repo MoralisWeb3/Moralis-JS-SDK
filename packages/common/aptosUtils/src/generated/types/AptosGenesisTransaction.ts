@@ -146,7 +146,7 @@ export class AptosGenesisTransaction {
       success: this.success,
       vm_status: this.vmStatus,
       accumulator_root_hash: this.accumulatorRootHash,
-      changes: this.changes.map((item) => item.toJSON()),
+      changes: this.changes.map((item) => AptosGenesisTransactionChangesItem.toJSON(item)),
       payload: this.payload.toJSON(),
       events: this.events.map((item) => item.toJSON()),
     }
