@@ -46,7 +46,7 @@ export class AptosWriteSetPayload {
   public toJSON(): AptosWriteSetPayloadJSON {
     return {
       type: this.type,
-      write_set: this.writeSet.toJSON(),
+      write_set: AptosWriteSetPayloadWriteSet.toJSON(this.writeSet),
     }
   }
 }

@@ -86,7 +86,7 @@ export class AptosBlock {
       block_timestamp: this.blockTimestamp,
       first_version: this.firstVersion,
       last_version: this.lastVersion,
-      transactions: this.transactions ? this.transactions.map((item) => item.toJSON()) : undefined,
+      transactions: this.transactions ? this.transactions.map((item) => AptosBlockTransactionsItem.toJSON(item)) : undefined,
     }
   }
 }

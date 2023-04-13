@@ -21,7 +21,7 @@ export abstract class AptosUserTransactionSignature {
     if (AptosMultiAgentSignatureRequest.isInput(input)) {
       return AptosMultiAgentSignatureRequest.create(input);
     }
-    throw new Error('Cannot resolve union for input');
+    throw new Error('Cannot resolve union from AptosUserTransactionSignatureInput');
   }
 
   public static fromJSON(json: AptosUserTransactionSignatureJSON): AptosUserTransactionSignatureValue {
@@ -36,6 +36,19 @@ export abstract class AptosUserTransactionSignature {
     }
     const keys = Object.keys(json).join(', ');
     const type = (json as any).type;
-    throw new Error(`Cannot resolve union for AptosUserTransactionSignature (keys: ${keys}, type: ${type})`);
+    throw new Error(`Cannot resolve union from AptosUserTransactionSignatureJSON (keys: ${keys}, type: ${type})`);
+  }
+
+  public static toJSON(value: AptosUserTransactionSignatureValue): AptosUserTransactionSignatureJSON {
+    if (value instanceof AptosEd25519SignatureRequest) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosMultiEd25519SignatureRequest) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosMultiAgentSignatureRequest) {
+      return value.toJSON();
+    }
+    throw new Error('Cannot resolve union from AptosUserTransactionSignatureValue');
   }
 }

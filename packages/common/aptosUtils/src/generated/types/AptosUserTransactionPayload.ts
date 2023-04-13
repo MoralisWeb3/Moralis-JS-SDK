@@ -21,7 +21,7 @@ export abstract class AptosUserTransactionPayload {
     if (AptosModuleBundlePayloadRequest.isInput(input)) {
       return AptosModuleBundlePayloadRequest.create(input);
     }
-    throw new Error('Cannot resolve union for input');
+    throw new Error('Cannot resolve union from AptosUserTransactionPayloadInput');
   }
 
   public static fromJSON(json: AptosUserTransactionPayloadJSON): AptosUserTransactionPayloadValue {
@@ -36,6 +36,19 @@ export abstract class AptosUserTransactionPayload {
     }
     const keys = Object.keys(json).join(', ');
     const type = (json as any).type;
-    throw new Error(`Cannot resolve union for AptosUserTransactionPayload (keys: ${keys}, type: ${type})`);
+    throw new Error(`Cannot resolve union from AptosUserTransactionPayloadJSON (keys: ${keys}, type: ${type})`);
+  }
+
+  public static toJSON(value: AptosUserTransactionPayloadValue): AptosUserTransactionPayloadJSON {
+    if (value instanceof AptosEntryFunctionPayloadRequest) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosScriptPayloadRequest) {
+      return value.toJSON();
+    }
+    if (value instanceof AptosModuleBundlePayloadRequest) {
+      return value.toJSON();
+    }
+    throw new Error('Cannot resolve union from AptosUserTransactionPayloadValue');
   }
 }

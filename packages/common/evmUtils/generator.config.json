@@ -1,0 +1,22 @@
+{
+  "url": "https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json",
+  "generator": {
+    "outputDir": "src/generated",
+    "classNamePrefix": "Evm",
+    "mappings": {
+      "types": [],
+      "refs": [],
+      "complexTypeProperties": [],
+      "operationParameters": []
+    },
+    "typeDeterminants": []
+  },
+  "openApiReader": {
+    "v3": {
+      "operations": {
+        "groupRef": "#/x-tag-sdk",
+        "isEnabledRef": "#/x-tag-sdk"
+      }
+    }
+  }
+}

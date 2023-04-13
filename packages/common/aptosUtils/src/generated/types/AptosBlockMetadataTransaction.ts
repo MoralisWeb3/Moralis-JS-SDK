@@ -197,7 +197,7 @@ export class AptosBlockMetadataTransaction {
       success: this.success,
       vm_status: this.vmStatus,
       accumulator_root_hash: this.accumulatorRootHash,
-      changes: this.changes.map((item) => item.toJSON()),
+      changes: this.changes.map((item) => AptosBlockMetadataTransactionChangesItem.toJSON(item)),
       id: this.id,
       epoch: this.epoch,
       round: this.round,

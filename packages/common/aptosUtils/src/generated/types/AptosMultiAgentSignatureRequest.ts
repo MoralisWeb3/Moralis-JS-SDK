@@ -69,7 +69,7 @@ export class AptosMultiAgentSignatureRequest {
       type: this.type,
       sender: this.sender.toJSON(),
       secondary_signer_addresses: this.secondarySignerAddresses,
-      secondary_signers: this.secondarySigners.toJSON(),
+      secondary_signers: AptosMultiAgentSignatureRequestSecondarySigners.toJSON(this.secondarySigners),
     }
   }
 }

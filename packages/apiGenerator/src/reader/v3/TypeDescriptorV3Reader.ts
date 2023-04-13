@@ -3,6 +3,7 @@ import { JsonRef } from '../utils/JsonRef';
 import { ReferenceTypeDescriptor, NativeTypeDescriptor, TypeDescriptor } from '../TypeDescriptor';
 import { TypeName } from '../utils/TypeName';
 import { UnionV3Reader } from './UnionV3Reader';
+import { NativeTypeNormalizer } from '../utils/NativeTypeNormalizer';
 
 const ITEM_TYPE_NAME_SUFFIX = 'Item';
 const COMPONENT_SCHEMA_$REF_PREFIX = '#/components/schemas/';
@@ -58,7 +59,9 @@ export class TypeDescriptorV3Reader {
         itemsSchema.type = 'string';
         console.warn(`[no-schema-type] Items schema has empty type, set string as default (${parentRef})`);
       }
-      return new NativeTypeDescriptor(true, parentRef, itemsSchema.type);
+
+      const nativeType = NativeTypeNormalizer.normalize(itemsSchema.type);
+      return new NativeTypeDescriptor(true, parentRef, nativeType);
     }
 
     if (schema.type === 'object') {
@@ -81,7 +84,9 @@ export class TypeDescriptorV3Reader {
         `[no-schema-type] Schema has empty type, set string as default (${parentRef}) [${Object.keys(schema)}]`,
       );
     }
-    return new NativeTypeDescriptor(false, parentRef, schema.type);
+
+    const nativeType = NativeTypeNormalizer.normalize(schema.type);
+    return new NativeTypeDescriptor(false, parentRef, nativeType);
   }
 }
 

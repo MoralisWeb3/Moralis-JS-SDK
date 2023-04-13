@@ -5,6 +5,7 @@ import { UniquenessChecker } from '../utils/UniquenessChecker';
 import { TypesQueue } from '../utils/TypesQueue';
 import { TypeDescriptorV3Reader } from './TypeDescriptorV3Reader';
 import { UnionInfo, UnionV3Reader } from './UnionV3Reader';
+import { NativeTypeNormalizer } from '../utils/NativeTypeNormalizer';
 
 export class TypesV3Reader {
   public readonly complexTypes: ComplexTypeInfo[] = [];
@@ -81,15 +82,15 @@ export class TypesV3Reader {
         throw new Error(`anyOf, allOf and anyOf is not supported (${pointer.ref})`);
       }
 
-      let simpleType = scheme.type;
-      if (!simpleType) {
-        simpleType = 'object';
+      let nativeType = scheme.type && NativeTypeNormalizer.normalize(scheme.type);
+      if (!nativeType) {
+        nativeType = 'object';
         console.warn(`[no-schema-type] Not defined schema type for complex type (${pointer.ref.toString()})`);
       }
 
       this.simpleTypes.push({
         descriptor,
-        nativeType: simpleType,
+        nativeType,
         enum: scheme.enum as string[] | undefined,
       });
       return;

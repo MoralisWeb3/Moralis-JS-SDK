@@ -76,9 +76,9 @@ export class UnionTypeFileGenerator {
     }
 
     if (hasAnySimpleType) {
-      output.write(2, `return new ${typeCodes.factoryClassName}(input);`);
+      output.write(2, `return input;`);
     } else {
-      output.write(2, `throw new Error('Cannot resolve union for input');`);
+      output.write(2, `throw new Error('Cannot resolve union from ${typeCodes.inputClassName}');`);
     }
     output.write(1, `}`);
     output.newLine();
@@ -94,14 +94,31 @@ export class UnionTypeFileGenerator {
     }
 
     if (hasAnySimpleType) {
-      output.write(2, `return new ${typeCodes.factoryClassName}(json);`);
+      output.write(2, `return json;`);
     } else {
       output.write(2, `const keys = Object.keys(json).join(', ');`);
       output.write(2, `const type = (json as any).type;`);
       output.write(
         2,
-        `throw new Error(\`Cannot resolve union for ${typeCodes.factoryClassName} (keys: \${keys}, type: \${type})\`);`,
+        `throw new Error(\`Cannot resolve union from ${typeCodes.jsonClassName} (keys: \${keys}, type: \${type})\`);`,
       );
+    }
+    output.write(1, `}`);
+    output.newLine();
+
+    output.write(1, `public static toJSON(value: ${typeCodes.valueClassName}): ${typeCodes.jsonClassName} {`);
+    for (const unionType of unionTypes) {
+      if (!unionType.typeCodes.referenceType) {
+        continue;
+      }
+      output.write(2, `if (value instanceof ${unionType.typeCodes.referenceType.factoryClassName}) {`);
+      output.write(3, `return value.toJSON();`);
+      output.write(2, '}');
+    }
+    if (hasAnySimpleType) {
+      output.write(2, `return value;`);
+    } else {
+      output.write(2, `throw new Error('Cannot resolve union from ${typeCodes.valueClassName}');`);
     }
     output.write(1, `}`);
 
