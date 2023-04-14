@@ -1,4 +1,4 @@
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 
 export type Headers = { [key: string]: string };
 enum Environment {
