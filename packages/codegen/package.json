@@ -1,7 +1,7 @@
 {
   "name": "@moralisweb3/codegen",
   "author": "Moralis",
-  "version": "2.18.3",
+  "version": "2.18.4",
   "license": "MIT",
   "private": true,
   "sideEffects": false,

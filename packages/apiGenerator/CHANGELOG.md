@@ -1,5 +1,7 @@
 # @moralisweb3/api-generator
 
+## 2.18.4
+
 ## 2.18.3
 
 ### Patch Changes

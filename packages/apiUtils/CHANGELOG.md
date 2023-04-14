@@ -1,5 +1,15 @@
 # @moralisweb3/api-utils
 
+## 2.18.4
+
+### Patch Changes
+
+- [#1096](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1096) [`dafeca247`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/dafeca247eee7151a8abe913f63879777042bfd6) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed adding the SDK version to HTTP headers.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.18.4
+  - @moralisweb3/common-evm-utils@2.18.4
+
 ## 2.18.3
 
 ### Patch Changes
