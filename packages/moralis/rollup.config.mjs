@@ -34,6 +34,7 @@ function getCjsEsmConfig(clean, dir) {
           file: `./lib/cjs/${dir}index.cjs`,
           format: 'cjs',
           exports: 'named',
+          interop: 'auto',
         },
         {
           file: `./lib/esm/${dir}index.js`,
