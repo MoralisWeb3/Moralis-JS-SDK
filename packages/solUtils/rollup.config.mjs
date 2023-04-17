@@ -26,6 +26,7 @@ export default [
         file: './lib/cjs/index.cjs',
         format: 'cjs',
         exports: 'named',
+        interop: 'auto',
       },
       {
         file: './lib/esm/index.js',
