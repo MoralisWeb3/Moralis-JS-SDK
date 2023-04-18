@@ -3,6 +3,11 @@ export interface GeneratorConfiguration {
   classNamePrefix: string;
   mappings: Mappings;
   typeDeterminants: TypeDeterminant[];
+
+  /**
+   * @deprecated Temporary solution. Will be removed in the future.
+   */
+  supportV2?: boolean;
 }
 
 export interface Mappings {

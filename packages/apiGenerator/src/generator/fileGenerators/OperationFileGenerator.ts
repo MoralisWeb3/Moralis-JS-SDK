@@ -6,6 +6,7 @@ import { TypeCodesGenerator } from './codeGenerators/TypeCodesGenerator';
 import { TypeResolver } from './resolvers/TypeResolver';
 import { TypeScriptOutput } from '../output/TypeScriptOutput';
 import { OperationParameterModelBuilder } from './modelBuilders/OperationParameterModelBuilder';
+import { GeneratorConfiguration } from '../GeneratorConfiguration';
 
 export interface OperationFileGeneratorResult {
   className: string;
@@ -15,7 +16,11 @@ export interface OperationFileGeneratorResult {
 export class OperationFileGenerator {
   private readonly operationParameterModelBuilder = new OperationParameterModelBuilder(this.typeResolver);
 
-  public constructor(private readonly info: OperationInfo, private readonly typeResolver: TypeResolver) {}
+  public constructor(
+    private readonly info: OperationInfo,
+    private readonly typeResolver: TypeResolver,
+    private readonly configuration: GeneratorConfiguration,
+  ) {}
 
   public generate(): OperationFileGeneratorResult {
     const resolvedResponseType = this.info.response ? this.typeResolver.resolve(this.info.response.descriptor) : null;
@@ -32,7 +37,7 @@ export class OperationFileGenerator {
 
     const parameters = this.operationParameterModelBuilder.build(this.info.parameters);
 
-    const parameterRawNames = parameters.map((p) => p.name.rawName);
+    const rawParameterNames = parameters.map((p) => p.name.rawName);
 
     // view:
 
@@ -93,12 +98,19 @@ export class OperationFileGenerator {
     output.write(0, '}');
     output.newLine();
 
+    if (responseTypeCodes && this.configuration.supportV2) {
+      // TODO: this part is added to support the V2 approach. It should be removed after the V2 is removed.
+      output.write(0, `export type ${className}Response = ${responseTypeCodes.valueTypeCode};`);
+      output.write(0, `export type ${className}ResponseJSON = ${responseTypeCodes.jsonTypeCode};`);
+      output.newLine();
+    }
+
     output.write(0, `export const ${className} = {`);
     output.write(1, `operationId: ${JSON.stringify(this.info.operationId)},`);
     output.write(1, `groupName: ${JSON.stringify(this.info.groupName)},`);
     output.write(1, `httpMethod: ${JSON.stringify(this.info.httpMethod)},`);
     output.write(1, `routePattern: ${JSON.stringify(this.info.routePattern)},`);
-    output.write(1, `parameterNames: ${JSON.stringify(parameterRawNames)},`);
+    output.write(1, `parameterNames: ${JSON.stringify(rawParameterNames)},`);
     output.write(1, `hasResponse: ${JSON.stringify(!!this.info.response)},`);
     output.write(1, `hasBody: ${JSON.stringify(!!this.info.body)},`);
     output.newLine();

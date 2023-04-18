@@ -1,7 +1,8 @@
-import { Core, Camelize, Operation, toCamelCase, maybe, ResponseAdapter } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNftTrade, EvmNative } from '../../dataTypes';
+import { Core, Camelize, Operation, maybe, ResponseAdapter } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
+import { EvmTrade } from '../../generated';
 
 type OperationId = 'getNFTLowestPrice';
 
@@ -60,22 +61,8 @@ function getRequestUrlParams(request: GetNFTLowestPriceRequest, core: Core) {
   };
 }
 
-function deserializeResponse(
-  jsonResponse: GetNFTLowestPriceJSONResponse,
-  request: GetNFTLowestPriceRequest,
-  core: Core,
-) {
-  return EvmNftTrade.create({
-    ...toCamelCase(jsonResponse),
-    chain: EvmChainResolver.resolve(request.chain, core),
-    sellerAddress: EvmAddress.create(jsonResponse.seller_address, core),
-    buyerAddress: EvmAddress.create(jsonResponse.buyer_address, core),
-    marketplaceAddress: EvmAddress.create(jsonResponse.marketplace_address, core),
-    tokenAddress: EvmAddress.create(request.address, core),
-    price: EvmNative.create(jsonResponse.price, 'wei'),
-    blockTimestamp: new Date(jsonResponse.block_timestamp),
-    tokenIds: jsonResponse.token_ids as string[],
-  });
+function deserializeResponse(jsonResponse: GetNFTLowestPriceJSONResponse) {
+  return EvmTrade.fromJSON(jsonResponse);
 }
 
 function serializeRequest(request: GetNFTLowestPriceRequest, core: Core) {

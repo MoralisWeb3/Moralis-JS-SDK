@@ -1,6 +1,6 @@
-import { Core, CoreProvider, RequestController } from '@moralisweb3/common-core';
-import { AbstractClient, AptosNetworkResolver, OperationV3, AptosNetworkInput } from '@moralisweb3/common-aptos-utils';
-import { OperationV3Resolver, OperationV3UrlBaseResolver } from './OperationV3Resolver';
+import { Core, CoreProvider } from '@moralisweb3/common-core';
+import { AbstractClient, AptosNetworkResolver, AptosNetworkInput } from '@moralisweb3/common-aptos-utils';
+import { OperationV3, OperationV3Resolver } from '@moralisweb3/api-utils';
 
 const MAINNET_BASE_URL = 'https://aptos-mainnet.aws-prod-api-1.moralis.io';
 const TESTNET_BASE_URL = 'https://aptos-testnet.aws-prod-api-1.moralis.io';
@@ -12,13 +12,10 @@ export class AptosApi extends AbstractClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const requestController = RequestController.create(core);
-    const baseUrlResolver = new AptosApiBaseUrlResolver(core);
-    const operationResolver = new OperationV3Resolver(baseUrlResolver, core.config, requestController);
-    return new AptosApi(operationResolver);
+    return new AptosApi(core);
   }
 
-  private constructor(private readonly operationResolver: OperationV3Resolver) {
+  private constructor(private readonly core: Core) {
     super();
   }
 
@@ -26,7 +23,8 @@ export class AptosApi extends AbstractClient {
     operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, null, null>,
   ): (r: Request) => Promise<Response> {
     return (request: Request) => {
-      return this.operationResolver.resolve(request, null, operation);
+      const resolver = new OperationV3Resolver(operation, createBaseUrlResolver(this.core), this.core);
+      return resolver.resolve(request, null);
     };
   }
 
@@ -34,18 +32,17 @@ export class AptosApi extends AbstractClient {
     operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>,
   ): (r: Request, b: Body) => Promise<Response> {
     return (request: Request, body: Body) => {
-      return this.operationResolver.resolve(request, body, operation);
+      const resolver = new OperationV3Resolver(operation, createBaseUrlResolver(this.core), this.core);
+      return resolver.resolve(request, body);
     };
   }
 }
 
-class AptosApiBaseUrlResolver implements OperationV3UrlBaseResolver {
-  public constructor(private readonly core: Core) {}
-
-  public resolve(request: unknown): string {
+function createBaseUrlResolver(core: Core) {
+  return (request: unknown): string => {
     const { network } = request as { network: AptosNetworkInput | undefined };
     if (network) {
-      const finalNetwork = AptosNetworkResolver.resolve(network, this.core);
+      const finalNetwork = AptosNetworkResolver.resolve(network, core);
       switch (finalNetwork) {
         case 'mainnet':
           return MAINNET_BASE_URL;
@@ -56,5 +53,5 @@ class AptosApiBaseUrlResolver implements OperationV3UrlBaseResolver {
       }
     }
     return MAINNET_BASE_URL;
-  }
+  };
 }

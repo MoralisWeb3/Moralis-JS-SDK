@@ -15,13 +15,15 @@ import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
  * @example "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359"
  * @example "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
  */
-export type EvmAddressInput = string;
+export type EvmAddressInput = EvmAddress | string;
+
+export type EvmAddressJSON = string;
 
 /**
  * Valid input for a new EvmAddress instance.
  * This can be an existing EvmAddress or a valid address string as lowercase, or checksum format.
  */
-export type EvmAddressish = EvmAddress | EvmAddressInput;
+export type EvmAddressish = EvmAddressInput;
 
 /**
  * A representation of an address on the EVM network.
@@ -50,7 +52,7 @@ export class EvmAddress implements MoralisData {
    * const address = EvmAddress.ZERO_ADDRESS
    * ```
    */
-  public static create(address: EvmAddressish, core?: Core) {
+  public static create(address: EvmAddressInput, core?: Core) {
     if (address instanceof EvmAddress) {
       return address;
     }
@@ -58,16 +60,21 @@ export class EvmAddress implements MoralisData {
     return new EvmAddress(address, finalCore.config);
   }
 
+  public static fromJSON(address: string) {
+    const core = CoreProvider.getDefault();
+    return new EvmAddress(address, core.config);
+  }
+
   /**
    * Internal reference of the address in checksum format
    */
   private _value: string;
 
-  public constructor(address: EvmAddressInput, private readonly config: Config) {
+  public constructor(address: string, private readonly config: Config) {
     this._value = EvmAddress.parse(address);
   }
 
-  private static parse(address: EvmAddressInput) {
+  private static parse(address: string) {
     if (!isAddress(address)) {
       throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
@@ -81,7 +88,7 @@ export class EvmAddress implements MoralisData {
    * Check the equality between two Evm addresses
    * @example `EvmAddress.equals("0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359", "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359")`
    */
-  static equals(addressA: EvmAddressish, addressB: EvmAddressish) {
+  static equals(addressA: EvmAddressInput, addressB: EvmAddressInput) {
     return EvmAddress.create(addressA)._value === EvmAddress.create(addressB)._value;
   }
 
@@ -89,7 +96,7 @@ export class EvmAddress implements MoralisData {
    * Checks the equality of the current address with another evm address
    * @example `address.equals("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359")`
    */
-  equals(address: EvmAddressish) {
+  equals(address: EvmAddressInput) {
     return EvmAddress.equals(this, address);
   }
 
@@ -129,5 +136,13 @@ export class EvmAddress implements MoralisData {
    */
   get lowercase() {
     return this._value.toLowerCase();
+  }
+
+  /**
+   * Returns a JSON representation of the address.
+   * @returns an address.
+   */
+  public toJSON(): EvmAddressJSON {
+    return this._value;
   }
 }

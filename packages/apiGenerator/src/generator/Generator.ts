@@ -30,7 +30,14 @@ export class Generator {
     const typeResolver = new TypeResolver(configuration.classNamePrefix, mappingResolver, typeInfoResolver);
     const typeDeterminantResolver = new TypeDeterminantResolver(configuration.typeDeterminants);
     const generatorWriter = new GeneratorWriter(projectPath, configuration.outputDir);
-    return new Generator(contract, typeResolver, typeDeterminantResolver, typeInfoResolver, generatorWriter);
+    return new Generator(
+      contract,
+      typeResolver,
+      typeDeterminantResolver,
+      typeInfoResolver,
+      generatorWriter,
+      configuration,
+    );
   }
 
   private readonly typesIndexGenerator = new IndexFileGenerator();
@@ -43,6 +50,7 @@ export class Generator {
     private readonly typeDeterminantResolver: TypeDeterminantResolver,
     private readonly typeInfoResolver: TypeInfoResolver,
     private readonly writer: GeneratorWriter,
+    private readonly configuration: GeneratorConfiguration,
   ) {}
 
   public generate() {
@@ -76,7 +84,7 @@ export class Generator {
   }
 
   private generateOperation(info: OperationInfo) {
-    const generator = new OperationFileGenerator(info, this.typeResolver);
+    const generator = new OperationFileGenerator(info, this.typeResolver, this.configuration);
     const result = generator.generate();
 
     this.writer.writeOperation(result.className, result.output);

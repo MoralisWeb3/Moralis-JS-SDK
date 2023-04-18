@@ -5,6 +5,7 @@
     "gen:aptos": "ts-node src/index.ts ../../common/aptosUtils",
     "gen:evm": "ts-node src/index.ts ../../common/evmUtils",
     "gen:playground": "ts-node src/index.ts ../playground",
+    "gen:all": "yarn gen:aptos && yarn gen:evm",
     "test": "jest",
     "test:watch": "jest --watch"
   },

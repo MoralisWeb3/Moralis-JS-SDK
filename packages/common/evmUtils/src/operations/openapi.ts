@@ -1275,6 +1275,11 @@ export interface components {
        */
       buyer_address: string;
       /**
+       * @description The address of the NFT contract
+       * @example 0x4ad3785ec7eed7589fa86538244a4530f962434f
+       */
+      token_address: string;
+      /**
        * @description The address of the contract that traded the NFT
        * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
        */
@@ -1304,8 +1309,6 @@ export interface components {
        * @example 0x4a7c916ca4a970358b9df90051008f729685ff05e9724a9dddba32630c37cb96
        */
       block_hash: string;
-    } & {
-      token_address: unknown;
     };
     tradeCollection: {
       /**

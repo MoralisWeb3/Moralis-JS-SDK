@@ -43,6 +43,12 @@ export class OperationsV3Reader {
           console.warn(`[no-operation-id] Path ${routePattern} does not have operationId`);
           continue;
         }
+        if (
+          this.configuration.operations.filterOperationIds &&
+          !this.configuration.operations.filterOperationIds.includes(path.operationId)
+        ) {
+          continue;
+        }
 
         operationIdUniquenessChecker.check(path.operationId, () => `Operation id ${path.operationId} is duplicated`);
 

@@ -2,14 +2,16 @@ import {
   Core,
   Camelize,
   PaginatedOperation,
-  toCamelCase,
   maybe,
   DateInput,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNative, EvmNftTrade } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
+import { EvmTrade } from '../../generated';
+
+// TODO: this operation is replaced by the generated code. We need to remove this file.
 
 type OperationId = 'getNFTTrades';
 
@@ -88,20 +90,7 @@ function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
 }
 
 function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse, request: GetNFTTradesRequest, core: Core) {
-  return (jsonResponse.result ?? []).map((trade) =>
-    EvmNftTrade.create({
-      ...toCamelCase(trade),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      sellerAddress: EvmAddress.create(trade.seller_address, core),
-      buyerAddress: EvmAddress.create(trade.buyer_address, core),
-      marketplaceAddress: EvmAddress.create(trade.marketplace_address, core),
-      priceTokenAddress: maybe(trade.price_token_address, (address) => EvmAddress.create(address, core)),
-      tokenAddress: EvmAddress.create(trade.token_address as string, core),
-      price: EvmNative.create(trade.price, 'wei'),
-      blockTimestamp: new Date(trade.block_timestamp),
-      tokenIds: trade.token_ids as string[],
-    }),
-  );
+  return (jsonResponse.result ?? []).map((trade) => EvmTrade.fromJSON(trade));
 }
 
 function serializeRequest(request: GetNFTTradesRequest, core: Core) {

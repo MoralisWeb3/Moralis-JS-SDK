@@ -3,11 +3,34 @@
   "generator": {
     "outputDir": "src/generated",
     "classNamePrefix": "Evm",
+    "supportV2": true,
     "mappings": {
       "types": [],
       "refs": [],
-      "complexTypeProperties": [],
-      "operationParameters": []
+      "complexTypeProperties": [
+        {
+          "names": ["seller_address", "buyer_address", "token_address", "marketplace_address", "price_token_address"],
+          "className": "EvmAddress",
+          "import": "../../dataTypes"
+        },
+        {
+          "names": ["price"],
+          "className": "EvmNative",
+          "import": "../../dataTypes"
+        }
+      ],
+      "operationParameters": [
+        {
+          "names": ["chain"],
+          "className": "EvmChain",
+          "import": "../../dataTypes"
+        },
+        {
+          "names": ["address"],
+          "className": "EvmAddress",
+          "import": "../../dataTypes"
+        }
+      ]
     },
     "typeDeterminants": []
   },
@@ -15,7 +38,8 @@
     "v3": {
       "operations": {
         "groupRef": "#/x-tag-sdk",
-        "isEnabledRef": "#/x-tag-sdk"
+        "isEnabledRef": "#/x-tag-sdk",
+        "filterOperationIds": ["endpointWeights", "web3ApiVersion", "getNFTTrades"]
       }
     }
   }

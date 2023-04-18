@@ -17,7 +17,39 @@ const sourcePackage = require(sourcePackageName);
 const fs = require('fs');
 const { determineOperationType } = require('@moralisweb3/common-core');
 
-const uniqueGroupNames = new Set(sourcePackage.operations.map((o) => o.groupName));
+const operationsV2 = sourcePackage.operationsV2;
+const operationsV3 = sourcePackage.operations || [];
+
+const operations = [
+  ...operationsV2.map((operation) => ({
+    name: operation.name,
+    groupName: operation.groupName,
+    operationVarName: `${operation.name}Operation`,
+    requestClassName: `${capitalizeFirst(operation.name)}Request`,
+    responseClassName: `${capitalizeFirst(operation.name)}ResponseAdapter`,
+    hasRequest: Boolean(operation.urlPathParamNames || operation.urlSearchParamNames || operation.bodyParamNames),
+    hasBody: false,
+    type: determineOperationType(operation),
+  })),
+
+  ...operationsV3.map((operation) => {
+    const capitalizedName = capitalizeFirst(operation.operationId);
+    const isPaginated = operation.parameterNames.includes('cursor');
+    return {
+      name: operation.operationId,
+      groupName: operation.groupName,
+      operationVarName: `${capitalizedName}Operation`,
+      requestClassName: `${capitalizedName}OperationRequest`,
+      responseClassName: `${capitalizedName}OperationResponse`,
+      responseJSONClassName: `${capitalizedName}OperationResponseJSON`,
+      hasRequest: operation.parameterNames.length > 0,
+      hasBody: operation.hasBody,
+      type: isPaginated ? 'paginatedV3' : 'V3',
+    };
+  }),
+];
+
+const uniqueGroupNames = new Set(operations.map((o) => o.groupName));
 const sourcePackageImports = new Set();
 const apiUtilsPackageImports = new Set();
 const corePackageImports = new Set();
@@ -28,43 +60,69 @@ for (const groupName of uniqueGroupNames) {
   public readonly ${groupName} = {
 `;
 
-  for (const operation of sourcePackage.operations.filter((o) => o.groupName === groupName)) {
-    const operationVarName = `${operation.name}Operation`;
-    const requestClassName = `${capitalizeFirst(operation.name)}Request`;
-    const responseClassName = `${capitalizeFirst(operation.name)}ResponseAdapter`;
-
-    const omitRequest = !operation?.urlPathParamNames && !operation.urlSearchParamNames && !operation.bodyParamNames;
-
+  for (const operation of operations.filter((o) => o.groupName === groupName)) {
     let resolverClassName;
     let returnType;
-    switch (determineOperationType(operation)) {
+    let methodArgs;
+    let fetchArgs;
+
+    switch (operation.type) {
       case 'nonNullable':
         resolverClassName = 'OperationResolver';
-        returnType = responseClassName;
+        returnType = operation.responseClassName;
         break;
       case 'nullable':
         resolverClassName = 'NullableOperationResolver';
-        returnType = `${responseClassName} | null`;
+        returnType = `${operation.responseClassName} | null`;
         break;
       case 'paginated':
         resolverClassName = 'PaginatedOperationResolver';
-        returnType = responseClassName;
+        returnType = operation.responseClassName;
+        break;
+      case 'V3':
+        resolverClassName = 'OperationV3Resolver';
+        returnType = `ResponseV3Adapter<${operation.responseClassName}, ${operation.responseJSONClassName}>`;
+        sourcePackageImports.add(operation.responseJSONClassName);
+        apiUtilsPackageImports.add('ResponseV3Adapter');
+        break;
+      case 'paginatedV3':
+        resolverClassName = 'PaginatedOperationV3Resolver';
+        returnType = `PaginatedResponseV3Adapter<${operation.responseClassName}, ${operation.responseJSONClassName}>`;
+        sourcePackageImports.add(operation.responseJSONClassName);
+        apiUtilsPackageImports.add('PaginatedResponseV3Adapter');
         break;
     }
 
-    sourcePackageImports.add(operationVarName);
-    if (!omitRequest) {
-      sourcePackageImports.add(requestClassName);
+    switch (operation.type) {
+      case 'nonNullable':
+      case 'nullable':
+      case 'paginated':
+        methodArgs = operation.hasRequest ? `request: ${operation.requestClassName}` : '';
+        fetchArgs = operation.hasRequest ? 'request' : '';
+        break;
+      case 'V3':
+      case 'paginatedV3':
+        methodArgs = operation.hasRequest ? `request: ${operation.requestClassName}` : '';
+        fetchArgs = operation.hasRequest ? 'request, ' : '{}, ';
+        if (operation.hasBody) {
+          // TODO: add support for body.
+          methodArgs += ', body: unknown';
+          fetchArgs += 'body';
+        } else {
+          fetchArgs += 'null';
+        }
+        break;
     }
-    sourcePackageImports.add(responseClassName);
+
+    sourcePackageImports.add(operation.operationVarName);
+    if (operation.hasRequest) {
+      sourcePackageImports.add(operation.requestClassName);
+    }
+    sourcePackageImports.add(operation.responseClassName);
     apiUtilsPackageImports.add(resolverClassName);
 
-    bodyOutput += `   ${operation.name}: (${
-      omitRequest ? '' : `request: ${requestClassName}`
-    }): Promise<${returnType}> => {
-      return new ${resolverClassName}(${operationVarName}, this.baseUrl, this.core).fetch(${
-      omitRequest ? '{}' : 'request'
-    });
+    bodyOutput += `   ${operation.name}: (${methodArgs}): Promise<${returnType}> => {
+      return new ${resolverClassName}(${operation.operationVarName}, this.baseUrl, this.core).fetch(${fetchArgs});
     },
 `;
   }

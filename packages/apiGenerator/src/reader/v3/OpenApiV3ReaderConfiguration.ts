@@ -2,6 +2,7 @@ export interface OpenApiV3ReaderConfiguration {
   operations: {
     groupRef: string;
     isEnabledRef: string;
+    filterOperationIds?: string[];
     virtualParameters?: VirtualParameter[];
   };
 }

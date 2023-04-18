@@ -20,6 +20,9 @@ import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
  */
 type InternalEvmChain = string;
 
+export type EvmChainInput = string;
+export type EvmChainJSON = string;
+
 /**
  * The EvmChain class is a MoralisData that references to a EVM chain
  * @category DataType
@@ -365,5 +368,13 @@ export class EvmChain implements MoralisData, EvmChainable {
     }
 
     return explorers[0];
+  }
+
+  /**
+   * Returns the chain as a string.
+   * @returns The chain.
+   */
+  public toJSON(): EvmChainJSON {
+    return this._value;
   }
 }

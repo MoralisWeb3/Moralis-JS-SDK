@@ -111,6 +111,7 @@ export class AbstractClientFileGenerator {
     }
     output.commitImports();
 
+    // TODO: this interface is duplicated in each module now.
     output.write(0, `export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {`);
     output.write(1, `operationId: string;`);
     output.write(1, `groupName: string;`);

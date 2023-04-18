@@ -1,6 +1,6 @@
 import { toCamel } from '@moralisweb3/common-core';
 import { OpenApiInterfaceReader, OperationDefinitionReader } from '@moralisweb3/test-utils';
-import { operations } from './operations';
+import { operationsV2 } from './operations';
 
 describe('operations', () => {
   let reader: OpenApiInterfaceReader;
@@ -9,7 +9,7 @@ describe('operations', () => {
     reader = new OpenApiInterfaceReader('src/operations/openapi.ts')!;
   });
 
-  for (const operation of operations) {
+  for (const operation of operationsV2) {
     describe(operation.name, () => {
       it('defines all supported parameters', () => {
         const openApiPathParamNames = reader.readOperationPathParamNames(operation.id)?.map(toCamel);
