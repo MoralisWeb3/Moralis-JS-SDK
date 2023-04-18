@@ -1,5 +1,4 @@
-import ts from 'typescript';
-import fs from 'fs';
+import { Project, InterfaceDeclaration, PropertySignature, SyntaxKind } from 'ts-morph';
 
 export interface ParameterInfo {
   name: string;
@@ -9,65 +8,45 @@ export interface ParameterInfo {
 }
 
 export class ParameterExtractor {
-  private static extractInterfaceParams(node: ts.InterfaceDeclaration): ParameterInfo[] {
+  private static extractInterfaceParams(node: InterfaceDeclaration): ParameterInfo[] {
     const params: ParameterInfo[] = [];
 
-    node.members.forEach((member) => {
-      if (ts.isPropertySignature(member)) {
-        const name = member.name.getText();
-        const type = (member.type as ts.TypeReferenceNode).getText();
-        const isOptional = !!member.questionToken;
-        const jsDoc = this.getJSDoc(member);
-        params.push({ name, type, isOptional, jsDoc });
-      }
+    node.getProperties().forEach((property: PropertySignature) => {
+      const name = property.getName();
+      const type = property.getType().getText(property);
+      const isOptional = property.hasQuestionToken();
+      const jsDoc = this.getJSDoc(property);
+      params.push({ name, type, isOptional, jsDoc });
     });
 
     return params;
   }
 
-  private static getJSDoc(node: ts.Node): string | undefined {
-    const leadingCommentRanges = ts.getLeadingCommentRanges(node.getSourceFile().getText(), node.pos);
-    if (!leadingCommentRanges) return undefined;
-
-    const jsDocCommentRanges = leadingCommentRanges.filter(
-      (range) =>
-        range.kind === ts.SyntaxKind.MultiLineCommentTrivia &&
-        /\/\*\*/.test(
-          node
-            .getSourceFile()
-            .getText()
-            .substring(range.pos, range.pos + 3),
-        ),
-    );
-
-    if (jsDocCommentRanges.length === 0) return undefined;
-
-    const jsDocComment = node.getSourceFile().getText().substring(jsDocCommentRanges[0].pos, jsDocCommentRanges[0].end);
-    return jsDocComment;
+  private static getJSDoc(node: PropertySignature): string | undefined {
+    const jsDocComment = node.getJsDocs()[0];
+    return jsDocComment ? jsDocComment.getText() : undefined;
   }
 
-  public static extractParametersFromFile(filePath: string): ParameterInfo[] {
-    const sourceFile = ts.createSourceFile(
-      filePath,
-      fs.readFileSync(filePath, 'utf-8'),
-      ts.ScriptTarget.ESNext,
-      true,
-      ts.ScriptKind.TS,
-    );
-
-    let parameters: ParameterInfo[] = [];
-
-    const visitNode = (node: ts.Node): void => {
-      if (ts.isInterfaceDeclaration(node) && /OperationRequest$/.test(node.name.getText())) {
-        parameters = ParameterExtractor.extractInterfaceParams(node);
-      } else {
-        ts.forEachChild(node, visitNode);
-      }
-    };
-
-    ts.forEachChild(sourceFile, visitNode);
-
-    return parameters;
+  public static extractParametersFromFile(filePath: string) {
+    const project = new Project();
+    const sourceFile = project.addSourceFileAtPath(filePath);
+    const operationRequestInterface = sourceFile.getInterfaces().find((i) => /OperationRequest$/.test(i.getName()));
+    if (!operationRequestInterface) {
+      throw new Error('No OperationRequest interface found in file: ' + filePath);
+    }
+    const parameters = this.extractInterfaceParams(operationRequestInterface);
+    const operationVar = sourceFile.getVariableDeclarations().find((i) => /Operation$/.test(i.getName()));
+    if (!operationVar) {
+      throw new Error('No Operation variable found in file: ' + filePath);
+    }
+    const operationInfo = operationVar.getFirstChildByKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+    const s = operationInfo.getChildrenOfKind(SyntaxKind.PropertyAssignment);
+    s.forEach((p) => {
+      const name = p.getNameNode().getText();
+      const value = p.getInitializer()?.getText();
+      console.log(name, value);
+    });
+    return { parameters };
   }
 }
 
