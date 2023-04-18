@@ -15802,7 +15802,7 @@ __metadata:
     eslint: ^8.32.0
     eslint-plugin-etc: ^2.0.2
     firebase-admin: ^10.3.0
-    firebase-functions: ^3.18.0
+    firebase-functions: ^4.3.0
     firebase-functions-test: ^0.2.0
     typescript: ^4.9.4
   languageName: unknown
@@ -15878,7 +15878,7 @@ __metadata:
     eslint-plugin-etc: ^2.0.2
     eslint-plugin-import: ^2.27.5
     firebase-admin: ^10.0.2
-    firebase-functions: ^3.18.0
+    firebase-functions: ^4.3.0
     firebase-functions-rate-limiter: ^3.9.1
     firebase-functions-test: ^0.2.0
     moralis: ^2.18.4
@@ -15897,7 +15897,7 @@ __metadata:
     eslint: ^8.32.0
     eslint-plugin-etc: ^2.0.2
     firebase-admin: ^10.3.0
-    firebase-functions: ^3.18.0
+    firebase-functions: ^4.3.0
     firebase-functions-test: ^0.2.0
     ngrok: ^4.3.3
     typescript: ^4.9.4
@@ -18953,7 +18953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firebase-functions@npm:^3.18.0, firebase-functions@npm:^3.21.2":
+"firebase-functions@npm:^3.21.2":
   version: 3.24.1
   resolution: "firebase-functions@npm:3.24.1"
   dependencies:
@@ -18968,6 +18968,24 @@ __metadata:
   bin:
     firebase-functions: lib/bin/firebase-functions.js
   checksum: d35711a27b615e2b78cdf63a3b3ca5604c0f8024bc086470a2676a26894e38f124cbb0455e7168bd3f57a0f7258c14c7cd0cd933d8da70d07e999d628d00b458
+  languageName: node
+  linkType: hard
+
+"firebase-functions@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "firebase-functions@npm:4.3.0"
+  dependencies:
+    "@types/cors": ^2.8.5
+    "@types/express": 4.17.3
+    cors: ^2.8.5
+    express: ^4.17.1
+    node-fetch: ^2.6.7
+    protobufjs: ^7.2.2
+  peerDependencies:
+    firebase-admin: ^10.0.0 || ^11.0.0
+  bin:
+    firebase-functions: lib/bin/firebase-functions.js
+  checksum: 4de4335747ddf425a1d79397cf1608d2620d2f79e9a84615d8b4a1b0700ae749b7d218fc569471857ed6b050ffbf04a9b05dfbb2788d23481df584048a0ec665
   languageName: node
   linkType: hard
 
@@ -19404,7 +19422,7 @@ __metadata:
     eslint-config-google: ^0.14.0
     eslint-plugin-import: ^2.27.5
     firebase-admin: ^10.0.2
-    firebase-functions: ^3.18.0
+    firebase-functions: ^4.3.0
     firebase-functions-test: ^0.2.0
     moralis: ^2.9.0
     telegraf: ^4.11.2
@@ -28741,6 +28759,26 @@ __metadata:
     "@types/node": ">=13.7.0"
     long: ^5.0.0
   checksum: ae41669b1b0372fb1d49f506f2d1f2b0fb3dc3cece85987b17bcb544e4cef7c8d27f480486cdec324146ad0a5d22a327166a7ea864a9b3e49cc3c92a5d3f6500
+  languageName: node
+  linkType: hard
+
+"protobufjs@npm:^7.2.2":
+  version: 7.2.3
+  resolution: "protobufjs@npm:7.2.3"
+  dependencies:
+    "@protobufjs/aspromise": ^1.1.2
+    "@protobufjs/base64": ^1.1.2
+    "@protobufjs/codegen": ^2.0.4
+    "@protobufjs/eventemitter": ^1.1.0
+    "@protobufjs/fetch": ^1.1.0
+    "@protobufjs/float": ^1.0.2
+    "@protobufjs/inquire": ^1.1.0
+    "@protobufjs/path": ^1.1.2
+    "@protobufjs/pool": ^1.1.0
+    "@protobufjs/utf8": ^1.1.0
+    "@types/node": ">=13.7.0"
+    long: ^5.0.0
+  checksum: 9afa6de5fced0139a5180c063718508fac3ea734a9f1aceb99712367b15473a83327f91193f16b63540f9112b09a40912f5f0441a9b0d3f3c6a1c7f707d78249
   languageName: node
   linkType: hard
 
