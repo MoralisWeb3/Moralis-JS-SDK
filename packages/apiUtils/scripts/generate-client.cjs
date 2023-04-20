@@ -81,9 +81,9 @@ for (const groupName of uniqueGroupNames) {
         break;
       case 'V3':
         resolverClassName = 'OperationV3Resolver';
-        returnType = `ResponseV3Adapter<${operation.responseClassName}, ${operation.responseJSONClassName}>`;
+        returnType = `ResponseAdapter<${operation.responseClassName}, ${operation.responseJSONClassName}>`;
         sourcePackageImports.add(operation.responseJSONClassName);
-        apiUtilsPackageImports.add('ResponseV3Adapter');
+        corePackageImports.add('ResponseAdapter');
         break;
       case 'paginatedV3':
         resolverClassName = 'PaginatedOperationV3Resolver';

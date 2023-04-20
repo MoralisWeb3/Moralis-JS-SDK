@@ -57,7 +57,7 @@ export const getNFTContractMetadataOperation: Operation<
 function getRequestUrlParams(request: GetNFTContractMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -69,7 +69,7 @@ function deserializeResponse(
   return EvmNftMetadata.create({
     ...toCamelCase(jsonResponse),
     chain: EvmChainResolver.resolve(request.chain, core),
-    tokenAddress: EvmAddress.create(jsonResponse.token_address, core),
+    tokenAddress: EvmAddress.create(jsonResponse.token_address),
     syncedAt: jsonResponse.synced_at ? new Date(jsonResponse.synced_at) : null,
     contractType: maybe(jsonResponse.contract_type),
   });
@@ -78,13 +78,13 @@ function deserializeResponse(
 function serializeRequest(request: GetNFTContractMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
   };
 }
 
 function deserializeRequest(jsonRequest: GetNFTContractMetadataJSONRequest, core: Core): GetNFTContractMetadataRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
   };
 }

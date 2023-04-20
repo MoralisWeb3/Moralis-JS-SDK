@@ -32,7 +32,7 @@ export class StreamTrigger implements MoralisDataObject {
     if (!(input instanceof EvmAddress) && StreamSelector.isSelectorString(input)) {
       result = StreamSelector.create(input);
     } else {
-      result = EvmAddress.create(input as EvmAddressish, core);
+      result = EvmAddress.create(input as EvmAddressish);
     }
 
     return result;
@@ -61,7 +61,7 @@ export class StreamTrigger implements MoralisDataObject {
     }
 
     // contractAddress can be a StreamSelector or an EvmAddress. It is easier to compare them as strings
-    if (streamTriggerA.contractAddress.format() !== streamTriggerB.contractAddress.format()) {
+    if (streamTriggerA.contractAddress.toJSON() !== streamTriggerB.contractAddress.toJSON()) {
       return false;
     }
 
@@ -148,8 +148,8 @@ export class StreamTrigger implements MoralisDataObject {
     const { contractAddress, callFrom, ...data } = this._data;
     return {
       ...data,
-      contractAddress: contractAddress.format(),
-      callFrom: callFrom?.format(),
+      contractAddress: contractAddress.toJSON(),
+      callFrom: callFrom?.toJSON(),
     };
   }
 

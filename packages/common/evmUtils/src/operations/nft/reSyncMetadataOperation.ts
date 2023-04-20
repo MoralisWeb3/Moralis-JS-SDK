@@ -61,7 +61,7 @@ export const reSyncMetadataOperation: Operation<
 function getRequestUrlParams(request: ReSyncMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     flag: request.flag,
     mode: request.mode,
     tokenId: request.tokenId,
@@ -73,7 +73,7 @@ function serializeRequest(request: ReSyncMetadataRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     flag: request.flag,
     mode: request.mode,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     tokenId: request.tokenId,
   };
 }
@@ -83,7 +83,7 @@ function deserializeRequest(jsonRequest: ReSyncMetadataJSONRequest, core: Core):
     chain: EvmChain.create(jsonRequest.chain, core),
     flag: jsonRequest.flag,
     mode: jsonRequest.mode,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     tokenId: jsonRequest.tokenId,
   };
 }

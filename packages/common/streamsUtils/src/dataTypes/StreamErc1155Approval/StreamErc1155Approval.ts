@@ -42,9 +42,9 @@ export class StreamErc1155Approval implements MoralisDataObject {
       ...data,
       chain,
       logIndex: +data.logIndex,
-      account: EvmAddress.create(data.account, core),
-      operator: EvmAddress.create(data.operator, core),
-      contract: EvmAddress.create(data.contract, core),
+      account: EvmAddress.create(data.account),
+      operator: EvmAddress.create(data.operator),
+      contract: EvmAddress.create(data.contract),
       tokenContractType: data.tokenContractType,
       triggers: maybe(data.triggers, (triggers) =>
         triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
@@ -124,9 +124,9 @@ export class StreamErc1155Approval implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      contract: data.contract.format(),
-      account: data.account.format(),
-      operator: data.operator.format(),
+      contract: data.contract.toJSON(),
+      account: data.account.toJSON(),
+      operator: data.operator.toJSON(),
       triggers: data.triggers?.map((trigger) => trigger.format()),
     };
   }

@@ -77,7 +77,7 @@ export const getNFTTradesOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -89,7 +89,7 @@ function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse, request: GetNFTTradesRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse) {
   return (jsonResponse.result ?? []).map((trade) => EvmTrade.fromJSON(trade));
 }
 
@@ -103,7 +103,7 @@ function serializeRequest(request: GetNFTTradesRequest, core: Core) {
     marketplace: request.marketplace,
     cursor: request.cursor,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
   };
 }
@@ -118,7 +118,7 @@ function deserializeRequest(jsonRequest: GetNFTTradesJSONRequest, core: Core): G
     marketplace: jsonRequest.marketplace,
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
   };
 }

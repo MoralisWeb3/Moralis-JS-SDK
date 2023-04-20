@@ -85,7 +85,7 @@ function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
     topic: request.topic,
     offset: maybe(request.offset, String),
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     disable_total: request.disableTotal,
   };
 }
@@ -129,7 +129,7 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
     topic: request.topic,
     offset: request.offset,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     abi: request.abi,
     disableTotal: request.disableTotal,
   };
@@ -145,7 +145,7 @@ function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Cor
     topic: jsonRequest.topic,
     offset: jsonRequest.offset,
     limit: jsonRequest.limit,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     abi: jsonRequest.abi,
     disableTotal: jsonRequest.disableTotal,
   };

@@ -16,7 +16,7 @@ describe('evmRequestChallengeOperation', () => {
     const notBefore = '2020-01-01T00:00:00.000Z';
 
     const request: Required<RequestChallengeEvmRequest> = {
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       domain: 'defi.finance',
       chainId: EvmChain.create(chain, core),
       statement: 'VALID_RESPONSE',

@@ -1,6 +1,6 @@
-import { Core, CoreProvider } from '@moralisweb3/common-core';
+import { Core, CoreProvider, OperationV3 } from '@moralisweb3/common-core';
 import { AbstractClient, AptosNetworkResolver, AptosNetworkInput } from '@moralisweb3/common-aptos-utils';
-import { OperationV3, OperationV3Resolver } from '@moralisweb3/api-utils';
+import { OperationV3Resolver } from '@moralisweb3/api-utils';
 
 const MAINNET_BASE_URL = 'https://aptos-mainnet.aws-prod-api-1.moralis.io';
 const TESTNET_BASE_URL = 'https://aptos-testnet.aws-prod-api-1.moralis.io';

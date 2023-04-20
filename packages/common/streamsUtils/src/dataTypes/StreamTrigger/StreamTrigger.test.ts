@@ -16,7 +16,7 @@ describe('StreamTrigger', () => {
 
   it('should return correct values for all getters', () => {
     expect(result.type).toBe('erc20transfer');
-    expect(result.contractAddress.format()).toBe('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce');
+    expect(result.contractAddress.toJSON()).toBe('0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce');
     expect(result.functionAbi).toBe(mockStreamTrigger.ERC20_TRANSFER.functionAbi);
     expect(result.inputs).toStrictEqual(['$to']);
   });

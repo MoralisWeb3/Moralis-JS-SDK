@@ -63,7 +63,7 @@ export const getWalletNFTTransfersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetWalletNFTTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     format: request.format,
     direction: request.direction,
     from_block: maybe(request.fromBlock, String),
@@ -84,10 +84,10 @@ function deserializeResponse(
       {
         ...toCamelCase(transfer),
         chain: EvmChainResolver.resolve(request.chain, core),
-        tokenAddress: EvmAddress.create(transfer.token_address, core),
-        toAddress: EvmAddress.create(transfer.to_address, core),
-        operator: transfer.operator ? EvmAddress.create(transfer.operator, core) : null,
-        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address, core) : null,
+        tokenAddress: EvmAddress.create(transfer.token_address),
+        toAddress: EvmAddress.create(transfer.to_address),
+        operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
+        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
         value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
         blockTimestamp: new Date(transfer.block_timestamp),
       },
@@ -105,7 +105,7 @@ function serializeRequest(request: GetWalletNFTTransfersRequest, core: Core) {
     toBlock: request.toBlock,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
   };
 }
@@ -119,7 +119,7 @@ function deserializeRequest(jsonRequest: GetWalletNFTTransfersJSONRequest, core:
     toBlock: jsonRequest.toBlock,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
   };
 }

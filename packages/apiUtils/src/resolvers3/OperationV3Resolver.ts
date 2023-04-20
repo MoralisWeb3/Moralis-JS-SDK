@@ -1,8 +1,14 @@
-import { ApiErrorCode, Core, CoreConfig, MoralisApiError, RequestController } from '@moralisweb3/common-core';
-import { OperationV3 } from './OperationV3';
+import {
+  ApiErrorCode,
+  Core,
+  CoreConfig,
+  MoralisApiError,
+  OperationV3,
+  RequestController,
+  ResponseAdapter,
+} from '@moralisweb3/common-core';
 import { getSdkDetailsHeaders } from '../resolvers2';
 import { ApiUtilsConfig } from '../config';
-import { ResponseV3Adapter } from './v2/ResponseV3Adapter';
 
 export type BaseUrlOrResolver<Request> = string | ((request: Request) => string);
 
@@ -71,9 +77,9 @@ export class OperationV3Resolver<Request, RequestJSON, Response, ResponseJSON, B
   /**
    * @deprecated This method is dedicated to V2 API only.
    */
-  public async fetch(request: Request, body: Body): Promise<ResponseV3Adapter<Response, ResponseJSON>> {
+  public async fetch(request: Request, body: Body): Promise<ResponseAdapter<Response, ResponseJSON>> {
     const data = await this.request(request, body);
-    return new ResponseV3Adapter(data.response, data.responseJson);
+    return new ResponseAdapter(data.responseJson, () => data.response);
   }
 
   private resolveBaseUrl(request: Request): string {

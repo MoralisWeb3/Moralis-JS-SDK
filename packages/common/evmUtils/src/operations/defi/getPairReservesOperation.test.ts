@@ -18,7 +18,7 @@ describe('getPairReservesOperation', () => {
       chain: EvmChain.create(chain, core),
       toBlock: '123',
       toDate: new Date(toDate),
-      pairAddress: EvmAddress.create(address, core),
+      pairAddress: EvmAddress.create(address),
     };
 
     const serializedRequest = getPairReservesOperation.serializeRequest(request, core);

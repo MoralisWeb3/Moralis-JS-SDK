@@ -15,7 +15,7 @@ describe('syncNFTContractOperation', () => {
 
     const request: Required<SyncNFTContractRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
     };
 
     const serializedRequest = syncNFTContractOperation.serializeRequest(request, core);

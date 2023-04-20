@@ -39,12 +39,12 @@ export class EvmEvent implements MoralisDataObject {
   static parse = (data: EvmEventInput, core: Core): EvmEventData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    address: EvmAddress.create(data.address, core),
+    address: EvmAddress.create(data.address),
     blockNumber: BigNumber.create(data.blockNumber),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     data: {
-      from: maybe(data.data.from, (from) => EvmAddress.create(from, core)),
-      to: maybe(data.data.to, (to) => EvmAddress.create(to, core)),
+      from: maybe(data.data.from, (from) => EvmAddress.create(from)),
+      to: maybe(data.data.to, (to) => EvmAddress.create(to)),
       value: maybe(data.data.value, EvmNative.create),
     },
   });
@@ -107,11 +107,11 @@ export class EvmEvent implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      address: data.address.format(),
+      address: data.address.toJSON(),
       blockNumber: data.blockNumber.toString(),
       data: {
-        from: data.data.from?.format(),
-        to: data.data.to?.format(),
+        from: data.data.from?.toJSON(),
+        to: data.data.to?.toJSON(),
         value: data.data.value?.format(),
       },
     };

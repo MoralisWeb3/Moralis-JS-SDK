@@ -1,4 +1,4 @@
-import { Pagination } from '@moralisweb3/common-core';
+import { CoreErrorCode, MoralisError, Pagination } from '@moralisweb3/common-core';
 import { PaginatedResponseV3 } from './PaginatedResponseV3';
 
 export type PaginatedResponseV3AdapterNextHandler<
@@ -30,12 +30,16 @@ export class PaginatedResponseV3Adapter<Response extends PaginatedResponseV3<Res
   }
 
   public hasNext(): boolean {
-    return Boolean(this.nextHandler);
+    return !!this.nextHandler;
   }
 
   public async next(): Promise<PaginatedResponseV3Adapter<Response, ResponseJSON>> {
     if (!this.nextHandler) {
-      throw new Error('No next page');
+      throw new MoralisError({
+        code: CoreErrorCode.NO_DATA_FOUND,
+        message:
+          'Page limit exceeded! Before call this method check an existence of the next page by .hasNext() method.',
+      });
     }
     return this.nextHandler();
   }

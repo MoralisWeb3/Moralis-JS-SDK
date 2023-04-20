@@ -50,7 +50,7 @@ export const resolveAddressOperation: Operation<
 
 function getRequestUrlParams(request: ResolveAddressRequest, core: Core) {
   return {
-    address: maybe(request.address, (address) => EvmAddress.create(address, core).checksum),
+    address: maybe(request.address, (address) => EvmAddress.create(address).checksum),
   };
 }
 
@@ -60,12 +60,12 @@ function deserializeResponse(jsonResponse: ResolveAddressJSONResponse) {
 
 function serializeRequest(request: ResolveAddressRequest, core: Core) {
   return {
-    address: maybe(request.address, (address) => EvmAddress.create(address, core).checksum),
+    address: maybe(request.address, (address) => EvmAddress.create(address).checksum),
   };
 }
 
 function deserializeRequest(jsonRequest: ResolveAddressJSONRequest, core: Core): ResolveAddressRequest {
   return {
-    address: maybe(jsonRequest.address, (address) => EvmAddress.create(address, core)),
+    address: maybe(jsonRequest.address, (address) => EvmAddress.create(address)),
   };
 }

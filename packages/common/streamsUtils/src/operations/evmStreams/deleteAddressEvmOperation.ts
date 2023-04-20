@@ -68,8 +68,8 @@ function deserializeResponse(jsonResponse: DeleteAddressEvmJSONResponse, request
     streamId: jsonResponse.streamId,
     address: data.address
       ? typeof data.address === 'string'
-        ? EvmAddress.create(data.address, core)
-        : data.address.map((address) => EvmAddress.create(address, core))
+        ? EvmAddress.create(data.address)
+        : data.address.map((address) => EvmAddress.create(address))
       : undefined,
   };
 }
@@ -78,8 +78,8 @@ function serializeRequest(request: DeleteAddressEvmRequest, core: Core) {
   return {
     id: request.id,
     address: Array.isArray(request.address)
-      ? request.address.map((address) => EvmAddress.create(address, core).lowercase)
-      : EvmAddress.create(request.address, core).lowercase,
+      ? request.address.map((address) => EvmAddress.create(address).lowercase)
+      : EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -87,7 +87,7 @@ function deserializeRequest(jsonRequest: DeleteAddressEvmJSONRequest, core: Core
   return {
     id: jsonRequest.id,
     address: Array.isArray(jsonRequest.address)
-      ? jsonRequest.address.map((address) => EvmAddress.create(address, core))
-      : EvmAddress.create(jsonRequest.address, core),
+      ? jsonRequest.address.map((address) => EvmAddress.create(address))
+      : EvmAddress.create(jsonRequest.address),
   };
 }

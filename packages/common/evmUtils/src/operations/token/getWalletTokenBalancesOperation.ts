@@ -55,9 +55,9 @@ function getRequestUrlParams(request: GetWalletTokenBalancesRequest, core: Core)
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     to_block: maybe(request.toBlock, String),
     token_addresses: maybe(request.tokenAddresses, (addresses) =>
-      addresses.map((address) => EvmAddress.create(address, core).lowercase),
+      addresses.map((address) => EvmAddress.create(address).lowercase),
     ),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -91,7 +91,7 @@ function serializeRequest(request: GetWalletTokenBalancesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     tokenAddresses: maybe(request.tokenAddresses, (addresses) =>
-      addresses.map((address) => EvmAddress.create(address, core).checksum),
+      addresses.map((address) => EvmAddress.create(address).checksum),
     ),
     address: EvmAddress.create(request.address).checksum,
     toBlock: request.toBlock,
@@ -102,9 +102,9 @@ function deserializeRequest(jsonRequest: GetWalletTokenBalancesJSONRequest, core
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     tokenAddresses: maybe(jsonRequest.tokenAddresses, (addresses) =>
-      addresses.map((address) => EvmAddress.create(address, core)),
+      addresses.map((address) => EvmAddress.create(address)),
     ),
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     toBlock: jsonRequest.toBlock,
   };
 }

@@ -62,8 +62,8 @@ function getRequestUrlParams(request: GetPairAddressRequest, core: Core) {
     to_block: request.toBlock,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     exchange: request.exchange,
-    token0Address: EvmAddress.create(request.token0Address, core).lowercase,
-    token1Address: EvmAddress.create(request.token1Address, core).lowercase,
+    token0Address: EvmAddress.create(request.token0Address).lowercase,
+    token1Address: EvmAddress.create(request.token1Address).lowercase,
   };
 }
 
@@ -72,7 +72,7 @@ type TokenJSONResponse = GetPairAddressJSONResponse['token0'] | GetPairAddressJS
 function createErc20Token(token: TokenJSONResponse, core: Core, chain?: EvmChainish) {
   return Erc20Token.create(
     {
-      contractAddress: token?.address ? EvmAddress.create(token?.address, core) : '',
+      contractAddress: token?.address ? EvmAddress.create(token?.address) : '',
       decimals: token?.decimals ?? 0,
       name: token?.name ?? '',
       symbol: token?.symbol ?? '',
@@ -99,7 +99,7 @@ function deserializeResponse(jsonResponse: GetPairAddressJSONResponse, request: 
       validated: jsonResponse.token1?.validated,
       createdAt: jsonResponse.token1?.created_at ? new Date(jsonResponse.token1?.created_at) : undefined,
     },
-    pairAddress: jsonResponse.pairAddress ? EvmAddress.create(jsonResponse.pairAddress, core) : undefined,
+    pairAddress: jsonResponse.pairAddress ? EvmAddress.create(jsonResponse.pairAddress) : undefined,
   };
 }
 
@@ -109,8 +109,8 @@ function serializeRequest(request: GetPairAddressRequest, core: Core) {
     toBlock: request.toBlock,
     toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     exchange: request.exchange,
-    token0Address: EvmAddress.create(request.token0Address, core).lowercase,
-    token1Address: EvmAddress.create(request.token1Address, core).lowercase,
+    token0Address: EvmAddress.create(request.token0Address).lowercase,
+    token1Address: EvmAddress.create(request.token1Address).lowercase,
   };
 }
 
@@ -120,7 +120,7 @@ function deserializeRequest(jsonRequest: GetPairAddressJSONRequest, core: Core):
     toBlock: jsonRequest.toBlock,
     toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     exchange: jsonRequest.exchange,
-    token0Address: EvmAddress.create(jsonRequest.token0Address, core),
-    token1Address: EvmAddress.create(jsonRequest.token1Address, core),
+    token0Address: EvmAddress.create(jsonRequest.token0Address),
+    token1Address: EvmAddress.create(jsonRequest.token1Address),
   };
 }

@@ -19,7 +19,7 @@ describe('getWalletVerboseTransactionsOperation', () => {
     const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetWalletTransactionsVerboseRequest> = {
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       chain: EvmChain.create(chain, core),
       fromBlock: 10,
       toBlock: 20,

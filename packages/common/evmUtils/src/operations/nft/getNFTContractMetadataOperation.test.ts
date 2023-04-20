@@ -15,7 +15,7 @@ describe('getNFTContractMetadataOperation', () => {
 
     const request: Required<GetNFTContractMetadataRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
     };
 
     const serializedRequest = getNFTContractMetadataOperation.serializeRequest(request, core);

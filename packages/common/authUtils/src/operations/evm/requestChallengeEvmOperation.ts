@@ -70,7 +70,7 @@ function getRequestBody(request: RequestChallengeEvmRequest, core: Core) {
   return {
     domain: request.domain,
     chainId: EvmChainResolver.resolve(request.chainId, core).hex,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     statement: request.statement,
     uri: request.uri,
     expirationTime: request.expirationTime,
@@ -88,7 +88,7 @@ function serializeRequest(request: RequestChallengeEvmRequest, core: Core) {
   return {
     domain: request.domain,
     chainId: EvmChainResolver.resolve(request.chainId, core).decimal.toString(),
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     statement: request.statement,
     uri: request.uri,
     expirationTime: request.expirationTime,
@@ -102,7 +102,7 @@ function deserializeRequest(jsonRequest: RequestChallengeEvmJSONRequest, core: C
   return {
     domain: jsonRequest.domain,
     chainId: EvmChainResolver.resolve(jsonRequest.chainId, core),
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     statement: jsonRequest.statement,
     uri: jsonRequest.uri,
     expirationTime: jsonRequest.expirationTime,

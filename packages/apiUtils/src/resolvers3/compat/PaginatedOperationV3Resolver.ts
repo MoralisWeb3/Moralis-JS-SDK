@@ -1,6 +1,5 @@
-import { Core } from '@moralisweb3/common-core';
+import { Core, OperationV3 } from '@moralisweb3/common-core';
 import { PaginatedResponseV3 } from './PaginatedResponseV3';
-import { OperationV3 } from '../OperationV3';
 import { BaseUrlOrResolver, OperationV3Resolver } from '../OperationV3Resolver';
 import { PaginatedResponseV3Adapter, PaginatedResponseV3AdapterNextHandler } from './PaginatedResponseV3Adapter';
 
@@ -29,7 +28,9 @@ export class PaginatedOperationV3Resolver<
     const data = await this.resolver.request(request, body);
 
     let nextHandler: PaginatedResponseV3AdapterNextHandler<Response, ResponseJSON> | null = null;
-    if (data.response.cursor) {
+
+    // TODO: currently the swagger file doesn't have everywhere the cursor property in the response.
+    if ((data.responseJson as { cursor?: string }).cursor) {
       nextHandler = async () => {
         const nextRequest = { ...request, cursor: data.response.cursor };
         return this.fetch(nextRequest, body);

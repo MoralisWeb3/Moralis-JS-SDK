@@ -56,7 +56,7 @@ function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     exchange: request.exchange,
     to_block: maybe(request.toBlock, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -66,7 +66,7 @@ function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse, request: G
     nativePrice: jsonResponse.nativePrice?.value
       ? EvmNative.create(jsonResponse.nativePrice?.value, jsonResponse.nativePrice?.decimals)
       : null,
-    exchangeAddress: jsonResponse.exchangeAddress ? EvmAddress.create(jsonResponse.exchangeAddress, core) : null,
+    exchangeAddress: jsonResponse.exchangeAddress ? EvmAddress.create(jsonResponse.exchangeAddress) : null,
   };
 }
 
@@ -75,7 +75,7 @@ function serializeRequest(request: GetTokenPriceRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     exchange: request.exchange,
     toBlock: request.toBlock,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
   };
 }
 
@@ -84,6 +84,6 @@ function deserializeRequest(jsonRequest: GetTokenPriceJSONRequest, core: Core): 
     chain: EvmChain.create(jsonRequest.chain, core),
     exchange: jsonRequest.exchange,
     toBlock: jsonRequest.toBlock,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
   };
 }

@@ -6,16 +6,17 @@
     "supportV2": true,
     "mappings": {
       "types": [],
-      "refs": [],
+      "refs": [
+        {
+          "refs": ["#/components/schemas/trade/properties/price"],
+          "className": "EvmNative",
+          "import": "../../dataTypes"
+        }
+      ],
       "complexTypeProperties": [
         {
           "names": ["seller_address", "buyer_address", "token_address", "marketplace_address", "price_token_address"],
           "className": "EvmAddress",
-          "import": "../../dataTypes"
-        },
-        {
-          "names": ["price"],
-          "className": "EvmNative",
           "import": "../../dataTypes"
         }
       ],

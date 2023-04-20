@@ -1,4 +1,4 @@
-import Core, { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress } from '../../dataTypes';
 
 import { operations } from '../openapi';
@@ -69,8 +69,8 @@ function deserializeRequest(jsonRequest: ResolveDomainJSONRequest): ResolveDomai
   };
 }
 
-function deserializeResponse(jsonResponse: ResolveDomainJSONResponse, request: ResolveDomainRequest, core: Core) {
+function deserializeResponse(jsonResponse: ResolveDomainJSONResponse) {
   return {
-    address: EvmAddress.create(jsonResponse.address, core),
+    address: EvmAddress.create(jsonResponse.address),
   };
 }

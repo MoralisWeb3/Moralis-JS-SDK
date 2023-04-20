@@ -1,5 +1,5 @@
 import MoralisCore from '@moralisweb3/common-core';
-import { CommonEvmUtils, CommonEvmUtilsConfig, EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
+import { CommonEvmUtils, EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTrigger } from '../../dataTypes';
 import { createStreamEvmOperation, CreateStreamEvmRequest } from './createStreamEvmOperation';
 
@@ -10,7 +10,6 @@ describe('createStreamEvmOperation', () => {
     core = MoralisCore.create();
     const evmUtils = CommonEvmUtils.create(core);
     core.registerModules([evmUtils]);
-    core.config.set(CommonEvmUtilsConfig.formatEvmAddress, 'checksum');
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {
@@ -86,7 +85,7 @@ describe('createStreamEvmOperation', () => {
     expect(serializedRequest.triggers).toHaveLength(1);
     const serializedTrigger = serializedRequest.triggers![0];
     expect(serializedTrigger.type).toBe('erc20transfer');
-    expect(serializedTrigger.contractAddress).toBe(contractAddress);
+    expect(serializedTrigger.contractAddress).toBe(contractAddress.toLowerCase());
     expect(serializedTrigger.functionAbi).toBe(balanceOfAbi);
     expect(serializedTrigger.inputs).toStrictEqual(['$to']);
 

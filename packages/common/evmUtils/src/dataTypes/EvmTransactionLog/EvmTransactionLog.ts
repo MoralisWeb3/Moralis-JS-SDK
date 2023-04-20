@@ -51,7 +51,7 @@ export class EvmTransactionLog implements MoralisDataObject {
       blockHash: value.blockHash,
       blockNumber: value.blockNumber,
       blockTimestamp: value.blockTimestamp,
-      address: EvmAddress.create(value.address, core),
+      address: EvmAddress.create(value.address),
     };
   }
 
@@ -88,7 +88,7 @@ export class EvmTransactionLog implements MoralisDataObject {
 
     return {
       ...value,
-      address: value.address.format(),
+      address: value.address.toJSON(),
       chain: value.chain.format(),
     };
   }

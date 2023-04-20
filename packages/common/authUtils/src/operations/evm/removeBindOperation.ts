@@ -53,7 +53,7 @@ function getRequestUrlParams() {
 function getRequestBody(request: RemoveBindRequest, core: Core) {
   return {
     blockchainType: request.blockchainType,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     profileId: request.profileId,
     publicKey: request.publicKey,
   };
@@ -66,7 +66,7 @@ function deserializeResponse(jsonResponse: RemoveBindJSONResponse) {
 function serializeRequest(request: RemoveBindRequest, core: Core) {
   return {
     blockchainType: request.blockchainType,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     profileId: request.profileId,
     publicKey: request.publicKey,
   };
@@ -75,7 +75,7 @@ function serializeRequest(request: RemoveBindRequest, core: Core) {
 function deserializeRequest(jsonRequest: RemoveBindJSONRequest, core: Core): RemoveBindRequest {
   return {
     blockchainType: jsonRequest.blockchainType,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     profileId: jsonRequest.profileId,
     publicKey: jsonRequest.publicKey,
   };

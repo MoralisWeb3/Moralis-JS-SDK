@@ -1,5 +1,5 @@
 import { SolNetworkish } from './interfaces';
-import { CoreConfig, EvmAddressFormat, EvmChainIdFormat } from './CoreConfig';
+import { CoreConfig, EvmChainIdFormat } from './CoreConfig';
 import { EvmChainish } from './interfaces/EvmChainish';
 
 // @moralisweb3/common-core
@@ -8,7 +8,6 @@ export type CoreConfigValues = Omit<{ [Key in keyof CoreConfigType]: CoreConfigT
 
 // @moralisweb3/common-evm-utils
 export interface EvmUtilsConfigValues {
-  formatEvmAddress: EvmAddressFormat;
   formatEvmChainId: EvmChainIdFormat;
 }
 

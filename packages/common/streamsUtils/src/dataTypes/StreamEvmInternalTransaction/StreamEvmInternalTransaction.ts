@@ -43,8 +43,8 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
   private static parse = (data: StreamEvmInternalTransactionInput, core: Core): StreamEvmInternalTransactionData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    from: maybe(data.from, (value) => EvmAddress.create(value, core)),
-    to: maybe(data.to, (value) => EvmAddress.create(value, core)),
+    from: maybe(data.from, (value) => EvmAddress.create(value)),
+    to: maybe(data.to, (value) => EvmAddress.create(value)),
     value: maybe(data.value, (value) => BigNumber.create(value)),
     gas: maybe(data.gas, (value) => BigNumber.create(value)),
     triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger, core))),
@@ -105,8 +105,8 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      from: data.from?.format(),
-      to: data.to?.format(),
+      from: data.from?.toJSON(),
+      to: data.to?.toJSON(),
       value: data.value?.toString(),
       gas: data.gas?.toString(),
       triggers: data.triggers?.map((trigger) => trigger.format()),

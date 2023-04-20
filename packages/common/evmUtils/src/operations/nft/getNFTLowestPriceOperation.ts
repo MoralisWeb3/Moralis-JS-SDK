@@ -55,7 +55,7 @@ export const getNFTLowestPriceOperation: Operation<
 function getRequestUrlParams(request: GetNFTLowestPriceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     days: maybe(request.days, String),
     marketplace: request.marketplace,
   };
@@ -70,7 +70,7 @@ function serializeRequest(request: GetNFTLowestPriceRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     days: request.days,
     marketplace: request.marketplace,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
   };
 }
 
@@ -79,6 +79,6 @@ function deserializeRequest(jsonRequest: GetNFTLowestPriceJSONRequest, core: Cor
     chain: EvmChain.create(jsonRequest.chain, core),
     days: jsonRequest.days,
     marketplace: jsonRequest.marketplace,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
   };
 }

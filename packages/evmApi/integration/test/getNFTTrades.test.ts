@@ -1,4 +1,3 @@
-import { EvmNftTrade, EvmTrade } from '@moralisweb3/common-evm-utils';
 import { EvmApi } from '../../src/EvmApi';
 import { cleanEvmApi, setupEvmApi } from '../setup';
 
@@ -28,7 +27,7 @@ describe('getNFTTrades', () => {
 
       const trade = result.result[0];
       expect(trade.transactionHash).toBe('0xb30df59495a8a432b8e3d38f406aaeaad363592dbd02cf2ef4ada7643fc3861c');
-      expect(trade.transactionIndex).toBe(254);
+      expect(trade.transactionIndex).toBe('254');
       expect(trade.tokenIds).toContain('7781');
       expect(trade.sellerAddress.lowercase).toBe('0xc970bd05d27466f10e0d1c8653d6bca217ef04f2');
       expect(trade.buyerAddress.lowercase).toBe('0x9f7509cdc8b846c65482f5d2829ab47360095d82');
@@ -36,7 +35,7 @@ describe('getNFTTrades', () => {
       expect(trade.priceTokenAddress?.lowercase).toBe('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2');
       expect(trade.marketplaceAddress.lowercase).toBe('0x00000000006c3852cbef3e08e8df289169ede581');
       expect(trade.price.wei).toBe('69990000000000000');
-      expect(trade.blockTimestamp).toBe('1670286731000');
+      expect(trade.blockTimestamp).toBe('2022-12-06T00:32:11.000Z');
       expect(trade.blockNumber.toString()).toBe('16122185');
       expect(trade.blockHash).toBe('0xd01990eb290c77fe3e7db77a83c0ff465cc3dd5f74b9eb53d9b2c2ea178c7009');
     });

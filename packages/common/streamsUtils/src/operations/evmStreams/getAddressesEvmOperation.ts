@@ -59,7 +59,7 @@ function getRequestUrlParams(request: GetAddressesEvmRequest) {
 function deserializeResponse(jsonResponse: GetAddressesEvmJSONResponse, request: GetAddressesEvmRequest, core: Core) {
   return (jsonResponse.result ?? []).map((stream) => ({
     ...stream,
-    address: stream.address ? EvmAddress.create(stream.address, core) : undefined,
+    address: stream.address ? EvmAddress.create(stream.address) : undefined,
   }));
 }
 

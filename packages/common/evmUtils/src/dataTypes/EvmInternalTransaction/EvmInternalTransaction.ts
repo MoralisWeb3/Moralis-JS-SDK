@@ -41,8 +41,8 @@ export class EvmInternalTransaction implements MoralisDataObject {
 
   static parse = (data: EvmInternalTransactionInput, core: Core): EvmInternalTransactionData => ({
     chain: EvmChain.create(data.chain),
-    from: EvmAddress.create(data.from, core),
-    to: EvmAddress.create(data.to, core),
+    from: EvmAddress.create(data.from),
+    to: EvmAddress.create(data.to),
     transactionHash: data.transactionHash,
     gas: BigNumber.create(data.gas),
     gasUsed: BigNumber.create(data.gasUsed),
@@ -94,8 +94,8 @@ export class EvmInternalTransaction implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      to: data.to?.format(),
-      from: data.from?.format(),
+      to: data.to?.toJSON(),
+      from: data.from?.toJSON(),
       gas: data.gas?.toString(),
       gasUsed: data.gasUsed?.toString(),
       value: data.value?.toString(),

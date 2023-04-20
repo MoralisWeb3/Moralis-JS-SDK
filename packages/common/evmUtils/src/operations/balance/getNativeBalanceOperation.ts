@@ -54,7 +54,7 @@ function getRequestUrlParams(request: GetNativeBalanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     to_block: maybe(request.toBlock, String),
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
   };
 }
 
@@ -68,7 +68,7 @@ function serializeRequest(request: GetNativeBalanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     toBlock: request.toBlock,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -76,6 +76,6 @@ function deserializeRequest(jsonRequest: GetNativeBalanceJSONRequest, core: Core
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     toBlock: jsonRequest.toBlock,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
   };
 }

@@ -23,11 +23,22 @@ export interface MappingTarget {
 }
 
 export interface TypeMapping extends MappingTarget {
-  typeName: string;
+  /**
+   * Mapping by type name. The type name comes from the OpenAPI reader (not from the swagger file).
+   *
+   * @example ["BlockMetadataTransaction_changes_Item"]
+   * @example ["WriteOrUpdateModuleChange"]
+   */
+  typeNames: string[];
 }
 
 export interface RefMapping extends MappingTarget {
-  $ref: string;
+  /**
+   * Mapping by $ref.
+   *
+   * @example ["#/components/schemas/endpointWeights/properties/price"]
+   */
+  refs: string[];
 }
 
 export interface ComplexTypePropertyMapping extends MappingTarget {

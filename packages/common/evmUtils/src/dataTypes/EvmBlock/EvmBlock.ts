@@ -38,7 +38,7 @@ export class EvmBlock implements MoralisDataObject {
 
   static parse = (data: EvmBlockInput, core: Core): EvmBlockData => ({
     ...data,
-    miner: EvmAddress.create(data.miner, core),
+    miner: EvmAddress.create(data.miner),
     timestamp: dateInputToDate(data.timestamp),
     number: BigNumber.create(data.number),
     difficulty: BigNumber.create(data.difficulty),
@@ -102,7 +102,7 @@ export class EvmBlock implements MoralisDataObject {
       gasLimit: data.gasLimit.toString(),
       gasUsed: data.gasUsed.toString(),
       chain: data.chain.format(),
-      miner: data.miner.format(),
+      miner: data.miner.toJSON(),
       transactions: data.transactions.map((transaction) => transaction.toJSON()),
     };
   }

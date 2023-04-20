@@ -54,7 +54,7 @@ export const syncNFTContractOperation: Operation<
 function getRequestUrlParams(request: SyncNFTContractRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -67,13 +67,13 @@ function deserializeResponse() {
 function serializeRequest(request: SyncNFTContractRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
   };
 }
 
 function deserializeRequest(jsonRequest: SyncNFTContractJSONRequest, core: Core): SyncNFTContractRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
   };
 }

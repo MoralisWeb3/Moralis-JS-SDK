@@ -109,19 +109,21 @@ describe('EvmTransactionLogDecoded', () => {
     const transactionLog = EvmTransactionLogDecoded.create(inputWithAllData);
 
     expect(transactionLog.format()).toStrictEqual(inputWithAllData);
-    expect(transactionLog.result.address.format()).toStrictEqual(inputWithAllData.address);
+    expect(transactionLog.result.address.lowercase).toStrictEqual(inputWithAllData.address);
   });
 
   it('should create a new EvmTransactionLogDecoded with input data without optional params', () => {
     const transactionLog = EvmTransactionLogDecoded.create(inputWithoutOptionalData);
 
-    expect(transactionLog.result.address.format()).toBe(inputWithoutOptionalData.address);
+    expect(transactionLog.result.address.lowercase).toBe(inputWithoutOptionalData.address);
   });
 
   it('should throw an error when creating with invalid options', () => {
     expect(() =>
       EvmTransactionLogDecoded.create(inputWithInvalidData as EvmTransactionLogDecodedInput),
-    ).toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"[C0005] Invalid address provided: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000"`,
+    );
   });
 
   /**

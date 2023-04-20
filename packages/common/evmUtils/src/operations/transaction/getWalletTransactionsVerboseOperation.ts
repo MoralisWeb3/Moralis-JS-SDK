@@ -84,7 +84,7 @@ function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core:
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     disable_total: request.disableTotal,
   };
 }
@@ -98,7 +98,7 @@ function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Co
     toDate: request.toDate,
     cursor: request.cursor,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
   };
 }
@@ -115,7 +115,7 @@ function deserializeRequest(
     toDate: jsonRequest.toDate,
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
   };
 }
@@ -137,7 +137,7 @@ function deserializeResponse(
         receiptStatus: +transfer.receipt_status,
         chain: EvmChainResolver.resolve(request.chain, core),
         data: transfer.input,
-        from: EvmAddress.create(transfer.from_address, core),
+        from: EvmAddress.create(transfer.from_address),
         hash: transfer.hash,
         nonce: transfer.nonce,
         value: transfer.value,
@@ -145,7 +145,7 @@ function deserializeResponse(
         blockNumber: +transfer.block_number,
         blockTimestamp: new Date(transfer.block_timestamp),
         gas: BigNumber.create(transfer.gas as string),
-        to: EvmAddress.create(transfer.to_address as string, core),
+        to: EvmAddress.create(transfer.to_address as string),
         logs: (transfer.logs ?? []).map((log) =>
           EvmTransactionLog.create(
             {

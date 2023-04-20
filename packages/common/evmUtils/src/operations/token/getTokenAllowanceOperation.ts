@@ -56,9 +56,9 @@ export const getTokenAllowanceOperation: Operation<
 function getRequestUrlParams(request: GetTokenAllowanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    owner_address: EvmAddress.create(request.ownerAddress, core).lowercase,
-    spender_address: EvmAddress.create(request.spenderAddress, core).lowercase,
-    address: EvmAddress.create(request.address, core).lowercase,
+    owner_address: EvmAddress.create(request.ownerAddress).lowercase,
+    spender_address: EvmAddress.create(request.spenderAddress).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
   };
 }
 
@@ -71,17 +71,17 @@ function deserializeResponse(jsonResponse: GetTokenAllowanceJSONResponse) {
 function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    ownerAddress: EvmAddress.create(request.ownerAddress, core).checksum,
-    spenderAddress: EvmAddress.create(request.spenderAddress, core).checksum,
-    address: EvmAddress.create(request.address, core).checksum,
+    ownerAddress: EvmAddress.create(request.ownerAddress).checksum,
+    spenderAddress: EvmAddress.create(request.spenderAddress).checksum,
+    address: EvmAddress.create(request.address).checksum,
   };
 }
 
 function deserializeRequest(jsonRequest: GetTokenAllowanceJSONRequest, core: Core): GetTokenAllowanceRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    ownerAddress: EvmAddress.create(jsonRequest.ownerAddress, core),
-    spenderAddress: EvmAddress.create(jsonRequest.spenderAddress, core),
-    address: EvmAddress.create(jsonRequest.address, core),
+    ownerAddress: EvmAddress.create(jsonRequest.ownerAddress),
+    spenderAddress: EvmAddress.create(jsonRequest.spenderAddress),
+    address: EvmAddress.create(jsonRequest.address),
   };
 }

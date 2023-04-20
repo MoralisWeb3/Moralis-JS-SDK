@@ -15,7 +15,7 @@ describe('reSyncMetadataOperation', () => {
 
     const request: Required<ReSyncMetadataRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       tokenId: '123',
       flag: 'metadata',
       mode: 'async',

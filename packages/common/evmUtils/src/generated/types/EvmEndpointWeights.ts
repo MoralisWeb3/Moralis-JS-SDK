@@ -1,5 +1,3 @@
-import { EvmNative, EvmNativeInput, EvmNativeJSON } from '../../dataTypes';
-
 // $ref: #/components/schemas/endpointWeights
 // type: endpointWeights
 // properties:
@@ -12,14 +10,14 @@ export interface EvmEndpointWeightsJSON {
   readonly endpoint: string;
   readonly path: string;
   readonly rateLimitCost: string;
-  readonly price: EvmNativeJSON;
+  readonly price: string;
 }
 
 export interface EvmEndpointWeightsInput {
   readonly endpoint: string;
   readonly path: string;
   readonly rateLimitCost: string;
-  readonly price: EvmNativeInput | EvmNative;
+  readonly price: string;
 }
 
 export class EvmEndpointWeights {
@@ -35,7 +33,7 @@ export class EvmEndpointWeights {
       endpoint: json.endpoint,
       path: json.path,
       rateLimitCost: json.rateLimitCost,
-      price: EvmNative.fromJSON(json.price),
+      price: json.price,
     };
     return EvmEndpointWeights.create(input);
   }
@@ -55,13 +53,13 @@ export class EvmEndpointWeights {
   /**
    * @description The number of compute units the request counts towards billing
    */
-  public readonly price: EvmNative;
+  public readonly price: string;
 
   private constructor(input: EvmEndpointWeightsInput) {
     this.endpoint = input.endpoint;
     this.path = input.path;
     this.rateLimitCost = input.rateLimitCost;
-    this.price = EvmNative.create(input.price);
+    this.price = input.price;
   }
 
   public toJSON(): EvmEndpointWeightsJSON {
@@ -69,7 +67,7 @@ export class EvmEndpointWeights {
       endpoint: this.endpoint,
       path: this.path,
       rateLimitCost: this.rateLimitCost,
-      price: this.price.toJSON(),
+      price: this.price,
     }
   }
 }

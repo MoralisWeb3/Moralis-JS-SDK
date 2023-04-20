@@ -69,7 +69,7 @@ function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     cursor: request.cursor,
     disable_total: request.disableTotal,
   };
@@ -85,9 +85,9 @@ function deserializeResponse(
       {
         ...toCamelCase(transfer),
         chain: EvmChainResolver.resolve(request.chain, core),
-        address: EvmAddress.create(transfer.address, core),
-        toAddress: EvmAddress.create(transfer.to_address, core),
-        fromAddress: EvmAddress.create(transfer.from_address, core),
+        address: EvmAddress.create(transfer.address),
+        toAddress: EvmAddress.create(transfer.to_address),
+        fromAddress: EvmAddress.create(transfer.from_address),
         value: BigNumber.create(transfer.value),
         blockTimestamp: new Date(transfer.block_timestamp),
       },
@@ -104,7 +104,7 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
     fromDate: request.fromDate,
     toDate: request.toDate,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     cursor: request.cursor,
     disableTotal: request.disableTotal,
   };
@@ -118,7 +118,7 @@ function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Cor
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
     limit: jsonRequest.limit,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     cursor: jsonRequest.cursor,
     disableTotal: jsonRequest.disableTotal,
   };

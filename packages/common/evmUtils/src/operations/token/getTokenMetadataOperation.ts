@@ -51,7 +51,7 @@ export const getTokenMetadataOperation: Operation<
 function getRequestUrlParams(request: GetTokenMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    addresses: request.addresses.map((address) => EvmAddress.create(address, core).lowercase),
+    addresses: request.addresses.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -75,13 +75,13 @@ function deserializeResponse(jsonResponse: GetTokenMetadataJSONResponse, request
 function serializeRequest(request: GetTokenMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    addresses: request.addresses.map((address) => EvmAddress.create(address, core).checksum),
+    addresses: request.addresses.map((address) => EvmAddress.create(address).checksum),
   };
 }
 
 function deserializeRequest(jsonRequest: GetTokenMetadataJSONRequest, core: Core): GetTokenMetadataRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    addresses: jsonRequest.addresses.map((address) => EvmAddress.create(address, core)),
+    addresses: jsonRequest.addresses.map((address) => EvmAddress.create(address)),
   };
 }

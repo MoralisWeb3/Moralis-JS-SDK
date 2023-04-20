@@ -21,6 +21,7 @@ export const mockGetNFTLowestPrice = MockScenarios.create(
         token_ids: ['15', '54'],
         seller_address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
         buyer_address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
+        token_address: '0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb',
         marketplace_address: '0x057Ec652A4F150f7FF94f089A38008f49a0DF88e',
         price: '1000000000000000',
         block_timestamp: '2021-06-04T16:00:15',

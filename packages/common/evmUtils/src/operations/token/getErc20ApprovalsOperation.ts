@@ -81,10 +81,10 @@ function getRequestUrlParams(request: GetErc20ApprovalsRequest, core: Core) {
     limit: maybe(request.limit, String),
     cursor: request.cursor,
 
-    contract_addresses: request.contractAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
-    exclude_contracts: request.excludeContracts?.map((address) => EvmAddress.create(address, core).lowercase),
-    wallet_addresses: request.walletAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
-    exclude_wallets: request.excludeWallets?.map((address) => EvmAddress.create(address, core).lowercase),
+    contract_addresses: request.contractAddresses?.map((address) => EvmAddress.create(address).lowercase),
+    exclude_contracts: request.excludeContracts?.map((address) => EvmAddress.create(address).lowercase),
+    wallet_addresses: request.walletAddresses?.map((address) => EvmAddress.create(address).lowercase),
+    exclude_wallets: request.excludeWallets?.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -112,10 +112,10 @@ function serializeRequest(request: GetErc20ApprovalsRequest, core: Core) {
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
 
-    contractAddresses: request.contractAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
-    excludeContracts: request.excludeContracts?.map((address) => EvmAddress.create(address, core).lowercase),
-    walletAddresses: request.walletAddresses?.map((address) => EvmAddress.create(address, core).lowercase),
-    excludeWallets: request.excludeWallets?.map((address) => EvmAddress.create(address, core).lowercase),
+    contractAddresses: request.contractAddresses?.map((address) => EvmAddress.create(address).lowercase),
+    excludeContracts: request.excludeContracts?.map((address) => EvmAddress.create(address).lowercase),
+    walletAddresses: request.walletAddresses?.map((address) => EvmAddress.create(address).lowercase),
+    excludeWallets: request.excludeWallets?.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -127,9 +127,9 @@ function deserializeRequest(jsonRequest: GetErc20ApprovalsJSONRequest, core: Cor
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
 
-    contractAddresses: jsonRequest.contractAddresses?.map((address) => EvmAddress.create(address, core)),
-    excludeContracts: jsonRequest.excludeContracts?.map((address) => EvmAddress.create(address, core)),
-    walletAddresses: jsonRequest.walletAddresses?.map((address) => EvmAddress.create(address, core)),
-    excludeWallets: jsonRequest.excludeWallets?.map((address) => EvmAddress.create(address, core)),
+    contractAddresses: jsonRequest.contractAddresses?.map((address) => EvmAddress.create(address)),
+    excludeContracts: jsonRequest.excludeContracts?.map((address) => EvmAddress.create(address)),
+    walletAddresses: jsonRequest.walletAddresses?.map((address) => EvmAddress.create(address)),
+    excludeWallets: jsonRequest.excludeWallets?.map((address) => EvmAddress.create(address)),
   };
 }

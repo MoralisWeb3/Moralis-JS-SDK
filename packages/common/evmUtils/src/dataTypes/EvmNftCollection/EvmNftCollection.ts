@@ -36,7 +36,7 @@ export class EvmNftCollection implements MoralisDataObject {
 
   static parse = (data: EvmNftCollectionInput, core: Core): EvmNftCollectionData => ({
     ...data,
-    tokenAddress: EvmAddress.create(data.tokenAddress, core),
+    tokenAddress: EvmAddress.create(data.tokenAddress),
     chain: EvmChain.create(data.chain, core),
     contractType: maybe(data.contractType),
   });
@@ -86,7 +86,7 @@ export class EvmNftCollection implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      tokenAddress: data.tokenAddress.format(),
+      tokenAddress: data.tokenAddress.toJSON(),
     };
   }
 

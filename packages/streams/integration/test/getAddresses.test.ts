@@ -103,7 +103,7 @@ describe('Get stream addresses', () => {
       expect(result.result).toBeDefined();
       expect(result.pagination.total).toEqual(1);
       expect(result.result.length).toEqual(1);
-      expect(result.result[0].address?.format()).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
+      expect(result.result[0].address?.lowercase).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
     });
 
     it('should return an array with 2 results succesfully ', async () => {
@@ -115,8 +115,8 @@ describe('Get stream addresses', () => {
       expect(result.result).toBeDefined();
       expect(result.pagination.total).toEqual(2);
       expect(result.result.length).toEqual(2);
-      expect(result.result[0].address?.format()).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
-      expect(result.result[1].address?.format()).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
+      expect(result.result[0].address?.lowercase).toEqual('0x295522b61890c3672d12efbff4358a6411ce996f');
+      expect(result.result[1].address?.lowercase).toEqual('0x992eccc191d6f74e8be187ed6b6ac196b08314f7');
     });
 
     it('should return a cursor on paginated results ', async () => {

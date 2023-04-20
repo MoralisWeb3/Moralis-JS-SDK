@@ -54,7 +54,7 @@ export const getPairReservesOperation: Operation<
 function getRequestUrlParams(request: GetPairReservesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    pairAddress: EvmAddress.create(request.pairAddress, core).lowercase,
+    pairAddress: EvmAddress.create(request.pairAddress).lowercase,
     to_block: request.toBlock,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
   };
@@ -65,7 +65,7 @@ function serializeRequest(request: GetPairReservesRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     toBlock: request.toBlock,
     toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
-    pairAddress: EvmAddress.create(request.pairAddress, core).lowercase,
+    pairAddress: EvmAddress.create(request.pairAddress).lowercase,
   };
 }
 
@@ -74,7 +74,7 @@ function deserializeRequest(jsonRequest: GetPairReservesJSONRequest, core: Core)
     chain: EvmChain.create(jsonRequest.chain, core),
     toBlock: jsonRequest.toBlock,
     toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
-    pairAddress: EvmAddress.create(jsonRequest.pairAddress, core),
+    pairAddress: EvmAddress.create(jsonRequest.pairAddress),
   };
 }
 

@@ -40,11 +40,11 @@ export class Erc20Transfer implements MoralisDataObject {
   static parse = (data: Erc20TransferInput, core: Core): Erc20TransferData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    address: EvmAddress.create(data.address, core),
+    address: EvmAddress.create(data.address),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     blockNumber: BigNumber.create(data.blockNumber),
-    toAddress: EvmAddress.create(data.toAddress, core),
-    fromAddress: EvmAddress.create(data.fromAddress, core),
+    toAddress: EvmAddress.create(data.toAddress),
+    fromAddress: EvmAddress.create(data.fromAddress),
     value: BigNumber.create(data.value),
     transactionIndex: Number(data.transactionIndex),
     logIndex: Number(data.logIndex),
@@ -83,10 +83,10 @@ export class Erc20Transfer implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      address: data.address.format(),
+      address: data.address.toJSON(),
       blockNumber: data.blockNumber.toString(),
-      toAddress: data.toAddress.format(),
-      fromAddress: data.fromAddress.format(),
+      toAddress: data.toAddress.toJSON(),
+      fromAddress: data.fromAddress.toJSON(),
       value: data.value.toString(),
     };
   }
