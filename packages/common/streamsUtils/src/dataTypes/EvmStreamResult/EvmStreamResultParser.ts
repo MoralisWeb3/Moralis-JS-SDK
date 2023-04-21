@@ -11,6 +11,7 @@ import {
   Log,
   Transaction,
   INativeBalance,
+  INFTApproval,
 } from '@moralisweb3/streams-typings';
 import { StreamErc1155Approval } from '../StreamErc1155Approval/StreamErc1155Approval';
 import { StreamErc20Approval } from '../StreamErc20Approval/StreamErc20Approval';
@@ -22,6 +23,7 @@ import { StreamEvmTransaction } from '../StreamEvmTransaction/StreamEvmTransacti
 import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTransactionLog';
 import { StreamNativeBalance } from '../StreamNativeBalance';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
+import { StreamEvmNftTokenApproval } from '../StreamEvmNftTokenApproval/StreamEvmNftTokenApproval';
 
 export class EvmStreamResultParser {
   static parse = (value: EvmStreamResultInput, core: Core): EvmStreamResultData => {
@@ -32,11 +34,8 @@ export class EvmStreamResultParser {
       erc20Transfers: this.parseErc20Transfers(value.erc20Transfers, chain),
       erc20Approvals: this.parseErc20Approvals(value.erc20Approvals, chain),
       nftTransfers: this.parseNftTransfers(value.nftTransfers, chain),
-
-      /**
-       * @deprecated Will be removed. Use nftTokenApprovals
-       */
       nftApprovals: this.parseNftApprovals(value.nftApprovals, chain),
+      ntfTokenApprovals: this.parseNftTokenApprovals(value.nftTokenApprovals, chain, core),
       block: this.parseBlock(value.block, chain),
       logs: this.parseLogs(value.logs, chain),
       txs: this.parseTransactions(value.txs, chain),
@@ -97,6 +96,18 @@ export class EvmStreamResultParser {
         }),
       ),
     };
+  }
+
+  static parseNftTokenApprovals(values: INFTApproval[], chain: EvmChain, core: Core) {
+    return values.map((value) =>
+      StreamEvmNftTokenApproval.create(
+        {
+          chain,
+          ...value,
+        },
+        core,
+      ),
+    );
   }
 
   static parseBlock(value: Block, chain: EvmChain) {
