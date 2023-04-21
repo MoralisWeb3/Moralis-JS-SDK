@@ -5,3 +5,7 @@ export interface PaginatedResponseV3<Result> {
   readonly result?: Result;
   readonly cursor?: string;
 }
+
+export interface PaginatedResponseV3JSON {
+  readonly cursor?: string;
+}
