@@ -10,6 +10,7 @@ import { StreamEvmNftTransfer } from '../StreamEvmNftTransfer/StreamEvmNftTransf
 import { StreamEvmTransaction } from '../StreamEvmTransaction/StreamEvmTransaction';
 import { StreamEvmTransactionLog } from '../StreamEvmTransactionLog/StreamEvmTransactionLog';
 import { StreamNativeBalance } from '../StreamNativeBalance';
+import { StreamEvmNftTokenApproval } from '../StreamEvmNftTokenApproval';
 
 export interface EvmStreamResultData {
   chain: EvmChain;
@@ -19,10 +20,14 @@ export interface EvmStreamResultData {
   erc20Transfers: StreamErc20Transfer[];
   erc20Approvals: StreamErc20Approval[];
   nftTransfers: StreamEvmNftTransfer[];
+  /**
+   * @deprecated Use `ntfTokenApprovals` instead. This property will be removed in the future.
+   */
   nftApprovals: {
     ERC721: StreamErc721Approval[];
     ERC1155: StreamErc1155Approval[];
   };
+  ntfTokenApprovals: StreamEvmNftTokenApproval[];
   logs: StreamEvmTransactionLog[];
   txs: StreamEvmTransaction[];
   txsInternal: StreamEvmInternalTransaction[];

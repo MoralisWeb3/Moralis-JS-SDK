@@ -6,6 +6,7 @@ export * from './StreamErc20Approval';
 export * from './StreamErc20Transfer';
 export * from './StreamErc721Approval';
 export * from './StreamEvmInternalTransaction';
+export * from './StreamEvmNftTokenApproval';
 export * from './StreamEvmNftTransfer';
 export * from './StreamEvmTransaction';
 export * from './StreamEvmTransactionLog';
