@@ -3,6 +3,9 @@ import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
 import { Interface } from '@ethersproject/abi';
+import { StreamEvmNftTokenApproval } from '../StreamEvmNftTokenApproval';
+import { StreamErc721Approval } from '../StreamErc721Approval';
+import { StreamErc1155Approval } from '../StreamErc1155Approval';
 
 export type EvmStreamResultish = EvmStreamResultInput | EvmStreamResult;
 
@@ -165,8 +168,18 @@ export class EvmStreamResult implements MoralisDataObject {
     return this._data.logs;
   }
 
-  get nftApprovals() {
+  /**
+   * @deprecated Use `ntfTokenApprovals` instead. This property will be removed in the future.
+   */
+  public get nftApprovals(): {
+    ERC721: StreamErc721Approval[];
+    ERC1155: StreamErc1155Approval[];
+  } {
     return this._data.nftApprovals;
+  }
+
+  public get ntfTokenApprovals(): StreamEvmNftTokenApproval[] {
+    return this._data.ntfTokenApprovals;
   }
 
   get nftTransfers() {
