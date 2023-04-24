@@ -2,8 +2,7 @@ import { Core, CoreProvider } from '@moralisweb3/common-core';
 import { EvmApiConfigSetup } from './config/EvmApiConfigSetup';
 
 import { ClientEvmApi } from './generated/ClientEvmApi';
-
-const BASE_URL = 'https://deep-index.moralis.io/api/v2';
+import { EvmApiConfig } from './config/EvmApiConfig';
 
 export class EvmApi extends ClientEvmApi {
   public static readonly moduleName = 'evmApi';
@@ -13,7 +12,7 @@ export class EvmApi extends ClientEvmApi {
   }
 
   private constructor(core: Core) {
-    super(EvmApi.moduleName, core, BASE_URL);
+    super(EvmApi.moduleName, core, () => core.config.get(EvmApiConfig.evmApiBaseUrl));
   }
 
   public setup() {

@@ -15,11 +15,13 @@ export interface EvmUtilsConfigValues {
 // @moralisweb3/evm-api
 export interface EvmApiConfigValues {
   defaultEvmApiChain: EvmChainish;
+  evmApiBaseUrl: string;
 }
 
 // @moralisweb3/sol-api
 export interface SolApiConfigValues {
   defaultSolNetwork: SolNetworkish;
+  solApiBaseUrl: string;
 }
 
 export type MoralisCoreConfigValues =
