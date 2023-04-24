@@ -19,7 +19,7 @@ describe('getNativeBalancesForAddressesOperation', () => {
     const request: Required<GetNativeBalancesForAddressesRequest> = {
       chain: EvmChain.create(chain, core),
       toBlock: 123,
-      walletAddresses: addresses.map((address) => EvmAddress.create(address, core)),
+      walletAddresses: addresses.map((address) => EvmAddress.create(address)),
     };
 
     const serializedRequest = getNativeBalancesForAddressesOperation.serializeRequest(request, core);

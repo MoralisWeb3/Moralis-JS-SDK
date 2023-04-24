@@ -26,7 +26,7 @@ export class StreamNativeBalance implements MoralisDataObject {
 
   private static parse(input: StreamNativeBalanceInput, core: Core): StreamNativeBalanceData {
     return {
-      address: EvmAddress.create(input.address, core),
+      address: EvmAddress.create(input.address),
       balance: EvmNative.create(input.balance, 'wei'),
     };
   }
@@ -62,7 +62,7 @@ export class StreamNativeBalance implements MoralisDataObject {
   toJSON(): StreamNativeBalanceJSON {
     const { address, balance } = this._data;
     return {
-      address: address.format(),
+      address: address.toJSON(),
       balance: balance.format(),
     };
   }

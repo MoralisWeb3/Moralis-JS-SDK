@@ -91,7 +91,7 @@ function getRequestUrlParams(request: GetWalletTransactionsRequest, core: Core) 
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     disable_total: request.disableTotal,
     include: request.include,
   };
@@ -106,7 +106,7 @@ function serializeRequest(request: GetWalletTransactionsRequest, core: Core) {
     toDate: request.toDate,
     cursor: request.cursor,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
     include: request.include,
   };
@@ -121,7 +121,7 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsJSONRequest, core:
     toDate: jsonRequest.toDate,
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
     include: jsonRequest.include,
   };

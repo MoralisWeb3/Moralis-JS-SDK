@@ -56,6 +56,7 @@ describe('EvmStreamResult', () => {
         ERC1155: [],
         ERC721: [],
       },
+      ntfTokenApprovals: [],
       nftTransfers: [],
       retries: 0,
       txs: [],

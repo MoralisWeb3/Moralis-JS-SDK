@@ -17,7 +17,7 @@ describe('getNFTTradesOperation', () => {
 
     const request: Required<GetNFTTradesRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       marketplace: 'opensea',
       fromBlock: 10,
       toBlock: '20',

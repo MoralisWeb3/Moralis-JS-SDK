@@ -1,27 +1,20 @@
-import {
-  Core,
-  CoreProvider,
-  EvmAddressFormat,
-  Config,
-  CoreErrorCode,
-  CoreError,
-  MoralisData,
-} from '@moralisweb3/common-core';
+import { CoreErrorCode, CoreError } from '@moralisweb3/common-core';
 import { isAddress, getAddress } from '@ethersproject/address';
-import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
 
 /**
  * This can be any valid EVM address, formatted as lowercase or checksum.
  * @example "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359"
  * @example "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
  */
-export type EvmAddressInput = string;
+export type EvmAddressInput = EvmAddress | string;
+
+export type EvmAddressJSON = string;
 
 /**
  * Valid input for a new EvmAddress instance.
  * This can be an existing EvmAddress or a valid address string as lowercase, or checksum format.
  */
-export type EvmAddressish = EvmAddress | EvmAddressInput;
+export type EvmAddressish = EvmAddressInput;
 
 /**
  * A representation of an address on the EVM network.
@@ -31,7 +24,7 @@ export type EvmAddressish = EvmAddress | EvmAddressInput;
  *
  * @category DataType
  */
-export class EvmAddress implements MoralisData {
+export class EvmAddress {
   /**
    * @returns EvmAddress instance of the zero address: "0x0000000000000000000000000000000000000000"
    * @example `EvmAddress.ZERO_ADDRESS`
@@ -50,12 +43,15 @@ export class EvmAddress implements MoralisData {
    * const address = EvmAddress.ZERO_ADDRESS
    * ```
    */
-  public static create(address: EvmAddressish, core?: Core) {
+  public static create(address: EvmAddressInput) {
     if (address instanceof EvmAddress) {
       return address;
     }
-    const finalCore = core || CoreProvider.getDefault();
-    return new EvmAddress(address, finalCore.config);
+    return new EvmAddress(address);
+  }
+
+  public static fromJSON(address: string) {
+    return new EvmAddress(address);
   }
 
   /**
@@ -63,15 +59,15 @@ export class EvmAddress implements MoralisData {
    */
   private _value: string;
 
-  public constructor(address: EvmAddressInput, private readonly config: Config) {
+  private constructor(address: string) {
     this._value = EvmAddress.parse(address);
   }
 
-  private static parse(address: EvmAddressInput) {
+  private static parse(address: string) {
     if (!isAddress(address)) {
       throw new CoreError({
         code: CoreErrorCode.INVALID_ARGUMENT,
-        message: 'Invalid address provided',
+        message: `Invalid address provided: ${address}`,
       });
     }
     return getAddress(address);
@@ -81,7 +77,7 @@ export class EvmAddress implements MoralisData {
    * Check the equality between two Evm addresses
    * @example `EvmAddress.equals("0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359", "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359")`
    */
-  static equals(addressA: EvmAddressish, addressB: EvmAddressish) {
+  static equals(addressA: EvmAddressInput, addressB: EvmAddressInput) {
     return EvmAddress.create(addressA)._value === EvmAddress.create(addressB)._value;
   }
 
@@ -89,30 +85,8 @@ export class EvmAddress implements MoralisData {
    * Checks the equality of the current address with another evm address
    * @example `address.equals("0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359")`
    */
-  equals(address: EvmAddressish) {
+  equals(address: EvmAddressInput) {
     return EvmAddress.equals(this, address);
-  }
-
-  /**
-   * Formats the address to a specific format.
-   * If no formatStyle is provided as argument, it will use the `formatEvmAddress` set in the config.
-   * @example `address.format() // "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"`
-   */
-  format(style?: EvmAddressFormat) {
-    const formatStyle = style ?? this.config.get(CommonEvmUtilsConfig.formatEvmAddress);
-
-    if (formatStyle === 'checksum') {
-      return this.checksum;
-    }
-
-    if (formatStyle === 'lowercase') {
-      return this.lowercase;
-    }
-
-    throw new CoreError({
-      code: CoreErrorCode.INVALID_ARGUMENT,
-      message: 'Cannot format address, invalid config.formatAddress',
-    });
   }
 
   /**
@@ -129,5 +103,14 @@ export class EvmAddress implements MoralisData {
    */
   get lowercase() {
     return this._value.toLowerCase();
+  }
+
+  /**
+   * Returns a JSON representation of the address.
+   * @returns an address.
+   */
+  public toJSON(): EvmAddressJSON {
+    // We convert to lowercase because we want to keep backwards compatibility.
+    return this.lowercase;
   }
 }

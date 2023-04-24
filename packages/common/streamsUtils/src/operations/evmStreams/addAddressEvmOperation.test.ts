@@ -14,7 +14,7 @@ describe('AddAddressEvmOperation', () => {
 
     const request: Required<AddAddressEvmRequest> = {
       id: 'eu-central-1',
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
     };
 
     const serializedRequest = addAddressEvmOperation.serializeRequest(request, core);
@@ -39,7 +39,7 @@ describe('AddAddressEvmOperation', () => {
 
     const request: Required<AddAddressEvmRequest> = {
       id: 'eu-central-1',
-      address: addresses.map((address) => EvmAddress.create(address, core)),
+      address: addresses.map((address) => EvmAddress.create(address)),
     };
 
     const serializedRequest = addAddressEvmOperation.serializeRequest(request, core);

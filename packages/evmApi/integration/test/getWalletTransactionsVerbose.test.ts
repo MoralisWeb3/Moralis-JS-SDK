@@ -78,6 +78,8 @@ describe('getWalletTransactionsVerbose', () => {
         address: '0x7dE3085b3190B3a787822Ee16F23be010f5F868',
         chain: '0x1',
       }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"[C0005] Invalid address provided: 0x7dE3085b3190B3a787822Ee16F23be010f5F868"`,
+    );
   });
 });

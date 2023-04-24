@@ -57,7 +57,7 @@ function getRequestBody(request: RequestBindRequest, core: Core) {
   return {
     addresses: request.addresses.map((address) => ({
       blockchainType: address.blockchainType,
-      address: EvmAddress.create(address.address, core).checksum,
+      address: EvmAddress.create(address.address).checksum,
     })),
   };
 }
@@ -70,7 +70,7 @@ function serializeRequest(request: RequestBindRequest, core: Core) {
   return {
     addresses: request.addresses.map((address) => ({
       blockchainType: address.blockchainType,
-      address: EvmAddress.create(address.address, core).checksum,
+      address: EvmAddress.create(address.address).checksum,
     })),
   };
 }
@@ -79,7 +79,7 @@ function deserializeRequest(jsonRequest: RequestBindJSONRequest, core: Core): Re
   return {
     addresses: jsonRequest.addresses.map((address) => ({
       blockchainType: address.blockchainType,
-      address: EvmAddress.create(address.address, core),
+      address: EvmAddress.create(address.address),
     })),
   };
 }

@@ -11,6 +11,7 @@ export class EvmStreamResultFormatter {
         ERC721: data.nftApprovals.ERC721.map((value) => value.toJSON()),
         ERC1155: data.nftApprovals.ERC1155.map((value) => value.toJSON()),
       },
+      ntfTokenApprovals: data.ntfTokenApprovals.map((value) => value.toJSON()),
       chain: data.chain.format(),
       block: data.block.toJSON(),
       logs: data.logs.map((value) => value.toJSON()),

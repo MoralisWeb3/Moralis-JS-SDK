@@ -23,7 +23,7 @@ describe('getWalletTransactions', () => {
     expect(response.raw.total).toBe(2000);
     expect(result[0].blockHash).toBe('0x0372c302e3c52e8f2e15d155e2c545e6d802e479236564af052759253b20fd86');
     expect(result[0].blockNumber.toString()).toBe('12526958');
-    expect(result[0].from.format()).toBe('0xd4a3bebd824189481fc45363602b83c9c7e9cbdf');
+    expect(result[0].from.checksum).toBe('0xd4a3BebD824189481FC45363602b83C9c7e9cbDf');
     expect(result[0].gas?.toString()).toBe('6721975');
 
     expect(result[0].internalTransactions.length).toBe(1);
@@ -47,6 +47,8 @@ describe('getWalletTransactions', () => {
         address: '0x7dE3085b3190B3a787822Ee16F23be010f5F868',
         chain: '0x5',
       }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"[C0005] Invalid address provided: 0x7dE3085b3190B3a787822Ee16F23be010f5F868"`,
+    );
   });
 });

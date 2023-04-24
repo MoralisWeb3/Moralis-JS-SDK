@@ -2,14 +2,16 @@ import {
   Core,
   Camelize,
   PaginatedOperation,
-  toCamelCase,
   maybe,
   DateInput,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNative, EvmNftTrade } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
+import { EvmTrade } from '../../generated';
+
+// TODO: this operation is replaced by the generated code. We need to remove this file.
 
 type OperationId = 'getNFTTrades';
 
@@ -75,7 +77,7 @@ export const getNFTTradesOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -87,21 +89,8 @@ function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse, request: GetNFTTradesRequest, core: Core) {
-  return (jsonResponse.result ?? []).map((trade) =>
-    EvmNftTrade.create({
-      ...toCamelCase(trade),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      sellerAddress: EvmAddress.create(trade.seller_address, core),
-      buyerAddress: EvmAddress.create(trade.buyer_address, core),
-      marketplaceAddress: EvmAddress.create(trade.marketplace_address, core),
-      priceTokenAddress: maybe(trade.price_token_address, (address) => EvmAddress.create(address, core)),
-      tokenAddress: EvmAddress.create(trade.token_address as string, core),
-      price: EvmNative.create(trade.price, 'wei'),
-      blockTimestamp: new Date(trade.block_timestamp),
-      tokenIds: trade.token_ids as string[],
-    }),
-  );
+function deserializeResponse(jsonResponse: GetNFTTradesJSONResponse) {
+  return (jsonResponse.result ?? []).map((trade) => EvmTrade.fromJSON(trade));
 }
 
 function serializeRequest(request: GetNFTTradesRequest, core: Core) {
@@ -114,7 +103,7 @@ function serializeRequest(request: GetNFTTradesRequest, core: Core) {
     marketplace: request.marketplace,
     cursor: request.cursor,
     limit: request.limit,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
   };
 }
@@ -129,7 +118,7 @@ function deserializeRequest(jsonRequest: GetNFTTradesJSONRequest, core: Core): G
     marketplace: jsonRequest.marketplace,
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
   };
 }

@@ -58,8 +58,8 @@ function getRequestUrlParams(request: AddAddressEvmRequest) {
 function getRequestBody(request: AddAddressEvmRequest, core: Core) {
   return {
     address: Array.isArray(request.address)
-      ? request.address.map((a) => EvmAddress.create(a, core).checksum)
-      : EvmAddress.create(request.address, core).checksum,
+      ? request.address.map((a) => EvmAddress.create(a).checksum)
+      : EvmAddress.create(request.address).checksum,
   };
 }
 
@@ -79,8 +79,8 @@ function serializeRequest(request: AddAddressEvmRequest, core: Core) {
   return {
     id: request.id,
     address: Array.isArray(request.address)
-      ? request.address.map((a) => EvmAddress.create(a, core).checksum)
-      : EvmAddress.create(request.address, core).checksum,
+      ? request.address.map((a) => EvmAddress.create(a).checksum)
+      : EvmAddress.create(request.address).checksum,
   };
 }
 
@@ -88,7 +88,7 @@ function deserializeRequest(jsonRequest: AddAddressEvmJSONRequest, core: Core) {
   return {
     id: jsonRequest.id,
     address: Array.isArray(jsonRequest.address)
-      ? jsonRequest.address.map((a) => EvmAddress.create(a, core))
-      : EvmAddress.create(jsonRequest.address, core),
+      ? jsonRequest.address.map((a) => EvmAddress.create(a))
+      : EvmAddress.create(jsonRequest.address),
   };
 }

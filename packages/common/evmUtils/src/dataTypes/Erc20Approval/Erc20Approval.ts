@@ -35,9 +35,9 @@ export class Erc20Approval implements MoralisDataObject {
   static parse = (data: Erc20ApprovalInput, core: Core): Erc20ApprovalData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    contractAddress: EvmAddress.create(data.contractAddress, core),
-    fromWallet: EvmAddress.create(data.fromWallet, core),
-    toWallet: EvmAddress.create(data.toWallet, core),
+    contractAddress: EvmAddress.create(data.contractAddress),
+    fromWallet: EvmAddress.create(data.fromWallet),
+    toWallet: EvmAddress.create(data.toWallet),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     blockNumber: BigNumber.create(data.blockNumber),
     value: BigNumber.create(data.value),
@@ -78,10 +78,10 @@ export class Erc20Approval implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      contractAddress: data.contractAddress.format(),
+      contractAddress: data.contractAddress.toJSON(),
       blockNumber: data.blockNumber.toString(),
-      toWallet: data.toWallet.format(),
-      fromWallet: data.fromWallet.format(),
+      toWallet: data.toWallet.toJSON(),
+      fromWallet: data.fromWallet.toJSON(),
       value: data.value.toString(),
     };
   }

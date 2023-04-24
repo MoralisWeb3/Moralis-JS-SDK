@@ -47,11 +47,11 @@ export class EvmNftTransfer implements MoralisDataObject {
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     transactionIndex: maybe(data.transactionIndex, (index) => +index),
     transactionType: maybe(data.transactionType),
-    fromAddress: maybe(data.fromAddress, (address) => EvmAddress.create(address, core)),
-    toAddress: EvmAddress.create(data.toAddress, core),
-    tokenAddress: EvmAddress.create(data.tokenAddress, core),
+    fromAddress: maybe(data.fromAddress, (address) => EvmAddress.create(address)),
+    toAddress: EvmAddress.create(data.toAddress),
+    tokenAddress: EvmAddress.create(data.tokenAddress),
     value: maybe(data.value, EvmNative.create),
-    operator: maybe(data.operator, (operator) => EvmAddress.create(operator, core)),
+    operator: maybe(data.operator, (operator) => EvmAddress.create(operator)),
     logIndex: +data.logIndex,
   });
 
@@ -107,11 +107,11 @@ export class EvmNftTransfer implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      fromAddress: data.fromAddress ? data.fromAddress.format() : undefined,
-      toAddress: data.toAddress.format(),
-      tokenAddress: data.tokenAddress.format(),
+      fromAddress: data.fromAddress ? data.fromAddress.toJSON() : undefined,
+      toAddress: data.toAddress.toJSON(),
+      tokenAddress: data.tokenAddress.toJSON(),
       value: data.value ? data.value.format() : undefined,
-      operator: data.operator ? data.operator.format() : undefined,
+      operator: data.operator ? data.operator.toJSON() : undefined,
       blockNumber: data.blockNumber.toString(),
     };
   }

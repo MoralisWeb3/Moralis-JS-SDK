@@ -39,7 +39,7 @@ export class Auth extends ApiModule {
   }
 
   private constructor(core: Core) {
-    super(Auth.moduleName, core, BASE_URL);
+    super(Auth.moduleName, core, () => BASE_URL);
   }
 
   public setup() {
