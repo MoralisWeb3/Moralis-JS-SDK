@@ -12,9 +12,7 @@ export class AptosApi extends AbstractClient {
     if (!core) {
       core = CoreProvider.getDefault();
     }
-    const requestController = RequestController.create(core);
-    const baseUrlResolver = new AptosApiBaseUrlResolver(core);
-    const operationResolver = new OperationV3Resolver(baseUrlResolver, core.config, requestController);
+    const operationResolver = AptosOperationV3ResolverFactory.create(core);
     return new AptosApi(operationResolver);
   }
 
@@ -38,8 +36,15 @@ export class AptosApi extends AbstractClient {
     };
   }
 }
+export class AptosOperationV3ResolverFactory {
+  public static create(core: Core) {
+    const requestController = RequestController.create(core);
+    const baseUrlResolver = new AptosApiBaseUrlResolver(core);
+    return new OperationV3Resolver(baseUrlResolver, core.config, requestController);
+  }
+}
 
-class AptosApiBaseUrlResolver implements OperationV3UrlBaseResolver {
+export class AptosApiBaseUrlResolver implements OperationV3UrlBaseResolver {
   public constructor(private readonly core: Core) {}
 
   public resolve(request: unknown): string {

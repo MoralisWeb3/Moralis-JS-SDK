@@ -1,11 +1,17 @@
-import { OperationV3Parser } from './OperationParser';
-import { TypeScriptOutput } from './imported/output/TypeScriptOutput';
-import { operations as aptosOperations } from '@moralisweb3/common-aptos-utils';
+import { Project } from 'ts-morph';
+import { OperationV3FileReader } from './OperationV3FileReader';
 
 function main() {
-  const output = new TypeScriptOutput();
-  const operantionV3Parser = new OperationV3Parser(aptosOperations);
-  const parsedOperations = operantionV3Parser.parse();
-  console.log(parsedOperations);
+  const project = new Project();
+  const sourceFiles = project.addSourceFilesAtPaths([
+    'E:/Work/Moralis/Moralis-JS-SDK/packages/common/aptosUtils/src/generated/operations/!(index|operations).ts',
+  ]);
+
+  sourceFiles.map((sourceFile) => {
+    const opV3FileReader = OperationV3FileReader.create(sourceFile);
+    const opV3Info = opV3FileReader.read();
+    console.log('opV3Info:', JSON.stringify(opV3Info, null, 2));
+  });
 }
+
 main();
