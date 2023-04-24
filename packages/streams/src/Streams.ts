@@ -39,7 +39,7 @@ export class Streams extends ApiModule {
   }
 
   private constructor(core: Core) {
-    super(Streams.moduleName, core, BASE_URL);
+    super(Streams.moduleName, core, () => BASE_URL);
   }
 
   public setup() {

@@ -3,12 +3,17 @@ import { ApiUtils, ApiUtilsConfig } from '@moralisweb3/api-utils';
 import { EvmApi } from './EvmApi';
 
 describe('EvmApi', () => {
+  function setupEvmApi() {
+    const core = Core.create();
+    const apiUtils = ApiUtils.create(core);
+    const evmApi = EvmApi.create(core);
+    core.registerModules([apiUtils, evmApi]);
+    return { core, evmApi };
+  }
+
   it('supports multi-tenancy', async () => {
-    function createEvmApi(apiKey: string): EvmApi {
-      const core = Core.create();
-      const apiUtils = ApiUtils.create(core);
-      const evmApi = EvmApi.create(core);
-      core.registerModules([apiUtils, evmApi]);
+    function setupMultiTenancyEvmApi(apiKey: string): EvmApi {
+      const { core, evmApi } = setupEvmApi();
       core.config.set(ApiUtilsConfig.apiKey, apiKey);
       return evmApi;
     }
@@ -30,9 +35,9 @@ describe('EvmApi', () => {
     });
 
     const alfaApiKey = 'alfa-api-key';
-    const alfa = createEvmApi(alfaApiKey);
+    const alfa = setupMultiTenancyEvmApi(alfaApiKey);
     const betaApiKey = 'beta-api-key';
-    const beta = createEvmApi(betaApiKey);
+    const beta = setupMultiTenancyEvmApi(betaApiKey);
 
     const alfaVersion = await alfa.utils.web3ApiVersion();
     expect(alfaVersion.result.version).toEqual(mockedVersion);
@@ -43,5 +48,20 @@ describe('EvmApi', () => {
     expect(lastApiKey).toEqual(betaApiKey);
 
     jest.restoreAllMocks();
+  });
+
+  it('returns default baseUrl', () => {
+    const { evmApi } = setupEvmApi();
+
+    expect(evmApi.baseUrl).toBe('https://deep-index.moralis.io/api/v2');
+  });
+
+  it('supports custom baseUrl', () => {
+    const customBaseUrl = 'https://custom-evm-api-url.com';
+
+    const { core, evmApi } = setupEvmApi();
+    core.config.set('evmApiBaseUrl', customBaseUrl);
+
+    expect(evmApi.baseUrl).toBe(customBaseUrl);
   });
 });
