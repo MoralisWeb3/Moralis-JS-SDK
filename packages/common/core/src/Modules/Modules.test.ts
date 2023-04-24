@@ -22,7 +22,7 @@ class TestModule extends Module {
 
 class TestApiModule extends ApiModule {
   public constructor(core: Core) {
-    super(TEST_API_MODULE_NAME, core, 'http://foo');
+    super(TEST_API_MODULE_NAME, core, () => 'http://foo');
   }
   public setup(): void {
     // Nothing
