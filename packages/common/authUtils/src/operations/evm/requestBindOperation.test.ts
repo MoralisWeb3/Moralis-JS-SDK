@@ -16,7 +16,7 @@ describe('evmRequestChallengeOperation', () => {
     const request: Required<RequestBindRequest> = {
       addresses: addresses.map((address) => ({
         blockchainType: 'evm',
-        address: EvmAddress.create(address, core),
+        address: EvmAddress.create(address),
       })),
     };
 

@@ -13,7 +13,7 @@ describe('resolveAddressOperation', () => {
     const address = '0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359';
 
     const request: Required<ResolveAddressRequest> = {
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
     };
 
     const serializedRequest = resolveAddressOperation.serializeRequest(request, core);

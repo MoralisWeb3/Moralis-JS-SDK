@@ -79,7 +79,7 @@ function getRequestUrlParams(request: GetMultipleNFTsRequest, core: Core) {
 function getRequestBody(request: GetMultipleNFTsRequest, core: Core) {
   return {
     tokens: request.tokens.map((token) => ({
-      token_address: EvmAddress.create(token.tokenAddress, core).lowercase,
+      token_address: EvmAddress.create(token.tokenAddress).lowercase,
       token_id: token.tokenId,
     })),
     normalizeMetadata: request.normalizeMetadata,
@@ -101,7 +101,7 @@ function deserializeResponse(jsonResponse: GetMultipleNFTsJSONResponse, request:
         ...toCamelCase(nft),
         chain: EvmChainResolver.resolve(request.chain, core),
         amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        ownerOf: EvmAddress.create(nft.ownerOf),
         lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
         lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
         media: maybe(nft.media, (media) =>
@@ -124,7 +124,7 @@ function serializeRequest(request: GetMultipleNFTsRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     normalizeMetadata: request.normalizeMetadata,
     tokens: request.tokens.map((token) => ({
-      tokenAddress: EvmAddress.create(token.tokenAddress, core).lowercase,
+      tokenAddress: EvmAddress.create(token.tokenAddress).lowercase,
       tokenId: token.tokenId,
     })),
     mediaItems: request.mediaItems,
@@ -136,7 +136,7 @@ function deserializeRequest(jsonRequest: GetMultipleNFTsJSONRequest, core: Core)
     chain: EvmChain.create(jsonRequest.chain, core),
     normalizeMetadata: jsonRequest.normalizeMetadata,
     tokens: jsonRequest.tokens.map((token) => ({
-      tokenAddress: EvmAddress.create(token.tokenAddress, core),
+      tokenAddress: EvmAddress.create(token.tokenAddress),
       tokenId: token.tokenId,
     })),
     mediaItems: jsonRequest.mediaItems,

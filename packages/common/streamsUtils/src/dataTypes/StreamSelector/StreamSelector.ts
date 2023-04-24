@@ -106,4 +106,8 @@ export class StreamSelector implements MoralisData {
   get value() {
     return this._value;
   }
+
+  public toJSON() {
+    return this.value;
+  }
 }

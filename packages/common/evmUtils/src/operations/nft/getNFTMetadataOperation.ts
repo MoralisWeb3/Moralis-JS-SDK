@@ -57,7 +57,7 @@ export const getNFTMetadataOperation: Operation<
 function getRequestUrlParams(request: GetNFTMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     tokenId: request.tokenId,
     format: request.format,
     normalizeMetadata: request.normalizeMetadata,
@@ -73,7 +73,7 @@ function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse, request: 
     {
       ...nft,
       chain: EvmChainResolver.resolve(request.chain, core),
-      ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf, core) : undefined,
+      ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf) : undefined,
       lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
       lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
       media: maybe(nft.media, (media) =>
@@ -94,7 +94,7 @@ function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     format: request.format,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     tokenId: request.tokenId,
     normalizeMetadata: request.normalizeMetadata,
     mediaItems: request.mediaItems,
@@ -105,7 +105,7 @@ function deserializeRequest(jsonRequest: GetNFTMetadataJSONRequest, core: Core):
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
     format: jsonRequest.format,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     tokenId: jsonRequest.tokenId,
     normalizeMetadata: jsonRequest.normalizeMetadata,
     mediaItems: jsonRequest.mediaItems,

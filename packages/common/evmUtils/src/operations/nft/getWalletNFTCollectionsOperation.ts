@@ -61,7 +61,7 @@ export const getWalletNFTCollectionsOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetWalletNFTCollectionsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     disable_total: request.disableTotal,
@@ -78,7 +78,7 @@ function deserializeResponse(
       {
         ...toCamelCase(collection),
         chain: EvmChainResolver.resolve(request.chain, core),
-        tokenAddress: EvmAddress.create(collection.token_address, core),
+        tokenAddress: EvmAddress.create(collection.token_address),
       },
       core,
     ),
@@ -90,7 +90,7 @@ function serializeRequest(request: GetWalletNFTCollectionsRequest, core: Core) {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
   };
 }
@@ -103,7 +103,7 @@ function deserializeRequest(
     chain: EvmChain.create(jsonRequest.chain, core),
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
   };
 }

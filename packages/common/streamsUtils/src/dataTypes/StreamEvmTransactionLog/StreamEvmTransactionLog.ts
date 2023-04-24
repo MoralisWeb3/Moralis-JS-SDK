@@ -41,7 +41,7 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
       ...data,
       chain: EvmChain.create(data.chain, core),
       logIndex: +data.logIndex,
-      address: EvmAddress.create(data.address, core),
+      address: EvmAddress.create(data.address),
       topic0: maybe(data.topic0),
       topic1: maybe(data.topic1),
       topic2: maybe(data.topic2),
@@ -112,7 +112,7 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
     return {
       ...data,
       chain: chain.format(),
-      address: address.format(),
+      address: address.toJSON(),
       triggers: triggers?.map((trigger) => trigger.format()),
     };
   }

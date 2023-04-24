@@ -64,7 +64,7 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     from_block: maybe(request.fromBlock, String),
     to_block: maybe(request.toBlock, String),
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
@@ -85,9 +85,9 @@ function deserializeResponse(
       {
         ...toCamelCase(transfer),
         chain: EvmChainResolver.resolve(request.chain, core),
-        address: EvmAddress.create(transfer.address, core),
-        toAddress: EvmAddress.create(transfer.to_address, core),
-        fromAddress: EvmAddress.create(transfer.from_address, core),
+        address: EvmAddress.create(transfer.address),
+        toAddress: EvmAddress.create(transfer.to_address),
+        fromAddress: EvmAddress.create(transfer.from_address),
         value: BigNumber.create(transfer.value),
         blockTimestamp: new Date(transfer.block_timestamp),
       },
@@ -99,7 +99,7 @@ function deserializeResponse(
 function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     fromBlock: request.fromBlock,
     toBlock: request.toBlock,
     fromDate: request.fromDate,
@@ -116,7 +116,7 @@ function deserializeRequest(
 ): GetWalletTokenTransfersRequest {
   return {
     chain: EvmChain.create(jsonRequest.chain, core),
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,

@@ -74,7 +74,7 @@ export const getContractNFTsOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetContractNFTsRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     format: request.format,
     limit: maybe(request.limit, String),
     totalRanges: maybe(request.totalRanges, String),
@@ -94,7 +94,7 @@ function deserializeResponse(jsonResponse: GetContractNFTsJSONResponse, request:
       {
         ...toCamelCase(nft),
         chain,
-        ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf, core) : undefined,
+        ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf) : undefined,
         lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
         lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
         media: maybe(nft.media, (media) =>
@@ -120,7 +120,7 @@ function serializeRequest(request: GetContractNFTsRequest, core: Core) {
     totalRanges: request.totalRanges,
     range: request.range,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     normalizeMetadata: request.normalizeMetadata,
     disableTotal: request.disableTotal,
     mediaItems: request.mediaItems,
@@ -135,7 +135,7 @@ function deserializeRequest(jsonRequest: GetContractNFTsJSONRequest, core: Core)
     totalRanges: jsonRequest.totalRanges,
     range: jsonRequest.range,
     cursor: jsonRequest.cursor,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     normalizeMetadata: jsonRequest.normalizeMetadata,
     disableTotal: jsonRequest.disableTotal,
     mediaItems: jsonRequest.mediaItems,

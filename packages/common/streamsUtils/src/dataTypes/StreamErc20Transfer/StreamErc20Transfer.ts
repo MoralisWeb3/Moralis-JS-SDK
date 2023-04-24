@@ -41,10 +41,10 @@ export class StreamErc20Transfer implements MoralisDataObject {
     return {
       ...data,
       chain,
-      from: EvmAddress.create(data.from, core),
-      to: EvmAddress.create(data.to, core),
+      from: EvmAddress.create(data.from),
+      to: EvmAddress.create(data.to),
       logIndex: +data.logIndex,
-      contract: EvmAddress.create(data.contract, core),
+      contract: EvmAddress.create(data.contract),
       value: BigNumber.create(data.value),
       valueWithDecimals: maybe(data.valueWithDecimals),
       tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
@@ -114,9 +114,9 @@ export class StreamErc20Transfer implements MoralisDataObject {
     return {
       ...data,
       chain: chain.format(),
-      from: from.format(),
-      to: to.format(),
-      contract: contract.format(),
+      from: from.toJSON(),
+      to: to.toJSON(),
+      contract: contract.toJSON(),
       value: value.toString(),
       triggers: triggers?.map((trigger) => trigger.format()),
     };

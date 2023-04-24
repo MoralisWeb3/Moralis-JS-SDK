@@ -1,7 +1,11 @@
-import { ConfigKey } from '@moralisweb3/common-core';
-import { EvmChainish } from '@moralisweb3/common-evm-utils';
+import { ConfigKey, EvmChainish } from '@moralisweb3/common-core';
 
 export const EvmApiConfig = {
+  evmApiBaseUrl: {
+    name: 'evmApiBaseUrl',
+    defaultValue: 'https://deep-index.moralis.io/api/v2',
+  } as ConfigKey<string>,
+
   defaultEvmApiChain: {
     name: 'defaultEvmApiChain',
     defaultValue: '0x1',

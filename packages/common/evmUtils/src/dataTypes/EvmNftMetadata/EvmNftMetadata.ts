@@ -93,7 +93,7 @@ export class EvmNftMetadata implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      tokenAddress: data.tokenAddress.format(),
+      tokenAddress: data.tokenAddress.toJSON(),
     };
   }
 

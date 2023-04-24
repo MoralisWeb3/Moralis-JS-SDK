@@ -44,8 +44,8 @@ export class EvmTransaction implements MoralisDataObject {
   }
   static parse(data: EvmTransactionInput, core: Core): EvmTransactionData {
     return {
-      from: EvmAddress.create(data.from, core),
-      to: maybe(data.to, (to) => EvmAddress.create(to, core)),
+      from: EvmAddress.create(data.from),
+      to: maybe(data.to, (to) => EvmAddress.create(to)),
       nonce: maybe(data.nonce, BigNumber.create),
       data: maybe(data.data),
       value: maybe(data.value, (val) => EvmNative.create(val, 'wei')),
@@ -64,7 +64,7 @@ export class EvmTransaction implements MoralisDataObject {
       cumulativeGasUsed: BigNumber.create(data.cumulativeGasUsed),
       gasUsed: BigNumber.create(data.gasUsed),
 
-      contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address, core)),
+      contractAddress: maybe(data.contractAddress, (address) => EvmAddress.create(address)),
       receiptRoot: maybe(data.receiptRoot),
       receiptStatus: maybe(data.receiptStatus, (status) => +status),
 
@@ -117,8 +117,8 @@ export class EvmTransaction implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      to: data.to?.format(),
-      from: data.from?.format(),
+      to: data.to?.toJSON(),
+      from: data.from?.toJSON(),
       nonce: data.nonce?.toString(),
       gas: data.gas?.toString(),
       gasPrice: data.gasPrice?.toString(),
@@ -126,7 +126,7 @@ export class EvmTransaction implements MoralisDataObject {
       cumulativeGasUsed: data.cumulativeGasUsed?.toString(),
       value: data.value?.toString(),
       chain: data.chain?.format(),
-      contractAddress: data.contractAddress?.format(),
+      contractAddress: data.contractAddress?.toJSON(),
       logs: data.logs.map((log) => log.toJSON()),
       internalTransactions: data.internalTransactions.map((transaction) => transaction.toJSON()),
       signature: data.signature?.toJSON(),

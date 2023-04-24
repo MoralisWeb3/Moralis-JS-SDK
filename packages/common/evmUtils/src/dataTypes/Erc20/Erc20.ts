@@ -43,7 +43,7 @@ export class Erc20Token implements MoralisDataObject {
     decimals: +value.decimals,
     name: value.name,
     symbol: value.symbol,
-    contractAddress: EvmAddress.create(value.contractAddress, core),
+    contractAddress: EvmAddress.create(value.contractAddress),
     logo: maybe(value.logo),
     logoHash: maybe(value.logoHash),
     thumbnail: maybe(value.thumbnail),
@@ -104,7 +104,7 @@ export class Erc20Token implements MoralisDataObject {
     const value = this._value;
     return {
       ...value,
-      contractAddress: value.contractAddress.format(),
+      contractAddress: value.contractAddress.toJSON(),
       chain: value.chain.format(),
     };
   }

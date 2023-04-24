@@ -21,7 +21,7 @@ describe('getContractLogsOperation', () => {
       fromBlock: '123',
       toDate: new Date(toDate),
       fromDate: new Date(fromDate),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       limit: 100,
       topic0: 'topic0',
       topic1: 'topic1',

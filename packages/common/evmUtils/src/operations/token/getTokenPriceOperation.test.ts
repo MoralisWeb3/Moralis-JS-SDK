@@ -14,7 +14,7 @@ describe('getTokenPriceOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetTokenPriceRequest> = {
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       chain: EvmChain.create(chain, core),
       exchange: 'pancakeswapv2',
       toBlock: 20,

@@ -17,9 +17,9 @@ describe('getTokenAllowanceOperation', () => {
 
     const request: Required<GetTokenAllowanceRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
-      ownerAddress: EvmAddress.create(ownerAddress, core),
-      spenderAddress: EvmAddress.create(spenderAddress, core),
+      address: EvmAddress.create(address),
+      ownerAddress: EvmAddress.create(ownerAddress),
+      spenderAddress: EvmAddress.create(spenderAddress),
     };
 
     const serializedRequest = getTokenAllowanceOperation.serializeRequest(request, core);

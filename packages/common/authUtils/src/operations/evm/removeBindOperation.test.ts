@@ -15,7 +15,7 @@ describe('removeBindOperation', () => {
     const request: Omit<Required<RemoveBindRequest>, 'publicKey'> = {
       profileId: '0x0b2bbac1251651c0cbbdbbb29fed5a03adc8b05a2a9eb10a02aaa489b9c1f8ff',
       blockchainType: 'evm',
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
     };
 
     const serializedRequest = removeBindOperation.serializeRequest(request, core);

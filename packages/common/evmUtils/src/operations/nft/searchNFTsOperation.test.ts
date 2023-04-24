@@ -17,7 +17,7 @@ describe('searchNFTsOperation', () => {
 
     const request: Required<SearchNFTsRequest> = {
       chain: EvmChain.create(chain, core),
-      addresses: addresses.map((address) => EvmAddress.create(address, core)),
+      addresses: addresses.map((address) => EvmAddress.create(address)),
       q: 'Pancake',
       filter: 'name',
       format: 'decimal',

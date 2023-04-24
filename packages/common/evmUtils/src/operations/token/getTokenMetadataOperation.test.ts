@@ -14,7 +14,7 @@ describe('getTokenMetadataOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetTokenMetadataRequest> = {
-      addresses: addresses.map((address) => EvmAddress.create(address, core)),
+      addresses: addresses.map((address) => EvmAddress.create(address)),
       chain: EvmChain.create(chain, core),
     };
 

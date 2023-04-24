@@ -3,7 +3,7 @@ import express from 'express';
 import axios from 'axios';
 import { errorHandler } from '../middlewares/errorHandler';
 import { operations } from 'moralis/common-sol-utils';
-import { operations as evmOperations } from 'moralis/common-evm-utils';
+import { operationsV2 as evmOperations } from 'moralis/common-evm-utils';
 import { convertOperationToDescriptor } from '@moralisweb3/api-utils';
 
 const proxyRouter = express.Router();

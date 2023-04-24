@@ -53,7 +53,7 @@ function getRequestUrlParams(request: GetNativeBalancesForAddressesRequest, core
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     to_block: maybe(request.toBlock, String),
-    wallet_addresses: request.walletAddresses?.map((address) => EvmAddress.create(address, core).checksum),
+    wallet_addresses: request.walletAddresses?.map((address) => EvmAddress.create(address).checksum),
   };
 }
 
@@ -68,7 +68,7 @@ function deserializeResponse(
     blockTimestamp: chainBalances.block_timestamp,
     totalBalance: EvmNative.create(chainBalances.total_balance, 'wei'),
     walletBalances: chainBalances.wallet_balances.map((walletBalance) => ({
-      address: EvmAddress.create(walletBalance.address, core),
+      address: EvmAddress.create(walletBalance.address),
       balance: EvmNative.create(walletBalance.balance, 'wei'),
     })),
   }));
@@ -78,7 +78,7 @@ function serializeRequest(request: GetNativeBalancesForAddressesRequest, core: C
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     toBlock: request.toBlock,
-    walletAddresses: request.walletAddresses?.map((address) => EvmAddress.create(address, core).checksum),
+    walletAddresses: request.walletAddresses?.map((address) => EvmAddress.create(address).checksum),
   };
 }
 
@@ -89,6 +89,6 @@ function deserializeRequest(
   return {
     chain: EvmChainResolver.resolve(jsonRequest.chain, core),
     toBlock: jsonRequest.toBlock,
-    walletAddresses: jsonRequest.walletAddresses?.map((address) => EvmAddress.create(address, core)),
+    walletAddresses: jsonRequest.walletAddresses?.map((address) => EvmAddress.create(address)),
   };
 }

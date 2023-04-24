@@ -35,8 +35,8 @@ export class Erc20Burn implements MoralisDataObject {
   static parse = (data: Erc20BurnInput, core: Core): Erc20BurnData => ({
     ...data,
     chain: EvmChain.create(data.chain, core),
-    contractAddress: EvmAddress.create(data.contractAddress, core),
-    fromWallet: EvmAddress.create(data.fromWallet, core),
+    contractAddress: EvmAddress.create(data.contractAddress),
+    fromWallet: EvmAddress.create(data.fromWallet),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     blockNumber: BigNumber.create(data.blockNumber),
     value: BigNumber.create(data.value),
@@ -77,9 +77,9 @@ export class Erc20Burn implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      contractAddress: data.contractAddress.format(),
+      contractAddress: data.contractAddress.toJSON(),
       blockNumber: data.blockNumber.toString(),
-      fromWallet: data.fromWallet.format(),
+      fromWallet: data.fromWallet.toJSON(),
       value: data.value.toString(),
     };
   }

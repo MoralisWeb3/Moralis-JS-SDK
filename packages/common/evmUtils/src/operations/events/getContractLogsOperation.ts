@@ -90,7 +90,7 @@ function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
     topic3: request.topic3,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     disable_total: request.disableTotal,
   };
 }
@@ -109,7 +109,7 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     topic3: request.topic3,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     disableTotal: request.disableTotal,
   };
 }
@@ -128,7 +128,7 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core)
     topic3: jsonRequest.topic3,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
   };
 }
