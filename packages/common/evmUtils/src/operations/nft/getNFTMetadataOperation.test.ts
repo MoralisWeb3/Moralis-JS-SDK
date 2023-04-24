@@ -15,7 +15,7 @@ describe('getNFTMetadataOperation', () => {
 
     const request: Required<GetNFTMetadataRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       tokenId: '123',
       format: 'decimal',
       normalizeMetadata: false,

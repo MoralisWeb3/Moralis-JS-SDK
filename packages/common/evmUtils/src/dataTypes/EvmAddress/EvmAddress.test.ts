@@ -24,18 +24,18 @@ describe('EvmAddress', () => {
   it('should create a new EvmAddress based on a lowercased address', () => {
     const address = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
 
-    expect(address.format()).toBe(TEST_ADDRESS_LOWERCASE);
+    expect(address.lowercase).toBe(TEST_ADDRESS_LOWERCASE);
   });
 
   it('should create a new EvmAddress based on a checksum address', () => {
     const address = EvmAddress.create(TEST_ADDRESS_CHECKSUM);
 
-    expect(address.format()).toBe(TEST_ADDRESS_LOWERCASE);
+    expect(address.lowercase).toBe(TEST_ADDRESS_LOWERCASE);
   });
 
   it('should throw an error when creating with an invalid address', () => {
     expect(() => EvmAddress.create(TEST_INVALID_ADDRESS)).toThrowErrorMatchingInlineSnapshot(
-      `"[C0005] Invalid address provided"`,
+      `"[C0005] Invalid address provided: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000"`,
     );
   });
 
@@ -52,7 +52,7 @@ describe('EvmAddress', () => {
   it('should return formatting in lowercase when specified', () => {
     const address = EvmAddress.create(TEST_ADDRESS_CHECKSUM);
 
-    const value = address.format('lowercase');
+    const value = address.lowercase;
 
     expect(value).toBe(TEST_ADDRESS_LOWERCASE);
   });
@@ -60,35 +60,9 @@ describe('EvmAddress', () => {
   it('should return formatting in checksum when specified', () => {
     const address = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
 
-    const value = address.format('checksum');
+    const value = address.checksum;
 
     expect(value).toBe(TEST_ADDRESS_CHECKSUM);
-  });
-
-  it('should format in lowercase by default', () => {
-    const address = EvmAddress.create(TEST_ADDRESS_CHECKSUM);
-
-    const value = address.format();
-
-    expect(value).toBe(TEST_ADDRESS_LOWERCASE);
-  });
-
-  it('should format in checksum by default if specified in the config', () => {
-    core.config.set('formatEvmAddress', 'checksum');
-    const address = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
-    const value = address.format();
-
-    expect(value).toBe(TEST_ADDRESS_CHECKSUM);
-  });
-
-  it('should throw an error when trying to format in an unknown way', () => {
-    // Should not happen when using correct typescript / correct types
-    const address = EvmAddress.create(TEST_ADDRESS_LOWERCASE);
-
-    //@ts-ignore
-    expect(() => address.format('')).toThrowErrorMatchingInlineSnapshot(
-      `"[C0005] Cannot format address, invalid config.formatAddress"`,
-    );
   });
 
   /**

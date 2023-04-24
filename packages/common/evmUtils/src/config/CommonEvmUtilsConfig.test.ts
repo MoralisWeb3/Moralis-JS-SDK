@@ -1,4 +1,4 @@
-import { Config, ConfigKey, EvmAddressFormat, EvmChainIdFormat } from '@moralisweb3/common-core';
+import { Config, ConfigKey, EvmChainIdFormat } from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfig } from './CommonEvmUtilsConfig';
 import { CommonEvmUtilsConfigSetup } from './CommonEvmUtilsConfigSetup';
 
@@ -19,5 +19,4 @@ describe('CommonEvmUtilsConfigSetup', () => {
   });
 
   testSetAndGet<EvmChainIdFormat>(CommonEvmUtilsConfig.formatEvmChainId, 'decimal');
-  testSetAndGet<EvmAddressFormat>(CommonEvmUtilsConfig.formatEvmAddress, 'checksum');
 });

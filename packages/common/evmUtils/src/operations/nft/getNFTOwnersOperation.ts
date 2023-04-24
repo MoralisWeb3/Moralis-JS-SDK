@@ -64,7 +64,7 @@ export const getNFTOwnersOperation: PaginatedOperation<
 function getRequestUrlParams(request: GetNFTOwnersRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
-    address: EvmAddress.create(request.address, core).lowercase,
+    address: EvmAddress.create(request.address).lowercase,
     format: request.format,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
@@ -83,7 +83,7 @@ function deserializeResponse(jsonResponse: GetNFTOwnersJSONResponse, request: Ge
       {
         ...nft,
         chain: EvmChainResolver.resolve(request.chain, core),
-        ownerOf: EvmAddress.create(nft.ownerOf, core),
+        ownerOf: EvmAddress.create(nft.ownerOf),
         lastMetadataSync: new Date(nft.lastMetadataSync),
         lastTokenUriSync: new Date(nft.lastTokenUriSync),
         media: maybe(nft.media, (media) =>
@@ -107,7 +107,7 @@ function serializeRequest(request: GetNFTOwnersRequest, core: Core) {
     format: request.format,
     limit: request.limit,
     cursor: request.cursor,
-    address: EvmAddress.create(request.address, core).checksum,
+    address: EvmAddress.create(request.address).checksum,
     normalizeMetadata: request.normalizeMetadata,
     disableTotal: request.disableTotal,
     mediaItems: request.mediaItems,
@@ -120,7 +120,7 @@ function deserializeRequest(jsonRequest: GetNFTOwnersJSONRequest, core: Core): G
     format: jsonRequest.format,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
-    address: EvmAddress.create(jsonRequest.address, core),
+    address: EvmAddress.create(jsonRequest.address),
     normalizeMetadata: jsonRequest.normalizeMetadata,
     disableTotal: jsonRequest.disableTotal,
     mediaItems: jsonRequest.mediaItems,

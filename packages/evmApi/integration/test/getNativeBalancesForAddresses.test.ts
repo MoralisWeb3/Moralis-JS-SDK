@@ -37,6 +37,8 @@ describe('getNativeBalancesForAddresses', () => {
       evmApi.balance.getNativeBalancesForAddresses({
         walletAddresses: ['0x7dE3085b3190B3a787822Ee16F23be010f5F868', '0xE92d1A43df510F82C66382592a047d288f85226f'],
       }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`"[C0005] Invalid address provided"`);
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"[C0005] Invalid address provided: 0x7dE3085b3190B3a787822Ee16F23be010f5F868"`,
+    );
   });
 });

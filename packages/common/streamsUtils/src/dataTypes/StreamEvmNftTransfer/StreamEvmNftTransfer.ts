@@ -40,11 +40,11 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     return {
       ...data,
       chain: EvmChain.create(data.chain, core),
-      to: EvmAddress.create(data.to, core),
-      contract: EvmAddress.create(data.contract, core),
-      from: EvmAddress.create(data.from, core),
+      to: EvmAddress.create(data.to),
+      contract: EvmAddress.create(data.contract),
+      from: EvmAddress.create(data.from),
       logIndex: +data.logIndex,
-      operator: maybe(data.operator, (operator) => EvmAddress.create(operator, core)),
+      operator: maybe(data.operator, (operator) => EvmAddress.create(operator)),
       tokenId: data.tokenId,
       transactionHash: data.transactionHash,
       amount: +data.amount,
@@ -123,10 +123,10 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     return {
       ...data,
       chain: data.chain.format(),
-      from: data.from.format(),
-      to: data.to.format(),
-      contract: data.contract.format(),
-      operator: data.operator?.format(),
+      from: data.from.toJSON(),
+      to: data.to.toJSON(),
+      contract: data.contract.toJSON(),
+      operator: data.operator?.toJSON(),
       triggers: data.triggers?.map((trigger) => trigger.format()),
     };
   }

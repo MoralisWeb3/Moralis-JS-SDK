@@ -12,7 +12,6 @@ import {
   getNFTMetadataOperation,
   getNFTOwnersOperation,
   getNFTTokenIdOwnersOperation,
-  getNFTTradesOperation,
   getNFTTransfersByBlockOperation,
   getNFTTransfersFromToBlockOperation,
   getNFTTransfersOperation,
@@ -44,10 +43,9 @@ import {
   getWalletTransactionsVerboseOperation,
   getInternalTransactionsOperation,
 } from './transaction';
-import { endpointWeightsOperation, web3ApiVersionOperation, runContractFunctionOperation } from './utils';
+import { runContractFunctionOperation } from './utils';
 
-export const operations = [
-  endpointWeightsOperation,
+export const operationsV2 = [
   getBlockOperation,
   getContractEventsOperation,
   getContractLogsOperation,
@@ -67,7 +65,6 @@ export const operations = [
   getNFTMetadataOperation,
   getNFTOwnersOperation,
   getNFTTokenIdOwnersOperation,
-  getNFTTradesOperation,
   getNFTTransfersByBlockOperation,
   getNFTTransfersFromToBlockOperation,
   getNFTTransfersOperation,
@@ -95,5 +92,4 @@ export const operations = [
   searchNFTsOperation,
   syncNFTContractOperation,
   uploadFolderOperation,
-  web3ApiVersionOperation,
 ];

@@ -29,7 +29,11 @@ export type InputEvmNative = BigNumberish;
  * Valid input for a new EvmNative instance.
  * This can be an existing {@link EvmNative} or a valid {@link InputEvmNative} type
  */
-export type EvmNativeish = InputEvmNative | EvmNative;
+export type EvmNativeish = EvmNativeInput;
+
+export type EvmNativeInput = InputEvmNative | EvmNative;
+
+export type EvmNativeJSON = string;
 
 /**
  * The EvmNative class is a MoralisData that references to the value of an EVM native currency (like ETH, BNB etc.)
@@ -81,6 +85,10 @@ export class EvmNative implements MoralisData {
       return native;
     }
     return new EvmNative(native, unit);
+  }
+
+  public static fromJSON(json: EvmNativeJSON) {
+    return EvmNative.create(json, 'wei');
   }
 
   private constructor(native: InputEvmNative, unit: UnitOrDecimals = 'ether') {
@@ -186,5 +194,9 @@ export class EvmNative implements MoralisData {
    */
   public get ether(): string {
     return this.rawValue.toDecimal(unitToDecimals['ether']);
+  }
+
+  public toJSON(): EvmNativeJSON {
+    return this.toString();
   }
 }

@@ -19,8 +19,8 @@ describe('getPairAddressOperation', () => {
       toBlock: '123',
       toDate: new Date(toDate),
       exchange: 'pancakeswapv2',
-      token0Address: EvmAddress.create(address, core),
-      token1Address: EvmAddress.create(address, core),
+      token0Address: EvmAddress.create(address),
+      token1Address: EvmAddress.create(address),
     };
 
     const serializedRequest = getPairAddressOperation.serializeRequest(request, core);

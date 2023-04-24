@@ -10,11 +10,11 @@ export class MappingResolver {
   public constructor(private readonly mappings: Mappings) {}
 
   public tryResolveByTypeName(typeName: string): TypeMapping | undefined {
-    return this.mappings.types.find((m) => m.typeName === typeName);
+    return this.mappings.types.find((m) => m.typeNames.includes(typeName));
   }
 
   public tryResolveBy$ref($ref: string): RefMapping | undefined {
-    return this.mappings.refs.find((r) => r.$ref === $ref);
+    return this.mappings.refs.find((r) => r.refs.includes($ref));
   }
 
   public tryResolveByOperationParameterName(name: string): OperationParameterMapping | undefined {

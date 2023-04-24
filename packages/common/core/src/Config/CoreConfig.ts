@@ -2,7 +2,6 @@ import { ConfigKey } from './Config';
 
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'off';
 export type BuildEnvironment = 'browser' | 'node' | 'react-native';
-export type EvmAddressFormat = 'lowercase' | 'checksum';
 export type EvmChainIdFormat = 'hex' | 'decimal';
 export type EvmConnector = string;
 export type Network = 'Evm' | 'Solana' | 'Aptos';

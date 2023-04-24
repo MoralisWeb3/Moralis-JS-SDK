@@ -1,6 +1,11 @@
 import { EvmApi } from '@moralisweb3/evm-api';
 import Core, { UnknownOperation } from '@moralisweb3/common-core';
-import { operations as evmOperations } from 'moralis/common-evm-utils';
+import {
+  endpointWeightsOperation,
+  operationsV2 as evmOperationsV2,
+  getNFTTradesOperation,
+  web3ApiVersionOperation,
+} from 'moralis/common-evm-utils';
 import { operations as solOperations } from 'moralis/common-sol-utils';
 import { operations as authOperations } from '@moralisweb3/common-auth-utils';
 import { Auth } from '@moralisweb3/auth';
@@ -42,8 +47,16 @@ export class Module {
   }
 }
 
+const allEvmOperations = [
+  ...evmOperationsV2,
+  // TODO: I've added these 3 operations manually here but this file should use a converter V2 -> V3.
+  endpointWeightsOperation,
+  web3ApiVersionOperation,
+  getNFTTradesOperation,
+];
+
 const modules: Module[] = [
-  new Module(EvmApi.moduleName, evmOperations as UnknownOperation[]),
+  new Module(EvmApi.moduleName, allEvmOperations as UnknownOperation[]),
   new Module(SolApi.moduleName, solOperations as UnknownOperation[]),
   new Module(Auth.moduleName, authOperations as UnknownOperation[]),
 ];

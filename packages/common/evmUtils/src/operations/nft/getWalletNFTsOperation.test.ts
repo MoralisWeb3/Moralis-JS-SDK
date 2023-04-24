@@ -16,10 +16,10 @@ describe('getWalletNFTsOperation', () => {
 
     const request: Required<GetWalletNFTsRequest> = {
       chain: EvmChain.create(chain, core),
-      address: EvmAddress.create(address, core),
+      address: EvmAddress.create(address),
       format: 'decimal',
       limit: 100,
-      tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address, core)),
+      tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address)),
       cursor: 'CURSOR1',
       normalizeMetadata: false,
       disableTotal: true,
