@@ -7488,6 +7488,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@moralisweb3/package-generator@workspace:packages/packageGenerator":
+  version: 0.0.0-use.local
+  resolution: "@moralisweb3/package-generator@workspace:packages/packageGenerator"
+  dependencies:
+    "@moralisweb3/eslint-config": ^1.0.3
+    eslint: ^8.32.0
+    handlebars: ^4.7.7
+    lodash: ^4.17.21
+    ts-node: ^10.9.1
+    typescript: ^4.9.4
+  languageName: unknown
+  linkType: soft
+
 "@moralisweb3/parse-server@2.18.4, @moralisweb3/parse-server@workspace:packages/parseServer":
   version: 0.0.0-use.local
   resolution: "@moralisweb3/parse-server@workspace:packages/parseServer"
