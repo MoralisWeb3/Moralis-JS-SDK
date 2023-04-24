@@ -1,7 +1,7 @@
 import { Core, CoreProvider } from '@moralisweb3/common-core';
 import { ClientSolApi } from './generated/ClientSolApi';
-
-const BASE_URL = 'https://solana-gateway.moralis.io';
+import { EvmSolApiConfigSetup } from './config/SolApiConfigSetup';
+import { SolApiConfig } from './config/SolApiConfig';
 
 export class SolApi extends ClientSolApi {
   public static readonly moduleName = 'solApi';
@@ -11,11 +11,11 @@ export class SolApi extends ClientSolApi {
   }
 
   private constructor(core: Core) {
-    super(SolApi.moduleName, core, BASE_URL);
+    super(SolApi.moduleName, core, () => core.config.get(SolApiConfig.solApiBaseUrl));
   }
 
   public setup() {
-    // Nothing
+    EvmSolApiConfigSetup.register(this.core.config);
   }
 
   public start() {

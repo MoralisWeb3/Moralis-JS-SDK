@@ -7,11 +7,23 @@ import { Core } from '../Core';
  * It should always be created with:
  * - `name`: name of the module (should be unique)
  * - `core`: the Core instance
- * - `baseUrl`: the base url where of the api
+ * - `baseUrlProvider`: the provider of the base URL.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ApiModule extends Module {
-  public constructor(name: string, core: Core, public readonly baseUrl: string) {
+  private _baseUrl?: string;
+
+  /**
+   * @description The base URL of the API.
+   */
+  public get baseUrl(): string {
+    if (!this._baseUrl) {
+      this._baseUrl = this.baseUrlProvider();
+    }
+    return this._baseUrl;
+  }
+
+  public constructor(name: string, core: Core, private readonly baseUrlProvider: () => string) {
     super(name, core, ModuleType.API);
   }
 }
