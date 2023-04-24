@@ -37,13 +37,6 @@ export class AptosApi extends AbstractClient {
     };
   }
 }
-export class AptosOperationV3ResolverFactory {
-  public static create(core: Core) {
-    const requestController = RequestController.create(core);
-    const baseUrlResolver = new AptosApiBaseUrlResolver(core);
-    return new OperationV3Resolver(baseUrlResolver, core.config, requestController);
-  }
-}
 
 function createBaseUrlResolver(core: Core) {
   return (request: unknown): string => {
