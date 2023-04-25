@@ -93,15 +93,13 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    Erc20Transfer.create(
-      {
-        ...toCamelCase(transfer),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        address: EvmAddress.create(transfer.contract_address),
-        toAddress: EvmAddress.create(transfer.to_wallet),
-        fromAddress: EvmAddress.create(transfer.from_wallet),
-      },
-    ),
+    Erc20Transfer.create({
+      ...toCamelCase(transfer),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      address: EvmAddress.create(transfer.contract_address),
+      toAddress: EvmAddress.create(transfer.to_wallet),
+      fromAddress: EvmAddress.create(transfer.from_wallet),
+    }),
   );
 }
 

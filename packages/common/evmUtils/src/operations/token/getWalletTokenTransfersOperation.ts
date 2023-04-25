@@ -81,18 +81,15 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    Erc20Transfer.create(
-      {
-        ...toCamelCase(transfer),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        address: EvmAddress.create(transfer.address),
-        toAddress: EvmAddress.create(transfer.to_address),
-        fromAddress: EvmAddress.create(transfer.from_address),
-        value: BigNumber.create(transfer.value),
-        blockTimestamp: new Date(transfer.block_timestamp),
-      },
-      core,
-    ),
+    Erc20Transfer.create({
+      ...toCamelCase(transfer),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      address: EvmAddress.create(transfer.address),
+      toAddress: EvmAddress.create(transfer.to_address),
+      fromAddress: EvmAddress.create(transfer.from_address),
+      value: BigNumber.create(transfer.value),
+      blockTimestamp: new Date(transfer.block_timestamp),
+    }),
   );
 }
 

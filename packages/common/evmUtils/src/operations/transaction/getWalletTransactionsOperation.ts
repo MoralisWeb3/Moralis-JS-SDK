@@ -134,38 +134,32 @@ function deserializeResponse(
 ) {
   return (jsonResponse.result ?? []).map((transfer) => {
     const chain = EvmChainResolver.resolve(request.chain, core);
-    return EvmTransaction.create(
-      {
-        cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
-        gasPrice: transfer.gas_price,
-        gasUsed: transfer.receipt_gas_used,
-        index: +transfer.transaction_index,
-        contractAddress: transfer.receipt_contract_address as string | null,
-        receiptRoot: transfer.receipt_root as string | null,
-        receiptStatus: +transfer.receipt_status,
-        chain: EvmChainResolver.resolve(request.chain, core),
-        data: transfer.input,
-        from: transfer.from_address,
-        hash: transfer.hash,
-        nonce: transfer.nonce,
-        value: transfer.value,
-        blockHash: transfer.block_hash,
-        blockNumber: +transfer.block_number,
-        blockTimestamp: new Date(transfer.block_timestamp),
-        gas: transfer.gas ? BigNumber.create(transfer.gas as string) : null,
-        to: transfer.to_address ? (transfer.to_address as string) : null,
-        internalTransactions: (transfer.internal_transactions ?? []).map((jsonInternalTransaction) => {
-          const internalTransaction = toCamelCase(jsonInternalTransaction);
-          return EvmInternalTransaction.create(
-            {
-              chain,
-              ...internalTransaction,
-            },
-            core,
-          );
-        }),
-      },
-      core,
-    );
+    return EvmTransaction.create({
+      cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
+      gasPrice: transfer.gas_price,
+      gasUsed: transfer.receipt_gas_used,
+      index: +transfer.transaction_index,
+      contractAddress: transfer.receipt_contract_address as string | null,
+      receiptRoot: transfer.receipt_root as string | null,
+      receiptStatus: +transfer.receipt_status,
+      chain: EvmChainResolver.resolve(request.chain, core),
+      data: transfer.input,
+      from: transfer.from_address,
+      hash: transfer.hash,
+      nonce: transfer.nonce,
+      value: transfer.value,
+      blockHash: transfer.block_hash,
+      blockNumber: +transfer.block_number,
+      blockTimestamp: new Date(transfer.block_timestamp),
+      gas: transfer.gas ? BigNumber.create(transfer.gas as string) : null,
+      to: transfer.to_address ? (transfer.to_address as string) : null,
+      internalTransactions: (transfer.internal_transactions ?? []).map((jsonInternalTransaction) => {
+        const internalTransaction = toCamelCase(jsonInternalTransaction);
+        return EvmInternalTransaction.create({
+          chain,
+          ...internalTransaction,
+        });
+      }),
+    });
   });
 }

@@ -81,52 +81,46 @@ function deserializeRequest(jsonRequest: GetTransactionJSONRequest): GetTransact
 //TODO: I noticed that the docs comes with a type of "string | unknown" which automatically resolves to "unknown". I think we should fix this in the api, casting for now
 function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: GetTransactionJSONRequest, core: Core) {
   const chain = EvmChainResolver.resolve(request.chain, core);
-  return EvmTransaction.create(
-    {
-      from: jsonResponse.from_address,
-      to: jsonResponse.to_address as string,
-      value: jsonResponse.value,
-      gasPrice: jsonResponse.gas_price,
-      gasUsed: jsonResponse.receipt_gas_used,
-      data: jsonResponse.input,
-      nonce: jsonResponse.nonce,
-      blockHash: jsonResponse.block_hash,
-      blockNumber: jsonResponse.block_number,
-      blockTimestamp: jsonResponse.block_timestamp,
-      index: jsonResponse.transaction_index,
-      chain,
-      hash: jsonResponse.hash,
-      gas: jsonResponse.gas,
-      cumulativeGasUsed: jsonResponse.receipt_cumulative_gas_used,
-      contractAddress: jsonResponse.receipt_contract_address as string,
-      logs: (jsonResponse.logs ?? []).map((log) =>
-        EvmTransactionLog.create(
-          {
-            address: log.address,
-            blockHash: log.block_hash,
-            blockNumber: +log.block_number,
-            data: log.data,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
-            transactionHash: log.transaction_hash,
-            blockTimestamp: log.block_timestamp,
-            logIndex: +log.log_index,
-            transactionIndex: +log.transaction_index,
-            chain,
-          },
-          core,
-        ),
-      ),
-      internalTransactions: (jsonResponse.internal_transactions ?? []).map((jsonInternalTransaction) => {
-        const internalTransaction = toCamelCase(jsonInternalTransaction);
-        return EvmInternalTransaction.create({
-          chain,
-          ...internalTransaction,
-        });
+  return EvmTransaction.create({
+    from: jsonResponse.from_address,
+    to: jsonResponse.to_address as string,
+    value: jsonResponse.value,
+    gasPrice: jsonResponse.gas_price,
+    gasUsed: jsonResponse.receipt_gas_used,
+    data: jsonResponse.input,
+    nonce: jsonResponse.nonce,
+    blockHash: jsonResponse.block_hash,
+    blockNumber: jsonResponse.block_number,
+    blockTimestamp: jsonResponse.block_timestamp,
+    index: jsonResponse.transaction_index,
+    chain,
+    hash: jsonResponse.hash,
+    gas: jsonResponse.gas,
+    cumulativeGasUsed: jsonResponse.receipt_cumulative_gas_used,
+    contractAddress: jsonResponse.receipt_contract_address as string,
+    logs: (jsonResponse.logs ?? []).map((log) =>
+      EvmTransactionLog.create({
+        address: log.address,
+        blockHash: log.block_hash,
+        blockNumber: +log.block_number,
+        data: log.data,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
+        transactionHash: log.transaction_hash,
+        blockTimestamp: log.block_timestamp,
+        logIndex: +log.log_index,
+        transactionIndex: +log.transaction_index,
+        chain,
       }),
-      receiptRoot: jsonResponse.receipt_root as string,
-      receiptStatus: jsonResponse.receipt_status,
-    },
-    core,
-  );
+    ),
+    internalTransactions: (jsonResponse.internal_transactions ?? []).map((jsonInternalTransaction) => {
+      const internalTransaction = toCamelCase(jsonInternalTransaction);
+      return EvmInternalTransaction.create({
+        chain,
+        ...internalTransaction,
+      });
+    }),
+    receiptRoot: jsonResponse.receipt_root as string,
+    receiptStatus: jsonResponse.receipt_status,
+  });
 }
