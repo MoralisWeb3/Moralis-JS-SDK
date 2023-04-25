@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, maybe, BigNumber, CoreProvider, dateInputToDate } from '@moralisweb3/common-core';
+import { MoralisDataObject, maybe, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmNative } from '../EvmNative';
@@ -29,20 +29,19 @@ export class EvmTransaction implements MoralisDataObject {
    * const transaction = EvmTransaction.create(data);
    *```
    */
-  static create(data: EvmTransactionish, core?: Core) {
+  static create(data: EvmTransactionish) {
     if (data instanceof EvmTransaction) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmTransaction(data, finalCore);
+    return new EvmTransaction(data);
   }
 
   protected _data: EvmTransactionData;
 
-  constructor(data: EvmTransactionInput, core: Core) {
-    this._data = EvmTransaction.parse(data, core);
+  constructor(data: EvmTransactionInput) {
+    this._data = EvmTransaction.parse(data);
   }
-  static parse(data: EvmTransactionInput, core: Core): EvmTransactionData {
+  static parse(data: EvmTransactionInput): EvmTransactionData {
     return {
       from: EvmAddress.create(data.from),
       to: maybe(data.to, (to) => EvmAddress.create(to)),
@@ -70,7 +69,7 @@ export class EvmTransaction implements MoralisDataObject {
 
       logs: (data.logs ?? []).map((log) => EvmTransactionLog.create(log)),
       internalTransactions: (data.internalTransactions ?? []).map((transaction) =>
-        EvmInternalTransaction.create(transaction, core),
+        EvmInternalTransaction.create(transaction),
       ),
 
       signature: maybe(data.signature, EvmSignature.create),
@@ -125,7 +124,7 @@ export class EvmTransaction implements MoralisDataObject {
       gasUsed: data.gasUsed?.toString(),
       cumulativeGasUsed: data.cumulativeGasUsed?.toString(),
       value: data.value?.toString(),
-      chain: data.chain?.format(),
+      chain: data.chain?.toJSON(),
       contractAddress: data.contractAddress?.toJSON(),
       logs: data.logs.map((log) => log.toJSON()),
       internalTransactions: data.internalTransactions.map((transaction) => transaction.toJSON()),

@@ -4,6 +4,5 @@ import { EvmApiConfig } from './EvmApiConfig';
 export class EvmApiConfigSetup {
   public static register(config: Config) {
     config.registerKey(EvmApiConfig.evmApiBaseUrl);
-    config.registerKey(EvmApiConfig.defaultEvmApiChain);
   }
 }

@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -55,7 +55,7 @@ function getRequestUrlParams(request: AddAddressEvmRequest) {
   };
 }
 
-function getRequestBody(request: AddAddressEvmRequest, core: Core) {
+function getRequestBody(request: AddAddressEvmRequest) {
   return {
     address: Array.isArray(request.address)
       ? request.address.map((a) => EvmAddress.create(a).checksum)
@@ -75,7 +75,7 @@ function deserializeResponse(jsonResponse: AddAddressEvmJSONResponse) {
   };
 }
 
-function serializeRequest(request: AddAddressEvmRequest, core: Core) {
+function serializeRequest(request: AddAddressEvmRequest) {
   return {
     id: request.id,
     address: Array.isArray(request.address)
@@ -84,7 +84,7 @@ function serializeRequest(request: AddAddressEvmRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: AddAddressEvmJSONRequest, core: Core) {
+function deserializeRequest(jsonRequest: AddAddressEvmJSONRequest) {
   return {
     id: jsonRequest.id,
     address: Array.isArray(jsonRequest.address)

@@ -1,10 +1,4 @@
-import {
-  Core,
-  CoreProvider,
-  MoralisDataFormatted,
-  MoralisDataObject,
-  MoralisDataObjectValue,
-} from '@moralisweb3/common-core';
+import { MoralisDataFormatted, MoralisDataObject, MoralisDataObjectValue } from '@moralisweb3/common-core';
 import { StreamEvmNftTokenApprovalData, StreamEvmNftTokenApprovalish } from './types';
 import { EvmChain } from '@moralisweb3/common-evm-utils';
 
@@ -14,9 +8,8 @@ import { EvmChain } from '@moralisweb3/common-evm-utils';
  * @category DataType
  */
 export class StreamEvmNftTokenApproval implements StreamEvmNftTokenApprovalData, MoralisDataObject {
-  public static create(data: StreamEvmNftTokenApprovalish, core?: Core): StreamEvmNftTokenApproval {
-    const finalCore = core ?? CoreProvider.getDefault();
-    const chain = EvmChain.create(data.chain, finalCore);
+  public static create(data: StreamEvmNftTokenApprovalish): StreamEvmNftTokenApproval {
+    const chain = EvmChain.create(data.chain);
     return new StreamEvmNftTokenApproval({
       ...data,
       chain,
@@ -70,7 +63,7 @@ export class StreamEvmNftTokenApproval implements StreamEvmNftTokenApprovalData,
 
   public toJSON(): MoralisDataObjectValue {
     return {
-      chain: this.chain.format(),
+      chain: this.chain.toJSON(),
       contract: this.contract,
       account: this.account,
       operator: this.operator,
@@ -88,6 +81,7 @@ export class StreamEvmNftTokenApproval implements StreamEvmNftTokenApprovalData,
     return this.toJSON();
   }
 
+  // eslint-disable-next-line complexity
   public equals(value: this): boolean {
     return (
       this.contract === value.contract &&

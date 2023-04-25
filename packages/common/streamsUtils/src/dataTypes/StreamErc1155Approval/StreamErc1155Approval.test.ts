@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc1155Approval } from './StreamErc1155Approval';
 import { mockStreamErc1155Approval } from './StreamErc1155Approval.mock';
 
 const testsInputs = Object.entries(mockStreamErc1155Approval).map(([name, input]) => ({ name, input }));
 
 describe('StreamErc1155Approval', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const approval = StreamErc1155Approval.create(input, core);
+    const approval = StreamErc1155Approval.create(input);
     const output = approval.format();
 
     expect(approval).toBeDefined();
@@ -25,7 +17,7 @@ describe('StreamErc1155Approval', () => {
     let approval: StreamErc1155Approval;
 
     beforeAll(() => {
-      approval = StreamErc1155Approval.create(input, core);
+      approval = StreamErc1155Approval.create(input);
     });
 
     it('should return correct values for all getters', () => {

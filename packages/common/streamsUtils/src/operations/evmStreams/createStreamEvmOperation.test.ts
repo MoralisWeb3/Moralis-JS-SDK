@@ -55,15 +55,12 @@ describe('createStreamEvmOperation', () => {
       advancedOptions: null,
       demo: true,
       triggers: [
-        StreamTrigger.create(
-          {
-            type: 'erc20transfer',
-            contractAddress,
-            functionAbi: balanceOfAbi,
-            inputs: ['$to'],
-          },
-          core,
-        ),
+        StreamTrigger.create({
+          type: 'erc20transfer',
+          contractAddress,
+          functionAbi: balanceOfAbi,
+          inputs: ['$to'],
+        }),
       ],
     };
 

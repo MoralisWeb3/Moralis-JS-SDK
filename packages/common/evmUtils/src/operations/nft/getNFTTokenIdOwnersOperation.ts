@@ -84,25 +84,19 @@ function deserializeResponse(
     const chain = EvmChainResolver.resolve(request.chain, core);
     const nft = toCamelCase(data);
 
-    return EvmNft.create(
-      {
-        ...toCamelCase(nft),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        ownerOf: EvmAddress.create(nft.ownerOf),
-        lastMetadataSync: new Date(nft.lastMetadataSync),
-        lastTokenUriSync: new Date(nft.lastTokenUriSync),
-        media: maybe(nft.media, (media) =>
-          EvmNftMedia.create(
-            {
-              chain,
-              ...toCamelCase(media),
-            },
-            core,
-          ),
-        ),
-      },
-      core,
-    );
+    return EvmNft.create({
+      ...toCamelCase(nft),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      ownerOf: EvmAddress.create(nft.ownerOf),
+      lastMetadataSync: new Date(nft.lastMetadataSync),
+      lastTokenUriSync: new Date(nft.lastTokenUriSync),
+      media: maybe(nft.media, (media) =>
+        EvmNftMedia.create({
+          chain,
+          ...toCamelCase(media),
+        }),
+      ),
+    });
   });
 }
 
@@ -120,9 +114,9 @@ function serializeRequest(request: GetNFTTokenIdOwnersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNFTTokenIdOwnersJSONRequest, core: Core): GetNFTTokenIdOwnersRequest {
+function deserializeRequest(jsonRequest: GetNFTTokenIdOwnersJSONRequest): GetNFTTokenIdOwnersRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     format: jsonRequest.format,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,

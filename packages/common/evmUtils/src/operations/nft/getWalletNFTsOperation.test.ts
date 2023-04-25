@@ -15,7 +15,7 @@ describe('getWalletNFTsOperation', () => {
     const tokenAddresses = ['0xfc0cB34deAe994432fe8a11bF54d90BDf54cA8c1'];
 
     const request: Required<GetWalletNFTsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       format: 'decimal',
       limit: 100,

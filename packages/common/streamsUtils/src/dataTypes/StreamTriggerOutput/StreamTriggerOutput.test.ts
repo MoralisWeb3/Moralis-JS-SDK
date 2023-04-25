@@ -1,17 +1,12 @@
-import { Core } from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
-
 import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { mockStreamTriggerOutput } from './StreamTriggerOutput.mock';
 
 describe('StreamTriggerOutput', () => {
-  let core: Core;
   const input = mockStreamTriggerOutput.BALANCE_TRIGGER;
   let result: StreamTriggerOutput;
 
   beforeAll(() => {
-    core = setupStreamsUtils();
-    result = StreamTriggerOutput.create(input, core);
+    result = StreamTriggerOutput.create(input);
   });
 
   it('should return correct values for all getters', () => {

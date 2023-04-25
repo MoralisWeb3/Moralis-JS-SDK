@@ -93,36 +93,30 @@ function deserializeResponse(jsonResponse: GetWalletNFTsJSONResponse, request: G
   return (jsonResponse.result ?? []).map((data) => {
     const nft = toCamelCase(data);
     const chain = EvmChainResolver.resolve(request.chain, core);
-    return EvmNft.create(
-      {
-        chain: chain,
-        contractType: nft.contractType,
-        tokenAddress: nft.tokenAddress,
-        tokenId: nft.tokenId,
-        tokenUri: nft.tokenUri,
-        metadata: nft.metadata,
-        name: nft.name,
-        symbol: nft.symbol,
-        amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-        blockNumberMinted: nft.blockNumberMinted,
-        blockNumber: nft.blockNumber,
-        ownerOf: EvmAddress.create(nft.ownerOf),
-        tokenHash: nft.tokenHash,
-        lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
-        lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
-        possibleSpam: nft.possibleSpam,
-        media: maybe(nft.media, (media) =>
-          EvmNftMedia.create(
-            {
-              chain,
-              ...toCamelCase(media),
-            },
-            core,
-          ),
-        ),
-      },
-      core,
-    );
+    return EvmNft.create({
+      chain,
+      contractType: nft.contractType,
+      tokenAddress: nft.tokenAddress,
+      tokenId: nft.tokenId,
+      tokenUri: nft.tokenUri,
+      metadata: nft.metadata,
+      name: nft.name,
+      symbol: nft.symbol,
+      amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
+      blockNumberMinted: nft.blockNumberMinted,
+      blockNumber: nft.blockNumber,
+      ownerOf: EvmAddress.create(nft.ownerOf),
+      tokenHash: nft.tokenHash,
+      lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
+      lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
+      possibleSpam: nft.possibleSpam,
+      media: maybe(nft.media, (media) =>
+        EvmNftMedia.create({
+          chain,
+          ...toCamelCase(media),
+        }),
+      ),
+    });
   });
 }
 
@@ -140,9 +134,9 @@ function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest, core: Core): GetWalletNFTsRequest {
+function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest): GetWalletNFTsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     format: jsonRequest.format,
     limit: jsonRequest.limit,
     tokenAddresses: maybe(jsonRequest.tokenAddresses, (addresses) =>

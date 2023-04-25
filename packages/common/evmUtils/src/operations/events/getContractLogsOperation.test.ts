@@ -16,7 +16,7 @@ describe('getContractLogsOperation', () => {
     const fromDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetContractLogsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       toBlock: '123',
       fromBlock: '123',
       toDate: new Date(toDate),

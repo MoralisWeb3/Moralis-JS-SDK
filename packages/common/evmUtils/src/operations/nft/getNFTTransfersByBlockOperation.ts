@@ -73,19 +73,16 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    EvmNftTransfer.create(
-      {
-        ...toCamelCase(transfer),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        tokenAddress: EvmAddress.create(transfer.token_address),
-        toAddress: EvmAddress.create(transfer.to_address),
-        operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
-        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
-        value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
-        blockTimestamp: new Date(transfer.block_timestamp),
-      },
-      core,
-    ),
+    EvmNftTransfer.create({
+      ...toCamelCase(transfer),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      tokenAddress: EvmAddress.create(transfer.token_address),
+      toAddress: EvmAddress.create(transfer.to_address),
+      operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
+      fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
+      value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
+      blockTimestamp: new Date(transfer.block_timestamp),
+    }),
   );
 }
 
@@ -99,9 +96,9 @@ function serializeRequest(request: GetNFTTransfersByBlockRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNFTTransfersByBlockJSONRequest, core: Core): GetNFTTransfersByBlockRequest {
+function deserializeRequest(jsonRequest: GetNFTTransfersByBlockJSONRequest): GetNFTTransfersByBlockRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     blockNumberOrHash: jsonRequest.blockNumberOrHash,

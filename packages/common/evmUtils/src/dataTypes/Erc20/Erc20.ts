@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, maybe, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, maybe } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20Input, Erc20Data } from './types';
@@ -19,27 +19,25 @@ export class Erc20Token implements MoralisDataObject {
    *  Create a new instance of Erc20Token from any valid Erc20Token input
    *
    * @param value - the Erc20Tokenish type
-   * @param core - The MoralisCore instance
    * @example
    * ```ts
    * const token = Erc20Token.create(value);
    * ```
    */
-  public static create(value: Erc20Tokenish, core?: Core) {
+  public static create(value: Erc20Tokenish) {
     if (value instanceof Erc20Token) {
       return value;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new Erc20Token(value, finalCore);
+    return new Erc20Token(value);
   }
 
   private readonly _value: Erc20Data;
 
-  private constructor(value: Erc20Input, core: Core) {
-    this._value = Erc20Token.parse(value, core);
+  private constructor(value: Erc20Input) {
+    this._value = Erc20Token.parse(value);
   }
 
-  static parse = (value: Erc20Input, core: Core): Erc20Data => ({
+  static parse = (value: Erc20Input): Erc20Data => ({
     decimals: +value.decimals,
     name: value.name,
     symbol: value.symbol,
@@ -47,7 +45,7 @@ export class Erc20Token implements MoralisDataObject {
     logo: maybe(value.logo),
     logoHash: maybe(value.logoHash),
     thumbnail: maybe(value.thumbnail),
-    chain: EvmChain.create(value.chain, core),
+    chain: EvmChain.create(value.chain),
     possibleSpam: value.possibleSpam,
   });
 
@@ -105,7 +103,7 @@ export class Erc20Token implements MoralisDataObject {
     return {
       ...value,
       contractAddress: value.contractAddress.toJSON(),
-      chain: value.chain.format(),
+      chain: value.chain.toJSON(),
     };
   }
 

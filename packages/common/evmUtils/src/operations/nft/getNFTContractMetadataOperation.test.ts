@@ -14,7 +14,7 @@ describe('getNFTContractMetadataOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetNFTContractMetadataRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
     };
 

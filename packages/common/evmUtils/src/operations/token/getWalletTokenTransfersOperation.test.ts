@@ -17,7 +17,7 @@ describe('getWalletTokenTransfersOperation', () => {
 
     const request: Required<GetWalletTokenTransfersRequest> = {
       address: EvmAddress.create(address),
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       fromBlock: 10,
       toBlock: 20,
       fromDate: new Date(fromDate),

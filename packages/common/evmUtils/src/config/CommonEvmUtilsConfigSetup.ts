@@ -3,6 +3,6 @@ import { CommonEvmUtilsConfig } from './CommonEvmUtilsConfig';
 
 export class CommonEvmUtilsConfigSetup {
   public static register(config: Config) {
-    config.registerKey(CommonEvmUtilsConfig.formatEvmChainId);
+    config.registerKey(CommonEvmUtilsConfig.defaultEvmApiChain);
   }
 }

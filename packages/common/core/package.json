@@ -35,7 +35,7 @@
     "test": "jest --runInBand --detectOpenHandles --forceExit --ci",
     "test:coverage": "yarn run test  --coverage",
     "test:watch": "yarn run test --watch",
-    "lint": "eslint . --ext .js,.ts,.tsx,jsx",
+    "lint": "yarn run -T eslint . --ext .js,.ts,.tsx,jsx",
     "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
     "build": "yarn prebuild && rollup -c",

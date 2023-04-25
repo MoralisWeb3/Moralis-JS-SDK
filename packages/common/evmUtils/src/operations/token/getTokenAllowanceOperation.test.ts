@@ -16,7 +16,7 @@ describe('getTokenAllowanceOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetTokenAllowanceRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       ownerAddress: EvmAddress.create(ownerAddress),
       spenderAddress: EvmAddress.create(spenderAddress),

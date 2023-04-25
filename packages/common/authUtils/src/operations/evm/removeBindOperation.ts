@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -50,7 +50,7 @@ function getRequestUrlParams() {
   return {};
 }
 
-function getRequestBody(request: RemoveBindRequest, core: Core) {
+function getRequestBody(request: RemoveBindRequest) {
   return {
     blockchainType: request.blockchainType,
     address: EvmAddress.create(request.address).checksum,
@@ -63,7 +63,7 @@ function deserializeResponse(jsonResponse: RemoveBindJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: RemoveBindRequest, core: Core) {
+function serializeRequest(request: RemoveBindRequest) {
   return {
     blockchainType: request.blockchainType,
     address: EvmAddress.create(request.address).checksum,
@@ -72,7 +72,7 @@ function serializeRequest(request: RemoveBindRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: RemoveBindJSONRequest, core: Core): RemoveBindRequest {
+function deserializeRequest(jsonRequest: RemoveBindJSONRequest): RemoveBindRequest {
   return {
     blockchainType: jsonRequest.blockchainType,
     address: EvmAddress.create(jsonRequest.address),

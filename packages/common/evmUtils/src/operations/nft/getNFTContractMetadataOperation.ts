@@ -82,9 +82,9 @@ function serializeRequest(request: GetNFTContractMetadataRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNFTContractMetadataJSONRequest, core: Core): GetNFTContractMetadataRequest {
+function deserializeRequest(jsonRequest: GetNFTContractMetadataJSONRequest): GetNFTContractMetadataRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     address: EvmAddress.create(jsonRequest.address),
   };
 }

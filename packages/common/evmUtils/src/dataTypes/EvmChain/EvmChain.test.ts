@@ -1,25 +1,13 @@
-import { Core } from '@moralisweb3/common-core';
-import { setupEvmUtils } from '../../test/setup';
 import { EvmChain } from './EvmChain';
 
 describe('EvmChain', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */
   it('should create a new EvmChain based on a number', () => {
-    const chain = EvmChain.create(45, core);
+    const chain = EvmChain.create(45);
 
-    expect(chain.format()).toBe('0x2d');
+    expect(chain.toJSON()).toBe('0x2d');
     expect(chain.decimal).toBe(45);
     expect(chain.apiHex).toBe('0x2d');
   });
@@ -27,7 +15,7 @@ describe('EvmChain', () => {
   it('should create a new EvmChain based on a hex-string', () => {
     const chain = EvmChain.create('0x2d');
 
-    expect(chain.format()).toBe('0x2d');
+    expect(chain.toJSON()).toBe('0x2d');
     expect(chain.decimal).toBe(45);
     expect(chain.apiHex).toBe('0x2d');
   });
@@ -35,7 +23,7 @@ describe('EvmChain', () => {
   it('should create a new EvmChain based on a decimal-string', () => {
     const chain = EvmChain.create('45');
 
-    expect(chain.format()).toBe('0x2d');
+    expect(chain.toJSON()).toBe('0x2d');
     expect(chain.decimal).toBe(45);
     expect(chain.apiHex).toBe('0x2d');
   });
@@ -66,7 +54,7 @@ describe('EvmChain', () => {
   it('should create a new EvmChain based on an exported enum', () => {
     const chain = EvmChain.MUMBAI;
 
-    expect(chain.format()).toBe('0x13881');
+    expect(chain.toJSON()).toBe('0x13881');
     expect(chain.decimal).toBe(80001);
     expect(chain.apiHex).toBe('0x13881');
   });
@@ -83,50 +71,6 @@ describe('EvmChain', () => {
     const chainB = EvmChain.create(chainA);
 
     expect(chainA).toBe(chainB);
-  });
-
-  /**
-   * Formatting
-   */
-  it('should return formatting in decimals when specified', () => {
-    const chainA = EvmChain.create('0x1');
-
-    const value = chainA.format('decimal');
-
-    expect(value).toBe(1);
-  });
-
-  it('should return formatting in hex when specified', () => {
-    const chain = EvmChain.create('0x1');
-    const value = chain.format('hex');
-
-    expect(value).toBe('0x1');
-  });
-
-  it('should format in hex by default', () => {
-    const chain = EvmChain.create('0x1');
-    const value = chain.format();
-
-    expect(value).toBe('0x1');
-  });
-
-  it('should format in decimals by default if specified in the config', () => {
-    core.config.set('formatEvmChainId', 'decimal');
-
-    const chain = EvmChain.create('0x1');
-    const value = chain.format();
-
-    expect(value).toBe(1);
-  });
-
-  it('should throw an error when trying to format in an unknown way', () => {
-    // Should not happen when using correct typescript / correct types
-    const chain = EvmChain.create('0x1');
-
-    //@ts-ignore
-    expect(() => chain.format('')).toThrowErrorMatchingInlineSnapshot(
-      `"[C0001] Incorrect type provided, code should not reach here"`,
-    );
   });
 
   /**

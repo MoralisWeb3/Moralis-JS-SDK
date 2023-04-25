@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20BurnInput, Erc20BurnData } from './types';
@@ -17,24 +17,22 @@ export class Erc20Burn implements MoralisDataObject {
    * const burn = Erc20Burn.create(data);
    *```
    */
-  static create(data: Erc20Burn | Erc20BurnInput, core?: Core) {
+  static create(data: Erc20Burn | Erc20BurnInput) {
     if (data instanceof Erc20Burn) {
       return data;
     }
-
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new Erc20Burn(data, finalCore);
+    return new Erc20Burn(data);
   }
 
   private _data: Erc20BurnData;
 
-  constructor(data: Erc20BurnInput, core: Core) {
-    this._data = Erc20Burn.parse(data, core);
+  constructor(data: Erc20BurnInput) {
+    this._data = Erc20Burn.parse(data);
   }
 
-  static parse = (data: Erc20BurnInput, core: Core): Erc20BurnData => ({
+  static parse = (data: Erc20BurnInput): Erc20BurnData => ({
     ...data,
-    chain: EvmChain.create(data.chain, core),
+    chain: EvmChain.create(data.chain),
     contractAddress: EvmAddress.create(data.contractAddress),
     fromWallet: EvmAddress.create(data.fromWallet),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
@@ -76,7 +74,7 @@ export class Erc20Burn implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       contractAddress: data.contractAddress.toJSON(),
       blockNumber: data.blockNumber.toString(),
       fromWallet: data.fromWallet.toJSON(),

@@ -14,7 +14,7 @@ describe('getDateToBlockOperation', () => {
     const date = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetDateToBlockRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       date: new Date(date),
     };
 

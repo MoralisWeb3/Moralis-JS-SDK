@@ -77,9 +77,9 @@ function serializeRequest(request: GetTokenAllowanceRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTokenAllowanceJSONRequest, core: Core): GetTokenAllowanceRequest {
+function deserializeRequest(jsonRequest: GetTokenAllowanceJSONRequest): GetTokenAllowanceRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     ownerAddress: EvmAddress.create(jsonRequest.ownerAddress),
     spenderAddress: EvmAddress.create(jsonRequest.spenderAddress),
     address: EvmAddress.create(jsonRequest.address),

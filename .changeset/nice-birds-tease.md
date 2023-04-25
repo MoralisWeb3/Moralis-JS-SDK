@@ -6,4 +6,4 @@
 'moralis': minor
 ---
 
-**Breaking change**: The `format()` method has been deleted from the `EvmAddress` class. Please format the value by using one of the following properties: `checksum` or `lowercase`.
+**Breaking change**: The `format()` method has been deleted from the `EvmAddress` class and the `EvmChain` class. Please format the value by using a proper class property.

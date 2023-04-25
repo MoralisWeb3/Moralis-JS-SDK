@@ -18,7 +18,7 @@ describe('getNFTTransfersFromToBlockOperation', () => {
     const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetNFTTransfersFromToBlockRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       fromBlock: 123,
       toBlock: 123,
       fromDate: new Date(fromDate),

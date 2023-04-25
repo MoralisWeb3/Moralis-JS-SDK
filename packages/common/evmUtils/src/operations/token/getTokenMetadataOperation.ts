@@ -58,14 +58,11 @@ function getRequestUrlParams(request: GetTokenMetadataRequest, core: Core) {
 function deserializeResponse(jsonResponse: GetTokenMetadataJSONResponse, request: GetTokenMetadataRequest, core: Core) {
   return (jsonResponse ?? []).map((token) => {
     return {
-      token: Erc20Token.create(
-        {
-          ...toCamelCase(token),
-          contractAddress: token.address,
-          chain: EvmChainResolver.resolve(request.chain, core),
-        },
-        core,
-      ),
+      token: Erc20Token.create({
+        ...toCamelCase(token),
+        contractAddress: token.address,
+        chain: EvmChainResolver.resolve(request.chain, core),
+      }),
       blockNumber: token.block_number,
       validated: token.validated,
     };
@@ -79,9 +76,9 @@ function serializeRequest(request: GetTokenMetadataRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTokenMetadataJSONRequest, core: Core): GetTokenMetadataRequest {
+function deserializeRequest(jsonRequest: GetTokenMetadataJSONRequest): GetTokenMetadataRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     addresses: jsonRequest.addresses.map((address) => EvmAddress.create(address)),
   };
 }

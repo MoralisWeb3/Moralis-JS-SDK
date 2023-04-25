@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -53,7 +53,7 @@ function getRequestUrlParams() {
   return {};
 }
 
-function getRequestBody(request: RequestBindRequest, core: Core) {
+function getRequestBody(request: RequestBindRequest) {
   return {
     addresses: request.addresses.map((address) => ({
       blockchainType: address.blockchainType,
@@ -66,7 +66,7 @@ function deserializeResponse(jsonResponse: RequestBindJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: RequestBindRequest, core: Core) {
+function serializeRequest(request: RequestBindRequest) {
   return {
     addresses: request.addresses.map((address) => ({
       blockchainType: address.blockchainType,
@@ -75,7 +75,7 @@ function serializeRequest(request: RequestBindRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: RequestBindJSONRequest, core: Core): RequestBindRequest {
+function deserializeRequest(jsonRequest: RequestBindJSONRequest): RequestBindRequest {
   return {
     addresses: jsonRequest.addresses.map((address) => ({
       blockchainType: address.blockchainType,

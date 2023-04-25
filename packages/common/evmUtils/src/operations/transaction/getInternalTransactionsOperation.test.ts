@@ -13,7 +13,7 @@ describe('getInternalTransactionsOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetInternalTransactionsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f7z',
     };
 

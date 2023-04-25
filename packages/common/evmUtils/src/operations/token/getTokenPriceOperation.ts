@@ -60,7 +60,7 @@ function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse, request: GetTokenPriceRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse) {
   return {
     ...toCamelCase(jsonResponse),
     nativePrice: jsonResponse.nativePrice?.value
@@ -79,9 +79,9 @@ function serializeRequest(request: GetTokenPriceRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTokenPriceJSONRequest, core: Core): GetTokenPriceRequest {
+function deserializeRequest(jsonRequest: GetTokenPriceJSONRequest): GetTokenPriceRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     exchange: jsonRequest.exchange,
     toBlock: jsonRequest.toBlock,
     address: EvmAddress.create(jsonRequest.address),

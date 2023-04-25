@@ -16,7 +16,7 @@ describe('searchNFTsOperation', () => {
     const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<SearchNFTsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       addresses: addresses.map((address) => EvmAddress.create(address)),
       q: 'Pancake',
       filter: 'name',

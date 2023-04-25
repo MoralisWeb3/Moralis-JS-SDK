@@ -14,7 +14,7 @@ describe('getNFTTokenIdOwnersOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetNFTTokenIdOwnersRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       tokenId: '123',
       format: 'decimal',

@@ -1,4 +1,4 @@
-import Core, { CoreProvider, maybe, MoralisDataObject } from '@moralisweb3/common-core';
+import { maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamErc1155ApprovalData, StreamErc1155ApprovalInput, StreamErc1155ApprovalJSON } from './types';
@@ -15,29 +15,27 @@ export class StreamErc1155Approval implements MoralisDataObject {
    * Create a new instance of StreamErc1155Approval
    *
    * @param data - the StreamErc1155Approvalish type
-   * @param core - the Core instance
    * @example
    * ```ts
    * const evmNftApproval = StreamErc1155Approval.create(data);
    * ```
    * @returns an instance of StreamErc1155Approval
    */
-  static create(data: StreamErc1155Approvalish, core?: Core) {
+  static create(data: StreamErc1155Approvalish) {
     if (data instanceof StreamErc1155Approval) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamErc1155Approval(data, finalCore);
+    return new StreamErc1155Approval(data);
   }
 
   private _data: StreamErc1155ApprovalData;
 
-  constructor(data: StreamErc1155ApprovalInput, core: Core) {
-    this._data = StreamErc1155Approval.parse(data, core);
+  constructor(data: StreamErc1155ApprovalInput) {
+    this._data = StreamErc1155Approval.parse(data);
   }
 
-  private static parse = (data: StreamErc1155ApprovalInput, core: Core): StreamErc1155ApprovalData => {
-    const chain = EvmChain.create(data.chain, core);
+  private static parse = (data: StreamErc1155ApprovalInput): StreamErc1155ApprovalData => {
+    const chain = EvmChain.create(data.chain);
     return {
       ...data,
       chain,
@@ -46,9 +44,7 @@ export class StreamErc1155Approval implements MoralisDataObject {
       operator: EvmAddress.create(data.operator),
       contract: EvmAddress.create(data.contract),
       tokenContractType: data.tokenContractType,
-      triggers: maybe(data.triggers, (triggers) =>
-        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
-      ),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger))),
     };
   };
 
@@ -123,7 +119,7 @@ export class StreamErc1155Approval implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       contract: data.contract.toJSON(),
       account: data.account.toJSON(),
       operator: data.operator.toJSON(),

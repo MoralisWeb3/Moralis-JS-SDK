@@ -67,23 +67,19 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse ?? []).map((token) =>
-    Erc20Value.create(
-      token.balance,
-      {
+    Erc20Value.create(token.balance, {
+      decimals: token.decimals,
+      token: {
         decimals: token.decimals,
-        token: {
-          decimals: token.decimals,
-          name: token.name,
-          symbol: token.symbol,
-          contractAddress: token.token_address,
-          logo: token.logo,
-          thumbnail: token.thumbnail,
-          chain: EvmChainResolver.resolve(request.chain, core),
-          possibleSpam: token.possible_spam,
-        },
+        name: token.name,
+        symbol: token.symbol,
+        contractAddress: token.token_address,
+        logo: token.logo,
+        thumbnail: token.thumbnail,
+        chain: EvmChainResolver.resolve(request.chain, core),
+        possibleSpam: token.possible_spam,
       },
-      core,
-    ),
+    }),
   );
 }
 
@@ -98,9 +94,9 @@ function serializeRequest(request: GetWalletTokenBalancesRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetWalletTokenBalancesJSONRequest, core: Core): GetWalletTokenBalancesRequest {
+function deserializeRequest(jsonRequest: GetWalletTokenBalancesJSONRequest): GetWalletTokenBalancesRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     tokenAddresses: maybe(jsonRequest.tokenAddresses, (addresses) =>
       addresses.map((address) => EvmAddress.create(address)),
     ),

@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc20Transfer } from './StreamErc20Transfer';
 import { mockStreamErc20Transfer } from './StreamErc20Transfer.mock';
 
 const testsInputs = Object.entries(mockStreamErc20Transfer).map(([name, input]) => ({ name, input }));
 
 describe('StreamErc20Transfer', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create successfully for: $name', ({ input }) => {
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const output = transfer.format();
 
     expect(transfer).toBeDefined();
@@ -25,7 +17,7 @@ describe('StreamErc20Transfer', () => {
     let transfer: StreamErc20Transfer;
 
     beforeAll(() => {
-      transfer = StreamErc20Transfer.create(input, core);
+      transfer = StreamErc20Transfer.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -97,7 +89,7 @@ describe('StreamErc20Transfer', () => {
     let transfer: StreamErc20Transfer;
 
     beforeAll(() => {
-      transfer = StreamErc20Transfer.create(input, core);
+      transfer = StreamErc20Transfer.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -157,7 +149,7 @@ describe('StreamErc20Transfer', () => {
 
   it('should return true for .equals() on equality match', () => {
     const input = mockStreamErc20Transfer.FULL;
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const isEqual = transfer.equals({
       ...input,
     });
@@ -167,7 +159,7 @@ describe('StreamErc20Transfer', () => {
 
   it('should return false for .equals() on mismatching chain', () => {
     const input = mockStreamErc20Transfer.FULL;
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const isEqual = transfer.equals({
       ...input,
       chain: '0x2',
@@ -178,7 +170,7 @@ describe('StreamErc20Transfer', () => {
 
   it('should return false for .equals() on mismatching logIndex', () => {
     const input = mockStreamErc20Transfer.FULL;
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const isEqual = transfer.equals({
       ...input,
       logIndex: '2',
@@ -189,7 +181,7 @@ describe('StreamErc20Transfer', () => {
 
   it('should return false for .equals() on mismatching transactionHash', () => {
     const input = mockStreamErc20Transfer.FULL;
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const isEqual = transfer.equals({
       ...input,
       transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
@@ -200,7 +192,7 @@ describe('StreamErc20Transfer', () => {
 
   it('should return false for .equals() on mismatching trigger results length', () => {
     const input = mockStreamErc20Transfer.FULL;
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const isEqual = transfer.equals({
       ...input,
       triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
@@ -211,7 +203,7 @@ describe('StreamErc20Transfer', () => {
 
   it('should return false for .equals() on mismatching trigger results', () => {
     const input = mockStreamErc20Transfer.FULL;
-    const transfer = StreamErc20Transfer.create(input, core);
+    const transfer = StreamErc20Transfer.create(input);
     const isEqual = transfer.equals({
       ...input,
       triggers: [

@@ -15,7 +15,7 @@ describe('getPairReservesOperation', () => {
     const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetPairReservesRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       toBlock: '123',
       toDate: new Date(toDate),
       pairAddress: EvmAddress.create(address),

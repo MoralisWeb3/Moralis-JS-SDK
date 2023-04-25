@@ -14,7 +14,7 @@ describe('getNFTOwnersOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetNFTOwnersRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       format: 'decimal',
       limit: 100,

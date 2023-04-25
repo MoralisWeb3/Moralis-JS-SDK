@@ -15,7 +15,7 @@ describe('getNativeBalanceOperation', () => {
 
     const request: Required<GetNativeBalanceRequest> = {
       address: EvmAddress.create(address),
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       toBlock: 123,
     };
 

@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish } from '@moralisweb3/common-evm-utils';
 import { EvmStream, StreamTrigger, StreamTriggerish } from '../../dataTypes';
 import { operations } from '../openapi';
@@ -73,7 +73,7 @@ function getRequestUrlParams(request: UpdateStreamEvmRequest) {
   };
 }
 
-function getRequestBody(request: UpdateStreamEvmRequest, core: Core) {
+function getRequestBody(request: UpdateStreamEvmRequest) {
   return {
     webhookUrl: request.webhookUrl,
     description: request.description,
@@ -85,19 +85,19 @@ function getRequestBody(request: UpdateStreamEvmRequest, core: Core) {
     includeInternalTxs: request.includeInternalTxs,
     includeAllTxLogs: request.includeAllTxLogs,
     getNativeBalances: request.getNativeBalances,
-    chainIds: request.chains?.map((chain) => EvmChain.create(chain, core).apiHex),
+    chainIds: request.chains?.map((chain) => EvmChain.create(chain).apiHex),
     abi: request.abi,
     advancedOptions: request.advancedOptions,
     demo: request.demo,
-    triggers: request.triggers?.map((trigger) => StreamTrigger.create(trigger, core)),
+    triggers: request.triggers?.map((trigger) => StreamTrigger.create(trigger)),
   };
 }
 
-function deserializeResponse(jsonResponse: UpdateStreamEvmJSONResponse, request: UpdateStreamEvmRequest, core: Core) {
-  return EvmStream.create(jsonResponse, core);
+function deserializeResponse(jsonResponse: UpdateStreamEvmJSONResponse) {
+  return EvmStream.create(jsonResponse);
 }
 
-function serializeRequest(request: UpdateStreamEvmRequest, core: Core) {
+function serializeRequest(request: UpdateStreamEvmRequest) {
   return {
     id: request.id,
     webhookUrl: request.webhookUrl,
@@ -109,15 +109,15 @@ function serializeRequest(request: UpdateStreamEvmRequest, core: Core) {
     includeContractLogs: request.includeContractLogs,
     includeInternalTxs: request.includeInternalTxs,
     includeAllTxLogs: request.includeAllTxLogs,
-    chainIds: request.chains?.map((chain) => EvmChain.create(chain, core).apiHex),
+    chainIds: request.chains?.map((chain) => EvmChain.create(chain).apiHex),
     abi: request.abi,
     advancedOptions: request.advancedOptions,
     demo: request.demo,
-    triggers: request.triggers?.map((trigger) => StreamTrigger.create(trigger, core).format()),
+    triggers: request.triggers?.map((trigger) => StreamTrigger.create(trigger).format()),
   };
 }
 
-function deserializeRequest(jsonRequest: UpdateStreamEvmJSONRequest, core: Core): UpdateStreamEvmRequest {
+function deserializeRequest(jsonRequest: UpdateStreamEvmJSONRequest): UpdateStreamEvmRequest {
   return {
     id: jsonRequest.id,
     webhookUrl: jsonRequest.webhookUrl,
@@ -129,10 +129,10 @@ function deserializeRequest(jsonRequest: UpdateStreamEvmJSONRequest, core: Core)
     includeContractLogs: jsonRequest.includeContractLogs,
     includeInternalTxs: jsonRequest.includeInternalTxs,
     includeAllTxLogs: jsonRequest.includeAllTxLogs,
-    chains: jsonRequest.chainIds?.map((chainId) => EvmChain.create(chainId, core)),
+    chains: jsonRequest.chainIds?.map((chainId) => EvmChain.create(chainId)),
     abi: jsonRequest.abi,
     advancedOptions: jsonRequest.advancedOptions,
     demo: jsonRequest.demo,
-    triggers: jsonRequest.triggers?.map((trigger) => StreamTrigger.create(trigger, core)),
+    triggers: jsonRequest.triggers?.map((trigger) => StreamTrigger.create(trigger)),
   };
 }

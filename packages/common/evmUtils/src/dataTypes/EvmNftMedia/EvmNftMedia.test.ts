@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { EvmNftMedia } from './EvmNftMedia';
-import { setupEvmUtils } from '../../test/setup';
 import { EvmNftMediaInput } from './types';
 
 const exampleInput: EvmNftMediaInput = {
@@ -31,16 +29,6 @@ const exampleInput: EvmNftMediaInput = {
 };
 
 describe('EvmNftMedia', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

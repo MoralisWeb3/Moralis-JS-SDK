@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmChain } from '../EvmChain';
 import { EvmBlockish } from './EvmBlock';
 import { EvmSimpleBlockInput, EvmSimpleBlockData } from './types';
@@ -20,24 +20,23 @@ export class EvmSimpleBlock implements MoralisDataObject {
    * @param data - the EvmSimpleBlockish type
    * @example const transaction = EvmSimpleBlock.create(data);
    */
-  static create(data: EvmSimpleBlockish, core?: Core) {
+  static create(data: EvmSimpleBlockish) {
     if (data instanceof EvmSimpleBlock) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmSimpleBlock(data, finalCore);
+    return new EvmSimpleBlock(data);
   }
 
   private _data: EvmSimpleBlockData;
 
-  constructor(data: EvmSimpleBlockInput, core: Core) {
-    this._data = EvmSimpleBlock.parse(data, core);
+  constructor(data: EvmSimpleBlockInput) {
+    this._data = EvmSimpleBlock.parse(data);
   }
 
-  static parse = (data: EvmSimpleBlockInput, core: Core): EvmSimpleBlockData => ({
+  static parse = (data: EvmSimpleBlockInput): EvmSimpleBlockData => ({
     timestamp: dateInputToDate(data.timestamp),
     number: BigNumber.create(data.number),
-    chain: EvmChain.create(data.chain, core),
+    chain: EvmChain.create(data.chain),
     hash: data.hash,
   });
 
@@ -90,7 +89,7 @@ export class EvmSimpleBlock implements MoralisDataObject {
     return {
       ...data,
       number: data.number.toString(),
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
     };
   }
 

@@ -71,9 +71,9 @@ function serializeRequest(request: GetTransactionRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTransactionJSONRequest, core: Core): GetTransactionRequest {
+function deserializeRequest(jsonRequest: GetTransactionJSONRequest): GetTransactionRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     transactionHash: jsonRequest.transactionHash,
     include: jsonRequest.include,
   };

@@ -14,7 +14,7 @@ describe('getBlockOperation', () => {
 
     const request: Required<GetBlockRequest> = {
       blockNumberOrHash: '0x123',
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       include: 'internal_transactions',
     };
 

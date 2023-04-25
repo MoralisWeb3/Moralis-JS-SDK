@@ -14,7 +14,7 @@ describe('reSyncMetadataOperation', () => {
     const chain = '0x10';
 
     const request: Required<ReSyncMetadataRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       tokenId: '123',
       flag: 'metadata',

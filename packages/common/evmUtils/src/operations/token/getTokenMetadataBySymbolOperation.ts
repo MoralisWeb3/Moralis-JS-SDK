@@ -61,14 +61,11 @@ function deserializeResponse(
 ) {
   return (jsonResponse ?? []).map((token) => {
     return {
-      token: Erc20Token.create(
-        {
-          ...toCamelCase(token),
-          contractAddress: token.address,
-          chain: EvmChainResolver.resolve(request.chain, core),
-        },
-        core,
-      ),
+      token: Erc20Token.create({
+        ...toCamelCase(token),
+        contractAddress: token.address,
+        chain: EvmChainResolver.resolve(request.chain, core),
+      }),
       blockNumber: token.block_number,
       validated: token.validated,
     };
@@ -82,12 +79,9 @@ function serializeRequest(request: GetTokenMetadataBySymbolRequest, core: Core) 
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetTokenMetadataBySymbolJSONRequest,
-  core: Core,
-): GetTokenMetadataBySymbolRequest {
+function deserializeRequest(jsonRequest: GetTokenMetadataBySymbolJSONRequest): GetTokenMetadataBySymbolRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     symbols: jsonRequest.symbols,
   };
 }

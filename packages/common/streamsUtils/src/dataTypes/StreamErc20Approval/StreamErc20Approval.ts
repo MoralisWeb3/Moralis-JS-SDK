@@ -1,4 +1,4 @@
-import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { BigNumber, maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamErc20ApprovalData, StreamErc20ApprovalInput, StreamErc20ApprovalJSON } from './types';
@@ -8,36 +8,34 @@ export type StreamErc20Approvalish = StreamErc20ApprovalInput | StreamErc20Appro
 /**
  * The StreamErc20Transfer class is a representation of a erc20 approval that is returned by the Moralis Stream API
  *
- * @category DataType
+ * @category DataTypexw
  */
 export class StreamErc20Approval implements MoralisDataObject {
   /**
    * Create a new instance of StreamErc20Approval
    *
    * @param data - the StreamErc20Approvalish type
-   * @param core - the Core instance
    * @example
    * ```ts
    * const erc20Approval = StreamErc20Approval.create(data);
    * ```
    * @returns an instance of StreamErc20Approval
    */
-  static create(data: StreamErc20Approvalish, core?: Core) {
+  static create(data: StreamErc20Approvalish) {
     if (data instanceof StreamErc20Approval) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamErc20Approval(data, finalCore);
+    return new StreamErc20Approval(data);
   }
 
   private _data: StreamErc20ApprovalData;
 
-  constructor(data: StreamErc20ApprovalInput, core: Core) {
-    this._data = StreamErc20Approval.parse(data, core);
+  constructor(data: StreamErc20ApprovalInput) {
+    this._data = StreamErc20Approval.parse(data);
   }
 
-  private static parse = (data: StreamErc20ApprovalInput, core: Core): StreamErc20ApprovalData => {
-    const chain = EvmChain.create(data.chain, core);
+  private static parse = (data: StreamErc20ApprovalInput): StreamErc20ApprovalData => {
+    const chain = EvmChain.create(data.chain);
     return {
       ...data,
       chain,
@@ -48,9 +46,7 @@ export class StreamErc20Approval implements MoralisDataObject {
       value: BigNumber.create(data.value),
       valueWithDecimals: maybe(data.valueWithDecimals),
       tokenDecimals: data.tokenDecimals === '' ? undefined : +data.tokenDecimals,
-      triggers: maybe(data.triggers, (triggers) =>
-        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
-      ),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger))),
     };
   };
 
@@ -113,7 +109,7 @@ export class StreamErc20Approval implements MoralisDataObject {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return {
       ...data,
-      chain: chain.format(),
+      chain: chain.toJSON(),
       owner: owner.toJSON(),
       spender: spender.toJSON(),
       contract: contract.toJSON(),

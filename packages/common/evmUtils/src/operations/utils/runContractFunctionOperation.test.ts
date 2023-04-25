@@ -15,7 +15,7 @@ describe('runContractFunctionOperation', () => {
 
     const request: Required<RunContractFunctionRequest> = {
       address: EvmAddress.create(address),
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       functionName: 'myFunction',
       params: { x: 1 },
       abi: [

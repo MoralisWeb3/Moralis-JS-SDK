@@ -110,12 +110,9 @@ function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetWalletTokenTransfersJSONRequest,
-  core: Core,
-): GetWalletTokenTransfersRequest {
+function deserializeRequest(jsonRequest: GetWalletTokenTransfersJSONRequest): GetWalletTokenTransfersRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     address: EvmAddress.create(jsonRequest.address),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,

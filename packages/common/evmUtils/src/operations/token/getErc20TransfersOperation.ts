@@ -121,9 +121,9 @@ function serializeRequest(request: GetErc20TransfersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetErc20TransfersJSONRequest, core: Core): GetErc20TransfersRequest {
+function deserializeRequest(jsonRequest: GetErc20TransfersJSONRequest): GetErc20TransfersRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     fromBlock: jsonRequest.fromBlock,

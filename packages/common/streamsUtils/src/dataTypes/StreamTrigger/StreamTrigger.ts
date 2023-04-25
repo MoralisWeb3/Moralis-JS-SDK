@@ -1,4 +1,4 @@
-import Core, { CoreProvider, maybe, MoralisDataObject } from '@moralisweb3/common-core';
+import { maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { StreamSelector, StreamSelectorish } from '../StreamSelector';
 import { StreamTriggerData, StreamTriggerInput, StreamTriggerJSON } from './types';
@@ -13,19 +13,18 @@ export type StreamTriggerish = StreamTrigger | StreamTriggerInput | StreamTrigge
 export class StreamTrigger implements MoralisDataObject {
   private readonly _data: StreamTriggerData;
 
-  constructor(data: StreamTriggerInput, core: Core) {
-    this._data = StreamTrigger.parse(data, core);
+  constructor(data: StreamTriggerInput) {
+    this._data = StreamTrigger.parse(data);
   }
 
-  static create(data: StreamTriggerish, core?: Core) {
+  static create(data: StreamTriggerish) {
     if (data instanceof StreamTrigger) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamTrigger(data, finalCore);
+    return new StreamTrigger(data);
   }
 
-  private static parseSelectorOrAddress(input: StreamSelectorish | EvmAddressish, core: Core) {
+  private static parseSelectorOrAddress(input: StreamSelectorish | EvmAddressish) {
     let result: StreamSelector | EvmAddress;
 
     // If it is not an EvmAddress, it can be a string, but only the ones that are selectors should be treated that way
@@ -38,11 +37,11 @@ export class StreamTrigger implements MoralisDataObject {
     return result;
   }
 
-  private static parse = (data: StreamTriggerInput, core: Core): StreamTriggerData => {
+  private static parse = (data: StreamTriggerInput): StreamTriggerData => {
     const { contractAddress: contractAddressInput, callFrom: callFromInput, ...input } = data;
 
-    const contractAddress = StreamTrigger.parseSelectorOrAddress(contractAddressInput, core);
-    const callFrom = maybe(callFromInput, (value) => StreamTrigger.parseSelectorOrAddress(value, core));
+    const contractAddress = StreamTrigger.parseSelectorOrAddress(contractAddressInput);
+    const callFrom = maybe(callFromInput, (value) => StreamTrigger.parseSelectorOrAddress(value));
 
     return {
       ...input,

@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { StreamEvmTransactionLog } from './StreamEvmTransactionLog';
 import { mockStreamEvmTransactionLogInput } from './StreamEvmTransactionLog.mock';
 
 const testsInputs = Object.entries(mockStreamEvmTransactionLogInput).map(([name, input]) => ({ name, input }));
 
 describe('StreamEvmTransactionLog', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const transactionLog = StreamEvmTransactionLog.create(input, core);
+    const transactionLog = StreamEvmTransactionLog.create(input);
     const output = transactionLog.format();
 
     expect(transactionLog).toBeDefined();
@@ -25,7 +17,7 @@ describe('StreamEvmTransactionLog', () => {
     let transactionLog: StreamEvmTransactionLog;
 
     beforeAll(() => {
-      transactionLog = StreamEvmTransactionLog.create(input, core);
+      transactionLog = StreamEvmTransactionLog.create(input);
     });
 
     it('should return correct values for all getters', () => {

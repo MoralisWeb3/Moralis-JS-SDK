@@ -74,9 +74,9 @@ function serializeRequest(request: GetNFTLowestPriceRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNFTLowestPriceJSONRequest, core: Core): GetNFTLowestPriceRequest {
+function deserializeRequest(jsonRequest: GetNFTLowestPriceJSONRequest): GetNFTLowestPriceRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     days: jsonRequest.days,
     marketplace: jsonRequest.marketplace,
     address: EvmAddress.create(jsonRequest.address),

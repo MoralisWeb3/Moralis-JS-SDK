@@ -8,7 +8,9 @@ export const mockGetMultipleNFTs = MockScenarios.create(
     url: `/nft/getMultipleNFTs`,
     getParams: ({ req, reqBody }) => ({
       normalizeMetadata: req.params.normalizeMetadata,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tokens: (reqBody as any).tokens,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       media_items: (reqBody as any).media_items,
     }),
   },

@@ -14,7 +14,7 @@ describe('getWalletNFTCollectionsOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetWalletNFTCollectionsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       limit: 100,
       cursor: 'CURSOR1',

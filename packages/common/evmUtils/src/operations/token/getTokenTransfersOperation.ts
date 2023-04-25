@@ -110,9 +110,9 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Core): GetTokenTransfersRequest {
+function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest): GetTokenTransfersRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,

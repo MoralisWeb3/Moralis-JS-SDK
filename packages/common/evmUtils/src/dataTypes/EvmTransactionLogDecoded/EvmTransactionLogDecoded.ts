@@ -1,4 +1,3 @@
-import Core, { CoreProvider } from '@moralisweb3/common-core';
 import { EvmTransactionLog } from '../EvmTransactionLog/EvmTransactionLog';
 import { EvmTransactionLogDecodedData, EvmTransactionLogDecodedInput } from './types';
 
@@ -21,25 +20,23 @@ export class EvmTransactionLogDecoded extends EvmTransactionLog {
    * const log = EvmTransactionLogDecoded.create(value, core);
    * ```
    * @param value - A valid EvmTransactionLogDecodedish
-   * @param core - The Core instance
    */
-  static create(value: EvmTransactionLogDecodedish, core?: Core) {
+  static create(value: EvmTransactionLogDecodedish) {
     if (value instanceof EvmTransactionLogDecoded) {
       return value;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmTransactionLogDecoded(value, finalCore);
+    return new EvmTransactionLogDecoded(value);
   }
 
   protected _value;
 
-  constructor(value: EvmTransactionLogDecodedInput, core: Core) {
-    super(value, core);
-    this._value = EvmTransactionLogDecoded.parse(value, core);
+  constructor(value: EvmTransactionLogDecodedInput) {
+    super(value);
+    this._value = EvmTransactionLogDecoded.parse(value);
   }
 
-  static parse(value: EvmTransactionLogDecodedInput, core: Core): EvmTransactionLogDecodedData {
-    const data = super.parse(value, core);
+  static parse(value: EvmTransactionLogDecodedInput): EvmTransactionLogDecodedData {
+    const data = super.parse(value);
     return {
       ...data,
       decodedEvent: value.decodedEvent,

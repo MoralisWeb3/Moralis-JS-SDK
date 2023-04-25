@@ -22,6 +22,7 @@ export interface StreamTriggerData {
 export type StreamTriggerJSON = {
   type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
   contractAddress: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   functionAbi: any;
   inputs?: (string | string[])[];
   topic0?: string;

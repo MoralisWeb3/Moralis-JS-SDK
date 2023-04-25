@@ -1,4 +1,4 @@
-import { Camelize, Core, maybe, PaginatedOperation, PaginatedResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, maybe, PaginatedOperation, PaginatedResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -56,7 +56,7 @@ function getRequestUrlParams(request: GetAddressesEvmRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetAddressesEvmJSONResponse, request: GetAddressesEvmRequest, core: Core) {
+function deserializeResponse(jsonResponse: GetAddressesEvmJSONResponse) {
   return (jsonResponse.result ?? []).map((stream) => ({
     ...stream,
     address: stream.address ? EvmAddress.create(stream.address) : undefined,

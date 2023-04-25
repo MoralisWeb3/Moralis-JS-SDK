@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { StreamEvmNftTransfer } from './StreamEvmNftTransfer';
 import { mockStreamEvmNftTransferInput } from './StreamEvmNftTransfer.mock';
 
 const testsInputs = Object.entries(mockStreamEvmNftTransferInput).map(([name, input]) => ({ name, input }));
 
 describe('StreamEvmNftTransfer', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const transaction = StreamEvmNftTransfer.create(input, core);
+    const transaction = StreamEvmNftTransfer.create(input);
     const output = transaction.format();
 
     expect(transaction).toBeDefined();
@@ -25,7 +17,7 @@ describe('StreamEvmNftTransfer', () => {
     let evmNftTransfer: StreamEvmNftTransfer;
 
     beforeAll(() => {
-      evmNftTransfer = StreamEvmNftTransfer.create(input, core);
+      evmNftTransfer = StreamEvmNftTransfer.create(input);
     });
 
     it('should return correct values for all getters', () => {

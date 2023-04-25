@@ -103,12 +103,9 @@ function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Co
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetWalletTransactionsVerboseJSONRequest,
-  core: Core,
-): GetWalletTransactionsVerboseRequest {
+function deserializeRequest(jsonRequest: GetWalletTransactionsVerboseJSONRequest): GetWalletTransactionsVerboseRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,

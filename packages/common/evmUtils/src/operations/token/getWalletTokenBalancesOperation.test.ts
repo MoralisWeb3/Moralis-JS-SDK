@@ -16,7 +16,7 @@ describe('getWalletTokenBalancesOperation', () => {
 
     const request: Required<GetWalletTokenBalancesRequest> = {
       address: EvmAddress.create(address),
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address)),
       toBlock: 20,
     };

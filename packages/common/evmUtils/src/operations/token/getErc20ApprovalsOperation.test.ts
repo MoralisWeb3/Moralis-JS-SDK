@@ -17,7 +17,7 @@ describe('getErc20ApprovalsOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetErc20ApprovalsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       fromBlock: 10,
       toBlock: 20,
       cursor: 'CURSOR1',

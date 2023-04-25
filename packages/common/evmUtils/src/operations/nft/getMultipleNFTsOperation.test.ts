@@ -17,7 +17,7 @@ describe('getContractNfTsOperation', () => {
     const tokenId2 = '12';
 
     const request: Required<GetMultipleNFTsRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       normalizeMetadata: false,
       tokens: [
         {

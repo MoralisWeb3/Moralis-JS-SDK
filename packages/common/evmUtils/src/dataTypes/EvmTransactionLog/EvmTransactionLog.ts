@@ -1,4 +1,4 @@
-import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransactionLogData, EvmTransactionLogInput } from './types';
@@ -26,23 +26,22 @@ export class EvmTransactionLog implements MoralisDataObject {
    * @param value - A valid EvmTransactionLogish
    * @param core - The Core instance
    */
-  static create(value: EvmTransactionLogish, core?: Core) {
+  static create(value: EvmTransactionLogish) {
     if (value instanceof EvmTransactionLog) {
       return value;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmTransactionLog(value, finalCore);
+    return new EvmTransactionLog(value);
   }
 
   protected _value;
 
-  constructor(value: EvmTransactionLogInput, core: Core) {
-    this._value = EvmTransactionLog.parse(value, core);
+  constructor(value: EvmTransactionLogInput) {
+    this._value = EvmTransactionLog.parse(value);
   }
 
-  static parse(value: EvmTransactionLogInput, core: Core): EvmTransactionLogData {
+  static parse(value: EvmTransactionLogInput): EvmTransactionLogData {
     return {
-      chain: EvmChain.create(value.chain, core),
+      chain: EvmChain.create(value.chain),
       logIndex: maybe(value.logIndex, (index) => +index),
       transactionHash: value.transactionHash,
       transactionIndex: maybe(value.transactionIndex),
@@ -89,7 +88,7 @@ export class EvmTransactionLog implements MoralisDataObject {
     return {
       ...value,
       address: value.address.toJSON(),
-      chain: value.chain.format(),
+      chain: value.chain.toJSON(),
     };
   }
 
