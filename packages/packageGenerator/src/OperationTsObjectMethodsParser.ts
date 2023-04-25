@@ -2,6 +2,26 @@ import { MethodDeclaration, ObjectLiteralExpression, Symbol, SyntaxKind, Type, t
 import { OperationObjectMethods } from './OperationV3FileReader';
 import { TsSymbolReader } from './TsSymbolReader';
 
+export type Parameter = {
+  name: string;
+  isArray: boolean;
+  isOptional: boolean;
+  isUnion: boolean;
+  type: string[];
+  properties: {
+    byType?: {
+      name: string;
+      type: string;
+      jsDoc: string;
+      isOptional: boolean;
+    }[];
+    byUnionType?: {
+      name: string;
+      isArray: boolean;
+      properties: Record<string, any>[];
+    }[];
+  };
+};
 export class OperationTsObjectMethodsParser {
   public static create(operationTsObject: ObjectLiteralExpression) {
     return new OperationTsObjectMethodsParser(operationTsObject);
@@ -43,7 +63,12 @@ export class OperationTsObjectMethodsParser {
     });
   }
 
-  private getParameters(tsMethodDeclaration: MethodDeclaration) {
+  private getTsTypeUnionTypes(tsType: Type<ts.Type>, tsMethodDeclaration: MethodDeclaration) {
+    const unionTsTypes = tsType.getUnionTypes();
+    return unionTsTypes.map((unionType) => unionType.getText(tsMethodDeclaration));
+  }
+
+  private getParameters(tsMethodDeclaration: MethodDeclaration): Parameter[] {
     const parameterTsDeclarations = tsMethodDeclaration.getParameters();
 
     return parameterTsDeclarations.map((parameterTsDeclaration) => {
@@ -56,18 +81,32 @@ export class OperationTsObjectMethodsParser {
         isArray: parameterTsType.isArray(),
         isOptional: parameterTsDeclaration.isOptional(),
         isUnion,
+        type: isUnion
+          ? this.getTsTypeUnionTypes(parameterTsType, tsMethodDeclaration)
+          : [parameterTsType.getText(tsMethodDeclaration)],
         properties: {
           byType: this.getTsTypeProperties(parameterTsType),
           byUnionType: isUnion ? this.getTsUnionTypeProperties(parameterTsType, tsMethodDeclaration) : undefined,
         },
-        type: parameterTsType.getText(tsMethodDeclaration),
       };
     });
   }
 
   private getReturnType(tsMethodDeclaration: MethodDeclaration) {
     const returnedTsType = tsMethodDeclaration.getReturnType();
-    return returnedTsType.getText(tsMethodDeclaration);
+    let typeReference: string;
+
+    if (returnedTsType.isArray()) {
+      const arrayElementType = returnedTsType.getArrayElementTypeOrThrow();
+      typeReference = arrayElementType.getText(tsMethodDeclaration);
+    } else {
+      typeReference = returnedTsType.getText(tsMethodDeclaration);
+    }
+
+    return {
+      type: returnedTsType.getText(tsMethodDeclaration),
+      typeReference,
+    };
   }
 
   public parse(): OperationObjectMethods {

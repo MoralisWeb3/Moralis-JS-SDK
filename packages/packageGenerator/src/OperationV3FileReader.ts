@@ -1,6 +1,6 @@
 import { OperationV3 } from '@moralisweb3/common-aptos-utils';
 import { ObjectLiteralExpression, SourceFile, SyntaxKind } from 'ts-morph';
-import { OperationTsObjectMethodsParser } from './OperationTsObjectMethodsParser';
+import { OperationTsObjectMethodsParser, Parameter } from './OperationTsObjectMethodsParser';
 import { OperationTsObjectPropertiesParser } from './OperationTsObjectPropertiesParser';
 
 export interface ParameterInfo {
@@ -12,7 +12,20 @@ export interface ParameterInfo {
 
 export type OperationInfo = Record<keyof OperationV3<any, any, any, any, any, any>, any>;
 
-export type OperationObjectMethods = Pick<OperationInfo, 'serializeRequest' | 'serializeBody' | 'parseResponse'>;
+export type Method = {
+  returnType: {
+    type: string;
+    typeReference: string;
+  };
+  parameters: Parameter[];
+};
+
+export type OperationObjectMethods = {
+  serializeRequest: Method;
+  serializeBody?: Method;
+  parseResponse: Method;
+};
+// export type OperationObjectMethods = Pick<OperationInfo, 'serializeRequest' | 'serializeBody' | 'parseResponse'>;
 export type OperationObjectProperties = Omit<OperationInfo, keyof OperationObjectMethods>;
 
 export class OperationV3FileReader {

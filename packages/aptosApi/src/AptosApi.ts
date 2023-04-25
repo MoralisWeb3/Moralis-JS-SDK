@@ -38,7 +38,7 @@ export class AptosApi extends AbstractClient {
   }
 }
 
-function createBaseUrlResolver(core: Core) {
+export function createBaseUrlResolver(core: Core) {
   return (request: unknown): string => {
     const { network } = request as { network: AptosNetworkInput | undefined };
     if (network) {
