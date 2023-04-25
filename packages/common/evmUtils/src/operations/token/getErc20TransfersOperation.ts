@@ -101,7 +101,6 @@ function deserializeResponse(
         toAddress: EvmAddress.create(transfer.to_wallet),
         fromAddress: EvmAddress.create(transfer.from_wallet),
       },
-      core,
     ),
   );
 }
