@@ -1,4 +1,4 @@
-import MoralisCore, { BigNumber, BigNumberish, CoreError, CoreErrorCode, MoralisData } from '@moralisweb3/common-core';
+import { BigNumber, BigNumberish, CoreError, CoreErrorCode, MoralisData } from '@moralisweb3/common-core';
 import { Erc20Token, Erc20Tokenish } from '../Erc20/Erc20';
 
 const EVM_ERC20_DEFAULT_DECIMALS = 18;
@@ -46,23 +46,22 @@ export class Erc20Value implements MoralisData {
    * Create a new instance of Erc20Value from any valid input
    * @param value - The value to create
    * @param options - The options for the token
-   * @param core - The MoralisCore instance
    * @example Erc20Value.create(1000, { decimals: 3 });
    * @returns The created value
    * @throws CoreError if the value is invalid
    */
-  static create(value: Erc20Valueish, options?: Erc20Options, core?: MoralisCore): Erc20Value {
+  static create(value: Erc20Valueish, options?: Erc20Options): Erc20Value {
     if (value instanceof Erc20Value) {
       return value;
     }
 
-    return new Erc20Value(value, options, core);
+    return new Erc20Value(value, options);
   }
 
   private _value: Erc20ValueData;
   private _token?: Erc20Token;
 
-  constructor(amount: Erc20ValueInputAmount, options?: Erc20Options, core?: MoralisCore) {
+  constructor(amount: Erc20ValueInputAmount, options?: Erc20Options) {
     this._value = Erc20Value.parse({
       amount,
       decimals: options?.decimals ?? options?.token?.decimals ?? EVM_ERC20_DEFAULT_DECIMALS,
@@ -70,7 +69,7 @@ export class Erc20Value implements MoralisData {
     });
 
     if (options?.token) {
-      this._token = Erc20Token.create(options.token, core);
+      this._token = Erc20Token.create(options.token);
     }
   }
 

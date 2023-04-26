@@ -1,4 +1,4 @@
-import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { MoralisDataObject } from '@moralisweb3/common-core';
 import { StreamTriggerOutputData, StreamTriggerOutputInput, StreamTriggerOutputJSON } from './types';
 
 export type StreamTriggerOutputish = StreamTriggerOutput | StreamTriggerOutputInput | StreamTriggerOutputData;
@@ -11,19 +11,18 @@ export type StreamTriggerOutputish = StreamTriggerOutput | StreamTriggerOutputIn
 export class StreamTriggerOutput implements MoralisDataObject {
   private readonly _data: StreamTriggerOutputData;
 
-  constructor(data: StreamTriggerOutputInput, core: Core) {
-    this._data = StreamTriggerOutput.parse(data, core);
+  constructor(data: StreamTriggerOutputInput) {
+    this._data = StreamTriggerOutput.parse(data);
   }
 
-  static create(data: StreamTriggerOutputish, core?: Core) {
+  static create(data: StreamTriggerOutputish) {
     if (data instanceof StreamTriggerOutput) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamTriggerOutput(data, finalCore);
+    return new StreamTriggerOutput(data);
   }
 
-  private static parse = (data: StreamTriggerOutputInput, _core: Core): StreamTriggerOutputData => {
+  private static parse = (data: StreamTriggerOutputInput): StreamTriggerOutputData => {
     return {
       ...data,
     };

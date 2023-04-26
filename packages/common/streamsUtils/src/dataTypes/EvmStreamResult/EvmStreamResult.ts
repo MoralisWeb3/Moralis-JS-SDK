@@ -1,4 +1,4 @@
-import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmStreamResultFormatter } from './EvmStreamResultFormatter';
 import { EvmStreamResultParser } from './EvmStreamResultParser';
 import { EvmStreamResultData, EvmStreamResultInput } from './types';
@@ -26,22 +26,20 @@ export class EvmStreamResult implements MoralisDataObject {
    * ```
    * @returns an instance of EvmStreamResult
    */
-  static create(data: EvmStreamResultish, core?: Core) {
+  static create(data: EvmStreamResultish) {
     if (data instanceof EvmStreamResult) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmStreamResult(data, finalCore);
+    return new EvmStreamResult(data);
   }
 
   private _data: EvmStreamResultData;
 
-  constructor(data: EvmStreamResultInput, core: Core) {
-    this._data = EvmStreamResult.parse(data, core);
+  constructor(data: EvmStreamResultInput) {
+    this._data = EvmStreamResult.parse(data);
   }
 
-  private static parse = (data: EvmStreamResultInput, core: Core): EvmStreamResultData =>
-    EvmStreamResultParser.parse(data, core);
+  private static parse = (data: EvmStreamResultInput): EvmStreamResultData => EvmStreamResultParser.parse(data);
 
   /**
    * Compares two EvmStreamResult data. It checks a deep equality check of both values.

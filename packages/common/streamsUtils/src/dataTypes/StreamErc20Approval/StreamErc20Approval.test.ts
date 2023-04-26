@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { StreamErc20Approval } from './StreamErc20Approval';
 import { mockStreamErc20Approval } from './StreamErc20Approval.mock';
 
 const testsInputs = Object.entries(mockStreamErc20Approval).map(([name, input]) => ({ name, input }));
 
 describe('StreamErc20Approval', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const approval = StreamErc20Approval.create(input, core);
+    const approval = StreamErc20Approval.create(input);
     const output = approval.format();
 
     expect(approval).toBeDefined();
@@ -25,7 +17,7 @@ describe('StreamErc20Approval', () => {
     let approval: StreamErc20Approval;
 
     beforeAll(() => {
-      approval = StreamErc20Approval.create(input, core);
+      approval = StreamErc20Approval.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -97,7 +89,7 @@ describe('StreamErc20Approval', () => {
     let approval: StreamErc20Approval;
 
     beforeAll(() => {
-      approval = StreamErc20Approval.create(input, core);
+      approval = StreamErc20Approval.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -157,7 +149,7 @@ describe('StreamErc20Approval', () => {
 
   it('should return true for .equals() on equality match', () => {
     const input = mockStreamErc20Approval.FULL;
-    const transfer = StreamErc20Approval.create(input, core);
+    const transfer = StreamErc20Approval.create(input);
     const isEqual = transfer.equals({
       ...input,
     });
@@ -167,7 +159,7 @@ describe('StreamErc20Approval', () => {
 
   it('should return false for .equals() on mismatching chain', () => {
     const input = mockStreamErc20Approval.FULL;
-    const transfer = StreamErc20Approval.create(input, core);
+    const transfer = StreamErc20Approval.create(input);
     const isEqual = transfer.equals({
       ...input,
       chain: '0x2',
@@ -178,7 +170,7 @@ describe('StreamErc20Approval', () => {
 
   it('should return false for .equals() on mismatching logIndex', () => {
     const input = mockStreamErc20Approval.FULL;
-    const transfer = StreamErc20Approval.create(input, core);
+    const transfer = StreamErc20Approval.create(input);
     const isEqual = transfer.equals({
       ...input,
       logIndex: '2',
@@ -189,7 +181,7 @@ describe('StreamErc20Approval', () => {
 
   it('should return false for .equals() on mismatching transactionHash', () => {
     const input = mockStreamErc20Approval.FULL;
-    const transfer = StreamErc20Approval.create(input, core);
+    const transfer = StreamErc20Approval.create(input);
     const isEqual = transfer.equals({
       ...input,
       transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
@@ -200,7 +192,7 @@ describe('StreamErc20Approval', () => {
 
   it('should return false for .equals() on mismatching trigger results length', () => {
     const input = mockStreamErc20Approval.FULL;
-    const transfer = StreamErc20Approval.create(input, core);
+    const transfer = StreamErc20Approval.create(input);
     const isEqual = transfer.equals({
       ...input,
       triggers: [{ name: 'ownerBalance', value: '6967063534600021400000' }],
@@ -211,7 +203,7 @@ describe('StreamErc20Approval', () => {
 
   it('should return false for .equals() on mismatching trigger results', () => {
     const input = mockStreamErc20Approval.FULL;
-    const transfer = StreamErc20Approval.create(input, core);
+    const transfer = StreamErc20Approval.create(input);
     const isEqual = transfer.equals({
       ...input,
       triggers: [

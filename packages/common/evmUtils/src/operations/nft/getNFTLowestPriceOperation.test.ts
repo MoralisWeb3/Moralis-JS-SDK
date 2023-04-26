@@ -14,7 +14,7 @@ describe('getNftLowestPriceOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetNFTLowestPriceRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       days: 7,
       marketplace: 'opensea',

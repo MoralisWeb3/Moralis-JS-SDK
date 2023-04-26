@@ -90,25 +90,19 @@ function deserializeResponse(jsonResponse: GetContractNFTsJSONResponse, request:
   return (jsonResponse.result ?? []).map((data) => {
     const chain = EvmChainResolver.resolve(request.chain, core);
     const nft = toCamelCase(data);
-    return EvmNft.create(
-      {
-        ...toCamelCase(nft),
-        chain,
-        ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf) : undefined,
-        lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
-        lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
-        media: maybe(nft.media, (media) =>
-          EvmNftMedia.create(
-            {
-              chain,
-              ...toCamelCase(media),
-            },
-            core,
-          ),
-        ),
-      },
-      core,
-    );
+    return EvmNft.create({
+      ...toCamelCase(nft),
+      chain,
+      ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf) : undefined,
+      lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
+      lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
+      media: maybe(nft.media, (media) =>
+        EvmNftMedia.create({
+          chain,
+          ...toCamelCase(media),
+        }),
+      ),
+    });
   });
 }
 
@@ -127,9 +121,9 @@ function serializeRequest(request: GetContractNFTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetContractNFTsJSONRequest, core: Core): GetContractNFTsRequest {
+function deserializeRequest(jsonRequest: GetContractNFTsJSONRequest): GetContractNFTsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     format: jsonRequest.format,
     limit: jsonRequest.limit,
     totalRanges: jsonRequest.totalRanges,

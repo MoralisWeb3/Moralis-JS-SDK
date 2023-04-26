@@ -1,4 +1,4 @@
-import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmNftTransferData, StreamEvmNftTransferInput, StreamEvmNftTransferJSON } from './types';
@@ -13,33 +13,31 @@ type StreamEvmNftTransferish = StreamEvmNftTransfer | StreamEvmNftTransferInput;
 export class StreamEvmNftTransfer implements MoralisDataObject {
   private _data: StreamEvmNftTransferData;
 
-  constructor(data: StreamEvmNftTransferInput, core: Core) {
-    this._data = StreamEvmNftTransfer.parse(data, core);
+  constructor(data: StreamEvmNftTransferInput) {
+    this._data = StreamEvmNftTransfer.parse(data);
   }
 
   /**
    * Create a new instance of StreamEvmNftTransferish
    *
    * @param data - the StreamEvmNftTransferishish type
-   * @param core - the Core instance
    * @example
    * ```ts
    * const transfer = StreamEvmTransactionish.create(data);
    * ```
    * @returns an instance of StreamEvmNftTransfer
    */
-  static create(data: StreamEvmNftTransferish, core?: Core) {
+  static create(data: StreamEvmNftTransferish) {
     if (data instanceof StreamEvmNftTransfer) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamEvmNftTransfer(data, finalCore);
+    return new StreamEvmNftTransfer(data);
   }
 
-  private static parse(data: StreamEvmNftTransferInput, core: Core): StreamEvmNftTransferData {
+  private static parse(data: StreamEvmNftTransferInput): StreamEvmNftTransferData {
     return {
       ...data,
-      chain: EvmChain.create(data.chain, core),
+      chain: EvmChain.create(data.chain),
       to: EvmAddress.create(data.to),
       contract: EvmAddress.create(data.contract),
       from: EvmAddress.create(data.from),
@@ -49,9 +47,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
       transactionHash: data.transactionHash,
       amount: +data.amount,
       tokenName: data.tokenName,
-      triggers: maybe(data.triggers, (triggers) =>
-        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
-      ),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger))),
     };
   }
 
@@ -122,7 +118,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       from: data.from.toJSON(),
       to: data.to.toJSON(),
       contract: data.contract.toJSON(),

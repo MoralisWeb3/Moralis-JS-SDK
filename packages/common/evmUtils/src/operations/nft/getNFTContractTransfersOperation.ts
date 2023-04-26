@@ -92,19 +92,16 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    EvmNftTransfer.create(
-      {
-        ...toCamelCase(transfer),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        tokenAddress: EvmAddress.create(transfer.to_address),
-        toAddress: EvmAddress.create(transfer.to_address),
-        operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
-        fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
-        value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
-        blockTimestamp: new Date(transfer.block_timestamp),
-      },
-      core,
-    ),
+    EvmNftTransfer.create({
+      ...toCamelCase(transfer),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      tokenAddress: EvmAddress.create(transfer.to_address),
+      toAddress: EvmAddress.create(transfer.to_address),
+      operator: transfer.operator ? EvmAddress.create(transfer.operator) : null,
+      fromAddress: transfer.from_address ? EvmAddress.create(transfer.from_address) : null,
+      value: transfer.value ? EvmNative.create(transfer.value, 'wei') : null,
+      blockTimestamp: new Date(transfer.block_timestamp),
+    }),
   );
 }
 
@@ -123,12 +120,9 @@ function serializeRequest(request: GetNFTContractTransfersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetNFTContractTransfersJSONRequest,
-  core: Core,
-): GetNFTContractTransfersRequest {
+function deserializeRequest(jsonRequest: GetNFTContractTransfersJSONRequest): GetNFTContractTransfersRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     format: jsonRequest.format,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // To run this script: node fetch-chaindata.js
 // You must have compiled this package before running this script.
 

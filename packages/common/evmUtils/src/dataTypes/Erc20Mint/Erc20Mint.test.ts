@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { Erc20Mint } from './Erc20Mint';
-import { setupEvmUtils } from '../../test/setup';
 import { Erc20MintInput } from './types';
 
 const exampleInput: Erc20MintInput = {
@@ -17,16 +15,6 @@ const exampleInput: Erc20MintInput = {
 };
 
 describe('Erc20Mint', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

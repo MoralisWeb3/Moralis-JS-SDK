@@ -67,9 +67,9 @@ function serializeRequest(request: GetDateToBlockRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetDateToBlockJSONRequest, core: Core): GetDateToBlockRequest {
+function deserializeRequest(jsonRequest: GetDateToBlockJSONRequest): GetDateToBlockRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     date: new Date(jsonRequest.date),
   };
 }

@@ -72,9 +72,9 @@ function serializeRequest(request: GetNativeBalanceRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNativeBalanceJSONRequest, core: Core): GetNativeBalanceRequest {
+function deserializeRequest(jsonRequest: GetNativeBalanceJSONRequest): GetNativeBalanceRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     toBlock: jsonRequest.toBlock,
     address: EvmAddress.create(jsonRequest.address),
   };

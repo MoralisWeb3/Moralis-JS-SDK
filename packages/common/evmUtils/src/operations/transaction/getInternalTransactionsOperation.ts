@@ -65,12 +65,9 @@ function serializeRequest(request: GetInternalTransactionsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetInternalTransactionsJSONRequest,
-  core: Core,
-): GetInternalTransactionsRequest {
+function deserializeRequest(jsonRequest: GetInternalTransactionsJSONRequest): GetInternalTransactionsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     transactionHash: jsonRequest.transactionHash,
   };
 }
@@ -82,22 +79,19 @@ function deserializeResponse(
 ) {
   return (jsonResponse ?? []).map((transaction) => {
     const chain = EvmChainResolver.resolve(request.chain, core);
-    return EvmInternalTransaction.create(
-      {
-        chain,
-        blockHash: transaction.block_hash,
-        blockNumber: transaction.block_number,
-        from: transaction.from,
-        gas: transaction.gas,
-        gasUsed: transaction.gas_used,
-        input: transaction.input,
-        output: transaction.output,
-        to: transaction.to,
-        transactionHash: transaction.transaction_hash,
-        type: transaction.type,
-        value: transaction.value,
-      },
-      core,
-    );
+    return EvmInternalTransaction.create({
+      chain,
+      blockHash: transaction.block_hash,
+      blockNumber: transaction.block_number,
+      from: transaction.from,
+      gas: transaction.gas,
+      gasUsed: transaction.gas_used,
+      input: transaction.input,
+      output: transaction.output,
+      to: transaction.to,
+      transactionHash: transaction.transaction_hash,
+      type: transaction.type,
+      value: transaction.value,
+    });
   });
 }

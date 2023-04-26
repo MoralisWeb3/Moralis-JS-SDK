@@ -2,16 +2,7 @@ import { chainList } from '../../data/chaindata';
 import { EvmChainListDataEntry } from '../../data/types';
 import { EvmChainParser } from './EvmChainParser';
 import { EvmChainish, InputChainId } from './EvmChainish';
-import {
-  EvmChainIdFormat,
-  Config,
-  CoreProvider,
-  MoralisData,
-  assertUnreachable,
-  Core,
-  EvmChainable,
-} from '@moralisweb3/common-core';
-import { CommonEvmUtilsConfig } from '../../config/CommonEvmUtilsConfig';
+import { EvmChainable } from '@moralisweb3/common-core';
 
 /**
  * This can be any valid EVM chain in decimal or hex.
@@ -27,7 +18,7 @@ export type EvmChainJSON = string;
  * The EvmChain class is a MoralisData that references to a EVM chain
  * @category DataType
  */
-export class EvmChain implements MoralisData, EvmChainable {
+export class EvmChain implements EvmChainable {
   /**
    * Returns ETHEREUM chain
    *
@@ -163,19 +154,18 @@ export class EvmChain implements MoralisData, EvmChainable {
    * const chain = EvmChain.create("0x3")
    * ```
    */
-  public static create(chain: EvmChainish, core?: Core): EvmChain {
+  public static create(chain: EvmChainish): EvmChain {
     if (chain instanceof EvmChain) {
       return chain;
     }
-    const c = core || CoreProvider.getDefault();
-    return new EvmChain(chain, c.config);
+    return new EvmChain(chain);
   }
 
   // hex-string chainId
   private _value: InternalEvmChain;
   private _chainlistData: EvmChainListDataEntry | null;
 
-  private constructor(value: InputChainId, private readonly config: Config) {
+  private constructor(value: InputChainId) {
     this._value = EvmChainParser.parse(value);
     this._chainlistData = chainList.find((chainData) => chainData.chainId === this.decimal) ?? null;
   }
@@ -216,30 +206,6 @@ export class EvmChain implements MoralisData, EvmChainable {
    */
   equals(chain: EvmChainish) {
     return EvmChain.equals(this, chain);
-  }
-
-  /**
-   * Formats the chain to the given output; in decimal value or as hex-string.
-   * The default formatting can be set in MoralisConfig
-   * @param _formatStyle - The output format to use
-   * @example chain.format() // 1
-   * @example chain.format('hex') // "0x1"
-   * @example chain.format('decimal') // 1
-   *
-   * @returns The formatted chain
-   */
-  format(_formatStyle?: EvmChainIdFormat) {
-    const formatStyle = _formatStyle ?? this.config.get(CommonEvmUtilsConfig.formatEvmChainId);
-
-    if (formatStyle === 'decimal') {
-      return this.decimal;
-    }
-
-    if (formatStyle === 'hex') {
-      return this.hex;
-    }
-
-    return assertUnreachable(formatStyle);
   }
 
   /**
@@ -375,6 +341,6 @@ export class EvmChain implements MoralisData, EvmChainable {
    * @returns The chain.
    */
   public toJSON(): EvmChainJSON {
-    return this._value;
+    return this.hex;
   }
 }

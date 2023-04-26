@@ -94,13 +94,10 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((approval) =>
-    Erc20Approval.create(
-      {
-        ...toCamelCase(approval),
-        chain: EvmChainResolver.resolve(request.chain, core),
-      },
-      core,
-    ),
+    Erc20Approval.create({
+      ...toCamelCase(approval),
+      chain: EvmChainResolver.resolve(request.chain, core),
+    }),
   );
 }
 
@@ -119,9 +116,9 @@ function serializeRequest(request: GetErc20ApprovalsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetErc20ApprovalsJSONRequest, core: Core): GetErc20ApprovalsRequest {
+function deserializeRequest(jsonRequest: GetErc20ApprovalsJSONRequest): GetErc20ApprovalsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     fromBlock: jsonRequest.fromBlock,

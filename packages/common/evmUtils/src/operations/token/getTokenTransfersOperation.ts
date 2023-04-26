@@ -81,18 +81,15 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    Erc20Transfer.create(
-      {
-        ...toCamelCase(transfer),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        address: EvmAddress.create(transfer.address),
-        toAddress: EvmAddress.create(transfer.to_address),
-        fromAddress: EvmAddress.create(transfer.from_address),
-        value: BigNumber.create(transfer.value),
-        blockTimestamp: new Date(transfer.block_timestamp),
-      },
-      core,
-    ),
+    Erc20Transfer.create({
+      ...toCamelCase(transfer),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      address: EvmAddress.create(transfer.address),
+      toAddress: EvmAddress.create(transfer.to_address),
+      fromAddress: EvmAddress.create(transfer.from_address),
+      value: BigNumber.create(transfer.value),
+      blockTimestamp: new Date(transfer.block_timestamp),
+    }),
   );
 }
 
@@ -110,9 +107,9 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest, core: Core): GetTokenTransfersRequest {
+function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest): GetTokenTransfersRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,

@@ -16,7 +16,7 @@ describe('getNftContractTransfersOperation', () => {
     const fromDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetNFTContractTransfersRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       format: 'decimal',
       limit: 100,

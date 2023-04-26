@@ -82,10 +82,10 @@ function serializeRequest(request: RunContractFunctionRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: RunContractFunctionJSONRequest, core: Core): RunContractFunctionRequest {
+function deserializeRequest(jsonRequest: RunContractFunctionJSONRequest): RunContractFunctionRequest {
   return {
     address: EvmAddress.create(jsonRequest.address),
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     functionName: jsonRequest.functionName,
     abi: jsonRequest.abi,
     params: jsonRequest.params,

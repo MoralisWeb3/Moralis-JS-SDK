@@ -70,18 +70,15 @@ function getRequestUrlParams(request: GetPairAddressRequest, core: Core) {
 type TokenJSONResponse = GetPairAddressJSONResponse['token0'] | GetPairAddressJSONResponse['token1'];
 
 function createErc20Token(token: TokenJSONResponse, core: Core, chain?: EvmChainish) {
-  return Erc20Token.create(
-    {
-      contractAddress: token?.address ? EvmAddress.create(token?.address) : '',
-      decimals: token?.decimals ?? 0,
-      name: token?.name ?? '',
-      symbol: token?.symbol ?? '',
-      logo: token?.logo,
-      thumbnail: token?.thumbnail,
-      chain: EvmChainResolver.resolve(chain, core),
-    },
-    core,
-  );
+  return Erc20Token.create({
+    contractAddress: token?.address ? EvmAddress.create(token?.address) : '',
+    decimals: token?.decimals ?? 0,
+    name: token?.name ?? '',
+    symbol: token?.symbol ?? '',
+    logo: token?.logo,
+    thumbnail: token?.thumbnail,
+    chain: EvmChainResolver.resolve(chain, core),
+  });
 }
 
 function deserializeResponse(jsonResponse: GetPairAddressJSONResponse, request: GetPairAddressRequest, core: Core) {
@@ -114,9 +111,9 @@ function serializeRequest(request: GetPairAddressRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetPairAddressJSONRequest, core: Core): GetPairAddressRequest {
+function deserializeRequest(jsonRequest: GetPairAddressJSONRequest): GetPairAddressRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     toBlock: jsonRequest.toBlock,
     toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     exchange: jsonRequest.exchange,

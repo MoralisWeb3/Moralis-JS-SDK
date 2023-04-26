@@ -1,4 +1,4 @@
-import Core, { BigNumber, maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { BigNumber, maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain, EvmSignature } from '@moralisweb3/common-evm-utils';
 import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmTransactionData, StreamEvmTransactionInput, StreamEvmTransactionJSON } from './types';
@@ -13,30 +13,28 @@ type StreamEvmTransactionish = StreamEvmTransaction | StreamEvmTransactionInput;
 export class StreamEvmTransaction implements MoralisDataObject {
   private _data: StreamEvmTransactionData;
 
-  constructor({ ...data }: StreamEvmTransactionInput, core: Core) {
-    this._data = StreamEvmTransaction.parse(data, core);
+  constructor({ ...data }: StreamEvmTransactionInput) {
+    this._data = StreamEvmTransaction.parse(data);
   }
 
   /**
    * Create a new instance of StreamEvmTransactionish
    *
    * @param data - the StreamEvmTransactionishish type
-   * @param core - the Core instance
    * @example
    * ```ts
    * const transaction = StreamEvmTransactionish.create(data);
    * ```
    * @returns an instance of StreamEvmTransaction
    */
-  static create(data: StreamEvmTransactionish, core?: Core) {
+  static create(data: StreamEvmTransactionish) {
     if (data instanceof StreamEvmTransaction) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamEvmTransaction(data, finalCore);
+    return new StreamEvmTransaction(data);
   }
 
-  private static parse(data: StreamEvmTransactionInput, core: Core): StreamEvmTransactionData {
+  private static parse(data: StreamEvmTransactionInput): StreamEvmTransactionData {
     const signature =
       data.r != null && data.s != null && data.v != null
         ? EvmSignature.create({ r: data.r, s: data.s, v: data.v })
@@ -44,7 +42,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
 
     return {
       ...data,
-      chain: EvmChain.create(data.chain, core),
+      chain: EvmChain.create(data.chain),
       gas: maybe(data.gas, BigNumber.create),
       gasPrice: maybe(data.gasPrice, BigNumber.create),
       nonce: maybe(data.nonce, BigNumber.create),
@@ -60,9 +58,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
       receiptStatus: maybe(data.receiptStatus, (status) => +status),
       signature,
       transactionIndex: +data.transactionIndex,
-      triggers: maybe(data.triggers, (triggers) =>
-        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
-      ),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger))),
     };
   }
 
@@ -135,7 +131,7 @@ export class StreamEvmTransaction implements MoralisDataObject {
 
     return {
       ...data,
-      chain: chain.format(),
+      chain: chain.toJSON(),
       gas: gas?.toString(),
       gasPrice: gasPrice?.toString(),
       nonce: nonce?.toString(),

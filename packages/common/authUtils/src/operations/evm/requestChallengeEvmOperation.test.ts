@@ -18,7 +18,7 @@ describe('evmRequestChallengeOperation', () => {
     const request: Required<RequestChallengeEvmRequest> = {
       address: EvmAddress.create(address),
       domain: 'defi.finance',
-      chainId: EvmChain.create(chain, core),
+      chainId: EvmChain.create(chain),
       statement: 'VALID_RESPONSE',
       uri: 'https://defi.finance/',
       expirationTime: new Date(expirationTime),

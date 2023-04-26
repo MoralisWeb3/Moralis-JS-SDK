@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { Erc20Burn } from './Erc20Burn';
-import { setupEvmUtils } from '../../test/setup';
 import { Erc20BurnInput } from './types';
 
 const exampleInput: Erc20BurnInput = {
@@ -17,16 +15,6 @@ const exampleInput: Erc20BurnInput = {
 };
 
 describe('Erc20Burn', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

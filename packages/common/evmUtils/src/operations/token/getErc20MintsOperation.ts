@@ -90,13 +90,10 @@ function getRequestUrlParams(request: GetErc20MintsRequest, core: Core) {
 
 function deserializeResponse(jsonResponse: GetErc20MintsJSONResponse, request: GetErc20MintsRequest, core: Core) {
   return (jsonResponse.result ?? []).map((mint) =>
-    Erc20Mint.create(
-      {
-        ...toCamelCase(mint),
-        chain: EvmChainResolver.resolve(request.chain, core),
-      },
-      core,
-    ),
+    Erc20Mint.create({
+      ...toCamelCase(mint),
+      chain: EvmChainResolver.resolve(request.chain, core),
+    }),
   );
 }
 
@@ -115,9 +112,9 @@ function serializeRequest(request: GetErc20MintsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetErc20MintsJSONRequest, core: Core): GetErc20MintsRequest {
+function deserializeRequest(jsonRequest: GetErc20MintsJSONRequest): GetErc20MintsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     fromBlock: jsonRequest.fromBlock,

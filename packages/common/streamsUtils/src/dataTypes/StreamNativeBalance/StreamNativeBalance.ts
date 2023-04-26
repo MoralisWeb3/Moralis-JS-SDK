@@ -1,4 +1,4 @@
-import Core, { CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmNative } from '@moralisweb3/common-evm-utils';
 import { StreamNativeBalanceData, StreamNativeBalanceInput, StreamNativeBalanceJSON } from './types';
 
@@ -12,19 +12,18 @@ export type StreamNativeBalanceish = StreamNativeBalance | StreamNativeBalanceIn
 export class StreamNativeBalance implements MoralisDataObject {
   private readonly _data: StreamNativeBalanceData;
 
-  constructor(data: StreamNativeBalanceInput, core: Core) {
-    this._data = StreamNativeBalance.parse(data, core);
+  constructor(data: StreamNativeBalanceInput) {
+    this._data = StreamNativeBalance.parse(data);
   }
 
-  static create(data: StreamNativeBalanceish, core?: Core) {
+  static create(data: StreamNativeBalanceish) {
     if (data instanceof StreamNativeBalance) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamNativeBalance(data, finalCore);
+    return new StreamNativeBalance(data);
   }
 
-  private static parse(input: StreamNativeBalanceInput, core: Core): StreamNativeBalanceData {
+  private static parse(input: StreamNativeBalanceInput): StreamNativeBalanceData {
     return {
       address: EvmAddress.create(input.address),
       balance: EvmNative.create(input.balance, 'wei'),

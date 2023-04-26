@@ -1,4 +1,3 @@
-import { setupEvmUtils } from '../../test/setup';
 import { EvmTransactionLog } from './EvmTransactionLog';
 
 // Set variables
@@ -53,10 +52,6 @@ const inputWithInvalidData = {
 };
 
 describe('EvmTransactionLog', () => {
-  beforeAll(() => {
-    setupEvmUtils();
-  });
-
   /**
    * Creation
    */

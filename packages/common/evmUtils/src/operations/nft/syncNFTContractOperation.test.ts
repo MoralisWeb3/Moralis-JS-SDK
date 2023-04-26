@@ -14,7 +14,7 @@ describe('syncNFTContractOperation', () => {
     const chain = '0x10';
 
     const request: Required<SyncNFTContractRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
     };
 

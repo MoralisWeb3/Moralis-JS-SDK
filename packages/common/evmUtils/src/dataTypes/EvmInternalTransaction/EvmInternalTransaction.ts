@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, BigNumber } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmInternalTransactionInput, EvmInternalTransactionData } from './types';
@@ -25,21 +25,20 @@ export class EvmInternalTransaction implements MoralisDataObject {
    * const transaction = EvmInternalTransaction.create(data);
    *```
    */
-  static create(data: EvmInternalTransactionish, core?: Core) {
+  static create(data: EvmInternalTransactionish) {
     if (data instanceof EvmInternalTransaction) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmInternalTransaction(data, finalCore);
+    return new EvmInternalTransaction(data);
   }
 
   private _data: EvmInternalTransactionData;
 
-  constructor(data: EvmInternalTransactionInput, core: Core) {
-    this._data = EvmInternalTransaction.parse(data, core);
+  constructor(data: EvmInternalTransactionInput) {
+    this._data = EvmInternalTransaction.parse(data);
   }
 
-  static parse = (data: EvmInternalTransactionInput, core: Core): EvmInternalTransactionData => ({
+  static parse = (data: EvmInternalTransactionInput): EvmInternalTransactionData => ({
     chain: EvmChain.create(data.chain),
     from: EvmAddress.create(data.from),
     to: EvmAddress.create(data.to),
@@ -99,7 +98,7 @@ export class EvmInternalTransaction implements MoralisDataObject {
       gas: data.gas?.toString(),
       gasUsed: data.gasUsed?.toString(),
       value: data.value?.toString(),
-      chain: data.chain?.format(),
+      chain: data.chain?.toJSON(),
       blockNumber: data.blockNumber?.toString(),
     };
   }

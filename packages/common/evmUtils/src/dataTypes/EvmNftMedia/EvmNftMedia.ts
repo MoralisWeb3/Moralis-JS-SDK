@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, dateInputToDate, CoreProvider, maybe } from '@moralisweb3/common-core';
+import { MoralisDataObject, dateInputToDate, maybe } from '@moralisweb3/common-core';
 import { EvmChain } from '../EvmChain';
 import { EvmNftMediaInput, EvmNftMediaData } from './types';
 
@@ -16,24 +16,23 @@ export class EvmNftMedia implements MoralisDataObject {
    * const media = EvmNftMedia.create(data);
    *```
    */
-  static create(data: EvmNftMediaInput, core?: Core) {
+  static create(data: EvmNftMediaInput) {
     if (data instanceof EvmNftMedia) {
       return data;
     }
 
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmNftMedia(data, finalCore);
+    return new EvmNftMedia(data);
   }
 
   private _data: EvmNftMediaData;
 
-  constructor(data: EvmNftMediaInput, core: Core) {
-    this._data = EvmNftMedia.parse(data, core);
+  constructor(data: EvmNftMediaInput) {
+    this._data = EvmNftMedia.parse(data);
   }
 
-  static parse = (data: EvmNftMediaInput, core: Core): EvmNftMediaData => ({
+  static parse = (data: EvmNftMediaInput): EvmNftMediaData => ({
     ...data,
-    chain: EvmChain.create(data.chain, core),
+    chain: EvmChain.create(data.chain),
     updatedAt: maybe(data.updatedAt, (date) => dateInputToDate(date)),
   });
 
@@ -77,7 +76,7 @@ export class EvmNftMedia implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
     };
   }
 

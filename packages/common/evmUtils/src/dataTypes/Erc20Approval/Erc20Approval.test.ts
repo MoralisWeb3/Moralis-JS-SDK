@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { Erc20Approval } from './Erc20Approval';
-import { setupEvmUtils } from '../../test/setup';
 import { Erc20ApprovalInput } from './types';
 
 const exampleInput: Erc20ApprovalInput = {
@@ -19,16 +17,6 @@ const exampleInput: Erc20ApprovalInput = {
 };
 
 describe('Erc20Approval', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

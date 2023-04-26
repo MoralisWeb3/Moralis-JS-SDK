@@ -1,17 +1,12 @@
-import { Core } from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
-
 import { StreamTrigger } from './StreamTrigger';
 import { mockStreamTrigger } from './StreamTrigger.mock';
 
 describe('StreamTrigger', () => {
-  let core: Core;
   const input = mockStreamTrigger.ERC20_TRANSFER;
   let result: StreamTrigger;
 
   beforeAll(() => {
-    core = setupStreamsUtils();
-    result = StreamTrigger.create(input, core);
+    result = StreamTrigger.create(input);
   });
 
   it('should return correct values for all getters', () => {
@@ -23,7 +18,7 @@ describe('StreamTrigger', () => {
 
   it('should return true for .equals() on equality match', () => {
     const input = mockStreamTrigger.ERC20_TRANSFER;
-    const result = StreamTrigger.create(input, core);
+    const result = StreamTrigger.create(input);
     const isEqual = result.equals({ ...input });
 
     expect(isEqual).toBe(true);
@@ -31,7 +26,7 @@ describe('StreamTrigger', () => {
 
   it('should return false for .equals() on mismatch type', () => {
     const input = mockStreamTrigger.ERC20_TRANSFER;
-    const result = StreamTrigger.create(input, core);
+    const result = StreamTrigger.create(input);
     const isEqual = result.equals({ ...input, type: 'tx' });
 
     expect(isEqual).toBe(false);
@@ -39,7 +34,7 @@ describe('StreamTrigger', () => {
 
   it('should return false for .equals() on mismatch contractAddress', () => {
     const input = mockStreamTrigger.ERC20_TRANSFER;
-    const result = StreamTrigger.create(input, core);
+    const result = StreamTrigger.create(input);
     const isEqual = result.equals({ ...input, contractAddress: '0xbb6a28edbbaf0c7542c73212d26cc0b249da47a5' });
 
     expect(isEqual).toBe(false);
@@ -67,7 +62,7 @@ describe('StreamTrigger', () => {
     };
 
     const input = mockStreamTrigger.ERC20_TRANSFER;
-    const result = StreamTrigger.create(input, core);
+    const result = StreamTrigger.create(input);
     const isEqual = result.equals({ ...input, functionAbi: balanceOfSenderAbi });
 
     expect(isEqual).toBe(false);
@@ -75,7 +70,7 @@ describe('StreamTrigger', () => {
 
   it('should return false for .equals() on mismatch inputs', () => {
     const input = mockStreamTrigger.ERC20_TRANSFER;
-    const result = StreamTrigger.create(input, core);
+    const result = StreamTrigger.create(input);
     const isEqual = result.equals({ ...input, inputs: ['$from'] });
 
     expect(isEqual).toBe(false);

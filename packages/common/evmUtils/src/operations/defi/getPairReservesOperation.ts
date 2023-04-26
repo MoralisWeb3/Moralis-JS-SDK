@@ -69,9 +69,9 @@ function serializeRequest(request: GetPairReservesRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetPairReservesJSONRequest, core: Core): GetPairReservesRequest {
+function deserializeRequest(jsonRequest: GetPairReservesJSONRequest): GetPairReservesRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     toBlock: jsonRequest.toBlock,
     toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     pairAddress: EvmAddress.create(jsonRequest.pairAddress),

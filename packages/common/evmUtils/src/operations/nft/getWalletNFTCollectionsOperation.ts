@@ -74,14 +74,11 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((collection) =>
-    EvmNftCollection.create(
-      {
-        ...toCamelCase(collection),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        tokenAddress: EvmAddress.create(collection.token_address),
-      },
-      core,
-    ),
+    EvmNftCollection.create({
+      ...toCamelCase(collection),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      tokenAddress: EvmAddress.create(collection.token_address),
+    }),
   );
 }
 
@@ -95,12 +92,9 @@ function serializeRequest(request: GetWalletNFTCollectionsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetWalletNFTCollectionsJSONRequest,
-  core: Core,
-): GetWalletNFTCollectionsRequest {
+function deserializeRequest(jsonRequest: GetWalletNFTCollectionsJSONRequest): GetWalletNFTCollectionsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),

@@ -1,4 +1,4 @@
-import { Core, Camelize, maybe, PaginatedOperation, PaginatedResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, maybe, PaginatedOperation, PaginatedResponseAdapter } from '@moralisweb3/common-core';
 import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
@@ -51,8 +51,8 @@ function getRequestUrlParams(request: GetStreamsEvmRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetStreamsEvmJSONResponse, request: GetStreamsEvmRequest, core: Core) {
-  return (jsonResponse.result ?? []).map((stream) => EvmStream.create(stream, core));
+function deserializeResponse(jsonResponse: GetStreamsEvmJSONResponse) {
+  return (jsonResponse.result ?? []).map((stream) => EvmStream.create(stream));
 }
 
 function serializeRequest(request: GetStreamsEvmRequest) {

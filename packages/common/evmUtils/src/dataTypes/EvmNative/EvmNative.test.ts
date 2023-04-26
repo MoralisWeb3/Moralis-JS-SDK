@@ -1,11 +1,6 @@
-import { setupEvmUtils } from '../../test/setup';
 import { EvmNative, EvmNativeUnit } from './EvmNative';
 
 describe('EvmNative', () => {
-  beforeAll(() => {
-    setupEvmUtils();
-  });
-
   function testUnit(unit: EvmNativeUnit, wei: string, gwei: string, ether: string) {
     it(`creates 1 ${unit}`, () => {
       const value = EvmNative.create(1, unit);

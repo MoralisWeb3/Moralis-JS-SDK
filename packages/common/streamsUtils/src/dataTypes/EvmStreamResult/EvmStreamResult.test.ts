@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { EvmStreamResult } from './EvmStreamResult';
 import { mockEvmStreamResult } from './EvmStreamResult.mock';
 
 const testsInputs = Object.entries(mockEvmStreamResult).map(([name, input]) => ({ name, input }));
 
 describe('EvmStreamResult', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const streamResult = EvmStreamResult.create(input, core);
+    const streamResult = EvmStreamResult.create(input);
     const output = streamResult.format();
 
     expect(streamResult).toBeDefined();
@@ -21,7 +13,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should parse the data correctly with empty data', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.INITIAL_TEST, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.INITIAL_TEST);
 
     // We expect to default to chainId 0x1 on the intial test response, that provides an empty string as chainId
     expect(streamResult.chain.apiHex).toBe('0x1');
@@ -68,7 +60,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should not decode logs when no Abi is provided', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.NATIVE_TX, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.NATIVE_TX);
 
     const logs = streamResult.decodedLogs;
 
@@ -76,7 +68,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should decode logs', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const logs = streamResult.decodedLogs;
 
@@ -96,7 +88,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should return true for .equals() on equality match', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const isEqual = streamResult.equals({
       ...mockEvmStreamResult.WETH_EVENTS,
@@ -106,7 +98,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should return false for .equals() on mismatching chain', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const isEqual = streamResult.equals({
       ...mockEvmStreamResult.WETH_EVENTS,
@@ -117,7 +109,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should return false for .equals() on mismatching tag', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const isEqual = streamResult.equals({
       ...mockEvmStreamResult.WETH_EVENTS,
@@ -128,7 +120,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should return false for .equals() on mismatching streamId', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const isEqual = streamResult.equals({
       ...mockEvmStreamResult.WETH_EVENTS,
@@ -139,7 +131,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should return false for .equals() on mismatching confirmed', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const isEqual = streamResult.equals({
       ...mockEvmStreamResult.WETH_EVENTS,
@@ -150,7 +142,7 @@ describe('EvmStreamResult', () => {
   });
 
   it('should return false for .equals() on mismatching block', () => {
-    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS, core);
+    const streamResult = EvmStreamResult.create(mockEvmStreamResult.WETH_EVENTS);
 
     const isEqual = streamResult.equals({
       ...mockEvmStreamResult.WETH_EVENTS,

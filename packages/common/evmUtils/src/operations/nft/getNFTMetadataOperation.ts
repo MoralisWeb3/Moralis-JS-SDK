@@ -69,25 +69,19 @@ function deserializeResponse(jsonResponse: GetNFTMetadataJSONResponse, request: 
   const chain = EvmChainResolver.resolve(request.chain, core);
   const nft = toCamelCase(jsonResponse);
 
-  return EvmNft.create(
-    {
-      ...nft,
-      chain: EvmChainResolver.resolve(request.chain, core),
-      ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf) : undefined,
-      lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
-      lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
-      media: maybe(nft.media, (media) =>
-        EvmNftMedia.create(
-          {
-            chain,
-            ...toCamelCase(media),
-          },
-          core,
-        ),
-      ),
-    },
-    core,
-  );
+  return EvmNft.create({
+    ...nft,
+    chain: EvmChainResolver.resolve(request.chain, core),
+    ownerOf: nft.ownerOf ? EvmAddress.create(nft.ownerOf) : undefined,
+    lastMetadataSync: nft.lastMetadataSync ? new Date(nft.lastMetadataSync) : undefined,
+    lastTokenUriSync: nft.lastTokenUriSync ? new Date(nft.lastTokenUriSync) : undefined,
+    media: maybe(nft.media, (media) =>
+      EvmNftMedia.create({
+        chain,
+        ...toCamelCase(media),
+      }),
+    ),
+  });
 }
 
 function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
@@ -101,9 +95,9 @@ function serializeRequest(request: GetNFTMetadataRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetNFTMetadataJSONRequest, core: Core): GetNFTMetadataRequest {
+function deserializeRequest(jsonRequest: GetNFTMetadataJSONRequest): GetNFTMetadataRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     format: jsonRequest.format,
     address: EvmAddress.create(jsonRequest.address),
     tokenId: jsonRequest.tokenId,

@@ -13,7 +13,7 @@ describe('getNFTTransfersByBlockOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetNFTTransfersByBlockRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       blockNumberOrHash: '0x123',
       limit: 100,
       cursor: 'CURSOR1',

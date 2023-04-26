@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { EvmNftCollection } from './EvmNftCollection';
-import { setupEvmUtils } from '../../test/setup';
 import { EvmNftCollectionInput } from './types';
 
 const exampleInput: EvmNftCollectionInput = {
@@ -12,16 +10,6 @@ const exampleInput: EvmNftCollectionInput = {
 };
 
 describe('EvmNftCollection', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

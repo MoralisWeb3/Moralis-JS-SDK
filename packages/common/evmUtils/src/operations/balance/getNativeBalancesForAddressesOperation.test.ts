@@ -17,7 +17,7 @@ describe('getNativeBalancesForAddressesOperation', () => {
     const addresses = ['0x7dE3085b3190B3a787822Ee16F23be010f5F8686', '0x7dE3085b3190B3a787822Ee16F23be010f5F8686'];
 
     const request: Required<GetNativeBalancesForAddressesRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       toBlock: 123,
       walletAddresses: addresses.map((address) => EvmAddress.create(address)),
     };

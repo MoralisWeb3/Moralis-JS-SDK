@@ -92,19 +92,16 @@ function getRequestUrlParams(request: SearchNFTsRequest, core: Core) {
 
 function deserializeResponse(jsonResponse: SearchNFTsJSONResponse, request: SearchNFTsRequest, core: Core) {
   return (jsonResponse.result ?? []).map((nft) => ({
-    token: EvmNft.create(
-      {
-        chain: EvmChainResolver.resolve(request.chain, core),
-        contractType: nft.contract_type,
-        tokenAddress: nft.token_address,
-        tokenId: nft.token_id,
-        tokenUri: nft.token_uri,
-        metadata: nft.metadata,
-        tokenHash: nft.token_hash,
-        possibleSpam: nft.possible_spam,
-      },
-      core,
-    ),
+    token: EvmNft.create({
+      chain: EvmChainResolver.resolve(request.chain, core),
+      contractType: nft.contract_type,
+      tokenAddress: nft.token_address,
+      tokenId: nft.token_id,
+      tokenUri: nft.token_uri,
+      metadata: nft.metadata,
+      tokenHash: nft.token_hash,
+      possibleSpam: nft.possible_spam,
+    }),
     tokenHash: nft.token_hash,
     blockNumberMinted: nft.block_number_minted,
     lastMetadataSync: nft.last_metadata_sync ? new Date(nft.last_metadata_sync) : undefined,
@@ -138,9 +135,9 @@ function serializeRequest(request: SearchNFTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: SearchNFTsJSONRequest, core: Core): SearchNFTsRequest {
+function deserializeRequest(jsonRequest: SearchNFTsJSONRequest): SearchNFTsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     format: jsonRequest.format,
     q: jsonRequest.q,
     filter: jsonRequest.filter,

@@ -1,4 +1,4 @@
-import { Camelize, Core, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter, toCamelCase } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '@moralisweb3/common-evm-utils';
 import { operations } from '../openapi';
 
@@ -62,7 +62,7 @@ function getRequestBody(request: DeleteAddressEvmRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: DeleteAddressEvmJSONResponse, request: DeleteAddressEvmRequest, core: Core) {
+function deserializeResponse(jsonResponse: DeleteAddressEvmJSONResponse) {
   const data = toCamelCase(jsonResponse);
   return {
     streamId: jsonResponse.streamId,
@@ -74,7 +74,7 @@ function deserializeResponse(jsonResponse: DeleteAddressEvmJSONResponse, request
   };
 }
 
-function serializeRequest(request: DeleteAddressEvmRequest, core: Core) {
+function serializeRequest(request: DeleteAddressEvmRequest) {
   return {
     id: request.id,
     address: Array.isArray(request.address)
@@ -83,7 +83,7 @@ function serializeRequest(request: DeleteAddressEvmRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: DeleteAddressEvmJSONRequest, core: Core): DeleteAddressEvmRequest {
+function deserializeRequest(jsonRequest: DeleteAddressEvmJSONRequest): DeleteAddressEvmRequest {
   return {
     id: jsonRequest.id,
     address: Array.isArray(jsonRequest.address)

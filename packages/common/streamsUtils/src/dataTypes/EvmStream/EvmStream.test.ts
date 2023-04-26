@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { EvmStream } from './EvmStream';
 import { mockEvmStream } from './EvmStream.mock';
 
 const testsInputs = Object.entries(mockEvmStream).map(([name, input]) => ({ name, input }));
 
 describe('EvmStream', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const stream = EvmStream.create(input, core);
+    const stream = EvmStream.create(input);
     const output = stream.format();
 
     expect(stream).toBeDefined();
@@ -25,7 +17,7 @@ describe('EvmStream', () => {
     let stream: EvmStream;
 
     beforeAll(() => {
-      stream = EvmStream.create(input, core);
+      stream = EvmStream.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -126,7 +118,7 @@ describe('EvmStream', () => {
     let stream: EvmStream;
 
     beforeAll(() => {
-      stream = EvmStream.create(input, core);
+      stream = EvmStream.create(input);
     });
 
     it('should return correct values advancedOptions getter', () => {
@@ -175,7 +167,7 @@ describe('EvmStream', () => {
     let stream: EvmStream;
 
     beforeAll(() => {
-      stream = EvmStream.create(input, core);
+      stream = EvmStream.create(input);
     });
 
     it('should return correct values for getNativeBalances getter', () => {
@@ -212,7 +204,7 @@ describe('EvmStream', () => {
 
   it('should return true for .equals() on equality match', () => {
     const input = mockEvmStream.SIMPLE;
-    const transfer = EvmStream.create(input, core);
+    const transfer = EvmStream.create(input);
     const isEqual = transfer.equals({
       ...input,
     });
@@ -222,7 +214,7 @@ describe('EvmStream', () => {
 
   it('should return false for .equals() on mismatching id', () => {
     const input = mockEvmStream.SIMPLE;
-    const transfer = EvmStream.create(input, core);
+    const transfer = EvmStream.create(input);
     const isEqual = transfer.equals({
       ...input,
       id: '3fa85f64-5717-4562-b3fc-2c963f66afax',
@@ -233,7 +225,7 @@ describe('EvmStream', () => {
 
   it('should return false for .equals() on mismatching triggers', () => {
     const input = mockEvmStream.SIMPLE;
-    const transfer = EvmStream.create(input, core);
+    const transfer = EvmStream.create(input);
     const isEqual = transfer.equals({
       ...input,
       triggers: undefined,

@@ -64,9 +64,9 @@ function serializeRequest(request: GetTransactionVerboseRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetTransactionVerboseJSONRequest, core: Core): GetTransactionVerboseRequest {
+function deserializeRequest(jsonRequest: GetTransactionVerboseJSONRequest): GetTransactionVerboseRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     transactionHash: jsonRequest.transactionHash,
   };
 }
@@ -75,47 +75,41 @@ function deserializeResponse(
   request: GetTransactionVerboseJSONRequest,
   core: Core,
 ) {
-  return EvmTransactionVerbose.create(
-    {
-      from: jsonResponse.from_address,
-      to: jsonResponse.to_address as string,
-      value: jsonResponse.value,
-      gasPrice: jsonResponse.gas_price,
-      gasUsed: jsonResponse.receipt_gas_used,
-      data: jsonResponse.input,
-      nonce: jsonResponse.nonce,
-      blockHash: jsonResponse.block_hash,
-      blockNumber: jsonResponse.block_number,
-      blockTimestamp: jsonResponse.block_timestamp,
-      index: jsonResponse.transaction_index,
-      chain: EvmChainResolver.resolve(request.chain, core),
-      hash: jsonResponse.hash,
-      gas: jsonResponse.gas,
-      cumulativeGasUsed: jsonResponse.receipt_cumulative_gas_used,
-      contractAddress: jsonResponse.receipt_contract_address as string,
-      logs: (jsonResponse.logs ?? []).map((log) =>
-        EvmTransactionLogDecoded.create(
-          {
-            address: log.address,
-            blockHash: log.block_hash,
-            blockNumber: +log.block_number,
-            data: log.data,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
-            transactionHash: log.transaction_hash,
-            blockTimestamp: log.block_timestamp,
-            logIndex: +log.log_index,
-            transactionIndex: +log.transaction_index,
-            chain: EvmChainResolver.resolve(request.chain, core),
-            decodedEvent: log.decoded_event,
-          },
-          core,
-        ),
-      ),
-      decodedCall: jsonResponse.decoded_call,
-      receiptRoot: jsonResponse.receipt_root as string,
-      receiptStatus: jsonResponse.receipt_status,
-    },
-    core,
-  );
+  return EvmTransactionVerbose.create({
+    from: jsonResponse.from_address,
+    to: jsonResponse.to_address as string,
+    value: jsonResponse.value,
+    gasPrice: jsonResponse.gas_price,
+    gasUsed: jsonResponse.receipt_gas_used,
+    data: jsonResponse.input,
+    nonce: jsonResponse.nonce,
+    blockHash: jsonResponse.block_hash,
+    blockNumber: jsonResponse.block_number,
+    blockTimestamp: jsonResponse.block_timestamp,
+    index: jsonResponse.transaction_index,
+    chain: EvmChainResolver.resolve(request.chain, core),
+    hash: jsonResponse.hash,
+    gas: jsonResponse.gas,
+    cumulativeGasUsed: jsonResponse.receipt_cumulative_gas_used,
+    contractAddress: jsonResponse.receipt_contract_address as string,
+    logs: (jsonResponse.logs ?? []).map((log) =>
+      EvmTransactionLogDecoded.create({
+        address: log.address,
+        blockHash: log.block_hash,
+        blockNumber: +log.block_number,
+        data: log.data,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
+        transactionHash: log.transaction_hash,
+        blockTimestamp: log.block_timestamp,
+        logIndex: +log.log_index,
+        transactionIndex: +log.transaction_index,
+        chain: EvmChainResolver.resolve(request.chain, core),
+        decodedEvent: log.decoded_event,
+      }),
+    ),
+    decodedCall: jsonResponse.decoded_call,
+    receiptRoot: jsonResponse.receipt_root as string,
+    receiptStatus: jsonResponse.receipt_status,
+  });
 }

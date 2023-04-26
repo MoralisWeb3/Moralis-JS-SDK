@@ -1,4 +1,4 @@
-import Core, { maybe, CoreProvider, MoralisDataObject } from '@moralisweb3/common-core';
+import { maybe, MoralisDataObject } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTriggerOutput } from '../StreamTriggerOutput';
 import { StreamEvmTransactionLogData, StreamEvmTransactionLogInput, StreamEvmTransactionLogJSON } from './types';
@@ -13,42 +13,38 @@ type StreamEvmTransactionLogish = StreamEvmTransactionLog | StreamEvmTransaction
 export class StreamEvmTransactionLog implements MoralisDataObject {
   private _data: StreamEvmTransactionLogData;
 
-  constructor({ ...data }: StreamEvmTransactionLogInput, core: Core) {
-    this._data = StreamEvmTransactionLog.parse(data, core);
+  constructor({ ...data }: StreamEvmTransactionLogInput) {
+    this._data = StreamEvmTransactionLog.parse(data);
   }
 
   /**
    * Create a new instance of StreamEvmTransactionLog
    *
    * @param data - the StreamEvmTransactionLogish type
-   * @param core - the Core instance
    * @example
    * ```ts
    * const transactionLog = StreamEvmTransactionLog.create(data);
    * ```
    * @returns an instance of StreamEvmTransactionLog
    */
-  static create(data: StreamEvmTransactionLogish, core?: Core) {
+  static create(data: StreamEvmTransactionLogish) {
     if (data instanceof StreamEvmTransactionLog) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new StreamEvmTransactionLog(data, finalCore);
+    return new StreamEvmTransactionLog(data);
   }
 
-  private static parse(data: StreamEvmTransactionLogInput, core: Core): StreamEvmTransactionLogData {
+  private static parse(data: StreamEvmTransactionLogInput): StreamEvmTransactionLogData {
     return {
       ...data,
-      chain: EvmChain.create(data.chain, core),
+      chain: EvmChain.create(data.chain),
       logIndex: +data.logIndex,
       address: EvmAddress.create(data.address),
       topic0: maybe(data.topic0),
       topic1: maybe(data.topic1),
       topic2: maybe(data.topic2),
       topic3: maybe(data.topic3),
-      triggers: maybe(data.triggers, (triggers) =>
-        triggers.map((trigger) => StreamTriggerOutput.create(trigger, core)),
-      ),
+      triggers: maybe(data.triggers, (triggers) => triggers.map((trigger) => StreamTriggerOutput.create(trigger))),
     };
   }
 
@@ -111,7 +107,7 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
 
     return {
       ...data,
-      chain: chain.format(),
+      chain: chain.toJSON(),
       address: address.toJSON(),
       triggers: triggers?.map((trigger) => trigger.format()),
     };

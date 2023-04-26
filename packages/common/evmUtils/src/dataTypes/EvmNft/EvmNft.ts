@@ -1,4 +1,4 @@
-import Core, {
+import {
   MoralisDataObject,
   MoralisDataObjectValue,
   CoreErrorCode,
@@ -6,7 +6,6 @@ import Core, {
   maybe,
   BigNumber,
   dateInputToDate,
-  CoreProvider,
 } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
@@ -29,30 +28,28 @@ export class EvmNft implements MoralisDataObject {
    * Create a new instance of EvmNft from any valid address input
    *
    * @param data - the EvmNftish type
-   * @param core - the Core instance
    * @example
    * ```ts
    * const nft = EvmNft.create(data);
    * ```
    * @returns an instance of EvmNft
    */
-  static create(data: EvmNftish, core?: Core) {
+  static create(data: EvmNftish) {
     if (data instanceof EvmNft) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmNft(data, finalCore);
+    return new EvmNft(data);
   }
 
   private _data: EvmNftData;
 
-  constructor(data: EvmNftInput, core: Core) {
-    this._data = EvmNft.parse(data, core);
+  constructor(data: EvmNftInput) {
+    this._data = EvmNft.parse(data);
   }
 
-  static parse = (data: EvmNftInput, core: Core): EvmNftData => ({
+  static parse = (data: EvmNftInput): EvmNftData => ({
     ...data,
-    chain: EvmChain.create(data.chain, core),
+    chain: EvmChain.create(data.chain),
     contractType: maybe(data.contractType),
     tokenAddress: EvmAddress.create(data.tokenAddress),
     metadata: maybe(data.metadata, this.validateMetadata),
@@ -66,7 +63,7 @@ export class EvmNft implements MoralisDataObject {
     lastMetadataSync: maybe(data.lastMetadataSync, dateInputToDate),
     lastTokenUriSync: maybe(data.lastTokenUriSync, dateInputToDate),
     amount: maybe(data.amount, (value) => +value),
-    media: maybe(data.media, (value) => EvmNftMedia.create(value, core)),
+    media: maybe(data.media, (value) => EvmNftMedia.create(value)),
   });
 
   /**
@@ -147,7 +144,7 @@ export class EvmNft implements MoralisDataObject {
     return {
       ...data,
       tokenAddress: data.tokenAddress.toJSON(),
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       ownerOf: data.ownerOf?.toJSON(),
       blockNumberMinted: data.blockNumberMinted?.toString(),
       blockNumber: data.blockNumber?.toString(),

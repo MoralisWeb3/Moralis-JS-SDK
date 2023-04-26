@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, maybe, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, Operation, maybe, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmAddress, EvmAddressish } from '../../dataTypes';
 
 import { operations } from '../openapi';
@@ -48,7 +48,7 @@ export const resolveAddressOperation: Operation<
 
 // Methods
 
-function getRequestUrlParams(request: ResolveAddressRequest, core: Core) {
+function getRequestUrlParams(request: ResolveAddressRequest) {
   return {
     address: maybe(request.address, (address) => EvmAddress.create(address).checksum),
   };
@@ -58,13 +58,13 @@ function deserializeResponse(jsonResponse: ResolveAddressJSONResponse) {
   return jsonResponse;
 }
 
-function serializeRequest(request: ResolveAddressRequest, core: Core) {
+function serializeRequest(request: ResolveAddressRequest) {
   return {
     address: maybe(request.address, (address) => EvmAddress.create(address).checksum),
   };
 }
 
-function deserializeRequest(jsonRequest: ResolveAddressJSONRequest, core: Core): ResolveAddressRequest {
+function deserializeRequest(jsonRequest: ResolveAddressJSONRequest): ResolveAddressRequest {
   return {
     address: maybe(jsonRequest.address, (address) => EvmAddress.create(address)),
   };

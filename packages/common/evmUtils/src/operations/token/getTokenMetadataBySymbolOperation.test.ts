@@ -16,7 +16,7 @@ describe('getTokenMetadataBySymbolOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetTokenMetadataBySymbolRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       symbols: ['SHIBA INU'],
     };
 

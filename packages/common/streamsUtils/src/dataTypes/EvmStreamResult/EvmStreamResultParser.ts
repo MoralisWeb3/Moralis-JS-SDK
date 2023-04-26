@@ -1,5 +1,3 @@
-/* eslint-disable etc/no-commented-out-code */
-import Core from '@moralisweb3/common-core';
 import { EvmSimpleBlock, EvmChain } from '@moralisweb3/common-evm-utils';
 import {
   Block,
@@ -26,8 +24,8 @@ import { EvmStreamResultData, EvmStreamResultInput } from './types';
 import { StreamEvmNftTokenApproval } from '../StreamEvmNftTokenApproval/StreamEvmNftTokenApproval';
 
 export class EvmStreamResultParser {
-  static parse = (value: EvmStreamResultInput, core: Core): EvmStreamResultData => {
-    const chain = this.parseChainId(value.chainId, core);
+  static parse = (value: EvmStreamResultInput): EvmStreamResultData => {
+    const chain = this.parseChainId(value.chainId);
 
     return {
       chain,
@@ -35,7 +33,7 @@ export class EvmStreamResultParser {
       erc20Approvals: this.parseErc20Approvals(value.erc20Approvals, chain),
       nftTransfers: this.parseNftTransfers(value.nftTransfers, chain),
       nftApprovals: this.parseNftApprovals(value.nftApprovals, chain),
-      ntfTokenApprovals: this.parseNftTokenApprovals(value.nftTokenApprovals, chain, core),
+      ntfTokenApprovals: this.parseNftTokenApprovals(value.nftTokenApprovals, chain),
       block: this.parseBlock(value.block, chain),
       logs: this.parseLogs(value.logs, chain),
       txs: this.parseTransactions(value.txs, chain),
@@ -49,9 +47,9 @@ export class EvmStreamResultParser {
     };
   };
 
-  static parseChainId(value: string, core: Core) {
+  static parseChainId(value: string) {
     // Only needed for the initial test-response where we get an empty string as chain
-    return value === '' ? EvmChain.ETHEREUM : EvmChain.create(value, core);
+    return value === '' ? EvmChain.ETHEREUM : EvmChain.create(value);
   }
 
   static parseErc20Transfers(value: IERC20Transfer[], chain: EvmChain) {
@@ -98,15 +96,12 @@ export class EvmStreamResultParser {
     };
   }
 
-  static parseNftTokenApprovals(values: INFTApproval[], chain: EvmChain, core: Core) {
+  static parseNftTokenApprovals(values: INFTApproval[], chain: EvmChain) {
     return values.map((value) =>
-      StreamEvmNftTokenApproval.create(
-        {
-          chain,
-          ...value,
-        },
-        core,
-      ),
+      StreamEvmNftTokenApproval.create({
+        chain,
+        ...value,
+      }),
     );
   }
 

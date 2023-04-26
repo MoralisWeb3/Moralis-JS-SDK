@@ -1,4 +1,5 @@
 export const createPaginatedResponse = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   result: any[],
   total: number,
   page: number,

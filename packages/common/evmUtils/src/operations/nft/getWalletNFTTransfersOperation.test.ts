@@ -14,7 +14,7 @@ describe('getWalletNFTTransfersOperation', () => {
     const chain = '0x10';
 
     const request: Required<GetWalletNFTTransfersRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       format: 'decimal',
       direction: 'from',

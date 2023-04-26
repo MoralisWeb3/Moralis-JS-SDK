@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { EvmSignature, EvmSignatureish } from './EvmSignature';
-import { setupEvmUtils } from '../../test/setup';
 
 const validInputs: [EvmSignatureish, string][] = [
   [
@@ -77,16 +75,6 @@ const validInputs: [EvmSignatureish, string][] = [
 ];
 
 describe('EvmAddress', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   it.each(validInputs)('should create a valid EvmSignature from %p', (input, expected) => {
     const signature = EvmSignature.create(input);
 

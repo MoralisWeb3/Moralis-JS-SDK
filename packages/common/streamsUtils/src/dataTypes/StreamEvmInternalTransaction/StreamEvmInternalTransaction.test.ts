@@ -1,19 +1,11 @@
-import Core from '@moralisweb3/common-core';
-import { setupStreamsUtils } from '../../test/setup';
 import { StreamEvmInternalTransaction } from './StreamEvmInternalTransaction';
 import { mockStreamEvmInternalTransaction } from './StreamEvmInternalTransaction.mock';
 
 const testsInputs = Object.entries(mockStreamEvmInternalTransaction).map(([name, input]) => ({ name, input }));
 
 describe('StreamEvmInternalTransaction', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupStreamsUtils();
-  });
-
   it.each(testsInputs)('should create succesfully for: $name', ({ input }) => {
-    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const transaction = StreamEvmInternalTransaction.create(input);
     const output = transaction.format();
 
     expect(transaction).toBeDefined();
@@ -25,7 +17,7 @@ describe('StreamEvmInternalTransaction', () => {
     let transaction: StreamEvmInternalTransaction;
 
     beforeAll(() => {
-      transaction = StreamEvmInternalTransaction.create(input, core);
+      transaction = StreamEvmInternalTransaction.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -81,7 +73,7 @@ describe('StreamEvmInternalTransaction', () => {
     let transaction: StreamEvmInternalTransaction;
 
     beforeAll(() => {
-      transaction = StreamEvmInternalTransaction.create(input, core);
+      transaction = StreamEvmInternalTransaction.create(input);
     });
 
     it('should return correct values for all getters', () => {
@@ -126,7 +118,7 @@ describe('StreamEvmInternalTransaction', () => {
 
   it('should return true for .equals() on equality match', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
-    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const transaction = StreamEvmInternalTransaction.create(input);
     const isEqual = transaction.equals({
       ...input,
     });
@@ -136,7 +128,7 @@ describe('StreamEvmInternalTransaction', () => {
 
   it('should return false for .equals() on mismatchin chain', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
-    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const transaction = StreamEvmInternalTransaction.create(input);
     const isEqual = transaction.equals({
       ...input,
       chain: '0x2',
@@ -147,7 +139,7 @@ describe('StreamEvmInternalTransaction', () => {
 
   it('should return false for .equals() on mismatchin transactionHash', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
-    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const transaction = StreamEvmInternalTransaction.create(input);
     const isEqual = transaction.equals({
       ...input,
       transactionHash: '0x9857d679ab331210161427d36d08c3b00e6d28c03366e9b891832ad9b5d478f8',
@@ -158,7 +150,7 @@ describe('StreamEvmInternalTransaction', () => {
 
   it('should return false for .equals() on mismatching trigger results length', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
-    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const transaction = StreamEvmInternalTransaction.create(input);
     const isEqual = transaction.equals({
       ...input,
       triggers: [{ name: 'fromBalance', value: '6967063534600021400000' }],
@@ -169,7 +161,7 @@ describe('StreamEvmInternalTransaction', () => {
 
   it('should return false for .equals() on mismatching trigger results', () => {
     const input = mockStreamEvmInternalTransaction.FULL;
-    const transaction = StreamEvmInternalTransaction.create(input, core);
+    const transaction = StreamEvmInternalTransaction.create(input);
     const isEqual = transaction.equals({
       ...input,
       triggers: [

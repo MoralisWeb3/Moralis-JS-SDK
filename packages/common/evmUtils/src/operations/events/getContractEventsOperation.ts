@@ -100,22 +100,19 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? [])?.map((event) =>
-    EvmEvent.create(
-      {
-        chain: EvmChainResolver.resolve(request.chain, core),
-        address: request.address,
-        blockHash: event.block_hash,
-        blockNumber: event.block_number,
-        blockTimestamp: event.block_timestamp,
-        transactionHash: event.transaction_hash,
-        data: {
-          to: event.data.to,
-          from: event.data.from,
-          value: maybe(event.data.value, (value) => EvmNative.create(value, 'wei')),
-        },
+    EvmEvent.create({
+      chain: EvmChainResolver.resolve(request.chain, core),
+      address: request.address,
+      blockHash: event.block_hash,
+      blockNumber: event.block_number,
+      blockTimestamp: event.block_timestamp,
+      transactionHash: event.transaction_hash,
+      data: {
+        to: event.data.to,
+        from: event.data.from,
+        value: maybe(event.data.value, (value) => EvmNative.create(value, 'wei')),
       },
-      core,
-    ),
+    }),
   );
 }
 
@@ -135,9 +132,9 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetContractEventsJSONRequest, core: Core): GetContractEventsRequest {
+function deserializeRequest(jsonRequest: GetContractEventsJSONRequest): GetContractEventsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,

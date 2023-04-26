@@ -114,9 +114,9 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core): GetContractLogsRequest {
+function deserializeRequest(jsonRequest: GetContractLogsJSONRequest): GetContractLogsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     blockNumber: jsonRequest.blockNumber,
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
@@ -135,14 +135,11 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest, core: Core)
 
 function deserializeResponse(jsonResponse: GetContractLogsJSONResponse, request: GetContractLogsRequest, core: Core) {
   return (jsonResponse.result ?? [])?.map((log) =>
-    EvmTransactionLog.create(
-      {
-        ...toCamelCase(log),
-        topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
-        blockNumber: Number(log.block_number),
-        chain: EvmChainResolver.resolve(request.chain, core),
-      },
-      core,
-    ),
+    EvmTransactionLog.create({
+      ...toCamelCase(log),
+      topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
+      blockNumber: Number(log.block_number),
+      chain: EvmChainResolver.resolve(request.chain, core),
+    }),
   );
 }

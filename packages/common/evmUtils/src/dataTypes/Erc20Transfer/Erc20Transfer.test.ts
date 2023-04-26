@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { Erc20Transfer } from './Erc20Transfer';
-import { setupEvmUtils } from '../../test/setup';
 import { Erc20TransferInput } from './types';
 
 const exampleInput: Erc20TransferInput = {
@@ -19,16 +17,6 @@ const exampleInput: Erc20TransferInput = {
 };
 
 describe('Erc20Transfer', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

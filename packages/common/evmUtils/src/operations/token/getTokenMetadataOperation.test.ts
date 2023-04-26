@@ -15,7 +15,7 @@ describe('getTokenMetadataOperation', () => {
 
     const request: Required<GetTokenMetadataRequest> = {
       addresses: addresses.map((address) => EvmAddress.create(address)),
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
     };
 
     const serializedRequest = getTokenMetadataOperation.serializeRequest(request, core);

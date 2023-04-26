@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransaction } from '../EvmTransaction';
@@ -22,21 +22,20 @@ export class EvmBlock implements MoralisDataObject {
    * @param data - the EvmBlockish type
    * @example const transaction = EvmTransaction.create(data);
    */
-  static create(data: EvmBlockish, core?: Core) {
+  static create(data: EvmBlockish) {
     if (data instanceof EvmBlock) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmBlock(data, finalCore);
+    return new EvmBlock(data);
   }
 
   private _data: EvmBlockData;
 
-  constructor(data: EvmBlockInput, core: Core) {
-    this._data = EvmBlock.parse(data, core);
+  constructor(data: EvmBlockInput) {
+    this._data = EvmBlock.parse(data);
   }
 
-  static parse = (data: EvmBlockInput, core: Core): EvmBlockData => ({
+  static parse = (data: EvmBlockInput): EvmBlockData => ({
     ...data,
     miner: EvmAddress.create(data.miner),
     timestamp: dateInputToDate(data.timestamp),
@@ -46,8 +45,8 @@ export class EvmBlock implements MoralisDataObject {
     size: BigNumber.create(data.size),
     gasLimit: BigNumber.create(data.gasLimit),
     gasUsed: BigNumber.create(data.gasUsed),
-    transactions: data.transactions.map((transaction) => EvmTransaction.create(transaction, core)),
-    chain: EvmChain.create(data.chain, core),
+    transactions: data.transactions.map((transaction) => EvmTransaction.create(transaction)),
+    chain: EvmChain.create(data.chain),
     transactionCount: +data.transactionCount,
   });
 
@@ -101,7 +100,7 @@ export class EvmBlock implements MoralisDataObject {
       size: data.size.toString(),
       gasLimit: data.gasLimit.toString(),
       gasUsed: data.gasUsed.toString(),
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       miner: data.miner.toJSON(),
       transactions: data.transactions.map((transaction) => transaction.toJSON()),
     };

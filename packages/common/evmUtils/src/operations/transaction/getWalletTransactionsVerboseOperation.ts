@@ -103,12 +103,9 @@ function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Co
   };
 }
 
-function deserializeRequest(
-  jsonRequest: GetWalletTransactionsVerboseJSONRequest,
-  core: Core,
-): GetWalletTransactionsVerboseRequest {
+function deserializeRequest(jsonRequest: GetWalletTransactionsVerboseJSONRequest): GetWalletTransactionsVerboseRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     fromBlock: jsonRequest.fromBlock,
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate,
@@ -126,45 +123,39 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    EvmTransaction.create(
-      {
-        cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
-        gasPrice: transfer.gas_price,
-        gasUsed: transfer.receipt_gas_used,
-        index: +transfer.transaction_index,
-        contractAddress: transfer.receipt_contract_address as string,
-        receiptRoot: transfer.receipt_root as string,
-        receiptStatus: +transfer.receipt_status,
-        chain: EvmChainResolver.resolve(request.chain, core),
-        data: transfer.input,
-        from: EvmAddress.create(transfer.from_address),
-        hash: transfer.hash,
-        nonce: transfer.nonce,
-        value: transfer.value,
-        blockHash: transfer.block_hash,
-        blockNumber: +transfer.block_number,
-        blockTimestamp: new Date(transfer.block_timestamp),
-        gas: BigNumber.create(transfer.gas as string),
-        to: EvmAddress.create(transfer.to_address as string),
-        logs: (transfer.logs ?? []).map((log) =>
-          EvmTransactionLog.create(
-            {
-              logIndex: +log.log_index,
-              transactionHash: log.transaction_hash,
-              transactionIndex: +log.transaction_index,
-              address: log.address,
-              data: log.data,
-              topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
-              blockHash: log.block_hash,
-              blockNumber: +log.block_number,
-              blockTimestamp: transfer.block_timestamp,
-              chain: EvmChainResolver.resolve(request.chain, core),
-            },
-            core,
-          ),
-        ),
-      },
-      core,
-    ),
+    EvmTransaction.create({
+      cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
+      gasPrice: transfer.gas_price,
+      gasUsed: transfer.receipt_gas_used,
+      index: +transfer.transaction_index,
+      contractAddress: transfer.receipt_contract_address as string,
+      receiptRoot: transfer.receipt_root as string,
+      receiptStatus: +transfer.receipt_status,
+      chain: EvmChainResolver.resolve(request.chain, core),
+      data: transfer.input,
+      from: EvmAddress.create(transfer.from_address),
+      hash: transfer.hash,
+      nonce: transfer.nonce,
+      value: transfer.value,
+      blockHash: transfer.block_hash,
+      blockNumber: +transfer.block_number,
+      blockTimestamp: new Date(transfer.block_timestamp),
+      gas: BigNumber.create(transfer.gas as string),
+      to: EvmAddress.create(transfer.to_address as string),
+      logs: (transfer.logs ?? []).map((log) =>
+        EvmTransactionLog.create({
+          logIndex: +log.log_index,
+          transactionHash: log.transaction_hash,
+          transactionIndex: +log.transaction_index,
+          address: log.address,
+          data: log.data,
+          topics: [log.topic0, log.topic1 as LogTopic, log.topic2 as LogTopic, log.topic3 as LogTopic],
+          blockHash: log.block_hash,
+          blockNumber: +log.block_number,
+          blockTimestamp: transfer.block_timestamp,
+          chain: EvmChainResolver.resolve(request.chain, core),
+        }),
+      ),
+    }),
   );
 }

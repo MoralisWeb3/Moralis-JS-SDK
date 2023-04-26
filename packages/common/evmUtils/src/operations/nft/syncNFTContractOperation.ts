@@ -71,9 +71,9 @@ function serializeRequest(request: SyncNFTContractRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: SyncNFTContractJSONRequest, core: Core): SyncNFTContractRequest {
+function deserializeRequest(jsonRequest: SyncNFTContractJSONRequest): SyncNFTContractRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     address: EvmAddress.create(jsonRequest.address),
   };
 }

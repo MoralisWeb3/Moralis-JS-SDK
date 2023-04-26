@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20TransferInput, Erc20TransferData } from './types';
@@ -23,23 +23,22 @@ export class Erc20Transfer implements MoralisDataObject {
    * const transfer = Erc20Transfer.create(data);
    *```
    */
-  static create(data: Erc20Transferish, core?: Core) {
+  static create(data: Erc20Transferish) {
     if (data instanceof Erc20Transfer) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new Erc20Transfer(data, finalCore);
+    return new Erc20Transfer(data);
   }
 
   private _data: Erc20TransferData;
 
-  constructor(data: Erc20TransferInput, core: Core) {
-    this._data = Erc20Transfer.parse(data, core);
+  constructor(data: Erc20TransferInput) {
+    this._data = Erc20Transfer.parse(data);
   }
 
-  static parse = (data: Erc20TransferInput, core: Core): Erc20TransferData => ({
+  static parse = (data: Erc20TransferInput): Erc20TransferData => ({
     ...data,
-    chain: EvmChain.create(data.chain, core),
+    chain: EvmChain.create(data.chain),
     address: EvmAddress.create(data.address),
     blockTimestamp: dateInputToDate(data.blockTimestamp),
     blockNumber: BigNumber.create(data.blockNumber),
@@ -82,7 +81,7 @@ export class Erc20Transfer implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       address: data.address.toJSON(),
       blockNumber: data.blockNumber.toString(),
       toAddress: data.toAddress.toJSON(),

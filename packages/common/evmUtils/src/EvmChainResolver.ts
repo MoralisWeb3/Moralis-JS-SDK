@@ -5,10 +5,10 @@ import { EvmChain, EvmChainish } from './dataTypes';
 export class EvmChainResolver {
   public static resolve(chain: EvmChainish | undefined, core: Core): EvmChain {
     if (chain) {
-      return EvmChain.create(chain, core);
+      return EvmChain.create(chain);
     }
 
     const defaultEvmChain = core.config.get(CommonEvmUtilsConfig.defaultEvmApiChain);
-    return EvmChain.create(defaultEvmChain, core);
+    return EvmChain.create(defaultEvmChain);
   }
 }

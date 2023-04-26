@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { EvmTransaction } from './EvmTransaction';
-import { setupEvmUtils } from '../../test/setup';
 import { EvmTransactionInput } from './types';
 import { EvmTransactionLog } from '../EvmTransactionLog';
 
@@ -45,16 +43,6 @@ const exampleInput: EvmTransactionInput = {
 };
 
 describe('EvmTransaction', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

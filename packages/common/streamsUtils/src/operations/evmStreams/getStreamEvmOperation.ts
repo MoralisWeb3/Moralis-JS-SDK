@@ -1,4 +1,4 @@
-import { Core, Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
+import { Camelize, Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { EvmStream } from '../../dataTypes';
 import { operations } from '../openapi';
 
@@ -48,8 +48,8 @@ function getRequestUrlParams(request: GetStreamEvmRequest) {
   };
 }
 
-function deserializeResponse(jsonResponse: GetStreamEvmJSONResponse, request: GetStreamEvmRequest, core: Core) {
-  return EvmStream.create(jsonResponse, core);
+function deserializeResponse(jsonResponse: GetStreamEvmJSONResponse) {
+  return EvmStream.create(jsonResponse);
 }
 
 function serializeRequest(request: GetStreamEvmRequest) {

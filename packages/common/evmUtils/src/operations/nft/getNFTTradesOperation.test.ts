@@ -16,7 +16,7 @@ describe('getNFTTradesOperation', () => {
     const toDate = '2021-01-01T00:00:00.000Z';
 
     const request: Required<GetNFTTradesRequest> = {
-      chain: EvmChain.create(chain, core),
+      chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       marketplace: 'opensea',
       fromBlock: 10,

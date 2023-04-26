@@ -1,6 +1,4 @@
-import { Core } from '@moralisweb3/common-core';
 import { EvmAddress } from './EvmAddress';
-import { setupEvmUtils } from '../../test/setup';
 
 const TEST_ADDRESS_CHECKSUM = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
 const TEST_ADDRESS_CHECKSUM2 = '0x766fd99F7D249E275b4CF9baE422D50cC3223869';
@@ -8,16 +6,6 @@ const TEST_ADDRESS_LOWERCASE = TEST_ADDRESS_CHECKSUM.toLowerCase();
 const TEST_INVALID_ADDRESS = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96000';
 
 describe('EvmAddress', () => {
-  let core: Core;
-
-  beforeAll(() => {
-    core = setupEvmUtils();
-  });
-
-  beforeEach(() => {
-    core.config.reset();
-  });
-
   /**
    * Creation
    */

@@ -78,9 +78,9 @@ function serializeRequest(request: ReSyncMetadataRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: ReSyncMetadataJSONRequest, core: Core): ReSyncMetadataRequest {
+function deserializeRequest(jsonRequest: ReSyncMetadataJSONRequest): ReSyncMetadataRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     flag: jsonRequest.flag,
     mode: jsonRequest.mode,
     address: EvmAddress.create(jsonRequest.address),

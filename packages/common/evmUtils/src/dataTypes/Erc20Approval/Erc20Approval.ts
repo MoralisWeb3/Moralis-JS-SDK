@@ -1,4 +1,4 @@
-import Core, { MoralisDataObject, BigNumber, dateInputToDate, CoreProvider } from '@moralisweb3/common-core';
+import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { Erc20ApprovalInput, Erc20ApprovalData } from './types';
@@ -17,24 +17,22 @@ export class Erc20Approval implements MoralisDataObject {
    * const approval = Erc20Approval.create(data);
    *```
    */
-  static create(data: Erc20Approval | Erc20ApprovalInput, core?: Core) {
+  static create(data: Erc20Approval | Erc20ApprovalInput) {
     if (data instanceof Erc20Approval) {
       return data;
     }
-
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new Erc20Approval(data, finalCore);
+    return new Erc20Approval(data);
   }
 
   private _data: Erc20ApprovalData;
 
-  constructor(data: Erc20ApprovalInput, core: Core) {
-    this._data = Erc20Approval.parse(data, core);
+  constructor(data: Erc20ApprovalInput) {
+    this._data = Erc20Approval.parse(data);
   }
 
-  static parse = (data: Erc20ApprovalInput, core: Core): Erc20ApprovalData => ({
+  static parse = (data: Erc20ApprovalInput): Erc20ApprovalData => ({
     ...data,
-    chain: EvmChain.create(data.chain, core),
+    chain: EvmChain.create(data.chain),
     contractAddress: EvmAddress.create(data.contractAddress),
     fromWallet: EvmAddress.create(data.fromWallet),
     toWallet: EvmAddress.create(data.toWallet),
@@ -77,7 +75,7 @@ export class Erc20Approval implements MoralisDataObject {
     const data = this._data;
     return {
       ...data,
-      chain: data.chain.format(),
+      chain: data.chain.toJSON(),
       contractAddress: data.contractAddress.toJSON(),
       blockNumber: data.blockNumber.toString(),
       toWallet: data.toWallet.toJSON(),

@@ -76,7 +76,7 @@ function getRequestUrlParams(request: GetMultipleNFTsRequest, core: Core) {
   };
 }
 
-function getRequestBody(request: GetMultipleNFTsRequest, core: Core) {
+function getRequestBody(request: GetMultipleNFTsRequest) {
   return {
     tokens: request.tokens.map((token) => ({
       token_address: EvmAddress.create(token.tokenAddress).lowercase,
@@ -96,26 +96,20 @@ function deserializeResponse(jsonResponse: GetMultipleNFTsJSONResponse, request:
     const chain = EvmChainResolver.resolve(request.chain, core);
     const nft = toCamelCase(data);
 
-    return EvmNft.create(
-      {
-        ...toCamelCase(nft),
-        chain: EvmChainResolver.resolve(request.chain, core),
-        amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
-        ownerOf: EvmAddress.create(nft.ownerOf),
-        lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
-        lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
-        media: maybe(nft.media, (media) =>
-          EvmNftMedia.create(
-            {
-              chain,
-              ...toCamelCase(media),
-            },
-            core,
-          ),
-        ),
-      },
-      core,
-    );
+    return EvmNft.create({
+      ...toCamelCase(nft),
+      chain: EvmChainResolver.resolve(request.chain, core),
+      amount: nft.amount ? parseInt(nft.amount, 10) : undefined,
+      ownerOf: EvmAddress.create(nft.ownerOf),
+      lastMetadataSync: dateInputToDate(nft.lastMetadataSync),
+      lastTokenUriSync: dateInputToDate(nft.lastTokenUriSync),
+      media: maybe(nft.media, (media) =>
+        EvmNftMedia.create({
+          chain,
+          ...toCamelCase(media),
+        }),
+      ),
+    });
   });
 }
 
@@ -131,9 +125,9 @@ function serializeRequest(request: GetMultipleNFTsRequest, core: Core) {
   };
 }
 
-function deserializeRequest(jsonRequest: GetMultipleNFTsJSONRequest, core: Core): GetMultipleNFTsRequest {
+function deserializeRequest(jsonRequest: GetMultipleNFTsJSONRequest): GetMultipleNFTsRequest {
   return {
-    chain: EvmChain.create(jsonRequest.chain, core),
+    chain: EvmChain.create(jsonRequest.chain),
     normalizeMetadata: jsonRequest.normalizeMetadata,
     tokens: jsonRequest.tokens.map((token) => ({
       tokenAddress: EvmAddress.create(token.tokenAddress),

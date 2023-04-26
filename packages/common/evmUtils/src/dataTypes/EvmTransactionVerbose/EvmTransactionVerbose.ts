@@ -1,4 +1,3 @@
-import Core, { CoreProvider } from '@moralisweb3/common-core';
 import { EvmTransaction } from '../EvmTransaction/EvmTransaction';
 import { EvmTransactionLogDecoded } from '../EvmTransactionLogDecoded';
 import { EvmTransactionVerboseInput, EvmTransactionVerboseData } from './types';
@@ -25,26 +24,25 @@ export class EvmTransactionVerbose extends EvmTransaction {
    * const transaction = EvmTransactionVerbose.create(data);
    *```
    */
-  static create(data: EvmTransactionVerboseish, core?: Core) {
+  static create(data: EvmTransactionVerboseish) {
     if (data instanceof EvmTransactionVerbose) {
       return data;
     }
-    const finalCore = core ?? CoreProvider.getDefault();
-    return new EvmTransactionVerbose(data, finalCore);
+    return new EvmTransactionVerbose(data);
   }
 
-  constructor(data: EvmTransactionVerboseInput, core: Core) {
-    super(data, core);
-    this._data = EvmTransactionVerbose.parse(data, core);
+  constructor(data: EvmTransactionVerboseInput) {
+    super(data);
+    this._data = EvmTransactionVerbose.parse(data);
   }
 
   protected _data;
 
-  static parse = (data: EvmTransactionVerboseInput, core: Core): EvmTransactionVerboseData => {
-    const parsed = super.parse(data, core);
+  static parse = (data: EvmTransactionVerboseInput): EvmTransactionVerboseData => {
+    const parsed = super.parse(data);
     return {
       ...parsed,
-      logs: data.logs.map((log) => EvmTransactionLogDecoded.create(log, core)),
+      logs: data.logs.map((log) => EvmTransactionLogDecoded.create(log)),
       decodedCall: data.decodedCall,
     };
   };
