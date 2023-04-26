@@ -1,4 +1,3 @@
-import { setupEvmUtils } from '../../test/setup';
 import { EvmTransactionLogDecoded } from './EvmTransactionLogDecoded';
 import { EvmTransactionLogDecodedInput } from './types';
 
@@ -98,10 +97,6 @@ const inputWithInvalidData = {
 };
 
 describe('EvmTransactionLogDecoded', () => {
-  beforeAll(() => {
-    setupEvmUtils();
-  });
-
   /**
    * Creation
    */
