@@ -49,7 +49,6 @@ jobs:
         uses: ./.github/actions/yarn-monorepo-install
       - name: ESLint
         run: yarn lint
-        continue-on-error: true
       - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@1.2.0
         if: always()
