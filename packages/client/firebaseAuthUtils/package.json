@@ -16,6 +16,6 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
-    "firebase": "^9.15.0"
+    "firebase": "^9.19.1"
   }
 }
