@@ -14,6 +14,7 @@ export class TriggerItemsBuilder {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function convertValue(value: any): TriggerItemValue {
   const type = typeof value;
   if (type === 'string' || type === 'number' || type === 'boolean') {

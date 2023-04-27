@@ -32,7 +32,7 @@ export class ReadmeTheme extends MarkdownTheme {
     return splitTitle;
   }
 
-  toUrl(mapping: any, reflection: DeclarationReflection) {
+  toUrl(mapping: unknown, reflection: DeclarationReflection) {
     let url = `/${reflection.getFullName().replace(/[.]/g, '/').replace('@', '').toLowerCase()}.md`;
     if (reflection.kindString === 'Module') {
       url = url.replace('.md', '/index.md');
@@ -40,6 +40,7 @@ export class ReadmeTheme extends MarkdownTheme {
     return url;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getSlug(page: PageEvent<any>) {
     return page.url.replace(/\.[^.$]+$/, '').replace('/.', '-');
   }

@@ -23,6 +23,7 @@ async function webHook(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function writeTofile(data: any) {
   const content = {
     timestamp: new Date().toISOString(),

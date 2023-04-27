@@ -53,7 +53,8 @@ export class AptosAddress implements MoralisData {
     if (address.startsWith('0x')) {
       address = address.substring(2);
     }
-    return '0x' + address.padStart(64, '0');
+    const addr = address.padStart(64, '0');
+    return `0x${addr}`;
   }
 
   public constructor(public readonly address: string) {}
@@ -106,6 +107,7 @@ export class AptosAddress implements MoralisData {
    * @example address.short; // "0x1"
    */
   public get short(): string {
-    return '0x' + this.address.substring(2).replace(/^0+/, '');
+    const address = this.address.substring(2).replace(/^0+/, '');
+    return `0x${address}`;
   }
 }
