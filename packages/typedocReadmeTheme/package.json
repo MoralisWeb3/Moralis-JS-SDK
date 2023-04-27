@@ -14,7 +14,7 @@
     "build": "tsc",
     "predocs": "tsc",
     "docs": "typedoc src --plugin dist/index.js",
-    "lint": "eslint . --ext .js,.ts,.tsx,jsx"
+    "lint": "yarn run -T eslint . --ext .js,.ts,.tsx,jsx"
   },
   "peerDependencies": {
     "typedoc": ">=0.23.21",

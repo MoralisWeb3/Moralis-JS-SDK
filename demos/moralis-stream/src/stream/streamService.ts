@@ -3,6 +3,7 @@ import Moralis from 'moralis';
 interface StreamTriggerOptions {
   type: 'tx' | 'log' | 'erc20transfer' | 'erc20approval' | 'nfttransfer';
   contractAddress: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   functionAbi: any;
   inputs?: string[];
 }
