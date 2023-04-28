@@ -58,7 +58,7 @@ export class EvmTrade {
   public static fromJSON(json: EvmTradeJSON): EvmTrade {
     const input: EvmTradeInput = {
       transactionHash: json.transaction_hash,
-      transactionIndex: parseInt(json.transaction_index, 10),
+      transactionIndex: Number(json.transaction_index),
       tokenIds: json.token_ids,
       sellerAddress: EvmAddress.fromJSON(json.seller_address),
       buyerAddress: EvmAddress.fromJSON(json.buyer_address),

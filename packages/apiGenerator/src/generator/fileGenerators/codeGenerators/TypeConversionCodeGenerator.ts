@@ -8,7 +8,7 @@ export class TypeConversionCodeGenerator {
       case 'number':
         switch (sourceNativeType) {
           case 'string':
-            return `parseInt(${valueCode}, 10)`;
+            return `Number(${valueCode})`;
         }
         break;
 

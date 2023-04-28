@@ -11,10 +11,10 @@ describe('TypeConversionCodeGenerator', () => {
   });
 
   it('converts string to number', () => {
-    expect(TypeConversionCodeGenerator.generate('string', 'number', 'value')).toEqual('parseInt(value, 10)');
+    expect(TypeConversionCodeGenerator.generate('string', 'number', 'value')).toEqual('Number(value)');
   });
 
   it('converts Date to string', () => {
-    expect(TypeConversionCodeGenerator.generate('Date', 'string', 'value')).toEqual('String(value.getTime())');
+    expect(TypeConversionCodeGenerator.generate('Date', 'string', 'value')).toEqual('value.toISOString()');
   });
 });
