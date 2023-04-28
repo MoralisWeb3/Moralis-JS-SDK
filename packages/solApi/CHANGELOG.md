@@ -1,5 +1,18 @@
 # @moralisweb3/sol-api
 
+## 2.19.0
+
+### Patch Changes
+
+- [#1103](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1103) [`d6f6476a7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d6f6476a727dfbe68d4b55ddde4749372ea6cf4a) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the optional `solApiBaseUrl` config option. You may replace the default base URL of the Solana API with your own.
+
+- [#1098](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1098) [`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed importing interop modules for CJS bundles.
+
+- Updated dependencies [[`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9)]:
+  - @moralisweb3/common-sol-utils@2.19.0
+  - @moralisweb3/common-core@2.19.0
+  - @moralisweb3/api-utils@2.19.0
+
 ## 2.18.4
 
 ### Patch Changes

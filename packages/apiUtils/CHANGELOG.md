@@ -1,5 +1,15 @@
 # @moralisweb3/api-utils
 
+## 2.19.0
+
+### Patch Changes
+
+- [#1098](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1098) [`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed importing interop modules for CJS bundles.
+
+- Updated dependencies [[`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9)]:
+  - @moralisweb3/common-evm-utils@2.19.0
+  - @moralisweb3/common-core@2.19.0
+
 ## 2.18.4
 
 ### Patch Changes

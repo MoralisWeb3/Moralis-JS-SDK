@@ -1,5 +1,23 @@
 # @moralisweb3/auth
 
+## 2.19.0
+
+### Minor Changes
+
+- [#1101](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1101) [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: The `format()` method has been deleted from the `EvmAddress` class and the `EvmChain` class. Please format the value by using a proper class property.
+
+### Patch Changes
+
+- [#1098](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1098) [`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed importing interop modules for CJS bundles.
+
+- Updated dependencies [[`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9)]:
+  - @moralisweb3/common-evm-utils@2.19.0
+  - @moralisweb3/common-aptos-utils@2.19.0
+  - @moralisweb3/common-auth-utils@2.19.0
+  - @moralisweb3/common-sol-utils@2.19.0
+  - @moralisweb3/common-core@2.19.0
+  - @moralisweb3/api-utils@2.19.0
+
 ## 2.18.4
 
 ### Patch Changes
