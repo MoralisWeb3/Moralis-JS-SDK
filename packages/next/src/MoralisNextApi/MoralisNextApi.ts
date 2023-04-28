@@ -1,10 +1,10 @@
-import { MoralisNextApiParams, MoralisNextHandlerParams } from './types';
+import { isMoralisError } from '@moralisweb3/common-core';
 import Moralis from 'moralis';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { authOperationNames, moralisNextAuthHandler } from '../auth/moralisNextAuthHandler';
-import { getModuleByName } from './Modules';
-import { isMoralisError } from '@moralisweb3/common-core';
 import { serverLogger } from '../serverLogger';
+import { getModuleByName } from './Modules';
+import { MoralisNextApiParams, MoralisNextHandlerParams } from './types';
 
 Moralis.Core.config.set('product', 'NextJS SDK');
 

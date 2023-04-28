@@ -1,11 +1,9 @@
 import { ApiUtilsConfigValues } from '@moralisweb3/api-utils';
 import { RequestChallengeEvmRequest, RequestChallengeSolanaRequest } from '@moralisweb3/common-auth-utils';
-import { MoralisCoreConfigValues, Core } from 'moralis/common-core';
+import { Core } from 'moralis/common-core';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export type MoralisConfigValues = MoralisCoreConfigValues | ApiUtilsConfigValues;
-
-export type MoralisNextApiParams = MoralisConfigValues & {
+export type MoralisNextApiParams = ApiUtilsConfigValues & {
   authentication?: AuthConfig;
 };
 
