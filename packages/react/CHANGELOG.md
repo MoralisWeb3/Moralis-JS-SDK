@@ -1,5 +1,18 @@
 # @moralisweb3/react
 
+## 2.19.0
+
+### Patch Changes
+
+- Updated dependencies [[`d6f6476a7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d6f6476a727dfbe68d4b55ddde4749372ea6cf4a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`d6f6476a7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/d6f6476a727dfbe68d4b55ddde4749372ea6cf4a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`586a71133`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/586a71133ea684e8f1664fd300934bfa18b00e7a), [`393291c73`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/393291c73248ba59010f801ba33d230c4b5615a9)]:
+  - @moralisweb3/evm-api@2.19.0
+  - moralis@2.19.0
+  - @moralisweb3/sol-api@2.19.0
+  - @moralisweb3/auth@2.19.0
+  - @moralisweb3/common-auth-utils@2.19.0
+  - @moralisweb3/common-core@2.19.0
+  - @moralisweb3/api-utils@2.19.0
+
 ## 2.18.4
 
 ### Patch Changes
