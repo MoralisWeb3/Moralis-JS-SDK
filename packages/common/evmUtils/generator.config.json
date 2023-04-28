@@ -11,6 +11,19 @@
           "refs": ["#/components/schemas/trade/properties/price"],
           "className": "EvmNative",
           "import": "../../dataTypes"
+        },
+        {
+          "refs": ["#/components/schemas/trade/properties/block_number"],
+          "className": "BigNumber",
+          "import": "@moralisweb3/common-core"
+        },
+        {
+          "refs": ["#/components/schemas/trade/properties/transaction_index"],
+          "nativeType": "number"
+        },
+        {
+          "refs": ["#/components/schemas/trade/properties/block_timestamp"],
+          "nativeType": "Date"
         }
       ],
       "complexTypeProperties": [

@@ -57,14 +57,15 @@ export class TypeCodesGenerator {
     }
 
     if (resolvedType.nativeType) {
-      const typeCode = TypeCodesGenerator.getTypeCode(resolvedType.nativeType, resolvedType.isArray);
+      const jsonTypeCode = TypeCodesGenerator.getTypeCode(resolvedType.nativeType.jsonType, resolvedType.isArray);
+      const valueTypeCode = TypeCodesGenerator.getTypeCode(resolvedType.nativeType.valueType, resolvedType.isArray);
 
       return {
         colon,
-        valueTypeCode: typeCode,
-        inputTypeCode: typeCode,
-        jsonTypeCode: typeCode,
-        inputOrValueTypeCode: typeCode,
+        valueTypeCode: valueTypeCode,
+        inputTypeCode: valueTypeCode,
+        jsonTypeCode: jsonTypeCode,
+        inputOrValueTypeCode: valueTypeCode,
         undefinedSuffix,
         referenceType: null,
       };

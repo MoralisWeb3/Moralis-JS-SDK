@@ -1,4 +1,5 @@
 import { ResolvedType } from '../resolvers/TypeResolver';
+import { TypeConversionCodeGenerator } from './TypeConversionCodeGenerator';
 
 export class ValueMappingCodeGenerator {
   public static generateJSON2TypeCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
@@ -12,7 +13,15 @@ export class ValueMappingCodeGenerator {
       return isRequired ? code : `${valueCode} ? ${code} : undefined`;
     }
 
-    return valueCode;
+    if (resolvedType.nativeType) {
+      return TypeConversionCodeGenerator.generate(
+        resolvedType.nativeType.jsonType,
+        resolvedType.nativeType.valueType,
+        valueCode,
+      );
+    }
+
+    throw new Error('Unsupported resolved type');
   }
 
   public static generateType2JSONCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {
@@ -34,7 +43,16 @@ export class ValueMappingCodeGenerator {
       }
       return isRequired ? code : `${valueCode} ? ${code} : undefined`;
     }
-    return valueCode;
+
+    if (resolvedType.nativeType) {
+      return TypeConversionCodeGenerator.generate(
+        resolvedType.nativeType.valueType,
+        resolvedType.nativeType.jsonType,
+        valueCode,
+      );
+    }
+
+    throw new Error('Unsupported resolved type');
   }
 
   public static generateInput2TypeCode(resolvedType: ResolvedType, valueCode: string, isRequired: boolean): string {

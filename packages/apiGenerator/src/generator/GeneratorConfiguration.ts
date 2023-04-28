@@ -20,6 +20,7 @@ export interface Mappings {
 export interface MappingTarget {
   className?: string;
   import?: string;
+  nativeType?: string;
 }
 
 export interface TypeMapping extends MappingTarget {

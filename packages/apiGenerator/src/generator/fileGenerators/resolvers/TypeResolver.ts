@@ -7,8 +7,13 @@ import { TypeInfoResolver } from './TypeInfoResolver';
 
 export interface ResolvedType {
   isArray: boolean;
-  nativeType?: string;
+  nativeType?: NativeResolvedType;
   referenceType?: ReferenceResolvedType;
+}
+
+export interface NativeResolvedType {
+  jsonType: string;
+  valueType: string;
 }
 
 export interface ReferenceResolvedType {
@@ -43,7 +48,10 @@ export class TypeResolver {
     if (isNativeTypeDescriptor(descriptor)) {
       return {
         isArray: descriptor.isArray,
-        nativeType: descriptor.nativeType,
+        nativeType: {
+          jsonType: descriptor.nativeType,
+          valueType: descriptor.nativeType,
+        },
       };
     }
     throw new Error('Unsupported descriptor type');
@@ -88,19 +96,29 @@ export class TypeResolver {
   }
 
   private resolveTarget(descriptor: TypeDescriptor, target: MappingTarget): ResolvedType {
-    if (!target.className) {
-      throw new Error('Not supported mapping target');
+    if (target.nativeType && isNativeTypeDescriptor(descriptor)) {
+      return {
+        isArray: descriptor.isArray,
+        nativeType: {
+          jsonType: descriptor.nativeType,
+          valueType: target.nativeType,
+        },
+      };
     }
 
-    const importPath = target.import ? target.import : `${BASE_PATH}customTypes/${target.className}`;
-    return {
-      isArray: descriptor.isArray,
-      referenceType: {
-        className: target.className,
-        isSimpleType: false,
-        isUnionType: false,
-        importPath,
-      },
-    };
+    if (target.className) {
+      const importPath = target.import ? target.import : `${BASE_PATH}customTypes/${target.className}`;
+      return {
+        isArray: descriptor.isArray,
+        referenceType: {
+          className: target.className,
+          isSimpleType: false,
+          isUnionType: false,
+          importPath,
+        },
+      };
+    }
+
+    throw new Error('Unsupported target type');
   }
 }
