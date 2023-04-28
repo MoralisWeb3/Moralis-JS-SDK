@@ -5,7 +5,7 @@ export class JSDocTypeResolver {
     let result: string;
 
     if (type.nativeType) {
-      switch (type.nativeType) {
+      switch (type.nativeType.valueType) {
         case 'string':
           result = 'String';
           break;
@@ -15,8 +15,11 @@ export class JSDocTypeResolver {
         case 'boolean':
           result = 'Boolean';
           break;
+        case 'Date':
+          result = 'Date';
+          break;
         default:
-          throw new Error(`Unknown native type: ${type.nativeType}`);
+          throw new Error(`Unknown native type: ${type.nativeType.valueType}`);
       }
     } else {
       result = 'Object';

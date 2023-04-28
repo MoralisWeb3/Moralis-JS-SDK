@@ -1,4 +1,5 @@
 import { EvmAddress, EvmAddressInput, EvmAddressJSON, EvmNative, EvmNativeInput, EvmNativeJSON } from '../../dataTypes';
+import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-core';
 
 // $ref: #/components/schemas/trade
 // type: trade
@@ -27,13 +28,13 @@ export interface EvmTradeJSON {
   readonly price_token_address?: EvmAddressJSON;
   readonly price: EvmNativeJSON;
   readonly block_timestamp: string;
-  readonly block_number: string;
+  readonly block_number: BigNumberJSON;
   readonly block_hash: string;
 }
 
 export interface EvmTradeInput {
   readonly transactionHash: string;
-  readonly transactionIndex: string;
+  readonly transactionIndex: number;
   readonly tokenIds: string[];
   readonly sellerAddress: EvmAddressInput | EvmAddress;
   readonly buyerAddress: EvmAddressInput | EvmAddress;
@@ -41,8 +42,8 @@ export interface EvmTradeInput {
   readonly marketplaceAddress: EvmAddressInput | EvmAddress;
   readonly priceTokenAddress?: EvmAddressInput | EvmAddress;
   readonly price: EvmNativeInput | EvmNative;
-  readonly blockTimestamp: string;
-  readonly blockNumber: string;
+  readonly blockTimestamp: Date;
+  readonly blockNumber: BigNumberInput | BigNumber;
   readonly blockHash: string;
 }
 
@@ -57,7 +58,7 @@ export class EvmTrade {
   public static fromJSON(json: EvmTradeJSON): EvmTrade {
     const input: EvmTradeInput = {
       transactionHash: json.transaction_hash,
-      transactionIndex: json.transaction_index,
+      transactionIndex: Number(json.transaction_index),
       tokenIds: json.token_ids,
       sellerAddress: EvmAddress.fromJSON(json.seller_address),
       buyerAddress: EvmAddress.fromJSON(json.buyer_address),
@@ -65,8 +66,8 @@ export class EvmTrade {
       marketplaceAddress: EvmAddress.fromJSON(json.marketplace_address),
       priceTokenAddress: json.price_token_address ? EvmAddress.fromJSON(json.price_token_address) : undefined,
       price: EvmNative.fromJSON(json.price),
-      blockTimestamp: json.block_timestamp,
-      blockNumber: json.block_number,
+      blockTimestamp: new Date(json.block_timestamp),
+      blockNumber: BigNumber.fromJSON(json.block_number),
       blockHash: json.block_hash,
     };
     return EvmTrade.create(input);
@@ -79,7 +80,7 @@ export class EvmTrade {
   /**
    * @description The transaction index
    */
-  public readonly transactionIndex: string;
+  public readonly transactionIndex: number;
   /**
    * @description The token ID(s) traded
    */
@@ -111,11 +112,11 @@ export class EvmTrade {
   /**
    * @description The block timestamp
    */
-  public readonly blockTimestamp: string;
+  public readonly blockTimestamp: Date;
   /**
    * @description The block number of the transaction
    */
-  public readonly blockNumber: string;
+  public readonly blockNumber: BigNumber;
   /**
    * @description The block hash
    */
@@ -132,14 +133,14 @@ export class EvmTrade {
     this.priceTokenAddress = input.priceTokenAddress ? EvmAddress.create(input.priceTokenAddress) : undefined;
     this.price = EvmNative.create(input.price);
     this.blockTimestamp = input.blockTimestamp;
-    this.blockNumber = input.blockNumber;
+    this.blockNumber = BigNumber.create(input.blockNumber);
     this.blockHash = input.blockHash;
   }
 
   public toJSON(): EvmTradeJSON {
     return {
       transaction_hash: this.transactionHash,
-      transaction_index: this.transactionIndex,
+      transaction_index: String(this.transactionIndex),
       token_ids: this.tokenIds,
       seller_address: this.sellerAddress.toJSON(),
       buyer_address: this.buyerAddress.toJSON(),
@@ -147,8 +148,8 @@ export class EvmTrade {
       marketplace_address: this.marketplaceAddress.toJSON(),
       price_token_address: this.priceTokenAddress ? this.priceTokenAddress.toJSON() : undefined,
       price: this.price.toJSON(),
-      block_timestamp: this.blockTimestamp,
-      block_number: this.blockNumber,
+      block_timestamp: this.blockTimestamp.toISOString(),
+      block_number: this.blockNumber.toJSON(),
       block_hash: this.blockHash,
     }
   }

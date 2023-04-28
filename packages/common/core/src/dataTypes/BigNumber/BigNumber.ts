@@ -5,7 +5,11 @@ import { BigNumberParser, BigNumberPrimitive } from './BigNumberParser';
  * Valid input for a new BigNumber instance.
  * This can be an existing {@link BigNumber} or a valid {@link BigNumberPrimitive} type
  */
-export type BigNumberish = BigNumber | BigNumberPrimitive;
+export type BigNumberish = BigNumberInput;
+
+export type BigNumberInput = BigNumber | BigNumberPrimitive;
+
+export type BigNumberJSON = string;
 
 /**
  * The BigNumber class is a MoralisData that references to a the value of a BigNumber
@@ -26,6 +30,10 @@ export class BigNumber {
       return value;
     }
     return new BigNumber(BigNumberParser.parseInt(value));
+  }
+
+  public static fromJSON(json: BigNumberJSON): BigNumber {
+    return BigNumber.create(json);
   }
 
   private constructor(private readonly value: bigint) {}

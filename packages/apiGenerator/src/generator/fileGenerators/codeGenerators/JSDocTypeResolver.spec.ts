@@ -5,7 +5,10 @@ describe('JSDocTypeResolver', () => {
     expect(
       JSDocTypeResolver.resolve({
         isArray: true,
-        nativeType: 'string',
+        nativeType: {
+          jsonType: 'string',
+          valueType: 'string',
+        },
       }),
     ).toBe('String[]');
   });
@@ -14,7 +17,10 @@ describe('JSDocTypeResolver', () => {
     expect(
       JSDocTypeResolver.resolve({
         isArray: false,
-        nativeType: 'string',
+        nativeType: {
+          jsonType: 'string',
+          valueType: 'string',
+        },
       }),
     ).toBe('String');
   });
