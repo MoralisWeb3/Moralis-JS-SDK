@@ -23,7 +23,7 @@ export class NameFormatter {
 }
 
 function toCamelCase(value: string): string {
-  return value.replace(/([-_][a-z])/gi, (found) => {
+  return value.replace(/([-_][a-z0-9])/gi, (found) => {
     return found.toUpperCase().replace('-', '').replace('_', '');
   });
 }

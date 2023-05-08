@@ -28,7 +28,14 @@
       ],
       "complexTypeProperties": [
         {
-          "names": ["seller_address", "buyer_address", "token_address", "marketplace_address", "price_token_address"],
+          "names": [
+            "seller_address",
+            "buyer_address",
+            "token_address",
+            "marketplace_address",
+            "price_token_address",
+            "contract_address"
+          ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
         }
@@ -53,7 +60,15 @@
       "operations": {
         "groupRef": "#/x-tag-sdk",
         "isEnabledRef": "#/x-tag-sdk",
-        "filterOperationIds": ["endpointWeights", "web3ApiVersion", "getNFTTrades"]
+        "filterOperationIds": [
+          "endpointWeights",
+          "web3ApiVersion",
+          "getNFTTrades",
+          "getTopERC20TokensByMarketCap",
+          "getTopERC20TokensByPriceMovers",
+          "getTopNFTCollectionsByMarketCap",
+          "getHottestNFTCollectionsByTradingVolume"
+        ]
       }
     }
   }

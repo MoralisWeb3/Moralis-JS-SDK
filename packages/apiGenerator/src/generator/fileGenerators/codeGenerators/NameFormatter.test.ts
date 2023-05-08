@@ -9,6 +9,7 @@ describe('NameFormatter', () => {
       expect(NameFormatter.getClassName('lorem ipsum')).toBe('LoremIpsum');
       expect(NameFormatter.getClassName('t1')).toBe('T1');
       expect(NameFormatter.getClassName('Some$Value')).toBe('SomeValue');
+      expect(NameFormatter.getClassName('values_from_24h')).toBe('ValuesFrom24h');
     });
   });
 
