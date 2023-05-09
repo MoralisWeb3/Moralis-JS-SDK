@@ -1,5 +1,12 @@
 # @moralisweb3/client-api-utils
 
+## 2.19.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.19.1
+
 ## 2.19.0
 
 ### Patch Changes
