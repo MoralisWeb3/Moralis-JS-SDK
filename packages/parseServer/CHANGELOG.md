@@ -1,5 +1,15 @@
 # @moralisweb3/parse-server
 
+## 2.19.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.19.1
+  - @moralisweb3/common-core@2.19.1
+  - @moralisweb3/streams@2.19.1
+  - moralis@2.19.1
+
 ## 2.19.0
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.19.1
+
+### Patch Changes
+
+- [#1112](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1112) [`1de42875b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/1de42875b34b3b6897902656960d2ec19a3de88e) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added 4 new endpoints: `getTopERC20TokensByMarketCap`, `getTopERC20TokensByPriceMovers`, `getTopNFTCollectionsByMarketCap` and `getHottestNFTCollectionsByTradingVolume` to the EVM API.
+
+- Updated dependencies []:
+  - @moralisweb3/common-evm-utils@2.19.1
+
 ## 2.19.0
 
 ### Patch Changes
