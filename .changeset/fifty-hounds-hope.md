@@ -1,4 +1,5 @@
 ---
+'moralis': patch
 '@moralisweb3/evm-api': patch
 '@moralisweb3/evm-utils': patch
 ---
