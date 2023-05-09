@@ -28,7 +28,7 @@ export interface EvmMarketDataERC20TokenItemJSON {
 }
 
 export interface EvmMarketDataERC20TokenItemInput {
-  readonly rank: string;
+  readonly rank: number;
   readonly tokenName: string;
   readonly tokenSymbol: string;
   readonly tokenLogo: string;
@@ -50,7 +50,7 @@ export class EvmMarketDataERC20TokenItem {
 
   public static fromJSON(json: EvmMarketDataERC20TokenItemJSON): EvmMarketDataERC20TokenItem {
     const input: EvmMarketDataERC20TokenItemInput = {
-      rank: json.rank,
+      rank: Number(json.rank),
       tokenName: json.token_name,
       tokenSymbol: json.token_symbol,
       tokenLogo: json.token_logo,
@@ -67,7 +67,7 @@ export class EvmMarketDataERC20TokenItem {
   /**
    * @description The rank
    */
-  public readonly rank: string;
+  public readonly rank: number;
   /**
    * @description The token name
    */
@@ -120,7 +120,7 @@ export class EvmMarketDataERC20TokenItem {
 
   public toJSON(): EvmMarketDataERC20TokenItemJSON {
     return {
-      rank: this.rank,
+      rank: String(this.rank),
       token_name: this.tokenName,
       token_symbol: this.tokenSymbol,
       token_logo: this.tokenLogo,

@@ -22,6 +22,14 @@
           "nativeType": "number"
         },
         {
+          "refs": [
+            "#/components/schemas/marketDataERC20Token/items/properties/rank",
+            "#/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/rank",
+            "#/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/rank"
+          ],
+          "nativeType": "number"
+        },
+        {
           "refs": ["#/components/schemas/trade/properties/block_timestamp"],
           "nativeType": "Date"
         }

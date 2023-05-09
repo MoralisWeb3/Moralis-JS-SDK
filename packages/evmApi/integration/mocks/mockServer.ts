@@ -49,6 +49,7 @@ import { mockGetTransactionVerbose } from './endpoints/getTransactionVerbose';
 import { mockGetErc20Approvals } from './endpoints/getErc20Approvals';
 import { mockGetErc20Burns } from './endpoints/getErc20Burns';
 import { mockResolveENSDomain } from './endpoints/resolveENSDomain';
+import { mockGetTopERC20TokensByMarketCap } from './endpoints/getTopERC20TokensByMarketCap';
 
 const handler = [
   mockGetDateToBlock,
@@ -69,6 +70,7 @@ const handler = [
   mockGetTokenMetadata,
   mockGetTokenMetadataBySymbols,
   mockGetTokenTransfers,
+  mockGetTopERC20TokensByMarketCap,
   mockGetWalletTokenBalances,
   mockGetWalletTokenTransfers,
   mockResolveAddress,

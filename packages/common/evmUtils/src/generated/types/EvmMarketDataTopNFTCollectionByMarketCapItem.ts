@@ -24,7 +24,7 @@ export interface EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
 }
 
 export interface EvmMarketDataTopNFTCollectionByMarketCapItemInput {
-  readonly rank: string;
+  readonly rank: number;
   readonly collectionTitle: string;
   readonly collectionImage: string;
   readonly floorPriceUsd: string;
@@ -45,7 +45,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
 
   public static fromJSON(json: EvmMarketDataTopNFTCollectionByMarketCapItemJSON): EvmMarketDataTopNFTCollectionByMarketCapItem {
     const input: EvmMarketDataTopNFTCollectionByMarketCapItemInput = {
-      rank: json.rank,
+      rank: Number(json.rank),
       collectionTitle: json.collection_title,
       collectionImage: json.collection_image,
       floorPriceUsd: json.floor_price_usd,
@@ -61,7 +61,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
   /**
    * @description The rank
    */
-  public readonly rank: string;
+  public readonly rank: number;
   /**
    * @description The collection title
    */
@@ -109,7 +109,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
 
   public toJSON(): EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
     return {
-      rank: this.rank,
+      rank: String(this.rank),
       collection_title: this.collectionTitle,
       collection_image: this.collectionImage,
       floor_price_usd: this.floorPriceUsd,
