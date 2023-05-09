@@ -4,6 +4,14 @@ import { Web3ApiVersionOperation, Web3ApiVersionOperationRequest, Web3ApiVersion
 import { EvmWeb3version, EvmWeb3versionJSON } from '../types/EvmWeb3version';
 import { EndpointWeightsOperation, EndpointWeightsOperationRequest, EndpointWeightsOperationRequestJSON } from '../operations/EndpointWeightsOperation';
 import { EvmEndpointWeights, EvmEndpointWeightsJSON } from '../types/EvmEndpointWeights';
+import { GetTopERC20TokensByMarketCapOperation, GetTopERC20TokensByMarketCapOperationRequest, GetTopERC20TokensByMarketCapOperationRequestJSON } from '../operations/GetTopERC20TokensByMarketCapOperation';
+import { EvmMarketDataERC20TokenItem, EvmMarketDataERC20TokenItemJSON } from '../types/EvmMarketDataERC20TokenItem';
+import { GetTopERC20TokensByPriceMoversOperation, GetTopERC20TokensByPriceMoversOperationRequest, GetTopERC20TokensByPriceMoversOperationRequestJSON } from '../operations/GetTopERC20TokensByPriceMoversOperation';
+import { EvmMarketDataERC20TokensByPriceMovers, EvmMarketDataERC20TokensByPriceMoversJSON } from '../types/EvmMarketDataERC20TokensByPriceMovers';
+import { GetTopNFTCollectionsByMarketCapOperation, GetTopNFTCollectionsByMarketCapOperationRequest, GetTopNFTCollectionsByMarketCapOperationRequestJSON } from '../operations/GetTopNFTCollectionsByMarketCapOperation';
+import { EvmMarketDataTopNFTCollectionByMarketCapItem, EvmMarketDataTopNFTCollectionByMarketCapItemJSON } from '../types/EvmMarketDataTopNFTCollectionByMarketCapItem';
+import { GetHottestNFTCollectionsByTradingVolumeOperation, GetHottestNFTCollectionsByTradingVolumeOperationRequest, GetHottestNFTCollectionsByTradingVolumeOperationRequestJSON } from '../operations/GetHottestNFTCollectionsByTradingVolumeOperation';
+import { EvmMarketDataHottestNFTCollectionByTradingVolumeItem, EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON } from '../types/EvmMarketDataHottestNFTCollectionByTradingVolumeItem';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -26,6 +34,52 @@ export abstract class AbstractClient {
     operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>
   ): (request: Request, body: Body) => Promise<Response>;
 
+  public readonly marketData = {
+    /**
+     * @description Get the top ERC20 tokens by market cap
+     * @param request Request with parameters.
+     * @returns {Object[]} Response for the request.
+     */
+    getTopERC20TokensByMarketCap: this.createEndpoint<
+      GetTopERC20TokensByMarketCapOperationRequest,
+      GetTopERC20TokensByMarketCapOperationRequestJSON,
+      EvmMarketDataERC20TokenItem[],
+      EvmMarketDataERC20TokenItemJSON[]
+    >(GetTopERC20TokensByMarketCapOperation),
+    /**
+     * @description Get the top ERC20 tokens by price change
+     * @param request Request with parameters.
+     * @returns {Object} Response for the request.
+     */
+    getTopERC20TokensByPriceMovers: this.createEndpoint<
+      GetTopERC20TokensByPriceMoversOperationRequest,
+      GetTopERC20TokensByPriceMoversOperationRequestJSON,
+      EvmMarketDataERC20TokensByPriceMovers,
+      EvmMarketDataERC20TokensByPriceMoversJSON
+    >(GetTopERC20TokensByPriceMoversOperation),
+    /**
+     * @description Get the top NFT collections by market cap
+     * @param request Request with parameters.
+     * @returns {Object[]} Response for the request.
+     */
+    getTopNFTCollectionsByMarketCap: this.createEndpoint<
+      GetTopNFTCollectionsByMarketCapOperationRequest,
+      GetTopNFTCollectionsByMarketCapOperationRequestJSON,
+      EvmMarketDataTopNFTCollectionByMarketCapItem[],
+      EvmMarketDataTopNFTCollectionByMarketCapItemJSON[]
+    >(GetTopNFTCollectionsByMarketCapOperation),
+    /**
+     * @description Get the hottest NFT collections by trading volume
+     * @param request Request with parameters.
+     * @returns {Object[]} Response for the request.
+     */
+    getHottestNFTCollectionsByTradingVolume: this.createEndpoint<
+      GetHottestNFTCollectionsByTradingVolumeOperationRequest,
+      GetHottestNFTCollectionsByTradingVolumeOperationRequestJSON,
+      EvmMarketDataHottestNFTCollectionByTradingVolumeItem[],
+      EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON[]
+    >(GetHottestNFTCollectionsByTradingVolumeOperation),
+  };
   public readonly nft = {
     /**
      * @description Get trades of NFTs for a given contract and marketplace.
