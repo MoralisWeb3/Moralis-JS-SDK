@@ -8,7 +8,7 @@ import {
   DateInput,
   PaginatedResponseAdapter,
 } from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transfer } from '../../dataTypes';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transaction } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 
@@ -81,7 +81,7 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) =>
-    Erc20Transfer.create({
+    Erc20Transaction.create({
       ...toCamelCase(transfer),
       chain: EvmChainResolver.resolve(request.chain, core),
       address: EvmAddress.create(transfer.address),

@@ -41,6 +41,7 @@ export class Erc20Approval implements MoralisDataObject {
     value: BigNumber.create(data.value),
     transactionIndex: Number(data.transactionIndex),
     logIndex: Number(data.logIndex),
+    tokenDecimals: Number(data.tokenDecimals),
   });
 
   /**
@@ -194,5 +195,37 @@ export class Erc20Approval implements MoralisDataObject {
    */
   get possibleSpam() {
     return this._data.possibleSpam;
+  }
+
+  /**
+   * @returns The name of the token.
+   * @example burn.tokenName // "Kylin Network"
+   */
+  public get tokenName(): string {
+    return this._data.tokenName;
+  }
+
+  /**
+   * @returns The logo of the token
+   * @example burn.tokenLogo // "https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png"
+   */
+  public get tokenLogo(): string | undefined {
+    return this._data.tokenLogo;
+  }
+
+  /**
+   * @returns The symbol of the token.
+   * @example burn.tokenSymbol // "KYL"
+   */
+  public get tokenSymbol(): string {
+    return this._data.tokenSymbol;
+  }
+
+  /**
+   * @returns The decimals of the token.
+   * @example burn.tokenDecimals // 18
+   */
+  public get tokenDecimals(): number {
+    return this._data.tokenDecimals;
   }
 }

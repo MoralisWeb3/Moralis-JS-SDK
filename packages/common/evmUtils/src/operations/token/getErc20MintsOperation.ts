@@ -93,6 +93,7 @@ function deserializeResponse(jsonResponse: GetErc20MintsJSONResponse, request: G
     Erc20Mint.create({
       ...toCamelCase(mint),
       chain: EvmChainResolver.resolve(request.chain, core),
+      tokenDecimals: Number(mint.token_decimals),
     }),
   );
 }

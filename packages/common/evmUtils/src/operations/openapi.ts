@@ -232,6 +232,22 @@ export interface paths {
     /** Upload multiple files to IPFS and place them in a folder directory. */
     post: operations["uploadFolder"];
   };
+  "/market-data/erc20s/top-tokens": {
+    /** Get the top ERC20 tokens by market cap */
+    get: operations["getTopERC20TokensByMarketCap"];
+  };
+  "/market-data/erc20s/top-movers": {
+    /** Get the top ERC20 tokens by price change */
+    get: operations["getTopERC20TokensByPriceMovers"];
+  };
+  "/market-data/nfts/top-collections": {
+    /** Get the top NFT collections by market cap */
+    get: operations["getTopNFTCollectionsByMarketCap"];
+  };
+  "/market-data/nfts/hottest-collections": {
+    /** Get the hottest NFT collections by trading volume */
+    get: operations["getHottestNFTCollectionsByTradingVolume"];
+  };
 }
 
 export interface components {
@@ -465,6 +481,14 @@ export interface components {
       decoded_event: components["schemas"]["decodedEvent"];
     };
     erc20Transfer: {
+      /** @example Tether USD */
+      token_name: string;
+      /** @example USDT */
+      token_symbol: string;
+      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
+      token_logo?: string;
+      /** @example 6 */
+      token_decimals: string;
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
       contract_address: string;
       /**
@@ -473,9 +497,9 @@ export interface components {
        */
       transaction_hash: string;
       /** @example 204 */
-      transaction_index: number;
+      transaction_index: string;
       /** @example 204 */
-      log_index: number;
+      log_index: string;
       /**
        * @description The timestamp of the block
        * @example 2021-05-07T11:08:35.000Z
@@ -485,7 +509,7 @@ export interface components {
        * @description The block number
        * @example 12386788
        */
-      block_number: number;
+      block_number: string;
       /**
        * @description The hash of the block
        * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
@@ -502,10 +526,15 @@ export interface components {
        */
       to_wallet: string;
       /**
-       * @description The address of the contract
-       * @example 1234
+       * @description The value of the transfer
+       * @example 57732989482831651
        */
       value: string;
+      /**
+       * @description The decimal value of the transfer
+       * @example 577329894.8283165
+       */
+      value_decimal: string;
       /**
        * @description Indicates if a contract is possibly a spam contract
        * @example false
@@ -513,6 +542,14 @@ export interface components {
       possible_spam: boolean;
     };
     erc20Burn: {
+      /** @example Tether USD */
+      token_name: string;
+      /** @example USDT */
+      token_symbol: string;
+      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
+      token_logo?: string;
+      /** @example 6 */
+      token_decimals: string;
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
       contract_address: string;
       /**
@@ -545,12 +582,30 @@ export interface components {
        */
       from_wallet: string;
       /**
-       * @description The address of the contract
-       * @example 1234
+       * @description The value of the transfer
+       * @example 57732989482831651
        */
       value: string;
+      /**
+       * @description The decimal value of the transfer
+       * @example 577329894.8283165
+       */
+      value_decimal: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam?: boolean;
     };
     erc20Mint: {
+      /** @example Tether USD */
+      token_name: string;
+      /** @example USDT */
+      token_symbol: string;
+      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
+      token_logo?: string;
+      /** @example 6 */
+      token_decimals: string;
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
       contract_address: string;
       /**
@@ -583,12 +638,30 @@ export interface components {
        */
       to_wallet: string;
       /**
-       * @description The address of the contract
-       * @example 1234
+       * @description The value of the transfer
+       * @example 57732989482831651
        */
       value: string;
+      /**
+       * @description The decimal value of the transfer
+       * @example 577329894.8283165
+       */
+      value_decimal: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam?: boolean;
     };
     erc20Approval: {
+      /** @example Tether USD */
+      token_name: string;
+      /** @example USDT */
+      token_symbol: string;
+      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
+      token_logo?: string;
+      /** @example 6 */
+      token_decimals: string;
       /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
       contract_address: string;
       /**
@@ -626,10 +699,15 @@ export interface components {
        */
       to_wallet: string;
       /**
-       * @description The address of the contract
-       * @example 1234
+       * @description The value of the transfer
+       * @example 57732989482831651
        */
       value: string;
+      /**
+       * @description The decimal value of the transfer
+       * @example 577329894.8283165
+       */
+      value_decimal: string;
       /**
        * @description Indicates if a contract is possibly a spam contract
        * @example false
@@ -1055,6 +1133,28 @@ export interface components {
       page_size?: number;
       result?: components["schemas"]["blockTransactionVerbose"][];
     };
+    walletNetWorth: {
+      /**
+       * @description The native balance of the wallet
+       * @example 5540003996556578955
+       */
+      native_balance: string;
+      /**
+       * @description The native balance of the wallet in decimals
+       * @example 5.540003996556578955
+       */
+      native_balance_decimals: number;
+      /**
+       * @description The native balance of the wallet in USD
+       * @example 10545.313
+       */
+      native_balance_usd: string;
+      /**
+       * @description The total networth of the wallet in USD
+       * @example 26259173.472450234
+       */
+      total_networth_usd: string;
+    };
     transaction: {
       /**
        * @description The hash of the transaction
@@ -1326,6 +1426,8 @@ export interface components {
        * @example 100
        */
       page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       result?: components["schemas"]["trade"][];
     };
     /**
@@ -2119,6 +2221,26 @@ export interface components {
       token_uri?: string;
     };
     erc20Price: {
+      /**
+       * @description The name of the token
+       * @example Kylin Network
+       */
+      tokenName?: string;
+      /**
+       * @description The symbol of the token
+       * @example KYL
+       */
+      tokenSymbol?: string;
+      /**
+       * @description The logo of the token
+       * @example https://cdn.moralis.io/eth/0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c.png
+       */
+      tokenLogo?: string;
+      /**
+       * @description The number of decimals of the token
+       * @example 18
+       */
+      tokenDecimals?: string;
       nativePrice?: components["schemas"]["nativeErc20Price"];
       /**
        * Format: double
@@ -2136,6 +2258,11 @@ export interface components {
        * @example Uniswap v3
        */
       exchangeName?: string;
+      /**
+       * @description The address of the token
+       * @example 0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c
+       */
+      tokenAddress?: string;
     };
     nativeErc20Price: {
       /**
@@ -2158,6 +2285,8 @@ export interface components {
        * @example ETH
        */
       symbol: string;
+      /** @description The address of the native token */
+      address: string;
     };
     erc20TransactionCollection: {
       /**
@@ -2293,6 +2422,154 @@ export interface components {
        */
       price: string;
     };
+    marketDataERC20Token: {
+      /**
+       * @description The rank
+       * @example 1
+       */
+      rank: number;
+      /**
+       * @description The token name
+       * @example Wrapped Ether
+       */
+      token_name: string;
+      /**
+       * @description The token symbol
+       * @example WETH
+       */
+      token_symbol: string;
+      /**
+       * @description The token image
+       * @example https://assets.coingecko.com/coins/images/2518/large/weth.png?1595348880
+       */
+      token_logo: string;
+      /**
+       * @description The token decimals
+       * @example 18
+       */
+      token_decimals: string;
+      /**
+       * @description The contract address
+       * @example 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+       */
+      contract_address: string;
+      /**
+       * @description The price in USD
+       * @example 0.0285
+       */
+      price_usd: string;
+      /**
+       * @description The price change in the last 24h
+       * @example 0.0285
+       */
+      price_24h_percent_change: string;
+      /**
+       * @description The price change in the last 7d
+       * @example 0.0285
+       */
+      price_7d_percent_change: string;
+      /**
+       * @description The market cap in USD
+       * @example 0.0285
+       */
+      market_cap_usd: string;
+    }[];
+    marketDataERC20TokensByPriceMovers: {
+      gainers: components["schemas"]["marketDataERC20Token"];
+      losers: components["schemas"]["marketDataERC20Token"];
+    };
+    marketDataTopNFTCollectionByMarketCap: {
+      /**
+       * @description The rank
+       * @example 1
+       */
+      rank: number;
+      /**
+       * @description The collection title
+       * @example CryptoPunks
+       */
+      collection_title: string;
+      /**
+       * @description The collection image
+       * @example
+       */
+      collection_image: string;
+      /**
+       * @description The floor price in USD
+       * @example 0.0
+       */
+      floor_price_usd: string;
+      /**
+       * @description The floor price 24hr percent change
+       * @example 0.0
+       */
+      floor_price_24hr_percent_change: string;
+      /**
+       * @description The market cap in USD
+       * @example 0.0
+       */
+      market_cap_usd: string;
+      /**
+       * @description The market cap 24hr percent change
+       * @example 0.0
+       */
+      market_cap_24hr_percent_change: string;
+      /**
+       * @description The volume in USD
+       * @example 0.0
+       */
+      volume_usd: string;
+      /**
+       * @description The volume 24hr percent change
+       * @example 0.0
+       */
+      volume_24hr_percent_change: string;
+    }[];
+    marketDataHottestNFTCollectionByTradingVolume: ({
+      /**
+       * @description The rank
+       * @example 1
+       */
+      rank: number;
+      /**
+       * @description The collection title
+       * @example CryptoPunks
+       */
+      collection_title: string;
+      /**
+       * @description The collection image
+       * @example
+       */
+      collection_image: string;
+      /**
+       * @description The floor price in USD
+       * @example 0.0
+       */
+      floor_price_usd: string;
+      /**
+       * @description The floor price 24hr percent change
+       * @example 0.0
+       */
+      floor_price_24hr_percent_change: string;
+      /**
+       * @description The volume in USD
+       * @example 0.0
+       */
+      volume_usd: string;
+      /**
+       * @description The volume 24hr percent change
+       * @example 0.0
+       */
+      volume_24hr_percent_change: string;
+      /**
+       * @description The average price in USD
+       * @example 0.0
+       */
+      average_price_usd?: string;
+    } & {
+      market_cap_usd: unknown;
+      market_cap_24hr_percent_change: unknown;
+    })[];
     nativeBalances: {
       /**
        * @description The chain
@@ -2433,6 +2710,18 @@ export interface operations {
         from_block?: number;
         /** To get the reserves at this block number */
         to_block?: string;
+        /**
+         * The date from where to get the transfers (any format that is accepted by momentjs)
+         * * Provide the param 'from_block' or 'from_date'
+         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
+         */
+        from_date?: string;
+        /**
+         * Get transfers up until this date (any format that is accepted by momentjs)
+         * * Provide the param 'to_block' or 'to_date'
+         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
+         */
+        to_date?: string;
         /** The desired page size of the result. */
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
@@ -3203,7 +3492,7 @@ export interface operations {
          */
         from_date?: string;
         /**
-         * Get the transfers up to this date (any format that is accepted by momentjs)
+         * Get transfers up until this date (any format that is accepted by momentjs)
          * * Provide the param 'to_block' or 'to_date'
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
@@ -3480,6 +3769,8 @@ export interface operations {
          * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
          */
         to_date?: string;
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** The desired page size of the result. */
@@ -3551,6 +3842,8 @@ export interface operations {
       query: {
         /** The chain to query */
         chain?: components["schemas"]["chainList"];
+        /** If the result should contain the internal transactions. */
+        include?: components["schemas"]["includeList"];
       };
       path: {
         /** The transaction hash */
@@ -3959,6 +4252,54 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["ipfsFileRequest"][];
+      };
+    };
+  };
+  /** Get the top ERC20 tokens by market cap */
+  getTopERC20TokensByMarketCap: {
+    parameters: {};
+    responses: {
+      /** Returns the top ERC20 tokens by market cap */
+      200: {
+        content: {
+          "application/json": components["schemas"]["marketDataERC20Token"];
+        };
+      };
+    };
+  };
+  /** Get the top ERC20 tokens by price change */
+  getTopERC20TokensByPriceMovers: {
+    parameters: {};
+    responses: {
+      /** Returns an a list of ERC20 tokens with their price change */
+      200: {
+        content: {
+          "application/json": components["schemas"]["marketDataERC20TokensByPriceMovers"];
+        };
+      };
+    };
+  };
+  /** Get the top NFT collections by market cap */
+  getTopNFTCollectionsByMarketCap: {
+    parameters: {};
+    responses: {
+      /** Returns the top NFT collections by market cap */
+      200: {
+        content: {
+          "application/json": components["schemas"]["marketDataTopNFTCollectionByMarketCap"];
+        };
+      };
+    };
+  };
+  /** Get the hottest NFT collections by trading volume */
+  getHottestNFTCollectionsByTradingVolume: {
+    parameters: {};
+    responses: {
+      /** Returns the hottest NFT collections by trading volume */
+      200: {
+        content: {
+          "application/json": components["schemas"]["marketDataHottestNFTCollectionByTradingVolume"];
+        };
       };
     };
   };

@@ -21,7 +21,7 @@ describe('getErc20Burns', () => {
         contractAddresses: ['0xa0e8fed3426391fdb446516799c4d6248e2b2860', '0xc6fda51da94bc7dde0e8a5ff3c45906acd6ddc03'],
       });
 
-      expect(result.length).toEqual(3);
+      expect(result.length).toEqual(1);
       expect(pagination.cursor).toBeDefined();
 
       const transfer = result[0];
@@ -35,6 +35,10 @@ describe('getErc20Burns', () => {
       expect(transfer.transactionIndex).toBe(79);
       expect(transfer.logIndex).toBe(182);
       expect(transfer.value.toString()).toBe('1800000000000000000000');
+      expect(transfer.tokenName).toBe('Dugo');
+      expect(transfer.tokenSymbol).toBe('DUGO');
+      expect(transfer.tokenLogo).toBe('https://cdn.moralis/i.jpg');
+      expect(transfer.tokenDecimals).toBe(18);
     });
 
     it('should get handle no results', async () => {

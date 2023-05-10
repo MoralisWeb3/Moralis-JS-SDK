@@ -23,7 +23,7 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  * }
  * ```
  */
-export interface Erc20TransferInput {
+export interface Erc20TransactionInput {
   chain: EvmChainish;
   transactionHash: string;
   address: EvmAddressish;
@@ -41,7 +41,7 @@ export interface Erc20TransferInput {
 /**
  * This is the return type of Erc20Transfer
  */
-export interface Erc20TransferData {
+export interface Erc20TransactionData {
   chain: EvmChain;
   transactionHash: string;
   address: EvmAddress;

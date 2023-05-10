@@ -1,5 +1,7 @@
 import { GetNFTTradesOperation, GetNFTTradesOperationRequest, GetNFTTradesOperationRequestJSON } from '../operations/GetNFTTradesOperation';
 import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCollection';
+import { GetErc20TransfersOperation, GetErc20TransfersOperationRequest, GetErc20TransfersOperationRequestJSON } from '../operations/GetErc20TransfersOperation';
+import { EvmErc20TransfersResponse, EvmErc20TransfersResponseJSON } from '../types/EvmErc20TransfersResponse';
 import { Web3ApiVersionOperation, Web3ApiVersionOperationRequest, Web3ApiVersionOperationRequestJSON } from '../operations/Web3ApiVersionOperation';
 import { EvmWeb3version, EvmWeb3versionJSON } from '../types/EvmWeb3version';
 import { EndpointWeightsOperation, EndpointWeightsOperationRequest, EndpointWeightsOperationRequestJSON } from '../operations/EndpointWeightsOperation';
@@ -108,6 +110,28 @@ export abstract class AbstractClient {
       EvmTradeCollection,
       EvmTradeCollectionJSON
     >(GetNFTTradesOperation),
+  };
+  public readonly token = {
+    /**
+     * @description getErc20Transfers
+     * @param request Request with parameters.
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.fromBlock] The block number from which the transfers will be returned (optional)
+     * @param {Number} [request.toBlock] The block number to which the transfers will be returned (optional)
+     * @param {Number} [request.limit] The desired page size of the result. (optional)
+     * @param {Object[]} [request.contractAddresses] Contract addresses to only include (optional)
+     * @param {Object[]} [request.excludeContracts] Contract addresses to ignore (optional)
+     * @param {Object[]} [request.walletAddresses] Wallet addresses to only include (optional)
+     * @param {Object[]} [request.excludeWallets] Wallet addresses to ignore (optional)
+     * @param {String} [request.cursor] The cursor returned in the previous response (used to getting the next page). (optional)
+     * @returns {Object} Response for the request.
+     */
+    getErc20Transfers: this.createEndpoint<
+      GetErc20TransfersOperationRequest,
+      GetErc20TransfersOperationRequestJSON,
+      EvmErc20TransfersResponse,
+      EvmErc20TransfersResponseJSON
+    >(GetErc20TransfersOperation),
   };
   public readonly utils = {
     /**

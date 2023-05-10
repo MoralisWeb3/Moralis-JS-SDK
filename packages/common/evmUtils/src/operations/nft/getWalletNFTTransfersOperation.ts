@@ -5,6 +5,7 @@ import {
   maybe,
   toCamelCase,
   PaginatedResponseAdapter,
+  DateInput,
 } from '@moralisweb3/common-core';
 import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, EvmNative, EvmNftTransfer } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
@@ -22,9 +23,12 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 
 // Exports
 
-export interface GetWalletNFTTransfersRequest extends Camelize<Omit<RequestParams, 'chain' | 'address'>> {
+export interface GetWalletNFTTransfersRequest
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
+  fromDate?: DateInput;
+  toDate?: DateInput;
 }
 
 export type GetWalletNFTTransfersJSONRequest = ReturnType<typeof serializeRequest>;
@@ -49,7 +53,18 @@ export const getWalletNFTTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/{address}/nft/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'direction', 'fromBlock', 'toBlock', 'limit', 'cursor', 'disableTotal'],
+  urlSearchParamNames: [
+    'chain',
+    'format',
+    'direction',
+    'fromBlock',
+    'toBlock',
+    'limit',
+    'cursor',
+    'disableTotal',
+    'fromDate',
+    'toDate',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -71,6 +86,8 @@ function getRequestUrlParams(request: GetWalletNFTTransfersRequest, core: Core) 
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     disable_total: request.disableTotal,
+    from_date: maybe(request.fromDate, (date) => new Date(date).toISOString()),
+    to_date: maybe(request.toDate, (date) => new Date(date).toISOString()),
   };
 }
 
@@ -104,6 +121,8 @@ function serializeRequest(request: GetWalletNFTTransfersRequest, core: Core) {
     cursor: request.cursor,
     address: EvmAddress.create(request.address).checksum,
     disableTotal: request.disableTotal,
+    fromDate: maybe(request.fromDate, (date) => new Date(date).toISOString()),
+    toDate: maybe(request.toDate, (date) => new Date(date).toISOString()),
   };
 }
 
@@ -118,5 +137,7 @@ function deserializeRequest(jsonRequest: GetWalletNFTTransfersJSONRequest): GetW
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),
     disableTotal: jsonRequest.disableTotal,
+    fromDate: jsonRequest.fromDate,
+    toDate: jsonRequest.toDate,
   };
 }

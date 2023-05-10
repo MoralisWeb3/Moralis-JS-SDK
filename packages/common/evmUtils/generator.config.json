@@ -23,14 +23,9 @@
         },
         {
           "refs": [
-            "#/components/schemas/marketDataERC20Token/items/properties/rank",
-            "#/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/rank",
-            "#/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/rank"
+            "#/components/schemas/trade/properties/block_timestamp",
+            "#/components/schemas/erc20Transfer/properties/block_timestamp"
           ],
-          "nativeType": "number"
-        },
-        {
-          "refs": ["#/components/schemas/trade/properties/block_timestamp"],
           "nativeType": "Date"
         }
       ],
@@ -42,7 +37,9 @@
             "token_address",
             "marketplace_address",
             "price_token_address",
-            "contract_address"
+            "contract_address",
+            "from_wallet",
+            "to_wallet"
           ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
@@ -55,7 +52,7 @@
           "import": "../../dataTypes"
         },
         {
-          "names": ["address"],
+          "names": ["address", "contract_addresses", "wallet_addresses", "exclude_wallets", "exclude_contracts"],
           "className": "EvmAddress",
           "import": "../../dataTypes"
         }
@@ -72,6 +69,7 @@
           "endpointWeights",
           "web3ApiVersion",
           "getNFTTrades",
+          "getErc20Transfers",
           "getTopERC20TokensByMarketCap",
           "getTopERC20TokensByPriceMovers",
           "getTopNFTCollectionsByMarketCap",

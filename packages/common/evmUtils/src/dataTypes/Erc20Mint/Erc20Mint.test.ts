@@ -12,6 +12,10 @@ const exampleInput: Erc20MintInput = {
   transactionIndex: 4,
   logIndex: 25,
   value: '100000000000000000000000000000',
+  tokenName: 'Test Token',
+  tokenSymbol: 'TST',
+  tokenLogo: 'https://example.com/logo.png',
+  tokenDecimals: 18,
 };
 
 describe('Erc20Mint', () => {
@@ -30,6 +34,10 @@ describe('Erc20Mint', () => {
     expect(erc20Mint.transactionIndex).toBe(4);
     expect(erc20Mint.logIndex).toBe(25);
     expect(erc20Mint.value.toString()).toBe('100000000000000000000000000000');
+    expect(erc20Mint.tokenName).toBe('Test Token');
+    expect(erc20Mint.tokenSymbol).toBe('TST');
+    expect(erc20Mint.tokenLogo).toBe('https://example.com/logo.png');
+    expect(erc20Mint.tokenDecimals).toBe(18);
   });
 
   /**
@@ -51,6 +59,10 @@ describe('Erc20Mint', () => {
       transactionIndex: 4,
       logIndex: 25,
       value: '100000000000000000000000000000',
+      tokenName: 'Test Token',
+      tokenSymbol: 'TST',
+      tokenLogo: 'https://example.com/logo.png',
+      tokenDecimals: 18,
     });
   });
 

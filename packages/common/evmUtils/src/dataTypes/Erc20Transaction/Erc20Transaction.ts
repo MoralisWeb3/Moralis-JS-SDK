@@ -1,42 +1,57 @@
 import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
-import { Erc20TransferInput, Erc20TransferData } from './types';
+import { Erc20TransactionInput, Erc20TransactionData } from './types';
 
 /**
- * Valid input for a new Erc20Transfer instance.
- * This can be an existing {@link Erc20Transfer} or a valid {@link Erc20TransferInput} object
+ * @deprecated Use {@link Erc20Transaction} instead.
  */
-export type Erc20Transferish = Erc20TransferInput | Erc20Transfer;
+export type Erc20Transfer = Erc20Transaction;
 
 /**
- * The Erc20Transfer is a representation of an Erc20 token transfer.
+ * @deprecated Use {@link Erc20Transactionish} instead.
+ */
+export type Erc20Transferish = Erc20Transactionish;
+
+/**
+ * @deprecated Use {@link Erc20TransactionInput} instead.
+ */
+export type Erc20TransferInput = Erc20TransactionInput;
+
+/**
+ * Valid input for a new Erc20Transaction instance.
+ * This can be an existing {@link Erc20Transaction} or a valid {@link Erc20TransactionInput} object
+ */
+export type Erc20Transactionish = Erc20TransactionInput | Erc20Transaction;
+
+/**
+ * The Erc20Transaction is a representation of an Erc20 token transaction.
  *
  * @category DataType
  */
-export class Erc20Transfer implements MoralisDataObject {
+export class Erc20Transaction implements MoralisDataObject {
   /**
-   * Create a new instance of Erc20Transfer from any valid input
-   * @param data - the Erc20Transferish type
+   * Create a new instance of Erc20Transaction from any valid input
+   * @param data - the Erc20Transactionish type
    * @example
    * ```
-   * const transfer = Erc20Transfer.create(data);
+   * const transfer = Erc20Transaction.create(data);
    *```
    */
-  static create(data: Erc20Transferish) {
-    if (data instanceof Erc20Transfer) {
+  static create(data: Erc20Transactionish) {
+    if (data instanceof Erc20Transaction) {
       return data;
     }
-    return new Erc20Transfer(data);
+    return new Erc20Transaction(data);
   }
 
-  private _data: Erc20TransferData;
+  private _data: Erc20TransactionData;
 
-  constructor(data: Erc20TransferInput) {
-    this._data = Erc20Transfer.parse(data);
+  constructor(data: Erc20TransactionInput) {
+    this._data = Erc20Transaction.parse(data);
   }
 
-  static parse = (data: Erc20TransferInput): Erc20TransferData => ({
+  static parse = (data: Erc20TransactionInput): Erc20TransactionData => ({
     ...data,
     chain: EvmChain.create(data.chain),
     address: EvmAddress.create(data.address),
@@ -53,12 +68,12 @@ export class Erc20Transfer implements MoralisDataObject {
    * Check the equality between two Erc20 transfers
    * @param dataA - The first transfer to compare
    * @param dataB - The second transfer to compare
-   * @example Erc20Transfer.equals(dataA, dataB)
+   * @example Erc20Transaction.equals(dataA, dataB)
    * @returns true if the transfers are equal, false otherwise
    */
-  static equals(dataA: Erc20Transferish, dataB: Erc20Transferish) {
-    const tokenA = Erc20Transfer.create(dataA);
-    const tokenB = Erc20Transfer.create(dataB);
+  static equals(dataA: Erc20Transactionish, dataB: Erc20Transactionish) {
+    const tokenA = Erc20Transaction.create(dataA);
+    const tokenB = Erc20Transaction.create(dataB);
 
     return JSON.stringify(tokenA.toJSON()) === JSON.stringify(tokenB.toJSON());
   }
@@ -69,8 +84,8 @@ export class Erc20Transfer implements MoralisDataObject {
    * @example transfer.equals(data)
    * @returns true if the transfers are equal, false otherwise
    */
-  equals(data: Erc20Transferish): boolean {
-    return Erc20Transfer.equals(this, data);
+  equals(data: Erc20Transactionish): boolean {
+    return Erc20Transaction.equals(this, data);
   }
 
   /**

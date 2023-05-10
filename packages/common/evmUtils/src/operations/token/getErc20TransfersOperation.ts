@@ -1,14 +1,10 @@
-import {
-  Core,
-  Camelize,
-  PaginatedOperation,
-  PaginatedResponseAdapter,
-  maybe,
-  toCamelCase,
-} from '@moralisweb3/common-core';
-import { EvmChain, EvmChainish, EvmAddress, EvmAddressish, Erc20Transfer } from '../../dataTypes';
+import { Core, Camelize, PaginatedOperation, PaginatedResponseAdapter, maybe } from '@moralisweb3/common-core';
+import { EvmChain, EvmChainish, EvmAddress, EvmAddressish } from '../../dataTypes';
 import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
+import { EvmErc20Transfer } from '../../generated';
+
+// TODO: this operation is replaced by the generated code. We need to remove this file.
 
 type OperationId = 'getErc20Transfers';
 
@@ -87,20 +83,8 @@ function getRequestUrlParams(request: GetErc20TransfersRequest, core: Core) {
   };
 }
 
-function deserializeResponse(
-  jsonResponse: GetErc20TransfersJSONResponse,
-  request: GetErc20TransfersRequest,
-  core: Core,
-) {
-  return (jsonResponse.result ?? []).map((transfer) =>
-    Erc20Transfer.create({
-      ...toCamelCase(transfer),
-      chain: EvmChainResolver.resolve(request.chain, core),
-      address: EvmAddress.create(transfer.contract_address),
-      toAddress: EvmAddress.create(transfer.to_wallet),
-      fromAddress: EvmAddress.create(transfer.from_wallet),
-    }),
-  );
+function deserializeResponse(jsonResponse: GetErc20TransfersJSONResponse) {
+  return (jsonResponse.result ?? []).map((transfer) => EvmErc20Transfer.fromJSON(transfer));
 }
 
 function serializeRequest(request: GetErc20TransfersRequest, core: Core) {
