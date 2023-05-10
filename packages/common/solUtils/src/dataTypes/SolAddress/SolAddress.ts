@@ -44,12 +44,9 @@ export class SolAddress implements MoralisData {
   public constructor(public readonly address: string) {}
 
   /**
-   * Formats the address to a specific format.
-   * Currently returns a string representing the address.
-   * @example address.format(); // "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   public format(): MoralisDataFormatted {
-    // TODO: add `format` argument
     return this.address;
   }
 

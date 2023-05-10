@@ -93,13 +93,7 @@ export class EvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Converts the log to a JSON object.
-   *
-   * @returns the EvmTransactionLog as a JSON object
-   * @example
-   * ```ts
-   * log.format();
-   * ```
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

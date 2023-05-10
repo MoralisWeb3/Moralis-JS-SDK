@@ -119,9 +119,7 @@ export class StreamErc20Transfer implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamErc20Transfer instance to a JSON object.
-   * @returns JSON object of the StreamErc20Transfer instance
-   * @example `erc20Transfer.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

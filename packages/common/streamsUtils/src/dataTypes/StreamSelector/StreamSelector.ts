@@ -91,9 +91,7 @@ export class StreamSelector implements MoralisData {
   }
 
   /**
-   * Converts the StreamSelector instance to a JSON object.
-   * @returns JSON object of the StreamSelector instance
-   * @example `streamSelector.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.value;

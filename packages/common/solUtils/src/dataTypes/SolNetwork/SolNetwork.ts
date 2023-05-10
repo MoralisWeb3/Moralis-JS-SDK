@@ -77,12 +77,9 @@ export class SolNetwork implements MoralisData {
   private constructor(public readonly network: SolNetworkName) {}
 
   /**
-   * Formats the network to a specific format.
-   * Currently returns a string representing the network.
-   * @example network.format(); // "mainnet"
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   public format(): MoralisDataFormatted {
-    // TODO: add `format` argument
     return this.network;
   }
 

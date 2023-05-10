@@ -90,11 +90,7 @@ export class EvmNftCollection implements MoralisDataObject {
   }
 
   /**
-   * @returns a JSON represention of the collection.
-   * @example
-   * ```
-   * collection.format()
-   * ```
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

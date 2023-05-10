@@ -81,8 +81,7 @@ export class EvmNftMedia implements MoralisDataObject {
   }
 
   /**
-   * @returns a JSON representation of the media.
-   * @example media.format()
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();
