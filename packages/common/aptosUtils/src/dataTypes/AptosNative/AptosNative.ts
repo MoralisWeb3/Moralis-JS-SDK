@@ -102,12 +102,9 @@ export class AptosNative implements MoralisData {
   }
 
   /**
-   * Converts the AptosNative to a string.
-   * @returns the value of the AptosNative as a string
-   * @example `native.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   public format(): MoralisDataFormatted {
-    // TODO: add `format` argument
     return this.octas;
   }
 

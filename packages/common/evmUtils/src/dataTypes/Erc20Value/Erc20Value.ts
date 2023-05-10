@@ -156,9 +156,7 @@ export class Erc20Value implements MoralisData {
   };
 
   /**
-   * Convert the value to a string
-   * @returns the value in string format
-   * @example value.format();
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format(): string {
     return this.toString();

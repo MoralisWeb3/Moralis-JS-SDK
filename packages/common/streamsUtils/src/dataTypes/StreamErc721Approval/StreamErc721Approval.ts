@@ -128,9 +128,7 @@ export class StreamErc721Approval implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamErc721Approval instance to a JSON object.
-   * @returns JSON object of the StreamErc721Approval instance
-   * @example `evmNftApproval.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

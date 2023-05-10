@@ -128,9 +128,7 @@ export class StreamEvmNftTransfer implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamEvmNftTransfer instance to a JSON object.
-   * @returns JSON object of the StreamEvmNftTransfer instance
-   * @example `transfer.toJSON()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

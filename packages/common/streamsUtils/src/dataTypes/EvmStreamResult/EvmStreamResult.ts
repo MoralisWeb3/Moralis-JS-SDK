@@ -101,9 +101,7 @@ export class EvmStreamResult implements MoralisDataObject {
   }
 
   /**
-   * Converts the EvmStreamResult instance to a JSON object.
-   * @returns JSON object of the EvmStreamResult instance
-   * @example `evmStreamResult.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

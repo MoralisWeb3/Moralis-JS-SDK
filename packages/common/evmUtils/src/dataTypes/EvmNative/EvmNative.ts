@@ -153,9 +153,7 @@ export class EvmNative implements MoralisData {
   }
 
   /**
-   * Converts the EvmNative to a string.
-   * @returns the value of the EvmNative as a string
-   * @example `native.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   public format(): string {
     return this.toString();
