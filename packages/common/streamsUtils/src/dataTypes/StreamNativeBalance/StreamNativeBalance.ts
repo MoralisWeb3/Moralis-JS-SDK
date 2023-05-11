@@ -67,9 +67,7 @@ export class StreamNativeBalance implements MoralisDataObject {
   }
 
   /**
-   * Converts the NativeBalance instance to a JSON object.
-   * @returns JSON object of the NativeBalance instance
-   * @example `nativeBalanceTrigger.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

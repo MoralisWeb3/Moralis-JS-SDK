@@ -104,9 +104,7 @@ export class StreamTriggerOutput implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamTriggerOutput instance to a JSON object.
-   * @returns JSON object of the StreamTriggerOutput instance
-   * @example `streamTriggerOutput.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

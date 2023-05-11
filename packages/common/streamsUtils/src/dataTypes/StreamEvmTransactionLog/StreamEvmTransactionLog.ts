@@ -114,9 +114,7 @@ export class StreamEvmTransactionLog implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamEvmTransactionLog instance to a JSON object.
-   * @returns JSON object of the StreamEvmTransactionLog instance
-   * @example `transactionLog.toJSON()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

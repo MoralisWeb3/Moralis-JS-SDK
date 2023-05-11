@@ -60,12 +60,9 @@ export class AptosAddress implements MoralisData {
   public constructor(public readonly address: string) {}
 
   /**
-   * Formats the address to hex format.
-   * Currently returns a string representing the address.
-   * @example address.format(); // "0x54ad3d30af77b60d939ae356e6606de9a4da67583f02b962d2d3f2e481484e90"
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   public format(): MoralisDataFormatted {
-    // TODO: add `format` argument
     return this.address;
   }
 

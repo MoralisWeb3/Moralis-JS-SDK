@@ -119,9 +119,7 @@ export class StreamErc20Approval implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamErc20Approval instance to a JSON object.
-   * @returns JSON object of the StreamErc20Approval instance
-   * @example `erc20Approval.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

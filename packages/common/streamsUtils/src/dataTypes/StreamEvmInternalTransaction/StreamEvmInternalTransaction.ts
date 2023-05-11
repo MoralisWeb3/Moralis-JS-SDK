@@ -112,9 +112,7 @@ export class StreamEvmInternalTransaction implements MoralisDataObject {
   }
 
   /**
-   * Converts the StreamEvmInternalTransaction instance to a JSON object.
-   * @returns JSON object of the StreamEvmInternalTransaction instance
-   * @example `evmInternalTransaction.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

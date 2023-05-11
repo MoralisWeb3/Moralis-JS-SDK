@@ -85,8 +85,7 @@ export class Erc20Mint implements MoralisDataObject {
   }
 
   /**
-   * @returns a JSON representation of the mint.
-   * @example mint.format()
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

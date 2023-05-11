@@ -86,8 +86,7 @@ export class Erc20Approval implements MoralisDataObject {
   }
 
   /**
-   * @returns a JSON representation of the approval.
-   * @example approval.format()
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   format() {
     return this.toJSON();

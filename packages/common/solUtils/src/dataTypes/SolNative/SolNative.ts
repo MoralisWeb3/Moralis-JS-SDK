@@ -96,9 +96,7 @@ export class SolNative implements MoralisData {
   }
 
   /**
-   * Converts the SolNative to a string.
-   * @returns the value of the SolNative as a string
-   * @example `native.format()`
+   * @deprecated This method will be removed soon. To format the value, use one of the properties.
    */
   public format(): MoralisDataFormatted {
     // TODO: add `format` argument
