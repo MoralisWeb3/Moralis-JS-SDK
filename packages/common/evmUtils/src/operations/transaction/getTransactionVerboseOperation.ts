@@ -42,7 +42,7 @@ export const getTransactionVerboseOperation: Operation<
   isNullable: true,
   urlPathPattern: '/transaction/{transactionHash}/verbose',
   urlPathParamNames: ['transactionHash'],
-  urlSearchParamNames: ['chain'],
+  urlSearchParamNames: ['chain', 'include'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -54,6 +54,7 @@ function getRequestUrlParams(request: GetTransactionVerboseRequest, core: Core) 
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     transactionHash: request.transactionHash,
+    include: request.include,
   };
 }
 
@@ -61,6 +62,7 @@ function serializeRequest(request: GetTransactionVerboseRequest, core: Core) {
   return {
     chain: EvmChainResolver.resolve(request.chain, core).apiHex,
     transactionHash: request.transactionHash,
+    include: request.include,
   };
 }
 
@@ -68,6 +70,7 @@ function deserializeRequest(jsonRequest: GetTransactionVerboseJSONRequest): GetT
   return {
     chain: EvmChain.create(jsonRequest.chain),
     transactionHash: jsonRequest.transactionHash,
+    include: jsonRequest.include,
   };
 }
 function deserializeResponse(

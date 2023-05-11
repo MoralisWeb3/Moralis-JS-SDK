@@ -13,24 +13,10 @@
           "import": "../../dataTypes"
         },
         {
-          "refs": ["#/components/schemas/trade/properties/block_number"],
-          "className": "BigNumber",
-          "import": "@moralisweb3/common-core"
-        },
-        {
-          "refs": ["#/components/schemas/trade/properties/transaction_index"],
-          "nativeType": "number"
-        },
-        {
           "refs": [
-            "#/components/schemas/marketDataERC20Token/items/properties/rank",
-            "#/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/rank",
-            "#/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/rank"
+            "#/components/schemas/trade/properties/block_timestamp",
+            "#/components/schemas/erc20Transfer/properties/block_timestamp"
           ],
-          "nativeType": "number"
-        },
-        {
-          "refs": ["#/components/schemas/trade/properties/block_timestamp"],
           "nativeType": "Date"
         }
       ],
@@ -42,10 +28,21 @@
             "token_address",
             "marketplace_address",
             "price_token_address",
-            "contract_address"
+            "contract_address",
+            "from_wallet",
+            "to_wallet"
           ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
+        },
+        {
+          "names": ["block_number"],
+          "className": "BigNumber",
+          "import": "@moralisweb3/common-core"
+        },
+        {
+          "names": ["transaction_index", "token_decimals", "log_index"],
+          "nativeType": "number"
         }
       ],
       "operationParameters": [
@@ -55,7 +52,7 @@
           "import": "../../dataTypes"
         },
         {
-          "names": ["address"],
+          "names": ["address", "contract_addresses", "wallet_addresses", "exclude_wallets", "exclude_contracts"],
           "className": "EvmAddress",
           "import": "../../dataTypes"
         }
@@ -72,6 +69,7 @@
           "endpointWeights",
           "web3ApiVersion",
           "getNFTTrades",
+          "getErc20Transfers",
           "getTopERC20TokensByMarketCap",
           "getTopERC20TokensByPriceMovers",
           "getTopNFTCollectionsByMarketCap",

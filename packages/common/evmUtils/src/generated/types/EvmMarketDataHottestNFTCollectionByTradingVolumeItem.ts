@@ -11,7 +11,7 @@
 // - average_price_usd ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/average_price_usd)
 
 export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
-  readonly rank: string;
+  readonly rank: number;
   readonly collection_title: string;
   readonly collection_image: string;
   readonly floor_price_usd: string;
@@ -42,7 +42,7 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
 
   public static fromJSON(json: EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON): EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
     const input: EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput = {
-      rank: Number(json.rank),
+      rank: json.rank,
       collectionTitle: json.collection_title,
       collectionImage: json.collection_image,
       floorPriceUsd: json.floor_price_usd,
@@ -100,7 +100,7 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
 
   public toJSON(): EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
     return {
-      rank: String(this.rank),
+      rank: this.rank,
       collection_title: this.collectionTitle,
       collection_image: this.collectionImage,
       floor_price_usd: this.floorPriceUsd,

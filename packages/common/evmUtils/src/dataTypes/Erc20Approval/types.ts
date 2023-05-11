@@ -17,7 +17,11 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *   transactionIndex: "4",
  *   logIndex: "25",
  *   possibleSpam: false,
- *   value: "100000000000000000000000000000"
+ *   value: "100000000000000000000000000000",
+ *   tokenName: 'Test Token',
+ *   tokenSymbol: 'TST',
+ *   tokenLogo: 'https://example.com/logo.png',
+ *   tokenDecimals: 18
  * }
  * ```
  */
@@ -34,6 +38,10 @@ export interface Erc20ApprovalInput {
   logIndex: number;
   value: BigNumberish;
   possibleSpam: boolean;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenLogo?: string;
+  tokenDecimals: number;
 }
 
 /**
@@ -52,4 +60,8 @@ export interface Erc20ApprovalData {
   logIndex: number;
   value: BigNumber;
   possibleSpam: boolean;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenLogo?: string;
+  tokenDecimals: number;
 }

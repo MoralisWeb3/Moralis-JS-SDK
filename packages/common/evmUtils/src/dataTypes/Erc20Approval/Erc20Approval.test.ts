@@ -14,6 +14,10 @@ const exampleInput: Erc20ApprovalInput = {
   logIndex: 25,
   possibleSpam: false,
   value: '100000000000000000000000000000',
+  tokenName: 'Test Token',
+  tokenSymbol: 'TST',
+  tokenLogo: 'https://example.com/logo.png',
+  tokenDecimals: 18,
 };
 
 describe('Erc20Approval', () => {
@@ -34,6 +38,10 @@ describe('Erc20Approval', () => {
     expect(erc20Approval.logIndex).toBe(25);
     expect(erc20Approval.possibleSpam).toBe(false);
     expect(erc20Approval.value.toString()).toBe('100000000000000000000000000000');
+    expect(erc20Approval.tokenName).toBe('Test Token');
+    expect(erc20Approval.tokenSymbol).toBe('TST');
+    expect(erc20Approval.tokenLogo).toBe('https://example.com/logo.png');
+    expect(erc20Approval.tokenDecimals).toBe(18);
   });
 
   /**
@@ -57,6 +65,10 @@ describe('Erc20Approval', () => {
       logIndex: 25,
       possibleSpam: false,
       value: '100000000000000000000000000000',
+      tokenName: 'Test Token',
+      tokenSymbol: 'TST',
+      tokenLogo: 'https://example.com/logo.png',
+      tokenDecimals: 18,
     });
   });
 

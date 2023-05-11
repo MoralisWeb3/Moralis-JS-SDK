@@ -16,7 +16,11 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  *   transactionHash: "0xb7b4d321e2ab26c1cde1a2ef49413e21b65dcc663d6de8f75ddbdd868b98b4bf",
  *   transactionIndex: "4",
  *   logIndex: "25",
- *   value: "100000000000000000000000000000"
+ *   value: "100000000000000000000000000000",
+ *   tokenName: 'Test Token',
+ *   tokenSymbol: 'TST',
+ *   tokenLogo: 'https://example.com/logo.png',
+ *   tokenDecimals: 18
  * }
  * ```
  */
@@ -31,6 +35,10 @@ export interface Erc20MintInput {
   transactionIndex: number;
   logIndex: number;
   value: BigNumberish;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenLogo?: string;
+  tokenDecimals: number;
 }
 
 /**
@@ -47,4 +55,8 @@ export interface Erc20MintData {
   transactionIndex: number;
   logIndex: number;
   value: BigNumber;
+  tokenName: string;
+  tokenSymbol: string;
+  tokenLogo?: string;
+  tokenDecimals: number;
 }

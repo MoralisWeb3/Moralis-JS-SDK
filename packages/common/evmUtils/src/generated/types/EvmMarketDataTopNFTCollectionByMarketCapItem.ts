@@ -12,7 +12,7 @@
 // - volume_24hr_percent_change ($ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/volume_24hr_percent_change)
 
 export interface EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
-  readonly rank: string;
+  readonly rank: number;
   readonly collection_title: string;
   readonly collection_image: string;
   readonly floor_price_usd: string;
@@ -45,7 +45,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
 
   public static fromJSON(json: EvmMarketDataTopNFTCollectionByMarketCapItemJSON): EvmMarketDataTopNFTCollectionByMarketCapItem {
     const input: EvmMarketDataTopNFTCollectionByMarketCapItemInput = {
-      rank: Number(json.rank),
+      rank: json.rank,
       collectionTitle: json.collection_title,
       collectionImage: json.collection_image,
       floorPriceUsd: json.floor_price_usd,
@@ -109,7 +109,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
 
   public toJSON(): EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
     return {
-      rank: String(this.rank),
+      rank: this.rank,
       collection_title: this.collectionTitle,
       collection_image: this.collectionImage,
       floor_price_usd: this.floorPriceUsd,

@@ -15,7 +15,7 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // - market_cap_usd ($ref: #/components/schemas/marketDataERC20Token/items/properties/market_cap_usd)
 
 export interface EvmMarketDataERC20TokenItemJSON {
-  readonly rank: string;
+  readonly rank: number;
   readonly token_name: string;
   readonly token_symbol: string;
   readonly token_logo: string;
@@ -32,7 +32,7 @@ export interface EvmMarketDataERC20TokenItemInput {
   readonly tokenName: string;
   readonly tokenSymbol: string;
   readonly tokenLogo: string;
-  readonly tokenDecimals: string;
+  readonly tokenDecimals: number;
   readonly contractAddress: EvmAddressInput | EvmAddress;
   readonly priceUsd: string;
   readonly price24hPercentChange: string;
@@ -50,11 +50,11 @@ export class EvmMarketDataERC20TokenItem {
 
   public static fromJSON(json: EvmMarketDataERC20TokenItemJSON): EvmMarketDataERC20TokenItem {
     const input: EvmMarketDataERC20TokenItemInput = {
-      rank: Number(json.rank),
+      rank: json.rank,
       tokenName: json.token_name,
       tokenSymbol: json.token_symbol,
       tokenLogo: json.token_logo,
-      tokenDecimals: json.token_decimals,
+      tokenDecimals: Number(json.token_decimals),
       contractAddress: EvmAddress.fromJSON(json.contract_address),
       priceUsd: json.price_usd,
       price24hPercentChange: json.price_24h_percent_change,
@@ -83,7 +83,7 @@ export class EvmMarketDataERC20TokenItem {
   /**
    * @description The token decimals
    */
-  public readonly tokenDecimals: string;
+  public readonly tokenDecimals: number;
   /**
    * @description The contract address
    */
@@ -120,11 +120,11 @@ export class EvmMarketDataERC20TokenItem {
 
   public toJSON(): EvmMarketDataERC20TokenItemJSON {
     return {
-      rank: String(this.rank),
+      rank: this.rank,
       token_name: this.tokenName,
       token_symbol: this.tokenSymbol,
       token_logo: this.tokenLogo,
-      token_decimals: this.tokenDecimals,
+      token_decimals: String(this.tokenDecimals),
       contract_address: this.contractAddress.toJSON(),
       price_usd: this.priceUsd,
       price_24h_percent_change: this.price24hPercentChange,

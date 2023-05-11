@@ -2,7 +2,7 @@ export * from './Erc20';
 export * from './Erc20Approval';
 export * from './Erc20Burn';
 export * from './Erc20Mint';
-export * from './Erc20Transfer';
+export * from './Erc20Transaction';
 export * from './Erc20Value';
 export * from './EvmAbiItem';
 export * from './EvmAddress';

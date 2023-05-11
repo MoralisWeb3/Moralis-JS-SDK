@@ -97,6 +97,7 @@ function deserializeResponse(
     Erc20Approval.create({
       ...toCamelCase(approval),
       chain: EvmChainResolver.resolve(request.chain, core),
+      tokenDecimals: Number(approval.token_decimals),
     }),
   );
 }

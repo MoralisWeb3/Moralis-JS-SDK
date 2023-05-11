@@ -1,7 +1,7 @@
-import { Erc20Transfer } from './Erc20Transfer';
-import { Erc20TransferInput } from './types';
+import { Erc20Transaction } from './Erc20Transaction';
+import { Erc20TransactionInput } from './types';
 
-const exampleInput: Erc20TransferInput = {
+const exampleInput: Erc20TransactionInput = {
   chain: '0x1',
   toAddress: '0x09f4fc6081026c85070886599e83f599ecf82405',
   fromAddress: '0xf1942e50496ccfb19e4e7afe3c9478f0e33ad389',
@@ -16,12 +16,12 @@ const exampleInput: Erc20TransferInput = {
   possibleSpam: false,
 };
 
-describe('Erc20Transfer', () => {
+describe('Erc20Transaction', () => {
   /**
    * Creation
    */
-  it('should create a new Erc20Transfer', () => {
-    const erc20Mint = Erc20Transfer.create(exampleInput);
+  it('should create a new Erc20Transaction', () => {
+    const erc20Mint = Erc20Transaction.create(exampleInput);
 
     expect(erc20Mint.chain.hex).toBe('0x1');
 
@@ -47,7 +47,7 @@ describe('Erc20Transfer', () => {
    * Formatting
    */
   it('should return formatting in json', () => {
-    const erc20Mint = Erc20Transfer.create(exampleInput);
+    const erc20Mint = Erc20Transaction.create(exampleInput);
 
     const value = erc20Mint.toJSON();
 
@@ -71,22 +71,22 @@ describe('Erc20Transfer', () => {
    * Methods
    */
   it('should check equality of 2 erc20Mints of the same value', () => {
-    const erc20MintA = Erc20Transfer.create(exampleInput);
-    const erc20MintB = Erc20Transfer.create(exampleInput);
+    const erc20MintA = Erc20Transaction.create(exampleInput);
+    const erc20MintB = Erc20Transaction.create(exampleInput);
 
     expect(erc20MintA.equals(erc20MintB)).toBeTruthy();
   });
 
   it('should check equality of 2 erc20Mints of the same value via a static method', () => {
-    const erc20MintA = Erc20Transfer.create(exampleInput);
-    const erc20MintB = Erc20Transfer.create(exampleInput);
+    const erc20MintA = Erc20Transaction.create(exampleInput);
+    const erc20MintB = Erc20Transaction.create(exampleInput);
 
-    expect(Erc20Transfer.equals(erc20MintA, erc20MintB)).toBeTruthy();
+    expect(Erc20Transaction.equals(erc20MintA, erc20MintB)).toBeTruthy();
   });
 
   it('should check inequality when chain is different', () => {
-    const erc20MintA = Erc20Transfer.create(exampleInput);
-    const erc20MintB = Erc20Transfer.create({ ...exampleInput, chain: '0x2' });
+    const erc20MintA = Erc20Transaction.create(exampleInput);
+    const erc20MintB = Erc20Transaction.create({ ...exampleInput, chain: '0x2' });
 
     expect(erc20MintA.equals(erc20MintB)).toBeFalsy();
   });

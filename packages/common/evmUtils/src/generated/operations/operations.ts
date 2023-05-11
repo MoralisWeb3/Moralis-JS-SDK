@@ -1,4 +1,5 @@
 import { GetNFTTradesOperation } from './GetNFTTradesOperation';
+import { GetErc20TransfersOperation } from './GetErc20TransfersOperation';
 import { Web3ApiVersionOperation } from './Web3ApiVersionOperation';
 import { EndpointWeightsOperation } from './EndpointWeightsOperation';
 import { GetTopERC20TokensByMarketCapOperation } from './GetTopERC20TokensByMarketCapOperation';
@@ -8,6 +9,7 @@ import { GetHottestNFTCollectionsByTradingVolumeOperation } from './GetHottestNF
 
 export const operations = [
   GetNFTTradesOperation,
+  GetErc20TransfersOperation,
   Web3ApiVersionOperation,
   EndpointWeightsOperation,
   GetTopERC20TokensByMarketCapOperation,
