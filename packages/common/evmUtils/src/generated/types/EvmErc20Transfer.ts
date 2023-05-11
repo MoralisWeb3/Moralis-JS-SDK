@@ -1,4 +1,5 @@
 import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
+import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-core';
 
 // $ref: #/components/schemas/erc20Transfer
 // type: erc20Transfer
@@ -30,7 +31,7 @@ export interface EvmErc20TransferJSON {
   readonly transaction_index: string;
   readonly log_index: string;
   readonly block_timestamp: string;
-  readonly block_number: string;
+  readonly block_number: BigNumberJSON;
   readonly block_hash: string;
   readonly from_wallet: EvmAddressJSON;
   readonly to_wallet: EvmAddressJSON;
@@ -43,13 +44,13 @@ export interface EvmErc20TransferInput {
   readonly tokenName: string;
   readonly tokenSymbol: string;
   readonly tokenLogo?: string;
-  readonly tokenDecimals: string;
+  readonly tokenDecimals: number;
   readonly contractAddress: EvmAddressInput | EvmAddress;
   readonly transactionHash: string;
-  readonly transactionIndex: string;
-  readonly logIndex: string;
+  readonly transactionIndex: number;
+  readonly logIndex: number;
   readonly blockTimestamp: Date;
-  readonly blockNumber: string;
+  readonly blockNumber: BigNumberInput | BigNumber;
   readonly blockHash: string;
   readonly fromWallet: EvmAddressInput | EvmAddress;
   readonly toWallet: EvmAddressInput | EvmAddress;
@@ -71,13 +72,13 @@ export class EvmErc20Transfer {
       tokenName: json.token_name,
       tokenSymbol: json.token_symbol,
       tokenLogo: json.token_logo,
-      tokenDecimals: json.token_decimals,
+      tokenDecimals: Number(json.token_decimals),
       contractAddress: EvmAddress.fromJSON(json.contract_address),
       transactionHash: json.transaction_hash,
-      transactionIndex: json.transaction_index,
-      logIndex: json.log_index,
+      transactionIndex: Number(json.transaction_index),
+      logIndex: Number(json.log_index),
       blockTimestamp: new Date(json.block_timestamp),
-      blockNumber: json.block_number,
+      blockNumber: BigNumber.fromJSON(json.block_number),
       blockHash: json.block_hash,
       fromWallet: EvmAddress.fromJSON(json.from_wallet),
       toWallet: EvmAddress.fromJSON(json.to_wallet),
@@ -91,14 +92,14 @@ export class EvmErc20Transfer {
   public readonly tokenName: string;
   public readonly tokenSymbol: string;
   public readonly tokenLogo?: string;
-  public readonly tokenDecimals: string;
+  public readonly tokenDecimals: number;
   public readonly contractAddress: EvmAddress;
   /**
    * @description The hash of the transaction
    */
   public readonly transactionHash: string;
-  public readonly transactionIndex: string;
-  public readonly logIndex: string;
+  public readonly transactionIndex: number;
+  public readonly logIndex: number;
   /**
    * @description The timestamp of the block
    */
@@ -106,7 +107,7 @@ export class EvmErc20Transfer {
   /**
    * @description The block number
    */
-  public readonly blockNumber: string;
+  public readonly blockNumber: BigNumber;
   /**
    * @description The hash of the block
    */
@@ -142,7 +143,7 @@ export class EvmErc20Transfer {
     this.transactionIndex = input.transactionIndex;
     this.logIndex = input.logIndex;
     this.blockTimestamp = input.blockTimestamp;
-    this.blockNumber = input.blockNumber;
+    this.blockNumber = BigNumber.create(input.blockNumber);
     this.blockHash = input.blockHash;
     this.fromWallet = EvmAddress.create(input.fromWallet);
     this.toWallet = EvmAddress.create(input.toWallet);
@@ -156,13 +157,13 @@ export class EvmErc20Transfer {
       token_name: this.tokenName,
       token_symbol: this.tokenSymbol,
       token_logo: this.tokenLogo,
-      token_decimals: this.tokenDecimals,
+      token_decimals: String(this.tokenDecimals),
       contract_address: this.contractAddress.toJSON(),
       transaction_hash: this.transactionHash,
-      transaction_index: this.transactionIndex,
-      log_index: this.logIndex,
+      transaction_index: String(this.transactionIndex),
+      log_index: String(this.logIndex),
       block_timestamp: this.blockTimestamp.toISOString(),
-      block_number: this.blockNumber,
+      block_number: this.blockNumber.toJSON(),
       block_hash: this.blockHash,
       from_wallet: this.fromWallet.toJSON(),
       to_wallet: this.toWallet.toJSON(),

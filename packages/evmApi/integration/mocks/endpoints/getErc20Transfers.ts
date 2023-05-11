@@ -34,7 +34,7 @@ export const mockGetErc20Transfers = MockScenarios.create(
             token_name: 'SmarDex LP-Token',
             token_symbol: 'SDEX-LP',
             token_logo: null,
-            token_decimals: 18,
+            token_decimals: '18',
             from_wallet: '0x0000000000000000000000000000000000000000',
             to_wallet: '0x2f64604cfda547572c7e68bd821a88c0566630d0',
             contract_address: '0x9fcf8f5bd54db123470c96620441ca5c342a8bd4',

@@ -13,15 +13,6 @@
           "import": "../../dataTypes"
         },
         {
-          "refs": ["#/components/schemas/trade/properties/block_number"],
-          "className": "BigNumber",
-          "import": "@moralisweb3/common-core"
-        },
-        {
-          "refs": ["#/components/schemas/trade/properties/transaction_index"],
-          "nativeType": "number"
-        },
-        {
           "refs": [
             "#/components/schemas/trade/properties/block_timestamp",
             "#/components/schemas/erc20Transfer/properties/block_timestamp"
@@ -43,6 +34,15 @@
           ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
+        },
+        {
+          "names": ["block_number"],
+          "className": "BigNumber",
+          "import": "@moralisweb3/common-core"
+        },
+        {
+          "names": ["transaction_index", "token_decimals", "log_index"],
+          "nativeType": "number"
         }
       ],
       "operationParameters": [
