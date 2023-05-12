@@ -568,13 +568,13 @@ export abstract class AbstractClient {
      * @param {String[]} [request.walletBlacklist] The addresses of the wallets to blacklist (optional)
      * @param {String[]} [request.walletWhitelist] The addresses of the wallets to whitelist (optional)
      * @param {Object} [request.network] The network of query. Defaults to mainnet. (optional)
-     * @returns {Object[]} Response for the request.
+     * @returns {Object} Response for the request.
      */
     getNFTTransfersByIds: this.createEndpoint<
       GetNFTTransfersByIdsOperationRequest,
       GetNFTTransfersByIdsOperationRequestJSON,
-      AptosNFTTransfersByTokensResponse[],
-      AptosNFTTransfersByTokensResponseJSON[]
+      AptosNFTTransfersByTokensResponse,
+      AptosNFTTransfersByTokensResponseJSON
     >(GetNFTTransfersByIdsOperation),
     /**
      * @description Get NFT Transfers by Collection
