@@ -1,5 +1,19 @@
 # @moralisweb3/streams
 
+## 2.20.0
+
+### Minor Changes
+
+- [#1123](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1123) [`8a3bef8c2`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/8a3bef8c2e55f6fac1930a11100ae04719c1403d) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: Deleted support for Cronos Testnet and Avalanche Testnet.
+
+### Patch Changes
+
+- Updated dependencies [[`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488), [`8a3bef8c2`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/8a3bef8c2e55f6fac1930a11100ae04719c1403d), [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488), [`833feaf20`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/833feaf20e49a59a69e7ba2b6dfd464e00c1dd62), [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488), [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488)]:
+  - @moralisweb3/common-evm-utils@2.20.0
+  - @moralisweb3/common-streams-utils@2.20.0
+  - @moralisweb3/api-utils@2.20.0
+  - @moralisweb3/common-core@2.20.0
+
 ## 2.19.1
 
 ### Patch Changes

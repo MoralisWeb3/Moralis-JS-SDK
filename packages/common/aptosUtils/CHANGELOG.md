@@ -1,5 +1,20 @@
 # @moralisweb3/aptos-utils
 
+## 2.20.0
+
+### Minor Changes
+
+- [#1120](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1120) [`833feaf20`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/833feaf20e49a59a69e7ba2b6dfd464e00c1dd62) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: All `format()` methods are deprecated now.
+
+### Patch Changes
+
+- [#1122](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1122) [`26f20c88a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26f20c88a52e13a6c838488eef55c2c00c10fbfe) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Set some properties as optional for the `AptosNFTTransferResponse` class.
+
+- [#1122](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1122) [`26f20c88a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26f20c88a52e13a6c838488eef55c2c00c10fbfe) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed the return type of the `getNFTTransfersByIds()` method in the Aptos API module.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.20.0
+
 ## 2.19.1
 
 ### Patch Changes

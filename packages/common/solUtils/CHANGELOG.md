@@ -1,5 +1,16 @@
 # @moralisweb3/sol-utils
 
+## 2.20.0
+
+### Minor Changes
+
+- [#1120](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1120) [`833feaf20`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/833feaf20e49a59a69e7ba2b6dfd464e00c1dd62) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: All `format()` methods are deprecated now.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.20.0
+
 ## 2.19.1
 
 ### Patch Changes
