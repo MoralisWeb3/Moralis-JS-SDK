@@ -1,5 +1,14 @@
 # @moralisweb3/sol-api
 
+## 2.20.0
+
+### Patch Changes
+
+- Updated dependencies [[`833feaf20`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/833feaf20e49a59a69e7ba2b6dfd464e00c1dd62)]:
+  - @moralisweb3/common-sol-utils@2.20.0
+  - @moralisweb3/api-utils@2.20.0
+  - @moralisweb3/common-core@2.20.0
+
 ## 2.19.1
 
 ### Patch Changes

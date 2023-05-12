@@ -1,5 +1,18 @@
 # @moralisweb3/aptos-api
 
+## 2.20.0
+
+### Patch Changes
+
+- [#1122](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1122) [`26f20c88a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26f20c88a52e13a6c838488eef55c2c00c10fbfe) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Set some properties as optional for the `AptosNFTTransferResponse` class.
+
+- [#1122](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1122) [`26f20c88a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26f20c88a52e13a6c838488eef55c2c00c10fbfe) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed the return type of the `getNFTTransfersByIds()` method in the Aptos API module.
+
+- Updated dependencies [[`833feaf20`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/833feaf20e49a59a69e7ba2b6dfd464e00c1dd62), [`26f20c88a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26f20c88a52e13a6c838488eef55c2c00c10fbfe), [`26f20c88a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26f20c88a52e13a6c838488eef55c2c00c10fbfe)]:
+  - @moralisweb3/common-aptos-utils@2.20.0
+  - @moralisweb3/api-utils@2.20.0
+  - @moralisweb3/common-core@2.20.0
+
 ## 2.19.1
 
 ### Patch Changes

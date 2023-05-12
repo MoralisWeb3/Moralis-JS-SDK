@@ -1,5 +1,26 @@
 # @moralisweb3/evm-utils
 
+## 2.20.0
+
+### Minor Changes
+
+- [#1118](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1118) [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: The `getErc20Transfers` method returns instances of the `EvmErc20Transfer` class from now. Before this method has returned instances of the `Erc20Transfer` class.
+
+- [#1123](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1123) [`8a3bef8c2`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/8a3bef8c2e55f6fac1930a11100ae04719c1403d) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: Deleted support for Cronos Testnet and Avalanche Testnet.
+
+- [#1118](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1118) [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: The `tokenDecimals` property of the `EvmMarketDataERC20TokenItem` class is number now.
+
+- [#1120](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1120) [`833feaf20`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/833feaf20e49a59a69e7ba2b6dfd464e00c1dd62) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: All `format()` methods are deprecated now.
+
+- [#1118](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1118) [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: The `Erc20Transfer` class is renamed to `Erc20Transaction`. From now `getTokenTransfers` and `getWalletTokenTransfers` methods return instances of the renamed class.
+
+### Patch Changes
+
+- [#1118](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1118) [`0f5444575`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/0f54445755e14dca34fe7184c1a4476ea6c87488) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added to `Erc20Burn`, `Erc20Mint` and `Erc20Approval` classes 4 new fields: `tokenName`, `tokenLogo`, `tokenSymbol` and `tokenDecimals`. These classes are used by the following EVM API methods: `getErc20Approvals`, `getErc20Burns` and `getErc20Mints`.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.20.0
+
 ## 2.19.1
 
 ### Patch Changes
