@@ -12,6 +12,7 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}',
       'https://api.mycryptoapi.com/eth',
       'https://cloudflare-eth.com',
+      'https://ethereum.publicnode.com',
     ],
     features: [
       {
@@ -80,7 +81,7 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Cronos Mainnet Beta',
     chain: 'CRO',
-    rpc: ['https://evm.cronos.org'],
+    rpc: ['https://evm.cronos.org', 'https://cronos-evm.publicnode.com'],
     features: [
       {
         name: 'EIP1559',
@@ -120,6 +121,7 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://bsc-dataseed2.ninicoin.io',
       'https://bsc-dataseed3.ninicoin.io',
       'https://bsc-dataseed4.ninicoin.io',
+      'https://bsc.publicnode.com',
       'wss://bsc-ws-node.nariox.org',
     ],
     faucets: ['https://free-online-app.com/faucet-for-eth-evm-chains/'],
@@ -205,7 +207,7 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Fantom Opera',
     chain: 'FTM',
-    rpc: ['https://rpc.ftm.tools'],
+    rpc: ['https://rpc.ftm.tools', 'https://fantom.publicnode.com'],
     faucets: ['https://free-online-app.com/faucet-for-eth-evm-chains/'],
     nativeCurrency: {
       name: 'Fantom',
@@ -223,28 +225,6 @@ export const chainList: EvmChainListDataEntry[] = [
         url: 'https://ftmscan.com',
         icon: 'ftmscan',
         standard: 'EIP3091',
-      },
-    ],
-  },
-  {
-    name: 'Cronos Testnet',
-    chain: 'CRO',
-    rpc: ['https://evm-t3.cronos.org'],
-    faucets: ['https://cronos.org/faucet'],
-    nativeCurrency: {
-      name: 'Cronos Test Coin',
-      symbol: 'TCRO',
-      decimals: 18,
-    },
-    infoURL: 'https://cronos.org',
-    shortName: 'tcro',
-    chainId: 338,
-    networkId: 338,
-    explorers: [
-      {
-        name: 'Cronos Testnet Explorer',
-        url: 'https://testnet.cronoscan.com',
-        standard: 'none',
       },
     ],
   },
@@ -289,33 +269,10 @@ export const chainList: EvmChainListDataEntry[] = [
     },
   },
   {
-    name: 'Avalanche Fuji Testnet',
-    chain: 'AVAX',
-    icon: 'avax',
-    rpc: ['https://api.avax-test.network/ext/bc/C/rpc'],
-    faucets: ['https://faucet.avax-test.network/'],
-    nativeCurrency: {
-      name: 'Avalanche',
-      symbol: 'AVAX',
-      decimals: 18,
-    },
-    infoURL: 'https://cchain.explorer.avax-test.network',
-    shortName: 'Fuji',
-    chainId: 43113,
-    networkId: 1,
-    explorers: [
-      {
-        name: 'snowtrace',
-        url: 'https://testnet.snowtrace.io',
-        standard: 'EIP3091',
-      },
-    ],
-  },
-  {
     name: 'Avalanche C-Chain',
     chain: 'AVAX',
     icon: 'avax',
-    rpc: ['https://api.avax.network/ext/bc/C/rpc'],
+    rpc: ['https://api.avax.network/ext/bc/C/rpc', 'https://avalanche-c-chain.publicnode.com'],
     features: [
       {
         name: 'EIP1559',
@@ -372,7 +329,7 @@ export const chainList: EvmChainListDataEntry[] = [
     name: 'Sepolia',
     title: 'Ethereum Testnet Sepolia',
     chain: 'ETH',
-    rpc: ['https://rpc.sepolia.org', 'https://rpc-sepolia.rockx.com'],
+    rpc: ['https://rpc.sepolia.org', 'https://rpc2.sepolia.org', 'https://rpc-sepolia.rockx.com'],
     faucets: ['http://fauceth.komputing.org?chain=11155111&address=${ADDRESS}'],
     nativeCurrency: {
       name: 'Sepolia Ether',
@@ -399,6 +356,7 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Palm',
     chain: 'Palm',
+    icon: 'palm',
     rpc: ['https://palm-mainnet.infura.io/v3/${INFURA_API_KEY}'],
     faucets: [],
     nativeCurrency: {
