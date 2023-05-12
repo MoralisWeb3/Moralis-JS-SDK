@@ -22,18 +22,18 @@ import { AptosNative, AptosNativeInput, AptosNativeJSON, AptosAddress, AptosAddr
 // - transfer_type ($ref: #/components/schemas/NFTTransferResponse/properties/transfer_type)
 
 export interface AptosNFTTransferResponseJSON {
-  readonly coin_amount: AptosNativeJSON;
-  readonly coin_type: string;
+  readonly coin_amount?: AptosNativeJSON;
+  readonly coin_type?: string;
   readonly collection_data_id_hash: string;
   readonly collection_name: string;
   readonly creator_address: AptosAddressJSON;
   readonly event_account_address: string;
   readonly event_creation_number: string;
   readonly event_sequence_number: string;
-  readonly from_address: AptosAddressJSON;
+  readonly from_address?: AptosAddressJSON;
   readonly name: string;
   readonly property_version: string;
-  readonly to_address: AptosAddressJSON;
+  readonly to_address?: AptosAddressJSON;
   readonly token_amount: AptosNativeJSON;
   readonly token_data_id_hash: string;
   readonly transaction_timestamp: string;
@@ -42,18 +42,18 @@ export interface AptosNFTTransferResponseJSON {
 }
 
 export interface AptosNFTTransferResponseInput {
-  readonly coinAmount: AptosNativeInput | AptosNative;
-  readonly coinType: string;
+  readonly coinAmount?: AptosNativeInput | AptosNative;
+  readonly coinType?: string;
   readonly collectionDataIdHash: string;
   readonly collectionName: string;
   readonly creatorAddress: AptosAddressInput | AptosAddress;
   readonly eventAccountAddress: string;
   readonly eventCreationNumber: string;
   readonly eventSequenceNumber: string;
-  readonly fromAddress: AptosAddressInput | AptosAddress;
+  readonly fromAddress?: AptosAddressInput | AptosAddress;
   readonly name: string;
   readonly propertyVersion: string;
-  readonly toAddress: AptosAddressInput | AptosAddress;
+  readonly toAddress?: AptosAddressInput | AptosAddress;
   readonly tokenAmount: AptosNativeInput | AptosNative;
   readonly tokenDataIdHash: string;
   readonly transactionTimestamp: string;
@@ -71,7 +71,7 @@ export class AptosNFTTransferResponse {
 
   public static fromJSON(json: AptosNFTTransferResponseJSON): AptosNFTTransferResponse {
     const input: AptosNFTTransferResponseInput = {
-      coinAmount: AptosNative.fromJSON(json.coin_amount),
+      coinAmount: json.coin_amount ? AptosNative.fromJSON(json.coin_amount) : undefined,
       coinType: json.coin_type,
       collectionDataIdHash: json.collection_data_id_hash,
       collectionName: json.collection_name,
@@ -79,10 +79,10 @@ export class AptosNFTTransferResponse {
       eventAccountAddress: json.event_account_address,
       eventCreationNumber: json.event_creation_number,
       eventSequenceNumber: json.event_sequence_number,
-      fromAddress: AptosAddress.fromJSON(json.from_address),
+      fromAddress: json.from_address ? AptosAddress.fromJSON(json.from_address) : undefined,
       name: json.name,
       propertyVersion: json.property_version,
-      toAddress: AptosAddress.fromJSON(json.to_address),
+      toAddress: json.to_address ? AptosAddress.fromJSON(json.to_address) : undefined,
       tokenAmount: AptosNative.fromJSON(json.token_amount),
       tokenDataIdHash: json.token_data_id_hash,
       transactionTimestamp: json.transaction_timestamp,
@@ -95,11 +95,11 @@ export class AptosNFTTransferResponse {
   /**
    * @description The number of tokens transferred
    */
-  public readonly coinAmount: AptosNative;
+  public readonly coinAmount?: AptosNative;
   /**
    * @description The type of tokens transferred
    */
-  public readonly coinType: string;
+  public readonly coinType?: string;
   /**
    * @description The identifier of the collection
    */
@@ -127,7 +127,7 @@ export class AptosNFTTransferResponse {
   /**
    * @description The address sending the transfer
    */
-  public readonly fromAddress: AptosAddress;
+  public readonly fromAddress?: AptosAddress;
   /**
    * @description The name of the token
    */
@@ -139,7 +139,7 @@ export class AptosNFTTransferResponse {
   /**
    * @description The address recieving the transfer
    */
-  public readonly toAddress: AptosAddress;
+  public readonly toAddress?: AptosAddress;
   /**
    * @description The number of tokens transferred
    */
@@ -162,7 +162,7 @@ export class AptosNFTTransferResponse {
   public readonly transferType: string;
 
   private constructor(input: AptosNFTTransferResponseInput) {
-    this.coinAmount = AptosNative.create(input.coinAmount);
+    this.coinAmount = input.coinAmount ? AptosNative.create(input.coinAmount) : undefined;
     this.coinType = input.coinType;
     this.collectionDataIdHash = input.collectionDataIdHash;
     this.collectionName = input.collectionName;
@@ -170,10 +170,10 @@ export class AptosNFTTransferResponse {
     this.eventAccountAddress = input.eventAccountAddress;
     this.eventCreationNumber = input.eventCreationNumber;
     this.eventSequenceNumber = input.eventSequenceNumber;
-    this.fromAddress = AptosAddress.create(input.fromAddress);
+    this.fromAddress = input.fromAddress ? AptosAddress.create(input.fromAddress) : undefined;
     this.name = input.name;
     this.propertyVersion = input.propertyVersion;
-    this.toAddress = AptosAddress.create(input.toAddress);
+    this.toAddress = input.toAddress ? AptosAddress.create(input.toAddress) : undefined;
     this.tokenAmount = AptosNative.create(input.tokenAmount);
     this.tokenDataIdHash = input.tokenDataIdHash;
     this.transactionTimestamp = input.transactionTimestamp;
@@ -183,7 +183,7 @@ export class AptosNFTTransferResponse {
 
   public toJSON(): AptosNFTTransferResponseJSON {
     return {
-      coin_amount: this.coinAmount.toJSON(),
+      coin_amount: this.coinAmount ? this.coinAmount.toJSON() : undefined,
       coin_type: this.coinType,
       collection_data_id_hash: this.collectionDataIdHash,
       collection_name: this.collectionName,
@@ -191,10 +191,10 @@ export class AptosNFTTransferResponse {
       event_account_address: this.eventAccountAddress,
       event_creation_number: this.eventCreationNumber,
       event_sequence_number: this.eventSequenceNumber,
-      from_address: this.fromAddress.toJSON(),
+      from_address: this.fromAddress ? this.fromAddress.toJSON() : undefined,
       name: this.name,
       property_version: this.propertyVersion,
-      to_address: this.toAddress.toJSON(),
+      to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       token_amount: this.tokenAmount.toJSON(),
       token_data_id_hash: this.tokenDataIdHash,
       transaction_timestamp: this.transactionTimestamp,
