@@ -60,8 +60,8 @@ export const GetNFTTransfersByIdsOperation = {
   hasResponse: true,
   hasBody: false,
 
-  parseResponse(json: AptosNFTTransfersByTokensResponseJSON[]): AptosNFTTransfersByTokensResponse[] {
-    return json.map((item) => AptosNFTTransfersByTokensResponse.fromJSON(item));
+  parseResponse(json: AptosNFTTransfersByTokensResponseJSON): AptosNFTTransfersByTokensResponse {
+    return AptosNFTTransfersByTokensResponse.fromJSON(json);
   },
 
   serializeRequest(request: GetNFTTransfersByIdsOperationRequest): GetNFTTransfersByIdsOperationRequestJSON {
