@@ -92,15 +92,6 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
-   * Returns FUJI chain
-   *
-   * @example EvmChain.FUJI
-   */
-  public static get FUJI() {
-    return EvmChain.create(43113);
-  }
-
-  /**
    * Returns FANTOM chain
    *
    * @example EvmChain.FANTOM
@@ -116,15 +107,6 @@ export class EvmChain implements EvmChainable {
    */
   public static get CRONOS() {
     return EvmChain.create(25);
-  }
-
-  /**
-   * Returns CRONOS_TESTNET chain
-   *
-   * @example EvmChain.CRONOS_TESTNET
-   */
-  public static get CRONOS_TESTNET() {
-    return EvmChain.create(338);
   }
 
   /**

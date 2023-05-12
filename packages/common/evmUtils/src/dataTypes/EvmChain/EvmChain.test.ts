@@ -109,6 +109,7 @@ describe('EvmChain', () => {
       'wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}',
       'https://api.mycryptoapi.com/eth',
       'https://cloudflare-eth.com',
+      'https://ethereum.publicnode.com',
     ]);
     expect(chain.currency).toStrictEqual({
       decimals: 18,

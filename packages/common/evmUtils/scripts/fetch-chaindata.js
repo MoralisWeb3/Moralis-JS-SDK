@@ -3,11 +3,10 @@
 // To run this script: node fetch-chaindata.js
 // You must have compiled this package before running this script.
 
-const axios = require('axios');
-const path = require('path');
-const fs = require('fs');
-const { Core, CoreProvider } = require('@moralisweb3/common-core');
-const { EvmChain } = require('@moralisweb3/common-evm-utils');
+import axios from 'axios';
+import fs from 'fs';
+import { Core, CoreProvider } from '@moralisweb3/common-core';
+import { EvmChain } from '@moralisweb3/common-evm-utils';
 
 const url = 'https://chainid.network/chains.json';
 
@@ -24,7 +23,7 @@ function getSupportedChainIds() {
 }
 
 function generateFile(items) {
-  const tsPath = path.join(__dirname, '../src/data/chaindata.ts');
+  const tsPath = '../src/data/chaindata.ts';
   const content = `/* eslint-disable no-template-curly-in-string */
 import { EvmChainListDataEntry } from './types';
 
