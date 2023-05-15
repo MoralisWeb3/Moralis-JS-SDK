@@ -1,4 +1,4 @@
-import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
+import { Core, Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonAptosUtilsConfigSetup } from './config';
 import * as dataTypes from './dataTypes';
 

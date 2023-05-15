@@ -7,7 +7,6 @@ import { AptosApi } from '@moralisweb3/aptos-api';
 import { CommonSolUtils } from '@moralisweb3/common-sol-utils';
 import { SolApi } from '@moralisweb3/sol-api';
 import { Core, CoreProvider } from '@moralisweb3/common-core';
-
 import { MoralisConfigValues } from './config/MoralisConfig';
 export * from './config/MoralisConfig';
 

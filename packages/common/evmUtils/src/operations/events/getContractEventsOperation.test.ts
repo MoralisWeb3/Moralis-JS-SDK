@@ -1,12 +1,12 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { EvmAddress, EvmChain } from '../../dataTypes';
 import { GetContractEventsRequest, getContractEventsOperation } from './getContractEventsOperation';
 
 describe('getContractEventsOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {

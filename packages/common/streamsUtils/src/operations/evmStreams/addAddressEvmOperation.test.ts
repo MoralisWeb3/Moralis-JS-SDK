@@ -1,12 +1,12 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { EvmAddress } from '@moralisweb3/common-evm-utils';
 import { addAddressEvmOperation, AddAddressEvmRequest } from './addAddressEvmOperation';
 
 describe('AddAddressEvmOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {

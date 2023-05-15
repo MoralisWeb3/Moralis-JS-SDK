@@ -1,12 +1,12 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { AptosNetwork, CommonAptosUtils } from '@moralisweb3/common-aptos-utils';
 import { createStreamAptosOperation, CreateStreamAptosRequest } from './createStreamAptosOperation';
 
 describe('createStreamAptosOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
     const AptosUtils = CommonAptosUtils.create(core);
     core.registerModules([AptosUtils]);
   });

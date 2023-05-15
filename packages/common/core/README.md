@@ -40,8 +40,8 @@ You can do this by using the `registerModules()` function. This should be done *
 _Example when using Moralis with the evm network, evm api and server_
 
 ```js
-import * as Core from '@moralisweb3/common-core';
-import EvmApi from '@moralisweb3/evm-api';
+import { Core } from '@moralisweb3/common-core';
+import { EvmApi } from '@moralisweb3/evm-api';
 
 Core.registerModules([EvmApi]);
 ```

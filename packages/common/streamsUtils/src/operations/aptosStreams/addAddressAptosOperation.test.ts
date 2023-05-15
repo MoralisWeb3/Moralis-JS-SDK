@@ -1,12 +1,12 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { AptosAddress } from '@moralisweb3/common-aptos-utils';
 import { addAddressAptosOperation, AddAddressAptosRequest } from './addAddressAptosOperation';
 
 describe('AddAddressAptosOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {

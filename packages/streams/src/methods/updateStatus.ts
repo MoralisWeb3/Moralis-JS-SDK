@@ -1,5 +1,5 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import {
   updateStreamStatusAptosOperation,
   UpdateStreamStatusAptosRequest,

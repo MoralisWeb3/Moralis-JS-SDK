@@ -1,11 +1,11 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { getStreamEvmOperation, GetStreamEvmRequest } from './getStreamEvmOperation';
 
 describe('getStreamEvmOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {

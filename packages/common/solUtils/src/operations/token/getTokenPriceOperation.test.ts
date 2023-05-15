@@ -1,12 +1,12 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { SolAddress, SolNetwork } from '../../dataTypes';
 import { getTokenPriceOperation, GetTokenPriceRequest } from './getTokenPriceOperation';
 
 describe('getTokenPriceOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {

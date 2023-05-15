@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IWebhook } from '@moralisweb3/streams-typings';
 import express, { Request } from 'express';
-import MoralisStreams, {
+import {
+  Streams,
   LogsProcessor,
   TxsProcessor,
   CollectionNameBuilder,
@@ -18,7 +19,7 @@ const logsProcessor = new LogsProcessor(collectionNameBuilder);
 const txsProcessor = new TxsProcessor(collectionNameBuilder);
 const internalTxProcessor = new InternalTxsProcessor(collectionNameBuilder);
 
-const verifySignature = (req: Request, streams: MoralisStreams) => {
+const verifySignature = (req: Request, streams: Streams) => {
   const providedSignature = req.headers['x-signature'];
   if (!providedSignature) {
     throw new Error('Signature not provided');
@@ -29,7 +30,7 @@ const verifySignature = (req: Request, streams: MoralisStreams) => {
   });
 };
 
-export const webhookRouter = (parseObject: any, webhookUrl: string, streams: MoralisStreams) => {
+export const webhookRouter = (parseObject: any, webhookUrl: string, streams: Streams) => {
   return express.Router().post(webhookUrl, bodyParser.json({ limit: '50mb' }), async (req, res) => {
     try {
       verifySignature(req, streams);

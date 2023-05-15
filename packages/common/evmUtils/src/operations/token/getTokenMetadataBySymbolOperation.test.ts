@@ -1,4 +1,4 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { EvmChain } from '../../dataTypes';
 import {
   getTokenMetadataBySymbolOperation,
@@ -6,10 +6,10 @@ import {
 } from './getTokenMetadataBySymbolOperation';
 
 describe('getTokenMetadataBySymbolOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {

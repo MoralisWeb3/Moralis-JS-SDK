@@ -1,5 +1,3 @@
-import { Core } from './Core';
-
 export * from './Core';
 export * from './CoreProvider';
 export * from './Modules';
@@ -11,5 +9,3 @@ export * from './controllers';
 export * from './operations';
 export * from './utils';
 export * from './Assert';
-
-export default Core;

@@ -1,5 +1,5 @@
 import { EvmApi } from '@moralisweb3/evm-api';
-import Core, { UnknownOperation } from '@moralisweb3/common-core';
+import { Core, UnknownOperation } from '@moralisweb3/common-core';
 import {
   endpointWeightsOperation,
   operationsV2 as evmOperationsV2,
