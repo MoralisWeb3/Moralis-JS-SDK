@@ -1,13 +1,13 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { CommonEvmUtils, EvmAddress, EvmChain } from '@moralisweb3/common-evm-utils';
 import { StreamTrigger } from '../../dataTypes';
 import { createStreamEvmOperation, CreateStreamEvmRequest } from './createStreamEvmOperation';
 
 describe('createStreamEvmOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
     const evmUtils = CommonEvmUtils.create(core);
     core.registerModules([evmUtils]);
   });

@@ -1,4 +1,4 @@
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { PaginatedOperationResolver } from '@moralisweb3/api-utils';
 import {
   getStreamsAptosOperation,

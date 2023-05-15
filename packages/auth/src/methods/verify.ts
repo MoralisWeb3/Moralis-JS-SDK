@@ -1,5 +1,5 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
-import Core, { AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
+import { Core, AuthErrorCode, MoralisAuthError } from '@moralisweb3/common-core';
 import { BASE_URL } from '../Auth';
 import {
   verifyChallengeSolanaOperation,

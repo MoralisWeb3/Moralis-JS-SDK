@@ -1,7 +1,7 @@
 import { OperationResolver } from '@moralisweb3/api-utils';
 import { StreamNetwork } from '../utils/StreamNetwork';
 import { IncorrectNetworkError } from '../utils/IncorrectNetworkError';
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import {
   deleteStreamAptosOperation,
   deleteStreamEvmOperation,

@@ -1,4 +1,4 @@
-import Core, { Module, CoreProvider } from '@moralisweb3/common-core';
+import { Core, Module, CoreProvider } from '@moralisweb3/common-core';
 import { CommonEvmUtilsConfigSetup } from './config/CommonEvmUtilsConfigSetup';
 import * as dataTypes from './dataTypes';
 export class CommonEvmUtils extends Module {

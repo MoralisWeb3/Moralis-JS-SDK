@@ -1,4 +1,5 @@
-import Core, {
+import {
+  Core,
   ApiErrorCode,
   CoreConfig,
   MoralisApiError,

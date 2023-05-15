@@ -1,4 +1,4 @@
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { CommonAptosUtilsConfig } from './config/CommonAptosUtilsConfig';
 import { AptosNetwork, AptosNetworkInput, AptosNetworkName } from './dataTypes';
 

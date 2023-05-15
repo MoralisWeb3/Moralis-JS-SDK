@@ -1,12 +1,12 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { AptosAddress, AptosNetwork } from '@moralisweb3/common-aptos-utils';
 import { requestChallengeAptosOperation, RequestChallengeAptosRequest } from './requestChallengeAptosOperation';
 
 describe('aptosRequestChallengeOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly', () => {

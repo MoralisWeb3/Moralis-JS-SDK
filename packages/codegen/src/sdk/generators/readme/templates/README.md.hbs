@@ -124,8 +124,8 @@ yarn add @moralisweb3/common-core @moralisweb3/evm-api
 Then at the top of your code (before any interaction with Moralis), you need to register the modules to the core package
 
 ```javascript
-import Core from '@moralisweb3/common-core';
-import EvmApi from '@moralisweb3/evm-api';
+import { Core } from '@moralisweb3/common-core';
+import { EvmApi } from '@moralisweb3/evm-api';
 
 const core = Core.create();
 // Register all imported modules to the @moralisweb3/common-core module
@@ -144,7 +144,7 @@ core.start({
 Now you can use any functionality from the installed modules. The only difference is that you need to call in your code:
 
 ```ts
-import EvmApi from '@moralisweb3/evm-api';
+import { EvmApi } from '@moralisweb3/evm-api';
 
 const evmApi = core.getModule<EvmApi>(EvmApi.moduleName);
 evmApi.block.getBlock();
@@ -163,7 +163,7 @@ Of course you are free to combine the modules in a single object, and use that i
 ```javascript
 // moralis.ts
 import { Core } from '@moralisweb3/common-core';
-import EvmApi from '@moralisweb3/evm-api';
+import { EvmApi } from '@moralisweb3/evm-api';
 
 const core = Core.create();
 const evmApi = EvmApi.create(core);

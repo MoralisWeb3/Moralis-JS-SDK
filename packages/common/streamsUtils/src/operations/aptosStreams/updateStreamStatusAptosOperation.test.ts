@@ -1,11 +1,11 @@
-import MoralisCore from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { updateStreamStatusAptosOperation, UpdateStreamStatusAptosRequest } from './updateStreamStatusAptosOperation';
 
 describe('updateStreamAptosStatusOperation', () => {
-  let core: MoralisCore;
+  let core: Core;
 
   beforeAll(() => {
-    core = MoralisCore.create();
+    core = Core.create();
   });
 
   it('serializeRequest() serializes correctly and deserializeRequest() deserializes correctly with one address', () => {

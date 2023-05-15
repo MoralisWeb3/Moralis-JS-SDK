@@ -9,7 +9,7 @@ import {
   UpdateStreamAptosResponseAdapter,
   UpdateStreamEvmResponseAdapter,
 } from '@moralisweb3/common-streams-utils';
-import Core from '@moralisweb3/common-core';
+import { Core } from '@moralisweb3/common-core';
 import { AptosStreamNetworkOptions, EvmStreamNetworkOptions } from '../utils/commonNetworkOptions';
 
 export interface UpdateStreamAptosOptions extends UpdateStreamAptosRequest, AptosStreamNetworkOptions {}
