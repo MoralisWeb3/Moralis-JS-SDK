@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Moralis from 'moralis';
-import React, { FC, createContext, useMemo } from 'react';
+import { FC, createContext, useMemo } from 'react';
 import { MoralisContextValue, MoralisProviderProps } from './types';
 
 Moralis.Core.config.set('product', 'React SDK');

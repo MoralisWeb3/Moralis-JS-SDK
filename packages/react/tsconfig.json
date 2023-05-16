@@ -1,11 +1,10 @@
 {
   "extends": "../../tsconfig.package.json",
   "compilerOptions": {
-    "jsx": "react",
-    "jsx": "react",
-    "jsx": "react",
-    "outDir": "./lib",
-    "declarationDir": "./lib/",
+    "module": "ES2015",
+    "jsx": "react-jsx",
+    "outDir": "./build",
+    "declarationDir": "./build",
     "rootDir": "./src",
     "resolveJsonModule": true
   },
