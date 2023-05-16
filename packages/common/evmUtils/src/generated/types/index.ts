@@ -1,4 +1,8 @@
 export * from './EvmChainList';
+export * from './EvmGetNFTTradesMarketplaceEnum';
+export * from './EvmContractsReview';
+export * from './EvmContractsReviewItemReportTypeEnum';
+export * from './EvmContractsReviewItemContractTypeEnum';
 export * from './EvmTradeCollection';
 export * from './EvmErc20TransfersResponse';
 export * from './EvmWeb3version';
@@ -7,5 +11,7 @@ export * from './EvmMarketDataERC20TokenItem';
 export * from './EvmMarketDataERC20TokensByPriceMovers';
 export * from './EvmMarketDataTopNFTCollectionByMarketCapItem';
 export * from './EvmMarketDataHottestNFTCollectionByTradingVolumeItem';
+export * from './EvmContractsReviewDto';
 export * from './EvmTrade';
 export * from './EvmErc20Transfer';
+export * from './EvmContractsReviewItem';

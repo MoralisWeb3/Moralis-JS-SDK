@@ -5,6 +5,7 @@ export class NativeTypeNormalizer {
       case 'integer':
         return 'number';
       case 'array':
+      case 'enum':
         throw new Error(`Invalid native type: ${nativeType}`);
       case 'string':
       case 'boolean':

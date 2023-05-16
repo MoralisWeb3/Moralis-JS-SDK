@@ -82,8 +82,15 @@ export class TypesV3Reader {
         throw new Error(`anyOf, allOf and anyOf is not supported (${pointer.ref})`);
       }
 
-      let nativeType = scheme.type && NativeTypeNormalizer.normalize(scheme.type);
-      if (!nativeType) {
+      let nativeType: string | null = null;
+      if (scheme.enum) {
+        if (scheme.enum.some(item => typeof item !== 'string')) {
+          throw new Error(`Only string enum is supported (${pointer.ref.toString()})`);
+        }
+        nativeType = 'string';
+      } else if (scheme.type) {
+        nativeType = NativeTypeNormalizer.normalize(scheme.type);
+      } else {
         nativeType = 'object';
         console.warn(`[no-schema-type] Not defined schema type for complex type (${pointer.ref.toString()})`);
       }

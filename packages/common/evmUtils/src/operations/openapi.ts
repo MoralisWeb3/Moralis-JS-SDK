@@ -248,6 +248,10 @@ export interface paths {
     /** Get the hottest NFT collections by trading volume */
     get: operations["getHottestNFTCollectionsByTradingVolume"];
   };
+  "/contracts-review": {
+    /** Review contracts as spam or not spam */
+    post: operations["contractsReview"];
+  };
 }
 
 export interface components {
@@ -1458,16 +1462,12 @@ export interface components {
       | "0x61"
       | "avalanche"
       | "0xa86a"
-      | "avalanche testnet"
-      | "0xa869"
       | "fantom"
       | "0xfa"
       | "palm"
       | "0x2a15c308d"
       | "cronos"
       | "0x19"
-      | "cronos testnet"
-      | "0x152"
       | "arbitrum"
       | "0xa4b1";
     nft: {
@@ -2619,6 +2619,44 @@ export interface components {
         balance_formatted: string;
       }[];
     }[];
+    contractsReviewItem: {
+      /**
+       * @description The contract address
+       * @example 0x06012c8cf97bead5deae237070f9587f8e7a266d
+       */
+      contract_address?: string;
+      /**
+       * @description The reason for the contract being spam
+       * @example 100
+       */
+      reason?: string;
+      /**
+       * @description This can be spam or not_spam
+       * @example spam
+       * @enum {enum}
+       */
+      report_type?: "spam" | "not_spam";
+      /**
+       * @description This can be ERC20, or NFT
+       * @example ERC20
+       * @enum {enum}
+       */
+      contract_type?: "ERC20" | "NFT";
+    };
+    ContractsReviewDto: {
+      /**
+       * @description The contracts to be reported
+       * @example [
+       *   {
+       *     "contract_address": "0xa4991609c508b6d4fb7156426db0bd49fe298bd8",
+       *     "report_type": "spam",
+       *     "contract_type": "ERC20",
+       *     "reason": "The contract contains shady code"
+       *   }
+       * ]
+       */
+      contracts: components["schemas"]["contractsReviewItem"][];
+    };
   };
 }
 
@@ -4300,6 +4338,29 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["marketDataHottestNFTCollectionByTradingVolume"];
         };
+      };
+    };
+  };
+  /** Review contracts as spam or not spam */
+  contractsReview: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+    };
+    responses: {
+      /** Returns a message acknowledging the report */
+      200: {
+        content: {
+          "application/json": { [key: string]: unknown };
+        };
+      };
+    };
+    /** Body */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ContractsReviewDto"];
       };
     };
   };
