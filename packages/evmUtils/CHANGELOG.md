@@ -1,5 +1,12 @@
 # @moralisweb3/evm-utils
 
+## 2.21.0
+
+### Patch Changes
+
+- Updated dependencies [[`98035a86d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98035a86db0cfaa4dafbef010ba972068c9d1d08)]:
+  - @moralisweb3/common-evm-utils@2.21.0
+
 ## 2.20.0
 
 ### Patch Changes

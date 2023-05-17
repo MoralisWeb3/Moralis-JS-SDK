@@ -1,5 +1,21 @@
 # @moralisweb3/react
 
+## 2.21.0
+
+### Patch Changes
+
+- [`00de1c138`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/00de1c138ecb28732c2c6930d7da427a44977055) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The package is released in 2 formats: CJS and ESM.
+
+- Updated dependencies [[`465394674`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4653946746bbaf04eb2538f9715197b7c8efdb61), [`98035a86d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98035a86db0cfaa4dafbef010ba972068c9d1d08)]:
+  - @moralisweb3/common-core@2.21.0
+  - moralis@2.21.0
+  - @moralisweb3/evm-api@2.21.0
+  - @moralisweb3/sol-api@2.21.0
+  - @moralisweb3/auth@2.21.0
+  - @moralisweb3/common-evm-utils@2.21.0
+  - @moralisweb3/api-utils@2.21.0
+  - @moralisweb3/common-sol-utils@2.21.0
+
 ## 2.20.0
 
 ### Patch Changes
