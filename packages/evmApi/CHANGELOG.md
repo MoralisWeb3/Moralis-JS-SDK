@@ -1,5 +1,20 @@
 # @moralisweb3/evm-api
 
+## 2.21.0
+
+### Minor Changes
+
+- [#1125](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1125) [`465394674`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4653946746bbaf04eb2538f9715197b7c8efdb61) Thanks [@b4rtaz](https://github.com/b4rtaz)! - **Breaking change**: Deleted default exports from `@moralisweb3/common-core`, `@moralisweb3/aptos-api`, `@moralisweb3/streams`, `@moralisweb3/evm-api`, `@moralisweb3/sol-api` and `@moralisweb3/auth` packages. The `moralis` package is unchanged.
+
+### Patch Changes
+
+- [#1128](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1128) [`98035a86d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98035a86db0cfaa4dafbef010ba972068c9d1d08) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the new endpoint method to the EVM API module: `Moralis.EvmApi.utils.reviewContracts`.
+
+- Updated dependencies [[`465394674`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4653946746bbaf04eb2538f9715197b7c8efdb61), [`98035a86d`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/98035a86db0cfaa4dafbef010ba972068c9d1d08)]:
+  - @moralisweb3/common-core@2.21.0
+  - @moralisweb3/common-evm-utils@2.21.0
+  - @moralisweb3/api-utils@2.21.0
+
 ## 2.20.0
 
 ### Minor Changes
