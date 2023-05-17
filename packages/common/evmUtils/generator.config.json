@@ -74,7 +74,7 @@
           "getTopERC20TokensByPriceMovers",
           "getTopNFTCollectionsByMarketCap",
           "getHottestNFTCollectionsByTradingVolume",
-          "contractsReview"
+          "reviewContracts"
         ]
       }
     }

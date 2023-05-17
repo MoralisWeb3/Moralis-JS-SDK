@@ -14,8 +14,8 @@ import { GetTopNFTCollectionsByMarketCapOperation, GetTopNFTCollectionsByMarketC
 import { EvmMarketDataTopNFTCollectionByMarketCapItem, EvmMarketDataTopNFTCollectionByMarketCapItemJSON } from '../types/EvmMarketDataTopNFTCollectionByMarketCapItem';
 import { GetHottestNFTCollectionsByTradingVolumeOperation, GetHottestNFTCollectionsByTradingVolumeOperationRequest, GetHottestNFTCollectionsByTradingVolumeOperationRequestJSON } from '../operations/GetHottestNFTCollectionsByTradingVolumeOperation';
 import { EvmMarketDataHottestNFTCollectionByTradingVolumeItem, EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON } from '../types/EvmMarketDataHottestNFTCollectionByTradingVolumeItem';
-import { ContractsReviewOperation, ContractsReviewOperationRequest, ContractsReviewOperationRequestJSON } from '../operations/ContractsReviewOperation';
-import { EvmContractsReviewValue, EvmContractsReviewJSON } from '../types/EvmContractsReview';
+import { ReviewContractsOperation, ReviewContractsOperationRequest, ReviewContractsOperationRequestJSON } from '../operations/ReviewContractsOperation';
+import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewContracts';
 import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
@@ -167,13 +167,13 @@ export abstract class AbstractClient {
      * @param {Object[]} body.contracts The contracts to be reported
      * @returns {Object} Response for the request.
      */
-    contractsReview: this.createEndpointWithBody<
-      ContractsReviewOperationRequest,
-      ContractsReviewOperationRequestJSON,
-      EvmContractsReviewValue,
-      EvmContractsReviewJSON,
+    reviewContracts: this.createEndpointWithBody<
+      ReviewContractsOperationRequest,
+      ReviewContractsOperationRequestJSON,
+      EvmReviewContracts,
+      EvmReviewContractsJSON,
       EvmContractsReviewDtoInput | EvmContractsReviewDto,
       EvmContractsReviewDtoJSON
-    >(ContractsReviewOperation),
+    >(ReviewContractsOperation),
   };
 }

@@ -1,28 +1,28 @@
 import { EvmChain, EvmChainInput, EvmChainJSON } from '../../dataTypes';
-import { EvmContractsReview, EvmContractsReviewValue, EvmContractsReviewJSON } from '../types/EvmContractsReview';
+import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewContracts';
 import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
 
 // request parameters:
 // - chain ($ref: #/components/schemas/chainList)
 
-export interface ContractsReviewOperationRequest {
+export interface ReviewContractsOperationRequest {
   /**
    * @description The chain to query
    */
   readonly chain?: EvmChainInput | EvmChain;
 }
 
-export interface ContractsReviewOperationRequestJSON {
+export interface ReviewContractsOperationRequestJSON {
   readonly chain?: EvmChainJSON;
 }
 
-export type ContractsReviewOperationResponse = EvmContractsReviewValue;
-export type ContractsReviewOperationResponseJSON = EvmContractsReviewJSON;
+export type ReviewContractsOperationResponse = EvmReviewContracts;
+export type ReviewContractsOperationResponseJSON = EvmReviewContractsJSON;
 
-export type ContractsReviewOperationBody = EvmContractsReviewDtoInput | EvmContractsReviewDto;
+export type ReviewContractsOperationBody = EvmContractsReviewDtoInput | EvmContractsReviewDto;
 
-export const ContractsReviewOperation = {
-  operationId: "contractsReview",
+export const ReviewContractsOperation = {
+  operationId: "reviewContracts",
   groupName: "utils",
   httpMethod: "post",
   routePattern: "/contracts-review",
@@ -30,11 +30,11 @@ export const ContractsReviewOperation = {
   hasResponse: true,
   hasBody: true,
 
-  parseResponse(json: EvmContractsReviewJSON): EvmContractsReviewValue {
-    return EvmContractsReview.fromJSON(json);
+  parseResponse(json: EvmReviewContractsJSON): EvmReviewContracts {
+    return EvmReviewContracts.fromJSON(json);
   },
 
-  serializeRequest(request: ContractsReviewOperationRequest): ContractsReviewOperationRequestJSON {
+  serializeRequest(request: ReviewContractsOperationRequest): ReviewContractsOperationRequestJSON {
     const chain = request.chain ? EvmChain.create(request.chain) : undefined;
     return {
       chain: chain ? chain.toJSON() : undefined,

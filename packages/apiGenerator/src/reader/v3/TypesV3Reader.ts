@@ -84,7 +84,7 @@ export class TypesV3Reader {
 
       let nativeType: string | null = null;
       if (scheme.enum) {
-        if (scheme.enum.some(item => typeof item !== 'string')) {
+        if (scheme.enum.some((item) => typeof item !== 'string')) {
           throw new Error(`Only string enum is supported (${pointer.ref.toString()})`);
         }
         nativeType = 'string';

@@ -11,17 +11,17 @@ import { EvmContractsReviewItemContractTypeEnum, EvmContractsReviewItemContractT
 // - contract_type ($ref: #/components/schemas/contractsReviewItem/properties/contract_type)
 
 export interface EvmContractsReviewItemJSON {
-  readonly contract_address?: EvmAddressJSON;
-  readonly reason?: string;
-  readonly report_type?: EvmContractsReviewItemReportTypeEnumJSON;
-  readonly contract_type?: EvmContractsReviewItemContractTypeEnumJSON;
+  readonly contract_address: EvmAddressJSON;
+  readonly reason: string;
+  readonly report_type: EvmContractsReviewItemReportTypeEnumJSON;
+  readonly contract_type: EvmContractsReviewItemContractTypeEnumJSON;
 }
 
 export interface EvmContractsReviewItemInput {
-  readonly contractAddress?: EvmAddressInput | EvmAddress;
-  readonly reason?: string;
-  readonly reportType?: EvmContractsReviewItemReportTypeEnumInput | EvmContractsReviewItemReportTypeEnumValue;
-  readonly contractType?: EvmContractsReviewItemContractTypeEnumInput | EvmContractsReviewItemContractTypeEnumValue;
+  readonly contractAddress: EvmAddressInput | EvmAddress;
+  readonly reason: string;
+  readonly reportType: EvmContractsReviewItemReportTypeEnumInput | EvmContractsReviewItemReportTypeEnumValue;
+  readonly contractType: EvmContractsReviewItemContractTypeEnumInput | EvmContractsReviewItemContractTypeEnumValue;
 }
 
 export class EvmContractsReviewItem {
@@ -34,10 +34,10 @@ export class EvmContractsReviewItem {
 
   public static fromJSON(json: EvmContractsReviewItemJSON): EvmContractsReviewItem {
     const input: EvmContractsReviewItemInput = {
-      contractAddress: json.contract_address ? EvmAddress.fromJSON(json.contract_address) : undefined,
+      contractAddress: EvmAddress.fromJSON(json.contract_address),
       reason: json.reason,
-      reportType: json.report_type ? EvmContractsReviewItemReportTypeEnum.fromJSON(json.report_type) : undefined,
-      contractType: json.contract_type ? EvmContractsReviewItemContractTypeEnum.fromJSON(json.contract_type) : undefined,
+      reportType: EvmContractsReviewItemReportTypeEnum.fromJSON(json.report_type),
+      contractType: EvmContractsReviewItemContractTypeEnum.fromJSON(json.contract_type),
     };
     return EvmContractsReviewItem.create(input);
   }
@@ -45,33 +45,33 @@ export class EvmContractsReviewItem {
   /**
    * @description The contract address
    */
-  public readonly contractAddress?: EvmAddress;
+  public readonly contractAddress: EvmAddress;
   /**
    * @description The reason for the contract being spam
    */
-  public readonly reason?: string;
+  public readonly reason: string;
   /**
    * @description This can be spam or not_spam
    */
-  public readonly reportType?: EvmContractsReviewItemReportTypeEnumValue;
+  public readonly reportType: EvmContractsReviewItemReportTypeEnumValue;
   /**
    * @description This can be ERC20, or NFT
    */
-  public readonly contractType?: EvmContractsReviewItemContractTypeEnumValue;
+  public readonly contractType: EvmContractsReviewItemContractTypeEnumValue;
 
   private constructor(input: EvmContractsReviewItemInput) {
-    this.contractAddress = input.contractAddress ? EvmAddress.create(input.contractAddress) : undefined;
+    this.contractAddress = EvmAddress.create(input.contractAddress);
     this.reason = input.reason;
-    this.reportType = input.reportType ? EvmContractsReviewItemReportTypeEnum.create(input.reportType) : undefined;
-    this.contractType = input.contractType ? EvmContractsReviewItemContractTypeEnum.create(input.contractType) : undefined;
+    this.reportType = EvmContractsReviewItemReportTypeEnum.create(input.reportType);
+    this.contractType = EvmContractsReviewItemContractTypeEnum.create(input.contractType);
   }
 
   public toJSON(): EvmContractsReviewItemJSON {
     return {
-      contract_address: this.contractAddress ? this.contractAddress.toJSON() : undefined,
+      contract_address: this.contractAddress.toJSON(),
       reason: this.reason,
-      report_type: this.reportType ? this.reportType : undefined,
-      contract_type: this.contractType ? this.contractType : undefined,
+      report_type: this.reportType,
+      contract_type: this.contractType,
     }
   }
 }
