@@ -248,6 +248,10 @@ export interface paths {
     /** Get the hottest NFT collections by trading volume */
     get: operations["getHottestNFTCollectionsByTradingVolume"];
   };
+  "/contracts-review": {
+    /** Review contracts as spam or not spam */
+    post: operations["reviewContracts"];
+  };
 }
 
 export interface components {
@@ -1458,16 +1462,12 @@ export interface components {
       | "0x61"
       | "avalanche"
       | "0xa86a"
-      | "avalanche testnet"
-      | "0xa869"
       | "fantom"
       | "0xfa"
       | "palm"
       | "0x2a15c308d"
       | "cronos"
       | "0x19"
-      | "cronos testnet"
-      | "0x152"
       | "arbitrum"
       | "0xa4b1";
     nft: {
@@ -2057,6 +2057,14 @@ export interface components {
       result: components["schemas"]["nftContractMetadata"][];
     };
     erc20Transaction: {
+      /** @example Tether USD */
+      token_name: string;
+      /** @example USDT */
+      token_symbol: string;
+      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
+      token_logo?: string;
+      /** @example 6 */
+      token_decimals: string;
       /**
        * @description The transaction hash
        * @example 0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09
@@ -2093,7 +2101,7 @@ export interface components {
        */
       from_address: string;
       /**
-       * @description The value that was transferred (in wei)
+       * @description The value that was transfered (in wei)
        * @example 650000000000000000
        */
       value: string;
@@ -2112,6 +2120,8 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+    } & {
+      value_decimal: unknown;
     };
     historicalNftTransfer: {
       /**
@@ -2619,6 +2629,44 @@ export interface components {
         balance_formatted: string;
       }[];
     }[];
+    contractsReviewItem: {
+      /**
+       * @description The contract address
+       * @example 0x06012c8cf97bead5deae237070f9587f8e7a266d
+       */
+      contract_address: string;
+      /**
+       * @description The reason for the contract being spam
+       * @example 100
+       */
+      reason: string;
+      /**
+       * @description This can be spam or not_spam
+       * @example spam
+       * @enum {enum}
+       */
+      report_type: "spam" | "not_spam";
+      /**
+       * @description This can be ERC20, or NFT
+       * @example ERC20
+       * @enum {enum}
+       */
+      contract_type: "ERC20" | "NFT";
+    };
+    ContractsReviewDto: {
+      /**
+       * @description The contracts to be reported
+       * @example [
+       *   {
+       *     "contract_address": "0xa4991609c508b6d4fb7156426db0bd49fe298bd8",
+       *     "report_type": "spam",
+       *     "contract_type": "ERC20",
+       *     "reason": "The contract contains shady code"
+       *   }
+       * ]
+       */
+      contracts: components["schemas"]["contractsReviewItem"][];
+    };
   };
 }
 
@@ -4300,6 +4348,32 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["marketDataHottestNFTCollectionByTradingVolume"];
         };
+      };
+    };
+  };
+  /** Review contracts as spam or not spam */
+  reviewContracts: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+    };
+    responses: {
+      /** Returns a message acknowledging the report */
+      200: {
+        content: {
+          "application/json": {
+            /** @example Submission successful */
+            message?: string;
+          };
+        };
+      };
+    };
+    /** Body */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ContractsReviewDto"];
       };
     };
   };

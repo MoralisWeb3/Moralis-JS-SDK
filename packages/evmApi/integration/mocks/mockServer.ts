@@ -50,6 +50,7 @@ import { mockGetErc20Approvals } from './endpoints/getErc20Approvals';
 import { mockGetErc20Burns } from './endpoints/getErc20Burns';
 import { mockResolveENSDomain } from './endpoints/resolveENSDomain';
 import { mockGetTopERC20TokensByMarketCap } from './endpoints/getTopERC20TokensByMarketCap';
+import { mockReviewContracts } from './endpoints/reviewContracts';
 
 const handler = [
   mockGetDateToBlock,
@@ -95,6 +96,7 @@ const handler = [
   mockGetWalletNFTs,
   mockGetWalletNFTTransfers,
   mockResyncMetadata,
+  mockReviewContracts,
   mockSyncNFTContract,
   mockGetWalletNFTCollections,
   mockGetMultipleNFTs,

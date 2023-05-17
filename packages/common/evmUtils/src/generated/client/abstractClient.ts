@@ -14,6 +14,9 @@ import { GetTopNFTCollectionsByMarketCapOperation, GetTopNFTCollectionsByMarketC
 import { EvmMarketDataTopNFTCollectionByMarketCapItem, EvmMarketDataTopNFTCollectionByMarketCapItemJSON } from '../types/EvmMarketDataTopNFTCollectionByMarketCapItem';
 import { GetHottestNFTCollectionsByTradingVolumeOperation, GetHottestNFTCollectionsByTradingVolumeOperationRequest, GetHottestNFTCollectionsByTradingVolumeOperationRequestJSON } from '../operations/GetHottestNFTCollectionsByTradingVolumeOperation';
 import { EvmMarketDataHottestNFTCollectionByTradingVolumeItem, EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON } from '../types/EvmMarketDataHottestNFTCollectionByTradingVolumeItem';
+import { ReviewContractsOperation, ReviewContractsOperationRequest, ReviewContractsOperationRequestJSON } from '../operations/ReviewContractsOperation';
+import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewContracts';
+import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -98,7 +101,7 @@ export abstract class AbstractClient {
      * @param {String} [request.toDate] The end date from which to get the transfers (any format that is accepted by momentjs)
      * * Provide the param 'to_block' or 'to_date'
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
-     * @param {String} [request.marketplace] Marketplace from which to get the trades (only OpenSea is supported at the moment) (optional)
+     * @param {Object} [request.marketplace] Marketplace from which to get the trades (only OpenSea is supported at the moment) (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Number} [request.limit] The desired page size of the result. (optional)
      * @param {Boolean} [request.disableTotal] If the result should skip returning the total count (Improves performance). (optional)
@@ -156,5 +159,21 @@ export abstract class AbstractClient {
       EvmEndpointWeights[],
       EvmEndpointWeightsJSON[]
     >(EndpointWeightsOperation),
+    /**
+     * @description Review contracts as spam or not spam
+     * @param request Request with parameters.
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param body Request body.
+     * @param {Object[]} body.contracts The contracts to be reported
+     * @returns {Object} Response for the request.
+     */
+    reviewContracts: this.createEndpointWithBody<
+      ReviewContractsOperationRequest,
+      ReviewContractsOperationRequestJSON,
+      EvmReviewContracts,
+      EvmReviewContractsJSON,
+      EvmContractsReviewDtoInput | EvmContractsReviewDto,
+      EvmContractsReviewDtoJSON
+    >(ReviewContractsOperation),
   };
 }

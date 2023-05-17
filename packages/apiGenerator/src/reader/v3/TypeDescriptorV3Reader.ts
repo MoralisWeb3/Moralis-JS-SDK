@@ -6,6 +6,7 @@ import { UnionV3Reader } from './UnionV3Reader';
 import { NativeTypeNormalizer } from '../utils/NativeTypeNormalizer';
 
 const ITEM_TYPE_NAME_SUFFIX = 'Item';
+const ENUM_TYPE_NAME_SUFFIX = 'Enum';
 const COMPONENT_SCHEMA_$REF_PREFIX = '#/components/schemas/';
 
 export class TypeDescriptorV3Reader {
@@ -62,6 +63,11 @@ export class TypeDescriptorV3Reader {
 
       const nativeType = NativeTypeNormalizer.normalize(itemsSchema.type);
       return new NativeTypeDescriptor(true, parentRef, nativeType);
+    }
+
+    if (schema.enum) {
+      const enumTypeName = defaultTypeName.add(ENUM_TYPE_NAME_SUFFIX);
+      return new ReferenceTypeDescriptor(false, parentRef, enumTypeName);
     }
 
     if (schema.type === 'object') {

@@ -6,6 +6,7 @@ import { GetTopERC20TokensByMarketCapOperation } from './GetTopERC20TokensByMark
 import { GetTopERC20TokensByPriceMoversOperation } from './GetTopERC20TokensByPriceMoversOperation';
 import { GetTopNFTCollectionsByMarketCapOperation } from './GetTopNFTCollectionsByMarketCapOperation';
 import { GetHottestNFTCollectionsByTradingVolumeOperation } from './GetHottestNFTCollectionsByTradingVolumeOperation';
+import { ReviewContractsOperation } from './ReviewContractsOperation';
 
 export const operations = [
   GetNFTTradesOperation,
@@ -16,4 +17,5 @@ export const operations = [
   GetTopERC20TokensByPriceMoversOperation,
   GetTopNFTCollectionsByMarketCapOperation,
   GetHottestNFTCollectionsByTradingVolumeOperation,
+  ReviewContractsOperation,
 ];

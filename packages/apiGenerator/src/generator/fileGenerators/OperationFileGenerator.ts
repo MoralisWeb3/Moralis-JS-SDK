@@ -98,11 +98,18 @@ export class OperationFileGenerator {
     output.write(0, '}');
     output.newLine();
 
-    if (responseTypeCodes && this.configuration.supportV2) {
+    if (this.configuration.supportV2) {
       // TODO: this part is added to support the V2 approach. It should be removed after the V2 is removed.
-      output.write(0, `export type ${className}Response = ${responseTypeCodes.valueTypeCode};`);
-      output.write(0, `export type ${className}ResponseJSON = ${responseTypeCodes.jsonTypeCode};`);
-      output.newLine();
+
+      if (responseTypeCodes) {
+        output.write(0, `export type ${className}Response = ${responseTypeCodes.valueTypeCode};`);
+        output.write(0, `export type ${className}ResponseJSON = ${responseTypeCodes.jsonTypeCode};`);
+        output.newLine();
+      }
+      if (bodyTypeCodes) {
+        output.write(0, `export type ${className}Body = ${bodyTypeCodes.inputOrValueTypeCode};`);
+        output.newLine();
+      }
     }
 
     output.write(0, `export const ${className} = {`);

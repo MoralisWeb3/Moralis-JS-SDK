@@ -17,7 +17,7 @@ const sourcePackage = require(sourcePackageName);
 const fs = require('fs');
 const { determineOperationType } = require('@moralisweb3/common-core');
 
-const operationsV2 = sourcePackage.operationsV2;
+const { operationsV2 } = sourcePackage;
 const operationsV3 = sourcePackage.operations || [];
 
 const operations = [
@@ -27,6 +27,8 @@ const operations = [
     operationVarName: `${operation.name}Operation`,
     requestClassName: `${capitalizeFirst(operation.name)}Request`,
     responseClassName: `${capitalizeFirst(operation.name)}ResponseAdapter`,
+    responseJSONClassName: null,
+    bodyClassName: null,
     hasRequest: Boolean(operation.urlPathParamNames || operation.urlSearchParamNames || operation.bodyParamNames),
     hasBody: false,
     type: determineOperationType(operation),
@@ -42,6 +44,7 @@ const operations = [
       requestClassName: `${capitalizedName}OperationRequest`,
       responseClassName: `${capitalizedName}OperationResponse`,
       responseJSONClassName: `${capitalizedName}OperationResponseJSON`,
+      bodyClassName: operation.hasBody ? `${capitalizedName}OperationBody` : null,
       hasRequest: operation.parameterNames.length > 0,
       hasBody: operation.hasBody,
       type: isPaginated ? 'paginatedV3' : 'V3',
@@ -105,8 +108,7 @@ for (const groupName of uniqueGroupNames) {
         methodArgs = operation.hasRequest ? `request: ${operation.requestClassName}` : '';
         fetchArgs = operation.hasRequest ? 'request, ' : '{}, ';
         if (operation.hasBody) {
-          // TODO: add support for body.
-          methodArgs += ', body: unknown';
+          methodArgs += `, body: ${operation.bodyClassName}`;
           fetchArgs += 'body';
         } else {
           fetchArgs += 'null';
@@ -117,6 +119,9 @@ for (const groupName of uniqueGroupNames) {
     sourcePackageImports.add(operation.operationVarName);
     if (operation.hasRequest) {
       sourcePackageImports.add(operation.requestClassName);
+    }
+    if (operation.hasBody) {
+      sourcePackageImports.add(operation.bodyClassName);
     }
     sourcePackageImports.add(operation.responseClassName);
     apiUtilsPackageImports.add(resolverClassName);

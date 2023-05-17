@@ -1,4 +1,5 @@
 import { EvmChain, EvmChainInput, EvmChainJSON, EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
+import { EvmGetNFTTradesMarketplaceEnum, EvmGetNFTTradesMarketplaceEnumValue, EvmGetNFTTradesMarketplaceEnumInput, EvmGetNFTTradesMarketplaceEnumJSON } from '../types/EvmGetNFTTradesMarketplaceEnum';
 import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCollection';
 
 // request parameters:
@@ -43,7 +44,7 @@ export interface GetNFTTradesOperationRequest {
   /**
    * @description Marketplace from which to get the trades (only OpenSea is supported at the moment)
    */
-  readonly marketplace?: string;
+  readonly marketplace?: EvmGetNFTTradesMarketplaceEnumInput | EvmGetNFTTradesMarketplaceEnumValue;
   /**
    * @description The cursor returned in the previous response (used for getting the next page).
    */
@@ -68,7 +69,7 @@ export interface GetNFTTradesOperationRequestJSON {
   readonly to_block?: string;
   readonly from_date?: string;
   readonly to_date?: string;
-  readonly marketplace?: string;
+  readonly marketplace?: EvmGetNFTTradesMarketplaceEnumJSON;
   readonly cursor?: string;
   readonly limit?: number;
   readonly disable_total?: boolean;
@@ -97,7 +98,7 @@ export const GetNFTTradesOperation = {
     const toBlock = request.toBlock;
     const fromDate = request.fromDate;
     const toDate = request.toDate;
-    const marketplace = request.marketplace;
+    const marketplace = request.marketplace ? EvmGetNFTTradesMarketplaceEnum.create(request.marketplace) : undefined;
     const cursor = request.cursor;
     const limit = request.limit;
     const disableTotal = request.disableTotal;
@@ -108,7 +109,7 @@ export const GetNFTTradesOperation = {
       to_block: toBlock,
       from_date: fromDate,
       to_date: toDate,
-      marketplace: marketplace,
+      marketplace: marketplace ? marketplace : undefined,
       cursor: cursor,
       limit: limit,
       disable_total: disableTotal,
