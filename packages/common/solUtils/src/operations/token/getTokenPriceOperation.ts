@@ -1,5 +1,5 @@
 import { Core, Camelize, Operation, MoralisApiError, ApiErrorCode, ResponseAdapter } from '@moralisweb3/common-core';
-import { SolAddress, SolAddressish, SolNative, SolNetwork, SolNetworkish } from '../../dataTypes';
+import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
 
@@ -64,7 +64,7 @@ function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
 function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse) {
   return {
     nativePrice: {
-      value: SolNative.create(jsonResponse.nativePrice.value, 'solana'),
+      value: jsonResponse.nativePrice.value,
       decimals: jsonResponse.nativePrice.decimals,
       name: jsonResponse.nativePrice.name,
       symbol: jsonResponse.nativePrice.symbol,
