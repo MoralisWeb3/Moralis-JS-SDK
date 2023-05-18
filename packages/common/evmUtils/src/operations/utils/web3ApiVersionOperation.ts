@@ -1,7 +1,7 @@
 import { Operation, ResponseAdapter } from '@moralisweb3/common-core';
 import { operations } from '../openapi';
 
-// TODO: this operation is replaced by the generated code. We need to remove this file.
+// TODO: [UNUSED_OPERATION_V2] this operation is replaced by the generated code. We need to remove this file.
 
 type OperationId = 'web3ApiVersion';
 

@@ -1,0 +1,41 @@
+{
+  "url": "https://solana-gateway.moralis.io/api-json",
+  "generator": {
+    "outputDir": "src/generated",
+    "classNamePrefix": "Sol",
+    "supportV2": true,
+    "mappings": {
+      "types": [],
+      "refs": [],
+      "complexTypeProperties": [
+        {
+          "names": ["exchangeAddress"],
+          "className": "SolAddress",
+          "import": "../../dataTypes"
+        }
+      ],
+      "operationParameters": [
+        {
+          "names": ["address"],
+          "className": "SolAddress",
+          "import": "../../dataTypes"
+        },
+        {
+          "names": ["network"],
+          "className": "SolNetwork",
+          "import": "../../dataTypes"
+        }
+      ]
+    },
+    "typeDeterminants": []
+  },
+  "openApiReader": {
+    "v3": {
+      "operations": {
+        "groupRef": "#/x-tag-sdk",
+        "isEnabledRef": "#/x-tag-sdk",
+        "filterOperationIds": ["getTokenPrice"]
+      }
+    }
+  }
+}
