@@ -6,7 +6,7 @@ import { MoralisError, Operation } from '@moralisweb3/common-core';
 import { handleRateLimit } from '../../rateLimit';
 import { upgradeRequest } from '../upgradeRequest'
 import { AxiosError } from 'axios';
-import { operations } from '@moralisweb3/common-sol-utils';
+import { operationsV2 as operations } from '@moralisweb3/common-sol-utils';
 declare const Parse: any;
 
 function getErrorMessage(error: Error, name: string) {
