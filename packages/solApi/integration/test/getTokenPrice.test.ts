@@ -21,9 +21,9 @@ describe('Moralis SolApi', () => {
     expect(result.exchangeAddress.address).toBe('675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8');
     expect(result.exchangeName).toBe('Raydium');
     expect(result.usdPrice).toBe(0.9965);
-    expect(result.nativePrice.decimals).toBe(9);
-    expect(result.nativePrice.symbol).toBe('WSOL');
-    expect(result.nativePrice.name).toBe('Wrapped Solana');
-    expect(result.nativePrice.value).toBe('3134963087');
+    expect(result.nativePrice?.decimals).toBe(9);
+    expect(result.nativePrice?.symbol).toBe('WSOL');
+    expect(result.nativePrice?.name).toBe('Wrapped Solana');
+    expect(result.nativePrice?.value).toBe('3134963087');
   });
 });

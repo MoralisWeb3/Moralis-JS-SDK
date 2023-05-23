@@ -10,14 +10,14 @@ import { SolAddress, SolAddressInput, SolAddressJSON } from '../../dataTypes';
 // - exchangeName ($ref: #/components/schemas/SPLTokenPrice/properties/exchangeName)
 
 export interface SolSPLTokenPriceJSON {
-  readonly nativePrice: SolSPLNativePriceJSON;
+  readonly nativePrice?: SolSPLNativePriceJSON;
   readonly usdPrice: number;
   readonly exchangeAddress: SolAddressJSON;
   readonly exchangeName: string;
 }
 
 export interface SolSPLTokenPriceInput {
-  readonly nativePrice: SolSPLNativePriceInput | SolSPLNativePrice;
+  readonly nativePrice?: SolSPLNativePriceInput | SolSPLNativePrice;
   readonly usdPrice: number;
   readonly exchangeAddress: SolAddressInput | SolAddress;
   readonly exchangeName: string;
@@ -33,7 +33,7 @@ export class SolSPLTokenPrice {
 
   public static fromJSON(json: SolSPLTokenPriceJSON): SolSPLTokenPrice {
     const input: SolSPLTokenPriceInput = {
-      nativePrice: SolSPLNativePrice.fromJSON(json.nativePrice),
+      nativePrice: json.nativePrice ? SolSPLNativePrice.fromJSON(json.nativePrice) : undefined,
       usdPrice: json.usdPrice,
       exchangeAddress: SolAddress.fromJSON(json.exchangeAddress),
       exchangeName: json.exchangeName,
@@ -41,13 +41,13 @@ export class SolSPLTokenPrice {
     return SolSPLTokenPrice.create(input);
   }
 
-  public readonly nativePrice: SolSPLNativePrice;
+  public readonly nativePrice?: SolSPLNativePrice;
   public readonly usdPrice: number;
   public readonly exchangeAddress: SolAddress;
   public readonly exchangeName: string;
 
   private constructor(input: SolSPLTokenPriceInput) {
-    this.nativePrice = SolSPLNativePrice.create(input.nativePrice);
+    this.nativePrice = input.nativePrice ? SolSPLNativePrice.create(input.nativePrice) : undefined;
     this.usdPrice = input.usdPrice;
     this.exchangeAddress = SolAddress.create(input.exchangeAddress);
     this.exchangeName = input.exchangeName;
@@ -55,7 +55,7 @@ export class SolSPLTokenPrice {
 
   public toJSON(): SolSPLTokenPriceJSON {
     return {
-      nativePrice: this.nativePrice.toJSON(),
+      nativePrice: this.nativePrice ? this.nativePrice.toJSON() : undefined,
       usdPrice: this.usdPrice,
       exchangeAddress: this.exchangeAddress.toJSON(),
       exchangeName: this.exchangeName,
