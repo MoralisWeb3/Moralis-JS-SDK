@@ -8,7 +8,10 @@ import { PublicKey } from '../../utils/PublicKey';
  * @example "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
  * @example SolAddress.create("9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM")
  */
-export type SolAddressish = SolAddress | string;
+export type SolAddressish = SolAddressInput;
+
+export type SolAddressInput = SolAddress | string;
+export type SolAddressJSON = string;
 
 /**
  * A representation of an address on the Solana network.
@@ -24,8 +27,12 @@ export class SolAddress implements MoralisData {
    * @example `const address = SolAddress.create("9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM")`
    * @throws an error when a passed address is invalid.
    */
-  public static create(address: SolAddressish): SolAddress {
+  public static create(address: SolAddressInput): SolAddress {
     return address instanceof SolAddress ? address : new SolAddress(SolAddress.parse(address));
+  }
+
+  public static fromJSON(address: SolAddressJSON): SolAddress {
+    return SolAddress.create(address);
   }
 
   private static parse(address: string): string {
@@ -71,7 +78,7 @@ export class SolAddress implements MoralisData {
    * @returns a string representing the address.
    * @example address.toJSON(); // "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
    */
-  public toJSON(): string {
+  public toJSON(): SolAddressJSON {
     return this.address;
   }
 }

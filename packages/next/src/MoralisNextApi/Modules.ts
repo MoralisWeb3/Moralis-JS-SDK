@@ -6,7 +6,7 @@ import {
   getNFTTradesOperation,
   web3ApiVersionOperation,
 } from 'moralis/common-evm-utils';
-import { operations as solOperations } from 'moralis/common-sol-utils';
+import { getTokenPriceOperation, operationsV2 as solOperations } from 'moralis/common-sol-utils';
 import { operations as authOperations } from '@moralisweb3/common-auth-utils';
 import { Auth } from '@moralisweb3/auth';
 import { SolApi } from '@moralisweb3/sol-api';
@@ -55,9 +55,11 @@ const allEvmOperations = [
   getNFTTradesOperation,
 ];
 
+const allSolOperations = [...solOperations, getTokenPriceOperation];
+
 const modules: Module[] = [
   new Module(EvmApi.moduleName, allEvmOperations as UnknownOperation[]),
-  new Module(SolApi.moduleName, solOperations as UnknownOperation[]),
+  new Module(SolApi.moduleName, allSolOperations as UnknownOperation[]),
   new Module(Auth.moduleName, authOperations as UnknownOperation[]),
 ];
 

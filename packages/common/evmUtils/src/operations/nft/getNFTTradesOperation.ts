@@ -11,7 +11,7 @@ import { EvmChainResolver } from '../../EvmChainResolver';
 import { operations } from '../openapi';
 import { EvmTrade } from '../../generated';
 
-// TODO: this operation is replaced by the generated code. We need to remove this file.
+// TODO: [UNUSED_OPERATION_V2] this operation is replaced by the generated code. We need to remove this file.
 
 type OperationId = 'getNFTTrades';
 

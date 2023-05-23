@@ -2,7 +2,7 @@ import Moralis from 'moralis';
 import express from 'express';
 import axios from 'axios';
 import { errorHandler } from '../middlewares/errorHandler';
-import { operations } from 'moralis/common-sol-utils';
+import { operationsV2 as solOperations } from 'moralis/common-sol-utils';
 import { operationsV2 as evmOperations } from 'moralis/common-evm-utils';
 import { convertOperationToDescriptor } from '@moralisweb3/api-utils';
 
@@ -29,7 +29,7 @@ export class ProxyGenerator {
         baseUrl = Moralis.EvmApi.baseUrl;
         break;
       case 'solana':
-        descriptors = operations.map(convertOperationToDescriptor);
+        descriptors = solOperations.map(convertOperationToDescriptor);
         baseUrl = Moralis.SolApi.baseUrl;
         break;
       default:

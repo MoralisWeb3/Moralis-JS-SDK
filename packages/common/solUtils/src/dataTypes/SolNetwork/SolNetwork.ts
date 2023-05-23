@@ -10,13 +10,9 @@ const solNetworkNames = ['mainnet', 'devnet'] as const;
  */
 export type SolNetworkName = typeof solNetworkNames[number];
 
-/**
- * A name of Solana network.
- *
- * @example "mainnet"
- * @example "devnet"
- */
-export type SolNetworkNameish = SolNetworkName | string;
+export type SolNetworkInput = SolNetwork | SolNetworkName | string;
+
+export type SolNetworkJSON = string;
 
 /**
  * Valid input for a new SolNetwork instance.
@@ -26,7 +22,7 @@ export type SolNetworkNameish = SolNetworkName | string;
  * @example "devnet"
  * @example SolNetwork.create("mainnet")
  */
-export type SolNetworkish = SolNetwork | SolNetworkNameish;
+export type SolNetworkish = SolNetworkInput;
 
 /**
  * A representation of a Solana network.
@@ -62,7 +58,11 @@ export class SolNetwork implements MoralisData {
     return network instanceof SolNetwork ? network : new SolNetwork(SolNetwork.parse(network));
   }
 
-  private static parse(network: SolNetworkNameish): SolNetworkName {
+  public static fromJSON(network: SolNetworkJSON): SolNetwork {
+    return SolNetwork.create(network);
+  }
+
+  private static parse(network: SolNetworkInput): SolNetworkName {
     if (typeof network === 'string') {
       if (!solNetworkNames.includes(network as SolNetworkName)) {
         throw new CoreError({
@@ -96,7 +96,7 @@ export class SolNetwork implements MoralisData {
    * @returns a string representing the network.
    * @example network.toJSON(); // "mainnet"
    */
-  public toJSON(): string {
+  public toJSON(): SolNetworkJSON {
     return this.network;
   }
 

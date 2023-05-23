@@ -78,7 +78,7 @@ export interface components {
       symbol: string;
     };
     SPLTokenPrice: {
-      nativePrice: components["schemas"]["SPLNativePrice"];
+      nativePrice?: components["schemas"]["SPLNativePrice"];
       usdPrice: number;
       exchangeAddress: string;
       exchangeName: string;

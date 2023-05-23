@@ -16,7 +16,10 @@ export type SolNativeUnit = 'solana' | 'lamports' | number;
  * Valid input for a new SolNative instance.
  * This can be an existing {@link SolNative} or a valid {@link @moralisweb3/common-core!BigNumberish} type
  */
-export type SolNativeish = SolNative | BigNumberish;
+export type SolNativeish = SolNativeInput;
+
+export type SolNativeInput = SolNative | BigNumberish;
+export type SolNativeJSON = string;
 
 const unitToDecimals: Record<SolNativeUnit, number> = {
   solana: 9,
@@ -45,6 +48,10 @@ export class SolNative implements MoralisData {
       return value;
     }
     return new SolNative(SolNative.parse(value, unit));
+  }
+
+  public static fromJSON(json: SolNativeJSON): SolNative {
+    return SolNative.create(json, 'lamports');
   }
 
   private static parse(value: BigNumberish, unit: SolNativeUnit = 'solana'): BigNumber {
@@ -108,7 +115,7 @@ export class SolNative implements MoralisData {
    * @returns the value of the SolNative as a string
    * @example `native.toJSON()`
    */
-  public toJSON(): string {
+  public toJSON(): SolNativeJSON {
     return this.lamports;
   }
 

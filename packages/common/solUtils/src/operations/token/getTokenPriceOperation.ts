@@ -2,6 +2,9 @@ import { Core, Camelize, Operation, MoralisApiError, ApiErrorCode, ResponseAdapt
 import { SolAddress, SolAddressish, SolNetwork, SolNetworkish } from '../../dataTypes';
 import { SolNetworkResolver } from '../../SolNetworkResolver';
 import { operations } from '../openapi';
+import { SolSPLTokenPrice } from '../../generated';
+
+// TODO: [UNUSED_OPERATION_V2] this operation is replaced by the generated code. We need to remove this file.
 
 type OperationId = 'getTokenPrice';
 type PathParams = operations[OperationId]['parameters']['path'];
@@ -62,17 +65,7 @@ function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
 }
 
 function deserializeResponse(jsonResponse: GetTokenPriceJSONResponse) {
-  return {
-    nativePrice: {
-      value: jsonResponse.nativePrice.value,
-      decimals: jsonResponse.nativePrice.decimals,
-      name: jsonResponse.nativePrice.name,
-      symbol: jsonResponse.nativePrice.symbol,
-    },
-    usdPrice: jsonResponse.usdPrice,
-    exchangeAddress: SolAddress.create(jsonResponse.exchangeAddress),
-    exchangeName: jsonResponse.exchangeName,
-  };
+  return SolSPLTokenPrice.fromJSON(jsonResponse);
 }
 
 function serializeRequest(request: GetTokenPriceRequest, core: Core) {
