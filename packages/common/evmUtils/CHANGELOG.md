@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.22.0
+
+### Patch Changes
+
+- [#1138](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1138) [`45fcd84da`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/45fcd84da986107dbbd73b9469bd3af255870e52) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The package includes now the `operationsV2All` collection for the backward compatibility. This collection will be deleted in the future.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.22.0
+
 ## 2.21.0
 
 ### Patch Changes
