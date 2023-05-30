@@ -1,5 +1,15 @@
 # @moralisweb3/client-firebase-sol-api
 
+## 2.22.0
+
+### Patch Changes
+
+- Updated dependencies [[`45fcd84da`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/45fcd84da986107dbbd73b9469bd3af255870e52), [`9dc253b1e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9dc253b1e854f42599d55220e5354b830a6c2001)]:
+  - @moralisweb3/common-sol-utils@2.22.0
+  - @moralisweb3/client-firebase-api-utils@2.22.0
+  - @moralisweb3/client-sol-api@2.22.0
+  - @moralisweb3/common-core@2.22.0
+
 ## 2.21.0
 
 ### Patch Changes
