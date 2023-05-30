@@ -12,6 +12,7 @@ import {
   getNFTMetadataOperation,
   getNFTOwnersOperation,
   getNFTTokenIdOwnersOperation,
+  getNFTTradesOperation,
   getNFTTransfersByBlockOperation,
   getNFTTransfersFromToBlockOperation,
   getNFTTransfersOperation,
@@ -34,6 +35,7 @@ import {
   getWalletTokenTransfersOperation,
   getErc20ApprovalsOperation,
   getErc20BurnsOperation,
+  getErc20TransfersOperation,
 } from './token';
 import {
   getTransactionOperation,
@@ -42,7 +44,7 @@ import {
   getWalletTransactionsVerboseOperation,
   getInternalTransactionsOperation,
 } from './transaction';
-import { runContractFunctionOperation } from './utils';
+import { endpointWeightsOperation, runContractFunctionOperation, web3ApiVersionOperation } from './utils';
 
 export const operationsV2 = [
   getBlockOperation,
@@ -90,4 +92,15 @@ export const operationsV2 = [
   searchNFTsOperation,
   syncNFTContractOperation,
   uploadFolderOperation,
+];
+
+/**
+ * @deprecated This list includes upgraded operations to the hybrid approach in the old format.
+ */
+export const operationsV2All = [
+  ...operationsV2,
+  endpointWeightsOperation,
+  web3ApiVersionOperation,
+  getNFTTradesOperation,
+  getErc20TransfersOperation,
 ];

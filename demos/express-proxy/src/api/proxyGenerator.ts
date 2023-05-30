@@ -1,6 +1,6 @@
 import Moralis from 'moralis';
-import { operationsV2 as solOperations } from 'moralis/common-sol-utils';
-import { operationsV2 as evmOperations } from 'moralis/common-evm-utils';
+import { operationsV2All as solOperations } from 'moralis/common-sol-utils';
+import { operationsV2All as evmOperations } from 'moralis/common-evm-utils';
 import express from 'express';
 import axios from 'axios';
 import { errorHandler } from '../middlewares/errorHandler';

@@ -1,3 +1,4 @@
+import { toCamel } from '@moralisweb3/common-core';
 import { Endpoint } from '../types/Endpoint';
 import fs from 'fs';
 
@@ -28,6 +29,7 @@ const getModulePackageName = (module: Module) => {
 const generateCloudCode = (module: Module, endpoint: Endpoint) => {
   let code = '';
   const name = `${getModulePrefix(module)}${endpoint.name}`;
+  const groupName = toCamel(endpoint.group.replace(/\s+/, '_'));
   const varName = `${endpoint.name}Operation`;
   code += `
 const ${varName} = getOperation('${endpoint.methodName}');
@@ -35,9 +37,7 @@ Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, '${endpoint.name}');
     const request = upgradeRequest(params, ${varName});
-    const result = await Moralis.${module}.${endpoint.group}.${endpoint.methodName}(${
-    endpoint.noArgs ? '' : 'request'
-  });
+    const result = await Moralis.${module}.${groupName}.${endpoint.methodName}(${endpoint.noArgs ? '' : 'request'});
     return result?.raw;
   } catch (error) {
     throw new Error(getErrorMessage(error, '${name}'));
@@ -57,7 +57,7 @@ import { MoralisError, Operation } from '@moralisweb3/common-core';
 import { handleRateLimit } from '../../rateLimit';
 import { upgradeRequest } from '../upgradeRequest'
 import { AxiosError } from 'axios';
-import { operations } from '${packageName}';
+import { operationsV2All as operations } from '${packageName}';
 declare const Parse: any;
 
 function getErrorMessage(error: Error, name: string) {
