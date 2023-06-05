@@ -5,21 +5,22 @@
 
 import axios from 'axios';
 import fs from 'fs';
-import { Core, CoreProvider } from '@moralisweb3/common-core';
 import { EvmChain } from '@moralisweb3/common-evm-utils';
 
-const url = 'https://chainid.network/chains.json';
+const DATASET_URL = 'https://chainid.network/chains.json';
+const SKIP_CHAIN_IDS = [
+  2020, // Ronin, the dataset contains an invalid data for this chain.
+];
 
 async function fetchChainData() {
-  const response = await axios.get(url);
+  const response = await axios.get(DATASET_URL);
   return response.data;
 }
 
 function getSupportedChainIds() {
-  CoreProvider.setDefault(Core.create());
-
-  const networks = Object.getOwnPropertyNames(EvmChain);
-  return networks.filter((name) => name.toUpperCase() === name).map((name) => EvmChain[name].decimal);
+  return EvmChain.values()
+    .map((chain) => chain.decimal)
+    .filter((chainId) => !SKIP_CHAIN_IDS.includes(chainId));
 }
 
 function generateFile(items) {
@@ -27,7 +28,7 @@ function generateFile(items) {
   const content = `/* eslint-disable no-template-curly-in-string */
 import { EvmChainListDataEntry } from './types';
 
-// source: ${url}
+// source: ${DATASET_URL}
 export const chainList: EvmChainListDataEntry[] = ${JSON.stringify(items, null, 2)};`;
   fs.writeFileSync(tsPath, content, 'utf-8');
 }
