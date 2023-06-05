@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.22.1
+
+### Patch Changes
+
+- [#1142](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1142) [`a9ba7092f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a9ba7092fcd9853c2c0f361bed6d32f49d946a63) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added new chains to the `EvmChain` class: `ARBITRUM_TESTNET`, `RONIN`, `OPTIMISM` and `AVALANCHE_TESTNET`.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.22.1
+
 ## 2.22.0
 
 ### Patch Changes
