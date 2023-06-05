@@ -118,7 +118,7 @@ describe('EvmChain', () => {
   });
 
   describe('metadata', () => {
-    // We ship RONIN because the source dataset doesn't have it.
+    // We skip RONIN because the source dataset doesn't have it.
     const supportedChains = EvmChain.values().filter((chain) => chain.apiHex !== '0x7e4');
 
     for (const chain of supportedChains) {
