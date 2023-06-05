@@ -6119,6 +6119,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-tools/merge@npm:8.4.1":
+  version: 8.4.1
+  resolution: "@graphql-tools/merge@npm:8.4.1"
+  dependencies:
+    "@graphql-tools/utils": ^9.2.1
+    tslib: ^2.4.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: badb094e2eb29688d39d451a83909dc6f92a28c98dbb485a2f745a963813ad1310b1624c7618e97477c90f7935c99b06792bf63c4957a58c642af1609bcec143
+  languageName: node
+  linkType: hard
+
 "@graphql-tools/schema@npm:9.0.4":
   version: 9.0.4
   resolution: "@graphql-tools/schema@npm:9.0.4"
@@ -6177,6 +6189,18 @@ __metadata:
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: ff04fdeb29e9ac596ea53386cd5b23cd741bb14c1997c6b0ba3c34ca165bd82b528a355e8c8e2ba726eb39e833ba9cbb0851ba0addb8c6d367089a1145bf9a49
+  languageName: node
+  linkType: hard
+
+"@graphql-tools/utils@npm:^9.2.1":
+  version: 9.2.1
+  resolution: "@graphql-tools/utils@npm:9.2.1"
+  dependencies:
+    "@graphql-typed-document-node/core": ^3.1.1
+    tslib: ^2.4.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 94ed12df5f49e5c338322ffd931236a687a3d5c443bf499f9baab5d4fcd9792234111142be8aa506a01ca2e82732996c4e1d8f6159ff9cc7fdc5c97f63e55226
   languageName: node
   linkType: hard
 
@@ -8391,15 +8415,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parse/push-adapter@npm:4.1.2":
-  version: 4.1.2
-  resolution: "@parse/push-adapter@npm:4.1.2"
+"@parse/push-adapter@npm:4.1.3":
+  version: 4.1.3
+  resolution: "@parse/push-adapter@npm:4.1.3"
   dependencies:
     "@parse/node-apn": 5.1.3
     "@parse/node-gcm": 1.0.2
     npmlog: 4.1.2
     parse: 3.4.0
-  checksum: 0c3653e336a0b4df83b946de9e58fd5a6114e8ba31e224faa6f01a3dddf5e137b0928cbc7db2b45d66cb6cf40e5edc0a9b78368bc4a06dea23780833f1a630bf
+  checksum: 693fe734919611fd39711ee4c82302d50b585a23f9053fe3c8d49a0aef504eebe4cd9dcc1cd1536ca52f7167a6277a9d7d01ce4992e6be714da48f86f41fa43f
   languageName: node
   linkType: hard
 
@@ -16047,7 +16071,7 @@ __metadata:
     mongodb-runner: ^4.9.0
     moralis: ^2.22.1
     ngrok: ^4.3.3
-    parse-server: ^5.4.0
+    parse-server: ^5.5.0
     prettier: ^2.8.0
     ts-jest: ^29.0.5
     ts-node: ^10.9.1
@@ -16079,7 +16103,7 @@ __metadata:
     mongodb-runner: ^4.9.0
     moralis: ^2.22.1
     parse-dashboard: ^4.1.4
-    parse-server: ^5.4.0
+    parse-server: ^5.5.0
     prettier: ^2.8.0
     ts-node: ^10.9.1
     typescript: ^4.9.4
@@ -23430,7 +23454,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^9.0.0":
+"jsonwebtoken@npm:9.0.0, jsonwebtoken@npm:^9.0.0":
   version: 9.0.0
   resolution: "jsonwebtoken@npm:9.0.0"
   dependencies:
@@ -27101,17 +27125,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"parse-server@npm:^5.4.0":
-  version: 5.4.1
-  resolution: "parse-server@npm:5.4.1"
+"parse-server@npm:^5.5.0":
+  version: 5.5.1
+  resolution: "parse-server@npm:5.5.1"
   dependencies:
-    "@graphql-tools/merge": 8.3.6
+    "@graphql-tools/merge": 8.4.1
     "@graphql-tools/schema": 9.0.4
     "@graphql-tools/utils": 8.12.0
     "@graphql-yoga/node": 2.6.0
     "@node-rs/bcrypt": 1.1.0
     "@parse/fs-files-adapter": 1.2.2
-    "@parse/push-adapter": 4.1.2
+    "@parse/push-adapter": 4.1.3
     bcryptjs: 2.4.3
     body-parser: 1.20.1
     commander: 5.1.0
@@ -27124,7 +27148,7 @@ __metadata:
     graphql-relay: 0.10.0
     graphql-tag: 2.12.6
     intersect: 1.0.1
-    jsonwebtoken: 8.5.1
+    jsonwebtoken: 9.0.0
     jwks-rsa: 2.1.4
     ldapjs: 2.3.3
     lodash: 4.17.21
@@ -27149,7 +27173,7 @@ __metadata:
       optional: true
   bin:
     parse-server: bin/parse-server
-  checksum: 346eae596f758b751c0834b932465095fb380a89321aec3047b554dabd076bd1e6e776cc5e698125e3fd4132001b3a859034bd924f25266f72c25e730424f611
+  checksum: 5961e2a81df322593bbc8eb5e9f8e792298abc763f55147bc5cf10701f0649eef661d8a3a2b879f05f687098196c20cd33ced1b27f5377c5e99f96ff2c27ae34
   languageName: node
   linkType: hard
 
