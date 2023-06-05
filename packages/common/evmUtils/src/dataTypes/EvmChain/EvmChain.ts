@@ -1,5 +1,5 @@
 import { chainList } from '../../data/chaindata';
-import { EvmChainListDataEntry } from '../../data/types';
+import { EvmChainListDataEntry, EvmNativeCurrency } from '../../data/types';
 import { EvmChainParser } from './EvmChainParser';
 import { EvmChainish, InputChainId } from './EvmChainish';
 import { EvmChainable } from '@moralisweb3/common-core';
@@ -92,12 +92,30 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns AVALANCHE_TESTNET chain
+   *
+   * @example EvmChain.AVALANCHE_TESTNET
+   */
+  public static get AVALANCHE_TESTNET() {
+    return EvmChain.create(0xa869);
+  }
+
+  /**
    * Returns FANTOM chain
    *
    * @example EvmChain.FANTOM
    */
   public static get FANTOM() {
     return EvmChain.create(250);
+  }
+
+  /**
+   * Returns FANTOM_TESTNET chain
+   *
+   * @example EvmChain.FANTOM_TESTNET
+   */
+  public static get FANTOM_TESTNET() {
+    return EvmChain.create(4002);
   }
 
   /**
@@ -125,6 +143,33 @@ export class EvmChain implements EvmChainable {
    */
   public static get ARBITRUM() {
     return EvmChain.create(42161);
+  }
+
+  /**
+   * Returns ARBITRUM_TESTNET chain
+   *
+   * @example EvmChain.ARBITRUM_TESTNET
+   */
+  public static get ARBITRUM_TESTNET() {
+    return EvmChain.create(421613);
+  }
+
+  /**
+   * Returns RONIN chain
+   *
+   * @example EvmChain.RONIN
+   */
+  public static get RONIN() {
+    return EvmChain.create(2020);
+  }
+
+  /**
+   * Returns OPTIMISM chain
+   *
+   * @example EvmChain.OPTIMISM
+   */
+  public static get OPTIMISM() {
+    return EvmChain.create(10);
   }
 
   /**
@@ -175,6 +220,31 @@ export class EvmChain implements EvmChainable {
    */
   static equals(chainA: EvmChainish, chainB: EvmChainish) {
     return EvmChain.create(chainA)._value === EvmChain.create(chainB)._value;
+  }
+
+  /**
+   * @returns all the available chains
+   */
+  public static values(): EvmChain[] {
+    return [
+      EvmChain.ETHEREUM,
+      EvmChain.GOERLI,
+      EvmChain.SEPOLIA,
+      EvmChain.POLYGON,
+      EvmChain.MUMBAI,
+      EvmChain.BSC,
+      EvmChain.BSC_TESTNET,
+      EvmChain.AVALANCHE,
+      EvmChain.AVALANCHE_TESTNET,
+      EvmChain.FANTOM,
+      EvmChain.FANTOM_TESTNET,
+      EvmChain.CRONOS,
+      EvmChain.PALM,
+      EvmChain.ARBITRUM,
+      EvmChain.ARBITRUM_TESTNET,
+      EvmChain.RONIN,
+      EvmChain.OPTIMISM,
+    ];
   }
 
   /**
@@ -270,17 +340,21 @@ export class EvmChain implements EvmChainable {
       | '0xa86a'
       | '0xa869'
       | '0xfa'
+      | '0xfa2'
       | '0x19'
       | '0x152'
       | '0x2a15c308d'
-      | '0xa4B1';
+      | '0xa4b1'
+      | '0x7e4'
+      | '0x66eed'
+      | '0xa';
   }
 
   /**
    * Returns the name of the chain
    * @example chain.name // "Ethereum"
    */
-  get name() {
+  get name(): string | undefined {
     return this._getChainlistData()?.name;
   }
 
@@ -290,7 +364,7 @@ export class EvmChain implements EvmChainable {
    *
    * @example chain.currency // EvmNativeCurrency
    */
-  get currency() {
+  get currency(): EvmNativeCurrency | undefined {
     return this._getChainlistData()?.nativeCurrency;
   }
 
@@ -299,7 +373,7 @@ export class EvmChain implements EvmChainable {
    *
    * @example chain.rpcUrls // ["https://mainnet.infura.io/v3/<infura-key>"]
    */
-  get rpcUrls() {
+  get rpcUrls(): string[] | undefined {
     return this._getChainlistData()?.rpc;
   }
 

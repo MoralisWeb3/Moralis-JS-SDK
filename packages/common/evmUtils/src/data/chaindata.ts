@@ -52,6 +52,7 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://goerli.infura.io/v3/${INFURA_API_KEY}',
       'wss://goerli.infura.io/v3/${INFURA_API_KEY}',
       'https://rpc.goerli.mudit.blog/',
+      'https://ethereum-goerli.publicnode.com',
     ],
     faucets: [
       'http://fauceth.komputing.org?chain=5&address=${ADDRESS}',
@@ -74,6 +75,28 @@ export const chainList: EvmChainListDataEntry[] = [
       {
         name: 'etherscan-goerli',
         url: 'https://goerli.etherscan.io',
+        standard: 'EIP3091',
+      },
+    ],
+  },
+  {
+    name: 'Optimism',
+    chain: 'ETH',
+    rpc: ['https://mainnet.optimism.io/'],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    infoURL: 'https://optimism.io',
+    shortName: 'oeth',
+    chainId: 10,
+    networkId: 10,
+    explorers: [
+      {
+        name: 'etherscan',
+        url: 'https://optimistic.etherscan.io',
         standard: 'EIP3091',
       },
     ],
@@ -153,6 +176,7 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://data-seed-prebsc-2-s2.binance.org:8545',
       'https://data-seed-prebsc-1-s3.binance.org:8545',
       'https://data-seed-prebsc-2-s3.binance.org:8545',
+      'https://bsc-testnet.publicnode.com',
     ],
     faucets: ['https://testnet.binance.org/faucet-smart'],
     nativeCurrency: {
@@ -229,6 +253,30 @@ export const chainList: EvmChainListDataEntry[] = [
     ],
   },
   {
+    name: 'Fantom Testnet',
+    chain: 'FTM',
+    rpc: ['https://rpc.testnet.fantom.network', 'https://fantom-testnet.publicnode.com'],
+    faucets: ['https://faucet.fantom.network'],
+    nativeCurrency: {
+      name: 'Fantom',
+      symbol: 'FTM',
+      decimals: 18,
+    },
+    infoURL: 'https://docs.fantom.foundation/quick-start/short-guide#fantom-testnet',
+    shortName: 'tftm',
+    chainId: 4002,
+    networkId: 4002,
+    icon: 'fantom',
+    explorers: [
+      {
+        name: 'ftmscan',
+        url: 'https://testnet.ftmscan.com',
+        icon: 'ftmscan',
+        standard: 'EIP3091',
+      },
+    ],
+  },
+  {
     name: 'Arbitrum One',
     chainId: 42161,
     shortName: 'arb1',
@@ -269,6 +317,29 @@ export const chainList: EvmChainListDataEntry[] = [
     },
   },
   {
+    name: 'Avalanche Fuji Testnet',
+    chain: 'AVAX',
+    icon: 'avax',
+    rpc: ['https://api.avax-test.network/ext/bc/C/rpc', 'https://avalanche-fuji-c-chain.publicnode.com'],
+    faucets: ['https://faucet.avax-test.network/'],
+    nativeCurrency: {
+      name: 'Avalanche',
+      symbol: 'AVAX',
+      decimals: 18,
+    },
+    infoURL: 'https://cchain.explorer.avax-test.network',
+    shortName: 'Fuji',
+    chainId: 43113,
+    networkId: 1,
+    explorers: [
+      {
+        name: 'snowtrace',
+        url: 'https://testnet.snowtrace.io',
+        standard: 'EIP3091',
+      },
+    ],
+  },
+  {
     name: 'Avalanche C-Chain',
     chain: 'AVAX',
     icon: 'avax',
@@ -306,6 +377,7 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://matic-mumbai.chainstacklabs.com',
       'https://rpc-mumbai.maticvigil.com',
       'https://matic-testnet-archive-rpc.bwarelabs.com',
+      'https://polygon-mumbai-bor.publicnode.com',
     ],
     faucets: ['https://faucet.polygon.technology/'],
     nativeCurrency: {
@@ -324,6 +396,38 @@ export const chainList: EvmChainListDataEntry[] = [
         standard: 'EIP3091',
       },
     ],
+  },
+  {
+    name: 'Arbitrum Goerli',
+    title: 'Arbitrum Goerli Rollup Testnet',
+    chainId: 421613,
+    shortName: 'arb-goerli',
+    chain: 'ETH',
+    networkId: 421613,
+    nativeCurrency: {
+      name: 'Arbitrum Goerli Ether',
+      symbol: 'AGOR',
+      decimals: 18,
+    },
+    rpc: ['https://goerli-rollup.arbitrum.io/rpc/'],
+    faucets: [],
+    infoURL: 'https://arbitrum.io/',
+    explorers: [
+      {
+        name: 'Arbitrum Goerli Rollup Explorer',
+        url: 'https://goerli-rollup-explorer.arbitrum.io',
+        standard: 'EIP3091',
+      },
+    ],
+    parent: {
+      type: 'L2',
+      chain: 'eip155-5',
+      bridges: [
+        {
+          url: 'https://bridge.arbitrum.io/',
+        },
+      ],
+    },
   },
   {
     name: 'Sepolia',

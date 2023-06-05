@@ -97,24 +97,59 @@ describe('EvmChain', () => {
     expect(chainA.equals(chainB)).toBeFalsy();
   });
 
-  /**
-   * External data
-   */
-  it('should get the chain name', () => {
-    const chain = EvmChain.create('0x1');
+  it('returns correct chain ID', () => {
+    expect(EvmChain.ETHEREUM.apiHex).toBe('0x1');
+    expect(EvmChain.GOERLI.apiHex).toBe('0x5');
+    expect(EvmChain.SEPOLIA.apiHex).toBe('0xaa36a7');
+    expect(EvmChain.BSC.apiHex).toBe('0x38');
+    expect(EvmChain.BSC_TESTNET.apiHex).toBe('0x61');
+    expect(EvmChain.POLYGON.apiHex).toBe('0x89');
+    expect(EvmChain.MUMBAI.apiHex).toBe('0x13881');
+    expect(EvmChain.FANTOM.apiHex).toBe('0xfa');
+    expect(EvmChain.FANTOM_TESTNET.apiHex).toBe('0xfa2');
+    expect(EvmChain.AVALANCHE.apiHex).toBe('0xa86a');
+    expect(EvmChain.AVALANCHE_TESTNET.apiHex).toBe('0xa869');
+    expect(EvmChain.CRONOS.apiHex).toBe('0x19');
+    expect(EvmChain.RONIN.apiHex).toBe('0x7e4');
+    expect(EvmChain.ARBITRUM.apiHex).toBe('0xa4b1');
+    expect(EvmChain.ARBITRUM_TESTNET.apiHex).toBe('0x66eed');
+    expect(EvmChain.OPTIMISM.apiHex).toBe('0xa');
+    expect(EvmChain.PALM.apiHex).toBe('0x2a15c308d');
+  });
 
-    expect(chain.name).toBe('Ethereum Mainnet');
-    expect(chain.rpcUrls).toStrictEqual([
-      'https://mainnet.infura.io/v3/${INFURA_API_KEY}',
-      'wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}',
-      'https://api.mycryptoapi.com/eth',
-      'https://cloudflare-eth.com',
-      'https://ethereum.publicnode.com',
-    ]);
-    expect(chain.currency).toStrictEqual({
-      decimals: 18,
-      name: 'Ether',
-      symbol: 'ETH',
+  describe('metadata', () => {
+    // We ship RONIN because the source dataset doesn't have it.
+    const supportedChains = EvmChain.values().filter((chain) => chain.apiHex !== '0x7e4');
+
+    for (const chain of supportedChains) {
+      it(`returns metadata for ${chain.apiHex}`, () => {
+        expect(chain.name).toBeDefined();
+        expect((chain.rpcUrls as string[]).length > 0).toBeTruthy();
+        expect(chain.currency).toBeDefined();
+        expect(chain.currency?.decimals).toBeDefined();
+        expect(chain.currency?.name).toBeDefined();
+        expect(chain.currency?.symbol).toBeDefined();
+        expect(chain.explorer).toBeDefined();
+        expect(chain.explorer?.url).toBeDefined();
+      });
+    }
+
+    it('returns correct metadata for Ethereum', () => {
+      const chain = EvmChain.create('0x1');
+
+      expect(chain.name).toBe('Ethereum Mainnet');
+      expect(chain.rpcUrls).toStrictEqual([
+        'https://mainnet.infura.io/v3/${INFURA_API_KEY}',
+        'wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}',
+        'https://api.mycryptoapi.com/eth',
+        'https://cloudflare-eth.com',
+        'https://ethereum.publicnode.com',
+      ]);
+      expect(chain.currency).toStrictEqual({
+        decimals: 18,
+        name: 'Ether',
+        symbol: 'ETH',
+      });
     });
   });
 });
