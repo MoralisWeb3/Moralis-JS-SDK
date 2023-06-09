@@ -7483,7 +7483,7 @@ __metadata:
     axios: ^1.2.1
     moralis: ^2.22.2
     next: ^13.0.3
-    next-auth: ^4.20.1
+    next-auth: ^4.22.1
     react: ^18.2.0
     react-dom: ^18.2.0
     swr: ^1.3.0
@@ -16011,7 +16011,7 @@ __metadata:
     ethers: ^5.7.2
     moralis: ^2.22.2
     next: 12.2.5
-    next-auth: 4.20.1
+    next-auth: 4.22.1
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^4.9.4
@@ -25572,9 +25572,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-auth@npm:4.20.1, next-auth@npm:^4.20.1":
-  version: 4.20.1
-  resolution: "next-auth@npm:4.20.1"
+"next-auth@npm:4.22.1, next-auth@npm:^4.22.1":
+  version: 4.22.1
+  resolution: "next-auth@npm:4.22.1"
   dependencies:
     "@babel/runtime": ^7.20.13
     "@panva/hkdf": ^1.0.2
@@ -25593,7 +25593,7 @@ __metadata:
   peerDependenciesMeta:
     nodemailer:
       optional: true
-  checksum: f3414533716e7cc4f80bf070e4eec95e4dced331694e6dd446704b73145804585962be6e107946bdedab05d392b20dad7a7b62ac6cd0bfade0482a0a9d741c0b
+  checksum: 42bae16b62bac4b3d215d991c7c964dfc071a84df32900a28d4cbc20d4b6a65689b3ba9f10633780a22ff0cbc420248d012614a5b0d82918f9bbb56f7f92f7c5
   languageName: node
   linkType: hard
 
