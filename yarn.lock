@@ -16086,6 +16086,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"demo-streams-webhook@workspace:demos/streams-webhook":
+  version: 0.0.0-use.local
+  resolution: "demo-streams-webhook@workspace:demos/streams-webhook"
+  dependencies:
+    dotenv: ^16.0.1
+    moralis: ^2.22.1
+    ngrok: ^4.3.3
+  languageName: unknown
+  linkType: soft
+
 "demo-supabase-auth@workspace:demos/supabase-auth":
   version: 0.0.0-use.local
   resolution: "demo-supabase-auth@workspace:demos/supabase-auth"

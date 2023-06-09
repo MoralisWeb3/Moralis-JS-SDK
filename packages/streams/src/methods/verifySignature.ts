@@ -1,7 +1,8 @@
 import { ApiUtilsConfig } from '@moralisweb3/api-utils';
-import { Core, MoralisStreamError, StreamErrorCode } from '@moralisweb3/common-core';
+import { Config, MoralisStreamError, StreamErrorCode } from '@moralisweb3/common-core';
 import { IWebhook } from '@moralisweb3/streams-typings';
 import { sha3 } from '../utils/sha3';
+import { StreamsConfig } from '../config/StreamsConfig';
 
 export interface VerifySignatureOptions {
   body: IWebhook;
@@ -9,20 +10,24 @@ export interface VerifySignatureOptions {
 }
 
 export const makeVerifySignature =
-  (core: Core) =>
+  (config: Config) =>
   ({ body, signature }: VerifySignatureOptions): boolean => {
-    const apiKey = core.config.get(ApiUtilsConfig.apiKey);
-    if (!apiKey) {
+    let secret = config.get(StreamsConfig.streamsSecret);
+    if (!secret) {
+      secret = config.get(ApiUtilsConfig.apiKey);
+    }
+    if (!secret) {
       throw new MoralisStreamError({
         code: StreamErrorCode.GENERIC_STREAM_ERROR,
-        message: 'unable to verify signature without an api key',
+        message: 'Unable to verify signature without an api key or streams secret',
       });
     }
-    const generatedSignature = sha3(JSON.stringify(body) + apiKey);
+
+    const generatedSignature = sha3(JSON.stringify(body) + secret);
     if (signature !== generatedSignature) {
       throw new MoralisStreamError({
         code: StreamErrorCode.INVALID_SIGNATURE,
-        message: 'signature is not valid',
+        message: 'Signature is not valid',
       });
     }
     return true;
