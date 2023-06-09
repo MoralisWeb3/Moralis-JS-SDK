@@ -6,5 +6,6 @@ export { Types };
 export * from './Streams';
 
 // Export SDK types
+export * from './config';
 export * from './methods/types';
 export * from './mapping';

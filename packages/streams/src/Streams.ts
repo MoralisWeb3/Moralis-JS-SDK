@@ -28,6 +28,7 @@ import {
   replayHistoryOperation,
   getLogsOperation,
 } from '@moralisweb3/common-streams-utils';
+import { StreamsConfigSetup } from './config/StreamsApiConfigSetup';
 
 const BASE_URL = 'https://api.moralis-streams.com';
 
@@ -43,7 +44,7 @@ export class Streams extends ApiModule {
   }
 
   public setup() {
-    // Nothing
+    StreamsConfigSetup.register(this.core.config);
   }
 
   public start() {
@@ -73,7 +74,7 @@ export class Streams extends ApiModule {
   private readonly _readSettings = this.createFetcher(getSettingsOperation);
   public readonly readSettings = () => this._readSettings({});
 
-  public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core)(options);
+  public readonly verifySignature = (options: VerifySignatureOptions) => makeVerifySignature(this.core.config)(options);
 
   public readonly parsedLogs = <Event>(webhookData: IWebhook) => parseLog<Event>(webhookData);
 

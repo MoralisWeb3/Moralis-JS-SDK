@@ -1,0 +1,17 @@
+{
+  "name": "demo-streams-webhook",
+  "author": "Moralis",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js",
+    "ngrok": "ngrok http 6001"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "moralis": "^2.22.1"
+  },
+  "devDependencies": {
+    "ngrok": "^4.3.3"
+  }
+}
