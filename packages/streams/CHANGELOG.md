@@ -1,5 +1,17 @@
 # @moralisweb3/streams
 
+## 2.22.2
+
+### Patch Changes
+
+- [#1146](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1146) [`a41684c26`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a41684c26f1b42d647266093c6ff97a7b500ce2b) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added new configuration: `streamsSecret` to the `Moralis.start` method. This option allows you to specify a custom secret used by the `Moralis.Streams.verifySignature` function.
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.22.2
+  - @moralisweb3/common-core@2.22.2
+  - @moralisweb3/common-evm-utils@2.22.2
+  - @moralisweb3/common-streams-utils@2.22.2
+
 ## 2.22.1
 
 ### Patch Changes
