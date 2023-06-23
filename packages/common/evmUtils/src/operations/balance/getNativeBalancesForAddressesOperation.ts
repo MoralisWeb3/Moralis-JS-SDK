@@ -38,7 +38,7 @@ export const getNativeBalancesForAddressesOperation: Operation<
   name: 'getNativeBalancesForAddresses',
   id: 'getNativeBalancesForAddresses',
   groupName: 'balance',
-  urlPathPattern: '/wallets/balance',
+  urlPathPattern: '/wallets/balances',
   urlSearchParamNames: ['chain', 'toBlock', 'walletAddresses'],
 
   getRequestUrlParams,
