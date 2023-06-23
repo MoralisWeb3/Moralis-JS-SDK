@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.22.3
+
+### Patch Changes
+
+- [#1150](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1150) [`da8400258`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/da8400258a953f16f150547f769df6b4886c8962) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Fixed the `Moralis.EvmApi.balance.getNativeBalancesForAddresses` method in the EVM API module.
+
+- Updated dependencies [[`da8400258`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/da8400258a953f16f150547f769df6b4886c8962)]:
+  - @moralisweb3/common-evm-utils@2.22.3
+  - @moralisweb3/api-utils@2.22.3
+  - @moralisweb3/common-core@2.22.3
+
 ## 2.22.2
 
 ### Patch Changes
