@@ -47,7 +47,7 @@
       ],
       "operationParameters": [
         {
-          "names": ["chain"],
+          "names": ["chain", "chains"],
           "className": "EvmChain",
           "import": "../../dataTypes"
         },
@@ -74,7 +74,8 @@
           "getTopERC20TokensByPriceMovers",
           "getTopNFTCollectionsByMarketCap",
           "getHottestNFTCollectionsByTradingVolume",
-          "reviewContracts"
+          "reviewContracts",
+          "getWalletActiveChains"
         ]
       }
     }

@@ -1,5 +1,7 @@
 import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-core';
+import { EvmErc20TransferFromWalletLabel, EvmErc20TransferFromWalletLabelValue, EvmErc20TransferFromWalletLabelInput, EvmErc20TransferFromWalletLabelJSON } from '../types/EvmErc20TransferFromWalletLabel';
+import { EvmErc20TransferToWalletLabel, EvmErc20TransferToWalletLabelValue, EvmErc20TransferToWalletLabelInput, EvmErc20TransferToWalletLabelJSON } from '../types/EvmErc20TransferToWalletLabel';
 
 // $ref: #/components/schemas/erc20Transfer
 // type: erc20Transfer
@@ -16,7 +18,9 @@ import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-co
 // - block_number ($ref: #/components/schemas/erc20Transfer/properties/block_number)
 // - block_hash ($ref: #/components/schemas/erc20Transfer/properties/block_hash)
 // - from_wallet ($ref: #/components/schemas/erc20Transfer/properties/from_wallet)
+// - from_wallet_label ($ref: #/components/schemas/erc20Transfer/properties/from_wallet_label)
 // - to_wallet ($ref: #/components/schemas/erc20Transfer/properties/to_wallet)
+// - to_wallet_label ($ref: #/components/schemas/erc20Transfer/properties/to_wallet_label)
 // - value ($ref: #/components/schemas/erc20Transfer/properties/value)
 // - value_decimal ($ref: #/components/schemas/erc20Transfer/properties/value_decimal)
 // - possible_spam ($ref: #/components/schemas/erc20Transfer/properties/possible_spam)
@@ -34,7 +38,9 @@ export interface EvmErc20TransferJSON {
   readonly block_number: BigNumberJSON;
   readonly block_hash: string;
   readonly from_wallet: EvmAddressJSON;
+  readonly from_wallet_label?: EvmErc20TransferFromWalletLabelJSON;
   readonly to_wallet: EvmAddressJSON;
+  readonly to_wallet_label?: EvmErc20TransferToWalletLabelJSON;
   readonly value: string;
   readonly value_decimal: string;
   readonly possible_spam: boolean;
@@ -53,7 +59,9 @@ export interface EvmErc20TransferInput {
   readonly blockNumber: BigNumberInput | BigNumber;
   readonly blockHash: string;
   readonly fromWallet: EvmAddressInput | EvmAddress;
+  readonly fromWalletLabel?: EvmErc20TransferFromWalletLabelInput | EvmErc20TransferFromWalletLabelValue;
   readonly toWallet: EvmAddressInput | EvmAddress;
+  readonly toWalletLabel?: EvmErc20TransferToWalletLabelInput | EvmErc20TransferToWalletLabelValue;
   readonly value: string;
   readonly valueDecimal: string;
   readonly possibleSpam: boolean;
@@ -81,7 +89,9 @@ export class EvmErc20Transfer {
       blockNumber: BigNumber.fromJSON(json.block_number),
       blockHash: json.block_hash,
       fromWallet: EvmAddress.fromJSON(json.from_wallet),
+      fromWalletLabel: json.from_wallet_label ? EvmErc20TransferFromWalletLabel.fromJSON(json.from_wallet_label) : undefined,
       toWallet: EvmAddress.fromJSON(json.to_wallet),
+      toWalletLabel: json.to_wallet_label ? EvmErc20TransferToWalletLabel.fromJSON(json.to_wallet_label) : undefined,
       value: json.value,
       valueDecimal: json.value_decimal,
       possibleSpam: json.possible_spam,
@@ -117,9 +127,17 @@ export class EvmErc20Transfer {
    */
   public readonly fromWallet: EvmAddress;
   /**
+   * @description The label of the from wallet
+   */
+  public readonly fromWalletLabel?: EvmErc20TransferFromWalletLabelValue;
+  /**
    * @description The address of the contract
    */
   public readonly toWallet: EvmAddress;
+  /**
+   * @description The label of the to wallet
+   */
+  public readonly toWalletLabel?: EvmErc20TransferToWalletLabelValue;
   /**
    * @description The value of the transfer
    */
@@ -146,7 +164,9 @@ export class EvmErc20Transfer {
     this.blockNumber = BigNumber.create(input.blockNumber);
     this.blockHash = input.blockHash;
     this.fromWallet = EvmAddress.create(input.fromWallet);
+    this.fromWalletLabel = input.fromWalletLabel ? EvmErc20TransferFromWalletLabel.create(input.fromWalletLabel) : undefined;
     this.toWallet = EvmAddress.create(input.toWallet);
+    this.toWalletLabel = input.toWalletLabel ? EvmErc20TransferToWalletLabel.create(input.toWalletLabel) : undefined;
     this.value = input.value;
     this.valueDecimal = input.valueDecimal;
     this.possibleSpam = input.possibleSpam;
@@ -166,7 +186,9 @@ export class EvmErc20Transfer {
       block_number: this.blockNumber.toJSON(),
       block_hash: this.blockHash,
       from_wallet: this.fromWallet.toJSON(),
+      from_wallet_label: this.fromWalletLabel ? EvmErc20TransferFromWalletLabel.toJSON(this.fromWalletLabel) : undefined,
       to_wallet: this.toWallet.toJSON(),
+      to_wallet_label: this.toWalletLabel ? EvmErc20TransferToWalletLabel.toJSON(this.toWalletLabel) : undefined,
       value: this.value,
       value_decimal: this.valueDecimal,
       possible_spam: this.possibleSpam,

@@ -8,12 +8,12 @@ import { EvmErc20Transfer, EvmErc20TransferInput, EvmErc20TransferJSON } from '.
 
 export interface EvmErc20TransfersResponseJSON {
   readonly cursor?: string;
-  readonly result?: EvmErc20TransferJSON[];
+  readonly result: EvmErc20TransferJSON[];
 }
 
 export interface EvmErc20TransfersResponseInput {
   readonly cursor?: string;
-  readonly result?: EvmErc20TransferInput[] | EvmErc20Transfer[];
+  readonly result: EvmErc20TransferInput[] | EvmErc20Transfer[];
 }
 
 export class EvmErc20TransfersResponse {
@@ -27,7 +27,7 @@ export class EvmErc20TransfersResponse {
   public static fromJSON(json: EvmErc20TransfersResponseJSON): EvmErc20TransfersResponse {
     const input: EvmErc20TransfersResponseInput = {
       cursor: json.cursor,
-      result: json.result ? json.result.map((item) => EvmErc20Transfer.fromJSON(item)) : undefined,
+      result: json.result.map((item) => EvmErc20Transfer.fromJSON(item)),
     };
     return EvmErc20TransfersResponse.create(input);
   }
@@ -36,17 +36,17 @@ export class EvmErc20TransfersResponse {
    * @description The cursor to get to the next page
    */
   public readonly cursor?: string;
-  public readonly result?: EvmErc20Transfer[];
+  public readonly result: EvmErc20Transfer[];
 
   private constructor(input: EvmErc20TransfersResponseInput) {
     this.cursor = input.cursor;
-    this.result = input.result ? input.result.map((item) => EvmErc20Transfer.create(item)) : undefined;
+    this.result = input.result.map((item) => EvmErc20Transfer.create(item));
   }
 
   public toJSON(): EvmErc20TransfersResponseJSON {
     return {
       cursor: this.cursor,
-      result: this.result ? this.result.map((item) => item.toJSON()) : undefined,
+      result: this.result.map((item) => item.toJSON()),
     }
   }
 }
