@@ -7,4 +7,5 @@ export * from './GetTopERC20TokensByPriceMoversOperation';
 export * from './GetTopNFTCollectionsByMarketCapOperation';
 export * from './GetHottestNFTCollectionsByTradingVolumeOperation';
 export * from './ReviewContractsOperation';
+export * from './GetWalletActiveChainsOperation';
 export * from './operations';

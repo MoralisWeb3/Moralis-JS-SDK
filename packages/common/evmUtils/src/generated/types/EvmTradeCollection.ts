@@ -14,7 +14,7 @@ export interface EvmTradeCollectionJSON {
   readonly page?: number;
   readonly page_size?: number;
   readonly cursor?: string;
-  readonly result?: EvmTradeJSON[];
+  readonly result: EvmTradeJSON[];
 }
 
 export interface EvmTradeCollectionInput {
@@ -22,7 +22,7 @@ export interface EvmTradeCollectionInput {
   readonly page?: number;
   readonly pageSize?: number;
   readonly cursor?: string;
-  readonly result?: EvmTradeInput[] | EvmTrade[];
+  readonly result: EvmTradeInput[] | EvmTrade[];
 }
 
 export class EvmTradeCollection {
@@ -39,7 +39,7 @@ export class EvmTradeCollection {
       page: json.page,
       pageSize: json.page_size,
       cursor: json.cursor,
-      result: json.result ? json.result.map((item) => EvmTrade.fromJSON(item)) : undefined,
+      result: json.result.map((item) => EvmTrade.fromJSON(item)),
     };
     return EvmTradeCollection.create(input);
   }
@@ -60,14 +60,14 @@ export class EvmTradeCollection {
    * @description The cursor to get to the next page
    */
   public readonly cursor?: string;
-  public readonly result?: EvmTrade[];
+  public readonly result: EvmTrade[];
 
   private constructor(input: EvmTradeCollectionInput) {
     this.total = input.total;
     this.page = input.page;
     this.pageSize = input.pageSize;
     this.cursor = input.cursor;
-    this.result = input.result ? input.result.map((item) => EvmTrade.create(item)) : undefined;
+    this.result = input.result.map((item) => EvmTrade.create(item));
   }
 
   public toJSON(): EvmTradeCollectionJSON {
@@ -76,7 +76,7 @@ export class EvmTradeCollection {
       page: this.page,
       page_size: this.pageSize,
       cursor: this.cursor,
-      result: this.result ? this.result.map((item) => item.toJSON()) : undefined,
+      result: this.result.map((item) => item.toJSON()),
     }
   }
 }

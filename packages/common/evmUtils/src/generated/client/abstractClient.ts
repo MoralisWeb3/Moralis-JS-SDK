@@ -17,6 +17,8 @@ import { EvmMarketDataHottestNFTCollectionByTradingVolumeItem, EvmMarketDataHott
 import { ReviewContractsOperation, ReviewContractsOperationRequest, ReviewContractsOperationRequestJSON } from '../operations/ReviewContractsOperation';
 import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewContracts';
 import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
+import { GetWalletActiveChainsOperation, GetWalletActiveChainsOperationRequest, GetWalletActiveChainsOperationRequestJSON } from '../operations/GetWalletActiveChainsOperation';
+import { EvmWalletActiveChains, EvmWalletActiveChainsJSON } from '../types/EvmWalletActiveChains';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -175,5 +177,20 @@ export abstract class AbstractClient {
       EvmContractsReviewDtoInput | EvmContractsReviewDto,
       EvmContractsReviewDtoJSON
     >(ReviewContractsOperation),
+  };
+  public readonly wallets = {
+    /**
+     * @description Get the active chains for a wallet address.
+     * @param request Request with parameters.
+     * @param {Object} request.address Wallet address
+     * @param {Object[]} [request.chains] The chains to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletActiveChains: this.createEndpoint<
+      GetWalletActiveChainsOperationRequest,
+      GetWalletActiveChainsOperationRequestJSON,
+      EvmWalletActiveChains,
+      EvmWalletActiveChainsJSON
+    >(GetWalletActiveChainsOperation),
   };
 }
