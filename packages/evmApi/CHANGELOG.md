@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.22.4
+
+### Patch Changes
+
+- [#1155](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1155) [`7a646d14b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7a646d14b75652f044f6784bfda7a91241be6532) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added a new endpoint method to the EVM API module: `Moralis.EvmApi.wallets.getWalletActiveChains`.
+
+- Updated dependencies [[`7a646d14b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7a646d14b75652f044f6784bfda7a91241be6532)]:
+  - @moralisweb3/common-evm-utils@2.22.4
+  - @moralisweb3/api-utils@2.22.4
+  - @moralisweb3/common-core@2.22.4
+
 ## 2.22.3
 
 ### Patch Changes
