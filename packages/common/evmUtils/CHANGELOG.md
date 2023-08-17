@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.22.5
+
+### Patch Changes
+
+- [`a1dca27df`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a1dca27dfa7483772c6a6dd8c523f466e3cb15f4) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Extend the arguments of the `getContractEvents` endpoint to include the `cursor` property.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.22.5
+
 ## 2.22.4
 
 ### Patch Changes
