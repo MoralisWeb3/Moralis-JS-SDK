@@ -1,5 +1,7 @@
 # @moralisweb3/client-firebase-auth-utils
 
+## 2.22.5
+
 ## 2.22.4
 
 ## 2.22.3
