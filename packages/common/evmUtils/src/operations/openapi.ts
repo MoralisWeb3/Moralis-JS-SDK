@@ -4054,6 +4054,7 @@ export interface operations {
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
         disable_total?: boolean;
+        cursor?: string; // TODO: this is added manually for now.
       };
       path: {
         /** The address of the contract */
