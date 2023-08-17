@@ -34,6 +34,7 @@ describe('getContractEventsOperation', () => {
       offset: 0,
       topic: 'topic0',
       disableTotal: true,
+      cursor: '0xCURSOR',
     };
 
     const serializedRequest = getContractEventsOperation.serializeRequest(request, core);
@@ -48,6 +49,7 @@ describe('getContractEventsOperation', () => {
     expect(serializedRequest.toDate).toBe(toDate);
     expect(serializedRequest.abi).toBe(request.abi);
     expect(serializedRequest.disableTotal).toBe(true);
+    expect(serializedRequest.cursor).toBe(request.cursor);
 
     const deserializedRequest = getContractEventsOperation.deserializeRequest(serializedRequest, core);
 
@@ -61,5 +63,6 @@ describe('getContractEventsOperation', () => {
     expect(deserializedRequest.topic).toBe(request.topic);
     expect(deserializedRequest.abi).toBe(request.abi);
     expect(deserializedRequest.disableTotal).toBe(true);
+    expect(deserializedRequest.cursor).toBe(request.cursor);
   });
 });

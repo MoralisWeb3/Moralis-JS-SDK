@@ -27,6 +27,7 @@ export interface GetContractEventsRequest
   abi: EvmAbiItem;
   fromDate?: DateInput;
   toDate?: DateInput;
+  cursor?: string;
 }
 
 export type GetContractEventsJSONRequest = ReturnType<typeof serializeRequest>;
@@ -61,6 +62,7 @@ export const getContractEventsOperation: PaginatedOperation<
     'offset',
     'limit',
     'disableTotal',
+    'cursor',
   ],
   bodyParamNames: ['abi'],
   bodyType: 'raw',
@@ -87,6 +89,7 @@ function getRequestUrlParams(request: GetContractEventsRequest, core: Core) {
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address).lowercase,
     disable_total: request.disableTotal,
+    cursor: request.cursor,
   };
 }
 
@@ -129,6 +132,7 @@ function serializeRequest(request: GetContractEventsRequest, core: Core) {
     address: EvmAddress.create(request.address).lowercase,
     abi: request.abi,
     disableTotal: request.disableTotal,
+    cursor: request.cursor,
   };
 }
 
@@ -145,5 +149,6 @@ function deserializeRequest(jsonRequest: GetContractEventsJSONRequest): GetContr
     address: EvmAddress.create(jsonRequest.address),
     abi: jsonRequest.abi,
     disableTotal: jsonRequest.disableTotal,
+    cursor: jsonRequest.cursor,
   };
 }
