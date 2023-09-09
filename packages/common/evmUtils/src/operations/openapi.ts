@@ -113,6 +113,10 @@ export interface paths {
     /** Get the token price denominated in the blockchain's native token and USD. */
     get: operations["getTokenPrice"];
   };
+  "/erc20/prices": {
+    /** Returns an array of token prices denominated in the blockchain's native token and USD for a given token contract address */
+    post: operations["getMultipleTokenPrices"];
+  };
   "/{address}/erc20": {
     /** Get token balances for a specific wallet address. */
     get: operations["getWalletTokenBalances"];
@@ -213,6 +217,10 @@ export interface paths {
     /** Resolve a specific Unstoppable domain to its address. */
     get: operations["resolveDomain"];
   };
+  "/resolve/{address}/domain": {
+    /** Resolve a specific address to its Unstoppable domain */
+    get: operations["resolveAddressToDomain"];
+  };
   "/resolve/ens/{domain}": {
     /** Resolve a specific ENS domain to its address. */
     get: operations["resolveENSDomain"];
@@ -251,6 +259,10 @@ export interface paths {
   "/contracts-review": {
     /** Review contracts as spam or not spam */
     post: operations["reviewContracts"];
+  };
+  "/wallets/{address}/chains": {
+    /** Get the active chains for a wallet address. */
+    get: operations["getWalletActiveChains"];
   };
 }
 
@@ -306,7 +318,7 @@ export interface components {
       page_size?: number;
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["logEventByAddress"][];
+      result: components["schemas"]["logEventByAddress"][];
     };
     logEventByAddress: {
       /**
@@ -525,10 +537,20 @@ export interface components {
        */
       from_wallet: string;
       /**
+       * @description The label of the from wallet
+       * @example Binance 1
+       */
+      from_wallet_label?: string | unknown;
+      /**
        * @description The address of the contract
        * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
        */
       to_wallet: string;
+      /**
+       * @description The label of the to wallet
+       * @example Binance 2
+       */
+      to_wallet_label?: string | unknown;
       /**
        * @description The value of the transfer
        * @example 57732989482831651
@@ -544,6 +566,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     erc20Burn: {
       /** @example Tether USD */
@@ -586,6 +613,11 @@ export interface components {
        */
       from_wallet: string;
       /**
+       * @description The label of the from wallet
+       * @example Binance 1
+       */
+      from_wallet_label?: string | unknown;
+      /**
        * @description The value of the transfer
        * @example 57732989482831651
        */
@@ -600,6 +632,11 @@ export interface components {
        * @example false
        */
       possible_spam?: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     erc20Mint: {
       /** @example Tether USD */
@@ -642,6 +679,11 @@ export interface components {
        */
       to_wallet: string;
       /**
+       * @description The label of the to wallet
+       * @example Binance 2
+       */
+      to_wallet_label?: string | unknown;
+      /**
        * @description The value of the transfer
        * @example 57732989482831651
        */
@@ -656,6 +698,11 @@ export interface components {
        * @example false
        */
       possible_spam?: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     erc20Approval: {
       /** @example Tether USD */
@@ -698,10 +745,20 @@ export interface components {
        */
       from_wallet: string;
       /**
+       * @description The label of the from wallet
+       * @example Binance 1
+       */
+      from_wallet_label?: string | unknown;
+      /**
        * @description The address of the contract
        * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
        */
       to_wallet: string;
+      /**
+       * @description The label of the to wallet
+       * @example Binance 2
+       */
+      to_wallet_label?: string | unknown;
       /**
        * @description The value of the transfer
        * @example 57732989482831651
@@ -717,31 +774,36 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     erc20TransfersResponse: {
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["erc20Transfer"][];
+      result: components["schemas"]["erc20Transfer"][];
     };
     erc20MintsResponse: {
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["erc20Mint"][];
+      result: components["schemas"]["erc20Mint"][];
     };
     erc20BurnsResponse: {
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["erc20Burn"][];
+      result: components["schemas"]["erc20Burn"][];
     };
     erc20ApprovalsResponse: {
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["erc20Approval"][];
+      result: components["schemas"]["erc20Approval"][];
     };
     logResponse: {
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["log"][];
+      result: components["schemas"]["log"][];
     };
     blockTransaction: {
       /**
@@ -762,10 +824,20 @@ export interface components {
        */
       from_address: string;
       /**
+       * @description The label of the from address
+       * @example Binance 1
+       */
+      from_address_label?: string | unknown;
+      /**
        * @description The to address
        * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
        */
       to_address: string | unknown;
+      /**
+       * @description The label of the to address
+       * @example Binance 2
+       */
+      to_address_label?: string | unknown;
       /**
        * @description The value sent
        * @example 115580000000000000
@@ -829,10 +901,20 @@ export interface components {
        */
       from_address: string;
       /**
+       * @description The label of the from address
+       * @example Binance 1
+       */
+      from_address_label?: string | unknown;
+      /**
        * @description The to address
        * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
        */
       to_address: string;
+      /**
+       * @description The label of the to address
+       * @example Binance 2
+       */
+      to_address_label?: string | unknown;
       /**
        * @description The value sent
        * @example 115580000000000000
@@ -972,10 +1054,20 @@ export interface components {
        */
       from_address: string;
       /**
+       * @description The label of the from address
+       * @example Binance 1
+       */
+      from_address_label?: string | unknown;
+      /**
        * @description The to address
        * @example 0x003dde3494f30d861d063232c6a8c04394b686ff
        */
       to_address: string;
+      /**
+       * @description The label of the to address
+       * @example Binance 2
+       */
+      to_address_label?: string | unknown;
       /**
        * @description The value sent
        * @example 115580000000000000
@@ -1106,6 +1198,45 @@ export interface components {
        */
       media_items?: boolean;
     };
+    tokenPriceItem: {
+      /**
+       * @description The contract address
+       * @example 0x06012c8cf97bead5deae237070f9587f8e7a266d
+       */
+      token_address: string;
+      /**
+       * @description The exchange
+       * @example uniswapv3
+       */
+      exchange?: string;
+      /**
+       * @description The block number
+       * @example 12526958
+       */
+      to_block?: string;
+    };
+    GetMultipleTokenPricesDto: {
+      /**
+       * @description The tokens to be fetched
+       * @example [
+       *   {
+       *     "token_address": "0xdac17f958d2ee523a2206206994597c13d831ec7"
+       *   },
+       *   {
+       *     "token_address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+       *   },
+       *   {
+       *     "token_address": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84",
+       *     "exchange": "uniswapv2",
+       *     "to_block": "16314545"
+       *   },
+       *   {
+       *     "token_address": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
+       *   }
+       * ]
+       */
+      tokens: components["schemas"]["tokenPriceItem"][];
+    };
     transactionCollection: {
       /**
        * @description The total number of matches for this query
@@ -1122,9 +1253,11 @@ export interface components {
        * @example 100
        */
       page_size?: number;
-      result?: components["schemas"]["transaction"][];
+      result: components["schemas"]["transaction"][];
     };
     transactionCollectionVerbose: {
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       /**
        * @description The current page of the result
        * @example 2
@@ -1135,29 +1268,46 @@ export interface components {
        * @example 100
        */
       page_size?: number;
-      result?: components["schemas"]["blockTransactionVerbose"][];
+      result: components["schemas"]["blockTransactionVerbose"][];
     };
-    walletNetWorth: {
+    walletActiveChains: {
       /**
-       * @description The native balance of the wallet
-       * @example 5540003996556578955
+       * @description The address of the wallet
+       * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
        */
-      native_balance: string;
+      address: string;
+      active_chains: components["schemas"]["walletActiveChain"][];
+    };
+    walletActiveChain: {
       /**
-       * @description The native balance of the wallet in decimals
-       * @example 5.540003996556578955
+       * @description The chain name
+       * @example eth
        */
-      native_balance_decimals: number;
+      chain: string;
       /**
-       * @description The native balance of the wallet in USD
-       * @example 10545.313
+       * @description The chain id
+       * @example 0x1
        */
-      native_balance_usd: string;
+      chain_id: string;
+      first_transaction?: components["schemas"]["transactionTimestamp"];
+      last_transaction?: components["schemas"]["transactionTimestamp"];
+    };
+    transactionTimestamp: {
       /**
-       * @description The total networth of the wallet in USD
-       * @example 26259173.472450234
+       * @description The block number
+       * @example 123456789
        */
-      total_networth_usd: string;
+      block_number: string;
+      /**
+       * @description The block timestamp
+       * @example 2022-08-23T20:58:31.000Z
+       */
+      block_timestamp: string;
+      /**
+       * @description The hash of the transaction
+       * @example 0x2d30ca6f024dbc1307ac8a1a44ca27de6f797ec22ef20627a1307243b0ab7d09
+       */
+      transaction_hash?: string;
     };
     transaction: {
       /**
@@ -1181,10 +1331,20 @@ export interface components {
        */
       from_address: string;
       /**
+       * @description The label of the from address
+       * @example Binance 1
+       */
+      from_address_label?: string | unknown;
+      /**
        * @description The recipient
        * @example 0xa71db868318f0a0bae9411347cd4a6fa23d8d4ef
        */
       to_address: string;
+      /**
+       * @description The label of the to address
+       * @example Binance 2
+       */
+      to_address_label?: string | unknown;
       /**
        * @description The value that was transferred (in wei)
        * @example 650000000000000000
@@ -1344,6 +1504,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     nativeBalance: {
       /**
@@ -1432,7 +1597,7 @@ export interface components {
       page_size?: number;
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["trade"][];
+      result: components["schemas"]["trade"][];
     };
     /**
      * @default
@@ -1543,6 +1708,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     nftMetadata: {
       /**
@@ -1625,6 +1795,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     nftWalletCollections: {
       /**
@@ -1649,7 +1824,7 @@ export interface components {
       page_size?: number;
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["nftCollections"][];
+      result: components["schemas"]["nftCollections"][];
     };
     nftCollection: {
       /**
@@ -1669,7 +1844,7 @@ export interface components {
       page_size?: number;
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["nft"][];
+      result: components["schemas"]["nft"][];
     };
     nftMetadataCollection: {
       /**
@@ -1687,7 +1862,7 @@ export interface components {
        * @example 100
        */
       page_size?: number;
-      result?: components["schemas"]["nftMetadata"][];
+      result: components["schemas"]["nftMetadata"][];
     };
     nftCollections: {
       /**
@@ -1710,6 +1885,16 @@ export interface components {
        * @example RARI
        */
       symbol: string;
+      /**
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
+       */
+      possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection: boolean;
     };
     nftOwner: {
       /**
@@ -1785,6 +1970,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     normalizedMetadataAttribute: {
       /**
@@ -1912,7 +2102,7 @@ export interface components {
       page_size?: number;
       /** @description The cursor to get to the next page */
       cursor?: string;
-      result?: components["schemas"]["nftOwner"][];
+      result: components["schemas"]["nftOwner"][];
     };
     nftTransfer: {
       /**
@@ -1931,10 +2121,20 @@ export interface components {
        */
       from_address?: string;
       /**
+       * @description The label of the from address
+       * @example Binance 1
+       */
+      from_address_label?: string | unknown;
+      /**
        * @description The address that received the NFT
        * @example 0x057Ec652A4F150f7FF94f089A38008f49a0DF88e
        */
       to_address: string;
+      /**
+       * @description The label of the to address
+       * @example Binance 2
+       */
+      to_address_label?: string | unknown;
       /**
        * @description The value that was sent in the transaction (ETH/BNB/etc..)
        * @example 1000000000000000
@@ -1983,6 +2183,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     nftTransferCollection: {
       /**
@@ -2096,10 +2301,20 @@ export interface components {
        */
       to_address: string;
       /**
+       * @description The label of the to address
+       * @example Binance 2
+       */
+      to_address_label?: string | unknown;
+      /**
        * @description The sender
        * @example 0xd4a3BebD824189481FC45363602b83C9c7e9cbDf
        */
       from_address: string;
+      /**
+       * @description The label of the from address
+       * @example Binance 1
+       */
+      from_address_label?: string | unknown;
       /**
        * @description The value that was transfered (in wei)
        * @example 650000000000000000
@@ -2120,6 +2335,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     } & {
       value_decimal: unknown;
     };
@@ -2212,6 +2432,11 @@ export interface components {
        * @example false
        */
       possible_spam: boolean;
+      /**
+       * @description Indicates if a contract is verified
+       * @example false
+       */
+      verified_collection?: boolean;
     };
     metadataResync: {
       /** @description The status of the resync request */
@@ -2259,6 +2484,16 @@ export interface components {
        */
       usdPrice: number;
       /**
+       * @description The price in USD for the token in string format
+       * @example 19.722370676
+       */
+      usdPriceFormatted?: string;
+      /**
+       * @description The 24hr percent change of the token
+       * @example -0.8842730258590583
+       */
+      "24hrPercentChange"?: string;
+      /**
        * @description The address of the exchange used to calculate the price
        * @example 0x1f98431c8ad98523631ae4a59f267346ea31f984
        */
@@ -2273,6 +2508,11 @@ export interface components {
        * @example 0x67b6d479c7bb412c54e03dca8e1bc6740ce6b99c
        */
       tokenAddress?: string;
+      /**
+       * @description toBlock
+       * @example 16314545
+       */
+      toBlock?: string;
     };
     nativeErc20Price: {
       /**
@@ -2314,12 +2554,19 @@ export interface components {
        * @example 100
        */
       page_size?: number;
-      result?: components["schemas"]["erc20Transaction"][];
+      result: components["schemas"]["erc20Transaction"][];
     };
     ens: {
       /**
        * @description Resolved ENS address
        * @example Vitalik.eth
+       */
+      name: string;
+    };
+    unstoppableDomain: {
+      /**
+       * @description Resolved unstoppable domain address
+       * @example sandy.nft
        */
       name: string;
     };
@@ -2643,13 +2890,13 @@ export interface components {
       /**
        * @description This can be spam or not_spam
        * @example spam
-       * @enum {enum}
+       * @enum {string}
        */
       report_type: "spam" | "not_spam";
       /**
        * @description This can be ERC20, or NFT
        * @example ERC20
-       * @enum {enum}
+       * @enum {string}
        */
       contract_type: "ERC20" | "NFT";
     };
@@ -2689,6 +2936,8 @@ export interface operations {
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
         disable_total?: boolean;
+        /** Should spam NFTs be excluded from the result? */
+        exclude_spam?: boolean;
         /** The addresses to get balances for (optional) */
         token_addresses?: string[];
         /** The cursor returned in the previous response (used for getting the next page). */
@@ -2801,6 +3050,8 @@ export interface operations {
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
         disable_total?: boolean;
+        /** Should spam NFTs be excluded from the result? */
+        exclude_spam?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3212,7 +3463,14 @@ export interface operations {
     };
     responses: {
       /** Contract address was triggered for index. */
-      201: unknown;
+      201: {
+        content: {
+          "application/json": {
+            /** @example Request Initiated */
+            message?: string;
+          };
+        };
+      };
     };
   };
   /**
@@ -3361,6 +3619,8 @@ export interface operations {
         exchange?: string;
         /** The block number from which the token price should be checked */
         to_block?: number;
+        /** If the result should contain the 24hr percent change */
+        include?: "percent_change";
       };
       path: {
         /** The address of the token contract */
@@ -3373,6 +3633,31 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["erc20Price"];
         };
+      };
+    };
+  };
+  /** Returns an array of token prices denominated in the blockchain's native token and USD for a given token contract address */
+  getMultipleTokenPrices: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+        /** If the result should contain the 24hr percent change */
+        include?: "percent_change";
+      };
+    };
+    responses: {
+      /** Returns an array of token prices denominated in the blockchain's native token and USD for a given token contract address */
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20Price"][];
+        };
+      };
+    };
+    /** Body */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["GetMultipleTokenPricesDto"];
       };
     };
   };
@@ -3902,7 +4187,7 @@ export interface operations {
       /** Transaction details by transaction hash */
       200: {
         content: {
-          "application/json": components["schemas"]["blockTransaction"];
+          "application/json": components["schemas"]["blockTransactionVerbose"];
         };
       };
     };
@@ -4050,11 +4335,12 @@ export interface operations {
         topic: string;
         /** offset */
         offset?: number;
+        /** The cursor returned in the previous response (used for getting the next page). */
+        cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
         /** If the result should skip returning the total count (Improves performance). */
         disable_total?: boolean;
-        cursor?: string; // TODO: this is added manually for now.
       };
       path: {
         /** The address of the contract */
@@ -4081,7 +4367,7 @@ export interface operations {
              * @example 100
              */
             page_size?: number;
-            result?: components["schemas"]["logEvent"][];
+            result: components["schemas"]["logEvent"][];
           };
         };
       };
@@ -4181,6 +4467,29 @@ export interface operations {
         };
       };
       /** Returns an address */
+      404: {
+        content: {
+          "application/json": { [key: string]: unknown };
+        };
+      };
+    };
+  };
+  /** Resolve a specific address to its Unstoppable domain */
+  resolveAddressToDomain: {
+    parameters: {
+      path: {
+        /** The address to be resolved */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns an unstoppable domain */
+      200: {
+        content: {
+          "application/json": components["schemas"]["unstoppableDomain"];
+        };
+      };
+      /** Returns an unstoppable domain */
       404: {
         content: {
           "application/json": { [key: string]: unknown };
@@ -4375,6 +4684,27 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["ContractsReviewDto"];
+      };
+    };
+  };
+  /** Get the active chains for a wallet address. */
+  getWalletActiveChains: {
+    parameters: {
+      path: {
+        /** Wallet address */
+        address: string;
+      };
+      query: {
+        /** The chains to query */
+        chains?: components["schemas"]["chainList"][];
+      };
+    };
+    responses: {
+      /** Returns the active chains for the wallet address. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["walletActiveChains"];
+        };
       };
     };
   };

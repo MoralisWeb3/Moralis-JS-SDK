@@ -1,5 +1,5 @@
 {
-  "url": "https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json",
+  "url": "https://deep-index.moralis.io/api-docs-2.2/v2.2/swagger.json",
   "generator": {
     "outputDir": "src/generated",
     "classNamePrefix": "Evm",
@@ -69,13 +69,17 @@
           "endpointWeights",
           "web3ApiVersion",
           "getNFTTrades",
-          "getErc20Transfers",
           "getTopERC20TokensByMarketCap",
           "getTopERC20TokensByPriceMovers",
           "getTopNFTCollectionsByMarketCap",
           "getHottestNFTCollectionsByTradingVolume",
           "reviewContracts",
-          "getWalletActiveChains"
+          "getWalletActiveChains",
+          "getWalletStats",
+          "getNFTTokenStats",
+          "getNFTCollectionStats",
+          "getBlockStats",
+          "getTokenStats"
         ]
       }
     }

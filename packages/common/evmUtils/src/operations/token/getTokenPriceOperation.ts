@@ -41,7 +41,7 @@ export const getTokenPriceOperation: Operation<
   groupName: 'token',
   urlPathPattern: '/erc20/{address}/price',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'exchange', 'toBlock'],
+  urlSearchParamNames: ['chain', 'exchange', 'toBlock', 'include'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -57,6 +57,7 @@ function getRequestUrlParams(request: GetTokenPriceRequest, core: Core) {
     exchange: request.exchange,
     to_block: maybe(request.toBlock, String),
     address: EvmAddress.create(request.address).lowercase,
+    include: request.include,
   };
 }
 
@@ -76,6 +77,7 @@ function serializeRequest(request: GetTokenPriceRequest, core: Core) {
     exchange: request.exchange,
     toBlock: request.toBlock,
     address: EvmAddress.create(request.address).checksum,
+    include: request.include,
   };
 }
 
@@ -85,5 +87,6 @@ function deserializeRequest(jsonRequest: GetTokenPriceJSONRequest): GetTokenPric
     exchange: jsonRequest.exchange,
     toBlock: jsonRequest.toBlock,
     address: EvmAddress.create(jsonRequest.address),
+    include: jsonRequest.include,
   };
 }

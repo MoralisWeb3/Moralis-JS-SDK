@@ -18,6 +18,7 @@ describe('getTokenPriceOperation', () => {
       chain: EvmChain.create(chain),
       exchange: 'pancakeswapv2',
       toBlock: 20,
+      include: 'percent_change',
     };
 
     const serializedRequest = getTokenPriceOperation.serializeRequest(request, core);
@@ -26,6 +27,7 @@ describe('getTokenPriceOperation', () => {
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.exchange).toBe(request.exchange);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
+    expect(serializedRequest.include).toBe(request.include);
 
     const deserializedRequest = getTokenPriceOperation.deserializeRequest(serializedRequest, core);
 
@@ -33,5 +35,6 @@ describe('getTokenPriceOperation', () => {
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.exchange).toBe(request.exchange);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
+    expect(deserializedRequest.include).toBe(request.include);
   });
 });

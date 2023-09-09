@@ -21,8 +21,10 @@ async function main() {
   });
   console.log(block);
 
-  const weights = await Moralis.EvmApi.utils.endpointWeights();
-  console.log(weights.result);
+  const blockStats = await Moralis.EvmApi.block.getBlockStats({
+    blockNumberOrHash: '18091265',
+  });
+  console.log(blockStats.result);
 }
 
 main();

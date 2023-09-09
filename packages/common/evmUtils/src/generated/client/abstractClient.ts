@@ -1,7 +1,5 @@
 import { GetNFTTradesOperation, GetNFTTradesOperationRequest, GetNFTTradesOperationRequestJSON } from '../operations/GetNFTTradesOperation';
 import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCollection';
-import { GetErc20TransfersOperation, GetErc20TransfersOperationRequest, GetErc20TransfersOperationRequestJSON } from '../operations/GetErc20TransfersOperation';
-import { EvmErc20TransfersResponse, EvmErc20TransfersResponseJSON } from '../types/EvmErc20TransfersResponse';
 import { Web3ApiVersionOperation, Web3ApiVersionOperationRequest, Web3ApiVersionOperationRequestJSON } from '../operations/Web3ApiVersionOperation';
 import { EvmWeb3version, EvmWeb3versionJSON } from '../types/EvmWeb3version';
 import { EndpointWeightsOperation, EndpointWeightsOperationRequest, EndpointWeightsOperationRequestJSON } from '../operations/EndpointWeightsOperation';
@@ -19,6 +17,16 @@ import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewCo
 import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
 import { GetWalletActiveChainsOperation, GetWalletActiveChainsOperationRequest, GetWalletActiveChainsOperationRequestJSON } from '../operations/GetWalletActiveChainsOperation';
 import { EvmWalletActiveChains, EvmWalletActiveChainsJSON } from '../types/EvmWalletActiveChains';
+import { GetWalletStatsOperation, GetWalletStatsOperationRequest, GetWalletStatsOperationRequestJSON } from '../operations/GetWalletStatsOperation';
+import { EvmWalletStat, EvmWalletStatJSON } from '../types/EvmWalletStat';
+import { GetNFTCollectionStatsOperation, GetNFTCollectionStatsOperationRequest, GetNFTCollectionStatsOperationRequestJSON } from '../operations/GetNFTCollectionStatsOperation';
+import { EvmNftCollectionStat, EvmNftCollectionStatJSON } from '../types/EvmNftCollectionStat';
+import { GetNFTTokenStatsOperation, GetNFTTokenStatsOperationRequest, GetNFTTokenStatsOperationRequestJSON } from '../operations/GetNFTTokenStatsOperation';
+import { EvmNftTokenStat, EvmNftTokenStatJSON } from '../types/EvmNftTokenStat';
+import { GetTokenStatsOperation, GetTokenStatsOperationRequest, GetTokenStatsOperationRequestJSON } from '../operations/GetTokenStatsOperation';
+import { EvmErc20TokenStat, EvmErc20TokenStatJSON } from '../types/EvmErc20TokenStat';
+import { GetBlockStatsOperation, GetBlockStatsOperationRequest, GetBlockStatsOperationRequestJSON } from '../operations/GetBlockStatsOperation';
+import { EvmBlockTokenStat, EvmBlockTokenStatJSON } from '../types/EvmBlockTokenStat';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -41,6 +49,21 @@ export abstract class AbstractClient {
     operation: OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON>
   ): (request: Request, body: Body) => Promise<Response>;
 
+  public readonly block = {
+    /**
+     * @description Get the stats for a block
+     * @param request Request with parameters.
+     * @param {String} request.blockNumberOrHash The block number or hash
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getBlockStats: this.createEndpoint<
+      GetBlockStatsOperationRequest,
+      GetBlockStatsOperationRequestJSON,
+      EvmBlockTokenStat,
+      EvmBlockTokenStatJSON
+    >(GetBlockStatsOperation),
+  };
   public readonly marketData = {
     /**
      * @description Get the top ERC20 tokens by market cap
@@ -106,7 +129,6 @@ export abstract class AbstractClient {
      * @param {Object} [request.marketplace] Marketplace from which to get the trades (only OpenSea is supported at the moment) (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Number} [request.limit] The desired page size of the result. (optional)
-     * @param {Boolean} [request.disableTotal] If the result should skip returning the total count (Improves performance). (optional)
      * @returns {Object} Response for the request.
      */
     getNFTTrades: this.createEndpoint<
@@ -115,28 +137,48 @@ export abstract class AbstractClient {
       EvmTradeCollection,
       EvmTradeCollectionJSON
     >(GetNFTTradesOperation),
+    /**
+     * @description Get the stats for a nft collection address.
+     * @param request Request with parameters.
+     * @param {Object} request.address The address of the NFT collection
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getNFTCollectionStats: this.createEndpoint<
+      GetNFTCollectionStatsOperationRequest,
+      GetNFTCollectionStatsOperationRequestJSON,
+      EvmNftCollectionStat,
+      EvmNftCollectionStatJSON
+    >(GetNFTCollectionStatsOperation),
+    /**
+     * @description Get the stats for a nft token
+     * @param request Request with parameters.
+     * @param {Object} request.address The address of the NFT collection
+     * @param {String} request.tokenId The token id of the NFT collection
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getNFTTokenStats: this.createEndpoint<
+      GetNFTTokenStatsOperationRequest,
+      GetNFTTokenStatsOperationRequestJSON,
+      EvmNftTokenStat,
+      EvmNftTokenStatJSON
+    >(GetNFTTokenStatsOperation),
   };
   public readonly token = {
     /**
-     * @description getErc20Transfers
+     * @description Get the stats for a erc20 token
      * @param request Request with parameters.
+     * @param {Object} request.address The address of the erc20 token
      * @param {Object} [request.chain] The chain to query (optional)
-     * @param {Number} [request.fromBlock] The block number from which the transfers will be returned (optional)
-     * @param {Number} [request.toBlock] The block number to which the transfers will be returned (optional)
-     * @param {Number} [request.limit] The desired page size of the result. (optional)
-     * @param {Object[]} [request.contractAddresses] Contract addresses to only include (optional)
-     * @param {Object[]} [request.excludeContracts] Contract addresses to ignore (optional)
-     * @param {Object[]} [request.walletAddresses] Wallet addresses to only include (optional)
-     * @param {Object[]} [request.excludeWallets] Wallet addresses to ignore (optional)
-     * @param {String} [request.cursor] The cursor returned in the previous response (used to getting the next page). (optional)
      * @returns {Object} Response for the request.
      */
-    getErc20Transfers: this.createEndpoint<
-      GetErc20TransfersOperationRequest,
-      GetErc20TransfersOperationRequestJSON,
-      EvmErc20TransfersResponse,
-      EvmErc20TransfersResponseJSON
-    >(GetErc20TransfersOperation),
+    getTokenStats: this.createEndpoint<
+      GetTokenStatsOperationRequest,
+      GetTokenStatsOperationRequestJSON,
+      EvmErc20TokenStat,
+      EvmErc20TokenStatJSON
+    >(GetTokenStatsOperation),
   };
   public readonly utils = {
     /**
@@ -192,5 +234,18 @@ export abstract class AbstractClient {
       EvmWalletActiveChains,
       EvmWalletActiveChainsJSON
     >(GetWalletActiveChainsOperation),
+    /**
+     * @description Get the stats for a wallet address.
+     * @param request Request with parameters.
+     * @param {Object} request.address Wallet address
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletStats: this.createEndpoint<
+      GetWalletStatsOperationRequest,
+      GetWalletStatsOperationRequestJSON,
+      EvmWalletStat,
+      EvmWalletStatJSON
+    >(GetWalletStatsOperation),
   };
 }

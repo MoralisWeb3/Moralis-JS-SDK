@@ -24,6 +24,7 @@ describe('getWalletNFTsOperation', () => {
       normalizeMetadata: false,
       disableTotal: true,
       mediaItems: true,
+      excludeSpam: true,
     };
 
     const serializedRequest = getWalletNFTsOperation.serializeRequest(request, core);
@@ -54,5 +55,7 @@ describe('getWalletNFTsOperation', () => {
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.normalizeMetadata).toBe(request.normalizeMetadata);
     expect(deserializedRequest.disableTotal).toBe(true);
+    expect(deserializedRequest.mediaItems).toBe(true);
+    expect(deserializedRequest.excludeSpam).toBe(true);
   });
 });

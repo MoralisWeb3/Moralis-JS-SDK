@@ -53,7 +53,7 @@ describe('EvmApi', () => {
   it('returns default baseUrl', () => {
     const { evmApi } = setupEvmApi();
 
-    expect(evmApi.baseUrl).toBe('https://deep-index.moralis.io/api/v2');
+    expect(evmApi.baseUrl).toBe('https://deep-index.moralis.io/api/v2.2');
   });
 
   it('supports custom baseUrl', () => {

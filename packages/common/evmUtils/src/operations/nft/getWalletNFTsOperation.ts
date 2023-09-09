@@ -65,6 +65,7 @@ export const getWalletNFTsOperation: PaginatedOperation<
     'normalizeMetadata',
     'disableTotal',
     'mediaItems',
+    'excludeSpam',
   ],
 
   getRequestUrlParams,
@@ -86,6 +87,7 @@ function getRequestUrlParams(request: GetWalletNFTsRequest, core: Core) {
     normalizeMetadata: request.normalizeMetadata,
     disable_total: request.disableTotal,
     media_items: request.mediaItems,
+    exclude_spam: request.excludeSpam,
   };
 }
 
@@ -131,6 +133,7 @@ function serializeRequest(request: GetWalletNFTsRequest, core: Core) {
     normalizeMetadata: request.normalizeMetadata,
     disableTotal: request.disableTotal,
     mediaItems: request.mediaItems,
+    excludeSpam: request.excludeSpam,
   };
 }
 
@@ -147,5 +150,6 @@ function deserializeRequest(jsonRequest: GetWalletNFTsJSONRequest): GetWalletNFT
     normalizeMetadata: jsonRequest.normalizeMetadata,
     disableTotal: jsonRequest.disableTotal,
     mediaItems: jsonRequest.mediaItems,
+    excludeSpam: jsonRequest.excludeSpam,
   };
 }
