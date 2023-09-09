@@ -26,7 +26,6 @@ describe('getNFTTransfersFromToBlockOperation', () => {
       format: 'decimal',
       limit: 100,
       cursor: 'CURSOR1',
-      disableTotal: true,
     };
 
     const serializedRequest = getNFTTransfersFromToBlockOperation.serializeRequest(request, core);
@@ -39,7 +38,6 @@ describe('getNFTTransfersFromToBlockOperation', () => {
     expect(serializedRequest.format).toBe(request.format);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
-    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getNFTTransfersFromToBlockOperation.deserializeRequest(serializedRequest, core);
 
@@ -51,6 +49,5 @@ describe('getNFTTransfersFromToBlockOperation', () => {
     expect(deserializedRequest.format).toBe(request.format);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
-    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

@@ -27,7 +27,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
       toDate: new Date(toDate),
       cursor: 'CURSOR1',
       limit: 333,
-      disableTotal: true,
       include: 'internal_transactions',
     };
 
@@ -41,7 +40,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
-    expect(serializedRequest.disableTotal).toBe(true);
     expect(serializedRequest.include).toBe(request.include);
 
     const deserializedRequest = getWalletTransactionsVerboseOperation.deserializeRequest(serializedRequest, core);
@@ -54,7 +52,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
-    expect(deserializedRequest.disableTotal).toBe(true);
     expect(deserializedRequest.include).toBe(request.include);
   });
 });

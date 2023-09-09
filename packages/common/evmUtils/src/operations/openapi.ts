@@ -105,10 +105,6 @@ export interface paths {
     /** Get the lowest executed price for an NFT contract for the last x days (only trades paid in ETH). */
     get: operations["getNFTLowestPrice"];
   };
-  "/nft/search": {
-    /** Get NFTs that match a given metadata search query. */
-    get: operations["searchNFTs"];
-  };
   "/erc20/{address}/price": {
     /** Get the token price denominated in the blockchain's native token and USD. */
     get: operations["getTokenPrice"];
@@ -140,18 +136,6 @@ export interface paths {
   "/erc20/{address}/transfers": {
     /** Get ERC20 token transactions from a contract ordered by block number in descending order. */
     get: operations["getTokenTransfers"];
-  };
-  "/erc20/transfers": {
-    get: operations["getErc20Transfers"];
-  };
-  "/erc20/mints": {
-    get: operations["getErc20Mints"];
-  };
-  "/erc20/burns": {
-    get: operations["getErc20Burns"];
-  };
-  "/erc20/approvals": {
-    get: operations["getErc20Approvals"];
   };
   "/{address}/balance": {
     /** Get the native balance for a specific wallet address. */
@@ -264,6 +248,26 @@ export interface paths {
     /** Get the active chains for a wallet address. */
     get: operations["getWalletActiveChains"];
   };
+  "/wallets/{address}/stats": {
+    /** Get the stats for a wallet address. */
+    get: operations["getWalletStats"];
+  };
+  "/nft/{address}/stats": {
+    /** Get the stats for a nft collection address. */
+    get: operations["getNFTCollectionStats"];
+  };
+  "/nft/{address}/{token_id}/stats": {
+    /** Get the stats for a nft token */
+    get: operations["getNFTTokenStats"];
+  };
+  "/erc20/{address}/stats": {
+    /** Get the stats for a erc20 token */
+    get: operations["getTokenStats"];
+  };
+  "/block/{block_number_or_hash}/stats": {
+    /** Get the stats for a block */
+    get: operations["getBlockStats"];
+  };
 }
 
 export interface components {
@@ -301,11 +305,6 @@ export interface components {
       }[];
     };
     logCollection: {
-      /**
-       * @description The total number of matches for this query
-       * @example 100
-       */
-      total?: number;
       /**
        * @description The current page of the result
        * @example 1
@@ -495,310 +494,6 @@ export interface components {
       block_hash: string;
       /** @description The decoded data of the log */
       decoded_event: components["schemas"]["decodedEvent"];
-    };
-    erc20Transfer: {
-      /** @example Tether USD */
-      token_name: string;
-      /** @example USDT */
-      token_symbol: string;
-      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
-      token_logo?: string;
-      /** @example 6 */
-      token_decimals: string;
-      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
-      contract_address: string;
-      /**
-       * @description The hash of the transaction
-       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
-       */
-      transaction_hash: string;
-      /** @example 204 */
-      transaction_index: string;
-      /** @example 204 */
-      log_index: string;
-      /**
-       * @description The timestamp of the block
-       * @example 2021-05-07T11:08:35.000Z
-       */
-      block_timestamp: string;
-      /**
-       * @description The block number
-       * @example 12386788
-       */
-      block_number: string;
-      /**
-       * @description The hash of the block
-       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
-       */
-      block_hash: string;
-      /**
-       * @description The address of the contract
-       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
-       */
-      from_wallet: string;
-      /**
-       * @description The label of the from wallet
-       * @example Binance 1
-       */
-      from_wallet_label?: string | unknown;
-      /**
-       * @description The address of the contract
-       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
-       */
-      to_wallet: string;
-      /**
-       * @description The label of the to wallet
-       * @example Binance 2
-       */
-      to_wallet_label?: string | unknown;
-      /**
-       * @description The value of the transfer
-       * @example 57732989482831651
-       */
-      value: string;
-      /**
-       * @description The decimal value of the transfer
-       * @example 577329894.8283165
-       */
-      value_decimal: string;
-      /**
-       * @description Indicates if a contract is possibly a spam contract
-       * @example false
-       */
-      possible_spam: boolean;
-      /**
-       * @description Indicates if a contract is verified
-       * @example false
-       */
-      verified_collection?: boolean;
-    };
-    erc20Burn: {
-      /** @example Tether USD */
-      token_name: string;
-      /** @example USDT */
-      token_symbol: string;
-      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
-      token_logo?: string;
-      /** @example 6 */
-      token_decimals: string;
-      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
-      contract_address: string;
-      /**
-       * @description The hash of the transaction
-       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
-       */
-      transaction_hash: string;
-      /** @example 204 */
-      transaction_index: number;
-      /** @example 204 */
-      log_index: number;
-      /**
-       * @description The timestamp of the block
-       * @example 2021-05-07T11:08:35.000Z
-       */
-      block_timestamp: string;
-      /**
-       * @description The block number
-       * @example 12386788
-       */
-      block_number: number;
-      /**
-       * @description The hash of the block
-       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
-       */
-      block_hash: string;
-      /**
-       * @description The address of the contract
-       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
-       */
-      from_wallet: string;
-      /**
-       * @description The label of the from wallet
-       * @example Binance 1
-       */
-      from_wallet_label?: string | unknown;
-      /**
-       * @description The value of the transfer
-       * @example 57732989482831651
-       */
-      value: string;
-      /**
-       * @description The decimal value of the transfer
-       * @example 577329894.8283165
-       */
-      value_decimal: string;
-      /**
-       * @description Indicates if a contract is possibly a spam contract
-       * @example false
-       */
-      possible_spam?: boolean;
-      /**
-       * @description Indicates if a contract is verified
-       * @example false
-       */
-      verified_collection?: boolean;
-    };
-    erc20Mint: {
-      /** @example Tether USD */
-      token_name: string;
-      /** @example USDT */
-      token_symbol: string;
-      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
-      token_logo?: string;
-      /** @example 6 */
-      token_decimals: string;
-      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
-      contract_address: string;
-      /**
-       * @description The hash of the transaction
-       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
-       */
-      transaction_hash: string;
-      /** @example 204 */
-      transaction_index: number;
-      /** @example 204 */
-      log_index: number;
-      /**
-       * @description The timestamp of the block
-       * @example 2021-05-07T11:08:35.000Z
-       */
-      block_timestamp: string;
-      /**
-       * @description The block number
-       * @example 12386788
-       */
-      block_number: number;
-      /**
-       * @description The hash of the block
-       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
-       */
-      block_hash: string;
-      /**
-       * @description The address of the contract
-       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
-       */
-      to_wallet: string;
-      /**
-       * @description The label of the to wallet
-       * @example Binance 2
-       */
-      to_wallet_label?: string | unknown;
-      /**
-       * @description The value of the transfer
-       * @example 57732989482831651
-       */
-      value: string;
-      /**
-       * @description The decimal value of the transfer
-       * @example 577329894.8283165
-       */
-      value_decimal: string;
-      /**
-       * @description Indicates if a contract is possibly a spam contract
-       * @example false
-       */
-      possible_spam?: boolean;
-      /**
-       * @description Indicates if a contract is verified
-       * @example false
-       */
-      verified_collection?: boolean;
-    };
-    erc20Approval: {
-      /** @example Tether USD */
-      token_name: string;
-      /** @example USDT */
-      token_symbol: string;
-      /** @example https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707 */
-      token_logo?: string;
-      /** @example 6 */
-      token_decimals: string;
-      /** @example 0x3105d328c66d8d55092358cf595d54608178e9b5 */
-      contract_address: string;
-      /**
-       * @description The hash of the transaction
-       * @example 0xdd9006489e46670e0e85d1fb88823099e7f596b08aeaac023e9da0851f26fdd5
-       */
-      transaction_hash: string;
-      /** @example 204 */
-      transaction_index: number;
-      /** @example 204 */
-      log_index: number;
-      /**
-       * @description The timestamp of the block
-       * @example 2021-05-07T11:08:35.000Z
-       */
-      block_timestamp: string;
-      /**
-       * @description The block number
-       * @example 12386788
-       */
-      block_number: number;
-      /**
-       * @description The hash of the block
-       * @example 0x9b559aef7ea858608c2e554246fe4a24287e7aeeb976848df2b9a2531f4b9171
-       */
-      block_hash: string;
-      /**
-       * @description The address of the contract
-       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
-       */
-      from_wallet: string;
-      /**
-       * @description The label of the from wallet
-       * @example Binance 1
-       */
-      from_wallet_label?: string | unknown;
-      /**
-       * @description The address of the contract
-       * @example 0x3105d328c66d8d55092358cf595d54608178e9b5
-       */
-      to_wallet: string;
-      /**
-       * @description The label of the to wallet
-       * @example Binance 2
-       */
-      to_wallet_label?: string | unknown;
-      /**
-       * @description The value of the transfer
-       * @example 57732989482831651
-       */
-      value: string;
-      /**
-       * @description The decimal value of the transfer
-       * @example 577329894.8283165
-       */
-      value_decimal: string;
-      /**
-       * @description Indicates if a contract is possibly a spam contract
-       * @example false
-       */
-      possible_spam: boolean;
-      /**
-       * @description Indicates if a contract is verified
-       * @example false
-       */
-      verified_collection?: boolean;
-    };
-    erc20TransfersResponse: {
-      /** @description The cursor to get to the next page */
-      cursor?: string;
-      result: components["schemas"]["erc20Transfer"][];
-    };
-    erc20MintsResponse: {
-      /** @description The cursor to get to the next page */
-      cursor?: string;
-      result: components["schemas"]["erc20Mint"][];
-    };
-    erc20BurnsResponse: {
-      /** @description The cursor to get to the next page */
-      cursor?: string;
-      result: components["schemas"]["erc20Burn"][];
-    };
-    erc20ApprovalsResponse: {
-      /** @description The cursor to get to the next page */
-      cursor?: string;
-      result: components["schemas"]["erc20Approval"][];
     };
     logResponse: {
       /** @description The cursor to get to the next page */
@@ -1238,11 +933,8 @@ export interface components {
       tokens: components["schemas"]["tokenPriceItem"][];
     };
     transactionCollection: {
-      /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       /**
        * @description The current page of the result
        * @example 2
@@ -1291,6 +983,119 @@ export interface components {
       chain_id: string;
       first_transaction?: components["schemas"]["transactionTimestamp"];
       last_transaction?: components["schemas"]["transactionTimestamp"];
+    };
+    walletStat: {
+      /**
+       * @description The number of NFTs owned by a wallet
+       * @example 100
+       */
+      nfts: string;
+      /**
+       * @description The number of unique NFT collections owned by a wallet
+       * @example 10
+       */
+      collections: string;
+      /** @description Transaction stats */
+      transactions: {
+        /**
+         * @description The number of transactions sent by a wallet
+         * @example 1000
+         */
+        total: string;
+      };
+      /** @description NFT transfer stats */
+      nft_transfers: {
+        /**
+         * @description The number of NFT transfers of a wallet
+         * @example 1000
+         */
+        total: string;
+      };
+      /** @description Token transfer stats */
+      token_transfers: {
+        /**
+         * @description The number of ERC20 token transfers of a wallet
+         * @example 1000
+         */
+        total: string;
+      };
+    };
+    nftCollectionStat: {
+      /**
+       * @description The number of tokens in the collection
+       * @example 100
+       */
+      total_tokens: string;
+      /** @description NFT collection owner stats */
+      owners: {
+        /**
+         * @description The number of current owners of the collection
+         * @example 1000
+         */
+        current: string;
+      };
+      /** @description NFT collection transfer stats */
+      transfers: {
+        /**
+         * @description The number of transfers of the collection
+         * @example 1000
+         */
+        total: string;
+      };
+    };
+    nftTokenStat: {
+      /** @description NFT token owner stats */
+      owners: {
+        /**
+         * @description The number of current owners of the nft token
+         * @example 1000
+         */
+        current: string;
+      };
+      /** @description NFT token transfer stats */
+      transfers: {
+        /**
+         * @description The number of transfers of the nft token
+         * @example 1000
+         */
+        total: string;
+      };
+    };
+    erc20TokenStat: {
+      /** @description ERC20 Token transfer stats */
+      transfers: {
+        /**
+         * @description The number of transfers of the token
+         * @example 1000
+         */
+        total: string;
+      };
+    };
+    blockTokenStat: {
+      /** @description Transaction stats */
+      transactions: {
+        /**
+         * @description The number of transactions made in a block
+         * @example 7
+         */
+        total: string;
+      };
+      /** @description NFT transfer stats */
+      nft_transfers: {
+        /**
+         * @description The number of NFT transfers made in a block
+         * @example 0
+         */
+        total: string;
+      };
+      /** @description Token transfer stats */
+      token_transfers: {
+        /**
+         * @description The number of ERC20 token transfers made in a block
+         * @example 0
+         */
+        total: string;
+      };
     };
     transactionTimestamp: {
       /**
@@ -1581,11 +1386,6 @@ export interface components {
     };
     tradeCollection: {
       /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
-      /**
        * @description The current page of the result
        * @example 2
        */
@@ -1714,104 +1514,12 @@ export interface components {
        */
       verified_collection?: boolean;
     };
-    nftMetadata: {
-      /**
-       * @description The token ID of the NFT
-       * @example 889
-       */
-      token_id: string;
-      /**
-       * @description The address of the NFT contract
-       * @example 0x8ce66ff0865570d1ff0bb0098fa41b4dc61e02e6
-       */
-      token_address: string;
-      /**
-       * @description The URI to the metadata of the token
-       * @example https://ipfs.moralis.io:2053/ipfs/QmZZbo8u8zEWg7wtmZhJS2W718WL6FA95T4XdgmCcLp1SJ/889.json
-       */
-      token_uri: string;
-      /**
-       * @description The metadata of the token
-       * @example {"name":"Bape #889","description":"The #1 metavestor clan (NFT/DAO) by a team with multi billion dollar company experience.","image":"https://bapesclan.mypinata.cloud/ipfs/QmTSUD5JA6qHaC5t25mcXySfz19AV9u4Mb6Na7ntQ6tEwf/889.jpg","attributes":[{"trait_type":"Background","value":"Black"},{"trait_type":"Body","value":"Man"},{"trait_type":"Dress","value":"Suit Tie Blue"},{"trait_type":"Face","value":"Pipe"},{"trait_type":"Eye","value":"Eye"}]}
-       */
-      metadata: string;
-      /** @example 1 */
-      is_valid: number;
-      /** @example 2 */
-      syncing: number;
-      /** @example 0 */
-      frozen: number;
-      /** @example 0 */
-      resyncing: number;
-      /**
-       * @description The type of NFT contract standard
-       * @example ERC721
-       */
-      contract_type: string;
-      /** @example fffa3102469ce77f569893d16d5884f9 */
-      token_hash: string;
-      /** @example fd995c8a-f8b2-40cb-a407-f43e552638b4 */
-      batch_id: string;
-      /** @example Bape #889 */
-      metadata_name: string;
-      /** @example The #1 metavestor clan (NFT/DAO) by a team with multi billion dollar company experience. */
-      metadata_description: string;
-      /** @example [{"trait_type":"Background","value":"Black"},{"trait_type":"Body","value":"Man"},{"trait_type":"Dress","value":"Suit Tie Blue"},{"trait_type":"Face","value":"Pipe"},{"trait_type":"Eye","value":"Eye"}] */
-      metadata_attributes: string;
-      /** @example 14265936 */
-      block_number_minted: string;
-      /** @example null */
-      opensea_lookup?: { [key: string]: unknown };
-      /** @example 0xdcf086e3f7954b38180daae1405569da86588bfe */
-      minter_address: string;
-      /** @example 0x2c8d7ec7a8439b0f67b50e93be63242de52e9b5cdfc7dc0aee80c6a2f104c41a */
-      transaction_minted: string;
-      /** @example null */
-      frozen_log_index?: { [key: string]: unknown };
-      /** @example null */
-      imported?: { [key: string]: unknown };
-      /**
-       * @description When the token_uri was last updated
-       * @example 2021-02-24T00:47:26.647Z
-       */
-      last_token_uri_sync: string;
-      /**
-       * @description When the metadata was last updated
-       * @example 2021-02-24T00:47:26.647Z
-       */
-      last_metadata_sync: string;
-      /**
-       * Format: date-time
-       * @example 2022-02-24T00:47:26.647Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @example 2022-04-09T23:56:44.807Z
-       */
-      updatedAt: string;
-      /**
-       * @description Indicates if a contract is possibly a spam contract
-       * @example false
-       */
-      possible_spam: boolean;
-      /**
-       * @description Indicates if a contract is verified
-       * @example false
-       */
-      verified_collection?: boolean;
-    };
     nftWalletCollections: {
       /**
        * @description The syncing status of the address [SYNCING/SYNCED]
        * @example SYNCING
        */
       status?: string;
-      /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
       /**
        * @description The current page of the result
        * @example 2
@@ -1828,11 +1536,6 @@ export interface components {
     };
     nftCollection: {
       /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
-      /**
        * @description The current page of the result
        * @example 2
        */
@@ -1845,24 +1548,6 @@ export interface components {
       /** @description The cursor to get to the next page */
       cursor?: string;
       result: components["schemas"]["nft"][];
-    };
-    nftMetadataCollection: {
-      /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
-      /**
-       * @description The current page of the result
-       * @example 2
-       */
-      page?: number;
-      /**
-       * @description The number of results per page
-       * @example 100
-       */
-      page_size?: number;
-      result: components["schemas"]["nftMetadata"][];
     };
     nftCollections: {
       /**
@@ -2086,11 +1771,6 @@ export interface components {
        */
       status?: string;
       /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
-      /**
        * @description The current page of the result
        * @example 2
        */
@@ -2191,11 +1871,6 @@ export interface components {
     };
     nftTransferCollection: {
       /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total: number;
-      /**
        * @description The current page of the result
        * @example 2
        */
@@ -2242,24 +1917,16 @@ export interface components {
        * @example ERC721
        */
       contract_type: string;
-    };
-    nftContractMetadataCollection: {
       /**
-       * @description The total number of matches for this query
-       * @example 2000
+       * @description Indicates if a contract is possibly a spam contract
+       * @example false
        */
-      total: number;
+      possible_spam: boolean;
       /**
-       * @description The current page of the result
-       * @example 2
+       * @description Indicates if a contract is verified
+       * @example false
        */
-      page: number;
-      /**
-       * @description The number of results per page
-       * @example 100
-       */
-      page_size: number;
-      result: components["schemas"]["nftContractMetadata"][];
+      verified_collection: boolean;
     };
     erc20Transaction: {
       /** @example Tether USD */
@@ -2540,11 +2207,6 @@ export interface components {
     };
     erc20TransactionCollection: {
       /**
-       * @description The total number of matches for this query
-       * @example 2000
-       */
-      total?: number;
-      /**
        * @description The current page of the result
        * @example 2
        */
@@ -2554,6 +2216,8 @@ export interface components {
        * @example 100
        */
       page_size?: number;
+      /** @description The cursor to get to the next page */
+      cursor?: string;
       result: components["schemas"]["erc20Transaction"][];
     };
     ens: {
@@ -2934,8 +2598,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** Should spam NFTs be excluded from the result? */
         exclude_spam?: boolean;
         /** The addresses to get balances for (optional) */
@@ -2997,8 +2659,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The format of the token ID */
         format?: "decimal" | "hex";
-        /** The transfer direction */
-        direction?: "both" | "to" | "from";
         /**
          * The minimum block number from which to get the transfers
          * * Provide the param 'from_block' or 'from_date'
@@ -3021,8 +2681,6 @@ export interface operations {
         to_date?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3048,8 +2706,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** Should spam NFTs be excluded from the result? */
         exclude_spam?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
@@ -3083,8 +2739,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The number of subranges to split the results into */
         totalRanges?: number;
         /** The desired subrange to query */
@@ -3123,8 +2777,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** Should normalized metadata be returned? */
@@ -3180,8 +2832,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3233,8 +2883,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (for getting the next page) */
         cursor?: string;
       };
@@ -3256,8 +2904,6 @@ export interface operations {
         chain?: components["schemas"]["chainList"];
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3307,8 +2953,6 @@ export interface operations {
         cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
       };
       path: {
         /** The address of the NFT contract */
@@ -3390,8 +3034,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3424,8 +3066,6 @@ export interface operations {
         format?: "decimal" | "hex";
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
         /** Should normalized metadata be returned? */
@@ -3546,69 +3186,6 @@ export interface operations {
       };
     };
   };
-  /** Get NFTs that match a given metadata search query. */
-  searchNFTs: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The format of the token ID */
-        format?: "decimal" | "hex";
-        /** The search string */
-        q: string;
-        /** What fields the search should match on. To look into the entire metadata set the value to 'global'. To have a better response time you can look into a specific field like name */
-        filter?:
-          | "name"
-          | "description"
-          | "attributes"
-          | "global"
-          | "name,description"
-          | "name,attributes"
-          | "description,attributes"
-          | "name,description,attributes";
-        /**
-         * The minimum block number from which to start the search
-         * * Provide the param 'from_block' or 'from_date'
-         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
-         */
-        from_block?: number;
-        /**
-         * The maximum block number from which to end the search
-         * * Provide the param 'to_block' or 'to_date'
-         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
-         */
-        to_block?: number;
-        /**
-         * The date from which to start the search (any format that is accepted by momentjs)
-         * * Provide the param 'from_block' or 'from_date'
-         * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
-         */
-        from_date?: string;
-        /**
-         * Get search results up until this date (any format that is accepted by momentjs)
-         * * Provide the param 'to_block' or 'to_date'
-         * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
-         */
-        to_date?: string;
-        /** The addresses to get metadata for */
-        addresses?: string[];
-        /** The cursor returned in the previous response (used for getting the next page). */
-        cursor?: string;
-        /** The desired page size of the result. */
-        limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
-      };
-    };
-    responses: {
-      /** Returns the matching NFTs */
-      200: {
-        content: {
-          "application/json": components["schemas"]["nftMetadataCollection"];
-        };
-      };
-    };
-  };
   /** Get the token price denominated in the blockchain's native token and USD. */
   getTokenPrice: {
     parameters: {
@@ -3718,8 +3295,6 @@ export interface operations {
         to_date?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3832,8 +3407,6 @@ export interface operations {
         to_date?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -3847,130 +3420,6 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["erc20TransactionCollection"];
-        };
-      };
-    };
-  };
-  getErc20Transfers: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The block number from which the transfers will be returned */
-        from_block?: number;
-        /** The block number to which the transfers will be returned */
-        to_block?: number;
-        /** The desired page size of the result. */
-        limit?: number;
-        /** Contract addresses to only include */
-        contract_addresses?: string[];
-        /** Contract addresses to ignore */
-        exclude_contracts?: string[];
-        /** Wallet addresses to only include */
-        wallet_addresses?: string[];
-        /** Wallet addresses to ignore */
-        exclude_wallets?: string[];
-        /** The cursor returned in the previous response (used to getting the next page). */
-        cursor?: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["erc20TransfersResponse"];
-        };
-      };
-    };
-  };
-  getErc20Mints: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The block number from which the mints will be returned */
-        from_block?: number;
-        /** The block number to which the mints will be returned */
-        to_block?: number;
-        /** The desired page size of the result. */
-        limit?: number;
-        /** Contract addresses to only include */
-        contract_addresses?: string[];
-        /** Contract addresses to ignore */
-        exclude_contracts?: string[];
-        /** Wallet addresses to only include */
-        wallet_addresses?: string[];
-        /** Wallet addresses to ignore */
-        exclude_wallets?: string[];
-        /** The cursor returned in the previous response (used to getting the next page). */
-        cursor?: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["erc20MintsResponse"];
-        };
-      };
-    };
-  };
-  getErc20Burns: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The block number from which the burns will be returned */
-        from_block?: number;
-        /** The block number to which the burns will be returned */
-        to_block?: number;
-        /** The desired page size of the result. */
-        limit?: number;
-        /** Contract addresses to only include */
-        contract_addresses?: string[];
-        /** Contract addresses to ignore */
-        exclude_contracts?: string[];
-        /** Wallet addresses to only include */
-        wallet_addresses?: string[];
-        /** Wallet addresses to ignore */
-        exclude_wallets?: string[];
-        /** The cursor returned in the previous response (used to getting the next page). */
-        cursor?: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["erc20BurnsResponse"];
-        };
-      };
-    };
-  };
-  getErc20Approvals: {
-    parameters: {
-      query: {
-        /** The chain to query */
-        chain?: components["schemas"]["chainList"];
-        /** The block number from which the approvals will be returned */
-        from_block?: number;
-        /** The block number to which the approvals will be returned */
-        to_block?: number;
-        /** The desired page size of the result. */
-        limit?: number;
-        /** Contract addresses to only include */
-        contract_addresses?: string[];
-        /** Contract addresses to ignore */
-        exclude_contracts?: string[];
-        /** Wallet addresses to only include */
-        wallet_addresses?: string[];
-        /** Wallet addresses to ignore */
-        exclude_wallets?: string[];
-        /** The cursor returned in the previous response (used to getting the next page). */
-        cursor?: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["erc20ApprovalsResponse"];
         };
       };
     };
@@ -4053,8 +3502,6 @@ export interface operations {
         cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** If the result should contain the internal transactions. */
         include?: components["schemas"]["includeList"];
       };
@@ -4108,8 +3555,6 @@ export interface operations {
         cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
       };
       path: {
         /** The address of the wallet */
@@ -4273,17 +3718,9 @@ export interface operations {
          */
         to_date?: string;
         /** topic0 */
-        topic0?: string;
-        /** topic1 */
-        topic1?: string;
-        /** topic2 */
-        topic2?: string;
-        /** topic3 */
-        topic3?: string;
+        topic0: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
         /** The cursor returned in the previous response (used for getting the next page). */
         cursor?: string;
       };
@@ -4339,8 +3776,6 @@ export interface operations {
         cursor?: string;
         /** The desired page size of the result. */
         limit?: number;
-        /** If the result should skip returning the total count (Improves performance). */
-        disable_total?: boolean;
       };
       path: {
         /** The address of the contract */
@@ -4352,11 +3787,6 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            /**
-             * @description The total number of matches for this query
-             * @example 2000
-             */
-            total?: number;
             /**
              * @description The current page of the result
              * @example 2
@@ -4704,6 +4134,113 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["walletActiveChains"];
+        };
+      };
+    };
+  };
+  /** Get the stats for a wallet address. */
+  getWalletStats: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** Wallet address */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns the stats for the wallet address. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["walletStat"];
+        };
+      };
+    };
+  };
+  /** Get the stats for a nft collection address. */
+  getNFTCollectionStats: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** The address of the NFT collection */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns the stats for the nft collection address. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftCollectionStat"];
+        };
+      };
+    };
+  };
+  /** Get the stats for a nft token */
+  getNFTTokenStats: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** The address of the NFT collection */
+        address: string;
+        /** The token id of the NFT collection */
+        token_id: string;
+      };
+    };
+    responses: {
+      /** Returns the stats for the nft token. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["nftTokenStat"];
+        };
+      };
+    };
+  };
+  /** Get the stats for a erc20 token */
+  getTokenStats: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** The address of the erc20 token */
+        address: string;
+      };
+    };
+    responses: {
+      /** Returns the stats for the erc20 token. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["erc20TokenStat"];
+        };
+      };
+    };
+  };
+  /** Get the stats for a block */
+  getBlockStats: {
+    parameters: {
+      query: {
+        /** The chain to query */
+        chain?: components["schemas"]["chainList"];
+      };
+      path: {
+        /** The block number or hash */
+        block_number_or_hash: string;
+      };
+    };
+    responses: {
+      /** Returns the stats for the block. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["blockTokenStat"];
         };
       };
     };

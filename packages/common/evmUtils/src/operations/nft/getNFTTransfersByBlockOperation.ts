@@ -46,7 +46,7 @@ export const getNFTTransfersByBlockOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/block/{blockNumberOrHash}/nft/transfers',
   urlPathParamNames: ['blockNumberOrHash'],
-  urlSearchParamNames: ['chain', 'limit', 'cursor', 'disableTotal'],
+  urlSearchParamNames: ['chain', 'limit', 'cursor'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -63,7 +63,6 @@ function getRequestUrlParams(request: GetNFTTransfersByBlockRequest, core: Core)
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     blockNumberOrHash: request.blockNumberOrHash,
-    disable_total: request.disableTotal,
   };
 }
 
@@ -92,7 +91,6 @@ function serializeRequest(request: GetNFTTransfersByBlockRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     blockNumberOrHash: request.blockNumberOrHash,
-    disableTotal: request.disableTotal,
   };
 }
 
@@ -102,6 +100,5 @@ function deserializeRequest(jsonRequest: GetNFTTransfersByBlockJSONRequest): Get
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     blockNumberOrHash: jsonRequest.blockNumberOrHash,
-    disableTotal: jsonRequest.disableTotal,
   };
 }

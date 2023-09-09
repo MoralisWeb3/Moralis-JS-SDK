@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmContractLogsParams = Partial<GetContractLogsRequest>;
 export type UseEvmContractLogsQueryOptions = QueryOptions<GetContractLogsResponse, UseEvmContractLogsParams>;
 
-export function useEvmContractLogs({ address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, topic1, topic2, topic3, limit, cursor, disableTotal }: UseEvmContractLogsParams = {}, queryOptions: UseEvmContractLogsQueryOptions = {}) {
+export function useEvmContractLogs({ address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, limit, cursor }: UseEvmContractLogsParams = {}, queryOptions: UseEvmContractLogsQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getContractLogsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmContractLogs({ address, chain, blockNumber, fromBlock, toB
     return [
       getContractLogsOperation.id,
       {
-        address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, topic1, topic2, topic3, limit, cursor, disableTotal
+        address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, limit, cursor
       },
     ];
-  }, [address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, topic1, topic2, topic3, limit, cursor, disableTotal]);
+  }, [address, chain, blockNumber, fromBlock, toBlock, fromDate, toDate, topic0, limit, cursor]);
 
   return useQuery({
     ...queryOptions,

@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmWalletTransactionsVerboseParams = Partial<GetWalletTransactionsVerboseRequest>;
 export type UseEvmWalletTransactionsVerboseQueryOptions = QueryOptions<GetWalletTransactionsVerboseResponse, UseEvmWalletTransactionsVerboseParams>;
 
-export function useEvmWalletTransactionsVerbose({ address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit, disableTotal }: UseEvmWalletTransactionsVerboseParams = {}, queryOptions: UseEvmWalletTransactionsVerboseQueryOptions = {}) {
+export function useEvmWalletTransactionsVerbose({ address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit }: UseEvmWalletTransactionsVerboseParams = {}, queryOptions: UseEvmWalletTransactionsVerboseQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getWalletTransactionsVerboseOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmWalletTransactionsVerbose({ address, chain, fromBlock, toB
     return [
       getWalletTransactionsVerboseOperation.id,
       {
-        address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit, disableTotal
+        address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit
       },
     ];
-  }, [address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit, disableTotal]);
+  }, [address, chain, fromBlock, toBlock, fromDate, toDate, cursor, limit]);
 
   return useQuery({
     ...queryOptions,

@@ -18,7 +18,6 @@ describe('getWalletNFTCollectionsOperation', () => {
       address: EvmAddress.create(address),
       limit: 100,
       cursor: 'CURSOR1',
-      disableTotal: true,
       excludeSpam: true,
     };
 
@@ -28,7 +27,6 @@ describe('getWalletNFTCollectionsOperation', () => {
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
-    expect(serializedRequest.disableTotal).toBe(true);
     expect(serializedRequest.exclude_spam).toBe(true);
 
     const deserializedRequest = getWalletNFTCollectionsOperation.deserializeRequest(serializedRequest, core);
@@ -37,6 +35,5 @@ describe('getWalletNFTCollectionsOperation', () => {
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
-    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

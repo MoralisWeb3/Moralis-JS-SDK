@@ -53,17 +53,7 @@ export const getNFTTradesOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/trades',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: [
-    'chain',
-    'fromBlock',
-    'toBlock',
-    'fromDate',
-    'toDate',
-    'marketplace',
-    'cursor',
-    'limit',
-    'disableTotal',
-  ],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'marketplace', 'cursor', 'limit'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -85,7 +75,6 @@ function getRequestUrlParams(request: GetNFTTradesRequest, core: Core) {
     marketplace: request.marketplace,
     cursor: request.cursor,
     limit: maybe(request.limit, String),
-    disable_total: request.disableTotal,
   };
 }
 
@@ -104,7 +93,6 @@ function serializeRequest(request: GetNFTTradesRequest, core: Core) {
     cursor: request.cursor,
     limit: request.limit,
     address: EvmAddress.create(request.address).checksum,
-    disableTotal: request.disableTotal,
   };
 }
 
@@ -119,6 +107,5 @@ function deserializeRequest(jsonRequest: GetNFTTradesJSONRequest): GetNFTTradesR
     cursor: jsonRequest.cursor,
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address),
-    disableTotal: jsonRequest.disableTotal,
   };
 }

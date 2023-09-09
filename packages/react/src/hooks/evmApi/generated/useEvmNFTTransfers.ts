@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNFTTransfersParams = Partial<GetNFTTransfersRequest>;
 export type UseEvmNFTTransfersQueryOptions = QueryOptions<GetNFTTransfersResponse, UseEvmNFTTransfersParams>;
 
-export function useEvmNFTTransfers({ address, tokenId, chain, format, limit, cursor, disableTotal }: UseEvmNFTTransfersParams = {}, queryOptions: UseEvmNFTTransfersQueryOptions = {}) {
+export function useEvmNFTTransfers({ address, tokenId, chain, format, limit, cursor }: UseEvmNFTTransfersParams = {}, queryOptions: UseEvmNFTTransfersQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTransfersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNFTTransfers({ address, tokenId, chain, format, limit, cur
     return [
       getNFTTransfersOperation.id,
       {
-        address, tokenId, chain, format, limit, cursor, disableTotal
+        address, tokenId, chain, format, limit, cursor
       },
     ];
-  }, [address, tokenId, chain, format, limit, cursor, disableTotal]);
+  }, [address, tokenId, chain, format, limit, cursor]);
 
   return useQuery({
     ...queryOptions,

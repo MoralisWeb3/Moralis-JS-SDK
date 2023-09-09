@@ -17,12 +17,10 @@ describe('getWalletNFTTransfersOperation', () => {
       chain: EvmChain.create(chain),
       address: EvmAddress.create(address),
       format: 'decimal',
-      direction: 'from',
       fromBlock: 123,
       toBlock: '123',
       limit: 100,
       cursor: 'CURSOR1',
-      disableTotal: true,
       fromDate: '2021-01-01T00:00:00.000Z',
       toDate: '2021-01-01T00:00:00.000Z',
     };
@@ -32,12 +30,10 @@ describe('getWalletNFTTransfersOperation', () => {
     expect(serializedRequest.address).toBe(address);
     expect(serializedRequest.chain).toBe(chain);
     expect(serializedRequest.format).toBe(request.format);
-    expect(serializedRequest.direction).toBe(request.direction);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.cursor).toBe(request.cursor);
-    expect(serializedRequest.disableTotal).toBe(true);
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
 
@@ -46,12 +42,10 @@ describe('getWalletNFTTransfersOperation', () => {
     expect((deserializedRequest.address as EvmAddress).checksum).toBe(address);
     expect((deserializedRequest.chain as EvmChain).apiHex).toBe(chain);
     expect(deserializedRequest.format).toBe(request.format);
-    expect(deserializedRequest.direction).toBe(request.direction);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
-    expect(deserializedRequest.disableTotal).toBe(true);
     expect(deserializedRequest.fromDate).toBe(request.fromDate);
     expect(deserializedRequest.toDate).toBe(request.toDate);
   });

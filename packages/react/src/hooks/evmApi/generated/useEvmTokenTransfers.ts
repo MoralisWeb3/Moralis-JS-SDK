@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmTokenTransfersParams = Partial<GetTokenTransfersRequest>;
 export type UseEvmTokenTransfersQueryOptions = QueryOptions<GetTokenTransfersResponse, UseEvmTokenTransfersParams>;
 
-export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal }: UseEvmTokenTransfersParams = {}, queryOptions: UseEvmTokenTransfersQueryOptions = {}) {
+export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor }: UseEvmTokenTransfersParams = {}, queryOptions: UseEvmTokenTransfersQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getTokenTransfersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmTokenTransfers({ address, chain, fromBlock, toBlock, fromD
     return [
       getTokenTransfersOperation.id,
       {
-        address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal
+        address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor
       },
     ];
-  }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal]);
+  }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor]);
 
   return useQuery({
     ...queryOptions,

@@ -25,7 +25,6 @@ describe('getNFTTradesOperation', () => {
       toDate: new Date(toDate),
       cursor: 'CURSOR1',
       limit: 333,
-      disableTotal: true,
     };
 
     const serializedRequest = getNFTTradesOperation.serializeRequest(request, core);
@@ -39,7 +38,6 @@ describe('getNFTTradesOperation', () => {
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
-    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getNFTTradesOperation.deserializeRequest(serializedRequest, core);
 
@@ -52,6 +50,5 @@ describe('getNFTTradesOperation', () => {
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
-    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

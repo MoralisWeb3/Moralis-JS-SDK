@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNFTTradesParams = Partial<GetNFTTradesRequest>;
 export type UseEvmNFTTradesQueryOptions = QueryOptions<GetNFTTradesResponse, UseEvmNFTTradesParams>;
 
-export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal }: UseEvmNFTTradesParams = {}, queryOptions: UseEvmNFTTradesQueryOptions = {}) {
+export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit }: UseEvmNFTTradesParams = {}, queryOptions: UseEvmNFTTradesQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTradesOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNFTTrades({ address, chain, fromBlock, toBlock, fromDate, 
     return [
       getNFTTradesOperation.id,
       {
-        address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal
+        address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit
       },
     ];
-  }, [address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit, disableTotal]);
+  }, [address, chain, fromBlock, toBlock, fromDate, toDate, marketplace, cursor, limit]);
 
   return useQuery({
     ...queryOptions,

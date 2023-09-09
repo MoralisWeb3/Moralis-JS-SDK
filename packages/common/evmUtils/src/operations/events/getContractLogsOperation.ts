@@ -59,12 +59,8 @@ export const getContractLogsOperation: PaginatedOperation<
     'fromDate',
     'toDate',
     'topic0',
-    'topic1',
-    'topic2',
-    'topic3',
     'limit',
     'cursor',
-    'disableTotal',
   ],
   firstPageIndex: 0,
 
@@ -85,13 +81,9 @@ function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
     from_date: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     topic0: request.topic0,
-    topic1: request.topic1,
-    topic2: request.topic2,
-    topic3: request.topic3,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     address: EvmAddress.create(request.address).lowercase,
-    disable_total: request.disableTotal,
   };
 }
 
@@ -104,13 +96,9 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
     toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     topic0: request.topic0,
-    topic1: request.topic1,
-    topic2: request.topic2,
-    topic3: request.topic3,
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address).lowercase,
-    disableTotal: request.disableTotal,
   };
 }
 
@@ -123,13 +111,9 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest): GetContrac
     fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
     toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
     topic0: jsonRequest.topic0,
-    topic1: jsonRequest.topic1,
-    topic2: jsonRequest.topic2,
-    topic3: jsonRequest.topic3,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),
-    disableTotal: jsonRequest.disableTotal,
   };
 }
 

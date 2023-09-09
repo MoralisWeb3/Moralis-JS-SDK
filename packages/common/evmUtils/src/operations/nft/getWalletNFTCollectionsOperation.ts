@@ -47,7 +47,7 @@ export const getWalletNFTCollectionsOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/{address}/nft/collections',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'limit', 'cursor', 'disableTotal', 'excludeSpam'],
+  urlSearchParamNames: ['chain', 'limit', 'cursor', 'excludeSpam'],
   firstPageIndex: 1,
 
   getRequestUrlParams,
@@ -64,7 +64,6 @@ function getRequestUrlParams(request: GetWalletNFTCollectionsRequest, core: Core
     address: EvmAddress.create(request.address).lowercase,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
-    disable_total: request.disableTotal,
     exclude_spam: request.excludeSpam,
   };
 }
@@ -89,7 +88,6 @@ function serializeRequest(request: GetWalletNFTCollectionsRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address).checksum,
-    disableTotal: request.disableTotal,
     exclude_spam: request.excludeSpam,
   };
 }
@@ -100,7 +98,6 @@ function deserializeRequest(jsonRequest: GetWalletNFTCollectionsJSONRequest): Ge
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),
-    disableTotal: jsonRequest.disableTotal,
     excludeSpam: jsonRequest.exclude_spam,
   };
 }

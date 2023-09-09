@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNFTOwnersParams = Partial<GetNFTOwnersRequest>;
 export type UseEvmNFTOwnersQueryOptions = QueryOptions<GetNFTOwnersResponse, UseEvmNFTOwnersParams>;
 
-export function useEvmNFTOwners({ address, chain, format, limit, cursor, normalizeMetadata, disableTotal, mediaItems }: UseEvmNFTOwnersParams = {}, queryOptions: UseEvmNFTOwnersQueryOptions = {}) {
+export function useEvmNFTOwners({ address, chain, format, limit, cursor, normalizeMetadata, mediaItems }: UseEvmNFTOwnersParams = {}, queryOptions: UseEvmNFTOwnersQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTOwnersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNFTOwners({ address, chain, format, limit, cursor, normali
     return [
       getNFTOwnersOperation.id,
       {
-        address, chain, format, limit, cursor, normalizeMetadata, disableTotal, mediaItems
+        address, chain, format, limit, cursor, normalizeMetadata, mediaItems
       },
     ];
-  }, [address, chain, format, limit, cursor, normalizeMetadata, disableTotal, mediaItems]);
+  }, [address, chain, format, limit, cursor, normalizeMetadata, mediaItems]);
 
   return useQuery({
     ...queryOptions,
