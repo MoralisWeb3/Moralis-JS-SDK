@@ -9,7 +9,7 @@
     "test:e2e": "yarn run start"
   },
   "dependencies": {
-    "moralis": "^2.22.5"
+    "moralis": "^2.23.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.3"
