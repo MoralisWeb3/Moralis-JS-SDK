@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmWalletNFTCollectionsParams = Partial<GetWalletNFTCollectionsRequest>;
 export type UseEvmWalletNFTCollectionsQueryOptions = QueryOptions<GetWalletNFTCollectionsResponse, UseEvmWalletNFTCollectionsParams>;
 
-export function useEvmWalletNFTCollections({ address, chain, limit, cursor, disableTotal }: UseEvmWalletNFTCollectionsParams = {}, queryOptions: UseEvmWalletNFTCollectionsQueryOptions = {}) {
+export function useEvmWalletNFTCollections({ address, chain, limit, cursor }: UseEvmWalletNFTCollectionsParams = {}, queryOptions: UseEvmWalletNFTCollectionsQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getWalletNFTCollectionsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmWalletNFTCollections({ address, chain, limit, cursor, disa
     return [
       getWalletNFTCollectionsOperation.id,
       {
-        address, chain, limit, cursor, disableTotal
+        address, chain, limit, cursor
       },
     ];
-  }, [address, chain, limit, cursor, disableTotal]);
+  }, [address, chain, limit, cursor]);
 
   return useQuery({
     ...queryOptions,

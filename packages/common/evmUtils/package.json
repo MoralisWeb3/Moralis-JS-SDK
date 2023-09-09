@@ -39,7 +39,7 @@
     "clean": "rm -rf lib && rm -rf ./node_modules/.cache/nx",
     "build": "rollup -c",
     "dev": "tsc --watch",
-    "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.1/v2.1/swagger.json --output src/operations/openapi.ts"
+    "gen:api-types": "openapi-typescript https://deep-index.moralis.io/api-docs-2.2/v2.2/swagger.json --output src/operations/openapi.ts"
   },
   "devDependencies": {
     "@moralisweb3/eslint-config": "^1.0.3",

@@ -14,5 +14,4 @@ export * from './getWalletNFTCollectionsOperation';
 export * from './getWalletNFTsOperation';
 export * from './getWalletNFTTransfersOperation';
 export * from './reSyncMetadataOperation';
-export * from './searchNFTsOperation';
 export * from './syncNFTContractOperation';

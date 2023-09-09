@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmContractEventsParams = Partial<GetContractEventsRequest>;
 export type UseEvmContractEventsQueryOptions = QueryOptions<GetContractEventsResponse, UseEvmContractEventsParams>;
 
-export function useEvmContractEvents({ address, abi, chain, fromBlock, toBlock, fromDate, toDate, topic, offset, limit, disableTotal }: UseEvmContractEventsParams = {}, queryOptions: UseEvmContractEventsQueryOptions = {}) {
+export function useEvmContractEvents({ address, abi, chain, fromBlock, toBlock, fromDate, toDate, topic, offset, limit }: UseEvmContractEventsParams = {}, queryOptions: UseEvmContractEventsQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getContractEventsOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmContractEvents({ address, abi, chain, fromBlock, toBlock, 
     return [
       getContractEventsOperation.id,
       {
-        address, abi, chain, fromBlock, toBlock, fromDate, toDate, topic, offset, limit, disableTotal
+        address, abi, chain, fromBlock, toBlock, fromDate, toDate, topic, offset, limit
       },
     ];
-  }, [address, abi, chain, fromBlock, toBlock, fromDate, toDate, topic, offset, limit, disableTotal]);
+  }, [address, abi, chain, fromBlock, toBlock, fromDate, toDate, topic, offset, limit]);
 
   return useQuery({
     ...queryOptions,

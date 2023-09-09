@@ -20,7 +20,6 @@ import {
   getWalletNFTsOperation,
   getWalletNFTTransfersOperation,
   reSyncMetadataOperation,
-  searchNFTsOperation,
   syncNFTContractOperation,
 } from './nft';
 import { resolveAddressOperation, resolveDomainOperation, resolveENSDomainOperation } from './resolve';
@@ -31,11 +30,7 @@ import {
   getTokenPriceOperation,
   getTokenTransfersOperation,
   getWalletTokenBalancesOperation,
-  getErc20MintsOperation,
   getWalletTokenTransfersOperation,
-  getErc20ApprovalsOperation,
-  getErc20BurnsOperation,
-  getErc20TransfersOperation,
 } from './token';
 import {
   getTransactionOperation,
@@ -52,9 +47,6 @@ export const operationsV2 = [
   getContractLogsOperation,
   getContractNFTsOperation,
   getDateToBlockOperation,
-  getErc20ApprovalsOperation,
-  getErc20BurnsOperation,
-  getErc20MintsOperation,
   getInternalTransactionsOperation,
   getMultipleNFTsOperation,
   getNativeBalanceOperation,
@@ -89,7 +81,6 @@ export const operationsV2 = [
   resolveENSDomainOperation,
   reSyncMetadataOperation,
   runContractFunctionOperation,
-  searchNFTsOperation,
   syncNFTContractOperation,
   uploadFolderOperation,
 ];
@@ -102,5 +93,4 @@ export const operationsV2All = [
   endpointWeightsOperation,
   web3ApiVersionOperation,
   getNFTTradesOperation,
-  getErc20TransfersOperation,
 ];

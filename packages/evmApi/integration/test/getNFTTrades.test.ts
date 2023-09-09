@@ -22,7 +22,6 @@ describe('getNFTTrades', () => {
       expect(result.result.length).toBe(1);
       expect(result.pagination.page).toBe(0);
       expect(result.pagination.pageSize).toBe(1);
-      expect(result.pagination.total).toBe(2000);
       expect(result.hasNext()).toBe(true);
 
       const trade = result.result[0];

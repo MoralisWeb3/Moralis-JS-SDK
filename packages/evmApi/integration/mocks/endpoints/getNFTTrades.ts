@@ -18,7 +18,6 @@ export const mockGetNFTTrades = MockScenarios.create(
         limit: '1',
       },
       response: {
-        total: 2000,
         page: 0,
         page_size: 1,
         cursor: '0x12345',

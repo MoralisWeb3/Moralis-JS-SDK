@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmWalletTokenTransfersParams = Partial<GetWalletTokenTransfersRequest>;
 export type UseEvmWalletTokenTransfersQueryOptions = QueryOptions<GetWalletTokenTransfersResponse, UseEvmWalletTokenTransfersParams>;
 
-export function useEvmWalletTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal }: UseEvmWalletTokenTransfersParams = {}, queryOptions: UseEvmWalletTokenTransfersQueryOptions = {}) {
+export function useEvmWalletTokenTransfers({ address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor }: UseEvmWalletTokenTransfersParams = {}, queryOptions: UseEvmWalletTokenTransfersQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getWalletTokenTransfersOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmWalletTokenTransfers({ address, chain, fromBlock, toBlock,
     return [
       getWalletTokenTransfersOperation.id,
       {
-        address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal
+        address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor
       },
     ];
-  }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor, disableTotal]);
+  }, [address, chain, fromBlock, toBlock, fromDate, toDate, limit, cursor]);
 
   return useQuery({
     ...queryOptions,

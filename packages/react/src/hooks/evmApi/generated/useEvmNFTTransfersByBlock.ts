@@ -8,7 +8,7 @@ import { validateParams } from '../../../utils/validateParams';
 export type UseEvmNFTTransfersByBlockParams = Partial<GetNFTTransfersByBlockRequest>;
 export type UseEvmNFTTransfersByBlockQueryOptions = QueryOptions<GetNFTTransfersByBlockResponse, UseEvmNFTTransfersByBlockParams>;
 
-export function useEvmNFTTransfersByBlock({ blockNumberOrHash, chain, limit, cursor, disableTotal }: UseEvmNFTTransfersByBlockParams = {}, queryOptions: UseEvmNFTTransfersByBlockQueryOptions = {}) {
+export function useEvmNFTTransfersByBlock({ blockNumberOrHash, chain, limit, cursor }: UseEvmNFTTransfersByBlockParams = {}, queryOptions: UseEvmNFTTransfersByBlockQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTransfersByBlockOperation, Moralis.EvmApi.baseUrl);
 
   const hasRequiredParams = useMemo(() => {
@@ -19,10 +19,10 @@ export function useEvmNFTTransfersByBlock({ blockNumberOrHash, chain, limit, cur
     return [
       getNFTTransfersByBlockOperation.id,
       {
-        blockNumberOrHash, chain, limit, cursor, disableTotal
+        blockNumberOrHash, chain, limit, cursor
       },
     ];
-  }, [blockNumberOrHash, chain, limit, cursor, disableTotal]);
+  }, [blockNumberOrHash, chain, limit, cursor]);
 
   return useQuery({
     ...queryOptions,

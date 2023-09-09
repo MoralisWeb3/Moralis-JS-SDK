@@ -344,16 +344,8 @@ Parse.Cloud.define("getTokenAllowance", async ({params, user, ip}: any) => {
 })
 
 
-const searchNFTsOperation = getOperation('searchNFTs');
-Parse.Cloud.define("searchNFTs", async ({params, user, ip}: any) => {
-  try {
-    await beforeApiRequest(user, ip, 'searchNFTs');
-    const request = upgradeRequest(params, searchNFTsOperation);
-    const result = await Moralis.EvmApi.nft.searchNFTs(request);
-    return result?.raw;
-  } catch (error) {
-    throw new Error(getErrorMessage(error, 'searchNFTs'));
-  }
+Parse.Cloud.define("searchNFTs", async (_: any) => {
+  throw new Error('searchNFTs is not supported anymore');
 })
 
 

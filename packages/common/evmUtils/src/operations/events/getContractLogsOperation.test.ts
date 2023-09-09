@@ -24,12 +24,8 @@ describe('getContractLogsOperation', () => {
       address: EvmAddress.create(address),
       limit: 100,
       topic0: 'topic0',
-      topic1: 'topic1',
-      topic2: 'topic2',
-      topic3: 'topic3',
       blockNumber: '123',
       cursor: 'cursor',
-      disableTotal: true,
     };
 
     const serializedRequest = getContractLogsOperation.serializeRequest(request, core);
@@ -39,15 +35,11 @@ describe('getContractLogsOperation', () => {
     expect(serializedRequest.blockNumber).toBe(request.blockNumber);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.topic0).toBe(request.topic0);
-    expect(serializedRequest.topic1).toBe(request.topic1);
-    expect(serializedRequest.topic2).toBe(request.topic2);
-    expect(serializedRequest.topic3).toBe(request.topic3);
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.fromDate).toBe(fromDate);
     expect(serializedRequest.toDate).toBe(toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
-    expect(serializedRequest.disableTotal).toBe(true);
 
     const deserializedRequest = getContractLogsOperation.deserializeRequest(serializedRequest, core);
 
@@ -59,11 +51,7 @@ describe('getContractLogsOperation', () => {
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.topic0).toBe(request.topic0);
-    expect(deserializedRequest.topic1).toBe(request.topic1);
-    expect(deserializedRequest.topic2).toBe(request.topic2);
-    expect(deserializedRequest.topic3).toBe(request.topic3);
     expect(deserializedRequest.blockNumber).toBe(request.blockNumber);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
-    expect(deserializedRequest.disableTotal).toBe(true);
   });
 });

@@ -59,7 +59,6 @@ export const getContractNFTsOperation: PaginatedOperation<
     'range',
     'cursor',
     'normalizeMetadata',
-    'disableTotal',
     'mediaItems',
   ],
   firstPageIndex: 0,
@@ -81,7 +80,6 @@ function getRequestUrlParams(request: GetContractNFTsRequest, core: Core) {
     range: maybe(request.range, String),
     cursor: request.cursor,
     normalizeMetadata: request.normalizeMetadata,
-    disable_total: request.disableTotal,
     media_items: request.mediaItems,
   };
 }
@@ -116,7 +114,6 @@ function serializeRequest(request: GetContractNFTsRequest, core: Core) {
     cursor: request.cursor,
     address: EvmAddress.create(request.address).checksum,
     normalizeMetadata: request.normalizeMetadata,
-    disableTotal: request.disableTotal,
     mediaItems: request.mediaItems,
   };
 }
@@ -131,7 +128,6 @@ function deserializeRequest(jsonRequest: GetContractNFTsJSONRequest): GetContrac
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),
     normalizeMetadata: jsonRequest.normalizeMetadata,
-    disableTotal: jsonRequest.disableTotal,
     mediaItems: jsonRequest.mediaItems,
   };
 }

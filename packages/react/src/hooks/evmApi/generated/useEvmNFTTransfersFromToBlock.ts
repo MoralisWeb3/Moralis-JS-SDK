@@ -8,7 +8,7 @@ import { usePaginatedOperationResolver, useQuery } from '../../utils';
 export type UseEvmNFTTransfersFromToBlockParams = GetNFTTransfersFromToBlockRequest;
 export type UseEvmNFTTransfersFromToBlockQueryOptions = QueryOptions<GetNFTTransfersFromToBlockResponse, UseEvmNFTTransfersFromToBlockParams>;
 
-export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal }: UseEvmNFTTransfersFromToBlockParams = {}, queryOptions: UseEvmNFTTransfersFromToBlockQueryOptions = {}) {
+export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor }: UseEvmNFTTransfersFromToBlockParams = {}, queryOptions: UseEvmNFTTransfersFromToBlockQueryOptions = {}) {
   const resolver = usePaginatedOperationResolver(getNFTTransfersFromToBlockOperation, Moralis.EvmApi.baseUrl);
 
 
@@ -16,10 +16,10 @@ export function useEvmNFTTransfersFromToBlock({ chain, fromBlock, toBlock, fromD
     return [
       getNFTTransfersFromToBlockOperation.id,
       {
-        chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal
+        chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor
       },
     ];
-  }, [chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor, disableTotal]);
+  }, [chain, fromBlock, toBlock, fromDate, toDate, format, limit, cursor]);
 
   return useQuery({
     ...queryOptions,
