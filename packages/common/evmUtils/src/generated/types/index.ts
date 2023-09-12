@@ -30,5 +30,4 @@ export * from './EvmNftTokenStatTransfers';
 export * from './EvmErc20TokenStatTransfers';
 export * from './EvmBlockTokenStatTransactions';
 export * from './EvmBlockTokenStatNftTransfers';
-export * from './EvmBlockTokenStatTokenTransfers';
 export * from './EvmTransactionTimestamp';
