@@ -1,5 +1,15 @@
 # @moralisweb3/common-auth-utils
 
+## 2.23.1
+
+### Patch Changes
+
+- Updated dependencies [[`7e2b9ffc7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e2b9ffc79ac383b34a291414159d90810f5e75e)]:
+  - @moralisweb3/common-evm-utils@2.23.1
+  - @moralisweb3/common-aptos-utils@2.23.1
+  - @moralisweb3/common-core@2.23.1
+  - @moralisweb3/common-sol-utils@2.23.1
+
 ## 2.23.0
 
 ### Patch Changes
