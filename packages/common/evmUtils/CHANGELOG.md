@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.23.1
+
+### Patch Changes
+
+- [#1166](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1166) [`7e2b9ffc7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e2b9ffc79ac383b34a291414159d90810f5e75e) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated the response of the `getBlockStats` endpoint.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.23.1
+
 ## 2.23.0
 
 ### Minor Changes

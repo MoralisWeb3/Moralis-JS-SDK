@@ -1,5 +1,25 @@
 # moralis
 
+## 2.23.1
+
+### Patch Changes
+
+- [#1166](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1166) [`7e2b9ffc7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e2b9ffc79ac383b34a291414159d90810f5e75e) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated the response of the `getBlockStats` endpoint.
+
+- Updated dependencies [[`7e2b9ffc7`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7e2b9ffc79ac383b34a291414159d90810f5e75e)]:
+  - @moralisweb3/common-evm-utils@2.23.1
+  - @moralisweb3/evm-api@2.23.1
+  - @moralisweb3/api-utils@2.23.1
+  - @moralisweb3/aptos-api@2.23.1
+  - @moralisweb3/auth@2.23.1
+  - @moralisweb3/common-aptos-utils@2.23.1
+  - @moralisweb3/common-auth-utils@2.23.1
+  - @moralisweb3/common-core@2.23.1
+  - @moralisweb3/common-sol-utils@2.23.1
+  - @moralisweb3/common-streams-utils@2.23.1
+  - @moralisweb3/sol-api@2.23.1
+  - @moralisweb3/streams@2.23.1
+
 ## 2.23.0
 
 ### Minor Changes
