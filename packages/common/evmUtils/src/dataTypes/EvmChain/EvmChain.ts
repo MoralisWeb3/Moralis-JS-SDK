@@ -173,6 +173,51 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns OPTIMISM_TESTNET chain
+   *
+   * @example EvmChain.OPTIMISM_TESTNET
+   */
+  public static get OPTIMISM_TESTNET() {
+    return EvmChain.create(420);
+  }
+
+  /**
+   * Returns CHILIZ chain
+   *
+   * @example EvmChain.CHILIZ
+   */
+  public static get CHILIZ() {
+    return EvmChain.create(88888);
+  }
+
+  /**
+   * Returns CHILIZ_TESTNET chain
+   *
+   * @example EvmChain.CHILIZ_TESTNET
+   */
+  public static get CHILIZ_TESTNET() {
+    return EvmChain.create(88882);
+  }
+
+  /**
+   * Returns GNOSIS chain
+   *
+   * @example EvmChain.GNOSIS
+   */
+  public static get GNOSIS() {
+    return EvmChain.create(100);
+  }
+
+  /**
+   * Returns GNOSIS_TESTNET chain
+   *
+   * @example EvmChain.GNOSIS_TESTNET
+   */
+  public static get GNOSIS_TESTNET() {
+    return EvmChain.create(10200);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -244,6 +289,11 @@ export class EvmChain implements EvmChainable {
       EvmChain.ARBITRUM_TESTNET,
       EvmChain.RONIN,
       EvmChain.OPTIMISM,
+      EvmChain.OPTIMISM_TESTNET,
+      EvmChain.CHILIZ,
+      EvmChain.CHILIZ_TESTNET,
+      EvmChain.GNOSIS,
+      EvmChain.GNOSIS_TESTNET,
     ];
   }
 
@@ -347,7 +397,12 @@ export class EvmChain implements EvmChainable {
       | '0xa4b1'
       | '0x7e4'
       | '0x66eed'
-      | '0xa';
+      | '0xa'
+      | '0x1a4'
+      | '0x15b38'
+      | '0x15b32'
+      | '0x64'
+      | '0x27d8';
   }
 
   /**
