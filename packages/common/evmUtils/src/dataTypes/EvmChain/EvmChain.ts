@@ -164,6 +164,15 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns OPTIMISM chain
+   *
+   * @example EvmChain.OPTIMISM
+   */
+  public static get OPTIMISM() {
+    return EvmChain.create(10);
+  }
+
+  /**
    * Returns CHILIZ chain
    *
    * @example EvmChain.CHILIZ
@@ -270,6 +279,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.ARBITRUM,
       EvmChain.ARBITRUM_TESTNET,
       EvmChain.RONIN,
+      EvmChain.OPTIMISM,
       EvmChain.CHILIZ,
       EvmChain.CHILIZ_TESTNET,
       EvmChain.GNOSIS,
@@ -377,6 +387,7 @@ export class EvmChain implements EvmChainable {
       | '0xa4b1'
       | '0x7e4'
       | '0x66eed'
+      | '0xa'
       | '0x15b38'
       | '0x15b32'
       | '0x64'

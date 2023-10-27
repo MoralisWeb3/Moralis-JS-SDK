@@ -111,6 +111,46 @@ export const chainList: EvmChainListDataEntry[] = [
     ],
   },
   {
+    name: 'OP Mainnet',
+    chain: 'ETH',
+    rpc: [
+      'https://mainnet.optimism.io',
+      'https://optimism.publicnode.com',
+      'wss://optimism.publicnode.com',
+      'https://optimism.gateway.tenderly.co',
+      'wss://optimism.gateway.tenderly.co',
+    ],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    infoURL: 'https://optimism.io',
+    shortName: 'oeth',
+    chainId: 10,
+    networkId: 10,
+    explorers: [
+      {
+        name: 'etherscan',
+        url: 'https://optimistic.etherscan.io',
+        standard: 'EIP3091',
+      },
+      {
+        name: 'blockscout',
+        url: 'https://optimism.blockscout.com',
+        icon: 'blockscout',
+        standard: 'EIP3091',
+      },
+      {
+        name: 'dexguru',
+        url: 'https://optimism.dex.guru',
+        icon: 'dexguru',
+        standard: 'EIP3091',
+      },
+    ],
+  },
+  {
     name: 'Cronos Mainnet',
     chain: 'CRO',
     rpc: ['https://evm.cronos.org', 'https://cronos-evm.publicnode.com', 'wss://cronos-evm.publicnode.com'],
