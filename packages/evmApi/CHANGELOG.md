@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.23.2
+
+### Patch Changes
+
+- [#1168](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1168) [`11fb29d8b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11fb29d8b555e0dfcece0804b9d26d304577edea) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added support for new EVM chains.
+
+- Updated dependencies [[`11fb29d8b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/11fb29d8b555e0dfcece0804b9d26d304577edea)]:
+  - @moralisweb3/common-evm-utils@2.23.2
+  - @moralisweb3/api-utils@2.23.2
+  - @moralisweb3/common-core@2.23.2
+
 ## 2.23.1
 
 ### Patch Changes
