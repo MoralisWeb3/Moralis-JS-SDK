@@ -25,7 +25,7 @@ describe('Homepage', () => {
 
     cy.get('[data-testid="runContractFunctionButton"]').should('exist').click();
 
-    cy.get('[data-testid="outputTextarea"]').should('exist').contains('0xe2A83b15FC300D8457eB9E176f98d92a8FF40a49');
+    cy.get('[data-testid="outputTextarea"]').should('exist').contains('0x3eb879cc9a0Ef4C6f1d870A40ae187768c278Da2');
   });
 
   it('resolves domain correctly', () => {
