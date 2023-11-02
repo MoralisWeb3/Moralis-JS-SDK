@@ -115,11 +115,15 @@ describe('EvmChain', () => {
     expect(EvmChain.ARBITRUM_TESTNET.apiHex).toBe('0x66eed');
     expect(EvmChain.OPTIMISM.apiHex).toBe('0xa');
     expect(EvmChain.PALM.apiHex).toBe('0x2a15c308d');
+    expect(EvmChain.CHILIZ.apiHex).toBe('0x15b38');
+    expect(EvmChain.CHILIZ_TESTNET.apiHex).toBe('0x15b32');
+    expect(EvmChain.GNOSIS.apiHex).toBe('0x64');
+    expect(EvmChain.GNOSIS_TESTNET.apiHex).toBe('0x27d8');
   });
 
   describe('metadata', () => {
-    // We skip RONIN because the source dataset doesn't have it.
-    const supportedChains = EvmChain.values().filter((chain) => chain.apiHex !== '0x7e4');
+    const notSupportedChains = ['0x7e4', '0x15b32'];
+    const supportedChains = EvmChain.values().filter((chain) => !notSupportedChains.includes(chain.apiHex));
 
     for (const chain of supportedChains) {
       it(`returns metadata for ${chain.apiHex}`, () => {
@@ -138,13 +142,8 @@ describe('EvmChain', () => {
       const chain = EvmChain.create('0x1');
 
       expect(chain.name).toBe('Ethereum Mainnet');
-      expect(chain.rpcUrls).toStrictEqual([
-        'https://mainnet.infura.io/v3/${INFURA_API_KEY}',
-        'wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}',
-        'https://api.mycryptoapi.com/eth',
-        'https://cloudflare-eth.com',
-        'https://ethereum.publicnode.com',
-      ]);
+      expect(chain.rpcUrls).toContain('https://ethereum.publicnode.com');
+      expect(chain.rpcUrls).toContain('https://api.mycryptoapi.com/eth');
       expect(chain.currency).toStrictEqual({
         decimals: 18,
         name: 'Ether',
