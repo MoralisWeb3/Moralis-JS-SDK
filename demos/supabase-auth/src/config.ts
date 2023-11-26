@@ -17,4 +17,6 @@ export default cleanEnv(process.env, {
   SUPABASE_JWT: str(),
 
   SUPABASE_SERVICE_KEY: str(),
+
+  CLIENT_URL: str()
 });
