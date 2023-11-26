@@ -17,10 +17,9 @@ create table
 
 alter table "public"."users" enable row level security;
 
-CREATE POLICY "Only authed users can SELECT their row" ON "public"."users"
-AS PERMISSIVE FOR SELECT
-TO authenticated
-USING (true)
+create policy "Individuals can view their own user records."
+on users for select
+using ( (auth.jwt() ->> 'id')::bigint = id);
 ```
 
 <img width="2294" alt="Screenshot 2023-11-26 at 12 23 04" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/994b0697-01cf-4e27-8f56-b9c50ea4b255">
