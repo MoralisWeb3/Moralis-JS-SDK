@@ -18,5 +18,5 @@ export default cleanEnv(process.env, {
 
   SUPABASE_SERVICE_KEY: str(),
 
-  CLIENT_URL: str()
+  CLIENT_URL: str(),
 });
