@@ -1,5 +1,7 @@
 import { GetTokenPriceOperation, GetTokenPriceOperationRequest, GetTokenPriceOperationRequestJSON } from '../operations/GetTokenPriceOperation';
 import { SolSPLTokenPrice, SolSPLTokenPriceJSON } from '../types/SolSPLTokenPrice';
+import { GetTokenMetadataOperation, GetTokenMetadataOperationRequest, GetTokenMetadataOperationRequestJSON } from '../operations/GetTokenMetadataOperation';
+import { SolTokenMetadata, SolTokenMetadataJSON } from '../types/SolTokenMetadata';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -36,5 +38,18 @@ export abstract class AbstractClient {
       SolSPLTokenPrice,
       SolSPLTokenPriceJSON
     >(GetTokenPriceOperation),
+    /**
+     * @description Get the global token metadata for a given network and contract (mint, standard, name, symbol, metaplex).
+     * @param request Request with parameters.
+     * @param {Object} request.network The network to query
+     * @param {Object} request.address The address of the contract
+     * @returns {Object} Response for the request.
+     */
+    getTokenMetadata: this.createEndpoint<
+      GetTokenMetadataOperationRequest,
+      GetTokenMetadataOperationRequestJSON,
+      SolTokenMetadata,
+      SolTokenMetadataJSON
+    >(GetTokenMetadataOperation),
   };
 }

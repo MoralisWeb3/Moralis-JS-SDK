@@ -34,7 +34,7 @@
       "operations": {
         "groupRef": "#/x-tag-sdk",
         "isEnabledRef": "#/x-tag-sdk",
-        "filterOperationIds": ["getTokenPrice"]
+        "filterOperationIds": ["getTokenPrice", "getTokenMetadata"]
       }
     }
   }
