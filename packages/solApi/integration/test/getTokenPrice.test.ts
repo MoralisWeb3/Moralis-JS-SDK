@@ -18,7 +18,7 @@ describe('Moralis SolApi', () => {
       address: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R',
     });
 
-    expect(result.exchangeAddress.address).toBe('675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8');
+    expect(result.exchangeAddress?.address).toBe('675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8');
     expect(result.exchangeName).toBe('Raydium');
     expect(result.usdPrice).toBe(0.9965);
     expect(result.nativePrice?.decimals).toBe(9);

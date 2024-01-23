@@ -28,6 +28,10 @@ export interface paths {
     /** Gets the token price (usd and native) for a given contract address and network. */
     get: operations["getTokenPrice"];
   };
+  "/token/{network}/{address}/metadata": {
+    /** Get the global token metadata for a given network and contract (mint, standard, name, symbol, metaplex). */
+    get: operations["getTokenMetadata"];
+  };
 }
 
 export interface components {
@@ -60,7 +64,7 @@ export interface components {
       metadataUri: string;
       masterEdition: boolean;
       isMutable: boolean;
-      primarySaleHappened: boolean;
+      primarySaleHappened: number;
       sellerFeeBasisPoints: number;
       updateAuthority: string;
     };
@@ -79,9 +83,24 @@ export interface components {
     };
     SPLTokenPrice: {
       nativePrice?: components["schemas"]["SPLNativePrice"];
-      usdPrice: number;
-      exchangeAddress: string;
-      exchangeName: string;
+      usdPrice?: number;
+      exchangeAddress?: string;
+      exchangeName?: string;
+    };
+    MetaplexToken: {
+      metadataUri: string;
+      masterEdition: boolean;
+      isMutable: boolean;
+      primarySaleHappened: number;
+      sellerFeeBasisPoints: number;
+      updateAuthority: string;
+    };
+    TokenMetadata: {
+      mint: string;
+      standard: string;
+      name: string;
+      symbol: string;
+      metaplex: components["schemas"]["MetaplexToken"];
     };
   };
 }
@@ -216,6 +235,29 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["SPLTokenPrice"];
+        };
+      };
+      400: {
+        content: {
+          "application/json": string;
+        };
+      };
+    };
+  };
+  /** Get the global token metadata for a given network and contract (mint, standard, name, symbol, metaplex). */
+  getTokenMetadata: {
+    parameters: {
+      path: {
+        /** The network to query */
+        network: "mainnet" | "devnet";
+        /** The address of the contract */
+        address: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["TokenMetadata"];
         };
       };
       400: {
