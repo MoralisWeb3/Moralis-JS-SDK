@@ -1,5 +1,29 @@
 # moralis
 
+## 2.24.0
+
+### Minor Changes
+
+- [#1171](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1171) [`444c0dd54`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/444c0dd5430e637d287468eedb96cfcf972b077e) Thanks [@b4rtaz](https://github.com/b4rtaz)! - `nativePrice`, `exchangeName` and `exchangeAddress` properties in the `SolSPLTokenPrice` class are now optional.
+
+### Patch Changes
+
+- [#1171](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1171) [`444c0dd54`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/444c0dd5430e637d287468eedb96cfcf972b077e) Thanks [@b4rtaz](https://github.com/b4rtaz)! - This version adds a new `getTokenMetadata` endpoint to the Solana API.
+
+- Updated dependencies [[`444c0dd54`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/444c0dd5430e637d287468eedb96cfcf972b077e), [`444c0dd54`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/444c0dd5430e637d287468eedb96cfcf972b077e)]:
+  - @moralisweb3/common-sol-utils@2.24.0
+  - @moralisweb3/sol-api@2.24.0
+  - @moralisweb3/api-utils@2.24.0
+  - @moralisweb3/aptos-api@2.24.0
+  - @moralisweb3/auth@2.24.0
+  - @moralisweb3/common-aptos-utils@2.24.0
+  - @moralisweb3/common-auth-utils@2.24.0
+  - @moralisweb3/common-core@2.24.0
+  - @moralisweb3/common-evm-utils@2.24.0
+  - @moralisweb3/common-streams-utils@2.24.0
+  - @moralisweb3/evm-api@2.24.0
+  - @moralisweb3/streams@2.24.0
+
 ## 2.23.2
 
 ### Patch Changes
