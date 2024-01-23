@@ -4,4 +4,4 @@
 'moralis': minor
 ---
 
-The `nativePrice` property in the `SolSPLTokenPrice` class is now optional.
+`nativePrice`, `exchangeName` and `exchangeAddress` properties in the `SolSPLTokenPrice` class are now optional.
