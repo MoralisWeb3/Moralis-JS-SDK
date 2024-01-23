@@ -12,7 +12,7 @@ export interface SolMetaplexTokenJSON {
   readonly metadataUri: string;
   readonly masterEdition: boolean;
   readonly isMutable: boolean;
-  readonly primarySaleHappened: boolean;
+  readonly primarySaleHappened: number;
   readonly sellerFeeBasisPoints: number;
   readonly updateAuthority: string;
 }
@@ -21,7 +21,7 @@ export interface SolMetaplexTokenInput {
   readonly metadataUri: string;
   readonly masterEdition: boolean;
   readonly isMutable: boolean;
-  readonly primarySaleHappened: boolean;
+  readonly primarySaleHappened: number;
   readonly sellerFeeBasisPoints: number;
   readonly updateAuthority: string;
 }
@@ -49,7 +49,7 @@ export class SolMetaplexToken {
   public readonly metadataUri: string;
   public readonly masterEdition: boolean;
   public readonly isMutable: boolean;
-  public readonly primarySaleHappened: boolean;
+  public readonly primarySaleHappened: number;
   public readonly sellerFeeBasisPoints: number;
   public readonly updateAuthority: string;
 

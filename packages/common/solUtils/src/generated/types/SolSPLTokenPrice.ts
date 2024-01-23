@@ -11,16 +11,16 @@ import { SolAddress, SolAddressInput, SolAddressJSON } from '../../dataTypes';
 
 export interface SolSPLTokenPriceJSON {
   readonly nativePrice?: SolSPLNativePriceJSON;
-  readonly usdPrice: number;
-  readonly exchangeAddress: SolAddressJSON;
-  readonly exchangeName: string;
+  readonly usdPrice?: number;
+  readonly exchangeAddress?: SolAddressJSON;
+  readonly exchangeName?: string;
 }
 
 export interface SolSPLTokenPriceInput {
   readonly nativePrice?: SolSPLNativePriceInput | SolSPLNativePrice;
-  readonly usdPrice: number;
-  readonly exchangeAddress: SolAddressInput | SolAddress;
-  readonly exchangeName: string;
+  readonly usdPrice?: number;
+  readonly exchangeAddress?: SolAddressInput | SolAddress;
+  readonly exchangeName?: string;
 }
 
 export class SolSPLTokenPrice {
@@ -35,21 +35,21 @@ export class SolSPLTokenPrice {
     const input: SolSPLTokenPriceInput = {
       nativePrice: json.nativePrice ? SolSPLNativePrice.fromJSON(json.nativePrice) : undefined,
       usdPrice: json.usdPrice,
-      exchangeAddress: SolAddress.fromJSON(json.exchangeAddress),
+      exchangeAddress: json.exchangeAddress ? SolAddress.fromJSON(json.exchangeAddress) : undefined,
       exchangeName: json.exchangeName,
     };
     return SolSPLTokenPrice.create(input);
   }
 
   public readonly nativePrice?: SolSPLNativePrice;
-  public readonly usdPrice: number;
-  public readonly exchangeAddress: SolAddress;
-  public readonly exchangeName: string;
+  public readonly usdPrice?: number;
+  public readonly exchangeAddress?: SolAddress;
+  public readonly exchangeName?: string;
 
   private constructor(input: SolSPLTokenPriceInput) {
     this.nativePrice = input.nativePrice ? SolSPLNativePrice.create(input.nativePrice) : undefined;
     this.usdPrice = input.usdPrice;
-    this.exchangeAddress = SolAddress.create(input.exchangeAddress);
+    this.exchangeAddress = input.exchangeAddress ? SolAddress.create(input.exchangeAddress) : undefined;
     this.exchangeName = input.exchangeName;
   }
 
@@ -57,7 +57,7 @@ export class SolSPLTokenPrice {
     return {
       nativePrice: this.nativePrice ? this.nativePrice.toJSON() : undefined,
       usdPrice: this.usdPrice,
-      exchangeAddress: this.exchangeAddress.toJSON(),
+      exchangeAddress: this.exchangeAddress ? this.exchangeAddress.toJSON() : undefined,
       exchangeName: this.exchangeName,
     }
   }

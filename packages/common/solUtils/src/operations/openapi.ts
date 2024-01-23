@@ -64,7 +64,7 @@ export interface components {
       metadataUri: string;
       masterEdition: boolean;
       isMutable: boolean;
-      primarySaleHappened: boolean;
+      primarySaleHappened: number;
       sellerFeeBasisPoints: number;
       updateAuthority: string;
     };
@@ -83,15 +83,15 @@ export interface components {
     };
     SPLTokenPrice: {
       nativePrice?: components["schemas"]["SPLNativePrice"];
-      usdPrice: number;
-      exchangeAddress: string;
-      exchangeName: string;
+      usdPrice?: number;
+      exchangeAddress?: string;
+      exchangeName?: string;
     };
     MetaplexToken: {
       metadataUri: string;
       masterEdition: boolean;
       isMutable: boolean;
-      primarySaleHappened: boolean;
+      primarySaleHappened: number;
       sellerFeeBasisPoints: number;
       updateAuthority: string;
     };
