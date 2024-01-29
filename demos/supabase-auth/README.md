@@ -22,15 +22,15 @@ on users for select
 using ( (auth.jwt() ->> 'id')::bigint = id);
 ```
 
-<img width="2294" alt="Screenshot 2023-11-26 at 12 23 04" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/994b0697-01cf-4e27-8f56-b9c50ea4b255">
+<img width="2294" alt="Screenshot 2023-11-26 at 12 23 04" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/994b0697-01cf-4e27-8f56-b9c50ea4b255" />
 
 If you view your database, you can double-check that the query was executed correctly. You should see a table called `users` with the following columns and `1 active RLS policy` at the top.
 
-<img width="2276" alt="Screenshot 2023-11-26 at 12 23 48" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/cee7e888-4901-4ca0-ae61-dfd8418cb7f5">
+<img width="2276" alt="Screenshot 2023-11-26 at 12 23 48" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/cee7e888-4901-4ca0-ae61-dfd8418cb7f5" />
 
 You should see this if you click on that `1 active RLS policy`. This ensures that only authenticated users can view their data.
 
-<img width="2560" alt="Screenshot 2023-11-26 at 12 24 57" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/f19956fc-54b0-493b-b7fb-79a0aa3f0b77">
+<img width="2560" alt="Screenshot 2023-11-26 at 12 24 57" src="https://github.com/MoralisWeb3/Moralis-JS-SDK/assets/11097108/f19956fc-54b0-493b-b7fb-79a0aa3f0b77" />
 
 
    
