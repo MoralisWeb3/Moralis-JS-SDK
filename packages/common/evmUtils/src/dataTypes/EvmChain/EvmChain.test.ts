@@ -119,6 +119,8 @@ describe('EvmChain', () => {
     expect(EvmChain.CHILIZ_TESTNET.apiHex).toBe('0x15b32');
     expect(EvmChain.GNOSIS.apiHex).toBe('0x64');
     expect(EvmChain.GNOSIS_TESTNET.apiHex).toBe('0x27d8');
+    expect(EvmChain.BASE.apiHex).toBe('0x2105');
+    expect(EvmChain.BASE_TESTNET.apiHex).toBe('0x14a33');
   });
 
   describe('metadata', () => {

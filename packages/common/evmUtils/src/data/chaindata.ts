@@ -93,6 +93,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'gor',
     chainId: 5,
     networkId: 5,
+    slip44: 1,
     ens: {
       registry: '0x112234455c3a32fd11230c42e7bccd4a84e02010',
     },
@@ -172,7 +173,7 @@ export const chainList: EvmChainListDataEntry[] = [
     explorers: [
       {
         name: 'Cronos Explorer',
-        url: 'https://cronoscan.com',
+        url: 'https://explorer.cronos.org',
         standard: 'none',
       },
     ],
@@ -245,6 +246,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'bnbt',
     chainId: 97,
     networkId: 97,
+    slip44: 1,
     explorers: [
       {
         name: 'bscscan-testnet',
@@ -395,6 +397,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'tftm',
     chainId: 4002,
     networkId: 4002,
+    slip44: 1,
     icon: 'fantom',
     explorers: [
       {
@@ -404,6 +407,49 @@ export const chainList: EvmChainListDataEntry[] = [
         standard: 'EIP3091',
       },
     ],
+  },
+  {
+    name: 'Base',
+    chain: 'ETH',
+    rpc: [
+      'https://mainnet.base.org/',
+      'https://developer-access-mainnet.base.org/',
+      'https://base.gateway.tenderly.co',
+      'wss://base.gateway.tenderly.co',
+      'https://base.publicnode.com',
+      'wss://base.publicnode.com',
+    ],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    infoURL: 'https://base.org',
+    shortName: 'base',
+    chainId: 8453,
+    networkId: 8453,
+    icon: 'base',
+    explorers: [
+      {
+        name: 'basescan',
+        url: 'https://basescan.org',
+        standard: 'none',
+      },
+      {
+        name: 'basescout',
+        url: 'https://base.blockscout.com',
+        icon: 'blockscout',
+        standard: 'EIP3091',
+      },
+      {
+        name: 'dexguru',
+        url: 'https://base.dex.guru',
+        icon: 'dexguru',
+        standard: 'EIP3091',
+      },
+    ],
+    status: 'active',
   },
   {
     name: 'Gnosis Chiado Testnet',
@@ -426,6 +472,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'chi',
     chainId: 10200,
     networkId: 10200,
+    slip44: 1,
     explorers: [
       {
         name: 'blockscout-chiadochain',
@@ -508,6 +555,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'Fuji',
     chainId: 43113,
     networkId: 1,
+    slip44: 1,
     explorers: [
       {
         name: 'snowtrace',
@@ -571,10 +619,53 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'maticmum',
     chainId: 80001,
     networkId: 80001,
+    slip44: 1,
     explorers: [
       {
         name: 'polygonscan',
         url: 'https://mumbai.polygonscan.com',
+        standard: 'EIP3091',
+      },
+    ],
+  },
+  {
+    name: 'Base Goerli Testnet',
+    chain: 'ETH',
+    rpc: [
+      'https://goerli.base.org',
+      'https://base-goerli.gateway.tenderly.co',
+      'wss://base-goerli.gateway.tenderly.co',
+      'https://base-goerli.publicnode.com',
+      'wss://base-goerli.publicnode.com',
+    ],
+    faucets: ['https://www.coinbase.com/faucets/base-ethereum-goerli-faucet'],
+    nativeCurrency: {
+      name: 'Goerli Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    infoURL: 'https://base.org',
+    shortName: 'basegor',
+    chainId: 84531,
+    networkId: 84531,
+    slip44: 1,
+    icon: 'baseTestnet',
+    explorers: [
+      {
+        name: 'basescan',
+        url: 'https://goerli.basescan.org',
+        standard: 'none',
+      },
+      {
+        name: 'basescout',
+        url: 'https://base-goerli.blockscout.com',
+        icon: 'blockscout',
+        standard: 'EIP3091',
+      },
+      {
+        name: 'dexguru',
+        url: 'https://base-goerli.dex.guru',
+        icon: 'dexguru',
         standard: 'EIP3091',
       },
     ],
@@ -609,6 +700,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'arb-goerli',
     chain: 'ETH',
     networkId: 421613,
+    slip44: 1,
     nativeCurrency: {
       name: 'Arbitrum Goerli Ether',
       symbol: 'AGOR',
@@ -664,6 +756,7 @@ export const chainList: EvmChainListDataEntry[] = [
     shortName: 'sep',
     chainId: 11155111,
     networkId: 11155111,
+    slip44: 1,
     explorers: [
       {
         name: 'etherscan-sepolia',
@@ -681,22 +774,27 @@ export const chainList: EvmChainListDataEntry[] = [
     name: 'Palm',
     chain: 'Palm',
     icon: 'palm',
-    rpc: ['https://palm-mainnet.infura.io/v3/${INFURA_API_KEY}'],
+    rpc: ['https://palm-mainnet.infura.io/v3/${INFURA_API_KEY}', 'https://palm-mainnet.public.blastapi.io'],
     faucets: [],
     nativeCurrency: {
       name: 'PALM',
       symbol: 'PALM',
       decimals: 18,
     },
-    infoURL: 'https://palm.io',
+    infoURL: 'https://palm.network',
     shortName: 'palm',
     chainId: 11297108109,
     networkId: 11297108109,
     explorers: [
       {
-        name: 'Palm Explorer',
-        url: 'https://explorer.palm.io',
+        name: 'Chainlens',
+        url: 'https://palm.chainlens.com',
         standard: 'EIP3091',
+      },
+      {
+        name: 'Dora',
+        url: 'https://www.ondora.xyz/network/palm',
+        standard: 'none',
       },
     ],
   },
