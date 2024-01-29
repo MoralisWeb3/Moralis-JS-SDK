@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.24.1
+
+### Patch Changes
+
+- [#1173](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1173) [`7ef12018e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7ef12018e1a9a14a6db2d7a2df776bda811180de) Thanks [@b4rtaz](https://github.com/b4rtaz)! - This version adds `BASE` and `BASE_TESTNET` to the `EvmChain` class.
+
+- Updated dependencies [[`7ef12018e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7ef12018e1a9a14a6db2d7a2df776bda811180de)]:
+  - @moralisweb3/common-evm-utils@2.24.1
+  - @moralisweb3/api-utils@2.24.1
+  - @moralisweb3/common-core@2.24.1
+
 ## 2.24.0
 
 ### Patch Changes
