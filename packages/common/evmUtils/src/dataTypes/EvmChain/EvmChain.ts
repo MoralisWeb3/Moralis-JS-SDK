@@ -209,6 +209,24 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns BASE_MAINNET chain
+   *
+   * @example EvmChain.BASE_MAINNET
+   */
+  public static get BASE() {
+    return EvmChain.create(8453);
+  }
+
+  /**
+   * Returns BASE_TESTNET chain
+   *
+   * @example EvmChain.BASE_TESTNET
+   */
+  public static get BASE_TESTNET() {
+    return EvmChain.create(84531);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -284,6 +302,8 @@ export class EvmChain implements EvmChainable {
       EvmChain.CHILIZ_TESTNET,
       EvmChain.GNOSIS,
       EvmChain.GNOSIS_TESTNET,
+      EvmChain.BASE,
+      EvmChain.BASE_TESTNET,
     ];
   }
 
@@ -391,7 +411,9 @@ export class EvmChain implements EvmChainable {
       | '0x15b38'
       | '0x15b32'
       | '0x64'
-      | '0x27d8';
+      | '0x27d8'
+      | '0x2105'
+      | '0x14a33';
   }
 
   /**
