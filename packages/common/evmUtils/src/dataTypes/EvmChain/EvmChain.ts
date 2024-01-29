@@ -209,9 +209,9 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
-   * Returns BASE_MAINNET chain
+   * Returns BASE chain
    *
-   * @example EvmChain.BASE_MAINNET
+   * @example EvmChain.BASE
    */
   public static get BASE() {
     return EvmChain.create(8453);
