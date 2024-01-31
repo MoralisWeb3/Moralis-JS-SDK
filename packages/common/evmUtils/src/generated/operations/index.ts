@@ -1,4 +1,5 @@
 export * from './GetNFTTradesOperation';
+export * from './GetMultipleTokenPricesOperation';
 export * from './Web3ApiVersionOperation';
 export * from './EndpointWeightsOperation';
 export * from './GetTopERC20TokensByMarketCapOperation';
@@ -12,4 +13,5 @@ export * from './GetNFTCollectionStatsOperation';
 export * from './GetNFTTokenStatsOperation';
 export * from './GetTokenStatsOperation';
 export * from './GetBlockStatsOperation';
+export * from './GetTokenPairOhlcOperation';
 export * from './operations';

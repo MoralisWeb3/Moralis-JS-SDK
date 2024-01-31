@@ -1,4 +1,5 @@
 import { GetNFTTradesOperation } from './GetNFTTradesOperation';
+import { GetMultipleTokenPricesOperation } from './GetMultipleTokenPricesOperation';
 import { Web3ApiVersionOperation } from './Web3ApiVersionOperation';
 import { EndpointWeightsOperation } from './EndpointWeightsOperation';
 import { GetTopERC20TokensByMarketCapOperation } from './GetTopERC20TokensByMarketCapOperation';
@@ -12,9 +13,11 @@ import { GetNFTCollectionStatsOperation } from './GetNFTCollectionStatsOperation
 import { GetNFTTokenStatsOperation } from './GetNFTTokenStatsOperation';
 import { GetTokenStatsOperation } from './GetTokenStatsOperation';
 import { GetBlockStatsOperation } from './GetBlockStatsOperation';
+import { GetTokenPairOhlcOperation } from './GetTokenPairOhlcOperation';
 
 export const operations = [
   GetNFTTradesOperation,
+  GetMultipleTokenPricesOperation,
   Web3ApiVersionOperation,
   EndpointWeightsOperation,
   GetTopERC20TokensByMarketCapOperation,
@@ -28,4 +31,5 @@ export const operations = [
   GetNFTTokenStatsOperation,
   GetTokenStatsOperation,
   GetBlockStatsOperation,
+  GetTokenPairOhlcOperation,
 ];

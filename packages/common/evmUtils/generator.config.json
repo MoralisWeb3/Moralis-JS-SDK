@@ -15,7 +15,8 @@
         {
           "refs": [
             "#/components/schemas/trade/properties/block_timestamp",
-            "#/components/schemas/erc20Transfer/properties/block_timestamp"
+            "#/components/schemas/erc20Transfer/properties/block_timestamp",
+            "#/components/schemas/ohlcCandles/items/properties/timestamp"
           ],
           "nativeType": "Date"
         }
@@ -79,7 +80,9 @@
           "getNFTTokenStats",
           "getNFTCollectionStats",
           "getBlockStats",
-          "getTokenStats"
+          "getTokenStats",
+          "getMultipleTokenPrices",
+          "getTokenPairOhlc"
         ]
       }
     }
