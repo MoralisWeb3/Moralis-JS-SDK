@@ -29,13 +29,13 @@ export interface GetNFTTradesOperationRequest {
    */
   readonly toBlock?: string;
   /**
-   * @description The start date from which to get the transfers (any format that is accepted by momentjs)
+   * @description The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
    * * Provide the param 'from_block' or 'from_date'
    * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
    */
   readonly fromDate?: string;
   /**
-   * @description The end date from which to get the transfers (any format that is accepted by momentjs)
+   * @description The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
    * * Provide the param 'to_block' or 'to_date'
    * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
    */

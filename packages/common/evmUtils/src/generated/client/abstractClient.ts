@@ -1,5 +1,8 @@
 import { GetNFTTradesOperation, GetNFTTradesOperationRequest, GetNFTTradesOperationRequestJSON } from '../operations/GetNFTTradesOperation';
 import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCollection';
+import { GetMultipleTokenPricesOperation, GetMultipleTokenPricesOperationRequest, GetMultipleTokenPricesOperationRequestJSON } from '../operations/GetMultipleTokenPricesOperation';
+import { EvmErc20Price, EvmErc20PriceJSON } from '../types/EvmErc20Price';
+import { EvmGetMultipleTokenPricesDto, EvmGetMultipleTokenPricesDtoInput, EvmGetMultipleTokenPricesDtoJSON } from '../types/EvmGetMultipleTokenPricesDto';
 import { Web3ApiVersionOperation, Web3ApiVersionOperationRequest, Web3ApiVersionOperationRequestJSON } from '../operations/Web3ApiVersionOperation';
 import { EvmWeb3version, EvmWeb3versionJSON } from '../types/EvmWeb3version';
 import { EndpointWeightsOperation, EndpointWeightsOperationRequest, EndpointWeightsOperationRequestJSON } from '../operations/EndpointWeightsOperation';
@@ -120,10 +123,10 @@ export abstract class AbstractClient {
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
      * @param {String} [request.toBlock] The block number to get the trades from (optional)
-     * @param {String} [request.fromDate] The start date from which to get the transfers (any format that is accepted by momentjs)
+     * @param {String} [request.fromDate] The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
-     * @param {String} [request.toDate] The end date from which to get the transfers (any format that is accepted by momentjs)
+     * @param {String} [request.toDate] The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'to_block' or 'to_date'
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
      * @param {Object} [request.marketplace] Marketplace from which to get the trades (only OpenSea is supported at the moment) (optional)
@@ -166,6 +169,23 @@ export abstract class AbstractClient {
     >(GetNFTTokenStatsOperation),
   };
   public readonly token = {
+    /**
+     * @description Returns an array of token prices denominated in the blockchain's native token and USD for a given token contract address
+     * @param request Request with parameters.
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Object} [request.include] If the result should contain the 24hr percent change (optional)
+     * @param body Request body.
+     * @param {Object[]} body.tokens The tokens to be fetched
+     * @returns {Object[]} Response for the request.
+     */
+    getMultipleTokenPrices: this.createEndpointWithBody<
+      GetMultipleTokenPricesOperationRequest,
+      GetMultipleTokenPricesOperationRequestJSON,
+      EvmErc20Price[],
+      EvmErc20PriceJSON[],
+      EvmGetMultipleTokenPricesDtoInput | EvmGetMultipleTokenPricesDto,
+      EvmGetMultipleTokenPricesDtoJSON
+    >(GetMultipleTokenPricesOperation),
     /**
      * @description Get the stats for a erc20 token
      * @param request Request with parameters.

@@ -79,7 +79,8 @@
           "getNFTTokenStats",
           "getNFTCollectionStats",
           "getBlockStats",
-          "getTokenStats"
+          "getTokenStats",
+          "getMultipleTokenPrices"
         ]
       }
     }

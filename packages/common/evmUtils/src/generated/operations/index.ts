@@ -1,4 +1,5 @@
 export * from './GetNFTTradesOperation';
+export * from './GetMultipleTokenPricesOperation';
 export * from './Web3ApiVersionOperation';
 export * from './EndpointWeightsOperation';
 export * from './GetTopERC20TokensByMarketCapOperation';
