@@ -1,5 +1,7 @@
 # @moralisweb3/api-generator
 
+## 2.24.2
+
 ## 2.24.1
 
 ## 2.24.0
