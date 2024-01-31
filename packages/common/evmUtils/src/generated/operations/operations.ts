@@ -13,7 +13,6 @@ import { GetNFTCollectionStatsOperation } from './GetNFTCollectionStatsOperation
 import { GetNFTTokenStatsOperation } from './GetNFTTokenStatsOperation';
 import { GetTokenStatsOperation } from './GetTokenStatsOperation';
 import { GetBlockStatsOperation } from './GetBlockStatsOperation';
-import { GetTokenPairOhlcOperation } from './GetTokenPairOhlcOperation';
 
 export const operations = [
   GetNFTTradesOperation,
@@ -31,5 +30,4 @@ export const operations = [
   GetNFTTokenStatsOperation,
   GetTokenStatsOperation,
   GetBlockStatsOperation,
-  GetTokenPairOhlcOperation,
 ];

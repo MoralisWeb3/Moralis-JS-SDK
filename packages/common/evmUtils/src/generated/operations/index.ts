@@ -13,5 +13,4 @@ export * from './GetNFTCollectionStatsOperation';
 export * from './GetNFTTokenStatsOperation';
 export * from './GetTokenStatsOperation';
 export * from './GetBlockStatsOperation';
-export * from './GetTokenPairOhlcOperation';
 export * from './operations';

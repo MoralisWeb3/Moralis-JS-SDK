@@ -30,8 +30,6 @@ import { GetTokenStatsOperation, GetTokenStatsOperationRequest, GetTokenStatsOpe
 import { EvmErc20TokenStat, EvmErc20TokenStatJSON } from '../types/EvmErc20TokenStat';
 import { GetBlockStatsOperation, GetBlockStatsOperationRequest, GetBlockStatsOperationRequestJSON } from '../operations/GetBlockStatsOperation';
 import { EvmBlockTokenStat, EvmBlockTokenStatJSON } from '../types/EvmBlockTokenStat';
-import { GetTokenPairOhlcOperation, GetTokenPairOhlcOperationRequest, GetTokenPairOhlcOperationRequestJSON } from '../operations/GetTokenPairOhlcOperation';
-import { EvmOhlcResponse, EvmOhlcResponseJSON } from '../types/EvmOhlcResponse';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -201,27 +199,6 @@ export abstract class AbstractClient {
       EvmErc20TokenStat,
       EvmErc20TokenStatJSON
     >(GetTokenStatsOperation),
-    /**
-     * @description Get OHLC candle sticks of token pair.
-     * @param request Request with parameters.
-     * @param {String} request.token0 The base token address
-     * @param {String} request.token1 The quote token address
-     * @param {String} request.exchange The factory name or address of the token exchange
-     * @param {Object} request.interval The interval of the ohlc candles
-     * @param {String} request.priceFormat The price format of the ohlc candles (usd, native)
-     * @param {String} request.fromDate The date from where to get the ohlc candles (format in seconds or datestring accepted by momentjs).
-     * @param {String} request.toDate Get ohlc candles up until this date (format in seconds or datestring accepted by momentjs).
-     * @param {Object} [request.chain] The chain to query (optional)
-     * @param {Number} [request.limit] The maximum number of ohlc candles to return (max 100) (optional)
-     * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
-     * @returns {Object} Response for the request.
-     */
-    getTokenPairOhlc: this.createEndpoint<
-      GetTokenPairOhlcOperationRequest,
-      GetTokenPairOhlcOperationRequestJSON,
-      EvmOhlcResponse,
-      EvmOhlcResponseJSON
-    >(GetTokenPairOhlcOperation),
   };
   public readonly utils = {
     /**
