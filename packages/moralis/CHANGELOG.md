@@ -1,5 +1,25 @@
 # moralis
 
+## 2.24.2
+
+### Patch Changes
+
+- [#1175](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1175) [`b6f6e182f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b6f6e182f5b3606bfce35b1bcbcd97c6c6542d3a) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `getMultipleTokenPrices` method to the EVM API.
+
+- Updated dependencies [[`b6f6e182f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/b6f6e182f5b3606bfce35b1bcbcd97c6c6542d3a)]:
+  - @moralisweb3/common-evm-utils@2.24.2
+  - @moralisweb3/evm-api@2.24.2
+  - @moralisweb3/api-utils@2.24.2
+  - @moralisweb3/aptos-api@2.24.2
+  - @moralisweb3/auth@2.24.2
+  - @moralisweb3/common-aptos-utils@2.24.2
+  - @moralisweb3/common-auth-utils@2.24.2
+  - @moralisweb3/common-core@2.24.2
+  - @moralisweb3/common-sol-utils@2.24.2
+  - @moralisweb3/common-streams-utils@2.24.2
+  - @moralisweb3/sol-api@2.24.2
+  - @moralisweb3/streams@2.24.2
+
 ## 2.24.1
 
 ### Patch Changes
