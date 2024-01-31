@@ -4,4 +4,4 @@
 'moralis': patch
 ---
 
-Added `getMultipleTokenPrices` and `getTokenPairOhlc` methods to the EVM API.
+Added the `getMultipleTokenPrices` method to the EVM API.
