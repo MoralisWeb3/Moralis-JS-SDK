@@ -47,7 +47,7 @@ export const getNFTTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/{tokenId}/transfers',
   urlPathParamNames: ['address', 'tokenId'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'order'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -66,6 +66,7 @@ function getRequestUrlParams(request: GetNFTTransfersRequest, core: Core) {
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     tokenId: request.tokenId,
+    order: request.order,
   };
 }
 
@@ -92,6 +93,7 @@ function serializeRequest(request: GetNFTTransfersRequest, core: Core) {
     cursor: request.cursor,
     address: EvmAddress.create(request.address).checksum,
     tokenId: request.tokenId,
+    order: request.order,
   };
 }
 
@@ -103,5 +105,6 @@ function deserializeRequest(jsonRequest: GetNFTTransfersJSONRequest): GetNFTTran
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),
     tokenId: jsonRequest.tokenId,
+    order: jsonRequest.order,
   };
 }

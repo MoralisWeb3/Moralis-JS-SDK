@@ -40,7 +40,7 @@ export const getWalletTokenBalancesOperation: Operation<
   groupName: 'token',
   urlPathPattern: '/{address}/erc20',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'toBlock', 'tokenAddresses'],
+  urlSearchParamNames: ['chain', 'toBlock', 'tokenAddresses', 'excludeSpam'],
 
   getRequestUrlParams,
   serializeRequest,
@@ -58,6 +58,7 @@ function getRequestUrlParams(request: GetWalletTokenBalancesRequest, core: Core)
       addresses.map((address) => EvmAddress.create(address).lowercase),
     ),
     address: EvmAddress.create(request.address).lowercase,
+    exclude_spam: request.excludeSpam,
   };
 }
 
@@ -91,6 +92,7 @@ function serializeRequest(request: GetWalletTokenBalancesRequest, core: Core) {
     ),
     address: EvmAddress.create(request.address).checksum,
     toBlock: request.toBlock,
+    excludeSpam: request.excludeSpam,
   };
 }
 
@@ -102,5 +104,6 @@ function deserializeRequest(jsonRequest: GetWalletTokenBalancesJSONRequest): Get
     ),
     address: EvmAddress.create(jsonRequest.address),
     toBlock: jsonRequest.toBlock,
+    excludeSpam: jsonRequest.excludeSpam,
   };
 }

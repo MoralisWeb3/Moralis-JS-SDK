@@ -21,11 +21,12 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 // Exports
 
 export interface GetWalletTokenTransfersRequest
-  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date' | 'contract_addresses'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  contractAddresses?: EvmAddressish[];
 }
 
 export type GetWalletTokenTransfersJSONRequest = ReturnType<typeof serializeRequest>;
@@ -50,7 +51,17 @@ export const getWalletTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/{address}/erc20/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor'],
+  urlSearchParamNames: [
+    'chain',
+    'fromBlock',
+    'toBlock',
+    'fromDate',
+    'toDate',
+    'limit',
+    'cursor',
+    'order',
+    'contractAddresses',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -71,6 +82,8 @@ function getRequestUrlParams(request: GetWalletTokenTransfersRequest, core: Core
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     limit: maybe(request.limit, String),
     cursor: request.cursor,
+    order: request.order,
+    contract_addresses: request.contractAddresses?.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -102,6 +115,8 @@ function serializeRequest(request: GetWalletTokenTransfersRequest, core: Core) {
     toDate: request.toDate,
     limit: request.limit,
     cursor: request.cursor,
+    order: request.order,
+    contractAddresses: request.contractAddresses?.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -115,5 +130,7 @@ function deserializeRequest(jsonRequest: GetWalletTokenTransfersJSONRequest): Ge
     toDate: jsonRequest.toDate,
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
+    order: jsonRequest.order,
+    contractAddresses: jsonRequest.contractAddresses ? jsonRequest.contractAddresses.map(EvmAddress.create) : undefined,
   };
 }

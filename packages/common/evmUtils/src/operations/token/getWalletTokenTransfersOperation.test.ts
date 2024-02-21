@@ -24,6 +24,8 @@ describe('getWalletTokenTransfersOperation', () => {
       toDate: new Date(toDate),
       cursor: 'CURSOR1',
       limit: 333,
+      contractAddresses: [address],
+      order: 'ASC',
     };
 
     const serializedRequest = getWalletTokenTransfersOperation.serializeRequest(request, core);
@@ -36,6 +38,8 @@ describe('getWalletTokenTransfersOperation', () => {
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
+    expect(serializedRequest.contractAddresses).toContain(address.toLowerCase());
+    expect(serializedRequest.order).toBe(request.order);
 
     const deserializedRequest = getWalletTokenTransfersOperation.deserializeRequest(serializedRequest, core);
 
@@ -47,5 +51,7 @@ describe('getWalletTokenTransfersOperation', () => {
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
+    expect((deserializedRequest.contractAddresses as EvmAddress[])[0].equals(address)).toBe(true);
+    expect(deserializedRequest.order).toBe(request.order);
   });
 });

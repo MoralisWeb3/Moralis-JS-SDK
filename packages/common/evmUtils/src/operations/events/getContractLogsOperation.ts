@@ -61,6 +61,7 @@ export const getContractLogsOperation: PaginatedOperation<
     'topic0',
     'limit',
     'cursor',
+    'order',
   ],
   firstPageIndex: 0,
 
@@ -84,6 +85,7 @@ function getRequestUrlParams(request: GetContractLogsRequest, core: Core) {
     limit: maybe(request.limit, String),
     cursor: request.cursor,
     address: EvmAddress.create(request.address).lowercase,
+    order: request.order,
   };
 }
 
@@ -99,6 +101,7 @@ function serializeRequest(request: GetContractLogsRequest, core: Core) {
     limit: request.limit,
     cursor: request.cursor,
     address: EvmAddress.create(request.address).lowercase,
+    order: request.order,
   };
 }
 
@@ -114,6 +117,7 @@ function deserializeRequest(jsonRequest: GetContractLogsJSONRequest): GetContrac
     limit: jsonRequest.limit,
     cursor: jsonRequest.cursor,
     address: EvmAddress.create(jsonRequest.address),
+    order: jsonRequest.order,
   };
 }
 

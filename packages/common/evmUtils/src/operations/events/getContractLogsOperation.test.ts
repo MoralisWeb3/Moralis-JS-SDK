@@ -26,6 +26,7 @@ describe('getContractLogsOperation', () => {
       topic0: 'topic0',
       blockNumber: '123',
       cursor: 'cursor',
+      order: 'ASC',
     };
 
     const serializedRequest = getContractLogsOperation.serializeRequest(request, core);
@@ -40,6 +41,7 @@ describe('getContractLogsOperation', () => {
     expect(serializedRequest.toDate).toBe(toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.fromBlock).toBe(request.fromBlock);
+    expect(serializedRequest.order).toBe(request.order);
 
     const deserializedRequest = getContractLogsOperation.deserializeRequest(serializedRequest, core);
 
@@ -53,5 +55,6 @@ describe('getContractLogsOperation', () => {
     expect(deserializedRequest.topic0).toBe(request.topic0);
     expect(deserializedRequest.blockNumber).toBe(request.blockNumber);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
+    expect(deserializedRequest.order).toBe(request.order);
   });
 });

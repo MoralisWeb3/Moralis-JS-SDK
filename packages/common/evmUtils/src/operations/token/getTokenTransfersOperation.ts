@@ -50,7 +50,7 @@ export const getTokenTransfersOperation: PaginatedOperation<
   groupName: 'token',
   urlPathPattern: '/erc20/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'limit', 'cursor', 'order'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -71,6 +71,7 @@ function getRequestUrlParams(request: GetTokenTransfersRequest, core: Core) {
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address).lowercase,
     cursor: request.cursor,
+    order: request.order,
   };
 }
 
@@ -102,6 +103,7 @@ function serializeRequest(request: GetTokenTransfersRequest, core: Core) {
     limit: request.limit,
     address: EvmAddress.create(request.address).checksum,
     cursor: request.cursor,
+    order: request.order,
   };
 }
 
@@ -115,5 +117,6 @@ function deserializeRequest(jsonRequest: GetTokenTransfersJSONRequest): GetToken
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address),
     cursor: jsonRequest.cursor,
+    order: jsonRequest.order,
   };
 }
