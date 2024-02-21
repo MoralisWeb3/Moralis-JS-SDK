@@ -1,3 +1,5 @@
+import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
+
 // $ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items
 // type: marketDataTopNFTCollectionByMarketCap_Item
 // properties:
@@ -22,7 +24,7 @@ export interface EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
   readonly market_cap_24hr_percent_change: string;
   readonly volume_usd: string;
   readonly volume_24hr_percent_change: string;
-  readonly collection_address: string;
+  readonly collection_address: EvmAddressJSON;
 }
 
 export interface EvmMarketDataTopNFTCollectionByMarketCapItemInput {
@@ -35,7 +37,7 @@ export interface EvmMarketDataTopNFTCollectionByMarketCapItemInput {
   readonly marketCap24hrPercentChange: string;
   readonly volumeUsd: string;
   readonly volume24hrPercentChange: string;
-  readonly collectionAddress: string;
+  readonly collectionAddress: EvmAddressInput | EvmAddress;
 }
 
 export class EvmMarketDataTopNFTCollectionByMarketCapItem {
@@ -57,7 +59,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
       marketCap24hrPercentChange: json.market_cap_24hr_percent_change,
       volumeUsd: json.volume_usd,
       volume24hrPercentChange: json.volume_24hr_percent_change,
-      collectionAddress: json.collection_address,
+      collectionAddress: EvmAddress.fromJSON(json.collection_address),
     };
     return EvmMarketDataTopNFTCollectionByMarketCapItem.create(input);
   }
@@ -101,7 +103,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
   /**
    * @description The collection address
    */
-  public readonly collectionAddress: string;
+  public readonly collectionAddress: EvmAddress;
 
   private constructor(input: EvmMarketDataTopNFTCollectionByMarketCapItemInput) {
     this.rank = input.rank;
@@ -113,7 +115,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
     this.marketCap24hrPercentChange = input.marketCap24hrPercentChange;
     this.volumeUsd = input.volumeUsd;
     this.volume24hrPercentChange = input.volume24hrPercentChange;
-    this.collectionAddress = input.collectionAddress;
+    this.collectionAddress = EvmAddress.create(input.collectionAddress);
   }
 
   public toJSON(): EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
@@ -127,7 +129,7 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
       market_cap_24hr_percent_change: this.marketCap24hrPercentChange,
       volume_usd: this.volumeUsd,
       volume_24hr_percent_change: this.volume24hrPercentChange,
-      collection_address: this.collectionAddress,
+      collection_address: this.collectionAddress.toJSON(),
     }
   }
 }

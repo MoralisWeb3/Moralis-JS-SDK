@@ -30,7 +30,8 @@
             "price_token_address",
             "contract_address",
             "from_wallet",
-            "to_wallet"
+            "to_wallet",
+            "collection_address"
           ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
