@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.24.3
+
+### Patch Changes
+
+- [#1177](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1177) [`69ce6b585`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/69ce6b585c9c063e08792f4e6095ad1302067258) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated many endpoints to changes in the EVM API swagger.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.24.3
+
 ## 2.24.2
 
 ### Patch Changes
