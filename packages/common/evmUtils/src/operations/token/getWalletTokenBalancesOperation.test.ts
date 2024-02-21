@@ -19,6 +19,7 @@ describe('getWalletTokenBalancesOperation', () => {
       chain: EvmChain.create(chain),
       tokenAddresses: tokenAddresses.map((address) => EvmAddress.create(address)),
       toBlock: 20,
+      excludeSpam: true,
     };
 
     const serializedRequest = getWalletTokenBalancesOperation.serializeRequest(request, core);
@@ -30,6 +31,7 @@ describe('getWalletTokenBalancesOperation', () => {
       expect((serializedRequest.tokenAddresses ?? [])[i]).toBe(tokenAddresses[i]);
     }
     expect(serializedRequest.toBlock).toBe(request.toBlock);
+    expect(serializedRequest.excludeSpam).toBe(request.excludeSpam);
 
     const deserializedRequest = getWalletTokenBalancesOperation.deserializeRequest(serializedRequest, core);
 

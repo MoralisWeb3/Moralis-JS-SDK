@@ -28,6 +28,7 @@ describe('getWalletVerboseTransactionsOperation', () => {
       cursor: 'CURSOR1',
       limit: 333,
       include: 'internal_transactions',
+      order: 'ASC',
     };
 
     const serializedRequest = getWalletTransactionsVerboseOperation.serializeRequest(request, core);
@@ -41,6 +42,7 @@ describe('getWalletVerboseTransactionsOperation', () => {
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
     expect(serializedRequest.include).toBe(request.include);
+    expect(serializedRequest.order).toBe(request.order);
 
     const deserializedRequest = getWalletTransactionsVerboseOperation.deserializeRequest(serializedRequest, core);
 
@@ -53,5 +55,6 @@ describe('getWalletVerboseTransactionsOperation', () => {
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
     expect(deserializedRequest.include).toBe(request.include);
+    expect(deserializedRequest.order).toBe(request.order);
   });
 });

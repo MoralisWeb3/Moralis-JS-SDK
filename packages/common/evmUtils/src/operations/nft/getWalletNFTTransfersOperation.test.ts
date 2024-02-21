@@ -23,6 +23,8 @@ describe('getWalletNFTTransfersOperation', () => {
       cursor: 'CURSOR1',
       fromDate: '2021-01-01T00:00:00.000Z',
       toDate: '2021-01-01T00:00:00.000Z',
+      contractAddresses: [address],
+      order: 'ASC',
     };
 
     const serializedRequest = getWalletNFTTransfersOperation.serializeRequest(request, core);
@@ -36,6 +38,7 @@ describe('getWalletNFTTransfersOperation', () => {
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.fromDate).toBe(request.fromDate);
     expect(serializedRequest.toDate).toBe(request.toDate);
+    expect(serializedRequest.contractAddresses).toContain(address.toLowerCase());
 
     const deserializedRequest = getWalletNFTTransfersOperation.deserializeRequest(serializedRequest, core);
 
@@ -48,5 +51,6 @@ describe('getWalletNFTTransfersOperation', () => {
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.fromDate).toBe(request.fromDate);
     expect(deserializedRequest.toDate).toBe(request.toDate);
+    expect((deserializedRequest.contractAddresses as EvmAddress[])[0].equals(address)).toBe(true);
   });
 });

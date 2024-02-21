@@ -64,7 +64,7 @@ export const getWalletTransactionsVerboseOperation: PaginatedOperation<
   groupName: 'transaction',
   urlPathPattern: '/{address}/verbose',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit', 'include'],
+  urlSearchParamNames: ['chain', 'fromBlock', 'toBlock', 'fromDate', 'toDate', 'cursor', 'limit', 'include', 'order'],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -86,6 +86,7 @@ function getRequestUrlParams(request: GetWalletTransactionsVerboseRequest, core:
     limit: maybe(request.limit, String),
     address: EvmAddress.create(request.address).lowercase,
     include: request.include,
+    order: request.order,
   };
 }
 
@@ -100,6 +101,7 @@ function serializeRequest(request: GetWalletTransactionsVerboseRequest, core: Co
     limit: request.limit,
     address: EvmAddress.create(request.address).checksum,
     include: request.include,
+    order: request.order,
   };
 }
 
@@ -114,6 +116,7 @@ function deserializeRequest(jsonRequest: GetWalletTransactionsVerboseJSONRequest
     limit: jsonRequest.limit,
     address: EvmAddress.create(jsonRequest.address),
     include: jsonRequest.include,
+    order: jsonRequest.order,
   };
 }
 

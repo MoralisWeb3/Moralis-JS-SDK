@@ -25,6 +25,7 @@ describe('getWalletTransactionsOperation', () => {
       cursor: 'CURSOR1',
       limit: 333,
       include: 'internal_transactions',
+      order: 'ASC',
     };
 
     const serializedRequest = getWalletTransactionsOperation.serializeRequest(request, core);
@@ -37,6 +38,7 @@ describe('getWalletTransactionsOperation', () => {
     expect(serializedRequest.toDate).toBe(request.toDate);
     expect(serializedRequest.cursor).toBe(request.cursor);
     expect(serializedRequest.limit).toBe(request.limit);
+    expect(serializedRequest.order).toBe(request.order);
 
     const deserializedRequest = getWalletTransactionsOperation.deserializeRequest(serializedRequest, core);
 
@@ -48,5 +50,6 @@ describe('getWalletTransactionsOperation', () => {
     expect(deserializedRequest.toDate).toBe(request.toDate);
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.limit).toBe(request.limit);
+    expect(deserializedRequest.order).toBe(request.order);
   });
 });

@@ -51,7 +51,7 @@ export const getNFTContractTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/nft/{address}/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'fromBlock', 'fromDate', 'toBlock', 'toDate'],
+  urlSearchParamNames: ['chain', 'format', 'limit', 'cursor', 'fromBlock', 'fromDate', 'toBlock', 'toDate', 'order'],
   firstPageIndex: 0,
   getRequestUrlParams,
   serializeRequest,
@@ -72,6 +72,7 @@ function getRequestUrlParams(request: GetNFTContractTransfersRequest, core: Core
     to_block: maybe(request.toBlock, String),
     to_date: request.toDate ? new Date(request.toDate).toISOString() : undefined,
     cursor: request.cursor,
+    order: request.order,
   };
 }
 
@@ -105,6 +106,7 @@ function serializeRequest(request: GetNFTContractTransfersRequest, core: Core) {
     toBlock: request.toBlock,
     fromDate: request.fromDate ? new Date(request.fromDate).toISOString() : undefined,
     toDate: request.toDate ? new Date(request.toDate).toISOString() : undefined,
+    order: request.order,
   };
 }
 
@@ -119,5 +121,6 @@ function deserializeRequest(jsonRequest: GetNFTContractTransfersJSONRequest): Ge
     toBlock: jsonRequest.toBlock,
     fromDate: jsonRequest.fromDate ? new Date(jsonRequest.fromDate) : undefined,
     toDate: jsonRequest.toDate ? new Date(jsonRequest.toDate) : undefined,
+    order: jsonRequest.order,
   };
 }

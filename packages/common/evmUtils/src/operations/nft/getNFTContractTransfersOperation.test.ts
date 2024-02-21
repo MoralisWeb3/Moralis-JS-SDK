@@ -25,6 +25,7 @@ describe('getNftContractTransfersOperation', () => {
       toBlock: 16225608,
       toDate: new Date(toDate),
       fromDate: new Date(fromDate),
+      order: 'ASC',
     };
 
     const serializedRequest = getNFTContractTransfersOperation.serializeRequest(request, core);
@@ -37,6 +38,7 @@ describe('getNftContractTransfersOperation', () => {
     expect(serializedRequest.toBlock).toBe(request.toBlock);
     expect(serializedRequest.fromDate).toBe(fromDate);
     expect(serializedRequest.toDate).toBe(toDate);
+    expect(serializedRequest.order).toBe(request.order);
 
     const deserializedRequest = getNFTContractTransfersOperation.deserializeRequest(serializedRequest, core);
 
@@ -47,6 +49,7 @@ describe('getNftContractTransfersOperation', () => {
     expect(deserializedRequest.cursor).toBe(request.cursor);
     expect(deserializedRequest.fromBlock).toBe(request.fromBlock);
     expect(deserializedRequest.toBlock).toBe(request.toBlock);
+    expect(deserializedRequest.order).toBe(request.order);
     expect((deserializedRequest.fromDate as Date | undefined)?.toISOString()).toBe(fromDate);
     expect((deserializedRequest.toDate as Date | undefined)?.toISOString()).toBe(toDate);
   });

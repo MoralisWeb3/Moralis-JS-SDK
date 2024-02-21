@@ -9,6 +9,7 @@
 // - volume_usd ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/volume_usd)
 // - volume_24hr_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/volume_24hr_percent_change)
 // - average_price_usd ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/average_price_usd)
+// - collection_address ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/collection_address)
 
 export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
   readonly rank: number;
@@ -19,6 +20,7 @@ export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
   readonly volume_usd: string;
   readonly volume_24hr_percent_change: string;
   readonly average_price_usd?: string;
+  readonly collection_address: string;
 }
 
 export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput {
@@ -30,6 +32,7 @@ export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput {
   readonly volumeUsd: string;
   readonly volume24hrPercentChange: string;
   readonly averagePriceUsd?: string;
+  readonly collectionAddress: string;
 }
 
 export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
@@ -50,6 +53,7 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
       volumeUsd: json.volume_usd,
       volume24hrPercentChange: json.volume_24hr_percent_change,
       averagePriceUsd: json.average_price_usd,
+      collectionAddress: json.collection_address,
     };
     return EvmMarketDataHottestNFTCollectionByTradingVolumeItem.create(input);
   }
@@ -86,6 +90,10 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
    * @description The average price in USD
    */
   public readonly averagePriceUsd?: string;
+  /**
+   * @description The collection address
+   */
+  public readonly collectionAddress: string;
 
   private constructor(input: EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput) {
     this.rank = input.rank;
@@ -96,6 +104,7 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
     this.volumeUsd = input.volumeUsd;
     this.volume24hrPercentChange = input.volume24hrPercentChange;
     this.averagePriceUsd = input.averagePriceUsd;
+    this.collectionAddress = input.collectionAddress;
   }
 
   public toJSON(): EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
@@ -108,6 +117,7 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
       volume_usd: this.volumeUsd,
       volume_24hr_percent_change: this.volume24hrPercentChange,
       average_price_usd: this.averagePriceUsd,
+      collection_address: this.collectionAddress,
     }
   }
 }

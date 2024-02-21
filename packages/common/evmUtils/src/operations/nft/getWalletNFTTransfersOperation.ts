@@ -24,11 +24,12 @@ type SuccessResponse = operations[OperationId]['responses']['200']['content']['a
 // Exports
 
 export interface GetWalletNFTTransfersRequest
-  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date'>> {
+  extends Camelize<Omit<RequestParams, 'chain' | 'address' | 'from_date' | 'to_date' | 'contract_addresses'>> {
   chain?: EvmChainish;
   address: EvmAddressish;
   fromDate?: DateInput;
   toDate?: DateInput;
+  contractAddresses?: EvmAddressish[];
 }
 
 export type GetWalletNFTTransfersJSONRequest = ReturnType<typeof serializeRequest>;
@@ -53,7 +54,18 @@ export const getWalletNFTTransfersOperation: PaginatedOperation<
   groupName: 'nft',
   urlPathPattern: '/{address}/nft/transfers',
   urlPathParamNames: ['address'],
-  urlSearchParamNames: ['chain', 'format', 'fromBlock', 'toBlock', 'limit', 'cursor', 'fromDate', 'toDate'],
+  urlSearchParamNames: [
+    'chain',
+    'format',
+    'fromBlock',
+    'toBlock',
+    'limit',
+    'cursor',
+    'fromDate',
+    'toDate',
+    'order',
+    'contractAddresses',
+  ],
   firstPageIndex: 0,
 
   getRequestUrlParams,
@@ -75,6 +87,8 @@ function getRequestUrlParams(request: GetWalletNFTTransfersRequest, core: Core) 
     cursor: request.cursor,
     from_date: maybe(request.fromDate, (date) => new Date(date).toISOString()),
     to_date: maybe(request.toDate, (date) => new Date(date).toISOString()),
+    order: request.order,
+    contract_addresses: request.contractAddresses?.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -108,6 +122,8 @@ function serializeRequest(request: GetWalletNFTTransfersRequest, core: Core) {
     address: EvmAddress.create(request.address).checksum,
     fromDate: maybe(request.fromDate, (date) => new Date(date).toISOString()),
     toDate: maybe(request.toDate, (date) => new Date(date).toISOString()),
+    order: request.order,
+    contractAddresses: request.contractAddresses?.map((address) => EvmAddress.create(address).lowercase),
   };
 }
 
@@ -122,5 +138,7 @@ function deserializeRequest(jsonRequest: GetWalletNFTTransfersJSONRequest): GetW
     address: EvmAddress.create(jsonRequest.address),
     fromDate: jsonRequest.fromDate,
     toDate: jsonRequest.toDate,
+    order: jsonRequest.order,
+    contractAddresses: jsonRequest.contractAddresses ? jsonRequest.contractAddresses.map(EvmAddress.create) : undefined,
   };
 }
