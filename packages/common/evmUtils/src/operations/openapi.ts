@@ -4111,7 +4111,7 @@ export interface operations {
       /** Returns token balances with prices for a specific address */
       200: {
         content: {
-          "application/json": components["schemas"]["erc20TokenBalanceWithPriceResult"][];
+          "application/json": components["schemas"]["erc20TokenBalanceWithPriceResult"];
         };
       };
     };

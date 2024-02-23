@@ -3,10 +3,18 @@ import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCol
 import { GetMultipleTokenPricesOperation, GetMultipleTokenPricesOperationRequest, GetMultipleTokenPricesOperationRequestJSON } from '../operations/GetMultipleTokenPricesOperation';
 import { EvmErc20Price, EvmErc20PriceJSON } from '../types/EvmErc20Price';
 import { EvmGetMultipleTokenPricesDto, EvmGetMultipleTokenPricesDtoInput, EvmGetMultipleTokenPricesDtoJSON } from '../types/EvmGetMultipleTokenPricesDto';
+import { GetWalletTokenBalancesPriceOperation, GetWalletTokenBalancesPriceOperationRequest, GetWalletTokenBalancesPriceOperationRequestJSON } from '../operations/GetWalletTokenBalancesPriceOperation';
+import { EvmErc20TokenBalanceWithPriceResult, EvmErc20TokenBalanceWithPriceResultJSON } from '../types/EvmErc20TokenBalanceWithPriceResult';
+import { GetWalletNetWorthOperation, GetWalletNetWorthOperationRequest, GetWalletNetWorthOperationRequestJSON } from '../operations/GetWalletNetWorthOperation';
+import { EvmNetWorthResult, EvmNetWorthResultJSON } from '../types/EvmNetWorthResult';
 import { Web3ApiVersionOperation, Web3ApiVersionOperationRequest, Web3ApiVersionOperationRequestJSON } from '../operations/Web3ApiVersionOperation';
 import { EvmWeb3version, EvmWeb3versionJSON } from '../types/EvmWeb3version';
 import { EndpointWeightsOperation, EndpointWeightsOperationRequest, EndpointWeightsOperationRequestJSON } from '../operations/EndpointWeightsOperation';
 import { EvmEndpointWeights, EvmEndpointWeightsJSON } from '../types/EvmEndpointWeights';
+import { ResolveAddressToDomainOperation, ResolveAddressToDomainOperationRequest, ResolveAddressToDomainOperationRequestJSON } from '../operations/ResolveAddressToDomainOperation';
+import { EvmUnstoppableDomain, EvmUnstoppableDomainJSON } from '../types/EvmUnstoppableDomain';
+import { GetPairPriceOperation, GetPairPriceOperationRequest, GetPairPriceOperationRequestJSON } from '../operations/GetPairPriceOperation';
+import { EvmGetPairPrice, EvmGetPairPriceJSON } from '../types/EvmGetPairPrice';
 import { GetTopERC20TokensByMarketCapOperation, GetTopERC20TokensByMarketCapOperationRequest, GetTopERC20TokensByMarketCapOperationRequestJSON } from '../operations/GetTopERC20TokensByMarketCapOperation';
 import { EvmMarketDataERC20TokenItem, EvmMarketDataERC20TokenItemJSON } from '../types/EvmMarketDataERC20TokenItem';
 import { GetTopERC20TokensByPriceMoversOperation, GetTopERC20TokensByPriceMoversOperationRequest, GetTopERC20TokensByPriceMoversOperationRequestJSON } from '../operations/GetTopERC20TokensByPriceMoversOperation';
@@ -67,6 +75,27 @@ export abstract class AbstractClient {
       EvmBlockTokenStatJSON
     >(GetBlockStatsOperation),
   };
+  public readonly defi = {
+    /**
+     * @description Get the price of a given token pair. Only Uniswap V2 based exchanges supported at the moment.
+     * @param request Request with parameters.
+     * @param {Object} request.token0Address The token0 address
+     * @param {Object} request.token1Address The token1 address
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.toBlock] The block number to get the reserves from (optional)
+     * @param {Date} [request.toDate] Get the price up to this date (format in seconds or datestring accepted by momentjs)
+     * * Provide the param 'to_block' or 'to_date'
+     * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
+     * @param {String} [request.exchange] The factory name or address of the token exchange (optional)
+     * @returns {Object} Response for the request.
+     */
+    getPairPrice: this.createEndpoint<
+      GetPairPriceOperationRequest,
+      GetPairPriceOperationRequestJSON,
+      EvmGetPairPrice,
+      EvmGetPairPriceJSON
+    >(GetPairPriceOperation),
+  };
   public readonly marketData = {
     /**
      * @description Get the top ERC20 tokens by market cap
@@ -122,11 +151,11 @@ export abstract class AbstractClient {
      * @param {Number} [request.fromBlock] The minimum block number from which to get the transfers
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
-     * @param {String} [request.toBlock] The block number to get the trades from (optional)
+     * @param {Number} [request.toBlock] The block number to get the trades from (optional)
      * @param {String} [request.fromDate] The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
-     * @param {String} [request.toDate] The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+     * @param {Date} [request.toDate] The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'to_block' or 'to_date'
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
      * @param {Object} [request.marketplace] Marketplace from which to get the trades (only OpenSea is supported at the moment) (optional)
@@ -167,6 +196,21 @@ export abstract class AbstractClient {
       EvmNftTokenStat,
       EvmNftTokenStatJSON
     >(GetNFTTokenStatsOperation),
+  };
+  public readonly resolve = {
+    /**
+     * @description Resolve a specific address to its Unstoppable domain
+     * @param request Request with parameters.
+     * @param {Object} request.address The address to be resolved
+     * @param {Object} [request.currency] The currency to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    resolveAddressToDomain: this.createEndpoint<
+      ResolveAddressToDomainOperationRequest,
+      ResolveAddressToDomainOperationRequestJSON,
+      EvmUnstoppableDomain,
+      EvmUnstoppableDomainJSON
+    >(ResolveAddressToDomainOperation),
   };
   public readonly token = {
     /**
@@ -241,6 +285,41 @@ export abstract class AbstractClient {
     >(ReviewContractsOperation),
   };
   public readonly wallets = {
+    /**
+     * @description Get token balances for a specific wallet address and their token prices in USD.
+     * @param request Request with parameters.
+     * @param {Object} request.address The address from which token balances will be checked
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.toBlock] The block number up to which the balances will be checked. (optional)
+     * @param {Object[]} [request.tokenAddresses] The addresses to get balances for (optional) (optional)
+     * @param {Boolean} [request.excludeSpam] Exclude spam tokens from the result (optional)
+     * @param {Boolean} [request.excludeUnverifiedContracts] Exclude unverified contracts from the result (optional)
+     * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
+     * @param {Number} [request.limit] The desired page size of the result. (optional)
+     * @param {Boolean} [request.excludeNative] Exclude native balance from the result (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletTokenBalancesPrice: this.createEndpoint<
+      GetWalletTokenBalancesPriceOperationRequest,
+      GetWalletTokenBalancesPriceOperationRequestJSON,
+      EvmErc20TokenBalanceWithPriceResult,
+      EvmErc20TokenBalanceWithPriceResultJSON
+    >(GetWalletTokenBalancesPriceOperation),
+    /**
+     * @description Get the net worth of a wallet in USD. We recommend to filter out spam tokens and unverified contracts to get a more accurate result.
+     * @param request Request with parameters.
+     * @param {Object} request.address The wallet address
+     * @param {Object[]} [request.chains] The chains to query (optional)
+     * @param {Boolean} [request.excludeSpam] Exclude spam tokens from the result (optional)
+     * @param {Boolean} [request.excludeUnverifiedContracts] Exclude unverified contracts from the result (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletNetWorth: this.createEndpoint<
+      GetWalletNetWorthOperationRequest,
+      GetWalletNetWorthOperationRequestJSON,
+      EvmNetWorthResult,
+      EvmNetWorthResultJSON
+    >(GetWalletNetWorthOperation),
     /**
      * @description Get the active chains for a wallet address.
      * @param request Request with parameters.

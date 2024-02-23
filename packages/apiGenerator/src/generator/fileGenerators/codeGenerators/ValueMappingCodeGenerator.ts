@@ -15,6 +15,7 @@ export class ValueMappingCodeGenerator {
 
     if (resolvedType.nativeType) {
       return TypeConversionCodeGenerator.generate(
+        isRequired,
         resolvedType.nativeType.jsonType,
         resolvedType.nativeType.valueType,
         valueCode,
@@ -46,6 +47,7 @@ export class ValueMappingCodeGenerator {
 
     if (resolvedType.nativeType) {
       return TypeConversionCodeGenerator.generate(
+        isRequired,
         resolvedType.nativeType.valueType,
         resolvedType.nativeType.jsonType,
         valueCode,

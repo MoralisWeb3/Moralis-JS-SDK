@@ -8,7 +8,11 @@
       "types": [],
       "refs": [
         {
-          "refs": ["#/components/schemas/trade/properties/price"],
+          "refs": [
+            "#/components/schemas/trade/properties/price",
+            "#/components/schemas/erc20TokenBalanceWithPrice/properties/balance",
+            "#/components/schemas/chainNetWorth/properties/native_balance"
+          ],
           "className": "EvmNative",
           "import": "../../dataTypes"
         },
@@ -42,7 +46,7 @@
           "import": "@moralisweb3/common-core"
         },
         {
-          "names": ["transaction_index", "token_decimals", "log_index"],
+          "names": ["transaction_index", "token_decimals", "log_index", "decimals"],
           "nativeType": "number"
         }
       ],
@@ -53,9 +57,26 @@
           "import": "../../dataTypes"
         },
         {
-          "names": ["address", "contract_addresses", "wallet_addresses", "exclude_wallets", "exclude_contracts"],
+          "names": [
+            "address",
+            "contract_addresses",
+            "wallet_addresses",
+            "exclude_wallets",
+            "exclude_contracts",
+            "token0_address",
+            "token1_address",
+            "token_addresses"
+          ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
+        },
+        {
+          "names": ["to_block"],
+          "nativeType": "number"
+        },
+        {
+          "names": "to_date",
+          "nativeType": "Date"
         }
       ]
     },
@@ -81,7 +102,12 @@
           "getNFTCollectionStats",
           "getBlockStats",
           "getTokenStats",
-          "getMultipleTokenPrices"
+          "getMultipleTokenPrices",
+          "getWalletNetWorth",
+          "getWalletTokenBalancesPrice",
+          "getPairPrice",
+          "resolveAddressToDomain",
+          "resolveENSAddress"
         ]
       }
     }

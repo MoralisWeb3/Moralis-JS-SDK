@@ -1,7 +1,11 @@
 import { GetNFTTradesOperation } from './GetNFTTradesOperation';
 import { GetMultipleTokenPricesOperation } from './GetMultipleTokenPricesOperation';
+import { GetWalletTokenBalancesPriceOperation } from './GetWalletTokenBalancesPriceOperation';
+import { GetWalletNetWorthOperation } from './GetWalletNetWorthOperation';
 import { Web3ApiVersionOperation } from './Web3ApiVersionOperation';
 import { EndpointWeightsOperation } from './EndpointWeightsOperation';
+import { ResolveAddressToDomainOperation } from './ResolveAddressToDomainOperation';
+import { GetPairPriceOperation } from './GetPairPriceOperation';
 import { GetTopERC20TokensByMarketCapOperation } from './GetTopERC20TokensByMarketCapOperation';
 import { GetTopERC20TokensByPriceMoversOperation } from './GetTopERC20TokensByPriceMoversOperation';
 import { GetTopNFTCollectionsByMarketCapOperation } from './GetTopNFTCollectionsByMarketCapOperation';
@@ -17,8 +21,12 @@ import { GetBlockStatsOperation } from './GetBlockStatsOperation';
 export const operations = [
   GetNFTTradesOperation,
   GetMultipleTokenPricesOperation,
+  GetWalletTokenBalancesPriceOperation,
+  GetWalletNetWorthOperation,
   Web3ApiVersionOperation,
   EndpointWeightsOperation,
+  ResolveAddressToDomainOperation,
+  GetPairPriceOperation,
   GetTopERC20TokensByMarketCapOperation,
   GetTopERC20TokensByPriceMoversOperation,
   GetTopNFTCollectionsByMarketCapOperation,
