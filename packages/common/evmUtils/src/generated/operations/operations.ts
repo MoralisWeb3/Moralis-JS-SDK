@@ -10,6 +10,8 @@ import { GetTopERC20TokensByMarketCapOperation } from './GetTopERC20TokensByMark
 import { GetTopERC20TokensByPriceMoversOperation } from './GetTopERC20TokensByPriceMoversOperation';
 import { GetTopNFTCollectionsByMarketCapOperation } from './GetTopNFTCollectionsByMarketCapOperation';
 import { GetHottestNFTCollectionsByTradingVolumeOperation } from './GetHottestNFTCollectionsByTradingVolumeOperation';
+import { GetTopCryptoCurrenciesByMarketCapOperation } from './GetTopCryptoCurrenciesByMarketCapOperation';
+import { GetTopCryptoCurrenciesByTradingVolumeOperation } from './GetTopCryptoCurrenciesByTradingVolumeOperation';
 import { ReviewContractsOperation } from './ReviewContractsOperation';
 import { GetWalletActiveChainsOperation } from './GetWalletActiveChainsOperation';
 import { GetWalletStatsOperation } from './GetWalletStatsOperation';
@@ -31,6 +33,8 @@ export const operations = [
   GetTopERC20TokensByPriceMoversOperation,
   GetTopNFTCollectionsByMarketCapOperation,
   GetHottestNFTCollectionsByTradingVolumeOperation,
+  GetTopCryptoCurrenciesByMarketCapOperation,
+  GetTopCryptoCurrenciesByTradingVolumeOperation,
   ReviewContractsOperation,
   GetWalletActiveChainsOperation,
   GetWalletStatsOperation,

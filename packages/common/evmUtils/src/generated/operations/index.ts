@@ -10,6 +10,8 @@ export * from './GetTopERC20TokensByMarketCapOperation';
 export * from './GetTopERC20TokensByPriceMoversOperation';
 export * from './GetTopNFTCollectionsByMarketCapOperation';
 export * from './GetHottestNFTCollectionsByTradingVolumeOperation';
+export * from './GetTopCryptoCurrenciesByMarketCapOperation';
+export * from './GetTopCryptoCurrenciesByTradingVolumeOperation';
 export * from './ReviewContractsOperation';
 export * from './GetWalletActiveChainsOperation';
 export * from './GetWalletStatsOperation';
