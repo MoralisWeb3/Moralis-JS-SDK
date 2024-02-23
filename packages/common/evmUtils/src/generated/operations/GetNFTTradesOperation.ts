@@ -27,7 +27,7 @@ export interface GetNFTTradesOperationRequest {
   /**
    * @description The block number to get the trades from
    */
-  readonly toBlock?: string;
+  readonly toBlock?: number;
   /**
    * @description The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
    * * Provide the param 'from_block' or 'from_date'
@@ -39,7 +39,7 @@ export interface GetNFTTradesOperationRequest {
    * * Provide the param 'to_block' or 'to_date'
    * * If 'to_date' and 'to_block' are provided, 'to_block' will be used.
    */
-  readonly toDate?: string;
+  readonly toDate?: Date;
   /**
    * @description Marketplace from which to get the trades (only OpenSea is supported at the moment)
    */
@@ -99,9 +99,9 @@ export const GetNFTTradesOperation = {
     return {
       chain: chain ? chain.toJSON() : undefined,
       from_block: fromBlock,
-      to_block: toBlock,
+      to_block: toBlock !== undefined ? String(toBlock) : undefined,
       from_date: fromDate,
-      to_date: toDate,
+      to_date: toDate !== undefined ? toDate.toISOString() : undefined,
       marketplace: marketplace ? marketplace : undefined,
       cursor: cursor,
       limit: limit,
