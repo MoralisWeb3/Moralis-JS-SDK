@@ -23,6 +23,9 @@ import { GetTopNFTCollectionsByMarketCapOperation, GetTopNFTCollectionsByMarketC
 import { EvmMarketDataTopNFTCollectionByMarketCapItem, EvmMarketDataTopNFTCollectionByMarketCapItemJSON } from '../types/EvmMarketDataTopNFTCollectionByMarketCapItem';
 import { GetHottestNFTCollectionsByTradingVolumeOperation, GetHottestNFTCollectionsByTradingVolumeOperationRequest, GetHottestNFTCollectionsByTradingVolumeOperationRequestJSON } from '../operations/GetHottestNFTCollectionsByTradingVolumeOperation';
 import { EvmMarketDataHottestNFTCollectionByTradingVolumeItem, EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON } from '../types/EvmMarketDataHottestNFTCollectionByTradingVolumeItem';
+import { GetTopCryptoCurrenciesByMarketCapOperation, GetTopCryptoCurrenciesByMarketCapOperationRequest, GetTopCryptoCurrenciesByMarketCapOperationRequestJSON } from '../operations/GetTopCryptoCurrenciesByMarketCapOperation';
+import { EvmMarketDataTopCryptoCurrenciesByMarketCapItem, EvmMarketDataTopCryptoCurrenciesByMarketCapItemJSON } from '../types/EvmMarketDataTopCryptoCurrenciesByMarketCapItem';
+import { GetTopCryptoCurrenciesByTradingVolumeOperation, GetTopCryptoCurrenciesByTradingVolumeOperationRequest, GetTopCryptoCurrenciesByTradingVolumeOperationRequestJSON } from '../operations/GetTopCryptoCurrenciesByTradingVolumeOperation';
 import { ReviewContractsOperation, ReviewContractsOperationRequest, ReviewContractsOperationRequestJSON } from '../operations/ReviewContractsOperation';
 import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewContracts';
 import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
@@ -141,6 +144,28 @@ export abstract class AbstractClient {
       EvmMarketDataHottestNFTCollectionByTradingVolumeItem[],
       EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON[]
     >(GetHottestNFTCollectionsByTradingVolumeOperation),
+    /**
+     * @description Get the top crypto currencies by market cap
+     * @param request Request with parameters.
+     * @returns {Object[]} Response for the request.
+     */
+    getTopCryptoCurrenciesByMarketCap: this.createEndpoint<
+      GetTopCryptoCurrenciesByMarketCapOperationRequest,
+      GetTopCryptoCurrenciesByMarketCapOperationRequestJSON,
+      EvmMarketDataTopCryptoCurrenciesByMarketCapItem[],
+      EvmMarketDataTopCryptoCurrenciesByMarketCapItemJSON[]
+    >(GetTopCryptoCurrenciesByMarketCapOperation),
+    /**
+     * @description Get the top crypto currencies by trading volume
+     * @param request Request with parameters.
+     * @returns {Object[]} Response for the request.
+     */
+    getTopCryptoCurrenciesByTradingVolume: this.createEndpoint<
+      GetTopCryptoCurrenciesByTradingVolumeOperationRequest,
+      GetTopCryptoCurrenciesByTradingVolumeOperationRequestJSON,
+      EvmMarketDataTopCryptoCurrenciesByMarketCapItem[],
+      EvmMarketDataTopCryptoCurrenciesByMarketCapItemJSON[]
+    >(GetTopCryptoCurrenciesByTradingVolumeOperation),
   };
   public readonly nft = {
     /**

@@ -17,6 +17,7 @@ export * from './EvmMarketDataERC20TokenItem';
 export * from './EvmMarketDataERC20TokensByPriceMovers';
 export * from './EvmMarketDataTopNFTCollectionByMarketCapItem';
 export * from './EvmMarketDataHottestNFTCollectionByTradingVolumeItem';
+export * from './EvmMarketDataTopCryptoCurrenciesByMarketCapItem';
 export * from './EvmReviewContracts';
 export * from './EvmContractsReviewDto';
 export * from './EvmWalletActiveChains';

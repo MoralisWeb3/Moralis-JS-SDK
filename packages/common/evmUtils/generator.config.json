@@ -107,7 +107,9 @@
           "getWalletTokenBalancesPrice",
           "getPairPrice",
           "resolveAddressToDomain",
-          "resolveENSAddress"
+          "resolveENSAddress",
+          "getTopCryptoCurrenciesByMarketCap",
+          "getTopCryptoCurrenciesByTradingVolume"
         ]
       }
     }
