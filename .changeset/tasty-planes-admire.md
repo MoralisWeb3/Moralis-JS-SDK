@@ -4,4 +4,4 @@
 'moralis': patch
 ---
 
-Added `getWalletTokenBalancesPrice`, `getPairPrice`, `resolveAddressToDomain`, `resolveENSAddress`, `getWalletNetWorth` methods to the EVM API.
+Added `getWalletTokenBalancesPrice`, `getPairPrice`, `resolveAddressToDomain`, `getWalletNetWorth` methods to the EVM API.
