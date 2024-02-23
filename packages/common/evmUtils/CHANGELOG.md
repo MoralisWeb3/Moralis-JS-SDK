@@ -1,5 +1,20 @@
 # @moralisweb3/evm-utils
 
+## 2.25.0
+
+### Minor Changes
+
+- [#1179](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1179) [`31d73a721`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/31d73a721b2e064d5f0bddedbe33a9bc3fb5dbf0) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated the types of the `toBlock` and `toDate` properties in the `GetNFTTradesOperationRequest` interface to number and Date, respectively.
+
+### Patch Changes
+
+- [#1181](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1181) [`5caa82758`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/5caa827580f83a4b1f91b4a7e645686a8131f9fa) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added `getTopCryptoCurrenciesByMarketCap` and `getTopCryptoCurrenciesByTradingVolume` methods to the EVM API.
+
+- [#1179](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1179) [`31d73a721`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/31d73a721b2e064d5f0bddedbe33a9bc3fb5dbf0) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added `getWalletTokenBalancesPrice`, `getPairPrice`, `resolveAddressToDomain`, `getWalletNetWorth` methods to the EVM API.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.25.0
+
 ## 2.24.3
 
 ### Patch Changes
