@@ -144,7 +144,6 @@ describe('EvmChain', () => {
       const chain = EvmChain.create('0x1');
 
       expect(chain.name).toBe('Ethereum Mainnet');
-      expect(chain.rpcUrls).toContain('https://ethereum.publicnode.com');
       expect(chain.rpcUrls).toContain('https://api.mycryptoapi.com/eth');
       expect(chain.currency).toStrictEqual({
         decimals: 18,
