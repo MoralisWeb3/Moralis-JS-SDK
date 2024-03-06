@@ -12,8 +12,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}',
       'https://api.mycryptoapi.com/eth',
       'https://cloudflare-eth.com',
-      'https://ethereum.publicnode.com',
-      'wss://ethereum.publicnode.com',
+      'https://ethereum-rpc.publicnode.com',
+      'wss://ethereum-rpc.publicnode.com',
       'https://mainnet.gateway.tenderly.co',
       'wss://mainnet.gateway.tenderly.co',
       'https://rpc.blocknative.com/boost',
@@ -74,8 +74,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://goerli.infura.io/v3/${INFURA_API_KEY}',
       'wss://goerli.infura.io/v3/${INFURA_API_KEY}',
       'https://rpc.goerli.mudit.blog/',
-      'https://ethereum-goerli.publicnode.com',
-      'wss://ethereum-goerli.publicnode.com',
+      'https://ethereum-goerli-rpc.publicnode.com',
+      'wss://ethereum-goerli-rpc.publicnode.com',
       'https://goerli.gateway.tenderly.co',
       'wss://goerli.gateway.tenderly.co',
     ],
@@ -116,8 +116,8 @@ export const chainList: EvmChainListDataEntry[] = [
     chain: 'ETH',
     rpc: [
       'https://mainnet.optimism.io',
-      'https://optimism.publicnode.com',
-      'wss://optimism.publicnode.com',
+      'https://optimism-rpc.publicnode.com',
+      'wss://optimism-rpc.publicnode.com',
       'https://optimism.gateway.tenderly.co',
       'wss://optimism.gateway.tenderly.co',
     ],
@@ -154,7 +154,7 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Cronos Mainnet',
     chain: 'CRO',
-    rpc: ['https://evm.cronos.org', 'https://cronos-evm.publicnode.com', 'wss://cronos-evm.publicnode.com'],
+    rpc: ['https://evm.cronos.org', 'https://cronos-evm-rpc.publicnode.com', 'wss://cronos-evm-rpc.publicnode.com'],
     features: [
       {
         name: 'EIP1559',
@@ -194,8 +194,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://bsc-dataseed2.ninicoin.io',
       'https://bsc-dataseed3.ninicoin.io',
       'https://bsc-dataseed4.ninicoin.io',
-      'https://bsc.publicnode.com',
-      'wss://bsc.publicnode.com',
+      'https://bsc-rpc.publicnode.com',
+      'wss://bsc-rpc.publicnode.com',
       'wss://bsc-ws-node.nariox.org',
     ],
     faucets: [],
@@ -233,8 +233,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://data-seed-prebsc-2-s2.bnbchain.org:8545',
       'https://data-seed-prebsc-1-s3.bnbchain.org:8545',
       'https://data-seed-prebsc-2-s3.bnbchain.org:8545',
-      'https://bsc-testnet.publicnode.com',
-      'wss://bsc-testnet.publicnode.com',
+      'https://bsc-testnet-rpc.publicnode.com',
+      'wss://bsc-testnet-rpc.publicnode.com',
     ],
     faucets: ['https://testnet.bnbchain.org/faucet-smart'],
     nativeCurrency: {
@@ -270,8 +270,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://web3endpoints.com/gnosischain-mainnet',
       'https://gnosis.oat.farm',
       'wss://rpc.gnosischain.com/wss',
-      'https://gnosis.publicnode.com',
-      'wss://gnosis.publicnode.com',
+      'https://gnosis-rpc.publicnode.com',
+      'wss://gnosis-rpc.publicnode.com',
     ],
     faucets: [
       'https://gnosisfaucet.com',
@@ -319,8 +319,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://rpc-mainnet.maticvigil.com',
       'https://rpc-mainnet.matic.quiknode.pro',
       'https://matic-mainnet-full-rpc.bwarelabs.com',
-      'https://polygon-bor.publicnode.com',
-      'wss://polygon-bor.publicnode.com',
+      'https://polygon-bor-rpc.publicnode.com',
+      'wss://polygon-bor-rpc.publicnode.com',
       'https://polygon.gateway.tenderly.co',
       'wss://polygon.gateway.tenderly.co',
     ],
@@ -352,7 +352,7 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Fantom Opera',
     chain: 'FTM',
-    rpc: ['https://rpc.ftm.tools', 'https://fantom.publicnode.com', 'wss://fantom.publicnode.com'],
+    rpc: ['https://rpc.ftm.tools', 'https://fantom-rpc.publicnode.com', 'wss://fantom-rpc.publicnode.com'],
     faucets: [],
     nativeCurrency: {
       name: 'Fantom',
@@ -384,8 +384,8 @@ export const chainList: EvmChainListDataEntry[] = [
     chain: 'FTM',
     rpc: [
       'https://rpc.testnet.fantom.network',
-      'https://fantom-testnet.publicnode.com',
-      'wss://fantom-testnet.publicnode.com',
+      'https://fantom-testnet-rpc.publicnode.com',
+      'wss://fantom-testnet-rpc.publicnode.com',
     ],
     faucets: ['https://faucet.fantom.network'],
     nativeCurrency: {
@@ -416,8 +416,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://developer-access-mainnet.base.org/',
       'https://base.gateway.tenderly.co',
       'wss://base.gateway.tenderly.co',
-      'https://base.publicnode.com',
-      'wss://base.publicnode.com',
+      'https://base-rpc.publicnode.com',
+      'wss://base-rpc.publicnode.com',
     ],
     faucets: [],
     nativeCurrency: {
@@ -459,8 +459,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://rpc.chiadochain.net',
       'https://rpc.chiado.gnosis.gateway.fm',
       'wss://rpc.chiadochain.net/wss',
-      'https://gnosis-chiado.publicnode.com',
-      'wss://gnosis-chiado.publicnode.com',
+      'https://gnosis-chiado-rpc.publicnode.com',
+      'wss://gnosis-chiado-rpc.publicnode.com',
     ],
     faucets: ['https://gnosisfaucet.com'],
     nativeCurrency: {
@@ -542,8 +542,8 @@ export const chainList: EvmChainListDataEntry[] = [
     icon: 'avax',
     rpc: [
       'https://api.avax-test.network/ext/bc/C/rpc',
-      'https://avalanche-fuji-c-chain.publicnode.com',
-      'wss://avalanche-fuji-c-chain.publicnode.com',
+      'https://avalanche-fuji-c-chain-rpc.publicnode.com',
+      'wss://avalanche-fuji-c-chain-rpc.publicnode.com',
     ],
     faucets: ['https://faucet.avax-test.network/'],
     nativeCurrency: {
@@ -570,8 +570,8 @@ export const chainList: EvmChainListDataEntry[] = [
     icon: 'avax',
     rpc: [
       'https://api.avax.network/ext/bc/C/rpc',
-      'https://avalanche-c-chain.publicnode.com',
-      'wss://avalanche-c-chain.publicnode.com',
+      'https://avalanche-c-chain-rpc.publicnode.com',
+      'wss://avalanche-c-chain-rpc.publicnode.com',
     ],
     features: [
       {
@@ -604,8 +604,8 @@ export const chainList: EvmChainListDataEntry[] = [
     icon: 'polygon',
     rpc: [
       'https://rpc-mumbai.maticvigil.com',
-      'https://polygon-mumbai-bor.publicnode.com',
-      'wss://polygon-mumbai-bor.publicnode.com',
+      'https://polygon-mumbai-bor-rpc.publicnode.com',
+      'wss://polygon-mumbai-bor-rpc.publicnode.com',
       'https://polygon-mumbai.gateway.tenderly.co',
       'wss://polygon-mumbai.gateway.tenderly.co',
     ],
@@ -635,8 +635,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://goerli.base.org',
       'https://base-goerli.gateway.tenderly.co',
       'wss://base-goerli.gateway.tenderly.co',
-      'https://base-goerli.publicnode.com',
-      'wss://base-goerli.publicnode.com',
+      'https://base-goerli-rpc.publicnode.com',
+      'wss://base-goerli-rpc.publicnode.com',
     ],
     faucets: ['https://www.coinbase.com/faucets/base-ethereum-goerli-faucet'],
     nativeCurrency: {
@@ -666,6 +666,35 @@ export const chainList: EvmChainListDataEntry[] = [
         name: 'dexguru',
         url: 'https://base-goerli.dex.guru',
         icon: 'dexguru',
+        standard: 'EIP3091',
+      },
+    ],
+  },
+  {
+    name: 'Base Sepolia Testnet',
+    chain: 'ETH',
+    rpc: [
+      'https://sepolia.base.org',
+      'https://base-sepolia-rpc.publicnode.com',
+      'wss://base-sepolia-rpc.publicnode.com',
+    ],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Sepolia Ether',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    infoURL: 'https://base.org',
+    shortName: 'basesep',
+    chainId: 84532,
+    networkId: 84532,
+    slip44: 1,
+    icon: 'baseTestnet',
+    explorers: [
+      {
+        name: 'basescout',
+        url: 'https://base-sepolia.blockscout.com',
+        icon: 'blockscout',
         standard: 'EIP3091',
       },
     ],
@@ -743,8 +772,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://sepolia.infura.io/v3/${INFURA_API_KEY}',
       'https://sepolia.gateway.tenderly.co',
       'wss://sepolia.gateway.tenderly.co',
-      'https://ethereum-sepolia.publicnode.com',
-      'wss://ethereum-sepolia.publicnode.com',
+      'https://ethereum-sepolia-rpc.publicnode.com',
+      'wss://ethereum-sepolia-rpc.publicnode.com',
     ],
     faucets: ['http://fauceth.komputing.org?chain=11155111&address=${ADDRESS}'],
     nativeCurrency: {
