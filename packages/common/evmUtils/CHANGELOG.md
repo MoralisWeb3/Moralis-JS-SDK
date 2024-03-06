@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.25.1
+
+### Patch Changes
+
+- [#1182](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1182) [`cb5b17e5ea`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/cb5b17e5eae7111a687bf23b775fc62876e57299) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added `BASE_SEPOLIA` to the `EvmChain` class.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.25.1
+
 ## 2.25.0
 
 ### Minor Changes
