@@ -227,6 +227,15 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns BASE_SEPOLIA chain
+   *
+   * @example EvmChain.BASE_SEPOLIA
+   */
+  public static get BASE_SEPOLIA() {
+    return EvmChain.create(84532);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -304,6 +313,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.GNOSIS_TESTNET,
       EvmChain.BASE,
       EvmChain.BASE_TESTNET,
+      EvmChain.BASE_SEPOLIA,
     ];
   }
 
