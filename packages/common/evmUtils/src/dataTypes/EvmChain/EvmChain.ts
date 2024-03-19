@@ -235,6 +235,15 @@ export class EvmChain implements EvmChainable {
     return EvmChain.create(84532);
   }
 
+    /**
+   * Returns NEON_EVM chain
+   *
+   * @example EvmChain.NEON_EVM
+   */
+  public static get NEON_EVM() {
+    return EvmChain.create(245022934);
+  }
+
   /**
    * Create a new instance of EvmChain from any valid address input.
    *
@@ -314,6 +323,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.BASE,
       EvmChain.BASE_TESTNET,
       EvmChain.BASE_SEPOLIA,
+      EvmChain.NEON_EVM,
     ];
   }
 
