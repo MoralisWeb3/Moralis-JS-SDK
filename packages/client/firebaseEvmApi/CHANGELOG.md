@@ -1,5 +1,15 @@
 # @moralisweb3/client-firebase-evm-api
 
+## 2.25.2
+
+### Patch Changes
+
+- Updated dependencies [[`3415bf5a7f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/3415bf5a7f93ee6a686906176a711c26781ee087)]:
+  - @moralisweb3/common-evm-utils@2.25.2
+  - @moralisweb3/client-evm-api@2.25.2
+  - @moralisweb3/client-firebase-api-utils@2.25.2
+  - @moralisweb3/common-core@2.25.2
+
 ## 2.25.1
 
 ### Patch Changes
