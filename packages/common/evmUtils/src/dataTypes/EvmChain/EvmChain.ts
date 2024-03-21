@@ -323,7 +323,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.BASE,
       EvmChain.BASE_TESTNET,
       EvmChain.BASE_SEPOLIA,
-      EvmChain.HOLESKY
+      EvmChain.HOLESKY,
     ];
   }
 
