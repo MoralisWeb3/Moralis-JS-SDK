@@ -236,6 +236,15 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns HOLESKY chain
+   *
+   * @example EvmChain.HOLESKY
+   */
+  public static get HOLESKY() {
+    return EvmChain.create(0x4268);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -314,6 +323,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.BASE,
       EvmChain.BASE_TESTNET,
       EvmChain.BASE_SEPOLIA,
+      EvmChain.HOLESKY,
     ];
   }
 
@@ -423,7 +433,8 @@ export class EvmChain implements EvmChainable {
       | '0x64'
       | '0x27d8'
       | '0x2105'
-      | '0x14a33';
+      | '0x14a33'
+      | '0x4268';
   }
 
   /**

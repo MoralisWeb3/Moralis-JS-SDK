@@ -121,10 +121,11 @@ describe('EvmChain', () => {
     expect(EvmChain.GNOSIS_TESTNET.apiHex).toBe('0x27d8');
     expect(EvmChain.BASE.apiHex).toBe('0x2105');
     expect(EvmChain.BASE_TESTNET.apiHex).toBe('0x14a33');
+    expect(EvmChain.HOLESKY.apiHex).toBe('0x4268');
   });
 
   describe('metadata', () => {
-    const notSupportedChains = ['0x7e4', '0x15b32'];
+    const notSupportedChains = ['0x7e4', '0x15b32', '0x4268'];
     const supportedChains = EvmChain.values().filter((chain) => !notSupportedChains.includes(chain.apiHex));
 
     for (const chain of supportedChains) {

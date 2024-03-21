@@ -23,6 +23,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://rpc.mevblocker.io/fast',
       'https://rpc.mevblocker.io/noreverts',
       'https://rpc.mevblocker.io/fullprivacy',
+      'https://eth.drpc.org',
+      'wss://eth.drpc.org',
     ],
     features: [
       {
@@ -120,6 +122,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://optimism-rpc.publicnode.com',
       'https://optimism.gateway.tenderly.co',
       'wss://optimism.gateway.tenderly.co',
+      'https://optimism.drpc.org',
+      'wss://optimism.drpc.org',
     ],
     faucets: [],
     nativeCurrency: {
@@ -154,7 +158,13 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Cronos Mainnet',
     chain: 'CRO',
-    rpc: ['https://evm.cronos.org', 'https://cronos-evm-rpc.publicnode.com', 'wss://cronos-evm-rpc.publicnode.com'],
+    rpc: [
+      'https://evm.cronos.org',
+      'https://cronos-evm-rpc.publicnode.com',
+      'wss://cronos-evm-rpc.publicnode.com',
+      'https://cronos.drpc.org',
+      'wss://cronos.drpc.org',
+    ],
     features: [
       {
         name: 'EIP1559',
@@ -323,6 +333,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://polygon-bor-rpc.publicnode.com',
       'https://polygon.gateway.tenderly.co',
       'wss://polygon.gateway.tenderly.co',
+      'https://polygon.drpc.org',
+      'wss://polygon.drpc.org',
     ],
     faucets: [],
     nativeCurrency: {
@@ -352,7 +364,13 @@ export const chainList: EvmChainListDataEntry[] = [
   {
     name: 'Fantom Opera',
     chain: 'FTM',
-    rpc: ['https://rpc.ftm.tools', 'https://fantom-rpc.publicnode.com', 'wss://fantom-rpc.publicnode.com'],
+    rpc: [
+      'https://rpc.ftm.tools',
+      'https://fantom-rpc.publicnode.com',
+      'wss://fantom-rpc.publicnode.com',
+      'https://fantom.drpc.org',
+      'wss://fantom.drpc.org',
+    ],
     faucets: [],
     nativeCurrency: {
       name: 'Fantom',
@@ -386,6 +404,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'https://rpc.testnet.fantom.network',
       'https://fantom-testnet-rpc.publicnode.com',
       'wss://fantom-testnet-rpc.publicnode.com',
+      'https://fantom-testnet.drpc.org',
+      'wss://fantom-testnet.drpc.org',
     ],
     faucets: ['https://faucet.fantom.network'],
     nativeCurrency: {
@@ -461,6 +481,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://rpc.chiadochain.net/wss',
       'https://gnosis-chiado-rpc.publicnode.com',
       'wss://gnosis-chiado-rpc.publicnode.com',
+      'https://gnosis-chiado.drpc.org',
+      'wss://gnosis-chiado.drpc.org',
     ],
     faucets: ['https://gnosisfaucet.com'],
     nativeCurrency: {
@@ -774,6 +796,8 @@ export const chainList: EvmChainListDataEntry[] = [
       'wss://sepolia.gateway.tenderly.co',
       'https://ethereum-sepolia-rpc.publicnode.com',
       'wss://ethereum-sepolia-rpc.publicnode.com',
+      'https://sepolia.drpc.org',
+      'wss://sepolia.drpc.org',
     ],
     faucets: ['http://fauceth.komputing.org?chain=11155111&address=${ADDRESS}'],
     nativeCurrency: {
