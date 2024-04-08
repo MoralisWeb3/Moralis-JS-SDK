@@ -5,7 +5,7 @@ This demo project contains a parse-server backend to migrate from a hosted serve
 ## Getting started locally
 
 1. Copy/download this project
-2. Make sure to have `yarn` or `npm` insalled
+2. Make sure to have `yarn` or `npm` installed
 3. Setup mongo-db and redis locally (see below)
 5. Install all dependencies via `yarn install` or `npm install` 
 6. Copy `.env.example` to `.env` and fill in the values
