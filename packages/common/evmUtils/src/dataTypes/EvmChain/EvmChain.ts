@@ -254,6 +254,15 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns LINEA chain
+   *
+   * @example EvmChain.LINEA
+   */
+  public static get LINEA() {
+    return EvmChain.create(59144);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -334,6 +343,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.BASE_SEPOLIA,
       EvmChain.HOLESKY,
       EvmChain.POLYGON_AMOY,
+      EvmChain.LINEA,
     ];
   }
 
@@ -445,7 +455,8 @@ export class EvmChain implements EvmChainable {
       | '0x2105'
       | '0x14a33'
       | '0x4268'
-      | '0x13882';
+      | '0x13882'
+      | '0xe708';
   }
 
   /**
