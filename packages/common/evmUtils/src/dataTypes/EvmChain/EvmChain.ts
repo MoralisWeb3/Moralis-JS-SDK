@@ -245,6 +245,15 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns POLYGON_AMOY chain
+   *
+   * @example EvmChain.POLYGON_AMOY
+   */
+  public static get POLYGON_AMOY() {
+    return EvmChain.create(80002);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -324,6 +333,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.BASE_TESTNET,
       EvmChain.BASE_SEPOLIA,
       EvmChain.HOLESKY,
+      EvmChain.POLYGON_AMOY,
     ];
   }
 
@@ -434,7 +444,8 @@ export class EvmChain implements EvmChainable {
       | '0x27d8'
       | '0x2105'
       | '0x14a33'
-      | '0x4268';
+      | '0x4268'
+      | '0x13882';
   }
 
   /**

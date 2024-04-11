@@ -122,6 +122,7 @@ describe('EvmChain', () => {
     expect(EvmChain.BASE.apiHex).toBe('0x2105');
     expect(EvmChain.BASE_TESTNET.apiHex).toBe('0x14a33');
     expect(EvmChain.HOLESKY.apiHex).toBe('0x4268');
+    expect(EvmChain.POLYGON_AMOY.apiHex).toBe('0x13882');
   });
 
   describe('metadata', () => {
