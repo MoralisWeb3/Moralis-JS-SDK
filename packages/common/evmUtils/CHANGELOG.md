@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.25.3
+
+### Patch Changes
+
+- [#1189](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1189) [`961c409610`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/961c4096102b54472e792861d053f8d48af5cdae) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for polygonAmoy chain
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.25.3
+
 ## 2.25.2
 
 ### Patch Changes
