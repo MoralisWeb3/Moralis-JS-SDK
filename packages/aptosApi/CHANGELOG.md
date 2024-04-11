@@ -1,5 +1,14 @@
 # @moralisweb3/aptos-api
 
+## 2.25.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/api-utils@2.25.4
+  - @moralisweb3/common-aptos-utils@2.25.4
+  - @moralisweb3/common-core@2.25.4
+
 ## 2.25.3
 
 ### Patch Changes
