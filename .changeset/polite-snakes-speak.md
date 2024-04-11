@@ -4,4 +4,4 @@
 'moralis': patch
 ---
 
-add support for polygonAmoy chain
+Add support for polygonAmoy chain
