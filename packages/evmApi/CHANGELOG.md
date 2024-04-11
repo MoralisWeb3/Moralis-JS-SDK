@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.25.4
+
+### Patch Changes
+
+- [#1191](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1191) [`10ee58ef60`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/10ee58ef60353e234c588c7c9a2a1e28194a1803) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for Linea mainnet chain
+
+- Updated dependencies [[`10ee58ef60`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/10ee58ef60353e234c588c7c9a2a1e28194a1803)]:
+  - @moralisweb3/common-evm-utils@2.25.4
+  - @moralisweb3/api-utils@2.25.4
+  - @moralisweb3/common-core@2.25.4
+
 ## 2.25.3
 
 ### Patch Changes
