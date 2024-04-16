@@ -33,8 +33,8 @@ const mockServer = MockServer.create({apiKey, apiRoot}, [
 ### 2. Create scenarios
 New scenarios can be created via `MockScenarios.create`. The first argument is an options object with the following properties:
 - `method`: 'post' | 'get' | 'put' | 'delete'
-- `name`: any name for debuging purposes
-- `url`: the url that will be mocked (needs to be valid msw url: https://mswjs.io/docs/basics/request-handler). This url wil be prefixed with the `baseUrl`
+- `name`: any name for debugging purposes
+- `url`: the url that will be mocked (needs to be valid msw url: https://mswjs.io/docs/basics/request-handler). This url will be prefixed with the `baseUrl`
 - `getParams`: a function to resolve the request values to an object that is used in the condition check
 
 For example:
