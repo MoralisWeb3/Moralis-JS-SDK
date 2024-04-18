@@ -1,5 +1,27 @@
 # moralis
 
+## 2.26.0
+
+### Minor Changes
+
+- [#1194](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1194) [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `getWalletHistory` method to the EVM API.
+
+### Patch Changes
+
+- Updated dependencies [[`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df), [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df), [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df)]:
+  - @moralisweb3/common-evm-utils@2.26.0
+  - @moralisweb3/evm-api@2.26.0
+  - @moralisweb3/api-utils@2.26.0
+  - @moralisweb3/aptos-api@2.26.0
+  - @moralisweb3/auth@2.26.0
+  - @moralisweb3/common-aptos-utils@2.26.0
+  - @moralisweb3/common-auth-utils@2.26.0
+  - @moralisweb3/common-core@2.26.0
+  - @moralisweb3/common-sol-utils@2.26.0
+  - @moralisweb3/common-streams-utils@2.26.0
+  - @moralisweb3/sol-api@2.26.0
+  - @moralisweb3/streams@2.26.0
+
 ## 2.25.4
 
 ### Patch Changes
