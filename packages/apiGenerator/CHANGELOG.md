@@ -1,5 +1,13 @@
 # @moralisweb3/api-generator
 
+## 2.26.0
+
+### Minor Changes
+
+- [#1194](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1194) [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The `toJSON` method of the `EvmInternalTransaction` class returns now the same format as the API (names with underscores).
+
+- [#1194](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1194) [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The `address` property of the `EvmWalletActiveChains` has `EvmAddress` type now.
+
 ## 2.25.4
 
 ## 2.25.3
