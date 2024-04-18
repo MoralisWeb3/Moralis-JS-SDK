@@ -1,6 +1,5 @@
 import { BigNumber, BigNumberish } from '@moralisweb3/common-core';
 import { EvmAddressish, EvmAddress } from '../EvmAddress';
-import { EvmChain, EvmChainish } from '../EvmChain';
 
 /**
  * Valid EvmInternalTransactionLog input.
@@ -8,7 +7,6 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  * @example
  * ```ts
  * const input = {
- *   "chain": "0x1",
  *   "transactionHash": "0x2ac6283fb30fe33499416b0388ff27145a0eeb6aa8b37bca40af87d7f1c74e2d",
  *   "block_number": 16876143,
  *   "block_hash": "0xc8d7592122307a771c5172af09699b5a2d36fa540d0fbc656f3d52c619c7536e",
@@ -24,7 +22,6 @@ import { EvmChain, EvmChainish } from '../EvmChain';
  * ```
  */
 export interface EvmInternalTransactionInput {
-  chain: EvmChainish;
   transactionHash: string;
   blockNumber: BigNumberish;
   blockHash: string;
@@ -42,7 +39,6 @@ export interface EvmInternalTransactionInput {
  * Represents a processed internal transaction log.
  */
 export interface EvmInternalTransactionData {
-  chain: EvmChain;
   transactionHash: string;
   blockNumber: BigNumber;
   blockHash: string;

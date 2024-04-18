@@ -1,3 +1,4 @@
+import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-core';
 
 // $ref: #/components/schemas/erc20Metadata
@@ -18,7 +19,7 @@ import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-co
 // - verified_contract ($ref: #/components/schemas/erc20Metadata/properties/verified_contract)
 
 export interface EvmErc20MetadataJSON {
-  readonly address: string;
+  readonly address: EvmAddressJSON;
   readonly address_label?: string;
   readonly name: string;
   readonly symbol: string;
@@ -34,7 +35,7 @@ export interface EvmErc20MetadataJSON {
 }
 
 export interface EvmErc20MetadataInput {
-  readonly address: string;
+  readonly address: EvmAddressInput | EvmAddress;
   readonly addressLabel?: string;
   readonly name: string;
   readonly symbol: string;
@@ -59,7 +60,7 @@ export class EvmErc20Metadata {
 
   public static fromJSON(json: EvmErc20MetadataJSON): EvmErc20Metadata {
     const input: EvmErc20MetadataInput = {
-      address: json.address,
+      address: EvmAddress.fromJSON(json.address),
       addressLabel: json.address_label,
       name: json.name,
       symbol: json.symbol,
@@ -79,7 +80,7 @@ export class EvmErc20Metadata {
   /**
    * @description The address of the token contract
    */
-  public readonly address: string;
+  public readonly address: EvmAddress;
   /**
    * @description The label of the address
    */
@@ -124,7 +125,7 @@ export class EvmErc20Metadata {
   public readonly verifiedContract?: boolean;
 
   private constructor(input: EvmErc20MetadataInput) {
-    this.address = input.address;
+    this.address = EvmAddress.create(input.address);
     this.addressLabel = input.addressLabel;
     this.name = input.name;
     this.symbol = input.symbol;
@@ -141,7 +142,7 @@ export class EvmErc20Metadata {
 
   public toJSON(): EvmErc20MetadataJSON {
     return {
-      address: this.address,
+      address: this.address.toJSON(),
       address_label: this.addressLabel,
       name: this.name,
       symbol: this.symbol,

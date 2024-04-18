@@ -1,5 +1,6 @@
 import { GetNFTTradesOperation } from './GetNFTTradesOperation';
 import { GetMultipleTokenPricesOperation } from './GetMultipleTokenPricesOperation';
+import { GetWalletHistoryOperation } from './GetWalletHistoryOperation';
 import { GetWalletTokenBalancesPriceOperation } from './GetWalletTokenBalancesPriceOperation';
 import { GetWalletNetWorthOperation } from './GetWalletNetWorthOperation';
 import { Web3ApiVersionOperation } from './Web3ApiVersionOperation';
@@ -23,6 +24,7 @@ import { GetBlockStatsOperation } from './GetBlockStatsOperation';
 export const operations = [
   GetNFTTradesOperation,
   GetMultipleTokenPricesOperation,
+  GetWalletHistoryOperation,
   GetWalletTokenBalancesPriceOperation,
   GetWalletNetWorthOperation,
   Web3ApiVersionOperation,

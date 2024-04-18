@@ -19,7 +19,7 @@ describe('getWalletActiveChains', () => {
       chains: [EvmChain.ETHEREUM],
     });
 
-    expect(result.result.address).toBe('0x78605df79524164911c144801f41e9811b7db73d');
+    expect(result.result.address.checksum).toBe('0x78605Df79524164911C144801f41e9811B7DB73D');
     const ac0 = result.result.activeChains[0];
     expect(ac0.chain).toBe('eth');
     expect(ac0.chainId).toBe('0x1');

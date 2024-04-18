@@ -54,19 +54,27 @@ export class Generator {
   ) {}
 
   public generate() {
+    const excludedRefs = new Set(this.configuration.mappings.refs.map(r => r.refs).flat());
+
     this.writer.prepare();
 
     for (const operation of this.contract.operations) {
       this.generateOperation(operation);
     }
     for (const simpleType of this.contract.simpleTypes) {
-      this.generateSimpleType(simpleType);
+      if (!excludedRefs.has(simpleType.descriptor.ref.toString())) {
+        this.generateSimpleType(simpleType);
+      }
     }
     for (const complexType of this.contract.complexTypes) {
-      this.generateComplexType(complexType);
+      if (!excludedRefs.has(complexType.descriptor.ref.toString())) {
+        this.generateComplexType(complexType);
+      }
     }
     for (const unionType of this.contract.unionTypes) {
-      this.generateUnionType(unionType);
+      if (!excludedRefs.has(unionType.descriptor.ref.toString())) {
+        this.generateUnionType(unionType);
+      }
     }
 
     const abstractClientFileGenerator = new AbstractClientFileGenerator(

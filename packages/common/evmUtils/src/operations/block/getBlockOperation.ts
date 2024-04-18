@@ -112,10 +112,7 @@ function deserializeResponse(jsonResponse: GetBlockJSONResponse, request: GetBlo
         }),
         internalTransactions: (transaction.internalTransactions ?? []).map((jsonInternalTransaction) => {
           const internalTransaction = toCamelCase(jsonInternalTransaction);
-          return EvmInternalTransaction.create({
-            chain,
-            ...internalTransaction,
-          });
+          return EvmInternalTransaction.create(internalTransaction);
         }),
       }),
     ),
