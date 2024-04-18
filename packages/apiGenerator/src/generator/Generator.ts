@@ -54,7 +54,7 @@ export class Generator {
   ) {}
 
   public generate() {
-    const excludedRefs = new Set(this.configuration.mappings.refs.map(r => r.refs).flat());
+    const excludedRefs = new Set(this.configuration.mappings.refs.map((r) => r.refs).flat());
 
     this.writer.prepare();
 
