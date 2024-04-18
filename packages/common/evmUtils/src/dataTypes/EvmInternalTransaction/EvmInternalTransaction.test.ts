@@ -50,7 +50,7 @@ describe('EvmInternalTransaction', () => {
       gas: '263200',
       gas_used: '2569',
       block_number: '16876143',
-      block_nash: '0xc8d7592122307a771c5172af09699b5a2d36fa540d0fbc656f3d52c619c7536e',
+      block_hash: '0xc8d7592122307a771c5172af09699b5a2d36fa540d0fbc656f3d52c619c7536e',
       input: '0x96e494e8d40a37cd10c71cb3896d1b05b6c707e29cb5aeff0278c6fc7e5e5b31623a1baa',
       output: '0x0000000000000000000000000000000000000000000000000000000000000001',
       value: '100000',
