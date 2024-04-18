@@ -22,6 +22,11 @@
             "#/components/schemas/erc20Transfer/properties/block_timestamp"
           ],
           "nativeType": "Date"
+        },
+        {
+          "refs": ["#/components/schemas/internalTransaction"],
+          "className": "EvmInternalTransaction",
+          "import": "../../dataTypes"
         }
       ],
       "complexTypeProperties": [
@@ -35,7 +40,11 @@
             "contract_address",
             "from_wallet",
             "to_wallet",
-            "collection_address"
+            "collection_address",
+
+            "address",
+            "to_address",
+            "from_address"
           ],
           "className": "EvmAddress",
           "import": "../../dataTypes"
@@ -108,7 +117,8 @@
           "getPairPrice",
           "resolveAddressToDomain",
           "getTopCryptoCurrenciesByMarketCap",
-          "getTopCryptoCurrenciesByTradingVolume"
+          "getTopCryptoCurrenciesByTradingVolume",
+          "getWalletHistory"
         ]
       }
     }

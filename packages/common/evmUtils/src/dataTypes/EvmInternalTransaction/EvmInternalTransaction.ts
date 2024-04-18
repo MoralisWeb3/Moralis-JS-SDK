@@ -1,6 +1,5 @@
-import { MoralisDataObject, BigNumber } from '@moralisweb3/common-core';
+import { BigNumber } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
-import { EvmChain } from '../EvmChain';
 import { EvmInternalTransactionInput, EvmInternalTransactionData } from './types';
 
 /**
@@ -9,6 +8,20 @@ import { EvmInternalTransactionInput, EvmInternalTransactionData } from './types
  */
 export type EvmInternalTransactionish = EvmInternalTransactionInput | EvmInternalTransaction;
 
+export interface EvmInternalTransactionJSON {
+  readonly transaction_hash: string;
+  readonly block_number: string;
+  readonly block_hash: string;
+  readonly type: string;
+  readonly from: string;
+  readonly to: string;
+  readonly value: string;
+  readonly gas: string;
+  readonly gas_used: string;
+  readonly input: string;
+  readonly output: string;
+}
+
 /**
  * The EvmTranaction is a representation of a published transaction.
  *
@@ -16,7 +29,7 @@ export type EvmInternalTransactionish = EvmInternalTransactionInput | EvmInterna
  *
  * @category DataType
  */
-export class EvmInternalTransaction implements MoralisDataObject {
+export class EvmInternalTransaction {
   /**
    * Create a new instance of EvmInternalTransaction from any valid transaction input
    * @param data - the EvmInternalTransactionish type
@@ -32,6 +45,22 @@ export class EvmInternalTransaction implements MoralisDataObject {
     return new EvmInternalTransaction(data);
   }
 
+  static fromJSON(json: EvmInternalTransactionJSON) {
+    return new EvmInternalTransaction({
+      blockHash: json.block_hash,
+      blockNumber: json.block_number,
+      from: json.from,
+      gas: json.gas,
+      gasUsed: json.gas_used,
+      input: json.input,
+      output: json.output,
+      to: json.to,
+      transactionHash: json.transaction_hash,
+      type: json.type,
+      value: json.value,
+    });
+  }
+
   private _data: EvmInternalTransactionData;
 
   constructor(data: EvmInternalTransactionInput) {
@@ -39,7 +68,6 @@ export class EvmInternalTransaction implements MoralisDataObject {
   }
 
   static parse = (data: EvmInternalTransactionInput): EvmInternalTransactionData => ({
-    chain: EvmChain.create(data.chain),
     from: EvmAddress.create(data.from),
     to: EvmAddress.create(data.to),
     transactionHash: data.transactionHash,
@@ -66,10 +94,6 @@ export class EvmInternalTransaction implements MoralisDataObject {
     const transactionA = EvmInternalTransaction.create(dataA);
     const transactionB = EvmInternalTransaction.create(dataB);
 
-    if (!transactionA._data.chain.equals(transactionB._data.chain)) {
-      return false;
-    }
-
     if (transactionA._data.transactionHash !== transactionB._data.transactionHash) {
       return false;
     }
@@ -89,17 +113,20 @@ export class EvmInternalTransaction implements MoralisDataObject {
     return EvmInternalTransaction.equals(this, data);
   }
 
-  toJSON() {
+  toJSON(): EvmInternalTransactionJSON {
     const data = this._data;
     return {
-      ...data,
-      to: data.to?.toJSON(),
-      from: data.from?.toJSON(),
-      gas: data.gas?.toString(),
-      gasUsed: data.gasUsed?.toString(),
-      value: data.value?.toString(),
-      chain: data.chain?.toJSON(),
-      blockNumber: data.blockNumber?.toString(),
+      block_hash: data.blockHash,
+      input: data.input,
+      output: data.output,
+      transaction_hash: data.transactionHash,
+      type: data.type,
+      to: data.to.toJSON(),
+      from: data.from.toJSON(),
+      gas: data.gas.toString(),
+      gas_used: data.gasUsed.toString(),
+      value: data.value.toString(),
+      block_number: data.blockNumber.toString(),
     };
   }
 
@@ -112,10 +139,6 @@ export class EvmInternalTransaction implements MoralisDataObject {
 
   get result() {
     return this._data;
-  }
-
-  get chain() {
-    return this._data.chain;
   }
 
   get transactionHash() {

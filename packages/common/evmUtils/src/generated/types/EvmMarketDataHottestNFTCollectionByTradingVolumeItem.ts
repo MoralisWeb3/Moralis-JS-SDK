@@ -12,6 +12,13 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // - volume_24hr_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/volume_24hr_percent_change)
 // - average_price_usd ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/average_price_usd)
 // - collection_address ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/collection_address)
+// - average_price ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/average_price)
+// - floor_price ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/floor_price)
+// - floor_price_usd_24hr_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/floor_price_usd_24hr_percent_change)
+// - floor_price_7d_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/floor_price_7d_percent_change)
+// - floor_price_usd_7d_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/floor_price_usd_7d_percent_change)
+// - floor_price_30d_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/floor_price_30d_percent_change)
+// - floor_price_usd_30d_percent_change ($ref: #/components/schemas/marketDataHottestNFTCollectionByTradingVolume/items/properties/floor_price_usd_30d_percent_change)
 
 export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
   readonly rank: number;
@@ -23,6 +30,13 @@ export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
   readonly volume_24hr_percent_change: string;
   readonly average_price_usd?: string;
   readonly collection_address: EvmAddressJSON;
+  readonly average_price?: string;
+  readonly floor_price?: string;
+  readonly floor_price_usd_24hr_percent_change?: string;
+  readonly floor_price_7d_percent_change?: string;
+  readonly floor_price_usd_7d_percent_change?: string;
+  readonly floor_price_30d_percent_change?: string;
+  readonly floor_price_usd_30d_percent_change?: string;
 }
 
 export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput {
@@ -35,6 +49,13 @@ export interface EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput {
   readonly volume24hrPercentChange: string;
   readonly averagePriceUsd?: string;
   readonly collectionAddress: EvmAddressInput | EvmAddress;
+  readonly averagePrice?: string;
+  readonly floorPrice?: string;
+  readonly floorPriceUsd24hrPercentChange?: string;
+  readonly floorPrice7dPercentChange?: string;
+  readonly floorPriceUsd7dPercentChange?: string;
+  readonly floorPrice30dPercentChange?: string;
+  readonly floorPriceUsd30dPercentChange?: string;
 }
 
 export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
@@ -56,6 +77,13 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
       volume24hrPercentChange: json.volume_24hr_percent_change,
       averagePriceUsd: json.average_price_usd,
       collectionAddress: EvmAddress.fromJSON(json.collection_address),
+      averagePrice: json.average_price,
+      floorPrice: json.floor_price,
+      floorPriceUsd24hrPercentChange: json.floor_price_usd_24hr_percent_change,
+      floorPrice7dPercentChange: json.floor_price_7d_percent_change,
+      floorPriceUsd7dPercentChange: json.floor_price_usd_7d_percent_change,
+      floorPrice30dPercentChange: json.floor_price_30d_percent_change,
+      floorPriceUsd30dPercentChange: json.floor_price_usd_30d_percent_change,
     };
     return EvmMarketDataHottestNFTCollectionByTradingVolumeItem.create(input);
   }
@@ -96,6 +124,34 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
    * @description The collection address
    */
   public readonly collectionAddress: EvmAddress;
+  /**
+   * @description The average price
+   */
+  public readonly averagePrice?: string;
+  /**
+   * @description The floor price
+   */
+  public readonly floorPrice?: string;
+  /**
+   * @description The floor price usd 24hr percent change
+   */
+  public readonly floorPriceUsd24hrPercentChange?: string;
+  /**
+   * @description The floor price 7d percent change
+   */
+  public readonly floorPrice7dPercentChange?: string;
+  /**
+   * @description The floor price usd 7d percent change
+   */
+  public readonly floorPriceUsd7dPercentChange?: string;
+  /**
+   * @description The floor price 30d percent change
+   */
+  public readonly floorPrice30dPercentChange?: string;
+  /**
+   * @description The floor price usd 30d percent change
+   */
+  public readonly floorPriceUsd30dPercentChange?: string;
 
   private constructor(input: EvmMarketDataHottestNFTCollectionByTradingVolumeItemInput) {
     this.rank = input.rank;
@@ -107,6 +163,13 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
     this.volume24hrPercentChange = input.volume24hrPercentChange;
     this.averagePriceUsd = input.averagePriceUsd;
     this.collectionAddress = EvmAddress.create(input.collectionAddress);
+    this.averagePrice = input.averagePrice;
+    this.floorPrice = input.floorPrice;
+    this.floorPriceUsd24hrPercentChange = input.floorPriceUsd24hrPercentChange;
+    this.floorPrice7dPercentChange = input.floorPrice7dPercentChange;
+    this.floorPriceUsd7dPercentChange = input.floorPriceUsd7dPercentChange;
+    this.floorPrice30dPercentChange = input.floorPrice30dPercentChange;
+    this.floorPriceUsd30dPercentChange = input.floorPriceUsd30dPercentChange;
   }
 
   public toJSON(): EvmMarketDataHottestNFTCollectionByTradingVolumeItemJSON {
@@ -120,6 +183,13 @@ export class EvmMarketDataHottestNFTCollectionByTradingVolumeItem {
       volume_24hr_percent_change: this.volume24hrPercentChange,
       average_price_usd: this.averagePriceUsd,
       collection_address: this.collectionAddress.toJSON(),
+      average_price: this.averagePrice,
+      floor_price: this.floorPrice,
+      floor_price_usd_24hr_percent_change: this.floorPriceUsd24hrPercentChange,
+      floor_price_7d_percent_change: this.floorPrice7dPercentChange,
+      floor_price_usd_7d_percent_change: this.floorPriceUsd7dPercentChange,
+      floor_price_30d_percent_change: this.floorPrice30dPercentChange,
+      floor_price_usd_30d_percent_change: this.floorPriceUsd30dPercentChange,
     }
   }
 }

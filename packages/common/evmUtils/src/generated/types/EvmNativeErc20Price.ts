@@ -1,3 +1,5 @@
+import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
+
 // $ref: #/components/schemas/nativeErc20Price
 // type: nativeErc20Price
 // properties:
@@ -12,7 +14,7 @@ export interface EvmNativeErc20PriceJSON {
   readonly decimals: number;
   readonly name: string;
   readonly symbol: string;
-  readonly address: string;
+  readonly address: EvmAddressJSON;
 }
 
 export interface EvmNativeErc20PriceInput {
@@ -20,7 +22,7 @@ export interface EvmNativeErc20PriceInput {
   readonly decimals: number;
   readonly name: string;
   readonly symbol: string;
-  readonly address: string;
+  readonly address: EvmAddressInput | EvmAddress;
 }
 
 export class EvmNativeErc20Price {
@@ -37,7 +39,7 @@ export class EvmNativeErc20Price {
       decimals: json.decimals,
       name: json.name,
       symbol: json.symbol,
-      address: json.address,
+      address: EvmAddress.fromJSON(json.address),
     };
     return EvmNativeErc20Price.create(input);
   }
@@ -61,14 +63,14 @@ export class EvmNativeErc20Price {
   /**
    * @description The address of the native token
    */
-  public readonly address: string;
+  public readonly address: EvmAddress;
 
   private constructor(input: EvmNativeErc20PriceInput) {
     this.value = input.value;
     this.decimals = input.decimals;
     this.name = input.name;
     this.symbol = input.symbol;
-    this.address = input.address;
+    this.address = EvmAddress.create(input.address);
   }
 
   public toJSON(): EvmNativeErc20PriceJSON {
@@ -77,7 +79,7 @@ export class EvmNativeErc20Price {
       decimals: this.decimals,
       name: this.name,
       symbol: this.symbol,
-      address: this.address,
+      address: this.address.toJSON(),
     }
   }
 }

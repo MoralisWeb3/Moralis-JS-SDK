@@ -72,15 +72,9 @@ function deserializeRequest(jsonRequest: GetInternalTransactionsJSONRequest): Ge
   };
 }
 
-function deserializeResponse(
-  jsonResponse: GetInternalTransactionsJSONResponse,
-  request: GetInternalTransactionsJSONRequest,
-  core: Core,
-) {
+function deserializeResponse(jsonResponse: GetInternalTransactionsJSONResponse) {
   return (jsonResponse ?? []).map((transaction) => {
-    const chain = EvmChainResolver.resolve(request.chain, core);
     return EvmInternalTransaction.create({
-      chain,
       blockHash: transaction.block_hash,
       blockNumber: transaction.block_number,
       from: transaction.from,
