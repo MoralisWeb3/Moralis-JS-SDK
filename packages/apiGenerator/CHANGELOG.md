@@ -1,5 +1,7 @@
 # @moralisweb3/api-generator
 
+## 2.26.1
+
 ## 2.26.0
 
 ### Minor Changes

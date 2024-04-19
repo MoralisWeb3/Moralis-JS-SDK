@@ -124,6 +124,7 @@ describe('EvmChain', () => {
     expect(EvmChain.HOLESKY.apiHex).toBe('0x4268');
     expect(EvmChain.POLYGON_AMOY.apiHex).toBe('0x13882');
     expect(EvmChain.LINEA.apiHex).toBe('0xe708');
+    expect(EvmChain.MOONBEAM.apiHex).toBe('0x504');
     expect(EvmChain.MOONRIVER.apiHex).toBe('0x505');
   });
 
