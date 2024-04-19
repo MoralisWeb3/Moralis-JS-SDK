@@ -398,6 +398,35 @@ export const chainList: EvmChainListDataEntry[] = [
     ],
   },
   {
+    name: 'Moonbeam',
+    chain: 'MOON',
+    rpc: [
+      'https://rpc.api.moonbeam.network',
+      'wss://wss.api.moonbeam.network',
+      'https://moonbeam-rpc.publicnode.com',
+      'wss://moonbeam-rpc.publicnode.com',
+      'https://moonbeam.drpc.org',
+      'wss://moonbeam.drpc.org',
+    ],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Glimmer',
+      symbol: 'GLMR',
+      decimals: 18,
+    },
+    infoURL: 'https://moonbeam.network/networks/moonbeam/',
+    shortName: 'mbeam',
+    chainId: 1284,
+    networkId: 1284,
+    explorers: [
+      {
+        name: 'moonscan',
+        url: 'https://moonbeam.moonscan.io',
+        standard: 'none',
+      },
+    ],
+  },
+  {
     name: 'Moonriver',
     chain: 'MOON',
     rpc: [
