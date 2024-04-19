@@ -263,6 +263,15 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns MOONBEAM chain
+   *
+   * @example EvmChain.MOONBEAM
+   */
+  public static get MOONBEAM() {
+    return EvmChain.create(1284);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -344,6 +353,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.HOLESKY,
       EvmChain.POLYGON_AMOY,
       EvmChain.LINEA,
+      EvmChain.MOONBEAM,
     ];
   }
 
@@ -456,7 +466,8 @@ export class EvmChain implements EvmChainable {
       | '0x14a33'
       | '0x4268'
       | '0x13882'
-      | '0xe708';
+      | '0xe708'
+      | '0x504';
   }
 
   /**
