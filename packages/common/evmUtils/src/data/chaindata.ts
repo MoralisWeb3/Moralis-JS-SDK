@@ -398,6 +398,35 @@ export const chainList: EvmChainListDataEntry[] = [
     ],
   },
   {
+    name: 'Moonriver',
+    chain: 'MOON',
+    rpc: [
+      'https://rpc.api.moonriver.moonbeam.network',
+      'wss://wss.api.moonriver.moonbeam.network',
+      'https://moonriver-rpc.publicnode.com',
+      'wss://moonriver-rpc.publicnode.com',
+      'https://moonriver.drpc.org',
+      'wss://moonriver.drpc.org',
+    ],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Moonriver',
+      symbol: 'MOVR',
+      decimals: 18,
+    },
+    infoURL: 'https://moonbeam.network/networks/moonriver/',
+    shortName: 'mriver',
+    chainId: 1285,
+    networkId: 1285,
+    explorers: [
+      {
+        name: 'moonscan',
+        url: 'https://moonriver.moonscan.io',
+        standard: 'none',
+      },
+    ],
+  },
+  {
     name: 'Fantom Testnet',
     chain: 'FTM',
     rpc: [
@@ -753,7 +782,7 @@ export const chainList: EvmChainListDataEntry[] = [
     chain: 'Polygon',
     icon: 'polygon',
     rpc: [
-      'https://https://rpc-amoy.polygon.technology',
+      'https://rpc-amoy.polygon.technology',
       'https://polygon-amoy-bor-rpc.publicnode.com',
       'wss://polygon-amoy-bor-rpc.publicnode.com',
     ],
