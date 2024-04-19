@@ -1,5 +1,25 @@
 # moralis
 
+## 2.26.1
+
+### Patch Changes
+
+- [#1196](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1196) [`50d341a8ed`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/50d341a8edbf7a31fc9c40ba06700652765b9ca3) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for moonbeam chain
+
+- Updated dependencies [[`50d341a8ed`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/50d341a8edbf7a31fc9c40ba06700652765b9ca3)]:
+  - @moralisweb3/common-evm-utils@2.26.1
+  - @moralisweb3/evm-api@2.26.1
+  - @moralisweb3/api-utils@2.26.1
+  - @moralisweb3/aptos-api@2.26.1
+  - @moralisweb3/auth@2.26.1
+  - @moralisweb3/common-aptos-utils@2.26.1
+  - @moralisweb3/common-auth-utils@2.26.1
+  - @moralisweb3/common-core@2.26.1
+  - @moralisweb3/common-sol-utils@2.26.1
+  - @moralisweb3/common-streams-utils@2.26.1
+  - @moralisweb3/sol-api@2.26.1
+  - @moralisweb3/streams@2.26.1
+
 ## 2.26.0
 
 ### Minor Changes
