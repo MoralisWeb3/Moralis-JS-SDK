@@ -456,6 +456,34 @@ export const chainList: EvmChainListDataEntry[] = [
     ],
   },
   {
+    name: 'Moonbase Alpha',
+    chain: 'MOON',
+    rpc: [
+      'https://rpc.api.moonbase.moonbeam.network',
+      'wss://wss.api.moonbase.moonbeam.network',
+      'https://moonbase-alpha.drpc.org',
+      'wss://moonbase-alpha.drpc.org',
+    ],
+    faucets: [],
+    nativeCurrency: {
+      name: 'Dev',
+      symbol: 'DEV',
+      decimals: 18,
+    },
+    infoURL: 'https://docs.moonbeam.network/networks/testnet/',
+    shortName: 'mbase',
+    chainId: 1287,
+    networkId: 1287,
+    slip44: 1,
+    explorers: [
+      {
+        name: 'moonscan',
+        url: 'https://moonbase.moonscan.io',
+        standard: 'none',
+      },
+    ],
+  },
+  {
     name: 'Fantom Testnet',
     chain: 'FTM',
     rpc: [
