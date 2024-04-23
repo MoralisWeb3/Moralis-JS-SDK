@@ -278,6 +278,14 @@ export class EvmChain implements EvmChainable {
   public static get MOONBEAM() {
     return EvmChain.create(1284);
   }
+  /**
+   * Returns MOONBASE chain
+   *
+   * @example EvmChain.MOONBASE
+   */
+  public static get MOONBASE() {
+    return EvmChain.create(1287);
+  }
 
   /**
    * Create a new instance of EvmChain from any valid address input.
@@ -363,6 +371,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.LINEA,
       EvmChain.MOONBEAM,
       EvmChain.MOONRIVER,
+      EvmChain.MOONBASE,
     ];
   }
 
@@ -477,7 +486,8 @@ export class EvmChain implements EvmChainable {
       | '0x13882'
       | '0xe708'
       | '0x504'
-      | '0x505';
+      | '0x505'
+      | '0x507';
   }
 
   /**
