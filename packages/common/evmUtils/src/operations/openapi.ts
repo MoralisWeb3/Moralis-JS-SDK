@@ -4365,19 +4365,19 @@ export interface operations {
         /**
          * The block number
          * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
-         * * If 'block_numer' is provided in combination with 'from_block' and / or 'to_block', 'block_number' will will be used
+         * * If 'block_numer' is provided in combination with 'from_block' and / or 'to_block', 'block_number' will be used
          */
         block_number?: string;
         /**
          * The minimum block number from which to get the logs
          * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
-         * * If 'block_numer' is provided in combination with 'from_block' and / or 'to_block', 'block_number' will will be used
+         * * If 'block_numer' is provided in combination with 'from_block' and / or 'to_block', 'block_number' will be used
          */
         from_block?: string;
         /**
          * The maximum block number from which to get the logs
          * * Provide the param 'block_numer' or ('from_block' and / or 'to_block')
-         * * If 'block_numer' is provided in combination with 'from_block' and / or 'to_block', 'block_number' will will be used
+         * * If 'block_numer' is provided in combination with 'from_block' and / or 'to_block', 'block_number' will be used
          */
         to_block?: string;
         /**
