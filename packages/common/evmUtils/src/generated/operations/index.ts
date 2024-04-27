@@ -1,5 +1,6 @@
 export * from './GetNFTTradesOperation';
 export * from './GetMultipleTokenPricesOperation';
+export * from './GetWalletHistoryOperation';
 export * from './GetWalletTokenBalancesPriceOperation';
 export * from './GetWalletNetWorthOperation';
 export * from './Web3ApiVersionOperation';

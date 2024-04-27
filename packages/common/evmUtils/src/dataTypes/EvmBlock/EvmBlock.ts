@@ -1,4 +1,4 @@
-import { MoralisDataObject, BigNumber, dateInputToDate } from '@moralisweb3/common-core';
+import { BigNumber, dateInputToDate } from '@moralisweb3/common-core';
 import { EvmAddress } from '../EvmAddress';
 import { EvmChain } from '../EvmChain';
 import { EvmTransaction } from '../EvmTransaction';
@@ -16,7 +16,7 @@ export type EvmBlockish = EvmBlockInput | EvmBlock;
  *
  * @category DataType
  */
-export class EvmBlock implements MoralisDataObject {
+export class EvmBlock {
   /**
    * Create a new instance of EvmBlock from any valid transaction input
    * @param data - the EvmBlockish type

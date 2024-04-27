@@ -1,5 +1,47 @@
 # @moralisweb3/evm-utils
 
+## 2.26.1
+
+### Patch Changes
+
+- [#1196](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1196) [`50d341a8ed`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/50d341a8edbf7a31fc9c40ba06700652765b9ca3) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for moonbeam chain
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.1
+
+## 2.26.0
+
+### Minor Changes
+
+- [#1194](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1194) [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The `toJSON` method of the `EvmInternalTransaction` class returns now the same format as the API (names with underscores).
+
+- [#1194](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1194) [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df) Thanks [@b4rtaz](https://github.com/b4rtaz)! - The `address` property of the `EvmWalletActiveChains` has `EvmAddress` type now.
+
+- [#1194](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1194) [`a5c088bc4a`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/a5c088bc4a93d4ccfe97d068f4c1184a4b4a50df) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added the `getWalletHistory` method to the EVM API.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.0
+
+## 2.25.4
+
+### Patch Changes
+
+- [#1191](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1191) [`10ee58ef60`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/10ee58ef60353e234c588c7c9a2a1e28194a1803) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for Linea mainnet chain
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.25.4
+
+## 2.25.3
+
+### Patch Changes
+
+- [#1189](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1189) [`961c409610`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/961c4096102b54472e792861d053f8d48af5cdae) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for polygonAmoy chain
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.25.3
+
 ## 2.25.2
 
 ### Patch Changes

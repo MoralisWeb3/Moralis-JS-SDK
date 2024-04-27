@@ -123,7 +123,6 @@ function deserializeResponse(
   core: Core,
 ) {
   return (jsonResponse.result ?? []).map((transfer) => {
-    const chain = EvmChainResolver.resolve(request.chain, core);
     return EvmTransaction.create({
       cumulativeGasUsed: transfer.receipt_cumulative_gas_used,
       gasPrice: transfer.gas_price,
@@ -145,10 +144,7 @@ function deserializeResponse(
       to: transfer.to_address ? (transfer.to_address as string) : null,
       internalTransactions: (transfer.internal_transactions ?? []).map((jsonInternalTransaction) => {
         const internalTransaction = toCamelCase(jsonInternalTransaction);
-        return EvmInternalTransaction.create({
-          chain,
-          ...internalTransaction,
-        });
+        return EvmInternalTransaction.create(internalTransaction);
       }),
     });
   });

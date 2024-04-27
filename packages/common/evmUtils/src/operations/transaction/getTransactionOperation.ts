@@ -115,10 +115,7 @@ function deserializeResponse(jsonResponse: GetTransactionJSONResponse, request: 
     ),
     internalTransactions: (jsonResponse.internal_transactions ?? []).map((jsonInternalTransaction) => {
       const internalTransaction = toCamelCase(jsonInternalTransaction);
-      return EvmInternalTransaction.create({
-        chain,
-        ...internalTransaction,
-      });
+      return EvmInternalTransaction.create(internalTransaction);
     }),
     receiptRoot: jsonResponse.receipt_root as string,
     receiptStatus: jsonResponse.receipt_status,

@@ -13,6 +13,8 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // - volume_usd ($ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/volume_usd)
 // - volume_24hr_percent_change ($ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/volume_24hr_percent_change)
 // - collection_address ($ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/collection_address)
+// - floor_price ($ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/floor_price)
+// - floor_price_usd_24hr_percent_change ($ref: #/components/schemas/marketDataTopNFTCollectionByMarketCap/items/properties/floor_price_usd_24hr_percent_change)
 
 export interface EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
   readonly rank: number;
@@ -25,6 +27,8 @@ export interface EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
   readonly volume_usd: string;
   readonly volume_24hr_percent_change: string;
   readonly collection_address: EvmAddressJSON;
+  readonly floor_price?: string;
+  readonly floor_price_usd_24hr_percent_change?: string;
 }
 
 export interface EvmMarketDataTopNFTCollectionByMarketCapItemInput {
@@ -38,6 +42,8 @@ export interface EvmMarketDataTopNFTCollectionByMarketCapItemInput {
   readonly volumeUsd: string;
   readonly volume24hrPercentChange: string;
   readonly collectionAddress: EvmAddressInput | EvmAddress;
+  readonly floorPrice?: string;
+  readonly floorPriceUsd24hrPercentChange?: string;
 }
 
 export class EvmMarketDataTopNFTCollectionByMarketCapItem {
@@ -60,6 +66,8 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
       volumeUsd: json.volume_usd,
       volume24hrPercentChange: json.volume_24hr_percent_change,
       collectionAddress: EvmAddress.fromJSON(json.collection_address),
+      floorPrice: json.floor_price,
+      floorPriceUsd24hrPercentChange: json.floor_price_usd_24hr_percent_change,
     };
     return EvmMarketDataTopNFTCollectionByMarketCapItem.create(input);
   }
@@ -104,6 +112,14 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
    * @description The collection address
    */
   public readonly collectionAddress: EvmAddress;
+  /**
+   * @description The floor price
+   */
+  public readonly floorPrice?: string;
+  /**
+   * @description The floor price usd 24hr percent change
+   */
+  public readonly floorPriceUsd24hrPercentChange?: string;
 
   private constructor(input: EvmMarketDataTopNFTCollectionByMarketCapItemInput) {
     this.rank = input.rank;
@@ -116,6 +132,8 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
     this.volumeUsd = input.volumeUsd;
     this.volume24hrPercentChange = input.volume24hrPercentChange;
     this.collectionAddress = EvmAddress.create(input.collectionAddress);
+    this.floorPrice = input.floorPrice;
+    this.floorPriceUsd24hrPercentChange = input.floorPriceUsd24hrPercentChange;
   }
 
   public toJSON(): EvmMarketDataTopNFTCollectionByMarketCapItemJSON {
@@ -130,6 +148,8 @@ export class EvmMarketDataTopNFTCollectionByMarketCapItem {
       volume_usd: this.volumeUsd,
       volume_24hr_percent_change: this.volume24hrPercentChange,
       collection_address: this.collectionAddress.toJSON(),
+      floor_price: this.floorPrice,
+      floor_price_usd_24hr_percent_change: this.floorPriceUsd24hrPercentChange,
     }
   }
 }

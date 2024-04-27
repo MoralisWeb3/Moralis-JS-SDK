@@ -245,6 +245,49 @@ export class EvmChain implements EvmChainable {
   }
 
   /**
+   * Returns POLYGON_AMOY chain
+   *
+   * @example EvmChain.POLYGON_AMOY
+   */
+  public static get POLYGON_AMOY() {
+    return EvmChain.create(80002);
+  }
+
+  /**
+   * Returns LINEA chain
+   *
+   * @example EvmChain.LINEA
+   */
+  public static get LINEA() {
+    return EvmChain.create(59144);
+  }
+  /**
+   * Returns MOONRIVER chain
+   *
+   * @example EvmChain.MOONRIVER
+   */
+  public static get MOONRIVER() {
+    return EvmChain.create(1285);
+  }
+
+  /**
+   * Returns MOONBEAM chain
+   *
+   * @example EvmChain.MOONBEAM
+   */
+  public static get MOONBEAM() {
+    return EvmChain.create(1284);
+  }
+  /**
+   * Returns MOONBASE chain
+   *
+   * @example EvmChain.MOONBASE
+   */
+  public static get MOONBASE() {
+    return EvmChain.create(1287);
+  }
+
+  /**
    * Create a new instance of EvmChain from any valid address input.
    *
    * @example
@@ -324,6 +367,11 @@ export class EvmChain implements EvmChainable {
       EvmChain.BASE_TESTNET,
       EvmChain.BASE_SEPOLIA,
       EvmChain.HOLESKY,
+      EvmChain.POLYGON_AMOY,
+      EvmChain.LINEA,
+      EvmChain.MOONBEAM,
+      EvmChain.MOONRIVER,
+      EvmChain.MOONBASE,
     ];
   }
 
@@ -434,7 +482,12 @@ export class EvmChain implements EvmChainable {
       | '0x27d8'
       | '0x2105'
       | '0x14a33'
-      | '0x4268';
+      | '0x4268'
+      | '0x13882'
+      | '0xe708'
+      | '0x504'
+      | '0x505'
+      | '0x507';
   }
 
   /**

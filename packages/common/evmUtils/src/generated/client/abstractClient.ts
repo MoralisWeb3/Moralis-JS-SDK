@@ -3,6 +3,8 @@ import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCol
 import { GetMultipleTokenPricesOperation, GetMultipleTokenPricesOperationRequest, GetMultipleTokenPricesOperationRequestJSON } from '../operations/GetMultipleTokenPricesOperation';
 import { EvmErc20Price, EvmErc20PriceJSON } from '../types/EvmErc20Price';
 import { EvmGetMultipleTokenPricesDto, EvmGetMultipleTokenPricesDtoInput, EvmGetMultipleTokenPricesDtoJSON } from '../types/EvmGetMultipleTokenPricesDto';
+import { GetWalletHistoryOperation, GetWalletHistoryOperationRequest, GetWalletHistoryOperationRequestJSON } from '../operations/GetWalletHistoryOperation';
+import { EvmWalletHistory, EvmWalletHistoryJSON } from '../types/EvmWalletHistory';
 import { GetWalletTokenBalancesPriceOperation, GetWalletTokenBalancesPriceOperationRequest, GetWalletTokenBalancesPriceOperationRequestJSON } from '../operations/GetWalletTokenBalancesPriceOperation';
 import { EvmErc20TokenBalanceWithPriceResult, EvmErc20TokenBalanceWithPriceResultJSON } from '../types/EvmErc20TokenBalanceWithPriceResult';
 import { GetWalletNetWorthOperation, GetWalletNetWorthOperationRequest, GetWalletNetWorthOperationRequestJSON } from '../operations/GetWalletNetWorthOperation';
@@ -310,6 +312,37 @@ export abstract class AbstractClient {
     >(ReviewContractsOperation),
   };
   public readonly wallets = {
+    /**
+     * @description Get the complete history of a wallet
+     * @param request Request with parameters.
+     * @param {Object} request.address The address of the wallet
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.fromBlock] The minimum block number from which to get the transactions
+     * * Provide the param 'from_block' or 'from_date'
+     * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
+     * @param {Number} [request.toBlock] The maximum block number from which to get the transactions.
+     * * Provide the param 'to_block' or 'to_date'
+     * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
+     * @param {String} [request.fromDate] The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)
+     * * Provide the param 'from_block' or 'from_date'
+     * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
+     * @param {Date} [request.toDate] Get the transactions up to this date (format in seconds or datestring accepted by momentjs)
+     * * Provide the param 'to_block' or 'to_date'
+     * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
+     * @param {Boolean} [request.includeInternalTransactions] If the result should contain the internal transactions. (optional)
+     * @param {Boolean} [request.includeInputData] Set the input data from the result (optional)
+     * @param {Boolean} [request.nftMetadata] If the result should contain the nft metadata. (optional)
+     * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
+     * @param {Object} [request.order] The order of the result, in ascending (ASC) or descending (DESC) (optional)
+     * @param {Number} [request.limit] The desired page size of the result. (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletHistory: this.createEndpoint<
+      GetWalletHistoryOperationRequest,
+      GetWalletHistoryOperationRequestJSON,
+      EvmWalletHistory,
+      EvmWalletHistoryJSON
+    >(GetWalletHistoryOperation),
     /**
      * @description Get token balances for a specific wallet address and their token prices in USD.
      * @param request Request with parameters.
