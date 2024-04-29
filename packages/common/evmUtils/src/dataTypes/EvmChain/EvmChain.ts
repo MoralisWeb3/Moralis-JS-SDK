@@ -286,6 +286,14 @@ export class EvmChain implements EvmChainable {
   public static get MOONBASE() {
     return EvmChain.create(1287);
   }
+  /**
+   * Returns LINEA SEPOLIA chain
+   *
+   * @example EvmChain.LINEA_SEPOLIA
+   */
+  public static get LINEA_SEPOLIA() {
+    return EvmChain.create(59141);
+  }
 
   /**
    * Create a new instance of EvmChain from any valid address input.
@@ -372,6 +380,7 @@ export class EvmChain implements EvmChainable {
       EvmChain.MOONBEAM,
       EvmChain.MOONRIVER,
       EvmChain.MOONBASE,
+      EvmChain.LINEA_SEPOLIA,
     ];
   }
 
@@ -487,7 +496,8 @@ export class EvmChain implements EvmChainable {
       | '0xe708'
       | '0x504'
       | '0x505'
-      | '0x507';
+      | '0x507'
+      | '0xe705';
   }
 
   /**
