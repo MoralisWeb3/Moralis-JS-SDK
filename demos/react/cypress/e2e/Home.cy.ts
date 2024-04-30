@@ -17,7 +17,7 @@ describe('Homepage', () => {
 
     cy.get('[data-testid="outputTextarea"]')
       .should('exist')
-      .contains('0x258b69b4152d42da8b5d2952f51b7ff72210e8dfe5e7bc441a291175d7e635e7');
+      .contains('0x7f6233c1a3e7e0f9f09253dcb9c44bf717ddee9abf3cf77e70b750f1d31fd9a6');
   });
 
   it('runs function correctly', () => {

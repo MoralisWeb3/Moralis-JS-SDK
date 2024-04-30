@@ -46,7 +46,7 @@ const Home = () => {
   );
   const { refetch: getBlock } = useEvmBlock(
     {
-      chain: '0x13881',
+      chain: '0x38',
       blockNumberOrHash: '10000',
     },
     { enabled: false, onSuccess: (res) => setOutput(JSON.stringify(res)) },
