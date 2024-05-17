@@ -22,6 +22,7 @@ import { EvmNativeTransfer, EvmNativeTransferInput, EvmNativeTransferJSON } from
 // - receipt_cumulative_gas_used ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_cumulative_gas_used)
 // - receipt_gas_used ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_gas_used)
 // - receipt_status ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_status)
+// - transaction_fee ($ref: #/components/schemas/walletHistoryTransaction/properties/transaction_fee)
 // - block_timestamp ($ref: #/components/schemas/walletHistoryTransaction/properties/block_timestamp)
 // - block_number ($ref: #/components/schemas/walletHistoryTransaction/properties/block_number)
 // - block_hash ($ref: #/components/schemas/walletHistoryTransaction/properties/block_hash)
@@ -40,7 +41,7 @@ export interface EvmWalletHistoryTransactionJSON {
   readonly transaction_index: string;
   readonly from_address: EvmAddressJSON;
   readonly from_address_label?: string;
-  readonly to_address: EvmAddressJSON;
+  readonly to_address?: EvmAddressJSON;
   readonly to_address_label?: string;
   readonly value: string;
   readonly gas?: string;
@@ -49,6 +50,7 @@ export interface EvmWalletHistoryTransactionJSON {
   readonly receipt_cumulative_gas_used: string;
   readonly receipt_gas_used: string;
   readonly receipt_status: string;
+  readonly transaction_fee?: string;
   readonly block_timestamp: string;
   readonly block_number: BigNumberJSON;
   readonly block_hash: string;
@@ -68,7 +70,7 @@ export interface EvmWalletHistoryTransactionInput {
   readonly transactionIndex: number;
   readonly fromAddress: EvmAddressInput | EvmAddress;
   readonly fromAddressLabel?: string;
-  readonly toAddress: EvmAddressInput | EvmAddress;
+  readonly toAddress?: EvmAddressInput | EvmAddress;
   readonly toAddressLabel?: string;
   readonly value: string;
   readonly gas?: string;
@@ -77,6 +79,7 @@ export interface EvmWalletHistoryTransactionInput {
   readonly receiptCumulativeGasUsed: string;
   readonly receiptGasUsed: string;
   readonly receiptStatus: string;
+  readonly transactionFee?: string;
   readonly blockTimestamp: string;
   readonly blockNumber: BigNumberInput | BigNumber;
   readonly blockHash: string;
@@ -105,7 +108,7 @@ export class EvmWalletHistoryTransaction {
       transactionIndex: Number(json.transaction_index),
       fromAddress: EvmAddress.fromJSON(json.from_address),
       fromAddressLabel: json.from_address_label,
-      toAddress: EvmAddress.fromJSON(json.to_address),
+      toAddress: json.to_address ? EvmAddress.fromJSON(json.to_address) : undefined,
       toAddressLabel: json.to_address_label,
       value: json.value,
       gas: json.gas,
@@ -114,6 +117,7 @@ export class EvmWalletHistoryTransaction {
       receiptCumulativeGasUsed: json.receipt_cumulative_gas_used,
       receiptGasUsed: json.receipt_gas_used,
       receiptStatus: json.receipt_status,
+      transactionFee: json.transaction_fee,
       blockTimestamp: json.block_timestamp,
       blockNumber: BigNumber.fromJSON(json.block_number),
       blockHash: json.block_hash,
@@ -149,7 +153,7 @@ export class EvmWalletHistoryTransaction {
   /**
    * @description The to address
    */
-  public readonly toAddress: EvmAddress;
+  public readonly toAddress?: EvmAddress;
   /**
    * @description The label of the to address
    */
@@ -167,6 +171,7 @@ export class EvmWalletHistoryTransaction {
   public readonly receiptCumulativeGasUsed: string;
   public readonly receiptGasUsed: string;
   public readonly receiptStatus: string;
+  public readonly transactionFee?: string;
   /**
    * @description The block timestamp
    */
@@ -206,7 +211,7 @@ export class EvmWalletHistoryTransaction {
     this.transactionIndex = input.transactionIndex;
     this.fromAddress = EvmAddress.create(input.fromAddress);
     this.fromAddressLabel = input.fromAddressLabel;
-    this.toAddress = EvmAddress.create(input.toAddress);
+    this.toAddress = input.toAddress ? EvmAddress.create(input.toAddress) : undefined;
     this.toAddressLabel = input.toAddressLabel;
     this.value = input.value;
     this.gas = input.gas;
@@ -215,6 +220,7 @@ export class EvmWalletHistoryTransaction {
     this.receiptCumulativeGasUsed = input.receiptCumulativeGasUsed;
     this.receiptGasUsed = input.receiptGasUsed;
     this.receiptStatus = input.receiptStatus;
+    this.transactionFee = input.transactionFee;
     this.blockTimestamp = input.blockTimestamp;
     this.blockNumber = BigNumber.create(input.blockNumber);
     this.blockHash = input.blockHash;
@@ -235,7 +241,7 @@ export class EvmWalletHistoryTransaction {
       transaction_index: String(this.transactionIndex),
       from_address: this.fromAddress.toJSON(),
       from_address_label: this.fromAddressLabel,
-      to_address: this.toAddress.toJSON(),
+      to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       to_address_label: this.toAddressLabel,
       value: this.value,
       gas: this.gas,
@@ -244,6 +250,7 @@ export class EvmWalletHistoryTransaction {
       receipt_cumulative_gas_used: this.receiptCumulativeGasUsed,
       receipt_gas_used: this.receiptGasUsed,
       receipt_status: this.receiptStatus,
+      transaction_fee: this.transactionFee,
       block_timestamp: this.blockTimestamp,
       block_number: this.blockNumber.toJSON(),
       block_hash: this.blockHash,

@@ -15,6 +15,7 @@ import { EvmNativeErc20Price, EvmNativeErc20PriceInput, EvmNativeErc20PriceJSON 
 // - exchangeName ($ref: #/components/schemas/erc20Price/properties/exchangeName)
 // - tokenAddress ($ref: #/components/schemas/erc20Price/properties/tokenAddress)
 // - toBlock ($ref: #/components/schemas/erc20Price/properties/toBlock)
+// - possibleSpam ($ref: #/components/schemas/erc20Price/properties/possibleSpam)
 // - verifiedContract ($ref: #/components/schemas/erc20Price/properties/verifiedContract)
 
 export interface EvmErc20PriceJSON {
@@ -30,7 +31,8 @@ export interface EvmErc20PriceJSON {
   readonly exchangeName?: string;
   readonly tokenAddress?: string;
   readonly toBlock?: string;
-  readonly verifiedContract?: boolean;
+  readonly possibleSpam: boolean;
+  readonly verifiedContract: boolean;
 }
 
 export interface EvmErc20PriceInput {
@@ -46,7 +48,8 @@ export interface EvmErc20PriceInput {
   readonly exchangeName?: string;
   readonly tokenAddress?: string;
   readonly toBlock?: string;
-  readonly verifiedContract?: boolean;
+  readonly possibleSpam: boolean;
+  readonly verifiedContract: boolean;
 }
 
 export class EvmErc20Price {
@@ -71,6 +74,7 @@ export class EvmErc20Price {
       exchangeName: json.exchangeName,
       tokenAddress: json.tokenAddress,
       toBlock: json.toBlock,
+      possibleSpam: json.possibleSpam,
       verifiedContract: json.verifiedContract,
     };
     return EvmErc20Price.create(input);
@@ -122,9 +126,13 @@ export class EvmErc20Price {
    */
   public readonly toBlock?: string;
   /**
+   * @description Indicates if a contract is possibly a spam contract
+   */
+  public readonly possibleSpam: boolean;
+  /**
    * @description Indicates if the contract is verified
    */
-  public readonly verifiedContract?: boolean;
+  public readonly verifiedContract: boolean;
 
   private constructor(input: EvmErc20PriceInput) {
     this.tokenName = input.tokenName;
@@ -139,6 +147,7 @@ export class EvmErc20Price {
     this.exchangeName = input.exchangeName;
     this.tokenAddress = input.tokenAddress;
     this.toBlock = input.toBlock;
+    this.possibleSpam = input.possibleSpam;
     this.verifiedContract = input.verifiedContract;
   }
 
@@ -156,6 +165,7 @@ export class EvmErc20Price {
       exchangeName: this.exchangeName,
       tokenAddress: this.tokenAddress,
       toBlock: this.toBlock,
+      possibleSpam: this.possibleSpam,
       verifiedContract: this.verifiedContract,
     }
   }

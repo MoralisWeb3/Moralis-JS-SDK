@@ -3,7 +3,7 @@ import { EvmGetNFTTradesMarketplaceEnum, EvmGetNFTTradesMarketplaceEnumValue, Ev
 import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCollection';
 
 // request parameters:
-// - chain ($ref: #/components/schemas/chainList)
+// - chain ($ref: #/components/schemas/nftTradesChainList)
 // - from_block ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/1/schema)
 // - to_block ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/2/schema)
 // - from_date ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/3/schema)
