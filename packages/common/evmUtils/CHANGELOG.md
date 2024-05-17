@@ -1,5 +1,20 @@
 # @moralisweb3/evm-utils
 
+## 2.26.2
+
+### Patch Changes
+
+- [#1202](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1202) [`ea0b14b4d2`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/ea0b14b4d2dc73e27f60551da376683c1c87c35a) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for linea-sepolia
+
+- [#1198](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1198) [`54bbb312fe`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/54bbb312fee9a323472672cce1560001eb6bf57f) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for moonriver
+
+- [#1200](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1200) [`36f3d57d2b`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/36f3d57d2b8e202e77b070ba1f4a0ac5d21149be) Thanks [@Kayconfig](https://github.com/Kayconfig)! - Add support for Moonbase chain
+
+- [#1204](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1204) [`db90d9b887`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/db90d9b88735f8e142496c4c97ab3dbddf5ac9ce) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated the types to reflect the changes in the swagger file.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.2
+
 ## 2.26.1
 
 ### Patch Changes
