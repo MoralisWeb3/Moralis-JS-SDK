@@ -28,7 +28,7 @@ export interface EvmWalletHistoryNftTransferJSON {
   readonly token_id: string;
   readonly from_address: EvmAddressJSON;
   readonly from_address_label?: string;
-  readonly to_address: EvmAddressJSON;
+  readonly to_address?: EvmAddressJSON;
   readonly to_address_label?: string;
   readonly value: string;
   readonly amount: string;
@@ -49,7 +49,7 @@ export interface EvmWalletHistoryNftTransferInput {
   readonly tokenId: string;
   readonly fromAddress: EvmAddressInput | EvmAddress;
   readonly fromAddressLabel?: string;
-  readonly toAddress: EvmAddressInput | EvmAddress;
+  readonly toAddress?: EvmAddressInput | EvmAddress;
   readonly toAddressLabel?: string;
   readonly value: string;
   readonly amount: string;
@@ -79,7 +79,7 @@ export class EvmWalletHistoryNftTransfer {
       tokenId: json.token_id,
       fromAddress: EvmAddress.fromJSON(json.from_address),
       fromAddressLabel: json.from_address_label,
-      toAddress: EvmAddress.fromJSON(json.to_address),
+      toAddress: json.to_address ? EvmAddress.fromJSON(json.to_address) : undefined,
       toAddressLabel: json.to_address_label,
       value: json.value,
       amount: json.amount,
@@ -116,7 +116,7 @@ export class EvmWalletHistoryNftTransfer {
   /**
    * @description The address that received the NFT
    */
-  public readonly toAddress: EvmAddress;
+  public readonly toAddress?: EvmAddress;
   /**
    * @description The label of the to address
    */
@@ -175,7 +175,7 @@ export class EvmWalletHistoryNftTransfer {
     this.tokenId = input.tokenId;
     this.fromAddress = EvmAddress.create(input.fromAddress);
     this.fromAddressLabel = input.fromAddressLabel;
-    this.toAddress = EvmAddress.create(input.toAddress);
+    this.toAddress = input.toAddress ? EvmAddress.create(input.toAddress) : undefined;
     this.toAddressLabel = input.toAddressLabel;
     this.value = input.value;
     this.amount = input.amount;
@@ -197,7 +197,7 @@ export class EvmWalletHistoryNftTransfer {
       token_id: this.tokenId,
       from_address: this.fromAddress.toJSON(),
       from_address_label: this.fromAddressLabel,
-      to_address: this.toAddress.toJSON(),
+      to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       to_address_label: this.toAddressLabel,
       value: this.value,
       amount: this.amount,

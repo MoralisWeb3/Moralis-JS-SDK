@@ -26,7 +26,7 @@ export interface EvmWalletHistoryErc20TransferJSON {
   readonly token_decimals: string;
   readonly address: EvmAddressJSON;
   readonly block_timestamp?: string;
-  readonly to_address: EvmAddressJSON;
+  readonly to_address?: EvmAddressJSON;
   readonly to_address_label?: string;
   readonly from_address: EvmAddressJSON;
   readonly from_address_label?: string;
@@ -44,7 +44,7 @@ export interface EvmWalletHistoryErc20TransferInput {
   readonly tokenDecimals: number;
   readonly address: EvmAddressInput | EvmAddress;
   readonly blockTimestamp?: string;
-  readonly toAddress: EvmAddressInput | EvmAddress;
+  readonly toAddress?: EvmAddressInput | EvmAddress;
   readonly toAddressLabel?: string;
   readonly fromAddress: EvmAddressInput | EvmAddress;
   readonly fromAddressLabel?: string;
@@ -71,7 +71,7 @@ export class EvmWalletHistoryErc20Transfer {
       tokenDecimals: Number(json.token_decimals),
       address: EvmAddress.fromJSON(json.address),
       blockTimestamp: json.block_timestamp,
-      toAddress: EvmAddress.fromJSON(json.to_address),
+      toAddress: json.to_address ? EvmAddress.fromJSON(json.to_address) : undefined,
       toAddressLabel: json.to_address_label,
       fromAddress: EvmAddress.fromJSON(json.from_address),
       fromAddressLabel: json.from_address_label,
@@ -99,7 +99,7 @@ export class EvmWalletHistoryErc20Transfer {
   /**
    * @description The recipient
    */
-  public readonly toAddress: EvmAddress;
+  public readonly toAddress?: EvmAddress;
   /**
    * @description The label of the to address
    */
@@ -140,7 +140,7 @@ export class EvmWalletHistoryErc20Transfer {
     this.tokenDecimals = input.tokenDecimals;
     this.address = EvmAddress.create(input.address);
     this.blockTimestamp = input.blockTimestamp;
-    this.toAddress = EvmAddress.create(input.toAddress);
+    this.toAddress = input.toAddress ? EvmAddress.create(input.toAddress) : undefined;
     this.toAddressLabel = input.toAddressLabel;
     this.fromAddress = EvmAddress.create(input.fromAddress);
     this.fromAddressLabel = input.fromAddressLabel;
@@ -159,7 +159,7 @@ export class EvmWalletHistoryErc20Transfer {
       token_decimals: String(this.tokenDecimals),
       address: this.address.toJSON(),
       block_timestamp: this.blockTimestamp,
-      to_address: this.toAddress.toJSON(),
+      to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       to_address_label: this.toAddressLabel,
       from_address: this.fromAddress.toJSON(),
       from_address_label: this.fromAddressLabel,
