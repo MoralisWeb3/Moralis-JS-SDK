@@ -1,5 +1,8 @@
 import { GetNFTTradesOperation, GetNFTTradesOperationRequest, GetNFTTradesOperationRequestJSON } from '../operations/GetNFTTradesOperation';
 import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCollection';
+import { GetNFTContractSalePricesOperation, GetNFTContractSalePricesOperationRequest, GetNFTContractSalePricesOperationRequestJSON } from '../operations/GetNFTContractSalePricesOperation';
+import { EvmSoldPrice, EvmSoldPriceJSON } from '../types/EvmSoldPrice';
+import { GetNFTSalePricesOperation, GetNFTSalePricesOperationRequest, GetNFTSalePricesOperationRequestJSON } from '../operations/GetNFTSalePricesOperation';
 import { GetMultipleTokenPricesOperation, GetMultipleTokenPricesOperationRequest, GetMultipleTokenPricesOperationRequestJSON } from '../operations/GetMultipleTokenPricesOperation';
 import { EvmErc20Price, EvmErc20PriceJSON } from '../types/EvmErc20Price';
 import { EvmGetMultipleTokenPricesDto, EvmGetMultipleTokenPricesDtoInput, EvmGetMultipleTokenPricesDtoJSON } from '../types/EvmGetMultipleTokenPricesDto';
@@ -196,6 +199,37 @@ export abstract class AbstractClient {
       EvmTradeCollection,
       EvmTradeCollectionJSON
     >(GetNFTTradesOperation),
+    /**
+     * @description Get the sold price for an NFT contract for the last x days (only trades paid in ETH).
+     * @param request Request with parameters.
+     * @param {Object} request.address The address of the NFT collection
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.days] The number of days to look back to find the lowest price
+     * If not provided 7 days will be the default (optional)
+     * @returns {Object} Response for the request.
+     */
+    getNFTContractSalePrices: this.createEndpoint<
+      GetNFTContractSalePricesOperationRequest,
+      GetNFTContractSalePricesOperationRequestJSON,
+      EvmSoldPrice,
+      EvmSoldPriceJSON
+    >(GetNFTContractSalePricesOperation),
+    /**
+     * @description Get the sold price for an NFT token for the last x days (only trades paid in ETH).
+     * @param request Request with parameters.
+     * @param {Object} request.address The address of the NFT collection
+     * @param {String} request.tokenId The token id of the NFT collection
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.days] The number of days to look back to find the lowest price
+     * If not provided 7 days will be the default (optional)
+     * @returns {Object} Response for the request.
+     */
+    getNFTSalePrices: this.createEndpoint<
+      GetNFTSalePricesOperationRequest,
+      GetNFTSalePricesOperationRequestJSON,
+      EvmSoldPrice,
+      EvmSoldPriceJSON
+    >(GetNFTSalePricesOperation),
     /**
      * @description Get the stats for a nft collection address.
      * @param request Request with parameters.

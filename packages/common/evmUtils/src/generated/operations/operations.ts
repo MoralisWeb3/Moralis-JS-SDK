@@ -1,4 +1,6 @@
 import { GetNFTTradesOperation } from './GetNFTTradesOperation';
+import { GetNFTContractSalePricesOperation } from './GetNFTContractSalePricesOperation';
+import { GetNFTSalePricesOperation } from './GetNFTSalePricesOperation';
 import { GetMultipleTokenPricesOperation } from './GetMultipleTokenPricesOperation';
 import { GetWalletHistoryOperation } from './GetWalletHistoryOperation';
 import { GetWalletTokenBalancesPriceOperation } from './GetWalletTokenBalancesPriceOperation';
@@ -23,6 +25,8 @@ import { GetBlockStatsOperation } from './GetBlockStatsOperation';
 
 export const operations = [
   GetNFTTradesOperation,
+  GetNFTContractSalePricesOperation,
+  GetNFTSalePricesOperation,
   GetMultipleTokenPricesOperation,
   GetWalletHistoryOperation,
   GetWalletTokenBalancesPriceOperation,
