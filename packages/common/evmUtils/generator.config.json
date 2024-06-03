@@ -118,7 +118,9 @@
           "resolveAddressToDomain",
           "getTopCryptoCurrenciesByMarketCap",
           "getTopCryptoCurrenciesByTradingVolume",
-          "getWalletHistory"
+          "getWalletHistory",
+          "getNFTSalePrices",
+          "getNFTContractSalePrices"
         ]
       }
     }

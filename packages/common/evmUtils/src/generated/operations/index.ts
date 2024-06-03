@@ -1,4 +1,6 @@
 export * from './GetNFTTradesOperation';
+export * from './GetNFTContractSalePricesOperation';
+export * from './GetNFTSalePricesOperation';
 export * from './GetMultipleTokenPricesOperation';
 export * from './GetWalletHistoryOperation';
 export * from './GetWalletTokenBalancesPriceOperation';
