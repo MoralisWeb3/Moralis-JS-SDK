@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.26.3
+
+### Patch Changes
+
+- [#1205](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1205) [`c2f2e5822f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c2f2e5822feb3457a7cc2a1bbe11336c993844b2) Thanks [@VincentHoong](https://github.com/VincentHoong)! - Expose `getNFTContractSalePrices` & `getNFTSalePrices`
+
+- Updated dependencies [[`c2f2e5822f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c2f2e5822feb3457a7cc2a1bbe11336c993844b2)]:
+  - @moralisweb3/common-evm-utils@2.26.3
+  - @moralisweb3/api-utils@2.26.3
+  - @moralisweb3/common-core@2.26.3
+
 ## 2.26.2
 
 ### Patch Changes

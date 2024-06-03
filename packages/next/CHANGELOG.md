@@ -1,5 +1,18 @@
 # @moralisweb3/next
 
+## 2.26.3
+
+### Patch Changes
+
+- Updated dependencies [[`c2f2e5822f`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/c2f2e5822feb3457a7cc2a1bbe11336c993844b2)]:
+  - @moralisweb3/evm-api@2.26.3
+  - @moralisweb3/api-utils@2.26.3
+  - @moralisweb3/auth@2.26.3
+  - @moralisweb3/common-auth-utils@2.26.3
+  - @moralisweb3/common-core@2.26.3
+  - @moralisweb3/sol-api@2.26.3
+  - moralis@2.26.3
+
 ## 2.26.2
 
 ### Patch Changes
