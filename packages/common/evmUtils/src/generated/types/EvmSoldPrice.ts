@@ -11,6 +11,7 @@ import { EvmSoldPriceAverageSale, EvmSoldPriceAverageSaleInput, EvmSoldPriceAver
 // - highest_sale ($ref: #/components/schemas/soldPrice/properties/highest_sale)
 // - average_sale ($ref: #/components/schemas/soldPrice/properties/average_sale)
 // - total_trades ($ref: #/components/schemas/soldPrice/properties/total_trades)
+// - message ($ref: #/components/schemas/soldPrice/properties/message)
 
 export interface EvmSoldPriceJSON {
   readonly last_sale: EvmSoldPriceLastSaleJSON;
@@ -18,6 +19,7 @@ export interface EvmSoldPriceJSON {
   readonly highest_sale: EvmSoldPriceHighestSaleJSON;
   readonly average_sale: EvmSoldPriceAverageSaleJSON;
   readonly total_trades?: number;
+  readonly message?: string;
 }
 
 export interface EvmSoldPriceInput {
@@ -26,6 +28,7 @@ export interface EvmSoldPriceInput {
   readonly highestSale: EvmSoldPriceHighestSaleInput | EvmSoldPriceHighestSale;
   readonly averageSale: EvmSoldPriceAverageSaleInput | EvmSoldPriceAverageSale;
   readonly totalTrades?: number;
+  readonly message?: string;
 }
 
 export class EvmSoldPrice {
@@ -43,6 +46,7 @@ export class EvmSoldPrice {
       highestSale: EvmSoldPriceHighestSale.fromJSON(json.highest_sale),
       averageSale: EvmSoldPriceAverageSale.fromJSON(json.average_sale),
       totalTrades: json.total_trades,
+      message: json.message,
     };
     return EvmSoldPrice.create(input);
   }
@@ -67,6 +71,10 @@ export class EvmSoldPrice {
    * @description The total trades in the timeframe
    */
   public readonly totalTrades?: number;
+  /**
+   * @description The error message (if any)
+   */
+  public readonly message?: string;
 
   private constructor(input: EvmSoldPriceInput) {
     this.lastSale = EvmSoldPriceLastSale.create(input.lastSale);
@@ -74,6 +82,7 @@ export class EvmSoldPrice {
     this.highestSale = EvmSoldPriceHighestSale.create(input.highestSale);
     this.averageSale = EvmSoldPriceAverageSale.create(input.averageSale);
     this.totalTrades = input.totalTrades;
+    this.message = input.message;
   }
 
   public toJSON(): EvmSoldPriceJSON {
@@ -83,6 +92,7 @@ export class EvmSoldPrice {
       highest_sale: this.highestSale.toJSON(),
       average_sale: this.averageSale.toJSON(),
       total_trades: this.totalTrades,
+      message: this.message,
     }
   }
 }

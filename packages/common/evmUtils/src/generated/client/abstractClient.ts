@@ -6,6 +6,8 @@ import { GetNFTSalePricesOperation, GetNFTSalePricesOperationRequest, GetNFTSale
 import { GetMultipleTokenPricesOperation, GetMultipleTokenPricesOperationRequest, GetMultipleTokenPricesOperationRequestJSON } from '../operations/GetMultipleTokenPricesOperation';
 import { EvmErc20Price, EvmErc20PriceJSON } from '../types/EvmErc20Price';
 import { EvmGetMultipleTokenPricesDto, EvmGetMultipleTokenPricesDtoInput, EvmGetMultipleTokenPricesDtoJSON } from '../types/EvmGetMultipleTokenPricesDto';
+import { GetTokenOwnersOperation, GetTokenOwnersOperationRequest, GetTokenOwnersOperationRequestJSON } from '../operations/GetTokenOwnersOperation';
+import { EvmErc20TokenOwnerCollection, EvmErc20TokenOwnerCollectionJSON } from '../types/EvmErc20TokenOwnerCollection';
 import { GetWalletHistoryOperation, GetWalletHistoryOperationRequest, GetWalletHistoryOperationRequestJSON } from '../operations/GetWalletHistoryOperation';
 import { EvmWalletHistory, EvmWalletHistoryJSON } from '../types/EvmWalletHistory';
 import { GetWalletTokenBalancesPriceOperation, GetWalletTokenBalancesPriceOperationRequest, GetWalletTokenBalancesPriceOperationRequestJSON } from '../operations/GetWalletTokenBalancesPriceOperation';
@@ -188,7 +190,7 @@ export abstract class AbstractClient {
      * @param {Date} [request.toDate] The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'to_block' or 'to_date'
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
-     * @param {Object} [request.marketplace] Marketplace from which to get the trades (only OpenSea is supported at the moment) (optional)
+     * @param {Object} [request.marketplace] Marketplace from which to get the trades. See [supported Marketplaces](https://docs.moralis.io/web3-data-api/evm/nft-marketplaces). (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Number} [request.limit] The desired page size of the result. (optional)
      * @returns {Object} Response for the request.
@@ -205,7 +207,7 @@ export abstract class AbstractClient {
      * @param {Object} request.address The address of the NFT collection
      * @param {Object} [request.chain] The chain to query (optional)
      * @param {Number} [request.days] The number of days to look back to find the lowest price
-     * If not provided 7 days will be the default (optional)
+     * If not provided 7 days will be the default and 365 is the maximum (optional)
      * @returns {Object} Response for the request.
      */
     getNFTContractSalePrices: this.createEndpoint<
@@ -221,7 +223,7 @@ export abstract class AbstractClient {
      * @param {String} request.tokenId The token id of the NFT collection
      * @param {Object} [request.chain] The chain to query (optional)
      * @param {Number} [request.days] The number of days to look back to find the lowest price
-     * If not provided 7 days will be the default (optional)
+     * If not provided 7 days will be the default and 365 is the maximum (optional)
      * @returns {Object} Response for the request.
      */
     getNFTSalePrices: this.createEndpoint<
@@ -291,6 +293,22 @@ export abstract class AbstractClient {
       EvmGetMultipleTokenPricesDtoInput | EvmGetMultipleTokenPricesDto,
       EvmGetMultipleTokenPricesDtoJSON
     >(GetMultipleTokenPricesOperation),
+    /**
+     * @description Identify the major holders of an ERC20 token and understand their ownership percentages
+     * @param request Request with parameters.
+     * @param {String} request.tokenAddress The address of the token contract
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Number} [request.limit] The desired page size of the result. (optional)
+     * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
+     * @param {Object} [request.order] The order of the result, in ascending (ASC) or descending (DESC) (optional)
+     * @returns {Object} Response for the request.
+     */
+    getTokenOwners: this.createEndpoint<
+      GetTokenOwnersOperationRequest,
+      GetTokenOwnersOperationRequestJSON,
+      EvmErc20TokenOwnerCollection,
+      EvmErc20TokenOwnerCollectionJSON
+    >(GetTokenOwnersOperation),
     /**
      * @description Get the stats for a erc20 token
      * @param request Request with parameters.
