@@ -41,7 +41,7 @@ export interface GetNFTTradesOperationRequest {
    */
   readonly toDate?: Date;
   /**
-   * @description Marketplace from which to get the trades (only OpenSea is supported at the moment)
+   * @description Marketplace from which to get the trades. See [supported Marketplaces](https://docs.moralis.io/web3-data-api/evm/nft-marketplaces).
    */
   readonly marketplace?: EvmGetNFTTradesMarketplaceEnumInput | EvmGetNFTTradesMarketplaceEnumValue;
   /**

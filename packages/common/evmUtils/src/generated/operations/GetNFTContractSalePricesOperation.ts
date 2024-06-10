@@ -13,7 +13,7 @@ export interface GetNFTContractSalePricesOperationRequest {
   readonly chain?: EvmChainInput | EvmChain;
   /**
    * @description The number of days to look back to find the lowest price
-   * If not provided 7 days will be the default
+   * If not provided 7 days will be the default and 365 is the maximum
    */
   readonly days?: number;
   /**

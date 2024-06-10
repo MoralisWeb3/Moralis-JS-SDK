@@ -17,6 +17,8 @@ import { EvmNativeErc20Price, EvmNativeErc20PriceInput, EvmNativeErc20PriceJSON 
 // - toBlock ($ref: #/components/schemas/erc20Price/properties/toBlock)
 // - possibleSpam ($ref: #/components/schemas/erc20Price/properties/possibleSpam)
 // - verifiedContract ($ref: #/components/schemas/erc20Price/properties/verifiedContract)
+// - pairAddress ($ref: #/components/schemas/erc20Price/properties/pairAddress)
+// - pairTotalLiquidityUsd ($ref: #/components/schemas/erc20Price/properties/pairTotalLiquidityUsd)
 
 export interface EvmErc20PriceJSON {
   readonly tokenName?: string;
@@ -33,6 +35,8 @@ export interface EvmErc20PriceJSON {
   readonly toBlock?: string;
   readonly possibleSpam: boolean;
   readonly verifiedContract: boolean;
+  readonly pairAddress?: string;
+  readonly pairTotalLiquidityUsd?: string;
 }
 
 export interface EvmErc20PriceInput {
@@ -50,6 +54,8 @@ export interface EvmErc20PriceInput {
   readonly toBlock?: string;
   readonly possibleSpam: boolean;
   readonly verifiedContract: boolean;
+  readonly pairAddress?: string;
+  readonly pairTotalLiquidityUsd?: string;
 }
 
 export class EvmErc20Price {
@@ -76,6 +82,8 @@ export class EvmErc20Price {
       toBlock: json.toBlock,
       possibleSpam: json.possibleSpam,
       verifiedContract: json.verifiedContract,
+      pairAddress: json.pairAddress,
+      pairTotalLiquidityUsd: json.pairTotalLiquidityUsd,
     };
     return EvmErc20Price.create(input);
   }
@@ -133,6 +141,14 @@ export class EvmErc20Price {
    * @description Indicates if the contract is verified
    */
   public readonly verifiedContract: boolean;
+  /**
+   * @description The address of the pair
+   */
+  public readonly pairAddress?: string;
+  /**
+   * @description The total liquidity in USD of the pair
+   */
+  public readonly pairTotalLiquidityUsd?: string;
 
   private constructor(input: EvmErc20PriceInput) {
     this.tokenName = input.tokenName;
@@ -149,6 +165,8 @@ export class EvmErc20Price {
     this.toBlock = input.toBlock;
     this.possibleSpam = input.possibleSpam;
     this.verifiedContract = input.verifiedContract;
+    this.pairAddress = input.pairAddress;
+    this.pairTotalLiquidityUsd = input.pairTotalLiquidityUsd;
   }
 
   public toJSON(): EvmErc20PriceJSON {
@@ -167,6 +185,8 @@ export class EvmErc20Price {
       toBlock: this.toBlock,
       possibleSpam: this.possibleSpam,
       verifiedContract: this.verifiedContract,
+      pairAddress: this.pairAddress,
+      pairTotalLiquidityUsd: this.pairTotalLiquidityUsd,
     }
   }
 }

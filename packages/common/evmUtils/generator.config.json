@@ -120,7 +120,8 @@
           "getTopCryptoCurrenciesByTradingVolume",
           "getWalletHistory",
           "getNFTSalePrices",
-          "getNFTContractSalePrices"
+          "getNFTContractSalePrices",
+          "getTokenOwners"
         ]
       }
     }

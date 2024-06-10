@@ -2,6 +2,7 @@ export * from './GetNFTTradesOperation';
 export * from './GetNFTContractSalePricesOperation';
 export * from './GetNFTSalePricesOperation';
 export * from './GetMultipleTokenPricesOperation';
+export * from './GetTokenOwnersOperation';
 export * from './GetWalletHistoryOperation';
 export * from './GetWalletTokenBalancesPriceOperation';
 export * from './GetWalletNetWorthOperation';
