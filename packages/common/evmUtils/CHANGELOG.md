@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.26.4
+
+### Patch Changes
+
+- [#1208](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1208) [`92ef94d396`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/92ef94d396957501d69a1fd9ba2cb593a251706b) Thanks [@Kayconfig](https://github.com/Kayconfig)! - add getTokenOwners function to SDK
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.4
+
 ## 2.26.3
 
 ### Patch Changes
