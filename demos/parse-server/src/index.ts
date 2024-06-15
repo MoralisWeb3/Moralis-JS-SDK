@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(`/${config.SERVER_ENDPOINT}`, parseServer);
+app.use(`/${config.SERVER_ENDPOINT}`, parseServer.app);
 app.use('/dashboard', parseDashboard);
 app.use('/api', apiRouter);
 app.use(errorHandler);
