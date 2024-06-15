@@ -15,3 +15,4 @@ export const parseServer = new ParseServer({
     },
   },
 });
+(async () => parseServer.start() )();

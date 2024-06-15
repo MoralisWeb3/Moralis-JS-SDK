@@ -4,40 +4,45 @@
   "main": "dist/index.js",
   "private": true,
   "dependencies": {
-    "@codemirror/language": "^0.20.0",
-    "@moralisweb3/common-core": "^2.26.4",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "envalid": "7.3.1",
-    "express": "^4.18.1",
-    "express-rate-limit": "^6.5.1",
-    "graphql": "^16.6.0",
-    "graphql-ws": "^5.10.1",
-    "moralis": "^2.26.4",
-    "parse-dashboard": "^4.1.4",
-    "parse-server": "^5.4.0"
+    "@codemirror/language": "6.10.2",
+    "@moralisweb3/common-core": "2.26.4",
+    "cors": "2.8.5",
+    "dotenv": "16.4.5",
+    "envalid": "8.0.0",
+    "express": "4.19.2",
+    "express-rate-limit": "7.3.1",
+    "graphql": "16.8.2",
+    "graphql-ws": "5.16.0",
+    "moralis": "2.26.4",
+    "parse-dashboard": "5.4.0",
+    "parse-server": "7.0.0"
   },
   "devDependencies": {
-    "@moralisweb3/eslint-config": "^1.0.3",
-    "@types/cors": "^2.8.13",
-    "@types/node": "^18.11.18",
+    "@moralisweb3/eslint-config": "1.0.3",
+    "@types/cors": "2.8.17",
+    "@types/node": "20.14.2",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.2",
-    "eslint": "^8.32.0",
-    "eslint-plugin-etc": "^2.0.2",
-    "eslint-plugin-import": "^2.27.5",
-    "mongodb-runner": "^4.9.0",
-    "prettier": "^2.8.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "@typescript-eslint/parser": "^7.13.0",
+    "eslint": "8.32.0",
+    "eslint-plugin-etc": "2.0.2",
+    "eslint-plugin-import": "2.27.5",
+    "mongodb-runner": "5.6.2",
+    "prettier": "2.8.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.4.5"
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc",
+    "start": "node ./build/index.js",
     "gen:lockfile": "yarn install --mode update-lockfile",
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --write 'src/**/*.{js,ts}'",
     "dev:db-start": "mongodb-runner start",
     "dev:db-stop": "mongodb-runner stop"
-  }
+  },
+  "engines": {
+    "node": "18.20.3"
+  },
+  "packageManager": "yarn@1.22.19"
 }
