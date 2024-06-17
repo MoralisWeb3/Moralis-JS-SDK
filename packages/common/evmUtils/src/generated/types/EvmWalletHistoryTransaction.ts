@@ -4,6 +4,7 @@ import { EvmETransactionCategory, EvmETransactionCategoryValue, EvmETransactionC
 import { EvmWalletHistoryNftTransfer, EvmWalletHistoryNftTransferInput, EvmWalletHistoryNftTransferJSON } from '../types/EvmWalletHistoryNftTransfer';
 import { EvmWalletHistoryErc20Transfer, EvmWalletHistoryErc20TransferInput, EvmWalletHistoryErc20TransferJSON } from '../types/EvmWalletHistoryErc20Transfer';
 import { EvmNativeTransfer, EvmNativeTransferInput, EvmNativeTransferJSON } from '../types/EvmNativeTransfer';
+import { EvmLog, EvmLogInput, EvmLogJSON } from '../types/EvmLog';
 
 // $ref: #/components/schemas/walletHistoryTransaction
 // type: walletHistoryTransaction
@@ -34,6 +35,7 @@ import { EvmNativeTransfer, EvmNativeTransferInput, EvmNativeTransferJSON } from
 // - nft_transfers ($ref: #/components/schemas/walletHistoryNftTransfer)
 // - erc20_transfers ($ref: #/components/schemas/walletHistoryErc20Transfer)
 // - native_transfers ($ref: #/components/schemas/native_transfer)
+// - logs ($ref: #/components/schemas/log)
 
 export interface EvmWalletHistoryTransactionJSON {
   readonly hash: string;
@@ -62,6 +64,7 @@ export interface EvmWalletHistoryTransactionJSON {
   readonly nft_transfers: EvmWalletHistoryNftTransferJSON[];
   readonly erc20_transfers: EvmWalletHistoryErc20TransferJSON[];
   readonly native_transfers: EvmNativeTransferJSON[];
+  readonly logs?: EvmLogJSON[];
 }
 
 export interface EvmWalletHistoryTransactionInput {
@@ -91,6 +94,7 @@ export interface EvmWalletHistoryTransactionInput {
   readonly nftTransfers: EvmWalletHistoryNftTransferInput[] | EvmWalletHistoryNftTransfer[];
   readonly erc20Transfers: EvmWalletHistoryErc20TransferInput[] | EvmWalletHistoryErc20Transfer[];
   readonly nativeTransfers: EvmNativeTransferInput[] | EvmNativeTransfer[];
+  readonly logs?: EvmLogInput[] | EvmLog[];
 }
 
 export class EvmWalletHistoryTransaction {
@@ -129,6 +133,7 @@ export class EvmWalletHistoryTransaction {
       nftTransfers: json.nft_transfers.map((item) => EvmWalletHistoryNftTransfer.fromJSON(item)),
       erc20Transfers: json.erc20_transfers.map((item) => EvmWalletHistoryErc20Transfer.fromJSON(item)),
       nativeTransfers: json.native_transfers.map((item) => EvmNativeTransfer.fromJSON(item)),
+      logs: json.logs ? json.logs.map((item) => EvmLog.fromJSON(item)) : undefined,
     };
     return EvmWalletHistoryTransaction.create(input);
   }
@@ -204,6 +209,7 @@ export class EvmWalletHistoryTransaction {
   public readonly nftTransfers: EvmWalletHistoryNftTransfer[];
   public readonly erc20Transfers: EvmWalletHistoryErc20Transfer[];
   public readonly nativeTransfers: EvmNativeTransfer[];
+  public readonly logs?: EvmLog[];
 
   private constructor(input: EvmWalletHistoryTransactionInput) {
     this.hash = input.hash;
@@ -232,6 +238,7 @@ export class EvmWalletHistoryTransaction {
     this.nftTransfers = input.nftTransfers.map((item) => EvmWalletHistoryNftTransfer.create(item));
     this.erc20Transfers = input.erc20Transfers.map((item) => EvmWalletHistoryErc20Transfer.create(item));
     this.nativeTransfers = input.nativeTransfers.map((item) => EvmNativeTransfer.create(item));
+    this.logs = input.logs ? input.logs.map((item) => EvmLog.create(item)) : undefined;
   }
 
   public toJSON(): EvmWalletHistoryTransactionJSON {
@@ -262,6 +269,7 @@ export class EvmWalletHistoryTransaction {
       nft_transfers: this.nftTransfers.map((item) => item.toJSON()),
       erc20_transfers: this.erc20Transfers.map((item) => item.toJSON()),
       native_transfers: this.nativeTransfers.map((item) => item.toJSON()),
+      logs: this.logs ? this.logs.map((item) => item.toJSON()) : undefined,
     }
   }
 }
