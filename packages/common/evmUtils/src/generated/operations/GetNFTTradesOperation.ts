@@ -11,7 +11,8 @@ import { EvmTradeCollection, EvmTradeCollectionJSON } from '../types/EvmTradeCol
 // - marketplace ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/5/schema)
 // - cursor ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/6/schema)
 // - limit ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/7/schema)
-// - address ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/8/schema)
+// - nft_metadata ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/8/schema)
+// - address ($ref: #/paths/~1nft~1{address}~1trades/get/parameters/9/schema)
 
 export interface GetNFTTradesOperationRequest {
   /**
@@ -53,6 +54,10 @@ export interface GetNFTTradesOperationRequest {
    */
   readonly limit?: number;
   /**
+   * @description Include the NFT Metadata of the NFT Token
+   */
+  readonly nftMetadata?: boolean;
+  /**
    * @description The address of the NFT contract
    */
   readonly address: EvmAddressInput | EvmAddress;
@@ -67,6 +72,7 @@ export interface GetNFTTradesOperationRequestJSON {
   readonly marketplace?: EvmGetNFTTradesMarketplaceEnumJSON;
   readonly cursor?: string;
   readonly limit?: number;
+  readonly nft_metadata?: boolean;
   readonly address: EvmAddressJSON;
 }
 
@@ -78,7 +84,7 @@ export const GetNFTTradesOperation = {
   groupName: "nft",
   httpMethod: "get",
   routePattern: "/nft/{address}/trades",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","marketplace","cursor","limit","address"],
+  parameterNames: ["chain","from_block","to_block","from_date","to_date","marketplace","cursor","limit","nft_metadata","address"],
   hasResponse: true,
   hasBody: false,
 
@@ -95,6 +101,7 @@ export const GetNFTTradesOperation = {
     const marketplace = request.marketplace ? EvmGetNFTTradesMarketplaceEnum.create(request.marketplace) : undefined;
     const cursor = request.cursor;
     const limit = request.limit;
+    const nftMetadata = request.nftMetadata;
     const address = EvmAddress.create(request.address);
     return {
       chain: chain ? chain.toJSON() : undefined,
@@ -105,6 +112,7 @@ export const GetNFTTradesOperation = {
       marketplace: marketplace ? marketplace : undefined,
       cursor: cursor,
       limit: limit,
+      nft_metadata: nftMetadata,
       address: address.toJSON(),
     };
   },

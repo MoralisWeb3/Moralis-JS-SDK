@@ -36,6 +36,12 @@ import { GetTopCryptoCurrenciesByTradingVolumeOperation, GetTopCryptoCurrenciesB
 import { ReviewContractsOperation, ReviewContractsOperationRequest, ReviewContractsOperationRequestJSON } from '../operations/ReviewContractsOperation';
 import { EvmReviewContracts, EvmReviewContractsJSON } from '../types/EvmReviewContracts';
 import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDtoJSON } from '../types/EvmContractsReviewDto';
+import { GetDefiSummaryOperation, GetDefiSummaryOperationRequest, GetDefiSummaryOperationRequestJSON } from '../operations/GetDefiSummaryOperation';
+import { EvmWalletDefiSummary, EvmWalletDefiSummaryJSON } from '../types/EvmWalletDefiSummary';
+import { GetDefiPositionsByProtocolOperation, GetDefiPositionsByProtocolOperationRequest, GetDefiPositionsByProtocolOperationRequestJSON } from '../operations/GetDefiPositionsByProtocolOperation';
+import { EvmGetDefiPositionsByProtocol, EvmGetDefiPositionsByProtocolJSON } from '../types/EvmGetDefiPositionsByProtocol';
+import { GetDefiPositionsSummaryOperation, GetDefiPositionsSummaryOperationRequest, GetDefiPositionsSummaryOperationRequestJSON } from '../operations/GetDefiPositionsSummaryOperation';
+import { EvmDefiPositionSummaryResponse, EvmDefiPositionSummaryResponseJSON } from '../types/EvmDefiPositionSummaryResponse';
 import { GetWalletActiveChainsOperation, GetWalletActiveChainsOperationRequest, GetWalletActiveChainsOperationRequestJSON } from '../operations/GetWalletActiveChainsOperation';
 import { EvmWalletActiveChains, EvmWalletActiveChainsJSON } from '../types/EvmWalletActiveChains';
 import { GetWalletStatsOperation, GetWalletStatsOperationRequest, GetWalletStatsOperationRequestJSON } from '../operations/GetWalletStatsOperation';
@@ -176,7 +182,7 @@ export abstract class AbstractClient {
   };
   public readonly nft = {
     /**
-     * @description Get trades of NFTs for a given contract and marketplace.
+     * @description Get trades of NFTs for a given contract with the ability to filter by marketplace.
      * @param request Request with parameters.
      * @param {Object} request.address The address of the NFT contract
      * @param {Object} [request.chain] The chain to query (optional)
@@ -193,6 +199,7 @@ export abstract class AbstractClient {
      * @param {Object} [request.marketplace] Marketplace from which to get the trades. See [supported Marketplaces](https://docs.moralis.io/web3-data-api/evm/nft-marketplaces). (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Number} [request.limit] The desired page size of the result. (optional)
+     * @param {Boolean} [request.nftMetadata] Include the NFT Metadata of the NFT Token (optional)
      * @returns {Object} Response for the request.
      */
     getNFTTrades: this.createEndpoint<
@@ -383,6 +390,7 @@ export abstract class AbstractClient {
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
      * @param {Boolean} [request.includeInternalTransactions] If the result should contain the internal transactions. (optional)
      * @param {Boolean} [request.includeInputData] Set the input data from the result (optional)
+     * @param {Boolean} [request.includeLogsData] Set the logs data from the result (optional)
      * @param {Boolean} [request.nftMetadata] If the result should contain the nft metadata. (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Object} [request.order] The order of the result, in ascending (ASC) or descending (DESC) (optional)
@@ -430,6 +438,46 @@ export abstract class AbstractClient {
       EvmNetWorthResult,
       EvmNetWorthResultJSON
     >(GetWalletNetWorthOperation),
+    /**
+     * @description Get the defi summary of a wallet address.
+     * @param request Request with parameters.
+     * @param {Object} request.address Wallet address
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getDefiSummary: this.createEndpoint<
+      GetDefiSummaryOperationRequest,
+      GetDefiSummaryOperationRequestJSON,
+      EvmWalletDefiSummary,
+      EvmWalletDefiSummaryJSON
+    >(GetDefiSummaryOperation),
+    /**
+     * @description Get the detailed defi positions by protocol for a wallet address.
+     * @param request Request with parameters.
+     * @param {Object} request.address Wallet address
+     * @param {Object} request.protocol The protocol to query
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getDefiPositionsByProtocol: this.createEndpoint<
+      GetDefiPositionsByProtocolOperationRequest,
+      GetDefiPositionsByProtocolOperationRequestJSON,
+      EvmGetDefiPositionsByProtocol,
+      EvmGetDefiPositionsByProtocolJSON
+    >(GetDefiPositionsByProtocolOperation),
+    /**
+     * @description Get the positions summary of a wallet address.
+     * @param request Request with parameters.
+     * @param {Object} request.address Wallet address
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object[]} Response for the request.
+     */
+    getDefiPositionsSummary: this.createEndpoint<
+      GetDefiPositionsSummaryOperationRequest,
+      GetDefiPositionsSummaryOperationRequestJSON,
+      EvmDefiPositionSummaryResponse[],
+      EvmDefiPositionSummaryResponseJSON[]
+    >(GetDefiPositionsSummaryOperation),
     /**
      * @description Get the active chains for a wallet address.
      * @param request Request with parameters.

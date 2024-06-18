@@ -121,7 +121,10 @@
           "getWalletHistory",
           "getNFTSalePrices",
           "getNFTContractSalePrices",
-          "getTokenOwners"
+          "getTokenOwners",
+          "getDefiSummary",
+          "getDefiPositionsByProtocol",
+          "getDefiPositionsSummary"
         ]
       }
     }

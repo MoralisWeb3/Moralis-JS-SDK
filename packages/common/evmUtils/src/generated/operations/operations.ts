@@ -17,6 +17,9 @@ import { GetHottestNFTCollectionsByTradingVolumeOperation } from './GetHottestNF
 import { GetTopCryptoCurrenciesByMarketCapOperation } from './GetTopCryptoCurrenciesByMarketCapOperation';
 import { GetTopCryptoCurrenciesByTradingVolumeOperation } from './GetTopCryptoCurrenciesByTradingVolumeOperation';
 import { ReviewContractsOperation } from './ReviewContractsOperation';
+import { GetDefiSummaryOperation } from './GetDefiSummaryOperation';
+import { GetDefiPositionsByProtocolOperation } from './GetDefiPositionsByProtocolOperation';
+import { GetDefiPositionsSummaryOperation } from './GetDefiPositionsSummaryOperation';
 import { GetWalletActiveChainsOperation } from './GetWalletActiveChainsOperation';
 import { GetWalletStatsOperation } from './GetWalletStatsOperation';
 import { GetNFTCollectionStatsOperation } from './GetNFTCollectionStatsOperation';
@@ -44,6 +47,9 @@ export const operations = [
   GetTopCryptoCurrenciesByMarketCapOperation,
   GetTopCryptoCurrenciesByTradingVolumeOperation,
   ReviewContractsOperation,
+  GetDefiSummaryOperation,
+  GetDefiPositionsByProtocolOperation,
+  GetDefiPositionsSummaryOperation,
   GetWalletActiveChainsOperation,
   GetWalletStatsOperation,
   GetNFTCollectionStatsOperation,
