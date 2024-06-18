@@ -62,7 +62,6 @@ async function main() {
     protocol: 'uniswap-v2',
   });
   console.log('defiProtocolPositions', defiProtocolPositions.result.toJSON().positions);
-
 }
 
 main();
