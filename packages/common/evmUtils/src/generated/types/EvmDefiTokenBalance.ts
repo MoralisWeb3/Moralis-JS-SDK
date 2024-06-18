@@ -3,44 +3,44 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // $ref: #/components/schemas/defiTokenBalance
 // type: defiTokenBalance
 // properties:
+// - token_type ($ref: #/components/schemas/defiTokenBalance/properties/token_type)
 // - name ($ref: #/components/schemas/defiTokenBalance/properties/name)
-// - logo ($ref: #/components/schemas/defiTokenBalance/properties/logo)
-// - thumbnail ($ref: #/components/schemas/defiTokenBalance/properties/thumbnail)
-// - decimals ($ref: #/components/schemas/defiTokenBalance/properties/decimals)
 // - symbol ($ref: #/components/schemas/defiTokenBalance/properties/symbol)
 // - contract_address ($ref: #/components/schemas/defiTokenBalance/properties/contract_address)
-// - token_type ($ref: #/components/schemas/defiTokenBalance/properties/token_type)
-// - usd_price ($ref: #/components/schemas/defiTokenBalance/properties/usd_price)
-// - usd_value ($ref: #/components/schemas/defiTokenBalance/properties/usd_value)
+// - decimals ($ref: #/components/schemas/defiTokenBalance/properties/decimals)
+// - logo ($ref: #/components/schemas/defiTokenBalance/properties/logo)
+// - thumbnail ($ref: #/components/schemas/defiTokenBalance/properties/thumbnail)
 // - balance ($ref: #/components/schemas/defiTokenBalance/properties/balance)
 // - balance_formatted ($ref: #/components/schemas/defiTokenBalance/properties/balance_formatted)
+// - usd_price ($ref: #/components/schemas/defiTokenBalance/properties/usd_price)
+// - usd_value ($ref: #/components/schemas/defiTokenBalance/properties/usd_value)
 
 export interface EvmDefiTokenBalanceJSON {
+  readonly token_type: string;
   readonly name: string;
-  readonly logo?: string;
-  readonly thumbnail?: string;
-  readonly decimals: number;
   readonly symbol: string;
   readonly contract_address: EvmAddressJSON;
-  readonly token_type: string;
-  readonly usd_price?: number;
-  readonly usd_value?: number;
+  readonly decimals: number;
+  readonly logo?: string;
+  readonly thumbnail?: string;
   readonly balance: string;
   readonly balance_formatted: string;
+  readonly usd_price?: number;
+  readonly usd_value?: number;
 }
 
 export interface EvmDefiTokenBalanceInput {
+  readonly tokenType: string;
   readonly name: string;
-  readonly logo?: string;
-  readonly thumbnail?: string;
-  readonly decimals: number;
   readonly symbol: string;
   readonly contractAddress: EvmAddressInput | EvmAddress;
-  readonly tokenType: string;
-  readonly usdPrice?: number;
-  readonly usdValue?: number;
+  readonly decimals: number;
+  readonly logo?: string;
+  readonly thumbnail?: string;
   readonly balance: string;
   readonly balanceFormatted: string;
+  readonly usdPrice?: number;
+  readonly usdValue?: number;
 }
 
 export class EvmDefiTokenBalance {
@@ -53,37 +53,29 @@ export class EvmDefiTokenBalance {
 
   public static fromJSON(json: EvmDefiTokenBalanceJSON): EvmDefiTokenBalance {
     const input: EvmDefiTokenBalanceInput = {
+      tokenType: json.token_type,
       name: json.name,
-      logo: json.logo,
-      thumbnail: json.thumbnail,
-      decimals: json.decimals,
       symbol: json.symbol,
       contractAddress: EvmAddress.fromJSON(json.contract_address),
-      tokenType: json.token_type,
-      usdPrice: json.usd_price,
-      usdValue: json.usd_value,
+      decimals: json.decimals,
+      logo: json.logo,
+      thumbnail: json.thumbnail,
       balance: json.balance,
       balanceFormatted: json.balance_formatted,
+      usdPrice: json.usd_price,
+      usdValue: json.usd_value,
     };
     return EvmDefiTokenBalance.create(input);
   }
 
   /**
+   * @description The token type (supply/defi/borrow token)
+   */
+  public readonly tokenType: string;
+  /**
    * @description The name of the token
    */
   public readonly name: string;
-  /**
-   * @description The logo of the token
-   */
-  public readonly logo?: string;
-  /**
-   * @description The thumbnail of the token
-   */
-  public readonly thumbnail?: string;
-  /**
-   * @description The decimals of the token
-   */
-  public readonly decimals: number;
   /**
    * @description The symbol of the token
    */
@@ -93,17 +85,17 @@ export class EvmDefiTokenBalance {
    */
   public readonly contractAddress: EvmAddress;
   /**
-   * @description The token type (supply/defi/borrow token)
+   * @description The decimals of the token
    */
-  public readonly tokenType: string;
+  public readonly decimals: number;
   /**
-   * @description The USD price of the token
+   * @description The logo of the token
    */
-  public readonly usdPrice?: number;
+  public readonly logo?: string;
   /**
-   * @description The USD value of the token
+   * @description The thumbnail of the token
    */
-  public readonly usdValue?: number;
+  public readonly thumbnail?: string;
   /**
    * @description The balance of the token
    */
@@ -112,34 +104,42 @@ export class EvmDefiTokenBalance {
    * @description The balance of the token formatted
    */
   public readonly balanceFormatted: string;
+  /**
+   * @description The USD price of the token
+   */
+  public readonly usdPrice?: number;
+  /**
+   * @description The USD value of the token
+   */
+  public readonly usdValue?: number;
 
   private constructor(input: EvmDefiTokenBalanceInput) {
+    this.tokenType = input.tokenType;
     this.name = input.name;
-    this.logo = input.logo;
-    this.thumbnail = input.thumbnail;
-    this.decimals = input.decimals;
     this.symbol = input.symbol;
     this.contractAddress = EvmAddress.create(input.contractAddress);
-    this.tokenType = input.tokenType;
-    this.usdPrice = input.usdPrice;
-    this.usdValue = input.usdValue;
+    this.decimals = input.decimals;
+    this.logo = input.logo;
+    this.thumbnail = input.thumbnail;
     this.balance = input.balance;
     this.balanceFormatted = input.balanceFormatted;
+    this.usdPrice = input.usdPrice;
+    this.usdValue = input.usdValue;
   }
 
   public toJSON(): EvmDefiTokenBalanceJSON {
     return {
+      token_type: this.tokenType,
       name: this.name,
-      logo: this.logo,
-      thumbnail: this.thumbnail,
-      decimals: this.decimals,
       symbol: this.symbol,
       contract_address: this.contractAddress.toJSON(),
-      token_type: this.tokenType,
-      usd_price: this.usdPrice,
-      usd_value: this.usdValue,
+      decimals: this.decimals,
+      logo: this.logo,
+      thumbnail: this.thumbnail,
       balance: this.balance,
       balance_formatted: this.balanceFormatted,
+      usd_price: this.usdPrice,
+      usd_value: this.usdValue,
     }
   }
 }

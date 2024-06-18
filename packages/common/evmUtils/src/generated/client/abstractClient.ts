@@ -39,8 +39,9 @@ import { EvmContractsReviewDto, EvmContractsReviewDtoInput, EvmContractsReviewDt
 import { GetDefiSummaryOperation, GetDefiSummaryOperationRequest, GetDefiSummaryOperationRequestJSON } from '../operations/GetDefiSummaryOperation';
 import { EvmWalletDefiSummary, EvmWalletDefiSummaryJSON } from '../types/EvmWalletDefiSummary';
 import { GetDefiPositionsByProtocolOperation, GetDefiPositionsByProtocolOperationRequest, GetDefiPositionsByProtocolOperationRequestJSON } from '../operations/GetDefiPositionsByProtocolOperation';
-import { EvmDefiProtocolPosition, EvmDefiProtocolPositionJSON } from '../types/EvmDefiProtocolPosition';
+import { EvmGetDefiPositionsByProtocol, EvmGetDefiPositionsByProtocolJSON } from '../types/EvmGetDefiPositionsByProtocol';
 import { GetDefiPositionsSummaryOperation, GetDefiPositionsSummaryOperationRequest, GetDefiPositionsSummaryOperationRequestJSON } from '../operations/GetDefiPositionsSummaryOperation';
+import { EvmDefiPositionSummaryResponse, EvmDefiPositionSummaryResponseJSON } from '../types/EvmDefiPositionSummaryResponse';
 import { GetWalletActiveChainsOperation, GetWalletActiveChainsOperationRequest, GetWalletActiveChainsOperationRequestJSON } from '../operations/GetWalletActiveChainsOperation';
 import { EvmWalletActiveChains, EvmWalletActiveChainsJSON } from '../types/EvmWalletActiveChains';
 import { GetWalletStatsOperation, GetWalletStatsOperationRequest, GetWalletStatsOperationRequestJSON } from '../operations/GetWalletStatsOperation';
@@ -461,21 +462,21 @@ export abstract class AbstractClient {
     getDefiPositionsByProtocol: this.createEndpoint<
       GetDefiPositionsByProtocolOperationRequest,
       GetDefiPositionsByProtocolOperationRequestJSON,
-      EvmDefiProtocolPosition,
-      EvmDefiProtocolPositionJSON
+      EvmGetDefiPositionsByProtocol,
+      EvmGetDefiPositionsByProtocolJSON
     >(GetDefiPositionsByProtocolOperation),
     /**
      * @description Get the positions summary of a wallet address.
      * @param request Request with parameters.
      * @param {Object} request.address Wallet address
      * @param {Object} [request.chain] The chain to query (optional)
-     * @returns {Object} Response for the request.
+     * @returns {Object[]} Response for the request.
      */
     getDefiPositionsSummary: this.createEndpoint<
       GetDefiPositionsSummaryOperationRequest,
       GetDefiPositionsSummaryOperationRequestJSON,
-      EvmDefiProtocolPosition,
-      EvmDefiProtocolPositionJSON
+      EvmDefiPositionSummaryResponse[],
+      EvmDefiPositionSummaryResponseJSON[]
     >(GetDefiPositionsSummaryOperation),
     /**
      * @description Get the active chains for a wallet address.

@@ -46,6 +46,23 @@ async function main() {
     address: '0x4a220e6096b25eadb88358cb44068a3248254675',
   });
   console.log('tokenStats', tokenStats.result.toJSON());
+
+  const defiSummary = await Moralis.EvmApi.wallets.getDefiSummary({
+    address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+  });
+  console.log('defiSummary', defiSummary.result.toJSON());
+
+  const defiPositions = await Moralis.EvmApi.wallets.getDefiPositionsSummary({
+    address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+  });
+  console.log('defiPositions', defiPositions);
+
+  const defiProtocolPositions = await Moralis.EvmApi.wallets.getDefiPositionsByProtocol({
+    address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+    protocol: 'uniswap-v2',
+  });
+  console.log('defiProtocolPositions', defiProtocolPositions.result.toJSON().positions);
+
 }
 
 main();

@@ -1,6 +1,6 @@
 import { EvmChain, EvmChainInput, EvmChainJSON, EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 import { EvmDefiProtocolList, EvmDefiProtocolListValue, EvmDefiProtocolListInput, EvmDefiProtocolListJSON } from '../types/EvmDefiProtocolList';
-import { EvmDefiProtocolPosition, EvmDefiProtocolPositionJSON } from '../types/EvmDefiProtocolPosition';
+import { EvmGetDefiPositionsByProtocol, EvmGetDefiPositionsByProtocolJSON } from '../types/EvmGetDefiPositionsByProtocol';
 
 // request parameters:
 // - chain ($ref: #/components/schemas/chainList)
@@ -28,8 +28,8 @@ export interface GetDefiPositionsByProtocolOperationRequestJSON {
   readonly protocol: EvmDefiProtocolListJSON;
 }
 
-export type GetDefiPositionsByProtocolOperationResponse = EvmDefiProtocolPosition;
-export type GetDefiPositionsByProtocolOperationResponseJSON = EvmDefiProtocolPositionJSON;
+export type GetDefiPositionsByProtocolOperationResponse = EvmGetDefiPositionsByProtocol;
+export type GetDefiPositionsByProtocolOperationResponseJSON = EvmGetDefiPositionsByProtocolJSON;
 
 export const GetDefiPositionsByProtocolOperation = {
   operationId: "getDefiPositionsByProtocol",
@@ -40,8 +40,8 @@ export const GetDefiPositionsByProtocolOperation = {
   hasResponse: true,
   hasBody: false,
 
-  parseResponse(json: EvmDefiProtocolPositionJSON): EvmDefiProtocolPosition {
-    return EvmDefiProtocolPosition.fromJSON(json);
+  parseResponse(json: EvmGetDefiPositionsByProtocolJSON): EvmGetDefiPositionsByProtocol {
+    return EvmGetDefiPositionsByProtocol.fromJSON(json);
   },
 
   serializeRequest(request: GetDefiPositionsByProtocolOperationRequest): GetDefiPositionsByProtocolOperationRequestJSON {
