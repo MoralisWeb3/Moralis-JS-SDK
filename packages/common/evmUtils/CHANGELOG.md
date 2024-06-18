@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.26.5
+
+### Patch Changes
+
+- [#1211](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1211) [`26d2a2e397`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/26d2a2e3974473d715b2e99ba7e48c3e47681ddc) Thanks [@locothedev](https://github.com/locothedev)! - Adding new DeFi endpoints to the SDK
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.5
+
 ## 2.26.4
 
 ### Patch Changes
