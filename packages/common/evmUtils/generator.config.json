@@ -124,7 +124,10 @@
           "getTokenOwners",
           "getDefiSummary",
           "getDefiPositionsByProtocol",
-          "getDefiPositionsSummary"
+          "getDefiPositionsSummary",
+          "getWalletProfitabilitySummary",
+          "getWalletProfitability",
+          "getTopProfitableWalletPerToken"
         ]
       }
     }

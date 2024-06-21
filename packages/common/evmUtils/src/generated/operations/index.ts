@@ -26,4 +26,7 @@ export * from './GetNFTCollectionStatsOperation';
 export * from './GetNFTTokenStatsOperation';
 export * from './GetTokenStatsOperation';
 export * from './GetBlockStatsOperation';
+export * from './GetWalletProfitabilitySummaryOperation';
+export * from './GetWalletProfitabilityOperation';
+export * from './GetTopProfitableWalletPerTokenOperation';
 export * from './operations';

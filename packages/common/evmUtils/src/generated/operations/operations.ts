@@ -26,6 +26,9 @@ import { GetNFTCollectionStatsOperation } from './GetNFTCollectionStatsOperation
 import { GetNFTTokenStatsOperation } from './GetNFTTokenStatsOperation';
 import { GetTokenStatsOperation } from './GetTokenStatsOperation';
 import { GetBlockStatsOperation } from './GetBlockStatsOperation';
+import { GetWalletProfitabilitySummaryOperation } from './GetWalletProfitabilitySummaryOperation';
+import { GetWalletProfitabilityOperation } from './GetWalletProfitabilityOperation';
+import { GetTopProfitableWalletPerTokenOperation } from './GetTopProfitableWalletPerTokenOperation';
 
 export const operations = [
   GetNFTTradesOperation,
@@ -56,4 +59,7 @@ export const operations = [
   GetNFTTokenStatsOperation,
   GetTokenStatsOperation,
   GetBlockStatsOperation,
+  GetWalletProfitabilitySummaryOperation,
+  GetWalletProfitabilityOperation,
+  GetTopProfitableWalletPerTokenOperation,
 ];
