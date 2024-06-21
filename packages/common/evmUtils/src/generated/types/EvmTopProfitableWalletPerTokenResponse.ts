@@ -1,3 +1,5 @@
+import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
+
 // $ref: #/components/schemas/TopProfitableWalletPerTokenResponse
 // type: TopProfitableWalletPerTokenResponse
 // properties:
@@ -8,14 +10,11 @@
 // - realized_profit_percentage ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/realized_profit_percentage)
 // - realized_profit_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/realized_profit_usd)
 // - total_profit_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_profit_usd)
-// - total_profit_percentage ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_profit_percentage)
-// - total_soldUsd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_soldUsd)
+// - total_sold_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_sold_usd)
 // - total_tokens_bought ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_tokens_bought)
 // - total_tokens_sold ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_tokens_sold)
 // - total_usd_invested ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_usd_invested)
-// - unrealized_profit_percentage ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/unrealized_profit_percentage)
-// - unrealized_profit_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/unrealized_profit_usd)
-// - wallet_address ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/wallet_address)
+// - address ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/address)
 
 export interface EvmTopProfitableWalletPerTokenResponseJSON {
   readonly avg_buy_price_usd: string;
@@ -24,15 +23,12 @@ export interface EvmTopProfitableWalletPerTokenResponseJSON {
   readonly count_of_trades: number;
   readonly realized_profit_percentage: number;
   readonly realized_profit_usd: string;
-  readonly total_profit_usd: string;
-  readonly total_profit_percentage: string;
-  readonly total_soldUsd: string;
+  readonly total_profit_usd?: string;
+  readonly total_sold_usd: string;
   readonly total_tokens_bought: string;
   readonly total_tokens_sold: string;
   readonly total_usd_invested: string;
-  readonly unrealized_profit_percentage: string;
-  readonly unrealized_profit_usd: string;
-  readonly wallet_address: string;
+  readonly address: EvmAddressJSON;
 }
 
 export interface EvmTopProfitableWalletPerTokenResponseInput {
@@ -42,15 +38,12 @@ export interface EvmTopProfitableWalletPerTokenResponseInput {
   readonly countOfTrades: number;
   readonly realizedProfitPercentage: number;
   readonly realizedProfitUsd: string;
-  readonly totalProfitUsd: string;
-  readonly totalProfitPercentage: string;
+  readonly totalProfitUsd?: string;
   readonly totalSoldUsd: string;
   readonly totalTokensBought: string;
   readonly totalTokensSold: string;
   readonly totalUsdInvested: string;
-  readonly unrealizedProfitPercentage: string;
-  readonly unrealizedProfitUsd: string;
-  readonly walletAddress: string;
+  readonly address: EvmAddressInput | EvmAddress;
 }
 
 export class EvmTopProfitableWalletPerTokenResponse {
@@ -70,14 +63,11 @@ export class EvmTopProfitableWalletPerTokenResponse {
       realizedProfitPercentage: json.realized_profit_percentage,
       realizedProfitUsd: json.realized_profit_usd,
       totalProfitUsd: json.total_profit_usd,
-      totalProfitPercentage: json.total_profit_percentage,
-      totalSoldUsd: json.total_soldUsd,
+      totalSoldUsd: json.total_sold_usd,
       totalTokensBought: json.total_tokens_bought,
       totalTokensSold: json.total_tokens_sold,
       totalUsdInvested: json.total_usd_invested,
-      unrealizedProfitPercentage: json.unrealized_profit_percentage,
-      unrealizedProfitUsd: json.unrealized_profit_usd,
-      walletAddress: json.wallet_address,
+      address: EvmAddress.fromJSON(json.address),
     };
     return EvmTopProfitableWalletPerTokenResponse.create(input);
   }
@@ -109,11 +99,7 @@ export class EvmTopProfitableWalletPerTokenResponse {
   /**
    * @description Total profit in USD.
    */
-  public readonly totalProfitUsd: string;
-  /**
-   * @description Total profit as a percentage.
-   */
-  public readonly totalProfitPercentage: string;
+  public readonly totalProfitUsd?: string;
   /**
    * @description Total amount in USD for sold tokens.
    */
@@ -131,17 +117,9 @@ export class EvmTopProfitableWalletPerTokenResponse {
    */
   public readonly totalUsdInvested: string;
   /**
-   * @description Unrealized profit as a percentage.
-   */
-  public readonly unrealizedProfitPercentage: string;
-  /**
-   * @description Unrealized profit in USD.
-   */
-  public readonly unrealizedProfitUsd: string;
-  /**
    * @description The wallet address.
    */
-  public readonly walletAddress: string;
+  public readonly address: EvmAddress;
 
   private constructor(input: EvmTopProfitableWalletPerTokenResponseInput) {
     this.avgBuyPriceUsd = input.avgBuyPriceUsd;
@@ -151,14 +129,11 @@ export class EvmTopProfitableWalletPerTokenResponse {
     this.realizedProfitPercentage = input.realizedProfitPercentage;
     this.realizedProfitUsd = input.realizedProfitUsd;
     this.totalProfitUsd = input.totalProfitUsd;
-    this.totalProfitPercentage = input.totalProfitPercentage;
     this.totalSoldUsd = input.totalSoldUsd;
     this.totalTokensBought = input.totalTokensBought;
     this.totalTokensSold = input.totalTokensSold;
     this.totalUsdInvested = input.totalUsdInvested;
-    this.unrealizedProfitPercentage = input.unrealizedProfitPercentage;
-    this.unrealizedProfitUsd = input.unrealizedProfitUsd;
-    this.walletAddress = input.walletAddress;
+    this.address = EvmAddress.create(input.address);
   }
 
   public toJSON(): EvmTopProfitableWalletPerTokenResponseJSON {
@@ -170,14 +145,11 @@ export class EvmTopProfitableWalletPerTokenResponse {
       realized_profit_percentage: this.realizedProfitPercentage,
       realized_profit_usd: this.realizedProfitUsd,
       total_profit_usd: this.totalProfitUsd,
-      total_profit_percentage: this.totalProfitPercentage,
-      total_soldUsd: this.totalSoldUsd,
+      total_sold_usd: this.totalSoldUsd,
       total_tokens_bought: this.totalTokensBought,
       total_tokens_sold: this.totalTokensSold,
       total_usd_invested: this.totalUsdInvested,
-      unrealized_profit_percentage: this.unrealizedProfitPercentage,
-      unrealized_profit_usd: this.unrealizedProfitUsd,
-      wallet_address: this.walletAddress,
+      address: this.address.toJSON(),
     }
   }
 }
