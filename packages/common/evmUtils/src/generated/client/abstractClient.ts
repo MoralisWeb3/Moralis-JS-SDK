@@ -54,6 +54,12 @@ import { GetTokenStatsOperation, GetTokenStatsOperationRequest, GetTokenStatsOpe
 import { EvmErc20TokenStat, EvmErc20TokenStatJSON } from '../types/EvmErc20TokenStat';
 import { GetBlockStatsOperation, GetBlockStatsOperationRequest, GetBlockStatsOperationRequestJSON } from '../operations/GetBlockStatsOperation';
 import { EvmBlockTokenStat, EvmBlockTokenStatJSON } from '../types/EvmBlockTokenStat';
+import { GetWalletProfitabilitySummaryOperation, GetWalletProfitabilitySummaryOperationRequest, GetWalletProfitabilitySummaryOperationRequestJSON } from '../operations/GetWalletProfitabilitySummaryOperation';
+import { EvmGetWalletProfitabilitySummary, EvmGetWalletProfitabilitySummaryJSON } from '../types/EvmGetWalletProfitabilitySummary';
+import { GetWalletProfitabilityOperation, GetWalletProfitabilityOperationRequest, GetWalletProfitabilityOperationRequestJSON } from '../operations/GetWalletProfitabilityOperation';
+import { EvmWalletProfitabilityResponse, EvmWalletProfitabilityResponseJSON } from '../types/EvmWalletProfitabilityResponse';
+import { GetTopProfitableWalletPerTokenOperation, GetTopProfitableWalletPerTokenOperationRequest, GetTopProfitableWalletPerTokenOperationRequestJSON } from '../operations/GetTopProfitableWalletPerTokenOperation';
+import { EvmWalletTopProfitableWalletPerTokenResponse, EvmWalletTopProfitableWalletPerTokenResponseJSON } from '../types/EvmWalletTopProfitableWalletPerTokenResponse';
 
 export interface OperationV3<Request, RequestJSON, Response, ResponseJSON, Body, BodyJSON> {
   operationId: string;
@@ -329,6 +335,20 @@ export abstract class AbstractClient {
       EvmErc20TokenStat,
       EvmErc20TokenStatJSON
     >(GetTokenStatsOperation),
+    /**
+     * @description Retrieves a list of the top profitable wallets for a specific ERC20 token.
+     * @param request Request with parameters.
+     * @param {Object} request.address The ERC20 token address.
+     * @param {String} [request.days] Timeframe in days for which profitability is calculated, can be 'all', '7d' or '30d' (optional)
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getTopProfitableWalletPerToken: this.createEndpoint<
+      GetTopProfitableWalletPerTokenOperationRequest,
+      GetTopProfitableWalletPerTokenOperationRequestJSON,
+      EvmWalletTopProfitableWalletPerTokenResponse,
+      EvmWalletTopProfitableWalletPerTokenResponseJSON
+    >(GetTopProfitableWalletPerTokenOperation),
   };
   public readonly utils = {
     /**
@@ -504,5 +524,34 @@ export abstract class AbstractClient {
       EvmWalletStat,
       EvmWalletStatJSON
     >(GetWalletStatsOperation),
+    /**
+     * @description Retrieves a summary of wallet profitability based on specified parameters including optional token addresses.
+     * @param request Request with parameters.
+     * @param {Object} request.address The wallet address for which profitability summary is to be retrieved.
+     * @param {String} [request.days] Timeframe in days for the profitability summary. Options include 'all', '7', '30', '60', '90' default is 'all'. (optional)
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletProfitabilitySummary: this.createEndpoint<
+      GetWalletProfitabilitySummaryOperationRequest,
+      GetWalletProfitabilitySummaryOperationRequestJSON,
+      EvmGetWalletProfitabilitySummary,
+      EvmGetWalletProfitabilitySummaryJSON
+    >(GetWalletProfitabilitySummaryOperation),
+    /**
+     * @description Retrieves profitability information for a specific wallet address. Can be filtered by one or more tokens.
+     * @param request Request with parameters.
+     * @param {Object} request.address The wallet address for which profitability is to be retrieved.
+     * @param {String} [request.days] Timeframe in days for which profitability is calculated, Options include 'all', '7', '30', '60', '90' default is 'all'. (optional)
+     * @param {Object} [request.chain] The chain to query (optional)
+     * @param {Object[]} [request.tokenAddresses] The token addresses list to filter the result with (optional)
+     * @returns {Object} Response for the request.
+     */
+    getWalletProfitability: this.createEndpoint<
+      GetWalletProfitabilityOperationRequest,
+      GetWalletProfitabilityOperationRequestJSON,
+      EvmWalletProfitabilityResponse,
+      EvmWalletProfitabilityResponseJSON
+    >(GetWalletProfitabilityOperation),
   };
 }

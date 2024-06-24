@@ -62,6 +62,27 @@ async function main() {
     protocol: 'uniswap-v2',
   });
   console.log('defiProtocolPositions', defiProtocolPositions.result.toJSON().positions);
+
+  const walletProfitabilitySummary = await Moralis.EvmApi.wallets.getWalletProfitabilitySummary({
+    address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+    days: 'all',
+    chain: '0x1',
+  });
+  console.log('walletProfitabilitySummary', walletProfitabilitySummary.result.toJSON());
+
+  const walletProfitability = await Moralis.EvmApi.wallets.getWalletProfitability({
+    address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+    days: 'all',
+    chain: '0x1',
+  });
+  console.log('walletProfitability', walletProfitability.result.toJSON());
+
+  const topProfitableWalletPerToken = await Moralis.EvmApi.token.getTopProfitableWalletPerToken({
+    address: '0x4a220e6096b25eadb88358cb44068a3248254675',
+    days: 'all',
+    chain: '0x1',
+  });
+  console.log('topProfitableWalletPerToken', topProfitableWalletPerToken.result.toJSON());
 }
 
 main();
