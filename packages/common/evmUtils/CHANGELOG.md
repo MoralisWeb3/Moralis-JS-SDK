@@ -1,5 +1,16 @@
 # @moralisweb3/evm-utils
 
+## 2.26.6
+
+### Patch Changes
+
+- [#1213](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1213) [`4f50daec00`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/4f50daec00d140008342099d12f7ebfbe79fc9f5) Thanks [@gabkk](https://github.com/gabkk)! - Update defi protocol list adding eigenlayer
+
+- [#1214](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1214) [`9ddc8c3a95`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/9ddc8c3a95c3a8919a340612a18268ec1f803982) Thanks [@gabkk](https://github.com/gabkk)! - Adding new Profitability endpoints to the SDK
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.6
+
 ## 2.26.5
 
 ### Patch Changes
