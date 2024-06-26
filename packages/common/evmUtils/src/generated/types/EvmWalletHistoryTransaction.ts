@@ -1,6 +1,7 @@
 import { EvmAddress, EvmAddressInput, EvmAddressJSON, EvmInternalTransaction, EvmInternalTransactionInput, EvmInternalTransactionJSON } from '../../dataTypes';
 import { BigNumber, BigNumberInput, BigNumberJSON } from '@moralisweb3/common-core';
 import { EvmETransactionCategory, EvmETransactionCategoryValue, EvmETransactionCategoryInput, EvmETransactionCategoryJSON } from '../types/EvmETransactionCategory';
+import { EvmResolveContractInteractionResponse, EvmResolveContractInteractionResponseInput, EvmResolveContractInteractionResponseJSON } from '../types/EvmResolveContractInteractionResponse';
 import { EvmWalletHistoryNftTransfer, EvmWalletHistoryNftTransferInput, EvmWalletHistoryNftTransferJSON } from '../types/EvmWalletHistoryNftTransfer';
 import { EvmWalletHistoryErc20Transfer, EvmWalletHistoryErc20TransferInput, EvmWalletHistoryErc20TransferJSON } from '../types/EvmWalletHistoryErc20Transfer';
 import { EvmNativeTransfer, EvmNativeTransferInput, EvmNativeTransferJSON } from '../types/EvmNativeTransfer';
@@ -22,6 +23,7 @@ import { EvmLog, EvmLogInput, EvmLogJSON } from '../types/EvmLog';
 // - input ($ref: #/components/schemas/walletHistoryTransaction/properties/input)
 // - receipt_cumulative_gas_used ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_cumulative_gas_used)
 // - receipt_gas_used ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_gas_used)
+// - receipt_contract_address ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_contract_address)
 // - receipt_status ($ref: #/components/schemas/walletHistoryTransaction/properties/receipt_status)
 // - transaction_fee ($ref: #/components/schemas/walletHistoryTransaction/properties/transaction_fee)
 // - block_timestamp ($ref: #/components/schemas/walletHistoryTransaction/properties/block_timestamp)
@@ -29,6 +31,7 @@ import { EvmLog, EvmLogInput, EvmLogJSON } from '../types/EvmLog';
 // - block_hash ($ref: #/components/schemas/walletHistoryTransaction/properties/block_hash)
 // - internal_transactions ($ref: #/components/schemas/internalTransaction)
 // - category ($ref: #/components/schemas/ETransactionCategory)
+// - contract_interactions ($ref: #/components/schemas/ResolveContractInteractionResponse)
 // - possible_spam ($ref: #/components/schemas/walletHistoryTransaction/properties/possible_spam)
 // - method_label ($ref: #/components/schemas/walletHistoryTransaction/properties/method_label)
 // - summary ($ref: #/components/schemas/walletHistoryTransaction/properties/summary)
@@ -51,6 +54,7 @@ export interface EvmWalletHistoryTransactionJSON {
   readonly input?: string;
   readonly receipt_cumulative_gas_used: string;
   readonly receipt_gas_used: string;
+  readonly receipt_contract_address?: string;
   readonly receipt_status: string;
   readonly transaction_fee?: string;
   readonly block_timestamp: string;
@@ -58,6 +62,7 @@ export interface EvmWalletHistoryTransactionJSON {
   readonly block_hash: string;
   readonly internal_transactions?: EvmInternalTransactionJSON[];
   readonly category: EvmETransactionCategoryJSON;
+  readonly contract_interactions?: EvmResolveContractInteractionResponseJSON;
   readonly possible_spam?: boolean;
   readonly method_label?: string;
   readonly summary: string;
@@ -81,6 +86,7 @@ export interface EvmWalletHistoryTransactionInput {
   readonly input?: string;
   readonly receiptCumulativeGasUsed: string;
   readonly receiptGasUsed: string;
+  readonly receiptContractAddress?: string;
   readonly receiptStatus: string;
   readonly transactionFee?: string;
   readonly blockTimestamp: string;
@@ -88,6 +94,7 @@ export interface EvmWalletHistoryTransactionInput {
   readonly blockHash: string;
   readonly internalTransactions?: EvmInternalTransactionInput[] | EvmInternalTransaction[];
   readonly category: EvmETransactionCategoryInput | EvmETransactionCategoryValue;
+  readonly contractInteractions?: EvmResolveContractInteractionResponseInput | EvmResolveContractInteractionResponse;
   readonly possibleSpam?: boolean;
   readonly methodLabel?: string;
   readonly summary: string;
@@ -120,6 +127,7 @@ export class EvmWalletHistoryTransaction {
       input: json.input,
       receiptCumulativeGasUsed: json.receipt_cumulative_gas_used,
       receiptGasUsed: json.receipt_gas_used,
+      receiptContractAddress: json.receipt_contract_address,
       receiptStatus: json.receipt_status,
       transactionFee: json.transaction_fee,
       blockTimestamp: json.block_timestamp,
@@ -127,6 +135,7 @@ export class EvmWalletHistoryTransaction {
       blockHash: json.block_hash,
       internalTransactions: json.internal_transactions ? json.internal_transactions.map((item) => EvmInternalTransaction.fromJSON(item)) : undefined,
       category: EvmETransactionCategory.fromJSON(json.category),
+      contractInteractions: json.contract_interactions ? EvmResolveContractInteractionResponse.fromJSON(json.contract_interactions) : undefined,
       possibleSpam: json.possible_spam,
       methodLabel: json.method_label,
       summary: json.summary,
@@ -175,6 +184,7 @@ export class EvmWalletHistoryTransaction {
   public readonly input?: string;
   public readonly receiptCumulativeGasUsed: string;
   public readonly receiptGasUsed: string;
+  public readonly receiptContractAddress?: string;
   public readonly receiptStatus: string;
   public readonly transactionFee?: string;
   /**
@@ -194,6 +204,10 @@ export class EvmWalletHistoryTransaction {
    */
   public readonly internalTransactions?: EvmInternalTransaction[];
   public readonly category: EvmETransactionCategoryValue;
+  /**
+   * @description The contract interactions that happend in the transaction
+   */
+  public readonly contractInteractions?: EvmResolveContractInteractionResponse;
   /**
    * @description Is transaction possible spam
    */
@@ -225,6 +239,7 @@ export class EvmWalletHistoryTransaction {
     this.input = input.input;
     this.receiptCumulativeGasUsed = input.receiptCumulativeGasUsed;
     this.receiptGasUsed = input.receiptGasUsed;
+    this.receiptContractAddress = input.receiptContractAddress;
     this.receiptStatus = input.receiptStatus;
     this.transactionFee = input.transactionFee;
     this.blockTimestamp = input.blockTimestamp;
@@ -232,6 +247,7 @@ export class EvmWalletHistoryTransaction {
     this.blockHash = input.blockHash;
     this.internalTransactions = input.internalTransactions ? input.internalTransactions.map((item) => EvmInternalTransaction.create(item)) : undefined;
     this.category = EvmETransactionCategory.create(input.category);
+    this.contractInteractions = input.contractInteractions ? EvmResolveContractInteractionResponse.create(input.contractInteractions) : undefined;
     this.possibleSpam = input.possibleSpam;
     this.methodLabel = input.methodLabel;
     this.summary = input.summary;
@@ -256,6 +272,7 @@ export class EvmWalletHistoryTransaction {
       input: this.input,
       receipt_cumulative_gas_used: this.receiptCumulativeGasUsed,
       receipt_gas_used: this.receiptGasUsed,
+      receipt_contract_address: this.receiptContractAddress,
       receipt_status: this.receiptStatus,
       transaction_fee: this.transactionFee,
       block_timestamp: this.blockTimestamp,
@@ -263,6 +280,7 @@ export class EvmWalletHistoryTransaction {
       block_hash: this.blockHash,
       internal_transactions: this.internalTransactions ? this.internalTransactions.map((item) => item.toJSON()) : undefined,
       category: this.category,
+      contract_interactions: this.contractInteractions ? this.contractInteractions.toJSON() : undefined,
       possible_spam: this.possibleSpam,
       method_label: this.methodLabel,
       summary: this.summary,

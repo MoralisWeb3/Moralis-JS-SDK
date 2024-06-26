@@ -9,7 +9,6 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // - count_of_trades ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/count_of_trades)
 // - realized_profit_percentage ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/realized_profit_percentage)
 // - realized_profit_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/realized_profit_usd)
-// - total_profit_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_profit_usd)
 // - total_sold_usd ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_sold_usd)
 // - total_tokens_bought ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_tokens_bought)
 // - total_tokens_sold ($ref: #/components/schemas/TopProfitableWalletPerTokenResponse/properties/total_tokens_sold)
@@ -23,7 +22,6 @@ export interface EvmTopProfitableWalletPerTokenResponseJSON {
   readonly count_of_trades: number;
   readonly realized_profit_percentage: number;
   readonly realized_profit_usd: string;
-  readonly total_profit_usd?: string;
   readonly total_sold_usd: string;
   readonly total_tokens_bought: string;
   readonly total_tokens_sold: string;
@@ -38,7 +36,6 @@ export interface EvmTopProfitableWalletPerTokenResponseInput {
   readonly countOfTrades: number;
   readonly realizedProfitPercentage: number;
   readonly realizedProfitUsd: string;
-  readonly totalProfitUsd?: string;
   readonly totalSoldUsd: string;
   readonly totalTokensBought: string;
   readonly totalTokensSold: string;
@@ -62,7 +59,6 @@ export class EvmTopProfitableWalletPerTokenResponse {
       countOfTrades: json.count_of_trades,
       realizedProfitPercentage: json.realized_profit_percentage,
       realizedProfitUsd: json.realized_profit_usd,
-      totalProfitUsd: json.total_profit_usd,
       totalSoldUsd: json.total_sold_usd,
       totalTokensBought: json.total_tokens_bought,
       totalTokensSold: json.total_tokens_sold,
@@ -97,10 +93,6 @@ export class EvmTopProfitableWalletPerTokenResponse {
    */
   public readonly realizedProfitUsd: string;
   /**
-   * @description Total profit in USD.
-   */
-  public readonly totalProfitUsd?: string;
-  /**
    * @description Total amount in USD for sold tokens.
    */
   public readonly totalSoldUsd: string;
@@ -128,7 +120,6 @@ export class EvmTopProfitableWalletPerTokenResponse {
     this.countOfTrades = input.countOfTrades;
     this.realizedProfitPercentage = input.realizedProfitPercentage;
     this.realizedProfitUsd = input.realizedProfitUsd;
-    this.totalProfitUsd = input.totalProfitUsd;
     this.totalSoldUsd = input.totalSoldUsd;
     this.totalTokensBought = input.totalTokensBought;
     this.totalTokensSold = input.totalTokensSold;
@@ -144,7 +135,6 @@ export class EvmTopProfitableWalletPerTokenResponse {
       count_of_trades: this.countOfTrades,
       realized_profit_percentage: this.realizedProfitPercentage,
       realized_profit_usd: this.realizedProfitUsd,
-      total_profit_usd: this.totalProfitUsd,
       total_sold_usd: this.totalSoldUsd,
       total_tokens_bought: this.totalTokensBought,
       total_tokens_sold: this.totalTokensSold,
