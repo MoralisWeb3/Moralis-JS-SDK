@@ -27,6 +27,9 @@ import { EvmDefiPositionDetailsNftMetadata, EvmDefiPositionDetailsNftMetadataVal
 // - factory ($ref: #/components/schemas/defiPositionDetails/properties/factory)
 // - pair ($ref: #/components/schemas/defiPositionDetails/properties/pair)
 // - share_of_pool ($ref: #/components/schemas/defiPositionDetails/properties/share_of_pool)
+// - no_price_available ($ref: #/components/schemas/defiPositionDetails/properties/no_price_available)
+// - shares_in_strategy ($ref: #/components/schemas/defiPositionDetails/properties/shares_in_strategy)
+// - strategy_address ($ref: #/components/schemas/defiPositionDetails/properties/strategy_address)
 
 export interface EvmDefiPositionDetailsJSON {
   readonly fee_tier?: number;
@@ -53,6 +56,9 @@ export interface EvmDefiPositionDetailsJSON {
   readonly factory?: string;
   readonly pair?: string;
   readonly share_of_pool?: number;
+  readonly no_price_available?: boolean;
+  readonly shares_in_strategy?: string;
+  readonly strategy_address?: string;
 }
 
 export interface EvmDefiPositionDetailsInput {
@@ -80,6 +86,9 @@ export interface EvmDefiPositionDetailsInput {
   readonly factory?: string;
   readonly pair?: string;
   readonly shareOfPool?: number;
+  readonly noPriceAvailable?: boolean;
+  readonly sharesInStrategy?: string;
+  readonly strategyAddress?: string;
 }
 
 export class EvmDefiPositionDetails {
@@ -116,6 +125,9 @@ export class EvmDefiPositionDetails {
       factory: json.factory,
       pair: json.pair,
       shareOfPool: json.share_of_pool,
+      noPriceAvailable: json.no_price_available,
+      sharesInStrategy: json.shares_in_strategy,
+      strategyAddress: json.strategy_address,
     };
     return EvmDefiPositionDetails.create(input);
   }
@@ -216,6 +228,18 @@ export class EvmDefiPositionDetails {
    * @description The share of the pool
    */
   public readonly shareOfPool?: number;
+  /**
+   * @description Whether the price is available
+   */
+  public readonly noPriceAvailable?: boolean;
+  /**
+   * @description The shares in the strategy
+   */
+  public readonly sharesInStrategy?: string;
+  /**
+   * @description The address of the strategy
+   */
+  public readonly strategyAddress?: string;
 
   private constructor(input: EvmDefiPositionDetailsInput) {
     this.feeTier = input.feeTier;
@@ -242,6 +266,9 @@ export class EvmDefiPositionDetails {
     this.factory = input.factory;
     this.pair = input.pair;
     this.shareOfPool = input.shareOfPool;
+    this.noPriceAvailable = input.noPriceAvailable;
+    this.sharesInStrategy = input.sharesInStrategy;
+    this.strategyAddress = input.strategyAddress;
   }
 
   public toJSON(): EvmDefiPositionDetailsJSON {
@@ -270,6 +297,9 @@ export class EvmDefiPositionDetails {
       factory: this.factory,
       pair: this.pair,
       share_of_pool: this.shareOfPool,
+      no_price_available: this.noPriceAvailable,
+      shares_in_strategy: this.sharesInStrategy,
+      strategy_address: this.strategyAddress,
     }
   }
 }
