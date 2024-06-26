@@ -1,5 +1,25 @@
 # moralis
 
+## 2.26.7
+
+### Patch Changes
+
+- [#1216](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1216) [`6bd790d233`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6bd790d2334f1e749f57d3ecc1d4060c98076f29) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Update the return types of the `getWalletHistory` method.
+
+- Updated dependencies [[`6bd790d233`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/6bd790d2334f1e749f57d3ecc1d4060c98076f29)]:
+  - @moralisweb3/common-evm-utils@2.26.7
+  - @moralisweb3/evm-api@2.26.7
+  - @moralisweb3/api-utils@2.26.7
+  - @moralisweb3/aptos-api@2.26.7
+  - @moralisweb3/auth@2.26.7
+  - @moralisweb3/common-aptos-utils@2.26.7
+  - @moralisweb3/common-auth-utils@2.26.7
+  - @moralisweb3/common-core@2.26.7
+  - @moralisweb3/common-sol-utils@2.26.7
+  - @moralisweb3/common-streams-utils@2.26.7
+  - @moralisweb3/sol-api@2.26.7
+  - @moralisweb3/streams@2.26.7
+
 ## 2.26.6
 
 ### Patch Changes
