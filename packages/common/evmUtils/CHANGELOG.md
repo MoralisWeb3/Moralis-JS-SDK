@@ -1,5 +1,14 @@
 # @moralisweb3/evm-utils
 
+## 2.26.8
+
+### Patch Changes
+
+- [#1220](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1220) [`77d125401e`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/77d125401e908f6a337b81c2745d66f9f9f0996d) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Updated the types of `fromDate` request fields. This change affects the `getNFTTrades` and `getWalletHistory` endpoints.
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.26.8
+
 ## 2.26.7
 
 ### Patch Changes

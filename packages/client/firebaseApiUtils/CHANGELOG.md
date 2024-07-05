@@ -1,5 +1,13 @@
 # @moralisweb3/client-firebase-api-utils
 
+## 2.26.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/client-api-utils@2.26.8
+  - @moralisweb3/common-core@2.26.8
+
 ## 2.26.7
 
 ### Patch Changes
