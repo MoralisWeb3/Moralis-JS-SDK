@@ -39,7 +39,7 @@ export interface GetWalletHistoryOperationRequest {
    * * Provide the param 'from_block' or 'from_date'
    * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
    */
-  readonly fromDate?: string;
+  readonly fromDate?: Date;
   /**
    * @description Get the transactions up to this date (format in seconds or datestring accepted by momentjs)
    * * Provide the param 'to_block' or 'to_date'
@@ -130,7 +130,7 @@ export const GetWalletHistoryOperation = {
       chain: chain ? chain.toJSON() : undefined,
       from_block: fromBlock,
       to_block: toBlock,
-      from_date: fromDate,
+      from_date: fromDate !== undefined ? fromDate.toISOString() : undefined,
       to_date: toDate !== undefined ? toDate.toISOString() : undefined,
       address: address.toJSON(),
       include_internal_transactions: includeInternalTransactions,

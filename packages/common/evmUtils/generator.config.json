@@ -86,6 +86,10 @@
         {
           "names": "to_date",
           "nativeType": "Date"
+        },
+        {
+          "names": "from_date",
+          "nativeType": "Date"
         }
       ]
     },
