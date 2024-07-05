@@ -34,7 +34,7 @@ export interface GetNFTTradesOperationRequest {
    * * Provide the param 'from_block' or 'from_date'
    * * If 'from_date' and 'from_block' are provided, 'from_block' will be used.
    */
-  readonly fromDate?: string;
+  readonly fromDate?: Date;
   /**
    * @description The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
    * * Provide the param 'to_block' or 'to_date'
@@ -107,7 +107,7 @@ export const GetNFTTradesOperation = {
       chain: chain ? chain.toJSON() : undefined,
       from_block: fromBlock,
       to_block: toBlock !== undefined ? String(toBlock) : undefined,
-      from_date: fromDate,
+      from_date: fromDate !== undefined ? fromDate.toISOString() : undefined,
       to_date: toDate !== undefined ? toDate.toISOString() : undefined,
       marketplace: marketplace ? marketplace : undefined,
       cursor: cursor,

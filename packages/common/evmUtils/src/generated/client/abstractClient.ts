@@ -196,7 +196,7 @@ export abstract class AbstractClient {
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
      * @param {Number} [request.toBlock] The block number to get the trades from (optional)
-     * @param {String} [request.fromDate] The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
+     * @param {Date} [request.fromDate] The start date from which to get the transfers (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
      * @param {Date} [request.toDate] The end date from which to get the transfers (format in seconds or datestring accepted by momentjs)
@@ -402,7 +402,7 @@ export abstract class AbstractClient {
      * @param {Number} [request.toBlock] The maximum block number from which to get the transactions.
      * * Provide the param 'to_block' or 'to_date'
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
-     * @param {String} [request.fromDate] The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)
+     * @param {Date} [request.fromDate] The start date from which to get the transactions (format in seconds or datestring accepted by momentjs)
      * * Provide the param 'from_block' or 'from_date'
      * * If 'from_date' and 'from_block' are provided, 'from_block' will be used. (optional)
      * @param {Date} [request.toDate] Get the transactions up to this date (format in seconds or datestring accepted by momentjs)
