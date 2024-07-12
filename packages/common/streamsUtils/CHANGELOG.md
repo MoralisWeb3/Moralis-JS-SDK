@@ -1,5 +1,14 @@
 # @moralisweb3/common-streams-utils
 
+## 2.26.9
+
+### Patch Changes
+
+- Updated dependencies [[`7b334bf7bd`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7b334bf7bd27d5f44b7ffdd079dddad7f15703e7)]:
+  - @moralisweb3/common-evm-utils@2.26.9
+  - @moralisweb3/common-aptos-utils@2.26.9
+  - @moralisweb3/common-core@2.26.9
+
 ## 2.26.8
 
 ### Patch Changes
