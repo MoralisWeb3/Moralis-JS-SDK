@@ -54,6 +54,7 @@ export * from './EvmErc20TokenOwner';
 export * from './EvmWalletHistoryTransaction';
 export * from './EvmErc20TokenBalanceWithPrice';
 export * from './EvmChainNetWorth';
+export * from './EvmUnavailableChainNetWorth';
 export * from './EvmErc20Metadata';
 export * from './EvmContractsReviewItem';
 export * from './EvmDefiProtocolBalance';
