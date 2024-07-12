@@ -1,5 +1,25 @@
 # moralis
 
+## 2.26.9
+
+### Patch Changes
+
+- [#1222](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1222) [`7b334bf7bd`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7b334bf7bd27d5f44b7ffdd079dddad7f15703e7) Thanks [@gabkk](https://github.com/gabkk)! - Update `getTopProfitableWalletPerToken` return objects.
+
+- Updated dependencies [[`7b334bf7bd`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/7b334bf7bd27d5f44b7ffdd079dddad7f15703e7)]:
+  - @moralisweb3/common-evm-utils@2.26.9
+  - @moralisweb3/evm-api@2.26.9
+  - @moralisweb3/api-utils@2.26.9
+  - @moralisweb3/aptos-api@2.26.9
+  - @moralisweb3/auth@2.26.9
+  - @moralisweb3/common-aptos-utils@2.26.9
+  - @moralisweb3/common-auth-utils@2.26.9
+  - @moralisweb3/common-core@2.26.9
+  - @moralisweb3/common-sol-utils@2.26.9
+  - @moralisweb3/common-streams-utils@2.26.9
+  - @moralisweb3/sol-api@2.26.9
+  - @moralisweb3/streams@2.26.9
+
 ## 2.26.8
 
 ### Patch Changes
