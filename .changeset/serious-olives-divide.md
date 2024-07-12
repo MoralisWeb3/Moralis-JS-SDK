@@ -4,4 +4,4 @@
 'moralis': patch
 ---
 
-Update the return types of the `getTopProfitableWalletPerToken` method.
+Update `getTopProfitableWalletPerToken` return objects.
