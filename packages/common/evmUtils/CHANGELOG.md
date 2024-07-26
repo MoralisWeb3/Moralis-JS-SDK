@@ -1,5 +1,16 @@
 # @moralisweb3/evm-utils
 
+## 2.27.0
+
+### Minor Changes
+
+- [#1224](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1224) [`061df23238`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/061df2323898c959983d8774132e5548290d3369) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Update SDK to reflect minor changes in the swagger file.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @moralisweb3/common-core@2.27.0
+
 ## 2.26.9
 
 ### Patch Changes
