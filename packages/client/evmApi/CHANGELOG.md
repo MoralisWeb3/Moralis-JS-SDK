@@ -1,5 +1,14 @@
 # @moralisweb3/client-evm-api
 
+## 2.27.0
+
+### Patch Changes
+
+- Updated dependencies [[`061df23238`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/061df2323898c959983d8774132e5548290d3369)]:
+  - @moralisweb3/common-evm-utils@2.27.0
+  - @moralisweb3/client-api-utils@2.27.0
+  - @moralisweb3/common-core@2.27.0
+
 ## 2.26.9
 
 ### Patch Changes

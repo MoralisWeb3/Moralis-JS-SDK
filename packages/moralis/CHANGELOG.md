@@ -1,5 +1,27 @@
 # moralis
 
+## 2.27.0
+
+### Minor Changes
+
+- [#1224](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1224) [`061df23238`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/061df2323898c959983d8774132e5548290d3369) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Update SDK to reflect minor changes in the swagger file.
+
+### Patch Changes
+
+- Updated dependencies [[`061df23238`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/061df2323898c959983d8774132e5548290d3369)]:
+  - @moralisweb3/common-evm-utils@2.27.0
+  - @moralisweb3/evm-api@2.27.0
+  - @moralisweb3/api-utils@2.27.0
+  - @moralisweb3/aptos-api@2.27.0
+  - @moralisweb3/auth@2.27.0
+  - @moralisweb3/common-aptos-utils@2.27.0
+  - @moralisweb3/common-auth-utils@2.27.0
+  - @moralisweb3/common-core@2.27.0
+  - @moralisweb3/common-sol-utils@2.27.0
+  - @moralisweb3/common-streams-utils@2.27.0
+  - @moralisweb3/sol-api@2.27.0
+  - @moralisweb3/streams@2.27.0
+
 ## 2.26.9
 
 ### Patch Changes

@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "moralis": "^2.26.9"
+    "moralis": "^2.27.0"
   },
   "devDependencies": {
     "ngrok": "^4.3.3"
