@@ -3,8 +3,12 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // $ref: #/components/schemas/native_transfer
 // type: native_transfer
 // properties:
+// - from_address_entity ($ref: #/components/schemas/native_transfer/properties/from_address_entity)
+// - from_address_entity_logo ($ref: #/components/schemas/native_transfer/properties/from_address_entity_logo)
 // - from_address ($ref: #/components/schemas/native_transfer/properties/from_address)
 // - from_address_label ($ref: #/components/schemas/native_transfer/properties/from_address_label)
+// - to_address_entity ($ref: #/components/schemas/native_transfer/properties/to_address_entity)
+// - to_address_entity_logo ($ref: #/components/schemas/native_transfer/properties/to_address_entity_logo)
 // - to_address ($ref: #/components/schemas/native_transfer/properties/to_address)
 // - to_address_label ($ref: #/components/schemas/native_transfer/properties/to_address_label)
 // - value ($ref: #/components/schemas/native_transfer/properties/value)
@@ -15,8 +19,12 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // - token_logo ($ref: #/components/schemas/native_transfer/properties/token_logo)
 
 export interface EvmNativeTransferJSON {
+  readonly from_address_entity?: string;
+  readonly from_address_entity_logo?: string;
   readonly from_address: EvmAddressJSON;
   readonly from_address_label?: string;
+  readonly to_address_entity?: string;
+  readonly to_address_entity_logo?: string;
   readonly to_address?: EvmAddressJSON;
   readonly to_address_label?: string;
   readonly value: string;
@@ -28,8 +36,12 @@ export interface EvmNativeTransferJSON {
 }
 
 export interface EvmNativeTransferInput {
+  readonly fromAddressEntity?: string;
+  readonly fromAddressEntityLogo?: string;
   readonly fromAddress: EvmAddressInput | EvmAddress;
   readonly fromAddressLabel?: string;
+  readonly toAddressEntity?: string;
+  readonly toAddressEntityLogo?: string;
   readonly toAddress?: EvmAddressInput | EvmAddress;
   readonly toAddressLabel?: string;
   readonly value: string;
@@ -50,8 +62,12 @@ export class EvmNativeTransfer {
 
   public static fromJSON(json: EvmNativeTransferJSON): EvmNativeTransfer {
     const input: EvmNativeTransferInput = {
+      fromAddressEntity: json.from_address_entity,
+      fromAddressEntityLogo: json.from_address_entity_logo,
       fromAddress: EvmAddress.fromJSON(json.from_address),
       fromAddressLabel: json.from_address_label,
+      toAddressEntity: json.to_address_entity,
+      toAddressEntityLogo: json.to_address_entity_logo,
       toAddress: json.to_address ? EvmAddress.fromJSON(json.to_address) : undefined,
       toAddressLabel: json.to_address_label,
       value: json.value,
@@ -65,6 +81,14 @@ export class EvmNativeTransfer {
   }
 
   /**
+   * @description The from address entity
+   */
+  public readonly fromAddressEntity?: string;
+  /**
+   * @description The logo of the from address entity
+   */
+  public readonly fromAddressEntityLogo?: string;
+  /**
    * @description The address that sent the NFT
    */
   public readonly fromAddress: EvmAddress;
@@ -72,6 +96,14 @@ export class EvmNativeTransfer {
    * @description The label of the from address
    */
   public readonly fromAddressLabel?: string;
+  /**
+   * @description The to address entity
+   */
+  public readonly toAddressEntity?: string;
+  /**
+   * @description The logo of the to address entity
+   */
+  public readonly toAddressEntityLogo?: string;
   /**
    * @description The address that received the NFT
    */
@@ -106,8 +138,12 @@ export class EvmNativeTransfer {
   public readonly tokenLogo: string;
 
   private constructor(input: EvmNativeTransferInput) {
+    this.fromAddressEntity = input.fromAddressEntity;
+    this.fromAddressEntityLogo = input.fromAddressEntityLogo;
     this.fromAddress = EvmAddress.create(input.fromAddress);
     this.fromAddressLabel = input.fromAddressLabel;
+    this.toAddressEntity = input.toAddressEntity;
+    this.toAddressEntityLogo = input.toAddressEntityLogo;
     this.toAddress = input.toAddress ? EvmAddress.create(input.toAddress) : undefined;
     this.toAddressLabel = input.toAddressLabel;
     this.value = input.value;
@@ -120,8 +156,12 @@ export class EvmNativeTransfer {
 
   public toJSON(): EvmNativeTransferJSON {
     return {
+      from_address_entity: this.fromAddressEntity,
+      from_address_entity_logo: this.fromAddressEntityLogo,
       from_address: this.fromAddress.toJSON(),
       from_address_label: this.fromAddressLabel,
+      to_address_entity: this.toAddressEntity,
+      to_address_entity_logo: this.toAddressEntityLogo,
       to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       to_address_label: this.toAddressLabel,
       value: this.value,

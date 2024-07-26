@@ -11,11 +11,10 @@ import { EvmWalletHistory, EvmWalletHistoryJSON } from '../types/EvmWalletHistor
 // - address ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/5/schema)
 // - include_internal_transactions ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/6/schema)
 // - include_input_data ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/7/schema)
-// - include_logs_data ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/8/schema)
-// - nft_metadata ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/9/schema)
-// - cursor ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/10/schema)
+// - nft_metadata ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/8/schema)
+// - cursor ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/9/schema)
 // - order ($ref: #/components/schemas/orderList)
-// - limit ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/12/schema)
+// - limit ($ref: #/paths/~1wallets~1{address}~1history/get/parameters/11/schema)
 
 export interface GetWalletHistoryOperationRequest {
   /**
@@ -59,10 +58,6 @@ export interface GetWalletHistoryOperationRequest {
    */
   readonly includeInputData?: boolean;
   /**
-   * @description Set the logs data from the result
-   */
-  readonly includeLogsData?: boolean;
-  /**
    * @description If the result should contain the nft metadata.
    */
   readonly nftMetadata?: boolean;
@@ -89,7 +84,6 @@ export interface GetWalletHistoryOperationRequestJSON {
   readonly address: EvmAddressJSON;
   readonly include_internal_transactions?: boolean;
   readonly include_input_data?: boolean;
-  readonly include_logs_data?: boolean;
   readonly nft_metadata?: boolean;
   readonly cursor?: string;
   readonly order?: EvmOrderListJSON;
@@ -104,7 +98,7 @@ export const GetWalletHistoryOperation = {
   groupName: "wallets",
   httpMethod: "get",
   routePattern: "/wallets/{address}/history",
-  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","include_internal_transactions","include_input_data","include_logs_data","nft_metadata","cursor","order","limit"],
+  parameterNames: ["chain","from_block","to_block","from_date","to_date","address","include_internal_transactions","include_input_data","nft_metadata","cursor","order","limit"],
   hasResponse: true,
   hasBody: false,
 
@@ -121,7 +115,6 @@ export const GetWalletHistoryOperation = {
     const address = EvmAddress.create(request.address);
     const includeInternalTransactions = request.includeInternalTransactions;
     const includeInputData = request.includeInputData;
-    const includeLogsData = request.includeLogsData;
     const nftMetadata = request.nftMetadata;
     const cursor = request.cursor;
     const order = request.order ? EvmOrderList.create(request.order) : undefined;
@@ -135,7 +128,6 @@ export const GetWalletHistoryOperation = {
       address: address.toJSON(),
       include_internal_transactions: includeInternalTransactions,
       include_input_data: includeInputData,
-      include_logs_data: includeLogsData,
       nft_metadata: nftMetadata,
       cursor: cursor,
       order: order ? order : undefined,

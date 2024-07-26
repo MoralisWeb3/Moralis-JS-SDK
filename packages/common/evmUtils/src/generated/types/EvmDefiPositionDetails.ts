@@ -30,6 +30,8 @@ import { EvmDefiPositionDetailsNftMetadata, EvmDefiPositionDetailsNftMetadataVal
 // - no_price_available ($ref: #/components/schemas/defiPositionDetails/properties/no_price_available)
 // - shares_in_strategy ($ref: #/components/schemas/defiPositionDetails/properties/shares_in_strategy)
 // - strategy_address ($ref: #/components/schemas/defiPositionDetails/properties/strategy_address)
+// - base_type ($ref: #/components/schemas/defiPositionDetails/properties/base_type)
+// - health_factor ($ref: #/components/schemas/defiPositionDetails/properties/health_factor)
 
 export interface EvmDefiPositionDetailsJSON {
   readonly fee_tier?: number;
@@ -59,6 +61,8 @@ export interface EvmDefiPositionDetailsJSON {
   readonly no_price_available?: boolean;
   readonly shares_in_strategy?: string;
   readonly strategy_address?: string;
+  readonly base_type?: string;
+  readonly health_factor?: number;
 }
 
 export interface EvmDefiPositionDetailsInput {
@@ -89,6 +93,8 @@ export interface EvmDefiPositionDetailsInput {
   readonly noPriceAvailable?: boolean;
   readonly sharesInStrategy?: string;
   readonly strategyAddress?: string;
+  readonly baseType?: string;
+  readonly healthFactor?: number;
 }
 
 export class EvmDefiPositionDetails {
@@ -128,6 +134,8 @@ export class EvmDefiPositionDetails {
       noPriceAvailable: json.no_price_available,
       sharesInStrategy: json.shares_in_strategy,
       strategyAddress: json.strategy_address,
+      baseType: json.base_type,
+      healthFactor: json.health_factor,
     };
     return EvmDefiPositionDetails.create(input);
   }
@@ -240,6 +248,14 @@ export class EvmDefiPositionDetails {
    * @description The address of the strategy
    */
   public readonly strategyAddress?: string;
+  /**
+   * @description The base type of the position
+   */
+  public readonly baseType?: string;
+  /**
+   * @description The health factor of the position
+   */
+  public readonly healthFactor?: number;
 
   private constructor(input: EvmDefiPositionDetailsInput) {
     this.feeTier = input.feeTier;
@@ -269,6 +285,8 @@ export class EvmDefiPositionDetails {
     this.noPriceAvailable = input.noPriceAvailable;
     this.sharesInStrategy = input.sharesInStrategy;
     this.strategyAddress = input.strategyAddress;
+    this.baseType = input.baseType;
+    this.healthFactor = input.healthFactor;
   }
 
   public toJSON(): EvmDefiPositionDetailsJSON {
@@ -300,6 +318,8 @@ export class EvmDefiPositionDetails {
       no_price_available: this.noPriceAvailable,
       shares_in_strategy: this.sharesInStrategy,
       strategy_address: this.strategyAddress,
+      base_type: this.baseType,
+      health_factor: this.healthFactor,
     }
   }
 }

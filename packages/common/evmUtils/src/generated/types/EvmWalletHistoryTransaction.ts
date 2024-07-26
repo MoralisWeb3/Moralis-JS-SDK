@@ -5,7 +5,7 @@ import { EvmResolveContractInteractionResponse, EvmResolveContractInteractionRes
 import { EvmWalletHistoryNftTransfer, EvmWalletHistoryNftTransferInput, EvmWalletHistoryNftTransferJSON } from '../types/EvmWalletHistoryNftTransfer';
 import { EvmWalletHistoryErc20Transfer, EvmWalletHistoryErc20TransferInput, EvmWalletHistoryErc20TransferJSON } from '../types/EvmWalletHistoryErc20Transfer';
 import { EvmNativeTransfer, EvmNativeTransferInput, EvmNativeTransferJSON } from '../types/EvmNativeTransfer';
-import { EvmLog, EvmLogInput, EvmLogJSON } from '../types/EvmLog';
+import { EvmLogVerbose, EvmLogVerboseInput, EvmLogVerboseJSON } from '../types/EvmLogVerbose';
 
 // $ref: #/components/schemas/walletHistoryTransaction
 // type: walletHistoryTransaction
@@ -13,8 +13,12 @@ import { EvmLog, EvmLogInput, EvmLogJSON } from '../types/EvmLog';
 // - hash ($ref: #/components/schemas/walletHistoryTransaction/properties/hash)
 // - nonce ($ref: #/components/schemas/walletHistoryTransaction/properties/nonce)
 // - transaction_index ($ref: #/components/schemas/walletHistoryTransaction/properties/transaction_index)
+// - from_address_entity ($ref: #/components/schemas/walletHistoryTransaction/properties/from_address_entity)
+// - from_address_entity_logo ($ref: #/components/schemas/walletHistoryTransaction/properties/from_address_entity_logo)
 // - from_address ($ref: #/components/schemas/walletHistoryTransaction/properties/from_address)
 // - from_address_label ($ref: #/components/schemas/walletHistoryTransaction/properties/from_address_label)
+// - to_address_entity ($ref: #/components/schemas/walletHistoryTransaction/properties/to_address_entity)
+// - to_address_entity_logo ($ref: #/components/schemas/walletHistoryTransaction/properties/to_address_entity_logo)
 // - to_address ($ref: #/components/schemas/walletHistoryTransaction/properties/to_address)
 // - to_address_label ($ref: #/components/schemas/walletHistoryTransaction/properties/to_address_label)
 // - value ($ref: #/components/schemas/walletHistoryTransaction/properties/value)
@@ -38,14 +42,18 @@ import { EvmLog, EvmLogInput, EvmLogJSON } from '../types/EvmLog';
 // - nft_transfers ($ref: #/components/schemas/walletHistoryNftTransfer)
 // - erc20_transfers ($ref: #/components/schemas/walletHistoryErc20Transfer)
 // - native_transfers ($ref: #/components/schemas/native_transfer)
-// - logs ($ref: #/components/schemas/log)
+// - logs ($ref: #/components/schemas/logVerbose)
 
 export interface EvmWalletHistoryTransactionJSON {
   readonly hash: string;
   readonly nonce: string;
   readonly transaction_index: string;
+  readonly from_address_entity?: string;
+  readonly from_address_entity_logo?: string;
   readonly from_address: EvmAddressJSON;
   readonly from_address_label?: string;
+  readonly to_address_entity?: string;
+  readonly to_address_entity_logo?: string;
   readonly to_address?: EvmAddressJSON;
   readonly to_address_label?: string;
   readonly value: string;
@@ -69,15 +77,19 @@ export interface EvmWalletHistoryTransactionJSON {
   readonly nft_transfers: EvmWalletHistoryNftTransferJSON[];
   readonly erc20_transfers: EvmWalletHistoryErc20TransferJSON[];
   readonly native_transfers: EvmNativeTransferJSON[];
-  readonly logs?: EvmLogJSON[];
+  readonly logs?: EvmLogVerboseJSON[];
 }
 
 export interface EvmWalletHistoryTransactionInput {
   readonly hash: string;
   readonly nonce: string;
   readonly transactionIndex: number;
+  readonly fromAddressEntity?: string;
+  readonly fromAddressEntityLogo?: string;
   readonly fromAddress: EvmAddressInput | EvmAddress;
   readonly fromAddressLabel?: string;
+  readonly toAddressEntity?: string;
+  readonly toAddressEntityLogo?: string;
   readonly toAddress?: EvmAddressInput | EvmAddress;
   readonly toAddressLabel?: string;
   readonly value: string;
@@ -101,7 +113,7 @@ export interface EvmWalletHistoryTransactionInput {
   readonly nftTransfers: EvmWalletHistoryNftTransferInput[] | EvmWalletHistoryNftTransfer[];
   readonly erc20Transfers: EvmWalletHistoryErc20TransferInput[] | EvmWalletHistoryErc20Transfer[];
   readonly nativeTransfers: EvmNativeTransferInput[] | EvmNativeTransfer[];
-  readonly logs?: EvmLogInput[] | EvmLog[];
+  readonly logs?: EvmLogVerboseInput[] | EvmLogVerbose[];
 }
 
 export class EvmWalletHistoryTransaction {
@@ -117,8 +129,12 @@ export class EvmWalletHistoryTransaction {
       hash: json.hash,
       nonce: json.nonce,
       transactionIndex: Number(json.transaction_index),
+      fromAddressEntity: json.from_address_entity,
+      fromAddressEntityLogo: json.from_address_entity_logo,
       fromAddress: EvmAddress.fromJSON(json.from_address),
       fromAddressLabel: json.from_address_label,
+      toAddressEntity: json.to_address_entity,
+      toAddressEntityLogo: json.to_address_entity_logo,
       toAddress: json.to_address ? EvmAddress.fromJSON(json.to_address) : undefined,
       toAddressLabel: json.to_address_label,
       value: json.value,
@@ -142,7 +158,7 @@ export class EvmWalletHistoryTransaction {
       nftTransfers: json.nft_transfers.map((item) => EvmWalletHistoryNftTransfer.fromJSON(item)),
       erc20Transfers: json.erc20_transfers.map((item) => EvmWalletHistoryErc20Transfer.fromJSON(item)),
       nativeTransfers: json.native_transfers.map((item) => EvmNativeTransfer.fromJSON(item)),
-      logs: json.logs ? json.logs.map((item) => EvmLog.fromJSON(item)) : undefined,
+      logs: json.logs ? json.logs.map((item) => EvmLogVerbose.fromJSON(item)) : undefined,
     };
     return EvmWalletHistoryTransaction.create(input);
   }
@@ -157,6 +173,14 @@ export class EvmWalletHistoryTransaction {
   public readonly nonce: string;
   public readonly transactionIndex: number;
   /**
+   * @description The from address entity
+   */
+  public readonly fromAddressEntity?: string;
+  /**
+   * @description The logo of the from address entity
+   */
+  public readonly fromAddressEntityLogo?: string;
+  /**
    * @description The from address
    */
   public readonly fromAddress: EvmAddress;
@@ -164,6 +188,14 @@ export class EvmWalletHistoryTransaction {
    * @description The label of the from address
    */
   public readonly fromAddressLabel?: string;
+  /**
+   * @description The to address entity
+   */
+  public readonly toAddressEntity?: string;
+  /**
+   * @description The logo of the to address entity
+   */
+  public readonly toAddressEntityLogo?: string;
   /**
    * @description The to address
    */
@@ -223,14 +255,18 @@ export class EvmWalletHistoryTransaction {
   public readonly nftTransfers: EvmWalletHistoryNftTransfer[];
   public readonly erc20Transfers: EvmWalletHistoryErc20Transfer[];
   public readonly nativeTransfers: EvmNativeTransfer[];
-  public readonly logs?: EvmLog[];
+  public readonly logs?: EvmLogVerbose[];
 
   private constructor(input: EvmWalletHistoryTransactionInput) {
     this.hash = input.hash;
     this.nonce = input.nonce;
     this.transactionIndex = input.transactionIndex;
+    this.fromAddressEntity = input.fromAddressEntity;
+    this.fromAddressEntityLogo = input.fromAddressEntityLogo;
     this.fromAddress = EvmAddress.create(input.fromAddress);
     this.fromAddressLabel = input.fromAddressLabel;
+    this.toAddressEntity = input.toAddressEntity;
+    this.toAddressEntityLogo = input.toAddressEntityLogo;
     this.toAddress = input.toAddress ? EvmAddress.create(input.toAddress) : undefined;
     this.toAddressLabel = input.toAddressLabel;
     this.value = input.value;
@@ -254,7 +290,7 @@ export class EvmWalletHistoryTransaction {
     this.nftTransfers = input.nftTransfers.map((item) => EvmWalletHistoryNftTransfer.create(item));
     this.erc20Transfers = input.erc20Transfers.map((item) => EvmWalletHistoryErc20Transfer.create(item));
     this.nativeTransfers = input.nativeTransfers.map((item) => EvmNativeTransfer.create(item));
-    this.logs = input.logs ? input.logs.map((item) => EvmLog.create(item)) : undefined;
+    this.logs = input.logs ? input.logs.map((item) => EvmLogVerbose.create(item)) : undefined;
   }
 
   public toJSON(): EvmWalletHistoryTransactionJSON {
@@ -262,8 +298,12 @@ export class EvmWalletHistoryTransaction {
       hash: this.hash,
       nonce: this.nonce,
       transaction_index: String(this.transactionIndex),
+      from_address_entity: this.fromAddressEntity,
+      from_address_entity_logo: this.fromAddressEntityLogo,
       from_address: this.fromAddress.toJSON(),
       from_address_label: this.fromAddressLabel,
+      to_address_entity: this.toAddressEntity,
+      to_address_entity_logo: this.toAddressEntityLogo,
       to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       to_address_label: this.toAddressLabel,
       value: this.value,
