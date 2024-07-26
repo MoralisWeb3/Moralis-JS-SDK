@@ -6,6 +6,7 @@ import { EvmGetMultipleTokenPricesDto, EvmGetMultipleTokenPricesDtoInput, EvmGet
 // request parameters:
 // - chain ($ref: #/components/schemas/chainList)
 // - include ($ref: #/paths/~1erc20~1prices/post/parameters/1/schema)
+// - max_token_inactivity ($ref: #/paths/~1erc20~1prices/post/parameters/2/schema)
 
 export interface GetMultipleTokenPricesOperationRequest {
   /**
@@ -16,11 +17,16 @@ export interface GetMultipleTokenPricesOperationRequest {
    * @description If the result should contain the 24hr percent change
    */
   readonly include?: EvmGetMultipleTokenPricesIncludeEnumInput | EvmGetMultipleTokenPricesIncludeEnumValue;
+  /**
+   * @description Exclude tokens inactive for more than the given amount of days
+   */
+  readonly maxTokenInactivity?: number;
 }
 
 export interface GetMultipleTokenPricesOperationRequestJSON {
   readonly chain?: EvmChainJSON;
   readonly include?: EvmGetMultipleTokenPricesIncludeEnumJSON;
+  readonly max_token_inactivity?: number;
 }
 
 export type GetMultipleTokenPricesOperationResponse = EvmErc20Price[];
@@ -33,7 +39,7 @@ export const GetMultipleTokenPricesOperation = {
   groupName: "token",
   httpMethod: "post",
   routePattern: "/erc20/prices",
-  parameterNames: ["chain","include"],
+  parameterNames: ["chain","include","max_token_inactivity"],
   hasResponse: true,
   hasBody: true,
 
@@ -44,9 +50,11 @@ export const GetMultipleTokenPricesOperation = {
   serializeRequest(request: GetMultipleTokenPricesOperationRequest): GetMultipleTokenPricesOperationRequestJSON {
     const chain = request.chain ? EvmChain.create(request.chain) : undefined;
     const include = request.include ? EvmGetMultipleTokenPricesIncludeEnum.create(request.include) : undefined;
+    const maxTokenInactivity = request.maxTokenInactivity;
     return {
       chain: chain ? chain.toJSON() : undefined,
       include: include ? include : undefined,
+      max_token_inactivity: maxTokenInactivity,
     };
   },
 

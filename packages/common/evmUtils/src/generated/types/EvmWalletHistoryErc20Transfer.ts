@@ -9,8 +9,12 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON } from '../../dataTypes';
 // - token_decimals ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/token_decimals)
 // - address ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/address)
 // - block_timestamp ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/block_timestamp)
+// - to_address_entity ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/to_address_entity)
+// - to_address_entity_logo ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/to_address_entity_logo)
 // - to_address ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/to_address)
 // - to_address_label ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/to_address_label)
+// - from_address_entity ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/from_address_entity)
+// - from_address_entity_logo ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/from_address_entity_logo)
 // - from_address ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/from_address)
 // - from_address_label ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/from_address_label)
 // - value ($ref: #/components/schemas/walletHistoryErc20Transfer/properties/value)
@@ -26,8 +30,12 @@ export interface EvmWalletHistoryErc20TransferJSON {
   readonly token_decimals: string;
   readonly address: EvmAddressJSON;
   readonly block_timestamp?: string;
+  readonly to_address_entity?: string;
+  readonly to_address_entity_logo?: string;
   readonly to_address?: EvmAddressJSON;
   readonly to_address_label?: string;
+  readonly from_address_entity?: string;
+  readonly from_address_entity_logo?: string;
   readonly from_address: EvmAddressJSON;
   readonly from_address_label?: string;
   readonly value: string;
@@ -44,8 +52,12 @@ export interface EvmWalletHistoryErc20TransferInput {
   readonly tokenDecimals: number;
   readonly address: EvmAddressInput | EvmAddress;
   readonly blockTimestamp?: string;
+  readonly toAddressEntity?: string;
+  readonly toAddressEntityLogo?: string;
   readonly toAddress?: EvmAddressInput | EvmAddress;
   readonly toAddressLabel?: string;
+  readonly fromAddressEntity?: string;
+  readonly fromAddressEntityLogo?: string;
   readonly fromAddress: EvmAddressInput | EvmAddress;
   readonly fromAddressLabel?: string;
   readonly value: string;
@@ -71,8 +83,12 @@ export class EvmWalletHistoryErc20Transfer {
       tokenDecimals: Number(json.token_decimals),
       address: EvmAddress.fromJSON(json.address),
       blockTimestamp: json.block_timestamp,
+      toAddressEntity: json.to_address_entity,
+      toAddressEntityLogo: json.to_address_entity_logo,
       toAddress: json.to_address ? EvmAddress.fromJSON(json.to_address) : undefined,
       toAddressLabel: json.to_address_label,
+      fromAddressEntity: json.from_address_entity,
+      fromAddressEntityLogo: json.from_address_entity_logo,
       fromAddress: EvmAddress.fromJSON(json.from_address),
       fromAddressLabel: json.from_address_label,
       value: json.value,
@@ -97,6 +113,14 @@ export class EvmWalletHistoryErc20Transfer {
    */
   public readonly blockTimestamp?: string;
   /**
+   * @description The to address entity
+   */
+  public readonly toAddressEntity?: string;
+  /**
+   * @description The logo of the to address entity
+   */
+  public readonly toAddressEntityLogo?: string;
+  /**
    * @description The recipient
    */
   public readonly toAddress?: EvmAddress;
@@ -104,6 +128,14 @@ export class EvmWalletHistoryErc20Transfer {
    * @description The label of the to address
    */
   public readonly toAddressLabel?: string;
+  /**
+   * @description The from address entity
+   */
+  public readonly fromAddressEntity?: string;
+  /**
+   * @description The logo of the from address entity
+   */
+  public readonly fromAddressEntityLogo?: string;
   /**
    * @description The sender
    */
@@ -140,8 +172,12 @@ export class EvmWalletHistoryErc20Transfer {
     this.tokenDecimals = input.tokenDecimals;
     this.address = EvmAddress.create(input.address);
     this.blockTimestamp = input.blockTimestamp;
+    this.toAddressEntity = input.toAddressEntity;
+    this.toAddressEntityLogo = input.toAddressEntityLogo;
     this.toAddress = input.toAddress ? EvmAddress.create(input.toAddress) : undefined;
     this.toAddressLabel = input.toAddressLabel;
+    this.fromAddressEntity = input.fromAddressEntity;
+    this.fromAddressEntityLogo = input.fromAddressEntityLogo;
     this.fromAddress = EvmAddress.create(input.fromAddress);
     this.fromAddressLabel = input.fromAddressLabel;
     this.value = input.value;
@@ -159,8 +195,12 @@ export class EvmWalletHistoryErc20Transfer {
       token_decimals: String(this.tokenDecimals),
       address: this.address.toJSON(),
       block_timestamp: this.blockTimestamp,
+      to_address_entity: this.toAddressEntity,
+      to_address_entity_logo: this.toAddressEntityLogo,
       to_address: this.toAddress ? this.toAddress.toJSON() : undefined,
       to_address_label: this.toAddressLabel,
+      from_address_entity: this.fromAddressEntity,
+      from_address_entity_logo: this.fromAddressEntityLogo,
       from_address: this.fromAddress.toJSON(),
       from_address_label: this.fromAddressLabel,
       value: this.value,

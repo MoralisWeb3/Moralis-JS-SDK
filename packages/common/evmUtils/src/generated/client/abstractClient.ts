@@ -294,6 +294,7 @@ export abstract class AbstractClient {
      * @param request Request with parameters.
      * @param {Object} [request.chain] The chain to query (optional)
      * @param {Object} [request.include] If the result should contain the 24hr percent change (optional)
+     * @param {Number} [request.maxTokenInactivity] Exclude tokens inactive for more than the given amount of days (optional)
      * @param body Request body.
      * @param {Object[]} body.tokens The tokens to be fetched
      * @returns {Object[]} Response for the request.
@@ -339,7 +340,7 @@ export abstract class AbstractClient {
      * @description Retrieves a list of the top profitable wallets for a specific ERC20 token.
      * @param request Request with parameters.
      * @param {Object} request.address The ERC20 token address.
-     * @param {String} [request.days] Timeframe in days for which profitability is calculated, can be 'all', '7d' or '30d' (optional)
+     * @param {String} [request.days] Timeframe in days for which profitability is calculated, Options include 'all', '7', '30', '60', '90' default is 'all'. (optional)
      * @param {Object} [request.chain] The chain to query (optional)
      * @returns {Object} Response for the request.
      */
@@ -410,7 +411,6 @@ export abstract class AbstractClient {
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
      * @param {Boolean} [request.includeInternalTransactions] If the result should contain the internal transactions. (optional)
      * @param {Boolean} [request.includeInputData] Set the input data from the result (optional)
-     * @param {Boolean} [request.includeLogsData] Set the logs data from the result (optional)
      * @param {Boolean} [request.nftMetadata] If the result should contain the nft metadata. (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Object} [request.order] The order of the result, in ascending (ASC) or descending (DESC) (optional)
@@ -435,6 +435,7 @@ export abstract class AbstractClient {
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Number} [request.limit] The desired page size of the result. (optional)
      * @param {Boolean} [request.excludeNative] Exclude native balance from the result (optional)
+     * @param {Number} [request.maxTokenInactivity] Exclude tokens inactive for more than the given amount of days (optional)
      * @returns {Object} Response for the request.
      */
     getWalletTokenBalancesPrice: this.createEndpoint<
@@ -450,6 +451,7 @@ export abstract class AbstractClient {
      * @param {Object[]} [request.chains] The chains to query (optional)
      * @param {Boolean} [request.excludeSpam] Exclude spam tokens from the result (optional)
      * @param {Boolean} [request.excludeUnverifiedContracts] Exclude unverified contracts from the result (optional)
+     * @param {Number} [request.maxTokenInactivity] Exclude tokens inactive for more than the given amount of days (optional)
      * @returns {Object} Response for the request.
      */
     getWalletNetWorth: this.createEndpoint<

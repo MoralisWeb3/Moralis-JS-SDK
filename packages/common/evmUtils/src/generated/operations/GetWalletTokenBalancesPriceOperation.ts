@@ -11,6 +11,7 @@ import { EvmErc20TokenBalanceWithPriceResult, EvmErc20TokenBalanceWithPriceResul
 // - cursor ($ref: #/paths/~1wallets~1{address}~1tokens/get/parameters/6/schema)
 // - limit ($ref: #/paths/~1wallets~1{address}~1tokens/get/parameters/7/schema)
 // - exclude_native ($ref: #/paths/~1wallets~1{address}~1tokens/get/parameters/8/schema)
+// - max_token_inactivity ($ref: #/paths/~1wallets~1{address}~1tokens/get/parameters/9/schema)
 
 export interface GetWalletTokenBalancesPriceOperationRequest {
   /**
@@ -49,6 +50,10 @@ export interface GetWalletTokenBalancesPriceOperationRequest {
    * @description Exclude native balance from the result
    */
   readonly excludeNative?: boolean;
+  /**
+   * @description Exclude tokens inactive for more than the given amount of days
+   */
+  readonly maxTokenInactivity?: number;
 }
 
 export interface GetWalletTokenBalancesPriceOperationRequestJSON {
@@ -61,6 +66,7 @@ export interface GetWalletTokenBalancesPriceOperationRequestJSON {
   readonly cursor?: string;
   readonly limit?: number;
   readonly exclude_native?: boolean;
+  readonly max_token_inactivity?: number;
 }
 
 export type GetWalletTokenBalancesPriceOperationResponse = EvmErc20TokenBalanceWithPriceResult;
@@ -71,7 +77,7 @@ export const GetWalletTokenBalancesPriceOperation = {
   groupName: "wallets",
   httpMethod: "get",
   routePattern: "/wallets/{address}/tokens",
-  parameterNames: ["chain","address","to_block","token_addresses","exclude_spam","exclude_unverified_contracts","cursor","limit","exclude_native"],
+  parameterNames: ["chain","address","to_block","token_addresses","exclude_spam","exclude_unverified_contracts","cursor","limit","exclude_native","max_token_inactivity"],
   hasResponse: true,
   hasBody: false,
 
@@ -89,6 +95,7 @@ export const GetWalletTokenBalancesPriceOperation = {
     const cursor = request.cursor;
     const limit = request.limit;
     const excludeNative = request.excludeNative;
+    const maxTokenInactivity = request.maxTokenInactivity;
     return {
       chain: chain ? chain.toJSON() : undefined,
       address: address.toJSON(),
@@ -99,6 +106,7 @@ export const GetWalletTokenBalancesPriceOperation = {
       cursor: cursor,
       limit: limit,
       exclude_native: excludeNative,
+      max_token_inactivity: maxTokenInactivity,
     };
   },
 
