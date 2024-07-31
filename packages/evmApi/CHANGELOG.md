@@ -1,5 +1,16 @@
 # @moralisweb3/evm-api
 
+## 2.27.1
+
+### Patch Changes
+
+- [#1226](https://github.com/MoralisWeb3/Moralis-JS-SDK/pull/1226) [`f4c0c22b92`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f4c0c22b9246f2bb78950a1be97918a6c696fe7c) Thanks [@b4rtaz](https://github.com/b4rtaz)! - Added missing fields to the response of the `getWalletTokenBalancesPrice` endpoint.
+
+- Updated dependencies [[`f4c0c22b92`](https://github.com/MoralisWeb3/Moralis-JS-SDK/commit/f4c0c22b9246f2bb78950a1be97918a6c696fe7c)]:
+  - @moralisweb3/common-evm-utils@2.27.1
+  - @moralisweb3/api-utils@2.27.1
+  - @moralisweb3/common-core@2.27.1
+
 ## 2.27.0
 
 ### Minor Changes
