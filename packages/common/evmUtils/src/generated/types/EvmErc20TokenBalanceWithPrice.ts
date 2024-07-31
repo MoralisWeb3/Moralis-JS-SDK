@@ -20,6 +20,9 @@ import { EvmAddress, EvmAddressInput, EvmAddressJSON, EvmNative, EvmNativeInput,
 // - portfolio_percentage ($ref: #/components/schemas/erc20TokenBalanceWithPrice/properties/portfolio_percentage)
 // - balance_formatted ($ref: #/components/schemas/erc20TokenBalanceWithPrice/properties/balance_formatted)
 // - native_token ($ref: #/components/schemas/erc20TokenBalanceWithPrice/properties/native_token)
+// - total_supply ($ref: #/components/schemas/erc20TokenBalanceWithPrice/properties/total_supply)
+// - total_supply_formatted ($ref: #/components/schemas/erc20TokenBalanceWithPrice/properties/total_supply_formatted)
+// - percentage_relative_to_total_supply ($ref: #/components/schemas/erc20TokenBalanceWithPrice/properties/percentage_relative_to_total_supply)
 
 export interface EvmErc20TokenBalanceWithPriceJSON {
   readonly token_address?: EvmAddressJSON;
@@ -39,6 +42,9 @@ export interface EvmErc20TokenBalanceWithPriceJSON {
   readonly portfolio_percentage: number;
   readonly balance_formatted: string;
   readonly native_token: boolean;
+  readonly total_supply?: string;
+  readonly total_supply_formatted?: string;
+  readonly percentage_relative_to_total_supply?: number;
 }
 
 export interface EvmErc20TokenBalanceWithPriceInput {
@@ -59,6 +65,9 @@ export interface EvmErc20TokenBalanceWithPriceInput {
   readonly portfolioPercentage: number;
   readonly balanceFormatted: string;
   readonly nativeToken: boolean;
+  readonly totalSupply?: string;
+  readonly totalSupplyFormatted?: string;
+  readonly percentageRelativeToTotalSupply?: number;
 }
 
 export class EvmErc20TokenBalanceWithPrice {
@@ -88,6 +97,9 @@ export class EvmErc20TokenBalanceWithPrice {
       portfolioPercentage: json.portfolio_percentage,
       balanceFormatted: json.balance_formatted,
       nativeToken: json.native_token,
+      totalSupply: json.total_supply,
+      totalSupplyFormatted: json.total_supply_formatted,
+      percentageRelativeToTotalSupply: json.percentage_relative_to_total_supply,
     };
     return EvmErc20TokenBalanceWithPrice.create(input);
   }
@@ -160,6 +172,18 @@ export class EvmErc20TokenBalanceWithPrice {
    * @description Indicates if the token is a native coin
    */
   public readonly nativeToken: boolean;
+  /**
+   * @description Total supply of the token
+   */
+  public readonly totalSupply?: string;
+  /**
+   * @description Total supply of the token in decimal format
+   */
+  public readonly totalSupplyFormatted?: string;
+  /**
+   * @description Percentage of the token in the total supply
+   */
+  public readonly percentageRelativeToTotalSupply?: number;
 
   private constructor(input: EvmErc20TokenBalanceWithPriceInput) {
     this.tokenAddress = input.tokenAddress ? EvmAddress.create(input.tokenAddress) : undefined;
@@ -179,6 +203,9 @@ export class EvmErc20TokenBalanceWithPrice {
     this.portfolioPercentage = input.portfolioPercentage;
     this.balanceFormatted = input.balanceFormatted;
     this.nativeToken = input.nativeToken;
+    this.totalSupply = input.totalSupply;
+    this.totalSupplyFormatted = input.totalSupplyFormatted;
+    this.percentageRelativeToTotalSupply = input.percentageRelativeToTotalSupply;
   }
 
   public toJSON(): EvmErc20TokenBalanceWithPriceJSON {
@@ -200,6 +227,9 @@ export class EvmErc20TokenBalanceWithPrice {
       portfolio_percentage: this.portfolioPercentage,
       balance_formatted: this.balanceFormatted,
       native_token: this.nativeToken,
+      total_supply: this.totalSupply,
+      total_supply_formatted: this.totalSupplyFormatted,
+      percentage_relative_to_total_supply: this.percentageRelativeToTotalSupply,
     }
   }
 }

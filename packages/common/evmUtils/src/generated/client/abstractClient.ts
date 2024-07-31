@@ -410,7 +410,6 @@ export abstract class AbstractClient {
      * * Provide the param 'to_block' or 'to_date'
      * * If 'to_date' and 'to_block' are provided, 'to_block' will be used. (optional)
      * @param {Boolean} [request.includeInternalTransactions] If the result should contain the internal transactions. (optional)
-     * @param {Boolean} [request.includeInputData] Set the input data from the result (optional)
      * @param {Boolean} [request.nftMetadata] If the result should contain the nft metadata. (optional)
      * @param {String} [request.cursor] The cursor returned in the previous response (used for getting the next page). (optional)
      * @param {Object} [request.order] The order of the result, in ascending (ASC) or descending (DESC) (optional)
