@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "moralis": "^2.27.0"
+    "moralis": "^2.27.1"
   },
   "devDependencies": {
     "http-server": "^14.1.1",
